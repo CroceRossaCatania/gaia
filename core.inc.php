@@ -7,7 +7,7 @@
 /* Carico la configurazione */
 $_conf = [
     'database', 'costanti', 'sessioni',
-    'generale', 'errori'
+    'generale', 'errori', 'tabelle'
 ];
 foreach ( $_conf as $_load ) {
     require('./core/conf/' . $_load . '.conf.php');

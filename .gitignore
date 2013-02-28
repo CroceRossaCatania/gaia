@@ -1,2 +1,3 @@
 core/conf/database.conf.php
 log/*
+upload/*
