@@ -23,4 +23,10 @@ class Appartenenza extends Entita {
         public function volontario() {
             return new Volontario($this->volontario);
         }
+        
+        /* L'appartenenza è ancora attuale? */
+        public function attuale() {
+            /* Vero se la fine è dopo, o non c'è fine! */
+            return ( ( $this->fine > time() ) || ( !$this->fine ) );
+        }
 }
