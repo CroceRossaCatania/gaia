@@ -141,6 +141,7 @@ if ( !file_exists($_f) ) {
                                     <li class="nav-header">Amministrazione</li>
                                     <li><a href="?p=admin.Presidenti"><i class="icon-cogs"></i> Presidenti</a></li>
                                     <li><a href="?p=admin"><i class="icon-cogs"></i> Admin</a></li>
+                                    <li><a href="?p=admin.caricaFormat"><i class="icon-cogs"></i> Carica da format</a></li>
                                     <li class="divider"></li>
                                 <?php } ?>
                               <?php } ?>

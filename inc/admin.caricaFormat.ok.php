@@ -64,17 +64,6 @@ while ( $riga = fgetcsv($file, 0, ';') ) {
     $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[12]);
     $dingresso   = $dingresso->getTimestamp();
     
-    $app = new Appartenenza();
-    $comitato = Comitato::by('nome', $riga[13]);
-    $app->comitato = $comitato->id;
-    $app->volontario = $p->id;
-    $app->inizio = $dingresso;
-    $app->fine   = strtotime('April 31');
-    $app->richiedi();
-    
-    
-    
-    
     var_dump($riga);
     echo "\n\n\n";
     
