@@ -1,4 +1,12 @@
+# Configurazione del database
 core/conf/database.conf.php
+
+# Vari log 
 log/*
-upload/*
-/mail/log/
+mail/log/
+
+# Avatar utenti
+upload/avatar/*
+
+# Mantieni i placeholder
+!upload/avatar/placeholder/
