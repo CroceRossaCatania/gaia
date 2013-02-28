@@ -50,14 +50,14 @@
           <div class="control-group">
             <label class="control-label" for="inputEmail">Email</label>
             <div class="controls">
-              <input type="email" id="inputEmail" name="inputEmail" autofocus required />
+              <input type="email" id="inputEmail" name="inputEmail" autofocus required value="<?php echo $me->email; ?>"/>
             </div>
           </div>
           <div class="control-group input-prepend">
             <label class="control-label" for="inputCellulare">Cellulare</label>
             <div class="controls ">
               <span class="add-on">+39</span>
-              <input type="text" id="inputCellulare" name="inputCellulare" required pattern="[0-9]{9,11}" />
+              <input type="text" id="inputCellulare" name="inputCellulare" required pattern="[0-9]{9,11}" value="<?php echo $me->cellulare; ?>"/>
             </div>
           </div>
           <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
@@ -65,7 +65,7 @@
             <label class="control-label" for="inputCellulareServizio">Cell. servizio</label>
             <div class="controls">
               <span class="add-on">+39</span>
-              <input type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" />
+              <input type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" value="<?php echo $me->cellulareServizio; ?>"/>
             </div>
           </div>
           <?php } ?>
