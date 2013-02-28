@@ -9,7 +9,7 @@ var
     uob = null;
     
 var conf = {
-    api:    '/api.php?a='
+    api:    'api.php?a='
 };
 
 $(window).ready( function () { 
