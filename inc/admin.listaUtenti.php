@@ -100,10 +100,10 @@
                         </a>
 
                         <?php if ($me->admin) { ?>
-                            <a class="btn btn-small btn-primary" href="?p=admin.newPresidente&id=<?php echo $x->id; ?>" title="Nomina Presidente">
+                            <a class="btn btn-small btn-primary" href="?p=admin.newPresidente&id=<?php echo $_v->id; ?>" title="Nomina Presidente">
                                 <i class="icon-star"></i>
                             </a> 
-                            <a class="btn btn-small btn-danger" href="?p=admin.admin&id=<?php echo $x->id; ?>" title="Nomina Admin">
+                            <a class="btn btn-small btn-danger" href="?p=admin.admin&id=<?php echo $_v->id; ?>" title="Nomina Admin">
                                 <i class="icon-magic"></i>
                             </a>
                         <?php } ?>
