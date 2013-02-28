@@ -1,1 +1,2 @@
 core/conf/database.conf.php
+log/cronjob.txt
