@@ -11,8 +11,12 @@ class Titolo extends Entita {
         $_t     = 'titoli',
         $_dt    = null;
     
-    public static function cerca($stringa, $tipo = 0) {
+    public static function cerca($stringa, $tipo = -1) {
         $tipo = (int) $tipo;
-        return self::cercaFulltext($stringa, ['nome'], 20, "AND tipo = '$tipo'");
+        if ( $tipo == -1 ) {
+            return self::cercaFulltext($stringa, ['nome'], 20);
+        } else {
+            return self::cercaFulltext($stringa, ['nome'], 20, "AND tipo = '$tipo'");
+        }
     }
 }
