@@ -134,6 +134,7 @@ function _abilita_filtraggio (idInput, idTabella) {
                 $(e).hide(); 
             }
         });
+        $(idTabella + " thead tr").show();
         
     });
 }

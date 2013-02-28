@@ -8,7 +8,6 @@ paginaPrivata();
 $t = $_POST['idTitolo'];
 ?>
 
-<script type="text/javascript"><?php require './js/admin.listaUtenti.js'; ?></script>
 <br/>
     <div class="control-group" align="right">
         <div class="controls">

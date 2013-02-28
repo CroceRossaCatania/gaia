@@ -25,6 +25,8 @@ $(document).ready( function() {
     });
     
    
+    _abilita_filtraggio("#cercaUtente", "#tabellaUtenti");
+
 });
 
 function cercaTitolo (idTitolo) {
