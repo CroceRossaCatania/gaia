@@ -1,0 +1,83 @@
+<?php
+
+/*
+ * ©2012 Croce Rossa Italiana
+ */
+
+paginaPubblica();
+
+?>
+
+
+<div class="row-fluid">
+    <div class="span12 centrato">
+            <h2><span class="muted">Croce Rossa.</span> Persone in prima persona.</h2>
+        <hr />
+    </div>
+</div>
+
+
+
+<div class="row-fluid">
+ 
+    <div class="span6">
+        <p>&nbsp;</p>
+          <form class="form-horizontal" action="?p=login.ok" method="POST">
+              
+          <?php if (isset($_GET['email'])) { ?>
+              <div class="alert alert-error">
+                  <strong>Email non presente nei nostri sistemi</strong>.<br />
+                  Controlla eventuali errori di scrittura.
+              </div>
+          <?php } elseif ( isset($_GET['password']) ) { ?>
+              <div class="alert alert-error">
+                  <strong>Password non corretta</strong>.<br />
+                  Controlla che il tasto BLOC MAIUSC non sia inserito.
+              </div>
+          <?php } else { ?>
+              <p>&nbsp;</p>
+          <?php } ?>
+          <div class="control-group">
+            <label class="control-label" for="inputEmail">Email</label>
+            <div class="controls">
+              <input type="email" id="inputEmail" name="inputEmail" required autofocus />
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputPassword">Password</label>
+            <div class="controls">
+              <input type="password" id="inputPassword" name="inputPassword" required pattern=".{3,15}" />
+            </div>
+          </div>
+          
+          <div class="control-group">
+            <div class="controls">
+              <button type="submit" class="btn btn-large btn-primary">
+                  <i class="icon-ok"></i>
+                  Accedi
+              </button>
+            </div>
+          </div>
+        </form>
+
+    </div>
+       
+    <div class="span6 centrato">
+        <h2>
+            <i class="icon-key"></i>
+            Accedi
+        </h2>
+        <p>
+            Inserisci la tua email e la password che hai fornito alla registrazione.
+        </p>
+        <hr />
+        <p>Sei un volontario non ancora registrato?</p>
+        <a href="?p=riconoscimento&tipo=volontario" class="btn btn-success">
+            Registrati ora
+        </a>
+        <hr />
+        <p>Se non ricordi la tua password, puoi richiederne una nuova.</p>
+        <p><a href="?p=recuperaPassword" class="btn">Recupera password</a></p>
+        
+    </div>
+</div>

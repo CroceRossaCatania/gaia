@@ -1,0 +1,73 @@
+/*!
+ * formvalidation.css (https://github.com/chemerisuk/formvalidation.js)
+ *
+ * HTML5 form validation api polyfill
+ *
+ * Copyright (c) 2013 Maksim Chemerisuk
+ *
+ */
+#validity {
+    display: none;
+    color: #FFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background: #DA3E5A;
+    
+    padding: 0.3em 0.5em;
+    font-size: 0.75em;
+    
+    border-radius: 5px;
+    box-shadow: 0 0 5px #AAA;
+    
+    position: absolute;
+    z-index: 9999;
+    cursor: default;
+    
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    text-transform: uppercase;
+}
+
+#validity:before {
+    content: '';
+    border-color: transparent transparent #DA3E5A;
+    border-style: solid;
+    border-width: 5px;
+    height: 0;
+    width: 0;
+    
+    display: block;
+    position: absolute;
+    left: 10px;
+    top: -10px;
+}
+
+#validity[class] {
+    display: inline-block;
+}
+
+#validity.value-missing:after {
+    content: "Please fill this field"
+}
+
+#validity.type-mismatch:after {
+    content: "Value has illegal format"
+}
+
+#validity.email-mismatch:after {
+    content: "There is should be a valid email"
+}
+
+#validity.value-missing:lang(ru):after {
+    content: "Это поле не может быть пустым"
+}
+
+#validity.type-mismatch:lang(ru):after {
+    content: "Введенное значение имеет недопустимый формат"
+}
+
+#validity.email-mismatch:lang(ru):after {
+    content: "Здесь должен быть правильный email"
+}
