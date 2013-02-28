@@ -6,7 +6,7 @@ $BRANCH = 'master';
 
 header('Content-Type: text/plain');
  
-if (!isset($argv) && $_SERVER['REQUEST_METHOD'] !== 'POST') {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     die('Richiesta non valida');
 }
 
