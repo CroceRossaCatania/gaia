@@ -117,7 +117,7 @@ class APIServer {
         
         public function api_cercaTitolo() {
             $t = [];
-            if (!$this->par['t']) { $this->par['t'] = -1; }
+            if (!isset($this->par['t'])) { $this->par['t'] = -1; }
             foreach ( Titolo::cerca($this->par['query'], $this->par['t']) as $titolo ) {
                 $t[] = [$titolo->id, $titolo->nome];
             }
