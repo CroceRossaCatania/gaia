@@ -110,3 +110,30 @@ function _mostraRisultati () {
     1000);
     
 }
+
+function _abilita_filtraggio (idInput, idTabella) {
+    $(idInput).keyup ( function () {
+        var testo = $(idInput).val().toLowerCase(); 
+        if ( testo.length < 2 ) { /* 2, minimo numero di caratteri */
+            $(idTabella + " tr").show();
+            return;
+        }
+
+        $(idTabella + " tr").each( function ( i, e ) {
+            var x = false;
+            $(e).children("td").each( function (a, b) {
+                var attuale = $(b).text().toLowerCase();
+                if ( attuale.indexOf(testo) !== -1 )  {
+                    x = true;
+                    return;
+                }
+            });
+            if ( x ) {
+                $(e).show(); 
+            } else {
+                $(e).hide(); 
+            }
+        });
+        
+    });
+}
