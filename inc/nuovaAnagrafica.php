@@ -70,14 +70,15 @@ if ( ($p->password) ) {
           </div>
           <div class="control-group">
             <label class="control-label">Data di nascita</label>
+            <?php $dataNascita = date('d-m-Y', $p->dataNascita); $array=explode('-',$dataNascita);?>
             <div class="controls ">
-                <input type="number" required min="1" max="31" class="input-mini" value="1" name="inputGiorno"/>
+                <input type="number" required min="1" max="31" class="input-mini" value="<?php if($array[0]!=''){ echo $array[0];}else{ ?> 1 <?php }?>" name="inputGiorno"/>
                 <select class="input-medium" name="inputMese">
                     <?php for ( $i = 1; $i <= 12; $i++ ) { ?>
-                        <option value="<?php echo $i; ?>"><?php echo $conf['mesi'][$i]; ?></option>
+                        <option value="<?php echo $i ?>" <?php if ( $i == $array[1] ) { ?>selected<?php } ?>><?php echo $conf['mesi'][$i]; ?></option>
                     <?php } ?>
                 </select>
-              <input type="number" required min="1900" max="2006" require value="1994" class="input-mini" name="inputAnno"/>
+              <input type="number" required min="1900" max="2006" require value="<?php if($array[2]!=''){ echo $array[2];}else{ ?> 1994 <?php }?>" class="input-mini" name="inputAnno"/>
             </div>
           </div>
           <div class="control-group">
