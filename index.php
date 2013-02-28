@@ -215,7 +215,7 @@ if ( !file_exists($_f) ) {
     </div><!-- /.carousel -->
     <?php } ?>
     
-    <div class="container-narrow">
+    <div class="container">
 
 <?php
 
