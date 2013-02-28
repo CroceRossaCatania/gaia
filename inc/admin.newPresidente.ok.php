@@ -7,7 +7,7 @@
 $t = $_GET['id'];
 $c=$_POST['inputComitato'];
 $f = Appartenenza::filtra([
-  ['volontario', $t],['comitato',$c]
+  ['volontario', $t],['comitato',$c],['stato','MEMBRO_VOLONTARIO']
  ]);
 if($f[0]!=''){
 $f[0]->stato = MEMBRO_PRESIDENTE;
