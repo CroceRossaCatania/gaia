@@ -13,11 +13,25 @@ $log = "\n\nCronjob iniziato: " . date('d-m-Y H:i:s') . "\n";
 $patenti = TitoloPersonale::inScadenza(2700, 2709, 15); // Minimo id titolo, Massimo id titolo, Giorni
 
 $n = 0;
+
+/* Contiene gli id dei volontari già insuttati */
+$giaInsultati = [];
+
 foreach ( $patenti as $patente ) {
+   
+    $_v = $patente->volontario();
+    
+    /* Se l'ho già insultato... */
+    if ( in_array($_v->id, $giaInsultati ) ) {
+        continue; // Il prossimo...
+    }
+    
+    /* Ricordati che l'ho insuttato */
+    $giaInsultati[] = $_v->id;
+    
     $m = new Email('patenteScadenza', 'Avviso patente CRI in scadenza');
-    $m->a           = $patente->volontario();
-    $m->_NOME       = $patente->volontario()->nome;
-    $m->_PATENTE    = $patente->titolo()->nome;
+    $m->a           = $_v;
+    $m->_NOME       = $_v->nome;
     $m->_SCADENZA   = date('d-m-Y', $patente->fine);
     $m->invia();
     $n++;
