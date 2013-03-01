@@ -96,7 +96,12 @@ echo "\n
  [SVILUPPATORI] 
     Per abilitare l'AUTOPULL via GitHub Web Hook
     ad 'autopull.php', creare un file vuoto in:
-            /upload/setup/autopull";
+            /upload/setup/autopull
+            
+ [CRONJOB]
+    Ricordarsi di puntare il un cronjob per eseguire
+    ogni notte via HTTP il file cronjob.php.
+    Es.: wget http://gaia.cricatania.it/cronjob.php";
 
 /* Crea il file di lock, evita ultreriori installazioni */
 file_put_contents('upload/setup/lock', time() );
