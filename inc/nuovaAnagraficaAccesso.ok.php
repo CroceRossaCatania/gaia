@@ -37,4 +37,9 @@ $m->_NOME       = $sessione->utente()->nome;
 $m->_PASSWORD   = $password;
 $m->invia();
 
+/* Installazione: Se sono il primo utente... */
+if ( ! Utente::listaAdmin() ) {
+    $me->admin = time();
+}
+
 redirect('me');
