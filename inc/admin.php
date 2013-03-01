@@ -31,7 +31,6 @@ paginaAdmin();
 <hr />
 <table class="table table-striped table-bordered" id="tabellaUtenti">
     <thead>
-        <th>#</th>
         <th>Nome</th>
         <th>Cognome</th>
         <th>Codice Fiscale</th>

@@ -8,12 +8,12 @@ paginaAdmin();
 
 ?>
 
-<div class="span4">
+<div class="span12">
     <h2><i class="icon-beer muted"></i> Importazione automatica dal format</h2>
     <hr />
 </div>
 
-<div class="span8">
+<div class="span12">
     <form class="form-horizontal" action="?p=admin.caricaFormat.ok" method="POST" enctype="multipart/form-data">
         <div class="control-group">
           <label class="control-label" for="inputCSV">File CSV</label>
@@ -23,7 +23,7 @@ paginaAdmin();
         </div>    
         <div class="form-actions">
             <button type="submit" class="btn btn-danger">
-                <i class="icon-fire"></i> Importa dati in massa ed importuna per email
+                <i class="icon-fire"></i> Importa dati in massa ed invia email
             </button>
         </div>
 
