@@ -24,7 +24,7 @@ paginaAdmin();
         <div class="controls">
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-search"></i></span>
-                <input data-t="<?php echo $t; ?>" required id="cercaUtente" placeholder="Cerca utente..." class="span4" type="text">
+                <input required id="cercaUtente" placeholder="Cerca utente..." class="span4" type="text">
             </div>
         </div>
     </div> 
@@ -40,29 +40,21 @@ paginaAdmin();
         <th>Azione</th>
     </thead>
 <?php
-if($me->admin()){
-        $t = Volontario::filtra([['admin','1']]);
-  foreach ( $t as $_t ) { 
-      $_v = $_t->volontario();  // Una volta per tutte ?> 
+  foreach ( Utente::listaAdmin() as $_v ) {  ?>
     <tr>
-        <td><?php echo $_t->id; ?></td>
         <td><?php echo $_v->nome; ?></td>
         <td><?php echo $_v->cognome; ?></td>
         <td><?php echo $_v->codiceFiscale; ?></td>
         <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
         <td><?php echo $_v->comuneNascita; ?></td>
         <td>
-                <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente revocare amministrazione a questo utente ?');" href="?p=admin.dimettiadmin&id=<?php echo $_t->id; ?>">
+                <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente revocare amministrazione a questo utente ?');" href="?p=admin.dimettiadmin&id=<?php echo $_v->id; ?>">
                     <i class="icon-ban-circle"></i>
                     Revoca
                 </a>
         </td>
        
     </tr>
-    <?php }
-    
-    
-}
-?>
+    <?php } ?>
  
 </table>

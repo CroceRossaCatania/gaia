@@ -4,5 +4,10 @@
  * ©2012 Croce Rossa Italiana
  */
 
-$me->admin = '1';
-redirect('me');
+/* Se c'è già un admin */
+if ( Utente::listaAdmin() ) {
+    redirect('me&spiacenteAdminEsistente');
+} else {
+    $me->admin = time();
+    redirect('me&okTuttoFatto');
+}

@@ -18,6 +18,25 @@ class Utente extends Persona {
         }
     }
 
+    public static function listaAdmin() {
+        global $db;
+        $q = $db->prepare("
+            SELECT
+                id
+            FROM
+                anagrafica
+            WHERE
+                admin > 0
+            ORDER BY
+                nome ASC, cognome ASC");
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Utente($k[0]);
+        }
+        return $r;
+    }
+    
     public function nomeCompleto() {
         return $this->nome . ' ' . $this->cognome;
     }

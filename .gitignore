@@ -6,7 +6,10 @@ log/*
 mail/log/
 
 # Avatar utenti
-upload/avatar/*
+upload/avatar/*/*
+
+# Lock file
+upload/setup/lock
 
 # Mantieni i placeholder
 !upload/avatar/placeholder/
