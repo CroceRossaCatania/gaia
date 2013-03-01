@@ -12,7 +12,7 @@ $a = Appartenenza::by('id', $id); /* Qui col by */
 if (isset($_GET['si'])) {
     $a->timestamp = time();
     $a->stato     = MEMBRO_VOLONTARIO;
-    $a->conferma  = time();    
+    $a->conferma  = $me->id;    
     $m = new Email('appartenenzacomitato', 'Conferma appartenenza: ' . $a->comitato()->nome);
     $m->a = $a->volontario();
     $m->_NOME       = $a->volontario()->nome;
