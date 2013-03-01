@@ -233,7 +233,7 @@ if ( !file_exists($_f) ) {
    		</div>
       	<div class="span6 allinea-destra">
 	        <a href="http://www.cricatania.it">Torna al sito</a> &middot;
-	        <a href="?p=about">Informazioni si Gaia</a> &middot;
+	        <a href="?p=about">Informazioni su Gaia</a> &middot;
 	        <a href="mailto:informatica@cricatania.it">Supporto</a><br />
 	        Croce Rossa. <strong>Persone in prima persona.</strong>
    		  </div>

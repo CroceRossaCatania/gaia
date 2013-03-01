@@ -54,10 +54,10 @@ Per motivi di sviluppo, è possibile installare Gaia come segue:
 1. Copiare il file `/core/conf/database.conf.php.sample` in `/core/conf/database.conf.php`
 2. Modificare, in quest'ultimo, i parametri di accesso a MySQL.
 3. Modificare `/upload/setup/comitati.txt` con i Comitati da precaricare.
-3. Permettere la scrittura alla directory /upload ed alle sue sottodirectory.
+3. Permettere la scrittura alla directory `/upload` ed alle sue sottodirectory.
 4. Da browser, puntare alla pagina: `setup.php`.
 5. Registrare il primo volontario, che sarà automaticamente un amministratore.
-6. (Opzionale) Impostare cron per richiedere ogni nottevia HTTP il file cronjob.php
+6. (Opzionale) Impostare cron per richiedere ogni nottevia HTTP il file `cronjob.php`
 7. (Sviluppo) Creare il file vuoto `/upload/setup/autopull` per permettere l'autopull via GitHub.
 
 ### Collaborare
