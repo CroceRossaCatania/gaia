@@ -40,7 +40,7 @@ foreach ( $patenti as $patente ) {
 $log .= "Inviate $n notifiche di scadenza patente\n";
 
 /* Appende il file al log */
-file_put_contents('log/cronjob.txt', $log, FILE_APPEND);
+file_put_contents('upload/log/cronjob.txt', $log, FILE_APPEND);
 
 /* Stampa il log a video */
 echo "<pre>$log</pre>";
