@@ -26,6 +26,7 @@ paginaPrivata();
         <th>Codice Fiscale</th>
         <th>Data di Nascita</th>
         <th>Luogo di Nascita</th>
+        <th>Comitato</th>
         <th>Azione</th>
     </thead>
 <?php
@@ -34,7 +35,8 @@ if( $me->presiede() ){
         $c=$appartenenza->comitato()->id;
         $t = Appartenenza::filtra([['conferma', '0'],['comitato',$c]]);
   foreach ( $t as $_t ) {
-   $_v = $_t->volontario();   // Una volta per tutte
+      $c=$_t->comitato();
+      $_v = $_t->volontario();   // Una volta per tutte
  ?>
     <tr>
         <td><?php echo $_t->id; ?></td>
@@ -43,6 +45,7 @@ if( $me->presiede() ){
         <td><?php echo $_v->codiceFiscale; ?></td>
         <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
         <td><?php echo $_v->comuneNascita; ?></td>
+        <td><?php echo $c->nome; ?></td>
         <td>
   <a class="btn btn-success" href="?p=admin.comitati&id=<?php echo $_t->id; ?>&si">
                 <i class="icon-ok"></i>
@@ -61,6 +64,7 @@ if( $me->presiede() ){
 }elseif($me->admin()){
         $t = Appartenenza::filtra([['conferma', '0']]);
   foreach ( $t as $_t ) { 
+      $c=$_t->comitato();
       $_v = $_t->volontario();   // Una volta per tutte
       ?>
     <tr>
@@ -70,6 +74,7 @@ if( $me->presiede() ){
         <td><?php echo $_v->codiceFiscale; ?></td>
         <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
         <td><?php echo $_v->comuneNascita; ?></td>
+        <td><?php echo $c->nome; ?></td>
         <td>
   <a class="btn btn-success" href="?p=admin.comitati&id=<?php echo $_t->id; ?>&si">
                 <i class="icon-ok"></i>
