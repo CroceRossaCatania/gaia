@@ -58,7 +58,7 @@
         }
         
         foreach($elenco as $comitato) {
-            $t = Appartenenza::filtra([['comitato', $comitato->id]]);
+            $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
                 ?>
             
             <tr class="success">
@@ -71,9 +71,7 @@
             </tr>
             
             <?php
-            foreach ( $t as $_t ) {
-                $_v = $_t->volontario();   // Una volta per tutte 
-                $s = $_t->stato;
+            foreach ( $t as $_v ) {
             ?>
                 <tr>
                     <td><?php echo $_v->nome; ?></td>
@@ -100,10 +98,10 @@
                         </a>
 
                         <?php if ($me->admin) { ?>
-                            <a class="btn btn-small btn-primary" href="?p=admin.newPresidente&id=<?php echo $x->id; ?>" title="Nomina Presidente">
+                            <a class="btn btn-small btn-primary" href="?p=admin.newPresidente&id=<?php echo $_v->id; ?>" title="Nomina Presidente">
                                 <i class="icon-star"></i>
                             </a> 
-                            <a class="btn btn-small btn-danger" href="?p=admin.admin&id=<?php echo $x->id; ?>" title="Nomina Admin">
+                            <a class="btn btn-small btn-danger <?php if ($_v->admin) { ?>disabled<?php } ?>" href="?p=admin.admin&id=<?php echo $_v->id; ?>" title="Nomina Admin">
                                 <i class="icon-magic"></i>
                             </a>
                         <?php } ?>

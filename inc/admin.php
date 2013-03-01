@@ -52,8 +52,8 @@ if($me->admin()){
         <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
         <td><?php echo $_v->comuneNascita; ?></td>
         <td>
-                <a class="btn btn-danger" onClick="return confirm('Vuoi veramente revocare amministrazione a questo utente ?');" href="?p=admin.dimettiadmin&id=<?php echo $_t->id; ?>">
-                <i class="icon-ban-circle"></i>
+                <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente revocare amministrazione a questo utente ?');" href="?p=admin.dimettiadmin&id=<?php echo $_t->id; ?>">
+                    <i class="icon-ban-circle"></i>
                     Revoca
                 </a>
         </td>

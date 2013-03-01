@@ -34,5 +34,52 @@ class Comitato extends Entita {
             ['comitato',  $this->id]
         ]);
     }
+    
+    public function membriAttuali($stato = MEMBRO_PENDENTE) {
+        $q = $this->db->prepare("
+            SELECT
+                volontario
+            FROM
+                appartenenza
+            WHERE
+                ( fine >= :ora OR fine IS NULL OR fine = 0) 
+            AND
+                comitato = :comitato
+            AND
+                stato    >= :stato
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':comitato', $this->id);
+        $q->bindParam(':stato',    $stato);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Volontario($k[0]);
+        }
+        return $r;
+    }
+    
+    public function numMembriAttuali($stato = MEMBRO_PENDENTE) {
+        $q = $this->db->prepare("
+            SELECT
+                COUNT(volontario)
+            FROM
+                appartenenza
+            WHERE
+                ( fine >= :ora OR fine IS NULL OR fine = 0) 
+            AND
+                comitato = :comitato
+            AND
+                stato    >= :stato
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':comitato', $this->id);
+        $q->bindParam(':stato',    $stato);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
 
 }

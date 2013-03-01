@@ -35,8 +35,7 @@ $conf['database']['tables'] = [
                 password        varchar(127),
                 codiceFiscale   varchar(16),
                 timestamp       varchar(64),
-                foto                 text,
-                admin           varchar(8)
+                admin           varchar(64)
             '
         ],
         [
