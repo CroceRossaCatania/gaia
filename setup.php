@@ -28,6 +28,10 @@ if ( !is_writable('upload/') ) {
 }
 
 echo "================ INSTALLAZIONE DI GAIA ==============\n\n";
+
+echo "Creazione directory upload/log...\n";
+@mkdir('upload/log');
+
 echo "Creazione tabelle database...\n";
 
 foreach ($conf['database']['tables'] as $tabella) {
