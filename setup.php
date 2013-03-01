@@ -17,11 +17,6 @@ if ( !is_writable('upload/setup/') ) {
     die('Errore: Directory upload/setup non scrivibile. Rendere upload e tutte le sue sottocartelle scrivibili da php.');
 }
 
-/* Controllo se la cartella è scrivibile */
-if ( !is_writable('upload/log/') ) { 
-    die('Errore: Directory upload/log non scrivibile. Rendere upload e tutte le sue sottocartelle scrivibili da php.');
-}
-
 /* Controllo se la cartella è scrivibile II la vendetta */
 if ( !is_writable('upload/') ) { 
     die('Errore: Directory upload/ non scrivibile. Rendere upload e tutte le sue sottocartelle scrivibili da php.');
