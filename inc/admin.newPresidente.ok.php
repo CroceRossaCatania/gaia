@@ -24,6 +24,7 @@ foreach ( $f as $_f ) {
 
 /* Creo la nuova appartenenza... */
 $a = new Appartenenza();
+$a->volontario = $t;
 $a->comitato    = $c;
 $a->inizio      = time();
 $a->fine        = strtotime('April 31');
