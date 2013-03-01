@@ -18,11 +18,10 @@ $file = fopen($file, 'r');
 
 /* Scarica il primo rigo di intestazione */
  $legenda = fgetcsv($file, 0, ';');
- var_dump($legenda);
-
+ $i=0;
 while ( $riga = fgetcsv($file, 0, ';') ) {
    
-    
+   $i++; 
     /* Scarica il codice fiscale... */
     $codiceFiscale = maiuscolo($riga[4]);
     
@@ -64,12 +63,14 @@ while ( $riga = fgetcsv($file, 0, ';') ) {
     $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[12]);
     $dingresso   = $dingresso->getTimestamp();
     
-    var_dump($riga);
-    echo "\n\n\n";
-    
+    $m = new Email('registrazioneFormat', 'Registrati su Gaia');
+    $m->a = $p;
+    $m->_NOME       = $p->nome;
+    $m->invia();
+      
     
 }
-
+echo "Sono stati caricati: $i utenti";
 fclose($file);
 ?>
 </code></pre>

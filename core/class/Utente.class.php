@@ -93,7 +93,7 @@ class Utente extends Persona {
     }
     
     public function admin() {
-        if ( $this->admin != 'NULL' ) {
+        if ( $this->admin) {
             return true;
         } else {
             return false;
