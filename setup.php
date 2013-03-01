@@ -13,8 +13,13 @@ if ( file_exists('upload/setup/lock') ) {
 }
 
 /* Controllo se la cartella è scrivibile */
-if ( !is_writable('upload/setup') ) { 
+if ( !is_writable('upload/setup/') ) { 
     die('Errore: Directory upload/setup non scrivibile. Rendere upload e tutte le sue sottocartelle scrivibili da php.');
+}
+
+/* Controllo se la cartella è scrivibile */
+if ( !is_writable('upload/log/') ) { 
+    die('Errore: Directory upload/log non scrivibile. Rendere upload e tutte le sue sottocartelle scrivibili da php.');
 }
 
 /* Controllo se la cartella è scrivibile II la vendetta */
@@ -23,20 +28,22 @@ if ( !is_writable('upload/') ) {
 }
 
 echo "================ INSTALLAZIONE DI GAIA ==============\n\n";
-echo "===== DATABASE SETUP ======";
+echo "Creazione tabelle database...\n";
 
 foreach ($conf['database']['tables'] as $tabella) {
     $q = $db->prepare("
         DROP TABLE {$tabella['name']}");
     $r = (int) $q->execute();
     $e = $q->errorInfo()[2];
-    echo "[Eliminazione\t{$tabella['name']}]:\t\t$r\t$e\n";
+    //echo "[Eliminazione\t{$tabella['name']}]:\t\t$r\t$e\n";
     $q = $db->prepare("
         CREATE TABLE {$tabella['name']} ({$tabella['fields']}) ENGINE=MyISAM");
     $r = (int) $q->execute();
     $e = $q->errorInfo()[2];
-    echo "Creazione\t{$tabella['name']}:\t\t$r\t$e\n";
+    echo "\tCreazione\t{$tabella['name']}:\t\t$r\t$e\n";
 }
+
+echo "Caricamento dei comitati sul database...\n";
 
 $comitati = file_get_contents('upload/setup/comitati.txt');
 $comitati = explode("\n", $comitati);
@@ -45,7 +52,7 @@ foreach ( $comitati as $comitato ) {
 }
 
 
-echo "\n\n=== CARICAMENTO DEI TITOLI SUL DATABASE ===\n\n";
+echo "Caricamento dei titoli sul database...\n";
 
 if (($handle = fopen("upload/setup/titoli.txt", "r")) !== FALSE) {
     while (($data = fgetcsv($handle, 0, ";")) !== FALSE) {
@@ -69,21 +76,27 @@ if (($handle = fopen("upload/setup/titoli.txt", "r")) !== FALSE) {
         	break;
         }
         $t->nome = maiuscolo($data[1]);
-        echo "{$data[1]}\n";
-        ob_flush();
+        // echo "{$data[1]}\n";
+        // ob_flush();
     }
     fclose($handle);
 }
 
+echo "Creazione delle cartelle per gli avatar...\n";
 /* Crea le cartelle per gli avatar */
 foreach ( $conf['avatar'] as $x => $y ) {
     @mkdir('upload/' . $x);
 }
 
 echo "\n
-================================================       
-=========[OK!] INSTALLAZIONE COMPLETATA ========
-================================================";
+        ================================================       
+        =========[OK!] INSTALLAZIONE COMPLETATA ========
+        ================================================
+
+ [SVILUPPATORI] 
+    Per abilitare l'AUTOPULL via GitHub Web Hook
+    ad 'autopull.php', creare un file vuoto in:
+            /upload/setup/autopull";
 
 /* Crea il file di lock, evita ultreriori installazioni */
 file_put_contents('upload/setup/lock', time() );

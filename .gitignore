@@ -2,14 +2,16 @@
 core/conf/database.conf.php
 
 # Vari log 
-log/*
-mail/log/
+upload/log/*
 
 # Avatar utenti
 upload/avatar/*/*
 
 # Lock file
 upload/setup/lock
+
+# Autopull
+upload/setup/autopull
 
 # Mantieni i placeholder
 !upload/avatar/placeholder/
