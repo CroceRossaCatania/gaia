@@ -20,8 +20,7 @@ $file = fopen($file, 'r');
  $legenda = fgetcsv($file, 0, ';');
  $i=0;
 while ( $riga = fgetcsv($file, 0, ';') ) {
-   
-   $i++; 
+   set_time_limit(0);
     /* Scarica il codice fiscale... */
     $codiceFiscale = maiuscolo($riga[4]);
     
@@ -29,7 +28,7 @@ while ( $riga = fgetcsv($file, 0, ';') ) {
     if ( $p = Persona::by('codiceFiscale', $codiceFiscale) ) {
         continue; /* Andiamo avanti con la vita, ci sei già amico, il prossimo! */
     }
-    
+    $i++; 
     /* Imposta la data di nascita */
     $dnascita   = DateTime::createFromFormat('d/m/Y', $riga[2]);
     $dnascita   = $dnascita->getTimestamp();
