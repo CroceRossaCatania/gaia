@@ -86,24 +86,25 @@ $t = TitoloPersonale::pendenti();
         <td><?php echo $_t->volontario()->cognome; ?></td>
         <td><?php echo $_t->volontario()->codiceFiscale; ?></td>
         <td><strong><?php echo $_t->titolo()->nome; ?></strong></td>
-        <td><small>
-                                <i class="icon-calendar muted"></i>
-                                <?php echo date('d-m-Y', $_t->inizio); ?>
-                                
-                                <?php if ( $_t->fine ) { ?>
+        <td><small><?php if ( $_t->inizio ) { ?>
+                                    <i class="icon-calendar muted"></i>
+                                    <?php echo date('d-m-Y', $_t->inizio); ?>
                                     <br />
+                                <?php } ?>
+                                <?php if ( $_t->fine ) { ?>
                                     <i class="icon-time muted"></i>
                                     <?php echo date('d-m-Y', $_t->fine); ?>
+                                    <br />
                                 <?php } ?>
                                 <?php if ( $_t->luogo ) { ?>
-                                    <br />
                                     <i class="icon-road muted"></i>
                                     <?php echo $_t->luogo; ?>
+                                    <br />
                                  <?php } ?>
                                  <?php if ( $_t->codice ) { ?>
-                                    <br />
                                     <i class="icon-barcode muted"></i>
                                     <?php echo $_t->codice; ?>
+                                    <br />
                                   <?php } ?>
                                     
                             </small></td>
