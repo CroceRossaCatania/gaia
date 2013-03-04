@@ -9,6 +9,18 @@ paginaPrivata();
 
 <script type="text/javascript"><?php require './js/admin.listaUtenti.js'; ?></script>
 <br/>
+<?php if ( isset($_GET['ok']) ) { ?>
+        <div class="alert alert-success">
+            <i class="icon-save"></i> <strong>Trasferimento Approvato</strong>.
+            Trasferimento approvato con successo.
+        </div>
+        <?php } ?>
+        <?php if ( isset($_GET['no']) ) { ?>
+        <div class="alert alert-error">
+            <i class="icon-warning-sign"></i> <strong>Trasferimento negato</strong>.
+            Trasferimento negato.
+        </div>
+        <?php } ?>
     <div class="control-group" align="right">
         <div class="controls">
             <div class="input-prepend">
@@ -33,7 +45,7 @@ paginaPrivata();
 if( $me->presiede() ){
     foreach($me->presidenziante() as $appartenenza){
         $c=$appartenenza->comitato()->id;
-        $t = Appartenenza::filtra([['conferma', '0'],['comitato',$c]]);
+        $t = Appartenenza::filtra([['stato', '6'],['comitato',$c]]);
   foreach ( $t as $_t ) {
       $c=$_t->comitato();
       $_v = $_t->volontario();   // Una volta per tutte
@@ -47,11 +59,11 @@ if( $me->presiede() ){
         <td><?php echo $_v->comuneNascita; ?></td>
         <td><?php echo $c->nome; ?></td>
         <td>
-  <a class="btn btn-success" href="?p=admin.comitati&id=<?php echo $_t->id; ?>&si">
+  <a class="btn btn-success" href="?p=admin.trasferimento.ok&id=<?php echo $_v->id; ?>&si">
                 <i class="icon-ok"></i>
                     Conferma
             </a>
-            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare appartenenza a questo utente ?');" href="?p=admin.comitati&id=<?php echo $_t->id; ?>&no">
+            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare appartenenza a questo utente ?');" href="?p=admin.trasferimento.ok&id=<?php echo $_v->id; ?>&no">
                 <i class="icon-ban-circle"></i>
                     Nega
             </a>
@@ -62,7 +74,7 @@ if( $me->presiede() ){
     }
    
 }elseif($me->admin()){
-        $t = Appartenenza::filtra([['conferma', '0']]);
+        $t = Appartenenza::filtra([['stato', '6']]);
   foreach ( $t as $_t ) { 
       $c=$_t->comitato();
       $_v = $_t->volontario();   // Una volta per tutte
@@ -76,11 +88,11 @@ if( $me->presiede() ){
         <td><?php echo $_v->comuneNascita; ?></td>
         <td><?php echo $c->nome; ?></td>
         <td>
-  <a class="btn btn-success" href="?p=admin.comitati&id=<?php echo $_t->id; ?>&si">
+  <a class="btn btn-success" href="?p=admin.trasferimento.ok&id=<?php echo $_v->id; ?>&si">
                 <i class="icon-ok"></i>
                     Conferma
             </a>
-            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare appartenenza a questo utente ?');" href="?p=admin.comitati&id=<?php echo $_t->id; ?>&no">
+            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare appartenenza a questo utente ?');" href="?p=admin.trasferimento.ok&id=<?php echo $_v->id; ?>&no">
                 <i class="icon-ban-circle"></i>
                     Nega
             </a>

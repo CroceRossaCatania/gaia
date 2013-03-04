@@ -134,6 +134,7 @@ if ( !file_exists($_f) ) {
                                     <li><a href="?p=admin.titoliPending"><i class="icon-cogs"></i> Titoli pending</a></li>
                                     <li><a href="?p=admin.comitatiPending"><i class="icon-cogs"></i> Comitati pending</a></li>
                                     <li><a href="?p=admin.ricercaxTitoli"><i class="icon-search"></i> Ricerca per Titoli</a></li>
+                                    <li><a href="?p=admin.trasferimento"><i class="icon-cogs"></i> Trasferimenti pending</a></li>
                                     <li class="divider"></li>
                                     
                                 <?php } ?>
