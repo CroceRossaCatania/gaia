@@ -7,6 +7,7 @@
 paginaPrivata();
 
 ?>
+
 <hr />
 <div class="row-fluid">
     <div class="span3">
@@ -25,6 +26,29 @@ paginaPrivata();
             <strong>Errore</strong> &mdash; Appartieni già a questo Comitato.
         </div>
         <?php } ?>
+        <?php 
+ 
+    foreach ( $me->storico() as $app ) { 
+                            if ($app->attuale()) 
+                                    {
+                                    if($app->stato == 6){ ?>
+                                        <div class="row-fluid">
+                                        <h2><i class="icon-warning-sign muted"></i> Richiesta trasferimento in elaborazione</h2>
+                                        <div class="alert alert-block">
+                                            <div class="row-fluid">
+                                                <span class="span12">
+                                                    <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nome; ?></strong> inoltrata il <strong><?php echo date('d-m-Y', $app->timestamp); ?></strong> è in fase di elaborazione.</p>
+                                                    <p>La tua richiesta è in attesa di conferma da parte del tuo Presidente di Comitato.</p>
+                                                    <p>Trascorsi 30 giorni senza alcuna risposta del Presidente Gaia effettuerà il trasferimento automaticamente come previsto da regolamento.</p>
+                                                </span>
+                                            </div>
+                                        </div>           
+                                    </div>
+                    <?php    $i=1;
+                                    }
+                                    }
+                                    }
+if ($i!=1){?>
         <div class="row-fluid">
             <h2><i class="icon-chevron-right muted"></i> Richiesta trasferimento</h2>
             <div class="alert alert-block alert-info ">
@@ -69,5 +93,6 @@ paginaPrivata();
     
     </div>
 </div>
+<?php } ?>
 
 
