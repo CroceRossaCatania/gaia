@@ -63,7 +63,7 @@ if( $me->presiede() ){
                 <i class="icon-ok"></i>
                     Conferma
             </a>
-            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare appartenenza a questo utente ?');" href="?p=admin.trasferimento.ok&id=<?php echo $_v->id; ?>&no">
+            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare il trasferimento a questo utente ?');" href="?p=admin.trasferimento.ok&id=<?php echo $_v->id; ?>&no">
                 <i class="icon-ban-circle"></i>
                     Nega
             </a>

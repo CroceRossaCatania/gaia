@@ -59,7 +59,13 @@ if (isset($_GET['no'])) {
                                     $a->stato     = '7';
                                     $a->conferma  = $me->id;    
                                     $a->inizio = time();
-                                    $a->fine = time();                                    
+                                    $a->fine = time();
+                                    $m = new Email('richiestaTrasferimentono', 'Richiesta trasferimento negata: ' . $a->comitato()->nome);
+                                    $m->a = $a->volontario();
+                                    $m->_NOME       = $a->volontario()->nome;
+                                    $m->_COMITATO   = $a->comitato()->nome;
+                                    $m-> _TIME = date('d-m-Y', $a->timestamp);
+                                    $m->invia();
                                     }
                                     }
 redirect('admin.trasferimento&no');   
