@@ -42,7 +42,7 @@ paginaAdmin();
     </thead>
 <?php
 if($me->admin()){
-        $t = Appartenenza::filtra([['stato', '4']]);
+        $t = Appartenenza::filtra([['stato', MEMBRO_PRESIDENTE]]);
   foreach ( $t as $_t ) { 
       $c=$_t->comitato();
       $_v = $_t->volontario();   // Una volta per tutte
