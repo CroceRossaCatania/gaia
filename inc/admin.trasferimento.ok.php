@@ -35,6 +35,12 @@ if (isset($_GET['si'])) {
                                     $a->conferma = '0';
                                     $a->inizio = time();
                                     $a->fine = strtotime('April 31');
+                                    $m = new Email('richiestaTrasferimentook', 'Richiesta trasferimento approvata: ' . $a->comitato()->nome);
+                                    $m->a = $a->volontario();
+                                    $m->_NOME       = $a->volontario()->nome;
+                                    $m->_COMITATO   = $a->comitato()->nome;
+                                    $m-> _TIME = date('d-m-Y', $a->timestamp);
+                                    $m->invia();
                                     }
                                     }
 redirect('admin.trasferimento&ok');  

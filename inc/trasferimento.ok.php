@@ -36,6 +36,12 @@ foreach ( $me->storico() as $app ) {
                                                     $a->comitato    = $c;
                                                     $a->stato =     '6';
                                                     $a->timestamp = time();
+                                                    $m = new Email('richiestaTrasferimento', 'Richiesta trasferimento: ' . $a->comitato()->nome);
+                                                    $m->a = $me;
+                                                    $m->_NOME       = $me->nome;
+                                                    $m->_COMITATO   = $a->comitato()->nome;
+                                                    $m-> _TIME = date('d-m-Y', $a->timestamp);
+                                                    $m->invia();
                                                     redirect('trasferimento&ok');
                                                              }
                                                             }
