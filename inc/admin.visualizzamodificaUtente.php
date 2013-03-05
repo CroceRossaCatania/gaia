@@ -30,83 +30,83 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         <div class="control-group">
               <label class="control-label" for="inputNome">Nome</label>
               <div class="controls">
-                <input type="text" name="inputNome" id="inputNome"  value="<?php echo $t[0]->nome; ?>">
+                <input type="text" name="inputNome" id="inputNome"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->nome; ?>">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputCognome">Cognome</label>
               <div class="controls">
-                <input type="text" name="inputCognome" id="inputCognome"  value="<?php echo $t[0]->cognome; ?>">
+                <input type="text" name="inputCognome" id="inputCognome"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->cognome; ?>">
                 
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputCodiceFiscale">Codice Fiscale</label>
               <div class="controls">
-                <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale"  value="<?php echo $t[0]->codiceFiscale; ?>">
+                <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->codiceFiscale; ?>">
                 
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputDataNascita">Data di Nascita</label>
               <div class="controls">
-                <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" value="<?php echo date('d-m-Y', $t[0]->dataNascita); ?>">
+                <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo date('d-m-Y', $t[0]->dataNascita); ?>">
               </div>
             </div>
     <div class="control-group">
               <label class="control-label" for="inputProvinciaNascita">Provincia di Nascita</label>
               <div class="controls">
-                <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita"  value="<?php echo $t[0]->provinciaNascita; ?>">
+                <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->provinciaNascita; ?>">
              </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
               <div class="controls">
-                <input type="text" name="inputComuneNascita" id="inputComuneNascita" value="<?php echo $t[0]->comuneNascita; ?>">
+                <input type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->comuneNascita; ?>">
               </div>
             </div>
 
             <div class="control-group">
                <label class="control-label" for="inputIndirizzo">Indirizzo</label>
                <div class="controls">
-                 <input value="<?php echo $t[0]->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" required />
+                 <input <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" required />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputCivico">Civico</label>
                <div class="controls">
-                 <input value="<?php echo $t[0]->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" required />
+                 <input <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" required />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputComuneResidenza">Comune di residenza</label>
                <div class="controls">
-                 <input value="<?php echo $t[0]->comuneResidenza; ?>" type="text" id="inputComuneResidenza" name="inputComuneResidenza" required />
+                 <input <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->comuneResidenza; ?>" type="text" id="inputComuneResidenza" name="inputComuneResidenza" required />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputCAPResidenza">CAP di residenza</label>
                <div class="controls">
-                 <input value="<?php echo $t[0]->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" required pattern="[0-9]{5}" />
+                 <input <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" required pattern="[0-9]{5}" />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputProvinciaResidenza">Provincia di residenza</label>
                <div class="controls">
-                 <input value="<?php echo $t[0]->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" required pattern="[A-Za-z]{2}" />
+                 <input <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" required pattern="[A-Za-z]{2}" />
                 </div>
              </div>
             <div class="control-group">
                <label class="control-label" for="inputEmail">Email</label>
                <div class="controls">
-                 <input value="<?php echo $t[0]->email; ?>"  type="email" id="inputEmail" name="inputEmail" required  />
+                 <input <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->email; ?>"  type="email" id="inputEmail" name="inputEmail" required  />
                 </div>
              </div>
              <div class="control-group input-prepend">
                <label class="control-label" for="inputCellulare">Cellulare</label>
                <div class="controls">
                    <span class="add-on">+39</span>
-                 <input value="<?php echo $t[0]->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" required pattern="[0-9]{9,11}" />
+                 <input <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" required pattern="[0-9]{9,11}" />
                 </div>
              </div>
             <div class="control-group input-prepend">
@@ -128,6 +128,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             </div>
           </div>
         <hr />
+         
         <div class="form-actions">
                 <button type="submit" class="btn btn-success btn-large">
                     <i class="icon-save"></i>
