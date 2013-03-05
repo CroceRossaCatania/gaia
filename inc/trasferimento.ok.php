@@ -34,7 +34,7 @@ foreach ( $me->storico() as $app ) {
                                                     $a = new Appartenenza();
                                                     $a->volontario  = $me->id;
                                                     $a->comitato    = $c;
-                                                    $a->stato =     '6';
+                                                    $a->stato =     MEMBRO_TRASF_IN_CORSO;
                                                     $a->timestamp = time();
                                                     $m = new Email('richiestaTrasferimento', 'Richiesta trasferimento: ' . $a->comitato()->nome);
                                                     $m->a = $me;

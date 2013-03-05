@@ -31,7 +31,7 @@ paginaPrivata();
     foreach ( $me->storico() as $app ) { 
                             if ($app->attuale()) 
                                     {
-                                    if($app->stato == 6){ ?>
+                                    if($app->stato == MEMBRO_TRASF_IN_CORSO){ ?>
                                         <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> Richiesta trasferimento in elaborazione</h2>
                                         <div class="alert alert-block">
