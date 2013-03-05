@@ -279,4 +279,13 @@ class Utente extends Persona {
         return (int) $r[0];
     }
     
+    public function documento($tipo = DOC_CARTA_IDENTITA) {
+        $d = Documento::filtra([
+            ['tipo',        $tipo],
+            ['volontario',  $this->id]
+        ]);
+        if ( !$d ) { return false; }
+        return $d[0];
+    }
+    
 }
