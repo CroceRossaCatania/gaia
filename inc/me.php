@@ -55,7 +55,15 @@ if ( !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('n
         </div>
         <?php } ?>
         
-    
+            
+        <!-- Per ora mostra sempre... -->
+        <div class="alert alert-block alert-info">
+            <h4><i class="icon-folder-open"></i> Hai già caricato i tuoi documenti?</h4>
+            <p>Ricordati di caricare i tuoi documenti dalla sezione <strong>Documenti</strong>.</p>
+            
+        </div>
+        
+        
     </div>
     
     
