@@ -26,6 +26,7 @@ $t = $_POST['idTitolo'];
         <th>Codice Fiscale</th>
         <th>Data di Nascita</th>
         <th>Luogo di Nascita</th>
+        <th>Titolo</th>
     </thead>
 <?php
 if($me->admin()){
@@ -39,6 +40,7 @@ if($me->admin()){
         <td><?php echo $_v->codiceFiscale; ?></td>
         <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
         <td><?php echo $_v->comuneNascita; ?></td>
+        <td><?php echo $_t->titolo()->nome; ?></td>
     </tr>
     <?php }
     

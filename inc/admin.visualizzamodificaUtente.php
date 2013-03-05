@@ -24,7 +24,8 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             Le modifiche richieste sono state memorizzate con successo.
         </div>
         <?php }  ?>
- <form class="form-horizontal" action="?p=admin.modificaUtente.ok&t=<?php echo $f; ?>" method="POST">
+        
+<form class="form-horizontal" action="?p=admin.modificaUtente.ok&t=<?php echo $f; ?>" method="POST">
     <h2><i class="icon-edit muted"></i> Anagrafica</h3>
         <div class="control-group">
               <label class="control-label" for="inputNome">Nome</label>
@@ -121,7 +122,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                 <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  required>
                 <?php
                     foreach ( $conf['sangue_gruppo'] as $numero => $gruppo ) { ?>
-                    <option value="<?php echo $gruppo; ?>" <?php if ( $gruppo == $t[0]->grsanguigno ) { ?>selected<?php } ?>><?php echo $gruppo; ?></option>
+                    <option value="<?php echo $numero; ?>" <?php if ( $numero == $t[0]->grsanguigno ) { ?>selected<?php } ?>><?php echo $gruppo; ?></option>
                     <?php } ?>
                 </select>   
             </div>
@@ -165,14 +166,17 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                                     <br />
                                     <i class="icon-time muted"></i>
                                     <?php echo date('d-m-Y', $titolo->fine); ?>
-                                
-                                        <?php if ( $titolo->luogo ) { ?>
+                                <?php } ?>
+                                <?php if ( $titolo->luogo ) { ?>
                                     <br />
                                     <i class="icon-road muted"></i>
-                                    <?php echo $titolo->luogo; ?><br />
-                                       <?php } ?>
-
-                                        <?php } ?>
+                                    <?php echo $titolo->luogo; ?>
+                                 <?php } ?>
+                                 <?php if ( $titolo->codice ) { ?>
+                                    <br />
+                                    <i class="icon-barcode muted"></i>
+                                    <?php echo $titolo->codice; ?>
+                                  <?php } ?>
                             </small></td>
                             <?php } else { ?>
                             <td>&nbsp;</td>
