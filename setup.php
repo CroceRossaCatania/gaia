@@ -84,8 +84,14 @@ if (($handle = fopen("upload/setup/titoli.txt", "r")) !== FALSE) {
 echo "Creazione delle cartelle per gli avatar...\n";
 /* Crea le cartelle per gli avatar */
 foreach ( $conf['avatar'] as $x => $y ) {
-    @mkdir('upload/' . $x);
+    @mkdir('upload/avatar/' . $x);
 }
+
+echo "Creazione delle cartelle per i documenti...\n";
+/* Crea le cartelle per gli avatar */
+@mkdir('upload/docs');
+@mkdir('upload/docs/o');
+@mkdir('upload/docs/t');
 
 echo "\n
         ================================================       

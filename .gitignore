@@ -7,6 +7,9 @@ upload/log/*
 # Avatar utenti
 upload/avatar/*/*
 
+# Documenti utenti
+upload/docs/
+
 # Lock file
 upload/setup/lock
 

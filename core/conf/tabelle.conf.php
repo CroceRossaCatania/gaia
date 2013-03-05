@@ -121,5 +121,14 @@ $conf['database']['tables'] = [
                 valore   text,
                 PRIMARY KEY (id, nome)
             '
-        ]
+        ],
+        [
+            'name'      =>  'documenti',
+            'fields'    =>  '
+                id          varchar(64) PRIMARY KEY,
+                volontario  varchar(16),
+                tipo        varchar(8),
+                timestamp   varchar(64)
+            '
+        ],
 ];
