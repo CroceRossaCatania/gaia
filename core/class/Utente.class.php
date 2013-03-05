@@ -228,6 +228,7 @@ class Utente extends Persona {
         } else {
             $a = new Avatar();
             $a->utente = $this->id;
+            return $a;
         }
     }
     
