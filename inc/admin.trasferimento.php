@@ -45,7 +45,7 @@ paginaPrivata();
 if( $me->presiede() ){
     foreach($me->presidenziante() as $appartenenza){
         $c=$appartenenza->comitato()->id;
-        $t = Appartenenza::filtra([['stato', '6'],['comitato',$c]]);
+        $t = Appartenenza::filtra([['stato', MEMBRO_TRASF_IN_CORSO],['comitato',$c]]);
   foreach ( $t as $_t ) {
       $c=$_t->comitato();
       $_v = $_t->volontario();   // Una volta per tutte
@@ -74,7 +74,7 @@ if( $me->presiede() ){
     }
    
 }elseif($me->admin()){
-        $t = Appartenenza::filtra([['stato', '6']]);
+        $t = Appartenenza::filtra([['stato', MEMBRO_TRASF_IN_CORSO]]);
   foreach ( $t as $_t ) { 
       $c=$_t->comitato();
       $_v = $_t->volontario();   // Una volta per tutte

@@ -13,16 +13,23 @@ define('ASPIRANTE', 1);
 define('VOLONTARIO',2);
 
 /* Tipologia appartenenza gruppo */
-define('MEMBRO_PENDENTE',       0);
-define('MEMBRO_VOLONTARIO',     2);
-define('MEMBRO_MODERATORE',     3);
-define('MEMBRO_PRESIDENTE',     4);
+define('MEMBRO_TRASF_NEGATO',   10);
+define('MEMBRO_TRASF_IN_CORSO', 20);
+define('MEMBRO_PENDENTE',       30);
+define('MEMBRO_VOLONTARIO',     40);
+define('MEMBRO_MODERATORE',     50);
+define('MEMBRO_DIPENDENTE',     60);
+define('MEMBRO_PRESIDENTE',     70);
 
+/* Definizioni in stringa */
 $conf['membro'] = [
-    0   =>  'Pendente',
-    2   =>  'Volontario',
-    3   =>  'Moderatore',
-    4   =>  'Presidente'
+    MEMBRO_TRASF_NEGATO     =>  'Trasferimento negato',
+    MEMBRO_TRASF_IN_CORSO   =>  'Trasferimento in corso',
+    MEMBRO_PENDENTE         =>  'Pendente',
+    MEMBRO_VOLONTARIO       =>  'Volontario',
+    MEMBRO_MODERATORE       =>  'Moderatore',
+    MEMBRO_DIPENDENTE       =>  'Dipendente',
+    MEMBRO_PRESIDENTE       =>  'Presidente'
 ];
 
 /* Tipologie di titolo */
@@ -59,9 +66,9 @@ $conf['avatar'] = [
 $conf['titoli'] = [
 	/*
 	num =>  [denominazione,		       verifica, data,  data_obbl] */
-	0	=>	['Competenza personale',	false,	false,	false],
-	1	=>	['Patente Civile',             	false,	true,	false],
-	2	=>	['Patente CRI',             	true,	true,	true],
-	3	=>	['Titolo di studio',		false,  true,   false],
-	4 	=>	['Titolo di Croce Rossa',	true,	true,	false]
+	TITOLO_PERSONALE	=>	['Competenza personale',	false,	false,	false],
+	TITOLO_PATENTE_CIVILE	=>	['Patente Civile',             	false,	true,	false],
+	TITOLO_PATENTE_CRI	=>	['Patente CRI',             	true,	true,	true],
+	TITOLO_STUDIO   	=>	['Titolo di studio',		false,  true,   false],
+	TITOLO_CRI       	=>	['Titolo di Croce Rossa',	true,	true,	false]
 ];
