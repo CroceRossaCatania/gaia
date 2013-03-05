@@ -10,6 +10,7 @@ $menu = [
     ],
     'Volontario'    =>  [
         'anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
+        'documenti' =>  '<i class="icon-folder-open"></i> Documenti',
         'storico'    =>  '<i class="icon-time"></i> Storico'
     ],
     'Curriculum'    =>  [
