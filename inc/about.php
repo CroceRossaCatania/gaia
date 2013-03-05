@@ -17,11 +17,24 @@
     </div>
     
     <div class="span4">
+        <h2><i class="icon-heart"></i> Aiuto?</h2>
+        
+        <p><a href="docs/Guida.pdf?ref=info" class="btn btn-large btn-primary">
+            <i class="icon-download icon-large"></i>
+            Scarica la Guida in PDF di Gaia
+        </a></p>
+        
+        <p>Oppure contattaci per email a <a href="mailto:informatica@cricatania.it"><i class="icon-envelope-alt"></i> informatica@cricatania.it</a>.</p>
+        
+        <hr />        
+        
         <h2><i class="icon-github icon-large"></i> Collabora</h2>
         
         <a href="https://github.com/CroceRossaCatania/gaia" class="btn btn-large">
             Progetto su GitHub
         </a>
+        
+        
     </div>
 </div>
 
