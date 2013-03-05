@@ -7,7 +7,6 @@
 paginaPrivata();
 
 ?>
-<hr />
 <div class="row-fluid">
     <div class="span3">
         <?php        menuVolontario(); ?>
@@ -42,7 +41,7 @@ paginaPrivata();
         <?php } ?>
         <form class="form-horizontal" action="?p=password.ok" method="POST">
 
-            <div class="control-group">
+            
                 <div class="alert alert-warning alert-block">
                     <h4><i class="icon-warning-sign"></i> Nota bene</h4>
                     <p>Questa è la password che <strong>usi per accedere</strong>.</p>

@@ -14,7 +14,6 @@ if ( !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('n
 
 ?>
 
-<hr />
 <div class="row-fluid">
     
     <div class="span3"><?php menuVolontario(); ?></div>
