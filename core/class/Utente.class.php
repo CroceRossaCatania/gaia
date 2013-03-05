@@ -237,4 +237,46 @@ class Utente extends Persona {
         parent::cancella();
     }
     
+    public function presidente_numTitoliPending() {
+        $q = $this->db->prepare("
+            SELECT  COUNT(titoliPersonali.id)
+            FROM    titoliPersonali, appartenenza
+            WHERE   ( titoliPersonali.tConferma < 1 OR titoliPersonali.tConferma IS NULL )
+            AND     titoliPersonali.volontario = appartenenza.volontario
+            AND     appartenenza.comitato  IN
+                ( SELECT    comitato FROM appartenenza
+                  WHERE     stato = :stato
+                  AND       conferma > 0
+                  AND       ( fine < 1 OR fine >= :ora )
+                  AND       volontario = :me
+                )");
+        $q->bindValue(':stato', MEMBRO_PRESIDENTE);
+        $q->bindValue(':ora',   time());
+        $q->bindValue(':me', $this->id);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+    
+    public function presidente_numAppPending() {
+        $q = $this->db->prepare("
+            SELECT  COUNT(id)
+            FROM    appartenenza
+            WHERE   stato = :statoPendente
+            AND     appartenenza.comitato  IN
+                ( SELECT comitato FROM appartenenza
+                  WHERE stato = :stato
+                  AND conferma > 0
+                  AND ( fine < 1 OR fine >= :ora )
+                  AND volontario = :me
+                )");
+        $q->bindValue(':statoPendente', MEMBRO_PENDENTE);
+        $q->bindValue(':stato', MEMBRO_PRESIDENTE);
+        $q->bindValue(':ora',   time());
+        $q->bindValue(':me', $this->id);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+    
 }

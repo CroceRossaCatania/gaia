@@ -33,7 +33,7 @@ paginaPrivata();
                 </thead>
                 
                 <?php foreach ( $me->storico() as $app ) { ?>
-                    <tr<?php if ($app->attuale()) { ?>class="success"<?php } ?>>
+                    <tr<?php if ($app->attuale()) { ?> class="success"<?php } ?>>
                         <td>
                             <?php if ($app->attuale()) { ?>
                                 Attuale

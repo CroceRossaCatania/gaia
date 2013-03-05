@@ -97,7 +97,6 @@ if ( !file_exists($_f) ) {
                 <li><a href="http://www.cricatania.it"><i class="icon-reply"></i> Torna a www.cricatania.it</a></li>
                 
               </ul>
-            </div><!--/.nav-collapse -->
             
             <!--
             <div class="paddingSopra pull-right">
@@ -112,43 +111,117 @@ if ( !file_exists($_f) ) {
             <?php
             if ( $u = $sessione->utente() ) { 
             ?>
-			<div class="btn-group pull-right paddingSopra">
-			  <a class="btn btn-danger" href="?p=me">
-			  	<i class="icon-user icon-large"></i>&nbsp;
-			  	Ciao, <strong><?php echo $u->nome; ?></strong></a>
-			  <button class="btn dropdown-toggle btn-danger" data-toggle="dropdown">
-				<span class="caret"></span>
-			  </button>
-			  <ul class="dropdown-menu">
-                              <?php if ( $u->stato == VOLONTARIO ) { ?>
-			  	<!--<li><a href="#"><i class="icon-reorder"></i> Attività</a></li>-->
-			  	<!--<li class="divider"></li>-->
-				<!--<li class="nav-header">Impostazioni</li>-->
-				<li><a href="?p=anagrafica"><i class="icon-edit"></i> Anagrafica</a></li>
-				<!--<li><a href="?p=curriculum"><i class="icon-star"></i> Qualifiche</a></li>-->
-			  	<li class="divider"></li>
-                                
-                                <?php if ( $u->admin() || $u->presiede() ) { ?>
-                                    <li class="nav-header">Gestione</li>
-                                    <li><a href="?p=admin.listaUtenti"><i class="icon-cogs"></i> Lista utenti</a></li>
-                                    <li><a href="?p=admin.titoliPending"><i class="icon-cogs"></i> Titoli pending</a></li>
-                                    <li><a href="?p=admin.comitatiPending"><i class="icon-cogs"></i> Comitati pending</a></li>
-                                    <li><a href="?p=admin.ricercaxTitoli"><i class="icon-search"></i> Ricerca per Titoli</a></li>
-                                    <li><a href="?p=admin.trasferimento"><i class="icon-cogs"></i> Trasferimenti pending</a></li>
-                                    <li class="divider"></li>
+			<div class="pull-right paddingSopra">
+			  
+                          <div class="btn-group">
+                            <a class="btn btn-danger" href="?p=me">
+                                  <i class="icon-user icon-large"></i>&nbsp;
+                                  Ciao, <strong><?php echo $u->nome; ?></strong></a>
+                            <button class="btn dropdown-toggle btn-danger" data-toggle="dropdown">
+                                  <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <?php if ( $u->stato == VOLONTARIO ) { ?>
+                                  <!--<li><a href="#"><i class="icon-reorder"></i> Attività</a></li>-->
+                                  <!--<li class="divider"></li>-->
+                                  <!--<li class="nav-header">Impostazioni</li>-->
+                                  <li><a href="?p=anagrafica"><i class="icon-edit"></i> Anagrafica</a></li>
+                                  <!--<li><a href="?p=curriculum"><i class="icon-star"></i> Qualifiche</a></li>-->
+                                  <li class="divider"></li>
+
+
+
+                                <?php } ?>
+
+                                  <li><a href="?p=logout"><i class="icon-remove"></i> Esci</a></li>
+                            </ul>
+                          </div>
+                            
+                            
+                            <?php if ( $u->admin() || $u->presiede() ) { ?>
+                            <div class="btn-group">
+                                <?php
+                                    /* Conto le notifiche */
+                                    $_n = $_n_titoli = $_n_app = 0;
+                                    $_n += $_n_titoli = $me->presidente_numTitoliPending();
+                                    $_n += $_n_app    = $me->presidente_numAppPending();
+                                   ?>
+                                <button class="btn dropdown-toggle btn-primary" data-toggle="dropdown">
+                                    <strong>Menu presidente</strong>
+                                    <?php if ( $_n ) { ?>
+                                        <span class="badge badge-warning">
+                                            <?php echo $_n; ?>
+                                        </span>
+                                    <?php } ?>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
                                     
-                                <?php } ?>
-                                <?php if ( $u->admin()  ) { ?>
-                                    <li class="nav-header">Amministrazione</li>
-                                    <li><a href="?p=admin.Presidenti"><i class="icon-cogs"></i> Presidenti</a></li>
-                                    <li><a href="?p=admin"><i class="icon-cogs"></i> Admin</a></li>
-                                    <li><a href="?p=admin.caricaFormat"><i class="icon-cogs"></i> Carica da format</a></li>
-                                    <li class="divider"></li>
-                                <?php } ?>
-                              <?php } ?>
-                                
-				<li><a href="?p=logout"><i class="icon-remove"></i> Esci</a></li>
-			  </ul>
+                                    <li>
+                                        <a href="?p=admin.listaUtenti">
+                                            <i class="icon-list"></i>
+                                            Elenco volontari
+                                        </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="?p=admin.titoliPending">
+                                            <i class="icon-star"></i>
+                                            Titoli in attesa di conferma
+                                            <?php if ( $_n_titoli ) { ?>
+                                                <span class="badge badge-warning">
+                                                    <?php echo $_n_titoli; ?>
+                                                </span>
+                                            <?php } ?>
+                                        </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="?p=admin.comitatiPending">
+                                            <i class="icon-group"></i>
+                                            Appartenenze in attesa di conferma
+                                            <?php if ( $_n_app ) { ?>
+                                                <span class="badge badge-warning">
+                                                    <?php echo $_n_app; ?>
+                                                </span>
+                                            <?php } ?>
+                                        </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="?p=admin.ricercaxTitoli">
+                                            <i class="icon-search"></i>
+                                            Ricerca volontari per titoli
+                                        </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="?p=admin.trasferimento">
+                                            <i class="icon-cogs"></i>
+                                            Trasferimenti in attesa di conferma
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                            <?php } ?>
+
+            
+                            <?php if ( $u->admin() || $u->presiede() ) { ?>
+                            <div class="btn-group">
+                                <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
+                                    <i class="icon-wrench icon-large"></i>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="?p=admin.Presidenti"><i class="icon-list"></i> Presidenti</a></li>
+                                    <li><a href="?p=admin"><i class="icon-star"></i> Amministratori</a></li>
+                                    <li><a href="?p=admin.caricaFormat"><i class="icon-upload"></i> Carica format</a></li>           
+                                </ul>
+                            </div>
+                            <?php } ?>
+
+                                           
 			</div>
 			<?php } else { ?>
             <div class="paddingSopra pull-right">
@@ -158,6 +231,8 @@ if ( !file_exists($_f) ) {
             	</a>
             </div>
             <?php } ?>
+                        </div><!--/.nav-collapse -->
+
 			
 			
           </div><!-- /.navbar-inner -->
