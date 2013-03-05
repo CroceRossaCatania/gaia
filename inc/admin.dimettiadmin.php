@@ -5,5 +5,5 @@
  */
 $t=$_GET['id'];
 $f = new Persona($t);
-$f->admin = 'NULL';
+$f->admin = '';
 redirect('admin&ok');
