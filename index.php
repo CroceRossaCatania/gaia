@@ -146,8 +146,9 @@ if ( !file_exists($_f) ) {
                                     $_n += $_n_titoli = $me->presidente_numTitoliPending();
                                     $_n += $_n_app    = $me->presidente_numAppPending();
                                    ?>
-                                <button class="btn dropdown-toggle btn-primary" data-toggle="dropdown">
-                                    <strong>Menu presidente</strong>
+                                <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
+                                    <i class="icon-asterisk"></i>
+                                    <strong>Presidente</strong>
                                     <?php if ( $_n ) { ?>
                                         <span class="badge badge-warning">
                                             <?php echo $_n; ?>
@@ -157,12 +158,9 @@ if ( !file_exists($_f) ) {
                                 </button>
                                 <ul class="dropdown-menu">
                                     
-                                    <li>
-                                        <a href="?p=admin.listaUtenti">
-                                            <i class="icon-list"></i>
-                                            Elenco volontari
-                                        </a>
-                                    </li>
+
+                                   
+                                    <li class="nav-header">Da fare</li>
                                     
                                     <li>
                                         <a href="?p=admin.titoliPending">
@@ -188,17 +186,27 @@ if ( !file_exists($_f) ) {
                                         </a>
                                     </li>
                                     
-                                    <li>
-                                        <a href="?p=admin.ricercaxTitoli">
-                                            <i class="icon-search"></i>
-                                            Ricerca volontari per titoli
-                                        </a>
-                                    </li>
-                                    
+
                                     <li>
                                         <a href="?p=admin.trasferimento">
                                             <i class="icon-cogs"></i>
                                             Trasferimenti in attesa di conferma
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="nav-header">Volontari</li>
+                                
+                                    <li>
+                                        <a href="?p=admin.listaUtenti">
+                                            <i class="icon-list"></i>
+                                            Elenco volontari
+                                        </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="?p=admin.ricercaxTitoli">
+                                            <i class="icon-search"></i>
+                                            Ricerca volontari per titoli
                                         </a>
                                     </li>
                                     
