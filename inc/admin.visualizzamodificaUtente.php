@@ -119,7 +119,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             <div class="control-group">
             <label class="control-label" for="inputgruppoSanguigno">Gruppo Sanguigno</label>
             <div class="controls">
-                <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  required>
+                <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  required class="disabled">
                 <?php
                     foreach ( $conf['sangue_gruppo'] as $numero => $gruppo ) { ?>
                     <option value="<?php echo $numero; ?>" <?php if ( $numero == $t[0]->grsanguigno ) { ?>selected<?php } ?>><?php echo $gruppo; ?></option>
