@@ -17,14 +17,14 @@ $p->volontario  = $me->id;
 $p->titolo      = $t->id;
 
 if ( $_POST['dataInizio'] ) {
-    $inizio = DateTime::createFromFormat('d/m/Y', $_POST['dataInizio']);
-    $inizio = $inizio->getTimestamp();
+    $inizio = @DateTime::createFromFormat('d/m/Y', $_POST['dataInizio']);
+    $inizio = @$inizio->getTimestamp();
     $p->inizio = $inizio;
 }
 
 if ( $_POST['dataFine'] ) {
-    $fine = DateTime::createFromFormat('d/m/Y', $_POST['dataFine']);
-    $fine = $fine->getTimestamp();
+    $fine = @DateTime::createFromFormat('d/m/Y', $_POST['dataFine']);
+    $fine = @$fine->getTimestamp();
     $p->fine = $fine;
 }
 
