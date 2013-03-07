@@ -18,14 +18,22 @@ $p->titolo      = $t->id;
 
 if ( $_POST['dataInizio'] ) {
     $inizio = @DateTime::createFromFormat('d/m/Y', $_POST['dataInizio']);
-    $inizio = @$inizio->getTimestamp();
-    $p->inizio = $inizio;
+    if ( $inizio ) {
+        $inizio = @$inizio->getTimestamp();
+        $p->inizio = $inizio;
+    } else {
+        $p->inizio = 0;
+    }
 }
 
 if ( $_POST['dataFine'] ) {
     $fine = @DateTime::createFromFormat('d/m/Y', $_POST['dataFine']);
-    $fine = @$fine->getTimestamp();
-    $p->fine = $fine;
+    if ( $fine ) {
+        $fine = @$fine->getTimestamp();
+        $p->fine = $fine;
+    } else {
+        $p->fine = 0;
+    }
 }
 
 if ( $_POST['luogo'] ) {
