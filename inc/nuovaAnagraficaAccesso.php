@@ -51,6 +51,7 @@
             <label class="control-label" for="inputComitato">Comitato</label>
             <div class="controls">
                 <select required name="inputComitato" id="inputComitato" autofocus class="span11">
+                    <option value="" selected="selected">[ Seleziona un Comitato ]</option>
                     <?php foreach ( Comitato::elenco('nome ASC') as $c ) { ?>
                         <option value="<?php echo $c->id; ?>"><?php echo $c->nome; ?></option>
                     <?php } ?>
@@ -61,7 +62,6 @@
             <label class="control-label" for="inputAnno">Anno di ingresso</label>
             <div class="controls">
                 <select required name="inputAnno" class="span6">
-                    <option value="" selected="selected">[ Seleziona un Comitato ]</option>
                     <?php for ( $i = date('Y'); $i >= 1900; $i--  ) { ?>
                         <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                     <?php } ?>
