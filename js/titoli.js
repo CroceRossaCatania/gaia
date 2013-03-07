@@ -36,18 +36,25 @@ function aggiungiTitolo (idTitolo) {
            $("#step2").show(500); 
            $("#dataInizio").datepicker({
                 beforeShow: function (e) {
-                    $("#dataInizio").datepicker('option', {
-                        maxDate:    $("#dataFine").datepicker('getDate')
-                    });
+                    if ( $("#dataFine").length > 0 ) {
+                        $("#dataInizio").datepicker('option', {
+                            maxDate:    $("#dataFine").datepicker('getDate')
+                        });   
+                    }
                 }
            });
-           $("#dataFine").datepicker({
-                beforeShow: function (e) {
-                    $("#dataFine").datepicker('option', {
-                        minDate:    $("#dataInizio").datepicker('getDate')
-                    });
-                }
-           }); 
+           if ( $("#dataFine").length > 0 ) {
+                $("#dataFine").datepicker({
+                     beforeShow: function (e) {
+                         if ( $("#dataInizio").length > 0 ) {
+                             $("#dataFine").datepicker('option', {
+                                 minDate:    $("#dataInizio").datepicker('getDate')
+                             }); 
+                         }
+                     }
+                }); 
+           }
+
         }); 
     } else {
         $("#step2 form").submit();
