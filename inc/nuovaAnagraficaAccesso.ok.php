@@ -20,7 +20,7 @@ $a = new Appartenenza();
 $a->volontario  = $sessione->utente()->id;
 $a->comitato    = $comitato->id;
 $a->inizio      = mktime(1, 0, 0, 1, 1, $anno);
-$a->fine        = strtotime('April 31');
+$a->fine        = PROSSIMA_SCADENZA;
 $a->richiedi();
 
 /* Imposta la password */

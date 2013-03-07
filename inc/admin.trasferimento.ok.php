@@ -34,7 +34,7 @@ if (isset($_GET['si'])) {
                                     $a->stato     = MEMBRO_PENDENTE;
                                     $a->conferma = '0';
                                     $a->inizio = time();
-                                    $a->fine = strtotime('April 31');
+                                    $a->fine = PROSSIMA_SCADENZA;
                                     $m = new Email('richiestaTrasferimentook', 'Richiesta trasferimento approvata: ' . $a->comitato()->nome);
                                     $m->a = $a->volontario();
                                     $m->_NOME       = $a->volontario()->nome;
