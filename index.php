@@ -109,19 +109,19 @@ if ( !file_exists($_f) ) {
             -->
             
             <?php
-            if ( $u = $sessione->utente() ) { 
+            if ( $me ) { 
             ?>
 			<div class="pull-right paddingSopra">
 			  
                           <div class="btn-group">
                             <a class="btn btn-danger" href="?p=me">
                                   <i class="icon-user icon-large"></i>&nbsp;
-                                  Ciao, <strong><?php echo $u->nome; ?></strong></a>
+                                  Ciao, <strong><?php echo $me->nome; ?></strong></a>
                             <button class="btn dropdown-toggle btn-danger" data-toggle="dropdown">
                                   <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <?php if ( $u->stato == VOLONTARIO ) { ?>
+                                <?php if ( $me->stato == VOLONTARIO ) { ?>
                                   <!--<li><a href="#"><i class="icon-reorder"></i> Attività</a></li>-->
                                   <!--<li class="divider"></li>-->
                                   <!--<li class="nav-header">Impostazioni</li>-->
@@ -138,7 +138,7 @@ if ( !file_exists($_f) ) {
                           </div>
                             
                             
-                            <?php if ( $u->admin() || $u->presiede() ) { ?>
+                            <?php if ( $me->admin() || $me->presiede() ) { ?>
                             <div class="btn-group">
                                 <?php
                                     /* Conto le notifiche */
@@ -215,7 +215,7 @@ if ( !file_exists($_f) ) {
                             <?php } ?>
 
             
-                            <?php if ( $u->admin() || $u->presiede() ) { ?>
+                            <?php if ( $me->admin() || $me->presiede() ) { ?>
                             <div class="btn-group">
                                 <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
                                     <i class="icon-wrench icon-large"></i>
