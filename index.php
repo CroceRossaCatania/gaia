@@ -16,6 +16,10 @@ $sessione = new Sessione(@$_COOKIE['sessione']);
 /* Crea eventuale oggetto $me */
 $me = $sessione->utente();
 
+/* Aggiorna la sessione con i miei dati... */
+$sessione->ip       = $_SERVER['REMOTE_ADDR'];
+$sessione->agent    = $_SERVER['HTTP_USER_AGENT'];
+
 /* Pagina da visualizzare */
 $p = $_GET['p'];
 if (!$p) { $p = 'home'; }
