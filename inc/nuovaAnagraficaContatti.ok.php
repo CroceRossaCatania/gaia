@@ -16,7 +16,10 @@ $email      = minuscolo($_POST['inputEmail']);
 $cell       = normalizzaNome($_POST['inputCellulare']);
 $cells      = normalizzaNome(@$_POST['inputCellulareServizio']);
 
-if ( Utente::by('email', $email) ) {
+/* Cerca eventuali utenti con la stessa email... */
+$e = Utente::by('email', $email);
+if ( $e and $e->password ) {
+    /* Se l'utente esiste, ed ha già pure una password */
     redirect('nuovaAnagraficaContatti&email');
 }
 
