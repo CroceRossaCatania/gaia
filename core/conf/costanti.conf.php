@@ -140,3 +140,12 @@ $conf['titoli'] = [
 	TITOLO_CRI       	=>	['Titolo di Croce Rossa',	true,	true,	false]
 ];
 
+
+
+/*
+ * ===================================
+ * =========== FINE APP. =============
+ * ===================================
+ */
+
+define('PROSSIMA_SCADENZA', strtotime('April 31'));
