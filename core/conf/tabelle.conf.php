@@ -114,8 +114,10 @@ $conf['database']['tables'] = [
                 inizio          varchar(64),
                 fine            varchar(64),
                 responsabile    varchar(32),
+                geo             point,        
                 PRIMARY KEY (id, nome),
-                INDEX (comitato, responsabile, inizio, fine)
+                INDEX (comitato, responsabile, inizio, fine),
+                SPATIAL INDEX(geo)
             '
         ],
         [

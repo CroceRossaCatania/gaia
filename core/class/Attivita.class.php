@@ -4,7 +4,7 @@
  * ©2012 Croce Rossa Italiana
  */
 
-class Attivita extends Entita {
+class Attivita extends GeoEntita {
         
     protected static
         $_t  = 'attivita',

@@ -147,4 +147,10 @@ class APIServer {
             }
             return $r;
         }
+        
+        public function api_geocoding() {
+            $this->richiedi(['query']);
+            $g = new Geocoder($this->par['query']);
+            return $g->risultati;
+        }
 }
