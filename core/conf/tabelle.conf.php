@@ -35,7 +35,8 @@ $conf['database']['tables'] = [
                 password        varchar(127),
                 codiceFiscale   varchar(16),
                 timestamp       varchar(64),
-                admin           varchar(64)
+                admin           varchar(64),
+                INDEX (codiceFiscale, email)
             '
         ],
         [
@@ -60,7 +61,8 @@ $conf['database']['tables'] = [
             'fields'    =>  '
                 id          int PRIMARY KEY,
                 utente      varchar(64),
-                timestamp   varchar(8)
+                timestamp   varchar(8),
+                INDEX(utente)
             '
         ],
         [
@@ -73,7 +75,8 @@ $conf['database']['tables'] = [
                 inizio      varchar(64),
                 fine        varchar(64),
                 timestamp   varchar(64),
-                conferma    varchar(64)
+                conferma    varchar(64),
+                INDEX (volontario, comitato)
             '
         ],
         [
@@ -96,7 +99,8 @@ $conf['database']['tables'] = [
                 luogo   varchar(64),
                 codice varchar(64),
                 tConferma       varchar(64),
-                pConferma       varchar(64)
+                pConferma       varchar(64),
+                INDEX (volontario)
             '
         ],
         [
@@ -110,7 +114,8 @@ $conf['database']['tables'] = [
                 inizio          varchar(64),
                 fine            varchar(64),
                 responsabile    varchar(32),
-                PRIMARY KEY (id, nome)
+                PRIMARY KEY (id, nome),
+                INDEX (comitato, responsabile, inizio, fine)
             '
         ],
         [
@@ -128,7 +133,34 @@ $conf['database']['tables'] = [
                 id          varchar(64) PRIMARY KEY,
                 volontario  varchar(16),
                 tipo        varchar(8),
-                timestamp   varchar(64)
+                timestamp   varchar(64),
+                INDEX (volontario)
             '
         ],
+        [
+            'name'      =>  'autorizzazioni',
+            'fields'    =>  '
+                id              int PRIMARY KEY,
+                volontario      varchar(16),
+                partecipazione  varchar(16),
+                timestamp       varchar(64),
+                pFirma          varchar(16),
+                tFirma          varchar(64),
+                note            text,
+                INDEX ( volontario, partecipazione )
+            '
+        ],
+        [
+            'name'      =>  'partecipazioni',
+            'fields'    =>  '
+                id          int PRIMARY KEY,
+                volontario  varchar(16),
+                attivita    varchar(16),
+                stato       varchar(8),
+                tipo        varchar(8),
+                timestamp   varchar(64),
+                INDEX ( volontario, attivita )
+            '
+        ]
+        
 ];

@@ -55,6 +55,42 @@ $conf['membro'] = [
 define('ATTIVITA_PRIVATA',		0);
 define('ATTIVITA_PUBBLICA',		1);
 
+/*
+ * ===================================
+ * =========== AUTORIZZAZIONE ========
+ * ===================================
+ */
+
+define('AUT_PENDING',       10);
+define('AUT_NO',            20);
+define('AUT_OK',            30);
+
+$conf['autorizzazione'] = [
+    AUT_PENDING         =>  'In attesa',
+    AUT_OK              =>  'Concessa',
+    AUT_NO              =>  'Negata'
+];
+
+
+
+/*
+ * ===================================
+ * =========== PARTECIPAZIONE ========
+ * ===================================
+ */
+
+
+define('PART_PENDING',      10);
+define('PART_NO',           20);
+define('PART_OK',           30);
+
+$conf['partecipazione'] = [
+    PART_PENDING        =>  'In attesa',
+    PART_NO             =>  'Negata',
+    PART_OK             =>  'Concessa'
+];
+
+
 
 /*
  * ===================================

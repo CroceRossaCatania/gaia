@@ -25,13 +25,13 @@ paginaPrivata();
                     Tutti i comitati
                 </td>
             </tr>
-            <?php foreach ( $me->appartenenze() as $c ) { ?>
+            <?php foreach ( $me->comitati() as $c ) { ?>
                 <tr>
-                    <td style="color: #<?php echo $c->comitato()->colore(); ?>;">
+                    <td style="color: #<?php echo $c->colore(); ?>;">
                         <i class="icon-sign-blank"></i>
                     </td>
                     <td>
-                        <?php echo $c->comitato()->nome; ?>
+                        <?php echo $c->nome; ?>
                     </td>
                 </tr>
             <?php } ?>

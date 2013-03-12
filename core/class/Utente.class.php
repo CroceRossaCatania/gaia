@@ -147,10 +147,10 @@ class Utente extends Persona {
     }
 
     public function calendarioAttivita(DT $inizio, DT $fine) {
-        $c = $this->appartenenze();
+        $c = $this->comitati();
         $t = [];
         foreach ( $c as $x ) {
-            foreach ( $x->comitato()->calendarioAttivitaPrivate($inizio, $fine) as $a ) {
+            foreach ( $x->calendarioAttivitaPrivate($inizio, $fine) as $a ) {
                 $t[] = $a;
             }
         }
@@ -184,6 +184,21 @@ class Utente extends Persona {
             $r[] = new Appartenenza($x[0]);
         }
         return $r;
+    }
+    
+    public function comitati($tipo = MEMBRO_VOLONTARIO) {
+        $c = [];
+        foreach ( $this->appartenenzeAttuali($tipo) as $a ) {
+            $c[] = $a->comitato();
+        }
+        return $c;
+    }
+    
+    public function unComitato($tipo = MEMBRO_VOLONTARIO) {
+        $c = $this->comitati($tipo);
+        if (!$c) { return false; }
+        shuffle($c);
+        return $c[0];
     }
     
     public function numeroAppartenenzeAttuali($tipo = MEMBRO_VOLONTARIO) {
@@ -286,6 +301,13 @@ class Utente extends Persona {
         ]);
         if ( !$d ) { return false; }
         return $d[0];
+    }
+    
+    public function autorizzazioniPendenti() {
+        return Autorizzazione::filtra([
+            ['volontario',  $this->id],
+            ['stato',       AUT_PENDING]
+        ]);
     }
     
 }

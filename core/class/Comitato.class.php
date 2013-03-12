@@ -35,6 +35,18 @@ class Comitato extends Entita {
         ]);
     }
     
+    public function haMembro ( Persona $tizio, $stato = MEMBRO_VOLONTARIO ) {
+        $membri = [];
+        foreach ( $this->membriAttuali($stato) as $m ) {
+            $membri[] = $m->id;
+        }
+        if ( in_array($tizio->id, $membri) ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public function membriAttuali($stato = MEMBRO_VOLONTARIO) {
         $q = $this->db->prepare("
             SELECT
@@ -106,4 +118,16 @@ class Comitato extends Entita {
         }
         return $r;
     }
+    
+    public function presidenti() {
+        return $this->membriAttuali(MEMBRO_PRESIDENTE);
+    }
+    
+    public function unPresidente() {
+        $p = $this->presidenti();
+        if ( !$p ) { return false; }
+        shuffle($p);
+        return $p[0];
+    }
+    
 }
