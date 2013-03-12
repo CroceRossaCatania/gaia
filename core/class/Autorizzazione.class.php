@@ -26,6 +26,14 @@ class Autorizzazione extends Entita {
         $this->partecipazione()->aggiornaStato();
     }
     
+    public function firmatario() {
+        if ( $this->pFirma ) {
+            return new Utente($this->pFirma);
+        } else {
+            return false;
+        }
+    }
+    
     public function concedi() {
         return $this->aggiorna(AUT_OK);
     }
