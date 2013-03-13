@@ -29,4 +29,10 @@ class Attivita extends GeoEntita {
     public function responsabile() {
     	return new Volontario($this->responsabile);
     }
+    
+    public static function ricercaPubbliche($x, $y, $raggio) {
+        return Attivita::filtraRaggio($x, $y, $raggio, [
+            ['pubblica',    ATTIVITA_PUBBLICA]
+        ]);
+    }
 }
