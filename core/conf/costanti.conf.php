@@ -184,4 +184,5 @@ $conf['titoli'] = [
  * ===================================
  */
 
-define('PROSSIMA_SCADENZA', strtotime('April 31'));
+/* 0 => Nessuna scadenza! */
+define('PROSSIMA_SCADENZA', 0);
