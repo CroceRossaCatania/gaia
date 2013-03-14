@@ -93,12 +93,12 @@ if ( !file_exists($_f) ) {
             </a>
             <a class="brand" href="#">
             	<img src="./img/logoTop.png" />
-            	&nbsp; <span class="muted">CRI</span> Catania
+            	&nbsp; <span class="muted">Croce Rossa Italiana</span> &nbsp; «Gaia»
             </a>
             <div class="nav-collapse collapse">
               <ul class="nav">
-                <li class="active"><a href="?p=home"><i class="icon-light-bulb"></i> «Gaia» &mdash; Reinventiamo la CRI</a></li>
-                <li><a href="http://www.cricatania.it"><i class="icon-reply"></i> Torna a www.cricatania.it</a></li>
+                <li class="active"><a href="?p=home"><i class="icon-light-bulb"></i> Reinventiamo la CRI</a></li>
+                <!-- <li><a href="http://www.cricatania.it"><i class="icon-reply"></i> Torna a www.cricatania.it</a></li> -->
                 
               </ul>
             
