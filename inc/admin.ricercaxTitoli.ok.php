@@ -32,6 +32,7 @@ $t = $_POST['idTitolo'];
 if($me->admin()){
         $t = TitoloPersonale::filtra([['titolo',$t]]);
   foreach ( $t as $_t ) { 
+      if($_t->pConferma!=''){
       $_v = $_t->volontario();  // Una volta per tutte ?> 
     <tr>
         <td><?php echo $_t->id; ?></td>
@@ -42,7 +43,7 @@ if($me->admin()){
         <td><?php echo $_v->comuneNascita; ?></td>
         <td><?php echo $_t->titolo()->nome; ?></td>
     </tr>
-    <?php }
+    <?php }}
     
     
 }
