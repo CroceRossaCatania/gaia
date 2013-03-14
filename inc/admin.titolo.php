@@ -4,7 +4,7 @@
  * ©2012 Croce Rossa Italiana
  */
 
-paginaAdmin();
+paginaPrivata();
 
 $id     = $_GET['id'];
 $t      = new TitoloPersonale($id);
