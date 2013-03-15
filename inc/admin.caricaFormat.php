@@ -25,6 +25,9 @@ paginaAdmin();
             <button type="submit" class="btn btn-danger">
                 <i class="icon-fire"></i> Importa dati in massa ed invia email
             </button>
+            <button name="pass" type="submit" class="btn btn-danger">
+                <i class="icon-key"></i> Importa dati in massa e genera password
+            </button>
         </div>
 
     </form>
