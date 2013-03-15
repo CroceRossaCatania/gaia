@@ -46,7 +46,7 @@ if($me->admin()){
   foreach ( $t as $_t ) { 
       $c=$_t->comitato();
       $_v = $_t->volontario();   // Una volta per tutte
-      if($_t->fine>=time()){?>
+      if($_t->attuale()){?>
     <tr>
         <td><?php echo $_t->id; ?></td>
         <td><?php echo $_v->nome; ?></td>
