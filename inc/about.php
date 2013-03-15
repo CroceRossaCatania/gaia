@@ -16,7 +16,7 @@
             <ul>
                 <li><strong>Efficienza</strong>: Bisogna cavare il potenziale inespresso di Croce Rossa.</li>
                 <li><strong>Semplicità</strong>: Il sistema deve essere semplice per chiunque.</li>
-                <li><strong>Trasparenza</strong>: Croce Ross aè aperta e trapsarente a tutti.</li>
+                <li><strong>Trasparenza</strong>: Croce Rossa è aperta e trapsarente a tutti.</li>
             </ul>
         </p>
         <p>&nbsp;</p>

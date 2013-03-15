@@ -39,6 +39,46 @@ while ( $riga = fgetcsv($file, 0, ';') ) {
     $p->codiceFiscale       = $codiceFiscale;
     $p->nome                = normalizzaNome($riga[0]);
     $p->cognome             = normalizzaNome($riga[1]);
+    if (isset($_POST['pass'])) {
+    $p->stato = VOLONTARIO; /* format con pass e conferma*/
+    $p->timestamp = time(); /* format con pass e conferma*/
+    
+    /* format con pass e conferma*/
+    
+    $length = 6;
+
+// impostare password bianca
+$password = "";
+
+// caratteri possibili
+$possible = "2346789bcdfghjkmnpqrtvwxyzBCDFGHJKLMNPQRTVWXYZ";
+
+ //massima lunghezza caratteri
+ $maxlength = strlen($possible);
+  
+ // se troppo lunga taglia la password
+if ($length > $maxlength) {
+      $length = $maxlength;
+}
+    
+$i = 0; 
+    
+ // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
+ while ($i < $length) { 
+
+    // prende un carattere casuale per creare la password
+   $char = substr($possible, mt_rand(0, $maxlength-1), 1);
+
+    // verifica se il carattere precedente è uguale al successivo
+   if (!strstr($password, $char)) { 
+        $password .= $char;
+        $i++;
+   }
+
+}
+    
+    $p->cambiaPassword($password);
+    }
     $p->dataNascita         = $dnascita;
     $xyz = explode(' (', $riga[3]);
     $p->comuneNascita = normalizzaNome($xyz[0]);
@@ -61,6 +101,24 @@ while ( $riga = fgetcsv($file, 0, ';') ) {
     /* Imposta la data di nascita */
     $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[12]);
     $dingresso   = $dingresso->getTimestamp();
+    if (isset($_POST['pass'])) {
+    /* format con pass e conferma*/
+    $app = new Appartenenza();
+    $comitato = Comitato::by('nome', $riga[13]);
+    $comitato = $comitato->id;
+    $t = Appartenenza::filtra([['stato', MEMBRO_PRESIDENTE],['comitato',$comitato]]);
+    $app->comitato = $comitato;
+    $app->volontario = $p->id;
+    $app->inizio = $dingresso;
+    $app->timestamp   = time();
+    $app->stato     = MEMBRO_VOLONTARIO;
+    $app->conferma  = $t[0]->volontario;
+    $m = new Email('registrazioneFormatpass', 'Registrato su Gaia');
+    $m->a = $p;
+    $m->_NOME       = $p->nome;
+    $m->_PASSWORD   = $password;
+    $m->invia();
+    }
     
     $m = new Email('registrazioneFormat', 'Registrati su Gaia');
     $m->a = $p;
@@ -73,3 +131,7 @@ echo "Sono stati caricati: $i utenti";
 fclose($file);
 ?>
 </code></pre>
+
+
+
+
