@@ -55,7 +55,7 @@ class GeoEntita extends Entita {
         $centro = "GeomFromText(\"POINT({$lat} {$lng})\")"; 
         $q = $db->prepare("
             SELECT id FROM ". static::$_t . " WHERE 
-                SQRT(POW( ABS( X(geo) - X($centro)), 2) + POW( ABS(Y(geo) - Y($centro)), 2 )) < $raggui
+                SQRT(POW( ABS( X(geo) - X($centro)), 2) + POW( ABS(Y(geo) - Y($centro)), 2 )) < $raggio
               AND
                 $stringa");
         $q->execute();

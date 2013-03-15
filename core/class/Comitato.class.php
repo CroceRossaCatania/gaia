@@ -130,4 +130,17 @@ class Comitato extends Entita {
         return $p[0];
     }
     
+    public function delegati($app = null) {
+        if ( $app ) {
+            $app = (int) $app;
+            return Delegato::filtra([
+                ['comitato',        $this->id],
+                ['applicazione',    $app]
+            ]);
+        } else {
+            return Delegato::filtra([
+                ['comitato',    $this->id]
+            ]);
+        }
+    }
 }

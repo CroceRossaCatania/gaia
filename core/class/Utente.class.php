@@ -310,4 +310,35 @@ class Utente extends Persona {
         ]);
     }
     
+    public function delegazioni($app = null) {
+        if ( $app ) {
+            $app = (int) $app;
+            return Delegato::filtra([
+                ['volontario',      $this->id],
+                ['applicazione',    $app]
+            ]);
+        } else {
+            return Delegato::filtra([
+                ['volontario',      $this->id]
+            ]);
+        }
+    }
+    
+    public function partecipazioni( $stato = PART_PENDING ) {
+        $q = $this->db->prepare("
+            SELECT  id
+            FROM    partecipazioni
+            WHERE   volontario = :id
+            AND     stato = :stato
+            ORDER BY    timestamp DESC");
+        $q->bindParam(':id',    $this->id);
+        $q->bindParam(':stato', $stato);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Partecipazione($k[0]);
+        }
+        return $r;
+    }
+    
 }

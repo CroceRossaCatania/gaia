@@ -5,7 +5,7 @@
  */
 
 class Partecipazione extends Entita {
-        
+
     protected static
         $_t  = 'partecipazioni',
         $_dt = null;
@@ -14,20 +14,20 @@ class Partecipazione extends Entita {
         return new Volontario($this->volontario);
     }
     
-    public function attivita() {
-        return new Attivita($this->attivita);
+    public function turno() {
+        return new Turno($this->turno);
     }
-    
+
     public function comitatoAppartenenza() {
-        return $this->attivita()->comitato();
+        return $this->turno()->attivita()->comitato();
     }
-    
+
     public function autorizzazioni() {
         return Autorizzazione::filtra([
             ['partecipazione',  $this->id]
         ]);
     }
-    
+
     public function aggiornaStato() {
         $stato = AUT_OK;
         foreach ( $this->autorizzazioni() as $a ) {
@@ -41,7 +41,7 @@ class Partecipazione extends Entita {
         $this->stato = $stato;
         return $stato;
     }
-    
+
     public function generaAutorizzazioni() {
         
         /* IMPORTANTE: Logica generazione autorizzazioni */
@@ -55,7 +55,7 @@ class Partecipazione extends Entita {
              */
             $a = new Autorizzazione();
             $a->partecipazione = $this->id;
-            $a->volontario     = $this->comitatoAppartenenza()->unPresidente();
+            $a->volontario     = $this->turno()->attivita()->referente()->id;
             $a->richiedi();
             
         } else {
@@ -68,18 +68,17 @@ class Partecipazione extends Entita {
             // Al suo...
             $a = new Autorizzazione();
             $a->partecipazione = $this->id;
-            $a->volontario     = $this->comitatoAppartenenza()->unPresidente();
+            $a->volontario     = $this->turno()->attivita()->referente()->id;
             $a->richiedi();
             
             // Al mio...
             $a = new Autorizzazione();
             $a->partecipazione = $this->id;
-            $a->volontario     = $this->volontario()->unComitato()->unPresidente();
+            $a->volontario     = $this->volontario()->unComitato()->unPresidente()->id;
             $a->richiedi();
             
         }
         
     }
-    
-    
+
 }

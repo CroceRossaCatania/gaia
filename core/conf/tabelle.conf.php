@@ -106,17 +106,17 @@ $conf['database']['tables'] = [
         [
             'name'      =>  'attivita',
             'fields'    =>  '
-                id          int,
+                id              int,
                 nome            varchar(255),
                 luogo           varchar(255),
                 comitato        varchar(32),
                 pubblica        varchar(8),
-                inizio          varchar(64),
-                fine            varchar(64),
-                responsabile    varchar(32),
-                geo             point,        
+                tipo            varchar(8),
+                referente       varchar(32),
+                geo             point,
+                descrizione     text,
                 PRIMARY KEY (id, nome),
-                INDEX (comitato, responsabile, inizio, fine),
+                INDEX (comitato, responsabile, tipo),
                 SPATIAL INDEX(geo)
             '
         ],
@@ -153,16 +153,40 @@ $conf['database']['tables'] = [
             '
         ],
         [
+            'name'      =>  'turni',
+            'fields'    =>  '
+                id          int PRIMARY KEY,
+                attivita    varchar(16),
+                nome        varchar(64),
+                inizio      varchar(64),
+                fine        varchar(64),
+                timestamp   varchar(64)
+            '
+        ],
+        [
             'name'      =>  'partecipazioni',
             'fields'    =>  '
                 id          int PRIMARY KEY,
                 volontario  varchar(16),
-                attivita    varchar(16),
+                turno       varchar(16),
                 stato       varchar(8),
                 tipo        varchar(8),
                 timestamp   varchar(64),
+                tConferma   varchar(64),
+                pConferma   varchar(16),
                 INDEX ( volontario, attivita )
             '
+        ],
+        [
+            'name'  =>  'delegati',
+            'fields'    =>  '
+                id              int PRIMARY KEY,
+                comitato        varchar(16),
+                volontario      varchar(16),
+                applicazione    varchar(16),
+                dominio         varchar(16),
+                pConferma       varchar(16),
+                tConferma       varchar(64)'
         ]
         
 ];

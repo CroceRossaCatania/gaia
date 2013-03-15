@@ -186,3 +186,32 @@ $conf['titoli'] = [
 
 /* 0 => Nessuna scadenza! */
 define('PROSSIMA_SCADENZA', 0);
+
+
+/*
+ * ===================================
+ * =========== DELEGATI ==============
+ * ===================================
+ */
+define('APP_ATTIVITA',      10);
+define('APP_PROTOCOLLO',    20);
+
+$conf['applicazioni'] = [
+    APP_ATTIVITA    =>  "Attività",
+    APP_PROTOCOLLO  =>  "Protocollo"
+];
+
+/*
+ * ===================================
+ * =========== APP_ATTIVITA ==========
+ * ===================================
+ */
+define('APP_ATTIVITA_TUTTO',     0);
+define('APP_ATTIVITA_PIAZZA',   10);
+define('APP_ATTIVITA_CORSI',    20);
+
+$conf['app_attivita'] = [
+    APP_ATTIVITA_TUTTO  =>  'Tutte le attività',
+    APP_ATTIVITA_PIAZZA =>  'Attività di Piazza',
+    APP_ATTIVITA_CORSI  =>  'Corsi e formazione'
+];
