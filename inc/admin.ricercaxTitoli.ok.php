@@ -29,7 +29,7 @@ $t = $_POST['idTitolo'];
         <th>Titolo</th>
     </thead>
 <?php
-if($me->admin()){
+if($me->admin() || $me->presiede()){
         $t = TitoloPersonale::filtra([['titolo',$t]]);
   foreach ( $t as $_t ) { 
       if($_t->pConferma!=''){
