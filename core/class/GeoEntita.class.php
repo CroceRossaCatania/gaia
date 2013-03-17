@@ -66,4 +66,13 @@ class GeoEntita extends Entita {
         return $t;
     }
     
+    protected function _crea () { 
+        $this->id = $this->generaId();
+        $q = $this->db->prepare("
+            INSERT INTO ". static::$_t ."
+            (id, geo) VALUES (:id, GeomFromText('POINT (0 0)'))");
+        $q->bindParam(':id', $this->id);
+        return $q->execute();
+    }
+    
 }

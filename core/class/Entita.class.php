@@ -137,6 +137,7 @@ class Entita {
         if ($cache) {
             $cache->set(static::$_t . ':' . $id, true);
         }
+        
         return $y;
     }
     
@@ -149,7 +150,7 @@ class Entita {
         return (int) $r[0] + 1;
     }
     
-    private function _crea () { 
+    protected function _crea () { 
         $this->id = $this->generaId();
         $q = $this->db->prepare("
             INSERT INTO ". static::$_t ."
