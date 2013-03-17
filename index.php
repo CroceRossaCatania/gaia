@@ -214,6 +214,13 @@ if ( !file_exists($_f) ) {
                                         </a>
                                     </li>
                                     
+                                    <li>
+                                        <a href="?p=admin.Referenti">
+                                            <i class="icon-user"></i>
+                                            Referenti Comitato
+                                        </a>
+                                    </li>
+                                    
                                 </ul>
                             </div>
                             <?php } ?>
