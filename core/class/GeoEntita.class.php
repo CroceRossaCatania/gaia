@@ -66,6 +66,15 @@ class GeoEntita extends Entita {
         return $t;
     }
     
+    public function haPosizione() {
+        $c = $this->coordinate();
+        if ( $c[0] == 0 && $c[1] == 0 ) {
+            return false; 
+        } else {
+            return true;
+        }
+    }
+    
     protected function _crea () { 
         $this->id = $this->generaId();
         $q = $this->db->prepare("

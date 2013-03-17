@@ -165,6 +165,8 @@ $conf['database']['tables'] = [
                 nome        varchar(64),
                 inizio      varchar(64),
                 fine        varchar(64),
+                minimo      varchar(8),
+                massimo     varchar(8),
                 timestamp   varchar(64)
             '
         ],

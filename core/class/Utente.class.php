@@ -352,6 +352,15 @@ class Utente extends Persona {
         return array_unique($c);
     }
     
+    public function dominiDelegazioni($app) {
+        $d = $this->delegazioni($app);
+        $c = [];
+        foreach ( $d as $k ) {
+            $c[] = $k->dominio;
+        }
+        return array_unique($c);
+    }
+    
     public function partecipazioni( $stato = PART_PENDING ) {
         $q = $this->db->prepare("
             SELECT  id

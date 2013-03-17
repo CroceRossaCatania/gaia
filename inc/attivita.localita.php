@@ -37,7 +37,7 @@ $a = new Attivita(@$_GET['id']);
         <p>Inserisci un indirizzo geografico.</p>
         
         <div class="input-append">
-            <input type="text" id="ricercaLuogo" class="input-large" autofocus placeholder="es.: Via Massimo, 50 Roma" />
+            <input type="text" id="ricercaLuogo" class="input-large" autofocus placeholder="es.: Via Massimo, 50 Roma" value="<?php echo $a->luogo; ?>" />
             <button class="btn btn-success">
                 <i class="icon-search"></i>
             </button>
@@ -76,7 +76,8 @@ $a = new Attivita(@$_GET['id']);
         
         <hr />
         <form action="?p=attivita.localita.ok" method="POST">
-            <input type="hidden" id="formattato" name="formattato" value="" />
+            <input type="hidden" name="id" value="<?php echo $a->id; ?>" />
+            <input type="hidden" id="formattato" name="formattato" value="<?php echo $a->luogo; ?>" />
             <button id="pulsanteOk" type="submit" class="btn btn-block btn-success btn-large disabled" disabled="disabled">
                 <i class="icon-ok"></i> Accetta questa posizione
             </button>

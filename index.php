@@ -57,6 +57,7 @@ if ( !file_exists($_f) ) {
     <script type="text/javascript" src="js/modernizr.custom.03290.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/jquery.timepicker.js"></script>
     <script type="text/javascript" src="js/fullcalendar.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/app.js"></script>

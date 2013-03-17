@@ -17,5 +17,11 @@ class Turno extends Entita {
     public function fine() {
     	return new DT('@'. $this->fine);
     }
+    
+    public function partecipazioni() {
+        return Partecipazione::filtra([
+            ['turno',   $this->id]
+        ]);
+    }
 
 }
