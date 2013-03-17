@@ -6,6 +6,6 @@
 
 $t = $_GET['id'];
 $f = new Delegato($t);
-$f->fine = time();
+$f->cancella();
 
 redirect('admin.Referenti&ok');

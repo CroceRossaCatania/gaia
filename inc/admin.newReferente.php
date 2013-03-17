@@ -3,10 +3,24 @@
 /*
  * ©2012 Croce Rossa Italiana
  */
-paginaPrivata();
+paginaPresidenziale();
 $t = $_GET['id'];
 ?>
 <form class="form-horizontal" action="?p=admin.newReferente.ok&id=<?php echo $t; ?>" method="POST">
+    
+          <div class="control-group">
+            <label class="control-label" for="inputComitato">Comitato</label>
+            <div class="controls">
+                <select required name="inputComitato" id="inputComitato" autofocus class="input-xlarge">
+                    <option value="" selected="selected">[ Seleziona un Comitato ]</option>
+                    <?php 
+                    foreach ( $me->comitatiDiCompetenza() as $c ) { ?>
+                        <option value="<?php echo $c->id; ?>"><?php echo $c->nome; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+          </div>
+    
 <div class="control-group">
             <label class="control-label" for="inputApplicazione"> Applicazione</label>
             <div class="controls">
@@ -17,6 +31,7 @@ $t = $_GET['id'];
                 </select>
             </div>
           </div>
+    
  <div class="control-group">
             <label class="control-label" for="inputDominio"> Dominio</label>
             <div class="controls">

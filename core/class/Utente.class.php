@@ -231,6 +231,14 @@ class Utente extends Persona {
         return $this->appartenenzeAttuali(MEMBRO_PRESIDENTE);
     }
     
+    public function comitatiPresidenzianti() {
+        $c = [];
+        foreach ( $this->appartenenzeAttuali(MEMBRO_PRESIDENTE) as $a ) {
+            $c[] = $a->comitato();
+        }
+        return array_unique($c);
+    }
+    
     public function presiede() {
         return (bool) $this->numeroAppartenenzeAttuali(MEMBRO_PRESIDENTE);
     }
@@ -247,8 +255,19 @@ class Utente extends Persona {
         }
     }
     
+    public function comitatiDiCompetenza() {
+        if ( $this->admin ) {
+            return Comitato::elenco('nome ASC');
+        } else {
+            return $this->comitatiPresidenzianti();
+        }
+    }
+
     public function cancella() {
         $this->avatar()->cancella();
+        foreach ( $this->appartenenze() as $a ) {
+            $a->cancella();
+        }
         parent::cancella();
     }
     
@@ -322,6 +341,15 @@ class Utente extends Persona {
                 ['volontario',      $this->id]
             ]);
         }
+    }
+    
+    public function comitatiDelegazioni($app = null) {
+        $d = $this->delegazioni($app);
+        $c = [];
+        foreach ( $d as $k ) {
+            $c[] = $k->comitato();
+        }
+        return array_unique($c);
     }
     
     public function partecipazioni( $stato = PART_PENDING ) {

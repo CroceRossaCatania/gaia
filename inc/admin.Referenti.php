@@ -4,7 +4,8 @@
  * ©2012 Croce Rossa Italiana
  */
 
-paginaPrivata();
+paginaPresidenziale();
+
 ?>
 <script type="text/javascript"><?php require './js/admin.listaUtenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -24,7 +25,7 @@ paginaPrivata();
         <div class="controls">
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-search"></i></span>
-                <input data-t="<?php echo $t; ?>" required id="cercaUtente" placeholder="Cerca utente..." class="span4" type="text">
+                <input required id="cercaUtente" placeholder="Cerca utente..." class="span4" type="text">
             </div>
         </div>
     </div> 
@@ -43,34 +44,40 @@ paginaPrivata();
         <th>Azione</th>
     </thead>
 <?php
-if($me->admin() || $me->presiede()){
-  foreach ( $comitato->delegati() as $delegato ) { 
-      $t = Appartenenza::filtra([['volontario', $delegato]]);
-      $c=$_t->comitato();
-      $_v = $_t->volontario();   // Una volta per tutte
-      if($_t->attuale()){?>
-    <tr>
-        <td><?php echo $_delegato->id; ?></td>
-        <td><?php echo $_v->nome; ?></td>
-        <td><?php echo $_v->cognome; ?></td>
-        <td><?php echo $_v->codiceFiscale; ?></td>
-        <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
-        <td><?php echo $_v->comuneNascita; ?></td>
-        <td><?php echo $c->nome; ?></td>
-        <td><?php echo $delegato->applicazione; ?></td>
-        <td><?php echo $delegato->dominio; ?></td>
-        <td>
-                <a class="btn btn-danger" onClick="return confirm('Vuoi veramente dimettere questo Referente ?');" href="?p=admin.dimettiReferente&id=<?php echo $_t->id; ?>">
-                <i class="icon-ban-circle"></i>
-                    Dimetti
-                </a>
-        </td>
-       
-    </tr>
-    <?php }}
-    
-    
-}
+foreach ( $me->comitatiDiCompetenza() as $comitato ) {
+
+    foreach ( $comitato->delegati() as $delegato ) { 
+        $_v = $delegato->volontario();
+        ?>
+        <tr>
+            <td><?php echo $delegato->id; ?></td>
+            <td><?php echo $_v->nome; ?></td>
+            <td><?php echo $_v->cognome; ?></td>
+            <td><?php echo $_v->codiceFiscale; ?></td>
+            <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
+            <td><?php echo $_v->comuneNascita; ?></td>
+            <td><?php echo $comitato->nome; ?></td>
+            <td><?php echo $conf['applicazioni'][$delegato->applicazione]; ?></td>
+            <td>
+                <?php if ( $delegato->applicazione == APP_ATTIVITA ) { ?>
+                  Attività: <?php echo $conf['app_attivita'][$delegato->dominio]; ?>
+                <?php } ?>
+            </td>
+            <td>
+                    <a class="btn btn-danger" onClick="return confirm('Vuoi veramente dimettere questo Referente ?');" href="?p=admin.dimettiReferente&id=<?php echo $delegato->id; ?>">
+                    <i class="icon-ban-circle"></i>
+                        Dimetti
+                    </a>
+            </td>
+
+        </tr>
+      <?php 
+      
+      }
+      
+ }
+
+
 ?>
  
 </table>

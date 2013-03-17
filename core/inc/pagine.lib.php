@@ -29,6 +29,14 @@ function paginaAdmin() {
     }
 }
 
+function paginaPresidenziale() {
+    paginaPrivata();
+    global $sessione;
+    if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin ) {
+        redirect('me');
+    }
+}
+
 function menuVolontario() {
     include('./inc/menuVolontario.php');
 }
