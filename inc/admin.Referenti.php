@@ -50,17 +50,17 @@ if($me->admin() || $me->presiede()){
       $_v = $_t->volontario();   // Una volta per tutte
       if($_t->attuale()){?>
     <tr>
-        <td><?php echo $_t->id; ?></td>
+        <td><?php echo $_delegato->id; ?></td>
         <td><?php echo $_v->nome; ?></td>
         <td><?php echo $_v->cognome; ?></td>
         <td><?php echo $_v->codiceFiscale; ?></td>
         <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
         <td><?php echo $_v->comuneNascita; ?></td>
         <td><?php echo $c->nome; ?></td>
-        <td><?php echo $_v->comuneNascita; ?></td>
-        <td><?php echo $c->nome; ?></td>
+        <td><?php echo $delegato->applicazione; ?></td>
+        <td><?php echo $delegato->dominio; ?></td>
         <td>
-                <a class="btn btn-danger" onClick="return confirm('Vuoi veramente dimettere questo Presidente ?');" href="?p=admin.dimettiPresidente&id=<?php echo $_t->id; ?>">
+                <a class="btn btn-danger" onClick="return confirm('Vuoi veramente dimettere questo Referente ?');" href="?p=admin.dimettiReferente&id=<?php echo $_t->id; ?>">
                 <i class="icon-ban-circle"></i>
                     Dimetti
                 </a>
