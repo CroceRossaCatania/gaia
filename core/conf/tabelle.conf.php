@@ -36,7 +36,8 @@ $conf['database']['tables'] = [
                 codiceFiscale   varchar(16),
                 timestamp       varchar(64),
                 admin           varchar(64),
-                INDEX (codiceFiscale, email)
+                INDEX (codiceFiscale),
+                INDEX(email)
             '
         ],
         [
@@ -76,7 +77,8 @@ $conf['database']['tables'] = [
                 fine        varchar(64),
                 timestamp   varchar(64),
                 conferma    varchar(64),
-                INDEX (volontario, comitato)
+                INDEX (volontario),
+                INDEX (comitato)
             '
         ],
         [
@@ -113,10 +115,12 @@ $conf['database']['tables'] = [
                 pubblica        varchar(8),
                 tipo            varchar(8),
                 referente       varchar(32),
-                geo             point,
+                geo             point NOT NULL,
                 descrizione     text,
-                PRIMARY KEY (id, nome),
-                INDEX (comitato, responsabile, tipo),
+                PRIMARY KEY (id),
+                INDEX (comitato),
+                INDEX (referente),
+                INDEX (tipo),
                 SPATIAL INDEX(geo)
             '
         ],
@@ -149,7 +153,8 @@ $conf['database']['tables'] = [
                 pFirma          varchar(16),
                 tFirma          varchar(64),
                 note            text,
-                INDEX ( volontario, partecipazione )
+                INDEX ( volontario ),
+                INDEX ( partecipazione )
             '
         ],
         [
@@ -174,7 +179,8 @@ $conf['database']['tables'] = [
                 timestamp   varchar(64),
                 tConferma   varchar(64),
                 pConferma   varchar(16),
-                INDEX ( volontario, attivita )
+                INDEX ( volontario ),
+                INDEX ( turno )
             '
         ],
         [
