@@ -75,7 +75,7 @@ paginaPubblica();
 <div class="row-fluid centrato">
     
     <div class="span5 well well-small sf2">
-        <h3 class="muted"><i class="icon-minus-sign"></i> Burocrazia</h3>
+        <h3 class="muted"><i class="icon-minus-sign"></i> Carte</h3>
         <h2 class="text-error"><i class="icon-plus-sign"></i> Volontariato</h3>
     </div>
     
