@@ -44,7 +44,7 @@ paginaPrivata();
     </thead>
 <?php
 if($me->admin() || $me->presiede()){
-  foreach ( $comitato->delegati(APP_ATTIVITA) as $delegato ) { 
+  foreach ( $comitato->delegati() as $delegato ) { 
       $t = Appartenenza::filtra([['volontario', $delegato]]);
       $c=$_t->comitato();
       $_v = $_t->volontario();   // Una volta per tutte
