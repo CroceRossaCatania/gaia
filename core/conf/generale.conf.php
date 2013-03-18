@@ -8,9 +8,9 @@
 $conf['debug']  =   true;
 
 $conf['version']	= 1.0;
-$conf['name']		= 'Diefenbaker';
+$conf['name']		= 'Gaia';
 $conf['vendor']		= 'Croce Rossa Italiana';
-$conf['copyright']	= '©2012 Croce Rossa Italiana';
+$conf['copyright']	= '©2013 Croce Rossa Italiana';
 $conf['status']		= 'Online and working';
 $conf['docs']		= 'No publicy available docs yet.';
 
