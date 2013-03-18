@@ -11,8 +11,9 @@ $menu = [
     'Volontario'    =>  [
         'anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
         'storico'    =>  '<i class="icon-time"></i> Storico',
-        'documenti'  =>  '<i class="icon-folder-open"></i> Documenti',
-        'incarichi'  =>  '<i class="icon-briefcase"></i> Incarichi'
+        'incarichi'  =>  '<i class="icon-briefcase"></i> Incarichi',
+        'documenti'  =>  '<i class="icon-folder-open"></i> Documenti'
+        
     ],
     'Curriculum'    =>  [
         'titoli&t=0' =>  '<i class="icon-magic"></i> Competenze pers.',
