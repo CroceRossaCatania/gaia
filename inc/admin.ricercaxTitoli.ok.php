@@ -6,6 +6,7 @@
 
 paginaPrivata();
 $t = $_POST['idTitolo'];
+$t = TitoloPersonale::filtra([['titolo',$t]]);
 ?>
 
 <br/>
@@ -29,24 +30,28 @@ $t = $_POST['idTitolo'];
         <th>Titolo</th>
     </thead>
 <?php
-if($me->admin() || $me->presiede()){
-        $t = TitoloPersonale::filtra([['titolo',$t]]);
+if($me->presiede()){
+  foreach($me->presidenziante() as $appartenenza){
+             $c=$appartenenza->comitato()->id;     
   foreach ( $t as $_t ) { 
-      if($_t->pConferma!=''){
-      $_v = $_t->volontario();  // Una volta per tutte ?> 
-    <tr>
-        <td><?php echo $_t->id; ?></td>
-        <td><?php echo $_v->nome; ?></td>
-        <td><?php echo $_v->cognome; ?></td>
-        <td><?php echo $_v->codiceFiscale; ?></td>
-        <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
-        <td><?php echo $_v->comuneNascita; ?></td>
-        <td><?php echo $_t->titolo()->nome; ?></td>
-    </tr>
+      $a=$_t->volontario()->id;
+      $a = Appartenenza::filtra([['volontario',$a],['comitato',$c]]);
+      if($a[0]!=''){
+        if($_t->pConferma!=''){
+            $_v = $_t->volontario();  // Una volta per tutte ?> 
+            <tr>
+                <td><?php echo $_t->id; ?></td>
+                <td><?php echo $_v->nome; ?></td>
+                <td><?php echo $_v->cognome; ?></td>
+                <td><?php echo $_v->codiceFiscale; ?></td>
+                <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
+                <td><?php echo $_v->comuneNascita; ?></td>
+                <td><?php echo $_t->titolo()->nome; ?></td>
+            </tr>
     <?php }}
     
     
-}
+}}}
 ?>
  
 </table>
