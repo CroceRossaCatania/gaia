@@ -51,7 +51,22 @@ if($me->presiede()){
     <?php }}
     
     
-}}}
+}}}elseif($me->admin()){
+  foreach ( $t as $_t ) { 
+    if($_t->pConferma!=''){
+            $_v = $_t->volontario();  // Una volta per tutte ?> 
+            <tr>
+                <td><?php echo $_t->id; ?></td>
+                <td><?php echo $_v->nome; ?></td>
+                <td><?php echo $_v->cognome; ?></td>
+                <td><?php echo $_v->codiceFiscale; ?></td>
+                <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
+                <td><?php echo $_v->comuneNascita; ?></td>
+                <td><?php echo $_t->titolo()->nome; ?></td>
+            </tr>
+    <?php }}
+    
+}
 ?>
  
 </table>
