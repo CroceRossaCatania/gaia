@@ -28,6 +28,7 @@ $t = TitoloPersonale::filtra([['titolo',$t]]);
         <th>Data di Nascita</th>
         <th>Luogo di Nascita</th>
         <th>Titolo</th>
+        <th>Azioni</th>
     </thead>
 <?php
 if($me->presiede()){
@@ -47,6 +48,12 @@ if($me->presiede()){
                 <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
                 <td><?php echo $_v->comuneNascita; ?></td>
                 <td><?php echo $_t->titolo()->nome; ?></td>
+                <td>    
+                    <a class="btn btn-success" href="?p=admin.inviaMail&id=<?php echo $_v->id; ?>">
+                    <i class="icon-envelope"></i>
+                    Invia mail
+                    </a>
+                </td>
             </tr>
     <?php }}
     
@@ -63,10 +70,24 @@ if($me->presiede()){
                 <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
                 <td><?php echo $_v->comuneNascita; ?></td>
                 <td><?php echo $_t->titolo()->nome; ?></td>
+                <td>    
+                    <a class="btn btn-success" href="?p=admin.inviaMail&id=<?php echo $_v->id; ?>">
+                    <i class="icon-envelope"></i>
+                    Invia mail
+                    </a>
+                </td>
             </tr>
-    <?php }}
+    <?php }} ?>
+           <!-- <tr>
+                 <td colspan="8">
+                     <button type="submit" name="azione" value="aggiungiTurno" class="btn btn-block btn-success">
+                        <i class="icon-envelope"></i>
+                        Invia mail a tutti
+                     </button>
+                 </td>
+             </tr>-->
     
-}
+<?php }
 ?>
  
 </table>
