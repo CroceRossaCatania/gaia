@@ -56,5 +56,5 @@ $header .= "Content-type: text/html; charset=utf-8\r\n";
 $header .= 'From: "'.$nome.' '.$cognome.'" <'.$mittente.'> \r\n';
 mail($mail, $oggetto, $testo, $header);
 }  
-/*redirect('admin.inviaMail.inviata&ok');*/
+redirect('admin.inviaMail.inviata&ok');
 ?>
