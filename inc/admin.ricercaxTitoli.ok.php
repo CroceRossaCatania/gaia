@@ -5,8 +5,8 @@
  */
 
 paginaPrivata();
-$t = $_POST['idTitolo'];
-$t = TitoloPersonale::filtra([['titolo',$t]]);
+$f = $_POST['idTitolo'];
+$t = TitoloPersonale::filtra([['titolo',$f]]);
 ?>
 
 <br/>
@@ -55,10 +55,18 @@ if($me->presiede()){
                     </a>
                 </td>
             </tr>
-    <?php }}
-    
-    
-}}}elseif($me->admin()){
+            
+    <?php }}} ?>
+<tr>
+                 <td colspan="8">
+                     <a type="submit" href="?p=admin.inviaMail&mass&t=<?php echo $f; ?>"  class="btn btn-block btn-success">
+                        <i class="icon-envelope"></i>
+                        Invia mail a tutti
+                     </a>
+                 </td>
+             </tr>
+
+<?php }}elseif($me->admin()){
   foreach ( $t as $_t ) { 
     if($_t->pConferma!=''){
             $_v = $_t->volontario();  // Una volta per tutte ?> 
@@ -78,14 +86,14 @@ if($me->presiede()){
                 </td>
             </tr>
     <?php }} ?>
-           <!-- <tr>
+           <tr>
                  <td colspan="8">
-                     <button type="submit" name="azione" value="aggiungiTurno" class="btn btn-block btn-success">
+                     <a type="submit" href="?p=admin.inviaMail&mass&t=<?php echo $f; ?>"  class="btn btn-block btn-success">
                         <i class="icon-envelope"></i>
                         Invia mail a tutti
-                     </button>
+                     </a>
                  </td>
-             </tr>-->
+             </tr>
     
 <?php }
 ?>

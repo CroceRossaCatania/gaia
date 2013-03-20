@@ -5,7 +5,7 @@
  */
 
 paginaPrivata();
-$f = $_GET['id']; 
+$f = $_GET['id'];
 $t=utente::by('id',$f);
 ?>
 <div class="row-fluid">
@@ -15,7 +15,15 @@ $t=utente::by('id',$f);
             <h4><i class="icon-question-sign"></i> Pronto a mandare la mail ?</h4>
             <p>Modulo per l'invio mail agli utenti di GAIA</p>
         </div>
-        <form class="form-horizontal" action="?p=admin.inviaMail.ok" method="POST">
+        <?php if (isset($_GET['mass'])) { ?><form class="form-horizontal" action="?p=admin.inviaMail.ok&mass&t=<?php echo $_GET['t']; ?>" method="POST"><?php }else{ ?> <form class="form-horizontal" action="?p=admin.inviaMail.ok" method="POST"><?php } ?>
+        <?php if (isset($_GET['mass'])) { ?> 
+            <div class="control-group">
+              <label class="control-label" for="inputDestinatari">Destinatari</label>
+              <div class="controls">
+                <input type="text" class="span5" name="inputDestinatari" id="inputDestinatari" readonly value="Destinatari Multipli">
+              </div>
+            </div>
+           <?php }else{ ?>     
             <div class="control-group">
               <label class="control-label" for="inputDestinatario">Destinatario</label>
               <div class="controls">
@@ -28,6 +36,7 @@ $t=utente::by('id',$f);
                 <input type="text" class="span5" name="inputMail" id="inputMail" readonly value="<?php echo $t->email; ?>">
               </div>
             </div>
+          <?php } ?>      
             <div class="control-group">
               <label class="control-label" for="inputOggetto">Oggetto</label>
               <div class="controls">
