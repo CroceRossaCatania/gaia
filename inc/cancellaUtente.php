@@ -5,7 +5,7 @@
  */
 
 paginaPrivata();
-
+if($me->id !=$_GET['id']){
 $t = $_GET['id'];
 $f = Appartenenza::filtra([
   ['volontario', $t]
@@ -19,5 +19,8 @@ for ($i = 0, $ff = count($f); $i < $ff;$i++) {
 }
 $t = new Persona($t);
 $t->cancella();
-
 redirect('admin.listaUtenti&ok');
+}else{
+redirect('admin.listaUtenti&e');    
+}
+?>
