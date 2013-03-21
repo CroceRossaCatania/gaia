@@ -128,21 +128,18 @@ class APIServer {
             global $conf;
             $inizio = new DT($this->par['inizio']);
             $fine   = new DT($this->par['fine']);
-            $cA = $this->sessione->utente()->calendarioAttivita($inizio, $fine);
+            /*$cA = $this->sessione->utente()->calendario($inizio, $fine);*/
+            $cA = Turno::neltempo($inizio, $fine);
             $r = [];
-            foreach  ( $cA as $att ) {
-                if ( $c = $att->comitato() ) {
-                    $c = $c->colore();
-                } else {
-                    $c = $conf['attivita']['colore_pubbliche'];
-                }
+            foreach  ( $cA as $turno ) {
+                $attivita = $turno->attivita();
                 $r[] = [
-                    'title'     =>  $att->nome,
-                    'id'        =>  $att->id,
-                    'start'     =>  $att->inizio()->toJSON(),
-                    'end'       =>  $att->fine()->toJSON(),
-                    'color'     =>  '#' . $c,
-                    'url'       =>  '?p=dettagliAttivita&id=' . $att->id
+                    'title'     =>  $attivita->nome. ', ' . $turno->nome,
+                    'id'        =>  $turno->id,
+                    'start'     =>  $turno->inizio()->toJSON(),
+                    'end'       =>  $turno->fine()->toJSON(),
+                    'color'     =>  '#' . $attivita->comitato()->colore(),
+                    'url'       =>  '?p=schedaAttivita&id=' . $attivita->id . '&turno=' . $turno->id
                 ];
             }
             return $r;

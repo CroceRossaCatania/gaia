@@ -193,8 +193,8 @@ $conf['database']['tables'] = [
                 volontario      varchar(16),
                 applicazione    varchar(16),
                 dominio         varchar(16),
-                inizio      varchar(64),
-                fine        varchar(64),
+                inizio          varchar(64),
+                fine            varchar(64),
                 pConferma       varchar(16),
                 tConferma       varchar(64)'
         ],

@@ -329,7 +329,7 @@ class Utente extends Persona {
         ]);
     }
     
-    public function delegazioni($app = null) {
+    public function storicoDelegazioni($app = null) {
         if ( $app ) {
             $app = (int) $app;
             return Delegato::filtra([
@@ -341,6 +341,17 @@ class Utente extends Persona {
                 ['volontario',      $this->id]
             ]);
         }
+    }
+    
+    public function delegazioni($app = null) {
+        $t = $this->storicoDelegazioni($app);
+        $r = [];
+        foreach ( $t as $k ) {
+            if ( $k->attuale() ) {
+                $r[] = $k;
+            }
+        }
+        return $r;
     }
     
     public function comitatiDelegazioni($app = null) {

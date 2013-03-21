@@ -18,4 +18,11 @@ class Delegato extends Entita {
         return new Comitato($this->comitato);
     }
 
+    public function attuale() {
+        if ( !$this->fine || $this->fine > time() ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -13,16 +13,16 @@ class Comitato extends Entita {
     public function colore() { 
     	$c = $this->colore;
     	if (!$c) {
-    		$this->generaColore();
-    		return $this->colore();
+            $this->generaColore();
+            return $this->colore();
     	}
     	return $c;
     }
 
     private function generaColore() { 
-    	$r = 55 + rand(0, 200);
-    	$g = 55 + rand(0, 200);
-    	$b = 55 + rand(0, 200);
+    	$r = 100 + rand(0, 155);
+    	$g = 100 + rand(0, 155);
+    	$b = 100 + rand(0, 155);
     	$r = dechex($r);
     	$g = dechex($g);
     	$b = dechex($b);

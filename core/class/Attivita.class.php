@@ -11,11 +11,7 @@ class Attivita extends GeoEntita {
         $_dt = 'dettagliAttivita';
 
     public function comitato() {
-    	if ( $this->comitato ) {
-    		return new Comitato($this->comitato);
-    	} else { 
-    		return null;
-    	}
+    	return new Comitato($this->comitato);
     }
 
     public function referente() {
