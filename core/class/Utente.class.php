@@ -378,4 +378,17 @@ class Utente extends Persona {
         return $r;
     }
     
+    public function trasferimenti($stato = null) {
+        if ( $stato ) {
+            return Trasferimento::filtra([
+                ['volontario',  $this->id],
+                ['stato',       $stato]
+            ]);   
+        } else {
+            return Trasferimento::filtra([
+                ['volontario',  $this->id]
+            ]);
+        }
+    }
+    
 }

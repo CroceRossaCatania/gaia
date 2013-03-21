@@ -86,7 +86,7 @@ $conf['database']['tables'] = [
             'fields'    =>  '
                 id          int PRIMARY KEY,
                 nome        varchar(255),
-                tipo        varchar(8),
+                tipo        varchatr(8),
                 FULLTEXT ( nome )
             '
         ],
@@ -197,6 +197,24 @@ $conf['database']['tables'] = [
                 fine        varchar(64),
                 pConferma       varchar(16),
                 tConferma       varchar(64)'
-        ]
+        ],
+        [
+           
+            'name'  =>  'trasferimenti',
+            'fields'    =>  '
+                id              int PRIMARY KEY,
+                stato           varchar(16),
+                appartenenza    varchar(16),
+                volontario      varchar(16),
+                protNumero      varchar(16),
+                protData        varchar(64),
+                motivo          text,
+                negazione       text,
+                timestamp       varchar(64),
+                pConferma       varchar(16),
+                tConferma       varchar(64),
+                INDEX ( appartenenza ),
+                INDEX ( volontario )'
+        ],
         
 ];

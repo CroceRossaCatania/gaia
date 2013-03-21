@@ -14,7 +14,14 @@ class Appartenenza extends Entita {
             $this->stato     = MEMBRO_PENDENTE;
             $this->conferma  = 0;
         }
-        
+
+        public function inizio() {
+            return new DT('@'. $this->inizio);
+        }
+
+        public function fine() {
+            return new DT('@'. $this->fine);
+        }
 
         public function comitato() {
             return new Comitato($this->comitato);

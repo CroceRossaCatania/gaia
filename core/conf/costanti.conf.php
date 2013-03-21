@@ -215,3 +215,21 @@ $conf['app_attivita'] = [
     APP_ATTIVITA_PIAZZA =>  'Attività di Piazza',
     APP_ATTIVITA_CORSI  =>  'Corsi e formazione'
 ];
+
+
+/*
+ * ===================================
+ * =========== TRAFERIMENTI ==========
+ * ===================================
+ */
+define('TRASF_NEGATO',       10);
+define('TRASF_INCORSO',      20);
+define('TRASF_OK',           30);
+define('TRASF_AUTO',         40);
+
+$conf['trasferimenti'] = [
+    TRASF_NEGATO        =>  'Negato',
+    TRASF_INCORSO       =>  'In corso',
+    TRASF_OK            =>  'Con successo',
+    TRASF_AUTO          =>  'Eseguito automaticamente'
+];

@@ -153,4 +153,35 @@ class APIServer {
             $g = new Geocoder($this->par['query']);
             return $g->risultati;
         }
+        
+        public function api_me() {
+            $this->richiediLogin();
+            $me = $this->sessione->utente();
+            $r = [];
+            $r['anagrafica'] = [
+                'nome'          =>  $me->nome,
+                'cognome'       =>  $me->cognome,
+                'codiceFiscale' =>  $me->codiceFiscale,
+                'email'         =>  $me->email
+            ];
+            $r['appartenenze'] = [];
+            foreach ( $me->appartenenze() as $app ) {
+                $r['appartenenze'][] = [
+                    'id'        =>  $app->id,
+                    'comitato'  =>  [
+                        'id'    =>  $app->comitato()->id,
+                        'nome'  =>  $app->comitato()->nome
+                    ],
+                    'inizio'    =>  $app->inizio()->toJSON(),
+                    'fine'      =>  $app->fine()->toJSON(),
+                    'stato'     =>  [
+                        'id'    =>  $app->stato,
+                        'nome'  =>  $conf['membro'][$app->stato]
+                    ],
+                    'attuale'   =>  $app->attuale()
+                ];
+            }
+            
+            return $r;
+        }
 }

@@ -143,4 +143,29 @@ class Comitato extends Entita {
             ]);
         }
     }
+    
+    public function trasferimenti($stato = null) {
+        $stato = (int) $stato;
+        $q = "
+            SELECT
+                trasferimenti.id
+            FROM
+                trasferimenti, appartenenza
+            WHERE
+                trasferimenti.appartenenza = appartenenza.id
+            AND
+                appartenenza.comitato = :id";
+        if ( $stato ) {
+            $q .= " AND trasferimenti.stato = $stato";
+        }
+        $q .= " ORDER BY trasferimenti.timestamp DESC";
+        $q = $this->db->prepare($q);
+        $q->bindParam(':id', $this->id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Trasferimento($k[0]);
+        }
+        return $r;
+    }
 }
