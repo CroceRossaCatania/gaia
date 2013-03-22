@@ -31,24 +31,38 @@ paginaPrivata();
     foreach ( $me->storico() as $app ) { 
                             if ($app->attuale()) 
                                     {
-                                    if($app->stato == MEMBRO_TRASF_IN_CORSO){ ?>
+                                    if($app->stato == TRASF_INCORSO){ ?>
                                         <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> Richiesta trasferimento in elaborazione</h2>
                                         <div class="alert alert-block">
                                             <div class="row-fluid">
                                                 <span class="span12">
-                                                    <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nome; ?></strong> inoltrata il <strong><?php echo date('d-m-Y', $app->timestamp); ?></strong> è in fase di elaborazione.</p>
-                                                    <p>La tua richiesta è in attesa di conferma da parte del tuo Presidente di Comitato.</p>
-                                                    <p>Trascorsi 30 giorni senza alcuna risposta del Presidente Gaia effettuerà il trasferimento automaticamente come previsto da regolamento.</p>
+                                                    <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nome; ?></strong> è in fase di elaborazione.</p>
+                                                    <p>La tua richiesta è in attesa di essere protocollata dalla segreteria del tuo Comitato.</p>
                                                 </span>
                                             </div>
                                         </div>           
                                     </div>
                     <?php    $i=1;
                                     }
+                                    if( false ){ ?>
+                                        <div class="row-fluid">
+                                        <h2><i class="icon-warning-sign muted"></i> Richiesta trasferimento presa in carico</h2>
+                                        <div class="alert alert-block">
+                                            <div class="row-fluid">
+                                                <span class="span12">
+                                                    <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nome; ?></strong> è stata presa in carico il <strong><?php /*data protocollo*/ ?></strong> con numero di protocollo <strong><?php /*numero di protocollo*/ ?></strong>.</p>
+                                                    <p>La tua richiesta è in attesa di conferma da parte del tuo Presidente di Comitato.</p>
+                                                    <p>Trascorsi 30 giorni senza alcuna risposta del Presidente Gaia effettuerà il trasferimento automaticamente come previsto da regolamento.</p>
+                                                </span>
+                                            </div>
+                                        </div>           
+                                    </div>
+                    <?php    $i=2;
                                     }
                                     }
-if ($i!=1){?>
+                                    }
+if ($i!=1 && $i!=2){?>
         <div class="row-fluid">
             <h2><i class="icon-chevron-right muted"></i> Richiesta trasferimento</h2>
             <div class="alert alert-block alert-info ">
@@ -67,7 +81,7 @@ if ($i!=1){?>
      <div class="control-group">
         <label class="control-label" for="comitato">Comitato Attuale </label>
         <div class="controls">
-            <input class="span8" type="text" name="comitato" id="comitato" disabled value="<?php foreach ( $me->storico() as $app ) { ?>
+            <input class="span8" type="text" name="comitato" id="comitato" readonly value="<?php foreach ( $me->storico() as $app ) { ?>
                     <?php if ($app->attuale()) { echo $app->comitato()->nome; } }?>">
             </div>
           </div>   
@@ -79,6 +93,12 @@ if ($i!=1){?>
                         <option value="<?php echo $c->id; ?>"><?php echo $c->nome; ?></option>
                     <?php } ?>
             </select>
+            </div>
+          </div>
+   <div class="control-group">
+        <label class="control-label" for="inputMotivo">Motivazione </label>
+        <div class="controls">
+            <input class="span8" type="text" name="inputMotivo" id="motivo" placeholder="es.: Motivi Personali" required>
             </div>
           </div>
     <div class="control-group">

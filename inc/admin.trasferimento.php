@@ -4,7 +4,7 @@
  * ©2012 Croce Rossa Italiana
  */
 
-paginaPrivata();
+paginaPresidenziale();
 ?>
 
 <script type="text/javascript"><?php require './js/admin.listaUtenti.js'; ?></script>
@@ -19,6 +19,12 @@ paginaPrivata();
         <div class="alert alert-error">
             <i class="icon-warning-sign"></i> <strong>Trasferimento negato</strong>.
             Trasferimento negato.
+        </div>
+        <?php } ?>
+<?php if ( isset($_GET['prot']) ) { ?>
+        <div class="alert alert-info">
+            <i class="icon-save"></i> <strong>Richiesta Protocollata</strong>.
+            Richiesta di trasferimento protocollata con successo.
         </div>
         <?php } ?>
     <div class="control-group" align="right">
@@ -42,13 +48,18 @@ paginaPrivata();
         <th>Azione</th>
     </thead>
 <?php
-if( $me->presiede() ){
+/*if( $me->presiede() ){
     foreach($me->presidenziante() as $appartenenza){
         $c=$appartenenza->comitato()->id;
         $t = Appartenenza::filtra([['stato', MEMBRO_TRASF_IN_CORSO],['comitato',$c]]);
   foreach ( $t as $_t ) {
       $c=$_t->comitato();
-      $_v = $_t->volontario();   // Una volta per tutte
+      $_v = $_t->volontario();   // Una volta per tutte*/
+$comitati= $me->comitatiDiCompetenza();
+foreach($comitati as $comitato){
+    foreach($comitato->trasferimenti(TRASF_INCORSO) as $_t){
+        $_v = $_t->volontario();
+        $c=$_t->comitato();
  ?>
     <tr>
         <td><?php echo $_t->id; ?></td>
@@ -59,50 +70,24 @@ if( $me->presiede() ){
         <td><?php echo $_v->comuneNascita; ?></td>
         <td><?php echo $c->nome; ?></td>
         <td>
-  <a class="btn btn-success" href="?p=admin.trasferimento.ok&id=<?php echo $_v->id; ?>&si">
+         <?php if($_t->protNumero){ ?>   
+        <a class="btn btn-success" href="?p=admin.trasferimento.ok&id=<?php echo $_t->id; ?>&si">
                 <i class="icon-ok"></i>
                     Conferma
-            </a>
-            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare il trasferimento a questo utente ?');" href="?p=admin.trasferimento.ok&id=<?php echo $_v->id; ?>&no">
+        </a>
+            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare appartenenza a questo utente ?');" href="?p=admin.trasferimentoNegato&id=<?php echo $_t->id; ?>">
                 <i class="icon-ban-circle"></i>
                     Nega
             </a>
+        <?php }else{ ?>
+        <a class="btn btn-success" href="?p=admin.trasferimentoRichiesta&id=<?php echo $_t->id; ?>&si">
+                <i class="icon-ok"></i>
+                    Protocolla richiesta
+        </a>
+        <?php } ?>    
         </td>
        
     </tr>
     <?php }
-    }
-   
-}elseif($me->admin()){
-        $t = Appartenenza::filtra([['stato', MEMBRO_TRASF_IN_CORSO]]);
-  foreach ( $t as $_t ) { 
-      $c=$_t->comitato();
-      $_v = $_t->volontario();   // Una volta per tutte
-      ?>
-    <tr>
-        <td><?php echo $_t->id; ?></td>
-        <td><?php echo $_v->nome; ?></td>
-        <td><?php echo $_v->cognome; ?></td>
-        <td><?php echo $_v->codiceFiscale; ?></td>
-        <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
-        <td><?php echo $_v->comuneNascita; ?></td>
-        <td><?php echo $c->nome; ?></td>
-        <td>
-  <a class="btn btn-success" href="?p=admin.trasferimento.ok&id=<?php echo $_v->id; ?>&si">
-                <i class="icon-ok"></i>
-                    Conferma
-            </a>
-            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare appartenenza a questo utente ?');" href="?p=admin.trasferimento.ok&id=<?php echo $_v->id; ?>&no">
-                <i class="icon-ban-circle"></i>
-                    Nega
-            </a>
-        </td>
-       
-    </tr>
-    <?php }
-    
-    
-}
-?>
- 
+    } ?>
 </table>

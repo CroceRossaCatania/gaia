@@ -4,13 +4,18 @@
  * ©2012 Croce Rossa Italiana
  */
 
-paginaAdmin();
+paginaPresidenziale();
 
-$id     = $_GET['id'];
+$t     = $_GET['id'];
+$t = new Trasferimento($t);
 
 if (isset($_GET['si'])) {
+    $v = $t->volontario()->id;
+    $t->stato = TRASF_OK;
+    $t->pConferma = $me->id;
+    $t->tConferma = time();
     $t = Appartenenza::filtra([
-        ['volontario', $id],
+        ['volontario', $v],
         ['stato', MEMBRO_VOLONTARIO]
     ]);
     foreach ($t as $a ) { 
@@ -23,8 +28,8 @@ if (isset($_GET['si'])) {
                                     }
                                     }
     $t = Appartenenza::filtra([
-        ['volontario', $id],
-        ['stato', MEMBRO_TRASF_IN_CORSO]
+        ['volontario', $v],
+        ['stato', TRASF_INCORSO]
     ]);
     foreach ($t as $a ) { 
                             if ($a->attuale()) 
@@ -32,14 +37,14 @@ if (isset($_GET['si'])) {
                                     $a = new appartenenza($a);
                                     $a->timestamp = time();
                                     $a->stato     = MEMBRO_PENDENTE;
-                                    $a->conferma = '0';
+                                    $a->conferma = $me->id;
                                     $a->inizio = time();
                                     $a->fine = PROSSIMA_SCADENZA;
                                     $m = new Email('richiestaTrasferimentook', 'Richiesta trasferimento approvata: ' . $a->comitato()->nome);
                                     $m->a = $a->volontario();
                                     $m->_NOME       = $a->volontario()->nome;
                                     $m->_COMITATO   = $a->comitato()->nome;
-                                    $m-> _TIME = date('d-m-Y', $a->timestamp);
+                                    $m-> _TIME = date('d-m-Y', $t->protData);
                                     $m->invia();
                                     }
                                     }
@@ -47,16 +52,18 @@ redirect('admin.trasferimento&ok');
 }
 
 if (isset($_GET['no'])) {
+    $v = $t->volontario()->id;
+    $t->nega($_POST['motivo']);
     $t=Appartenenza::filtra([
-        ['volontario', $id],
-        ['stato', MEMBRO_TRASF_IN_CORSO]
+        ['volontario', $v],
+        ['stato', TRASF_INCORSO]
     ]);
     foreach ($t as $a ) { 
                             if ($a->attuale()) 
                                     {
                                     $a = new appartenenza($a);
                                     $a->timestamp = time();
-                                    $a->stato     = MEMBRO_TRASF_NEGATO;
+                                    $a->stato     = TRASF_NEGATO;
                                     $a->conferma  = $me->id;    
                                     $a->inizio = time();
                                     $a->fine = time();
