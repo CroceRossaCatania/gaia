@@ -11,7 +11,8 @@
 $id         = $_GET['t'];
 $nome       = normalizzaNome($_POST['inputNome']);
 $cognome    = normalizzaNome($_POST['inputCognome']);
-$dnascita   = mktime(0, 0, 0, $_POST['inputMese'], $_POST['inputGiorno'], $_POST['inputAnno']);
+$dnascita = DT::createFromFormat('d-m-Y', $_POST['inputDataNascita']);
+$dnascita = $dnascita->getTimestamp();
 $prnascita= maiuscolo($_POST['inputProvinciaNascita']);
 $conascita = normalizzaNome($_POST['inputComuneNascita']);
 $coresidenza= normalizzaNome($_POST['inputComuneResidenza']);
