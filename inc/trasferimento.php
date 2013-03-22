@@ -81,8 +81,7 @@ if ($i!=1 && $i!=2){?>
      <div class="control-group">
         <label class="control-label" for="comitato">Comitato Attuale </label>
         <div class="controls">
-            <input class="span8" type="text" name="comitato" id="comitato" readonly value="<?php foreach ( $me->storico() as $app ) { ?>
-                    <?php if ($app->attuale()) { echo $app->comitato()->nome; } }?>">
+            <input class="span8" type="text" name="comitato" id="comitato" readonly value="<?php echo $me->unComitato()->nome; ?>" />
             </div>
           </div>   
     <div class="control-group">

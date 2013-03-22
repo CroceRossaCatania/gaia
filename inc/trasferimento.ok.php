@@ -21,38 +21,43 @@ $f = Appartenenza::filtra([
  */
 
 foreach ( $f as $app ) {
-if ($app->attuale()) { 
-                redirect('trasferimento&e');  
-                                 } 
-                                     }
+    if ($app->attuale()) { 
+        redirect('trasferimento&e'); 
+        break;
+    } 
+}
                                      
 /*Se non sono appartenente allora avvio la procedura*/
 
 foreach ( $me->storico() as $app ) {
-                            if ($app->attuale()) {
-                                                    /*$f = new Appartenenza($app);*/
-                                                    /*$f->timestamp = time();*/ /*non va più memorizzato qui ma in una tabella di join*/
-                                                    /*$f->motivo = normalizzaNome($_POST['motivo']); */ /*in attesa di decidere*/
-                                                    $a = new Appartenenza();
-                                                    $a->volontario  = $me->id;
-                                                    $a->comitato    = $c;
-                                                    $a->stato =     TRASF_INCORSO;
-                                                    $a->timestamp = time();
-                                                    $a = new Trasferimento();
-                                                    $a->stato= TRASF_INCORSO;
-                                                    $a->appartenenza = $c;
-                                                    $a->volontario = $me->id;
-                                                    $a->motivo = $m;
-                                                    $a->timestamp = time();
-                                                    $m = new Email('richiestaTrasferimento', 'Richiesta trasferimento: ' . $a->comitato()->nome);
-                                                    $m->a = $me;
-                                                    $m->_NOME       = $me->nome;
-                                                    $m->_COMITATO   = $a->comitato()->nome;
-                                                    $m-> _TIME = date('d-m-Y', $a->timestamp);
-                                                    $m->invia();
-                                                    redirect('trasferimento&ok');
-                                                             }
-                                                            }
+    
+    if ($app->attuale()) {
+        
+        $a = new Appartenenza();
+        $a->volontario  = $me->id;
+        $a->comitato    = $c;
+        $a->stato =     TRASF_INCORSO;
+        $a->timestamp = time();
+        
+        $a = new Trasferimento();
+        $a->stato = TRASF_INCORSO;
+        $a->appartenenza = $a;
+        $a->volontario = $me->id;
+        $a->motivo = $m;
+        $a->timestamp = time();
+        
+        $m = new Email('richiestaTrasferimento', 'Richiesta trasferimento: ' . $a->comitato()->nome);
+        $m->a = $me;
+        $m->_NOME       = $me->nome;
+        $m->_COMITATO   = $a->comitato()->nome;
+        $m-> _TIME = date('d-m-Y', $a->timestamp);
+        $m->invia();
+        redirect('trasferimento&ok');
+        
+        continue;
+    }
+    
+}
                                
 
                                       
