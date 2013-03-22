@@ -32,13 +32,17 @@ class Turno extends Entita {
         global $db;
         $q = "
             SELECT
-                id
+                turni.id
             FROM
-                turni
+                turni, attivita
             WHERE
-                fine <= :fine
+                turni.fine    <= :fine
             AND
-                inizio >= :inizio
+                turni.inizio  >= :inizio
+            AND
+                attivita.id = turni.attivita
+            AND
+                attivita.luogo IS NOT NULL
             ORDER BY
                 inizio ASC";
         $q = $db->prepare($q);
