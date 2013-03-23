@@ -48,7 +48,7 @@ if (isset($_GET['si'])) {
                                     $m->invia();
                                     }
                                     }
-redirect('admin.trasferimento&ok');  
+redirect('presidente.trasferimento&ok');  
 }
 
 if (isset($_GET['no'])) {
@@ -75,6 +75,6 @@ if (isset($_GET['no'])) {
                                     $m->invia();
                                     }
                                     }
-redirect('admin.trasferimento&no');   
+redirect('presidente.trasferimento&no');   
 }
 ?>
