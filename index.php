@@ -99,19 +99,9 @@ if ( !file_exists($_f) ) {
             <div class="nav-collapse collapse">
               <ul class="nav">
                 <li class="active"><a href="?p=home"><i class="icon-light-bulb"></i> Reinventiamo la CRI</a></li>
-                <!-- <li><a href="http://www.cricatania.it"><i class="icon-reply"></i> Torna a www.cricatania.it</a></li> -->
-                
+
               </ul>
             
-            <!--
-            <div class="paddingSopra pull-right">
-            	<button class="btn btn-danger" data-toggle="modal" data-target="#scegliMetodo">
-            		<strong>Registrati</strong>
-            		&nbsp;
-            		<i class="icon-plus"></i>
-            	</button>
-            </div>
-            -->
             
             <?php
             if ( $me ) { 
@@ -337,8 +327,7 @@ if ( !file_exists($_f) ) {
       </div>
 
     </div> <!-- /container -->
-
- 
+    
     <!-- Statistiche --> 
     <script type="text/javascript">
     var pkBaseURL = (("https:" == document.location.protocol) ? "https://stats.cricatania.it/" : "http://stats.cricatania.it/");
