@@ -39,18 +39,18 @@ foreach ( $me->storico() as $app ) {
         $a->stato =     TRASF_INCORSO;
         $a->timestamp = time();
         
-        $a = new Trasferimento();
-        $a->stato = TRASF_INCORSO;
-        $a->appartenenza = $a;
-        $a->volontario = $me->id;
-        $a->motivo = $m;
-        $a->timestamp = time();
+        $t = new Trasferimento();
+        $t->stato = TRASF_INCORSO;
+        $t->appartenenza = $a;
+        $t->volontario = $me->id;
+        $t->motivo = $m;
+        $t->timestamp = time();
         
-        $m = new Email('richiestaTrasferimento', 'Richiesta trasferimento: ' . $a->comitato()->nome);
+        $m = new Email('richiestaTrasferimento', 'Richiesta trasferimento: ' . $t->comitato()->nome);
         $m->a = $me;
         $m->_NOME       = $me->nome;
-        $m->_COMITATO   = $a->comitato()->nome;
-        $m-> _TIME = date('d-m-Y', $a->timestamp);
+        $m->_COMITATO   = $t->comitato()->nome;
+        $m-> _TIME = date('d-m-Y', $t->timestamp);
         $m->invia();
         redirect('trasferimento&ok');
         
@@ -59,9 +59,3 @@ foreach ( $me->storico() as $app ) {
     
 }
                                
-
-                                      
-?>
-
-
-
