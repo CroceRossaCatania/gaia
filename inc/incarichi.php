@@ -59,7 +59,7 @@ paginaPrivata();
                                 <i class="icon-time muted"></i>
                                 <?php echo date('d-m-Y', $app->fine); ?>
                             <?php } else { ?>
-                                <span class="icon-question-sign muted"></i>
+                                <i class="icon-question-sign muted"></i>
                                 Indeterminato
                             <?php } ?>
                         </td>

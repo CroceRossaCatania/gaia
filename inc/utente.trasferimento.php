@@ -1,14 +1,12 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaPrivata();
 
 ?>
-
-<hr />
 <div class="row-fluid">
     <div class="span3">
         <?php        menuVolontario(); ?>
@@ -77,7 +75,7 @@ if ($i!=1 && $i!=2){?>
         </div>
         
 <div class="row-fluid">
-    <form class="form-horizontal" action="?p=trasferimento.ok&id=<?php echo $me->id; ?>" method="POST">
+    <form class="form-horizontal" action="?p=utente.trasferimento.ok&id=<?php echo $me->id; ?>" method="POST">
      <div class="control-group">
         <label class="control-label" for="comitato">Comitato Attuale </label>
         <div class="controls">

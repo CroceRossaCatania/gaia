@@ -183,7 +183,7 @@ if ( !file_exists($_f) ) {
                                     
 
                                     <li>
-                                        <a href="?p=admin.trasferimento">
+                                        <a href="?p=presidente.trasferimento">
                                             <i class="icon-cogs"></i>
                                             Trasferimenti in attesa di conferma
                                         </a>

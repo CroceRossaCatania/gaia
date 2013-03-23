@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -22,7 +22,7 @@ $f = Appartenenza::filtra([
 
 foreach ( $f as $app ) {
     if ($app->attuale()) { 
-        redirect('trasferimento&e'); 
+        redirect('utente.trasferimento&e'); 
         break;
     } 
 }
@@ -52,7 +52,7 @@ foreach ( $me->storico() as $app ) {
         $m->_COMITATO   = $t->comitato()->nome;
         $m-> _TIME = date('d-m-Y', $t->timestamp);
         $m->invia();
-        redirect('trasferimento&ok');
+        redirect('utente.trasferimento&ok');
         
         continue;
     }

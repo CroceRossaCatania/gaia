@@ -26,7 +26,7 @@ $_v = $t->volontario();
         </div>
         
 <div class="row-fluid">
-    <form class="form-horizontal" action="?p=admin.trasferimentoRichiesta.ok&id=<?php echo $t->id; ?>" method="POST">
+    <form class="form-horizontal" action="?p=presidente.trasferimentoRichiesta.ok&id=<?php echo $t->id; ?>" method="POST">
      <div class="control-group">
         <label class="control-label" for="numprotocollo">Numero Protocollo </label>
         <div class="controls">

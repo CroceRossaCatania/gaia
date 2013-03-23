@@ -48,13 +48,6 @@ paginaPresidenziale();
         <th>Azione</th>
     </thead>
 <?php
-/*if( $me->presiede() ){
-    foreach($me->presidenziante() as $appartenenza){
-        $c=$appartenenza->comitato()->id;
-        $t = Appartenenza::filtra([['stato', MEMBRO_TRASF_IN_CORSO],['comitato',$c]]);
-  foreach ( $t as $_t ) {
-      $c=$_t->comitato();
-      $_v = $_t->volontario();   // Una volta per tutte*/
 $comitati= $me->comitatiDiCompetenza();
 foreach($comitati as $comitato){
     foreach($comitato->trasferimenti(TRASF_INCORSO) as $_t){
@@ -71,16 +64,16 @@ foreach($comitati as $comitato){
         <td><?php echo $c->nome; ?></td>
         <td>
          <?php if($_t->protNumero){ ?>   
-        <a class="btn btn-success" href="?p=admin.trasferimento.ok&id=<?php echo $_t->id; ?>&si">
+        <a class="btn btn-success" href="?p=presidente.trasferimento.ok&id=<?php echo $_t->id; ?>&si">
                 <i class="icon-ok"></i>
                     Conferma
         </a>
-            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare appartenenza a questo utente ?');" href="?p=admin.trasferimentoNegato&id=<?php echo $_t->id; ?>">
+            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare il trasferimento a questo utente ?');" href="?p=presidente.trasferimentoNegato&id=<?php echo $_t->id; ?>">
                 <i class="icon-ban-circle"></i>
                     Nega
             </a>
         <?php }else{ ?>
-        <a class="btn btn-success" href="?p=admin.trasferimentoRichiesta&id=<?php echo $_t->id; ?>&si">
+        <a class="btn btn-success" href="?p=presidente.trasferimentoRichiesta&id=<?php echo $_t->id; ?>&si">
                 <i class="icon-ok"></i>
                     Protocolla richiesta
         </a>

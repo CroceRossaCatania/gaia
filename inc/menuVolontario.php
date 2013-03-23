@@ -18,6 +18,9 @@ $menu = [
         'documenti'  =>  '<i class="icon-folder-open"></i> Documenti'
         
     ],
+    'Segreteria'      =>  [
+        'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti'
+    ],
     'Curriculum'    =>  [
         'titoli&t=0' =>  '<i class="icon-magic"></i> Competenze pers.',
         'titoli&t=1' =>  '<i class="icon-fighter-jet"></i> Patenti Civili',

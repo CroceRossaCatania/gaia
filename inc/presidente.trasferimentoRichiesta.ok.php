@@ -22,5 +22,5 @@ $t     = $_GET['id'];
                                     $m-> _NUM = $a->protNumero;
                                     $m->invia();
                                     
-redirect('admin.trasferimento&prot');   
+redirect('presidente.trasferimento&prot');   
 ?>

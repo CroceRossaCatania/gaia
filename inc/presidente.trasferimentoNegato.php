@@ -30,7 +30,7 @@ $v = $t->volontario();
                     
 
 <div class="row-fluid">
-    <form class="form-horizontal" action="?p=admin.trasferimento.ok&id=<?php echo $t->id; ?>&no" method="POST">
+    <form class="form-horizontal" action="?p=presidente.trasferimento.ok&id=<?php echo $t->id; ?>&no" method="POST">
        <div class="control-group">
         <label class="control-label" for="motivo">Motivazione </label>
         <div class="controls">
