@@ -22,6 +22,12 @@ if ( !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('n
         
         <h2><span class="muted">Ciao, </span><?php if($me->presiede()){?><span class="muted">Presidente</span> <?php echo $me->nome;}else{echo $me->nome;} ?>.</h2>
         
+        <?php if (isset($_GET['ok'])) { ?>
+        <div class="alert alert-success">
+            <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
+            <p>La tua richiesta di supporto è stata inviata con successo, a breve verrai contattato da un membro dello staff.</p>        
+        </div> 
+        <?php } ?>
         <?php if (!$me->wizard) { ?>
         <div class="alert alert-block alert-error">
             <h4><i class="icon-warning-sign"></i> Completa il tuo profilo</h4>
