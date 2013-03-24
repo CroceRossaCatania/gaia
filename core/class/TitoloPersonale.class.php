@@ -33,7 +33,7 @@ class TitoloPersonale extends Entita {
     
     
     public function tConferma() {
-        return new DT('@'.$this->tConferma);
+        return DT::daTimestamp($this->tConferma);
     }
     
     public static function pendenti() {

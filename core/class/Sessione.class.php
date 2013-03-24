@@ -71,10 +71,8 @@ class Sessione extends Entita {
             'id'        =>  $this->id,
             'status'    =>  $s,
             'user'      =>  $u,
-            'expires'   =>  new DateTime(
-                    '@' . (
-                        $this->azione + $conf['sessioni']['durata']
-                    )
+            'expires'   =>  DT::daTimestamp(                
+                        $this->azione + $conf['sessioni']['durata'] 
             )
         ];
     }
