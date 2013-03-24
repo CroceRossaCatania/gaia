@@ -28,7 +28,7 @@ paginaPrivata();
         <?php } else { ?>
             <hr />
         <?php } ?>
-        <form class="form-horizontal" action="?p=cellulare.ok" method="POST">
+        <form class="form-horizontal" action="?p=utente.cellulare.ok" method="POST">
 
             <div class="control-group">
                 <div class="alert alert-warning alert-block">

@@ -13,13 +13,14 @@ $menu = [
     ],
     'Volontario'    =>  [
         'anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
-        'storico'    =>  '<i class="icon-time"></i> Storico',
-        'incarichi'  =>  '<i class="icon-briefcase"></i> Incarichi',
+        'utente.storico'    =>  '<i class="icon-time"></i> Storico',
         'documenti'  =>  '<i class="icon-folder-open"></i> Documenti'
         
     ],
     'Segreteria'      =>  [
-        'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti'
+        'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti',
+        'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica'
+        
     ],
     'Curriculum'    =>  [
         'titoli&t=0' =>  '<i class="icon-magic"></i> Competenze pers.',
@@ -27,24 +28,14 @@ $menu = [
         'titoli&t=2' =>  '<i class="icon-ambulance"></i> Patenti CRI',
         'titoli&t=3' =>  '<i class="icon-beaker"></i> Titoli di studio',
         'titoli&t=4' =>  '<i class="icon-plus-sign-alt"></i> Titoli CRI'
-        /*'storico'    =>  '<i class="icon-time"></i> Storico',*/
     ],
     'Comunicazioni' =>  [
-        'email'     =>   '<i class="icon-envelope-alt"></i> Email',
-        'cellulare' =>   '<i class="icon-phone"></i> Cellulare'
+        'utente.email'     =>   '<i class="icon-envelope-alt"></i> Email',
+        'utente.cellulare' =>   '<i class="icon-phone"></i> Cellulare'
     ],
     'Impostazioni' =>  [
-        'password'     =>   '<i class="icon-key"></i> Password'
+        'utente.password'     =>   '<i class="icon-key"></i> Password'
     ]
-    /*
-    'Attività'      =>  [
-        'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
-        'ricerca'   =>  '<i class="icon-search"></i> Ricerca'
-    ], */
-    
-    /*'Magia nera'    =>  [
-        'beadmin'   =>  '<i class="icon-cogs"></i> Diventa admin'
-    ]*/
 ];
 
 ?>

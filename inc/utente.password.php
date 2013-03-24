@@ -39,7 +39,7 @@ paginaPrivata();
         <?php } else { ?>
             <hr />
         <?php } ?>
-        <form class="form-horizontal" action="?p=password.ok" method="POST">
+        <form class="form-horizontal" action="?p=utente.password.ok" method="POST">
 
             
                 <div class="alert alert-warning alert-block">

@@ -7,15 +7,15 @@
 paginaPrivata();
 
 if ( $me->login($_POST['inputOldPassword'])==false){
-	redirect('password&ee');
+	redirect('utente.password&ee');
 }
 
 if ( strlen($_POST['inputPassword']) < 6 || strlen($_POST['inputPassword']) > 15 ) {
-	redirect('password&e');
+	redirect('utente.password&e');
 }
 
 if ($_POST['inputPassword']!=$_POST['inputPassword2']){
-	redirect('password&en');
+	redirect('utente.password&en');
 }
 
 $password     = $_POST['inputPassword'];
@@ -28,4 +28,4 @@ $m->_NOME       = $sessione->utente()->nome;
 $m->_PASSWORD   = $password;
 $m->invia();
 
-redirect('password&ok');
+redirect('utente.password&ok');

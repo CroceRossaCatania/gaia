@@ -11,8 +11,6 @@ $c=$t->comitato();
 $v = $t->volontario();
 
 ?>
-
-<hr />
 <div class="row-fluid">
     <div class="span12">
         <div class="row-fluid">

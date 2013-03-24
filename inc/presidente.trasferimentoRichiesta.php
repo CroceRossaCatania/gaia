@@ -10,10 +10,8 @@ $t = new Trasferimento($t);
 $_v = $t->volontario();
 ?>
 
-<hr />
 <div class="row-fluid">
-    
-    <div class="span9">
+    <div class="span12">
         <div class="row-fluid">
             <h2><i class="icon-chevron-right muted"></i> Presa in carico richiesta trasferimento</h2>
             <div class="alert alert-block alert-info ">
@@ -30,14 +28,14 @@ $_v = $t->volontario();
      <div class="control-group">
         <label class="control-label" for="numprotocollo">Numero Protocollo </label>
         <div class="controls">
-            <input class="span8" type="text" name="numprotocollo" id="numprotocollo" required>
+            <input class="input-large" type="text" name="numprotocollo" id="numprotocollo" required>
             </div>
           </div>   
     
    <div class="control-group">
         <label class="control-label" for="dataprotocollo">Data protocollo </label>
         <div class="controls">
-            <input class="span8" type="text" name="dataprotocollo" id="dataprotocollo" required>
+            <input class="input-medium" type="text" name="dataprotocollo" id="dataprotocollo" required>
             </div>
           </div>
     <div class="control-group">
