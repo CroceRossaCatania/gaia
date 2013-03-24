@@ -15,4 +15,19 @@ class DT extends DateTime {
     	return $this->format('r');
     }
     
+    public static function daTimestamp($timestamp) {
+        $x = DT::createFromFormat('U', $timestamp);
+        return self::daNativo($x);
+    }
+    
+    public static function daNativo(DateTime $nativo) {
+        global $conf;
+        $x = new DT();
+        $x->setTimestamp( $nativo->getTimestamp() );
+        $x->setTimezone( new DateTimeZone ( $conf['timezone'] ) );
+        return $x;
+    }
+    public function __toString() {
+        return $this->getTimestamp();
+    }
 }

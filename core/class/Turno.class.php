@@ -15,11 +15,11 @@ class Turno extends Entita {
     }
 
     public function inizio() {
-    	return new DT('@'. $this->inizio);
+    	return DT::daTimestamp($this->inizio);
     }
 
     public function fine() {
-    	return new DT('@'. $this->fine);
+    	return DT::daTimestamp($this->fine);
     }
     
     public function partecipazioni() {
