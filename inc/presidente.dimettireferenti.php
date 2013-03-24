@@ -8,4 +8,4 @@ $t = $_GET['id'];
 $f = new Delegato($t);
 $f->cancella();
 
-redirect('admin.Referenti&ok');
+redirect('presidente.referenti&ok');

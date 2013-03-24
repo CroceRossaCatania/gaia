@@ -206,7 +206,7 @@ if ( !file_exists($_f) ) {
                                     </li>
                                     
                                     <li>
-                                        <a href="?p=admin.Referenti">
+                                        <a href="?p=presidente.referenti">
                                             <i class="icon-user"></i>
                                             Referenti Comitato
                                         </a>
