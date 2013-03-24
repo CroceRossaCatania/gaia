@@ -20,4 +20,4 @@ $x->fine = 0;
 $x->tConferma = time();
 $x->pConferma = $me->id;
 
-redirect('admin.Referenti&new');
+redirect('presidente.referenti&new');

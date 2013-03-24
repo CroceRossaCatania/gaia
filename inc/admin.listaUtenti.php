@@ -99,7 +99,7 @@
                         <a class="btn btn-small btn-success" href="?p=admin.inviaMail&id=<?php echo $_v->id; ?>" title="Invia Mail">
                             <i class="icon-envelope"></i>
                         </a>
-                        <a class="btn btn-small btn-info" href="?p=admin.newReferente&id=<?php echo $_v->id; ?>" title="Nomina Referente">
+                        <a class="btn btn-small btn-info" href="?p=presidente.referente.nuovo&id=<?php echo $_v->id; ?>" title="Nomina Referente">
                                 <i class="icon-user"></i>
                             </a>
 

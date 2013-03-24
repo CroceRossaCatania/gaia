@@ -6,7 +6,7 @@
 paginaPresidenziale();
 $t = $_GET['id'];
 ?>
-<form class="form-horizontal" action="?p=admin.newReferente.ok&id=<?php echo $t; ?>" method="POST">
+<form class="form-horizontal" action="?p=presidente.referente.nuovo.ok&id=<?php echo $t; ?>" method="POST">
     
           <div class="control-group">
             <label class="control-label" for="inputComitato">Comitato</label>
