@@ -217,7 +217,7 @@ if ( !file_exists($_f) ) {
                             <?php } ?>
 
             
-                            <?php if ( $me->admin() || $me->presiede() ) { ?>
+                            <?php if ( $me->admin() ) { ?>
                             <div class="btn-group">
                                 <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
                                     <i class="icon-wrench icon-large"></i>
