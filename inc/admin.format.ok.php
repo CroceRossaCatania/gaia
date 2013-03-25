@@ -1,14 +1,14 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaAdmin();
 
 ?>
 
-<h3><i class="icon-bolt muted"></i> Procedura mostruosa automatica di importazione elettronica</h3>
+<h3><i class="icon-bolt muted"></i> Procedura di importazione automatica dal format CSV</h3>
 
 <pre><code>
 <?php

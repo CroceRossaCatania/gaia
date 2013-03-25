@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaAdmin();
@@ -9,12 +9,12 @@ paginaAdmin();
 ?>
 
 <div class="span12">
-    <h2><i class="icon-beer muted"></i> Importazione automatica dal format</h2>
+    <h2><i class="icon-beer muted"></i> Importazione automatica dal format CSV</h2>
     <hr />
 </div>
 
 <div class="span12">
-    <form class="form-horizontal" action="?p=admin.caricaFormat.ok" method="POST" enctype="multipart/form-data">
+    <form class="form-horizontal" action="?p=admin.format.ok" method="POST" enctype="multipart/form-data">
         <div class="control-group">
           <label class="control-label" for="inputCSV">File CSV</label>
           <div class="controls">
