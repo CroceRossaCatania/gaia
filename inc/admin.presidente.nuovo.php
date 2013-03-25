@@ -1,12 +1,12 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 $t = $_GET['id'];
 ?>
-<form class="form-horizontal" action="?p=admin.newPresidente.ok&id=<?php echo $t; ?>" method="POST">
+<form class="form-horizontal" action="?p=admin.presidente.nuovo.ok&id=<?php echo $t; ?>" method="POST">
 <div class="control-group">
             <label class="control-label" for="inputComitato">Nomina Presidente</label>
             <div class="controls">

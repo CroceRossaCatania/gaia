@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaAdmin();
@@ -56,7 +56,7 @@ if($me->admin()){
         <td><?php echo $_v->comuneNascita; ?></td>
         <td><?php echo $c->nome; ?></td>
         <td>
-                <a class="btn btn-danger" onClick="return confirm('Vuoi veramente dimettere questo Presidente ?');" href="?p=admin.dimettiPresidente&id=<?php echo $_t->id; ?>">
+                <a class="btn btn-danger" onClick="return confirm('Vuoi veramente dimettere questo Presidente ?');" href="?p=admin.presidente.dimetti&id=<?php echo $_t->id; ?>">
                 <i class="icon-ban-circle"></i>
                     Dimetti
                 </a>

@@ -22,4 +22,4 @@ if ( Appartenenza::filtra([
     $a->timestamp   = time();
 }
 
-redirect('admin.Presidenti&ok');
+redirect('admin.presidenti&ok');

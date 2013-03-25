@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 $t = $_GET['id'];
@@ -32,4 +32,4 @@ $a->stato       = MEMBRO_PRESIDENTE;
 $a->conferma    = $me->id;
 $a->timestamp   = time();
 
-redirect('admin.Presidenti&new');
+redirect('admin.presidenti&new');
