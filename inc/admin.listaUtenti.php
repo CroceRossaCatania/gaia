@@ -107,7 +107,7 @@
                             <a class="btn btn-small btn-primary" href="?p=admin.presidente.nuovo&id=<?php echo $_v->id; ?>" title="Nomina Presidente">
                                 <i class="icon-star"></i>
                             </a> 
-                            <a class="btn btn-small btn-danger <?php if ($_v->admin) { ?>disabled<?php } ?>" href="?p=admin.admin&id=<?php echo $_v->id; ?>" title="Nomina Admin">
+                            <a class="btn btn-small btn-danger <?php if ($_v->admin) { ?>disabled<?php } ?>" href="?p=admin.admin.nuovo&id=<?php echo $_v->id; ?>" title="Nomina Admin">
                                 <i class="icon-magic"></i>
                             </a>
                         <?php } ?>

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 require('./core.inc.php');
@@ -225,7 +225,7 @@ if ( !file_exists($_f) ) {
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a href="?p=admin.presidenti"><i class="icon-list"></i> Presidenti</a></li>
-                                    <li><a href="?p=admin"><i class="icon-star"></i> Amministratori</a></li>
+                                    <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
                                     <li><a href="?p=admin.caricaFormat"><i class="icon-upload"></i> Carica format</a></li>           
                                 </ul>
                             </div>
