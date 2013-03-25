@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaPresidenziale();
@@ -64,7 +64,7 @@ foreach ( $me->comitatiDiCompetenza() as $comitato ) {
                 <?php } ?>
             </td>
             <td>
-                    <a class="btn btn-danger" onClick="return confirm('Vuoi veramente dimettere questo Referente ?');" href="?p=presidente.dimettireferenti&id=<?php echo $delegato->id; ?>">
+                    <a class="btn btn-danger" onClick="return confirm('Vuoi veramente dimettere questo Referente ?');" href="?p=presidente.referente.dimetti&id=<?php echo $delegato->id; ?>">
                     <i class="icon-ban-circle"></i>
                         Dimetti
                     </a>
