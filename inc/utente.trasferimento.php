@@ -44,14 +44,13 @@ paginaPrivata();
                     <?php    $i=1;
                                     }
                                     $trasferimento = Trasferimento::by('appartenenza', $app->id);
-                                    if( $trasferimento->presaInCarico() ){ ?>
+                                    if( $trasferimento && $trasferimento->presaInCarico() ){ ?>
                                         <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> Richiesta trasferimento presa in carico</h2>
                                         <div class="alert alert-block">
                                             <div class="row-fluid">
                                                 <span class="span12">
-                                                    
-                                                    <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nome; ?></strong> è stata presa in carico il <strong><?php echo $trasferimento->protData; ?></strong> con numero di protocollo <strong><?php echo $trasferimento->protData; ?></strong>.</p>
+                                                    <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nome; ?></strong> è stata presa in carico il <strong><?php echo date('d-m-Y', $trasferimento->protData); ?></strong> con numero di protocollo <strong><?php echo $trasferimento->protNumero; ?></strong>.</p>
                                                     <p>La tua richiesta è in attesa di conferma da parte del tuo Presidente di Comitato.</p>
                                                     <p>Trascorsi 30 giorni senza alcuna risposta del Presidente Gaia effettuerà il trasferimento automaticamente come previsto da regolamento.</p>
                                                 </span>
