@@ -9,7 +9,8 @@ class Email {
     private
             $db = null,
             $sostituzioni = [],
-            $modello = '';
+            $modello = '',
+            $da = null;
     
     public
             $a = null,
@@ -41,10 +42,19 @@ class Email {
         }
         $corpo  = $header . $corpo . $footer;
 
+        if ( $this->da ) {
+            if ( $this->da instanceOf Persona ) {
+                $da = $this->da->nome . ' ' . $this->da->cognome . ' <' . $this->da->email . '>';
+            } else {
+                $da = $this->da;
+            }
+        } else {
+            $da = 'Croce Rossa Italiana <informatica@cricatania.it>';
+        }
+        
         $header =[
             'Subject'       =>  $oggetto,
-            'From'          =>  'Croce Rossa Italiana <informatica@cricatania.it>',
-            'Reply-To'      =>  'Servizio Informatica <informatica@cricatania.it>',
+            'From'          =>  $da,
             'MIME-Version'  =>  '1.0',
             'Content-type'  =>  'text/html; charset=utf-8',
             'To'            =>  $this->a->nome . ' <' . $email . '>',
