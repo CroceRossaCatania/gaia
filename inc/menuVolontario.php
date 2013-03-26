@@ -44,8 +44,9 @@ $menu = [
         <?php global $p; ?>
         <?php foreach ($menu as $sezione => $contenuto ) { ?>
         <li class="nav-header"><?php echo $sezione; ?></li>
-            <?php foreach ($contenuto as $link => $scelta) { ?>
-                <li <?php if ( substr($p, 0, 3) == substr($link, 0, 3) && (!isset($_GET['t']) or substr($link, 9, 1) == $_GET['t']) ) { ?>class="active"<?php } ?>>
+            <?php foreach ($contenuto as $link => $scelta) { 
+                $larray = explode('&', $link);?>
+                <li <?php if ( (!isset($_GET['t']) && $larray[0] == $p) or (isset($_GET['t']) && $larray[1] == "t={$_GET['t']}") ) { ?>class="active"<?php } ?>>
                     <a href="?p=<?php echo $link; ?>">
                         <?php echo $scelta; ?>
                     </a>
