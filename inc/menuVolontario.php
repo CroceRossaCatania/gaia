@@ -14,7 +14,7 @@ $menu = [
     'Volontario'    =>  [
         'anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
         'utente.storico'    =>  '<i class="icon-time"></i> Storico',
-        'documenti'  =>  '<i class="icon-folder-open"></i> Documenti'
+        'utente.documenti'  =>  '<i class="icon-folder-open"></i> Documenti'
         
     ],
     'Segreteria'      =>  [

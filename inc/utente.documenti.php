@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -73,7 +73,7 @@ paginaPrivata();
                         </div>
                     
                         <div class="span7">
-                            <form class="modDocumento" action="?p=documenti.ok" method="POST" enctype="multipart/form-data">
+                            <form class="modDocumento" action="?p=utente.documenti.ok" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="tipo" value="<?php echo $tipo; ?>" />
                                 <h3>
                                     <i class="icon-edit"></i>
@@ -119,7 +119,7 @@ paginaPrivata();
                         </div>
                     
                         <div class="span7">
-                            <form class="modDocumento" action="?p=documenti.ok" method="POST" enctype="multipart/form-data">
+                            <form class="modDocumento" action="?p=utente.documenti.ok" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="tipo" value="<?php echo $tipo; ?>" />
                                 <h2>
                                     <i class="icon-plus"></i>

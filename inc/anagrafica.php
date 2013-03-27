@@ -24,7 +24,7 @@ paginaPrivata();
         <div class="alert alert-block alert-info">
             <h4><i class="icon-question-sign"></i> Qualcosa è sbagliato?</h4>
             <p>Se qualche informazione è errata e non riesci a modificarla,
-                <a href="?p=supportoMail"><i class="icon-envelope-alt"></i> clicca qui </a> per ricevere supporto.</p>
+                <a href="?p=utente.supporto"><i class="icon-envelope-alt"></i> clicca qui </a> per ricevere supporto.</p>
         </div>
         <?php } ?>
         <form class="form-horizontal" action="?p=anagrafica.ok" method="POST">
