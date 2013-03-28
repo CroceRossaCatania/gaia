@@ -158,7 +158,7 @@ if ( !file_exists($_f) ) {
                                     <li class="nav-header">Da fare</li>
                                     
                                     <li>
-                                        <a href="?p=admin.titoliPending">
+                                        <a href="?p=presidente.titoli">
                                             <i class="icon-star"></i>
                                             Titoli in attesa di conferma
                                             <?php if ( $_n_titoli ) { ?>

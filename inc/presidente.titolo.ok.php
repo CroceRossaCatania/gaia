@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -26,4 +26,4 @@ if (isset($_GET['si'])) {
     $t->cancella();
 }
 
-redirect('admin.titoliPending');
+redirect('presidente.titoli');
