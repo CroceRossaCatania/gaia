@@ -35,4 +35,4 @@ if (isset($_GET['si'])) {
     $v = new Persona($v);
     $v->cancella();
 }
-redirect('admin.comitatiPending');
+redirect('presidente.appartenenzepending');

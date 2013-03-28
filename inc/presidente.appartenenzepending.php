@@ -58,11 +58,11 @@ foreach($comitati as $comitato) {
             <a class="btn btn-small" href="?p=admin.visualizzamodificaUtente&id=<?php echo $_v->id; ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli
                         </a>    
-            <a class="btn btn-success btn-small" href="?p=admin.comitati&id=<?php echo $_t->id; ?>&si">
+            <a class="btn btn-success btn-small" href="?p=presidente.appartenenzepending.ok&id=<?php echo $_t->id; ?>&si">
                 <i class="icon-ok"></i>
                     Conferma
             </a>
-            <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente negare appartenenza a questo utente ?');" href="?p=admin.comitati&id=<?php echo $_t->id; ?>&no">
+            <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente negare appartenenza a questo utente ?');" href="?p=presidente.appartenenzepending.ok&id=<?php echo $_t->id; ?>&no">
                 <i class="icon-ban-circle"></i>
                     Nega
             </a>

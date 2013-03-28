@@ -25,7 +25,7 @@ $p = $_GET['p'];
 if (!$p) { $p = 'home'; }
 $_f = "./inc/$p.php";
 if ( !file_exists($_f) ) {
-	$_f = "./inc/404.php";
+	$_f = "./inc/errore.404.php";
 }
 
 
@@ -170,7 +170,7 @@ if ( !file_exists($_f) ) {
                                     </li>
                                     
                                     <li>
-                                        <a href="?p=admin.comitatiPending">
+                                        <a href="?p=presidente.appartenenzepending">
                                             <i class="icon-group"></i>
                                             Appartenenze in attesa di conferma
                                             <?php if ( $_n_app ) { ?>
