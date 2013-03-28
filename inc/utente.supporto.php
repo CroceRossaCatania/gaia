@@ -15,7 +15,7 @@
             <h4><i class="icon-question-sign"></i> Hai bisogno di assistenza ?</h4>
             <p>Con questo modulo puoi richiedere supporto per GAIA.</p>
         </div>
-           <form class="form-horizontal" action="?p=admin.inviaMail.ok&supp" method="POST">
+           <form class="form-horizontal" action="?p=utente.mail.nuova.ok&supp" method="POST">
             <div class="control-group">
               <label class="control-label" for="inputDestinatario">Destinatario</label>
               <div class="controls">

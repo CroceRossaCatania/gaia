@@ -199,7 +199,7 @@ if ( !file_exists($_f) ) {
                                     </li>
                                     
                                     <li>
-                                        <a href="?p=admin.ricercaxTitoli">
+                                        <a href="?p=presidente.titoli.ricerca">
                                             <i class="icon-search"></i>
                                             Ricerca volontari per titoli
                                         </a>

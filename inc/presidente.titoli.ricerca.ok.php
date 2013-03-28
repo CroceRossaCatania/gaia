@@ -8,7 +8,7 @@ paginaPrivata();
 $f = $_POST['idTitolo'];
 $t = TitoloPersonale::filtra([['titolo',$f]]);
 ?>
-
+<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
     <div class="control-group" align="right">
         <div class="controls">
@@ -49,7 +49,7 @@ if($me->presiede()){
                 <td><?php echo $_v->comuneNascita; ?></td>
                 <td><?php echo $_t->titolo()->nome; ?></td>
                 <td>    
-                    <a class="btn btn-success" href="?p=admin.inviaMail&id=<?php echo $_v->id; ?>">
+                    <a class="btn btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>">
                     <i class="icon-envelope"></i>
                     Invia mail
                     </a>
@@ -59,7 +59,7 @@ if($me->presiede()){
     <?php }}} ?>
 <tr>
                  <td colspan="8">
-                     <a type="submit" href="?p=admin.inviaMail&mass&t=<?php echo $f; ?>"  class="btn btn-block btn-success">
+                     <a type="submit" href="?p=utente.mail.nuova&mass&t=<?php echo $f; ?>"  class="btn btn-block btn-success">
                         <i class="icon-envelope"></i>
                         Invia mail a tutti
                      </a>
@@ -79,7 +79,7 @@ if($me->presiede()){
                 <td><?php echo $_v->comuneNascita; ?></td>
                 <td><?php echo $_t->titolo()->nome; ?></td>
                 <td>    
-                    <a class="btn btn-success" href="?p=admin.inviaMail&id=<?php echo $_v->id; ?>">
+                    <a class="btn btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>">
                     <i class="icon-envelope"></i>
                     Invia mail
                     </a>
@@ -88,7 +88,7 @@ if($me->presiede()){
     <?php }} ?>
            <tr>
                  <td colspan="8">
-                     <a type="submit" href="?p=admin.inviaMail&mass&t=<?php echo $f; ?>"  class="btn btn-block btn-success">
+                     <a type="submit" href="?p=utente.mail.nuova&mass&t=<?php echo $f; ?>"  class="btn btn-block btn-success">
                         <i class="icon-envelope"></i>
                         Invia mail a tutti
                      </a>

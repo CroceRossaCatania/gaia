@@ -96,7 +96,7 @@
                         <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=presidente.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
                             <i class="icon-trash"></i> Cancella
                         </a>
-                        <a class="btn btn-small btn-success" href="?p=admin.inviaMail&id=<?php echo $_v->id; ?>" title="Invia Mail">
+                        <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                             <i class="icon-envelope"></i>
                         </a>
                         <a class="btn btn-small btn-info" href="?p=presidente.referente.nuovo&id=<?php echo $_v->id; ?>" title="Nomina Referente">
