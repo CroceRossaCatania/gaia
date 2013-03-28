@@ -12,7 +12,7 @@ $menu = [
         'attivita'  =>  '<i class="icon-calendar"></i> Calendario'
     ],
     'Volontario'    =>  [
-        'anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
+        'utente.anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
         'utente.storico'    =>  '<i class="icon-time"></i> Storico',
         'utente.documenti'  =>  '<i class="icon-folder-open"></i> Documenti'
         

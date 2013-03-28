@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -27,7 +27,7 @@ paginaPrivata();
                 <a href="?p=utente.supporto"><i class="icon-envelope-alt"></i> clicca qui </a> per ricevere supporto.</p>
         </div>
         <?php } ?>
-        <form class="form-horizontal" action="?p=anagrafica.ok" method="POST">
+        <form class="form-horizontal" action="?p=utente.anagrafica.ok" method="POST">
             <div class="control-group">
               <label class="control-label" for="inputNome">Nome</label>
               <div class="controls">
@@ -142,7 +142,7 @@ paginaPrivata();
             
         <img src="<?php echo $me->avatar()->img(20); ?>" class="img-polaroid" />
         <hr />
-        <form id="caricaFoto" action="?p=anagrafica.avatar" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
+        <form id="caricaFoto" action="?p=utente.avatar.ok" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
             <p>Per modificare la foto:</p>
           <p>1. <strong>Scegli</strong>: <input type="file" name="avatar" required /></p>
           <p>2. <strong>Clicca</strong>:<br />
