@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -19,8 +19,8 @@ for ($i = 0, $ff = count($f); $i < $ff;$i++) {
 }
 $t = new Persona($t);
 $t->cancella();
-redirect('admin.listaUtenti&ok');
+redirect('presidente.utenti&ok');
 }else{
-redirect('admin.listaUtenti&e');    
+redirect('presidente.utenti&e');    
 }
 ?>

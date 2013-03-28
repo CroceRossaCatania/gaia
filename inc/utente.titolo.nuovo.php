@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -10,7 +10,7 @@ $id = $_POST['idTitolo'];
 
 $t = new Titolo($id);
 
-if ($me->haTitolo($t)) { redirect('titoli&gia&t=' . $t->tipo); }
+if ($me->haTitolo($t)) { redirect('utente.titoli&gia&t=' . $t->tipo); }
 
 $p = new TitoloPersonale();
 $p->volontario  = $me->id;
@@ -49,4 +49,4 @@ if ( !$conf['titoli'][$t->tipo][1] ) {
     $p->pConferma = $me->id;
 }
 
-redirect('titoli&t=' . $t->tipo);
+redirect('utente.titoli&t=' . $t->tipo);

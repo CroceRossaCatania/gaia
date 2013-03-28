@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Giscotech Informatics
+ * ©2013 Croce Rossa Italiana
  */
 
 /* ok ho completato il wizard */

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -25,7 +25,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         </div>
         <?php }  ?>
         
-<form class="form-horizontal" action="?p=admin.modificaUtente.ok&t=<?php echo $f; ?>" method="POST">
+<form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $f; ?>" method="POST">
     <h2><i class="icon-edit muted"></i> Anagrafica</h3>
         <div class="control-group">
               <label class="control-label" for="inputNome">Nome</label>
@@ -183,7 +183,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                             <td>&nbsp;</td>
                             <?php } ?>
                             
-                            <td><a  href="?p=cancellaTitolo&id=<?php echo $titolo->id; ?>" title="Cancella il titolo" class="btn btn-small btn-warning">
+                            <td><a  href="?p=utente.titolo.cancella&id=<?php echo $titolo->id; ?>&pre" title="Cancella il titolo" class="btn btn-small btn-warning">
                                 <i class="icon-trash"></i>
                             </a></td>
                     </tr>

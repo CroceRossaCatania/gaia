@@ -23,11 +23,11 @@ $menu = [
         
     ],
     'Curriculum'    =>  [
-        'titoli&t=0' =>  '<i class="icon-magic"></i> Competenze pers.',
-        'titoli&t=1' =>  '<i class="icon-fighter-jet"></i> Patenti Civili',
-        'titoli&t=2' =>  '<i class="icon-ambulance"></i> Patenti CRI',
-        'titoli&t=3' =>  '<i class="icon-beaker"></i> Titoli di studio',
-        'titoli&t=4' =>  '<i class="icon-plus-sign-alt"></i> Titoli CRI'
+        'utente.titoli&t=0' =>  '<i class="icon-magic"></i> Competenze pers.',
+        'utente.titoli&t=1' =>  '<i class="icon-fighter-jet"></i> Patenti Civili',
+        'utente.titoli&t=2' =>  '<i class="icon-ambulance"></i> Patenti CRI',
+        'utente.titoli&t=3' =>  '<i class="icon-beaker"></i> Titoli di studio',
+        'utente.titoli&t=4' =>  '<i class="icon-plus-sign-alt"></i> Titoli CRI'
     ],
     'Comunicazioni' =>  [
         'utente.email'     =>   '<i class="icon-envelope-alt"></i> Email',

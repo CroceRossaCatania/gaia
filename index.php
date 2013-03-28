@@ -192,7 +192,7 @@ if ( !file_exists($_f) ) {
                                     <li class="nav-header">Volontari</li>
                                 
                                     <li>
-                                        <a href="?p=admin.listaUtenti">
+                                        <a href="?p=presidente.utenti">
                                             <i class="icon-list"></i>
                                             Elenco volontari
                                         </a>

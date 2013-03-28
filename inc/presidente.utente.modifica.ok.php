@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 
@@ -49,4 +49,4 @@ $p->grsanguigno   		= $grsanguigno;
 $p->timestamp           = time();
 $p->stato               = VOLONTARIO;
 
-redirect('admin.visualizzamodificaUtente&ok&id='.$_GET['t']);
+redirect('presidente.utente.visualizza&ok&id='.$_GET['t']);

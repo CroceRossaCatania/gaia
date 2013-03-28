@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 ?>
@@ -90,10 +90,10 @@
                     </td>
 
                     <td class="btn-group">
-                        <a class="btn btn-small" href="?p=admin.visualizzamodificaUtente&id=<?php echo $_v->id; ?>" title="Dettagli">
+                        <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli
                         </a>            
-                        <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=cancellaUtente&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
+                        <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=presidente.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
                             <i class="icon-trash"></i> Cancella
                         </a>
                         <a class="btn btn-small btn-success" href="?p=admin.inviaMail&id=<?php echo $_v->id; ?>" title="Invia Mail">

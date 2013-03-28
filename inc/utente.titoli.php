@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 if (isset($_GET['t'])) {
@@ -32,7 +32,7 @@ paginaPrivata();
                 </span>
                 <span class="span5">
                     <p>Quando hai finito, clicca su</p>
-                    <a href="?p=titoli&t=1" class="btn btn-large">
+                    <a href="?p=utente.titoli&t=1" class="btn btn-large">
                         Vai al passo successivo <i class="icon-chevron-right"></i>
                     </a>
                 </span>
@@ -49,7 +49,7 @@ paginaPrivata();
             </span>
             <span class="span5">
                 <p>Quando hai finito, clicca su</p>
-                <a href="?p=titoli&t=2" class="btn btn-large">
+                <a href="?p=utente.titoli&t=2" class="btn btn-large">
                     Vai al passo successivo <i class="icon-chevron-right"></i>
                 </a>
             </span>    
@@ -66,7 +66,7 @@ paginaPrivata();
                 </span>
                 <span class="span5">
                     <p>Quando hai finito, clicca su</p>
-                    <a href="?p=titoli&t=3" class="btn btn-large">
+                    <a href="?p=utente.titoli&t=3" class="btn btn-large">
                         Vai al passo successivo <i class="icon-chevron-right"></i>
                     </a>
                 </span>   
@@ -83,7 +83,7 @@ paginaPrivata();
                 </span>
                 <span class="span5">
                     <p>Quando hai finito, clicca su</p>
-                    <a href="?p=titoli&t=4" class="btn btn-large">
+                    <a href="?p=utente.titoli&t=4" class="btn btn-large">
                         Vai al passo successivo <i class="icon-chevron-right"></i>
                     </a>
                 </span>   
@@ -101,7 +101,7 @@ paginaPrivata();
                 </span>
                 <span class="span5">
                     <p>Questo era l'ultimo passo</p>
-                    <a href="?p=finisciWizard" class="btn btn-large">
+                    <a href="?p=utente.finisciWizard" class="btn btn-large">
                         Torna al Benvenuto <i class="icon-reply"></i>
                     </a>
                 </span>  
@@ -154,7 +154,7 @@ paginaPrivata();
           </div>
         
         <div id="step2" style="display: none;">
-            <form action='?p=aggiungiTitolo' method="POST">
+            <form action='?p=utente.titolo.nuovo' method="POST">
             <input type="hidden" name="idTitolo" id="idTitolo" />
             <div class="alert alert-block alert-success">
                 <div class="row-fluid">
@@ -265,7 +265,7 @@ paginaPrivata();
                             </small></td>
                             
                             
-                            <td><a  href="?p=cancellaTitolo&id=<?php echo $titolo->id; ?>" title="Cancella il titolo" class="btn btn-small btn-warning">
+                            <td><a  href="?p=utente.titolo.cancella&id=<?php echo $titolo->id; ?>" title="Cancella il titolo" class="btn btn-small btn-warning">
                                 <i class="icon-trash"></i>
                             </a></td>
                     </tr>
