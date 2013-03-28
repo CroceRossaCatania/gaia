@@ -42,6 +42,19 @@ paginaPrivata();
                                         </div>           
                                     </div>
                     <?php    $i=1;
+                                    }elseif($app->stato == MEMBRO_PENDENTE){ ?> 
+                                    <div class="row-fluid">
+                                        <h2><i class="icon-warning-sign muted"></i> Impossibile richiedere trasferimento</h2>
+                                        <div class="alert alert-error">
+                                            <div class="row-fluid">
+                                                <span class="span12">
+                                                    <p>Ci dispiace ma non puoi chiedere il trasferimento finchè la tua appartenenza al  <strong><?php echo $app->comitato()->nome; ?></strong> è pendente.</p>
+                                                    <p>Contatta il tuo Presidente per chiedere la conferma della tua appartenenza.</p>
+                                                </span>
+                                            </div>
+                                        </div>           
+                                    </div>    
+                 <?php      $i=1;
                                     }
                                     $trasferimento = Trasferimento::by('appartenenza', $app->id);
                                     if( $trasferimento && $trasferimento->presaInCarico() ){ ?>
