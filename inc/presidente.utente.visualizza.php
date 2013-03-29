@@ -13,6 +13,7 @@ $f = $_GET['id'];
 $t= Persona::filtra([
   ['id', $f]
 ]);
+$g= Volontario::by('id',$f);
 $a=TitoloPersonale::filtra([['volontario',$f]]);
 ?>
 <!--Visualizzazione e modifica anagrafica utente-->
@@ -24,9 +25,40 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             Le modifiche richieste sono state memorizzate con successo.
         </div>
         <?php }  ?>
-        
+  <!--Visualizzazione e modifica avatar utente-->
+        <div class="span12">
+            <div class="span6 allinea-centro">
+        <h3>Fotografia</h3>
+        <?php if ( isset($_GET['aok']) ) { ?>
+            <div class="alert alert-success">
+                <i class="icon-ok"></i> Fotografia modificata!
+            </div>
+        <?php } elseif ( isset($_GET['aerr']) ) { ?>
+            <div class="alert alert-error">
+                <i class="icon-warning-sign"></i>
+                <strong>Errore</strong> &mdash; File troppo grande o non valido.
+            </div>
+        <?php } else { ?>
+            
+        <?php } ?>
+            
+        <img src="<?php echo $g->avatar()->img(20); ?>" class="img-polaroid" />
+               <br/><br/></div>
+            <div class="span6 allinea-sinistra"> 
+               <br/>
+        <form id="caricaFoto" action="?p=utente.avatar.ok&id=<?php echo $f; ?>&pre" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
+            <p>Per modificare la foto:</p>
+          <p>1. <strong>Scegli</strong>: <input type="file" name="avatar" required /></p>
+          <p>2. <strong>Clicca</strong>:<br />
+              <button type="submit" class="btn btn-block btn-success">
+              <i class="icon-save"></i> Salva la foto
+          </button></p>
+        </form>
+            </div> 
+            </div>
+            
 <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $f; ?>" method="POST">
-    <h2><i class="icon-edit muted"></i> Anagrafica</h3>
+        <h2><i class="icon-edit muted"></i> Anagrafica</h2>
         <div class="control-group">
               <label class="control-label" for="inputNome">Nome</label>
               <div class="controls">

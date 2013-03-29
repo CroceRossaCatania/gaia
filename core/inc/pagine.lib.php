@@ -17,7 +17,7 @@ function paginaPrivata() {
 function paginaPubblica() {
     global $sessione;
     if ( $sessione->utente ) {
-        redirect('me');
+        redirect('utente.me');
     }
 }
 
@@ -25,7 +25,7 @@ function paginaAdmin() {
     paginaPrivata();
     global $sessione;
     if ( !$sessione->utente()->admin ) {
-        redirect('me');
+        redirect('utente.me');
     }
 }
 
@@ -33,7 +33,7 @@ function paginaPresidenziale() {
     paginaPrivata();
     global $sessione;
     if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin ) {
-        redirect('me');
+        redirect('utente.me');
     }
 }
 
