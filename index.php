@@ -109,7 +109,7 @@ if ( !file_exists($_f) ) {
 			<div class="pull-right paddingSopra">
 			  
                           <div class="btn-group">
-                            <a class="btn btn-danger" href="?p=me">
+                            <a class="btn btn-danger" href="?p=utente.me">
                                   <i class="icon-user icon-large"></i>&nbsp;
                                   Ciao, <strong><?php echo $me->nome; ?></strong></a>
                             <button class="btn dropdown-toggle btn-danger" data-toggle="dropdown">
@@ -117,11 +117,7 @@ if ( !file_exists($_f) ) {
                             </button>
                             <ul class="dropdown-menu">
                                 <?php if ( $me->stato == VOLONTARIO ) { ?>
-                                  <!--<li><a href="#"><i class="icon-reorder"></i> Attività</a></li>-->
-                                  <!--<li class="divider"></li>-->
-                                  <!--<li class="nav-header">Impostazioni</li>-->
-                                  <li><a href="?p=anagrafica"><i class="icon-edit"></i> Anagrafica</a></li>
-                                  <!--<li><a href="?p=curriculum"><i class="icon-star"></i> Qualifiche</a></li>-->
+                                  <li><a href="?p=utente.anagrafica"><i class="icon-edit"></i> Anagrafica</a></li>
                                   <li class="divider"></li>
 
 
@@ -319,7 +315,7 @@ if ( !file_exists($_f) ) {
    		</div>
       	<div class="span6 allinea-destra">
 	        <a href="http://www.cricatania.it">Torna al sito</a> &middot;
-	        <a href="?p=about">Informazioni su Gaia</a> &middot;
+	        <a href="?p=public.about">Informazioni su Gaia</a> &middot;
 	        <a href="docs/Guida.pdf?ref=footer"><strong>Guida in PDF</strong></a> &middot;
 	        <a href="mailto:informatica@cricatania.it">Supporto</a><br />
 	        Croce Rossa. <strong>Persone in prima persona.</strong>

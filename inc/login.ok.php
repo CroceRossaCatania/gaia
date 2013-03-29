@@ -10,7 +10,7 @@ $password   = $_POST['inputPassword'];
 if ( $u = Utente::by('email', $email) ) {
     if ( $u->login($password) ) {
         $sessione->utente = $u->id;
-        redirect('me');
+        redirect('utente.me');
     } else {
         redirect('login&password');
     }

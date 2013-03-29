@@ -6,7 +6,7 @@
 
 $menu = [
     '' => [
-        'me'         =>  '<i class="icon-bolt"></i> Benvenuto'
+        'utente.me'         =>  '<i class="icon-bolt"></i> Benvenuto'
     ],
     'Attività'      =>  [
         'attivita'  =>  '<i class="icon-calendar"></i> Calendario'

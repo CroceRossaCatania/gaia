@@ -38,7 +38,7 @@ paginaPubblica();
                 </div>
                 
                 <p>Organizziamo continuamente corsi base per gli aspiranti volontari.</p>
-                <p>Il volontariato in Croce Rossa ti cambierà la vita, <a href="javascript:" onclick="window.open('/inc/scopriperche.php', 'ScopriPerche', 'width=600, height=500, resizable, status, scrollbars=1, location');"><i class="icon-link"></i> scopri perché</a>.</p>
+                <p>Il volontariato in Croce Rossa ti cambierà la vita, <a href="javascript:" onclick="window.open('/inc/public.scopriperche.php', 'ScopriPerche', 'width=600, height=500, resizable, status, scrollbars=1, location');"><i class="icon-link"></i> scopri perché</a>.</p>
                 <p>Clicca sul pulsante qui sotto: verrai richiamato da un volontario ed informato sul prossimo corso base a te vicino.</p>
                 <p>&nbsp;</p>
 
@@ -124,7 +124,7 @@ paginaPubblica();
         <p>&nbsp;</p>
         <p>Immagina le potenzialità di Gaia in movimento.</p>
         <p>Siamo lavorando affinché <strong>Croce Rossa Italiana</strong> sappia <strong>muoversi con te</strong>.</p>
-        <p><a href="?p=about">Cerchiamo gente in gamba</a>.</p>
+        <p><a href="?p=public.about">Cerchiamo gente in gamba</a>.</p>
         
     </div>
     
@@ -139,7 +139,7 @@ paginaPubblica();
       <h1>Il progetto Gaia</h1>
       <p>Stiamo tutti lavorando per rendere la Croce Rossa Italiana nuova, più efficiente e trasparente.</p>
       <p>
-        <a href="?p=about" class="btn btn-primary btn-large">
+        <a href="?p=public.about" class="btn btn-primary btn-large">
           Scopri come...
         </a>
       </p>
