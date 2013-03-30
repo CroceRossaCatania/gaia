@@ -11,7 +11,7 @@ class PDF {
             $sostituzioni = [],
             $modello = '',
             $nome = 'File';
-    
+       
     public function __construct ( $modello, $nome ) {
         global $db;
         $this->db = $db;
@@ -37,10 +37,13 @@ class PDF {
         foreach ( $this->sostituzioni as $nome => $valore ) {
             $corpo = str_replace($nome, $valore, $corpo);
         }
-        require './core/inc/dompdf/dompdf_config.inc.php';
+        require_once './core/inc/dompdf/dompdf_config.inc.php';
         $files = glob("./pdf/include/*.php");
         foreach($files as $file) include_once($file);
-        spl_autoload_register('DOMPDF_autoload'); 
+        
+        if ( !class_exists('DOMPDF') ) {
+            spl_autoload_register('DOMPDF_autoload'); 
+        }
 
         $dompdf = new DOMPDF();
         $dompdf->load_html($corpo);

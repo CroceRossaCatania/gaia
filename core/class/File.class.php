@@ -6,7 +6,7 @@
 
 class File extends Entita {
     
-    protected static
+    public static
             $_t     = 'file',
             $_dt    = null;
     
