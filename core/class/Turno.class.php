@@ -28,6 +28,33 @@ class Turno extends Entita {
         ]);
     }
     
+    public function cancella() {
+        foreach ( $this->partecipazioni() as $part ) {
+            $part->cancella();
+        }
+        parent::cancella();
+    }
+    
+    public function durata() {
+        return $this->inizio()->diff($this->fine());
+    }
+    
+    public function partecipazione(Utente $v) {
+        $p = Partecipazione::filtra([
+            ['turno',       $this->id],
+            ['volontario',  $v->id]
+        ]);
+        if ( $p ) {
+            return $p[0];
+        } else {
+            return null;
+        }
+    }
+    
+    public function partecipa(Volontario $v) {
+        return (bool) $this->partecipazione($v);
+    }
+    
     public static function neltempo(DT $inizio, DT $fine) {
         global $db;
         $q = "
@@ -57,5 +84,20 @@ class Turno extends Entita {
         }
         return $r;
     }
+    
+    public function puoPartecipare(Utente $v) {
+        return $this->attivita()->puoPartecipare($v);
+    }
+    
+    public function puoRichiederePartecipazione(Utente $v) {
+        return (( time() <= $this->inizio ) && $this->attivita()->puoPartecipare($v));
+    }
 
+    public function scoperto() {
+        return (bool) ( count($this->partecipazioni()) < $this->minimo && $this->inizio()->getTimestamp() > time() );
+    }
+    
+    public function pieno() {
+        return (bool) ( count($this->partecipazioni()) >= $this->massimo );
+    }
 }

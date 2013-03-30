@@ -18,6 +18,7 @@ class Utente extends Persona {
         }
     }
 
+
     public static function listaAdmin() {
         global $db;
         $q = $db->prepare("
@@ -372,15 +373,22 @@ class Utente extends Persona {
         return array_unique($c);
     }
     
-    public function partecipazioni( $stato = PART_PENDING ) {
+    public function partecipazioni( $stato = false ) {
+        if ( $stato ) {
+            $extra = 'AND     stato = :stato';
+        } else {
+            $extra = '';
+        }
         $q = $this->db->prepare("
             SELECT  id
             FROM    partecipazioni
             WHERE   volontario = :id
-            AND     stato = :stato
+            $extra
             ORDER BY    timestamp DESC");
         $q->bindParam(':id',    $this->id);
-        $q->bindParam(':stato', $stato);
+        if ( $stato ) {
+            $q->bindParam(':stato', $stato);
+        }
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
@@ -388,6 +396,7 @@ class Utente extends Persona {
         }
         return $r;
     }
+    
     
     public function trasferimenti($stato = null) {
         if ( $stato ) {

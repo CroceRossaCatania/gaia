@@ -152,6 +152,7 @@ $conf['database']['tables'] = [
                 timestamp       varchar(64),
                 pFirma          varchar(16),
                 tFirma          varchar(64),
+                stato           varchar(8),
                 note            text,
                 INDEX ( volontario ),
                 INDEX ( partecipazione )

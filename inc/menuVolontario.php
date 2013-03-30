@@ -9,8 +9,10 @@ $menu = [
         'me'         =>  '<i class="icon-bolt"></i> Benvenuto'
     ],
     'Attività'      =>  [
-        'attivita'  =>  '<i class="icon-calendar"></i> Calendario'
+        'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
+        'attivita.storico'  =>  '<i class="icon-list"></i> Le mie Attività'
     ],
+    
     'Volontario'    =>  [
         'anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
         'utente.storico'    =>  '<i class="icon-time"></i> Storico',

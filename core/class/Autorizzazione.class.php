@@ -21,6 +21,7 @@ class Autorizzazione extends Entita {
     public function aggiorna( $t = AUT_OK ) {
         global $sessione;
         $u = $sessione->utente();
+        $this->stato = (int) $t;
         $this->pFirma = $u->id;
         $this->tFirma = time();
         $this->partecipazione()->aggiornaStato();
@@ -47,4 +48,7 @@ class Autorizzazione extends Entita {
         return $this->aggiorna(AUT_PENDING);
     }
     
+    public function tFirma() {
+        return DT::daTimestamp($this->tFirma);
+    }
 }

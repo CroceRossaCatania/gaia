@@ -47,7 +47,7 @@ class Attivita extends GeoEntita {
     public function turniScoperti() {
         $t = [];
         foreach ( $this->turni() as $_t ) {
-            if ( count($_t->partecipazioni()) < $_t->minimo && $_t->inizio()->getTimestamp() > time() ) {
+            if ( $_t->scoperto() ) {
                 $t[] = $_t;
             }
         }
@@ -79,6 +79,14 @@ class Attivita extends GeoEntita {
                         )
             )
         {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function puoPartecipare(Utente $v) {
+        if ( $this->pubblica or $this->comitato()->haMembro($v) ) {
             return true;
         } else {
             return false;

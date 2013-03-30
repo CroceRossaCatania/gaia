@@ -1,12 +1,12 @@
 $(document).ready ( function() {
-    /*$(".dt").datetimepicker({
+    $(".dt").datetimepicker({
 	timeText: 'Alle:',
 	hourText: 'Ore',
 	minuteText: 'Minuti',
 	currentText: 'Ora',
 	closeText: 'Ok',
         defaultTimezone: '+0100'
-    });*/
+    });
     
     $("#privacyGroup button").click( function() {
        $("#privacyGroup button").removeClass('active');

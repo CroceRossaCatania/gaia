@@ -17,6 +17,10 @@ class Partecipazione extends Entita {
     public function turno() {
         return new Turno($this->turno);
     }
+    
+    public function attivita() {
+        return $this->turno()->attivita();
+    }
 
     public function comitatoAppartenenza() {
         return $this->turno()->attivita()->comitato();
@@ -42,6 +46,13 @@ class Partecipazione extends Entita {
         return $stato;
     }
 
+    public function cancella() {
+        foreach ( $this->autorizzazioni() as $aut ) {
+            $aut->cancella();
+        }
+        parent::cancella();
+    }
+    
     public function generaAutorizzazioni() {
         
         /* IMPORTANTE: Logica generazione autorizzazioni */

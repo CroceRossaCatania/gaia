@@ -36,7 +36,7 @@ if ( $_POST['azione'] == 'aggiungiTurno' ) {
 }
 
 if ( $a->haPosizione() ) {
-    redirect('schedaAttivita&id=' . $a->id);
+    redirect('attivita.scheda&id=' . $a->id);
 } else {
     redirect('attivita.localita&id=' . $a->id);
 }
