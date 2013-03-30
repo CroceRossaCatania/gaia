@@ -4,8 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPrivata();
-
+richiediComitato();
 
 ?>
 <div class="row-fluid">

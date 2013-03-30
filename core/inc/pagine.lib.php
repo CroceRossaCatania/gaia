@@ -29,6 +29,14 @@ function paginaAdmin() {
     }
 }
 
+function richiediComitato() {
+    paginaPrivata();
+    global $sessione;
+    if ( !$sessione->utente()->comitati() ) {
+        redirect('errore.comitato');
+    }
+}
+
 function paginaPresidenziale() {
     paginaPrivata();
     global $sessione;
