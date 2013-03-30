@@ -14,8 +14,13 @@ paginaAdmin();
         </div>
 <?php } elseif ( isset($_GET['del']) )  { ?>
         <div class="alert alert-block alert-error">
-            <h4><i class="icon-exclamation-sign"></i> Comitato cancellato</h4>
-            <p>Il Comitato è stato cancellato con successo.</p>
+           <i class="icon-exclamation-sign"></i> <strong>Comitato cancellato</strong>
+            Il Comitato è stato cancellato con successo.
+        </div>
+<?php }elseif ( isset($_GET['dup']) ) { ?>
+        <div class="alert alert-error">
+            <i class="icon-warning-sign"></i> <strong>Comitato presente</strong>.
+            Il Comitato è già presente in elenco.
         </div>
 <?php } ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
@@ -60,7 +65,7 @@ paginaAdmin();
                         <a class="btn btn-small" href="?p=&id=<?php echo $c->id; ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli
                         </a>            
-                        <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ?');" href="?p=&id=<?php echo $c->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
+                        <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ?');" href="?p=admin.comitato.cancella&id=<?php echo $c->id; ?>" title="Cancella Comitato" class="btn btn-small btn-warning">
                             <i class="icon-trash"></i> Cancella
                         </a>
                    </td>
