@@ -1,13 +1,13 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaPresidenziale();
 ?>
 
-<script type="text/javascript"><?php require './js/admin.listaUtenti.js'; ?></script>
+<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">

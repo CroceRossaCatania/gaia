@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 $coresidenza= normalizzaNome($_POST['inputComuneResidenza']);
@@ -18,4 +18,4 @@ $me->indirizzo 		= $indirizzo;
 $me->civico   		= $civico;
 $me->grsanguigno   		= $grsanguigno;
 
-redirect('anagrafica&ok');
+redirect('utente.anagrafica&ok');

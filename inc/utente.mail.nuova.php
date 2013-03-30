@@ -15,7 +15,7 @@ $t=utente::by('id',$f);
             <h4><i class="icon-question-sign"></i> Pronto a mandare la mail ?</h4>
             <p>Modulo per l'invio mail agli utenti di GAIA</p>
         </div>
-        <?php if (isset($_GET['mass'])) { ?><form class="form-horizontal" action="?p=admin.inviaMail.ok&mass&t=<?php echo $_GET['t']; ?>" method="POST"><?php }else{ ?> <form class="form-horizontal" action="?p=admin.inviaMail.ok" method="POST"><?php } ?>
+        <?php if (isset($_GET['mass'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&mass&t=<?php echo $_GET['t']; ?>" method="POST"><?php }else{ ?> <form class="form-horizontal" action="?p=utente.mail.nuova.ok" method="POST"><?php } ?>
         <?php if (isset($_GET['mass'])) { ?> 
             <div class="control-group">
               <label class="control-label" for="inputDestinatari">Destinatari</label>

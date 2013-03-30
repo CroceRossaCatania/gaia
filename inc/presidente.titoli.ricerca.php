@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 if (isset($_GET['t'])) {
@@ -22,9 +22,6 @@ paginaPrivata();
             
 
             <div class="alert alert-block alert-success" >
-                <!--<div class="row-fluid">
-                    <h4>Aggiungi</h4>
-                </div>-->
                 <div class="row-fluid">
                     <span class="span3">
                         <label for="cercaTitolo">
@@ -55,7 +52,7 @@ paginaPrivata();
           </div>
         
         <div id="step2" style="display: none;">
-            <form action='?p=admin.ricercaxTitoli.ok' method="POST">
+            <form action='?p=presidente.titoli.ricerca.ok' method="POST">
             <input type="hidden" name="idTitolo" id="idTitolo" />
             <div class="alert alert-block alert-success">
                 

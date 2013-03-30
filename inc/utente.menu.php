@@ -6,17 +6,15 @@
 
 $menu = [
     '' => [
-        'me'         =>  '<i class="icon-bolt"></i> Benvenuto'
+        'utente.me'         =>  '<i class="icon-bolt"></i> Benvenuto'
     ],
     'Attività'      =>  [
-        'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
-        'attivita.storico'  =>  '<i class="icon-list"></i> Le mie Attività'
+        'attivita'  =>  '<i class="icon-calendar"></i> Calendario'
     ],
-    
     'Volontario'    =>  [
-        'anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
+        'utente.anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
         'utente.storico'    =>  '<i class="icon-time"></i> Storico',
-        'documenti'  =>  '<i class="icon-folder-open"></i> Documenti'
+        'utente.documenti'  =>  '<i class="icon-folder-open"></i> Documenti'
         
     ],
     'Segreteria'      =>  [
@@ -25,11 +23,11 @@ $menu = [
         
     ],
     'Curriculum'    =>  [
-        'titoli&t=0' =>  '<i class="icon-magic"></i> Competenze pers.',
-        'titoli&t=1' =>  '<i class="icon-fighter-jet"></i> Patenti Civili',
-        'titoli&t=2' =>  '<i class="icon-ambulance"></i> Patenti CRI',
-        'titoli&t=3' =>  '<i class="icon-beaker"></i> Titoli di studio',
-        'titoli&t=4' =>  '<i class="icon-plus-sign-alt"></i> Titoli CRI'
+        'utente.titoli&t=0' =>  '<i class="icon-magic"></i> Competenze pers.',
+        'utente.titoli&t=1' =>  '<i class="icon-fighter-jet"></i> Patenti Civili',
+        'utente.titoli&t=2' =>  '<i class="icon-ambulance"></i> Patenti CRI',
+        'utente.titoli&t=3' =>  '<i class="icon-beaker"></i> Titoli di studio',
+        'utente.titoli&t=4' =>  '<i class="icon-plus-sign-alt"></i> Titoli CRI'
     ],
     'Comunicazioni' =>  [
         'utente.email'     =>   '<i class="icon-envelope-alt"></i> Email',

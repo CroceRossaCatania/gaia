@@ -43,7 +43,7 @@ if ( ($p->password) ) {
             Completa e conferma la registrazione inserendo i tuoi dettagli anagrafici.
         </p>
         <p>
-            In ottemperanza alle norme nazionali sulla privacy, Croce Rossa Italiana - Comitato Provinciale di Catania tratta i dati personali nel rispetto delle <a href="javascript:" onclick="window.open('/inc/disclaimer.php', 'disclaimer', 'width=600, height=500, resizable, status, scrollbars=1, location');"><i class="icon-link"></i>normative vigenti</a>.
+            In ottemperanza alle norme nazionali sulla privacy, Croce Rossa Italiana - Comitato Provinciale di Catania tratta i dati personali nel rispetto delle <a href="javascript:" onclick="window.open('/inc/public.disclaimer.php', 'disclaimer', 'width=600, height=500, resizable, status, scrollbars=1, location');"><i class="icon-link"></i>normative vigenti</a>.
         </p>
         <p>Cliccando su Registrati accetti la nota sulla privacy.</p>
     </div>

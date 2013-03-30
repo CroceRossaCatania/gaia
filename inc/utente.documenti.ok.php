@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * ©2013 Croce Rossa Italiana
+ */
+
 paginaPrivata();
 
 $t = $_POST['tipo'];
@@ -15,7 +19,7 @@ try {
     $d->caricaFile($f);
 } catch (Exception $e) {
     $d->cancella();
-    redirect('documenti&err');
+    redirect('utente.documenti&err');
 }
 
 /* Cancella il vecchio documento... */
@@ -23,4 +27,4 @@ if ( $prec ) {
     $prec->cancella();
 }
 
-redirect('documenti&ok');
+redirect('utente.documenti&ok');

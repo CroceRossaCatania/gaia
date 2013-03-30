@@ -47,7 +47,7 @@ foreach ( $me->comitatiDiCompetenza() as $comitato ) {
                 <?php } ?>
             </td>
             <td>
-                    <a class="btn btn-success" href="?p=admin.inviaMail&id=<?php echo $_v->id; ?>">
+                    <a class="btn btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>">
                     <i class="icon-envelope"></i>
                     Invia mail
                     </a>
