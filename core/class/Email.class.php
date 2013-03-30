@@ -19,7 +19,7 @@ class Email {
     public function __construct ( $modello, $oggetto = 'CRICATANIA.it' ) {
         global $db;
         $this->db = $db;
-        if ( !file_exists('./mail/modelli/' . $modello .'.html') ) {
+        if ( !file_exists('./core/conf/mail/modelli/' . $modello .'.html') ) {
             throw new Errore(1012);
         }
         $this->oggetto = $oggetto;
@@ -34,9 +34,9 @@ class Email {
         global $conf; 
         $oggetto    = $this->oggetto;
         $email      = $this->a->email;
-        $header     = file_get_contents('./mail/header.html');
-        $footer     = file_get_contents('./mail/footer.html');
-        $corpo      = file_get_contents('./mail/modelli/' . $this->modello . '.html');
+        $header     = file_get_contents('./core/conf/mail/header.html');
+        $footer     = file_get_contents('./core/conf/mail/footer.html');
+        $corpo      = file_get_contents('./core/conf/mail/modelli/' . $this->modello . '.html');
         foreach ( $this->sostituzioni as $nome => $valore ) {
             $corpo = str_replace($nome, $valore, $corpo);
         }

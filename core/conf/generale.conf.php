@@ -7,7 +7,7 @@
 /* Modalità debug */
 $conf['debug']  =   true;
 
-$conf['version']	= 1.0;
+$conf['version']	= 1.1;
 $conf['name']		= 'Gaia';
 $conf['vendor']		= 'Croce Rossa Italiana';
 $conf['copyright']	= '©2013 Croce Rossa Italiana';

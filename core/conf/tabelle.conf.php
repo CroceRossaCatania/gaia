@@ -216,6 +216,20 @@ $conf['database']['tables'] = [
                 tConferma       varchar(64),
                 INDEX ( appartenenza ),
                 INDEX ( volontario )'
+        ],       
+        [
+           
+            'name'  =>  'file',
+            'fields'    =>  '
+                id              varchar(64) PRIMARY KEY,
+                creazione       varchar(64),
+                autore          varchar(16),
+                scadenza        varchar(64),
+                mime            varchar(64),
+                nome            varchar(255),
+                download        int,
+                INDEX ( scadenza )
+            '
         ],
         
 ];

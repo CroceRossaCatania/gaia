@@ -89,6 +89,7 @@ foreach ( $conf['avatar'] as $x => $y ) {
 
 echo "Creazione delle cartelle per i documenti...\n";
 /* Crea le cartelle per gli avatar */
+@mkdir('upload/get');
 @mkdir('upload/docs');
 @mkdir('upload/docs/o');
 @mkdir('upload/docs/t');

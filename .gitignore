@@ -10,6 +10,9 @@ upload/avatar/*/*
 # Documenti utenti
 upload/docs/
 
+# File utenti
+upload/get/
+
 # Lock file
 upload/setup/lock
 
