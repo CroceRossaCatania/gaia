@@ -9,6 +9,7 @@ class Email {
     private
             $db = null,
             $sostituzioni = [],
+            $allegati = [],
             $modello = '',
             $da = null;
     
@@ -28,6 +29,10 @@ class Email {
     
     public function __set($nome, $valore) {
         $this->sostituzioni[$nome] = $valore;
+    }
+    
+    public function allega(File $f) {
+        $this->allegati[] = $f;
     }
     
     public function invia() {
@@ -60,11 +65,18 @@ class Email {
             'To'            =>  $this->a->nome . ' <' . $email . '>',
             'Bcc'           =>  'cricatania@mailinator.com'
         ];
+        require_once './core/class/Mail/mime.php';
+        require_once './core/class/Mail/mimePart.php';
         $mailer = Mail::factory('smtp', $conf['smtp']);
+        $mime = new Mail_mime("\n");
+        $mime->setHTMLBody($corpo);
+        foreach ( $this->allegati as $allegato ) {
+            $mime->addAttachment($allegato->percorso(), $allegato->mime, $allegato->nome);
+        }
+        $corpo = $mime->get();
+        $header = $mime->headers($header);
         return $mailer->send($email, $header, $corpo);
-        /* TODO Procedura di invio mail */
-        //file_put_contents('./mail/log/' . time() . rand(100, 999) . '.html', $corpo);
-         
+        
     }
     
      
