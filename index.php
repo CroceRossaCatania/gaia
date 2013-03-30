@@ -223,6 +223,7 @@ if ( !file_exists($_f) ) {
                                     <li><a href="?p=admin.presidenti"><i class="icon-list"></i> Presidenti</a></li>
                                     <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
                                     <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li> 
+                                    <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li> 
                                     <li><a href="?p=admin.format"><i class="icon-upload"></i> Carica format</a></li>                                    
                                 </ul>
                             </div>
