@@ -39,8 +39,25 @@ foreach ( $patenti as $patente ) {
 
 $log .= "Inviate $n notifiche di scadenza patente\n";
 
-/* Appende il file al log */
-file_put_contents('upload/log/cronjob.txt', $log, FILE_APPEND);
+
+
+
+/* Cancella i file scaduti da disco e database */
+$n = 0;
+foreach ( File::scaduti() as $f ) {
+    $f->cancella(); $n++;
+}
+$log .= "Cancellati $n file scaduti\n";
+
+
+
+
+
+
+/* FINE CRONJOB */
 
 /* Stampa il log a video */
 echo "<pre>$log</pre>";
+
+/* Appende il file al log */
+file_put_contents('upload/log/cronjob.txt', $log, FILE_APPEND);
