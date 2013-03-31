@@ -29,7 +29,8 @@ paginaPrivata();
     foreach ( $me->storico() as $app ) { 
                             if ($app->attuale()) 
                                     {
-                                    if($app->stato == TRASF_INCORSO){ ?>
+                                    $trasferimento = Trasferimento::by('appartenenza', $app->id);
+                                    if($app->stato == TRASF_INCORSO && !$trasferimento && !$trasferimento->presaInCarico() ){ ?>
                                         <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> Richiesta trasferimento in elaborazione</h2>
                                         <div class="alert alert-block">
@@ -56,8 +57,8 @@ paginaPrivata();
                                     </div>    
                  <?php      $i=1;
                                     }
-                                    $trasferimento = Trasferimento::by('appartenenza', $app->id);
-                                    if( $trasferimento && $trasferimento->presaInCarico() ){ ?>
+                                    
+                                    if( $trasferimento && $trasferimento->presaInCarico() && !$app->stato == MEMBRO_PENDENTE){ ?>
                                         <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> Richiesta trasferimento presa in carico</h2>
                                         <div class="alert alert-block">
