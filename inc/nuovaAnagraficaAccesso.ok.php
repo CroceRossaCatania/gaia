@@ -42,4 +42,4 @@ if ( ! Utente::listaAdmin() ) {
     $me->admin = time();
 }
 
-redirect('me');
+redirect('utente.me');
