@@ -65,7 +65,7 @@ $a = new Attivita($_GET['id']);
                     <i class="icon-user"></i>
                     Referente
                 </span><br />
-                <a href="mailto:<?php echo $a->referente()->email; ?>">
+                <a href="?p=utente.mail.nuova&id=<?php echo $a->referente()->id;?>">
                     <?php echo $a->referente()->nome . ' ' . $a->referente()->cognome; ?>
                      </a>
                 <br />
