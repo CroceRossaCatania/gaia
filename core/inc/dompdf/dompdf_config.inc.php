@@ -144,7 +144,7 @@ define("DOMPDF_PDF_BACKEND", "auto");
  *
  * @see CPDF_Adapter::PAPER_SIZES for valid sizes
  */
-define("DOMPDF_DEFAULT_PAPER_SIZE", "letter");
+define("DOMPDF_DEFAULT_PAPER_SIZE", "a4");
 
 
 /**

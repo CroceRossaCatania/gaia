@@ -31,6 +31,7 @@ $p->_TIME = date('d-m-Y', time());
 $f = $p->salvaFile();
 
 if ( $sessione->inGenerazioneTrasferimento) {
+    $sessione->inGenerazioneTrasferimento = null;
     
     /* Richiesta all'utente */
         $m = new Email('richiestaTrasferimento', 'Richiesta trasferimento: ' . $t->comitato()->nome);
