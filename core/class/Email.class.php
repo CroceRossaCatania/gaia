@@ -10,14 +10,14 @@ class Email {
             $db = null,
             $sostituzioni = [],
             $allegati = [],
-            $modello = '',
-            $da = null;
+            $modello = '';
     
     public
             $a = null,
-            $oggetto = '';
+            $oggetto = '',
+            $da = null;
     
-    public function __construct ( $modello, $oggetto = 'CRICATANIA.it' ) {
+    public function __construct ( $modello, $oggetto ) {
         global $db;
         $this->db = $db;
         if ( !file_exists('./core/conf/mail/modelli/' . $modello .'.html') ) {
@@ -62,8 +62,7 @@ class Email {
             'From'          =>  $da,
             'MIME-Version'  =>  '1.0',
             'Content-type'  =>  'text/html; charset=utf-8',
-            'To'            =>  $this->a->nome . ' <' . $email . '>',
-            'Bcc'           =>  'cricatania@mailinator.com'
+            'To'            =>  $this->a->nome . ' <' . $email . '>'
         ];
         require_once './core/class/Mail/mime.php';
         require_once './core/class/Mail/mimePart.php';

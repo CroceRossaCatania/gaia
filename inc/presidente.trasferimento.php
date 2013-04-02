@@ -62,8 +62,12 @@ foreach($comitati as $comitato){
         <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
         <td><?php echo $_v->comuneNascita; ?></td>
         <td><?php echo $c->nome; ?></td>
-        <td>
-         <?php if($_t->protNumero){ ?>   
+        <?php if($_t->protNumero){ ?>
+        <td class="btn-group">     
+        <a class="btn btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $_t->id; ?>">
+                <i class="icon-print"></i>
+                    Stampa richiesta
+        </a>
         <a class="btn btn-success" href="?p=presidente.trasferimento.ok&id=<?php echo $_t->id; ?>&si">
                 <i class="icon-ok"></i>
                     Conferma
@@ -73,6 +77,7 @@ foreach($comitati as $comitato){
                     Nega
             </a>
         <?php }else{ ?>
+        <td>   
         <a class="btn btn-success" href="?p=presidente.trasferimentoRichiesta&id=<?php echo $_t->id; ?>&si">
                 <i class="icon-ok"></i>
                     Protocolla richiesta

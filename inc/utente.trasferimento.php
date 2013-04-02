@@ -25,24 +25,12 @@ paginaPrivata();
         </div>
         <?php } ?>
         <?php 
- 
+    $i=0;
     foreach ( $me->storico() as $app ) { 
-                            if ($app->attuale()) 
+                         if ($app->attuale()) 
                                     {
-                                    if($app->stato == TRASF_INCORSO){ ?>
-                                        <div class="row-fluid">
-                                        <h2><i class="icon-warning-sign muted"></i> Richiesta trasferimento in elaborazione</h2>
-                                        <div class="alert alert-block">
-                                            <div class="row-fluid">
-                                                <span class="span12">
-                                                    <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nome; ?></strong> è in fase di elaborazione.</p>
-                                                    <p>La tua richiesta è in attesa di essere protocollata dalla segreteria del tuo Comitato.</p>
-                                                </span>
-                                            </div>
-                                        </div>           
-                                    </div>
-                    <?php    $i=1;
-                                    }elseif($app->stato == MEMBRO_PENDENTE){ ?> 
+                          $trasferimento = Trasferimento::by('appartenenza', $app->id);
+                           if($app->stato == MEMBRO_PENDENTE){ ?> 
                                     <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> Impossibile richiedere trasferimento</h2>
                                         <div class="alert alert-error">
@@ -54,11 +42,20 @@ paginaPrivata();
                                             </div>
                                         </div>           
                                     </div>    
-                 <?php      $i=1;
-                                    }
-                                    $trasferimento = Trasferimento::by('appartenenza', $app->id);
-                                    if( $trasferimento && $trasferimento->presaInCarico() ){ ?>
-                                        <div class="row-fluid">
+                 <?php $i=1; }elseif($trasferimento && $trasferimento->stato==TRASF_INCORSO && !$trasferimento->presaInCarico()){ ?>
+                     <div class="row-fluid">
+                                        <h2><i class="icon-warning-sign muted"></i> Richiesta trasferimento in elaborazione</h2>
+                                        <div class="alert alert-block">
+                                            <div class="row-fluid">
+                                                <span class="span12">
+                                                    <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nome; ?></strong> è in fase di elaborazione.</p>
+                                                    <p>La tua richiesta è in attesa di essere protocollata dalla segreteria del tuo Comitato.</p>
+                                                </span>
+                                            </div>
+                                        </div>           
+                                    </div>
+              <?php $i=2;  }elseif($trasferimento && $trasferimento->presaInCarico() && $trasferimento->stato==TRASF_INCORSO){ ?>         
+                    <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> Richiesta trasferimento presa in carico</h2>
                                         <div class="alert alert-block">
                                             <div class="row-fluid">
@@ -70,13 +67,8 @@ paginaPrivata();
                                             </div>
                                         </div>           
                                     </div>
-                    <?php    $i=2;
-                                    } else {
-                                        // Non presa in carico?
-                                    }
-                                    }
-                                    }
-if ($i!=1 && $i!=2){?>
+             <?php $i=3; } } }
+if($i==0){ ?>
         <div class="row-fluid">
             <h2><i class="icon-chevron-right muted"></i> Richiesta trasferimento</h2>
             <div class="alert alert-block alert-info ">

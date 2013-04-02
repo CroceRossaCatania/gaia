@@ -7,7 +7,7 @@
 $v = utente::by('email', $_POST['inputMail']);
 $oggetto= $_POST['inputOggetto']; 
 $testo = $_POST['inputTesto'];
-
+$info = utente::by('id', 398);
 if (isset($_GET['mass'])) {
 $f = $_GET['t'];
 $t = TitoloPersonale::filtra([['titolo',$f]]);
@@ -44,11 +44,10 @@ if($me->presiede()){
 
 $m = new Email('mailTestolibero', 'Richiesta supporto: '.$oggetto);
 $m->da = $me; 
-$m->a = 'informatica@cricatania.it';
+$m->a = $info;
 $m->_TESTO = $testo;
 $m->invia();
-/*redirect('me&suppok');*/
-    
+redirect('utente.me&suppok');    
 }else{
 
 $m = new Email('mailTestolibero', ''.$oggetto);
@@ -59,5 +58,5 @@ $m->invia();
 
 }  
 
-redirect('me&ok');
+redirect('utente.me&ok');
 ?>

@@ -55,7 +55,7 @@ foreach($comitati as $comitato) {
         <td><?php echo $_v->comuneNascita; ?></td>
         <td><?php echo $comitato->nome; ?></td>
         <td class="btn-group">
-            <a class="btn btn-small" href="?p=admin.visualizzamodificaUtente&id=<?php echo $_v->id; ?>" title="Dettagli">
+            <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli
                         </a>    
             <a class="btn btn-success btn-small" href="?p=presidente.appartenenzepending.ok&id=<?php echo $_t->id; ?>&si">

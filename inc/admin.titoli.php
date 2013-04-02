@@ -9,18 +9,18 @@ paginaAdmin();
 ?>
 <?php if ( isset($_GET['new']) ) { ?>
         <div class="alert alert-success">
-            <i class="icon-save"></i> <strong>Comitato aggiunto</strong>.
-            Il Comitato è stato aggiunto con successo.
+            <i class="icon-save"></i> <strong>Titolo aggiunto</strong>.
+            Il titolo è stato aggiunto con successo.
         </div>
 <?php } elseif ( isset($_GET['del']) )  { ?>
         <div class="alert alert-block alert-error">
-           <i class="icon-exclamation-sign"></i> <strong>Comitato cancellato</strong>
-            Il Comitato è stato cancellato con successo.
+           <i class="icon-exclamation-sign"></i> <strong>Titolo cancellato</strong>
+            Il titolo è stato cancellato con successo.
         </div>
 <?php }elseif ( isset($_GET['dup']) ) { ?>
         <div class="alert alert-error">
-            <i class="icon-warning-sign"></i> <strong>Comitato presente</strong>.
-            Il Comitato è già presente in elenco.
+            <i class="icon-warning-sign"></i> <strong>Titolo presente</strong>.
+            Il titolo è già presente in elenco.
         </div>
 <?php } ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
@@ -28,21 +28,21 @@ paginaAdmin();
 <div class="row-fluid">
     <div class="span8">
         <h2>
-            <i class="icon-bookmark muted"></i>
-            Elenco Comitati
+            <i class="icon-certificate muted"></i>
+            Elenco Titoli
         </h2>
     </div>
     
     <div class="span4 allinea-destra">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>
-            <input autofocus required id="cercaUtente" placeholder="Cerca Comitato..." type="text">
+            <input autofocus required id="cercaUtente" placeholder="Cerca Titolo..." type="text">
         </div>
     </div>  
     <br/>  
     <div class="span4 allinea-destra">
-        <a class="btn btn-success" href="?p=admin.comitato.nuovo">
-                <i class="icon-plus"></i> Aggiungi Comitato
+        <a class="btn btn-success" href="?p=admin.titolo.nuovo">
+                <i class="icon-plus"></i> Aggiungi Titolo
                 </a>
     </div> 
 </div>
@@ -54,18 +54,17 @@ paginaAdmin();
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
                 <th>Nome</th>
+                <th>Tipo</th>
                 <th>Azioni</th>
             </thead>
         <?php
-       foreach(Comitato::elenco('nome ASC') as $c){
+       foreach(Titolo::elenco('nome ASC') as $c){
                 ?>
                   <tr>
                     <td><?php echo $c->nome; ?></td>
-                    <td class="btn-group">
-                        <a class="btn btn-small" href="?p=&id=<?php echo $c->id; ?>" title="Dettagli">
-                            <i class="icon-eye-open"></i> Dettagli
-                        </a>            
-                        <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ?');" href="?p=admin.comitato.cancella&id=<?php echo $c->id; ?>" title="Cancella Comitato" class="btn btn-small btn-warning">
+                    <td><?php echo $c->tipo; ?></td>
+                    <td class="btn-group">      
+                        <a  onClick="return confirm('Vuoi veramente cancellare questo titolo ?');" href="?p=admin.titolo.cancella&id=<?php echo $c->id; ?>" title="Cancella Titolo" class="btn btn-small btn-warning">
                             <i class="icon-trash"></i> Cancella
                         </a>
                    </td>

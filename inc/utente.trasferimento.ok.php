@@ -46,13 +46,9 @@ foreach ( $me->storico() as $app ) {
         $t->motivo = $m;
         $t->timestamp = time();
         
-        $m = new Email('richiestaTrasferimento', 'Richiesta trasferimento: ' . $t->comitato()->nome);
-        $m->a = $me;
-        $m->_NOME       = $me->nome;
-        $m->_COMITATO   = $t->comitato()->nome;
-        $m-> _TIME = date('d-m-Y', $t->timestamp);
-        $m->invia();
-        redirect('utente.trasferimento&ok');
+
+        $sessione->inGenerazioneTrasferimento = time();
+        redirect('presidente.trasferimentoRichiesta.stampa&id=' . $t);
         
         continue;
     }

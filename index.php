@@ -36,8 +36,8 @@ if ( !file_exists($_f) ) {
   	<meta charset="utf-8" />
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Croce Rossa Italiana - Comitato Provinciale di Catania</title>
-    <meta name="description" content="Descrizione di base">
+    <title>Croce Rossa Italiana - Progetto Gaia</title>
+    <meta name="description" content="Crediamo in una Croce Rossa Italiana che sa muoversi velocemente, più trasparente ed aperta a tutti.">
     <meta name="author" content="Servizi Informatici - Croce Rossa Italiana Catania">
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
@@ -92,7 +92,7 @@ if ( !file_exists($_f) ) {
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="#">
+            <a class="brand" href="?">
             	<img src="./img/logoTop.png" />
             	&nbsp; <span class="muted">Croce Rossa Italiana</span> &nbsp; «Gaia»
             </a>
@@ -223,6 +223,7 @@ if ( !file_exists($_f) ) {
                                     <li><a href="?p=admin.presidenti"><i class="icon-list"></i> Presidenti</a></li>
                                     <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
                                     <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li> 
+                                    <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li> 
                                     <li><a href="?p=admin.format"><i class="icon-upload"></i> Carica format</a></li>                                    
                                 </ul>
                             </div>
