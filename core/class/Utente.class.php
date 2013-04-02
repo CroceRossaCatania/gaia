@@ -263,6 +263,10 @@ class Utente extends Persona {
             return $this->comitatiPresidenzianti();
         }
     }
+    
+    public function miCompete(Comitato $c) {
+        return (bool) in_array($c, $this->comitatiDiCompetenza());
+    }
 
     public function cancella() {
         $this->avatar()->cancella();

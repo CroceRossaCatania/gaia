@@ -34,6 +34,8 @@ $(window).ready( function () {
     $("#_logout").click( _logout );
     $("#_login").click( _login );
     $("#barraRicerca").keyup( _barraRicerca );
+    
+    $("[data-attendere]").each( _attendere );
 
 } );
 
@@ -53,7 +55,7 @@ Modernizr.load([
 ]);
 
 function _rete_errore(a, b, c) {
-    alert('C\'è stato un errore nel processare la richiesta.');
+    // alert('C\'è stato un errore nel processare la richiesta.');
 }
 
 function _rete_ok(a, b, c) {
@@ -144,4 +146,12 @@ function caricaMapsApi( callback ) {
   script.type = "text/javascript";
   script.src = "http://maps.google.com/maps/api/js?sensor=false&callback=" + callback;
   document.body.appendChild(script);
+}
+
+function _attendere(i, e) {
+    $(e).click ( function() {
+        var testo = $(e).data('attendere');
+        $(e).addClass('disabled').attr('disabled', 'disabled');
+        $(e).html('<i class="icon-spin icon-spinner"></i> ' + testo);
+    });
 }

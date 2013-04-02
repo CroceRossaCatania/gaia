@@ -37,6 +37,14 @@
     
 <div class="row-fluid">
    <div class="span12">
+       
+       <?php if ( $me->admin ) { ?>
+       <a href="?p=admin.utenti.excel" class="btn btn-block btn-inverse" data-attendere="Generazione in corso...">
+           <i class="icon-download"></i>
+            <strong>Amministratore</strong> &mdash; Scarica tutti i fogli in un archivio zip.
+       </a><hr />
+       <?php } ?>
+       
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
                 <th>Nome</th>
@@ -66,7 +74,12 @@
                     <?php echo $comitato->nome; ?>
                     <span class="label label-warning">
                         <?php echo count($t); ?>
-                    </label>
+                    </span>
+                    <a class="btn btn-small pull-right" 
+                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>"
+                       data-attendere="Generazione...">
+                            <i class="icon-download"></i> scarica come foglio excel
+                    </a>
                 </td>
             </tr>
             
