@@ -26,4 +26,4 @@ if (isset($_GET['si'])) {
     $t->cancella();
 }
 
-redirect('presidente.titoli');
+redirect('presidente.titoli&ok');

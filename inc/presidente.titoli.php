@@ -4,9 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPrivata();
-
-$t = TitoloPersonale::pendenti();
+paginaPresidenziale();
 
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
@@ -15,14 +13,20 @@ $t = TitoloPersonale::pendenti();
         <div class="controls">
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-search"></i></span>
-                <input data-t="<?php echo $t; ?>" required id="cercaUtente" placeholder="Cerca utente..." class="span4" type="text">
+                <input required id="cercaUtente" placeholder="Cerca volontario o titolo..." class="span4" type="text">
             </div>
         </div>
     </div> 
 <hr />
+
+<?php if (isset($_GET['ok'])) { ?>
+    <div class="alert alert-success">
+        <strong><i class="icon-ok"></i> Azione eseguita</strong> correttamente [<?php echo date('H:i:s'); ?>]
+    </div>
+<?php } ?>
+
 <table class="table table-striped table-bordered" id="tabellaUtenti">
     <thead>
-        <th>#</th>
         <th>Nome</th>
         <th>Cognome</th>
         <th>Codice Fiscale</th>
@@ -33,16 +37,16 @@ $t = TitoloPersonale::pendenti();
     <?php 
     $comitati= $me->comitatiDiCompetenza();
     foreach($comitati as $comitato){
-             foreach ( $t as $_t ) {
-                   $a=$_t->volontario()->id;
-                   $a = Appartenenza::filtra([['volontario',$a],['comitato',$comitato]]);
-                   if($a[0]!=''){
+             foreach ( $comitato->titoliPendenti() as $_t ) {
+                 $_v = $_t->volontario();
+                   //$a=$_t->volontario()->id;
+                   //$a = Appartenenza::filtra([['volontario',$a],['comitato',$comitato]]);
+                   //if($a[0]!=''){
                 ?>
     <tr>
-        <td><?php echo $_t->id; ?></td>
-        <td><?php echo $_t->volontario()->nome; ?></td>
-        <td><?php echo $_t->volontario()->cognome; ?></td>
-        <td><?php echo $_t->volontario()->codiceFiscale; ?></td>
+        <td><?php echo $_v->nome; ?></td>
+        <td><?php echo $_v->cognome; ?></td>
+        <td><?php echo $_v->codiceFiscale; ?></td>
         <td><strong><?php echo $_t->titolo()->nome; ?></strong></td>
         <td><small>
                                 <i class="icon-calendar muted"></i>
@@ -66,16 +70,16 @@ $t = TitoloPersonale::pendenti();
                                     
                             </small></td>
         <td>    
-        <a class="btn btn-success" href="?p=presidente.titolo.ok&id=<?php echo $_t->id; ?>&si">
+            <a class="btn btn-success btn-block" href="?p=presidente.titolo.ok&id=<?php echo $_t->id; ?>&si">
                 <i class="icon-ok"></i>
-                    Conferma
+                    &nbsp;Conferma&nbsp;
             </a>
-            <a class="btn btn-danger" href="?p=presidente.titolo.ok&id=<?php echo $_t->id; ?>&no">
+            <a class="btn btn-danger btn-block btn-small" href="?p=presidente.titolo.ok&id=<?php echo $_t->id; ?>&no">
                 <i class="icon-ban-circle"></i>
                     Nega
             </a>
         </td>
         
     </tr>
-    <?php }}} ?>
+    <?php }}//} ?>
 </table>
