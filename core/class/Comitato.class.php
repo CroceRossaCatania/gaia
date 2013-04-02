@@ -119,6 +119,32 @@ class Comitato extends Entita {
         return $r;
     }
     
+    public function titoliPendenti() {
+        $q = $this->db->prepare("
+            SELECT 
+                titoliPersonali.id
+            FROM
+                titoliPersonali, appartenenza
+            WHERE
+                titoliPersonali.volontario = appartenenza.volontario
+            AND
+                titoliPersonali.pConferma IS NULL
+            AND
+                appartenenza.comitato = :comitato
+            AND
+                (appartenenza.fine >= :ora
+                 OR appartenenza.fine is NULL
+                 OR appartenenza.fine = 0)");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':comitato', $this->id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new TitoloPersonale($k[0]);
+        }
+        return $r;
+    }
+    
     public function presidenti() {
         return $this->membriAttuali(MEMBRO_PRESIDENTE);
     }

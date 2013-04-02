@@ -7,7 +7,7 @@
 require('./core.inc.php');
     
 /* Attiva il caching */
-ob_start();
+ob_start('ob_gzhandler');
 
 /* Sessione utente via cookie */
 $sessione = new Sessione(@$_COOKIE['sessione']);
