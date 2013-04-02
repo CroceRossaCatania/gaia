@@ -38,6 +38,7 @@ foreach ( $me->storico() as $app ) {
         $a->comitato    = $c;
         $a->stato =     TRASF_INCORSO;
         $a->timestamp = time();
+        $a->inizio    = time();
         
         $t = new Trasferimento();
         $t->stato = TRASF_INCORSO;
