@@ -39,8 +39,31 @@ foreach ( $patenti as $patente ) {
 
 $log .= "Inviate $n notifiche di scadenza patente\n";
 
+/* Patenti civili in scadenza da qui a 15 giorni*/
+$patenti = TitoloPersonale::inScadenza(70, 77, 15); // Minimo id titolo, Massimo id titolo, Giorni
+$n = 0;
 
+/* Contiene gli id dei volontari già insuttati */
+$giaInsultati = [];
+foreach ( $patenti as $patente ) {
+$_v = $patente->volontario();
 
+/* Se l'ho già insultato... */
+if ( in_array($_v->id, $giaInsultati ) ) {
+continue; // Il prossimo...
+}
+
+/* Ricordati che l'ho insuttato */
+$giaInsultati[] = $_v->id;
+$m = new Email('patenteScadenzacivile', 'Avviso patente Civile in scadenza');
+$m->a = $_v;
+$m->_NOME = $_v->nome;
+$m->_SCADENZA = date('d-m-Y', $patente->fine);
+$m->invia();
+$n++;
+}
+
+$log .= "Inviate $n notifiche di scadenza patente civili\n";
 
 /* Cancella i file scaduti da disco e database */
 $n = 0;
@@ -48,11 +71,6 @@ foreach ( File::scaduti() as $f ) {
     $f->cancella(); $n++;
 }
 $log .= "Cancellati $n file scaduti\n";
-
-
-
-
-
 
 /* FINE CRONJOB */
 
