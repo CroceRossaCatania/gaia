@@ -8,11 +8,12 @@ paginaPrivata();
 
 $t = $_GET['id'];
 $t = new TitoloPersonale($t);
+$v = $t->volontario();
 $tipo = $t->titolo()->tipo;
 $t->cancella();
 
 if(isset($_GET['pre'])){
-redirect('presidente.utenti');
+    redirect('presidente.utente.visualizza&id='.$v->id);
 }else{
-redirect('utente.titoli&t=' . $tipo);    
+    redirect('utente.titoli&t=' . $tipo);    
 }
