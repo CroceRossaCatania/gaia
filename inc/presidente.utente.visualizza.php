@@ -28,7 +28,6 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
   <!--Visualizzazione e modifica avatar utente-->
         <div class="span12">
             <div class="span6 allinea-centro">
-        <h3>Fotografia</h3>
         <?php if ( isset($_GET['aok']) ) { ?>
             <div class="alert alert-success">
                 <i class="icon-ok"></i> Fotografia modificata!
@@ -58,6 +57,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             </div>
             
 <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $f; ?>" method="POST">
+        <hr />
         <h2><i class="icon-edit muted"></i> Anagrafica</h2>
         <div class="control-group">
               <label class="control-label" for="inputNome">Nome</label>
@@ -178,17 +178,21 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                 <table class="table table-striped">
                     <?php foreach ( $ttt as $titolo ) { ?>
                     <tr <?php if (!$titolo->tConferma) { ?>class="warning"<?php } ?>>
-                        <td><strong><?php echo $titolo->titolo()->nome; ?></strong></td>
-                        <td><?php echo $conf['titoli'][$titolo->titolo()->tipo][0]; ?></td>
-                        <?php if ($titolo->tConferma) { ?>
-                            <td>
-                                <abbr title="<?php echo date('d-m-Y H:i', $titolo->tConferma); ?>">
-                                    <i class="icon-ok"></i> Confermato
+                        <td>
+                            <?php if ($titolo->tConferma) { ?>
+                                    <abbr title="Confermato: <?php echo date('d-m-Y H:i', $titolo->tConferma); ?>">
+                                        <i class="icon-ok"></i>
+                                    </abbr>
+                            <?php } else { ?>
+                                <abbr title="Pendente">
+                                    <i class="icon-time"></i>
                                 </abbr>
-                            </td>    
-                        <?php } else { ?>
-                            <td><i class="icon-time"></i> Pendente</td>
-                        <?php } ?>
+                            <?php } ?> 
+                                
+                            <strong><?php echo $titolo->titolo()->nome; ?></strong><br />
+                            <small><?php echo $conf['titoli'][$titolo->titolo()->tipo][0]; ?></small>
+                        </td>
+
                         
                             <?php if ( $titolo->inizio ) { ?>
                             <td><small>
@@ -215,7 +219,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                             <td>&nbsp;</td>
                             <?php } ?>
                             
-                            <td><a  href="?p=utente.titolo.cancella&id=<?php echo $titolo->id; ?>&pre" title="Cancella il titolo" class="btn btn-small btn-warning">
+                            <td><a onclick="return confirm('Cancellare il titolo utente?');" href="?p=utente.titolo.cancella&id=<?php echo $titolo->id; ?>&pre" title="Cancella il titolo" class="btn btn-small btn-warning">
                                 <i class="icon-trash"></i>
                             </a></td>
                     </tr>

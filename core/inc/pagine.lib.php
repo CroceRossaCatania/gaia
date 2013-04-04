@@ -9,7 +9,7 @@
  */
 function paginaPrivata() {
     global $sessione;
-    if ( $sessione->utente == null ) {
+    if ( !$sessione->utente() ) {
         redirect('login');
     }
 }
@@ -38,8 +38,8 @@ function richiediComitato() {
 }
 
 function paginaPresidenziale() {
-    paginaPrivata();
     global $sessione;
+        paginaPrivata();
     if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin ) {
         redirect('utente.me');
     }
