@@ -27,7 +27,7 @@ $p->_LUOGO = $t->volontario()->comuneNascita;
 $p->_DATA = date('d-m-Y', $t->volontario()->dataNascita);
 $p->_ANNOCRI = date('d-m-Y', $app->inizio);
 $p->_MOTIVO = $t->motivo;
-$p->_TIME = date('d-m-Y', time());
+$p->_TIME = date('d-m-Y', $t->timestamp);
 $f = $p->salvaFile();
 
 if ( $sessione->inGenerazioneTrasferimento) {

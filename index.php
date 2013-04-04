@@ -185,6 +185,13 @@ if ( !file_exists($_f) ) {
                                         </a>
                                     </li>
                                     
+                                    <li>
+                                        <a href="?p=presidente.riserva">
+                                            <i class="icon-pause"></i>
+                                            Riserve in attesa di conferma
+                                        </a>
+                                    </li>
+                                    
                                     <li class="nav-header">Volontari</li>
                                 
                                     <li>

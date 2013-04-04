@@ -194,4 +194,29 @@ class Comitato extends Entita {
         }
         return $r;
     }
+    
+    public function riserve($stato = null) {
+        $stato = (int) $stato;
+        $q = "
+            SELECT
+                riserve.id
+            FROM
+                riserve, appartenenza
+            WHERE
+                riserve.appartenenza = appartenenza.id
+            AND
+                appartenenza.comitato = :id";
+        if ( $stato ) {
+            $q .= " AND riserve.stato = $stato";
+        }
+        $q .= " ORDER BY riserve.timestamp DESC";
+        $q = $this->db->prepare($q);
+        $q->bindParam(':id', $this->id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Riserva($k[0]);
+        }
+        return $r;
+    }
 }

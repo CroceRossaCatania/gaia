@@ -66,7 +66,14 @@ if ( !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('n
             
         </div>
         <?php } ?>
-        
+        <?php 
+        foreach ($me->inriserva() as $ris ){
+            if($ris->fine >= time()){?>
+        <div class="alert alert-block">
+            <h4><i class="icon-pause"></i> In riserva</h4>
+            <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d-m-Y', $ris->fine); ?></strong>.</p>
+        </div>
+        <?php }} ?>
             
         <!-- Per ora mostra sempre... -->
         <div class="alert alert-block alert-info">

@@ -186,6 +186,26 @@ $conf['database']['tables'] = [
                 INDEX ( turno )
             '
         ],
+    [
+            'name'      =>  'riserve',
+            'fields'    =>  '
+                id              int PRIMARY KEY,
+                stato           varchar(16),
+                appartenenza    varchar(16),
+                volontario      varchar(16),
+                inizio      varchar(64),
+                fine        varchar(64),
+                protNumero      varchar(16),
+                protData        varchar(64),
+                motivo          text,
+                negazione       text,
+                timestamp       varchar(64),
+                pConferma       varchar(16),
+                tConferma       varchar(64),
+                INDEX ( appartenenza ),
+                INDEX ( volontario )'
+            
+        ],
         [
             'name'  =>  'delegati',
             'fields'    =>  '

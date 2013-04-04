@@ -415,4 +415,19 @@ class Utente extends Persona {
         }
     }
     
+    public function inriserva() {
+        $q = $this->db->prepare("
+            SELECT id FROM riserve WHERE
+            volontario = :id AND stato = :stat");
+        $q->bindParam(':id', $this->id);
+        $stat = RISERVA_OK;
+        $q->bindParam(':stat', ($stat));
+        $q->execute();
+        $r = [];
+        while ( $x = $q->fetch(PDO::FETCH_NUM)) {
+            $r[] = new Riserva($x[0]);
+        }
+        return $r;
+    }
+    
 }
