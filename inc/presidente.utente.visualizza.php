@@ -28,7 +28,6 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
   <!--Visualizzazione e modifica avatar utente-->
         <div class="span12">
             <div class="span6 allinea-centro">
-        <h3>Fotografia</h3>
         <?php if ( isset($_GET['aok']) ) { ?>
             <div class="alert alert-success">
                 <i class="icon-ok"></i> Fotografia modificata!
@@ -58,6 +57,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             </div>
             
 <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $f; ?>" method="POST">
+        <hr />
         <h2><i class="icon-edit muted"></i> Anagrafica</h2>
         <div class="control-group">
               <label class="control-label" for="inputNome">Nome</label>
@@ -186,7 +186,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                             <?php } else { ?>
                                 <abbr title="Pendente">
                                     <i class="icon-time"></i>
-                                </abrr>
+                                </abbr>
                             <?php } ?> 
                                 
                             <strong><?php echo $titolo->titolo()->nome; ?></strong><br />
