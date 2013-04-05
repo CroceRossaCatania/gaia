@@ -136,11 +136,11 @@ class Mail_mime
         // Options: 7bit, 8bit, base64, or quoted-printable
         'html_encoding' => 'quoted-printable',
         // The character set to use for html
-        'html_charset'  => 'ISO-8859-1',
+        'html_charset'  => 'UTF-8',
         // The character set to use for text
-        'text_charset'  => 'ISO-8859-1',
+        'text_charset'  => 'UTF-8',
         // The character set to use for headers
-        'head_charset'  => 'ISO-8859-1',
+        'head_charset'  => 'UTF-8',
         // End-of-line sequence
         'eol'           => "\r\n",
         // Delay attachment files IO until building the message
