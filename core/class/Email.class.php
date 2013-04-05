@@ -45,7 +45,7 @@ class Email {
         foreach ( $this->sostituzioni as $nome => $valore ) {
             $corpo = str_replace($nome, $valore, $corpo);
         }
-        $corpo  = $header . $corpo . $footer;
+        $corpo  = $header . $corpo . $footer . "\n";
 
         if ( $this->da ) {
             if ( $this->da instanceOf Persona ) {
@@ -61,7 +61,6 @@ class Email {
             'Subject'       =>  $oggetto,
             'From'          =>  $da,
             'MIME-Version'  =>  '1.0',
-            'Content-type'  =>  'text/html; charset=utf-8',
             'To'            =>  $this->a->nome . ' <' . $email . '>'
         ];
         require_once './core/class/Mail/mime.php';

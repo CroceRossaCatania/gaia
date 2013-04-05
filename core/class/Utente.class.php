@@ -415,7 +415,7 @@ class Utente extends Persona {
         }
     }
     
-    public function inriserva() {
+    public function inRiserva() {
         return Riserva::filtra([
             ['volontario',  $this->id],
             ['stato',       RISERVA_OK]
