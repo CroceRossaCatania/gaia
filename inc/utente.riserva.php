@@ -23,8 +23,6 @@ paginaPrivata();
     foreach ( $me->storico() as $app ) { 
                          if ($app->attuale()) 
                                     {
-                          $riserva = Riserva::by('appartenenza', $app->id);
-                          $riservafine = $riserva->fine;
                            if($app->stato == MEMBRO_PENDENTE){ ?> 
                                     <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> Impossibile richiedere trasferimento</h2>
@@ -38,6 +36,8 @@ paginaPrivata();
                                         </div>           
                                     </div>    
                  <?php $i=1; }}}
+                 foreach($me->riserve() as $riserva){
+                 $riservafine = $riserva->fine;
                  if($riserva && $riserva->stato==RISERVA_INCORSO && !$riserva->presaInCarico()){ ?>
          <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> Richiesta riserva in elaborazione</h2>
@@ -76,7 +76,7 @@ paginaPrivata();
                                             </div>
                                         </div>           
                                     </div>
-             <?php $i=4; }
+             <?php $i=4; }}
 if($i==0){ ?>
         <div class="row-fluid">
             <h2><i class="icon-pause muted"></i> Richiesta Riserva</h2>

@@ -45,5 +45,11 @@ class Riserva extends Entita {
     public function nega($motivo) {
         $this->rispondi(RISERVA_NEGATA, $motivo);
     }
+    
+     /* Riserva è ancora attuale? */
+        public function attuale() {
+            /* Vero se la fine è dopo, o non c'è fine! */
+            return ( ( ( $this->fine > time() ) || ( !$this->fine ) ) && ( $this->stato!=RISERVA_SCAD ) && ( $this->stato!=RISERVA_NEGATA) );
+        }
        
 }

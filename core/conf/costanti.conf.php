@@ -244,9 +244,9 @@ define('RISERVA_INCORSO',      20);
 define('RISERVA_OK',           30);
 define('RISERVA_SCAD',         40);
 
-$conf['trasferimenti'] = [
+$conf['riserve'] = [
     RISERVA_NEGATA        =>  'Negata',
     RISERVA_INCORSO       =>  'In corso',
-    RISERVA_OK          =>  'Con successo',
+    RISERVA_OK          =>  'In riserva',
     RISERVA_SCAD          =>  'Scaduta'
 ];
