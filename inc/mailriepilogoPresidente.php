@@ -8,13 +8,17 @@ foreach ( Comitato::elenco() as $comitato ) {
   $presidenti = $comitato->membriAttuali(MEMBRO_PRESIDENTE);
   $pendenti = $comitato->appartenenzePendenti();
   $numPendenti = count($pendenti);
+  $titoli = $comitato->titoliPendenti();
+  $numTitoli = count($titoli);
   foreach ( $presidenti as $presidente ) {
     $m = new Email('riepilogoPresidente','Riepilogo giornaliero pendenze su Gaia');
     $m->a = $presidente;
     $m-> _NOME = $presidente->nome;
     $m-> _COMITATO = $comitato->nome;
     $m->_APPPENDENTI = $numPendenti;
+    $m->_TITPENDENTI = $numTitoli;
     $m->invia();
    }
 }
+
 ?>

@@ -38,7 +38,7 @@ if ( $sessione->inGenerazioneRiserva) {
         $m->a = $me;
         $m->_NOME       = $me->nome;
         $m-> _TIME = date('d-m-Y', $t->timestamp);
-        /*$m->allega($f);*/
+        $m->allega($f);
         $m->invia();
               
     redirect('utente.riserva&ok');
