@@ -7,6 +7,7 @@
 paginaAdmin();
 
 ?>
+
 <?php if ( isset($_GET['new']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-save"></i> <strong>Comitato aggiunto</strong>.
@@ -26,69 +27,6 @@ paginaAdmin();
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
     <br/>
     
-<?php
-
-foreach ( Nazionale::elenco() as $nazionale ) {
-    ?>
-    <strong><?php echo $nazionale->nome; ?></strong>
-    <ul>
-        <?php foreach ( $nazionale->regionali() as $regionale ) { ?>
-        <li><?php echo $regionale->nome; ?>
-            <ul>
-                <?php foreach ( $regionale->provinciali() as $provinciale ) { ?>
-                <li><?php echo $provinciale->nome; ?>
-                    <ul>
-                        <?php foreach ( $provinciale->locali() as $locale ) { ?>
-                        <li><?php echo $locale->nome; ?>
-                            
-                            <ul><?php foreach ( $locale->comitati() as $comitato ) { ?>
-                                
-                                <li>
-                                    <?php echo $comitato->nomeCompleto(); ?>
-                                    <a href="#">azione</a>
-                                </li>
-                                
-                                <?php } ?>
-                                
-                                <li>
-                                    <a href="?admin.comitato.nuovo&locale=<?php echo $locale->id; ?>">
-                                    aggiungi nuovo comitato
-                                    </a>
-                                </li>
-                            </ul>
-                            
-                        </li>
-                        <?php } ?>
-                        
-                        <li>
-                            <a href="?admin.locale.nuovo&provinciale=<?php echo $provinciale->id; ?>">
-                            aggiungi nuovo locale
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <?php } ?>
-                
-                <li>
-                    <a href="?admin.provinciale.nuovo&regionale=<?php echo $regionale->id; ?>">
-                    aggiungi nuovo provinciale
-                    </a>
-                </li>
-                
-            </ul>
-        </li>
-        <li>
-            <a href="?admin.regionale.nuovo&nazionale=<?php echo $nazionale->id; ?>">
-            aggiungi nuovo regionale
-            </a>
-        </li>
-        <?php } ?>
-    </ul>
-
-    <?php }
-    ?>
-    
-    
 <div class="row-fluid">
     <div class="span8">
         <h2>
@@ -103,16 +41,8 @@ foreach ( Nazionale::elenco() as $nazionale ) {
             <input autofocus required id="cercaUtente" placeholder="Cerca Comitato..." type="text">
         </div>
     </div>  
-    <br/>  
-    <div class="span4 allinea-destra">
-        <a class="btn btn-success" href="?p=admin.comitato.nuovo">
-                <i class="icon-plus"></i> Aggiungi Comitato
-                </a>
-    </div> 
-</div>
-  
+</div> 
 <hr />
-    
 <div class="row-fluid">
    <div class="span12">
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
@@ -121,23 +51,84 @@ foreach ( Nazionale::elenco() as $nazionale ) {
                 <th>Azioni</th>
             </thead>
         <?php
-       foreach(Comitato::elenco('nome ASC') as $c){
+       foreach ( Nazionale::elenco() as $nazionale ){
                 ?>
                   <tr>
-                    <td><?php echo $c->nome; ?></td>
+                    <td colspan="5"><strong><?php echo $nazionale->nome; ?></strong></td>
                     <td class="btn-group">
-                        <a class="btn btn-small" href="?p=&id=<?php echo $c->id; ?>" title="Dettagli">
+                        <a class="btn btn-small" href="?p=presidente.wizard&id=<?php echo $c->id; ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli
-                        </a>            
-                        <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ?');" href="?p=admin.comitato.cancella&id=<?php echo $c->id; ?>" title="Cancella Comitato" class="btn btn-small btn-warning">
+                        </a>
+                        <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ?');" href="?p=admin.comitato.cancella&id=<?php echo $nazionale->id; ?>&naz" title="Cancella Comitato" class="btn btn-small btn-warning">
                             <i class="icon-trash"></i> Cancella
                         </a>
+                        <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $nazionale->id; ?>&t=regi" title="Nuovo">
+                            <i class="icon-plus"></i> Nuovo
+                        </a>  
                    </td>
                 </tr>
-                
-               
-       
-        <?php }
+                <?php foreach ( $nazionale->regionali() as $regionale ) { ?>
+                <tr class="success">
+                    <td border-left="none"></td>
+                    <td colspan="4" border-left="none"><?php echo $regionale->nome; ?></td>
+                        <td class="btn-group">
+                            <a class="btn btn-small" href="?p=presidente.wizard&id=<?php echo $c->id; ?>" title="Dettagli">
+                                <i class="icon-eye-open"></i> Dettagli
+                            </a>            
+                            <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ?');" href="?p=admin.comitato.cancella&id=<?php echo $regionale->id; ?>&regi" title="Cancella Comitato" class="btn btn-small btn-warning">
+                                <i class="icon-trash"></i> Cancella
+                            </a>
+                            <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $regionale->id; ?>&t=pro" title="Nuovo">
+                                <i class="icon-plus"></i> Nuovo
+                            </a> 
+                       </td>
+                </tr>
+                <?php foreach ( $regionale->provinciali() as $provinciale ) { ?>
+                <tr class="error">
+                    <td></td><td></td>
+                    <td colspan="3"><?php echo $provinciale->nome; ?></td>
+                        <td class="btn-group">
+                            <a class="btn btn-small" href="?p=presidente.wizard&id=<?php echo $c->id; ?>" title="Dettagli">
+                                <i class="icon-eye-open"></i> Dettagli
+                            </a>            
+                            <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ?');" href="?p=admin.comitato.cancella&id=<?php echo $provinciale->id; ?>&pro" title="Cancella Comitato" class="btn btn-small btn-warning">
+                                <i class="icon-trash"></i> Cancella
+                            </a>
+                            <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $provinciale->id; ?>&t=loc" title="Nuovo">
+                                <i class="icon-plus"></i> Nuovo
+                            </a> 
+                       </td>
+                </tr>
+                <?php foreach ( $provinciale->locali() as $locale ) { ?>
+                <tr class="alert">
+                    <td></td><td></td><td></td>
+                    <td colspan="2"><?php echo $locale->nome; ?></td>
+                        <td class="btn-group">
+                            <a class="btn btn-small" href="?p=presidente.wizard&id=<?php echo $c->id; ?>" title="Dettagli">
+                                <i class="icon-eye-open"></i> Dettagli
+                            </a>            
+                            <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ?');" href="?p=admin.comitato.cancella&id=<?php echo $locale->id; ?>&loc" title="Cancella Comitato" class="btn btn-small btn-warning">
+                                <i class="icon-trash"></i> Cancella
+                            </a>
+                            <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $locale->id; ?>&t=com" title="Nuovo">
+                                <i class="icon-plus"></i> Nuovo
+                            </a> 
+                       </td>
+                </tr>
+                <?php foreach ( $locale->comitati() as $comitato ) { ?>
+                <tr class="info">
+                    <td></td><td></td><td></td><td></td>
+                    <td colspan="1"><?php echo $comitato->nome; ?></td>
+                        <td class="btn-group">
+                            <a class="btn btn-small" href="?p=presidente.wizard&id=<?php echo $c->id; ?>" title="Dettagli">
+                                <i class="icon-eye-open"></i> Dettagli
+                            </a>            
+                            <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ?');" href="?p=admin.comitato.cancella&id=<?php echo $comitato->id; ?>&com" title="Cancella Comitato" class="btn btn-small btn-warning">
+                                <i class="icon-trash"></i> Cancella
+                            </a>
+                       </td>
+                </tr>
+        <?php }}}}}
         
         ?>
         </table>

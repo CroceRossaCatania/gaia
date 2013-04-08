@@ -4,9 +4,12 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaAdmin()
+paginaAdmin();
 
+$c = $_GET['id'];
+$t = $_GET['t'];
 ?>
+
 <div class="row-fluid">
             <h2><i class="icon-chevron-right muted"></i> Crea nuovo Comitato</h2>
             <div class="alert alert-block alert-info ">
@@ -18,7 +21,7 @@ paginaAdmin()
                 </div>
             </div>           
         </div>
-<form class="form-horizontal" action="?p=admin.comitato.nuovo.ok" method="POST">
+<form class="form-horizontal" action="?p=admin.comitato.nuovo.ok&id=<?php echo $c; ?>&<?php echo $t; ?>" method="POST">
 <div class="control-group">
         <label class="control-label" for="inputNome">Nome nuovo Comitato </label>
         <div class="controls">
