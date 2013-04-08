@@ -194,11 +194,13 @@ define('PROSSIMA_SCADENZA', 0);
  * ===================================
  */
 define('APP_ATTIVITA',      10);
-define('APP_PROTOCOLLO',    20);
+// define('APP_PROTOCOLLO',    20);
+define('APP_PRESIDENTE',    30);
 
 $conf['applicazioni'] = [
     APP_ATTIVITA    =>  "Attività",
-    APP_PROTOCOLLO  =>  "Protocollo"
+    // APP_PROTOCOLLO  =>  "Protocollo",
+    APP_PRESIDENTE  =>  "Presidente"
 ];
 
 /*

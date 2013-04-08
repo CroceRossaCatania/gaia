@@ -5,7 +5,7 @@
  */
 
 foreach ( Comitato::elenco() as $comitato ) {
-  $presidenti = $comitato->membriAttuali(MEMBRO_PRESIDENTE);
+  $presidenti = $comitato->presidenti();
   $pendenti = $comitato->appartenenzePendenti();
   $numPendenti = count($pendenti);
   $titoli = $comitato->titoliPendenti();

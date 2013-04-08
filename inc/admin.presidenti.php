@@ -13,6 +13,12 @@ paginaAdmin();
             Il presidente è stato dimesso con successo.
         </div>
 <?php } ?>
+<?php if ( isset($_GET['duplicato']) ) { ?>
+        <div class="alert alert-warning">
+            <i class="icon-warning-sign"></i> <strong>Il comitato ha già un presidente</strong>.
+            Dimettere prima il presidente del comitato.
+        </div>
+<?php } ?>
 <?php if ( isset($_GET['new']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-save"></i> <strong>Presidente nominato</strong>.
@@ -41,12 +47,10 @@ paginaAdmin();
         <th>Azione</th>
     </thead>
 <?php
-if($me->admin()){
-        $t = Appartenenza::filtra([['stato', MEMBRO_PRESIDENTE]]);
-  foreach ( $t as $_t ) { 
-      $c=$_t->comitato();
-      $_v = $_t->volontario();   // Una volta per tutte
-      if($_t->attuale()){?>
+foreach ( $me->comitatiDiCompetenza() as $comitato ) { 
+    foreach ( $comitato->presidenti() as $presidente ) {
+        $_v = $presidente->volontario();
+        ?>
     <tr>
         <td><?php echo $_t->id; ?></td>
         <td><?php echo $_v->nome; ?></td>
@@ -54,19 +58,21 @@ if($me->admin()){
         <td><?php echo $_v->codiceFiscale; ?></td>
         <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
         <td><?php echo $_v->comuneNascita; ?></td>
-        <td><?php echo $c->nome; ?></td>
+        <td><?php echo $comitato->nome; ?></td>
         <td>
-                <a class="btn btn-danger" onClick="return confirm('Vuoi veramente dimettere questo Presidente ?');" href="?p=admin.presidente.dimetti&id=<?php echo $_t->id; ?>">
+                <a class="btn btn-danger" onClick="return confirm('Vuoi veramente dimettere questo Presidente ?');" href="?p=admin.presidente.dimetti&id=<?php echo $presidente->id; ?>">
                 <i class="icon-ban-circle"></i>
                     Dimetti
                 </a>
         </td>
        
     </tr>
-    <?php }}
+    <?php 
     
+    }
     
-}
+}  
+
 ?>
  
 </table>

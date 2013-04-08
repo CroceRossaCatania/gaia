@@ -6,29 +6,19 @@
 
 $t = $_GET['id'];
 $c = $_POST['inputComitato'];
+$comitato = new Comitato($c);
 
-/* Cerco appartenenze allo stesso comitato */
-$f = Appartenenza::filtra([
-  ['volontario',    $t],
-  ['comitato',      $c]
-]);
-
-/* Se sono già appartenente *ora*,
- * termino l'appartenenza vecchia!
- */
-foreach ( $f as $_f ) {
-    if ( $_f->attuale() ) {
-        $_f->fine = time();
-    }
+if ( $comitato->unPresidente() ) {
+    redirect('admin.presidenti&duplicato');
 }
 
 /* Creo la nuova appartenenza... */
-$a = new Appartenenza();
+$a = new Delegato();
 $a->volontario = $t;
 $a->comitato    = $c;
 $a->inizio      = time();
 $a->fine        = PROSSIMA_SCADENZA;
-$a->stato       = MEMBRO_PRESIDENTE;
+$a->applicazione= APP_PRESIDENTE;
 $a->conferma    = $me->id;
 $a->timestamp   = time();
 

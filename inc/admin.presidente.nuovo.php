@@ -11,7 +11,7 @@ $t = $_GET['id'];
             <label class="control-label" for="inputComitato">Nomina Presidente</label>
             <div class="controls">
                 <select required name="inputComitato" autofocus class="span8">
-                    <?php foreach ( Comitato::elenco('nome ASC') as $c ) { ?>
+                    <?php foreach ( $me->comitatiDiCompetenza() as $c ) { ?>
                         <option value="<?php echo $c->id; ?>"><?php echo $c->nome; ?></option>
                     <?php } ?>
                 </select>

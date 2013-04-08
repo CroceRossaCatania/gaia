@@ -25,7 +25,8 @@ $t = $_GET['id'];
             <label class="control-label" for="inputApplicazione"> Applicazione</label>
             <div class="controls">
                 <select required name="inputApplicazione" autofocus class="span8">
-                    <?php foreach ( $conf['applicazioni'] as $numero => $app) { ?>
+                    <?php foreach ( $conf['applicazioni'] as $numero => $app) { 
+                        if ( $numero == APP_PRESIDENTE ) { continue; } ?>
                         <option value="<?php echo $numero; ?>"><?php echo $app; ?></option>
                     <?php } ?>
                 </select>

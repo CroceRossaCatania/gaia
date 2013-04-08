@@ -146,7 +146,7 @@ class Comitato extends Entita {
     }
     
     public function presidenti() {
-        return $this->membriAttuali(MEMBRO_PRESIDENTE);
+        return $this->delegati(APP_PRESIDENTE);
     }
     
     public function unPresidente() {
@@ -159,15 +159,21 @@ class Comitato extends Entita {
     public function delegati($app = null) {
         if ( $app ) {
             $app = (int) $app;
-            return Delegato::filtra([
+            $k = Delegato::filtra([
                 ['comitato',        $this->id],
                 ['applicazione',    $app]
             ]);
         } else {
-            return Delegato::filtra([
+            $k = Delegato::filtra([
                 ['comitato',    $this->id]
             ]);
         }
+        foreach ( $k as &$u ) {
+            if ( !$u->attuale() ) {
+                unset($u);
+            }
+        }
+        return $u;
     }
     
     public function trasferimenti($stato = null) {

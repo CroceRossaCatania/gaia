@@ -229,19 +229,15 @@ class Utente extends Persona {
      * Ritorna le appartenenze delle quali si è presidente.
      */
     public function presidenziante() {
-        return $this->appartenenzeAttuali(MEMBRO_PRESIDENTE);
+        return $this->delegazioni(APP_PRESIDENTE);
     }
     
     public function comitatiPresidenzianti() {
-        $c = [];
-        foreach ( $this->appartenenzeAttuali(MEMBRO_PRESIDENTE) as $a ) {
-            $c[] = $a->comitato();
-        }
-        return array_unique($c);
+        return $this->comitatiDelegazioni(APP_PRESIDENTE);
     }
     
     public function presiede() {
-        return (bool) $this->numeroAppartenenzeAttuali(MEMBRO_PRESIDENTE);
+        return (bool) $this->delegazioni(APP_PRESIDENTE);
     }
     
     /* Avatar */
@@ -283,13 +279,12 @@ class Utente extends Persona {
             WHERE   ( titoliPersonali.tConferma < 1 OR titoliPersonali.tConferma IS NULL )
             AND     titoliPersonali.volontario = appartenenza.volontario
             AND     appartenenza.comitato  IN
-                ( SELECT    comitato FROM appartenenza
-                  WHERE     stato = :stato
-                  AND       conferma > 0
-                  AND       ( fine < 1 OR fine >= :ora )
+                ( SELECT    comitato FROM delegati
+                  WHERE     applicazione = :applicazione
+                  AND       ( fine < 1 OR fine >= :ora OR fine IS NULL )
                   AND       volontario = :me
                 )");
-        $q->bindValue(':stato', MEMBRO_PRESIDENTE);
+        $q->bindValue(':applicazione', APP_PRESIDENTE);
         $q->bindValue(':ora',   time());
         $q->bindValue(':me', $this->id);
         $q->execute();
@@ -303,14 +298,13 @@ class Utente extends Persona {
             FROM    appartenenza
             WHERE   stato = :statoPendente
             AND     appartenenza.comitato  IN
-                ( SELECT comitato FROM appartenenza
-                  WHERE stato = :stato
-                  AND conferma > 0
-                  AND ( fine < 1 OR fine >= :ora )
-                  AND volontario = :me
+                ( SELECT    comitato FROM delegati
+                  WHERE     applicazione = :applicazione
+                  AND       ( fine < 1 OR fine >= :ora OR fine IS NULL )
+                  AND       volontario = :me
                 )");
         $q->bindValue(':statoPendente', MEMBRO_PENDENTE);
-        $q->bindValue(':stato', MEMBRO_PRESIDENTE);
+        $q->bindValue(':applicazione', APP_PRESIDENTE);
         $q->bindValue(':ora',   time());
         $q->bindValue(':me', $this->id);
         $q->execute();
