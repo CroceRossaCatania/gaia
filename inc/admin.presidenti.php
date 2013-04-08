@@ -52,7 +52,6 @@ foreach ( $me->comitatiDiCompetenza() as $comitato ) {
         $_v = $presidente->volontario();
         ?>
     <tr>
-        <td><?php echo $_t->id; ?></td>
         <td><?php echo $_v->nome; ?></td>
         <td><?php echo $_v->cognome; ?></td>
         <td><?php echo $_v->codiceFiscale; ?></td>

@@ -156,7 +156,7 @@ if ( !file_exists($_f) ) {
                                     <li>
                                         <a href="?p=presidente.titoli">
                                             <i class="icon-star"></i>
-                                            Titoli in attesa di conferma
+                                            Titoli in attesa
                                             <?php if ( $_n_titoli ) { ?>
                                                 <span class="badge badge-warning">
                                                     <?php echo $_n_titoli; ?>
@@ -168,7 +168,7 @@ if ( !file_exists($_f) ) {
                                     <li>
                                         <a href="?p=presidente.appartenenzepending">
                                             <i class="icon-group"></i>
-                                            Appartenenze in attesa di conferma
+                                            Appartenenze in attesa
                                             <?php if ( $_n_app ) { ?>
                                                 <span class="badge badge-warning">
                                                     <?php echo $_n_app; ?>
@@ -181,14 +181,14 @@ if ( !file_exists($_f) ) {
                                     <li>
                                         <a href="?p=presidente.trasferimento">
                                             <i class="icon-cogs"></i>
-                                            Trasferimenti in attesa di conferma
+                                            Trasferimenti in attesa
                                         </a>
                                     </li>
                                     
                                     <li>
                                         <a href="?p=presidente.riserva">
                                             <i class="icon-pause"></i>
-                                            Riserve in attesa di conferma
+                                            Riserve in attesa
                                         </a>
                                     </li>
                                     

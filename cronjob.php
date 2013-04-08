@@ -46,21 +46,21 @@ $n = 0;
 /* Contiene gli id dei volontari già insuttati */
 $giaInsultati = [];
 foreach ( $patenti as $patente ) {
-$_v = $patente->volontario();
+    $_v = $patente->volontario();
 
-/* Se l'ho già insultato... */
-if ( in_array($_v->id, $giaInsultati ) ) {
-continue; // Il prossimo...
-}
+    /* Se l'ho già insultato... */
+    if ( in_array($_v->id, $giaInsultati ) ) {
+        continue; // Il prossimo...
+    }
 
-/* Ricordati che l'ho insuttato */
-$giaInsultati[] = $_v->id;
-$m = new Email('patenteScadenzacivile', 'Avviso patente Civile in scadenza');
-$m->a = $_v;
-$m->_NOME = $_v->nome;
-$m->_SCADENZA = date('d-m-Y', $patente->fine);
-$m->invia();
-$n++;
+    /* Ricordati che l'ho insuttato */
+    $giaInsultati[] = $_v->id;
+    $m = new Email('patenteScadenzacivile', 'Avviso patente Civile in scadenza');
+    $m->a = $_v;
+    $m->_NOME = $_v->nome;
+    $m->_SCADENZA = date('d-m-Y', $patente->fine);
+    $m->invia();
+    $n++;
 }
 
 $log .= "Inviate $n notifiche di scadenza patente civili\n";
@@ -71,6 +71,15 @@ foreach ( File::scaduti() as $f ) {
     $f->cancella(); $n++;
 }
 $log .= "Cancellati $n file scaduti\n";
+
+
+/* Cancella le sessioni scadute */
+$n = 0;
+foreach ( Sessione::scadute() as $s ) {
+    $s->cancella(); $n++;
+}
+$log .= "Cancellate $n sessioni scadute\n";
+
 
 /* FINE CRONJOB */
 
