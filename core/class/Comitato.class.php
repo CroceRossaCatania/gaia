@@ -173,7 +173,7 @@ class Comitato extends Entita {
                 unset($u);
             }
         }
-        return $u;
+        return $k;
     }
     
     public function trasferimenti($stato = null) {
