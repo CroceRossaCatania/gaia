@@ -158,7 +158,22 @@ paginaPrivata();
                         </td>
                         
                         <td>
-                            <strong>Referente <?php echo $conf['app_attivita'][$app->dominio]; ?></strong>
+                            <?php switch ( $app->applicazione ) { 
+                                case APP_PRESIDENTE:
+                                    ?>
+                                    <strong>Presidente</strong>
+                                    <?php
+                                    break;
+                                case APP_ATTIVITA:
+                                    ?>
+                                    <strong>Referente</strong>
+                                    <?php echo $conf['app_attivita'][$app->dominio]; ?>
+                                    <?php
+                                    break;
+                               
+                            }
+                            ?>
+                            
                         </td>
                         
                         <td>
