@@ -181,4 +181,9 @@ class APIServer {
             
             return $r;
         }
+        
+        public function api_cercaVolontario() {
+            $this->richiedi(['query']);
+            // TODO
+        }
 }

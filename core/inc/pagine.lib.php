@@ -37,11 +37,18 @@ function richiediComitato() {
     }
 }
 
-function paginaPresidenziale() {
+function paginaPresidenziale( $comitato = null ) {
     global $sessione;
         paginaPrivata();
     if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin ) {
         redirect('utente.me');
+    }
+    if ( $comitato && !$sessione->utente()->admin ) {
+        //var_dump($comitato->volontariPresidenti());
+        //var_dump($sessione->utente());
+        if ( !in_array($sessione->utente(), $comitato->volontariPresidenti() ) ) {
+           //redirect('utente.me&erroreSicurezza');
+        }
     }
 }
 

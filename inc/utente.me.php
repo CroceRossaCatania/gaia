@@ -9,6 +9,11 @@ paginaPrivata();
 if ( !$me->email ) { redirect('nuovaAnagraficaContatti'); }
 if ( !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
 
+foreach ( $me->comitatiPresidenzianti() as $comitato ) {
+    if ( !$comitato->haPosizione() ) {
+        redirect('presidente.wizard&id=' . $comitato->id);
+    }
+}
 /* Noi siamo cattivi >:) */
 // redirect('curriculum');
 

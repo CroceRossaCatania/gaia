@@ -54,7 +54,9 @@ $conf['database']['tables'] = [
             'fields'    =>  '
                 id       int PRIMARY KEY,
                 nome     varchar(64),
-                colore   varchar(8)
+                colore   varchar(8),
+                locale   int,
+                INDEX (locale)
             '
         ],
         [
@@ -249,6 +251,57 @@ $conf['database']['tables'] = [
                 nome            varchar(255),
                 download        int,
                 INDEX ( scadenza )
+            '
+        ],
+        [
+            'name'      =>  'datiComitati',
+            'fields'    =>  '
+                id       varchar(128),
+                nome     varchar(32),
+                valore   text,
+                PRIMARY KEY (id, nome)
+            '
+        ],
+        [       
+            'name'  =>  'locali',
+            'fields'    =>  '
+                id              int PRIMARY KEY,
+                nome            varchar(255),
+                geo             point NOT NULL,
+                provinciale     int,
+                INDEX ( provinciale ),
+                SPATIAL INDEX (geo)
+            '
+        ],
+        [       
+            'name'  =>  'provinciali',
+            'fields'    =>  '
+                id              int PRIMARY KEY,
+                nome            varchar(255),
+                geo             point NOT NULL,
+                regionale     int,
+                INDEX ( regionale ),
+                SPATIAL INDEX (geo)
+            '
+        ],
+        [       
+            'name'  =>  'regionali',
+            'fields'    =>  '
+                id              int PRIMARY KEY,
+                nome            varchar(255),
+                geo             point NOT NULL,
+                nazionale     int,
+                INDEX ( nazionale ),
+                SPATIAL INDEX (geo)
+            '
+        ],       
+        [       
+            'name'  =>  'nazionali',
+            'fields'    =>  '
+                id              int PRIMARY KEY,
+                nome            varchar(255),
+                geo             point NOT NULL,
+                SPATIAL INDEX (geo)
             '
         ],
         
