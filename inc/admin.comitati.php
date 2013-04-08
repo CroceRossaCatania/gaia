@@ -25,6 +25,70 @@ paginaAdmin();
 <?php } ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
     <br/>
+    
+<?php
+
+foreach ( Nazionale::elenco() as $nazionale ) {
+    ?>
+    <strong><?php echo $nazionale->nome; ?></strong>
+    <ul>
+        <?php foreach ( $nazionale->regionali() as $regionale ) { ?>
+        <li><?php echo $regionale->nome; ?>
+            <ul>
+                <?php foreach ( $regionale->provinciali() as $provinciale ) { ?>
+                <li><?php echo $provinciale->nome; ?>
+                    <ul>
+                        <?php foreach ( $provinciale->locali() as $locale ) { ?>
+                        <li><?php echo $locale->nome; ?>
+                            
+                            <ul><?php foreach ( $locale->comitati() as $comitato ) { ?>
+                                
+                                <li>
+                                    <?php echo $comitato->nomeCompleto(); ?>
+                                    <a href="#">azione</a>
+                                </li>
+                                
+                                <?php } ?>
+                                
+                                <li>
+                                    <a href="?admin.comitato.nuovo&locale=<?php echo $locale->id; ?>">
+                                    aggiungi nuovo comitato
+                                    </a>
+                                </li>
+                            </ul>
+                            
+                        </li>
+                        <?php } ?>
+                        
+                        <li>
+                            <a href="?admin.locale.nuovo&provinciale=<?php echo $provinciale->id; ?>">
+                            aggiungi nuovo locale
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <?php } ?>
+                
+                <li>
+                    <a href="?admin.provinciale.nuovo&regionale=<?php echo $regionale->id; ?>">
+                    aggiungi nuovo provinciale
+                    </a>
+                </li>
+                
+            </ul>
+        </li>
+        <li>
+            <a href="?admin.regionale.nuovo&nazionale=<?php echo $nazionale->id; ?>">
+            aggiungi nuovo regionale
+            </a>
+        </li>
+        <?php } ?>
+    </ul>
+
+    <?php }
+    ?>
+    
+    
 <div class="row-fluid">
     <div class="span8">
         <h2>

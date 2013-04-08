@@ -4,11 +4,11 @@
  * ©2012 Croce Rossa Italiana
  */
 
-class Comitato extends Entita {
+class Comitato extends GeoEntita {
         
     protected static
         $_t  = 'comitati',
-        $_dt = null;
+        $_dt = 'datiComitati';
 
     public function colore() { 
     	$c = $this->colore;
@@ -149,6 +149,14 @@ class Comitato extends Entita {
         return $this->delegati(APP_PRESIDENTE);
     }
     
+    public function volontariPresidenti() {
+        $del = $this->delegati(APP_PRESIDENTE);
+        foreach ( $del as &$d ) {
+            $d = $d->volontario();
+        }
+        return $del;
+    }
+    
     public function unPresidente() {
         $p = $this->presidenti();
         if ( !$p ) { return false; }
@@ -224,5 +232,25 @@ class Comitato extends Entita {
             $r[] = new Riserva($k[0]);
         }
         return $r;
+    }
+    
+    public function locale() {
+        return new Locale($this->locale);
+    }
+    
+    public function provinciale() {
+        return $this->locale()->provinciale();
+    }
+    
+    public function regionale() {
+        return $this->provinciale()->regionale();
+    }
+    
+    public function nazionale() {
+        return $this->regionale()->nazionale();
+    }
+    
+    public function nomeCompleto() {
+        return $this->locale()->nome . ': ' . $this->nome;
     }
 }
