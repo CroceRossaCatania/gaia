@@ -304,5 +304,17 @@ $conf['database']['tables'] = [
                 SPATIAL INDEX (geo)
             '
         ],
-        
+        [
+                'name'      =>  'gruppiPersonali',
+                'fields'    =>  '
+                    id          int PRIMARY KEY,
+                    volontario  varchar(16),
+                    comitato    varchar(16),
+                    inizio      varchar(64),
+                    fine        varchar(64),
+                    timestamp   varchar(64),
+                    INDEX (volontario),
+                    INDEX (comitato)
+                '
+            ],
 ];

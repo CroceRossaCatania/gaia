@@ -69,7 +69,7 @@ paginaAdmin();
                 </tr>
                 <?php foreach ( $nazionale->regionali() as $regionale ) { ?>
                 <tr class="success">
-                    <td border-left="none"></td>
+                    <td></td>
                     <td colspan="4" border-left="none"><?php echo $regionale->nome; ?></td>
                         <td class="btn-group">
                             <a class="btn btn-small" href="?p=presidente.wizard&id=<?php echo $c->id; ?>" title="Dettagli">
@@ -81,7 +81,7 @@ paginaAdmin();
                             <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $regionale->id; ?>&t=pro" title="Nuovo">
                                 <i class="icon-plus"></i> Nuovo
                             </a> 
-                       </td>
+                        </td>
                 </tr>
                 <?php foreach ( $regionale->provinciali() as $provinciale ) { ?>
                 <tr class="error">
