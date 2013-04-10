@@ -422,4 +422,28 @@ class Utente extends Persona {
         ]);
     }
     
+    public function mieiGruppi() {
+        return Appartenenzagruppo::filtra([
+            ['volontario',  $this->id]
+        ]);
+    }
+    
+     public function gruppiAttuali() {
+        $q = $this->db->prepare("
+            SELECT
+                volontario
+            FROM
+                gruppiPersonali
+            WHERE
+                ( fine >= :ora OR fine IS NULL OR fine = 0) 
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Appartenenzagruppo($k[0]);
+        }
+        return $r;
+    }
 }

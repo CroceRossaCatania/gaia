@@ -309,7 +309,8 @@ $conf['database']['tables'] = [
                 'fields'    =>  '
                     id          int PRIMARY KEY,
                     volontario  varchar(16),
-                    comitato    varchar(16),
+                    appartenenza    varchar(16),
+                    gruppo varchar(16),
                     inizio      varchar(64),
                     fine        varchar(64),
                     timestamp   varchar(64),
