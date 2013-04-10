@@ -14,8 +14,26 @@ paginaPrivata();
     <div class="span9">
         <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
-            <i class="icon-save"></i> <strong>Richiesta inviata</strong>.
-            La richiesta è stata inviata con successo.
+            <i class="icon-save"></i> <strong>Iscritto al gruppo</strong>.
+            Sei stato iscritto con successo al gruppo di lavoro.
+        </div>
+        <?php } ?>
+        <?php if ( isset($_GET['e']) ) { ?>
+        <div class="alert alert-error">
+            <i class="icon-warning-sign"></i> <strong>Già iscritto al gruppo</strong>.
+            Sei già iscritto a questo gruppo di lavoro.
+        </div>
+        <?php } ?>
+        <?php if ( isset($_GET['last']) ) { ?>
+        <div class="alert alert-error">
+            <i class="icon-warning-sign"></i> <strong>Devi appartenere almeno ad un gruppo</strong>.
+            Non puoi abbandonare il gruppo, perchè devi essere iscritto almeno ad un gruppo.
+        </div>
+        <?php } ?>
+        <?php if ( isset($_GET['del']) ) { ?>
+        <div class="alert alert-success">
+            <i class="icon-ok"></i> <strong>Gruppo abbandonato</strong>.
+           Hai abbandonato il gruppo di lavoro con successo.
         </div>
         <?php } ?>
         <?php 
@@ -24,44 +42,20 @@ paginaPrivata();
                          if ($app->attuale()) 
                                     {
                           $trasferimento = Trasferimento::by('appartenenza', $app->id);
-                           if($app->stato == MEMBRO_PENDENTE){ ?> 
-                                    <div class="row-fluid">
+                           if($app->stato == MEMBRO_PENDENTE){ 
+                               redirect('errore.comitato');
+                               $i=1; }elseif($trasferimento && $trasferimento->stato==TRASF_INCORSO){ ?>
+                     <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> Impossibile richiedere iscrizione a gruppo di lavoro</h2>
                                         <div class="alert alert-error">
                                             <div class="row-fluid">
                                                 <span class="span12">
-                                                    <p>Ci dispiace ma non puoi chiedere l'iscrizione ad un gruppo di lavoro finchè la tua appartenenza al  <strong><?php echo $app->comitato()->nome; ?></strong> è pendente.</p>
-                                                    <p>Contatta il tuo Presidente per chiedere la conferma della tua appartenenza.</p>
+                                                    <p>Ci dispiace ma non puoi chiedere l'iscrizione ad un gruppo di lavoro finchè il tuo trasferimento è pendente.</p>
                                                 </span>
                                             </div>
                                         </div>           
-                                    </div>    
-                 <?php $i=1; }elseif($trasferimento && $trasferimento->stato==TRASF_INCORSO && !$trasferimento->presaInCarico()){ ?>
-                     <div class="row-fluid">
-                                        <h2><i class="icon-warning-sign muted"></i> Richiesta trasferimento in elaborazione</h2>
-                                        <div class="alert alert-block">
-                                            <div class="row-fluid">
-                                                <span class="span12">
-                                                    <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nome; ?></strong> è in fase di elaborazione.</p>
-                                                    <p>La tua richiesta è in attesa di essere protocollata dalla segreteria del tuo Comitato.</p>
-                                                </span>
-                                            </div>
-                                        </div>           
-                                    </div>
-              <?php $i=2;  }elseif($trasferimento && $trasferimento->presaInCarico() && $trasferimento->stato==TRASF_INCORSO){ ?>         
-                    <div class="row-fluid">
-                                        <h2><i class="icon-warning-sign muted"></i> Richiesta trasferimento presa in carico</h2>
-                                        <div class="alert alert-block">
-                                            <div class="row-fluid">
-                                                <span class="span12">
-                                                    <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nome; ?></strong> è stata presa in carico il <strong><?php echo date('d-m-Y', $trasferimento->protData); ?></strong> con numero di protocollo <strong><?php echo $trasferimento->protNumero; ?></strong>.</p>
-                                                    <p>La tua richiesta è in attesa di conferma da parte del tuo Presidente di Comitato.</p>
-                                                    <p>Trascorsi 30 giorni senza alcuna risposta del Presidente Gaia effettuerà il trasferimento automaticamente come previsto da regolamento.</p>
-                                                </span>
-                                            </div>
-                                        </div>           
-                                    </div>
-             <?php $i=3; } } }
+                                    </div>  
+             <?php $i=2; } } }
 if($i==0){ ?>
         <div class="row-fluid">
             <h2><i class="icon-flag muted"></i> Gruppi di lavoro</h2>
@@ -77,7 +71,7 @@ if($i==0){ ?>
         </div>
         
 <div class="row-fluid">
-    <form class="form-horizontal" action="?p=utente.gruppo.ok&id=<?php echo $me->id; ?>" method="POST">
+    <form class="form-horizontal" action="?p=utente.gruppo.nuovo.ok&id=<?php echo $me->id; ?>" method="POST">
    <div class="control-group">
         <label class="control-label" for="inputGruppo">Gruppi di lavoro </label>
         <div class="controls">
@@ -105,14 +99,14 @@ if($i==0){ ?>
             <table class="table table-bordered table-striped">
                 <thead>
                     <th>Stato</th>
-                    <th>Ruolo</th>
+                    <th>Nome</th>
                     <th>Comitato</th>
                     <th>Inizio</th>
                     <th>Fine</th>
                     <th>Azione</th>
                 </thead>
                 
-                <?php foreach ( $me->storico() as $app ) { ?>
+                <?php foreach ( $me->mieiGruppi() as $app ) { ?>
                     <tr<?php if ($app->attuale()) { ?> class="success"<?php } ?>>
                         <td>
                             <?php if ($app->attuale()) { ?>
@@ -123,11 +117,11 @@ if($i==0){ ?>
                         </td>
                         
                         <td>
-                            <strong><?php echo $conf['membro'][$app->stato]; ?></strong>
+                            <strong><?php echo $app->nome; ?></strong>
                         </td>
                         
                         <td>
-                            <?php echo $app->comitato()->nome; ?>
+                            <strong><?php echo $app->appartenenza()->comitato()->nome; ?></strong>
                         </td>
                         
                         <td>
@@ -146,10 +140,12 @@ if($i==0){ ?>
                         </td>
                         
                         <td>
-                            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente dimetterti da questo gruppo di lavoro ?');" href="?p=utente.gruppo.dimetti&id=<?php echo $me->id; ?>">
+                            <?php if ($app->attuale()) { ?>
+                            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente abbandonare questo gruppo di lavoro ?');" href="?p=utente.gruppo.dimetti&id=<?php echo $app->id; ?>">
                                 <i class="icon-ban-circle"></i>
                                 Abbandona
                             </a>
+                            <?php } ?>
                         </td>
                         
                     </tr>
@@ -159,10 +155,7 @@ if($i==0){ ?>
         </div>
     
         </div>
-    
+
+<?php } ?>  
     </div>
-</div>
-<?php } ?>
-
-
-
+   </div>
