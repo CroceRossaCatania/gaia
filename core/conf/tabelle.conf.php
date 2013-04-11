@@ -56,7 +56,9 @@ $conf['database']['tables'] = [
                 nome     varchar(64),
                 colore   varchar(8),
                 locale   int,
-                INDEX (locale)
+                geo      point,
+                INDEX (locale),
+                SPATIAL INDEX(geo)
             '
         ],
         [
