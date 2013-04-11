@@ -25,6 +25,15 @@ if (isset($_GET['si'])) {
                                     $a->timestamp = time();
                                     $a->conferma  = $me->id;    
                                     $a->fine = time();
+                                    /*Eliminazione iscrizione gruppo di lavoro*/
+                                    $g = Appartenenzagruppo::filtra([
+                                            ['volontario', $v],
+                                            ['appartenenza',$a]
+                                        ]);
+                                    foreach($g as $a){
+                                    $a = new Appartenenzagruppo($a);
+                                    $a->fine = time();                                    
+                                    }
                                     }
                                     }
     $t = Appartenenza::filtra([
