@@ -8,7 +8,7 @@ class Locale extends GeoEntita {
         
     protected static
         $_t  = 'locali',
-        $_dt = 'datiComitati';
+        $_dt = 'datiLocali';
 
     public function comitati() {
         return Comitato::filtra([

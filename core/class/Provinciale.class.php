@@ -8,7 +8,7 @@ class Provinciale extends GeoEntita {
         
     protected static
         $_t  = 'provinciali',
-        $_dt = 'datiComitati';
+        $_dt = 'datiProvinciali';
 
     public function locali() {
         return Locale::filtra([

@@ -25,7 +25,7 @@ $t = $_GET['t'];
 <div class="control-group">
         <label class="control-label" for="inputNome">Nome nuovo Comitato </label>
         <div class="controls">
-            <input class="input-xxlarge" type="text" name="inputNome" id="nome" placeholder="Comitato Provinciale di Catania ~ Catania" required>
+            <input class="input-xxlarge" type="text" name="inputNome" id="inputNome" placeholder="Comitato Provinciale di Catania ~ Catania" required>
             </div>
           </div>
     <div class="control-group">

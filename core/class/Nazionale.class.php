@@ -8,7 +8,7 @@ class Nazionale extends GeoEntita {
         
     protected static
         $_t  = 'nazionali',
-        $_dt = 'datiComitati';
+        $_dt = 'datiNazionali';
 
     public function regionali() {
         return Regionale::filtra([

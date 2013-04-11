@@ -320,4 +320,40 @@ $conf['database']['tables'] = [
                     INDEX (comitato)
                 '
             ],
+            [
+            'name'      =>  'datiLocali',
+            'fields'    =>  '
+                id       varchar(128),
+                nome     varchar(32),
+                valore   text,
+                PRIMARY KEY (id, nome)
+            '
+        ],
+        [
+            'name'      =>  'datiProvinciali',
+            'fields'    =>  '
+                id       varchar(128),
+                nome     varchar(32),
+                valore   text,
+                PRIMARY KEY (id, nome)
+            '
+        ],
+        [
+            'name'      =>  'datiRegionali',
+            'fields'    =>  '
+                id       varchar(128),
+                nome     varchar(32),
+                valore   text,
+                PRIMARY KEY (id, nome)
+            '
+        ],
+        [
+            'name'      =>  'datiNazionali',
+            'fields'    =>  '
+                id       varchar(128),
+                nome     varchar(32),
+                valore   text,
+                PRIMARY KEY (id, nome)
+            '
+        ],
 ];

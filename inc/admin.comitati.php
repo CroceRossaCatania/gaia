@@ -107,7 +107,7 @@ paginaAdmin();
                             <a class="btn btn-small" href="?p=presidente.wizard&id=<?php echo $locale->id; ?>" title="Dettagli">
                                 <i class="icon-eye-open"></i> Dettagli
                             </a>            
-                            <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ?');" href="?p=admin.comitato.cancella&id=<?php echo $locale->id; ?>&loc" title="Cancella Comitato" class="btn btn-small btn-warning">
+                            <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ?');" href="?p=admin.comitato.cancella&id=<?php echo $locale->id; ?>&com" title="Cancella Comitato" class="btn btn-small btn-warning">
                                 <i class="icon-trash"></i> Cancella
                             </a>
                             <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $locale->id; ?>&t=com" title="Nuovo">
