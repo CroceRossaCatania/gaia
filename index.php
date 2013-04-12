@@ -20,6 +20,9 @@ $me = $sessione->utente();
 $sessione->ip       = $_SERVER['REMOTE_ADDR'];
 $sessione->agent    = $_SERVER['HTTP_USER_AGENT'];
 
+/* Il selettore... */
+$_carica_selettore = false;
+
 /* Pagina da visualizzare */
 $p = $_GET['p'];
 if (!$p) { $p = 'home'; }
@@ -277,7 +280,11 @@ if ( !file_exists($_f) ) {
             <div class="carousel-caption">
               <h1>Persone in Prima Persona</h1>
               <p class="lead">Grazie al nuovo obiettivo trasparenza, vedi cosa sta facendo Croce Rossa attorno a te</p>
-              <!--<p class="lead"><i class="icon-calendar"></i> Attività online</p>-->
+              <p class="lead">
+                  <a href="?p=public.attivita.mappa" class="btn btn-large btn-success">
+                      <i class="icon-globe"></i> Mappa delle attività
+                  </a>
+            </p>
             </div>
           </div>
         </div>
@@ -332,6 +339,10 @@ if ( !file_exists($_f) ) {
       </div>
 
     </div> <!-- /container -->
+    
+    <?php if ( $_carica_selettore ) {
+        include './inc/part/utente.selettore.php';
+    } ?>
     
     <!-- Statistiche --> 
     <script type="text/javascript">
