@@ -41,7 +41,7 @@ $(document).ready(function() {
 
 		header:  			{
 							    left:   'title',
-							    center: 'month,agendaWeek',
+							    //center: 'month',
 							    right:  'today prev,next'
 							}, 
 
