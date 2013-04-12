@@ -116,9 +116,9 @@ if($i==0){ ?>
           </div>
         </div>
     
-    </div>
-</div>
+ 
 <?php } ?>
-
+   </div>
+</div>
 
 
