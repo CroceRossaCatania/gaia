@@ -15,5 +15,5 @@ $sessione->logout();
 <a href='?p=home'>Torna alla home</a>.
 
 <?php 
-    header("Refresh: 2; URL=http://gaia.cricatania.it");
+    header("Refresh: 2; URL=http://www.gaiacri.it");
 ?>
