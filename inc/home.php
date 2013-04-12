@@ -61,7 +61,7 @@ paginaPubblica();
         comitati = <?php
         $c = [];
         foreach ( Comitato::elenco() as $k ) {
-            $c[] = $k->nome;
+            $c[] = $k->nomeCompleto();
         }
         echo json_encode($c);
         ?>;
