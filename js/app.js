@@ -150,8 +150,13 @@ function caricaMapsApi( callback ) {
 
 function _attendere(i, e) {
     $(e).click ( function() {
+        var vecchioTesto = $(e).html();
         var testo = $(e).data('attendere');
         $(e).addClass('disabled').attr('disabled', 'disabled');
         $(e).html('<i class="icon-spin icon-spinner"></i> ' + testo);
+        setTimeout( function() {
+            $(e).html(vecchioTesto);
+            $(e).removeClass('disabled').removeAttr('disabled');
+        }, 3500);
     });
 }
