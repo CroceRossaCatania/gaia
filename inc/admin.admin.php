@@ -24,7 +24,7 @@ paginaAdmin();
         <div class="controls">
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-search"></i></span>
-                <input required id="cercaUtente" placeholder="Cerca utente..." class="span4" type="text">
+                <input required id="cercaUtente" placeholder="Cerca Admin..." class="span4" type="text">
             </div>
         </div>
     </div> 

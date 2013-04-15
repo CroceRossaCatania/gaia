@@ -32,7 +32,6 @@ paginaPresidenziale();
 <hr />
 <table class="table table-striped table-bordered" id="tabellaUtenti">
     <thead>
-        <th>#</th>
         <th>Nome</th>
         <th>Cognome</th>
         <th>Codice Fiscale</th>
@@ -50,7 +49,6 @@ foreach ( $me->comitatiDiCompetenza() as $comitato ) {
         $_v = $delegato->volontario();
         ?>
         <tr>
-            <td><?php echo $delegato->id; ?></td>
             <td><?php echo $_v->nome; ?></td>
             <td><?php echo $_v->cognome; ?></td>
             <td><?php echo $_v->codiceFiscale; ?></td>
@@ -63,10 +61,9 @@ foreach ( $me->comitatiDiCompetenza() as $comitato ) {
                   Attività: <?php echo $conf['app_attivita'][$delegato->dominio]; ?>
                 <?php } ?>
             </td>
-            <td>
+            <td class="btn-group">
                     <a class="btn btn-danger" onClick="return confirm('Vuoi veramente dimettere questo Referente ?');" href="?p=presidente.referente.dimetti&id=<?php echo $delegato->id; ?>">
-                    <i class="icon-ban-circle"></i>
-                        Dimetti
+                        <i class="icon-ban-circle"></i> Dimetti                       
                     </a>
             </td>
 

@@ -30,14 +30,13 @@ paginaAdmin();
         <div class="controls">
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-search"></i></span>
-                <input data-t="<?php echo $t; ?>" required id="cercaUtente" placeholder="Cerca utente..." class="span4" type="text">
+                <input data-t="<?php echo $t; ?>" required id="cercaUtente" placeholder="Cerca Presidente..." class="span4" type="text">
             </div>
         </div>
     </div> 
 <hr />
 <table class="table table-striped table-bordered" id="tabellaUtenti">
     <thead>
-        <th>#</th>
         <th>Nome</th>
         <th>Cognome</th>
         <th>Codice Fiscale</th>
