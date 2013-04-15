@@ -22,6 +22,10 @@ class GeoEntita extends Entita {
         }
     }
     
+    public function latlng() {
+        return $this->coordinate()[0].', '.$this->coordinate()[1];
+    }
+    
     public function localizzaCoordinate($x, $y) {
         $x = (double) $x;
         $y = (double) $y;

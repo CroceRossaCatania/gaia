@@ -3,9 +3,14 @@
 $id = $_POST['id'];
 $a = new Attivita($id);
 
+
 $a->nome        = normalizzaNome($_POST['inputNome']);
 $a->comitato    = $_POST['inputComitato'];
-$a->referente   = $_POST['inputReferente'];
+
+if ( isset( $_POST['inputReferente'] ) ) {
+    $a->referente   = $_POST['inputReferente'];
+}
+
 $a->descrizione = $_POST['inputDescrizione'];
 $a->pubblica    = $_POST['inputPubblica'];
 $a->tipo        = $_POST['inputTipo'];
@@ -21,6 +26,11 @@ foreach ( $turni as $t ) {
     $t->minimo  = (int) $_POST["{$t->id}_minimo"];
     $t->massimo = (int) $_POST["{$t->id}_massimo"];
     
+}
+
+/* Obbliga l'inserimento del referente */
+if ( !$a->referente ) {
+    redirect('attivita.nuova&selezionareReferente&id=' . $a->id); 
 }
 
 if ( $_POST['azione'] == 'aggiungiTurno' ) {

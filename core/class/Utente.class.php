@@ -446,4 +446,5 @@ class Utente extends Persona {
         }
         return $r;
     }
+
 }

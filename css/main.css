@@ -470,3 +470,28 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffc578', end
 .ui-timepicker-rtl{ direction: rtl; }
 .ui-timepicker-rtl dl { text-align: right; }
 .ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }
+
+.nascosto {
+    display: none;
+}
+
+.grassetto {
+    font-weight: bold;
+}
+
+.collaMano {
+    cursor: pointer;
+}
+
+.collaMano:hover {
+    border-radius: 3px;
+    background-color: #f6f6f6;
+}
+
+.ctr:hover {
+    background-color: #f2dede;
+}
+
+.bordo {
+    border: 1px solid black;
+}

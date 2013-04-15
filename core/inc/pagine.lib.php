@@ -53,7 +53,12 @@ function paginaPresidenziale( $comitato = null ) {
 }
 
 function menuVolontario() {
-    include('./inc/utente.menu.php');
+    include('./inc/part/utente.menu.php');
+}
+
+function caricaSelettore() {
+    global $_carica_selettore;
+    $_carica_selettore = true;
 }
 
 /*

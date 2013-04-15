@@ -1,10 +1,17 @@
 <?php
 
+/* 
+ * ©2013 Croce Rossa Italiana
+ */
+
+paginaPrivata();
+caricaSelettore();
+
 $a = new Attivita(@$_GET['id']);
 
-$del = $me->delegazioni(APP_ATTIVITA);
-$comitati = $me->comitatiDelegazioni(APP_ATTIVITA);
-$domini = $me->dominiDelegazioni(APP_ATTIVITA);
+$del        = $me->delegazioni(APP_ATTIVITA);
+$comitati   = $me->comitatiDelegazioni(APP_ATTIVITA);
+$domini     = $me->dominiDelegazioni(APP_ATTIVITA);
 
 ?>
 
@@ -13,16 +20,16 @@ $domini = $me->dominiDelegazioni(APP_ATTIVITA);
     
 <div class="row-fluid">
     
-    <div class="span8">
-        <h2><i class="icon-bolt"></i> Attività</h2>
+    <div class="span7">
+        <h2><i class="icon-flag muted"></i> Dettagli dell'attività</h2>
     </div>
     
-    <div class="span4">
+    <div class="span5">
         <button type="submit" name="azione" value="salva" class="btn btn-success btn-block btn-large">
             <?php if ( $a->haPosizione() ) { ?>
             <i class="icon-save"></i> Salva l'attività
             <?php } else { ?>
-            <i class="icon-globe"></i> Avanti, inserisci luogo
+            <i class="icon-globe"></i> <strong>Salva attività e inserisci luogo</strong>
             <?php } ?>
         </button>
     </div>
@@ -31,26 +38,53 @@ $domini = $me->dominiDelegazioni(APP_ATTIVITA);
     <hr />
 <div class="row-fluid">
     <div class="span5">    
-            <h3>
-                <i class="icon-list-alt muted"></i>
-                Dettagli
-            </h3>
-        
-  
+
+
 
           <div class="form-horizontal">
           <div class="control-group">
             <label class="control-label" for="inputNome">Nome</label>
             <div class="controls">
-              <input class="input-xlarge" value="<?php echo $a->nome; ?>" type="text" id="inputNome" name="inputNome" placeholder="Es.: Aggiungi un Posto a Tavola" required autofocus pattern=".{2,}" />
+              <input class="input-xlarge grassetto" value="<?php echo $a->nome; ?>" type="text" id="inputNome" name="inputNome" placeholder="Es.: Aggiungi un Posto a Tavola" required autofocus pattern=".{2,}" />
             </div>
           </div>          
-           
+          
+          <div class="control-group">
+            <label class="control-label" for="inputDescrizione">Descrizione</label>
+            <div class="controls">
+              <textarea rows="10" class="input-xlarge" type="text" id="inputDescrizione" name="inputDescrizione" placeholder="Ulteriori informazioni, dettagli dell'attività, come raggiungere il luogo, ecc." required><?php echo $a->descrizione; ?></textarea>
+            </div>
+          </div>
+          
+      
+       
+
+        </div>
+    
+
+    </div>
+    
+    <div class="span6">
+        
+        <div class="form-horizontal">
+          <?php if ( isset($_GET['selezionareReferente'] ) ) { ?>
+              <div class="alert alert-error">
+                  <i class="icon-warning-sign"></i> Selezionare un referente.
+              </div>
+          <?php } ?>
+              
           <div class="control-group">
             <label class="control-label" for="inputReferente">Referente</label>
             <div class="controls">
-                <input type="hidden" name="inputReferente" value="<?php echo $me->id; ?>" />
-              <input class="input-xlarge" value="<?php echo $me->nome . ' ' . $me->cognome; ?>" type="text" readonly />
+                <a data-selettore data-input="inputReferente" class="btn">
+                    <?php if ( $a->referente() ) { 
+                        echo $a->referente()->nomeCompleto();
+                     } else { ?>
+                        Seleziona volontario
+                    <?php } ?>
+                                        
+                    <i class="icon-pencil"></i>
+                </a>
             </div>
           </div>
           <div class="control-group">
@@ -60,7 +94,9 @@ $domini = $me->dominiDelegazioni(APP_ATTIVITA);
                     <option value="" selected="selected">[ Seleziona un Comitato ]</option>
                     <?php 
                     foreach ( $comitati as $c ) { ?>
-                        <option value="<?php echo $c->id; ?>" <?php if ($a->comitato == $c->id ) { ?>selected="selected"<?php }?>><?php echo $c->nome; ?></option>
+                        <option value="<?php echo $c->id; ?>" <?php if ($a->comitato == $c->id ) { ?>selected="selected"<?php }?>>
+                            <?php echo $c->nomeCompleto(); ?>
+                        </option>
                     <?php } ?>
                 </select>
             </div>
@@ -90,39 +126,61 @@ $domini = $me->dominiDelegazioni(APP_ATTIVITA);
                 </select>
             </div>
           </div>
-          <div class="control-group">
-            <label class="control-label" for="inputDescrizione">Descrizione</label>
-            <div class="controls">
-              <textarea rows="10" class="input-xlarge" type="text" id="inputDescrizione" name="inputDescrizione" placeholder="Ulteriori informazioni, dettagli dell'attività, come raggiungere il luogo, ecc." required><?php echo $a->descrizione; ?></textarea>
-            </div>
-          </div>
-          
-      
-       
-
         </div>
+    </div>
     
-
+    
 </div>
     
-    <div class="span7">
+    <hr />
+    
+    
+    <div class="row-fluid">
         
-        <h3><i class="icon-time muted"></i> Turni</h3>
+        <div class="span8">
+            <h2>
+                <i class="icon-time muted"></i>
+                Giorni e turni dell'attività
+            </h2>
+            
+        </div>
         
-        <div class="alert alert-block alert-info">
+        <div class="span4">
+            <button type="submit" name="azione" value="aggiungiTurno" class="btn btn-block btn-large btn-primary">
+               <i class="icon-plus"></i>
+               Aggiungi nuovo turno
+            </button>
+        </div>
+        
+    </div>
+            
+<div class="row-fluid">
+        
+    
+    <div class="span12">
+        
+        <div id="i1" class="alert alert-block alert-info nascosto">
             <h4><i class="icon-info-sign"></i> <strong>Minimo e massimo</strong>.</h4>
             <p>Minimo e Massimo ti permettono di specificare il numero minimo e massimo di volontari.</p>
-            <p>Un turno con carenza di volontari sarà evidenziato; al contempo uno che ha già il numero
-                massimo, non permetterà ulteriori richieste di partecipazione.</p>
+            <p>Un turno con <strong>carenza di volontari sarà evidenziato</strong>; al contempo uno che ha già il numero
+                massimo, <strong>non permetterà ulteriori richieste di partecipazione</strong>.</p>
+        </div>
+        
+        <div id="i2" class="alert alert-block alert-info nascosto">
+            <h4><i class="icon-info-sign"></i> <strong>Nome del turno</strong>.</h4>
+            <p>In un'<strong>attività ripetitiva</strong>, può essere un nome crescente (Turno 1, Turno 2, Turno 3,...).</p>
+            <p>In un'<strong>attività di piazza</strong>, può essere usato per identificare vari turni anche contemporanei (Servizio coi Bambini, Gioco dell'Oca, ecc).</p>
         </div>
         
         <table class="table table-striped table-bordered" id="tabellaTurni">
              <thead>
-                 <th>Nome</th>
+                 <th>Nome <a href="#" onclick="$('#i2').toggle(500);"><i class="icon-question-sign"></i></a></th>
                  <th>Inizio</th>
                  <th>Fine</th>
-                 <th>Min vv.</th>
-                 <th>Max vv.</th>
+                 <th>Min vv. <a href="#" onclick="$('#i1').toggle(500);"><i class="icon-question-sign"></i></a></th>
+                 <th>Max vv. <a href="#" onclick="$('#i1').toggle(500);"><i class="icon-question-sign"></i></a></th>
+                 <th>Partecipazioni</th>
+                 <th>&nbsp;</th>
              </thead>
              
                  <?php 
@@ -140,13 +198,13 @@ $domini = $me->dominiDelegazioni(APP_ATTIVITA);
                  foreach ( $t as $_t ) { ?>
                     <tr class="unTurno">
                         <td>
-                            <input class="span12" required type="text" name="<?php echo $_t->id; ?>_nome" value="<?php echo $_t->nome; ?>" />
+                            <input class="span12 grassetto" required type="text" name="<?php echo $_t->id; ?>_nome" value="<?php echo $_t->nome; ?>" />
                         </td>
                         <td>
-                            <input class="dt span12" required type="text" name="<?php echo $_t->id; ?>_inizio" value="<?php echo $_t->inizio()->format('d/m/Y H:i'); ?>" />
+                            <input class="dt span12 grassetto" required type="text" name="<?php echo $_t->id; ?>_inizio" value="<?php echo $_t->inizio()->format('d/m/Y H:i'); ?>" />
                         </td>
                         <td>
-                            <input class="dt span12" required type="text" name="<?php echo $_t->id; ?>_fine" value="<?php echo $_t->fine()->format('d/m/Y H:i'); ?>" />
+                            <input class="dt span12 grassetto" required type="text" name="<?php echo $_t->id; ?>_fine" value="<?php echo $_t->fine()->format('d/m/Y H:i'); ?>" />
                         </td>
                         <td>
                             <input class="input-mini" type="number" required min="0" max="999" step="1" name="<?php echo $_t->id; ?>_minimo" value="<?php echo $_t->minimo; ?>" />
@@ -154,16 +212,28 @@ $domini = $me->dominiDelegazioni(APP_ATTIVITA);
                         <td>
                             <input class="input-mini" type="number" required min="0" max="999" step="1" name="<?php echo $_t->id; ?>_massimo" value="<?php echo $_t->massimo; ?>" />
                         </td>
+                        <?php
+                        $part   = $_t->partecipazioni();
+                        $partC  = $_t->partecipazioniStato(AUT_OK);
+                        ?>
+                        <td>
+                            <?php echo count($part) ?> richieste;<br />
+                            <strong><?php echo count($partC); ?> accettate</strong>.
+                        </td>
+                        <td>
+                            <?php if ( $partC ) { ?>
+                                Incancellabile.
+                            <?php } else { ?>
+                                <button class="btn btn-block btn-danger" type="submit" name="azione" value="<?php echo $_t->id; ?>"
+                                        onclick="return confirm('Sei sicuro? Eventuali richieste di partecipazione al turno in attesa verranno eliminate.');">
+                                    <i class="icon-remove"></i>
+                                    Rimuovi
+                                </button>
+                            <?php } ?>
+                        </td>
                     </tr>
                 <?php } ?>
-             <tr>
-                 <td colspan="5">
-                     <button type="submit" name="azione" value="aggiungiTurno" class="btn btn-block btn-primary">
-                        <i class="icon-plus"></i>
-                        Aggiungi nuovo turno
-                     </button>
-                 </td>
-             </tr>
+
              
          </table>
 

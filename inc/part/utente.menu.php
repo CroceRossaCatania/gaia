@@ -4,10 +4,27 @@
  * ©2013 Croce Rossa Italiana
  */
 
-$menu = [
+global $me;
+
+$menu = [];
+
+$menu += [
     '' => [
         'utente.me'         =>  '<i class="icon-bolt"></i> Benvenuto'
     ],
+    'Da fare'   =>   []
+];
+
+$nap = count($me->autorizzazioniPendenti());
+if ( $nap ) {
+    $menu['Da fare'] += [
+            'attivita.autorizzazioni'   =>  '<span class="badge badge-important">' . $nap .'</span>&nbsp; Autorizzazioni '
+    ];
+}
+
+
+
+$menu += [
     'Attività'      =>  [
         'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
         'attivita.storico'  =>  '<i class="icon-list"></i> Mie attivita'
@@ -46,7 +63,8 @@ $menu = [
 <div class="well" style="padding: 8px 0px;">
     <ul class="nav nav-list">      
         <?php global $p; ?>
-        <?php foreach ($menu as $sezione => $contenuto ) { ?>
+        <?php foreach ($menu as $sezione => $contenuto ) { 
+            if (!$contenuto) {continue; }?>
         <li class="nav-header"><?php echo $sezione; ?></li>
             <?php foreach ($contenuto as $link => $scelta) { 
                 $larray = explode('&', $link);?>

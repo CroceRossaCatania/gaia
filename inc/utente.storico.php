@@ -70,6 +70,7 @@ paginaPrivata();
             </table>
         </div>
     
+<?php if ( $me->riserve() ) { ?>
 <div class="row-fluid">
             <h2>
                 <i class="icon-pause muted"></i>
@@ -126,7 +127,8 @@ paginaPrivata();
                 <?php } ?>
             
             </table>
-        </div>        
+        </div> 
+<?php } ?>
         
         <div class="row-fluid">
             <h2>

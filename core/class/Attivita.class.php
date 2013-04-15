@@ -19,7 +19,11 @@ class Attivita extends GeoEntita {
     }
 
     public function referente() {
-    	return new Volontario($this->referente);
+        if ( $this->referente ) {
+            return new Volontario($this->referente);
+        } else {
+            return null;
+        }
     }
     
     public static function ricercaPubbliche($x, $y, $raggio) {
@@ -33,7 +37,7 @@ class Attivita extends GeoEntita {
             SELECT      id
             FROM        turni
             WHERE       attivita = :id
-            ORDER BY    inizio ASC,
+            ORDER BY    inizio DESC,
                         nome   ASC");
         $q->bindParam(':id',    $this->id);
         $q->execute();

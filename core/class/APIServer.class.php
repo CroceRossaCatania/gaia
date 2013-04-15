@@ -184,6 +184,54 @@ class APIServer {
         
         public function api_cercaVolontario() {
             $this->richiedi(['query']);
-            // TODO
+            $me = $this->sessione->utente();
+            $comitati = array_merge($me->comitatiDiCompetenza(), $me->comitati());
+            $comitati = array_unique($comitati);
+            $comitati = implode(', ', $comitati);
+            $query = str_replace("'", "\'", $this->par['query']);
+            $q = "SELECT
+                    anagrafica.id
+                  FROM
+                    anagrafica, appartenenza
+                  WHERE
+                    anagrafica.id = appartenenza.volontario
+                  AND
+                    (appartenenza.fine = 0 OR appartenenza.fine IS NULL OR appartenenza.fine > :ora)
+                  AND 
+                    appartenenza.stato >= :app
+                  AND
+                    ( (
+                        nome    LIKE '%$query%'
+                      OR
+                        cognome LIKE '%$query%'
+                      
+                    ) OR
+                        (MATCH (anagrafica.nome, anagrafica.cognome)  AGAINST ('$query'))
+                     )
+                  AND
+                    appartenenza.comitato IN ($comitati)
+                  ORDER BY
+                    (MATCH (anagrafica.nome, anagrafica.cognome)  AGAINST ('$query')) DESC, anagrafica.nome, anagrafica.cognome
+                  LIMIT
+                    0, 30";
+            //var_dump($q);
+            $q = $this->db->prepare($q);
+            $q->bindValue(':ora', time());
+            $q->bindValue(':app', MEMBRO_VOLONTARIO);
+            $q->execute();
+            $r = [];
+            while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+                $v = new Volontario($k[0]);
+                $c = $v->unComitato();
+                $r[] = [
+                    'id'        =>  $v->id,
+                    'nome'      =>  str_replace("'", '`', $v->nomeCompleto()),
+                    'comitato'  =>  [
+                        'id'    => $c->id,
+                        'nome'  => $c->nome
+                    ]
+                ];
+            }
+            return $r;
         }
 }

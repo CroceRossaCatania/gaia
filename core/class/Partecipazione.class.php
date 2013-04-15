@@ -31,6 +31,10 @@ class Partecipazione extends Entita {
             ['partecipazione',  $this->id]
         ]);
     }
+    
+    public function confermata() {
+        return (bool) $this->stato == AUT_OK;
+    }
 
     public function aggiornaStato() {
         $stato = AUT_OK;

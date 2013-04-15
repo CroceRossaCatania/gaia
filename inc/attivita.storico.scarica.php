@@ -1,0 +1,33 @@
+<?php
+
+/*
+ * ©2013 Croce Rossa Italiana
+ */
+
+paginaPrivata();
+richiediComitato();
+
+$x = new Excel();
+$x->intestazione([
+    'Attività',
+    'Turno',
+    'Data inizio',
+    'Ora inizio',
+    'Data fine',
+    'Ora fine'
+]);
+
+foreach ( $me->partecipazioni(AUT_OK) as $p ) {
+    $t = $p->turno();
+    $x->aggiungiRiga([
+        $t->attivita()->nome,
+        $t->nome,
+        $t->inizio()->format('d-m-Y'),
+        $t->inizio()->format('H:i'),
+        $t->fine()->format('d-m-Y'),
+        $t->fine()->format('H:i')
+    ]);
+}
+
+$x->genera('Foglio di servizio.xls');
+$x->download();

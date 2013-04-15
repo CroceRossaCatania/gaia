@@ -24,69 +24,117 @@ richiediComitato();
             </div>
         <?php } ?>
             
-        <h2><i class="icon-list"></i> Le mie Attività in Croce Rossa</h2>
+        
+        <div class="row-fluid">
+            
+            <div class="span7">
+                <h2>
+                    <i class="icon-list muted"></i>
+                    Le mie attività
+                </h2>
+            </div>
+            
+            <div class="span5">
+                                    
+                <a href="?p=attivita.storico.scarica" data-attendere="Generazione in corso..." class="btn btn-block btn-large">
+                    <i class="icon-download-alt"></i> Scarica foglio di servizio
+                </a>
+
+                
+                
+            </div>
+            
+        </div>
+                
+        <div class="row-fluid">
        
         <table class="table table-bordered table-striped">
             
             <thead>
                 <th>Attività</th>
                 <th>Stato</th>
+                <th>Autorizzazioni</th>
             </thead>
             
             <?php
             $partecipazioni = $me->partecipazioni();
-            foreach ( $partecipazioni as $part ) { ?>
-            
-                <?php
-                if ( $part->stato == PART_PENDING ) { 
-                    $classe = 'warning';
-                } elseif ( $part->stato == PART_NO ) {
-                    $classe = 'error';
-                } else {
-                    $classe = '';
-                } 
+            foreach ( $partecipazioni as $part ) {
+                $auts = $part->autorizzazioni();
                 ?>
-                <tr class="<?php echo $classe; ?>">
+            
+
+                <tr>
                     <td>
-                        <strong><?php echo $part->attivita()->nome; ?></strong><br />
+                        <p><strong><?php echo $part->attivita()->nome; ?></strong><br />
                         <?php echo $part->turno()->nome;  ?><br />
-                        <a href="?p=attivita.scheda&id=<?php echo $part->attivita()->id; ?>" class="btn btn-block">
-                            <i class="icon-reply"></i> Vai all'Attività
+                        <?php echo $part->turno()->inizio()->inTesto(); ?></p>
+                        
+                        <a href="?p=attivita.scheda&id=<?php echo $part->attivita()->id; ?>">
+                            <i class="icon-reply"></i> Vedi dettagli attività
                         </a>
                     </td>
+                    
+                    <td><big>
+                        <?php if ( $part->stato == PART_OK ) { ?>
+                            <span class="label label-success">
+                                Ok!
+                            </span><br />
+                            Partecipazione confermata.
+                        <?php } elseif ( $part->stato == PART_PENDING ) { ?>
+                            <span class="label label-warning">
+                                In attesa
+                            </span><br />
+                            La tua richiesta è in attesa di autorizzazione.
+                        <?php } else { ?>
+                            <span class="label label-error">
+                                Negata
+                            </span><br />
+                            La tua richiesta di partecipazione è stata respinta.
+                        <?php } ?>
+                            
+                        
+                        <div class="progress">
+                            <?php foreach ( $auts as $aut ) { ?>
+                                <?php if ( $aut->stato == AUT_OK ) { ?>
+                                    <div class="bar bar-success" style="width: <?php echo 1/count($auts)*100; ?>%;"></div>
+                                <?php } elseif ( $aut->stato == AUT_PENDING ) { ?>
+                                    <div class="bar bar-warning" style="width: <?php echo 1/count($auts)*100; ?>%;"></div>
+                                <?php } else { ?>
+                                    <div class="bar bar-error" style="width: <?php echo 1/count($auts)*100; ?>%;"></div>
+                                <?php } ?>
+                             <?php } ?>
+                          </div>
+
+                    </big></td>
                     <td>
-                        <table class="table table-condensed">
+
                             
-                            <thead>
-                                <th>Stato</th>
-                                <th>Firmatario</th>
-                                <th>Aggiornamento</th>
-                            </thead>
-                            
-                            <?php foreach ( $part->autorizzazioni() as $aut ) { ?>
-                            <tr>
-                                <td><strong><?php echo $conf['autorizzazione'][$aut->stato]; ?></td>
-                                <td><?php echo $aut->volontario()->nomeCompleto(); ?></td>
-                                <td>
-                                    <?php if ( $aut->tFirma ) { ?>
-                                     <i class="icon-time"></i> <?php echo $aut->tFirma()->format('d-m-Y H:i'); ?>
-                                    <?php } ?>
-                                </td>
-                            </tr>
+                        <?php foreach ( $auts as $aut ) { ?>
+
+                            <?php if ( $aut->stato == AUT_OK ) { ?>
+                                <i class="icon-ok"></i>
+                                <?php echo $aut->volontario()->nomeCompleto(); ?>
+                                
+                            <?php } elseif ( $aut->stato == AUT_PENDING ) { ?>
+                                <i class="icon-time"></i>
+                                <?php echo $aut->volontario()->nomeCompleto(); ?>
+                                
+                            <?php } else { ?>
+                                <i class="icon-remove"></i>
+                                <?php echo $aut->volontario()->nomeCompleto(); ?>
+                                (<span class="muted"><?php echo $aut->tFirma()->inTesto(); ?></span>)
                             <?php } ?>
-                            
-                            <tr>
-                                <td>STATO COMPLESSIVO</td>
-                                <td colspan="2"><strong>Partecipazione <?php echo $conf['partecipazione'][$part->stato]; ?></strong></td>
-                            </tr>
-                            
-                        </table>
+                                
+                                <br />
+                        <?php } ?>
+
                     </td>
                 </tr>
-            <?php } ?>
+                <?php } ?>
                         
             
         </table>
+            
                                  
         <?php if (!$partecipazioni) { ?>
 
@@ -100,6 +148,8 @@ richiediComitato();
         
         <?php } ?>
        
+        </div>
+        
     </div>
       
     

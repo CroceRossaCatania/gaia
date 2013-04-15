@@ -28,6 +28,13 @@ class Turno extends Entita {
         ]);
     }
     
+    public function partecipazioniStato($stato = AUT_OK) {
+        return Partecipazione::filtra([
+            ['turno',   $this->id],
+            ['stato',   $stato]
+        ]);
+    }
+    
     public function cancella() {
         foreach ( $this->partecipazioni() as $part ) {
             $part->cancella();

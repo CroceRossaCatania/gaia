@@ -160,16 +160,6 @@ $a = new Attivita($_GET['id']);
                     <th>Partecipa</th>
                 </thead>
                 
-                <tr style="display: none;" id="rigaMostraTuttiTurni">
-                    <td colspan="4">
-                        <a id="mostraTuttiTurni" class="btn btn-block">
-                            <i class="icon-info-sign"></i>
-                            Ci sono <span id="numTurniNascosti"></span> turni passati nascosti.
-                            <strong>Clicca per mostrare i turni nascosti.</strong>
-                        </a>
-                    </td>
-                </tr>
-                
                 <?php foreach ( $a->turni() as $turno ) { ?>
                 
                     <tr<?php if ( $turno->scoperto() ) { ?> class="warning"<?php } ?> data-timestamp="<?php echo $turno->fine()->toJSON(); ?>">
@@ -182,11 +172,8 @@ $a = new Attivita($_GET['id']);
 
                         </td>
                         <td>
-                            Inizio: 
-                            <strong><?php echo $turno->inizio()->format('d-m-Y \a\l\l\e H:i'); ?></strong>
-                            <br />
-                            Fine:
-                            <strong><?php echo $turno->fine()->format('d-m-Y \a\l\l\e H:i'); ?></strong>
+                            <big><?php echo $turno->inizio()->inTesto(); ?></big><br />
+                            <span class="muted">Fine: <strong><?php echo $turno->fine()->inTesto(); ?></strong></span>
                         </td>
                         
                         <td>
@@ -246,6 +233,16 @@ $a = new Attivita($_GET['id']);
                     </tr>
                 
                 <?php } ?>
+                
+                <tr class="nascosto" id="rigaMostraTuttiTurni">
+                    <td colspan="4">
+                        <a id="mostraTuttiTurni" class="btn btn-block">
+                            <i class="icon-info-sign"></i>
+                            Ci sono <span id="numTurniNascosti"></span> turni passati nascosti.
+                            <strong>Clicca per mostrare i turni nascosti.</strong>
+                        </a>
+                    </td>
+                </tr>
             
             </table>
         </div>
