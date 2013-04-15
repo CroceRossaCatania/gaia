@@ -30,10 +30,18 @@ if (isset($_GET['si'])) {
                                             ['volontario', $v],
                                             ['appartenenza',$a]
                                         ]);
-                                    foreach($g as $a){
-                                    $a = new Appartenenzagruppo($a);
-                                    $a->fine = time();                                    
+                                    foreach($g as $_g){
+                                    $_g = new Appartenenzagruppo($_g);
+                                    $_g->fine = time();                                    
                                     }
+                                    /*Terminazione riserve in sospeso*/
+                                    $r = Riserva::filtra([
+                                            ['volontario', $v], 
+                                            ['appartenenza',$a]
+                                        ]);
+                                    $r = new Riserva($r[0]);
+                                    $r->fine = time();
+                                    $r->stato = RISERVA_SCAD;
                                     }
                                     }
     $t = Appartenenza::filtra([

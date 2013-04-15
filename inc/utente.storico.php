@@ -128,8 +128,9 @@ paginaPrivata();
             
             </table>
         </div> 
-<?php } ?>
-        
+<?php } ?>        
+
+<?php if ( $me->delegazioni() ) { ?>
         <div class="row-fluid">
             <h2>
                 <i class="icon-briefcase muted"></i>
@@ -202,7 +203,7 @@ paginaPrivata();
             
             </table>
         </div>
-        
+   <?php } ?>        
     </div>
 </div>
 
