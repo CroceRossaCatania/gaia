@@ -30,6 +30,16 @@ paginaPresidenziale($c);
     
 </div>
 
+<?php if ( isset($_GET['forzato'] ) ) { ?>
+<div class="alert alert-block alert-info">
+    <h4><i class="icon-info-sign"></i> Completa la scheda dell'Unità territoriale</h4>
+    <p>Al fine di migliorare l'esperienza d'uso di Gaia da parte dei volontari, chiediamo ai presidenti di inserire
+        alcune informazioni relative alle loro unità territoriali.</p>
+    <p>Per favore, completa immediatamente i dettagli per <strong><?php echo $c->nome; ?></strong>.</p>
+    <p><i><i class="icon-warning-sign"></i> Non potrai usare altre funzioni di Gaia fino al completamento delle schede delle tue unità territoriali.</i></p>
+</div>
+<?php } ?>
+
 <hr />
 
 <div class="row-fluid">

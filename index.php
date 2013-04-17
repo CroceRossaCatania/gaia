@@ -288,9 +288,14 @@ if ( !file_exists($_f) ) {
               <h1>Persone in Prima Persona</h1>
               <p class="lead">Grazie al nuovo obiettivo trasparenza, vedi cosa sta facendo Croce Rossa attorno a te</p>
               <p class="lead">
-                  <a href="?p=public.attivita.mappa" class="btn btn-large btn-success">
+              <div class="btn-group">
+                  <a href="?p=public.attivita.mappa" class="btn btn-large btn-info">
                       <i class="icon-globe"></i> Mappa delle attività
                   </a>
+                  <a href="?p=public.comitati.mappa" class="btn btn-large btn-primary">
+                      <i class="icon-map-marker"></i> Mappa delle Sedi CRI
+                  </a>
+              </div>
             </p>
             </div>
           </div>

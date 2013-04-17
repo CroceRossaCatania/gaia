@@ -11,7 +11,7 @@ if ( !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('n
 
 foreach ( $me->comitatiPresidenzianti() as $comitato ) {
     if ( !$comitato->haPosizione() ) {
-        redirect('presidente.wizard&id=' . $comitato->id);
+        redirect('presidente.wizard&forzato&id=' . $comitato->id);
     }
 }
 /* Noi siamo cattivi >:) */
