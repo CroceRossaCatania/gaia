@@ -18,7 +18,7 @@ paginaPresidenziale($c);
 <div class="row-fluid">
     
     <div class="span8">
-        <h2><?php echo $c->nome; ?></h2>
+        <h2><?php echo $c->nomeCompleto(); ?></h2>
     </div>
     
     <div class="span4">
@@ -93,7 +93,7 @@ paginaPresidenziale($c);
     
     <div class="span5">
         
-        <h3>Località</h3>
+        <h3>Località dell'unità</h3>
         <div class="form-horizontal">
 
             <div class="control-group">

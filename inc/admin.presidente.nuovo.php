@@ -12,7 +12,7 @@ $t = $_GET['id'];
             <div class="controls">
                 <select required name="inputComitato" autofocus class="span8">
                     <?php foreach ( $me->comitatiDiCompetenza() as $c ) { ?>
-                        <option value="<?php echo $c->id; ?>"><?php echo $c->nome; ?></option>
+                        <option value="<?php echo $c->id; ?>"><?php echo $c->nomeCompleto(); ?></option>
                     <?php } ?>
                 </select>
             </div>

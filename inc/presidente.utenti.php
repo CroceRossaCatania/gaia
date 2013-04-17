@@ -71,7 +71,7 @@
             
             <tr class="success">
                 <td colspan="7" class="grassetto">
-                    <?php echo $comitato->nome; ?>
+                    <?php echo $comitato->nomeCompleto(); ?>
                     <span class="label label-warning">
                         <?php echo count($t); ?>
                     </span>
