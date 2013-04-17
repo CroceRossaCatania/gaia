@@ -1,12 +1,12 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 $t = $_GET['id'];
-$f = new Delegato($t);
-$f->fine = time();
+$t = new Delegato($t);
+$t->fine = time();
 
 
 redirect('admin.presidenti&ok');

@@ -48,6 +48,7 @@ paginaAdmin();
 <?php
 foreach ( $me->comitatiDiCompetenza() as $comitato ) { 
     foreach ( $comitato->presidenti() as $presidente ) {
+        if($presidente->attuale()){
         $_v = $presidente->volontario();
         ?>
     <tr>
@@ -67,7 +68,7 @@ foreach ( $me->comitatiDiCompetenza() as $comitato ) {
     </tr>
     <?php 
     
-    }
+        }}
     
 }  
 
