@@ -4,6 +4,12 @@
  * ©2013 Croce Rossa Italiana
  */
 
+/* Modalità manutenzione */
+if (file_exists('upload/setup/manutenzione')) {
+    header('HTTP/1.1 307 Temporary Redirect');
+    header('Location: docs/manutenzione.html');
+}
+
 require('./core.inc.php');
     
 /* Attiva il caching */
