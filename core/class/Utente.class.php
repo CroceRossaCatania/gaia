@@ -254,7 +254,7 @@ class Utente extends Persona {
     
     public function comitatiDiCompetenza() {
         if ( $this->admin ) {
-            return Comitato::elenco('nome ASC');
+            return Comitato::elenco('locale ASC');
         } else {
             return $this->comitatiPresidenzianti();
         }
