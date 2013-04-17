@@ -8,6 +8,7 @@
 if (file_exists('upload/setup/manutenzione')) {
     header('HTTP/1.1 307 Temporary Redirect');
     header('Location: docs/manutenzione.html');
+    exit(0);
 }
 
 require('./core.inc.php');
