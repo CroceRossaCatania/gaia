@@ -35,7 +35,7 @@ if($me->presiede()){
              $c=$appartenenza->comitato()->id;   ?>
              <tr class="success">
                 <td colspan="7" class="grassetto">
-                    <?php echo $appartenenza->comitato()->nome; ?>
+                    <?php echo $appartenenza->comitato()->nomeCompleto(); ?>
                 </td>
             </tr>
  <?php 

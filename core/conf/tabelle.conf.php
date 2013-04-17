@@ -385,5 +385,17 @@ $conf['database']['tables'] = [
                 obiettivo       varchar(8),
                 INDEX(comitato),
                 INDEX(responsabile)'
-        ]
+        ],
+        [
+                'name'  =>  'reperibilita',
+                'fields'    =>  '
+                    id              int PRIMARY KEY,
+                    volontario            varchar(16),
+                    comitato        varchar(16),
+                    inizio    varchar(64),
+                    fine       varchar(64),
+                    attivazione varchar(255),
+                    INDEX(comitato),
+                    INDEX(volontario)'
+            ]
 ];

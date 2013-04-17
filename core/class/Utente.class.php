@@ -446,5 +446,11 @@ class Utente extends Persona {
         }
         return $r;
     }
-
+    
+public function mieReperibilita() {
+        return Reperibilita::filtra([
+            ['volontario',  $this->id]
+        ]);
+    }
+    
 }

@@ -45,6 +45,3 @@ $m = $_POST['inputMotivo'];
         
         $sessione->inGenerazioneRiserva = time();
         redirect('presidente.riservaRichiesta.stampa&id=' . $t);
-        
-       
-                               
