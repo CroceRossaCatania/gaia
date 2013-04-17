@@ -106,9 +106,9 @@
                         <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli
                         </a>            
-                        <a class="btn btn-small btn-info" href="?p=presidente.referente.nuovo&id=<?php echo $_v->id; ?>" title="Nomina Referente">
+                        <!-- <a class="btn btn-small btn-info" href="?p=presidente.referente.nuovo&id=<?php echo $_v->id; ?>" title="Nomina Referente">
                                 <i class="icon-user"></i> Nomina
-                            </a>
+                            </a>-->
                         
                         <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                             <i class="icon-envelope"></i>
