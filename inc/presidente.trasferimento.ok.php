@@ -26,12 +26,12 @@ if (isset($_GET['si'])) {
                                     $a->conferma  = $me->id;    
                                     $a->fine = time();
                                     /*Eliminazione iscrizione gruppo di lavoro*/
-                                    $g = Appartenenzagruppo::filtra([
+                                    $g = AppartenenzaGruppo::filtra([
                                             ['volontario', $v],
                                             ['appartenenza',$a]
                                         ]);
                                     foreach($g as $_g){
-                                    $_g = new Appartenenzagruppo($_g);
+                                    $_g = new AppartenenzaGruppo($_g);
                                     $_g->fine = time();                                    
                                     }
                                     /*Terminazione riserve in sospeso*/

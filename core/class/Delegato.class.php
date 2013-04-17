@@ -25,4 +25,12 @@ class Delegato extends Entita {
             return false;
         }
     }
+    
+    public function inizio() {
+        return DT::daTimestamp($this->inizio);
+    }    
+    
+    public function fine() {
+        return DT::daTimestamp($this->fine);
+    }
 }

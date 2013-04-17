@@ -27,8 +27,10 @@ if ( $nap ) {
 $menu += [
     'Attività'      =>  [
         'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
-        'attivita.storico'  =>  '<i class="icon-list"></i> Mie attivita'
+        'attivita.storico'  =>  '<i class="icon-list"></i> Mie attivita',
+        'utente.gruppo'  =>  '<i class="icon-group"></i> Gruppi'
     ],
+    
     'Volontario'    =>  [
         'utente.anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
         'utente.storico'    =>  '<i class="icon-time"></i> Storico',
@@ -39,7 +41,6 @@ $menu += [
         'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti',
         // 'utente.riserva'  =>  '<i class="icon-pause"></i> Riserva',
         // 'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica',
-        // 'utente.gruppo'  =>  '<i class="icon-flag"></i> Gruppi'
        
         
     ],

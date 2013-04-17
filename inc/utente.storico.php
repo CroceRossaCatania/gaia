@@ -51,13 +51,13 @@ paginaPrivata();
                         
                         <td>
                             <i class="icon-calendar muted"></i>
-                            <?php echo date('d-m-Y', $app->inizio); ?>
+                            <?php echo $app->inizio()->inTesto(false); ?>
                         </td>
                         
                         <td>
                             <?php if ($app->fine) { ?>
                                 <i class="icon-time muted"></i>
-                                <?php echo date('d-m-Y', $app->fine); ?>
+                                <?php echo $app->fine()->inTesto(false); ?>
                             <?php } else { ?>
                                 <i class="icon-question-sign muted"></i>
                                 Indeterminato
@@ -110,13 +110,13 @@ paginaPrivata();
                         
                         <td>
                             <i class="icon-calendar muted"></i>
-                            <?php echo date('d-m-Y', $app->inizio); ?>
+                            <?php echo $app->inizio()->inTesto(false); ?>
                         </td>
                         
                         <td>
                             <?php if ($app->fine) { ?>
                                 <i class="icon-time muted"></i>
-                                <?php echo date('d-m-Y', $app->fine); ?>
+                                <?php echo $app->fine()->inTesto(false); ?>
                             <?php } else { ?>
                                 <i class="icon-question-sign muted"></i>
                                 Indeterminato
@@ -185,13 +185,13 @@ paginaPrivata();
                         
                         <td>
                             <i class="icon-calendar muted"></i>
-                            <?php echo date('d-m-Y', $app->inizio); ?>
+                            <?php echo $app->inizio()->inTesto(false); ?>
                         </td>
                         
                         <td>
                             <?php if ($app->fine) { ?>
                                 <i class="icon-time muted"></i>
-                                <?php echo date('d-m-Y', $app->fine); ?>
+                                <?php echo $app->fine()->inTesto(false); ?>
                             <?php } else { ?>
                                 <i class="icon-question-sign muted"></i>
                                 Indeterminato

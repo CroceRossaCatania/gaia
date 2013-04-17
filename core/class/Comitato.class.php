@@ -253,4 +253,26 @@ class Comitato extends GeoEntita {
     public function nomeCompleto() {
         return $this->locale()->nome . ': ' . $this->nome;
     }
+    
+    public function aree() {
+        return Area::filtra([
+            ['comitato',    $this->id]
+        ]);
+    }
+    
+    public function gruppi() {
+        return Gruppo::filtra([
+            ['comitato',    $this->id]
+        ]);
+    }
+    
+    public function obiettivi($ob = OBIETTIVO_1) {
+        $r = [];
+        foreach ( $this->delegati(APP_OBIETTIVO) as $d ) {
+            if ( $d->dominio == $ob ) {
+                $r[] = $d->volontario();
+            }
+        }
+        return $r;
+    }
 }

@@ -423,7 +423,7 @@ class Utente extends Persona {
     }
     
     public function mieiGruppi() {
-        return Appartenenzagruppo::filtra([
+        return AppartenenzaGruppo::filtra([
             ['volontario',  $this->id]
         ]);
     }
@@ -442,7 +442,7 @@ class Utente extends Persona {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Appartenenzagruppo($k[0]);
+            $r[] = new AppartenenzaGruppo($k[0]);
         }
         return $r;
     }

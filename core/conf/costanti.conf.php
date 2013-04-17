@@ -196,11 +196,13 @@ define('PROSSIMA_SCADENZA', 0);
 define('APP_ATTIVITA',      10);
 // define('APP_PROTOCOLLO',    20);
 define('APP_PRESIDENTE',    30);
+define('APP_OBIETTIVO',     40);
 
 $conf['applicazioni'] = [
     APP_ATTIVITA    =>  "Attività",
     // APP_PROTOCOLLO  =>  "Protocollo",
-    APP_PRESIDENTE  =>  "Presidente"
+    APP_PRESIDENTE  =>  "Presidente",
+    APP_OBIETTIVO   =>  "Obiettivo strategico"
 ];
 
 /*
@@ -218,6 +220,27 @@ $conf['app_attivita'] = [
     APP_ATTIVITA_CORSI  =>  'Corsi e formazione'
 ];
 
+
+/*
+ * ===================================
+ * =========== OBIETTIVI STRATEGICI ==
+ * ===================================
+ */
+define('OBIETTIVO_1',   1);
+define('OBIETTIVO_2',   2);
+define('OBIETTIVO_3',   3);
+define('OBIETTIVO_4',   4);
+define('OBIETTIVO_5',   5);
+define('OBIETTIVO_6',   6);
+
+$conf['obiettivi'] = [
+    OBIETTIVO_1 =>  "Obiettivo strategico 1",
+    OBIETTIVO_2 =>  "Obiettivo strategico 2",
+    OBIETTIVO_3 =>  "Obiettivo strategico 3",
+    OBIETTIVO_4 =>  "Obiettivo strategico 4",
+    OBIETTIVO_5 =>  "Obiettivo strategico 5",
+    OBIETTIVO_6 =>  "Obiettivo strategico 6"
+];
 
 /*
  * ===================================

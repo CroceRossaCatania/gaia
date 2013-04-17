@@ -23,7 +23,7 @@ if($x == 1){
 
 /*Se non sono appartenente allora avvio la procedura*/
 
-        $t = new Appartenenzagruppo($t);
+        $t = new AppartenenzaGruppo($t);
         $t->fine = time();
         
         redirect('utente.gruppo&del');

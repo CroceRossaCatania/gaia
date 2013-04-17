@@ -363,4 +363,27 @@ $conf['database']['tables'] = [
                 PRIMARY KEY (id, nome)
             '
         ],
+        [
+            'name'  =>  'gruppi',
+            'fields'    =>  '
+                id      int PRIMARY KEY,
+                comitato    varchar(16),
+                nome        varchar(255),
+                obiettivo   varchar(8),
+                area        varchar(16),
+                referente   varchar(16),
+                INDEX(comitato),
+                INDEX(referente)'
+        ],
+        [
+            'name'  =>  'aree',
+            'fields'    =>  '
+                id              int PRIMARY KEY,
+                nome            varchar(255),
+                comitato        varchar(16),
+                responsabile    varchar(16),
+                obiettivo       varchar(8),
+                INDEX(comitato),
+                INDEX(responsabile)'
+        ]
 ];

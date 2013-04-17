@@ -58,11 +58,11 @@ paginaPrivata();
              <?php $i=2; } } }
 if($i==0){ ?>
         <div class="row-fluid">
-            <h2><i class="icon-flag muted"></i> Gruppi di lavoro</h2>
+            <h2><i class="icon-group muted"></i> Gruppi di lavoro</h2>
             <div class="alert alert-block alert-info ">
                 <div class="row-fluid">
                     <span class="span9">
-                        <h4>Vuoi iscriverti ad un gruppo di lavoro ?</h4>
+                        <h4><i class="icon-question-sign"></i> Vuoi iscriverti ad un gruppo di lavoro ?</h4>
                         <p>Con questo modulo puoi richiedere l'iscrizione ad un gruppo di lavoro presente nel tuo Comitato</p>
                         <p>Seleziona il Gruppo a cui vuoi iscriverti e clicca su iscriviti</p>
                     </span>
@@ -75,17 +75,32 @@ if($i==0){ ?>
    <div class="control-group">
         <label class="control-label" for="inputGruppo">Gruppi di lavoro </label>
         <div class="controls">
-            <input class="span8" type="text" name="inputGruppo" id="inputGruppo" placeholder="es.: Gruppo w alfio fresta" required>
+            <?php if (!$me->unComitato()->gruppi()) { ?>
+                <span class="text-error">
+                    <i class="icon-warning-sign"></i>
+                    Spiacente.<br />
+                    Attualmente nel tuo Comitato non esistono gruppi di lavoro.
+                </span>
+            <?php } else { ?>
+                <select name="inputGruppo" required>
+                    <?php foreach ( $me->unComitato()->gruppi() as $g ) { ?>
+                        <option value="<?php echo $g->id; ?>"><?php echo $g->nome; ?></option>
+                    <?php } ?>
+                </select>
+            <?php } ?>
+            
             </div>
           </div>
         <div class="control-group">
             <div class="controls">
-              <button type="submit" class="btn btn-large btn-success">
+              <button type="submit" class="btn btn-large btn-success <?php if (!$me->unComitato()->gruppi()) {?>disabled" disabled="disabled"<?php } else { ?>"<?php } ?>>
                   <i class="icon-ok"></i>
                   Iscriviti
               </button>
             </div>
           </div>
+                    <?php if ( $me->mieiGruppi() ) { ?>
+
         <div class="row-fluid">
             <h2>
                 <i class="icon-flag muted"></i>
@@ -121,18 +136,18 @@ if($i==0){ ?>
                         </td>
                         
                         <td>
-                            <strong><?php echo $app->appartenenza()->comitato()->nome; ?></strong>
+                            <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong>
                         </td>
                         
                         <td>
                             <i class="icon-calendar muted"></i>
-                            <?php echo date('d-m-Y', $app->inizio); ?>
+                            <?php echo $app->inizio()->inTesto(false); ?>
                         </td>
                         
                         <td>
                             <?php if ($app->fine) { ?>
                                 <i class="icon-time muted"></i>
-                                <?php echo date('d-m-Y', $app->fine); ?>
+                                <?php echo $app->fine()->inTesto(false); ?>
                             <?php } else { ?>
                                 <i class="icon-question-sign muted"></i>
                                 Indeterminato
@@ -153,8 +168,10 @@ if($i==0){ ?>
             
             </table>
         </div>
-    
+                        <?php } ?>
+
         </div>
+
 
 <?php } ?>  
     </div>
