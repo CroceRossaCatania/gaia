@@ -37,7 +37,8 @@ $conf['database']['tables'] = [
                 timestamp       varchar(64),
                 admin           varchar(64),
                 INDEX (codiceFiscale),
-                INDEX(email)
+                INDEX(email),
+                FULLTEXT(nome, cognome)
             '
         ],
         [
@@ -90,7 +91,7 @@ $conf['database']['tables'] = [
             'fields'    =>  '
                 id          int PRIMARY KEY,
                 nome        varchar(255),
-                tipo        varchatr(8),
+                tipo        varchar(8),
                 FULLTEXT ( nome )
             '
         ],
@@ -121,6 +122,8 @@ $conf['database']['tables'] = [
                 referente       varchar(32),
                 geo             point NOT NULL,
                 descrizione     text,
+                minimo          varchar(8),
+                massimo         varchar(8),
                 PRIMARY KEY (id),
                 INDEX (comitato),
                 INDEX (referente),
@@ -172,7 +175,10 @@ $conf['database']['tables'] = [
                 fine        varchar(64),
                 minimo      varchar(8),
                 massimo     varchar(8),
-                timestamp   varchar(64)
+                timestamp   varchar(64),
+                INDEX(attivita),
+                INDEX(inizio),
+                INDEX(fine)
             '
         ],
         [
@@ -221,7 +227,10 @@ $conf['database']['tables'] = [
                 inizio          varchar(64),
                 fine            varchar(64),
                 pConferma       varchar(16),
-                tConferma       varchar(64)'
+                tConferma       varchar(64),
+                INDEX ( comitato),
+                INDEX (volontario),
+                INDEX (applicazione)'
         ],
         [
            
@@ -312,13 +321,11 @@ $conf['database']['tables'] = [
                     id          int PRIMARY KEY,
                     volontario  varchar(16),
                     appartenenza    varchar(16),
-                    gruppo varchar(16),
                     inizio      varchar(64),
                     fine        varchar(64),
                     timestamp   varchar(64),
-                    INDEX (volontario),
-                    INDEX (comitato)
-                '
+                    INDEX (volontario)
+                 '
             ],
             [
             'name'      =>  'datiLocali',
