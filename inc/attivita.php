@@ -28,7 +28,7 @@ richiediComitato();
                         <i class="icon-sign-blank"></i>
                     </td>
                     <td>
-                        <?php echo $c->nome; ?>
+                        <?php echo $c->nomeCompleto(); ?>
                     </td>
                 </tr>
             <?php } ?>

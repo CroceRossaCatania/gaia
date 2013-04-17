@@ -36,7 +36,7 @@ paginaPrivata();
                                         <div class="alert alert-error">
                                             <div class="row-fluid">
                                                 <span class="span12">
-                                                    <p>Ci dispiace ma non puoi chiedere il trasferimento finchè la tua appartenenza al  <strong><?php echo $app->comitato()->nome; ?></strong> è pendente.</p>
+                                                    <p>Ci dispiace ma non puoi chiedere il trasferimento finchè la tua appartenenza al  <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong> è pendente.</p>
                                                     <p>Contatta il tuo Presidente per chiedere la conferma della tua appartenenza.</p>
                                                 </span>
                                             </div>
@@ -48,7 +48,7 @@ paginaPrivata();
                                         <div class="alert alert-block">
                                             <div class="row-fluid">
                                                 <span class="span12">
-                                                    <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nome; ?></strong> è in fase di elaborazione.</p>
+                                                    <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong> è in fase di elaborazione.</p>
                                                     <p>La tua richiesta è in attesa di essere protocollata dalla segreteria del tuo Comitato.</p>
                                                 </span>
                                             </div>
@@ -60,7 +60,7 @@ paginaPrivata();
                                         <div class="alert alert-block">
                                             <div class="row-fluid">
                                                 <span class="span12">
-                                                    <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nome; ?></strong> è stata presa in carico il <strong><?php echo date('d-m-Y', $trasferimento->protData); ?></strong> con numero di protocollo <strong><?php echo $trasferimento->protNumero; ?></strong>.</p>
+                                                    <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong> è stata presa in carico il <strong><?php echo date('d-m-Y', $trasferimento->protData); ?></strong> con numero di protocollo <strong><?php echo $trasferimento->protNumero; ?></strong>.</p>
                                                     <p>La tua richiesta è in attesa di conferma da parte del tuo Presidente di Comitato.</p>
                                                     <p>Trascorsi 30 giorni senza alcuna risposta del Presidente Gaia effettuerà il trasferimento automaticamente come previsto da regolamento.</p>
                                                 </span>
@@ -87,15 +87,15 @@ if($i==0){ ?>
      <div class="control-group">
         <label class="control-label" for="comitato">Comitato Attuale </label>
         <div class="controls">
-            <input class="span8" type="text" name="comitato" id="comitato" readonly value="<?php echo $me->unComitato()->nome; ?>" />
+            <input class="span8" type="text" name="comitato" id="comitato" readonly value="<?php echo $me->unComitato()->nomeCompleto(); ?>" />
             </div>
           </div>   
     <div class="control-group">
         <label class="control-label" for="inputComitato">Comitato Destinazione </label>
         <div class="controls">
             <select required name="inputComitato" autofocus class="span8">
-                    <?php foreach ( Comitato::elenco('nome ASC') as $c ) { ?>
-                        <option value="<?php echo $c->id; ?>"><?php echo $c->nome; ?></option>
+                    <?php foreach ( Comitato::elenco('locale ASC') as $c ) { ?>
+                        <option value="<?php echo $c->id; ?>"><?php echo $c->nomeCompleto(); ?></option>
                     <?php } ?>
             </select>
             </div>

@@ -46,7 +46,7 @@ paginaPrivata();
                         </td>
                         
                         <td>
-                            <?php echo $app->comitato()->nome; ?>
+                            <?php echo $app->comitato()->nomeCompleto(); ?>
                         </td>
                         
                         <td>
@@ -180,7 +180,7 @@ paginaPrivata();
                         </td>
                         
                         <td>
-                            <?php echo $app->comitato()->nome; ?>
+                            <?php echo $app->comitato()->nomeCompleto(); ?>
                         </td>
                         
                         <td>

@@ -27,9 +27,7 @@ paginaPresidenziale();
 
 <table class="table table-striped table-bordered" id="tabellaUtenti">
     <thead>
-        <th>Nome</th>
-        <th>Cognome</th>
-        <th>Codice Fiscale</th>
+        <th>Volontario</th>
         <th>Titolo</th>
         <th>Dettagli</th>
         <th>Azione</th>
@@ -44,9 +42,12 @@ paginaPresidenziale();
                    //if($a[0]!=''){
                 ?>
     <tr>
-        <td><?php echo $_v->nome; ?></td>
-        <td><?php echo $_v->cognome; ?></td>
-        <td><?php echo $_v->codiceFiscale; ?></td>
+        <td>
+            <a href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" target="_new">
+                <i class="icon-file-alt"></i> 
+                <?php echo $_v->nomeCompleto(); ?>
+            </a>
+        </td>
         <td><strong><?php echo $_t->titolo()->nome; ?></strong></td>
         <td><small>
                                 <i class="icon-calendar muted"></i>

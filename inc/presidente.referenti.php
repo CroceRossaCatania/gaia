@@ -47,6 +47,9 @@ foreach ( $me->comitatiDiCompetenza() as $comitato ) {
 
     foreach ( $comitato->delegati() as $delegato ) { 
         $_v = $delegato->volontario();
+        if ( $delegato->applicazione == APP_PRESIDENTE ) { 
+            continue;
+        }
         ?>
         <tr>
             <td><?php echo $_v->nome; ?></td>
@@ -54,7 +57,7 @@ foreach ( $me->comitatiDiCompetenza() as $comitato ) {
             <td><?php echo $_v->codiceFiscale; ?></td>
             <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
             <td><?php echo $_v->comuneNascita; ?></td>
-            <td><?php echo $comitato->nome; ?></td>
+            <td><?php echo $comitato->nomeCompleto(); ?></td>
             <td><?php echo $conf['applicazioni'][$delegato->applicazione]; ?></td>
             <td>
                 <?php if ( $delegato->applicazione == APP_ATTIVITA ) { ?>

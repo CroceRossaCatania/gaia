@@ -61,7 +61,7 @@ foreach($comitati as $comitato){
         <td><?php echo $_v->codiceFiscale; ?></td>
         <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
         <td><?php echo $_v->comuneNascita; ?></td>
-        <td><?php echo $c->nome; ?></td>
+        <td><?php echo $c->nomeCompleto(); ?></td>
         <?php if($_t->protNumero){ ?>
         <td class="btn-group">     
         <a class="btn btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $_t->id; ?>">
