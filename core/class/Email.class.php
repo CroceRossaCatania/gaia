@@ -38,6 +38,11 @@ class Email {
     public function invia() {
         global $conf; 
         $oggetto    = $this->oggetto;
+        if ( !$this->a ) {
+            $this->a = new stdClass;
+            $this->a->nome = $conf['default_email_nome'];
+            $this->a->email = $conf['default_email_email'];
+        }
         $email      = $this->a->email;
         $header     = file_get_contents('./core/conf/mail/header.html');
         $footer     = file_get_contents('./core/conf/mail/footer.html');

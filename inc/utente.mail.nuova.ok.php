@@ -43,7 +43,6 @@ if($me->presiede()){
 
 $m = new Email('mailTestolibero', 'Richiesta supporto: '.$oggetto);
 $m->da = $me;
-$m->a = Persona::by('email', 'informatica@cricatania.it');
 $m->_TESTO = $testo;
 $m->invia();
 redirect('utente.me&suppok');    
