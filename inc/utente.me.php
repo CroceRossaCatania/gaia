@@ -66,7 +66,7 @@ foreach ( $me->comitatiPresidenzianti() as $comitato ) {
         <?php foreach ( $me->appartenenzePendenti() as $app ) { ?>
         <div class="alert alert-block">
             <h4><i class="icon-time"></i> In attesa di conferma</h4>
-            <p>La tua appartenenza a <strong><?php echo $app->comitato()->nome; ?></strong> attende conferma.</p>
+            <p>La tua appartenenza a <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong> attende conferma.</p>
             <p>Successivamente riceverai una email di notifica e potrai partecipare ai servizi del comitato.</p>
             
         </div>

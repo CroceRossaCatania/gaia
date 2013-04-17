@@ -53,7 +53,7 @@
                 <select required name="inputComitato" id="inputComitato" autofocus class="span11">
                     <option value="" selected="selected">[ Seleziona un Comitato ]</option>
                     <?php foreach ( Comitato::elenco('nome ASC') as $c ) { ?>
-                        <option value="<?php echo $c->id; ?>"><?php echo $c->nome; ?></option>
+                        <option value="<?php echo $c->id; ?>"><?php echo $c->nomeCompleto(); ?></option>
                     <?php } ?>
                 </select>
             </div>
