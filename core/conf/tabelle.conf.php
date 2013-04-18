@@ -396,6 +396,8 @@ $conf['database']['tables'] = [
                     fine       varchar(64),
                     attivazione varchar(255),
                     INDEX(comitato),
-                    INDEX(volontario)'
+                    INDEX(volontario),
+                    INDEX(inizio),
+                    INDEX(fine)'
             ]
 ];
