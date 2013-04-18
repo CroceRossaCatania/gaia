@@ -61,7 +61,7 @@ class Turno extends Entita {
     public function partecipa(Volontario $v) {
         return (bool) $this->partecipazione($v);
     }
-    
+        
     public static function neltempo(DT $inizio, DT $fine) {
         global $db;
         $q = "

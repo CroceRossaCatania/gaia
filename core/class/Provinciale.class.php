@@ -23,4 +23,15 @@ class Provinciale extends GeoEntita {
     public function nazionale() {
         return $this->regionale()->nazionale();
     }
+    
+    public function toJSON() {
+        $locali = $this->locali();
+        foreach ( $locali as &$locale ) {
+            $locale = $locale->toJSON();
+        }
+        return [
+            'nome'      =>  $this->nome,
+            'comitati'  =>  $locali
+        ]; 
+    }
 }

@@ -182,6 +182,14 @@ class APIServer {
             return $r;
         }
         
+        public function api_comitati() {
+            $r = [];
+            foreach ( Nazionale::elenco() as $n ) {
+                $r[] = $n->toJSON();
+            }
+            return $r;
+        }
+        
         public function api_cercaVolontario() {
             $this->richiedi(['query']);
             $me = $this->sessione->utente();

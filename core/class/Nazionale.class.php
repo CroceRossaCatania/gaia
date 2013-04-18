@@ -16,5 +16,15 @@ class Nazionale extends GeoEntita {
         ]);
     }
     
+    public function toJSON() {
+        $regionali = $this->regionali();
+        foreach ( $regionali as &$regionale ) {
+            $regionale = $regionale->toJSON();
+        }
+        return [
+            'nome'          =>  $this->nome,
+            'regionali'     =>  $regionali
+        ];
+    }
     
 }
