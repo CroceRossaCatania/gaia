@@ -28,7 +28,7 @@
     <div class="span4 allinea-destra">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>
-            <input autofocus required id="cercaUtente" placeholder="Cerca utente..." type="text">
+            <input autofocus required id="cercaUtente" placeholder="Cerca volontari..." type="text">
         </div>
     </div>    
 </div>
@@ -38,10 +38,10 @@
 <div class="row-fluid">
    <div class="span12">
        
-       <?php if ( $me->admin ) { ?>
-       <a href="?p=admin.utenti.excel" class="btn btn-block btn-inverse" data-attendere="Generazione in corso...">
+       <?php if ( count($me->comitatiDiCompetenza()) > 1 ) { ?>
+       <a href="?p=admin.utenti.excel" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
            <i class="icon-download"></i>
-            <strong>Amministratore</strong> &mdash; Scarica tutti i fogli in un archivio zip.
+            <strong>Presidente</strong> &mdash; Scarica tutti i fogli dei volontari in un archivio zip.
        </a><hr />
        <?php } ?>
        

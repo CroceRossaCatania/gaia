@@ -28,4 +28,15 @@ class Locale extends GeoEntita {
         return $this->provinciale()->regionale()->nazionale();
     }
     
+    public function toJSON() {
+        $comitati = $this->comitati();
+        foreach ( $comitati as &$comitato ) {
+            $comitato = $comitato->toJSON();
+        }
+        return [
+            'nome'  =>  $this->nome,
+            'unita' =>  $comitati
+        ];
+    }
+    
 }

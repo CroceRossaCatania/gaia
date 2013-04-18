@@ -20,4 +20,16 @@ class Regionale extends GeoEntita {
         return new Nazionale($this->nazionale);
     }
     
+        
+    public function toJSON() {
+        $provinciali = $this->provinciali();
+        foreach ( $provinciali as &$provinciale ) {
+            $provinciale = $provinciale->toJSON();
+        }
+        return [
+            'nome'          =>  $this->nome,
+            'provinciali'   =>  $provinciali
+        ];
+    }
+    
 }

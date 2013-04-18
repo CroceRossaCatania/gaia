@@ -275,4 +275,15 @@ class Comitato extends GeoEntita {
         }
         return $r;
     }
+    
+    public function toJSON() {
+        return [
+            'nome'          =>  $this->nome,
+            'indirizzo'     =>  $this->formattato,
+            'coordinate'    =>  $this->coordinate(),
+            'telefono'      =>  $this->telefono,
+            'email'         =>  $this->email,
+            'volontari'     =>  count($this->membriAttuali())
+        ];
+    }
 }
