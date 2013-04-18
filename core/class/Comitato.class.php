@@ -286,4 +286,24 @@ class Comitato extends GeoEntita {
             'volontari'     =>  count($this->membriAttuali())
         ];
     }
+    
+    public function reperibili() {
+        $q = "
+            SELECT
+                reperibilita.id
+            FROM
+                reperibilita
+            WHERE
+                reperibilita.comitato = :id";
+        $q .= " ORDER BY reperibilita.id DESC";
+        $q = $this->db->prepare($q);
+        $q->bindParam(':id', $this->id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Reperibilita($k[0]);
+        }
+        return $r;
+    }
+    
 }

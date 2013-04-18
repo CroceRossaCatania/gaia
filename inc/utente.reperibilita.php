@@ -46,7 +46,7 @@ if($i==0){ ?>
                     <span class="span12">
                         <h4>Vuoi dare la tua disponibilità ?</h4>
                         <p>Con questo modulo puoi dare la tua disponibilità alla Centrale Operativa per eventuali emergenze</p>
-                        <p>Seleziona il tempo per cui vuoi dare la tua disponibilità.</p>
+                        <p>Seleziona il tempo per cui vuoi dare la tua disponibilità e indica il tempo necessario per essere in Centrale Operativa.</p>
                     </span>
                 </div>
             </div>           
@@ -85,8 +85,8 @@ if($i==0){ ?>
         <?php if($me->mieReperibilita()){?>
         <div class="row-fluid">
             <h2>
-                <i class="icon-thumbs-up muted"></i>
-                Reperibilità
+                <i class="icon-time muted"></i>
+                Mie Reperibilità
             </h2>
             
         </div>

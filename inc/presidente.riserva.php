@@ -31,7 +31,7 @@ paginaPresidenziale();
         <div class="controls">
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-search"></i></span>
-                <input data-t="<?php echo $t; ?>" required id="cercaUtente" placeholder="Cerca utente..." class="span4" type="text">
+                <input data-t="<?php echo $t; ?>" required id="cercaUtente" placeholder="Cerca Volontario..." class="span4" type="text">
             </div>
         </div>
     </div> 
