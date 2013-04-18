@@ -69,7 +69,7 @@ if($i==0){ ?>
         <div class="control-group">
         <label class="control-label" for="attivazione"> Tempo di attivazione</label>
         <div class="controls">
-            <input class="input-medium" type="text" name="attivazione" id="attivazione" required>
+            <input class="input-mini" type="text" name="attivazione" id="attivazione" required>
             </div>
           </div>
     <div class="control-group">
@@ -124,7 +124,7 @@ if($i==0){ ?>
                         
                         <td>
                                 <i class="icon-time muted"></i>
-                                <?php echo $app->attivazione; ?>
+                                <?php echo $app->attivazione; ?> min
                         </td>
                         
                         <?php if ($app->attuale()) { ?>

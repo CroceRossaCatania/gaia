@@ -36,6 +36,18 @@ $(document).ready ( function() {
                         }
                    }); 
               }
+              
+        $("#attivazione").timepicker({
+	hourText: 'Ore',
+	minuteText: 'Minuti',
+	closeText: 'Ok',
+                  defaultTimezone: '+0100',
+                  stepMinute: 15,
+                  showTime: false,
+                  showButtonPanel: false
+        
+            });      
+              
     $("#privacyGroup button").click( function() {
        $("#privacyGroup button").removeClass('active');
        $(this).addClass('active');
