@@ -399,5 +399,22 @@ $conf['database']['tables'] = [
                     INDEX(volontario),
                     INDEX(inizio),
                     INDEX(fine)'
-            ]
+            ],
+            [
+                        'name'  =>  'coturni',
+                        'fields'    =>  '
+                            id              int PRIMARY KEY,
+                            volontario            varchar(16),
+                            comitato        varchar(16),
+                            turno varchar(16),
+                            monta    varchar(64),
+                            pMonta       varchar(16),
+                            tMonta varchar(64),
+                            smonta    varchar(64),
+                            pSmonta       varchar(16),
+                            tSmonta varchar(64),
+                            INDEX(comitato),
+                            INDEX(volontario),
+                            INDEX(turno)'
+                    ]
 ];

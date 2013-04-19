@@ -3,8 +3,10 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
+
 paginaPresidenziale();
 ?>
+<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-save"></i> <strong>Utente eliminato</strong>.
@@ -21,14 +23,14 @@ paginaPresidenziale();
     <div class="span8">
         <h2>
             <i class="icon-group muted"></i>
-            Elenco volontari
+            Elenco Aspiranti
         </h2>
     </div>
     
     <div class="span4 allinea-destra">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>
-            <input autofocus required id="cercaUtente" placeholder="Cerca volontari..." type="text">
+            <input autofocus required id="cercaUtente" placeholder="Cerca Aspirantii..." type="text">
         </div>
     </div>    
 </div>
@@ -37,14 +39,6 @@ paginaPresidenziale();
     
 <div class="row-fluid">
    <div class="span12">
-       
-       <?php if ( count($me->comitatiDiCompetenza()) > 1 ) { ?>
-       <a href="?p=admin.utenti.excel" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
-           <i class="icon-download"></i>
-            <strong>Presidente</strong> &mdash; Scarica tutti i fogli dei volontari in un archivio zip.
-       </a><hr />
-       <?php } ?>
-       
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
                 <th>Nome</th>
@@ -54,37 +48,8 @@ paginaPresidenziale();
                 <th>Azioni</th>
             </thead>
         <?php
-        if( $me->presiede() ) {
-            $app = $me->presidenziante();
-            $elenco = [];
-            foreach ($app as $_app) {
-                $elenco[] = $_app->comitato();
-            }
-            $elenco = array_unique($elenco);
-        } elseif ( $me->admin ) {
-            $elenco = Comitato::elenco('nome ASC');
-        }
-        
-        foreach($elenco as $comitato) {
-            $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
-                ?>
-            
-            <tr class="success">
-                <td colspan="7" class="grassetto">
-                    <?php echo $comitato->nomeCompleto(); ?>
-                    <span class="label label-warning">
-                        <?php echo count($t); ?>
-                    </span>
-                    <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>"
-                       data-attendere="Generazione...">
-                            <i class="icon-download"></i> scarica come foglio excel
-                    </a>
-                </td>
-            </tr>
-            
-            <?php
-            foreach ( $t as $_v ) {
+        $t = Persona::filtra([['stato','0'],['password', NULL]]);
+        foreach($t as $_v) {
             ?>
                 <tr>
                     <td><?php echo $_v->nome; ?></td>
@@ -121,15 +86,6 @@ paginaPresidenziale();
                             <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=presidente.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
                             <i class="icon-trash"></i> Cancella
                             </a>
-                            <a class="btn btn-small btn-primary" href="?p=admin.beuser&id=<?php echo $_v->id; ?>" title="Log in">
-                                <i class="icon-key"></i>
-                            </a> 
-                            <a class="btn btn-small btn-primary" href="?p=admin.presidente.nuovo&id=<?php echo $_v->id; ?>" title="Nomina Presidente">
-                                <i class="icon-star"></i>
-                            </a> 
-                            <a class="btn btn-small btn-danger <?php if ($_v->admin) { ?>disabled<?php } ?>" href="?p=admin.admin.nuovo&id=<?php echo $_v->id; ?>" title="Nomina Admin">
-                                <i class="icon-magic"></i>
-                            </a>
                         <?php } ?>
                    </td>
                 </tr>
@@ -137,7 +93,6 @@ paginaPresidenziale();
                
        
         <?php }
-        }
         ?>
 
         

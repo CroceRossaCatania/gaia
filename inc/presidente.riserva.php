@@ -38,7 +38,6 @@ paginaPresidenziale();
 <hr />
 <table class="table table-striped table-bordered" id="tabellaUtenti">
     <thead>
-        <th>#</th>
         <th>Nome</th>
         <th>Cognome</th>
         <th>Codice Fiscale</th>
@@ -56,7 +55,6 @@ foreach($comitati as $comitato){
         $c=$_t->comitato();
  ?>
     <tr>
-        <td><?php echo $_t->id; ?></td>
         <td><?php echo $_v->nome; ?></td>
         <td><?php echo $_v->cognome; ?></td>
         <td><?php echo $_v->codiceFiscale; ?></td>
