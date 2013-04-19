@@ -67,7 +67,7 @@
         <p>&nbsp;</p>
         <h2><i class="icon-github icon-large"></i> Collabora</h2>
 
-        <p>Gaia è un progetto open source rilasciato con <a href="/LICENSE.txt"><i class="icon-link"></i> licenza GPL v3</a> . Per informazioni sul come collaborare, visita la pagina del progetto:</p> 
+        <p>Gaia è un progetto open source rilasciato con <a href="/LICENSE.txt" target="_new"><i class="icon-link"></i> licenza GPL v3</a> . Per informazioni sul come collaborare, visita la pagina del progetto:</p> 
         
         <a href="https://github.com/CroceRossaCatania/gaia" target="_new" class="btn btn-large btn-block">
             Progetto su GitHub
