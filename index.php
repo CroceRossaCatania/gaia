@@ -225,14 +225,14 @@ if ( !file_exists($_f) ) {
                                         </a>
                                     </li>
                                     
-                                    <li class="nav-header">C.O.</li>
+                                    <!--<li class="nav-header">C.O.</li>
                                 
                                     <li>
                                         <a href="?p=presidente.reperibilita">
                                             <i class="icon-thumbs-up"></i>
                                             Reperibilità
                                         </a>
-                                    </li>
+                                    </li>-->
                                     
                                 </ul>
                             </div>

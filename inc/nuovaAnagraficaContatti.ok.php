@@ -32,5 +32,5 @@ $p->cellulareServizio   = $cells;
 if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
     redirect('nuovaAnagraficaAccesso');
 } else {
-    redirect('grazieAspirante');
+    redirect('mailAspirante');
 }
