@@ -10,12 +10,35 @@ $t = $_GET['id'];
 $f = Appartenenza::filtra([
   ['volontario', $t]
 ]);
+if($f[0]){
 $f[0]->cancella();
+}
 $f = TitoloPersonale::filtra([
   ['volontario', $t]
 ]);
 for ($i = 0, $ff = count($f); $i < $ff;$i++) {
     $f[$i]->cancella();
+}
+$f = Trasferimento::filtra([
+    ['volontario', $t]
+]);
+foreach($f as $_f){
+    $_f = new Trasferimento($_f);
+    $_f->cancella();
+}
+$f = Riserva::filtra([
+    ['volontario', $t]
+]);
+foreach($f as $_f){
+    $_f = new Riserva($_f);
+    $_f->cancella();
+}
+$f = Reperibilita::filtra([
+    ['volontario', $t]
+]);
+foreach($f as $_f){
+    $_f = new Reperibilita($_f);
+    $_f->cancella();
 }
 $t = new Persona($t);
 $t->cancella();
