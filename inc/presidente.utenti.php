@@ -28,7 +28,7 @@ paginaPresidenziale();
     <div class="span4 allinea-destra">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>
-            <input autofocus required id="cercaUtente" placeholder="Cerca volontari..." type="text">
+            <input autofocus required id="cercaUtente" placeholder="Cerca Volontari..." type="text">
         </div>
     </div>    
 </div>
