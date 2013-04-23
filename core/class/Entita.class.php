@@ -29,11 +29,19 @@ class Entita {
         if ( self::_esiste($id) ) {
             /* Scaricamento */
             $this->id = $id;
+            if ( $this->cache ) {
+                if ( $this->_v = unserialize( $this->cache->get( $conf['db_hash'] . static::$_t . ':' . $id . ':___campi') ) ) {
+                    return;
+                }
+            }
             $q = $this->db->prepare("
                 SELECT * FROM ". static::$_t ." WHERE id = :id");
             $q->bindParam(':id', $this->id);
             $q->execute();
             $this->_v = $q->fetch(PDO::FETCH_ASSOC);
+            if ( $this->cache ) {
+                $this->cache->set($conf['db_hash'] . static::$_t . ':' . $id . ':___campi', serialize($this->_v));
+            }
         } elseif ( $id === null ) {
             /* Creazione nuovo */
             $this->_crea();
@@ -137,10 +145,9 @@ class Entita {
         $q->bindParam(':id', $id);
         $q->execute();
         $y = (bool) $q->fetch(PDO::FETCH_NUM);
-        if ($cache) {
-            $cache->set($conf['db_hash'] . static::$_t . ':' . $id, true);
+        if ($cache && $y) {
+            $cache->set($conf['db_hash'] . static::$_t . ':' . $id, 'true');
         }
-        
         return $y;
     }
     
@@ -165,7 +172,8 @@ class Entita {
     public function __get ( $_nome ) {
         global $conf;
         if ( $this->cache ) {
-            if ( $r = $this->cache->get($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome) ) {
+            $r = $this->cache->get($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome);
+            if ( $r !== false ) {
                 return $r;
             }
         }
