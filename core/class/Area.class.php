@@ -14,4 +14,10 @@ class Area extends Entita {
         return new Volontario($this->responsabile);
     }
     
+    public function nomeCompleto() {
+        global $conf;
+        $obiettivo = (int) $this->obiettivo;
+        return $conf['obiettivi'][$obiettivo] . ': ' . $this->nome;
+    }
+    
 }

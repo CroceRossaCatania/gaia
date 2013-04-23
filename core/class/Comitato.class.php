@@ -254,10 +254,18 @@ class Comitato extends GeoEntita {
         return $this->locale()->nome . ': ' . $this->nome;
     }
     
-    public function aree() {
-        return Area::filtra([
-            ['comitato',    $this->id]
-        ]);
+    public function aree( $obiettivo = null ) {
+        if ( $obiettivo ) {
+            $obiettivo = (int) $obiettivo;
+            return Area::filtra([
+                ['comitato',    $this->id],
+                ['obiettivo',   $obiettivo]
+            ], 'obiettivo ASC'); 
+        } else {
+            return Area::filtra([
+                ['comitato',    $this->id]
+            ], 'obiettivo ASC');
+        }
     }
     
     public function gruppi() {

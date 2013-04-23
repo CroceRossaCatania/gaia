@@ -118,7 +118,7 @@ $conf['database']['tables'] = [
                 luogo           varchar(255),
                 comitato        varchar(32),
                 pubblica        varchar(8),
-                tipo            varchar(8),
+                area            varchar(8),
                 referente       varchar(32),
                 geo             point NOT NULL,
                 descrizione     text,

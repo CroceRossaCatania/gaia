@@ -37,6 +37,11 @@ $(window).ready( function () {
     
     $("[data-attendere]").each( _attendere );
 
+    $('.automodal').modal({ keyboard: false });
+    $('.alCambioSalva').change( function () {
+        $(this).parents('form').submit();
+    })
+
 } );
 
 /* Test di funzionamento in HTML5 e caricamento dei polyfill */

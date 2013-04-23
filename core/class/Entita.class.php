@@ -58,7 +58,7 @@ class Entita {
         return new $entita($r[0]);
     }
 
-    public static function filtra($_array) {
+    public static function filtra($_array, $_order = null) {
         global $db;
         $entita = get_called_class();
         $_condizioni = [];
@@ -70,8 +70,11 @@ class Entita {
             }
         }
         $stringa = implode(' AND ', $_condizioni);
+        if ( $_order ) {
+            $_order = 'ORDER BY ' . $_order;
+        }
         $q = $db->prepare("
-            SELECT id FROM ". static::$_t . " WHERE $stringa");
+            SELECT id FROM ". static::$_t . " WHERE $stringa $_order");
         $q->execute();
         $t = [];
         while ( $r = $q->fetch(PDO::FETCH_NUM) ) {

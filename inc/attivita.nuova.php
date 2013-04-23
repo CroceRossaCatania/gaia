@@ -113,9 +113,9 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
           </div>
 
           <div class="control-group">
-            <label class="control-label" for="inputTipo">Tipo attività</label>
+            <label class="control-label" for="inputArea">Area attività</label>
             <div class="controls">
-                <select required name="inputTipo" id="inputTipo" autofocus class="input-xlarge">
+                <select required name="inputArea" id="inputArea" autofocus class="input-xlarge">
                     <option value="" selected="selected">[ Seleziona una Categoria ]</option>
                     <?php foreach ( $conf['app_attivita'] as $num => $nom ) { 
                         if ( !in_array(APP_ATTIVITA_TUTTO, $domini) && !in_array($num, $domini)) {

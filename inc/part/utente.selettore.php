@@ -1,6 +1,7 @@
 <script type="text/javascript">
 
 var s_multi = false;
+var s_autosubmit = false;
 var selezione = [];
 var dataInput = '';
 var origElem = '';
@@ -17,6 +18,9 @@ var origElem = '';
                 } else {
                     $(".s_multi").hide();
                     $(".s_sing").show();
+                }
+                if ( $(e).data('autosubmit') ) {
+                    s_autosubmit = true;
                 }
                 
                 dataInput = $(e).data('input');
@@ -108,6 +112,9 @@ var origElem = '';
                     var ilNome = $("[data-sel]").data('nome');
                 }
                 $(origElem).html(ilNome + ' <i class="icon-pencil"></i>');
+            }
+            if ( s_autosubmit ) {
+                $(origElem).parents('form').submit();
             }
         });
     });

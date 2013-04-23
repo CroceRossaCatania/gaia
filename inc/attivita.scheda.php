@@ -113,8 +113,8 @@ $a = new Attivita($_GET['id']);
             
             <div class="span5">
                <div class="row-fluid allinea-centro">
-                    <i class="icon-certificate"></i> Tipologia attività<br />
-                    <span class="text-info"><?php echo $conf['app_attivita'][$a->tipo]; ?></span>
+                    <i class="icon-certificate"></i> Area attività<br />
+                    <span class="text-info"><?php echo $a->area()->nomeCompleto(); ?></span>
                 </div>
                 <hr />
                 <p><i class="icon-info-sign"></i> Ulteriori informazioni</p>

@@ -18,6 +18,10 @@ class Attivita extends GeoEntita {
         }
     }
 
+    public function area() {
+        return new Area($this->area);
+    }
+    
     public function referente() {
         if ( $this->referente ) {
             return new Volontario($this->referente);

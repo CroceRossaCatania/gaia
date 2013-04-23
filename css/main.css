@@ -496,3 +496,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffc578', end
 .bordo {
     border: 1px solid black;
 }
+
+#comitati div {
+    font-size: 100%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

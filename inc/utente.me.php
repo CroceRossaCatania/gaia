@@ -17,6 +17,8 @@ foreach ( $me->comitatiPresidenzianti() as $comitato ) {
 /* Noi siamo cattivi >:) */
 // redirect('curriculum');
 
+$attenzione = false;
+
 ?>
 
 <div class="row-fluid">
@@ -27,19 +29,19 @@ foreach ( $me->comitatiPresidenzianti() as $comitato ) {
         
         <h2><span class="muted">Ciao, </span><?php if($me->presiede()){?><span class="muted">Presidente</span> <?php echo $me->nome;}else{echo $me->nome;} ?>.</h2>
         
-        <?php if (isset($_GET['suppok'])) { ?>
+        <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
         <div class="alert alert-success">
             <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
             <p>La tua richiesta di supporto è stata inviata con successo, a breve verrai contattato da un membro dello staff.</p>        
         </div> 
         <?php } ?>
-        <?php if (isset($_GET['ok'])) { ?>
+        <?php if (isset($_GET['ok'])) { $attenzione = true;  ?>
         <div class="alert alert-success">
             <i class="icon-ok"></i> <strong>Mail inviata</strong>.
             La tua mail è stata inviata con successo.
         </div> 
         <?php } ?>
-        <?php if (!$me->wizard) { ?>
+        <?php if (!$me->wizard) { $attenzione = true;  ?>
         <div class="alert alert-block alert-error">
             <h4><i class="icon-warning-sign"></i> Completa il tuo profilo</h4>
             <p>Inserisci titoli, patenti, certificazioni e competenze dalla sezione curriculum.</p>        
@@ -63,7 +65,7 @@ foreach ( $me->comitatiPresidenzianti() as $comitato ) {
         <?php } ?>
         
         
-        <?php foreach ( $me->appartenenzePendenti() as $app ) { ?>
+        <?php foreach ( $me->appartenenzePendenti() as $app ) { $attenzione = true;  ?>
         <div class="alert alert-block">
             <h4><i class="icon-time"></i> In attesa di conferma</h4>
             <p>La tua appartenenza a <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong> attende conferma.</p>
@@ -72,7 +74,7 @@ foreach ( $me->comitatiPresidenzianti() as $comitato ) {
         </div>
         <?php } ?>
         <?php 
-        foreach ($me->inriserva() as $ris ){
+        foreach ($me->inriserva() as $ris ){ 
             if($ris->fine >= time()){?>
         <div class="alert alert-block">
             <h4><i class="icon-pause"></i> In riserva</h4>
@@ -91,3 +93,8 @@ foreach ( $me->comitatiPresidenzianti() as $comitato ) {
     </div>
 </div>
 
+<?php
+if ( !$attenzione && $me->comitatiDiCompetenza() ) {
+    redirect('presidente.dash');
+}
+?>

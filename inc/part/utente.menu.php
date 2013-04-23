@@ -15,6 +15,13 @@ $menu += [
     'Da fare'   =>   []
 ];
 
+if ( $me->comitatiDiCompetenza() ) {
+    $menu[''] += [
+        'presidente.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Presidente'
+    ];
+    
+}
+
 $nap = count($me->autorizzazioniPendenti());
 if ( $nap ) {
     $menu['Da fare'] += [
