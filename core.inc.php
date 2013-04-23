@@ -47,7 +47,7 @@ if (class_exists('Memcached') ) {
 }
 
 /* Connetto al database */
-$db = new PDO(
+$db = new ePDO(
         $conf['database']['dns'],
         $conf['database']['user'],
         $conf['database']['pass'],

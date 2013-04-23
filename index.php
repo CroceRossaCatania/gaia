@@ -385,6 +385,9 @@ if ( !file_exists($_f) ) {
     } catch( err ) {}
     </script><noscript><p><img src="http://stats.cricatania.it/piwik.php?idsite=2" style="border:0" alt="" /></p></noscript>
     <!-- Fine statistiche -->
-			
+	
+    
+    <!-- Q: <?php echo $db->numQuery; ?> -->
+    
   </body>
 </html>
