@@ -37,6 +37,12 @@ error_reporting(E_ALL ^ E_NOTICE);
 /* Imposta il timezone */
 date_default_timezone_set($conf['timezone']);
 
+/* Connetto alla cache */
+if (class_exists('Memcached') ) {
+    $cache = new Memcached();
+    $cache->addServer('127.0.0.1', 11211);
+}
+
 /* Connetto al database */
 $db = new PDO(
         $conf['database']['dns'],
