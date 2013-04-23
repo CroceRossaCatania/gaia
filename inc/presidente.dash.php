@@ -225,7 +225,7 @@ $(document).ready(function() {
                         <hr />
 
                         <button class="btn btn-block btn-large" name="nuovaArea" value="1">
-                            <i class="icon-plus"></i> Aggiungi nuovo responsabile
+                            <i class="icon-plus"></i> Aggiungi nuova area di interesse
                         </a>
 
                     </div>

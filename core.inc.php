@@ -13,6 +13,9 @@ foreach ( $_conf as $_load ) {
     require('./core/conf/' . $_load . '.conf.php');
 }
 
+/* Creo hash database */
+$conf['db_hash'] = substr( md5($conf['database']['dns']), 2, 8) . ':';
+
 /* Carico le librerie */
 $_lib = ['sicurezza', 'stringhe', 'pagine'];
 foreach ( $_lib as $_load ) {

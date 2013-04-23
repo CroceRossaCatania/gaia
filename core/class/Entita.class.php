@@ -126,9 +126,9 @@ class Entita {
     
     public static function _esiste ( $id = null ) {
         if (!$id) { return false; }
-        global $db, $cache;
+        global $db, $cache, $conf;
         if ($cache) {
-            if ( $cache->get(static::$_t . ':' . $id) ) {
+            if ( $cache->get($conf['db_hash'] . static::$_t . ':' . $id) ) {
                 return true;
             }
         }
@@ -138,7 +138,7 @@ class Entita {
         $q->execute();
         $y = (bool) $q->fetch(PDO::FETCH_NUM);
         if ($cache) {
-            $cache->set(static::$_t . ':' . $id, true);
+            $cache->set($conf['db_hash'] . static::$_t . ':' . $id, true);
         }
         
         return $y;
@@ -163,8 +163,9 @@ class Entita {
     }
     
     public function __get ( $_nome ) {
+        global $conf;
         if ( $this->cache ) {
-            if ( $r = $this->cache->get(static::$_t . ':' . $this->id . ':' . $_nome) ) {
+            if ( $r = $this->cache->get($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome) ) {
                 return $r;
             }
         }
@@ -192,13 +193,14 @@ class Entita {
             }
         }
         if ( $this->cache ) {
-            $this->cache->set(static::$_t . ':' . $this->id . ':' . $_nome, $r);
+            $this->cache->set($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome, $r);
         }
         return $r;
     }
     
 
     public function __set ( $_nome, $_valore ) {
+        global $conf;
         if ( array_key_exists($_nome, $this->_v) ) {
             /* Proprietà interna */
             $q = $this->db->prepare("
@@ -241,18 +243,19 @@ class Entita {
 
         }
         if ( $this->cache ) {
-            $this->cache->set(static::$_t . ':' . $this->id . ':' . $_nome, $_valore);
+            $this->cache->set($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome, $_valore);
         }
     }
     
     public function cancella() {
+        global $conf;
         $this->cancellaDettagli();
         $q = $this->db->prepare("
             DELETE FROM ". static::$_t ." WHERE id = :id");
         $q->bindParam(':id', $this->id);
         $q->execute();
         if ( $this->cache ) {
-            $this->cache->delete(static::$_t . ':' . $this->id);
+            $this->cache->delete($conf['db_hash'] . static::$_t . ':' . $this->id);
         }
     }
     
