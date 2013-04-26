@@ -173,7 +173,13 @@ paginaPrivata();
                                     <?php echo $conf['app_attivita'][$app->dominio]; ?>
                                     <?php
                                     break;
-                               
+                                case APP_OBIETTIVO:
+                                    ?>
+                                    <strong>Delegato</strong>
+                                    <?php echo $conf['obiettivi'][$app->dominio]; ?>
+                                    <?php
+                                    break;
+                                    
                             }
                             ?>
                             
