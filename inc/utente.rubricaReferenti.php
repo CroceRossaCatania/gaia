@@ -7,15 +7,23 @@
 paginaPrivata();
 
 ?>
-<br/>
-    <div class="control-group" align="right">
-        <div class="controls">
-            <div class="input-prepend">
-                <span class="add-on"><i class="icon-search"></i></span>
-                <input required id="cercaUtente" placeholder="Cerca utente..." class="span4" type="text">
-            </div>
+<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<div class="row-fluid">
+    <div class="span8">
+        <h2>
+            <i class="icon-book muted"></i>
+            Rubrica Referenti
+        </h2>
+    </div>
+    
+    <div class="span4 allinea-destra">
+        <div class="input-prepend">
+            <span class="add-on"><i class="icon-search"></i></span>
+            <input autofocus required id="cercaUtente" placeholder="Cerca Referente..." type="text">
         </div>
-    </div> 
+    </div>    
+</div>
+    
 <hr />
 <table class="table table-striped table-bordered" id="tabellaUtenti">
     <thead>
@@ -28,10 +36,12 @@ paginaPrivata();
         <th>Referente</th>
         <th>Azione</th>
     </thead>
-<?php
-foreach ( $me->comitatiDiCompetenza() as $comitato ) {
-
+<?php 
+$comitati = $me->comitatiDiCompetenza();
+if ( !$comitati ) { $comitati = [ $me->unComitato() ]; }
+foreach ( $comitati as $comitato ) {
     foreach ( $comitato->delegati() as $delegato ) { 
+        if ($delegato->applicazione != APP_PRESIDENTE){
         $_v = $delegato->volontario();
         ?>
         <tr>
@@ -42,9 +52,21 @@ foreach ( $me->comitatiDiCompetenza() as $comitato ) {
             <td><?php echo $_v->email; ?></td>
             <td><?php echo $comitato->nome; ?></td>
             <td>
-                <?php if ( $delegato->applicazione == APP_ATTIVITA ) { ?>
-                  Attività: <?php echo $conf['app_attivita'][$delegato->dominio]; ?>
-                <?php } ?>
+                <?php switch ( $delegato->applicazione ) { 
+                                case APP_ATTIVITA:
+                                    ?>
+                                    <strong>Referente</strong>
+                                    <?php echo $conf['app_attivita'][$delegato->dominio]; ?>
+                                    <?php
+                                    break;
+                                case APP_OBIETTIVO:
+                                    ?>
+                                    <strong>Delegato</strong>
+                                    <?php echo $conf['obiettivi'][$delegato->dominio]; ?>
+                                    <?php
+                                    break;
+                                    
+                            } ?>
             </td>
             <td>
                     <a class="btn btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>">
@@ -59,8 +81,8 @@ foreach ( $me->comitatiDiCompetenza() as $comitato ) {
       }
       
  }
-
+}
 
 ?>
- 
+
 </table>
