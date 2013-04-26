@@ -9,16 +9,23 @@ paginaPresidenziale();
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
-    <div class="control-group" align="right">
-        <div class="controls">
-            <div class="input-prepend">
-                <span class="add-on"><i class="icon-search"></i></span>
-                <input required id="cercaUtente" placeholder="Cerca volontario o titolo..." class="span4" type="text">
-            </div>
+<div class="row-fluid">
+    <div class="span8">
+        <h2>
+            <i class="icon-star muted"></i>
+            Titoli in attesa
+        </h2>
+    </div>
+    
+    <div class="span4 allinea-destra">
+        <div class="input-prepend">
+            <span class="add-on"><i class="icon-search"></i></span>
+            <input autofocus required id="cercaUtente" placeholder="Cerca Volontari..." type="text">
         </div>
-    </div> 
+    </div>    
+</div>
+    
 <hr />
-
 <?php if (isset($_GET['ok'])) { ?>
     <div class="alert alert-success">
         <strong><i class="icon-ok"></i> Azione eseguita</strong> correttamente [<?php echo date('H:i:s'); ?>]

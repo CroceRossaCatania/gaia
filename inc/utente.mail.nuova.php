@@ -9,7 +9,10 @@ $f = $_GET['id'];
 $t=utente::by('id',$f);
 ?>
 <div class="row-fluid">
-    <div class="span12">
+    <div class="span3">
+        <?php        menuVolontario(); ?>
+    </div>
+    <div class="span9">
         <h2><i class="icon-envelope muted"></i> Invio Mail</h3>
         <div class="alert alert-block alert-info">
             <h4><i class="icon-question-sign"></i> Pronto a mandare la mail ?</h4>

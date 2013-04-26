@@ -8,7 +8,6 @@ paginaPresidenziale();
 ?>
 
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
-<br/>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-save"></i> <strong>Trasferimento Approvato</strong>.
@@ -26,15 +25,24 @@ paginaPresidenziale();
             <i class="icon-save"></i> <strong>Richiesta Protocollata</strong>.
             Richiesta di trasferimento protocollata con successo.
         </div>
-        <?php } ?>
-    <div class="control-group" align="right">
-        <div class="controls">
-            <div class="input-prepend">
-                <span class="add-on"><i class="icon-search"></i></span>
-                <input data-t="<?php echo $t; ?>" required id="cercaUtente" placeholder="Cerca utente..." class="span4" type="text">
-            </div>
+<?php } ?>
+<br/>
+<div class="row-fluid">
+    <div class="span8">
+        <h2>
+            <i class="icon-cogs muted"></i>
+            Trasferimenti in attesa
+        </h2>
+    </div>
+    
+    <div class="span4 allinea-destra">
+        <div class="input-prepend">
+            <span class="add-on"><i class="icon-search"></i></span>
+            <input autofocus required id="cercaUtente" placeholder="Cerca Volontari..." type="text">
         </div>
-    </div> 
+    </div>    
+</div>
+    
 <hr />
 <table class="table table-striped table-bordered" id="tabellaUtenti">
     <thead>
