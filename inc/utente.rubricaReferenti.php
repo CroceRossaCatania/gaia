@@ -29,7 +29,6 @@ paginaPrivata();
     <thead>
         <th>Nome</th>
         <th>Cognome</th>
-        <th>Cellulare</th>
         <th>Cellulare Servizio</th>
         <th>Email</th>
         <th>Comitato</th>
@@ -47,7 +46,6 @@ foreach ( $comitati as $comitato ) {
         <tr>
             <td><?php echo $_v->nome; ?></td>
             <td><?php echo $_v->cognome; ?></td>
-            <td><?php echo $_v->cellulare; ?></td>
             <td><?php echo $_v->cellulareServizio; ?></td>
             <td><?php echo $_v->email; ?></td>
             <td><?php echo $comitato->nome; ?></td>

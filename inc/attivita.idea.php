@@ -33,7 +33,7 @@ if (!in_array($c, $comitati)) {
             <p><strong>Organizzatore</strong><br />
                 <?php echo $c->nomeCompleto(); ?></p>
           <hr />
-          <p><strong>Area di intervento</strong>.</p>
+          <p><strong>Area di intervento</strong></p>
           <p>È importante conoscere l'area di intervento di un'attività.<br />Questo permetterà a Gaia di categorizzarla.</p>
           <select name="inputArea" class="input-xxlarge">
               <?php foreach ( $aree as $area ) { ?>
@@ -44,7 +44,7 @@ if (!in_array($c, $comitati)) {
             <p><a href="?p=presidente.dash&id=<?php echo $c->id; ?>"><i class="icon-pencil"></i> Modifica od aggiungi aree dal pannello presidente</a>.</p>
           <?php } ?>
           <hr />
-          <p><strong>Nome dell'attività</strong>.</p>
+          <p><strong>Nome dell'attività</strong></p>
           <p>Ricorda: I nomi migliori son corti e memorabili.</p>
           <input type="text" required name="inputNome" class="input-xlarge" placeholder="es.: Aggiungi un posto a tavola" />
           <input type="hidden" name="inputGruppo" value="0" />

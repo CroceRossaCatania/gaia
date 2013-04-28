@@ -10,7 +10,7 @@ $t = $_GET['id'];
 $g = $_POST['inputGruppo'];
 
 /* Cerco se già iscritto a gruppo */
-$g = AppartenenzaGruppo::filtra([
+$x = AppartenenzaGruppo::filtra([
   ['volontario',    $t],
   ['gruppo',    $g]
 ]);
@@ -19,7 +19,7 @@ $g = AppartenenzaGruppo::filtra([
  * restituisco errore
  */
 
-foreach ( $g as $app ) {
+foreach ( $x as $app ) {
     if ($app->attuale()) { 
         redirect('utente.gruppo&e'); 
         break;
