@@ -287,4 +287,15 @@ class APIServer {
             }
             return $aut;
         }
+        
+        public function api_scansione() {
+            $this->richiediLogin();
+            $this->richiedi(['code']);
+            $a = Volontario::by('codiceFiscale', $this->par['code']);
+            if (!$a) { return null; }
+            return [
+                'nomeCompleto'  =>  $a->nomeCompleto(),
+                'comitato'      =>  $a->unComitato()->nomeCompleto()
+            ];
+        }
 }
