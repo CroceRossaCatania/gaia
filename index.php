@@ -226,12 +226,12 @@ if ( !file_exists($_f) ) {
                                         </a>
                                     </li>
                                     
-                                    <li>
+                                    <!--<li>
                                         <a href="?p=presidente.referenti">
                                             <i class="icon-user"></i>
                                             Referenti Comitato
                                         </a>
-                                    </li>
+                                    </li>-->
                                     
                                     <!--<li class="nav-header">C.O.</li>
                                 
