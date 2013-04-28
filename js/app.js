@@ -41,6 +41,19 @@ $(window).ready( function () {
     $('.alCambioSalva').change( function () {
         $(this).parents('form').submit();
     })
+    
+    tinymce.init({
+        selector:   "textarea",
+        language:   'it',
+        plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "media table contextmenu paste"
+        ],
+        toolbar: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+        menubar: false
+    });
+
 
 } );
 

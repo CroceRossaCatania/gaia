@@ -72,6 +72,7 @@ if ( !file_exists($_f) ) {
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/ui.datepicker-it.js"></script>
+    <script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
 
 
     
