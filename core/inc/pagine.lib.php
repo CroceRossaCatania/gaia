@@ -37,6 +37,23 @@ function richiediComitato() {
     }
 }
 
+function paginaAttivita() {
+    richiediComitato();
+    global $sessione;
+    if (!(
+                (bool) $sessione->utente()->admin
+            or  (bool) $sessione->utente()->presiede()
+            or  (bool) $sessione->utente()->delegazioni(APP_OBIETTIVO)
+            or  (bool) $sessione->utente()->areeDiResponsabilita()
+    )) {
+        redirect('utente.me');
+    }
+}
+
+function paginaModale() {
+    include('./inc/part/pagina.attendere.php');
+}
+
 function paginaPresidenziale( $comitato = null ) {
     global $sessione;
         paginaPrivata();

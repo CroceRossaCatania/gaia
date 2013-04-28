@@ -5,6 +5,7 @@
  */
 
 paginaPrivata();
+richiediComitato();
 
 ?>
 <div class="row-fluid">
@@ -132,7 +133,7 @@ if($i==0){ ?>
                         </td>
                         
                         <td>
-                            <strong><?php echo $app->nome; ?></strong>
+                            <strong><?php echo $app->gruppo()->nome; ?></strong>
                         </td>
                         
                         <td>

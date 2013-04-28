@@ -25,7 +25,49 @@
 <div class="row-fluid">
     
     
-    <div id="laMappa" class="span12 mappaGoogle bordo" style="min-height: 700px;">
+    <div class="span6">
+        
+        <ul>
+        <?php foreach(Regionale::elenco('nome ASC') as $regionale) { ?>
+            <li><h3><?php echo $regionale->nome; ?></h3>
+                <ul>
+                    <?php foreach ( $regionale->provinciali() as $provinciale ) { ?>
+                    <li><h4><?php echo $provinciale->nome; ?></h4>
+                        <ul>
+                            <?php foreach ( $provinciale->locali() as $locali ) { ?>
+                            <li><strong><?php echo $locali->nome; ?></strong>
+                                <ul>
+                                <?php foreach ( $locali->comitati() as $comitato ) { ?>
+                                    <li>
+                                        <a href="#"><?php echo $comitato->nome; ?></a><br />
+                                        <?php if ( $t = $comitato->telefono ) { ?>
+                                            <i class="icon-phone"></i> <?php echo $t; ?>
+                                        <?php } ?>
+                                        <?php if ( $t = $comitato->email ) { ?>
+                                            &mdash; <i class="icon-envelope"></i> <?php echo $t; ?>
+                                        <?php } ?>
+                                        <?php if ( $comitato->haPosizione() ) { ?>
+                                            <br /><span class="muted"><?php echo $comitato->formattato; ?></span>
+                                        <?php } ?>
+                                    </li>
+                                <?php } ?>
+                                </ul>
+                            </li>
+                            <?php } ?>
+                        </ul>
+                    </li>
+                    <?php } ?>
+                </ul>
+            </li>
+            <?php } ?>
+            
+        </ul>
+        
+    </div>
+    
+    
+    
+    <div id="laMappa" class="span6 mappaGoogle bordo" style="min-height: 700px;">
         
                
 

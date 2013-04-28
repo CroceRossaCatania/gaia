@@ -210,16 +210,30 @@ $conf['applicazioni'] = [
  * =========== APP_ATTIVITA ==========
  * ===================================
  */
-define('APP_ATTIVITA_TUTTO',     0);
-define('APP_ATTIVITA_PIAZZA',   10);
-define('APP_ATTIVITA_CORSI',    20);
 
-$conf['app_attivita'] = [
-    APP_ATTIVITA_TUTTO  =>  'Tutte le attività',
-    APP_ATTIVITA_PIAZZA =>  'Attività di Piazza',
-    APP_ATTIVITA_CORSI  =>  'Corsi e formazione'
+define('ATT_VIS_UNITA',         10);
+define('ATT_VIS_LOCALE',        20);
+define('ATT_VIS_PROVINCIALE',   30);
+//...
+define('ATT_VIS_VOLONTARI',     80);
+define('ATT_VIS_PUBBLICA',      90);
+
+$conf['att_vis'] = [
+    ATT_VIS_UNITA           =>  'Unità territoriale',
+    ATT_VIS_LOCALE          =>  'Comitato Locale',
+    ATT_VIS_PROVINCIALE     =>  'Comitato Provinciale',
+    ATT_VIS_VOLONTARI       =>  'Tutti i volontari CRI',
+    ATT_VIS_PUBBLICA        =>  'Pubblica: Volontari e civili'
 ];
 
+
+define('ATT_STATO_BOZZA',   10);
+define('ATT_STATO_OK',      50);
+
+$conf['att_stato'] = [
+    ATT_STATO_BOZZA         =>  'Bozza',
+    ATT_STATO_OK            =>  'Visibile'
+];
 
 /*
  * ===================================

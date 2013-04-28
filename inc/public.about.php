@@ -67,7 +67,7 @@
         <p>&nbsp;</p>
         <h2><i class="icon-github icon-large"></i> Collabora</h2>
 
-        <p>Gaia è un progetto open source rilasciato con <a href="/LICENSE.txt" target="_new"><i class="icon-link"></i> licenza GPL v3</a> . Per informazioni sul come collaborare, visita la pagina del progetto:</p> 
+        <p>Gaia è un progetto open source sviluppato da volontari e rilasciato con <a href="LICENSE.txt" target="_new"><i class="icon-link"></i> licenza GPL v3</a>. Per informazioni sul come collaborare, visita la pagina del progetto:</p> 
         
         <a href="https://github.com/CroceRossaCatania/gaia" target="_new" class="btn btn-large btn-block">
             Progetto su GitHub
@@ -80,6 +80,15 @@
         <h2><i class="icon-question-sign"></i> Usare Gaia</h2>
 
         <p>Se vuoi usare Gaia nel tuo Comitato, ti preghiamo di contattarci a <a href="mailto:informatica@cricatania.it"><i class="icon-envelope-alt"></i> informatica@cricatania.it</a>.</p>
+
+        <hr />
+        
+        <p>&nbsp;</p>
+        
+       
+        <h2><i class="icon-link"></i> Integrare Gaia</h2>
+
+        <p>Puoi integrare Gaia con le tue applicazioni &mdash; singolo log-in, spazio dati ed accedere a tutti i dati disponibili su Gaia in modo automatizzato, usando le API. C'è addirittura una <a href="http://github.com/AlfioEmanueleFresta/gaia-api-php">libreria PHP</a> già pronta per l'uso. Per maggiori informazioni, non esitare a contattarci.</p>
 
         
     </div>

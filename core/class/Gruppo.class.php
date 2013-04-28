@@ -20,6 +20,14 @@ class Gruppo extends Entita {
         ]);
     }
     
+    public function membri() {
+        $r = [];
+        foreach ( $this->appartenenzeAttuali() as $a ) {
+            $r[] = $a->volontario();
+        }
+        return $r;
+    }
+    
     public function appartenenzeAttuali() {
         $app = $this->appartenenze();
         $t = [];

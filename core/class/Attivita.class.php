@@ -30,12 +30,6 @@ class Attivita extends GeoEntita {
         }
     }
     
-    public static function ricercaPubbliche($x, $y, $raggio) {
-        return Attivita::filtraRaggio($x, $y, $raggio, [
-            ['pubblica',    ATTIVITA_PUBBLICA]
-        ]);
-    }
-    
     public function turni() {
         $q = $this->db->prepare("
             SELECT      id
@@ -77,27 +71,36 @@ class Attivita extends GeoEntita {
     }
     
     public function modificabileDa(Utente $u) {
-        if (
-                    $this->referente == $u->id 
-                or
-                    ( 
-                            in_array($this->comitato(), $u->comitatiDelegazioni(APP_ATTIVITA))
-                            and
-                            in_array($this->tipo, $u->dominiDelegazioni(APP_ATTIVITA))
-                        )
-            )
-        {
-            return true;
-        } else {
-            return false;
-        }
+        return (bool) (
+                $u->id == $this->referente
+            ||  in_array($u->areeDiCompetenza( $this->area ))
+        );
     }
     
     public function puoPartecipare(Utente $v) {
-        if ( $this->pubblica or $this->comitato()->haMembro($v) ) {
+        if ( $this->referente == $v->id || $v->admin || $v->presiede($this->comitato()) ) {
             return true;
-        } else {
-            return false;
         }
+        switch ( $this->visibilita ) {
+            case ATT_VIS_UNITA:
+                return (bool) $this->comitato()->haMembro($v);
+                break;
+            case ATT_VIS_LOCALE:
+                return (bool) $this->comitato()->locale == $v->unComitato()->locale;
+                break;
+            case ATT_VIS_PROVINCIALE:
+                return (bool) $this->comitato()->locale()->provinciale == $v->unComitato()->locale()->provinciale;
+                break;
+            case ATT_VIS_VOLONTARI:
+                return (bool) $v->unComitato();
+                break;
+            case ATT_VIS_PUBBLICA:
+                return true;
+                break;
+        }
+    }
+    
+    public function bozza() {
+        return (bool) ($this->stato == ATT_STATO_BOZZA);
     }
 }

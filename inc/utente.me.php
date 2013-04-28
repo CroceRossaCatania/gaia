@@ -19,6 +19,59 @@ foreach ( $me->comitatiPresidenzianti() as $comitato ) {
 
 $attenzione = false;
 
+$rf = $me->attivitaReferenziateDaCompletare();
+if ($rf) {
+    $attenzione = true;
+    $attivita = $rf[0];
+    ?>
+
+<div class="modal fade automodal">
+        <div class="modal-header">
+          <h3 class="text-error"><i class="icon-warning-sign"></i> Attività da completare</h3>
+        </div>
+        <div class="modal-body">
+          <p><?php echo $me->nome; ?>, sei stato selezionato come referente per l'attività:</p>
+          <hr />
+          <p class="allinea-centro">
+              <strong><?php echo $attivita->nome; ?></strong>
+              <br />
+              <?php echo $attivita->area()->nomeCompleto(); ?><br />
+              <span class="muted">
+              <?php echo $attivita->comitato()->nomeCompleto(); ?>
+              </span>
+          </p>
+          <hr />
+          <h4>Completa i dettagli dell'attività</h4>
+          <p>Devi inserire le seguenti informazioni:</strong>
+                  <ul>
+                      <li><i class="icon-time"></i> Giorni e turni;</li>
+                      <li><i class="icon-globe"></i> Locazione dell'attività;</li>
+                      <li><i class="icon-pencil"></i> Informazioni per i volontari;</li>
+                      <li><i class="icon-group"></i> A chi è aperta l'attività;</li>
+                  </ul><br />
+           </p>
+          <p class="text-error">
+             <i class="icon-info-sign"></i> Non appena verranno inseriti tutti
+                  i dettagli riguardanti l'attività, questa comparirà sul calendario dei volontari.
+                  Potranno così richiedere di partecipare attraverso Gaia.
+          </p>
+              
+                  
+          </ul>
+          
+        </div>
+        <div class="modal-footer">
+          <a href="?p=attivita.gestione" class="btn">Non ora</a>
+          <a href="?p=attivita.modifica&id=<?php echo $attivita->id; ?>" class="btn btn-primary">
+              <i class="icon-asterisk"></i> Vai all'attività
+          </a>
+        </div>
+</div>
+    
+
+
+<?php
+}
 ?>
 
 <div class="row-fluid">

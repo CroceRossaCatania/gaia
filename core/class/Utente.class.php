@@ -244,8 +244,12 @@ class Utente extends Persona {
         return $n;
     }
     
-    public function presiede() {
-        return (bool) $this->delegazioni(APP_PRESIDENTE);
+    public function presiede( $comitato = null ) {
+        if ( $comitato ) {
+            return (bool) $this->delegazioni(APP_PRESIDENTE, $comitato);
+        } else {
+            return (bool) $this->delegazioni(APP_PRESIDENTE);
+        }
     }
     
     /* Avatar */
@@ -333,16 +337,24 @@ class Utente extends Persona {
         return Autorizzazione::filtra([
             ['volontario',  $this->id],
             ['stato',       AUT_PENDING]
-        ]);
+        ], 'timestamp ASC');
     }
     
-    public function storicoDelegazioni($app = null) {
+    public function storicoDelegazioni($app = null, $comitato = null) {
         if ( $app ) {
             $app = (int) $app;
-            return Delegato::filtra([
-                ['volontario',      $this->id],
-                ['applicazione',    $app]
-            ]);
+            if ( $comitato ) {
+                return Delegato::filtra([
+                    ['volontario',      $this->id],
+                    ['applicazione',    $app],
+                    ['comitato',        $comitato]
+                ]);
+            } else {
+                return Delegato::filtra([
+                    ['volontario',      $this->id],
+                    ['applicazione',    $app]
+                ]);
+            }
         } else {
             return Delegato::filtra([
                 ['volontario',      $this->id]
@@ -350,8 +362,8 @@ class Utente extends Persona {
         }
     }
     
-    public function delegazioni($app = null) {
-        $t = $this->storicoDelegazioni($app);
+    public function delegazioni($app = null, $comitato = null) {
+        $t = $this->storicoDelegazioni($app, $comitato);
         $r = [];
         foreach ( $t as $k ) {
             if ( $k->attuale() ) {
@@ -455,10 +467,91 @@ class Utente extends Persona {
         return $r;
     }
     
-public function mieReperibilita() {
+    public function mieReperibilita() {
         return Reperibilita::filtra([
             ['volontario',  $this->id]
         ]);
     }
+    
+    public function areeDiResponsabilita() {
+        return Area::filtra([
+            ['responsabile',    $this->id]
+        ]);
+    }
+    
+    public function areeDiCompetenza( $c = null ) {
+        if ( $c ) {
+            
+            if ( $this->admin || $this->presiede($c ) ) {
+                return $c->aree();
+            } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $comitato) ) {
+                $r = [];
+                foreach ( $o as $io ) {
+                    $r = array_merge($r, $c->aree($o->dominio));
+                }
+                $r = array_unique($r);
+                return $r;
+            } else {
+                return $this->areeDiResponsabilita();
+            }
+            
+        } else {
+            
+            $r = [];
+            foreach ( $this->comitatiDiCompetenza() as $c ) {
+                $r = array_merge($r, $c->aree());
+            }
+            foreach ( $this->delegazioni(APP_OBIETTIVO) as $d ) {
+                $r = array_merge(
+                        $r,
+                        $d->comitato()->aree($d->dominio)
+                );
+            }
+            $r = array_merge($r, $this->areeDiResponsabilita());
+            $r = array_unique($r);
+            return $r;
+            
+        }
+    }
+    
+    public function comitatiAreeDiCompetenza() {
+        $a = $this->areeDiCompetenza();
+        $r = [];
+        foreach ($a as $ia) {
+            $r[] = $ia->comitato();
+        }
+        $r = array_unique($r);
+        return $r;
+    }
+    
+    
+    public function attivitaReferenziate() {
+        return Attivita::filtra([
+            ['referente',   $this->id]
+        ]);
+    }
+            
+    public function attivitaReferenziateDaCompletare() {
+        return Attivita::filtra([
+            ['referente',   $this->id],
+            ['stato',       ATT_STATO_BOZZA]
+        ]);
+    }
+    
+    public function attivitaAreeDiCompetenza() {
+        $r = [];
+        foreach ( $this->areeDiCompetenza() as $area ) {
+            $r = array_merge($r, $area->attivita());
+        }
+        $r = array_unique($r);
+        return $r;
+    }
+    
+    public function attivitaDiGestione() {
+        $a = array_merge($this->attivitaReferenziate(), $this->attivitaAreeDiCompetenza());
+        return array_unique($a);
+    }
+    
+    
     
 }

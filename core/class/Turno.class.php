@@ -76,7 +76,7 @@ class Turno extends Entita {
             AND
                 attivita.id = turni.attivita
             AND
-                attivita.luogo IS NOT NULL
+                attivita.stato = :stato
             ORDER BY
                 inizio ASC";
         $q = $db->prepare($q);
@@ -84,6 +84,7 @@ class Turno extends Entita {
         $fine   = $fine->getTimestamp();
         $q->bindParam(':fine', $fine);
         $q->bindParam(':inizio', $inizio);
+        $q->bindValue(':stato', ATT_STATO_OK);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {

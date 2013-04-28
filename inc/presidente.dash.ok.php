@@ -47,11 +47,13 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
         $m->invia();
             
         /* Se è il primo, crea apposita AREA */
-        $a = new Area();
-        $a->comitato    = $c->id;
-        $a->obiettivo   = $num;
-        $a->nome        = 'Generale';
-        $a->responsabile= $v->id;
+        if ( $primo ) {
+            $a = new Area();
+            $a->comitato    = $c->id;
+            $a->obiettivo   = $num;
+            $a->nome        = 'Generale';
+            $a->responsabile= $v->id;
+        }
             
     }
 }

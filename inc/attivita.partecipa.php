@@ -21,4 +21,7 @@ $p->turno =          $t;
 $p->volontario =     $me;
 $p->generaAutorizzazioni();
 
+
+/* Crea la email */
+
 redirect('attivita.storico&okpending&id=' . $a->id);

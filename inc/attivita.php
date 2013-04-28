@@ -46,27 +46,33 @@ richiediComitato();
             </div>
         </div>-->
         
-        <?php if ( $me->delegazioni(APP_ATTIVITA) ) { ?>
             
             <div class="row-fluid">
                 <div class="span6">&nbsp;</div>
                 
                 <div class="span6">
                     <div class="btn-group">
-                        <a href="?p=attivita.nuova" class="btn btn-large btn-success">
+                        <?php if ( $me->comitatiAreeDiCompetenza() ) { ?>
+
+                        <a href="?p=attivita.idea" class="btn btn-large btn-success">
                             <i class="icon-plus-sign"></i>
                                 Crea attività
                         </a>
-                        <a href="?p=attivita.gestione" class="btn btn-large">
+                        
+                        <?php } ?>
+                        
+                        <?php if ( $me->attivitaDiGestione() ) { ?>
+                        <a href="?p=attivita.gestione" class="btn btn-primary btn-large">
                             <i class="icon-list"></i>
                                 Gestisci attività
                         </a>
+                        
+                        <?php } ?>
                     </div>
                 </div>
                 
                  
             </div><hr />
-        <?php } ?>
 
         <div class="row-fluid">
             <div class="span12" id="calendario"></div>

@@ -176,10 +176,10 @@ $(document).ready(function() {
                     
                     <div class="row-fluid">
                     <div class="span12">
-                        <h3 class="text-error allinea-centro">Aree di interesse e Responsabili</h3>
+                        <h3 class="text-error allinea-centro">Aree di intervento e Responsabili</h3>
                         <hr />
                         <p class="text-info"><i class="icon-info-sign"></i> 
-                           Inserire le aree di interesse e selezionare i responsabili associati.<br />Essi saranno 
+                           Inserire le aree di intervento e selezionare i responsabili associati.<br />Essi saranno 
                            in grado di organizzare nuove attività su Gaia riguardanti la loro Area.
                         </p>
 
@@ -226,7 +226,20 @@ $(document).ready(function() {
 
                         <button class="btn btn-block btn-large" name="nuovaArea" value="1">
                             <i class="icon-plus"></i> Aggiungi nuova area di interesse
+                        </button>
+                        
+                        <hr />
+                        
+                        <h3 class="text-error allinea-centro">Referenti delle attività</h3>
+                        
+                        <p>
+                            <a href="?p=attivita.gestione"><i class="icon-list"></i> Elenco delle attività e dei referenti</a>.
+                        </p>
+                        
+                        <a href="?p=attivita.idea" class="btn btn-block btn-large">
+                            <i class="icon-plus"></i> Crea un'attività e nomina un referente
                         </a>
+
 
                     </div>
                     </div>

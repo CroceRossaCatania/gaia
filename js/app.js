@@ -37,21 +37,22 @@ $(window).ready( function () {
     
     $("[data-attendere]").each( _attendere );
 
-    $('.automodal').modal({ keyboard: false });
+    $('.automodal').modal({ keyboard: false, backdrop: 'static' });
     $('.alCambioSalva').change( function () {
         $(this).parents('form').submit();
     })
     
     tinymce.init({
-        selector:   "textarea",
+        selector:   "textarea.conEditor",
         language:   'it',
         plugins: [
-            "advlist autolink lists link image charmap print preview anchor",
-            "searchreplace visualblocks code fullscreen",
-            "media table contextmenu paste"
+            "lists link image",
+            "visualblocks fullscreen",
+            "media paste"
         ],
         toolbar: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-        menubar: false
+        menubar: false,
+        statusbar: false
     });
 
 
@@ -176,5 +177,9 @@ function _attendere(i, e) {
             $(e).html(vecchioTesto);
             $(e).removeClass('disabled').removeAttr('disabled');
         }, 3500);
+        if ( $(e).attr('type') == 'submit' ) {
+            $(e).parents('form').submit();
+            return true;
+        }
     });
 }

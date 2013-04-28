@@ -114,20 +114,20 @@ $conf['database']['tables'] = [
             'name'      =>  'attivita',
             'fields'    =>  '
                 id              int,
+                stato           int,
                 nome            varchar(255),
                 luogo           varchar(255),
                 comitato        varchar(32),
-                pubblica        varchar(8),
+                visibilita      int,
                 area            varchar(8),
                 referente       varchar(32),
                 geo             point NOT NULL,
                 descrizione     text,
-                minimo          varchar(8),
-                massimo         varchar(8),
                 PRIMARY KEY (id),
                 INDEX (comitato),
                 INDEX (referente),
                 INDEX (tipo),
+                INDEX (visibilita),
                 SPATIAL INDEX(geo)
             '
         ],

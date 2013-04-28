@@ -161,7 +161,7 @@ class Comitato extends GeoEntita {
         $p = $this->presidenti();
         if ( !$p ) { return false; }
         shuffle($p);
-        return $p[0];
+        return $p[0]->volontario();
     }
     
     public function delegati($app = null) {
@@ -271,7 +271,7 @@ class Comitato extends GeoEntita {
     public function gruppi() {
         return Gruppo::filtra([
             ['comitato',    $this->id]
-        ]);
+        ], 'nome ASC');
     }
     
     public function obiettivi($ob = OBIETTIVO_1) {

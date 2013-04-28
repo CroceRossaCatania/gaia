@@ -133,6 +133,9 @@ class APIServer {
             $r = [];
             foreach  ( $cA as $turno ) {
                 $attivita = $turno->attivita();
+                if ( !$attivita->puoPartecipare($this->sessione->utente()) ) {
+                    continue;
+                }
                 $r[] = [
                     'title'     =>  $attivita->nome. ', ' . $turno->nome,
                     'id'        =>  $turno->id,
@@ -241,5 +244,47 @@ class APIServer {
                 ];
             }
             return $r;
+        }
+        
+        public function api_autorizza() {
+            $this->richiedi(['id']);
+            $this->richiediLogin();
+            $aut = new Autorizzazione($this->par['id']);
+            if ( $aut->stato == AUT_PENDING ) {
+                
+                $turno = $aut->partecipazione()->turno();
+                $attivita = $turno->attivita();
+                
+                if ( $this->par['aut'] ) {
+                    $aut->concedi();
+                    
+                    
+                    $m = new Email('autorizzazioneConcessa', "Autorizzazione CONCESSA: {$attivita->nome}, {$turno->nome}" );
+                    $m->a = $aut->partecipazione()->volontario();
+                    $m->_NOME       = $aut->partecipazione()->volontario()->nome;
+                    $m->_ATTIVITA   = $attivita->nome;
+                    $m->_TURNO      = $turno->nome;
+                    $m->_DATA      = $turno->inizio()->format('d-m-Y H:i');
+                    $m->_LUOGO     = $attivita->luogo;
+                    $m->_REFERENTE   = $attivita->referente()->nomeCompleto();
+                    $m->_CELLREFERENTE   = $attivita->referente()->cellulare;
+                    $m->invia();
+                    
+                    
+                } else {
+                    $aut->nega();
+                                        
+                    $m = new Email('autorizzazioneConcessa', "Autorizzazione NEGATA: {$attivita->nome}, {$turno->nome}" );
+                    $m->a = $aut->partecipazione()->volontario();
+                    $m->_NOME       = $aut->partecipazione()->volontario()->nome;
+                    $m->_ATTIVITA   = $attivita->nome;
+                    $m->_TURNO      = $turno->nome;
+                    $m->_DATA      = $turno->inizio()->format('d-m-Y H:i');
+                    $m->_LUOGO     = $attivita->luogo;
+                    $m->invia();
+                    
+                }
+            }
+            return $aut;
         }
 }

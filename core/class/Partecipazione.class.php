@@ -73,6 +73,15 @@ class Partecipazione extends Entita {
             $a->volontario     = $this->turno()->attivita()->referente()->id;
             $a->richiedi();
             
+            $m = new Email('richiestaAutorizzazione', 'Richiesta autorizzazione partecipazione attività');
+            $m->a            = $this->turno()->attivita()->referente();
+            $m->_NOME        = $this->turno()->attivita()->referente()->nome;
+            $m->_ATTIVITA    = $this->turno()->attivita()->nome;
+            $m->_VOLONTARIO  = $this->volontario()->nomeCompleto();
+            $m->_TURNO       = $this->turno()->nome;
+            $m->_DATA        = $a->timestamp()->format('d-m-Y H:i');
+            $m->invia();
+            
         } else {
             
             /*
@@ -86,12 +95,33 @@ class Partecipazione extends Entita {
             $a->volontario     = $this->turno()->attivita()->referente()->id;
             $a->richiedi();
             
+            $m = new Email('richiestaAutorizzazione', 'Richiesta autorizzazione partecipazione attività');
+            $m->a            = $this->turno()->attivita()->referente();
+            $m->_NOME        = $this->turno()->attivita()->referente()->nome;
+            $m->_ATTIVITA    = $this->turno()->attivita()->nome;
+            $m->_VOLONTARIO  = $this->volontario()->nomeCompleto();
+            $m->_TURNO       = $this->turno()->nome;
+            $m->_DATA        = $a->timestamp()->format('d-m-Y H:i');
+            $m->invia();
+            
+            /*
             // Al mio...
             $a = new Autorizzazione();
             $a->partecipazione = $this->id;
             $a->volontario     = $this->volontario()->unComitato()->unPresidente()->id;
             $a->richiedi();
             
+            $m = new Email('richiestaAutorizzazione', 'Richiesta autorizzazione partecipazione attività');
+            $m->a            = $this->volontario()->unComitato()->unPresidente();
+            $m->_NOME        = $this->volontario()->unComitato()->unPresidente()->nome;
+            $m->_ATTIVITA    = $this->turno()->attivita()->nome;
+            $m->_VOLONTARIO  = $this->volontario()->nomeCompleto();
+            $m->_TURNO       = $this->turno()->nome;
+            $m->_DATA        = $a->timestamp()->format('d-m-Y H:i');
+            $m->invia();
+             * 
+             */
+             
         }
         
     }

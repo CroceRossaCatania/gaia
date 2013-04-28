@@ -20,7 +20,7 @@ class Autorizzazione extends Entita {
     
     public function aggiorna( $t = AUT_OK ) {
         global $sessione;
-        $u = $sessione->utente();
+        $u = $sessione->utente;
         $this->stato = (int) $t;
         $this->pFirma = $u->id;
         $this->tFirma = time();
@@ -50,5 +50,9 @@ class Autorizzazione extends Entita {
     
     public function tFirma() {
         return DT::daTimestamp($this->tFirma);
+    }
+    
+    public function timestamp() {
+        return DT::daTimestamp($this->timestamp);
     }
 }

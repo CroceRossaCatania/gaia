@@ -32,7 +32,7 @@ $a = new Attivita($_GET['id']);
                 </a>
                 
                 <?php if ( $a->modificabileDa($me) ) { ?>
-                <a href="?p=attivita.nuova&id=<?php echo $a->id; ?>" class="btn btn-large btn-info">
+                <a href="?p=attivita.modifica&id=<?php echo $a->id; ?>" class="btn btn-large btn-info">
                     <i class="icon-edit"></i>
                     Modifica
                 </a>
@@ -52,11 +52,19 @@ $a = new Attivita($_GET['id']);
         <hr />
         
         <div class="row-fluid allinea-centro">
-            <div class="alert alert-block alert-success">
-                <h2><?php echo $a->nome; ?></h2>
-                <h4 class="muted"><i class="icon-map-marker"></i> <?php echo $a->luogo; ?></h4>
+            <div class="span12">
+                <h2 class="text-success"><?php echo $a->nome; ?></h2>
+                <h4 class="text-info">
+                    <i class="icon-map-marker"></i>
+                        <a target="_new" href="<?php echo $a->linkMappa(); ?>">
+                            <?php echo $a->luogo; ?>
+                        </a>
+                                            
+                </h4>
             </div>
         </div>
+        
+        <hr />
         
         
         <div class="row-fluid allinea-centro">
@@ -76,11 +84,11 @@ $a = new Attivita($_GET['id']);
             <div class="span3">
                 <span>
                     <i class="icon-globe"></i>
-                    Località
+                    Area d'intervento
                 </span><br />
-                <a target="_new" href="<?php echo $a->linkMappa(); ?>">
-                    Vedi sulla mappa
-                </a>
+                <span class="text-info">
+                    <?php echo $a->area()->nomeCompleto(); ?>
+                </span>
             </div>   
             
             <div class="span3">
@@ -88,7 +96,7 @@ $a = new Attivita($_GET['id']);
                     <i class="icon-home"></i>
                     Organizzato da
                 </span><br />
-                <span class="text-info"><?php echo $a->comitato()->nome; ?></span>
+                <span class="text-info"><?php echo $a->comitato()->nomeCompleto(); ?></span>
             </div>   
             
             <div class="span3">
@@ -97,11 +105,7 @@ $a = new Attivita($_GET['id']);
                     Partecipazione
                 </span><br />
                 <span class="text-info">
-                <?php if ( $a->pubblica ) { ?>
-                    <strong>Permessa a tutti i volontari di Croce Rossa Italiana</strong>
-                <?php } else { ?>
-                    Permessa ai volontari del comitato organizzatore.
-                <?php } ?>
+                    <strong><?php echo $conf['att_vis'][$a->visibilita]; ?></strong>
                 </span>
                 
             </div>
@@ -112,13 +116,8 @@ $a = new Attivita($_GET['id']);
         <div class="row-fluid">
             
             <div class="span5">
-               <div class="row-fluid allinea-centro">
-                    <i class="icon-certificate"></i> Area attività<br />
-                    <span class="text-info"><?php echo $a->area()->nomeCompleto(); ?></span>
-                </div>
-                <hr />
                 <p><i class="icon-info-sign"></i> Ulteriori informazioni</p>
-                <blockquote class="span12"><?php echo nl2br($a->descrizione); ?></blockquote>
+                <?php echo nl2br($a->descrizione); ?>
             </div>
             
             <div class="span7">

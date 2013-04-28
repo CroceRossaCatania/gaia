@@ -49,7 +49,7 @@ $t=utente::by('id',$f);
             <div class="control-group">
             <label class="control-label" for="inputTesto">Testo</label>
             <div class="controls">
-              <textarea rows="10" class="input-xxlarge" type="text" id="inputTesto" name="inputTesto" placeholder="Inserisci il testo della tua mail qui..." required><?php echo $a->descrizione; ?></textarea>
+              <textarea rows="10" class="input-xxlarge conEditor" type="text" id="inputTesto" name="inputTesto" placeholder="Inserisci il testo della tua mail qui..."></textarea>
             </div>
           </div>
             <div class="form-actions">

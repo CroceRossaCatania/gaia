@@ -5,9 +5,14 @@
  */
 
 paginaPrivata();
+paginaAttivita();
 caricaSelettore();
 
 $a = new Attivita(@$_GET['id']);
+
+if (!$a->haPosizione()) {
+    redirect('attivita.localita&id=' . $a->id);
+}
 
 $del        = $me->delegazioni(APP_ATTIVITA);
 $comitati   = $me->comitatiDelegazioni(APP_ATTIVITA);
@@ -15,7 +20,7 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
 
 ?>
 
-<form action="?p=attivita.nuova.ok" method="POST">
+<form action="?p=attivita.modifica.ok" method="POST">
 <input type="hidden" name="id" value="<?php echo $a->id; ?>" />
     
 <div class="row-fluid">
@@ -26,18 +31,14 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
     
     <div class="span5">
         <button type="submit" name="azione" value="salva" class="btn btn-success btn-block btn-large">
-            <?php if ( $a->haPosizione() ) { ?>
             <i class="icon-save"></i> Salva l'attività
-            <?php } else { ?>
-            <i class="icon-globe"></i> <strong>Salva attività e inserisci luogo</strong>
-            <?php } ?>
         </button>
     </div>
     
 </div>
     <hr />
 <div class="row-fluid">
-    <div class="span5">    
+    <div class="span8">    
 
 
 
@@ -47,12 +48,29 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
             <div class="controls">
               <input class="input-xlarge grassetto" value="<?php echo $a->nome; ?>" type="text" id="inputNome" name="inputNome" placeholder="Es.: Aggiungi un Posto a Tavola" required autofocus pattern=".{2,}" />
             </div>
-          </div>          
-          
+          </div>   
+              
           <div class="control-group">
-            <label class="control-label" for="inputDescrizione">Descrizione</label>
+            <label class="control-label" for="inputVisibilita">Quali volontari possono chiedere di partecipare?</label>
             <div class="controls">
-              <textarea rows="10" class="input-xlarge" type="text" id="inputDescrizione" name="inputDescrizione" placeholder="Ulteriori informazioni, dettagli dell'attività, come raggiungere il luogo, ecc." required><?php echo $a->descrizione; ?></textarea>
+                <select class="input-xxlarge" name="inputVisibilita">
+                    <?php foreach ( $conf['att_vis'] as $num => $nom ) { ?>
+                        <option value="<?php echo $num; ?>"
+                            <?php if ( $a->visibilita == $num ) { ?>
+                                selected="selected"
+                            <?php } ?>
+                                >
+                                    <?php echo $nom; ?>
+                        </option>
+                    <?php } ?>
+                </select>
+                <p class="text-info"><i class="icon-info-sign"></i> I volontari al di fuori di questa selezione non vedranno l'attività nel calendario.</p>
+            </div>
+          </div>   
+          <div class="control-group">
+            <label class="control-label" for="inputDescrizione">Descrizione ed informazioni per i volontari</label>
+            <div class="controls">
+              <textarea rows="10" class="input-xlarge conEditor" type="text" id="inputDescrizione" name="inputDescrizione"><?php echo $a->descrizione; ?></textarea>
             </div>
           </div>
           
@@ -64,69 +82,29 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
 
     </div>
     
-    <div class="span6">
+    <div class="span4">
         
-        <div class="form-horizontal">
-          <?php if ( isset($_GET['selezionareReferente'] ) ) { ?>
-              <div class="alert alert-error">
-                  <i class="icon-warning-sign"></i> Selezionare un referente.
-              </div>
-          <?php } ?>
-              
-          <div class="control-group">
-            <label class="control-label" for="inputReferente">Referente</label>
-            <div class="controls">
-                <a data-selettore data-input="inputReferente" class="btn">
-                    <?php if ( $a->referente() ) { 
-                        echo $a->referente()->nomeCompleto();
-                     } else { ?>
-                        Seleziona volontario
-                    <?php } ?>
-                                        
-                    <i class="icon-pencil"></i>
-                </a>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="inputComitato">Organizzatore</label>
-            <div class="controls">
-                <select required name="inputComitato" id="inputComitato" autofocus class="input-xlarge">
-                    <option value="" selected="selected">[ Seleziona un Comitato ]</option>
-                    <?php 
-                    foreach ( $comitati as $c ) { ?>
-                        <option value="<?php echo $c->id; ?>" <?php if ($a->comitato == $c->id ) { ?>selected="selected"<?php }?>>
-                            <?php echo $c->nomeCompleto(); ?>
-                        </option>
-                    <?php } ?>
-                </select>
-            </div>
-          </div>
-        <div class="control-group">
-            <label class="control-label">Apertura</label>
-            <div class="controls">
-                <div class="btn-group" id="privacyGroup">
-                    <input type="hidden" name="inputPubblica" id="privacySwitch" value="<?php echo (int) $a->pubblica; ?>" />
-                    <button data-value="1" type="button" class="privacy btn <?php if ( $a->pubblica == 1 ) { ?>active<?php } ?>"><i class="icon-globe"></i> Aperto a tutti</button>
-                    <button data-value="0" type="button" class="privacy btn <?php if ( $a->pubblica == 0 ) { ?>active<?php } ?>"><i class="icon-lock"></i> Per il Comitato</button>
-                </div>
-            </div>
-          </div>
-
-          <div class="control-group">
-            <label class="control-label" for="inputArea">Area attività</label>
-            <div class="controls">
-                <select required name="inputArea" id="inputArea" autofocus class="input-xlarge">
-                    <option value="" selected="selected">[ Seleziona una Categoria ]</option>
-                    <?php foreach ( $conf['app_attivita'] as $num => $nom ) { 
-                        if ( !in_array(APP_ATTIVITA_TUTTO, $domini) && !in_array($num, $domini)) {
-                            continue;
-                        } ?>
-                        <option value="<?php echo $num; ?>"  <?php if ($a->tipo == $num ) { ?>selected="selected"<?php }?>><?php echo $nom; ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-          </div>
-        </div>
+        <p>
+            <strong>Referente</strong><br />
+            <?php echo $a->referente()->nomeCompleto(); ?>
+        </p>
+        
+        <p>
+            <strong>Organizzatore</strong><br />
+            <?php echo $a->comitato()->nomeCompleto(); ?>
+        </p>
+        
+        <p>
+            <strong>Area d'intervento</strong><br />
+            <?php echo $a->area()->nomeCompleto(); ?>
+        </p>    
+        
+        <p>
+            <strong>Posizione geografica</strong><br />
+            <?php echo $a->luogo; ?>
+        </p>
+        
+        
     </div>
     
     

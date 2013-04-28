@@ -19,12 +19,6 @@ $a = new Attivita(@$_GET['id']);
             
 </div>
 
-<div class="alert alert-error">
-    <strong><i class="icon-warning-sign"></i> Altamente sperimentale.</strong> Potrebbe uccidere il tuo gatto.
-</div>
-
-<hr />
-
 <div class="row-fluid">
     
     <div class="span3">
@@ -72,7 +66,7 @@ $a = new Attivita(@$_GET['id']);
         
         <p>Controlla che la posizione sulla mappa sia corretta:</p>
         
-        <div class=".mappaGoogle" id="mappaGeografica" style="height: 500px; width: 100%;"></div>
+        <div class="mappaGoogle" id="mappaGeografica" style="height: 500px; width: 100%;"></div>
         
         <hr />
         <form action="?p=attivita.localita.ok" method="POST">

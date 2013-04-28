@@ -14,6 +14,12 @@ class Area extends Entita {
         return new Volontario($this->responsabile);
     }
     
+    public function attivita() {
+        return Attivita::filtra([
+            ['area',    $this->id]
+        ]);
+    }
+    
     public function nomeCompleto() {
         global $conf;
         $obiettivo = (int) $this->obiettivo;

@@ -31,7 +31,7 @@
             <div class="control-group">
             <label class="control-label" for="inputTesto">Testo</label>
             <div class="controls">
-              <textarea rows="8" class="input-xxlarge" type="text" id="inputTesto" name="inputTesto" placeholder="Descrivi il tuo problema. Sii descrittivo!" required><?php echo $a->descrizione; ?></textarea>
+              <textarea rows="8" class="input-xlarge conEditor" type="text" id="inputTesto" name="inputTesto" placeholder="Descrivi il tuo problema. Sii descrittivo!"><?php echo $a->descrizione; ?></textarea>
             </div>
           </div>
             <div class="form-actions">
