@@ -28,7 +28,7 @@ while ( $riga = fgetcsv($file, 0, ';') ) {
     if ( $p = Persona::by('codiceFiscale', $codiceFiscale) ) {
         continue; /* Andiamo avanti con la vita, ci sei già amico, il prossimo! */
     }
-    $i++; 
+    $h++; 
     /* Imposta la data di nascita */
     $dnascita   = DateTime::createFromFormat('d/m/Y', $riga[2]);
     $dnascita   = $dnascita->getTimestamp();
@@ -105,13 +105,15 @@ $i = 0;
     /* format con pass e conferma*/
     $app = new Appartenenza();
     $comitato = Comitato::by('nome', $riga[13]);
+    $pres = $comitato->unPresidente();
     $comitato = $comitato->id;
     $app->comitato = $comitato;
     $app->volontario = $p->id;
     $app->inizio = $dingresso;
+    $app->fine = PROSSIMA_SCADENZA;
     $app->timestamp   = time();
     $app->stato     = MEMBRO_VOLONTARIO;
-    $app->conferma  = $comitato->unPresidente();
+    $app->conferma  = $pres;
     $m = new Email('registrazioneFormatpass', 'Registrato su Gaia');
     $m->a = $p;
     $m->_NOME       = $p->nome;
@@ -126,7 +128,7 @@ $i = 0;
       
     
 }
-echo "Sono stati caricati: $i utenti";
+echo "Sono stati caricati: $h utenti";
 fclose($file);
 ?>
 </code></pre>
