@@ -30,7 +30,7 @@ paginaAdmin();
         <div class="controls">
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-search"></i></span>
-                <input data-t="<?php echo $t; ?>" required id="cercaUtente" placeholder="Cerca Presidente..." class="span4" type="text">
+                <input data-t="<?php echo $t; ?>" autofocus required id="cercaUtente" placeholder="Cerca Presidente..." class="span4" type="text">
             </div>
         </div>
     </div> 
