@@ -82,7 +82,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             <div class="control-group">
               <label class="control-label" for="inputDataNascita">Data di Nascita</label>
               <div class="controls">
-                <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo date('d-m-Y', $t[0]->dataNascita); ?>">
+                <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo date('d/m/Y', $t[0]->dataNascita); ?>">
               </div>
             </div>
     <div class="control-group">

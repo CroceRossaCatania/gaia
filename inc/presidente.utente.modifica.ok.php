@@ -11,6 +11,7 @@
 $id         = $_GET['t'];
 $nome       = normalizzaNome($_POST['inputNome']);
 $cognome    = normalizzaNome($_POST['inputCognome']);
+$codiceFiscale = maiuscolo($_POST['inputCodiceFiscale']);
 $dnascita = DT::createFromFormat('d/m/Y', $_POST['inputDataNascita']);
 $dnascita = $dnascita->getTimestamp();
 $prnascita= maiuscolo($_POST['inputProvinciaNascita']);
@@ -34,6 +35,7 @@ $p = new Persona($id);
  */
 $p->nome                = $nome;
 $p->cognome             = $cognome;
+$p->codiceFiscale = $codiceFiscale;
 $p->dataNascita         = $dnascita;
 $p->provinciaNascita =$prnascita;
 $p->comuneNascita = $conascita;
