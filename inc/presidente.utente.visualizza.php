@@ -27,6 +27,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         <?php }  ?>
   <!--Visualizzazione e modifica avatar utente-->
         <div class="span12">
+        <h2><i class="icon-edit muted"></i> Anagrafica</h2>
             <div class="span6 allinea-centro">
         <?php if ( isset($_GET['aok']) ) { ?>
             <div class="alert alert-success">
@@ -40,10 +41,9 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         <?php } else { ?>
             
         <?php } ?>
-            
         <img src="<?php echo $g->avatar()->img(20); ?>" class="img-polaroid" />
                <br/><br/></div>
-            <div class="span6 allinea-sinistra"> 
+            <div class="span5 allinea-sinistra"> 
                <br/>
         <form id="caricaFoto" action="?p=utente.avatar.ok&id=<?php echo $f; ?>&pre" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
             <p>Per modificare la foto:</p>
@@ -53,12 +53,12 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
               <i class="icon-save"></i> Salva la foto
           </button></p>
         </form>
+            <br/>   
             </div> 
             </div>
             
 <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $f; ?>" method="POST">
         <hr />
-        <h2><i class="icon-edit muted"></i> Anagrafica</h2>
         <div class="control-group">
               <label class="control-label" for="inputNome">Nome</label>
               <div class="controls">
@@ -170,11 +170,111 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
           </form>    
     </div>
     <!--Visualizzazione e modifica titoli utente-->
+    <?php $titoli = $conf['titoli']; ?>
     <div class="span6">
-   
+    <?php if ( isset($_GET['gia'] ) ) { ?>
+    <div class="alert alert-error">
+        <i class="icon-warning-sign"></i>
+        <strong>Errore</strong> &mdash; Non puoi inserire lo stesso titolo o qualifica due volte.
+    </div>
+    <?php } ?>
+   <h3><i class="icon-list muted"></i> Curriculum </h3>
+        
+        <div id="step1">
+            
+
+            <div class="alert alert-block alert-success" <?php if ($titoli[2]) { ?>data-richiediDate<?php } ?>>
+                <div class="row-fluid">
+                    <span class="span3">
+                        <label for="cercaTitolo">
+                            <span style="font-size: larger;">
+                                <i class="icon-search"></i>
+                                <strong>Cerca</strong>
+                            </span>
+                        </label>
+
+                    </span>
+                    <span class="span9">
+                        <input type="text" autofocus required id="cercaTitolo" placeholder="Inserisci un titolo..." class="span12" />
+                    </span>
+                </div>
+
+            </div>
+
+            <table class="table table-striped table-condensed table-bordered" id="risultatiRicerca" style="display: none;">
+                <thead>
+                    <th>Nome risultato</th>
+                    <th>Cerca</th>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            
+          </div>
+        
+        <div id="step2" style="display: none;">
+            <form action='?p=presidente.titolo.nuovo&id=<?php echo $t[0]->id; ?>' method="POST">
+            <input type="hidden" name="idTitolo" id="idTitolo" />
+            <div class="alert alert-block alert-success">
+                <div class="row-fluid">
+                    <h4><i class="icon-question-sign"></i> Quando hai ottenuto...</h4>
+                </div>
+                <hr />
+                <div class="row-fluid">
+                    <div class="span4 centrato">
+                        <label for="dataInizio"><i class="icon-calendar"></i> Ottenimento</label>
+                    </div>
+                    <div class="span8">
+                        <input id="dataInizio" class="span12" name="dataInizio" type="text" value="" />
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span4 centrato">
+                        <label for="dataFine"><i class="icon-time"></i> Scadenza</label>
+                    </div>
+                    <div class="span8">
+                        <input id="dataFine" class="span12" name="dataFine" type="text" value="" />
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span4 centrato">
+                        <label for="luogo"><i class="icon-road"></i> Luogo</label>
+                    </div>
+                    <div class="span8">
+                        <input id="luogo" class="span12" name="luogo" type="text" value="" />
+                    </div>
+                </div>
+                <div class="row-fluid">
+                <div class="span4 centrato">
+                        <label for="codice"><i class="icon-barcode"></i> Codice</label>
+                    </div>
+                    <div class="span8">
+                        <input id="codice" class="span12" name="codice" type="text" value="" />
+                    </div>
+                </div>
+                <div class="row-fluid">
+                <div class="span4 centrato">
+                        <label for="codice"><i class="icon-barcode"></i> N. Patente</label>
+                    </div>
+                    <div class="span8">
+                        <input id="codice" class="span12" name="codice" type="text" value="" />
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span4 offset8">
+                        <button type="submit" class="btn btn-success">
+                            <i class="icon-plus"></i>
+                                Aggiungi il titolo
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>    
   
      <?php $ttt = $a; ?>
-                <h3><i class="icon-list muted"></i> Curriculum <span class="muted"><?php echo count($ttt); ?> inseriti</span></h3>
                 <table class="table table-striped">
                     <?php foreach ( $ttt as $titolo ) { ?>
                     <tr <?php if (!$titolo->tConferma) { ?>class="warning"<?php } ?>>
@@ -219,14 +319,16 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                             <td>&nbsp;</td>
                             <?php } ?>
                             
-                            <td><a onclick="return confirm('Cancellare il titolo utente?');" href="?p=utente.titolo.cancella&id=<?php echo $titolo->id; ?>&pre" title="Cancella il titolo" class="btn btn-small btn-warning">
-                                <i class="icon-trash"></i>
-                            </a></td>
+                            <td>
+                                <!--<a href="?p=presidente.titolo.modifica&id=<?php echo $titolo->id; ?>&v=<?php echo $t[0]->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
+                                    <i class="icon-edit"></i>
+                                </a>-->
+                                <a onclick="return confirm('Cancellare il titolo utente?');" href="?p=utente.titolo.cancella&id=<?php echo $titolo->id; ?>&pre" title="Cancella il titolo" class="btn btn-small btn-warning">
+                                    <i class="icon-trash"></i>
+                                </a>
+                            </td>
                     </tr>
                     <?php } ?>
-                    
-                </table>   
-   
+                </table>
     </div>
-
 </div>
