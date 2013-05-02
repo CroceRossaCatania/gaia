@@ -14,7 +14,7 @@ $t = TitoloPersonale::filtra([['titolo',$f]]);
         <div class="controls">
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-search"></i></span>
-                <input data-t=4 required id="cercaUtente" placeholder="Cerca utente..." class="span4" type="text">
+                <input data-t=4 required id="cercaUtente" autofocus placeholder="Cerca utente..." class="span4" type="text">
             </div>
         </div>
     </div> 

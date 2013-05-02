@@ -14,7 +14,6 @@ $titoli = $conf['titoli'][$t];
 paginaPrivata();
  
 ?>
-<hr />
 <div class="row-fluid">
     <div class="span12">
         
