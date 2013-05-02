@@ -481,8 +481,7 @@ class Utente extends Persona {
     
     public function areeDiCompetenza( $c = null ) {
         if ( $c ) {
-            
-            if ( $this->admin || $this->presiede($c ) ) {
+            if ( $this->admin || $this->presiede($c) ) {
                 return $c->aree();
             } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $comitato) ) {
                 $r = [];
