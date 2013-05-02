@@ -320,9 +320,9 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                             <?php } ?>
                             
                             <td>
-                                <!--<a href="?p=presidente.titolo.modifica&id=<?php echo $titolo->id; ?>&v=<?php echo $t[0]->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
+                                <a href="?p=presidente.titolo.modifica&t=<?php echo $titolo->id; ?>&v=<?php echo $t[0]->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
                                     <i class="icon-edit"></i>
-                                </a>-->
+                                </a>
                                 <a onclick="return confirm('Cancellare il titolo utente?');" href="?p=utente.titolo.cancella&id=<?php echo $titolo->id; ?>&pre" title="Cancella il titolo" class="btn btn-small btn-warning">
                                     <i class="icon-trash"></i>
                                 </a>
