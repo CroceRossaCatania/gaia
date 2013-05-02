@@ -126,9 +126,8 @@ class APIServer {
 
         public function api_attivita() {
             global $conf;
-            $inizio = new DT($this->par['inizio']);
-            $fine   = new DT($this->par['fine']);
-            /*$cA = $this->sessione->utente()->calendario($inizio, $fine);*/
+            $inizio = DT::daISO($this->par['inizio']);
+            $fine   = DT::daISO($this->par['fine']);
             $cA = Turno::neltempo($inizio, $fine);
             $r = [];
             foreach  ( $cA as $turno ) {

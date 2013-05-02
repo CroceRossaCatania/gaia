@@ -45,15 +45,19 @@ $(document).ready(function() {
 							    right:  'today prev,next'
 							}, 
 
-		events: 			function ( inizio, fine, callback ) {
-								api('attivita', {
-									inizio: inizio,
-									fine:   fine
-								},
-								function (risposta) {
-									callback(risposta.response);
-								});
-							}
+                events: function ( inizio, fine, callback ) {
+                    inizio = new Date(inizio);
+                    fine   = new Date(fine);
+                    var sinizio = inizio.toISOString();
+                    var sfine   = fine.toISOString();
+                    api('attivita', {
+                        inizio: sinizio,
+                        fine:   sfine
+                    },
+                    function (risposta) {
+                        callback(risposta.response);
+                    });
+                }
 
 
 

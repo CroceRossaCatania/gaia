@@ -20,6 +20,10 @@ class DT extends DateTime {
         return self::daNativo($x);
     }
     
+    public static function daISO($dataISO) {
+        return new DT($dataISO);
+    }
+    
     public static function daNativo(DateTime $nativo) {
         global $conf;
         $x = new DT();
