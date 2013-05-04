@@ -3,6 +3,7 @@
 $t = $_GET['t'];
 $v = $_GET['v'];  
 $tp = TitoloPersonale::by('id', $t);
+$r = $tp->titolo()->tipo;
 ?>
 <form action="?p=presidente.titolo.modifica.ok&t=<?php echo $t; ?>&v=<?php echo $v; ?>" method="POST">
 <div class="modal fade automodal">
@@ -19,6 +20,7 @@ $tp = TitoloPersonale::by('id', $t);
                         <input id="dataInizio" class="span12" name="dataInizio" type="text"  value="<?php echo date('d/m/Y', $tp->inizio); ?>" />
                     </div>
                 </div>
+         <?php if ($r != TITOLO_STUDIO ) { ?>
                 <div class="row-fluid">
                     <div class="span4 centrato">
                         <label for="dataFine"><i class="icon-time"></i> Scadenza</label>
@@ -27,6 +29,8 @@ $tp = TitoloPersonale::by('id', $t);
                         <input id="dataFine" class="span12" name="dataFine" type="text"  value="<?php echo date('d/m/Y', $tp->fine); ?>" />
                     </div>
                 </div>
+          <?php } ?>
+          <?php if ( $r == TITOLO_CRI ) { ?>
                 <div class="row-fluid">
                     <div class="span4 centrato">
                         <label for="luogo"><i class="icon-road"></i> Luogo</label>
@@ -43,6 +47,8 @@ $tp = TitoloPersonale::by('id', $t);
                         <input id="codice" class="span12" name="codice" type="text" value="<?php echo $tp->codice; ?>" />
                     </div>
                 </div>
+          <?php } ?>
+          <?php if ( $r == TITOLO_PATENTE_CRI ) { ?>
                 <div class="row-fluid">
                 <div class="span4 centrato">
                         <label for="codice"><i class="icon-barcode"></i> N. Patente</label>
@@ -50,7 +56,8 @@ $tp = TitoloPersonale::by('id', $t);
                     <div class="span8">
                         <input id="codice" class="span12" name="codice" type="text" value="<?php echo $tp->codice; ?>" />
                     </div>
-                </div>          
+                </div>
+          <?php } ?>
         </div>
         <div class="modal-footer">
           <a href="?p=presidente.utente.visualizza&id=<?php echo $v; ?>" class="btn">Annulla</a>
