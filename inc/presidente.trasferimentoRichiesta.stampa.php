@@ -42,7 +42,7 @@ if ( $sessione->inGenerazioneTrasferimento) {
         $m->allega($f);
         $m->invia();
         
-         /* Richiesta per conoscenza al nuvo presidente */
+         /* Richiesta per conoscenza al nuovo presidente */
         $m = new Email('richiestaTrasferimento.cc', 'Richiesta trasferimento in arrivo a: ' . $t->comitato()->nome);
         $m->a = $t->comitato()->unPresidente();
         $m->_NOME       = $me->nomeCompleto();

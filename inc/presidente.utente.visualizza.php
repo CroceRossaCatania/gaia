@@ -319,7 +319,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                             <td>&nbsp;</td>
                             <?php } ?>
                             
-                            <td>
+                            <td class="btn-group">
                                 <a href="?p=presidente.titolo.modifica&t=<?php echo $titolo->id; ?>&v=<?php echo $t[0]->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
                                     <i class="icon-edit"></i>
                                 </a>
