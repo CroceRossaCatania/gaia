@@ -282,10 +282,12 @@ define('RISERVA_NEGATA',       10);
 define('RISERVA_INCORSO',      20);
 define('RISERVA_OK',           30);
 define('RISERVA_SCAD',         40);
+define('RISERVA_INT',         50);
 
 $conf['riserve'] = [
     RISERVA_NEGATA        =>  'Negata',
     RISERVA_INCORSO       =>  'In corso',
     RISERVA_OK          =>  'In riserva',
-    RISERVA_SCAD          =>  'Scaduta'
+    RISERVA_SCAD          =>  'Scaduta',
+    RISERVA_INT          =>  'Interrotta'
 ];

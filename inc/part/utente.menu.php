@@ -47,7 +47,7 @@ $menu += [
     ],
     'Segreteria'      =>  [
         'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti',
-        // 'utente.riserva'  =>  '<i class="icon-pause"></i> Riserva',
+       //'utente.riserva'  =>  '<i class="icon-pause"></i> Riserva',
         'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica',
        
         

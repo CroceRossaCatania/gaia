@@ -208,14 +208,16 @@ $a = new Attivita($_GET['id']);
                                  <a class="btn btn-block btn-info btn-large disabled" href="">
                                       <?php echo $conf['partecipazione'][$pk->stato]; ?>
                                  </a>
+                                 <?php if($pk->stato == PART_OK){}else{?>
                                  <a class="btn btn-block btn-danger " href="?p=attivita.ritirati&turno=<?php echo $turno->id; ?>">
                                       <i class="icon-remove"></i>
                                       Ritirati
                                  </a>
+                                 <?php } ?>
                                 
                                 
                                 
-                            <?php } elseif ( $turno->puoRichiederePartecipazione($me) ) { ?>
+                            <?php } elseif ( $turno->puoRichiederePartecipazione($me) && !$me->inriserva()) { ?>
                                 <a href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-success btn-large btn-block">
                                     <i class="icon-ok"></i> Partecipa
                                 </a>
