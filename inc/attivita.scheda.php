@@ -192,11 +192,12 @@ $a = new Attivita($_GET['id']);
                             <?php if ( $pp ) { ?><br /><?php } ?>
                             <?php foreach ( $pp as $ppp ) { 
                                 $vv = $ppp->volontario();
-                            ?>
+                                $ok = $turno->partecipazione($vv);
+                            if($ok->stato == PART_OK){?>
                                 <a href="#" title="<?php echo $vv->nomeCompleto(); ?>">
                                     <img class="img-circle" src="<?php echo $vv->avatar()->img(10); ?>" />
                                 </a>
-                            <?php } ?>
+                            <?php }} ?>
                             
                             
                         </td>
