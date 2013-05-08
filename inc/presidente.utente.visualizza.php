@@ -88,7 +88,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
     <div class="control-group">
               <label class="control-label" for="inputProvinciaNascita">Provincia di Nascita</label>
               <div class="controls">
-                <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->provinciaNascita; ?>">
+                <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
              </div>
             </div>
             <div class="control-group">

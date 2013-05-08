@@ -60,7 +60,7 @@ paginaPrivata();
             <div class="control-group">
               <label class="control-label" for="inputProvinciaNascita">Provincia di Nascita</label>
               <div class="controls">
-                <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" readonly value="<?php echo $me->provinciaNascita; ?>">
+                <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" readonly value="<?php echo $me->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
                 <acronym title="Per modificare, contatta informatica@cricatania.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
               </div>
             </div>
