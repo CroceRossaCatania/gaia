@@ -42,7 +42,7 @@ $(document).ready(function() {
         <div class="row-fluid">
             
             <div class="span9">
-                <h2>Salve, presidente <?php echo $me->cognome; ?>.</h2>
+                <h2>Salve, <?php if($me->admin()){?>Admin <?php }else{ ?> Presidente <?php } echo $me->cognome; ?>.</h2>
             </div>
             
             <div class="span3 allinea-destra">
