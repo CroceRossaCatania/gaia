@@ -8,8 +8,9 @@
  * Rende la corrente pagina privata (login necessario)
  */
 function paginaPrivata() {
-    global $sessione;
+    global $sessione, $_GET;
     if ( !$sessione->utente() ) {
+        $sessione->torna = $_GET['p'];
         redirect('login');
     }
 }

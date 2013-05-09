@@ -6,6 +6,9 @@
 
 paginaPubblica();
 
+$torna = @$sessione->torna;
+$sessione->torna = null;
+
 ?>
 
 
@@ -49,6 +52,8 @@ paginaPubblica();
               <input type="password" id="inputPassword" name="inputPassword" required pattern=".{3,15}" />
             </div>
           </div>
+              
+              <input type="hidden" name="torna" value="<?php echo $torna; ?>" />
           
           <div class="control-group">
             <div class="controls">
