@@ -41,10 +41,10 @@ class GeoEntita extends Entita {
         return $this->localizzaCoordinate($g->risultati[0]->lat, $g->risultati[0]->lng);
     }
     
-    public static function filtraRaggio ( $lat, $lng, $raggio, $_array ) {
+    public static function filtraRaggio ( $lat, $lng, $raggio, $_array = [], $order = null) {
         $lat = (double) $lat;
         $lng = (double) $lng;
-        $raggio = (float) $raggio;
+        $raggio = (float) $raggio0 / 69;
         global $db;
         $entita = get_called_class();
         $_condizioni = [];
@@ -56,12 +56,14 @@ class GeoEntita extends Entita {
             }
         }
         $stringa = implode(' AND ', $_condizioni);
+        if ( $order ) { $order = " ORDER BY $order"; }
         $centro = "GeomFromText(\"POINT({$lat} {$lng})\")"; 
         $q = $db->prepare("
             SELECT id FROM ". static::$_t . " WHERE 
                 SQRT(POW( ABS( X(geo) - X($centro)), 2) + POW( ABS(Y(geo) - Y($centro)), 2 )) < $raggio
               AND
-                $stringa");
+                $stringa
+                $order");
         $q->execute();
         $t = [];
         while ( $r = $q->fetch(PDO::FETCH_NUM) ) {
