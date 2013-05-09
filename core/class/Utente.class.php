@@ -486,7 +486,7 @@ class Utente extends Persona {
             } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $comitato) ) {
                 $r = [];
                 foreach ( $o as $io ) {
-                    $r = array_merge($r, $c->aree($o->dominio));
+                    $r = array_merge($r, $c->aree($io->dominio));
                 }
                 $r = array_unique($r);
                 return $r;
