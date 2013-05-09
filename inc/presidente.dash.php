@@ -122,10 +122,13 @@ $(document).ready(function() {
                         </p><hr />
                         <?php } ?>
                         
-                        <?php foreach ( $conf['obiettivi'] as $num => $nome ) { ?>
+                        <?php
+                        $nOb = 0;
+                        foreach ( $conf['obiettivi'] as $num => $nome ) { ?>
                             <p><strong><?php echo $nome; ?></strong><br />
                             <?php
                             $o = $c->obiettivi($num);
+                            $nOb += count($o);
                             if ($o) {
                                 $o = $o[0];
                             ?>
@@ -180,7 +183,7 @@ $(document).ready(function() {
                         <hr />
                         <p class="text-info"><i class="icon-info-sign"></i> 
                            Inserire le aree di intervento e selezionare i responsabili associati.<br />Essi saranno 
-                           in grado di organizzare nuove attività su Gaia riguardanti la loro Area.
+                           in grado di <strong>organizzare nuove attività su Gaia</strong> riguardanti la loro Area.
                         </p>
 
                         <?php if ( $c->aree() ) { ?>
@@ -224,9 +227,20 @@ $(document).ready(function() {
                         
                         <hr />
 
+                        <?php if ( $nOb ) { ?>
                         <button class="btn btn-block btn-large" name="nuovaArea" value="1">
                             <i class="icon-plus"></i> Aggiungi nuova area di interesse
                         </button>
+                        <?php } else { ?>
+                        <div class="alert alert-error">
+                            <i class="icon-warning-sign"></i> <strong>Nessun delegato obiettivo</strong> &mdash;
+                            Prima di nominare un responsabile di un'Area, nomina almeno un delegato obiettivo qui sopra.
+                        </div>
+                        <button disabled class="btn btn-block btn-large disabled" name="nuovaArea" value="1">
+                            <i class="icon-plus"></i> Aggiungi nuova area di interesse
+                        </button>
+
+                        <?php } ?>
                         
                         <hr />
                         
