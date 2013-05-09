@@ -54,17 +54,7 @@ paginaPresidenziale();
                 <th>Azioni</th>
             </thead>
         <?php
-        if( $me->presiede() ) {
-            $app = $me->presidenziante();
-            $elenco = [];
-            foreach ($app as $_app) {
-                $elenco[] = $_app->comitato();
-            }
-            $elenco = array_unique($elenco);
-        } elseif ( $me->admin ) {
-            $elenco = Comitato::elenco('nome ASC');
-        }
-        
+        $elenco = $me->comitatiDiCompetenza();
         foreach($elenco as $comitato) {
             $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
                 ?>
