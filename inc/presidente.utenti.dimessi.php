@@ -52,9 +52,9 @@ paginaPresidenziale();
    <div class="span12">
        
        <?php if ( count($me->comitatiDiCompetenza()) > 1 ) { ?>
-       <a href="?p=admin.utenti.excel" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
+       <a href="?p=admin.utenti.excel&dimessi" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
            <i class="icon-download"></i>
-            <strong>Presidente</strong> &mdash; Scarica tutti i fogli dei volontari in un archivio zip.
+            <strong>Presidente</strong> &mdash; Scarica tutti i fogli dei volontari dimessi in un archivio zip.
        </a><hr />
        <?php } ?>
        
