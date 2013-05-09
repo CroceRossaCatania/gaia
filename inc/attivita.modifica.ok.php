@@ -7,6 +7,8 @@ $a->nome            = normalizzaNome($_POST['inputNome']);
 $a->descrizione     = $_POST['inputDescrizione'];
 $a->aggiornamento   = time();
 
+$a->visibilita      = $_POST['inputVisibilita'];
+
 // $a->stato           = $_POST['inputStato'];
 
 $turni = $a->turni();
