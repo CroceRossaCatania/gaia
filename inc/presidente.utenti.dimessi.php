@@ -21,7 +21,7 @@ paginaPresidenziale();
     <div class="span5 allinea-sinistra">
         <h2>
             <i class="icon-group muted"></i>
-            Elenco volontari
+            Elenco volontari non attivi
         </h2>
     </div>
             
@@ -69,7 +69,7 @@ paginaPresidenziale();
         <?php
         $elenco = $me->comitatiDiCompetenza();
         foreach($elenco as $comitato) {
-            $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
+            $t = $comitato->membriDimessi(MEMBRO_DIMESSO);
                 ?>
             
             <tr class="success">
@@ -79,7 +79,7 @@ paginaPresidenziale();
                         <?php echo count($t); ?>
                     </span>
                     <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>"
+                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&dimessi"
                        data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                     </a>
@@ -109,9 +109,6 @@ paginaPresidenziale();
                         <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli
                         </a>
-                        <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&id=<?php echo $_v->id; ?>" title="Dimetti Volontario">
-                                <i class="icon-ban-circle"></i> Dimetti
-                        </a>
                         <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                             <i class="icon-envelope"></i>
                         </a>
@@ -124,12 +121,6 @@ paginaPresidenziale();
                             <a class="btn btn-small btn-primary" href="?p=admin.beuser&id=<?php echo $_v->id; ?>" title="Log in">
                                 <i class="icon-key"></i>
                             </a> 
-                            <a class="btn btn-small btn-primary" href="?p=admin.presidente.nuovo&id=<?php echo $_v->id; ?>" title="Nomina Presidente">
-                                <i class="icon-star"></i>
-                            </a> 
-                            <a class="btn btn-small btn-danger <?php if ($_v->admin) { ?>disabled<?php } ?>" href="?p=admin.admin.nuovo&id=<?php echo $_v->id; ?>" title="Nomina Admin">
-                                <i class="icon-magic"></i>
-                            </a>
                         <?php } ?>
                    </td>
                 </tr>

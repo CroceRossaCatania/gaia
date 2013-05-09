@@ -72,6 +72,28 @@ class Comitato extends GeoEntita {
         return $r;
     }
     
+    public function membriDimessi($stato = MEMBRO_DIMESSO) {
+        $q = $this->db->prepare("
+            SELECT
+                volontario
+            FROM
+                appartenenza
+            WHERE
+                comitato = :comitato
+            AND
+                stato    >= :stato
+            ORDER BY
+                inizio ASC");
+        $q->bindParam(':comitato', $this->id);
+        $q->bindParam(':stato',    $stato);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Volontario($k[0]);
+        }
+        return $r;
+    }
+    
     public function numMembriAttuali($stato = MEMBRO_VOLONTARIO) {
         $q = $this->db->prepare("
             SELECT

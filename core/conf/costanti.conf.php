@@ -32,6 +32,7 @@ define('MEMBRO_VOLONTARIO',     40);
 define('MEMBRO_MODERATORE',     50);
 define('MEMBRO_DIPENDENTE',     60);
 define('MEMBRO_PRESIDENTE',     70);
+define('MEMBRO_DIMESSO', 80);
 
 /* Definizioni in stringa */
 $conf['membro'] = [
@@ -41,7 +42,8 @@ $conf['membro'] = [
     MEMBRO_VOLONTARIO       =>  'Volontario',
     MEMBRO_MODERATORE       =>  'Moderatore',
     MEMBRO_DIPENDENTE       =>  'Dipendente',
-    MEMBRO_PRESIDENTE       =>  'Presidente'
+    MEMBRO_PRESIDENTE       =>  'Presidente',
+    MEMBRO_DIMESSO       =>  'Dimesso'
 ];
 
 

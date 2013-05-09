@@ -26,7 +26,10 @@ paginaPrivata();
         <?php } ?>
         <?php 
     $i=0;
-    foreach ( $me->storico() as $app ) { 
+    foreach ( $me->storico() as $app ) {
+                         if($app->stato == MEMBRO_DIMESSO){
+                             redirect('errore.comitato');
+                         }
                          if ($app->attuale()) 
                                     {
                           $trasferimento = Trasferimento::by('appartenenza', $app->id);

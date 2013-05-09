@@ -434,5 +434,20 @@ $conf['database']['tables'] = [
                             INDEX(comitato),
                             INDEX(volontario),
                             INDEX(turno)'
-                    ]
+                    ],
+                    [
+                            'name'      =>  'dimissioni',
+                            'fields'    =>  '
+                                id          int PRIMARY KEY,
+                                volontario  varchar(16),
+                                appartenenza varchar(16),
+                                comitato    varchar(16),
+                                motivo varchar(255),
+                                tConferma    varchar(64),
+                                pConferma varchar(16),
+                                INDEX (volontario),
+                                INDEX (comitato),
+                                INDEX (appartenenza)
+                            '
+                        ]
 ];
