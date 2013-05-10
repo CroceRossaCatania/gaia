@@ -7,7 +7,20 @@
 $v = utente::by('email', $_POST['inputMail']);
 $oggetto= $_POST['inputOggetto']; 
 $testo = $_POST['inputTesto'];
-if (isset($_GET['mass'])) {
+
+if (isset($_GET['com'])) {
+$elenco = $me->comitatiDiCompetenza();
+        foreach($elenco as $comitato) {
+            $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
+            foreach($t as $_t){
+                $m = new Email('mailTestolibero', ''.$oggetto);
+                $m->da = $me; 
+                $m->a = $_t;
+                $m->_TESTO = $testo;
+                $m->invia();
+         }
+     }
+}elseif (isset($_GET['mass'])) {
 $f = $_GET['t'];
 $t = TitoloPersonale::filtra([['titolo',$f]]);
 if($me->presiede()){

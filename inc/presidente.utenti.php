@@ -7,13 +7,18 @@ paginaPresidenziale();
 ?>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
-            <i class="icon-save"></i> <strong>Utente eliminato</strong>.
-            L'utente è stato eliminato con successo.
+            <i class="icon-save"></i> <strong>Volontario eliminato</strong>.
+            Il Volontario è stato eliminato con successo.
         </div>
 <?php } elseif ( isset($_GET['e']) )  { ?>
         <div class="alert alert-block alert-error">
             <h4><i class="icon-exclamation-sign"></i> Impossibile eliminare l'utente</h4>
             <p>Contatta l'amministratore</p>
+        </div>
+<?php }elseif ( isset($_GET['dim']) )  { ?>
+        <div class="alert alert-block alert-success">
+            <h4><i class="icon-exclamation-sign"></i> Volontario dimesso</h4>
+            <p>Il Volontario è stato dimesso con successo.</p>
         </div>
 <?php } ?>
     <br/>
@@ -50,13 +55,19 @@ paginaPresidenziale();
     
 <div class="row-fluid">
    <div class="span12">
-       
+       <div class="btn-group btn-group-vertical span12">
        <?php if ( count($me->comitatiDiCompetenza()) > 1 ) { ?>
        <a href="?p=admin.utenti.excel" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
            <i class="icon-download"></i>
             <strong>Presidente</strong> &mdash; Scarica tutti i fogli dei volontari in un archivio zip.
-       </a><hr />
+       </a>
        <?php } ?>
+       
+       <a href="?p=utente.mail.nuova&com" class="btn btn-block btn-success">
+           <i class="icon-envelope"></i>
+            <strong>Presidente</strong> &mdash; Invia mail di massa a tutti i Volontari.
+       </a><hr />
+       </div>
        
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
@@ -140,9 +151,8 @@ paginaPresidenziale();
         }
         ?>
 
-        
         </table>
-
+       
     </div>
     
 </div>
