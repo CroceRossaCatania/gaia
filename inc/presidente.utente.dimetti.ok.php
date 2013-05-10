@@ -36,7 +36,8 @@ foreach ( $a as $_a){
     if($_a->attuale()){
         $d->appartenenza = $_a;
         $d->comitato = $_a->comitato;
-        $d->motivo = $_POST['motivo'];
+        $d->motivo = $_POST['dimissioni'];
+        $d->info = $_POST['info'];
         $d->tConferma = time();
         $d->pConferma = $me;
         $x = new Appartenenza($_a);

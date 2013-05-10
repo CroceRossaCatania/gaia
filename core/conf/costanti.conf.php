@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 /*
@@ -292,4 +292,21 @@ $conf['riserve'] = [
     RISERVA_OK          =>  'In riserva',
     RISERVA_SCAD          =>  'Scaduta',
     RISERVA_INT          =>  'Interrotta'
+];
+
+/*
+ * ===================================
+ * =========== DIMISSIONI ====== ==========
+ * ===================================
+ */
+define('DIM_VOLONTARIE',       10);
+define('DIM_TURNO',      20);
+define('DIM_QUOTA',           30);
+define('DIM_RADIAZIONE',         40);
+
+$conf['dimissioni'] = [
+    DIM_VOLONTARIE        =>  'Dimissioni Volontarie',
+    DIM_TURNO       =>  'Mancato svolgimento turno mensile',
+    DIM_QUOTA          =>  'Mancato versamente quota annuale',
+    DIM_RADIAZIONE          =>  'Radiazione da Croce Rossa Italiana'
 ];

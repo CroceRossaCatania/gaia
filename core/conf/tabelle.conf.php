@@ -443,6 +443,7 @@ $conf['database']['tables'] = [
                                 appartenenza varchar(16),
                                 comitato    varchar(16),
                                 motivo varchar(255),
+                                info varchar(255),
                                 tConferma    varchar(64),
                                 pConferma varchar(16),
                                 INDEX (volontario),

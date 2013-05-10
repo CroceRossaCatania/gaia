@@ -26,10 +26,21 @@ $v = Volontario::by('id', $v);
 
 <div class="row-fluid">
     <form class="form-horizontal" action="?p=presidente.utente.dimetti.ok&id=<?php echo $v->id; ?>" method="POST">
+        <div class="control-group">
+            <label class="control-label" for="motivo">Motivazione</label>
+            <div class="controls">
+                <select class="input-xlarge" id="motivo" name="motivo"  required>
+                <?php
+                    foreach ( $conf['dimissioni'] as $numero => $dimissione ) { ?>
+                    <option value="<?php echo $numero; ?>"><?php echo $dimissione; ?></option>
+                    <?php } ?>
+                </select>   
+            </div>
+          </div>
        <div class="control-group">
-        <label class="control-label" for="motivo">Motivazione </label>
+        <label class="control-label" for="info">Informazioni aggiuntive </label>
         <div class="controls">
-            <input class="span8" type="text" name="motivo" id="motivo" placeholder="es.: Mancato versamento quota associativa" required>
+            <input class="span8" type="text" name="info" id="info" placeholder="es.: Provvedimento di radiazione n. 134 del 12/12/2013" >
             </div>
           </div>
     <div class="control-group">
