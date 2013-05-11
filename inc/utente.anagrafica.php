@@ -27,6 +27,8 @@ paginaPrivata();
                 <a href="?p=utente.supporto"><i class="icon-envelope-alt"></i> clicca qui </a> per ricevere supporto.</p>
         </div>
         <?php } ?>
+        <?php foreach ( $me->storico() as $app ) {
+                         if($app->stato == MEMBRO_DIMESSO){ $a=1;}} ?>
         <form class="form-horizontal" action="?p=utente.anagrafica.ok" method="POST">
             <div class="control-group">
               <label class="control-label" for="inputNome">Nome</label>
@@ -75,38 +77,38 @@ paginaPrivata();
             <div class="control-group">
                <label class="control-label" for="inputIndirizzo">Indirizzo</label>
                <div class="controls">
-                 <input value="<?php echo $me->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" required />
+                 <input value="<?php echo $me->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" required <?php if($a==1){ ?>readonly<?php }?> />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputCivico">Civico</label>
                <div class="controls">
-                 <input value="<?php echo $me->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" required />
+                 <input value="<?php echo $me->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" required <?php if($a==1){ ?>readonly<?php }?> />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputComuneResidenza">Comune di residenza</label>
                <div class="controls">
-                 <input value="<?php echo $me->comuneResidenza; ?>" type="text" id="inputComuneResidenza" name="inputComuneResidenza" required />
+                 <input value="<?php echo $me->comuneResidenza; ?>" type="text" id="inputComuneResidenza" name="inputComuneResidenza" required <?php if($a==1){ ?>readonly<?php }?> />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputCAPResidenza">CAP di residenza</label>
                <div class="controls">
-                 <input value="<?php echo $me->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" required pattern="[0-9]{5}" />
+                 <input value="<?php echo $me->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" required pattern="[0-9]{5}" <?php if($a==1){ ?>readonly<?php }?> />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputProvinciaResidenza">Provincia di residenza</label>
                <div class="controls">
-                 <input value="<?php echo $me->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" required pattern="[A-Za-z]{2}" />
+                 <input value="<?php echo $me->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" required pattern="[A-Za-z]{2}" <?php if($a==1){ ?>readonly<?php }?> />
                  &nbsp; <span class="muted">ad es.: CT</span>
                </div>
              </div>
             <div class="control-group">
             <label class="control-label" for="inputgruppoSanguigno">Gruppo Sanguigno</label>
             <div class="controls">
-                <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  required>
+                <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  required <?php if($a==1){ ?>readonly<?php }?> >
                 <?php
                     foreach ( $conf['sangue_gruppo'] as $numero => $gruppo ) { ?>
                     <option value="<?php echo $numero; ?>" <?php if ( $numero == $me->grsanguigno ) { ?>selected<?php } ?>><?php echo $gruppo; ?></option>
@@ -115,10 +117,12 @@ paginaPrivata();
             </div>
           </div>
             <div class="form-actions">
+                <?php if($a!=1){ ?>
                 <button type="submit" class="btn btn-success btn-large">
                     <i class="icon-save"></i>
                     Salva modifiche
                 </button>
+               <?php }?>
             </div>
           </form>
 
@@ -142,6 +146,7 @@ paginaPrivata();
             
         <img src="<?php echo $me->avatar()->img(20); ?>" class="img-polaroid" />
         <hr />
+        <?php if($a!=1){ ?>
         <form id="caricaFoto" action="?p=utente.avatar.ok" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
             <p>Per modificare la foto:</p>
           <p>1. <strong>Scegli</strong>: <input type="file" name="avatar" required /></p>
@@ -150,5 +155,6 @@ paginaPrivata();
               <i class="icon-save"></i> Salva la foto
           </button></p>
         </form>
+        <?php } ?>
     </div>
 </div>

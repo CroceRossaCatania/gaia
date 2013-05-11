@@ -35,7 +35,10 @@ paginaPrivata();
                     </div>
                     <hr />
                 <?php }?>
-                
+                    
+                <?php foreach ( $me->storico() as $app ) {
+                         if($app->stato == MEMBRO_DIMESSO){ $a=1;}} ?>
+                    
             <?php foreach ( $conf['docs_tipologie'] as $tipo => $nome ) { ?>
                 
                 <a class="btn btn-large" id="_<?php echo $tipo; ?>_pulsante" onclick="$(this).hide();$('#_<?php echo $tipo; ?>_cont').show();">
@@ -73,6 +76,7 @@ paginaPrivata();
                         </div>
                     
                         <div class="span7">
+                            <?php if($a!=1){ ?>
                             <form class="modDocumento" action="?p=utente.documenti.ok" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="tipo" value="<?php echo $tipo; ?>" />
                                 <h3>
@@ -100,6 +104,7 @@ paginaPrivata();
                                 
 
                             </form>
+                            <?php } ?>
                         </div>
                     </div>
 
@@ -119,6 +124,7 @@ paginaPrivata();
                         </div>
                     
                         <div class="span7">
+                            <?php if($a!=1){ ?>
                             <form class="modDocumento" action="?p=utente.documenti.ok" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="tipo" value="<?php echo $tipo; ?>" />
                                 <h2>
@@ -142,7 +148,7 @@ paginaPrivata();
                                     </li>
                                 </ol>
 
-
+                            <?php } ?>
                             </form>
                         </div>
                          </div>
