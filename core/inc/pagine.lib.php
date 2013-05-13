@@ -10,7 +10,7 @@
 function paginaPrivata() {
     global $sessione, $_GET;
     if ( !$sessione->utente() ) {
-        $sessione->torna = $_GET['p'];
+        $sessione->torna = base64_encode(serialize($_GET));
         redirect('login');
     }
 }
@@ -85,5 +85,16 @@ function caricaSelettore() {
  */
 function redirect($pagina) {
     header('Location: ?p=' . $pagina);
+    exit(0);
+}
+
+/*
+ * Effettua un redirect ad index.php?{$queryString}
+ */
+function lowRedirect($b64) {
+    $b64 = base64_decode($b64);
+    $b64 = unserialize($b64);
+    $b64 = http_build_query($b64);
+    header("Location: index.php?{$b64}");
     exit(0);
 }

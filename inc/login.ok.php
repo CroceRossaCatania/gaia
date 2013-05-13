@@ -11,7 +11,7 @@ if ( $u = Utente::by('email', $email) ) {
     if ( $u->login($password) ) {
         $sessione->utente = $u->id;
         if ( $_POST['torna'] ) {
-            redirect($_POST['torna']);
+            lowRedirect($_POST['torna']);
         } else {
             redirect('utente.me');
         }
