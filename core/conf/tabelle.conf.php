@@ -450,5 +450,18 @@ $conf['database']['tables'] = [
                                 INDEX (comitato),
                                 INDEX (appartenenza)
                             '
+                        ],
+                        [
+                            'name'      =>  'commenti',
+                            'fields'    =>  '
+                                id          int PRIMARY KEY,
+                                attivita  varchar(16),
+                                commento varchar(255),
+                                volontario    varchar(64),
+                                tCommenta varchar(16),
+                                upCommento varchar(16),
+                                INDEX (volontario),
+                                INDEX (attivita)
+                            '
                         ]
 ];

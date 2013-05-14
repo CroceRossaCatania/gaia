@@ -27,7 +27,7 @@ paginaPresidenziale();
             
             <div class="span3">
                 <div class="btn-group btn-group-vertical span12">
-                    <a href="?p=presidente.utenti" class="btn btn-primary btn-block">
+                    <a href="?p=presidente.utenti" class="btn btn-success btn-block">
                         <i class="icon-list"></i>
                         Volontari attivi
                     </a>
