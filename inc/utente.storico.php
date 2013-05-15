@@ -130,7 +130,7 @@ paginaPrivata();
         </div> 
 <?php } ?>        
 
-<?php if ( $me->delegazioni() ) { ?>
+<?php if ( $me->storicoDelegazioni() ) { ?>
         <div class="row-fluid">
             <h2>
                 <i class="icon-briefcase muted"></i>
@@ -150,7 +150,7 @@ paginaPrivata();
                     <th>Fine</th>
                 </thead>
                 
-                <?php foreach ( $me->delegazioni() as $app ) { ?>
+                <?php foreach ( $me->storicoDelegazioni() as $app ) { ?>
                     <tr<?php if ($app->fine >= time() || $app->fine == 0 ) { ?> class="success"<?php } ?>>
                         <td>
                             <?php if ($app->fine >= time() || $app->fine == 0 ) { ?>
