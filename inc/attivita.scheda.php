@@ -210,7 +210,7 @@ $a = new Attivita($_GET['id']);
                                       <?php echo $conf['partecipazione'][$pk->stato]; ?>
                                  </a>
                                  <?php if($pk->stato == PART_OK){}else{?>
-                                 <a class="btn btn-block btn-danger " href="?p=attivita.ritirati&turno=<?php echo $turno->id; ?>">
+                                 <a class="btn btn-block btn-danger " href="?p=attivita.ritirati&id=<?php echo $pk->id; ?>">
                                       <i class="icon-remove"></i>
                                       Ritirati
                                  </a>
