@@ -68,7 +68,7 @@ $p = Attivita::by('id', $a);
             <div class="span12" id="commento">
                 <div class="span2 allinea-destra">
                     <?php $g= Volontario::by('id',$_c->volontario); ?>
-                        <img src="<?php echo $g->avatar()->img(10); ?>" class="img-polaroid" />
+                    <img src="<?php echo $g->avatar()->img(10); ?>" class="img-polaroid" />
                 </div>
                 <div class="span8">
                     <p class="text-info"><?php echo $g->nomeCompleto(); ?> <?php echo $_c->quando()->inTesto(); ?></p>
