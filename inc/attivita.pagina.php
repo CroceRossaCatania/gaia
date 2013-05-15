@@ -11,18 +11,22 @@ $p = Attivita::by('id', $a);
 ?>
 
 <style type="text/css">
-#commento{
-    border:1px red solid;   
+#commento{   
     margin-left: auto;    
     margin-right: auto;    
-    background: #e8e8e8;
+    background: #ffffff;
     }
 
 #subcommento{
-    border:1px tomato solid;   
+    border:1px #D3D7D8 solid;   
     position:relative;
     left:74px;  
-    background: #ededed;
+    background: #ffffff;
+    }
+    
+    #inputCommento{
+    border:1px #D3D7D8 solid;
+    background: #ffffff;
     }
 </style>
 
@@ -65,9 +69,6 @@ $p = Attivita::by('id', $a);
                     <p class="text"><blockquote><?php echo $_c->commento; ?></blockquote></p>
                 </div>
                 <div class="span2 allinea-destra btn-group-vertical">
-                    <a href="?p=attivita.pagina.commento&a=<?php echo $a; ?>&h=<?php echo $_c; ?>" class="btn">
-                        <i class="icon-comment"></i> Commenta
-                    </a>
                  <?php if($_c->volontario == $me || $me->admin()){?>
                     <a href="?p=attivita.pagina.commento.modifica&a=<?php echo $_c; ?>" class="btn">
                         <i class="icon-edit"></i> Modifica
@@ -104,6 +105,23 @@ $p = Attivita::by('id', $a);
                 </div>
             </div>
         </div>
-        <?php }} ?>
+        <?php } ?>
+        <div class="row-fluid">
+            <form action="?p=attivita.pagina.commento.ok&a=<?php echo $a; ?>&h=<?php echo $_c; ?>" method="POST">
+            <div class="span11" id="subcommento">
+                <div class="span2 allinea-destra">
+                    <img src="<?php echo $me->avatar()->img(10); ?>" class="img-polaroid" />
+                </div>
+                <div class="span10">
+                    <p class="text-info"><?php echo $me->nomeCompleto(); ?></p>
+                    <input name="inputCommento" class="span10" placeholder="Scrivi una risposta..." class="text" id="inputCommento">
+                    <button type="submit" class="btn">
+                        <i class="icon-share-alt"></i> Rispondi
+                    </button>
+                </div>
+            </div>
+            </form>
+        </div>
+        <?php } ?>
     </div>
 </div>
