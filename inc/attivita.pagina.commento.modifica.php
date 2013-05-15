@@ -16,7 +16,7 @@ $c = Commento::by('id', $a);
                 </div>
         </div>
         <div class="modal-footer">
-          <a href="?p=attivita.pagina&a=<?php echo $a; ?>" class="btn">Annulla</a>
+          <a href="?p=attivita.pagina&a=<?php echo $c->attivita; ?>" class="btn">Annulla</a>
           <button type="submit" class="btn btn-primary">
               <i class="icon-edit"></i> Modifica
           </button>

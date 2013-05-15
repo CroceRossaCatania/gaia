@@ -56,6 +56,12 @@ $p = Attivita::by('id', $a);
         <hr /> 
         <?php 
             $c = Commento::filtra([['attivita', $a],['upCommento', '0']]);
+            if(!$c){ ?>
+                <div class="alert alert-info">
+                    <h3><i class="icon-thumbs-down"></i> Nessuna discussione presente in questa pagina.</h3>
+                    <p><strong><?php echo $me->nomeCompleto(); ?></strong>, inizia tu una nuova discussione su questa pagina cliccando su commenta.</p>
+                </div>
+            <?php }else{
             foreach($c as $_c){ ?>
         <div class="row-fluid">
             <br/>
@@ -68,14 +74,15 @@ $p = Attivita::by('id', $a);
                     <p class="text-info"><?php echo $g->nomeCompleto(); ?> <?php echo $_c->quando()->inTesto(); ?></p>
                     <p class="text"><blockquote><?php echo $_c->commento; ?></blockquote></p>
                 </div>
-                <div class="span2 allinea-destra btn-group-vertical">
+                <div class="span2 allinea-destra btn-group">
                  <?php if($_c->volontario == $me || $me->admin()){?>
-                    <a href="?p=attivita.pagina.commento.modifica&a=<?php echo $_c; ?>" class="btn">
-                        <i class="icon-edit"></i> Modifica
+                    <a title="Cancella" href="?p=attivita.pagina.commento.cancella&a=<?php echo $_c; ?>" class="btn">
+                        <i class="icon-remove"></i>
                     </a>
-                    <a href="?p=attivita.pagina.commento.cancella&a=<?php echo $_c; ?>" class="btn">
-                        <i class="icon-remove"></i> Cancella
+                    <a title="Modifica" href="?p=attivita.pagina.commento.modifica&a=<?php echo $_c; ?>" class="btn">
+                        <i class="icon-edit"></i>
                     </a>
+                    
                 <?php } ?>
                 </div>
             </div>
@@ -93,13 +100,13 @@ $p = Attivita::by('id', $a);
                     <p class="text-info"><?php echo $g->nomeCompleto(); ?> <?php echo $_n->quando()->inTesto(); ?></p>
                     <p class="text"><blockquote><?php echo $_n->commento; ?></blockquote></p>
                 </div>
-                <div class="span2 allinea-destra btn-group-vertical">
+                <div class="span2 allinea-destra">
                     <?php if($_n->volontario == $me || $me->admin()){?>
-                    <a href="?p=attivita.pagina.commento.modifica&a=<?php echo $_n; ?>" class="btn">
-                        <i class="icon-edit"></i> Modifica
+                    <a title="Cancella" href="?p=attivita.pagina.commento.cancella&a=<?php echo $_n; ?>">
+                        <i class="icon-remove"></i>
                     </a>
-                    <a href="?p=attivita.pagina.commento.cancella&a=<?php echo $_n; ?>" class="btn">
-                        <i class="icon-remove"></i> Cancella
+                    <a  title="Modifica"  href="?p=attivita.pagina.commento.modifica&a=<?php echo $_n; ?>">
+                        <i class="icon-edit"></i>
                     </a>
                     <?php } ?>
                 </div>
@@ -115,13 +122,13 @@ $p = Attivita::by('id', $a);
                 <div class="span10">
                     <p class="text-info"><?php echo $me->nomeCompleto(); ?></p>
                     <input name="inputCommento" class="span10" placeholder="Scrivi una risposta..." class="text" id="inputCommento">
-                    <button type="submit" class="btn">
+                    <button type="submit" class="btn btn-info">
                         <i class="icon-share-alt"></i> Rispondi
                     </button>
                 </div>
             </div>
             </form>
         </div>
-        <?php } ?>
+        <?php } } ?>
     </div>
 </div>
