@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-richiediComitato();
+paginaAnonimo();
 $a = new Attivita($_GET['id']);
 
 

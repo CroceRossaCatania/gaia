@@ -97,7 +97,8 @@ class Turno extends Entita {
         return $this->attivita()->puoPartecipare($v);
     }
     
-    public function puoRichiederePartecipazione(Utente $v) {
+    public function puoRichiederePartecipazione($v) {
+        if ( $v === null || $v instanceof Anonimo ) { return true; }
         return (( time() <= $this->inizio ) && $this->attivita()->puoPartecipare($v));
     }
 

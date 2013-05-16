@@ -77,7 +77,8 @@ class Attivita extends GeoEntita {
         );
     }
     
-    public function puoPartecipare(Utente $v) {
+    public function puoPartecipare($v) {
+        if (!$v) { return true; }
         if ( $this->referente == $v->id || $v->admin || $v->presiede($this->comitato()) ) {
             return true;
         }

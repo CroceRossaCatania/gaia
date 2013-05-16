@@ -109,7 +109,9 @@ if ( !file_exists($_f) ) {
             </a>
             <div class="nav-collapse collapse">
               <ul class="nav">
-                <li class="active"><a href="?p=home"><i class="icon-light-bulb"></i> Reinventiamo la CRI</a></li>
+                <li><a href="index.php"><i class="icon-home"></i> Home</a></li>
+                <li><a href="?p=attivita"><i class="icon-calendar"></i> Attività</a></li>
+                <li><a href="?p=attivita"><i class="icon-map-marker"></i> Comitati</a></li>
 
               </ul>
             

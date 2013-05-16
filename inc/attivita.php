@@ -4,7 +4,7 @@
  * ©2012 Croce Rossa Italiana
  */
 
-richiediComitato();
+paginaAnonimo();
 
 ?>
 <div class="row-fluid">
@@ -48,9 +48,8 @@ richiediComitato();
         
             
             <div class="row-fluid">
-                <div class="span6">&nbsp;</div>
                 
-                <div class="span6">
+                <div class="span6 offset6">
                     <div class="btn-group">
                         <?php if ( $me->comitatiAreeDiCompetenza() ) { ?>
 
@@ -76,6 +75,14 @@ richiediComitato();
 
         <div class="row-fluid">
             <div class="span12" id="calendario"></div>
+        </div>
+            
+        <div class="row-fluid allinea-centro">
+            <hr />
+            <a href="?p=public.attivita.mappa" class="btn">
+                <i class="icon-map-marker"></i>
+                Vedi tutte le attività di Croce Rossa su una mappa
+            </a>
         </div>
         
     </div>

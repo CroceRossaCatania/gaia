@@ -98,3 +98,19 @@ function lowRedirect($b64) {
     header("Location: index.php?{$b64}");
     exit(0);
 }
+
+function paginaAnonimo() {
+    global $me;
+    if (!$me) {
+        $me = new Anonimo();
+    }
+}
+
+function paginaAnonimoComitato() {
+    global $me;
+    if ($me) {
+        richiediComitato();
+    }   else {
+        paginaAnonimo();
+    } 
+}
