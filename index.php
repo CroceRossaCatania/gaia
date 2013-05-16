@@ -111,7 +111,7 @@ if ( !file_exists($_f) ) {
               <ul class="nav">
                 <li><a href="index.php"><i class="icon-home"></i> Home</a></li>
                 <li><a href="?p=attivita"><i class="icon-calendar"></i> Attività</a></li>
-                <li><a href="?p=attivita"><i class="icon-map-marker"></i> Comitati</a></li>
+                <li><a href="?p=public.comitati.mappa"><i class="icon-map-marker"></i> Comitati</a></li>
 
               </ul>
             
