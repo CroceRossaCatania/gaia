@@ -40,6 +40,10 @@ paginaPresidenziale();
                         <i class="icon-list"></i>
                         Volontari non attivi
                     </a>
+                    <a href="?p=presidente.utenti.giovani" class="btn btn-danger btn-block btn-info">
+                        <i class="icon-list"></i>
+                        Volontari giovani
+                    </a>
                 </div>
             </div>
     

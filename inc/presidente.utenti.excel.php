@@ -40,6 +40,38 @@ foreach ( $c->membriDimessi(MEMBRO_DIMESSO) as $v ) {
 $excel->genera('Volontaridimessi.xls');
 $excel->download();
 
+}elseif(isset($_GET['giovani'])){
+    
+$excel = new Excel();
+
+$excel->intestazione([
+    'Nome',
+    'Cognome',
+    'C. Fiscale',
+    'EMail',
+    'Cellulare',
+    'Cell. Servizio'
+]);
+
+foreach ( $c->membriDimessi(MEMBRO_VOLONTARIO) as $v ) {
+    $t = time()-GIOVANI;
+    if ($t <=  $v->dataNascita){
+    
+    $excel->aggiungiRiga([
+        $v->nome,
+        $v->cognome,
+        $v->codiceFiscale,
+        $v->email,
+        $v->cellulare,
+        $v->cellulareServizio
+    ]);
+    
+}
+}
+
+$excel->genera('Volontarigiovani.xls');
+$excel->download();
+
 }else{
     
 $excel = new Excel();

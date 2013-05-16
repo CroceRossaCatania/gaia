@@ -7,13 +7,18 @@ paginaPresidenziale();
 ?>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
-            <i class="icon-save"></i> <strong>Utente eliminato</strong>.
-            L'utente è stato eliminato con successo.
+            <i class="icon-save"></i> <strong>Volontario eliminato</strong>.
+            Il Volontario è stato eliminato con successo.
         </div>
 <?php } elseif ( isset($_GET['e']) )  { ?>
         <div class="alert alert-block alert-error">
             <h4><i class="icon-exclamation-sign"></i> Impossibile eliminare l'utente</h4>
             <p>Contatta l'amministratore</p>
+        </div>
+<?php }elseif ( isset($_GET['dim']) )  { ?>
+        <div class="alert alert-block alert-success">
+            <h4><i class="icon-exclamation-sign"></i> Volontario dimesso</h4>
+            <p>Il Volontario è stato dimesso con successo.</p>
         </div>
 <?php } ?>
     <br/>
@@ -21,7 +26,7 @@ paginaPresidenziale();
     <div class="span5 allinea-sinistra">
         <h2>
             <i class="icon-group muted"></i>
-            Elenco volontari non attivi
+            Elenco volontari giovani
         </h2>
     </div>
             
@@ -55,12 +60,12 @@ paginaPresidenziale();
 <div class="row-fluid">
    <div class="span12">
        <?php if ( count($me->comitatiDiCompetenza()) > 1 ) { ?>
-       <a href="?p=admin.utenti.excel&dimessi" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
+       <a href="?p=admin.utenti.excel&giovani" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
            <i class="icon-download"></i>
-            <strong>Presidente</strong> &mdash; Scarica tutti i fogli dei volontari dimessi in un archivio zip.
+            <strong>Presidente</strong> &mdash; Scarica tutti i fogli dei volontari giovani in un archivio zip.
        </a><hr />
        <?php } ?>
-       
+            
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
                 <th>Nome</th>
@@ -72,17 +77,22 @@ paginaPresidenziale();
         <?php
         $elenco = $me->comitatiDiCompetenza();
         foreach($elenco as $comitato) {
-            $t = $comitato->membriDimessi(MEMBRO_DIMESSO);
+            $k =0;
+            $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
+            $j = $t;
+            foreach ( $j as $_j ) {
+                $u = time()-GIOVANI;
+                if ($u <=  $_j->dataNascita){ $k++; }}
                 ?>
             
             <tr class="success">
                 <td colspan="7" class="grassetto">
                     <?php echo $comitato->nomeCompleto(); ?>
                     <span class="label label-warning">
-                        <?php echo count($t); ?>
+                        <?php echo $k; ?>
                     </span>
                     <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&dimessi"
+                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&giovani"
                        data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                     </a>
@@ -91,6 +101,8 @@ paginaPresidenziale();
             
             <?php
             foreach ( $t as $_v ) {
+                $o = time()-GIOVANI;
+                if ($o <=  $_v->dataNascita){
             ?>
                 <tr>
                     <td><?php echo $_v->nome; ?></td>
@@ -112,6 +124,9 @@ paginaPresidenziale();
                         <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli
                         </a>
+                        <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&id=<?php echo $_v->id; ?>" title="Dimetti Volontario">
+                                <i class="icon-ban-circle"></i> Dimetti
+                        </a>
                         <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                             <i class="icon-envelope"></i>
                         </a>
@@ -124,6 +139,12 @@ paginaPresidenziale();
                             <a class="btn btn-small btn-primary" href="?p=admin.beuser&id=<?php echo $_v->id; ?>" title="Log in">
                                 <i class="icon-key"></i>
                             </a> 
+                            <a class="btn btn-small btn-primary" href="?p=admin.presidente.nuovo&id=<?php echo $_v->id; ?>" title="Nomina Presidente">
+                                <i class="icon-star"></i>
+                            </a> 
+                            <a class="btn btn-small btn-danger <?php if ($_v->admin) { ?>disabled<?php } ?>" href="?p=admin.admin.nuovo&id=<?php echo $_v->id; ?>" title="Nomina Admin">
+                                <i class="icon-magic"></i>
+                            </a>
                         <?php } ?>
                    </td>
                 </tr>
@@ -132,11 +153,11 @@ paginaPresidenziale();
        
         <?php }
         }
+        }
         ?>
 
-        
         </table>
-
+       
     </div>
     
 </div>

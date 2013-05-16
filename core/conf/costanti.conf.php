@@ -310,3 +310,12 @@ $conf['dimissioni'] = [
     DIM_QUOTA          =>  'Mancato versamente quota annuale',
     DIM_RADIAZIONE          =>  'Radiazione da Croce Rossa Italiana'
 ];
+
+/*
+ * ===================================
+ * =========== GIOVANI ==================
+ * ===================================
+ */
+
+define('GIOVANI', 1009821632);
+
