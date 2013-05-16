@@ -15,11 +15,12 @@ require('./core.inc.php');
     
 /* Attiva il caching */
 ob_start('ob_gzhandler');
+ob_start('impostaTitoloDescrizione');
 
 /* Sessione utente via cookie */
 $sessione = new Sessione(@$_COOKIE['sessione']);
 @setcookie('sessione', $sessione->id, time() + $conf['sessioni']['durata']);
-
+ 
 /* Crea eventuale oggetto $me */
 $me = $sessione->utente();
 
@@ -39,6 +40,11 @@ if ( !file_exists($_f) ) {
 }
 
 
+/*
+ * Titolo e descrizione se non ridefiniti
+ */
+$_titolo = 'Progetto Gaia - Croce Rossa Italiana';
+$_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocemente, più trasparente ed aperta a tutti';
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,8 +52,8 @@ if ( !file_exists($_f) ) {
   	<meta charset="utf-8" />
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Croce Rossa Italiana - Progetto Gaia</title>
-    <meta name="description" content="Crediamo in una Croce Rossa Italiana che sa muoversi velocemente, più trasparente ed aperta a tutti.">
+    <title>{_titolo}</title>
+    <meta name="description" content="{_descrizione}">
     <meta name="author" content="Servizi Informatici - Croce Rossa Italiana Catania">
     <link rel="shortcut icon" href="/img/favicon.ico" />
 

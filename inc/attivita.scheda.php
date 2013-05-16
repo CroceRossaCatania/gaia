@@ -7,10 +7,12 @@
 paginaAnonimo();
 $a = new Attivita($_GET['id']);
 
+$_titolo        = $a->nome . ' - Attività CRI su Gaia';
+$_descrizione   = $a->luogo . "\nAperto a: " . $conf['att_vis'][$a->visibilita]
+                    ."\n" . $a->comitato()->nomeCompleto();
+
 
 ?>
-
-
 <div class="row-fluid">
     
     <div class="span3">
@@ -37,6 +39,10 @@ $a = new Attivita($_GET['id']);
                     Modifica
                 </a>
                 <?php } ?>
+                
+                <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=http://www.gaiacri.it/?p=attivita.scheda&id=<?php echo $a->id; ?>" target="_blank">
+                  <i class="icon-facebook-sign"></i> Condividi
+                </a>
             </div>
             
             <div class="span4 allinea-destra">

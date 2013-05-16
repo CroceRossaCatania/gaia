@@ -114,3 +114,10 @@ function paginaAnonimoComitato() {
         paginaAnonimo();
     } 
 }
+
+function impostaTitoloDescrizione( $contenuto ) {
+    global $_titolo, $_descrizione;
+    $contenuto = str_replace('{_titolo}', $_titolo, $contenuto);
+    $contenuto = str_replace('{_descrizione}', $_descrizione, $contenuto);
+    return $contenuto;
+}
