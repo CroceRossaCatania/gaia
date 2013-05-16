@@ -18,11 +18,13 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
         /* Se non è il primo */
         if ( !$primo ) {
             
-            /* Termina delegato precedente... */
-            $d = $c->obiettivi($num);
-            $d = $d[0];
-            
-            $d->fine = time();
+            /* 
+             * Termina delegati precedenti... 
+             * Plurale per funzionare da hotfix per issue #176
+             */
+            foreach ( $c->obiettivi_delegati($num) as $del ) {
+                $del->fine = time();
+            }
             
         }
         

@@ -198,12 +198,13 @@ class Comitato extends GeoEntita {
                 ['comitato',    $this->id]
             ]);
         }
-        foreach ( $k as &$u ) {
-            if ( !$u->attuale() ) {
-                unset($u);
+        $r = [];
+        foreach ( $k as $u ) {
+            if ( $u->attuale() ) {
+                $r[] = $u;
             }
         }
-        return $k;
+        return $r;
     }
     
     public function trasferimenti($stato = null) {
@@ -296,12 +297,20 @@ class Comitato extends GeoEntita {
         ], 'nome ASC');
     }
     
-    public function obiettivi($ob = OBIETTIVO_1) {
+    public function obiettivi_delegati($ob = OBIETTIVO_1) {
         $r = [];
         foreach ( $this->delegati(APP_OBIETTIVO) as $d ) {
             if ( $d->dominio == $ob ) {
-                $r[] = $d->volontario();
+                $r[] = $d;
             }
+        }
+        return $r;
+    }
+    
+    public function obiettivi($ob = OBIETTIVO_1) {
+        $r = [];
+        foreach ( $this->obiettivi_delegati($ob) as $d ) {
+            $r[] = $d->volontario();
         }
         return $r;
     }
