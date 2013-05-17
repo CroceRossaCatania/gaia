@@ -40,7 +40,7 @@ $_descrizione   = $a->luogo . "\nAperto a: " . $conf['att_vis'][$a->visibilita]
                 </a>
                 <?php } ?>
                 
-                <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=http://www.gaiacri.it/?p=attivita.scheda&id=<?php echo $a->id; ?>" target="_blank">
+                <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("http://www.gaiacri.it/index.php?p=attivita.scheda&id={$a->id}"); ?>" target="_blank">
                   <i class="icon-facebook-sign"></i> Condividi
                 </a>
             </div>
@@ -48,7 +48,7 @@ $_descrizione   = $a->luogo . "\nAperto a: " . $conf['att_vis'][$a->visibilita]
             <div class="span4 allinea-destra">
                 <span class="muted">
                     <strong>Ultimo aggiornamento</strong>:<br />
-                    <i class="icon-time"></i> <?php echo date('d/m/Y H:i:s', $a->timestamp); ?>
+                    <i class="icon-time"></i> <?php echo date("d/m/Y H:i:s", $a->timestamp); ?>
                 </span>
             </div>
            
