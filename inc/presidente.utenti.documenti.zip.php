@@ -13,7 +13,6 @@ foreach ( $me->comitatiDiCompetenza() as $c ) {
     foreach ( $c->membriAttuali() as $v ) {
         if (!$v->documenti()) { continue; }
         $f          = $v->zipDocumenti();
-        $f->nome    = '/' . $c->nomeCompleto() . '/' . $f->nome;
         $zip->aggiungi($f);
     }
     
