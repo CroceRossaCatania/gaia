@@ -13,10 +13,29 @@ paginaPrivata();
     </div>
     <div class="span9">
         <div class="row-fluid">
-            <h2>
-                <i class="icon-folder-open muted"></i>
-                Documenti
-            </h2>
+            
+            <div class="row-fluid">
+                <div class="span7">
+                    <h2>
+                        <i class="icon-folder-open muted"></i>
+                        Documenti
+                    </h2>
+                </div>
+                <div class="span5">
+                    <?php if ( $me->documenti() ) { ?>
+                        <a href="?p=utente.documenti.zip" class="btn btn-large btn-block btn-inverse" data-attendere="Generazione file in corso...">
+                            <i class="icon-download-alt"></i>
+                            Scarica i miei documenti in ZIP
+                        </a>
+                    <?php } else { ?>
+                        <a href="javascript:alert('Nessun documento presente.');" class="btn btn-large btn-block btn-inverse disabled">
+                            <i class="icon-download-alt"></i>
+                            Scarica i miei documenti in ZIP
+                        </a>
+                    <?php } ?>
+                </div>
+            </div>
+            
             <p>Da questa sezione puoi visualizzare, modificare e caricare i tuoi documenti.</p>
             <hr />
             <div class="row-fluid allinea-sinistra">

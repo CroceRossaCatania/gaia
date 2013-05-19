@@ -333,6 +333,28 @@ class Utente extends Persona {
         return $d[0];
     }
     
+    public function documenti() {
+        global $conf;
+        $r = [];
+        foreach ( $conf['docs_tipologie'] as $k => $doc ) {
+            $d = $this->documento($k);
+            if ( $d ) {
+                $r[] = $d;
+            }
+        }
+        return $r;
+    }
+    
+    public function zipDocumenti() {
+        $z = new Zip();
+        foreach ( $this->documenti() as $d ) {
+            $z->aggiungi ( $d->creaFile() );
+        }
+        $nome = $this->nomeCompleto();
+        $z->comprimi("Documenti {$nome}.zip");
+        return $z;
+    }
+    
     public function autorizzazioniPendenti() {
         return Autorizzazione::filtra([
             ['volontario',  $this->id],

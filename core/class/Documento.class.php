@@ -63,6 +63,16 @@ class Documento extends Entita {
         @unlink($this->originale());
     	parent::cancella();
     }
+    
+    public function creaFile() {
+        global $conf;
+        $f = new File();
+        $f->autore  = $this->utente;
+        $f->nome    = $conf['docs_tipologie'][$this->tipo] . '.jpg';
+        $f->mime    = 'image/jpg';
+        copy($this->originale(), $f->percorso());
+        return $f;
+    }
 
 
 }
