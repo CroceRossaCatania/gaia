@@ -76,8 +76,8 @@ $sessione->torna = null;
             Inserisci la tua email e la password che hai fornito alla registrazione.
         </p>
         <hr />
-        <p>Sei un volontario non ancora registrato?</p>
-        <a href="?p=riconoscimento&tipo=volontario" class="btn btn-success">
+        <p><strong>Sei un volontario non ancora registrato?</strong></p>
+        <a href="?p=riconoscimento&tipo=volontario" class="btn btn-success btn-large">
             Registrati ora
         </a>
         <hr />

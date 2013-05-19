@@ -8,8 +8,8 @@ paginaAnonimo();
 $a = new Attivita($_GET['id']);
 
 $_titolo        = $a->nome . ' - Attività CRI su Gaia';
-$_descrizione   = $a->luogo . "\nAperto a: " . $conf['att_vis'][$a->visibilita]
-                    ."\n" . $a->comitato()->nomeCompleto();
+$_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita]
+                    ." || Organizzato da " . $a->comitato()->nomeCompleto();
 
 
 ?>

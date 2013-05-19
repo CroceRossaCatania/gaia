@@ -53,8 +53,14 @@ paginaPubblica();
 <div class="row-fluid centrato">
     <div class="span12">
         <p class="text-info"><strong>Comitati già su Gaia...</strong></p>
-   
-        <p class="grassetto" id="rollerComitati"></i>
+        <p class="grassetto" id="rollerComitati"></p>
+        <p>
+            <a href="?p=public.comitati.mappa" class="btn">
+                <i class="icon-globe"></i>
+                Mappa completa dei comitati con recapiti
+            </a>
+        </p>
+          
     </div>
     
     <script type="text/javascript">
@@ -123,8 +129,14 @@ paginaPubblica();
         
         <p>&nbsp;</p>
         <p>Immagina le potenzialità di Gaia in movimento.</p>
-        <p>Siamo lavorando affinché <strong>Croce Rossa Italiana</strong> sappia <strong>muoversi con te</strong>.</p>
-        <p><a href="?p=public.about">Cerchiamo gente in gamba</a>.</p>
+        <p>Stiamo lavorando affinché <strong>Croce Rossa Italiana</strong> sappia <strong>muoversi con te</strong>.</p>
+        <p class="text-error">
+            <i class="icon-warning-sign"></i> 
+            <strong>Cerchiamo gente in gamba</strong>.
+            <a href="https://github.com/AlfioEmanueleFresta/gaia-android" target="_new">
+                Scopri il progetto Gaia Mobile
+            </a>.
+        </p>
         
     </div>
     

@@ -9,55 +9,74 @@
 <div class="row-fluid">
     <div class="span8">
         <h2>
-            <i class="icon-globe muted"></i>
+            <i class="icon-globe text-error"></i>
             Dov'è Croce Rossa attorno a me?
         </h2>
     </div>
     <div class="span4 allinea-centro">
-        <span class="muted">
-            <i class="icon-info-sign"></i> Questi sono i Comitati su Gaia.<br />
-            <strong>Comitati CRI su Gaia: <?php echo count(Comitato::elenco()); ?></strong>.
-        </span>
+        <i class="icon-bar-chart icon-2x text-error"></i><br />
+        <label class="label label-success"><?php echo count(Comitato::elenco()); ?></label>
+        <strong>Comitati CRI aderiscono al progetto Gaia</strong>
     </div>
  
 </div>
 
+<hr />
+
 <div class="row-fluid">
     
     
-    <div class="span6">
+    <div class="span5">
+        
+        <p><strong>Elenco e contatti dei comitati che aderiscono al progetto Gaia.</strong></p>
+        <hr />
+        <p class="text-info">
+            <i class="icon-info-sign"></i>
+            Clicca sul comitato regionale per poter navigare i comitati provinciali, comitati locali ed unità territoriali.
+        </p>
         
         <ul>
         <?php foreach(Regionale::elenco('nome ASC') as $regionale) { ?>
-            <li><h3><?php echo $regionale->nome; ?></h3>
-                <ul>
+            <li><a href="javascript:$('#reg_<?php echo $regionale->id; ?>').toggle(500);">
+                    <strong><?php echo $regionale->nome; ?></strong>
+                </a>
+                <ul class="nascosto" id="reg_<?php echo $regionale->id; ?>">
+                    <h4>Comitati provinciali</h4>
                     <?php foreach ( $regionale->provinciali() as $provinciale ) { ?>
-                    <li><h4><?php echo $provinciale->nome; ?></h4>
-                        <ul>
+                    <li>
+                        <a href="javascript:$('#prov_<?php echo $provinciale->id; ?>').toggle(500);">
+                            <?php echo $provinciale->nome; ?>
+                        </a>
+                        <ul class="nascosto" id="prov_<?php echo $provinciale->id; ?>">
+                            <h4>Comitati locali</h4>
                             <?php foreach ( $provinciale->locali() as $locali ) { ?>
-                            <li><strong><?php echo $locali->nome; ?></strong>
-                                <ul>
+                            <li>
+                                <a href="javascript:$('#loc_<?php echo $locali->id; ?>').toggle(500);">
+                                    <?php echo $locali->nome; ?>
+                                </a>
+                                <ul class="nascosto" id="loc_<?php echo $locali->id; ?>">
+                                    <h4>Unità territoriali</h4>
                                 <?php foreach ( $locali->comitati() as $comitato ) { ?>
                                     <li>
-                                        <a href="#"><?php echo $comitato->nome; ?></a><br />
+                                        <strong><?php echo $comitato->nome; ?></strong>
                                         <?php if ( $t = $comitato->telefono ) { ?>
-                                            <i class="icon-phone"></i> <?php echo $t; ?>
+                                            <br /><i class="icon-phone"></i> <?php echo $t; ?>
                                         <?php } ?>
                                         <?php if ( $t = $comitato->email ) { ?>
-                                            &mdash; <i class="icon-envelope"></i> <?php echo $t; ?>
+                                            <br /><i class="icon-envelope"></i> <?php echo $t; ?>
                                         <?php } ?>
                                         <?php if ( $comitato->haPosizione() ) { ?>
                                             <br /><span class="muted"><?php echo $comitato->formattato; ?></span>
                                         <?php } ?>
                                     </li>
                                 <?php } ?>
-                                </ul>
+                                <h4>&nbsp;</h4></ul>
                             </li>
                             <?php } ?>
-                        </ul>
+                        <h4>&nbsp;</h4></ul>
                     </li>
                     <?php } ?>
-                </ul>
+                <h4>&nbsp;</h4></ul>
             </li>
             <?php } ?>
             
@@ -67,7 +86,7 @@
     
     
     
-    <div id="laMappa" class="span6 mappaGoogle bordo" style="min-height: 700px;">
+    <div id="laMappa" class="span7 mappaGoogle bordo" style="min-height: 700px;">
         
                
 

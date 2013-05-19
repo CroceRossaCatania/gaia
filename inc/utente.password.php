@@ -39,7 +39,7 @@ paginaPrivata();
         <?php } else { ?>
             <hr />
         <?php } ?>
-        <form class="form-horizontal" action="?p=utente.password.ok" method="POST">
+        <form class="form-horizontal span12" action="?p=utente.password.ok" method="POST">
 
             
                 <div class="alert alert-warning alert-block">
@@ -47,21 +47,21 @@ paginaPrivata();
                     <p>Questa è la password che <strong>usi per accedere</strong>.</p>
                 </div>
                 <div class="control-group input-prepend">
-                    <label class="control-label" for="inputOldPassword"><strong>Vecchia</strong> Password</label>
+                    <label class="control-label" for="inputOldPassword">Password <strong>attuale</strong></label>
                     <div class="controls ">
                         <span class="add-on"><i class="icon-key"></i></span>
                         <input type="password" id="inputOldPassword" name="inputOldPassword" required pattern=".{6,15}" />
                     </div>
                 </div>
                 <div class="control-group input-prepend">
-                    <label class="control-label" for="inputPassword"><strong>Nuova</strong> Password</label>
+                    <label class="control-label" for="inputPassword"><strong>Nuova</strong> password</label>
                     <div class="controls ">
                         <span class="add-on"><i class="icon-key"></i></span>
                         <input type="password" id="inputPassword" name="inputPassword" required pattern=".{6,15}" />
                     </div>
                 </div>
                 <div class="control-group input-prepend">
-                    <label class="control-label" for="inputPassword2"><strong>Verifica Nuova</strong> Password</label>
+                    <label class="control-label" for="inputPassword2"><strong>Ripeti</strong> nuova password</label>
                     <div class="controls ">
                         <span class="add-on"><i class="icon-key"></i></span>
                         <input type="password" id="inputPassword2" name="inputPassword2" required pattern=".{6,15}" />
@@ -78,6 +78,5 @@ paginaPrivata();
 
     </div>
 
-</div>
 </div>
 

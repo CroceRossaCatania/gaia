@@ -14,9 +14,12 @@
         </h2>
     </div>
     <div class="span4 allinea-centro">
-        <span class="muted">
+        <span>
             <i class="icon-info-sign"></i> Attività svolte nell'ultimo mese.<br />
-            <strong>Comitati CRI su Gaia: <?php echo count(Comitato::elenco()); ?></strong>.
+            <a href="?p=attivita" class="btn btn-block btn-inverse">
+                <i class="icon-calendar"></i>
+                Vedi le attività sul calendario
+            </a>
         </span>
     </div>
  
@@ -43,11 +46,11 @@
       var map = new google.maps.Map(document.getElementById("laMappa"), opzioni);
       
       var messaggio = [], marcatore = [];                         
-      <?php $i = 0; foreach ( Attivita::elenco() as $a ) { 
+      <?php $i = 0; foreach ( Attivita::filtra([['stato', ATT_STATO_OK]]) as $a ) { 
         if ( !$a->haPosizione() ) { continue; }  
         ?>
         messaggio.push(new google.maps.InfoWindow({
-            content: "<?php echo htmlentities($a->nome); ?><br /><span class='muted'><?php echo $a->comitato()->nomeCompleto(); ?></span>"
+            content: "<a href='http://www.gaiacri.it/?p=attivita.scheda&id=<?php echo $a->id; ?>'><?php echo htmlentities($a->nome); ?></a><br /><?php echo htmlentities($a->luogo); ?>"
         }));
         marcatore.push(new google.maps.Marker({
             position: new google.maps.LatLng(<?php echo $a->latlng(); ?>),
