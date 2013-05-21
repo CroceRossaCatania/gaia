@@ -1,13 +1,21 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
-require('./core.inc.php');
+require './core.inc.php';
+
+/*
+ * Rimuove limiti di tempo
+ */
+set_time_limit(0);
+
+
+$start = microtime(true);
 
 /* Sessione di cronjob */
-$log = "\n\nCronjob iniziato: " . date('d-m-Y H:i:s') . "\n";
+$log = "Cronjob iniziato: " . date('d-m-Y H:i:s') . "\n";
 
 /* Le patenti in scadenza tra qui e 15 gg */
 $patenti = TitoloPersonale::inScadenza(2700, 2709, 15); // Minimo id titolo, Massimo id titolo, Giorni
@@ -55,7 +63,7 @@ foreach ( $patenti as $patente ) {
 
     /* Ricordati che l'ho insuttato */
     $giaInsultati[] = $_v->id;
-    $m = new Email('patenteScadenzacivile', 'Avviso patente Civile in scadenza');
+    $m = new Email('patenteScadenzaCivile', 'Avviso patente Civile in scadenza');
     $m->a = $_v;
     $m->_NOME = $_v->nome;
     $m->_SCADENZA = date('d-m-Y', $patente->fine);
@@ -81,10 +89,59 @@ foreach ( Sessione::scadute() as $s ) {
 $log .= "Cancellate $n sessioni scadute\n";
 
 
+/*
+ * PRESIDENTE COMITATO
+ * - Titoli pendenti
+ * - App. pendenti
+ */
+$n = 0;
+/*
+ * Per ogni comitato iscritto a Gaia
+ */
+foreach ( Comitato::elenco() as $comitato ) {
+    
+    /*
+     * Controlla appartenenze e titoli
+     */
+    $a = $comitato->appartenenzePendenti();
+    $b = $comitato->titoliPendenti();
+    
+    $c = $a + $b;
+    if ( $c == 0 ) { continue; }
+    
+    /*
+     * Per ogni presidente...
+     */
+    foreach ( $comitato->volontariPresidenti() as $presidente ) {
+        $m = new Email('riepilogoPresidente', "Promemoria: Ci sono {$c} azioni in sospeso");
+        $m->a       = $presidente;
+        $m->_NOME       = $presidente->nomeCompleto();
+        $m->_COMITATO   = $comitato->nomeCompleto();
+        $m->_APPPENDENTI= $a;
+        $m->_TITPENDENTI= $b;
+        $m->invia();
+        $n++;
+    }
+}
+$log .= "Inviati $n promemoria ai presidenti\n";
+
+
 /* FINE CRONJOB */
+$end = microtime(true);
+$tempo = $end - $start;
+$log .= "Fine esecuzione ({$tempo} secondi)\n";
 
 /* Stampa il log a video */
 echo "<pre>$log</pre>";
 
 /* Appende il file al log */
-file_put_contents('upload/log/cronjob.txt', $log, FILE_APPEND);
+file_put_contents('upload/log/cronjob.txt', "\n\n" . $log, FILE_APPEND);
+
+/* Invia per email il log */
+$m = new Email('mailTestolibero', 'Report cronjob');
+$dest = new stdClass();
+$dest->nome     = 'Servizi';
+$dest->email    = 'informatica@cricatania.it';
+$m->a = $dest;
+$m->_TESTO = nl2br($log);
+$m->invia();
