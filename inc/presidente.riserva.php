@@ -87,14 +87,18 @@ foreach($comitati as $comitato){
                 <i class="icon-print"></i>
                     Stampa richiesta
         </a>
+        <a class="btn btn-primary" target="_new" href="?p=presidente.riserva.storico&id=<?php echo $_v->id; ?>">
+            <i class="icon-time"></i>
+                Riserve
+        </a>
         <a class="btn btn-success" href="?p=presidente.riserva.ok&id=<?php echo $_t->id; ?>&si">
                 <i class="icon-ok"></i>
                     Conferma
         </a>
-            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare la riserva a questo utente ?');" href="?p=presidente.riservaNegato&id=<?php echo $_t->id; ?>">
-                <i class="icon-ban-circle"></i>
-                    Nega
-            </a>
+        <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare la riserva a questo utente ?');" href="?p=presidente.riservaNegato&id=<?php echo $_t->id; ?>">
+            <i class="icon-ban-circle"></i>
+                Nega
+        </a>
         <?php }else{ ?>
         <td>   
         <a class="btn btn-success" href="?p=presidente.riservaRichiesta&id=<?php echo $_t->id; ?>&si">
