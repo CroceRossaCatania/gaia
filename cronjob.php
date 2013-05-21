@@ -103,8 +103,8 @@ foreach ( Comitato::elenco() as $comitato ) {
     /*
      * Controlla appartenenze e titoli
      */
-    $a = $comitato->appartenenzePendenti();
-    $b = $comitato->titoliPendenti();
+    $a = count($comitato->appartenenzePendenti());
+    $b = count($comitato->titoliPendenti());
     
     $c = $a + $b;
     if ( $c == 0 ) { continue; }
