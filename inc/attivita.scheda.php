@@ -257,7 +257,6 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
         if(!$c){ ?>
                 <div class="alert alert-info">
                     <h4><i class="icon-thumbs-down"></i> Nessuna discussione.</h4>
-                    <p><strong><?php echo $me->nomeCompleto(); ?></strong>, inizia tu una nuova discussione clicca qui.</p>
                 </div>
             <?php }else{ ?>
             <h5><i class="icon-comment"></i> Commenti </h5>
