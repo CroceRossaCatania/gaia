@@ -35,7 +35,7 @@ spl_autoload_register(function($_class) {
 
 /* Mostra errori */
 ini_set('display_errors', (int) $conf['debug']);
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
 
 /* Imposta il timezone */
 date_default_timezone_set($conf['timezone']);
