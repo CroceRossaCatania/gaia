@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 class APIServer {
@@ -266,14 +266,18 @@ class APIServer {
                     $m->_DATA      = $turno->inizio()->format('d-m-Y H:i');
                     $m->_LUOGO     = $attivita->luogo;
                     $m->_REFERENTE   = $attivita->referente()->nomeCompleto();
-                    $m->_CELLREFERENTE   = $attivita->referente()->cellulare;
+                    if($attivita->referente()->cellulareServizio){
+                        $m->_CELLREFERENTE = $attivita->referente()->cellulareServizio;
+                    }else{
+                        $m->_CELLREFERENTE   = $attivita->referente()->cellulare;
+                    }
                     $m->invia();
                     
                     
                 } else {
                     $aut->nega();
                                         
-                    $m = new Email('autorizzazioneConcessa', "Autorizzazione NEGATA: {$attivita->nome}, {$turno->nome}" );
+                    $m = new Email('autorizzazioneNegata', "Autorizzazione NEGATA: {$attivita->nome}, {$turno->nome}" );
                     $m->a = $aut->partecipazione()->volontario();
                     $m->_NOME       = $aut->partecipazione()->volontario()->nome;
                     $m->_ATTIVITA   = $attivita->nome;
