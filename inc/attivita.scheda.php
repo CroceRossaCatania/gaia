@@ -257,6 +257,7 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
         if(!$c){ ?>
                 <div class="alert alert-info">
                     <h4><i class="icon-thumbs-down"></i> Nessuna discussione.</h4>
+                    <a href="?p=attivita.pagina&a=<?php echo $a->id; ?>">Commenta</a>
                 </div>
             <?php }else{ ?>
             <h5><i class="icon-comment"></i> Commenti </h5>
