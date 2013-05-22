@@ -37,25 +37,29 @@ $p = Attivita::by('id', $a);
 
     <div class="span9">
         <div class="row-fluid">
-            <div class="span12">
+            <div class="span3 allinea-sinistra">
+                <a href="?p=attivita.scheda&id=<?php echo $a ?>" class="btn btn-large">
+                    <i class="icon-reply"></i> Attività
+                </a>
+            </div>
+            <div class="span9">
                 <h3><?php echo $p->nome; ?></h3>
-                <hr/>
             </div>
             <div class="span12 btn-group allinea-centro">
                 <a href="?p=attivita.pagina.commento&a=<?php echo $a; ?>&h=0" class="btn">
                     <i class="icon-comment"></i> Commenta
                 </a>
-                <a href="?p=attivita.pagina.foto&a=<?php echo $a; ?>" class="btn btn-info">
+                <!--<a href="?p=attivita.pagina.foto&a=<?php echo $a; ?>" class="btn btn-info">
                     <i class="icon-camera"></i> Foto
                 </a>
                 <a href="?p=attivita.pagina.verbale&a=<?php echo $a; ?>" class="btn btn-danger">
                     <i class="icon-edit"></i> Verbale
-                </a>
+                </a>-->
             </div>     
         </div>
         <hr /> 
         <?php 
-            $c = Commento::filtra([['attivita', $a],['upCommento', '0']]);
+            $c = Commento::filtra([['attivita', $a],['upCommento', '0']], 'tCommenta DESC');
             if(!$c){ ?>
                 <div class="alert alert-info">
                     <h3><i class="icon-thumbs-down"></i> Nessuna discussione presente in questa pagina.</h3>
