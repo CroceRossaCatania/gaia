@@ -15,8 +15,11 @@ if ( $("#datafine").length > 0 ) {
                      minDate: new Date(),
                      beforeShow: function (e) {
                          if ( $("#datainizio").length > 0 ) {
+                             var maxDate = $("#datainizio").datepicker('getDate');
+                             maxDate.setFullYear(maxDate.getFullYear() + 1);
                              $("#datafine").datepicker('option', {
-                                 minDate:    $("#datainizio").datepicker('getDate')
+                                 minDate:    $("#datainizio").datepicker('getDate'),
+                                 maxDate:   maxDate
                              }); 
                          }
                      }
