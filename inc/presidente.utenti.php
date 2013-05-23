@@ -98,6 +98,9 @@ paginaPresidenziale();
                        data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                     </a>
+                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unit">
+                           <i class="icon-envelope"></i> Invia mail
+                    </a>
                 </td>
             </tr>
             
