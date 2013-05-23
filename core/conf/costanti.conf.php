@@ -319,3 +319,17 @@ $conf['dimissioni'] = [
 
 define('GIOVANI', 1009821632);
 
+/*
+ * ===================================
+ * =========== CENTRALE OPERATIVA ==========
+ * ===================================
+ */
+
+define('CO_MONTA',       10);
+define('CO_SMONTA',      20);
+
+$conf['coturni'] = [
+    CO_MONTA        =>  'In turno',
+    CO_SMONTA       =>  'Smontato'
+];
+
