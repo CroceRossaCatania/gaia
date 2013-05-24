@@ -213,7 +213,7 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
                                  <a class="btn btn-block btn-info btn-large disabled" href="">
                                       <?php echo $conf['partecipazione'][$pk->stato]; ?>
                                  </a>
-                                 <?php if($pk->stato == PART_PENDING) {?>
+                                 <?php if($pk->stato == PART_PENDING && $turno->inizio >= time()) {?>
                                  <a class="btn btn-block btn-danger " href="?p=attivita.ritirati&id=<?php echo $pk->id; ?>">
                                       <i class="icon-remove"></i>
                                       Ritirati
