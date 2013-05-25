@@ -19,8 +19,8 @@ $app = $app[0];
 
 /* Modificando questo, modificare anche utente.trasferimento.ok */
 $p = new PDF('trasferimento', 'Trasferimento.pdf');
-$p->_COMITATOOUT = $cout->nome;
-$p->_COMITATOIN = $cin->nome;
+$p->_COMITATOOUT = $cout->nomeCompleto();
+$p->_COMITATOIN = $cin->nomeCompleto();
 $p->_NOME = $t->volontario()->nome;
 $p->_COGNOME = $t->volontario()->cognome;
 $p->_LUOGO = $t->volontario()->comuneNascita;
@@ -37,7 +37,7 @@ if ( $sessione->inGenerazioneTrasferimento) {
         $m = new Email('richiestaTrasferimento', 'Richiesta trasferimento: ' . $t->comitato()->nome);
         $m->a = $me;
         $m->_NOME       = $me->nome;
-        $m->_COMITATO   = $t->comitato()->nome;
+        $m->_COMITATO   = $t->comitato()->nomeCompleto();
         $m-> _TIME = date('d-m-Y', $t->timestamp);
         $m->allega($f);
         $m->invia();
@@ -46,8 +46,8 @@ if ( $sessione->inGenerazioneTrasferimento) {
         $m = new Email('richiestaTrasferimento.cc', 'Richiesta trasferimento in arrivo a: ' . $t->comitato()->nome);
         $m->a = $t->comitato()->unPresidente();
         $m->_NOME       = $me->nomeCompleto();
-        $m->_COMITATO   = $t->comitato()->nome;
-        $m->_USCENTE = $cout->nome;
+        $m->_COMITATO   = $t->comitato()->nomeCompleto();
+        $m->_USCENTE = $cout->nomeCompleto();
         $m-> _TIME = date('d-m-Y', $t->timestamp);
         $m->allega($f);
         $m->invia();

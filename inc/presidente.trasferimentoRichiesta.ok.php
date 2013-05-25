@@ -17,7 +17,7 @@ $t     = $_GET['id'];
                                     $m = new Email('richiestaTrasferimentoprot', 'Richiesta trasferimento Protocollata: ' . $a->comitato()->nome);
                                     $m->a = $a->volontario();
                                     $m->_NOME       = $a->volontario()->nome;
-                                    $m->_COMITATO   = $a->comitato()->nome;
+                                    $m->_COMITATO   = $a->comitato()->nomeCompleto();
                                     $m-> _TIME = date('d-m-Y', $a->protData);
                                     $m-> _NUM = $a->protNumero;
                                     $m->invia();
