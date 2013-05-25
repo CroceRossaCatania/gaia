@@ -105,7 +105,7 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
                     <?php echo $a->referente()->nome . ' ' . $a->referente()->cognome; ?>
                      </a>
                 <br />
-                    <span class="muted">+39</span> <?php if($a->referente()->cellulareServizio){echo $a->referente()->cellulareServizio;}else{echo $a->referente()->cellulare;} ?>
+                <span class="muted">+39</span> <?php echo $a->referente()->cellulare(); ?>
                
             </div>  
             

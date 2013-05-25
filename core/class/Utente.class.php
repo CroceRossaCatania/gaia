@@ -573,6 +573,12 @@ class Utente extends Persona {
         return array_unique($a);
     }
     
-    
+    public function cellulare() {
+        if($this->cellulareServizio){
+            return $this->cellulareServizio;
+            }else{
+                return $this->cellulare;
+            }
+    }
     
 }
