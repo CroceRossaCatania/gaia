@@ -236,6 +236,21 @@ class Utente extends Persona {
         return $this->comitatiDelegazioni(APP_PRESIDENTE);
     }
     
+    public function comitatiApp( $app ) {
+        if (!is_array($app)) {
+            $app = [$app];
+        }
+        if ( $this->admin ) {
+            return $this->comitatiDiCompetenza();
+        }
+        $r = [];
+        foreach ( $app as $k ) {
+            $r = array_merge($r, $this->comitatiDelegazioni($k));
+        }
+        $r = array_unique($r);
+        return $r;
+    }
+    
     public function numVolontariDiCompetenza() {
         $n = 0;
         foreach ( $this->comitatiDiCompetenza() as $c ) {

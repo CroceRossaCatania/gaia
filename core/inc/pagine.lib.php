@@ -15,6 +15,23 @@ function paginaPrivata() {
     }
 }
 
+function paginaApp($app) {
+    global $sessione;
+    paginaPrivata();
+    if ( $sessione->utente()->admin ) {
+        return true;
+    }
+    if (!is_array($app)) {
+        $app = [$app];
+    }
+    foreach ( $app as $k ) {
+        if ( $sessione->utente()->delegazioni($app) ) {
+            return true;
+        }
+    }
+    redirect('utente.me');
+}
+
 function paginaPubblica() {
     global $sessione;
     if ( $sessione->utente ) {
