@@ -8,7 +8,19 @@ $v = utente::by('email', $_POST['inputMail']);
 $oggetto= $_POST['inputOggetto']; 
 $testo = $_POST['inputTesto'];
 
-if (isset($_GET['com'])) {
+if (isset($_GET['unit'])) {
+        $c = $_GET['id'];
+        $c = Comitato::by('id', $c);
+        $t = $c->membriAttuali(MEMBRO_VOLONTARIO);
+        foreach($t as $_t){
+            $m = new Email('mailTestolibero', ''.$oggetto);
+            $m->da = $me; 
+            $m->a = $_t;
+            $m->_TESTO = $testo;
+            $m->invia();
+         }
+
+}elseif (isset($_GET['com'])) {
 $elenco = $me->comitatiDiCompetenza();
         foreach($elenco as $comitato) {
             $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);

@@ -93,6 +93,9 @@ paginaPresidenziale();
                     <span class="label label-warning">
                         <?php echo count($t); ?>
                     </span>
+                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unit">
+                           <i class="icon-envelope"></i> Invia mail
+                    </a>
                     <a class="btn btn-small pull-right" 
                        href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>"
                        data-attendere="Generazione...">

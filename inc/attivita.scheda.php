@@ -72,6 +72,28 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
         
         <hr />
         
+        <div class="span12">
+
+                <?php
+                $ts = $a->turniScoperti();
+                $tsn = count($ts);
+                if ( $ts ) { ?>
+                
+                <div class="alert alert-block alert-error allinea-centro">
+                    
+                    <h4 class="text-error ">
+                        <i class="icon-warning-sign"></i>
+                        Ci sono <?php echo $tsn; ?> turni scoperti
+                    </h4>
+                    
+                    <p>Aiutaci a colmare i posti mancanti!</p>
+                    
+                </div>
+                
+                <?php } ?>
+            </div>
+        
+        <hr/>
         
         <div class="row-fluid allinea-centro">
             <div class="span3">
@@ -83,7 +105,7 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
                     <?php echo $a->referente()->nome . ' ' . $a->referente()->cognome; ?>
                      </a>
                 <br />
-                    <span class="muted">+39</span> <?php if($a->referente()->cellulareServizio){echo $a->referente()->cellulareServizio;}else{echo $a->referente()->cellulare;} ?>
+                <span class="muted">+39</span> <?php echo $a->referente()->cellulare(); ?>
                
             </div>  
             
@@ -121,36 +143,12 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
         
         <div class="row-fluid">
             
-            <div class="span5">
+            <div class="span12">
                 <p><i class="icon-info-sign"></i> Ulteriori informazioni</p>
                 <?php echo nl2br($a->descrizione); ?>
             </div>
             
-            <div class="span7">
-
-                <?php
-                $ts = $a->turniScoperti();
-                $tsn = count($ts);
-                if ( $ts ) { ?>
-                
-                <div class="alert alert-block alert-error allinea-centro">
-                    
-                    <h2 class="text-error ">
-                        <i class="icon-warning-sign"></i>
-                        Ci sono <?php echo $tsn; ?> turni scoperti
-                    </h2>
-                    
-                    <p>Aiutaci a colmare i posti mancanti!</p>
-                    
-                </div>
-                
-                <?php } ?>
-            </div>
-            
         </div>
-        
-        
-        
         
         <hr />
         
@@ -215,7 +213,7 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
                                  <a class="btn btn-block btn-info btn-large disabled" href="">
                                       <?php echo $conf['partecipazione'][$pk->stato]; ?>
                                  </a>
-                                 <?php if($pk->stato == PART_PENDING) {?>
+                                 <?php if($pk->stato == PART_PENDING && $turno->inizio >= time()) {?>
                                  <a class="btn btn-block btn-danger " href="?p=attivita.ritirati&id=<?php echo $pk->id; ?>">
                                       <i class="icon-remove"></i>
                                       Ritirati
@@ -254,7 +252,40 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
             
             </table>
         </div>
-        
+        <hr />
+        <?php $c = Commento::filtra([['attivita', $a],['upCommento', '0']], 'tCommenta DESC'); 
+        if(!$c){ ?>
+                <div class="alert alert-info">
+                    <h4><i class="icon-thumbs-down"></i> Nessuna discussione.</h4>
+                    <a href="?p=attivita.pagina&a=<?php echo $a->id; ?>">Commenta</a>
+                </div>
+            <?php }else{ ?>
+            <h5><i class="icon-comment"></i> Commenti </h5>
+            <?php foreach($c as $_c){ 
+                if($i==2){
+                    break;
+                }else{ ?>
+        <div class="row-fluid">
+                <div class="row-fluid" id="commento">
+                    <div class="span2 allinea-destra">
+                        <?php $g= Volontario::by('id',$_c->volontario); ?>
+                        <img src="<?php echo $g->avatar()->img(10); ?>" class="img-polaroid" />
+                    </div>
+                    <div class="span10">
+                        <p class="text-info"><?php echo $g->nomeCompleto(); ?> <?php echo $_c->quando()->inTesto(); ?></p>
+                        <p class="text"><blockquote><?php echo $_c->commento; ?></blockquote></p>
+                    </div>
+                </div>
+                <br />
+            </div>
+        <?php 
+                    $i++;
+                    }}
+                ?>
+                <div class="span12 allinea-destra">
+                    <a href="?p=attivita.pagina&a=<?php echo $a->id; ?>">Leggi tutto...</a> 
+                </div>
+                <?php } ?>
         
         
     </div>

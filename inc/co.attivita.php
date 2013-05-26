@@ -5,6 +5,15 @@
  */
 paginaPresidenziale();
 ?>
+<?php if ( isset($_GET['monta']) ) { ?>
+        <div class="alert alert-success">
+            <i class="icon-ok"></i><strong> Volontario in turno</strong>
+        </div>
+<?php } elseif ( isset($_GET['smonta']) )  { ?>
+        <div class="alert alert-block alert-error">
+            <i class="icon-exclamation-sign"></i><strong> Volontario smontato</strong>
+        </div>
+<?php } ?>
     <br/>
 <div class="row-fluid">
     <div class="span8">
@@ -34,16 +43,17 @@ paginaPresidenziale();
                 <th>Fine</th>
             </thead>
         <?php
-        $i = time();
+        $i = time()-43200;
         $f = time()+86400;
         $comitati = $me->comitatiDiCompetenza();
         $elenco = Attivita::elenco();
         foreach($comitati as $comitato){
             foreach($elenco as $attivita) {
                 if($attivita->comitato == $comitato){
-                    $turni = Turno::filtra([['attivita', $attivita]]);
+                    $x=0;
+                    $turni = $attivita->turni();
                     foreach($turni as $turno){
-                        if ($turno->inizio>= $i && $turno->fine <= $f) {
+                        if ($turno->inizio>= $i  && $turno->fine <= $f) {
                             if($x==0){ ?> 
                                 <tr class="primary">
                                     <td colspan="4" class="grassetto">
@@ -61,20 +71,26 @@ paginaPresidenziale();
                             <?php
                             $partecipanti = $turno->partecipazioniStato(AUT_OK);
                             foreach ($partecipanti as $partecipante){ ?>
-                                <tr>
+                                <?php $m= Coturno::filtra([['volontario', $partecipante->volontario()],['turno',$turno]]); ?>
+                                <tr class="<?php if(!$m[0]->pSmonta){echo "warning"; }elseif($m[0]->stato == CO_MONTA){ echo "success";}else{echo "error";}?>">
                                    <td><?php echo $partecipante->volontario()->nomeCompleto(); ?></td>
                                    <td><?php if ($partecipante->volontario()->cellulareServizio){ echo $partecipante->volontario()->cellulareServizio; }else{ echo $partecipante->volontario()->cellulare; } ?></td>
                                    <td class="btn-group">
-                                        <a class="btn btn-small btn-success" href="?p=#" title="Monta">
+                                        <a class="btn btn-small btn" target="_new" href="?p=public.utente&id=<?php echo $partecipante->volontario(); ?>" title="Monta">
+                                            <i class="icon-eye-open"></i> Visualizza
+                                        </a>
+                                       <?php if(!$m[0]->pSmonta){ ?>
+                                        <a class="btn btn-small btn-success" href="?p=co.attivita.ok&v=<?php echo $partecipante->volontario(); ?>&t=<?php echo $turno; ?>&monta" title="Monta">
                                             <i class="icon-arrow-up"></i> Monta
                                         </a>
-                                        <a class="btn btn-small btn-danger" href="?p=#" title="Smonta">
+                                        <?php } if($m[0]->stato == CO_MONTA){ ?>
+                                        <a class="btn btn-small btn-danger" href="?p=co.attivita.ok&v=<?php echo $partecipante->volontario(); ?>&t=<?php echo $turno; ?>&smonta" title="Smonta">
                                             <i class="icon-arrow-down"></i> Smonta
                                         </a>
+                                       <?php } ?>
                                    </td>
                                 </tr>
                     
-                            
         <?php }}}}}}?>
 
         

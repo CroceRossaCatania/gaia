@@ -56,35 +56,38 @@ paginaPresidenziale();
     </thead>
 <?php
 $comitati= $me->comitatiDiCompetenza();
-foreach($comitati as $comitato){
-    foreach($comitato->trasferimenti(TRASF_INCORSO) as $_t){
-        $_v = $_t->volontario();
-        $c=$_t->comitato();
+$t = Trasferimento::filtra([['stato',TRASF_INCORSO]]);
+foreach ($t as $_t){
+    $v =$_t->volontario();
+    $a = Appartenenza::filtra([['volontario',$v],['stato', MEMBRO_VOLONTARIO]]);
+    foreach($comitati as $comitato){
+        if ($a[0]->comitato()==$comitato){
+            $b = Trasferimento::filtra([['volontario',$v],['stato', TRASF_INCORSO]]);
  ?>
     <tr>
-        <td><?php echo $_v->nome; ?></td>
-        <td><?php echo $_v->cognome; ?></td>
-        <td><?php echo $_v->codiceFiscale; ?></td>
-        <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
-        <td><?php echo $_v->comuneNascita; ?></td>
-        <td><?php echo $c->nomeCompleto(); ?></td>
+        <td><?php echo $v->nome; ?></td>
+        <td><?php echo $v->cognome; ?></td>
+        <td><?php echo $v->codiceFiscale; ?></td>
+        <td><?php echo date('d-m-Y', $v->dataNascita); ?></td> 
+        <td><?php echo $v->comuneNascita; ?></td>
+        <td><?php echo $comitato->nomeCompleto(); ?></td>
         <?php if($_t->protNumero){ ?>
         <td class="btn-group">     
-        <a class="btn btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $_t->id; ?>">
+        <a class="btn btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $b[0]->id; ?>">
                 <i class="icon-print"></i>
                     Stampa richiesta
         </a>
-        <a class="btn btn-success" href="?p=presidente.trasferimento.ok&id=<?php echo $_t->id; ?>&si">
+        <a class="btn btn-success" href="?p=presidente.trasferimento.ok&id=<?php echo $b[0]->id; ?>&si">
                 <i class="icon-ok"></i>
                     Conferma
         </a>
-            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare il trasferimento a questo utente ?');" href="?p=presidente.trasferimentoNegato&id=<?php echo $_t->id; ?>">
+            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare il trasferimento a questo utente ?');" href="?p=presidente.trasferimentoNegato&id=<?php echo $b[0]->id; ?>">
                 <i class="icon-ban-circle"></i>
                     Nega
             </a>
         <?php }else{ ?>
         <td>   
-        <a class="btn btn-success" href="?p=presidente.trasferimentoRichiesta&id=<?php echo $_t->id; ?>">
+        <a class="btn btn-success" href="?p=presidente.trasferimentoRichiesta&id=<?php echo $b[0]->id; ?>">
                 <i class="icon-ok"></i>
                     Protocolla richiesta
         </a>
@@ -92,6 +95,6 @@ foreach($comitati as $comitato){
         </td>
        
     </tr>
-    <?php }
+    <?php }}
     } ?>
 </table>
