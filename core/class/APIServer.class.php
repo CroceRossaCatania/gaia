@@ -135,12 +135,21 @@ class APIServer {
                 if ( !$attivita->puoPartecipare($this->sessione->utente()) ) {
                     continue;
                 }
+                if ( $this->sessione->utente ) {
+                    if ( in_array($attivita->comitato(), $this->sessione->utente()->comitati()) ) {
+                        $colore = $conf['attivita']['colore_mie'];
+                    } else {
+                        $colore = $conf['attivita']['colore_pubbliche'];
+                    }
+                } else {
+                    $colore = $conf['attivita']['colore_pubbliche'];
+                }
                 $r[] = [
                     'title'     =>  $attivita->nome. ', ' . $turno->nome,
                     'id'        =>  $turno->id,
                     'start'     =>  $turno->inizio()->toJSON(),
                     'end'       =>  $turno->fine()->toJSON(),
-                    'color'     =>  '#' . $attivita->comitato()->colore(),
+                    'color'     =>  '#' . $colore,
                     'url'       =>  '?p=attivita.scheda&id=' . $attivita->id . '&turno=' . $turno->id
                 ];
             }

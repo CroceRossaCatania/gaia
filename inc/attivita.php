@@ -22,13 +22,13 @@ paginaAnonimo();
                     Tutti i comitati
                 </td>
             </tr>
-            <?php foreach ( $me->comitati() as $c ) { ?>
+            <?php if ( !$me instanceof Anonimo ) { ?>
                 <tr>
-                    <td style="color: #<?php echo $c->colore(); ?>;">
+                    <td style="color: #<?php echo $conf['attivita']['colore_mie']; ?>;">
                         <i class="icon-sign-blank"></i>
                     </td>
                     <td>
-                        <?php echo $c->nomeCompleto(); ?>
+                        Comitati di cui faccio parte
                     </td>
                 </tr>
             <?php } ?>
