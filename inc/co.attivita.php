@@ -74,7 +74,7 @@ paginaPresidenziale();
                                 <?php $m= Coturno::filtra([['volontario', $partecipante->volontario()],['turno',$turno]]); ?>
                                 <tr class="<?php if(!$m[0]->pSmonta){echo "warning"; }elseif($m[0]->stato == CO_MONTA){ echo "success";}else{echo "error";}?>">
                                    <td><?php echo $partecipante->volontario()->nomeCompleto(); ?></td>
-                                   <td><?php if ($partecipante->volontario()->cellulareServizio){ echo $partecipante->volontario()->cellulareServizio; }else{ echo $partecipante->volontario()->cellulare; } ?></td>
+                                   <td><?php $partecipante->volontario()->cellulare(); ?></td>
                                    <td class="btn-group">
                                         <a class="btn btn-small btn" target="_new" href="?p=public.utente&id=<?php echo $partecipante->volontario(); ?>" title="Monta">
                                             <i class="icon-eye-open"></i> Visualizza

@@ -275,11 +275,7 @@ class APIServer {
                     $m->_DATA      = $turno->inizio()->format('d-m-Y H:i');
                     $m->_LUOGO     = $attivita->luogo;
                     $m->_REFERENTE   = $attivita->referente()->nomeCompleto();
-                    if($attivita->referente()->cellulareServizio){
-                        $m->_CELLREFERENTE = $attivita->referente()->cellulareServizio;
-                    }else{
-                        $m->_CELLREFERENTE   = $attivita->referente()->cellulare;
-                    }
+                    $m->_CELLREFERENTE = $attivita->referente()->cellulare();
                     $m->invia();
                     
                     

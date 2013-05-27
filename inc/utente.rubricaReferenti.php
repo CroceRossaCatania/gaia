@@ -51,7 +51,7 @@ foreach ( $comitati as $comitato ) {
         <tr>
             <td><?php echo $_v->nome; ?></td>
             <td><?php echo $_v->cognome; ?></td>
-            <td><?php echo $_v->cellulareServizio; ?></td>
+            <td><?php echo $_v->cellulare(); ?></td>
             <td><?php echo $comitato->nome; ?></td>
             <td>
                 <?php switch ( $delegato->applicazione ) { 
