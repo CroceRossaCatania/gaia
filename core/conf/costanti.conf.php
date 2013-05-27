@@ -199,12 +199,14 @@ define('APP_ATTIVITA',      10);
 // define('APP_PROTOCOLLO',    20);
 define('APP_PRESIDENTE',    30);
 define('APP_OBIETTIVO',     40);
+define('APP_CO',     50);
 
 $conf['applicazioni'] = [
     APP_ATTIVITA    =>  "Attività",
     // APP_PROTOCOLLO  =>  "Protocollo",
     APP_PRESIDENTE  =>  "Presidente",
-    APP_OBIETTIVO   =>  "Obiettivo strategico"
+    APP_OBIETTIVO   =>  "Obiettivo strategico",
+    APP_CO => "Centrale Operativa"
 ];
 
 /*
@@ -333,3 +335,18 @@ $conf['coturni'] = [
     CO_SMONTA       =>  'Smontato'
 ];
 
+/*
+ * ===================================
+ * =========== VEICOLI ===================
+ * ===================================
+ */
+
+define('VE_TRASPORTO',       10);
+define('VE_OPERATIVI',      20);
+define('VE_SOCCORSO',       30);
+
+$conf['veicoli'] = [
+    VE_TRASPORTO        =>  'Ciclomotore',
+    VE_OPERATIVI       =>  'Motoveicolo',
+    VE_SOCCORSO        =>  'Autoveicolo'
+];

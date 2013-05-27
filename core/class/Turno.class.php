@@ -24,7 +24,8 @@ class Turno extends Entita {
     
     public function partecipazioni() {
         return Partecipazione::filtra([
-            ['turno',   $this->id]
+            ['turno',   $this->id],
+            ['stato', PART_OK]
         ]);
     }
     
