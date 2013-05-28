@@ -57,7 +57,7 @@ foreach ( $me->comitatiDiCompetenza() as $comitato ) {
         <td><?php echo $_v->codiceFiscale; ?></td>
         <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
         <td><?php echo $_v->comuneNascita; ?></td>
-        <td><?php echo $comitato->nome; ?></td>
+        <td><?php echo $comitato->nomeCompleto(); ?></td>
         <td>
                 <a class="btn btn-danger" onClick="return confirm('Vuoi veramente dimettere questo Presidente ?');" href="?p=admin.presidente.dimetti&id=<?php echo $presidente->id; ?>">
                 <i class="icon-ban-circle"></i>
