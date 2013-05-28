@@ -42,10 +42,6 @@ if ( ($p->password) ) {
         <p>
             Completa e conferma la registrazione inserendo i tuoi dettagli anagrafici.
         </p>
-        <p>
-            In ottemperanza alle norme nazionali sulla privacy, Croce Rossa Italiana - Comitato Provinciale di Catania tratta i dati personali nel rispetto delle <a href="javascript:" onclick="window.open('/inc/public.disclaimer.php', 'disclaimer', 'width=600, height=500, resizable, status, scrollbars=1, location');"><i class="icon-link"></i>normative vigenti</a>.
-        </p>
-        <p>Cliccando su Registrati accetti la nota sulla privacy.</p>
     </div>
     <div class="span8">
           <form class="form-horizontal" action="?p=nuovaAnagrafica.ok" method="POST">
@@ -135,6 +131,11 @@ if ( ($p->password) ) {
                     <?php } ?>
                 </select>   
             </div>
+          </div>
+          <div class="control-group">
+                <label class="checkbox" for="inputConsenso">
+                    <input type="checkbox" id="inputConsenso" name="inputConsenso" required>Acconsento al trattamento sui dati personali nel rispetto delle attuali <a href="javascript:" onclick="window.open('/inc/public.disclaimer.php', 'disclaimer', 'width=600, height=500, resizable, status, scrollbars=1, location');"><i class="icon-link"></i>normative vigenti</a>.
+                </label>
           </div>
           <div class="control-group">
             <div class="controls">
