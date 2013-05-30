@@ -37,21 +37,21 @@
         
         <ul>
         <?php foreach(Regionale::elenco('nome ASC') as $regionale) { ?>
-            <li><a href="javascript:$('#reg_<?php echo $regionale->id; ?>').toggle(500);">
+            <li><a class="btn btn-link" onclick="$('#reg_<?php echo $regionale->id; ?>').toggle(500);">
                     <strong><?php echo $regionale->nome; ?></strong>
                 </a>
                 <ul class="nascosto" id="reg_<?php echo $regionale->id; ?>">
                     <h4>Comitati provinciali</h4>
                     <?php foreach ( $regionale->provinciali() as $provinciale ) { ?>
                     <li>
-                        <a href="javascript:$('#prov_<?php echo $provinciale->id; ?>').toggle(500);">
+                        <a class="btn btn-link" onclick="$('#prov_<?php echo $provinciale->id; ?>').toggle(500);">
                             <?php echo $provinciale->nome; ?>
                         </a>
                         <ul class="nascosto" id="prov_<?php echo $provinciale->id; ?>">
                             <h4>Comitati locali</h4>
                             <?php foreach ( $provinciale->locali() as $locali ) { ?>
                             <li>
-                                <a href="javascript:$('#loc_<?php echo $locali->id; ?>').toggle(500);">
+                                <a class="btn btn-link" onclick="$('#loc_<?php echo $locali->id; ?>').toggle(500);">
                                     <?php echo $locali->nome; ?>
                                 </a>
                                 <ul class="nascosto" id="loc_<?php echo $locali->id; ?>">
