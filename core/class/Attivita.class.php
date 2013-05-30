@@ -87,10 +87,10 @@ class Attivita extends GeoEntita {
                 return (bool) $this->comitato()->haMembro($v);
                 break;
             case ATT_VIS_LOCALE:
-                return (bool) $this->comitato()->locale == $v->unComitato()->locale;
+                return (bool) ($this->comitato()->locale == $v->unComitato()->locale);
                 break;
             case ATT_VIS_PROVINCIALE:
-                return (bool) $this->comitato()->locale()->provinciale == $v->unComitato()->locale()->provinciale;
+                return (bool) ($this->comitato()->locale()->provinciale == $v->unComitato()->locale()->provinciale);
                 break;
             case ATT_VIS_VOLONTARI:
                 return (bool) $v->unComitato();
@@ -99,6 +99,7 @@ class Attivita extends GeoEntita {
                 return true;
                 break;
         }
+        return false;
     }
     
     public function bozza() {
