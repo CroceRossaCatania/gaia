@@ -4,10 +4,10 @@ Leggi le **[Informazioni sul progetto Gaia](http://www.gaiacri.it/?p=public.abou
 
 ### Link utili
 
-* [Cose da fare/Roadmap](https://github.com/CroceRossaCatania/gaia/wiki/Roadmap)
+* [Cose da fare/Roadmap](https://github.com/CroceRossaCatania/gaia/issues?direction=desc&labels=roadmap&page=1&sort=updated&state=open)
 * [Segnala bug o proponi una feature](https://github.com/CroceRossaCatania/gaia/issues)
 * [Elenco bug aperti](https://github.com/CroceRossaCatania/gaia/issues?labels=bug&page=1&state=open)
-* [Suggerimenti degli utenti aperti](https://github.com/CroceRossaCatania/gaia/issues?labels=Suggerimenti+degli+utenti&page=1&state=open)
+* [Suggerimenti degli utenti aperti](https://github.com/CroceRossaCatania/gaia/issues?labels=proposta&page=1&state=open)
 
 ## Collaborare
 

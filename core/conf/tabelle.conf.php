@@ -36,6 +36,7 @@ $conf['database']['tables'] = [
                 codiceFiscale   varchar(16),
                 timestamp       varchar(64),
                 admin           varchar(64),
+                consenso varchar(64),
                 INDEX (codiceFiscale),
                 INDEX(email),
                 FULLTEXT(nome, cognome)

@@ -12,6 +12,8 @@
 
 - Il responsabile del trattamento dei dati raccolti è Carmelo Stefano Principato Presidente di Croce Rossa Italiana - Comitato Provinciale di Catania, reperibile presso la sede di Via Etnea 353 - 95125 Catania (CT) - ITALIA.<br/><br/>
 
+- Per richiedere la cancellazione dei dati bisogna inoltrare una mail a <a href="mailto:informatica@cricatania.it">informatica@cricatania.it</a>.<br/><br/>
+
 <b>Informativa ai sensi della Legge 675/96</b><br/>
 Ai sensi dell'articolo 10 della Legge 675/96 vi comunichiamo che i vostri dati anagrafici saranno utilizzati esclusivamente per la trasmissione delle informazioni richieste. In qualsiasi momento potrete fare valere i vostri diritti, come previsto dall'articolo 13 della Legge n. 675/96, rivolgendovi a Via Etnea 353 - 95125 Catania (CT) - ITALIA, alla figura di Carmelo Stefano Principato.<br/><br/>
 
