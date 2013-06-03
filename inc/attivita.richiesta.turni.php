@@ -55,9 +55,9 @@ $t = new Turno($_GET['id']);
                         e
                      <?php } ?>
                      <form class="form-inline" action='?p=attivita.richiesta.ok&id=<?= $r->id ?>' method='POST'>
-                        <input class="inline" type='hidden' name='turno' value="<?php echo $t->id; ?>" />
+                        <input type='hidden' name='turno' value="<?php echo $t->id; ?>" />
                         <input type="text" required autofocus
-                               class="inline input-medium" name="titolo"
+                               class="input-medium" name="titolo"
                                placeholder="Aggiungi titolo..."
                          />
                      </form>
@@ -68,9 +68,9 @@ $t = new Turno($_GET['id']);
                  <td>Oppure</td>
                  <td>
                      <form class="form-inline" action='?p=attivita.richiesta.ok' method='POST'>
-                        <input class="inline" type='hidden' name='turno' value="<?php echo $t->id; ?>" />
+                        <input type='hidden' name='turno' value="<?php echo $t->id; ?>" />
                         <input type="text" required autofocus
-                               class="inline input-medium" name="titolo"
+                               class="input-medium" name="titolo"
                                placeholder="Aggiungi titolo..."
                          />
                      </form>
