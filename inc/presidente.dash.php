@@ -76,10 +76,6 @@ $comitati = $me->comitatiDiCompetenza();
         <div class="" id="comitati">
             
             <ul>
-                <?php foreach ( $me->comitatiDiCompetenza() as $c ) { 
-                    echo "{$c->id}, ";
-                }
-                ?>
             <?php foreach ( $me->comitatiDiCompetenza() as $c ) { ?>
                 <li>
                     <a href="?p=presidente.comitato&id=<?php echo $c->id; ?>">
