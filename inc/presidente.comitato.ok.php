@@ -5,6 +5,10 @@ paginaPresidenziale();
 $c = $_POST['id'];
 $c = new Comitato($c);
 
+
+/* A che scheda tornare? Indice 0-based */ 
+$back = null;
+
 /* Salvataggio obiettivi */
 foreach ( $conf['obiettivi'] as $num => $nom ) {
     
@@ -28,6 +32,7 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
             
         }
         
+        $back = 0;
         /* Crea il nuovo delegato */
         $d = new Delegato();
         $d->inizio      = time();
@@ -76,7 +81,8 @@ foreach ( $c->aree() as $a ) {
     
     /* Salva volontario variato */
     if (isset($_POST[$a->id . '_inputResponsabile'])) {
-    
+        
+        $back = 2;$
         $v = new Volontario($_POST[$a->id . '_inputResponsabile']);
         $a->responsabile = $v->id;
         
@@ -94,6 +100,7 @@ foreach ( $c->aree() as $a ) {
 /* Creazione nuova area */
 if ( isset($_POST['nuovaArea']) ) {
         
+    $back = 2;
     $a = new Area();
     $a->comitato    = $c->id;
     $a->obiettivo   = OBIETTIVO_1;
@@ -102,4 +109,4 @@ if ( isset($_POST['nuovaArea']) ) {
     
 }
 
-redirect('presidente.dash&ok&id=' . $c->id);
+redirect("presidente.comitato&ok&id={$c->id}&back={$back}");

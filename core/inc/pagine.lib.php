@@ -78,12 +78,8 @@ function paginaPresidenziale( $comitato = null ) {
     if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin ) {
         redirect('utente.me');
     }
-    if ( $comitato && !$sessione->utente()->admin ) {
-        //var_dump($comitato->volontariPresidenti());
-        //var_dump($sessione->utente());
-        if ( !in_array($sessione->utente(), $comitato->volontariPresidenti() ) ) {
-           //redirect('utente.me&erroreSicurezza');
-        }
+    if ( $comitato && !in_array($comitato, $sessione->utente()->comitatiDiCompetenza() ) ) {
+        redirect('utente.me&ErroreSicurezza');
     }
 }
 
