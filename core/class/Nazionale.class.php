@@ -4,12 +4,24 @@
  * ©2013 Croce Rossa Italiana
  */
 
-class Nazionale extends GeoEntita {
+class Nazionale extends GeoPolitica {
         
     protected static
         $_t  = 'nazionali',
         $_dt = 'datiNazionali';
 
+    public function nomeCompleto() {
+        return $this->nome;
+    }
+
+    public function estensione() {
+        $r = [];
+        foreach  ( $this->regionali() as $l ) {
+            $r = array_merge($l->estensione(), $r);
+        }
+        return array_unique($r);
+    }
+    
     public function regionali() {
         return Regionale::filtra([
             ['nazionale',  $this->id]

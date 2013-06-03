@@ -4,12 +4,24 @@
  * ©2013 Croce Rossa Italiana
  */
 
-class Regionale extends GeoEntita {
+class Regionale extends GeoPolitica {
         
     protected static
         $_t  = 'regionali',
         $_dt = 'datiRegionali';
+    
+    public function nomeCompleto() {
+        return $this->nome;
+    }
 
+    public function estensione() {
+        $r = [];
+        foreach  ( $this->provinciali() as $l ) {
+            $r = array_merge($l->estensione(), $r);
+        }
+        return array_unique($r);
+    }
+    
     public function provinciali() {
         return Provinciale::filtra([
             ['regionale',  $this->id]

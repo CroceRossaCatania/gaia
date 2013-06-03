@@ -15,7 +15,16 @@ class Delegato extends Entita {
     }
 
     public function comitato() {
-        return new Comitato($this->comitato);
+        global $conf;
+        $est = (int) $this->estensione;
+        $ob = $conf['est_obj'][$est];
+        $s = "{$ob}:{$this->comitato}";
+        $ob = GeoPolitica::daOid($s);
+        return $ob;
+    }
+    
+    public function estensione() {
+        return $this->comitato()->estensione();
     }
 
     public function attuale() {

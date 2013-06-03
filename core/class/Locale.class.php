@@ -4,11 +4,19 @@
  * ©2013 Croce Rossa Italiana
  */
 
-class Locale extends GeoEntita {
+class Locale extends GeoPolitica {
         
     protected static
         $_t  = 'locali',
         $_dt = 'datiLocali';
+    
+    public function nomeCompleto() {
+        return $this->nome;
+    }
+    
+    public function estensione() {
+        return $this->comitati();
+    }
 
     public function comitati() {
         return Comitato::filtra([

@@ -222,6 +222,7 @@ $conf['database']['tables'] = [
             'fields'    =>  '
                 id              int PRIMARY KEY,
                 comitato        varchar(16),
+                estensione      INT NOT NULL,
                 volontario      varchar(16),
                 applicazione    varchar(16),
                 dominio         varchar(16),

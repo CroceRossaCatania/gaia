@@ -4,7 +4,7 @@
  * ©2012 Croce Rossa Italiana
  */
 
-class Comitato extends GeoEntita {
+class Comitato extends GeoPolitica {
         
     protected static
         $_t  = 'comitati',
@@ -343,6 +343,10 @@ class Comitato extends GeoEntita {
             $r[] = new Reperibilita($k[0]);
         }
         return $r;
+    }
+    
+    public function estensione() {
+        return [$this];
     }
     
 }

@@ -337,7 +337,7 @@ $conf['coturni'] = [
 
 /*
  * ===================================
- * =========== VEICOLI ===================
+ * =========== VEICOLI ===============
  * ===================================
  */
 
@@ -349,4 +349,24 @@ $conf['veicoli'] = [
     VE_TRASPORTO        =>  'Ciclomotore',
     VE_OPERATIVI       =>  'Motoveicolo',
     VE_SOCCORSO        =>  'Autoveicolo'
+];
+
+/*
+ * ===================================
+ * =========== ESTENSIONE ============
+ * ===================================
+ */
+
+define('EST_UNITA',          0);
+define('EST_LOCALE',        10);
+define('EST_PROVINCIALE',   20);
+define('EST_REGIONALE',     30);
+define('EST_NAZIONALE',     40);
+
+$conf['est_obj'] = [
+    EST_UNITA       =>  'Comitato',
+    EST_LOCALE      =>  'Locale',
+    EST_PROVINCIALE =>  'Provinciale',
+    EST_REGIONALE   =>  'Regionale',
+    EST_NAZIONALE   =>  'Nazionale'     
 ];

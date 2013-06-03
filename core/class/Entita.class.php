@@ -274,5 +274,16 @@ class Entita {
         $q->bindParam(':id', $this->id);
         return $q->execute();
     }
+    
+    public function oid() {
+        $c = get_called_class();
+        return "{$c}:{$this->id}";
+    }
+    
+    public static function daOid($oid) {
+        $obj = explode(':', $oid);
+        $cl = $obj[0];
+        return new $cl($obj[1]);
+    }
 
 }

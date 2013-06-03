@@ -414,7 +414,8 @@ class Utente extends Persona {
         $d = $this->delegazioni($app);
         $c = [];
         foreach ( $d as $k ) {
-            $c[] = $k->comitato();
+            // $c[] = $k->comitato();
+            $c = array_merge($k->estensione(), $c);
         }
         return array_unique($c);
     }
