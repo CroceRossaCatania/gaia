@@ -191,11 +191,13 @@ class Comitato extends GeoPolitica {
             $app = (int) $app;
             $k = Delegato::filtra([
                 ['comitato',        $this->id],
+                ['estensione',      0],
                 ['applicazione',    $app]
             ]);
         } else {
             $k = Delegato::filtra([
-                ['comitato',    $this->id]
+                ['comitato',    $this->id],
+                ['estensione',  0]
             ]);
         }
         $r = [];
