@@ -32,7 +32,7 @@ switch ( $_POST['azione'] ) {
         $t->nome        = "Turno $num";
         $t->minimo      = 1;
         $t->massimo     = 4;
-        redirect('attivita.modifica&id=' . $a->id);
+        redirect('attivita.turni&id=' . $a->id);
         break;
     
     case 'salva':
@@ -43,7 +43,7 @@ switch ( $_POST['azione'] ) {
         /* Cancella un turno ... */
         $t = new Turno($_POST['azione']);
         $t->cancella();
-        redirect('attivita.modifica&id=' . $a->id);
+        redirect('attivita.turni&id=' . $a->id);
         break;
 
     

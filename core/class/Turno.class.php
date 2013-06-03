@@ -110,4 +110,10 @@ class Turno extends Entita {
     public function pieno() {
         return (bool) ( count($this->partecipazioni()) >= $this->massimo );
     }
+    
+    public function richieste() {
+        return RichiestaTurno::filtra ([
+            ['turno', $this->id] 
+        ]);
+    }
 }

@@ -8,4 +8,8 @@ class ElementoRichiesta extends Entita {
         protected static
             $_t  = 'elementiRichieste',
             $_dt = null;
+        
+        public function titolo() {
+            return new Titolo($this->titolo);
+        }
 }
