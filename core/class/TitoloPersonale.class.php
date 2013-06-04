@@ -76,4 +76,37 @@ class TitoloPersonale extends Entita {
         
     }
     
+    public static function scadenzame($volontario) {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM 
+                titoliPersonali 
+            WHERE 
+                volontario = :volontario 
+            AND
+                titolo BETWEEN :min AND :max
+            AND 
+                fine > :oggi 
+            AND
+                fine <= :limite
+                ");
+        $oggi = time();
+        $limite = strtotime("+15 days");
+        $pat1 = 2700;
+        $pat2 = 2709;
+        $q->bindParam(':oggi', $oggi, PDO::PARAM_INT);
+        $q->bindParam(':min', $pat1, PDO::PARAM_INT);
+        $q->bindParam(':max', $pat2, PDO::PARAM_INT);
+        $q->bindParam(':limite', $limite, PDO::PARAM_INT);
+        $q->bindParam(':volontario', $volontario, PDO::PARAM_INT);
+        $q->execute();
+        $t = [];
+        while ( $r = $q->fetch(PDO::FETCH_NUM) ) {
+            $t[] = new TitoloPersonale($r[0]);
+        }
+        return $t;
+    }
+    
 }

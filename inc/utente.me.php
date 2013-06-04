@@ -127,6 +127,17 @@ if ($rf) {
         </div>
         <?php } ?>
         <?php 
+            $h=0;
+            foreach ( $patenti =  TitoloPersonale::scadenzame($me)  as $patente ) { 
+                if($h!=1){  ?>
+        <div class="alert alert-error">
+            <h4><i class="icon-warning-sign"></i> Patente in scadenza</h4>
+            <p>La tua <strong>PATENTE CRI</strong> scadrà il <strong><?php echo date('d-m-Y', $patente->fine); ?></strong></p>
+        </div>
+        <?php $h=1;
+               }
+           } ?>
+        <?php 
         foreach ($me->inriserva() as $ris ){ 
             if($ris->fine >= time()){?>
         <div class="alert alert-block">
