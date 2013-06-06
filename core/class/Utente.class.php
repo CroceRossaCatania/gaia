@@ -226,9 +226,11 @@ class Utente extends Persona {
     }
     
     public function primaAppartenenza() {
-        return Appartenenza::filtra([
+        $p = Appartenenza::filtra([
             ['volontario',  $this->id]
         ], 'inizio ASC LIMIT 0, 1');
+        if ( !$p ) { return false; }
+        return $p[0];
     }
     
     public function ingresso() {
