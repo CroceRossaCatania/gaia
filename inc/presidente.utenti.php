@@ -32,18 +32,22 @@ paginaPresidenziale();
             
             <div class="span3">
                 <div class="btn-group btn-group-vertical span12">
-                    <a href="?p=presidente.utenti" class="btn btn-success btn-block">
-                        <i class="icon-list"></i>
-                        Volontari attivi
-                    </a>
-                    <a href="?p=presidente.utenti.dimessi" class="btn btn-danger btn-block">
-                        <i class="icon-list"></i>
-                        Volontari non attivi
-                    </a>
-                    <a href="?p=presidente.utenti.giovani" class="btn btn-danger btn-block btn-info">
-                        <i class="icon-list"></i>
-                        Volontari giovani
-                    </a>
+                        <a href="?p=presidente.utenti" class="btn btn-success btn-block">
+                            <i class="icon-list"></i>
+                            Volontari attivi
+                        </a>
+                        <a href="?p=presidente.utenti.dimessi" class="btn btn-danger btn-block">
+                            <i class="icon-list"></i>
+                            Volontari non attivi
+                        </a>
+                        <a href="?p=presidente.utenti.giovani" class="btn btn-block btn-info">
+                            <i class="icon-list"></i>
+                            Volontari giovani
+                        </a>
+                        <a href="?p=presidente.elettorato" class="btn btn-block btn-primary">
+                            <i class="icon-list"></i>
+                            Elenchi elettorato
+                        </a>
                 </div>
             </div>
     

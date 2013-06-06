@@ -52,6 +52,21 @@ foreach ( $me->comitatiDiCompetenza() as $c ) {
     }
         }
     $excel->genera("Volontari giovani {$c->nome}.xls");
+    }elseif(isset($_GET['eleatt'])){
+        $time = $_GET['time'];
+        foreach ( $c->elettoriAttivi($time) as $v ) {
+            
+        $excel->aggiungiRiga([
+            $v->nome,
+            $v->cognome,
+            $v->codiceFiscale,
+            $v->email,
+            $v->cellulare,
+            $v->cellulareServizio
+        ]);
+
+        }
+    $excel->genera("Elettorato attivo {$c->nome}.xls");
     }else{ 
         foreach ( $c->membriAttuali() as $v ) {
 
@@ -76,6 +91,8 @@ if(isset($_GET['dimessi'])){
    $zip->comprimi("Anagrafica_volontari_dimessi.zip"); 
 }elseif(isset($_GET['giovani'])){
    $zip->comprimi("Anagrafica_volontari_giovani.zip"); 
+}elseif(isset($_GET['eleatt'])){
+   $zip->comprimi("Elettorato_attivo.zip"); 
 }else{
     $zip->comprimi("Anagrafica_volontari.zip");
 }

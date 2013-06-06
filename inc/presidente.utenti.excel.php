@@ -72,6 +72,36 @@ foreach ( $c->membriDimessi(MEMBRO_VOLONTARIO) as $v ) {
 $excel->genera('Volontarigiovani.xls');
 $excel->download();
 
+}elseif(isset($_GET['eleatt'])){
+$time = $_GET['time'];
+
+$excel = new Excel();
+
+$excel->intestazione([
+    'Nome',
+    'Cognome',
+    'C. Fiscale',
+    'EMail',
+    'Cellulare',
+    'Cell. Servizio'
+]);
+
+foreach ( $c->elettoriAttivi($time) as $v ) {
+    
+    $excel->aggiungiRiga([
+        $v->nome,
+        $v->cognome,
+        $v->codiceFiscale,
+        $v->email,
+        $v->cellulare,
+        $v->cellulareServizio
+    ]);
+    
+}
+
+$excel->genera('Elettorato_attivo.xls');
+$excel->download();
+
 }else{
     
 $excel = new Excel();

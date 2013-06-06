@@ -72,6 +72,36 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
+    public function elettoriAttivi($time) {
+        $q = $this->db->prepare("
+            SELECT
+                volontario
+            FROM
+                appartenenza
+            WHERE
+                ( fine >= :ora OR fine IS NULL OR fine = 0) 
+            AND
+                comitato = :comitato
+            AND
+                stato    >= :stato
+            AND
+                inizio <= :anzianita
+            ORDER BY
+                inizio ASC");
+        $q->bindParam(':ora', $time);
+        $q->bindParam(':comitato', $this->id);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO, PDO::PARAM_INT);
+        $anni = ANZIANITA;
+        $anzianita = strtotime("-$anni  year", $time);
+        $q->bindParam(':anzianita', $anzianita, PDO::PARAM_INT);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Volontario($k[0]);
+        }
+        return $r;
+    }
+    
     public function membriDimessi($stato = MEMBRO_DIMESSO) {
         $q = $this->db->prepare("
             SELECT

@@ -370,3 +370,11 @@ $conf['est_obj'] = [
     EST_REGIONALE   =>  'Regionale',
     EST_NAZIONALE   =>  'Nazionale'     
 ];
+
+/*
+ * ===================================
+ * =========== ELEZIONI====== ============
+ * ===================================
+ */
+
+define('ANZIANITA', 2);

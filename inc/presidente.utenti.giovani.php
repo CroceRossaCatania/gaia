@@ -5,6 +5,7 @@
  */
 paginaPresidenziale();
 ?>
+<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-save"></i> <strong>Volontario eliminato</strong>.
@@ -43,6 +44,10 @@ paginaPresidenziale();
                     <a href="?p=presidente.utenti.giovani" class="btn btn-danger btn-block btn-info">
                         <i class="icon-list"></i>
                         Volontari giovani
+                    </a>
+                    <a href="?p=presidente.elettorato" class="btn btn-block btn-primary">
+                        <i class="icon-list"></i>
+                        Elenchi elettorato
                     </a>
                 </div>
             </div>
