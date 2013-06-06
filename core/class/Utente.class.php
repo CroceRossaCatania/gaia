@@ -187,6 +187,18 @@ class Utente extends Persona {
         return $r;
     }
     
+    public function primaAppartenenza() {
+        return Appartenenza::filtra([
+            ['volontario',   $this->id]
+        ], 'inizio ASC LIMIT 0, 1');
+    }
+    
+    public function ingresso() {
+        $p = $this->primaAppartenenza();
+        if ( !$p ) { return false; }
+        return $p->inizio();
+    }
+    
     public function comitati($tipo = MEMBRO_VOLONTARIO) {
         $c = [];
         foreach ( $this->appartenenzeAttuali($tipo) as $a ) {

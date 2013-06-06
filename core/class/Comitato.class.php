@@ -72,32 +72,71 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
-    public function elettoriAttivi($time) {
+    public function elettoriAttivi(DT $elezioni, $anzianita = ANZIANITA) {
         $q = $this->db->prepare("
-            SELECT
-                volontario
-            FROM
-                appartenenza
-            WHERE
-                ( fine >= :ora OR fine IS NULL OR fine = 0) 
+            SELECT  anagrafica.id
+            FROM    appartenenza, anagrafica
+            WHERE   
+              appartenenza.comitato = :comitato
             AND
-                comitato = :comitato
+              appartenenza.volontario = anagrafica.id 
+            GROUP BY
+              volontario
+            HAVING
+              ( fine = 0 OR fine > :elezioni ) 
             AND
-                stato    >= :stato
-            AND
-                inizio <= :anzianita
+              ( inizio <= :minimo )
             ORDER BY
-                inizio ASC");
-        $q->bindParam(':ora', $time);
-        $q->bindParam(':comitato', $this->id);
-        $q->bindValue(':stato', MEMBRO_VOLONTARIO, PDO::PARAM_INT);
-        $anni = ANZIANITA;
-        $anzianita = strtotime("-$anni  year", $time);
-        $q->bindParam(':anzianita', $anzianita, PDO::PARAM_INT);
+              anagrafica.nome     ASC,
+              anagrafica.cognome  ASC");
+        $minimo = clone $elezioni;
+        $anzianita = (int) $anzianita;
+        $minimo->modify("-{$anzianita} years");
+        $q->bindValue(':comitato', $this->id);
+        $q->bindValue(':elezioni', $elezioni->getTimestamp());
+        $q->bindParam(':minimo',   $minimo->getTimestamp());
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
             $r[] = new Volontario($k[0]);
+        }
+        return $r;
+    }
+
+        public function elettoriPassivi(DT $elezioni, $anzianita = ANZIANITA) {
+        $q = $this->db->prepare("
+            SELECT  anagrafica.id
+            FROM    appartenenza, anagrafica
+            WHERE   
+              appartenenza.comitato = :comitato
+            AND
+              appartenenza.volontario = anagrafica.id 
+            GROUP BY
+              volontario
+            HAVING
+              ( fine = 0 OR fine > :elezioni ) 
+            AND
+              ( inizio <= :minimo )
+            ORDER BY
+              anagrafica.nome     ASC,
+              anagrafica.cognome  ASC");
+        $minimo = clone $elezioni;
+        $eta    = clone $elezioni;
+        $anzianita = (int) $anzianita;
+        $minimo->modify("-{$anzianita} years");
+        $eta->modify('-18 years');
+        $eta = $eta->getTimestamp();
+        $q->bindValue(':comitato', $this->id);
+        $q->bindValue(':elezioni', $elezioni->getTimestamp());
+        $q->bindParam(':minimo',   $minimo->getTimestamp());
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $vol = new Volontario($k[0]);
+            if ( $vol->dataNascita > $eta ) {
+                continue;
+            }
+            $r[] = $vol;
         }
         return $r;
     }
