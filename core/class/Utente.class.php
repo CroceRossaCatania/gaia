@@ -353,6 +353,48 @@ class Utente extends Persona {
         return (int) $r[0];
     }
     
+    public function presidente_numTrasfPending() {
+        $q = $this->db->prepare("
+            SELECT  COUNT(trasferimenti.id)
+            FROM    trasferimenti, appartenenza
+            WHERE   trasferimenti.stato = :statoPendente
+            AND     trasferimenti.volontario = appartenenza.volontario
+            AND     appartenenza.comitato  IN
+                ( SELECT    comitato FROM delegati
+                  WHERE     applicazione = :applicazione
+                  AND       ( fine < 1 OR fine >= :ora OR fine IS NULL )
+                  AND       volontario = :me
+                )");
+        $q->bindValue(':statoPendente', TRASF_INCORSO);
+        $q->bindValue(':applicazione', APP_PRESIDENTE);
+        $q->bindValue(':ora',   time());
+        $q->bindValue(':me', $this->id);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+    
+    public function presidente_numRisPending() {
+        $q = $this->db->prepare("
+            SELECT  COUNT(riserve.id)
+            FROM    riserve, appartenenza
+            WHERE   riserve.stato = :statoPendente
+            AND     riserve.volontario = appartenenza.volontario
+            AND     appartenenza.comitato  IN
+                ( SELECT    comitato FROM delegati
+                  WHERE     applicazione = :applicazione
+                  AND       ( fine < 1 OR fine >= :ora OR fine IS NULL )
+                  AND       volontario = :me
+                )");
+        $q->bindValue(':statoPendente', RISERVA_INCORSO);
+        $q->bindValue(':applicazione', APP_PRESIDENTE);
+        $q->bindValue(':ora',   time());
+        $q->bindValue(':me', $this->id);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+    
     public function documento($tipo = DOC_CARTA_IDENTITA) {
         $d = Documento::filtra([
             ['tipo',        $tipo],

@@ -70,7 +70,7 @@ foreach ($t as $_t){
         <td><?php echo $v->codiceFiscale; ?></td>
         <td><?php echo date('d-m-Y', $v->dataNascita); ?></td> 
         <td><?php echo $v->comuneNascita; ?></td>
-        <td><?php echo $comitato->nomeCompleto(); ?></td>
+        <td><?php echo $b[0]->comitato()->nomeCompleto(); ?></td>
         <?php if($_t->protNumero){ ?>
         <td class="btn-group">     
         <a class="btn btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $b[0]->id; ?>">
