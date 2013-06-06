@@ -4,6 +4,8 @@
  * ©2013 Croce Rossa Italiana
  */
 
+paginaAdmin();
+
 $t = $_GET['id'];
 ?>
 <form class="form-horizontal" action="?p=admin.presidente.nuovo.ok&id=<?php echo $t; ?>" method="POST">

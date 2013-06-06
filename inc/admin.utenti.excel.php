@@ -11,7 +11,18 @@ $zip = new Zip();
 foreach ( $me->comitatiDiCompetenza() as $c ) {
 
     $excel = new Excel();
-
+    
+if(isset($_GET['eleatt'])||isset($_GET['elepass'])){
+    $excel->intestazione([
+        'Nome',
+        'Cognome',
+        'Data Nascita',
+        'Luogo Nascita',
+        'Provincia Nascita',
+        'C. Fiscale',
+        'Ingresso in CRI'
+    ]);
+}else{
     $excel->intestazione([
         'Nome',
         'Cognome',
@@ -20,7 +31,7 @@ foreach ( $me->comitatiDiCompetenza() as $c ) {
         'Cellulare',
         'Cell. Servizio'
     ]);
-
+}
     if(isset($_GET['dimessi'])){
         foreach ( $c->membriDimessi as $v ) {
 
@@ -54,19 +65,40 @@ foreach ( $me->comitatiDiCompetenza() as $c ) {
     $excel->genera("Volontari giovani {$c->nome}.xls");
     }elseif(isset($_GET['eleatt'])){
         $time = $_GET['time'];
+        $time = DT::daTimestamp($time);
+        
         foreach ( $c->elettoriAttivi($time) as $v ) {
             
         $excel->aggiungiRiga([
             $v->nome,
             $v->cognome,
+            date('d/m/Y', $v->dataNascita),
+            $v->comuneNascita,
+            $v->provinciaNascita,
             $v->codiceFiscale,
-            $v->email,
-            $v->cellulare,
-            $v->cellulareServizio
+            $v->ingresso()->format("d/m/Y")
         ]);
-
+            
         }
     $excel->genera("Elettorato attivo {$c->nome}.xls");
+    }elseif(isset($_GET['elepass'])){
+        $time = $_GET['time'];
+        $time = DT::daTimestamp($time);
+        
+        foreach ( $c->elettoriPassivi($time) as $v ) {
+            
+        $excel->aggiungiRiga([
+            $v->nome,
+            $v->cognome,
+            date('d/m/Y', $v->dataNascita),
+            $v->comuneNascita,
+            $v->provinciaNascita,
+            $v->codiceFiscale,
+            $v->ingresso()->format("d/m/Y")
+        ]);
+            
+        }
+    $excel->genera("Elettorato passivo {$c->nome}.xls");
     }else{ 
         foreach ( $c->membriAttuali() as $v ) {
 
@@ -93,6 +125,8 @@ if(isset($_GET['dimessi'])){
    $zip->comprimi("Anagrafica_volontari_giovani.zip"); 
 }elseif(isset($_GET['eleatt'])){
    $zip->comprimi("Elettorato_attivo.zip"); 
+}elseif(isset($_GET['elepass'])){
+   $zip->comprimi("Elettorato_passivo.zip"); 
 }else{
     $zip->comprimi("Anagrafica_volontari.zip");
 }

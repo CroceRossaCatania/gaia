@@ -4,7 +4,8 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp(APP_CO);
+
 $t = $_GET['t'];
 $v = $_GET['v'];
     

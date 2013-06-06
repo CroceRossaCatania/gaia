@@ -5,6 +5,7 @@
  */
 
 paginaAdmin();
+
 $x = Titolo::by('nome', $_POST['inputNome']);
 if (!$x){
 $t = new Titolo();

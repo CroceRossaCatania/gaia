@@ -13,7 +13,7 @@ $tstamp = $time->getTimestamp();
     <div class="span5 allinea-sinistra">
         <h2>
             <i class="icon-group muted"></i>
-            Elettorato attivo
+            Elettorato passivo
         </h2>
         <p><strong>Del <?php echo $time->format("d/m/Y");?></strong></p>
     </div>
@@ -49,7 +49,7 @@ $tstamp = $time->getTimestamp();
    <div class="span12">
        <div class="btn-group btn-group-vertical span12">
        <?php if ( count($me->comitatiDiCompetenza()) > 1 ) { ?>
-       <a href="?p=admin.utenti.excel&eleatt&time=<?php echo $tstamp; ?>" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
+       <a href="?p=admin.utenti.excel&elepass&time=<?php echo $tstamp; ?>" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
            <i class="icon-download"></i>
             <strong>Presidente</strong> &mdash; Scarica tutti i fogli dei volontari in un archivio zip.
        </a>
@@ -70,7 +70,7 @@ $tstamp = $time->getTimestamp();
         <?php
         $elenco = $me->comitatiDiCompetenza();
         foreach($elenco as $comitato) {
-            $t = $comitato->elettoriAttivi($time);
+            $t = $comitato->elettoriPassivi($time);
                 ?>
             
             <tr class="success">
@@ -80,7 +80,7 @@ $tstamp = $time->getTimestamp();
                         <?php echo count($t); ?>
                     </span>
                     <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&eleatt&time=<?php echo $tstamp; ?>"
+                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&elepass&time=<?php echo $tstamp; ?>"
                        data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                     </a>

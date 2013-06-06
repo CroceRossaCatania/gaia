@@ -4,7 +4,8 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp(APP_CO);
+
 ?>
 
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>

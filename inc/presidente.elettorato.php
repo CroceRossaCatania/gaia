@@ -7,7 +7,8 @@
 paginaPresidenziale();
 
 ?>
-<form action="?p=presidente.elettoratoattivo" method="POST">
+<form action="?" method="GET">
+    <input type="hidden" name="p" value="presidente.elettoratoattivo">
 <div class="modal fade automodal">
         <div class="modal-header">
           <h3><i class="icon-time"></i> Data elezioni</h3>

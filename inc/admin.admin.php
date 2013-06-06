@@ -5,6 +5,7 @@
  */
 
 paginaAdmin();
+
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -24,7 +25,7 @@ paginaAdmin();
         <div class="controls">
             <div class="input-prepend">
                 <span class="add-on"><i class="icon-search"></i></span>
-                <input required id="cercaUtente" placeholder="Cerca Admin..." class="span4" type="text">
+                <input autofocus required id="cercaUtente" placeholder="Cerca Admin..." class="span4" type="text">
             </div>
         </div>
     </div> 

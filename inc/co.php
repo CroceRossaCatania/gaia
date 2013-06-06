@@ -5,6 +5,7 @@
  */
 
 paginaApp(APP_CO);
+
 ?>
 
 <div class="row-fluid">

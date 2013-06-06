@@ -37,7 +37,7 @@ foreach ( $c->membriDimessi(MEMBRO_DIMESSO) as $v ) {
     
 }
 
-$excel->genera('Volontaridimessi.xls');
+$excel->genera('Volontari_dimessi.xls');
 $excel->download();
 
 }elseif(isset($_GET['giovani'])){
@@ -69,21 +69,23 @@ foreach ( $c->membriDimessi(MEMBRO_VOLONTARIO) as $v ) {
 }
 }
 
-$excel->genera('Volontarigiovani.xls');
+$excel->genera('Volontari_giovani.xls');
 $excel->download();
 
 }elseif(isset($_GET['eleatt'])){
 $time = $_GET['time'];
+$time = DT::daTimestamp($time);
 
 $excel = new Excel();
 
 $excel->intestazione([
-    'Nome',
-    'Cognome',
-    'C. Fiscale',
-    'EMail',
-    'Cellulare',
-    'Cell. Servizio'
+        'Nome',
+        'Cognome',
+        'Data Nascita',
+        'Luogo Nascita',
+        'Provincia Nascita',
+        'C. Fiscale',
+        'Ingresso in CRI'
 ]);
 
 foreach ( $c->elettoriAttivi($time) as $v ) {
@@ -91,15 +93,49 @@ foreach ( $c->elettoriAttivi($time) as $v ) {
     $excel->aggiungiRiga([
         $v->nome,
         $v->cognome,
+        date('d/m/Y', $v->dataNascita),
+        $v->comuneNascita,
+        $v->provinciaNascita,
         $v->codiceFiscale,
-        $v->email,
-        $v->cellulare,
-        $v->cellulareServizio
+        $v->ingresso()->format("d/m/Y")
     ]);
     
 }
 
-$excel->genera('Elettorato_attivo.xls');
+$excel->genera("Elettorato_attivo.xls");
+$excel->download();
+
+}elseif(isset($_GET['elepass'])){
+$time = $_GET['time'];
+$time = DT::daTimestamp($time);
+
+$excel = new Excel();
+
+$excel->intestazione([
+        'Nome',
+        'Cognome',
+        'Data Nascita',
+        'Luogo Nascita',
+        'Provincia Nascita',
+        'C. Fiscale',
+        'Ingresso in CRI'
+]);
+
+foreach ( $c->elettoriPassivi($time) as $v ) {
+    
+    $excel->aggiungiRiga([
+        $v->nome,
+        $v->cognome,
+        date('d/m/Y', $v->dataNascita),
+        $v->comuneNascita,
+        $v->provinciaNascita,
+        $v->codiceFiscale,
+        $v->ingresso()->format("d/m/Y")
+    ]);
+    
+}
+
+$excel->genera("Elettorato_passivo.xls");
 $excel->download();
 
 }else{
