@@ -225,6 +225,18 @@ class Utente extends Persona {
         return $q[0];
     }
     
+    public function primaAppartenenza() {
+        return Appartenenza::filtra([
+            ['volontario',  $this->id]
+        ], 'inizio ASC LIMIT 0, 1');
+    }
+    
+    public function ingresso() {
+        $p = $this->primaAppartenenza();
+        if ( !$p ) { return false; }
+        return $p->inizio();
+    }
+    
     /*
      * Ritorna le appartenenze delle quali si è presidente.
      */
