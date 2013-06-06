@@ -75,7 +75,7 @@ class Comitato extends GeoPolitica {
     /*
      * Volontari che alla data $elezioni hanno certa $anzianita
      */
-    public function elettoriAttivi(DT $elezioni, $anzianita = ANZIANITA) {
+    public function elettoriAttivi(DateTime $elezioni, $anzianita = ANZIANITA) {
         $q = $this->db->prepare("
             SELECT  anagrafica.id, inizio, fine
             FROM    appartenenza, anagrafica
@@ -97,7 +97,7 @@ class Comitato extends GeoPolitica {
         $minimo->modify("-{$anzianita} years");
         $q->bindValue(':comitato',  $this->id);
         $q->bindValue(':elezioni',  $elezioni->getTimestamp());
-        $e->bindValue(':minimo',    $minimo->getTimestamp());
+        $q->bindValue(':minimo',    $minimo->getTimestamp());
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
@@ -110,7 +110,7 @@ class Comitato extends GeoPolitica {
      * Volontari del comitato che alla data $elezioni
      * hanno certa anzianità e 18 anni.
      */
-    public function elettoriPassivi(DT $elezioni, $anzianita = ANZIANITA) {
+    public function elettoriPassivi(DateTime $elezioni, $anzianita = ANZIANITA) {
         $elettori   = $this->elettoriAttivi($elezioni, $anzianita);
         $eta        = clone $elezioni;
         $eta->modify("-18 years");
