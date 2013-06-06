@@ -16,8 +16,9 @@ class DT extends DateTime {
     }
     
     public static function daTimestamp($timestamp) {
-        $x = DT::createFromFormat('U', $timestamp);
-        return self::daNativo($x);
+        $x = new DT();
+        $x->setTimestamp($timestamp);
+        return $x;
     }
     
     public static function daISO($dataISO) {
