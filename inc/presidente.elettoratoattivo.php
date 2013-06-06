@@ -5,7 +5,6 @@
  */
 paginaPresidenziale();
 $time = DT::createFromFormat('d/m/Y', $_POST['inputData']);
-$time = $time->getTimestamp();
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
@@ -100,7 +99,7 @@ $time = $time->getTimestamp();
                         </span>
                     </td>
                     <td><?php echo $_v->codiceFiscale; ?></td>
-                    <td><?php echo $_v->storico()->inizio; ?></td>
+                    <td><?php echo date('d/m/Y', $_v->ingresso()); ?></td>
                     <td class="btn-group">
                         <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli

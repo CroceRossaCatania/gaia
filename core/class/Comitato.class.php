@@ -77,7 +77,7 @@ class Comitato extends GeoPolitica {
      */
     public function elettoriAttivi(DT $elezioni, $anzianita = ANZIANITA) {
         $q = $this->db->prepare("
-            SELECT  anagrafica.id
+            SELECT  anagrafica.id, inizio, fine
             FROM    appartenenza, anagrafica
             WHERE   
               appartenenza.comitato     = :comitato
