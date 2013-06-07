@@ -17,7 +17,7 @@ paginaPresidenziale();
           <div class="row-fluid">
             <div class="control-group">
                 <div class="controls">
-                  <input class="input-medium" type="text" name="inputData" id="inputData" required>
+                  <input class="input-medium" type="text" name="inputData" id="inputData" required pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}">
                 </div>
             </div>
         </div>

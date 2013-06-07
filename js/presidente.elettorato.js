@@ -1,5 +1,5 @@
 $(document).ready( function() {
  
-$("#inputData").datepicker();
+$("#inputData").datepicker({minDate: 0});
 
 });
