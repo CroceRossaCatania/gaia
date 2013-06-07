@@ -60,7 +60,7 @@ paginaPrivata();
             <i class="icon-pencil"></i> modifica attività
         </a>
         <br />
-        <a href="?p=attivita.modifica&id=<?php echo $attivita->id; ?>">
+        <a href="?p=attivita.turni&id=<?php echo $attivita->id; ?>">
             <strong><i class="icon-plus"></i> aggiungi giorno o turno</strong>
         </a>
     </td>
