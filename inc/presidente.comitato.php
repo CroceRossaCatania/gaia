@@ -38,7 +38,13 @@ $(document).ready(function() {
     <i class="icon-reply"></i> Torna all'elenco dei comitati
 </a>
 
-<h2><strong><?php echo $c->nomeCompleto(); ?></strong></h2>
+<h2>
+    <i class="icon-cogs"></i>
+    <strong>
+        <?php echo $c->nomeCompleto(); ?>
+    </strong>
+</h2>
+
 <div class="">
 
     <?php if ( isset($_GET['ok']) && $c->id == $_GET['id'] ) { ?>
@@ -90,7 +96,6 @@ $(document).ready(function() {
 
         <h3>Dettagli e contatti</h3>
         <div class="row-fluid">
-            <h4 class="text-warning">Dettagli e contatti</h4>
             <p class="text-info"><i class="icon-info-sign"></i> Queste informazioni sono rese pubbliche.</p>
             <p>
                 <strong>Indirizzo</strong><br />
@@ -119,8 +124,6 @@ $(document).ready(function() {
 
         <h3>Aree di intervento e Responsabili</h3>
         <div class="row-fluid">
-            <h3 class="text-error allinea-centro">Aree di intervento e Responsabili</h3>
-            <hr />
             <p class="text-info"><i class="icon-info-sign"></i> 
                Inserire le aree di intervento e selezionare i responsabili associati.<br />Essi saranno 
                in grado di <strong>organizzare nuove attività su Gaia</strong> riguardanti la loro Area.
@@ -185,16 +188,22 @@ $(document).ready(function() {
 
         </div>
         
-        <h3>Referenti delle attività</h3>
+        <h3>Referenti e Attività</h3>
         <div class="row-fluid">
             
-            <p>
-                <a href="?p=attivita.gestione"><i class="icon-list"></i> Elenco delle attività e dei referenti</a>.
-            </p>
-
-            <a href="?p=attivita.idea" class="btn btn-block btn-large">
-                <i class="icon-plus"></i> Crea un'attività e nomina un referente
-            </a>
+            <div class="span6">
+                <a href="?p=attivita.gestione" class="btn btn-large btn-block">
+                    <i class="icon-list"></i>
+                    Elenco delle attività e dei referenti
+                </a>
+            </div>
+            
+            <div class="span6">
+                <a href="?p=attivita.idea" class="btn btn-block btn-large btn-primary">
+                    <i class="icon-plus"></i>
+                    Crea un'attività e nomina un referente
+                </a>
+            </div>
 
 
         </div>
