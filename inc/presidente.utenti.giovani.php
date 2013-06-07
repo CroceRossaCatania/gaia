@@ -86,8 +86,7 @@ paginaPresidenziale();
             $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
             $j = $t;
             foreach ( $j as $_j ) {
-                $u = time()-GIOVANI;
-                if ($u <=  $_j->dataNascita){ $k++; }}
+                if ($_j->giovane()){ $k++; }}
                 ?>
             
             <tr class="success">
@@ -106,8 +105,7 @@ paginaPresidenziale();
             
             <?php
             foreach ( $t as $_v ) {
-                $o = time()-GIOVANI;
-                if ($o <=  $_v->dataNascita){
+                if ($_v->giovane()){
             ?>
                 <tr>
                     <td><?php echo $_v->nome; ?></td>

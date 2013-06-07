@@ -653,4 +653,13 @@ class Utente extends Persona {
             }
     }
     
+    public function giovane() {
+        $u = time()-GIOVANI;
+        if($u <=  $this->dataNascita){
+            return true;
+            }else{
+                return false;
+            }
+    }
+    
 }
