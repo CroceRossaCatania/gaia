@@ -1,7 +1,7 @@
 <pre><?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  * Script di installazione di Gaia
  */
 
