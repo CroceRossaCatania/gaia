@@ -1,19 +1,16 @@
 <?php  
-paginaPresidenziale();
+paginaPrivata();
 
 $t = $_GET['t'];
-$v = $_GET['v'];  
 $tp = TitoloPersonale::by('id', $t);
 $r = $tp->titolo()->tipo;
 ?>
-<script type="text/javascript"><?php require './js/utente.titolo.modifica.js'; ?></script>
-<form action="?p=presidente.titolo.modifica.ok&t=<?php echo $t; ?>&v=<?php echo $v; ?>" method="POST">
+<form action="?p=utente.titolo.modifica.ok&t=<?php echo $t; ?>" method="POST">
 <div class="modal fade automodal">
         <div class="modal-header">
           <h3>Modifica Titolo</h3>
         </div>
         <div class="modal-body">
-          <p><strong>Compilare solo i campi necessari</strong></p>
           <div class="row-fluid">
                     <div class="span4 centrato">
                         <label for="dataInizio"><i class="icon-calendar"></i> Ottenimento</label>
@@ -62,10 +59,11 @@ $r = $tp->titolo()->tipo;
           <?php } ?>
         </div>
         <div class="modal-footer">
-          <a href="?p=presidente.utente.visualizza&id=<?php echo $v; ?>" class="btn">Annulla</a>
+          <a href="?p=utente.titoli&t=<?php echo $r; ?>" class="btn">Annulla</a>
           <button type="submit" class="btn btn-primary">
               <i class="icon-save"></i> Modifica
           </button>
         </div>
 </div>
+    
 </form>

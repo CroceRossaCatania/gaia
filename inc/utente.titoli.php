@@ -265,7 +265,13 @@ paginaPrivata();
                             </small></td>
                             
                             
-                            <td><a  href="?p=utente.titolo.cancella&id=<?php echo $titolo->id; ?>" title="Cancella il titolo" class="btn btn-small btn-warning">
+                            <td class="btn-group">
+                                <?php if (!$titolo->tConferma) { ?>
+                                <a href="?p=utente.titolo.modifica&t=<?php echo $titolo->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
+                                    <i class="icon-edit"></i>
+                                </a>
+                                <?php } ?>
+                                <a  href="?p=utente.titolo.cancella&id=<?php echo $titolo->id; ?>" title="Cancella il titolo" class="btn btn-small btn-warning">
                                 <i class="icon-trash"></i>
                             </a></td>
                     </tr>
