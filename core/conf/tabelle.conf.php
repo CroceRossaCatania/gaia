@@ -464,5 +464,16 @@ $conf['database']['tables'] = [
                                 INDEX (volontario),
                                 INDEX (attivita)
                             '
+                        ],
+                        [
+                            'name'      =>  'quote',
+                            'fields'    =>  '
+                                id          int PRIMARY KEY,
+                                appartenenza  varchar(16),
+                                timestamp varchar(64),
+                                tConferma varchar(64),
+                                pConferma varchar(16),
+                                INDEX (appartenenza)
+                            '
                         ]
 ];

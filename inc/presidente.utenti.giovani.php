@@ -64,12 +64,18 @@ paginaPresidenziale();
     
 <div class="row-fluid">
    <div class="span12">
+       <div class="btn-group btn-group-vertical span12">
        <?php if ( count($me->comitatiDiCompetenza()) > 1 ) { ?>
        <a href="?p=admin.utenti.excel&giovani" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
            <i class="icon-download"></i>
             <strong>Presidente</strong> &mdash; Scarica tutti i fogli dei volontari giovani in un archivio zip.
-       </a><hr />
+       </a>
        <?php } ?>
+       <a href="?p=utente.mail.nuova&comgio" class="btn btn-block btn-success">
+           <i class="icon-envelope"></i>
+            <strong>Presidente</strong> &mdash; Invia mail di massa a tutti i Giovani.
+       </a><hr />
+       </div>
             
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
@@ -95,6 +101,9 @@ paginaPresidenziale();
                     <span class="label label-warning">
                         <?php echo $k; ?>
                     </span>
+                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unitgio">
+                           <i class="icon-envelope"></i> Invia mail
+                    </a>
                     <a class="btn btn-small pull-right" 
                        href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&giovani"
                        data-attendere="Generazione...">

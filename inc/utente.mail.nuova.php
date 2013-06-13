@@ -18,8 +18,8 @@ $t=utente::by('id',$f);
             <h4><i class="icon-question-sign"></i> Pronto a mandare la mail ?</h4>
             <p>Modulo per l'invio mail agli utenti di GAIA</p>
         </div>
-        <?php if (isset($_GET['mass'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&mass&t=<?php echo $_GET['t']; ?>" method="POST"><?php }elseif (isset($_GET['com'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&com" method="POST"><?php }elseif (isset($_GET['unit'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&id=<?php echo $f; ?>&unit" method="POST"><?php }else{ ?> <form class="form-horizontal" action="?p=utente.mail.nuova.ok" method="POST"><?php } ?>
-        <?php if (isset($_GET['mass']) || isset($_GET['com']) || isset($_GET['unit'])) { ?> 
+        <?php if (isset($_GET['mass'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&mass&t=<?php echo $_GET['t']; ?>" method="POST"><?php }elseif (isset($_GET['com'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&com" method="POST"><?php }elseif (isset($_GET['unit'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&id=<?php echo $f; ?>&unit" method="POST"><?php }elseif (isset($_GET['comgio'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comgio" method="POST"><?php }elseif (isset($_GET['unitgio'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&id=<?php echo $f; ?>&unitgio" method="POST"><?php }else{ ?> <form class="form-horizontal" action="?p=utente.mail.nuova.ok" method="POST"><?php } ?>
+        <?php if (isset($_GET['mass']) || isset($_GET['com']) || isset($_GET['unit']) || isset($_GET['comgio']) || isset($_GET['unitgio'])) { ?> 
             <div class="control-group">
               <label class="control-label" for="inputDestinatari">Destinatari</label>
               <div class="controls">

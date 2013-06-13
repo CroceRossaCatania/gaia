@@ -71,6 +71,36 @@ $m->da = $me;
 $m->_TESTO = $testo;
 $m->invia();
 redirect('utente.me&suppok');    
+
+}elseif (isset($_GET['comgio'])) {
+$elenco = $me->comitatiDiCompetenza();
+        foreach($elenco as $comitato) {
+            $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
+            foreach($t as $_t){
+                if ($_t->giovane()){
+                $m = new Email('mailTestolibero', ''.$oggetto);
+                $m->da = $me; 
+                $m->a = $_t;
+                $m->_TESTO = $testo;
+                $m->invia();
+                }
+         }
+     }
+     
+}elseif (isset($_GET['unitgio'])) {
+        $c = $_GET['id'];
+        $c = Comitato::by('id', $c);
+        $t = $c->membriAttuali(MEMBRO_VOLONTARIO);
+        foreach($t as $_t){
+            if ($_t->giovane()){
+            $m = new Email('mailTestolibero', ''.$oggetto);
+            $m->da = $me; 
+            $m->a = $_t;
+            $m->_TESTO = $testo;
+            $m->invia();
+            }
+         }
+
 }else{
 
 $m = new Email('mailTestolibero', ''.$oggetto);
