@@ -17,7 +17,7 @@ $id = Volontario::by('id', $id);
                                 $t->appartenenza = $app;
                                 $time = DT::createFromFormat('d/m/Y', $_GET['inputData']);
                                 $t->timestamp = $time->getTimestamp();
-                                $t->tconferma = time();
+                                $t->tConferma = time();
                                 $t->pConferma = $me;
                                 redirect('us.quoteNo&ok');
                          }

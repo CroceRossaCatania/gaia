@@ -473,6 +473,8 @@ $conf['database']['tables'] = [
                                 timestamp varchar(64),
                                 tConferma varchar(64),
                                 pConferma varchar(16),
+                                quota varchar(255),
+                                causale varchar (255),
                                 INDEX (appartenenza)
                             '
                         ]
