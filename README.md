@@ -11,9 +11,9 @@ Leggi le **[Informazioni sul progetto Gaia](http://www.gaiacri.it/?p=public.abou
 
 ## Collaborare
 
-Ogni tipo di collaborazione è benvenuta. **Accettiamo volentieri le Pull Request.**
+**Leggi: [Come partecipare al progetto](http://goo.gl/Jjiqo)**
 
-Contattaci a <informatica@cricatania.it> per saperne di più.
+Alternativamente, contattaci a <informatica@cricatania.it> per saperne di più.
 
 
 # Progetti affini
@@ -23,17 +23,7 @@ Contattaci a <informatica@cricatania.it> per saperne di più.
 
 # Il software di Gaia
 
-### Requisiti
-
-Gaia dovrebbe funzionare su tutti i moderni sistemi Linux che abbiano almeno:
-
-* PHP 5.4+
-* MySQL 5+
-
-Per un migliore funzionamento, sono opzionali:
-
-* Imagick (con `imagick-dev` e `php5-imagick`)
-* `cron` (Il software di cronjob unix)
+**Leggi: [Documento tecnico di Gaia](http://goo.gl/Dg3JV) per requisiti ed informazioni sulle tecnologie.**
 
 ### Installazione
 
