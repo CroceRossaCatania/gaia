@@ -14,6 +14,7 @@ foreach ( $conf['dimissioni'] as $numero => $dimissioni ) {
                     }
 
 $m = new Email('dimissionevolontario', 'Dimissione Volontario: ' . $v->nomeCompleto());
+$m->da = $me;
 $m->a = $v->volontario();
 $m->_NOME       = $v->volontario()->nome;
 $m-> _MOTIVO = $motivo;
@@ -41,7 +42,7 @@ foreach ( $a as $_a){
     if($_a->attuale()){
         $d->appartenenza = $_a;
         $d->comitato = $_a->comitato;
-        $d->motivo = $_POST['dimissioni'];
+        $d->motivo = $_POST['motivo'];
         $d->info = $_POST['info'];
         $d->tConferma = time();
         $d->pConferma = $me;

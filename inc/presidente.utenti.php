@@ -44,7 +44,7 @@ paginaPresidenziale();
                             <i class="icon-list"></i>
                             Volontari giovani
                         </a>
-                        <a href="?p=presidente.elettorato" class="btn btn-block btn-primary">
+                        <a href="?p=us.elettorato" class="btn btn-block btn-primary">
                             <i class="icon-list"></i>
                             Elenchi elettorato
                         </a>

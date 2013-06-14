@@ -402,4 +402,79 @@ class Comitato extends GeoPolitica {
         return [$this];
     }
     
+    public function quoteSi() {
+        $q = $this->db->prepare("
+            SELECT  anagrafica.id
+            FROM    appartenenza, anagrafica, quote
+            WHERE
+              appartenenza.comitato     = :comitato
+            AND
+                ( appartenenza.fine < 1
+                 OR
+                appartenenza.fine > :ora 
+                OR
+                appartenenza.fine IS NULL)
+            AND
+                anagrafica.id = appartenenza.volontario
+            AND
+                quote.appartenenza = appartenenza.id
+            AND
+                quote.timestamp BETWEEN :anno AND :ora
+            ORDER BY
+              anagrafica.nome     ASC,
+              anagrafica.cognome  ASC");
+        $q->bindValue(':comitato',  $this->id);
+        $q->bindValue(':ora',  time());
+        $anno = date ('Y', time());
+        $anno = mktime(0, 0, 0, 1, 1, $anno);
+        $q->bindValue(':anno',    $anno);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Volontario($k[0]);
+        }
+        return $r;
+    }
+    
+     public function quoteNo() {
+        $q = $this->db->prepare("
+           SELECT 
+                anagrafica.id 
+           FROM 
+                anagrafica, appartenenza 
+          WHERE         
+                anagrafica.id = appartenenza.volontario 
+          AND
+                appartenenza.comitato = :comitato
+          AND
+                appartenenza.stato = :stato
+          AND 
+                ( fine < 1 OR fine > :ora 
+                OR 
+                fine IS NULL ) 
+         AND 
+                appartenenza.id 
+         NOT IN 
+                ( 
+                SELECT 
+                    appartenenza 
+                FROM 
+                    quote 
+                WHERE 
+                timestamp BETWEEN :anno AND :ora )
+                ");
+        $q->bindValue(':comitato',  $this->id);
+        $q->bindValue(':ora',  time());
+        $anno = date ('Y', time());
+        $anno = mktime(0, 0, 0, 1, 1, $anno);
+        $q->bindValue(':anno',    $anno);
+        $q->bindValue(':stato',    MEMBRO_VOLONTARIO);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Volontario($k[0]);
+        }
+        return $r;
+    }
+    
 }

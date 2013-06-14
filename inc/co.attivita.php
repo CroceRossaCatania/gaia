@@ -3,7 +3,7 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
-paginaApp(APP_CO);
+paginaApp([APP_CO , APP_PRESIDENTE]);
 
 ?>
 <?php if ( isset($_GET['monta']) ) { ?>

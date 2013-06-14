@@ -3,7 +3,8 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
-paginaPresidenziale();
+
+paginaApp([APP_SOCI , APP_PRESIDENTE]);
 $time = DT::createFromFormat('d/m/Y', $_GET['inputData']);
 $tstamp = $time->getTimestamp();
 ?>
@@ -20,11 +21,11 @@ $tstamp = $time->getTimestamp();
             
             <div class="span3">
                 <div class="btn-group btn-group-vertical span12">
-                    <a href="?p=presidente.elettoratoattivo&inputData=<?php echo $_GET['inputData']; ?>" class="btn btn-success btn-block">
+                    <a href="?p=us.elettoratoattivo&inputData=<?php echo $_GET['inputData']; ?>" class="btn btn-success btn-block">
                         <i class="icon-list"></i>
                         Elettorato attivo
                     </a>
-                    <a href="?p=presidente.elettoratopassivo&inputData=<?php echo $_GET['inputData']; ?>" class="btn btn-danger btn-block">
+                    <a href="?p=us.elettoratopassivo&inputData=<?php echo $_GET['inputData']; ?>" class="btn btn-danger btn-block">
                         <i class="icon-list"></i>
                         Elettorato passivo
                     </a>
@@ -51,7 +52,7 @@ $tstamp = $time->getTimestamp();
        <?php if ( count($me->comitatiDiCompetenza()) > 1 ) { ?>
        <a href="?p=admin.utenti.excel&elepass&time=<?php echo $tstamp; ?>" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
            <i class="icon-download"></i>
-            <strong>Presidente</strong> &mdash; Scarica tutti i fogli dei volontari in un archivio zip.
+            <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari in un archivio zip.
        </a>
        <?php } ?>
            <hr />

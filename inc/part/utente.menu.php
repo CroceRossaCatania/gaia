@@ -36,7 +36,7 @@ $menu += [
         'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
         'attivita.storico'  =>  '<i class="icon-list"></i> Mie attivita',
         'utente.gruppo'  =>  '<i class="icon-group"></i> Gruppi',
-       // 'utente.reperibilita'  =>  '<i class="icon-thumbs-up"></i> Reperibilità'
+        'utente.reperibilita'  =>  '<i class="icon-thumbs-up"></i> Reperibilità'
     ],
     
     'Volontario'    =>  [

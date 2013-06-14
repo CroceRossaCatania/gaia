@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp(APP_CO);
+paginaApp([APP_CO , APP_PRESIDENTE]);
 
 ?>
 
@@ -59,6 +59,7 @@ paginaApp(APP_CO);
         </div>
    </div>
     <hr/>
+    <!--
     <div class="span9">
     <div class="row-fluid">
             <div class="span12">
@@ -90,5 +91,6 @@ paginaApp(APP_CO);
             </div>
         </div>
     </div>
+    -->
 </div>
             
