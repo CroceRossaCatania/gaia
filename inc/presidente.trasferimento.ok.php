@@ -58,6 +58,7 @@ if (isset($_GET['si'])) {
                                     $a->inizio = time();
                                     $a->fine = PROSSIMA_SCADENZA;
                                     $m = new Email('richiestaTrasferimentook', 'Richiesta trasferimento approvata: ' . $a->comitato()->nome);
+                                    $m->da = $me; 
                                     $m->a = $a->volontario();
                                     $m->_NOME       = $a->volontario()->nome;
                                     $m->_COMITATO   = $a->comitato()->nome;
@@ -85,6 +86,7 @@ if (isset($_GET['no'])) {
                                     $a->inizio = time();
                                     $a->fine = time();
                                     $m = new Email('richiestaTrasferimentono', 'Richiesta trasferimento negata: ' . $a->comitato()->nome);
+                                    $m->da = $me;   
                                     $m->a = $a->volontario();
                                     $m->_NOME       = $a->volontario()->nome;
                                     $m->_COMITATO   = $a->comitato()->nome;
