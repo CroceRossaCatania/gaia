@@ -29,9 +29,9 @@ $tstamp = $time->getTimestamp();
                         <i class="icon-list"></i>
                         Elettorato passivo
                     </a>
-                    <a href="?p=presidente.utenti" class="btn btn-inf btn-block">
+                    <a href="?p=us.dash" class="btn btn-inf btn-block">
                         <i class="icon-reply"></i>
-                        Torna elenco volontari
+                        Torna alla dash
                     </a>
                 </div>
             </div>

@@ -38,7 +38,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                             <i class="icon-remove"></i>
                             Quote non pagate
                         </a>
-                        <a href="?p=presidente.dash" class="btn btn-block">
+                        <a href="?p=us.dash" class="btn btn-block">
                             <i class="icon-reply"></i>
                             Torna alla dash
                         </a>
