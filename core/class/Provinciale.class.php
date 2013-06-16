@@ -10,6 +10,9 @@ class Provinciale extends GeoPolitica {
         $_t  = 'provinciali',
         $_dt = 'datiProvinciali';
     
+    public static 
+        $_ESTENSIONE = EST_PROVINCIALE;
+
     public function nomeCompleto() {
         return $this->nome;
     }
@@ -20,6 +23,10 @@ class Provinciale extends GeoPolitica {
             $r = array_merge($l->estensione(), $r);
         }
         return array_unique($r);
+    }
+
+    public function figli() {
+        return $this->locali();
     }
 
     public function locali() {

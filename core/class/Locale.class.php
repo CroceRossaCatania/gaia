@@ -9,12 +9,20 @@ class Locale extends GeoPolitica {
     protected static
         $_t  = 'locali',
         $_dt = 'datiLocali';
+
+    public static 
+        $_ESTENSIONE = EST_LOCALE;
+
     
     public function nomeCompleto() {
         return $this->nome;
     }
     
     public function estensione() {
+        return $this->comitati();
+    }
+
+    public function figli() {
         return $this->comitati();
     }
 

@@ -39,14 +39,13 @@ if ( !file_exists($_f) ) {
 	$_f = "./inc/errore.404.php";
 }
 
-
 /*
  * Titolo e descrizione se non ridefiniti
  */
 $_titolo = 'Progetto Gaia - Croce Rossa Italiana';
 $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocemente, più trasparente ed aperta a tutti';
-?>
-<!DOCTYPE html>
+
+?><!DOCTYPE html>
 <html>
   <head>
   	<meta charset="utf-8" />

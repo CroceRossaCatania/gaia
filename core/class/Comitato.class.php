@@ -10,6 +10,13 @@ class Comitato extends GeoPolitica {
         $_t  = 'comitati',
         $_dt = 'datiComitati';
 
+    public static 
+        $_ESTENSIONE = EST_UNITA;
+
+    public function figli() {
+        return [];
+    }
+    
     public function colore() { 
     	$c = $this->colore;
     	if (!$c) {
@@ -218,47 +225,6 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
-    public function presidenti() {
-        return $this->delegati(APP_PRESIDENTE);
-    }
-    
-    public function volontariPresidenti() {
-        $del = $this->delegati(APP_PRESIDENTE);
-        foreach ( $del as &$d ) {
-            $d = $d->volontario();
-        }
-        return $del;
-    }
-    
-    public function unPresidente() {
-        $p = $this->presidenti();
-        if ( !$p ) { return false; }
-        shuffle($p);
-        return $p[0]->volontario();
-    }
-    
-    public function delegati($app = null) {
-        if ( $app ) {
-            $app = (int) $app;
-            $k = Delegato::filtra([
-                ['comitato',        $this->id],
-                ['estensione',      0],
-                ['applicazione',    $app]
-            ]);
-        } else {
-            $k = Delegato::filtra([
-                ['comitato',    $this->id],
-                ['estensione',  0]
-            ]);
-        }
-        $r = [];
-        foreach ( $k as $u ) {
-            if ( $u->attuale() ) {
-                $r[] = $u;
-            }
-        }
-        return $r;
-    }
     
     public function trasferimenti($stato = null) {
         $stato = (int) $stato;
@@ -350,23 +316,7 @@ class Comitato extends GeoPolitica {
         ], 'nome ASC');
     }
     
-    public function obiettivi_delegati($ob = OBIETTIVO_1) {
-        $r = [];
-        foreach ( $this->delegati(APP_OBIETTIVO) as $d ) {
-            if ( $d->dominio == $ob ) {
-                $r[] = $d;
-            }
-        }
-        return $r;
-    }
-    
-    public function obiettivi($ob = OBIETTIVO_1) {
-        $r = [];
-        foreach ( $this->obiettivi_delegati($ob) as $d ) {
-            $r[] = $d->volontario();
-        }
-        return $r;
-    }
+
     
     public function toJSON() {
         return [

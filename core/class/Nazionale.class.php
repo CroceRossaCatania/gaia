@@ -10,6 +10,9 @@ class Nazionale extends GeoPolitica {
         $_t  = 'nazionali',
         $_dt = 'datiNazionali';
 
+    public static 
+        $_ESTENSIONE = EST_NAZIONALE;
+
     public function nomeCompleto() {
         return $this->nome;
     }
@@ -20,6 +23,10 @@ class Nazionale extends GeoPolitica {
             $r = array_merge($l->estensione(), $r);
         }
         return array_unique($r);
+    }
+
+    public function figli() {
+        return $this->regionali();
     }
     
     public function regionali() {

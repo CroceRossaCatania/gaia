@@ -2,9 +2,8 @@
 
 paginaPresidenziale();
 
-$c = $_POST['id'];
-$c = new Comitato($c);
-
+$c = $_POST['oid'];
+$c = GeoPolitica::daOid($c);
 
 /* A che scheda tornare? Indice 0-based */ 
 $back = null;
@@ -43,6 +42,7 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
         $d->comitato    = $c->id;
         $d->pConferma   = $me->id;
         $d->tConferma   = time();
+        $d->estensione  = $c->_estensione();
         
         /* Da fare: INVIA MAIL */
         $v = new Volontario($_POST[$num]);
@@ -54,7 +54,7 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
         $m->invia();
             
         /* Se è il primo, crea apposita AREA */
-        if ( $primo ) {
+        if ( $primo && $c instanceOf Comitato ) {
             $a = new Area();
             $a->comitato    = $c->id;
             $a->obiettivo   = $num;
@@ -67,34 +67,36 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
 
 
 /* Salvataggio aree */
-foreach ( $c->aree() as $a ) {
-    
-    /* Salva obiettivo variato */
-    if (isset($_POST[$a->id . '_inputObiettivo'])) {
-        $a->obiettivo = $_POST[$a->id . '_inputObiettivo'];
-    }
+if ( $c instanceOf Comitato ) { 
+    foreach ( $c->aree() as $a ) {
+        
+        /* Salva obiettivo variato */
+        if (isset($_POST[$a->id . '_inputObiettivo'])) {
+            $a->obiettivo = $_POST[$a->id . '_inputObiettivo'];
+        }
 
-    /* Salva nome variato */
-    if (isset($_POST[$a->id . '_inputNome'])) {
-        $a->nome     = normalizzaNome($_POST[$a->id . '_inputNome']);
-    }
-    
-    /* Salva volontario variato */
-    if (isset($_POST[$a->id . '_inputResponsabile'])) {
+        /* Salva nome variato */
+        if (isset($_POST[$a->id . '_inputNome'])) {
+            $a->nome     = normalizzaNome($_POST[$a->id . '_inputNome']);
+        }
         
-        $back = 2;$
-        $v = new Volontario($_POST[$a->id . '_inputResponsabile']);
-        $a->responsabile = $v->id;
+        /* Salva volontario variato */
+        if (isset($_POST[$a->id . '_inputResponsabile'])) {
+            
+            $back = 2;$
+            $v = new Volontario($_POST[$a->id . '_inputResponsabile']);
+            $a->responsabile = $v->id;
+            
+            $m = new Email('responsabileArea', 'Responsabile per ' . $nom);
+            $m->a           = $v;
+            $m->_NOME       = $v->nome;
+            $m->_AREA       = $a->nomeCompleto();
+            $m->_COMITATO   = $c->nomeCompleto();
+            $m->invia();
+       
+        }
         
-        $m = new Email('responsabileArea', 'Responsabile per ' . $nom);
-        $m->a           = $v;
-        $m->_NOME       = $v->nome;
-        $m->_AREA       = $a->nomeCompleto();
-        $m->_COMITATO   = $c->nomeCompleto();
-        $m->invia();
-   
     }
-    
 }
 
 /* Creazione nuova area */
@@ -109,4 +111,5 @@ if ( isset($_POST['nuovaArea']) ) {
     
 }
 
-redirect("presidente.comitato&ok&id={$c->id}&back={$back}");
+$oid = $c->oid();
+redirect("presidente.comitato&ok&oid={$oid}&back={$back}");

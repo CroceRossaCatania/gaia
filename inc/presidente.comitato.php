@@ -5,9 +5,10 @@
  */
 
 
-$c = $_GET['id'];
-$c = new Comitato($c);
-paginaPresidenziale($c);
+$c = $_GET['oid'];
+$c = GeoPolitica::daOid($c);
+
+paginaApp([APP_PRESIDENTE]);
 caricaSelettore();
 
 if ( isset($_GET['back']) && !($_GET['back']==="")) {
@@ -55,7 +56,7 @@ $(document).ready(function() {
 
     <form action="?p=presidente.comitato.ok" method="POST">
         
-    <input type="hidden" name="id" value="<?php echo $c->id; ?>" />
+    <input type="hidden" name="oid" value="<?php echo $c->oid(); ?>" />
 
     <div class="row-fluid" id="parti">
 
@@ -115,98 +116,103 @@ $(document).ready(function() {
                 <strong>Email</strong><br />
                 <code><?php echo $c->email; ?></code>
             </p>
-            <a class="btn" href="?p=presidente.wizard&id=<?php echo $c->id; ?>">
+            <a class="btn" href="?p=presidente.wizard&oid=<?php echo $c->oid(); ?>">
                 <i class="icon-pencil"></i> Modifica informazioni
             </a>
 
 
         </div>
 
-        <h3>Aree di intervento e Responsabili</h3>
-        <div class="row-fluid">
-            <p class="text-info"><i class="icon-info-sign"></i> 
-               Inserire le aree di intervento e selezionare i responsabili associati.<br />Essi saranno 
-               in grado di <strong>organizzare nuove attività su Gaia</strong> riguardanti la loro Area.
-            </p>
+        <!-- VALIDO SOLO PER LE UNITA' TERRITORIALI -->
+        <?php if ( $c instanceOf Comitato ) { ?>
 
-            <?php if ( $c->aree() ) { ?>
-            <table class="table table-striped">
+            <h3>Aree di intervento e Responsabili</h3>
+            <div class="row-fluid">
+                <p class="text-info"><i class="icon-info-sign"></i> 
+                   Inserire le aree di intervento e selezionare i responsabili associati.<br />Essi saranno 
+                   in grado di <strong>organizzare nuove attività su Gaia</strong> riguardanti la loro Area.
+                </p>
 
-                <thead>
-                    <th>Obiettivo</th>
-                    <th>Area</th>
-                    <th>Volontario</th>
-                </thead>
+                <?php if ( $c->aree() ) { ?>
+                <table class="table table-striped">
 
-                <?php foreach ( $c->aree() as $area ) { ?>
-                <tr>
-                    <td>
-                        <select class="alCambioSalva" name="<?php echo $area->id; ?>_inputObiettivo">
-                            <?php foreach ( $conf['obiettivi'] as $x => $y ) { ?>
-                            <option value="<?php echo $x; ?>" <?php if ( $area->obiettivo == $x ) { ?>selected="selected"<?php } ?>><?php echo $y; ?></option>
-                            <?php } ?>
-                        </select>
-                    </td>
-                    <td>
-                        <input class="alCambioSalva" type="text" required name="<?php echo $area->id; ?>_inputNome" value="<?php echo $area->nome; ?>" />
-                        <i class="icon-save icon-large text-warning"></i>
-                    </td>
-                    <td>
-                        <a data-selettore="true" data-autosubmit="true" data-input="<?php echo $area->id; ?>_inputResponsabile" class="btn btn-block">
-                            <?php echo $area->responsabile()->nomeCompleto(); ?> <i class="icon-pencil"></i>
-                        </a>
-                    </td>
+                    <thead>
+                        <th>Obiettivo</th>
+                        <th>Area</th>
+                        <th>Volontario</th>
+                    </thead>
 
-                </tr>
+                    <?php foreach ( $c->aree() as $area ) { ?>
+                    <tr>
+                        <td>
+                            <select class="alCambioSalva" name="<?php echo $area->id; ?>_inputObiettivo">
+                                <?php foreach ( $conf['obiettivi'] as $x => $y ) { ?>
+                                <option value="<?php echo $x; ?>" <?php if ( $area->obiettivo == $x ) { ?>selected="selected"<?php } ?>><?php echo $y; ?></option>
+                                <?php } ?>
+                            </select>
+                        </td>
+                        <td>
+                            <input class="alCambioSalva" type="text" required name="<?php echo $area->id; ?>_inputNome" value="<?php echo $area->nome; ?>" />
+                            <i class="icon-save icon-large text-warning"></i>
+                        </td>
+                        <td>
+                            <a data-selettore="true" data-autosubmit="true" data-input="<?php echo $area->id; ?>_inputResponsabile" class="btn btn-block">
+                                <?php echo $area->responsabile()->nomeCompleto(); ?> <i class="icon-pencil"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                    <?php } ?>
+
+
+                </table>
+                <?php } else { ?>
+                    <p class="text-error"><i class="icon-warning-sign"></i> <strong>Attenzione</strong> &mdash;
+                        È necessario creare almeno un responsabile per poter creare attività.
+                    </p>
+                <?php } ?>
+
+                <hr />
+
+                <?php if ( $nOb ) { ?>
+                <button class="btn btn-block btn-large" name="nuovaArea" value="1">
+                    <i class="icon-plus"></i> Aggiungi nuova area di interesse
+                </button>
+                <?php } else { ?>
+                <div class="alert alert-error">
+                    <i class="icon-warning-sign"></i> <strong>Nessun delegato obiettivo</strong> &mdash;
+                    Prima di nominare un responsabile di un'Area, nomina almeno un delegato obiettivo qui sopra.
+                </div>
+                <button disabled class="btn btn-block btn-large disabled" name="nuovaArea" value="1">
+                    <i class="icon-plus"></i> Aggiungi nuova area di interesse
+                </button>
+
                 <?php } ?>
 
 
-            </table>
-            <?php } else { ?>
-                <p class="text-error"><i class="icon-warning-sign"></i> <strong>Attenzione</strong> &mdash;
-                    È necessario creare almeno un responsabile per poter creare attività.
-                </p>
-            <?php } ?>
-
-            <hr />
-
-            <?php if ( $nOb ) { ?>
-            <button class="btn btn-block btn-large" name="nuovaArea" value="1">
-                <i class="icon-plus"></i> Aggiungi nuova area di interesse
-            </button>
-            <?php } else { ?>
-            <div class="alert alert-error">
-                <i class="icon-warning-sign"></i> <strong>Nessun delegato obiettivo</strong> &mdash;
-                Prima di nominare un responsabile di un'Area, nomina almeno un delegato obiettivo qui sopra.
-            </div>
-            <button disabled class="btn btn-block btn-large disabled" name="nuovaArea" value="1">
-                <i class="icon-plus"></i> Aggiungi nuova area di interesse
-            </button>
-
-            <?php } ?>
-
-
-        </div>
-        
-        <h3>Referenti e Attività</h3>
-        <div class="row-fluid">
-            
-            <div class="span6">
-                <a href="?p=attivita.gestione" class="btn btn-large btn-block">
-                    <i class="icon-list"></i>
-                    Elenco delle attività e dei referenti
-                </a>
             </div>
             
-            <div class="span6">
-                <a href="?p=attivita.idea" class="btn btn-block btn-large btn-primary">
-                    <i class="icon-plus"></i>
-                    Crea un'attività e nomina un referente
-                </a>
+            <h3>Referenti e Attività</h3>
+            <div class="row-fluid">
+                
+                <div class="span6">
+                    <a href="?p=attivita.gestione" class="btn btn-large btn-block">
+                        <i class="icon-list"></i>
+                        Elenco delle attività e dei referenti
+                    </a>
+                </div>
+                
+                <div class="span6">
+                    <a href="?p=attivita.idea" class="btn btn-block btn-large btn-primary">
+                        <i class="icon-plus"></i>
+                        Crea un'attività e nomina un referente
+                    </a>
+                </div>
+
+
             </div>
 
-
-        </div>
+        <?php } ?>
         
     </div>
 

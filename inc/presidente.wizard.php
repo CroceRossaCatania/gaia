@@ -4,16 +4,16 @@
  * ©2013 Croce Rossa Italiana
  */
 
-$c = $_GET['id'];
-$c = new Comitato($c);
+$c = $_GET['oid'];
+$c = GeoPolitica::daOid($c);
 
-paginaPresidenziale($c);
+paginaApp([APP_PRESIDENTE]);
 
 ?>
 
 <form action="?p=presidente.wizard.ok" method="POST">
 
-<input type="hidden" name="id" value="<?php echo $c->id; ?>" />
+<input type="hidden" name="oid" value="<?php echo $c->oid(); ?>" />
     
 <div class="row-fluid">
     
@@ -50,33 +50,13 @@ paginaPresidenziale($c);
         
         <div class="form-horizontal">
             <div class="control-group">
-              <label class="control-label" for="inputNome">Unità territoriale</label>
+              <label class="control-label" for="inputNome">Nome unità</label>
               <div class="controls">
                 <input type="text" class="input-xlarge" name="inputNome" id="inputNome" readonly value="<?php echo $c->nome; ?>">
                 <acronym title="Per modificare, contatta informatica@cricatania.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
               </div>
             </div>
-            <div class="control-group">
-              <label class="control-label" for="inputLocale">Locale</label>
-              <div class="controls">
-                <input type="text" class="input-xlarge" name="inputLocale" id="inputLocale" readonly value="<?php echo $c->locale()->nome; ?>">
-                <acronym title="Per modificare, contatta informatica@cricatania.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="inputProvinciale">Provinciale</label>
-              <div class="controls">
-                <input type="text" class="input-xlarge" name="inputProvinciale" id="inputProvinciale" readonly value="<?php echo $c->provinciale()->nome; ?>">
-                <acronym title="Per modificare, contatta informatica@cricatania.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="inputRegionale">Regionale</label>
-              <div class="controls">
-                <input type="text" class="input-xlarge" name="inputRegionale" id="inputRegionale" readonly value="<?php echo $c->regionale()->nome; ?>">
-                <acronym title="Per modificare, contatta informatica@cricatania.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
-              </div>
-            </div>
+           
             <div class="control-group">
               <label class="control-label" for="inputTelefono">Telefono</label>
               <div class="controls">

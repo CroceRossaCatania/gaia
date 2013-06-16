@@ -475,7 +475,19 @@ class Utente extends Persona {
         }
         return array_unique($c);
     }
-    
+
+    public function entitaDelegazioni($app = null) {
+        /* Qualora fossi admin, ho tutto il nazionale... */
+        if ( $this->admin ) { return Nazionale::elenco('nome ASC'); }
+        
+        $d = $this->delegazioni($app);
+        $c = [];
+        foreach ( $d as $k ) {
+            $c[] = $k->comitato();
+        }
+        return array_unique($c);
+    }
+
     public function dominiDelegazioni($app) {
         $d = $this->delegazioni($app);
         $c = [];

@@ -4,10 +4,10 @@
  * ©2013 Croce Rossa Italiana
  */
 
-$c = $_POST['id'];
-$c = new Comitato($c);
+$c = $_POST['oid'];
+$c = GeoPolitica::daOid($c);
 
-paginaPresidenziale($c);
+paginaApp([APP_PRESIDENTE]);
 
 $c->nome        =   normalizzaNome($_POST['inputNome']);
 $c->telefono    =   maiuscolo($_POST['inputTelefono']);

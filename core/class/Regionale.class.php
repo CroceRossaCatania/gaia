@@ -9,6 +9,10 @@ class Regionale extends GeoPolitica {
     protected static
         $_t  = 'regionali',
         $_dt = 'datiRegionali';
+
+    public static 
+        $_ESTENSIONE = EST_REGIONALE;
+
     
     public function nomeCompleto() {
         return $this->nome;
@@ -20,6 +24,10 @@ class Regionale extends GeoPolitica {
             $r = array_merge($l->estensione(), $r);
         }
         return array_unique($r);
+    }
+
+    public function figli() {
+        return $this->provinciali();
     }
     
     public function provinciali() {

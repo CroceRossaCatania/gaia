@@ -76,13 +76,28 @@ $comitati = $me->comitatiDiCompetenza();
         <div class="" id="comitati">
             
             <ul>
-            <?php foreach ( $me->comitatiDiCompetenza() as $c ) { ?>
+            <?php 
+
+            $ricorsiva = function( $comitato ) use (&$ricorsiva) {
+                ?>
                 <li>
-                    <a href="?p=presidente.comitato&id=<?php echo $c->id; ?>">
-                        <strong><?php echo $c->nomeCompleto(); ?></strong>
+                    <a href="?p=presidente.comitato&oid=<?php echo $comitato->oid(); ?>">
+                        <strong><?php echo $comitato->nomeCompleto(); ?></strong>
                     </a>
+                    <?php if ($figli = $comitato->figli()) { ?>
+                        <ul>
+                            <?php foreach ( $figli as $figlio ) {
+                                $ricorsiva($figlio);
+                            } ?>
+                        </ul>
+                    <?php } ?>
                 </li>
-            <?php } ?>
+                <?php
+            };
+
+            foreach ( $me->entitaDelegazioni(APP_PRESIDENTE) as $c ) { 
+                $ricorsiva($c);
+            } ?>
             </ul>
             
         </div>
