@@ -19,6 +19,7 @@ if (isset($_GET['si'])) {
     $m->_NOME       = $a->volontario()->nome;
     $m->_COMITATO   = $a->comitato()->nome;
     $m->invia();
+    redirect('presidente.appartenenzepending&app');
 }elseif(isset($_GET['no'])){
     $m = new Email('negazionecomitato', 'Negazione appartenenza: ' . $a->comitato()->nome);
     $m->da = $me; 
@@ -27,14 +28,20 @@ if (isset($_GET['si'])) {
     $m->_COMITATO   = $a->comitato()->nome;
     $m->invia();
     $v= $a->volontario()->id;
-    $a->cancella();    
+    $a = Appartenenza::filtra(['volontario', $v]);
+    foreach($a as $_a){
+    $_a->cancella();    
+    }
+    
     $f = TitoloPersonale::filtra([
     ['volontario', $v]
     ]);
-    for ($i = 0, $ff = count($f); $i < $ff;$i++) {
-        $f[$i]->cancella();
+    
+    foreach ($f as $_f) {
+        $_f->cancella();
     }
-    $v = new Persona($v);
+    
+    $v = new Volontario($v);
     $v->cancella();
+    redirect('presidente.appartenenzepending&neg');
 }
-redirect('presidente.appartenenzepending');

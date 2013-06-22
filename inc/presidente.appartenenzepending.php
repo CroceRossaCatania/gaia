@@ -8,6 +8,18 @@ paginaPresidenziale();
 ?>
 
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<?php if ( isset($_GET['app']) ) { ?>
+        <div class="alert alert-success">
+            <i class="icon-ok"></i> <strong>Appartenenza confermata</strong>.
+            L'appartenenza è stata confermata con successo.
+        </div>
+<?php } ?>
+<?php if ( isset($_GET['neg']) ) { ?>
+        <div class="alert alert-danger">
+            <i class="icon-warning-sign"></i> <strong>Appartenenza negata</strong>.
+           L'appartenenza è stata negata.
+        </div>
+<?php } ?>
 <br/>
 <div class="row-fluid">
     <div class="span8">
