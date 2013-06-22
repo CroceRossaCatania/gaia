@@ -31,6 +31,7 @@ paginaPrivata();
 <hr />
 <table class="table table-striped table-bordered" id="tabellaUtenti">
     <thead>
+        <th>Foto</th>
         <th>Nome</th>
         <th>Cognome</th>
         <th>Cellulare Servizio</th>
@@ -49,6 +50,7 @@ foreach ( $comitati as $comitato ) {
         $_v = $delegato->volontario();
         ?>
         <tr>
+            <td><img src="<?php echo $_v->avatar()->img(20); ?>" class="img-polaroid" /></td>
             <td><?php echo $_v->nome; ?></td>
             <td><?php echo $_v->cognome; ?></td>
             <td><?php echo $_v->cellulare(); ?></td>
