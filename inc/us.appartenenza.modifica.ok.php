@@ -33,8 +33,10 @@ if ( $_POST['dataFine'] ) {
     }
 }
 
-if ( $_POST['inputcomitato'] ) {
-    $app->comitato = $_POST['inputComitato'];
+if ( $_POST['inputComitato'] ) {
+    $comitato     = $_POST['inputComitato'];
+    $comitato     = new Comitato($comitato);
+    $app->comitato = $comitato->id;
 }
 
 redirect('presidente.utente.visualizza&id=' . $v);
