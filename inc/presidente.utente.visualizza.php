@@ -25,7 +25,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         <?php }  ?>
   <!--Visualizzazione e modifica avatar utente-->
         <div class="span12">
-        <h2><i class="icon-edit muted"></i> Anagrafica</h2>
+        <h3><i class="icon-edit muted"></i> Anagrafica</h3>
             <div class="span6 allinea-centro">
         <?php if ( isset($_GET['aok']) ) { ?>
             <div class="alert alert-success">
@@ -186,7 +186,74 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         <?php } ?>
         
         <hr />
+    <!--Visualizzazione e modifica appartenenze utente -->
+    <div class="span6">
+        <div class="row-fluid">
+            <h4>
+                <i class="icon-time muted"></i>
+                Appartenenze
+            </h4>
+            
+        </div>
         
+        <div class="row-fluid">
+            
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <th>Stato</th>
+                    <th>Ruolo</th>
+                    <th>Comitato</th>
+                    <th>Inizio</th>
+                    <th>Fine</th>
+                    <th>Azioni</th>
+                </thead>
+                
+                <?php foreach ( $v->storico() as $app ) { ?>
+                    <tr<?php if ($app->attuale()) { ?> class="success"<?php } ?>>
+                        <td>
+                            <?php if ($app->attuale()) { ?>
+                                Attuale
+                            <?php } else { ?>
+                                Passato
+                            <?php } ?>
+                        </td>
+                        
+                        <td>
+                            <strong><?php echo $conf['membro'][$app->stato]; ?></strong>
+                        </td>
+                        
+                        <td>
+                            <?php echo $app->comitato()->nomeCompleto(); ?>
+                        </td>
+                        
+                        <td>
+                            <i class="icon-calendar muted"></i>
+                            <?php echo $app->inizio()->inTesto(false); ?>
+                        </td>
+                        
+                        <td>
+                            <?php if ($app->fine) { ?>
+                                <i class="icon-time muted"></i>
+                                <?php echo $app->fine()->inTesto(false); ?>
+                            <?php } else { ?>
+                                <i class="icon-question-sign muted"></i>
+                                Indeterminato
+                            <?php } ?>
+                        </td>
+                        
+                        <td class="btn-group">
+                                <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
+                                    <i class="icon-edit"></i>
+                                </a>
+                        </td>
+                        
+                    </tr>
+                <?php } ?>
+            
+            </table>
+        </div>
+        
+    </div>
     <!--Visualizzazione e modifica titoli utente-->
     <?php $titoli = $conf['titoli']; ?>
     <div class="span6">
@@ -196,7 +263,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         <strong>Errore</strong> &mdash; Non puoi inserire lo stesso titolo o qualifica due volte.
     </div>
     <?php } ?>
-   <h3><i class="icon-list muted"></i> Curriculum </h3>
+   <h4><i class="icon-list muted"></i> Curriculum </h4>
         
         <div id="step1">
             
