@@ -47,7 +47,7 @@
 
         <p>Gaia è stato ideato all'interno dei Servizi Informatici del Comitato Provinciale di Catania.</p>
         <p><strong>È un progetto aperto e collaborativo, ed è sviluppato da volontari CRI in tutta Italia.</strong></p>
-        <p>Per informazioni, puoi contattarci all'indirizzo email <code>informatica@cricatania.it</code>.</p>
+        <p>Per informazioni, puoi contattarci all'indirizzo email <code>info@gaiacri.it</code>.</p>
         <p><span class="text-success"><i class="icon-info-sign"></i> <strong>Vuoi collaborare?</strong>
                 Scopri come visitando <a href="https://github.com/CroceRossaCatania/gaia">la pagina del progetto</a>.
             </span></p>
@@ -63,7 +63,7 @@
             Scarica la Guida in PDF di Gaia
         </a></p>
         
-        <p>Oppure contattaci per email a <a href="mailto:informatica@cricatania.it"><i class="icon-envelope-alt"></i> informatica@cricatania.it</a>.</p>
+        <p>Oppure contattaci per email a <a href="mailto:supporto@gaiacri.it"><i class="icon-envelope-alt"></i> supporto@gaiacri.it</a>.</p>
         <p>&nbsp;</p>
         
         <hr />        
@@ -83,7 +83,7 @@
         <p>&nbsp;</p>
         <h2><i class="icon-question-sign"></i> Usare Gaia</h2>
 
-        <p>Per usare Gaia nel tuo Comitato, invia una mail a <a href="mailto:informatica@cricatania.it"><i class="icon-envelope-alt"></i> informatica@cricatania.it</a> includendo i tuoi recapiti. Ti risponderemo appena possibile con le istruzioni.</p>
+        <p>Per usare Gaia nel tuo Comitato, invia una mail a <a href="mailto:info@gaiacri.it"><i class="icon-envelope-alt"></i> info@gaiacri.it</a> includendo i tuoi recapiti. Ti risponderemo appena possibile con le istruzioni.</p>
 
         <hr />
         
@@ -92,7 +92,7 @@
        
         <h2><i class="icon-link"></i> Integrare Gaia</h2>
 
-        <p>Puoi integrare Gaia con le tue applicazioni, usando le API. C'è addirittura una <a href="http://github.com/AlfioEmanueleFresta/gaia-api-php">libreria PHP</a> già pronta per l'uso. Per maggiori informazioni, <a href="mailto:informatica@cricatania.it">contattaci</a>.</p>
+        <p>Puoi integrare Gaia con le tue applicazioni, usando le API. C'è addirittura una <a href="http://github.com/AlfioEmanueleFresta/gaia-api-php">libreria PHP</a> già pronta per l'uso. Per maggiori informazioni, <a href="mailto:supporto@gaiacri.it">contattaci</a>.</p>
 
         
     </div>

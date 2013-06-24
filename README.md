@@ -13,7 +13,7 @@ Leggi le **[Informazioni sul progetto Gaia](http://www.gaiacri.it/?p=public.abou
 
 **Leggi: [Come partecipare al progetto](http://goo.gl/Jjiqo)**
 
-Alternativamente, contattaci a <informatica@cricatania.it> per saperne di più.
+Alternativamente, contattaci a <info@gaiacri.it> per saperne di più.
 
 
 # Progetti affini

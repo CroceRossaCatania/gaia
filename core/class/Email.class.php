@@ -59,7 +59,7 @@ class Email {
                 $da = $this->da;
             }
         } else {
-            $da = 'Croce Rossa Italiana <informatica@cricatania.it>';
+            $da = 'Croce Rossa Italiana <supporto@gaiacri.it>';
         }
         
         $header =[

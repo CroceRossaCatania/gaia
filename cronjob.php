@@ -141,7 +141,7 @@ file_put_contents('upload/log/cronjob.txt', "\n\n" . $log, FILE_APPEND);
 $m = new Email('mailTestolibero', 'Report cronjob');
 $dest = new stdClass();
 $dest->nome     = 'Servizi';
-$dest->email    = 'informatica@cricatania.it';
+$dest->email    = 'supporto@gaiacri.it';
 $m->a = $dest;
 $m->_TESTO = nl2br($log);
 $m->invia();

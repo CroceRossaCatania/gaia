@@ -389,7 +389,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
 	        <a href="http://www.cricatania.it">Torna al sito</a> &middot;
 	        <a href="?p=public.about">Informazioni su Gaia</a> &middot;
 	        <a href="docs/Guida.pdf?ref=footer"><strong>Guida in PDF</strong></a> &middot;
-	        <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:informatica@cricatania.it"><?php } ?>Supporto</a><br />
+	        <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaiacri.it"><?php } ?>Supporto</a><br />
 	        Croce Rossa. <strong>Persone in prima persona.</strong>
    		  </div>
       </div>

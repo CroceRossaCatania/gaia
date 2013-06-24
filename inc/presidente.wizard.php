@@ -53,7 +53,7 @@ paginaApp([APP_PRESIDENTE]);
               <label class="control-label" for="inputNome">Nome unità</label>
               <div class="controls">
                 <input type="text" class="input-xlarge" name="inputNome" id="inputNome" readonly value="<?php echo $c->nome; ?>">
-                <acronym title="Per modificare, contatta informatica@cricatania.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
+                <acronym title="Per modificare, contatta supporto@gaiacri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
               </div>
             </div>
            

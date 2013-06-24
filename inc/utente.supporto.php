@@ -19,7 +19,7 @@
             <div class="control-group">
               <label class="control-label" for="inputDestinatario">Destinatario</label>
               <div class="controls">
-                <input type="text" class="input-xxlarge" name="inputDestinatario" id="inputDestinatario" readonly value="Servizi Informatici CRI Catania <informatica@cricatania.it>">
+                <input type="text" class="input-xxlarge" name="inputDestinatario" id="inputDestinatario" readonly value="Supporto GAIA <supporto@gaiacri.it>">
               </div>
             </div>    
             <div class="control-group">

@@ -11,8 +11,8 @@ $conf['version']	= 1.1;
 $conf['name']		= 'Gaia';
 $conf['vendor']		= 'Croce Rossa Italiana';
 $conf['copyright']	= '©2013 Croce Rossa Italiana';
-$conf['default_email_nome']	= 'Servizi Informatici CRI Catania';
-$conf['default_email_email']	= 'informatica@cricatania.it';
+$conf['default_email_nome']	= 'Supporto GAIA';
+$conf['default_email_email']	= 'supporto@gaiacri.it';
 $conf['status']		= 'Online and working';
 $conf['docs']		= 'No publicy available docs yet.';
 
