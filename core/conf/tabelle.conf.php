@@ -403,24 +403,6 @@ $conf['database']['tables'] = [
                     INDEX(fine)'
             ],
             [
-                        'name'  =>  'corsobase',
-                        'fields'    =>  '
-                            id              int PRIMARY KEY,
-                            volontario            varchar(16),
-                            locale        varchar(16),
-                            corso       varchar(16),
-                            INDEX(corso),
-                            INDEX(volontario)'
-            ],
-            [
-                        'name'  =>  'corsi',
-                        'fields'    =>  '
-                            id              int PRIMARY KEY,
-                            nome            varchar(16),
-                            informazioni        varchar(16),
-                            INDEX(nome)'
-            ],
-            [
                         'name'  =>  'coturni',
                         'fields'    =>  '
                             id              int PRIMARY KEY,
