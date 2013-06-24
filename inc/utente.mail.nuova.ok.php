@@ -149,6 +149,62 @@ $elenco = $me->comitatiDiCompetenza();
             $m->invia();
          }
 
+}elseif (isset($_GET['comeleatt'])) {
+$elenco = $me->comitatiDiCompetenza();
+        foreach($elenco as $comitato) {
+            $time = $_GET['time'];
+            $time = DT::daTimestamp($time);
+            $t = $comitato->elettoriAttivi($time);
+            foreach($t as $_t){
+                $m = new Email('mailTestolibero', ''.$oggetto);
+                $m->da = $me; 
+                $m->a = $_t;
+                $m->_TESTO = $testo;
+                $m->invia();
+         }
+     }
+}elseif (isset($_GET['comelepass'])) {
+$elenco = $me->comitatiDiCompetenza();
+        foreach($elenco as $comitato) {
+            $time = $_GET['time'];
+            $time = DT::daTimestamp($time);
+            $t = $comitato->elettoriPassivi($time);
+            foreach($t as $_t){
+                $m = new Email('mailTestolibero', ''.$oggetto);
+                $m->da = $me; 
+                $m->a = $_t;
+                $m->_TESTO = $testo;
+                $m->invia();
+         }
+     }
+}elseif (isset($_GET['uniteleatt'])) {
+        $c = $_GET['id'];
+        $c = Comitato::by('id', $c);
+        $time = $_GET['time'];
+        $time = DT::daTimestamp($time);
+        $t = $c->elettoriAttivi($time);
+        foreach($t as $_t){
+            $m = new Email('mailTestolibero', ''.$oggetto);
+            $m->da = $me; 
+            $m->a = $_t;
+            $m->_TESTO = $testo;
+            $m->invia();
+         }
+
+}elseif (isset($_GET['unitelepass'])) {
+        $c = $_GET['id'];
+        $c = Comitato::by('id', $c);
+        $time = $_GET['time'];
+        $time = DT::daTimestamp($time);
+        $t = $c->elettoriPassivi($time);
+        foreach($t as $_t){
+            $m = new Email('mailTestolibero', ''.$oggetto);
+            $m->da = $me; 
+            $m->a = $_t;
+            $m->_TESTO = $testo;
+            $m->invia();
+         }
+
 }else{
 
 $m = new Email('mailTestolibero', ''.$oggetto);

@@ -55,6 +55,10 @@ $tstamp = $time->getTimestamp();
             <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari in un archivio zip.
        </a>
        <?php } ?>
+       <a href="?p=utente.mail.nuova&comeleatt&time=<?php echo $tstamp; ?>" class="btn btn-block btn-success">
+           <i class="icon-envelope"></i>
+            <strong>Ufficio Soci</strong> &mdash; Invia mail di massa a tutti i Volontari.
+       </a>
            <hr />
        </div>
        
@@ -80,6 +84,9 @@ $tstamp = $time->getTimestamp();
                     <span class="label label-warning">
                         <?php echo count($t); ?>
                     </span>
+                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&uniteleatt">
+                           <i class="icon-envelope"></i> Invia mail
+                    </a>
                     <a class="btn btn-small pull-right" 
                        href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&eleatt&time=<?php echo $tstamp; ?>"
                        data-attendere="Generazione...">

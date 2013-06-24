@@ -27,9 +27,12 @@ $t=utente::by('id',$f);
         <?php }elseif (isset($_GET['comquotesi'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comquotesi" method="POST">
         <?php }elseif (isset($_GET['unitquoteno'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitquoteno&id=<?php echo $f; ?>" method="POST">
         <?php }elseif (isset($_GET['unitquotesi'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitquotesi&id=<?php echo $f; ?>" method="POST">
+        <?php }elseif (isset($_GET['comeleatt'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comeleatt&time=<?php echo $_GET['time']; ?>" method="POST">   
+        <?php }elseif (isset($_GET['uniteleatt'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&uniteleatt&time=<?php echo $_GET['time']; ?>&id=<?php echo $f; ?>" method="POST">
+        <?php }elseif (isset($_GET['unitelepass'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitelepass&time=<?php echo $_GET['time']; ?>&id=<?php echo $f; ?>" method="POST">
         <?php }else{ ?> <form class="form-horizontal" action="?p=utente.mail.nuova.ok" method="POST"><?php } ?>
 
- <?php if (isset($_GET['mass']) || isset($_GET['com']) || isset($_GET['unit']) || isset($_GET['comgio']) || isset($_GET['unitgio'])|| isset($_GET['comquoteno'])|| isset($_GET['comquotesi'])|| isset($_GET['unitquoteno'])|| isset($_GET['unitquotesi'])) { ?>
+ <?php if (isset($_GET['mass']) || isset($_GET['com']) || isset($_GET['unit']) || isset($_GET['comgio']) || isset($_GET['unitgio'])|| isset($_GET['comquoteno'])|| isset($_GET['comquotesi'])|| isset($_GET['unitquoteno'])|| isset($_GET['unitquotesi'])||isset($_GET['comeleatt'])||isset($_GET['uniteleatt'])||isset($_GET['unitelepass'])) { ?>
             <div class="control-group">
               <label class="control-label" for="inputDestinatari">Destinatari</label>
               <div class="controls">
