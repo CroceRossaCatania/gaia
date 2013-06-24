@@ -58,17 +58,16 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 <div class="row-fluid">
    <div class="span12">
        <div class="btn-group btn-group-vertical span12">
-       <!--<?php if ( count($me->comitatiDiCompetenza()) > 1 ) { ?>
+       <?php if ( count($me->comitatiDiCompetenza()) > 1 ) { ?>
        <a href="?p=admin.utenti.excel&quoteno" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
            <i class="icon-download"></i>
-            <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari in un archivio zip.
+            <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari che non hanno versato la quota in un archivio zip.
        </a>
        <?php } ?>
-       
-       <a href="?p=utente.mail.nuova&quoteno" class="btn btn-block btn-success">
+       <a href="?p=utente.mail.nuova&comquoteno" class="btn btn-block btn-success">
            <i class="icon-envelope"></i>
             <strong>Ufficio Soci</strong> &mdash; Invia mail di massa a tutti i Volontari.
-       </a>-->
+       </a>
        <a onClick="return confirm('Vuoi veramente chiudere le quote per anno corrente? questa operazione non è reversibile !');" href="?p=us.quote.chiudi" class="btn btn-block btn-danger">
            <i class="icon-off"></i>
             <strong>Ufficio Soci</strong> &mdash; Chiudi le quote per l'anno corrente
@@ -99,7 +98,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                            <i class="icon-envelope"></i> Invia mail
                     </a>
                     <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&comitatoquoteno=<?php echo $comitato->id; ?>"
+                       href="?p=presidente.utenti.excel&quoteno&comitato=<?php echo $comitato->id; ?>"
                        data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                     </a>

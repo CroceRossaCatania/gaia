@@ -101,6 +101,54 @@ $elenco = $me->comitatiDiCompetenza();
             }
          }
 
+}elseif (isset($_GET['comquoteno'])) {
+$elenco = $me->comitatiDiCompetenza();
+        foreach($elenco as $comitato) {
+            $t = $comitato->quoteNo();
+            foreach($t as $_t){
+                $m = new Email('mailTestolibero', ''.$oggetto);
+                $m->da = $me; 
+                $m->a = $_t;
+                $m->_TESTO = $testo;
+                $m->invia();
+         }
+     }
+}elseif (isset($_GET['comquotesi'])) {
+$elenco = $me->comitatiDiCompetenza();
+        foreach($elenco as $comitato) {
+            $t = $comitato->quoteSi();
+            foreach($t as $_t){
+                $m = new Email('mailTestolibero', ''.$oggetto);
+                $m->da = $me; 
+                $m->a = $_t;
+                $m->_TESTO = $testo;
+                $m->invia();
+         }
+     }
+}elseif (isset($_GET['unitquoteno'])) {
+        $c = $_GET['id'];
+        $c = Comitato::by('id', $c);
+        $t = $c->quoteNo();
+        foreach($t as $_t){
+            $m = new Email('mailTestolibero', ''.$oggetto);
+            $m->da = $me; 
+            $m->a = $_t;
+            $m->_TESTO = $testo;
+            $m->invia();
+         }
+
+}elseif (isset($_GET['unitquotesi'])) {
+        $c = $_GET['id'];
+        $c = Comitato::by('id', $c);
+        $t = $c->quoteNo();
+        foreach($t as $_t){
+            $m = new Email('mailTestolibero', ''.$oggetto);
+            $m->da = $me; 
+            $m->a = $_t;
+            $m->_TESTO = $testo;
+            $m->invia();
+         }
+
 }else{
 
 $m = new Email('mailTestolibero', ''.$oggetto);

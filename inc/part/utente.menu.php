@@ -17,7 +17,9 @@ $menu += [
 
 if ( $me->comitatiDiCompetenza() ) {
     $menu[''] += [
-        'presidente.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Presidente'
+        'presidente.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Presidente',
+        'us.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Ufficio Soci',
+        'co.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Centrale Operativa'
     ];
     
 }

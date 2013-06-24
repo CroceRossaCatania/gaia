@@ -12,7 +12,7 @@ foreach ( $me->comitatiDiCompetenza() as $c ) {
 
     $excel = new Excel();
     
-if(isset($_GET['eleatt'])||isset($_GET['elepass'])){
+if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||isset($_GET['quotesi'])){
     $excel->intestazione([
         'Nome',
         'Cognome',
@@ -99,6 +99,34 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])){
             
         }
     $excel->genera("Elettorato passivo {$c->nome}.xls");
+    }if(isset($_GET['quoteno'])){
+        foreach ( $c->quoteNo() as $v ) {
+
+        $excel->aggiungiRiga([
+            $v->nome,
+            $v->cognome,
+            $v->codiceFiscale,
+            $v->email,
+            $v->cellulare,
+            $v->cellulareServizio
+        ]);
+
+    }
+    $excel->genera("Volontari quoteNo {$c->nome}.xls");
+    }if(isset($_GET['quotesi'])){
+        foreach ( $c->quoteSi() as $v ) {
+
+        $excel->aggiungiRiga([
+            $v->nome,
+            $v->cognome,
+            $v->codiceFiscale,
+            $v->email,
+            $v->cellulare,
+            $v->cellulareServizio
+        ]);
+
+    }
+    $excel->genera("Volontari quoteSi {$c->nome}.xls");
     }else{ 
         foreach ( $c->membriAttuali() as $v ) {
 
@@ -127,6 +155,10 @@ if(isset($_GET['dimessi'])){
    $zip->comprimi("Elettorato_attivo.zip"); 
 }elseif(isset($_GET['elepass'])){
    $zip->comprimi("Elettorato_passivo.zip"); 
+}elseif(isset($_GET['quoteno'])){
+   $zip->comprimi("volontari_non_paganti.zip"); 
+}elseif(isset($_GET['quotesi'])){
+   $zip->comprimi("Volontari_paganti.zip"); 
 }else{
     $zip->comprimi("Anagrafica_volontari.zip");
 }

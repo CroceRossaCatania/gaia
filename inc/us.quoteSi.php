@@ -58,17 +58,16 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 <div class="row-fluid">
    <div class="span12">
        <div class="btn-group btn-group-vertical span12">
-       <!--<?php if ( count($me->comitatiDiCompetenza()) > 1 ) { ?>
+       <?php if ( count($me->comitatiDiCompetenza()) > 1 ) { ?>
        <a href="?p=admin.utenti.excel&quotesi" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
            <i class="icon-download"></i>
-            <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari in un archivio zip.
+            <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari che hanno versato la quota in un archivio zip.
        </a>
        <?php } ?>
-       
-       <a href="?p=utente.mail.nuova&quotesi" class="btn btn-block btn-success">
+       <a href="?p=utente.mail.nuova&comquotesi" class="btn btn-block btn-success">
            <i class="icon-envelope"></i>
             <strong>Ufficio Soci</strong> &mdash; Invia mail di massa a tutti i Volontari.
-       </a>--><hr />
+       </a>ì<hr />
        </div>
        
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
@@ -95,7 +94,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                            <i class="icon-envelope"></i> Invia mail
                     </a>
                     <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&comitatoquotesi=<?php echo $comitato->id; ?>"
+                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&quotesi"
                        data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                     </a>

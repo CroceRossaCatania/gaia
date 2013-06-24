@@ -138,6 +138,68 @@ foreach ( $c->elettoriPassivi($time) as $v ) {
 $excel->genera("Elettorato_passivo.xls");
 $excel->download();
 
+}if(isset($_GET['quoteno'])){
+    
+$excel = new Excel();
+
+$excel->intestazione([
+        'Nome',
+        'Cognome',
+        'Data Nascita',
+        'Luogo Nascita',
+        'Provincia Nascita',
+        'C. Fiscale',
+        'Ingresso in CRI'
+]);
+
+foreach ( $c->quoteNo() as $v ) {
+    
+    $excel->aggiungiRiga([
+        $v->nome,
+        $v->cognome,
+        date('d/m/Y', $v->dataNascita),
+        $v->comuneNascita,
+        $v->provinciaNascita,
+        $v->codiceFiscale,
+        $v->ingresso()->format("d/m/Y")
+    ]);
+    
+}
+
+$excel->genera('Volontari_quoteNo.xls');
+$excel->download();
+
+}if(isset($_GET['quotesi'])){
+    
+$excel = new Excel();
+
+$excel->intestazione([
+        'Nome',
+        'Cognome',
+        'Data Nascita',
+        'Luogo Nascita',
+        'Provincia Nascita',
+        'C. Fiscale',
+        'Ingresso in CRI'
+]);
+
+foreach ( $c->quoteSi() as $v ) {
+    
+    $excel->aggiungiRiga([
+        $v->nome,
+        $v->cognome,
+        date('d/m/Y', $v->dataNascita),
+        $v->comuneNascita,
+        $v->provinciaNascita,
+        $v->codiceFiscale,
+        $v->ingresso()->format("d/m/Y")
+    ]);
+    
+}
+
+$excel->genera('Volontari_quoteSi.xls');
+$excel->download();
+
 }else{
     
 $excel = new Excel();

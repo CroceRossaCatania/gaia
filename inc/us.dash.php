@@ -45,11 +45,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                         <i class="icon-list"></i>
                         Elenchi volontari
                     </a>
-               </div>
                     <a href="?p=us.elettorato" class="btn btn-danger btn-block">
                         <i class="icon-list"></i>
                         Elenchi elettorato
                     </a>
+                </div>
             </div>
             <div class="span6">
                 <div class="btn-group btn-group-vertical span12">
@@ -57,11 +57,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                         <i class="icon-certificate"></i>
                         Gestione quote associative
                     </a>
-                </div>
                     <a href="?p=us.anagrafica.nuova" class="btn btn-block btn-success">
                         <i class="icon-plus"></i>
                         Aggiungi volontario
                     </a>
+                </div>
             </div>
         </div>
    </div>
