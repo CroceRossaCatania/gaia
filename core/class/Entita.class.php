@@ -135,7 +135,11 @@ class Entita {
             if ( $_elem[1] === null ) {
                 $_condizioni[] = "{$_elem[0]} IS NULL OR {$_elem[0]} = 0";
             } else {
-                $_condizioni[] = "{$_elem[0]} = '{$_elem[1]}'";
+                if ( is_int($_elem[1]) ) {
+                    $_condizioni[] = "{$_elem[0]} = {$_elem[1]}";
+                } else {
+                    $_condizioni[] = "{$_elem[0]} = '{$_elem[1]}'";
+                }
             }
         }
         $stringa = implode(' AND ', $_condizioni);

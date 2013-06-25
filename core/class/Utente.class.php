@@ -61,18 +61,10 @@ class Utente extends Persona {
     }
     
     public function appartenenzePendenti() {
-        $q = $this->db->prepare("
-            SELECT id FROM appartenenza WHERE
-            volontario = :id AND stato = :stat");
-        $q->bindParam(':id', $this->id);
-        $stat = MEMBRO_PENDENTE;
-        $q->bindParam(':stat', ($stat));
-        $q->execute();
-        $r = [];
-        while ( $x = $q->fetch(PDO::FETCH_NUM)) {
-            $r[] = new Appartenenza($x[0]);
-        }
-        return $r;
+        return Appartenenza::filtra([
+            ['volontario',  $this->id],
+            ['stato',       MEMBRO_PENDENTE]
+        ]);
     }
     
     public function in(Comitato $c) {
@@ -492,26 +484,15 @@ class Utente extends Persona {
     
     public function partecipazioni( $stato = false ) {
         if ( $stato ) {
-            $extra = 'AND     stato = :stato';
+            return Partecipazione::filtra([
+                ['volontario',  $this->id],
+                ['stato',       $stato]
+            ], 'timestamp DESC');
         } else {
-            $extra = '';
+            return Partecipazione::filtra([
+                ['volontario',  $this->id]
+            ], 'timestamp DESC');
         }
-        $q = $this->db->prepare("
-            SELECT  id
-            FROM    partecipazioni
-            WHERE   volontario = :id
-            $extra
-            ORDER BY    timestamp DESC");
-        $q->bindParam(':id',    $this->id);
-        if ( $stato ) {
-            $q->bindParam(':stato', $stato);
-        }
-        $q->execute();
-        $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Partecipazione($k[0]);
-        }
-        return $r;
     }
     
     
