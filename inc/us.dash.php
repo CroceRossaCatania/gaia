@@ -15,7 +15,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     <div class="span9">
         <div class="row-fluid">
             <div class="span12">
-                <h3>Ufficio Soci  <?php echo $me->unComitato()->locale()->nomeCompleto(); ?>.</h3>
+                <h3>Ufficio Soci</h3>
             </div>
         </div>
                     
@@ -53,10 +53,10 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             </div>
             <div class="span6">
                 <div class="btn-group btn-group-vertical span12">
-                    <a href="?p=us.quoteNo" class="btn btn-block">
+                  <!--  <a href="?p=us.quoteNo" class="btn btn-block">
                         <i class="icon-certificate"></i>
                         Gestione quote associative
-                    </a>
+                    </a>-->
                     <a href="?p=us.anagrafica.nuova" class="btn btn-block btn-success">
                         <i class="icon-plus"></i>
                         Aggiungi volontario

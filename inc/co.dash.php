@@ -15,7 +15,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
     <div class="span9">
         <div class="row-fluid">
             <div class="span12">
-                <h3>Centrale Operativa  <?php echo $me->unComitato()->nomeCompleto(); ?>.</h3>
+                <h3>Centrale Operativa</h3>
             </div>
         </div>
                     
@@ -30,10 +30,10 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
 
             <div class="span3">
                 <table class="table table-striped table-condensed">
-                
+<!--                
                     <tr><td>Reperibili</td><td><?php echo "help"; ?></td></tr>
                     <tr><td>In servizio</td><td><?php echo "help"; ?></td></tr>
-                    
+                    -->
                 </table>
             </div>
         </div>
