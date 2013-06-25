@@ -55,16 +55,9 @@ class Utente extends Persona {
     }
     
     public function storico() {
-        $q = $this->db->prepare("
-            SELECT id FROM appartenenza WHERE volontario = :id
-            ORDER BY inizio DESC");
-        $q->bindParam(':id', $this->id);
-        $q->execute();
-        $r = [];
-        while ( $f = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Appartenenza($f[0]);
-        }
-        return $r;
+        return Appartenenza::filtra([
+            ['volontario', $this->id]
+        ], 'INIZIO DESC');
     }
     
     public function appartenenzePendenti() {

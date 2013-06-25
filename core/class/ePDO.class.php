@@ -10,7 +10,7 @@ class ePDO extends PDO {
     
     public function prepare ( $q, $opzioni = [] ) {
         $this->numQuery++;
-        //file_put_contents('/tmp/t1', $q, FILE_APPEND);
+        // file_put_contents('/tmp/t1', $q, FILE_APPEND);
         return parent::prepare( $q, $opzioni );
     }
 

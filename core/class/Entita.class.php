@@ -55,8 +55,7 @@ class Entita {
     }
     
     public static function by($_nome, $_valore) {
-        global $db;
-        $r = static::filtra([[$_nome, $_valore]], 'LIMIT 0,1');
+        $r = static::filtra([[$_nome, $_valore]], 'id LIMIT 0,1');
         if (!$r) { return false; }
         return $r[0];
     }
@@ -65,7 +64,7 @@ class Entita {
      * Ottiene un elenco di tutti gli hash delle query in cache per l'oggetto
      */
     public static function _elencoCacheQuery() {
-        global $cache;
+        global $cache, $conf;
         if ( !$cache ) { return []; }
         $get = $cache->get($conf['db_hash'] . static::$_t . ':query_cache');
         if (!$get) { return []; }
@@ -76,7 +75,7 @@ class Entita {
      * Aggiunge un determinato hash all'elenco delle query in cache
      */
     public static function _aggiungiElencoCacheQuery($hash) {
-        global $cache;
+        global $cache, $conf;
         $r = static::_elencoCacheQuery();
         $r[] = $hash;
         $cache->set($conf['db_hash'] . static::$_t . ':query_cache', json_encode($r));
@@ -87,7 +86,7 @@ class Entita {
      * Dato hash della query e array di oggetti, lo aggiunge
      */
     public static function _cacheQuery($hash, $valori) {
-        global $cache;
+        global $cache, $conf;
         $r = [];
         foreach ( $valori as $valore ) {
             $r[] = $valore->oid();
@@ -102,7 +101,7 @@ class Entita {
      * Dato un hash vede se esiste e torna il risultato
      */
     public static function _ottieniQuery($hash) {
-        global $cache;
+        global $cache, $conf;
         if ( $r = $cache->get($conf['db_hash'] . static::$_t . ':query:' . $hash) ) {
             $k = [];
             foreach ( json_decode($r) as $j ) {
@@ -118,7 +117,7 @@ class Entita {
      * Invalida tutta la cache query
      */
     private static function _invalidaCacheQuery() {
-        global $cache;
+        global $cache, $conf;
         /* Cancella prima tutte le query che sono state cacheate */
         foreach ( static::_elencoCacheQuery() as $hash ) {
             $cache->delete($conf['db_hash'] . static::$_t . ':query:' . $hash);
@@ -153,9 +152,11 @@ class Entita {
         /*
          * Controlla se la query è già in cache
          */
+        $hash = null;
         if ( $cache ) {
             $hash = sha1($query);
-            if ( $r = static::_ottieniQuery($hash) ) {
+            $r = static::_ottieniQuery($hash);
+            if ( $r !== false  ) {
                 $cache->increment($conf['db_hash'] . '__re');
                 return $r;
             }
