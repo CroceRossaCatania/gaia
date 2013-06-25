@@ -36,7 +36,7 @@ paginaAdmin();
         </div>
     </div> 
 <hr />
-<table class="table table-striped table-bordered" id="tabellaUtenti">
+<table class="table table-striped table-condensed table-bordered" id="tabellaUtenti">
     <thead>
         <th>Nome</th>
         <th>Cognome</th>
@@ -47,21 +47,22 @@ paginaAdmin();
         <th>Azione</th>
     </thead>
 <?php
-foreach ( $me->comitatiDiCompetenza() as $comitato ) { 
-    foreach ( $comitato->presidenti() as $presidente ) {
-        if($presidente->attuale()){
+$comitati = $me->comitatiDiCompetenza();
+foreach ( $comitati as $comitato ) { 
+    
+    $presidenti = $comitato->presidenti();
+    foreach ( $presidenti as $presidente ) {
         $_v = $presidente->volontario();
         ?>
     <tr>
-        <td><?php echo $_v->nome; ?></td>
-        <td><?php echo $_v->cognome; ?></td>
+        <td><strong><?php echo $_v->nome; ?></strong></td>
+        <td><strong><?php echo $_v->cognome; ?></strong></td>
         <td><?php echo $_v->codiceFiscale; ?></td>
         <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
         <td><?php echo $_v->comuneNascita; ?></td>
-        <td><?php echo $comitato->nomeCompleto(); ?></td>
+        <td><strong><?php echo $comitato->nomeCompleto(); ?></strong></td>
         <td>
-                <a class="btn btn-danger" onClick="return confirm('Vuoi veramente dimettere questo Presidente ?');" href="?p=admin.presidente.dimetti&id=<?php echo $presidente->id; ?>">
-                <i class="icon-ban-circle"></i>
+                <a class="btn btn-danger btn-mini" onClick="return confirm('Vuoi veramente dimettere <?php echo addslashes($_v->nomeCompleto()); ?> da presidente?');" href="?p=admin.presidente.dimetti&id=<?php echo $presidente->id; ?>">
                     Dimetti
                 </a>
         </td>
@@ -69,7 +70,7 @@ foreach ( $me->comitatiDiCompetenza() as $comitato ) {
     </tr>
     <?php 
     
-        }}
+        }
     
 }  
 

@@ -72,7 +72,7 @@ class Entita {
         $_condizioni = [];
         foreach ( $_array as $_elem ) {
             if ( $_elem[1] == null ) {
-                $_condizioni[] = "{$_elem[0]} IS NULL";
+                $_condizioni[] = "{$_elem[0]} IS NULL OR {$_elem[0]} = 0";
             } else {
                 $_condizioni[] = "{$_elem[0]} = '{$_elem[1]}'";
             }
@@ -81,8 +81,9 @@ class Entita {
         if ( $_order ) {
             $_order = 'ORDER BY ' . $_order;
         }
-        $q = $db->prepare("
-            SELECT id FROM ". static::$_t . " WHERE $stringa $_order");
+        $query = "
+            SELECT id FROM ". static::$_t . " WHERE $stringa $_order";
+        $q = $db->prepare($query);
         $q->execute();
         $t = [];
         while ( $r = $q->fetch(PDO::FETCH_NUM) ) {
