@@ -19,10 +19,9 @@ $conf['docs']		= 'No publicy available docs yet.';
 $conf['timezone']       = 'Europe/Rome';
 
 /* Invio email */
-$conf['smtp'] = [
+$conf['smtp'] += [
+    'auth'      =>  true,
     'host'      =>  'localhost',
-    'username'  =>  'informatica',
-    'password'  =>  'sanbitter',
     'debug'     =>  false
 ];
 
