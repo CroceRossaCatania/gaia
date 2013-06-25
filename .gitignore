@@ -1,6 +1,9 @@
 # Configurazione del database
 core/conf/database.conf.php
 
+# Configurazione SMTP
+core/conf/smtp.conf.php
+
 # Vari log 
 upload/log/*
 
