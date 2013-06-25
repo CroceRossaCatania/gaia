@@ -25,7 +25,7 @@ function paginaApp($app) {
         $app = [$app];
     }
     foreach ( $app as $k ) {
-        if ( $sessione->utente()->delegazioni($app) ) {
+        if ( $sessione->utente()->delegazioni($k) ) {
             return true;
         }
     }
