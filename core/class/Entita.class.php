@@ -71,7 +71,7 @@ class Entita {
         $entita = get_called_class();
         $_condizioni = [];
         foreach ( $_array as $_elem ) {
-            if ( $_elem[1] == null ) {
+            if ( $_elem[1] === null ) {
                 $_condizioni[] = "{$_elem[0]} IS NULL OR {$_elem[0]} = 0";
             } else {
                 $_condizioni[] = "{$_elem[0]} = '{$_elem[1]}'";
