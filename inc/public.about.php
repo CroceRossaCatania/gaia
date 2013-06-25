@@ -16,7 +16,7 @@
             <ul>
                 <li><strong>Efficienza</strong>: Bisogna cavare il potenziale inespresso di Croce Rossa.</li>
                 <li><strong>Semplicità</strong>: Il sistema deve essere semplice per chiunque.</li>
-                <li><strong>Trasparenza</strong>: Croce Rossa è aperta e trapsarente a tutti.</li>
+                <li><strong>Trasparenza</strong>: Croce Rossa è aperta e trasparente a tutti.</li>
             </ul>
         </p>
         <p>&nbsp;</p>
@@ -28,7 +28,7 @@
 
                 <p>
                   G.A.I.A. è l'acronimo di "Gestione Avanzata ed Integrata dell'Anagrafica"
-                  ed identifica la web-application sviluppata dai volontari della Croce Rossa di
+                  ed identifica la web-application ideata dai volontari della Croce Rossa di
                   Catania per semplificare le quotidiane attività di gestione del personale e dei
                   mezzi dell'associazione.
                 </p>
