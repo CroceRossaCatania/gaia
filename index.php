@@ -418,4 +418,8 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <!-- Q: <?php echo $db->numQuery; ?> -->
     
   </body>
-</html>
+</html><?php
+ob_end_flush(); 
+header("Content-length: " . ob_get_length()); 
+ob_end_flush(); 
+?>
