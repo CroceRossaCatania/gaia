@@ -22,6 +22,11 @@ paginaAdmin();
             <i class="icon-warning-sign"></i> <strong>Titolo presente</strong>.
             Il titolo è già presente in elenco.
         </div>
+<?php } elseif ( isset($_GET['mod']) )  { ?>
+        <div class="alert alert-block alert-success">
+           <i class="icon-edit"></i> <strong>Titolo modificato</strong>
+            Il titolo è stato modificato con successo.
+        </div>
 <?php } ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
     <br/>
@@ -67,6 +72,9 @@ paginaAdmin();
                     <td class="btn-group">      
                         <a  onClick="return confirm('Vuoi veramente cancellare questo titolo ?');" href="?p=admin.titolo.cancella&id=<?php echo $c->id; ?>" title="Cancella Titolo" class="btn btn-small btn-warning">
                             <i class="icon-trash"></i> Cancella
+                        </a>
+                        <a  href="?p=admin.titolo.modifica&id=<?php echo $c->id; ?>" title="Modifica Titolo" class="btn btn-small btn-info">
+                            <i class="icon-edit"></i> Modifica
                         </a>
                    </td>
                 </tr>
