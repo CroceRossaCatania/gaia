@@ -15,14 +15,27 @@ $menu += [
     'Da fare'   =>   []
 ];
 
+$presidente = false;
+
 if ( $me->comitatiDiCompetenza() ) {
+    $presidente = true;
     $menu[''] += [
-        'presidente.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Presidente',
-        'us.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Ufficio Soci',
+        'presidente.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Presidente'
+    ];
+}
+
+if ( $presidente || $me->delegazioni(APP_SOCI)) {
+    $menu[''] += [
+        'us.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Ufficio Soci'
+    ];
+}
+
+if ( $presidente || $me->delegazioni(APP_CO)) {
+    $menu[''] += [
         'co.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Centrale Operativa'
     ];
-    
 }
+
 
 $nap = count($me->autorizzazioniPendenti());
 if ( $nap ) {
