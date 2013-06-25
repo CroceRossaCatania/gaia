@@ -81,8 +81,12 @@ class Entita {
         if ( $_order ) {
             $_order = 'ORDER BY ' . $_order;
         }
+        $where = ''; // Permette query senza condizioni
+        if ( $_condizioni ) {
+            $where = 'WHERE';
+        }
         $query = "
-            SELECT id FROM ". static::$_t . " WHERE $stringa $_order";
+            SELECT id FROM ". static::$_t . " $where $stringa $_order";
         $q = $db->prepare($query);
         $q->execute();
         $t = [];
@@ -93,19 +97,7 @@ class Entita {
     }
     
     public static function elenco($ordine = '') {
-        global $db;
-        $entita = get_called_class();
-        if ( $ordine ) { 
-            $ordine = 'ORDER BY ' . $ordine;
-        }
-        $q = $db->prepare("
-            SELECT id FROM ". static::$_t . " ". $ordine);
-        $q->execute();
-        $t = [];
-        while ( $r = $q->fetch(PDO::FETCH_NUM) ) {
-            $t[] = new $entita($r[0]);
-        }
-        return $t;
+        return static::filtra([], $ordine);
     }
     
     public static function cercaFulltext($query, $campi, $limit = 20, $altroWhere = '') {
