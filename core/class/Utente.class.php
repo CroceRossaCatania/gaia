@@ -267,7 +267,7 @@ class Utente extends Persona {
     
     public function numVolontariDiCompetenza() {
         $n = 0;
-        foreach ( $this->comitatiDiCompetenza() as $c ) {
+        foreach ( $this->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]) as $c ) {
             $n += $c->numMembriAttuali();
         }
         return $n;

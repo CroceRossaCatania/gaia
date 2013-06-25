@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPrivata();
+paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $id     = $_GET['id'];
 $t      = new TitoloPersonale($id);

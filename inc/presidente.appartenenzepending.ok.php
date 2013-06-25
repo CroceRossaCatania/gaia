@@ -4,7 +4,7 @@
  * ©2012 Croce Rossa Italiana
  */
 
-paginaPrivata();
+paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $id     = $_GET['id'];
 $a = Appartenenza::by('id', $id); /* Qui col by */

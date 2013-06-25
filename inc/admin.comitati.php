@@ -59,6 +59,9 @@ paginaAdmin();
                         <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $nazionale->oid(); ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli
                         </a>
+                        <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $nazionale->id; ?>&t=regi" title="Nuovo">
+                            <i class="icon-plus"></i> Nuovo
+                        </a> 
                    </td>
                 </tr>
                 <?php foreach ( $nazionale->regionali() as $regionale ) { ?>
@@ -68,7 +71,10 @@ paginaAdmin();
                         <td class="btn-group">
                             <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $regionale->oid(); ?>" title="Dettagli">
                                 <i class="icon-eye-open"></i> Dettagli
-                            </a>            
+                            </a>           
+                            <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $regionale->id; ?>&t=pro" title="Nuovo">
+                                <i class="icon-plus"></i> Nuovo
+                            </a>
                         </td>
                 </tr>
                 <?php foreach ( $regionale->provinciali() as $provinciale ) { ?>
@@ -78,7 +84,10 @@ paginaAdmin();
                         <td class="btn-group">
                             <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $provinciale->oid(); ?>" title="Dettagli">
                                 <i class="icon-eye-open"></i> Dettagli
-                            </a>            
+                            </a>  
+                            <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $provinciale->id; ?>&t=loc" title="Nuovo">
+                                <i class="icon-plus"></i> Nuovo
+                            </a> 
                        </td>
                 </tr>
                 <?php foreach ( $provinciale->locali() as $locale ) { ?>

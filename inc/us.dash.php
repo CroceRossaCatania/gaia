@@ -61,6 +61,14 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                         <i class="icon-plus"></i>
                         Aggiungi volontario
                     </a>-->
+                    <a href="?p=presidente.appartenenzepending" class="btn btn-block btn-success">
+                        <i class="icon-group"></i>
+                        Appartenenze in attesa
+                    </a>
+                    <a href="?p=presidente.titoli" class="btn btn-block btn-success">
+                        <i class="icon-star"></i>
+                        Titoli in attesa
+                    </a>
                 </div>
             </div>
         </div>

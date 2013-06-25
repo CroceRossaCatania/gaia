@@ -50,7 +50,7 @@ foreach ( $comitati as $comitato ) {
         $_v = $delegato->volontario();
         ?>
         <tr>
-            <td><img src="<?php echo $_v->avatar()->img(20); ?>" class="img-polaroid" /></td>
+            <td><img src="<?php echo $_v->avatar()->img(10); ?>" class="img-polaroid" /></td>
             <td><?php echo $_v->nome; ?></td>
             <td><?php echo $_v->cognome; ?></td>
             <td><?php echo $_v->cellulare(); ?></td>

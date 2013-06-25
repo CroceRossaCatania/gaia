@@ -4,7 +4,8 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp([APP_SOCI , APP_PRESIDENTE]);
+
 ?>
 
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
@@ -49,7 +50,7 @@ paginaPresidenziale();
         <th>Azione</th>
     </thead>
 <?php
-$comitati = $me->comitatiDiCompetenza();
+$comitati = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
 
 foreach($comitati as $comitato) {
     foreach ( $comitato->appartenenzePendenti() as $_t ) {

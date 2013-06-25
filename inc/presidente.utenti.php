@@ -3,7 +3,8 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
-paginaPresidenziale();
+
+paginaApp([APP_SOCI , APP_PRESIDENTE]);
 ?>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
@@ -64,16 +65,16 @@ paginaPresidenziale();
 <div class="row-fluid">
    <div class="span12">
        <div class="btn-group btn-group-vertical span12">
-       <?php if ( count($me->comitatiDiCompetenza()) > 1 ) { ?>
+       <?php if ( count($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ])) > 1 ) { ?>
        <a href="?p=admin.utenti.excel" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
            <i class="icon-download"></i>
-            <strong>Presidente</strong> &mdash; Scarica tutti i fogli dei volontari in un archivio zip.
+            <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari in un archivio zip.
        </a>
        <?php } ?>
        
        <a href="?p=utente.mail.nuova&com" class="btn btn-block btn-success">
            <i class="icon-envelope"></i>
-            <strong>Presidente</strong> &mdash; Invia mail di massa a tutti i Volontari.
+            <strong>Ufficio Soci</strong> &mdash; Invia mail di massa a tutti i Volontari.
        </a><hr />
        </div>
        
@@ -86,7 +87,7 @@ paginaPresidenziale();
                 <th>Azioni</th>
             </thead>
         <?php
-        $elenco = $me->comitatiDiCompetenza();
+        $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
             $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
                 ?>

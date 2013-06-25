@@ -37,7 +37,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
         <th>Azione</th>
     </thead>
 <?php
-$comitati= $me->comitatiDiCompetenza();
+$comitati= $me->comitatiApp ([ APP_CO, APP_PRESIDENTE ]);
 foreach($comitati as $comitato){
     foreach($comitato->reperibili() as $_t){
         $_v = $_t->volontario();

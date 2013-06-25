@@ -4,11 +4,11 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $zip = new Zip();
 
-foreach ( $me->comitatiDiCompetenza() as $c ) {
+foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]) as $c ) {
 
     $excel = new Excel();
     

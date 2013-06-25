@@ -21,7 +21,7 @@ if (isset($_GET['unit'])) {
          }
 
 }elseif (isset($_GET['com'])) {
-$elenco = $me->comitatiDiCompetenza();
+$elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
             $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
             foreach($t as $_t){
@@ -73,7 +73,7 @@ $m->invia();
 redirect('utente.me&suppok');    
 
 }elseif (isset($_GET['comgio'])) {
-$elenco = $me->comitatiDiCompetenza();
+$elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
             $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
             foreach($t as $_t){
@@ -102,7 +102,7 @@ $elenco = $me->comitatiDiCompetenza();
          }
 
 }elseif (isset($_GET['comquoteno'])) {
-$elenco = $me->comitatiDiCompetenza();
+$elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
             $t = $comitato->quoteNo();
             foreach($t as $_t){
@@ -114,7 +114,7 @@ $elenco = $me->comitatiDiCompetenza();
          }
      }
 }elseif (isset($_GET['comquotesi'])) {
-$elenco = $me->comitatiDiCompetenza();
+$elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
             $t = $comitato->quoteSi();
             foreach($t as $_t){
@@ -150,7 +150,7 @@ $elenco = $me->comitatiDiCompetenza();
          }
 
 }elseif (isset($_GET['comeleatt'])) {
-$elenco = $me->comitatiDiCompetenza();
+$elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
             $time = $_GET['time'];
             $time = DT::daTimestamp($time);
@@ -164,7 +164,7 @@ $elenco = $me->comitatiDiCompetenza();
          }
      }
 }elseif (isset($_GET['comelepass'])) {
-$elenco = $me->comitatiDiCompetenza();
+$elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
             $time = $_GET['time'];
             $time = DT::daTimestamp($time);

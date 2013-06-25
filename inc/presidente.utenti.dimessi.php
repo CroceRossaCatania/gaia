@@ -3,7 +3,7 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
-paginaPresidenziale();
+paginaApp([APP_SOCI , APP_PRESIDENTE]);
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -59,10 +59,10 @@ paginaPresidenziale();
     
 <div class="row-fluid">
    <div class="span12">
-       <?php if ( count($me->comitatiDiCompetenza()) > 1 ) { ?>
+       <?php if ( count($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ])) > 1 ) { ?>
        <a href="?p=admin.utenti.excel&dimessi" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
            <i class="icon-download"></i>
-            <strong>Presidente</strong> &mdash; Scarica tutti i fogli dei volontari dimessi in un archivio zip.
+            <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari dimessi in un archivio zip.
        </a><hr />
        <?php } ?>
        
@@ -75,7 +75,7 @@ paginaPresidenziale();
                 <th>Azioni</th>
             </thead>
         <?php
-        $elenco = $me->comitatiDiCompetenza();
+        $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
             $t = $comitato->membriDimessi(MEMBRO_DIMESSO);
                 ?>

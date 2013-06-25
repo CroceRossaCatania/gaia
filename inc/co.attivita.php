@@ -46,7 +46,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
         <?php
         $i = time()-43200;
         $f = time()+86400;
-        $comitati = $me->comitatiDiCompetenza();
+        $comitati = $me->comitatiApp ([ APP_CO, APP_PRESIDENTE ]);
         $elenco = Attivita::elenco();
         foreach($comitati as $comitato){
             foreach($elenco as $attivita) {

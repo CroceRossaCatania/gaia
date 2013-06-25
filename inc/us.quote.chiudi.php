@@ -10,7 +10,7 @@ foreach ( $conf['dimissioni'] as $numero => $dimissioni ) {
     if ( $numero == DIM_QUOTA) { $motivo =  $dimissioni;} 
                     }
                     
-$elenco = $me->comitatiDiCompetenza();
+$elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
             $t = $comitato->quoteNo();
             foreach ( $t as $_v ) {

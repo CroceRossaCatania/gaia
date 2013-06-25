@@ -4,6 +4,8 @@
  * ©2013 Croce Rossa Italiana
  */
 
+paginaApp([APP_SOCI , APP_PRESIDENTE]);
+
 $c = $_GET['comitato'];
 $c = new Comitato($c);
 
