@@ -56,11 +56,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                   <!--  <a href="?p=us.quoteNo" class="btn btn-block">
                         <i class="icon-certificate"></i>
                         Gestione quote associative
-                    </a>-->
+                    </a>
                     <a href="?p=us.anagrafica.nuova" class="btn btn-block btn-success">
                         <i class="icon-plus"></i>
                         Aggiungi volontario
-                    </a>
+                    </a>-->
                 </div>
             </div>
         </div>
