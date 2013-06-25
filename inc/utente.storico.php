@@ -179,6 +179,11 @@ paginaPrivata();
                                     <?php echo $conf['obiettivi'][$app->dominio]; ?>
                                     <?php
                                     break;
+                                default:
+                                    ?>
+                                    <strong><?php echo $conf['applicazioni'][$app->applicazione]; ?></strong>
+                                    <?php
+                                    break;
                                     
                             }
                             ?>
