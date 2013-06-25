@@ -56,18 +56,80 @@ class Entita {
     
     public static function by($_nome, $_valore) {
         global $db;
-        $entita = get_called_class();
-        $q = $db->prepare("
-            SELECT id FROM ". static::$_t . " WHERE $_nome = :valore");
-        $q->bindParam(':valore', $_valore);
-        $q->execute();
-        $r = $q->fetch(PDO::FETCH_NUM);
+        $r = static::filtra([[$_nome, $_valore]], 'LIMIT 0,1');
         if (!$r) { return false; }
-        return new $entita($r[0]);
+        return $r[0];
     }
 
+    /*
+     * Ottiene un elenco di tutti gli hash delle query in cache per l'oggetto
+     */
+    public static function _elencoCacheQuery() {
+        global $cache;
+        if ( !$cache ) { return []; }
+        $get = $cache->get($conf['db_hash'] . static::$_t . ':query_cache');
+        if (!$get) { return []; }
+        return json_decode($get);
+    }
+    
+    /*
+     * Aggiunge un determinato hash all'elenco delle query in cache
+     */
+    public static function _aggiungiElencoCacheQuery($hash) {
+        global $cache;
+        $r = static::_elencoCacheQuery();
+        $r[] = $hash;
+        $cache->set($conf['db_hash'] . static::$_t . ':query_cache', json_encode($r));
+        return true;
+    }
+    
+    /*
+     * Dato hash della query e array di oggetti, lo aggiunge
+     */
+    public static function _cacheQuery($hash, $valori) {
+        global $cache;
+        $r = [];
+        foreach ( $valori as $valore ) {
+            $r[] = $valore->oid();
+        }
+        $r = json_encode($r);
+        $cache->set($conf['db_hash'] . static::$_t . ':query:' . $hash, $r);
+        static::_aggiungiElencoCacheQuery($hash);
+        return true;
+    }
+    
+    /*
+     * Dato un hash vede se esiste e torna il risultato
+     */
+    public static function _ottieniQuery($hash) {
+        global $cache;
+        if ( $r = $cache->get($conf['db_hash'] . static::$_t . ':query:' . $hash) ) {
+            $k = [];
+            foreach ( json_decode($r) as $j ) {
+                $k[] = Entita::daOid($j);
+            }
+            return $k;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+     * Invalida tutta la cache query
+     */
+    private static function _invalidaCacheQuery() {
+        global $cache;
+        /* Cancella prima tutte le query che sono state cacheate */
+        foreach ( static::_elencoCacheQuery() as $hash ) {
+            $cache->delete($conf['db_hash'] . static::$_t . ':query:' . $hash);
+        }
+        /* Cancella poi l'elenco stesso in cache */
+        $cache->delete($conf['db_hash'] . static::$_t . ':query_cache');
+        return true;
+    }
+    
     public static function filtra($_array, $_order = null) {
-        global $db;
+        global $db, $conf, $cache;
         $entita = get_called_class();
         $_condizioni = [];
         foreach ( $_array as $_elem ) {
@@ -87,12 +149,32 @@ class Entita {
         }
         $query = "
             SELECT id FROM ". static::$_t . " $where $stringa $_order";
+        
+        /*
+         * Controlla se la query è già in cache
+         */
+        if ( $cache ) {
+            $hash = sha1($query);
+            if ( $r = static::_ottieniQuery($hash) ) {
+                $cache->increment($conf['db_hash'] . '__re');
+                return $r;
+            }
+        }
+        
         $q = $db->prepare($query);
         $q->execute();
         $t = [];
         while ( $r = $q->fetch(PDO::FETCH_NUM) ) {
             $t[] = new $entita($r[0]);
         }
+        
+        /*
+         * Mette in cache la query
+         */
+        if ( $cache ) {
+            static::_cacheQuery($hash, $t);
+        }
+        
         return $t;
     }
     
@@ -159,7 +241,9 @@ class Entita {
             INSERT INTO ". static::$_t ."
             (id) VALUES (:id)");
         $q->bindParam(':id', $this->id);
-        return $q->execute();
+        $e = $q->execute();
+        static::_invalidaCacheQuery();
+        return $e;
     }
     
     public function __get ( $_nome ) {
@@ -245,6 +329,7 @@ class Entita {
         }
         if ( $this->cache ) {
             $this->cache->set($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome, $_valore);
+            static::_invalidaCacheQuery();
         }
     }
     
@@ -256,6 +341,7 @@ class Entita {
         $q->bindParam(':id', $this->id);
         $q->execute();
         if ( $this->cache ) {
+            static::_invalidaCacheQuery();
             $this->cache->delete($conf['db_hash'] . static::$_t . ':' . $this->id);
         }
     }

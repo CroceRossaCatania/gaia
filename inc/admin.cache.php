@@ -93,7 +93,29 @@ $info = $cache->getStats();
                         <?= round( $server['bytes_written'] / 1024 , 2 ); ?> kB scritti
                     <td>
                 </tr>
-
+                <tr>
+                    <td><strong>Ricerche in cache</strong><br />
+                        Contiene filtri, elenchi e by.</td>
+                    <td>
+                        <?php $entita = ['Appartenenza', 'Comitato', 'Provinciale', 'Regionale', 'Nazionale', 'Volontario', 'Delegato', 'Autorizzazione', 'Partecipazione', 'Turno', 'Attivita']; ?>
+                        <table class='table table-condensed table-striped'>
+                            <?php foreach ( $entita as $singola ) {
+                                $qq = $singola::_elencoCacheQuery(); ?>
+                            <tr>
+                                <td><?= $singola; ?></td>
+                                <td><?= count($qq); ?></td>
+                            </tr>
+                            <?php } ?>
+                            
+                        </table>
+                    
+                    
+                    <td>
+                </tr>
+                <tr>
+                    <td>Ricerche evitate</td>
+                    <td><?php echo (int) ( $cache->get( $conf['db_hash'] . '__re' ) ); ?></td>
+                </tr>
             </tbody>
         </table>
 
