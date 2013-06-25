@@ -70,8 +70,8 @@ $comitati = $me->comitatiDiCompetenza();
         
         <hr />
         
-        <p class="text-success"><i class="icon-info-sign"></i> <strong>Unità territoriali</strong> &mdash;
-            Cliccare sul nome di un'unità per modificarne <strong>delegati, obiettivi, responsabili, ecc.</strong>:</p>
+        <p class="text-success"><i class="icon-info-sign"></i> <strong>Unità di competenza</strong> &mdash;
+            Cliccare sul nome di una unità per modificarne <strong>delegati, obiettivi, responsabili, ecc.</strong>:</p>
         
         <div class="" id="comitati">
             

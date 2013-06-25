@@ -4,6 +4,12 @@
  * ©2013 Croce Rossa Italiana
  */
 
+/*
+ * Elenco Applicazioni da gestire
+ */
+$_daGestire = [
+    APP_CO, APP_SOCI
+];
 
 $c = $_GET['oid'];
 $c = GeoPolitica::daOid($c);
@@ -12,10 +18,14 @@ paginaApp([APP_PRESIDENTE]);
 caricaSelettore();
 
 if ( isset($_GET['back']) && !($_GET['back']==="")) {
-    
     (int) $back = $_GET['back'];
 } else {
     $back = 'false';
+}
+if ( isset($_GET['back2']) && !($_GET['back2']==="")) {
+    (int) $back2 = $_GET['back2'];
+} else {
+    $back2 = 'false';
 }
 ?>
 
@@ -26,10 +36,16 @@ var contenitoreIcone = {
 };
 
 $(document).ready(function() {
-    $("#parti").accordion({
+    $("#parti_generali").accordion({
               icons:        contenitoreIcone,
               heightStyle:  "content",
               active:       <?php echo $back; ?>,
+              collapsible:  true
+    });    
+    $("#parti_delegati").accordion({
+              icons:        contenitoreIcone,
+              heightStyle:  "content",
+              active:       <?php echo $back2; ?>,
               collapsible:  true
     });
 });
@@ -48,18 +64,19 @@ $(document).ready(function() {
 
 <div class="">
 
-    <?php if ( isset($_GET['ok']) && $c->id == $_GET['id'] ) { ?>
+    <?php if ( isset($_GET['ok']) ) { ?>
     <div class="alert alert-success">
         <i class="icon-ok"></i> <strong>Modifiche salvate</strong> &mdash; Grazie.
     </div>
     <?php } ?>
 
-    <form action="?p=presidente.comitato.ok" method="POST">
         
+    <form action="?p=presidente.comitato.ok" method="POST">
+
     <input type="hidden" name="oid" value="<?php echo $c->oid(); ?>" />
 
-    <div class="row-fluid" id="parti">
 
+    <div class="row-fluid" id='parti_generali'>
         <h3>Obiettivi strategici</h3>
         <div class="row-fluid">
             <p class="text-info"><i class="icon-info-sign"></i> I delegati selezionati possono creare attività
@@ -213,9 +230,54 @@ $(document).ready(function() {
             </div>
 
         <?php } ?>
+            
+    </div>
+    </form>
+    
+    <div class="row-fluid" id="parti_delegati">
+        <?php
+        
+            $i = 0;
+            foreach ( $_daGestire as $_gestione ) {
+                $_nome = $conf['applicazioni'][$_gestione];
+                
+            ?>
+            
+            <h3>Delegati: <?php echo $_nome; ?></h3>
+            <div>
+                
+                <p>Da qui è possibile selezionare un volontario che abbia accesso alle funzioni
+                    di <strong><?= $_nome; ?></strong> per il <?= $c->nomeCompleto(); ?>.</p>
+                
+                <form action="?p=presidente.comitato.delegato" method="POST">
+                    
+                    <input type="hidden" name="oid" value="<?= $c->oid(); ?>" />
+                    <input type="hidden" name="applicazione" value="<?= $_gestione; ?>" />
+                    <input type="hidden" name="back" value="<?= $i; ?>" />
+                    
+                    <a data-autosubmit="true" data-selettore="true" data-input="persona" class="btn">
+                        <?php if ( $d = $c->delegati($_gestione)[0] ) { ?>
+                            <?= $d->volontario()->nomeCompleto(); ?> <i class="icon-pencil"></i>
+                        <?php } else { ?>
+                            <strong>Ancora nessuno</strong> &mdash; Clicca per selezionare il delegato <i class="icon-pencil"></i>
+                        <?php } ?>
+                    </a>
+                    
+                </form>
+
+                <p class="text-info">
+                    <i class="icon-info-sign"></i>
+                    Notificheremo automaticamente l'autorizzazione alla persona interessata.
+                </p>
+
+
+            </div>
+
+        <?php 
+        $i++;
+        } ?>
         
     </div>
 
-    </form>
 
 </div>
