@@ -7,8 +7,9 @@
 /* Carico la configurazione */
 $_conf = [
     'database', 'smtp', 'costanti', 'sessioni',
-    'generale', 'errori', 'tabelle'
+    'generale', 'errori'
 ];
+
 foreach ( $_conf as $_load ) {
     require('./core/conf/' . $_load . '.conf.php');
 }

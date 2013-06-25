@@ -27,29 +27,18 @@ echo "================ INSTALLAZIONE DI GAIA ==============\n\n";
 echo "Creazione directory upload/log...\n";
 @mkdir('upload/log');
 
-echo "Creazione tabelle database...\n";
-
-foreach ($conf['database']['tables'] as $tabella) {
-    $q = $db->prepare("
-        DROP TABLE {$tabella['name']}");
-    $r = (int) $q->execute();
-    $e = $q->errorInfo()[2];
-    //echo "[Eliminazione\t{$tabella['name']}]:\t\t$r\t$e\n";
-    $q = $db->prepare("
-        CREATE TABLE {$tabella['name']} ({$tabella['fields']}) ENGINE=MyISAM");
-    $r = (int) $q->execute();
-    $e = $q->errorInfo()[2];
-    echo "\tCreazione\t{$tabella['name']}:\t\t$r\t$e\n";
-}
 
 echo "Caricamento dei comitati sul database...\n";
 
 $comitati = file_get_contents('upload/setup/comitati.txt');
 $comitati = explode("\n", $comitati);
-foreach ( $comitati as $comitato ) {
-    $c = new Comitato; $c->nome = $comitato;
+try {
+    foreach ( $comitati as $comitato ) {
+        $c = new Comitato; $c->nome = $comitato;
+    }
+} catch ( Exception $e ) {
+    die("Errore: Impossibile scrivere sul database. È stato caricato il file /core/conf/gaia.sql?");
 }
-
 
 echo "Caricamento dei titoli sul database...\n";
 

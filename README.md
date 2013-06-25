@@ -29,11 +29,12 @@ Alternativamente, contattaci a <info@gaiacri.it> per saperne di più.
 
 Per motivi di sviluppo, è possibile installare Gaia come segue:
 
-1. Copiare il file `/core/conf/database.conf.php.sample` in `/core/conf/database.conf.php`
-2. Copiare il file `/core/conf/smtp.conf.php.sample` in `/core/conf/smtp.conf.php`
-3. Modificare, in questi due file, i parametri di accesso a MySQL ed al server SMTP.
-4. Permettere la scrittura alla directory `/upload` ed alle sue sottodirectory.
-5. Da browser, puntare alla pagina: `setup.php`.
-6. Registrare il primo volontario, che sarà automaticamente un amministratore.
-7. (Opzionale) Impostare cron per richiedere ogni nottevia HTTP il file `cronjob.php`
+1. Importare il file `/core/conf/gaia.sql` nel proprio database tramite phpMyAdmin
+2. Copiare il file `/core/conf/database.conf.php.sample` in `/core/conf/database.conf.php`
+3. Copiare il file `/core/conf/smtp.conf.php.sample` in `/core/conf/smtp.conf.php`
+4. Modificare, in questi due file, i parametri di accesso a MySQL ed al server SMTP.
+5. Permettere la scrittura alla directory `/upload` ed alle sue sottodirectory.
+6. Da browser, puntare alla pagina: `setup.php`.
+7. Registrare il primo volontario, che sarà automaticamente un amministratore.
+8. (Opzionale) Impostare cron per richiedere ogni nottevia HTTP il file `cronjob.php`
 
