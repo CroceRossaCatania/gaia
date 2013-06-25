@@ -47,32 +47,41 @@ paginaAdmin();
         <th>Azione</th>
     </thead>
 <?php
-$comitati = $me->comitatiDiCompetenza();
-foreach ( $comitati as $comitato ) { 
+
+/*
+ * Ottengo elenco dei presidenti.
+ */
+$presidenti = Delegato::filtra([
+    ['applicazione', APP_PRESIDENTE]
+]);
+
+foreach ( $presidenti as $presidente ) {
     
-    $presidenti = $comitato->presidenti();
-    foreach ( $presidenti as $presidente ) {
-        $_v = $presidente->volontario();
-        ?>
-    <tr>
-        <td><strong><?php echo $_v->nome; ?></strong></td>
-        <td><strong><?php echo $_v->cognome; ?></strong></td>
-        <td><?php echo $_v->codiceFiscale; ?></td>
-        <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
-        <td><?php echo $_v->comuneNascita; ?></td>
-        <td><strong><?php echo $comitato->nomeCompleto(); ?></strong></td>
-        <td>
-                <a class="btn btn-danger btn-mini" onClick="return confirm('Vuoi veramente dimettere <?php echo addslashes($_v->nomeCompleto()); ?> da presidente?');" href="?p=admin.presidente.dimetti&id=<?php echo $presidente->id; ?>">
-                    Dimetti
-                </a>
-        </td>
-       
-    </tr>
-    <?php 
+    // Ignoro i presidenti non più attuali
+    if ( !$presidente->attuale() ) { continue; }
     
-        }
+    // Carico il volontario in memoria
+    $_v = $presidente->volontario();
     
-}  
+    ?>
+<tr>
+    <td><strong><?php echo $_v->nome; ?></strong></td>
+    <td><strong><?php echo $_v->cognome; ?></strong></td>
+    <td><?php echo $_v->codiceFiscale; ?></td>
+    <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
+    <td><?php echo $_v->comuneNascita; ?></td>
+    <td><strong><?php echo $presidente->comitato()->nomeCompleto(); ?></strong></td>
+    <td>
+            <a class="btn btn-danger btn-mini" onClick="return confirm('Vuoi veramente dimettere <?php echo addslashes($_v->nomeCompleto()); ?> da presidente?');" href="?p=admin.presidente.dimetti&id=<?php echo $presidente->id; ?>">
+                Dimetti
+            </a>
+    </td>
+
+</tr>
+<?php 
+
+    }
+
 
 ?>
  
