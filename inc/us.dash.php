@@ -57,6 +57,10 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                         <i class="icon-certificate"></i>
                         Gestione quote associative
                     </a>
+                     <a href="?p=us.quote.ricerca" class="btn btn-block">
+                        <i class="icon-search"></i>
+                        Ricerca quota associativa
+                    </a>
                     <a href="?p=us.anagrafica.nuova" class="btn btn-block btn-success">
                         <i class="icon-plus"></i>
                         Aggiungi volontario

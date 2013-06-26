@@ -11,7 +11,7 @@ class Quota extends Entita {
         $_dt = null;
     
     public function volontario() {
-        return new Volontario($this->appartenenza->volontario());
+        return new Volontario($this->appartenenza()->volontario());
     }
     
     public function appartenenza() {
