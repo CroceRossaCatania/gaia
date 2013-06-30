@@ -230,14 +230,14 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                                             Elenco volontari
                                         </a>
                                     </li>
-                                    
+                                    <!--
                                     <li>
                                         <a href="?p=presidente.aspiranti">
                                             <i class="icon-globe"></i>
                                             Elenco aspiranti
                                         </a>
                                     </li>
-                                    
+                                    -->
                                     <li>
                                         <a href="?p=presidente.titoli.ricerca">
                                             <i class="icon-search"></i>
