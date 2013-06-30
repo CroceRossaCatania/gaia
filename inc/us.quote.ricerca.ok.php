@@ -15,7 +15,7 @@ $q = Quota::by('id',$numero);
 <div class="row-fluid">
     <div class="span5 allinea-sinistra">
         <h2>
-            <i class="icon-group muted"></i>
+            <i class="icon-search muted"></i>
             Quote associative
         </h2>
     </div>

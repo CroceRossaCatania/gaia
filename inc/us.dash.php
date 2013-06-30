@@ -49,21 +49,21 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                         <i class="icon-list"></i>
                         Elenchi elettorato
                     </a>
+                    <a href="?p=us.utente.nuovo" class="btn btn-block btn-success">
+                        <i class="icon-plus"></i>
+                        Aggiungi volontario
+                    </a>
                 </div>
             </div>
             <div class="span6">
                 <div class="btn-group btn-group-vertical span12">
-                  <!--  <a href="?p=us.quoteNo" class="btn btn-block">
+                  <!--<a href="?p=us.quoteNo" class="btn btn-block">
                         <i class="icon-certificate"></i>
                         Gestione quote associative
                     </a>
                      <a href="?p=us.quote.ricerca" class="btn btn-block">
                         <i class="icon-search"></i>
                         Ricerca quota associativa
-                    </a>
-                    <a href="?p=us.anagrafica.nuova" class="btn btn-block btn-success">
-                        <i class="icon-plus"></i>
-                        Aggiungi volontario
                     </a>-->
                     <a href="?p=presidente.appartenenzepending" class="btn btn-block btn-success">
                         <i class="icon-group"></i>
