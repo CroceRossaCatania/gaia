@@ -17,6 +17,22 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     
     <div class="modal-body">
         <div class="row-fluid">
+            <?php if ( isset($_GET['e']) ) { ?>
+        <div class="alert alert-danger">
+            <i class="icon-ban-circle"></i> <strong>Codice Fiscale errato</strong>.
+            Il formato del codice fiscale inserito non risulta valido.
+        </div>
+        <?php }elseif ( isset($_GET['gia']) ) { ?>
+        <div class="alert alert-danger">
+            <i class="icon-ban-circle"></i> <strong>Volontario già presente</strong>.
+            Il volontario che stai provando ad aggiungere è già presente.
+        </div>
+        <?php }elseif ( isset($_GET['mail']) ) { ?>
+        <div class="alert alert-danger">
+            <i class="icon-ban-circle"></i> <strong>Mail già presente</strong>.
+            La mail che stai provando ad aggiungere è già presente nel sistema.
+        </div>
+        <?php }?>
             <div class="span4 centrato">
                 <label class="control-label" for="inputNome">Nome</label>
             </div>

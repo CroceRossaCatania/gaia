@@ -8,9 +8,19 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $codiceFiscale = $_GET['inputCodiceFiscale'];
 $codiceFiscale = maiuscolo($codiceFiscale);
+$email      = minuscolo($_GET['inputEmail']);
 
+/* Controlli */
+/* Cerca anomalie nel formato del codice fiscale */
 if ( !preg_match("/^[A-Z]{6}[0-9]{2}[A-Z][A-Z0-9]{2}[A-Z][A-Z0-9]{3}[A-Z]$/", $codiceFiscale) ) {
 	redirect('us.utente.nuovo&e');
+}
+
+/* Cerca eventuali utenti con la stessa email... */
+$e = Utente::by('email', $email);
+if ( $e and $e->password ) {
+    /* Se l'utente esiste, ed ha già pure una password */
+    redirect('us.utente.nuovo&mail');
 }
 
 $p = Persona::by('codiceFiscale', $codiceFiscale);
@@ -61,16 +71,8 @@ $p->consenso = true;
 /*
  * Normalizzazione dei dati
  */
-$email      = minuscolo($_GET['inputEmail']);
 $cell       = normalizzaNome($_GET['inputCellulare']);
 $cells      = normalizzaNome(@$_GET['inputCellulareServizio']);
-
-/* Cerca eventuali utenti con la stessa email... */
-$e = Utente::by('email', $email);
-if ( $e and $e->password ) {
-    /* Se l'utente esiste, ed ha già pure una password */
-    redirect('us.utente.nuovo&email');
-}
 
 $p->email               = $email;
 $p->cellulare           = $cell;
