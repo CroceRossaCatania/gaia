@@ -327,7 +327,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
           </div>
         </div>
         <div class="item">
-          <img src="http://twitter.github.com/bootstrap/assets/img/examples/slide-01.jpg" alt="">
+          <img src="./img/foto5.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
               <h1>Persone in Prima Persona</h1>
