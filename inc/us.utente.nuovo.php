@@ -33,6 +33,8 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             La mail che stai provando ad aggiungere è già presente nel sistema.
         </div>
         <?php }?>
+        </div>
+        <div class="row-fluid">
             <div class="span4 centrato">
                 <label class="control-label" for="inputNome">Nome</label>
             </div>
