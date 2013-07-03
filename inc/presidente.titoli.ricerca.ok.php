@@ -41,7 +41,7 @@ if($me->presiede()){
  <?php 
     foreach ( $t as $_t ) { 
       $a=$_t->volontario()->id;
-      $a = Appartenenza::filtra([['volontario',$a],['comitato',$c]]);
+      $a = Appartenenza::filtra([['volontario',$a],['comitato',$c],['fine',0]]);
       if($a[0]!=''){
         if($_t->pConferma!=''){
             $_v = $_t->volontario();  // Una volta per tutte ?> 
