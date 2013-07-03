@@ -39,7 +39,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 <label class="control-label" for="inputNome">Nome</label>
             </div>
             <div class="span8">
-                <input type="text" name="inputNome" id="inputNome" />
+                <input type="text" name="inputNome" id="inputNome" required/>
             </div>
         </div>
         
@@ -48,7 +48,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 <label class="control-label" for="inputCognome">Cognome</label>
             </div> 
             <div class="span8">
-                <input type="text" name="inputCognome" id="inputCognome"  />
+                <input type="text" name="inputCognome" id="inputCognome"  required/>
             </div>
         </div>
               
@@ -57,7 +57,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
               <label class="control-label" for="inputCodiceFiscale">Codice Fiscale</label>
             </div>
             <div class="span8">
-                <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale"  />
+                <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale"  required/>
             </div>
         </div>
               
@@ -66,7 +66,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 <label class="control-label" for="inputDataNascita">Data di Nascita</label>
         </div>
             <div class="span8">
-                <input type="text" name="inputDataNascita" id="inputDataNascita" />
+                <input type="text" name="inputDataNascita" id="inputDataNascita" required />
             </div>
         </div>
 
@@ -75,7 +75,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <label class="control-label" for="inputProvinciaNascita">Provincia di Nascita</label>
         </div>
         <div class="span8">
-            <input type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" />
+            <input type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" required />
         </div>
             </div>
 
@@ -84,7 +84,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
             </div>
             <div class="span8">
-                <input type="text" name="inputComuneNascita" id="inputComuneNascita" />
+                <input type="text" name="inputComuneNascita" id="inputComuneNascita" required />
             </div>
       </div>
         
@@ -173,6 +173,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <?php } ?>
         </select>   
     </div>
+    </div>
         
         <div class="row-fluid">
         <div class="span4 centrato">
@@ -190,15 +191,15 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         
             <div class="row-fluid">            
             <div class="span4 centrato">
-                <label class="control-label" for="inputDataIngresso">Data ingresso CRI</label>
+                <label class="control-label" for="inputDataIngresso" >Data ingresso CRI</label>
         </div>
             <div class="span8">
-                <input type="text" name="inputDataIngresso" id="inputDataIngresso" />
+                <input type="text" name="inputDataIngresso" id="inputDataIngresso" required />
             </div>
         </div>          
         
               <hr />
-        </div>
+    </div>
     </div>
         <div class="modal-footer">
           <a href="?p=us.dash" class="btn">Annulla</a>
