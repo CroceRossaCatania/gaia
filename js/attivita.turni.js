@@ -7,5 +7,4 @@ $(document).ready ( function() {
 	closeText: 'Ok',
         defaultTimezone: '+0100'
     });
-    
 });
