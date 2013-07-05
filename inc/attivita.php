@@ -37,8 +37,22 @@ paginaAnonimo();
 
 
     </div>
+    
+
 
     <div class="span9">
+        
+    <?php if ( $me instanceOf Anonimo ) { ?>
+    
+        <div class="alert alert-block alert-warning">
+
+            <h4><i class="icon-globe"></i> Stai vedendo le attività di tutti i comitati.</h4>
+            <a href="?p=login&back=attivita"><i class="icon-signin"></i> Entra su Gaia</a> per filtrare le attività del tuo comitato o 
+            <a href="?p=public.attivita.mappa">clicca qui per vedere cosa fa Croce Rossa attorno a te <i class="icon-map-marker"></i></a>.
+
+        </div>
+
+    <?php } ?>
         
         <!--<div class="row-fluid">
             <div class="span12">

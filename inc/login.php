@@ -7,6 +7,9 @@
 paginaPubblica();
 
 $torna = @$sessione->torna;
+if ( isset($_GET['back']) ) {
+    $torna = base64_encode(serialize([ 'p' => $_GET['back'] ]));
+}
 $sessione->torna = null;
 
 ?>
