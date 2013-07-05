@@ -310,6 +310,12 @@ class Comitato extends GeoPolitica {
         }
     }
     
+    public function attivita() {
+        return Attivita::filtra([
+            ['comitato', $this->id]
+        ]);
+    }
+    
     public function gruppi() {
         return Gruppo::filtra([
             ['comitato',    $this->id]

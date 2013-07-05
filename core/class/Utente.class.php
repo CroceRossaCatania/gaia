@@ -628,6 +628,9 @@ class Utente extends Persona {
     
     public function attivitaDiGestione() {
         $a = array_merge($this->attivitaReferenziate(), $this->attivitaAreeDiCompetenza());
+        foreach ( $this->comitatiDiCompetenza() as $c ) {
+            $a = array_merge($a, $c->attivita());
+        }
         return array_unique($a);
     }
     

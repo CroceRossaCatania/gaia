@@ -52,7 +52,11 @@ paginaPrivata();
     </td>
     
     <td>
-        <?php echo $attivita->referente()->nomeCompleto(); ?>
+        <?php if ( $attivita->referente ) { ?>
+            <?php echo $attivita->referente()->nomeCompleto(); ?>
+        <?php } else { ?>
+            <i class="icon-warning-sign"></i> Nessun referente
+        <?php } ?>
     </td>
     
     <td>
