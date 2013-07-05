@@ -3,13 +3,12 @@
 $id = $_POST['id'];
 $a = new Attivita($id);
 
-$a->nome            = normalizzaNome($_POST['inputNome']);
-$a->descrizione     = $_POST['inputDescrizione'];
-$a->aggiornamento   = time();
-
-$a->visibilita      = $_POST['inputVisibilita'];
-
-// $a->stato           = $_POST['inputStato'];
+if ( isset($_POST['inputNome']) ) {
+    $a->nome            = normalizzaNome($_POST['inputNome']);
+    $a->descrizione     = $_POST['inputDescrizione'];
+    $a->aggiornamento   = time();
+    $a->visibilita      = $_POST['inputVisibilita'];
+}
 
 $turni = $a->turni();
 foreach ( $turni as $t ) {
