@@ -83,7 +83,7 @@ if ( $c instanceOf Comitato ) {
         /* Salva volontario variato */
         if (isset($_POST[$a->id . '_inputResponsabile'])) {
             
-            $back = 2;$
+            $back = 2;
             $v = new Volontario($_POST[$a->id . '_inputResponsabile']);
             $a->responsabile = $v->id;
             
