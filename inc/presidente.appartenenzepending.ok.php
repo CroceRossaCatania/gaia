@@ -7,9 +7,10 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $id     = $_GET['id'];
-$a = Appartenenza::by('id', $id); /* Qui col by */
+$a      = new Appartenenza($id); /* Qui col by */
 
-if (isset($_GET['si'])) {
+if ( isset($_GET['si']) ) {
+    
     $a->timestamp = time();
     $a->stato     = MEMBRO_VOLONTARIO;
     $a->conferma  = $me->id;    
@@ -20,28 +21,17 @@ if (isset($_GET['si'])) {
     $m->_COMITATO   = $a->comitato()->nome;
     $m->invia();
     redirect('presidente.appartenenzepending&app');
-}elseif(isset($_GET['no'])){
+    
+} elseif (isset($_GET['no'])) {
+    
     $m = new Email('negazionecomitato', 'Negazione appartenenza: ' . $a->comitato()->nome);
     $m->da = $me; 
     $m->a = $a->volontario();
     $m->_NOME       = $a->volontario()->nome;
     $m->_COMITATO   = $a->comitato()->nome;
     $m->invia();
-    $v= $a->volontario()->id;
-    $a = Appartenenza::filtra(['volontario', $v]);
-    foreach($a as $_a){
-    $_a->cancella();    
-    }
     
-    $f = TitoloPersonale::filtra([
-    ['volontario', $v]
-    ]);
+    $a->fine    = time();
     
-    foreach ($f as $_f) {
-        $_f->cancella();
-    }
-    
-    $v = new Volontario($v);
-    $v->cancella();
     redirect('presidente.appartenenzepending&neg');
 }

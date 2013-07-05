@@ -61,10 +61,15 @@ class Utente extends Persona {
     }
     
     public function appartenenzePendenti() {
-        return Appartenenza::filtra([
+        $r = [];
+        foreach ( Appartenenza::filtra([
             ['volontario',  $this->id],
             ['stato',       MEMBRO_PENDENTE]
-        ]);
+        ]) as $a ) {
+            if ( !$a->attuale() ) { continue; }
+            $r[] = $a;
+        }
+        return $a;
     }
     
     public function in(Comitato $c) {
