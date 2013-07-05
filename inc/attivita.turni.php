@@ -24,7 +24,7 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
 <input type="hidden" name="id" value="<?php echo $a->id; ?>" />
     <div class="row-fluid">
         
-        <div class="span8">
+        <div class="span6">
             <h2>
                 <i class="icon-time muted"></i>
                 Giorni e turni dell'attività
@@ -32,8 +32,12 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
             
         </div>
         
-        <div class="span4">
-            <button type="submit" name="azione" value="aggiungiTurno" class="btn btn-block btn-large btn-success">
+        <div class="span6 btn-group allinea-destra">
+            <button type="submit" name="azione" value="salva" class="btn btn-large btn-success">
+               <i class="icon-save"></i>
+               Salva le modifiche
+            </button>            
+            <button type="submit" name="azione" value="aggiungiTurno" class="btn btn-large btn-danger">
                <i class="icon-plus"></i>
                Aggiungi nuovo turno
             </button>
@@ -109,16 +113,16 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
                             <strong><?php echo count($partC); ?> accettate</strong>.
                         </td>
                         <td>
-                            <a href="?p=attivita.richiesta.turni&id=<?php echo $_t->id; ?>" class="btn btn-block btn-primary">
+                            <a href="?p=attivita.richiesta.turni&id=<?php echo $_t->id; ?>" class="btn btn-primary">
                                 <i class="icon-plus"></i>
-                                Richieste Titoli
+                                Richieste di titoli
                             </a>
                         </td>
                         <td>
                             <?php if ( $partC ) { ?>
                                 Incancellabile.
                             <?php } else { ?>
-                                <button class="btn btn-block btn-danger" type="submit" name="azione" value="<?php echo $_t->id; ?>"
+                                <button class="btn btn-danger" type="submit" name="azione" value="<?php echo $_t->id; ?>"
                                         onclick="return confirm('Sei sicuro? Eventuali richieste di partecipazione al turno in attesa verranno eliminate.');">
                                     <i class="icon-remove"></i>
                                     Rimuovi
