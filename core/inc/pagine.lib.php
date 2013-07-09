@@ -63,6 +63,7 @@ function paginaAttivita() {
             or  (bool) $sessione->utente()->presiede()
             or  (bool) $sessione->utente()->delegazioni(APP_OBIETTIVO)
             or  (bool) $sessione->utente()->areeDiResponsabilita()
+            or  (bool) $sessione->utente()->attivitaReferenziate()
     )) {
         redirect('utente.me');
     }
