@@ -69,7 +69,7 @@ class Utente extends Persona {
             if ( !$a->attuale() ) { continue; }
             $r[] = $a;
         }
-        return $a;
+        return $r;
     }
     
     public function in(Comitato $c) {
