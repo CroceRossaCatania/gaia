@@ -29,13 +29,14 @@ class Turno extends Entita {
         ]);
     }
     
-    public function volontari() {
+    public function volontari( $stato = AUT_OK ) {
         $r = [];
-        foreach ( $this->partecipazioni() as $p ) {
+        foreach ( $this->partecipazioniStato($stato) as $p ) {
             $r[] = $p->volontario();
         }
         return $r;
     }
+    
     
     public function partecipazioniStato($stato = AUT_OK) {
         return Partecipazione::filtra([
