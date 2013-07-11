@@ -142,7 +142,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
                         <?php if ($me->admin) { ?>
                             <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=presidente.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
-                            <i class="icon-trash"></i> Cancella
+                                <i class="icon-trash"></i> Cancella
                             </a>
                             <a class="btn btn-small btn-primary" href="?p=admin.beuser&id=<?php echo $_v->id; ?>" title="Log in">
                                 <i class="icon-key"></i>
