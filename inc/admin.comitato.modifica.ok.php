@@ -4,10 +4,10 @@
  * ©2013 Croce Rossa Italiana
  */
 
-$c = $_POST['oid'];
+$c = $_GET['oid'];
 $c = GeoPolitica::daOid($c);
 
-paginaApp([APP_PRESIDENTE]);
+paginaAdmin();
 
 $c->nome        =   normalizzaNome($_POST['inputNome']);
 

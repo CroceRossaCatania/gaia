@@ -441,11 +441,14 @@ class Comitato extends GeoPolitica {
         foreach ( $titoli as $titolo ) {
             $filtrato = [];
             foreach ( $daFiltrare as $volontario ) {
-                if ( TitoloPersonale::filtra([
+                if ( $t = TitoloPersonale::filtra([
                     ['titolo',      $titolo->id],
                     ['volontario',  $volontario]
-                ])) {
-                    $filtrato[] = $volontario;
+                ])){
+                    if(
+                        $t[0]->confermato()){
+                            $filtrato[] = $volontario;
+                            }
                 }
             }
             $daFiltrare = $filtrato;

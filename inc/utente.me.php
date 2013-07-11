@@ -94,6 +94,12 @@ if ($rf) {
             La tua mail è stata inviata con successo.
         </div> 
         <?php } ?>
+        <?php if (isset($_GET['mass'])) { $attenzione = true;  ?>
+        <div class="alert alert-success">
+            <i class="icon-ok"></i> <strong>Mail inviate</strong>.
+            Mail di massa inviata con successo.
+        </div> 
+        <?php } ?>
         <?php if (!$me->wizard) { $attenzione = true;  ?>
         <div class="alert alert-block alert-error">
             <h4><i class="icon-warning-sign"></i> Completa il tuo profilo</h4>

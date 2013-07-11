@@ -4,89 +4,74 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPrivata();
-$f = $_POST['idTitolo'];
-$t = TitoloPersonale::filtra([['titolo',$f]]);
+paginaApp([APP_CO,APP_PRESIDENTE,APP_SOCI]);
+$f= new Titolo($_POST['idTitolo']);
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
-    <div class="control-group" align="right">
-        <div class="controls">
-            <div class="input-prepend">
-                <span class="add-on"><i class="icon-search"></i></span>
-                <input data-t=4 required id="cercaUtente" autofocus placeholder="Cerca utente..." class="span4" type="text">
-            </div>
+<div class="row-fluid">
+    <div class="span8">
+        <h3>
+            <i class="icon-search muted"></i>
+            Ricerca volontari per titolo
+        </h3>
+        <p>Titolo cercato: <strong><?= $f->nome; ?></strong>
+        <a class="btn btn-small" href="?p=presidente.titoli.ricerca"><i class="icon-pencil"></i> Modifica titolo</a></p>
+    </div>
+    
+    <div class="span4 allinea-destra">
+        <div class="input-prepend">
+            <span class="add-on"><i class="icon-search"></i></span>
+            <input autofocus required id="cercaUtente" placeholder="Cerca Volontario..." type="text">
         </div>
-    </div> 
+    </div>    
+</div>
+    
+<div class="row-fluid">
+    <div class="btn-group btn-group-vertical span12">
+        <a href="?p=admin.utenti.excel&mass&t=<?= $_POST['idTitolo']; ?>" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
+           <i class="icon-download"></i>
+            Scarica questo elenco in format excel
+       </a>
+        <a href="?p=utente.mail.nuova&mass&t=<?= $_POST['idTitolo']; ?>" class="btn btn-block btn-success">
+            <i class="icon-envelope"></i>
+             Invia mail di massa a tutti i Volontari con questo titolo
+        </a>
+   </div>
+</div>
+
 <hr />
 <table class="table table-striped table-bordered" id="tabellaUtenti">
     <thead>
         <th>Nome</th>
         <th>Cognome</th>
-        <th>Codice Fiscale</th>
         <th>Data di Nascita</th>
-        <th>Luogo di Nascita</th>
-        <th>Titolo</th>
         <th>Azioni</th>
     </thead>
 <?php
-if($me->presiede()){
-  foreach($me->presidenziante() as $appartenenza){
-             $c=$appartenenza->comitato()->id;   ?>
-             <tr class="success">
+  foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE,APP_CO ]) as $elenco){
+      $volontari =  $elenco->ricercaMembriTitoli([$f]);  
+      ?>
+      <tr class="success">
                 <td colspan="7" class="grassetto">
-                    <?php echo $appartenenza->comitato()->nomeCompleto(); ?>
+                    <?= $elenco->nomeCompleto(); ?>
+                    <span class="label label-warning">
+                          <?= count($volontari); ?>
+                    </span>
                 </td>
             </tr>
- <?php 
-    foreach ( $t as $_t ) { 
-      $a=$_t->volontario()->id;
-      $a = Appartenenza::filtra([['volontario',$a],['comitato',$c],['fine',0]]);
-      if($a[0]!=''){
-        if($_t->pConferma!=''){
-            $_v = $_t->volontario();  // Una volta per tutte ?> 
+<?php 
+             foreach($volontari as $volontario){?> 
             <tr>
-                <td><?php echo $_v->nome; ?></td>
-                <td><?php echo $_v->cognome; ?></td>
-                <td><?php echo $_v->codiceFiscale; ?></td>
-                <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
-                <td><?php echo $_v->comuneNascita; ?></td>
-                <td><?php echo $_t->titolo()->nome; ?></td>
+                <td><?= $volontario->nome; ?></td>
+                <td><?= $volontario->cognome; ?></td>
+                <td><?= date('d-m-Y', $volontario->dataNascita); ?></td>
                 <td>    
-                    <a class="btn btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>">
+                    <a class="btn btn-success" href="?p=utente.mail.nuova&id=<?= $volontario->id; ?>">
                     <i class="icon-envelope"></i>
                     Invia mail
                     </a>
                 </td>
             </tr>
-            
-    <?php }}}}}elseif($me->admin()){
-  foreach ( $t as $_t ) { 
-    if($_t->pConferma!=''){
-            $_v = $_t->volontario();  // Una volta per tutte ?> 
-            <tr>
-                <td><?php echo $_v->nome; ?></td>
-                <td><?php echo $_v->cognome; ?></td>
-                <td><?php echo $_v->codiceFiscale; ?></td>
-                <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
-                <td><?php echo $_v->comuneNascita; ?></td>
-                <td><?php echo $_t->titolo()->nome; ?></td>
-                <td>    
-                    <a class="btn btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>">
-                    <i class="icon-envelope"></i>
-                    Invia mail
-                    </a>
-                </td>
-            </tr>
-    <?php }}}
-?>
-             <tr>
-                 <td colspan="8">
-                     <a type="submit" href="?p=utente.mail.nuova&mass&t=<?php echo $f; ?>"  class="btn btn-block btn-success">
-                        <i class="icon-envelope"></i>
-                        Invia mail a tutti
-                     </a>
-                 </td>
-             </tr>
- 
+<?php }} ?>
 </table>
