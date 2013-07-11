@@ -105,7 +105,9 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
                     <?php echo $a->referente()->nome . ' ' . $a->referente()->cognome; ?>
                      </a>
                 <br />
-                <span class="muted">+39</span> <?php echo $a->referente()->cellulare(); ?>
+                <?php if ( ! ( $me instanceof Anonimo ) ) { ?>
+                    <span class="muted">+39</span> <?php echo $a->referente()->cellulare(); ?>
+                <?php } ?>
                
             </div>  
             
