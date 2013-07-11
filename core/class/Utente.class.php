@@ -265,9 +265,9 @@ class Utente extends Persona {
     
     public function presiede( $comitato = null ) {
         if ( $comitato ) {
-            return (bool) $this->delegazioni(APP_PRESIDENTE, $comitato);
+            return (bool) in_array($comitato, $this->comitatiApp([APP_PRESIDENTE]));
         } else {
-            return (bool) $this->delegazioni(APP_PRESIDENTE);
+            return (bool) $this->comitatiApp([APP_PRESIDENTE]);
         }
     }
     
