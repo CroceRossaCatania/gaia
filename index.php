@@ -53,7 +53,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     
     <title>{_titolo}</title>
     <meta name="description" content="{_descrizione}">
-    <meta name="author" content="Servizi Informatici - Croce Rossa Italiana Catania">
+    <meta name="author" content="Progetto Gaia">
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
 	<!-- CSS -->
@@ -382,12 +382,13 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
       <hr>
 
       <div class="footer row-fluid">
-      	<div class="span6">
-	        <p>&copy;2013 <strong>Croce Rossa Italiana</strong><br />
-    	    <span class="muted">Servizi Informatici del Comitato Provinciale di Catania</span></p>
-   		</div>
+                    <div class="span6">
+                        <p><span class="muted">Progetto Gaia</span> <br />
+                            &copy;2013 <strong>Croce Rossa Italiana</strong>
+                        </p>
+                    </div>
       	<div class="span6 allinea-destra">
-	        <a href="http://www.cricatania.it">Torna al sito</a> &middot;
+	        <a href="http://www.gaiacri.it">Torna alla home</a> &middot;
 	        <a href="?p=public.about">Informazioni su Gaia</a> &middot;
 	        <a href="docs/Guida.pdf?ref=footer"><strong>Guida in PDF</strong></a> &middot;
 	        <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaiacri.it"><?php } ?>Supporto</a><br />
