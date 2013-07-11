@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI , APP_PRESIDENTE]);
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 $f = $_GET['id']; 
 $t = new Volontario($f);
@@ -238,10 +238,17 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                             <?php } ?>
                         </td>
                         
-                        <td class="btn-group">
+                        <td>
+                            <div class="btn-group">
                                 <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
                                     <i class="icon-edit"></i>
                                 </a>
+                            <?php if($me->admin()){ ?>
+                                <a onClick="return confirm('Vuoi veramente cancellare questa appartenenza ?');" href="?p=us.appartenenza.cancella&a=<?php echo $app; ?>" title="Cancella appartenenza" class="btn btn-small btn-danger">
+                                    <i class="icon-trash"></i>
+                                </a>
+                            <?php } ?>
+                            </div>
                         </td>
                         
                     </tr>
@@ -401,13 +408,15 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                             <td>&nbsp;</td>
                             <?php } ?>
                             
-                            <td class="btn-group">
-                                <a href="?p=presidente.titolo.modifica&t=<?php echo $titolo->id; ?>&v=<?php echo $v->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
-                                    <i class="icon-edit"></i>
-                                </a>
-                                <a onclick="return confirm('Cancellare il titolo utente?');" href="?p=utente.titolo.cancella&id=<?php echo $titolo->id; ?>&pre" title="Cancella il titolo" class="btn btn-small btn-warning">
-                                    <i class="icon-trash"></i>
-                                </a>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="?p=presidente.titolo.modifica&t=<?php echo $titolo->id; ?>&v=<?php echo $v->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
+                                        <i class="icon-edit"></i>
+                                    </a>
+                                    <a onclick="return confirm('Cancellare il titolo utente?');" href="?p=utente.titolo.cancella&id=<?php echo $titolo->id; ?>&pre" title="Cancella il titolo" class="btn btn-small btn-danger">
+                                        <i class="icon-trash"></i>
+                                    </a>
+                                </div>
                             </td>
                     </tr>
                     <?php } ?>
