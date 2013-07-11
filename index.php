@@ -200,7 +200,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
 
                                     <li>
                                         <a href="?p=presidente.trasferimento">
-                                            <i class="icon-cogs"></i>
+                                            <i class="icon-arrow-right"></i>
                                             Trasferimenti in attesa
                                             <?php if ( $_n_trasf ) { ?>
                                                 <span class="badge badge-warning">
