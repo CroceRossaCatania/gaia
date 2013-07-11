@@ -72,11 +72,7 @@ foreach ($t as $_t){
         <td><?php echo $v->comuneNascita; ?></td>
         <td><?php echo $b[0]->comitato()->nomeCompleto(); ?></td>
         <?php if($_t->protNumero){ ?>
-        <td class="btn-group">     
-        <a class="btn btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $b[0]->id; ?>">
-                <i class="icon-print"></i>
-                    Stampa richiesta
-        </a>
+        <td class="btn-group">
         <a class="btn btn-success" href="?p=presidente.trasferimento.ok&id=<?php echo $b[0]->id; ?>&si">
                 <i class="icon-ok"></i>
                     Conferma
@@ -86,7 +82,11 @@ foreach ($t as $_t){
                     Nega
             </a>
         <?php }else{ ?>
-        <td>   
+        <td class="btn-group">   
+        <a class="btn btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $b[0]->id; ?>">
+                <i class="icon-print"></i>
+                    Stampa richiesta
+        </a>
         <a class="btn btn-success" href="?p=presidente.trasferimentoRichiesta&id=<?php echo $b[0]->id; ?>">
                 <i class="icon-ok"></i>
                     Protocolla richiesta

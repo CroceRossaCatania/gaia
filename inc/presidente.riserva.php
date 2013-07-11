@@ -82,10 +82,6 @@ foreach($comitati as $comitato){
         
         <?php if($_t->protNumero){ ?>
         <td class="btn-group">     
-        <a class="btn btn-info" href="?p=presidente.riservaRichiesta.stampa&id=<?php echo $_t->id; ?>">
-                <i class="icon-print"></i>
-                    Stampa richiesta
-        </a>
         <a class="btn btn-primary" target="_new" href="?p=presidente.riserva.storico&id=<?php echo $_v->id; ?>">
             <i class="icon-time"></i>
                 Riserve
@@ -99,7 +95,11 @@ foreach($comitati as $comitato){
                 Nega
         </a>
         <?php }else{ ?>
-        <td>   
+        <td class="btn-group">   
+        <a class="btn btn-info" href="?p=presidente.riservaRichiesta.stampa&id=<?php echo $_t->id; ?>">
+                <i class="icon-print"></i>
+                    Stampa richiesta
+        </a>
         <a class="btn btn-success" href="?p=presidente.riservaRichiesta&id=<?php echo $_t->id; ?>&si">
                 <i class="icon-ok"></i>
                     Protocolla richiesta
