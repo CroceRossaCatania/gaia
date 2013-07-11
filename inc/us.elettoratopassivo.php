@@ -99,8 +99,8 @@ $tstamp = $time->getTimestamp();
             foreach ( $t as $_v ) {
             ?>
                 <tr>
-                    <td><?php echo $_v->nome; ?></td>
                     <td><?php echo $_v->cognome; ?></td>
+                    <td><?php echo $_v->nome; ?></td>
                     <td><?php echo date('d/m/Y', $_v->dataNascita); ?></td>
                     <td>
                         <?php echo $_v->comuneNascita ?>,

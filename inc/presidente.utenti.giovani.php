@@ -117,8 +117,8 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 if ($_v->giovane()){
             ?>
                 <tr>
-                    <td><?php echo $_v->nome; ?></td>
                     <td><?php echo $_v->cognome; ?></td>
+                    <td><?php echo $_v->nome; ?></td>
                     <td>
                         <span class="muted">
                             <?php echo $_v->CAPResidenza; ?>

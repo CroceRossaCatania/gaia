@@ -80,8 +80,8 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
        
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
-                <th>Nome</th>
                 <th>Cognome</th>
+                <th>Nome</th>
                 <th>Località</th>
                 <th>Cellulare</th>
                 <th>Azioni</th>
@@ -113,8 +113,8 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             foreach ( $t as $_v ) {
             ?>
                 <tr>
-                    <td><?php echo $_v->nome; ?></td>
                     <td><?php echo $_v->cognome; ?></td>
+                    <td><?php echo $_v->nome; ?></td>
                     <td>
                         <span class="muted">
                             <?php echo $_v->CAPResidenza; ?>
