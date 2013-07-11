@@ -31,19 +31,9 @@ class Attivita extends GeoEntita {
     }
     
     public function turni() {
-        $q = $this->db->prepare("
-            SELECT      id
-            FROM        turni
-            WHERE       attivita = :id
-            ORDER BY    inizio DESC,
-                        nome   ASC");
-        $q->bindParam(':id',    $this->id);
-        $q->execute();
-        $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Turno($k[0]);
-        }
-        return $r;
+        return Turno::filtra([
+            ['attivita',    $this->id]
+        ], 'inizio DESC, nome DESC');
     }
     
     public function turniScoperti() {
@@ -105,4 +95,37 @@ class Attivita extends GeoEntita {
     public function bozza() {
         return (bool) ($this->stato == ATT_STATO_BOZZA);
     }
+    
+    public function commenti ( $numero = 0 ) {
+        $numero = (int) $numero;
+        if ( $numero ) {
+            $limit = "LIMIT 0, $numero";
+        } else {
+            $limit = '';
+        }
+        return Commento::filtra([
+            ['attivita',    $this->id],
+            ['upCommento',  0]
+        ], "tCommenta DESC $limit");
+    }
+    
+    public function turniFuturi() {
+        $r = [];
+        foreach ( $this->turni() as $t ) {
+            if ( $t->futuro() ) {
+                $r[] = $t;
+            }
+        }
+        return $r;
+    }
+    
+    public function volontariFuturi() {
+        $r = [];
+        foreach ( $this->turniFuturi() as $t ) {
+            $r = array_merge($r, $t->volontari());
+        }
+        $r = array_unique($r);
+        return $r;
+    }
+    
 }

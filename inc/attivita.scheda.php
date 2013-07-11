@@ -38,7 +38,7 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
                     <i class="icon-edit"></i>
                     Modifica
                 </a>
-                <a href="?p=attivita.cancella&id=<?= $a->id; ?>" class="btn btn-large btn-danger" title="Cancella a">
+                <a href="?p=attivita.cancella&id=<?= $a->id; ?>" class="btn btn-large btn-danger" title="Cancella attività e tutti i turni">
                     <i class="icon-trash"></i>
                 </a> 
                 <?php } ?>
@@ -148,10 +148,87 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
         
         <div class="row-fluid">
             
-            <div class="span12">
-                <p><i class="icon-info-sign"></i> Ulteriori informazioni</p>
+            <div class="span5" style="max-height: 500px; overflow-y: auto;">
+                <h4>
+                    <i class="icon-info-sign"></i>
+                    Ulteriori informazioni
+                </h4>
                 <?php echo nl2br($a->descrizione); ?>
             </div>
+            
+            <div class="span7">
+                <button id="pulsanteScrivi" class="btn btn-info pull-right">
+                    <i class="icon-pencil"></i> 
+                    Scrivi
+                </button>
+                
+                <h4>
+                    <i class="icon-comments-alt"></i>
+                    Discussione e avvisi
+                </h4>
+                
+                <?php $commenti = $a->commenti(); ?>
+                
+                <form id="boxScrivi" action="?p=attivita.pagina.commento.ok&id=<?php echo $a->id; ?>" method="POST" class="row-fluid <?php if ( $commenti ) { ?>nascosto<?php } ?>">
+                    <div class="span9">
+                        <textarea name="inputCommento" autofocus placeholder="Scrivi il tuo messaggio..." rows="3" class="span12"></textarea>
+                        <?php if ( $a->modificabileDa($me) ) { ?>
+                        <label>
+                            <input type="checkbox" checked name="annuncia" />
+                            <strong> 
+                               <i class="icon-bullhorn"></i>
+                                Annuncia
+                            </strong> tramite email ai futuri partecipanti prenotati
+                        </label>
+                        <?php } ?>
+                        <hr />
+                    </div>
+                    <div class="span3">
+                        <button type="submit" class="btn btn-large btn-success btn-block" data-attendere="Invio...">
+                            Invia <i class="icon-ok"></i>
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="row-fluid" style="max-height: 450px; overflow: auto;">
+                <?php foreach ( $commenti as $c ) {
+                    $autore = $c->autore();
+                    ?>
+                    <div class="row-fluid" id="commento">
+                        <div class="span2 allinea-destra">
+                            <img src="<?php echo $autore->avatar()->img(10); ?>" width="50" height="50" class="img-circle" />
+                        </div>
+                        <div class="span10">
+                            <small class="text-info">
+                                <strong><?php echo $autore->nomeCompleto(); ?></strong>,
+                                    <?php echo $c->quando()->inTesto(); ?>
+                            </small>
+                            
+                                <?php if ( $me->id == $autore->id || $a->modificabileDa($me) ) { ?>
+                                    <a class="pull-right text-warning" href="?p=attivita.pagina.commento.cancella&id=<?php echo $c->id; ?>">
+                                        <small>
+                                            <i class="icon-trash"></i>
+                                            cancella
+                                        </small>
+                                    </a>
+                                <?php } ?>
+                            
+                            <p class="text"><?php echo $c->commento; ?></p>
+                        </div>
+                    </div>
+                <?php } ?>
+                    
+                    <?php if ( !$commenti ) { ?>
+                        <div class="alert alert-info">
+                            Nessun commento. Sii il primo a scrivere!
+                        </div>
+                    <?php } ?>
+                </div>
+                
+
+                
+            </div>
+            
             
         </div>
         
@@ -257,40 +334,7 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
             
             </table>
         </div>
-        <hr />
-        <?php $c = Commento::filtra([['attivita', $a],['upCommento', '0']], 'tCommenta DESC'); 
-        if(!$c){ ?>
-                <div class="alert alert-info">
-                    <h4><i class="icon-thumbs-down"></i> Nessuna discussione.</h4>
-                    <a href="?p=attivita.pagina&a=<?php echo $a->id; ?>">Commenta</a>
-                </div>
-            <?php }else{ ?>
-            <h5><i class="icon-comment"></i> Commenti </h5>
-            <?php foreach($c as $_c){ 
-                if($i==2){
-                    break;
-                }else{ ?>
-        <div class="row-fluid">
-                <div class="row-fluid" id="commento">
-                    <div class="span2 allinea-destra">
-                        <?php $g= Volontario::by('id',$_c->volontario); ?>
-                        <img src="<?php echo $g->avatar()->img(10); ?>" class="img-polaroid" />
-                    </div>
-                    <div class="span10">
-                        <p class="text-info"><?php echo $g->nomeCompleto(); ?> <?php echo $_c->quando()->inTesto(); ?></p>
-                        <p class="text"><blockquote><?php echo $_c->commento; ?></blockquote></p>
-                    </div>
-                </div>
-                <br />
-            </div>
-        <?php 
-                    $i++;
-                    }}
-                ?>
-                <div class="span12 allinea-destra">
-                    <a href="?p=attivita.pagina&a=<?php echo $a->id; ?>">Leggi tutto...</a> 
-                </div>
-                <?php } ?>
+  
         
         
     </div>

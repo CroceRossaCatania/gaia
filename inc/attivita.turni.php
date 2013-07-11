@@ -93,10 +93,10 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
                             <input class="span12 grassetto" required type="text" name="<?php echo $_t->id; ?>_nome" value="<?php echo $_t->nome; ?>" />
                         </td>
                         <td>
-                            <input class="dt span8 grassetto" required type="text" name="<?php echo $_t->id; ?>_inizio" value="<?php echo $_t->inizio()->format('d/m/Y H:i'); ?>" />
+                            <input class="dt span12 grassetto" required type="text" name="<?php echo $_t->id; ?>_inizio" value="<?php echo $_t->inizio()->format('d/m/Y H:i'); ?>" />
                         </td>
                         <td>
-                            <input class="dt span8 grassetto" required type="text" name="<?php echo $_t->id; ?>_fine" value="<?php echo $_t->fine()->format('d/m/Y H:i'); ?>" />
+                            <input class="dt span12 grassetto" required type="text" name="<?php echo $_t->id; ?>_fine" value="<?php echo $_t->fine()->format('d/m/Y H:i'); ?>" />
                         </td>
                         <td>
                             <input class="input-mini" type="number" required min="0" max="999" step="1" name="<?php echo $_t->id; ?>_minimo" value="<?php echo $_t->minimo; ?>" />
@@ -110,24 +110,33 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
                         ?>
                         <td>
                             <?php echo count($part) ?> richieste;<br />
-                            <strong><?php echo count($partC); ?> accettate</strong>.
+                            <strong><?php echo count($partC); ?> accettate</strong>
                         </td>
-                        <td>
+                        <!-- <td>
                             <a href="?p=attivita.richiesta.turni&id=<?php echo $_t->id; ?>" class="btn btn-primary">
                                 <i class="icon-plus"></i>
                                 Richieste di titoli
                             </a>
-                        </td>
+                        </td> -->
                         <td>
                             <?php if ( $partC ) { ?>
-                                Incancellabile.
-                            <?php } else { ?>
                                 <button class="btn btn-danger" type="submit" name="azione" value="<?php echo $_t->id; ?>"
+                                        onclick="return confirm('ATTENZIONE. Verranno cancellate tutte le autorizzazioni e partecipazioni dei volontari, anche dai loro fogli di servizio. Continuare?');">
+                                    <i class="icon-trash"></i>
+                                    Cancella
+                                </button>
+                            <?php } else { ?>
+                                <button class="btn btn-warning" type="submit" name="azione" value="<?php echo $_t->id; ?>"
                                         onclick="return confirm('Sei sicuro? Eventuali richieste di partecipazione al turno in attesa verranno eliminate.');">
-                                    <i class="icon-remove"></i>
-                                    Rimuovi
+                                    <i class="icon-trash"></i>
+                                    Cancella
                                 </button>
                             <?php } ?>
+                            <br />
+                            <a href="?p=attivita.report&id=<?php echo $a->id; ?>">
+                                <i class="icon-copy"></i>
+                                Guarda report
+                            </a>
                         </td>
                     </tr>
                 <?php } ?>

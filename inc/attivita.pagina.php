@@ -7,27 +7,10 @@
 paginaPrivata();
 
 $a = $_GET['a'];
-$p = Attivita::by('id', $a);
+$p = new Attivita($a);
 ?>
 
 <style type="text/css">
-#commento{   
-    margin-left: auto;    
-    margin-right: auto;    
-    background: #ffffff;
-    }
-
-#subcommento{
-    border:1px #D3D7D8 solid;   
-    position:relative;
-    left:74px;  
-    background: #ffffff;
-    }
-    
-    #inputCommento{
-    border:1px #D3D7D8 solid;
-    background: #ffffff;
-    }
 </style>
 
 <div class="row-fluid">
@@ -69,7 +52,7 @@ $p = Attivita::by('id', $a);
             foreach($c as $_c){ ?>
         <div class="row-fluid">
             <br/>
-            <div class="span12" id="commento">
+            <div class="span12 commento">
                 <div class="span2 allinea-destra">
                     <?php $g= Volontario::by('id',$_c->volontario); ?>
                     <img src="<?php echo $g->avatar()->img(10); ?>" class="img-polaroid" />
@@ -95,7 +78,7 @@ $p = Attivita::by('id', $a);
             $n = Commento::filtra([['attivita', $a],['upCommento', $_c->id]]); 
             foreach ($n as$_n){ ?>
         <div class="row-fluid">
-            <div class="span11" id="subcommento">
+            <div class="span11 subcommento">
                 <div class="span2 allinea-destra">
                     <?php $g= Volontario::by('id',$_n->volontario); ?>
                         <img src="<?php echo $g->avatar()->img(10); ?>" class="img-polaroid" />
@@ -119,13 +102,13 @@ $p = Attivita::by('id', $a);
         <?php } ?>
         <div class="row-fluid">
             <form action="?p=attivita.pagina.commento.ok&a=<?php echo $a; ?>&h=<?php echo $_c; ?>" method="POST">
-            <div class="span11" id="subcommento">
+            <div class="span11 subcommento">
                 <div class="span2 allinea-destra">
                     <img src="<?php echo $me->avatar()->img(10); ?>" class="img-polaroid" />
                 </div>
                 <div class="span10">
                     <p class="text-info"><?php echo $me->nomeCompleto(); ?></p>
-                    <input name="inputCommento" class="span10" placeholder="Scrivi una risposta..." class="text" id="inputCommento">
+                    <input name="inputCommento" class="span10" placeholder="Scrivi una risposta..." type="text" class="inputCommento">
                     <button type="submit" class="btn btn-info">
                         <i class="icon-share-alt"></i> Rispondi
                     </button>

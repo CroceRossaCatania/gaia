@@ -6,19 +6,39 @@
 
 paginaPrivata();
 
-$a = $_GET['a'];
+$a = $_GET['id'];
+$a = new Attivita($a);
+
 $h = $_GET['h'];
 
 $c = new Commento();
 $c->attivita = $a;
 $c->commento = $_POST['inputCommento']; 
+
 if($h != 0){
-$h = $_GET['h'];
-$c->upCommento = $h;
+    $h = $_GET['h'];
+    $c->upCommento = $h;
 }else{
-$c->upCommento = 0;
+    $c->upCommento = 0;
 }
 $c->volontario = $me;
 $c->tCommenta = time();
 
-redirect('attivita.pagina&a=' . $a);
+if ( isset($_POST['annuncia'] ) ) {
+    
+    foreach ( $a->volontariFuturi() as $v ) {
+        
+        $m = new Email('aggiornamentoattivita', "Aggiornamento attività {$a->nome}");
+        $m->_NOME       =   $v->nomeCompleto();
+        $m->_AUTORE     =   $me->nomeCompleto();
+        $m->_ATTIVITA   =   $a->nome;
+        $m->_TESTO      =   $c->commento;
+        $m->_ID         =   $a->id;
+        $m->a           =   $v;
+        $m->invia();
+        
+    }
+    
+}
+
+redirect('attivita.scheda&id=' . $a->id);
