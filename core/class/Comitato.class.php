@@ -57,17 +57,19 @@ class Comitato extends GeoPolitica {
     public function membriAttuali($stato = MEMBRO_VOLONTARIO) {
         $q = $this->db->prepare("
             SELECT
-                volontario
+                anagrafica.id
             FROM
-                appartenenza
+                appartenenza, anagrafica
             WHERE
+                anagrafica.id = appartenenza.volontario
+            AND
                 ( fine >= :ora OR fine IS NULL OR fine = 0) 
             AND
                 comitato = :comitato
             AND
-                stato    >= :stato
+                appartenenza.stato    >= :stato
             ORDER BY
-                inizio ASC");
+                 cognome ASC, nome ASC");
         $q->bindValue(':ora', time());
         $q->bindParam(':comitato', $this->id);
         $q->bindParam(':stato',    $stato);
@@ -97,8 +99,8 @@ class Comitato extends GeoPolitica {
             AND
               ( inizio <= :minimo )
             ORDER BY
-              anagrafica.nome     ASC,
-              anagrafica.cognome  ASC");
+              anagrafica.cognome     ASC,
+              anagrafica.nome  ASC");
         $minimo = clone $elezioni;
         $anzianita = (int) $anzianita;
         $minimo->modify("-{$anzianita} years");
@@ -133,15 +135,17 @@ class Comitato extends GeoPolitica {
     public function membriDimessi($stato = MEMBRO_DIMESSO) {
         $q = $this->db->prepare("
             SELECT
-                volontario
+                anagrafica.id
             FROM
-                appartenenza
+                appartenenza, anagrafica
             WHERE
+                anagrafica.id = appartenenza.volontario
+            AND
                 comitato = :comitato
             AND
-                stato    >= :stato
+                appartenenza.stato    >= :stato
             ORDER BY
-                inizio ASC");
+                cognome ASC, nome ASC");
         $q->bindParam(':comitato', $this->id);
         $q->bindParam(':stato',    $stato);
         $q->execute();

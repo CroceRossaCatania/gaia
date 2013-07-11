@@ -533,6 +533,13 @@ class Utente extends Persona {
         ]);
     }
     
+    public function contaGruppi() {
+        return AppartenenzaGruppo::filtra([
+            ['volontario',  $this->id],
+            ['fine',NULL]
+        ]);
+    }
+    
      public function gruppiAttuali() {
         $q = $this->db->prepare("
             SELECT

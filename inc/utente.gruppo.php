@@ -156,7 +156,7 @@ if($i==0){ ?>
                         </td>
                         
                         <td>
-                            <?php if ($app->attuale()) { ?>
+                            <?php if ($app->attuale() && count($me->contaGruppi())>1) { ?>
                             <a class="btn btn-danger" onClick="return confirm('Vuoi veramente abbandonare questo gruppo di lavoro ?');" href="?p=utente.gruppo.dimetti&id=<?php echo $app->id; ?>">
                                 <i class="icon-ban-circle"></i>
                                 Abbandona
