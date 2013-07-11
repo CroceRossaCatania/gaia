@@ -12,11 +12,7 @@ class TitoloPersonale extends Entita {
         $_dt    = null;
     
     public function confermato() {
-        if ( $this->tipo != TITOLO_CRI || $this->tConferma ) {
-            return true;
-        } else {
-            return false;
-        }
+        return (bool) $this->tConferma;
     }
     
     public function titolo() {
