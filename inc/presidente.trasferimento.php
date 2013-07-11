@@ -72,25 +72,25 @@ foreach ($t as $_t){
         <td><?php echo $v->comuneNascita; ?></td>
         <td><?php echo $b[0]->comitato()->nomeCompleto(); ?></td>
         <?php if($_t->protNumero){ ?>
-        <td class="btn-group">
-        <a class="btn btn-success" href="?p=presidente.trasferimento.ok&id=<?php echo $b[0]->id; ?>&si">
-                <i class="icon-ok"></i>
-                    Conferma
-        </a>
-            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare il trasferimento a questo utente ?');" href="?p=presidente.trasferimentoNegato&id=<?php echo $b[0]->id; ?>">
-                <i class="icon-ban-circle"></i>
-                    Nega
-            </a>
+        <td>
+            <div class="btn-group">
+                <a class="btn btn-success" href="?p=presidente.trasferimento.ok&id=<?php echo $b[0]->id; ?>&si">
+                    <i class="icon-ok"></i> Conferma
+                </a>
+                <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare il trasferimento a questo utente ?');" href="?p=presidente.trasferimentoNegato&id=<?php echo $b[0]->id; ?>">
+                    <i class="icon-ban-circle"></i> Nega
+                </a>
+            </div>
         <?php }else{ ?>
-        <td class="btn-group">   
-        <a class="btn btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $b[0]->id; ?>">
-                <i class="icon-print"></i>
-                    Stampa richiesta
-        </a>
-        <a class="btn btn-success" href="?p=presidente.trasferimentoRichiesta&id=<?php echo $b[0]->id; ?>">
-                <i class="icon-ok"></i>
-                    Protocolla richiesta
-        </a>
+        <td>   
+            <div class="btn-group">
+                <a class="btn btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $b[0]->id; ?>">
+                    <i class="icon-print"></i> Stampa richiesta
+                </a>
+                <a class="btn btn-success" href="?p=presidente.trasferimentoRichiesta&id=<?php echo $b[0]->id; ?>">
+                    <i class="icon-ok"></i> Protocolla richiesta
+                </a>
+            </div>
         <?php } ?>    
         </td>
        
