@@ -38,6 +38,9 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
                     <i class="icon-edit"></i>
                     Modifica
                 </a>
+                <a href="?p=attivita.cancella&id=<?= $a->id; ?>" class="btn btn-large btn-danger" title="Cancella a">
+                    <i class="icon-trash"></i>
+                </a> 
                 <?php } ?>
                 
                 <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("http://www.gaiacri.it/index.php?p=attivita.scheda&id={$a->id}"); ?>" target="_blank">
