@@ -16,6 +16,16 @@ function normalizzaNome( $stringa ) {
 }
 
 /*
+ * Ritorna una stringa normalizzata come titolo 
+ * @return string La stringa normalizzata
+ */
+function normalizzaTitolo( $stringa ) {
+    $stringa = trim($stringa);
+    $stringa = ucfirst($stringa);
+    return $stringa;
+}
+
+/*
  * Ritorna una stringa in maiuscolo
  * @return string La stringa maiuscola
  */
