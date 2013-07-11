@@ -433,4 +433,24 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
+    /*
+     * @param $titoli Array di elementi Titolo
+     */
+    public function ricercaMembriTitoli( $titoli = [], $stato = MEMBRO_VOLONTARIO ) {
+        $daFiltrare = $this->membriAttuali($stato);
+        foreach ( $titoli as $titolo ) {
+            $filtrato = [];
+            foreach ( $daFiltrare as $volontario ) {
+                if ( TitoloPersonale::filtra([
+                    ['titolo',      $titolo->id],
+                    ['volontario',  $volontario]
+                ])) {
+                    $filtrato[] = $volontario;
+                }
+            }
+            $daFiltrare = $filtrato;
+        }
+        return $daFiltrare;
+    }
+    
 }
