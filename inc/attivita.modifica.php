@@ -104,7 +104,11 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
         
         <p>
             <strong>Posizione geografica</strong><br />
-            <?php echo $a->luogo; ?>
+            <?php echo $a->luogo; ?><br />
+            <a href='?p=attivta.localita&id=<?= $a->id; ?>'>
+                <i class='icon-pencil'></i>
+                modifica la località
+            </a>
         </p>
         
         
