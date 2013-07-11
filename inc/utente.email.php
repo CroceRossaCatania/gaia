@@ -58,7 +58,7 @@ paginaPrivata();
                 <div class="control-group">
                     <label class="control-label" for="inputemailServizio">Email di servizio</label>
                     <div class="controls">
-                        <input type="email" autofocus name="inputemailServizio" id="inputemailServizio" required value="<?php echo $me->emailServizio; ?>">
+                        <input type="email" autofocus name="inputemailServizio" id="inputemailServizio" value="<?php echo $me->emailServizio; ?>">
                     </div>
                 </div>
                 <?php } ?>

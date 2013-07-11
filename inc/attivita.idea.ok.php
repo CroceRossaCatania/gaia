@@ -18,7 +18,7 @@ $attivita->stato    = ATT_STATO_BOZZA;
 $attivita->area     = $area;
 $attivita->comitato = $comitato;
 
-$attivita->nome     = normalizzaNome($_POST['inputNome']);
+$attivita->nome     = normalizzaTitolo($_POST['inputNome']);
 
 $attivita->timestamp    = time();
 $attivita->autore       = $me;

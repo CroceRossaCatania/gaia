@@ -4,7 +4,7 @@ $id = $_POST['id'];
 $a = new Attivita($id);
 
 if ( isset($_POST['inputNome']) ) {
-    $a->nome            = normalizzaNome($_POST['inputNome']);
+    $a->nome            = normalizzaTitolo($_POST['inputNome']);
     $a->descrizione     = $_POST['inputDescrizione'];
     $a->aggiornamento   = time();
     $a->visibilita      = $_POST['inputVisibilita'];
@@ -12,7 +12,8 @@ if ( isset($_POST['inputNome']) ) {
 
 $turni = $a->turni();
 foreach ( $turni as $t ) {
-    $t->nome    = normalizzaNome($_POST["{$t->id}_nome"]);
+    if ( !isset($_POST["{$t->id}_nome"]) ) { continue; }
+    $t->nome    = normalizzaTitolo($_POST["{$t->id}_nome"]);
     $inizio     = DT::createFromFormat('d/m/Y H:i', $_POST["{$t->id}_inizio"]);
     $fine       = DT::createFromFormat('d/m/Y H:i', $_POST["{$t->id}_fine"]);
     $t->inizio  = $inizio->getTimestamp();
@@ -26,8 +27,8 @@ switch ( $_POST['azione'] ) {
         $num = count($turni) + 1;
         $t = new Turno();
         $t->attivita    = $a->id;
-        $t->inizio      = $fine->getTimestamp();
-        $t->fine        = strtotime('+2 hours', $fine->getTimestamp());
+        $t->inizio      = strtotime('+2 hours', $fine->getTimestamp());
+        $t->fine        = strtotime('+4 hours', $fine->getTimestamp());
         $t->nome        = "Turno $num";
         $t->minimo      = 1;
         $t->massimo     = 4;

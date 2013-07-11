@@ -5,16 +5,27 @@
  */
 
 class Commento extends Entita {
-        protected static
-            $_t  = 'commenti',
-            $_dt = null;
+    
+    protected static
+        $_t  = 'commenti',
+        $_dt = null;
         
-        public function volontario() {
-            return new Volontario($this->volontario);
-        }
+    public function volontario() {
+        return new Volontario($this->volontario);
+    }
+    
+    public function autore() {
+        return $this->volontario();
+    }
         
-        public function quando() {
+    public function quando() {
         return DT::daTimestamp($this->tCommenta);
+    }
+    
+    public function risposte() {
+        return Commento::filtra([
+            ['upCommento',  $this->id]
+        ], 'tCommenta DESC');
     }
      
 }

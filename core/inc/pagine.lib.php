@@ -55,16 +55,24 @@ function richiediComitato() {
     }
 }
 
-function paginaAttivita() {
-    richiediComitato();
+function paginaAttivita( $attivita = null ) {
     global $sessione;
-    if (!(
+    richiediComitato();
+    if (
+         ( 
+            ( $attivita instanceof Attivita )
+            and
+            !$attivita->modificabileDa($sessione->utente())
+         )
+            or
+         !(
                 (bool) $sessione->utente()->admin
             or  (bool) $sessione->utente()->presiede()
             or  (bool) $sessione->utente()->delegazioni(APP_OBIETTIVO)
             or  (bool) $sessione->utente()->areeDiResponsabilita()
             or  (bool) $sessione->utente()->attivitaReferenziate()
-    )) {
+        )
+    ) {
         redirect('utente.me');
     }
 }

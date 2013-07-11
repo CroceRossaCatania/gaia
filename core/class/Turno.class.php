@@ -29,6 +29,14 @@ class Turno extends Entita {
         ]);
     }
     
+    public function volontari() {
+        $r = [];
+        foreach ( $this->partecipazioni() as $p ) {
+            $r[] = $p->volontario();
+        }
+        return $r;
+    }
+    
     public function partecipazioniStato($stato = AUT_OK) {
         return Partecipazione::filtra([
             ['turno',   $this->id],
@@ -109,6 +117,15 @@ class Turno extends Entita {
     
     public function pieno() {
         return (bool) ( count($this->partecipazioni()) >= $this->massimo );
+    }
+    
+    public function futuro() {
+        $ora = new DT;
+        return (bool) ( $this->fine() > $ora );
+    }
+    
+    public function passato() {
+        return !$this->futuro();
     }
     
     public function richieste() {

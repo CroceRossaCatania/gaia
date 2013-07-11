@@ -6,7 +6,7 @@
 
 paginaPrivata();
 
-$a = $_GET['a'];
+$a = $_GET['id'];
 
 $n = Commento::filtra([['upCommento', $a]]);
 foreach( $n as $_n){
@@ -18,4 +18,4 @@ $f = new Commento($a);
 $a = $f->attivita;
 $f->cancella();
 
-redirect('attivita.pagina&a=' . $a);
+redirect('attivita.scheda&id=' . $a);
