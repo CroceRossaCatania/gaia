@@ -69,13 +69,15 @@ paginaAdmin();
                     <td><?php echo $c->nome; ?></td>
                     <td><?php
                     foreach ( $conf['titoli'] as $numero => $denominazione) { if ( $numero == $c->tipo ) { echo $denominazione[0]; } } ?></td>
-                    <td class="btn-group">      
-                        <a  onClick="return confirm('Vuoi veramente cancellare questo titolo ?');" href="?p=admin.titolo.cancella&id=<?php echo $c->id; ?>" title="Cancella Titolo" class="btn btn-small btn-warning">
-                            <i class="icon-trash"></i> Cancella
-                        </a>
-                        <a  href="?p=admin.titolo.modifica&id=<?php echo $c->id; ?>" title="Modifica Titolo" class="btn btn-small btn-info">
-                            <i class="icon-edit"></i> Modifica
-                        </a>
+                    <td>
+                        <div class="btn-group">
+                            <a  onClick="return confirm('Vuoi veramente cancellare questo titolo ?');" href="?p=admin.titolo.cancella&id=<?php echo $c->id; ?>" title="Cancella Titolo" class="btn btn-small btn-warning">
+                                <i class="icon-trash"></i> Cancella
+                            </a>
+                            <a  href="?p=admin.titolo.modifica&id=<?php echo $c->id; ?>" title="Modifica Titolo" class="btn btn-small btn-info">
+                                <i class="icon-edit"></i> Modifica
+                            </a>
+                        </div>
                    </td>
                 </tr>
                 

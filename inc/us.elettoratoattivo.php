@@ -110,13 +110,15 @@ $tstamp = $time->getTimestamp();
                     </td>
                     <td><?php echo $_v->codiceFiscale; ?></td>
                     <td><?php echo $_v->ingresso()->format("d/m/Y"); ?></td>
-                    <td class="btn-group">
-                        <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
-                            <i class="icon-eye-open"></i> Dettagli
-                        </a>
-                        <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
-                            <i class="icon-envelope"></i>
-                        </a>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
+                                <i class="icon-eye-open"></i> Dettagli
+                            </a>
+                            <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
+                                <i class="icon-envelope"></i>
+                            </a>
+                        </div>
                    </td>
                 </tr>
                 

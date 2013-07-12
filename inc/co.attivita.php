@@ -76,19 +76,22 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                                 <tr class="<?php if(!$m[0]->pSmonta){echo "warning"; }elseif($m[0]->stato == CO_MONTA){ echo "success";}else{echo "error";}?>">
                                    <td><?php echo $partecipante->volontario()->nomeCompleto(); ?></td>
                                    <td><?php $partecipante->volontario()->cellulare(); ?></td>
-                                   <td class="btn-group">
-                                        <a class="btn btn-small btn" target="_new" href="?p=public.utente&id=<?php echo $partecipante->volontario(); ?>" title="Monta">
-                                            <i class="icon-eye-open"></i> Visualizza
-                                        </a>
-                                       <?php if(!$m[0]->pSmonta){ ?>
-                                        <a class="btn btn-small btn-success" href="?p=co.attivita.ok&v=<?php echo $partecipante->volontario(); ?>&t=<?php echo $turno; ?>&monta" title="Monta">
-                                            <i class="icon-arrow-up"></i> Monta
-                                        </a>
-                                        <?php } if($m[0]->stato == CO_MONTA){ ?>
-                                        <a class="btn btn-small btn-danger" href="?p=co.attivita.ok&v=<?php echo $partecipante->volontario(); ?>&t=<?php echo $turno; ?>&smonta" title="Smonta">
-                                            <i class="icon-arrow-down"></i> Smonta
-                                        </a>
-                                       <?php } ?>
+                                   <td>
+                                       <div class="btn-group">
+                                            <a class="btn btn-small btn" target="_new" href="?p=public.utente&id=<?php echo $partecipante->volontario(); ?>" title="Monta">
+                                                <i class="icon-eye-open"></i> Visualizza
+                                            </a>
+                                           <?php if(!$m[0]->pSmonta){ ?>
+                                                <a class="btn btn-small btn-success" href="?p=co.attivita.ok&v=<?php echo $partecipante->volontario(); ?>&t=<?php echo $turno; ?>&monta" title="Monta">
+                                                    <i class="icon-arrow-up"></i> Monta
+                                                </a>
+                                            <?php } 
+                                            if($m[0]->stato == CO_MONTA){ ?>
+                                                <a class="btn btn-small btn-danger" href="?p=co.attivita.ok&v=<?php echo $partecipante->volontario(); ?>&t=<?php echo $turno; ?>&smonta" title="Smonta">
+                                                    <i class="icon-arrow-down"></i> Smonta
+                                                </a>
+                                           <?php } ?>
+                                       </div>
                                    </td>
                                 </tr>
                     

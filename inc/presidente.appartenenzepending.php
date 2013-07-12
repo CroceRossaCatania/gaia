@@ -63,18 +63,18 @@ foreach($comitati as $comitato) {
         <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
         <td><?php echo $_v->comuneNascita; ?></td>
         <td><?php echo $comitato->nomeCompleto(); ?></td>
-        <td class="btn-group">
-            <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" target="_new" title="Dettagli">
-                            <i class="icon-eye-open"></i> Dettagli
-                        </a>    
-            <a class="btn btn-success btn-small" href="?p=presidente.appartenenzepending.ok&id=<?php echo $_t->id; ?>&si">
-                <i class="icon-ok"></i>
-                    Conferma
-            </a>
-            <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente negare appartenenza a questo utente ?');" href="?p=presidente.appartenenzepending.ok&id=<?php echo $_t->id; ?>&no">
-                <i class="icon-ban-circle"></i>
-                    Nega
-            </a>
+        <td>
+            <div class="btn-group">
+                <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" target="_new" title="Dettagli">
+                    <i class="icon-eye-open"></i> Dettagli
+                </a>    
+                <a class="btn btn-success btn-small" href="?p=presidente.appartenenzepending.ok&id=<?php echo $_t->id; ?>&si">
+                    <i class="icon-ok"></i> Conferma
+                </a>
+                <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente negare appartenenza a questo utente ?');" href="?p=presidente.appartenenzepending.ok&id=<?php echo $_t->id; ?>&no">
+                    <i class="icon-ban-circle"></i> Nega
+                </a>
+            </div>
         </td>
        
     </tr>

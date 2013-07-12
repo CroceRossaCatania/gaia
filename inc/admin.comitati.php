@@ -55,77 +55,87 @@ paginaAdmin();
                 ?>
                   <tr>
                     <td colspan="5"><strong><?php echo $nazionale->nome; ?></strong></td>
-                    <td class="btn-group">
-                        <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $nazionale->oid(); ?>" title="Dettagli">
-                            <i class="icon-eye-open"></i> Dettagli
-                        </a>
-                        <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $nazionale->id; ?>&t=regi" title="Nuovo">
-                            <i class="icon-plus"></i> Nuovo
-                        </a> 
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $nazionale->oid(); ?>" title="Dettagli">
+                                <i class="icon-eye-open"></i> Dettagli
+                            </a>
+                            <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $nazionale->id; ?>&t=regi" title="Nuovo">
+                                <i class="icon-plus"></i> Nuovo
+                            </a>
+                        </div>
                    </td>
                 </tr>
                 <?php foreach ( $nazionale->regionali() as $regionale ) { ?>
                 <tr class="success">
                     <td></td>
                     <td colspan="4" border-left="none"><?php echo $regionale->nome; ?></td>
-                        <td class="btn-group">
-                            <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $regionale->oid(); ?>" title="Dettagli">
-                                <i class="icon-eye-open"></i> Dettagli
-                            </a>    
-                            <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $regionale->oid(); ?>" title="Modifica">
-                                <i class="icon-edit"></i> Modifica
-                            </a>
-                            <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $regionale->id; ?>&t=pro" title="Nuovo">
-                                <i class="icon-plus"></i> Nuovo
-                            </a>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $regionale->oid(); ?>" title="Dettagli">
+                                    <i class="icon-eye-open"></i> Dettagli
+                                </a>    
+                                <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $regionale->oid(); ?>" title="Modifica">
+                                    <i class="icon-edit"></i> Modifica
+                                </a>
+                                <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $regionale->id; ?>&t=pro" title="Nuovo">
+                                    <i class="icon-plus"></i> Nuovo
+                                </a>
+                            </div>
                         </td>
                 </tr>
                 <?php foreach ( $regionale->provinciali() as $provinciale ) { ?>
                 <tr class="error">
                     <td></td><td></td>
                     <td colspan="3"><?php echo $provinciale->nome; ?></td>
-                        <td class="btn-group">
-                            <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $provinciale->oid(); ?>" title="Dettagli">
-                                <i class="icon-eye-open"></i> Dettagli
-                            </a>  
-                            <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $provinciale->oid(); ?>" title="Modifica">
-                                <i class="icon-edit"></i> Modifica
-                            </a>
-                            <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $provinciale->id; ?>&t=loc" title="Nuovo">
-                                <i class="icon-plus"></i> Nuovo
-                            </a> 
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $provinciale->oid(); ?>" title="Dettagli">
+                                    <i class="icon-eye-open"></i> Dettagli
+                                </a>  
+                                <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $provinciale->oid(); ?>" title="Modifica">
+                                    <i class="icon-edit"></i> Modifica
+                                </a>
+                                <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $provinciale->id; ?>&t=loc" title="Nuovo">
+                                    <i class="icon-plus"></i> Nuovo
+                                </a> 
+                            </div>
                        </td>
                 </tr>
                 <?php foreach ( $provinciale->locali() as $locale ) { ?>
                 <tr class="alert">
                     <td></td><td></td><td></td>
                     <td colspan="2"><?php echo $locale->nome; ?></td>
-                        <td class="btn-group">
-                            <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $locale->oid(); ?>" title="Dettagli">
-                                <i class="icon-eye-open"></i> Dettagli
-                            </a>     
-                            <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $locale->oid(); ?>" title="Modifica">
-                                <i class="icon-edit"></i> Modifica
-                            </a>
-                            <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $locale->id; ?>&t=com" title="Nuovo">
-                                <i class="icon-plus"></i> Nuovo
-                            </a> 
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $locale->oid(); ?>" title="Dettagli">
+                                    <i class="icon-eye-open"></i> Dettagli
+                                </a>     
+                                <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $locale->oid(); ?>" title="Modifica">
+                                    <i class="icon-edit"></i> Modifica
+                                </a>
+                                <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $locale->id; ?>&t=com" title="Nuovo">
+                                    <i class="icon-plus"></i> Nuovo
+                                </a> 
+                            </div>
                        </td>
                 </tr>
                 <?php foreach ( $locale->comitati() as $comitato ) { ?>
                 <tr class="info">
                     <td></td><td></td><td></td><td></td>
                     <td colspan="1"><?php echo $comitato->nome; ?></td>
-                        <td class="btn-group">
-                            <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $comitato->oid(); ?>" title="Dettagli">
-                                <i class="icon-eye-open"></i> Dettagli
-                            </a>      
-                            <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $comitato->oid(); ?>" title="Modifica">
-                                <i class="icon-edit"></i> Modifica
-                            </a> 
-                            <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ?');" href="?p=admin.comitato.cancella&oid=<?php echo $comitato->oid(); ?>&com" title="Cancella Comitato" class="btn btn-small btn-warning">
-                                <i class="icon-trash"></i> Cancella
-                            </a>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $comitato->oid(); ?>" title="Dettagli">
+                                    <i class="icon-eye-open"></i> Dettagli
+                                </a>      
+                                <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $comitato->oid(); ?>" title="Modifica">
+                                    <i class="icon-edit"></i> Modifica
+                                </a> 
+                                <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ?');" href="?p=admin.comitato.cancella&oid=<?php echo $comitato->oid(); ?>&com" title="Cancella Comitato" class="btn btn-small btn-warning">
+                                    <i class="icon-trash"></i> Cancella
+                                </a>
+                            </div>
                        </td>
                 </tr>
         <?php }}}}}

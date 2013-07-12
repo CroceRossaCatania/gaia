@@ -64,10 +64,12 @@ foreach ( $me->comitatiDiCompetenza() as $comitato ) {
                   Attività: <?php echo $conf['app_attivita'][$delegato->dominio]; ?>
                 <?php } ?>
             </td>
-            <td class="btn-group">
+            <td>
+                <div class="btn-group">
                     <a class="btn btn-danger" onClick="return confirm('Vuoi veramente dimettere questo Referente ?');" href="?p=presidente.referente.dimetti&id=<?php echo $delegato->id; ?>">
                         <i class="icon-ban-circle"></i> Dimetti                       
                     </a>
+                </div>
             </td>
 
         </tr>

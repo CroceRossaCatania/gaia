@@ -51,15 +51,17 @@ foreach($comitati as $comitato){
         <td><?php echo $_t->attivazione; ?> min</td>
         <td><?php echo $_t->comitato()->nomeCompleto(); ?></td>
         <td><?php echo $_v->cellulare; ?></td>
-            <td class="btn-group">     
-            <a class="btn" href="?p=public.utente&id=<?php echo $_v->id; ?>" target="_new">
-                    <i class="icon-eye-open"></i>
-                        Visualizza
-            </a>
-            <a class="btn btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>">
-                    <i class="icon-envelope"></i>
-            </a>
-            </td>
+        <td>     
+            <div class="btn-group">
+                <a class="btn" href="?p=public.utente&id=<?php echo $_v->id; ?>" target="_new">
+                        <i class="icon-eye-open"></i>
+                            Visualizza
+                </a>
+                <a class="btn btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>">
+                        <i class="icon-envelope"></i>
+                </a>
+            </div>
+        </td>
     <?php } ?>
     </tr>
     <?php }

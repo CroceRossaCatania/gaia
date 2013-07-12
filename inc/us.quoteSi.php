@@ -120,10 +120,12 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                             <?php echo $_v->cellulare; ?>
                     </td>
 
-                    <td class="btn-group">
-                        <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
-                            <i class="icon-envelope"></i>
-                        </a>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
+                                <i class="icon-envelope"></i>
+                            </a>
+                        </div>
                    </td>
                 </tr>
                 
