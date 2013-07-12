@@ -35,6 +35,7 @@ if ( isset($_POST['annuncia'] ) ) {
         $m->_TESTO      =   $c->commento;
         $m->_ID         =   $a->id;
         $m->a           =   $v;
+        $m->da          =   $me;
         $m->invia();
         
     }
