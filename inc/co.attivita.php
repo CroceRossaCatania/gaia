@@ -73,15 +73,17 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                             $partecipanti = $turno->partecipazioniStato(AUT_OK);
                             foreach ($partecipanti as $partecipante){ ?>
                                 <?php $m= Coturno::filtra([['volontario', $partecipante->volontario()],['turno',$turno]]); ?>
-                                <tr class="<?php if(!$m[0]->pSmonta){echo "warning"; }elseif($m[0]->stato == CO_MONTA){ echo "success";}else{echo "error";}?>">
+                                <tr class="<?php if(!$m[0]->pSmonta && !$m[0]->stato == CO_MONTA){echo "warning"; }elseif($m[0]->stato == CO_MONTA){ echo "success";}else{echo "error";}?>">
                                    <td><?php echo $partecipante->volontario()->nomeCompleto(); ?></td>
                                    <td><?php $partecipante->volontario()->cellulare(); ?></td>
                                    <td>
                                        <div class="btn-group">
+                                           <?php if($m[0]->stato == '' || !$m[0]->stato == CO_MONTA || $m[0]->stato == CO_MONTA){ ?>
                                             <a class="btn btn-small btn" target="_new" href="?p=public.utente&id=<?php echo $partecipante->volontario(); ?>" title="Monta">
                                                 <i class="icon-eye-open"></i> Visualizza
                                             </a>
-                                           <?php if(!$m[0]->pSmonta){ ?>
+                                           <?php } ?>
+                                           <?php if(!$m[0]->stato == CO_MONTA){ ?>
                                                 <a class="btn btn-small btn-success" href="?p=co.attivita.ok&v=<?php echo $partecipante->volontario(); ?>&t=<?php echo $turno; ?>&monta" title="Monta">
                                                     <i class="icon-arrow-up"></i> Monta
                                                 </a>
