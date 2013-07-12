@@ -64,7 +64,8 @@ class Email {
         
         $header =[
             'Subject'       =>  $oggetto,
-            'From'          =>  $da,
+            'From'          =>  'Croce Rossa Italiana <supporto@gaiacri.it>',
+            'Reply-to'      =>  $da,
             'MIME-Version'  =>  '1.0',
             'To'            =>  $this->a->nome . ' <' . $email . '>'
         ];
