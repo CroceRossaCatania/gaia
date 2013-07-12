@@ -201,6 +201,7 @@ define('APP_PRESIDENTE',    30);
 define('APP_OBIETTIVO',     40);
 define('APP_CO',            50);
 define('APP_SOCI',          60);
+define('APP_PATENTI',     70);
 
 $conf['applicazioni'] = [
     APP_ATTIVITA    =>  "Attività",
@@ -208,7 +209,8 @@ $conf['applicazioni'] = [
     APP_PRESIDENTE  =>  "Presidente",
     APP_OBIETTIVO   =>  "Obiettivo strategico",
     APP_CO          =>  "Centrale Operativa",
-    APP_SOCI        =>  "Ufficio Soci"
+    APP_SOCI        =>  "Ufficio Soci",
+    APP_PATENTI => "Ufficio Patenti"
 ];
 
 /*
@@ -389,6 +391,13 @@ define('ANZIANITA', 2);
 
 define('QUOTA_PRIMO', 16);
 define('QUOTA_RINNOVO', 8);
+define('QUOTA_ALTRO', 0);
+
+$conf['quote'] = [
+    QUOTA_PRIMO        =>  'Prima Quota 16€',
+    QUOTA_RINNOVO       =>  'Quota di rinnovo 8€',
+    QUOTA_ALTRO => 'Altro'
+];
 
 /*
  * ===================================
@@ -397,3 +406,19 @@ define('QUOTA_RINNOVO', 8);
  */
 
 define('PIVA', 01019341005);
+
+/*
+ * ===================================
+ * =========== APP_PATENTI==== ============
+ * ===================================
+ */
+
+/* Tipologia appartenenza gruppo */
+define('RICHIESTA_PEDENTE',   10);
+define('RICHIESTA_EVASA', 20);
+
+/* Definizioni in stringa */
+$conf['membro'] = [
+    RICHIESTA_PEDENTE     =>  'Rinnovo patente eseguito',
+    RICHIESTA_EVASA   =>  'Rinnovo patente in corso'
+];

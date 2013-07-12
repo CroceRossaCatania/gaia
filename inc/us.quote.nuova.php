@@ -8,7 +8,6 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 $id = $_GET['id'];
 
 ?>
-<script type="text/javascript"><?php require './js/bootstrap.js'; ?></script>
 <form action="?" method="GET">
     <input type="hidden" name="p" value="us.quote.nuova.ok">
 <div class="modal fade automodal">
@@ -23,16 +22,34 @@ $id = $_GET['id'];
                   <input class="input-medium" type="text" name="inputData" id="inputData" required pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}">
                 </div>
             </div>
+              
             <div class="control-group">
-                <label class="control-label" for="inputQuota"> Importo quota </label>
+                <label class="control-label" for="inputQuota">Quota</label>
                 <div class="controls">
-                    <div class="btn-group" data-toggle="buttons-radio">
-                        <button name="radio" value="prima" type="button" class="btn btn-primary"><?php echo 'Prima Iscrizione' , ' - ',  QUOTA_PRIMO , '€'; ?></button>
-                        <button name="radio" value="rinnovo" type="button" class="btn btn-primary"><?php echo 'Rinnovo' , ' - ' , QUOTA_RINNOVO , '€'; ?></button>
-                        <button name="radio" value="altro" type="button" class="btn btn-primary">Altro</button>
-                    </div>
+                    <select class="input-large" id="inputQuota" name="inputQuota">
+                <?php
+                        foreach ( $conf['quote'] as $numero => $quota ) { ?>
+                            <option value="<?php echo $numero; ?>"><?php echo $quota; ?></option>
+                    <?php } ?>
+                </select>   
+            </div>
+          </div>
+
+            <div class="control-group">
+                <label class="control-label" id="causale" for="inputCausale" style="display: none">Causale</label>
+                <div class="controls">
+                  <input class="input-large" type="text" name="inputCausale" id="inputCausale" style="display: none">
                 </div>
             </div>
+
+            <div class="control-group">
+                <label class="control-label" id="importo" for="inputImporto" style="display: none">Importo</label>
+                <div class="controls">
+                  <input class="input-medium" type="text" name="inputImporto" id="inputImporto" style="display: none">
+                </div>
+            </div>
+
+
            <input type="hidden" name="id" value="<?php echo $id; ?>">
         </div>
     </div>

@@ -8,7 +8,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $id = $_GET['id'];
 $id = Volontario::by('id', $id);
-$r = $_GET['radio'];
+$r = $_GET['inputQuota'];
 
  foreach ( $id->storico() as $app ) { 
                          if ($app->attuale()) 
@@ -19,16 +19,20 @@ $r = $_GET['radio'];
                                 $t->timestamp = $time->getTimestamp();
                                 $t->tConferma = time();
                                 $t->pConferma = $me;
-                                if($r=="prima"){
+                                if($r==QUOTA_PRIMO){
                                     $t->quota = QUOTA_PRIMO;
                                     $s = QUOTA_PRIMO;
-                                }elseif($r == "rinnovo"){
+                                    $i = "Versamento quota iscrizione";
+                                }elseif($r == QUOTA_RINNOVO){
                                     $t->quota = QUOTA_RINNOVO;
                                     $s = QUOTA_RINNOVO;
-                                }elseif($r == "altro"){
-                                    $t->quota = $_POST['importo'];
-                                    $t->causale = $_POST['causale'];
-                                    $s = $_POST['causale'];
+                                    $i = "Versamento quota di rinnovo annuale";
+                                }elseif($r ==QUOTA_ALTRO){
+                                    $t->quota = $_GET['inputImporto'];
+                                    $t->causale = $_GET['inputCausale'];
+                                    $s = $_GET['inputImporto'];
+                                    $i = $_GET['inputCausale'];
+                                    
                                 }
                                 
                                 $p = new PDF('ricevutaquota', 'ricevuta.pdf');
@@ -42,6 +46,7 @@ $r = $_GET['radio'];
                                 $p->_NASCITA = date('d/m/Y', $id->dataNascita);
                                 $p->_LUOGO = $id->luogoNascita;
                                 $p->_QUOTA = $s;
+                                $p->_CAUSALE = $i;
                                 $p->_LUOGO = $app->comitato()->locale()->comune;
                                 $p->_DATA = date('d-m-Y', time());
                                 $f = $p->salvaFile();
