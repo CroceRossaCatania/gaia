@@ -38,7 +38,8 @@ $r = $_GET['inputQuota'];
                                 $p = new PDF('ricevutaquota', 'ricevuta.pdf');
                                 $p->_COMITATO = $app->comitato()->locale()->nomeCompleto();
                                 $p->_INDIRIZZO = $app->comitato()->locale()->formattato;
-                                $p->_PIVA = PIVA;
+                                $iva = PIVA;
+                                $p->_PIVA = $iva;
                                 $p->_ID = $t;
                                 $p->_NOME = $id->nome;
                                 $p->_COGNOME = $id->cognome;
@@ -50,6 +51,8 @@ $r = $_GET['inputQuota'];
                                 $p->_LUOGO = $app->comitato()->locale()->comune;
                                 $p->_DATA = date('d-m-Y', time());
                                 $f = $p->salvaFile();
+                                $f->download();
+                                exit();
                                 
                                 
                                 /* Invio ricevuta all'utente */
