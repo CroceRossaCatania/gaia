@@ -50,10 +50,7 @@ $r = $_GET['inputQuota'];
                                 $p->_CAUSALE = $i;
                                 $p->_LUOGO = $app->comitato()->locale()->comune;
                                 $p->_DATA = date('d-m-Y', time());
-                                $f = $p->salvaFile();
-                                $f->download();
-                                exit();
-                                
+                                $f = $p->salvaFile();                                
                                 
                                 /* Invio ricevuta all'utente */
                                 
