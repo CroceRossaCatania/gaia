@@ -418,7 +418,7 @@ define('RICHIESTA_PEDENTE',   10);
 define('RICHIESTA_EVASA', 20);
 
 /* Definizioni in stringa */
-$conf['membro'] = [
+$conf['patente'] = [
     RICHIESTA_PEDENTE     =>  'Rinnovo patente eseguito',
     RICHIESTA_EVASA   =>  'Rinnovo patente in corso'
 ];
