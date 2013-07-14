@@ -6,9 +6,6 @@
 
 paginaPrivata();
 
-?>
-<?php 
-
 $f = $_GET['id']; 
 $t= Persona::filtra([
   ['id', $f]
@@ -62,18 +59,14 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
    <h3><i class="icon-list muted"></i> Curriculum </h3>
         
         <div id="step1">
-       
-
             <table class="table table-striped table-condensed table-bordered" id="risultatiRicerca" style="display: none;">
                 <thead>
                     <th>Nome risultato</th>
                     <th>Cerca</th>
                 </thead>
                 <tbody>
-
                 </tbody>
             </table>
-            
           </div>
         
         <div id="step2" style="display: none;">
@@ -132,57 +125,20 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                         </button>
                     </div>
                 </div>
-                
             </div>
-            
-        </div>    
-  
+        </div>   
      <?php $ttt = $a; ?>
                 <table class="table table-striped">
                     <?php foreach ( $ttt as $titolo ) { ?>
-                    <tr <?php if (!$titolo->tConferma) { ?>class="warning"<?php } ?>>
-                        <td>
-                            <?php if ($titolo->tConferma) { ?>
-                                    <abbr title="Confermato: <?php echo date('d-m-Y H:i', $titolo->tConferma); ?>">
-                                        <i class="icon-ok"></i>
-                                    </abbr>
-                            <?php } else { ?>
-                                <abbr title="Pendente">
-                                    <i class="icon-time"></i>
-                                </abbr>
-                            <?php } ?> 
-                                
-                            <strong><?php echo $titolo->titolo()->nome; ?></strong><br />
-                            <small><?php echo $conf['titoli'][$titolo->titolo()->tipo][0]; ?></small>
-                        </td>
-
-                        
-                            <?php if ( $titolo->inizio ) { ?>
-                            <td><small>
-                                <i class="icon-calendar muted"></i>
-                                <?php echo date('d-m-Y', $titolo->inizio); ?>
-                                
-                                <?php if ( $titolo->fine ) { ?>
-                                    <br />
-                                    <i class="icon-time muted"></i>
-                                    <?php echo date('d-m-Y', $titolo->fine); ?>
-                                <?php } ?>
-                                <?php if ( $titolo->luogo ) { ?>
-                                    <br />
-                                    <i class="icon-road muted"></i>
-                                    <?php echo $titolo->luogo; ?>
-                                 <?php } ?>
-                                 <?php if ( $titolo->codice ) { ?>
-                                    <br />
-                                    <i class="icon-barcode muted"></i>
-                                    <?php echo $titolo->codice; ?>
-                                  <?php } ?>
-                            </small></td>
-                            <?php } else { ?>
-                            <td>&nbsp;</td>
-                            <?php } ?>
-                    </tr>
-                    <?php } ?>
+                        <?php if ($titolo->tConferma) { ?>
+                            <tr>
+                                <td>
+                                    <strong><?php echo $titolo->titolo()->nome; ?></strong><br />
+                                    <small><?php echo $conf['titoli'][$titolo->titolo()->tipo][0]; ?></small>
+                                </td>
+                            </tr>
+                    <?php   }
+                                } ?>
                 </table>
     </div>
 </div>
