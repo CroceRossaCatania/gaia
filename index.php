@@ -53,7 +53,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     
     <title>{_titolo}</title>
     <meta name="description" content="{_descrizione}">
-    <meta name="author" content="Progetto Gaia">
+    <meta name="author" content="Progetto Gaia - Croce Rossa Italiana">
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
     <!-- CSS -->
@@ -69,7 +69,6 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
       <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome-ie7.min.css">
     <![endif]-->
 
-    
     <!-- JS -->
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"        ></script>
     <script type="text/javascript" src="js/modernizr.custom.03290.js"                   ></script>
@@ -81,31 +80,16 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <script type="text/javascript" src="js/app.js"                                      ></script>
     <script type="text/javascript" src="js/ui.datepicker-it.js"                         ></script>
     <script type="text/javascript" src="js/tinymce/tinymce.min.js"                      ></script>
-
-
-    
-    
-    <?php if (file_exists('js/'. $p . '.js')) { ?>
+    <?php if (file_exists('js/'. $p . '.js')) { /* Javascript dinamico */ ?>
         <script type="text/javascript" src="js/<?php echo $p; ?>.js"></script>
     <?php } ?>
-    
-    <script type="text/javascript">
-        $(window).load( function() {
-            $("#myCarousel").carousel();
-        });
-    </script>
 
-    
   </head>
   <body>
-  
       <div class="navbar-wrapper">
-
       <div class="container">
-
         <div class="navbar">
           <div class="navbar-inner">
-
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
@@ -120,10 +104,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                 <li><a href="index.php"><i class="icon-home"></i> Home</a></li>
                 <li><a href="?p=attivita"><i class="icon-calendar"></i> Attività</a></li>
                 <li><a href="?p=public.comitati.mappa"><i class="icon-map-marker"></i> Comitati</a></li>
-
-              </ul>
-            
-            
+              </ul>  
             <?php
             if ( $me ) { 
             ?>
@@ -171,8 +152,6 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    
-
                                    
                                     <li class="nav-header">Da fare</li>
                                     
@@ -233,45 +212,12 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                                             Elenco volontari
                                         </a>
                                     </li>
-                                    <!--
-                                    <li>
-                                        <a href="?p=presidente.aspiranti">
-                                            <i class="icon-globe"></i>
-                                            Elenco aspiranti
-                                        </a>
-                                    </li>
-                                    -->
                                     <li>
                                         <a href="?p=presidente.titoli.ricerca">
                                             <i class="icon-search"></i>
                                             Ricerca volontari per titoli
                                         </a>
                                     </li>
-                                    
-                                    <!--<li>
-                                        <a href="?p=presidente.referenti">
-                                            <i class="icon-user"></i>
-                                            Referenti Comitato
-                                        </a>
-                                    </li>-->
-                                    
-                                    <!--<li class="nav-header">C.O.</li>
-                                
-                                    <li>
-                                        <a href="?p=co.reperibilita">
-                                            <i class="icon-thumbs-up"></i>
-                                            Reperibilità
-                                        </a>
-                                    </li>
-                                    
-                                    <li>
-                                        <a href="?p=co.attivita">
-                                            <i class="icon-thumbs-up"></i>
-                                            Reperibilità
-                                        </a>
-                                    </li>
-                                    -->
-                                    
                                 </ul>
                             </div>
                             <?php } ?>
@@ -304,18 +250,14 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
             	</a>
             </div>
             <?php } ?>
-                        </div><!--/.nav-collapse -->
-
-			
-			
-          </div><!-- /.navbar-inner -->
-        </div><!-- /.navbar -->
-
-      </div> <!-- /.container -->
-    </div><!-- /.navbar-wrapper -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <?php if ( in_array($p, $conf['slide'] ) ) { ?>
-    <div id="myCarousel" class="carousel slide">
+    <div id="caroselloHome" class="carousel slide">
       <div class="carousel-inner">
         <div class="item active">
           <img src="./img/foto4.jpg" alt="">
@@ -359,11 +301,11 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
           </div>
         </div>
       </div>
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+      <a class="left carousel-control" href="#caroselloHome" data-slide="prev">&lsaquo;</a>
+      <a class="right carousel-control" href="#caroselloHome" data-slide="next">&rsaquo;</a>
     </div><!-- /.carousel -->
     <?php } else { ?>
-    <div id="myCarousel" class="carousel slide">
+    <div id="caroselloHome" class="carousel slide">
       <div class="carousel-inner">
         <div class="item active altoCento">
           <img class="altoCento" src="./img/noSlide.png" alt="">
@@ -382,7 +324,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
 	require($_f);
 	
 ?>
-      <hr>
+      <hr />
 
       <div class="footer row-fluid">
                     <div class="span6">
@@ -416,14 +358,10 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     piwikTracker.enableLinkTracking();
     } catch( err ) {}
     </script><noscript><p><img src="http://stats.cricatania.it/piwik.php?idsite=2" style="border:0" alt="" /></p></noscript>
-    <!-- Fine statistiche -->
-	
-    
+
     <!-- Q: <?php echo $db->numQuery; ?> -->
-    
   </body>
 </html><?php
 ob_end_flush(); 
 header("Content-length: " . ob_get_length()); 
-ob_end_flush(); 
-?>
+ob_end_flush();

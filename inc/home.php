@@ -6,7 +6,6 @@ paginaPubblica();
         <div class="span6">
         	<h2>Già volontario? </h2>
                 <h3 class="muted">Registrati su Gaia.</h3>
-                <hr />
                 <div class="well">
                     <a href="?p=riconoscimento&tipo=volontario" class="btn btn-large btn-success btn-block">
                         <i class="icon-user"></i>
@@ -29,7 +28,6 @@ paginaPubblica();
         <div class="span6">
         	<h2>Vuoi entrare in Croce Rossa?</h2>
                 <h3 class="muted">Partecipa al prossimo corso base.</h3>
-                <hr />
                 <div class="well">
                     <a href="?p=riconoscimento&tipo=aspirante" class="btn btn-large btn-danger btn-block">
                         <i class="icon-hand-right"></i>
