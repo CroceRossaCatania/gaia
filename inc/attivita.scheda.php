@@ -149,7 +149,7 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
         
         <div class="row-fluid">
             
-            <div class="span5" style="max-height: 500px; overflow-y: auto;">
+            <div class="span5" style="max-height: 500px; padding-right: 10px; overflow-y: auto;">
                 <h4>
                     <i class="icon-info-sign"></i>
                     Ulteriori informazioni
@@ -204,17 +204,20 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
                 </form>
                 <?php } ?>
                 
-                <div class="row-fluid" style="max-height: 450px; overflow: auto;">
+                <div class="row-fluid" style="max-height: 450px; padding-right: 10px; overflow: auto;">
                 <?php foreach ( $commenti as $c ) {
                     $autore = $c->autore();
                     ?>
                     <div class="row-fluid" id="commento">
                         <div class="span2 allinea-destra">
-                            <img src="<?php echo $autore->avatar()->img(10); ?>" width="50" height="50" class="img-circle" />
+                            <a href="?p=public.utente&id=<?php echo $autore->id; ?>" target="_new">
+                                <img src="<?php echo $autore->avatar()->img(10); ?>" width="50" height="50" class="img-circle" />
+                            </a>
                         </div>
                         <div class="span10">
                             <small class="text-info">
-                                <strong><?php echo $autore->nomeCompleto(); ?></strong>,
+                                <strong>
+                                    <a href="?p=public.utente&id=<?php echo $autore->id; ?>" target="_new"><?php echo $autore->nomeCompleto(); ?></a></strong>,
                                     <?php echo $c->quando()->inTesto(); ?>
                             </small>
                             
@@ -265,17 +268,15 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
 
                         <td>
                             <big><strong><?php echo $turno->nome; ?></strong></big>
-
                             <br />
-                                <?php echo $turno->durata()->format('%H ore %i min'); ?>
-
+                            <?php echo $turno->durata()->format('%H ore %i min'); ?>
                         </td>
                         <td>
                             <big><?php echo $turno->inizio()->inTesto(); ?></big><br />
                             <span class="muted">Fine: <strong><?php echo $turno->fine()->inTesto(); ?></strong></span>
                         </td>
                         
-                        <td>
+                        <td style="max-width: 33%;">
                             <?php if ( $turno->scoperto() ) { ?>
                                 <span class="label label-warning">
                                     Scoperto!
@@ -302,7 +303,7 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
 
                             <br />                            
                             <?php foreach ( $accettate as $ppp ) { ?>
-                                <a href="#" title="<?php echo $ppp->nomeCompleto(); ?>">
+                                <a href="?p=public.utente&id=<?php echo $ppp->id; ?>" target="_new" title="<?php echo $ppp->nomeCompleto(); ?>">
                                     <img width="30" height="30" src="<?php echo $ppp->avatar()->img(10); ?>" />
                                 </a>
                             <?php } ?>
@@ -317,8 +318,6 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
                                     <div class="row-fluid">
                                         
                                         <div class="span7">
-                                            
-                                            
 
                                             <p class="text-success"><i class="icon-group"></i> Volontari partecipanti
                                                 <span class="badge badge-success"><?php echo count($accettate); ?></span>
