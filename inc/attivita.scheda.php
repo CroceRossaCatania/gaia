@@ -170,6 +170,19 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
                 
                 <?php $commenti = $a->commenti(); ?>
                 
+                <?php if ( $me instanceof Anonimo ) { ?>
+                <div class="row-fluid">
+                    <div class="span9">
+                        <textarea rows="2" class="span12" disabled="disabled" class="disabled">Accedi per commentare</textarea>
+                    </div>
+                    <div class="span3">
+                        <a href="?p=attivita.pagina.commento.ok&id=<?php echo $a->id; ?>" class="btn btn-large btn-warning">
+                            <i class="icon-signin"></i> Accedi
+                        </a>
+                    </div>
+                    
+                </div>
+                <?php } else { ?>
                 <form id="boxScrivi" action="?p=attivita.pagina.commento.ok&id=<?php echo $a->id; ?>" method="POST" class="row-fluid <?php if ( $commenti ) { ?>nascosto<?php } ?>">
                     <div class="span9">
                         <textarea name="inputCommento" autofocus placeholder="Scrivi il tuo messaggio..." rows="3" class="span12"></textarea>
@@ -182,7 +195,6 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
                             </strong> ai futuri partecipanti
                         </label>
                         <?php } ?>
-                        <hr />
                     </div>
                     <div class="span3">
                         <button type="submit" class="btn btn-large btn-success btn-block" data-attendere="Invio...">
@@ -190,6 +202,7 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
                         </button>
                     </div>
                 </form>
+                <?php } ?>
                 
                 <div class="row-fluid" style="max-height: 450px; overflow: auto;">
                 <?php foreach ( $commenti as $c ) {

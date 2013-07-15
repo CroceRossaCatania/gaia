@@ -11,6 +11,10 @@ $a = new Attivita($a);
 
 $h = $_GET['h'];
 
+if ( empty($_POST['inputCommento']) ) {
+    redirect('attivita.scheda&id=' . $a->id);
+}
+
 $c = new Commento();
 $c->attivita = $a;
 $c->commento = $_POST['inputCommento']; 
