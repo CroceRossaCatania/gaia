@@ -83,14 +83,12 @@ if ( isset($_GET['riapri']) ) { ?>
         </div>
         
         <hr />
-        
+        <?php
+        $ts = $a->turniScoperti();
+        $tsn = count($ts);
+        if ( $ts ) { ?>   
         <div class="span12">
-
-                <?php
-                $ts = $a->turniScoperti();
-                $tsn = count($ts);
-                if ( $ts ) { ?>
-                
+  
                 <div class="alert alert-block alert-error allinea-centro">
                     
                     <h4 class="text-error ">
@@ -102,11 +100,11 @@ if ( isset($_GET['riapri']) ) { ?>
                     
                 </div>
                 
-                <?php } ?>
             </div>
         
         <hr/>
-        
+        <?php } ?>
+
         <div class="row-fluid allinea-centro">
             <div class="span3">
                 <span>
@@ -277,10 +275,10 @@ if ( isset($_GET['riapri']) ) { ?>
         <div class="row-fluid">
             <table class="table table-bordered table-striped" id="turniAttivita">
                 <thead>
-                    <th>Nome</th>
-                    <th>Data ed ora</th>
-                    <th>Volontari</th>
-                    <th>Partecipa</th>
+                    <th style="width: 25%;">Nome</th>
+                    <th style="width: 25%;">Data ed ora</th>
+                    <th style="width: 35%;">Volontari</th>
+                    <th style="width: 15%;">Partecipa</th>
                 </thead>
                 
                 <?php foreach ( $a->turni() as $turno ) { ?>
@@ -297,7 +295,7 @@ if ( isset($_GET['riapri']) ) { ?>
                             <span class="muted">Fine: <strong><?php echo $turno->fine()->inTesto(); ?></strong></span>
                         </td>
                         
-                        <td style="max-width: 33%;">
+                        <td>
                             <?php if ( $turno->scoperto() ) { ?>
                                 <span class="label label-warning">
                                     Scoperto!
