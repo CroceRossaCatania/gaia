@@ -56,28 +56,31 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <meta name="author" content="Progetto Gaia">
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
-	<!-- CSS -->
-
-    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="css/font-awesome.css" rel="stylesheet" media="screen">
-    <link href="css/main.css" rel="stylesheet" media="screen">
-    <link href="css/fullcalendar.css" rel="stylesheet" media="screen">
+    <!-- CSS -->
+    <link href="css/bootstrap.min.css"      rel="stylesheet" media="screen">
+    <link href="css/font-awesome.min.css"   rel="stylesheet" media="screen">
+    <link href="css/main.css"               rel="stylesheet" media="screen">
+    <link href="css/fullcalendar.css"       rel="stylesheet" media="screen">
     <link href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet" media="screen">
     <!--[if IE]>
         <link href="css/main-ie.css" rel="stylesheet" media="screen">
     <![endif]-->
+    <!--[if IE 7]>
+      <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome-ie7.min.css">
+    <![endif]-->
+
     
     <!-- JS -->
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript" src="js/modernizr.custom.03290.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-    <script type="text/javascript" src="js/jquery.timepicker.js"></script>
-    <script type="text/javascript" src="js/fullcalendar.min.js"></script>
-    <script type="text/javascript" src="js/jquery.cookie.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/ui.datepicker-it.js"></script>
-    <script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"        ></script>
+    <script type="text/javascript" src="js/modernizr.custom.03290.js"                   ></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"                            ></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"   ></script>
+    <script type="text/javascript" src="js/jquery.timepicker.js"                        ></script>
+    <script type="text/javascript" src="js/fullcalendar.min.js"                         ></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"                            ></script>
+    <script type="text/javascript" src="js/app.js"                                      ></script>
+    <script type="text/javascript" src="js/ui.datepicker-it.js"                         ></script>
+    <script type="text/javascript" src="js/tinymce/tinymce.min.js"                      ></script>
 
 
     
