@@ -66,7 +66,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
         <link href="css/main-ie.css" rel="stylesheet" media="screen">
     <![endif]-->
     <!--[if IE 7]>
-      <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome-ie7.min.css">
+      <link rel="stylesheet" href="css/font-awesome-ie7.min.css">
     <![endif]-->
 
     <!-- JS -->
