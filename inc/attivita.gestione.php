@@ -23,9 +23,7 @@ paginaPrivata();
     <th>
         Area
     </th>
-    <th>
-        Referente
-    </th>
+
     <th>
         Azione
     </th>
@@ -34,38 +32,44 @@ paginaPrivata();
 <?php foreach ( $me->attivitaDiGestione() as $attivita ) { ?>
 
 <tr>
-    <td>
+    <td style="width: 40%;">
         <strong>
             <a href="?p=attivita.scheda&id=<?php echo $attivita->id; ?>">
                 <?php echo $attivita->nome; ?>
             </a>
         </strong><br />
         <?php echo $attivita->luogo; ?>
-    </td>
-    
-    <td>
-        <?php echo $attivita->comitato()->nomeCompleto(); ?>
-    </td>
-    
-    <td>
-        <?php echo $attivita->area()->nomeCompleto(); ?>
-    </td>
-    
-    <td>
+        <br />
         <?php if ( $attivita->referente ) { ?>
-            <?php echo $attivita->referente()->nomeCompleto(); ?>
+            Referente: 
+                <a href="?p=public.utente&id=<?php echo $attivita->referente()->id; ?>" target="_new">
+                    <?php echo $attivita->referente()->nomeCompleto(); ?>
+                </a>
         <?php } else { ?>
             <i class="icon-warning-sign"></i> Nessun referente
         <?php } ?>
     </td>
     
-    <td>
+    <td style="width: 20%;">
+        <?php echo $attivita->comitato()->nomeCompleto(); ?>
+    </td>
+    
+    <td style="width: 20%;">
+        <?php echo $attivita->area()->nomeCompleto(); ?>
+    </td>
+    
+    
+    <td style="width: 20%;">
         <a href="?p=attivita.modifica&id=<?php echo $attivita->id; ?>">
             <i class="icon-pencil"></i> modifica attività
         </a>
         <br />
         <a href="?p=attivita.turni&id=<?php echo $attivita->id; ?>">
-            <strong><i class="icon-plus"></i> aggiungi giorno o turno</strong>
+            <strong><i class="icon-plus"></i> giorni e turni</strong>
+        </a>        
+        <br />
+        <a href="?p=attivita.report&id=<?php echo $attivita->id; ?>" data-attendere="Generazione in corso...">
+            <i class="icon-download-alt"></i> scarica report
         </a>
     </td>
         
