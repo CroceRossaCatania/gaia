@@ -13,7 +13,15 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
                     ." || Organizzato da " . $a->comitato()->nomeCompleto();
 
 
-?>
+if ( isset($_GET['riapri']) ) { ?>
+<script type='text/javascript'>
+    $(document).ready( function() {
+        $('#turno_<?php echo $_GET['riapri']; ?>').parents('tr').show();
+        $('#turno_<?php echo $_GET['riapri']; ?>').modal('show');
+    });
+</script>
+<?php } ?>
+
 <div class="row-fluid">
     
     <div class="span3">
@@ -368,10 +376,6 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
                                                   </li>
                                                   <?php } ?>
                                               </ul>
-
-
-
-
                                           <?php } ?>
                                     
                                         </div>
@@ -379,15 +383,17 @@ $_descrizione   = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita
                                         <div class="span5">
                                             
                                             <?php if ( $a->modificabileDa($me) ) { ?>
-                                                <a data-selettore="true" data-input="" data-multi="true" class="btn btn-block btn-primary btn-large btn-success">
-                                                    <i class="icon-plus"></i>
-                                                    Aggiungi volontari
-                                                </a>
-                                                <a class="btn btn-block btn-info">
+                                                <form action="?p=attivita.modifica.volontari.aggiungi&id=<?php echo $a->id; ?>" method="POST">
+                                                    <input type="hidden" name="turno" value="<?php echo $turno->id; ?>" />
+                                                    <a data-selettore="true" data-input="volontari" data-autosubmit="true" data-multi="true" class="btn btn-block btn-primary btn-large btn-success">
+                                                        <i class="icon-plus"></i>
+                                                        Aggiungi volontari
+                                                    </a>
+                                                </form>
+                                                <a class="btn btn-block btn-info disabled">
                                                     <i class="icon-file-alt"></i>
                                                     Report attività
                                                 </a>
-                                                <p class="text-info">In costruzione...</p>
                                             <?php } ?>
                                             
                                             
