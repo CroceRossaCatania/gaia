@@ -259,7 +259,20 @@ if ( isset($_GET['riapri']) ) { ?>
         
         <hr />
         
-        <h2><i class="icon-time"></i> Elenco turni dell'Attività</h2>
+        <div class="row-fluid">
+            <div class="span8">
+                <h2><i class="icon-time"></i> Elenco turni dell'Attività</h2>
+            </div>
+            <div class="span4">
+                <?php if ( $a->modificabileDa($me) ) { ?>
+                <a href="?p=attivita.report&id=<?php echo $a->id; ?>" class="btn btn-large btn-block btn-primary" data-attendere="Generazione in corso...">
+                    <i class="icon-download-alt"></i> Scarica report excel
+                </a>
+                <?php } ?>
+            </div>
+
+        </div>
+        
         
         <div class="row-fluid">
             <table class="table table-bordered table-striped" id="turniAttivita">
@@ -390,9 +403,9 @@ if ( isset($_GET['riapri']) ) { ?>
                                                         Aggiungi volontari
                                                     </a>
                                                 </form>
-                                                <a class="btn btn-block btn-info disabled">
+                                                <a href="?p=attivita.report&id=<?php echo $a->id; ?>" class="btn btn-block btn-info" data-attendere="Generazione in corso...">
                                                     <i class="icon-file-alt"></i>
-                                                    Report attività
+                                                    Scarica tutti i dati
                                                 </a>
                                             <?php } ?>
                                             
