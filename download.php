@@ -14,5 +14,5 @@ if ( $f->mime ) {
     header('Content-type: ' . $f->mime);
 } 
 header("Content-Description: File Transfer");
-header("Content-Disposition: attachment; filename= " . $f->nome);
+header("Content-Disposition: attachment; filename=\"{$f->nome}\"");
 readfile($f->percorso());
