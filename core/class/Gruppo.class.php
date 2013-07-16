@@ -39,4 +39,11 @@ class Gruppo extends Entita {
         return $t;
     }
     
+    public function cancella() {
+        foreach ( $this->appartenenze() as $app ) {
+            $app->cancella();
+        }
+        parent::cancella();
+    }
+    
 }
