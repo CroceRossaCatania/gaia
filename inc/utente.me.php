@@ -151,6 +151,25 @@ if ($rf) {
             <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d-m-Y', $ris->fine); ?></strong>.</p>
         </div>
         <?php }} ?>
+        <?php if ($me->unComitato()->gruppi()) { 
+                        if (!$me->mieiGruppi()){
+                        ?>
+                       <div class="alert alert-danger">
+                           <div class="row-fluid">
+                                <span class="span7">
+                                     <h4><i class="icon-group"></i> Non sei iscritto a nessun gruppo!</h4>
+                                         <p>Il tuo Comitato ha attivato i gruppi di lavoro, sei pregato di regolarizzare l'iscrizione ad un gruppo.</p>
+                                </span>
+                                <span class="span5">
+                                    <a href="?p=utente.gruppo" class="btn btn-large">
+                                        <i class="icon-group"></i>
+                                            Iscriviti ora!
+                                    </a>
+                                </span>
+                            </div>
+                       </div>
+        <?php }
+                      } ?>
             
         <!-- Per ora mostra sempre... -->
         <div class="alert alert-block alert-info">
