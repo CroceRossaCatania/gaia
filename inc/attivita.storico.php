@@ -86,7 +86,7 @@ richiediComitato();
                             </span><br />
                             La tua richiesta è in attesa di autorizzazione.
                         <?php } else { ?>
-                            <span class="label label-error">
+                            <span class="label label-important">
                                 Negata
                             </span><br />
                             La tua richiesta di partecipazione è stata respinta.
@@ -100,7 +100,7 @@ richiediComitato();
                                 <?php } elseif ( $aut->stato == AUT_PENDING ) { ?>
                                     <div class="bar bar-warning" style="width: <?php echo 1/count($auts)*100; ?>%;"></div>
                                 <?php } else { ?>
-                                    <div class="bar bar-error" style="width: <?php echo 1/count($auts)*100; ?>%;"></div>
+                                    <div class="bar bar-danger" style="width: <?php echo 1/count($auts)*100; ?>%;"></div>
                                 <?php } ?>
                              <?php } ?>
                           </div>
