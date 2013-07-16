@@ -255,6 +255,11 @@ class Utente extends Persona {
         return $r;
     }
     
+    public function comitatiAppComma ( $app ) {
+        $app = $this->comitatiApp($app);
+        return implode(', ', $app);
+    }
+    
     public function numVolontariDiCompetenza() {
         $n = 0;
         foreach ( $this->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]) as $c ) {
@@ -303,83 +308,59 @@ class Utente extends Persona {
         parent::cancella();
     }
     
-    public function presidente_numTitoliPending() {
+    public function numTitoliPending( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma( $app );
         $q = $this->db->prepare("
             SELECT  COUNT(titoliPersonali.id)
             FROM    titoliPersonali, appartenenza
             WHERE   ( titoliPersonali.tConferma < 1 OR titoliPersonali.tConferma IS NULL )
             AND     titoliPersonali.volontario = appartenenza.volontario
             AND     appartenenza.comitato  IN
-                ( SELECT    comitato FROM delegati
-                  WHERE     applicazione = :applicazione
-                  AND       ( fine < 1 OR fine >= :ora OR fine IS NULL )
-                  AND       volontario = :me
-                )");
-        $q->bindValue(':applicazione', APP_PRESIDENTE);
-        $q->bindValue(':ora',   time());
-        $q->bindValue(':me', $this->id);
+                ( {$comitati} )");
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
     }
     
-    public function presidente_numAppPending() {
+    public function numAppPending( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma( $app );
         $q = $this->db->prepare("
             SELECT  COUNT(id)
             FROM    appartenenza
             WHERE   stato = :statoPendente
             AND     appartenenza.comitato  IN
-                ( SELECT    comitato FROM delegati
-                  WHERE     applicazione = :applicazione
-                  AND       ( fine < 1 OR fine >= :ora OR fine IS NULL )
-                  AND       volontario = :me
-                )");
+                ( {$comitati} )");
         $q->bindValue(':statoPendente', MEMBRO_PENDENTE);
-        $q->bindValue(':applicazione', APP_PRESIDENTE);
-        $q->bindValue(':ora',   time());
-        $q->bindValue(':me', $this->id);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
     }
     
-    public function presidente_numTrasfPending() {
+    public function numTrasfPending( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma ( $app );
         $q = $this->db->prepare("
             SELECT  COUNT(trasferimenti.id)
             FROM    trasferimenti, appartenenza
             WHERE   trasferimenti.stato = :statoPendente
             AND     trasferimenti.volontario = appartenenza.volontario
             AND     appartenenza.comitato  IN
-                ( SELECT    comitato FROM delegati
-                  WHERE     applicazione = :applicazione
-                  AND       ( fine < 1 OR fine >= :ora OR fine IS NULL )
-                  AND       volontario = :me
-                )");
+                ( {$comitati} )");
         $q->bindValue(':statoPendente', TRASF_INCORSO);
-        $q->bindValue(':applicazione', APP_PRESIDENTE);
-        $q->bindValue(':ora',   time());
-        $q->bindValue(':me', $this->id);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
     }
     
-    public function presidente_numRisPending() {
+    public function numRisPending( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma ( $app );
         $q = $this->db->prepare("
             SELECT  COUNT(riserve.id)
             FROM    riserve, appartenenza
             WHERE   riserve.stato = :statoPendente
             AND     riserve.volontario = appartenenza.volontario
             AND     appartenenza.comitato  IN
-                ( SELECT    comitato FROM delegati
-                  WHERE     applicazione = :applicazione
-                  AND       ( fine < 1 OR fine >= :ora OR fine IS NULL )
-                  AND       volontario = :me
-                )");
+                ( {$comitati} )");
         $q->bindValue(':statoPendente', RISERVA_INCORSO);
-        $q->bindValue(':applicazione', APP_PRESIDENTE);
-        $q->bindValue(':ora',   time());
-        $q->bindValue(':me', $this->id);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];

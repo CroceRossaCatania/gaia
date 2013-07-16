@@ -117,13 +117,6 @@ class Anonimo extends Utente {
         return;
     }
     
-    public function presidente_numTitoliPending() {
-        return 0;
-    }
-    
-    public function presidente_numAppPending() {
-        return 0;
-    }
     
     public function documento($tipo = DOC_CARTA_IDENTITA) {
         return false;
