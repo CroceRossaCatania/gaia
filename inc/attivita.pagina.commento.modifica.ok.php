@@ -6,10 +6,10 @@
 
 paginaPrivata();
 
-$a = $_GET['a'];
+$a = $_GET['id'];
 
 $a = new Commento($a);
 $a->commento = $_POST['inputCommento'];
 $a->tCommenta = time();
 
-redirect('attivita.pagina&a=' . $a->attivita);
+redirect('attivita.pagina&id=' . $a->attivita);

@@ -6,12 +6,10 @@
 
 paginaPrivata();
 
-$a = $_GET['a'];
+$a = $_GET['id'];
 $p = new Attivita($a);
+$c = Commento::filtra([['attivita', $a],['upCommento', '0']], 'tCommenta DESC');
 ?>
-
-<style type="text/css">
-</style>
 
 <div class="row-fluid">
     <div class="span3">
@@ -29,7 +27,7 @@ $p = new Attivita($a);
                 <h3><?php echo $p->nome; ?></h3>
             </div>
             <div class="span12 btn-group allinea-centro">
-                <a href="?p=attivita.pagina.commento&a=<?php echo $a; ?>&h=0" class="btn">
+                <a id="pulsanteScrivi" class="btn">
                     <i class="icon-comment"></i> Commenta
                 </a>
                 <!--<a href="?p=attivita.pagina.foto&a=<?php echo $a; ?>" class="btn btn-info">
@@ -41,8 +39,24 @@ $p = new Attivita($a);
             </div>     
         </div>
         <hr /> 
+        <form id="boxScrivi" action="?p=attivita.pagina.commento.ok&id=<?php echo $p->id; ?>" method="POST" class="row-fluid <?php if ( $c ) { ?>nascosto<?php } ?>">
+                    <div class="span9">
+                        <textarea name="inputCommento" autofocus placeholder="Scrivi il tuo messaggio..." rows="3" class="span12"></textarea>
+                      <label>
+                            <input type="checkbox" checked name="annuncia" />
+                            <strong> 
+                               <i class="icon-bullhorn"></i>
+                                Annuncia tramite email
+                            </strong> ai futuri partecipanti
+                        </label>
+                    </div>
+                    <div class="span3">
+                        <button type="submit" class="btn btn-large btn-success btn-block" data-attendere="Invio...">
+                            Invia <i class="icon-ok"></i>
+                        </button>
+                    </div>
+                </form>
         <?php 
-            $c = Commento::filtra([['attivita', $a],['upCommento', '0']], 'tCommenta DESC');
             if(!$c){ ?>
                 <div class="alert alert-info">
                     <h3><i class="icon-thumbs-down"></i> Nessuna discussione presente in questa pagina.</h3>
@@ -63,10 +77,10 @@ $p = new Attivita($a);
                 </div>
                 <div class="span2 allinea-destra btn-group">
                  <?php if($_c->volontario == $me || $me->admin()){?>
-                    <a title="Cancella" href="?p=attivita.pagina.commento.cancella&a=<?php echo $_c; ?>" class="btn">
+                    <a name="<?= $_c->id; ?>" title="Cancella" href="?p=attivita.pagina.commento.cancella&id=<?php echo $_c; ?>" class="btn">
                         <i class="icon-remove"></i>
                     </a>
-                    <a title="Modifica" href="?p=attivita.pagina.commento.modifica&a=<?php echo $_c; ?>" class="btn">
+                    <a title="Modifica" href="?p=attivita.pagina.commento.modifica&id=<?php echo $_c; ?>" class="btn">
                         <i class="icon-edit"></i>
                     </a>
                     
@@ -89,10 +103,10 @@ $p = new Attivita($a);
                 </div>
                 <div class="span2 allinea-destra">
                     <?php if($_n->volontario == $me || $me->admin()){?>
-                    <a title="Cancella" href="?p=attivita.pagina.commento.cancella&a=<?php echo $_n; ?>">
+                    <a title="Cancella" href="?p=attivita.pagina.commento.cancella&id=<?php echo $_n; ?>">
                         <i class="icon-remove"></i>
                     </a>
-                    <a  title="Modifica"  href="?p=attivita.pagina.commento.modifica&a=<?php echo $_n; ?>">
+                    <a  title="Modifica"  href="?p=attivita.pagina.commento.modifica&id=<?php echo $_n; ?>">
                         <i class="icon-edit"></i>
                     </a>
                     <?php } ?>
@@ -101,7 +115,7 @@ $p = new Attivita($a);
         </div>
         <?php } ?>
         <div class="row-fluid">
-            <form action="?p=attivita.pagina.commento.ok&a=<?php echo $a; ?>&h=<?php echo $_c; ?>" method="POST">
+            <form action="?p=attivita.pagina.commento.ok&id=<?php echo $a; ?>&h=<?php echo $_c->id; ?>" method="POST">
             <div class="span11 subcommento">
                 <div class="span2 allinea-destra">
                     <img src="<?php echo $me->avatar()->img(10); ?>" class="img-polaroid" />

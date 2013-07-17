@@ -237,6 +237,8 @@ if ( isset($_GET['riapri']) ) { ?>
                                 <?php } ?>
                             
                             <p class="text"><?php echo $c->commento; ?></p>
+                            <?php $r = $c->risposte(); ?>
+                            <small><a href="?p=attivita.pagina&id=<?= $a->id; ?>#<?= $c->id; ?>"><i class="icon-comment"></i> <?php if (count($r)==0){ ?> Nessun comento<?php }elseif(Count($r)==1){ echo count($r); ?> Commento<?php }else{ echo count($r); ?> Commenti<?php } ?></a></small>
                         </div>
                     </div>
                 <?php } ?>

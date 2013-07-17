@@ -1,9 +1,10 @@
 <?php  
 
-$a = $_GET['a'];
-$c = Commento::by('id', $a);
+paginaPrivata();
+$a = $_GET['id'];
+$c = new Commento($a);
 ?>
-<form action="?p=attivita.pagina.commento.modifica.ok&a=<?php echo $c; ?>" method="POST">
+<form action="?p=attivita.pagina.commento.modifica.ok&id=<?php echo $c; ?>" method="POST">
 <div class="modal fade automodal">
         <div class="modal-header">
           <h3><i class="icon-comment"></i> Modifica commento</h3>
@@ -16,7 +17,7 @@ $c = Commento::by('id', $a);
                 </div>
         </div>
         <div class="modal-footer">
-          <a href="?p=attivita.pagina&a=<?php echo $c->attivita; ?>" class="btn">Annulla</a>
+          <a href="?p=attivita.pagina&id=<?php echo $c->attivita; ?>" class="btn">Annulla</a>
           <button type="submit" class="btn btn-primary">
               <i class="icon-edit"></i> Modifica
           </button>
