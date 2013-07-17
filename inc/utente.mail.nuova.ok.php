@@ -187,6 +187,18 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
             $m->invia();
          }
 
+}elseif (isset($_GET['gruppo'])) {
+        $g = $_GET['id'];
+        $g = Gruppo::by('id', $g);
+        $v = $g->membri();
+        foreach($v as $_v){
+            $m = new Email('mailTestolibero', ''.$oggetto);
+            $m->da = $me; 
+            $m->a = $_v;
+            $m->_TESTO = $testo;
+            $m->invia();
+         }
+
 }else{
 
 $m = new Email('mailTestolibero', ''.$oggetto);

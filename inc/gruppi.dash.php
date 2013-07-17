@@ -1,3 +1,11 @@
+<?php
+
+/*
+ * ©2013 Croce Rossa Italiana
+ */
+
+?>
+<br/>
 <div class="row-fluid">
     <div class="span6 allinea-sinistra">
         <h2>
@@ -12,6 +20,7 @@
         </div>
     </div>    
 </div>
+
 <?php
 
 /*
@@ -33,7 +42,6 @@ if ( isset($_GET['cancellato'] ) ) {
                 <th>Cognome</th>
                 <th>Nome</th>
                 <th>Cellulare</th>
-                <th>Email</th>
                 <th>Azioni</th>
             </thead>
 <?php
@@ -44,10 +52,14 @@ foreach ($gruppi as $gruppo){
                         <strong>
                             <?php echo $gruppo->nome; ?>
                         </strong>
-
+                         <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $gruppo->id; ?>&gruppo">
+                           <i class="icon-envelope"></i> Invia mail
+                        </a>
+                     <?php if ( $me->presidenziante() || $me->admin() ){ ?>
                         <a class="btn btn-small btn-danger pull-right" onclick="return confirm('Sei davvero sicuro di voler eliminare il gruppo?');" href="?p=gruppi.elimina&id=<?php echo $gruppo->id; ?>" title="Elimina gruppo">
                             <i class="icon-trash"></i> Elimina
                         </a>
+                     <?php } ?>
                     </td>
                 </tr>
     <?php
@@ -57,10 +69,9 @@ foreach ($gruppi as $gruppo){
                         <td><?= $volontario->cognome; ?>    </td>
                         <td><?= $volontario->nome; ?>       </td>
                         <td><?= $volontario->cellulare(); ?></td>
-                        <td><?= $volontario->email; ?>      </td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $volontario->id; ?>" target="_new"  title="Dettagli">
+                                <a class="btn btn-small" href="?p=public.utente&id=<?php echo $volontario->id; ?>" target="_new"  title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>
 
