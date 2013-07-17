@@ -18,7 +18,7 @@ if ( isset($_GET['si']) ) {
     $m->da = $me; 
     $m->a = $a->volontario();
     $m->_NOME       = $a->volontario()->nome;
-    $m->_COMITATO   = $a->comitato()->nome;
+    $m->_COMITATO   = $a->comitato()->nomeCompleto();
     $m->invia();
     redirect('presidente.appartenenzepending&app');
     
@@ -28,7 +28,7 @@ if ( isset($_GET['si']) ) {
     $m->da = $me; 
     $m->a = $a->volontario();
     $m->_NOME       = $a->volontario()->nome;
-    $m->_COMITATO   = $a->comitato()->nome;
+    $m->_COMITATO   = $a->comitato()->nomeCompleto();
     $m->invia();
     
     $a->fine    = time();

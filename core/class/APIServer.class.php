@@ -269,6 +269,7 @@ class APIServer {
                     
                     $m = new Email('autorizzazioneConcessa', "Autorizzazione CONCESSA: {$attivita->nome}, {$turno->nome}" );
                     $m->a = $aut->partecipazione()->volontario();
+                    $m->da = $attivita->referente();
                     $m->_NOME       = $aut->partecipazione()->volontario()->nome;
                     $m->_ATTIVITA   = $attivita->nome;
                     $m->_TURNO      = $turno->nome;
@@ -284,6 +285,7 @@ class APIServer {
                                         
                     $m = new Email('autorizzazioneNegata', "Autorizzazione NEGATA: {$attivita->nome}, {$turno->nome}" );
                     $m->a = $aut->partecipazione()->volontario();
+                    $m->da = $attivita->referente();
                     $m->_NOME       = $aut->partecipazione()->volontario()->nome;
                     $m->_ATTIVITA   = $attivita->nome;
                     $m->_TURNO      = $turno->nome;

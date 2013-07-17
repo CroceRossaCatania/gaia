@@ -61,7 +61,7 @@ if (isset($_GET['si'])) {
                                     $m->da = $me; 
                                     $m->a = $a->volontario();
                                     $m->_NOME       = $a->volontario()->nome;
-                                    $m->_COMITATO   = $a->comitato()->nome;
+                                    $m->_COMITATO   = $a->comitato()->nomeCompleto();
                                     $m-> _TIME = date('d-m-Y', $t->protData);
                                     $m->invia();
                                     }
@@ -89,7 +89,7 @@ if (isset($_GET['no'])) {
                                     $m->da = $me;   
                                     $m->a = $a->volontario();
                                     $m->_NOME       = $a->volontario()->nome;
-                                    $m->_COMITATO   = $a->comitato()->nome;
+                                    $m->_COMITATO   = $a->comitato()->nomeCompleto();
                                     $m-> _TIME = date('d-m-Y', $a->timestamp);
                                     $m-> _MOTIVO = $_POST['motivo'];
                                     $m->invia();
