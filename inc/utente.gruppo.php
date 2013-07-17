@@ -8,6 +8,19 @@ paginaPrivata();
 richiediComitato();
 
 ?>
+
+<?php if ( $me->gruppiDiCompetenza() ) { ?>
+<div class="row-fluid">
+    <div class="span12">
+        <a href="?p=gruppi.dash" class="btn btn-large btn-primary btn-block">
+            <i class="icon-list"></i>
+            Vai all'elenco dei Gruppi di lavoro che gestisci
+        </a>
+    </div>
+</div>
+<hr />
+<?php } ?>
+
 <div class="row-fluid">
     <div class="span3">
         <?php        menuVolontario(); ?>

@@ -644,4 +644,19 @@ class Utente extends Persona {
             }
     }
     
+    public function gruppiDiCompetenza( $app = [ APP_PRESIDENTE, APP_SOCI ] ) {
+        $gruppi = [];
+        $comitati = $this->comitatiApp($app);
+        foreach ($comitati as $comitato) {
+            $gruppi = array_merge($gruppi, $comitato->gruppi());
+        }
+        $gruppi = array_merge(
+                $gruppi,
+                Gruppo::filtra([
+                    ['referente',$this]
+                ])
+        );
+        $gruppi = array_unique($gruppi);
+        return $gruppi;
+    }
 }
