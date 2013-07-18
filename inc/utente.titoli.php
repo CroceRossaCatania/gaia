@@ -267,7 +267,7 @@ paginaPrivata();
                             
                             <td>
                                 <div class="btn-group">
-                                    <?php if (!$titolo->tConferma) { ?>
+                                    <?php if ( !$titolo->tConferma || $titolo->titolo()->tipo == TITOLO_PATENTE_CIVILE ) { ?>
                                     <a href="?p=utente.titolo.modifica&t=<?php echo $titolo->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
                                         <i class="icon-edit"></i>
                                     </a>
