@@ -9,23 +9,23 @@ richiediComitato();
 
 ?>
 
-<?php if ( $me->gruppiDiCompetenza() ) { ?>
-<div class="row-fluid">
-    <div class="span12">
-        <a href="?p=gruppi.dash" class="btn btn-large btn-primary btn-block">
-            <i class="icon-list"></i>
-            Vai all'elenco dei Gruppi di lavoro che gestisci
-        </a>
-    </div>
-</div>
-<hr />
-<?php } ?>
 
 <div class="row-fluid">
     <div class="span3">
         <?php        menuVolontario(); ?>
     </div>
     <div class="span9">
+        <?php if ( $me->gruppiDiCompetenza() ) { ?>
+        <div class="row-fluid">
+            <div class="span12">
+                <a href="?p=gruppi.dash" class="btn btn-large btn-primary btn-block">
+                    <i class="icon-list"></i>
+                    Vai all'elenco dei Gruppi di lavoro che gestisci
+                </a>
+            </div>
+        </div>
+        <hr />
+        <?php } ?>
         <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-save"></i> <strong>Iscritto al gruppo</strong>.

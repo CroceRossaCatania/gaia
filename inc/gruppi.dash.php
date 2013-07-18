@@ -5,15 +5,24 @@
  */
 
 ?>
+<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
 <div class="row-fluid">
-    <div class="span6 allinea-sinistra">
+    <div class="span5 allinea-sinistra">
         <h2>
             <i class="icon-group muted"></i>
             Elenco gruppi
         </h2>
     </div>
-    <div class="span6 allinea-destra">
+    <div class="span3 allinea-centro">
+                <div class="btn-group btn-group-vertical span12">
+                        <a href="?p=utente.gruppo" class="btn btn-block">
+                            <i class="icon-reply"></i>
+                            Torna ai Gruppi
+                        </a>
+                </div>
+            </div>
+    <div class="span4 allinea-destra">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>
             <input autofocus required id="cercaUtente" placeholder="Cerca Volontari..." type="text">
