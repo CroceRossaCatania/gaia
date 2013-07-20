@@ -21,6 +21,7 @@ class APIServer {
 	
 	public function esegui( $azione = 'welcome' ) {
             if (empty($azione)) { $azione = 'welcome'; }
+            $azione = str_replace(':', '_', $azione);
             try {
                 if ( method_exists( $this, 'api_' . $azione ) ) {
                     $r = call_user_func( [$this, 'api_' . $azione] );
@@ -308,4 +309,15 @@ class APIServer {
                 'comitato'      =>  $a->unComitato()->nomeCompleto()
             ];
         }
+        
+        public function api_area_cancella   () {
+            $this->richiediLogin();
+            $this->richiedi(['id']);
+            $area = new Area($this->par['id']);
+            if ( $area->attivita() ) {
+                throw new Errore(9050);
+            }
+            return true;
+        }
+        
 }

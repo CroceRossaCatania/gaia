@@ -16,23 +16,6 @@ $app        = (int) $_POST['applicazione'];
 $app_nome   = $conf['applicazioni'][$app];
 
 /*
- * Se il posto era già occupato, dimettilo!
- */
-if ( $d = $c->delegati($app)[0] ) {
-    
-    $d->fine = time();
-    
-    $m = new Email('delegatoGenericoFine', "Fine autorizzazione {$app_nome}");
-    $m->da  = $me;
-    $m->a   = $d->volontario();
-    $m->_NOME           = $d->volontario()->nome;
-    $m->_APPLICAZIONE   = $app_nome;
-    $m->_COMITATO       = $c->nomeCompleto();
-    $m->invia();
-    
-}
-
-/*
  * Crea il nuovo delegato...
  */
 $d = new Delegato();
@@ -60,4 +43,4 @@ $m->invia();
 /*
  * Torna alla pagina precedente...
  */
-redirect("presidente.comitato&oid={$c->oid()}&ok&back2={$_POST['back']}");
+redirect("presidente.comitato&oid={$c->oid()}&ok&back=app_{$app}");

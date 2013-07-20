@@ -17,154 +17,229 @@ $c = GeoPolitica::daOid($c);
 paginaApp([APP_PRESIDENTE]);
 caricaSelettore();
 
+$back = false;
 if ( isset($_GET['back']) && !($_GET['back']==="")) {
-    (int) $back = $_GET['back'];
-} else {
-    $back = 'false';
+    $back = $_GET['back'];
 }
-if ( isset($_GET['back2']) && !($_GET['back2']==="")) {
-    (int) $back2 = $_GET['back2'];
-} else {
-    $back2 = 'false';
-}
+
 ?>
 
 <script type="text/javascript">
-var contenitoreIcone = {
-    header: "ui-icon-circle-arrow-e",
-    activeHeader: "ui-icon-circle-arrow-s"
-};
-
 $(document).ready(function() {
-    $("#parti_generali").accordion({
-              icons:        contenitoreIcone,
-              heightStyle:  "content",
-              active:       <?php echo $back; ?>,
-              collapsible:  true
-    });    
-    $("#parti_delegati").accordion({
-              icons:        contenitoreIcone,
-              heightStyle:  "content",
-              active:       <?php echo $back2; ?>,
-              collapsible:  true
-    });
+    <?php if ( $back ) { ?>
+        $('#elencoTab a[href="#<?php echo $back; ?>"]').tab('show');
+    <?php } ?>
 });
 </script>
 
-<a href="?p=presidente.dash" class="btn btn-large">
-    <i class="icon-reply"></i> Torna all'elenco dei comitati
-</a>
+<div class='row-fluid allinea-centro'>
+    
+    <div class='span3'>
+        <a href="?p=presidente.dash">
+            <i class="icon-reply icon-3x"></i><br />
+            Torna alla dashboard
+        </a>
+    </div>
+    
+    <div class='span6'>
+        <h4><?php echo $c->nomeCompleto(); ?></h4>
+        <p class="text-error">Croce Rossa Italiana</p>
+    </div>
+    
+    <div class='span3'>
+        <i class="icon-group icon-3x"></i><br />
+        Gestione comitato
+    </div>
+    
+    
+</div>
 
-<h2>
-    <i class="icon-cogs"></i>
-    <strong>
-        <?php echo $c->nomeCompleto(); ?>
-    </strong>
-</h2>
+<hr class='hidden-phone' />
+
 
 <div class="">
 
     <?php if ( isset($_GET['ok']) ) { ?>
     <div class="alert alert-success">
-        <i class="icon-ok"></i> <strong>Modifiche salvate</strong> &mdash; Grazie.
+        <i class="icon-ok"></i> <strong>Modifiche salvate</strong> &mdash;
+        Le modifiche sono state salvate con successo alle <?php echo date('H:i:s'); ?>.
     </div>
     <?php } ?>
 
         
-    <form action="?p=presidente.comitato.ok" method="POST">
 
-    <input type="hidden" name="oid" value="<?php echo $c->oid(); ?>" />
-
-
-    <div class="row-fluid" id='parti_generali'>
-        <h3>Obiettivi strategici</h3>
-        <div class="row-fluid">
-            <p class="text-info"><i class="icon-info-sign"></i> I delegati selezionati possono creare attività
-                nel comitato riguardanti il loro Obiettivo Strategico.</p>
-            <?php if (!$c->obiettivi()) { ?>
-            <p class="text-error">
-                <i class="icon-warning-sign"></i> <strong>Attenzione</strong> &mdash;
-                Ancora nessun delegato obiettivo scelto!
-            </p><hr />
-            <?php } ?>
-
-            <?php
-            $nOb = 0;
-            foreach ( $conf['obiettivi'] as $num => $nome ) { ?>
-                <p><strong><?php echo $nome; ?></strong><br />
-                <?php
-                $o = $c->obiettivi($num);
-                $nOb += count($o);
-                if ($o) {
-                    $o = $o[0];
-                ?>
-                <a data-autosubmit="true" data-selettore="true" data-input="<?php echo $num; ?>" class="btn btn-small">
-                    <?php echo $o->nomeCompleto(); ?> <i class="icon-pencil"></i> 
-                </a> 
-                <?php } else { ?>
-                <a data-autosubmit="true" data-selettore="true" data-input="<?php echo $num; ?>" class="btn btn-small">
-                    Seleziona volontario... <i class="icon-pencil"></i>
+    <div class="tabbable tabs-left">
+        <ul class="nav nav-tabs" id="elencoTab">
+            <li class="active">
+                <a data-toggle="tab" href="#dettagli">
+                    <i class='icon-info-sign'></i>
+                    Dettagli comitato
                 </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#obiettivi">
+                    <i class='icon-flag-alt'></i>
+                    Obiettivi strategici
+                </a>
+            </li>
+            
+            <?php if ( $c instanceOf Comitato ) { ?>
+            <li>
+                <a data-toggle="tab" href="#aree">
+                    <i class='icon-compass'></i>
+                    Aree di intervento
+                </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#referenti">
+                    <i class='icon-group'></i>
+                    Referenti
+                </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#attivita">
+                    <i class='icon-calendar-empty'></i>
+                    Attività
+                </a>
+            </li>
+            <?php } ?>
+            
+            <?php
+                foreach ( $_daGestire as $_gestione ) {
+                    $_nome = $conf['applicazioni'][$_gestione];
+                    ?>
+                <li>
+                    <a data-toggle="tab" href="#app_<?php echo $_gestione; ?>">
+                        <i class="icon-male"></i>
+                        <?php echo $_nome; ?>
+                    </a>
+                </li>
+            <?php } ?>
+
+
+        </ul>
+        
+        <div class="tab-content">
+            
+
+            <!-- Tab: Dettagli -->
+            <div class="tab-pane active"    id="dettagli">
+                
+                <div class="alert alert-info">
+                    <i class="icon-info-sign"></i> Queste informazioni sono rese pubbliche.
+                </div>
+                
+                <div class="row-fluid">
+                    
+                    <div class="span4">
+                        <h4>Indirizzo</h4>
+                        <p><?php echo $c->formattato; ?></p>
+                    </div>
+                    
+                    <div class="span2">
+                        <h4>Telefono</h4>
+                        <p><?php echo $c->telefono; ?></p>
+                        
+                        <?php if ( $c->fax ) { ?>
+                            <h4>Fax</h4>
+                            <p><?php echo $c->fax; ?></p>
+                        <?php } ?>
+                    </div>
+                    
+                    <div class="span4">
+                        <h4>Email</h4>
+                        <p><code><?php echo $c->email; ?></code></p>
+                    </div>
+                    
+                    <div class="span2">
+                        <a class="btn btn-large btn-block btn-info" href="?p=presidente.wizard&oid=<?php echo $c->oid(); ?>">
+                            <i class="icon-pencil icon-3x"></i><br />
+                            Modifica
+                        </a>
+                    </div>
+                
+                </div>
+                
+            </div>
+            
+            <!-- Tab: Obiettivi -->
+            <div class="tab-pane"           id="obiettivi">
+                
+                <form action="?p=presidente.comitato.ok" method="POST">
+                <input type="hidden" name="oid" value="<?php echo $c->oid(); ?>" />
+
+                
+                <div class="alert alert-info">
+                    <i class="icon-info-sign"></i> I delegati selezionati possono creare attività
+                    nel comitato riguardanti il loro Obiettivo Strategico.
+                </div>
+                
+                <?php if (!$c->obiettivi()) { ?>
+                <div class="alert alert-error">
+                    <i class="icon-warning-sign"></i> <strong>Attenzione</strong> &mdash;
+                    Ancora nessun delegato obiettivo scelto!
+                </div>
                 <?php } ?>
-                </p>
 
-            <?php } ?>
-
-        </div>
-
-        <h3>Dettagli e contatti</h3>
-        <div class="row-fluid">
-            <p class="text-info"><i class="icon-info-sign"></i> Queste informazioni sono rese pubbliche.</p>
-            <p>
-                <strong>Indirizzo</strong><br />
-                <?php echo $c->formattato; ?>
-            </p>
-            <p>
-                <strong>Telefono</strong><br />
-                <?php echo $c->telefono; ?>
-            </p>    
-            <?php if ( $c->fax ) { ?>
-                <p>
-                    <strong>Fax</strong><br />
-                    <?php echo $c->fax; ?>
-                </p>
-            <?php } ?>
-            <p>
-                <strong>Email</strong><br />
-                <code><?php echo $c->email; ?></code>
-            </p>
-            <a class="btn" href="?p=presidente.wizard&oid=<?php echo $c->oid(); ?>">
-                <i class="icon-pencil"></i> Modifica informazioni
-            </a>
+                <div class="row-fluid">
+                <?php
+                $nOb = 0;
+                foreach ( $conf['obiettivi'] as $num => $nome ) { ?>
+                    <div class="span2 allinea-centro">
+                        <h4><?php echo $nome; ?></h4>
+                        <?php
+                        $o = $c->obiettivi($num);
+                        $nOb += count($o);
+                        if ($o) {
+                            $o = $o[0];
+                        ?>
+                        <a data-autosubmit="true" data-selettore="true" data-input="<?php echo $num; ?>" class="btn btn-small">
+                            <?php echo $o->nomeCompleto(); ?> <i class="icon-pencil"></i> 
+                        </a> 
+                        <?php } else { ?>
+                        <a data-autosubmit="true" data-selettore="true" data-input="<?php echo $num; ?>" class="btn btn-small">
+                            Scegli volontario <i class="icon-pencil"></i>
+                        </a>
+                        <?php } ?>
+                    </div>
 
 
-        </div>
+                <?php } ?>
+                </div>
+                
+                </form>
+                    
+            </div>
+            
+            <!-- Tab: Aree -->
+            <div class="tab-pane"           id="aree">
+                <form action="?p=presidente.comitato.ok" method="POST">
+                <input type="hidden" name="oid" value="<?php echo $c->oid(); ?>" />
 
-        <!-- VALIDO SOLO PER LE UNITA' TERRITORIALI -->
-        <?php if ( $c instanceOf Comitato ) { ?>
-
-            <h3>Aree di intervento e Responsabili</h3>
-            <div class="row-fluid">
-                <p class="text-info"><i class="icon-info-sign"></i> 
+                <div class="alert alert-info"><i class="icon-info-sign"></i> 
                    Inserire le aree di intervento e selezionare i responsabili associati.<br />Essi saranno 
                    in grado di <strong>organizzare nuove attività su Gaia</strong> riguardanti la loro Area.
-                </p>
+                </div>
 
                 <?php if ( $c->aree() ) { ?>
-                <table class="table table-striped">
+                <table id="tabellaAree" class="table table-striped table-bordered">
 
                     <thead>
-                        <th>Obiettivo</th>
-                        <th>Area</th>
-                        <th>Volontario</th>
+                        <th>Obiettivo   </th>
+                        <th>Nome area   </th>
+                        <th>Responsabile</th>
+                        <th>Attività    </th>
+                        <th>&nbsp;      </th>
                     </thead>
 
-                    <?php foreach ( $c->aree() as $area ) { ?>
-                    <tr>
+                    <?php foreach ( $c->aree() as $area ) {
+                        $attivita = count($area->attivita());
+                        ?>
+                    <tr id="area-<?php echo $area->id; ?>">
                         <td>
                             <select class="alCambioSalva" name="<?php echo $area->id; ?>_inputObiettivo">
                                 <?php foreach ( $conf['obiettivi'] as $x => $y ) { ?>
-                                <option value="<?php echo $x; ?>" <?php if ( $area->obiettivo == $x ) { ?>selected="selected"<?php } ?>><?php echo $y; ?></option>
+                                    <option value="<?php echo $x; ?>" <?php if ( $area->obiettivo == $x ) { ?>selected="selected"<?php } ?>><?php echo $y; ?></option>
                                 <?php } ?>
                             </select>
                         </td>
@@ -177,107 +252,204 @@ $(document).ready(function() {
                                 <?php echo $area->responsabile()->nomeCompleto(); ?> <i class="icon-pencil"></i>
                             </a>
                         </td>
+                        <td>
+                            <?php echo $attivita; ?> attività
+                        </td>
+                        <td>
+                            <?php if ( !$attivita ) { ?>
+                                <a href="#"
+                                   onclick="cancellaArea('<?php echo $area->id; ?>');">
+                                    <i class="icon-trash"></i>
+                                    cancella
+                                </a>
+                            <?php } else { ?>
+                                &mdash;
+                            <?php } ?>
+                        </td>
 
                     </tr>
+
                     <?php } ?>
 
-
+                    <tr>
+                        <td colspan="5">
+                            <a id="pulsanteNuovaArea" class="btn btn-block btn-danger">
+                                <i class="icon-plus"></i>
+                                Aggiungi area e responsabile
+                            </a>
+                        </td>
+                    </tr>
+                    
                 </table>
-                <?php } else { ?>
-                    <p class="text-error"><i class="icon-warning-sign"></i> <strong>Attenzione</strong> &mdash;
-                        È necessario creare almeno un responsabile per poter creare attività.
-                    </p>
-                <?php } ?>
-
-                <hr />
-
-                <?php if ( $nOb ) { ?>
-                <button class="btn btn-block btn-large" name="nuovaArea" value="1">
-                    <i class="icon-plus"></i> Aggiungi nuova area di interesse
-                </button>
-                <?php } else { ?>
-                <div class="alert alert-error">
-                    <i class="icon-warning-sign"></i> <strong>Nessun delegato obiettivo</strong> &mdash;
-                    Prima di nominare un responsabile di un'Area, nomina almeno un delegato obiettivo qui sopra.
+                
+                <div class="nascosto" id="nuovaArea">
+                    <hr />
+                    <h3><i class="icon-asterisk"></i> Nuova area</h3>
+                    <table class="table">
+                        <tr>
+                            <td>
+                                <select name="nuovaArea_inputObiettivo">
+                                <?php foreach ( $conf['obiettivi'] as $x => $y ) { ?>
+                                    <option value="<?php echo $x; ?>"><?php echo $y; ?></option>
+                                <?php } ?>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" required name="nuovaArea_nome" value="Nome nuova area" />
+                            <td>
+                                <a data-selettore="true" data-input="nuovaArea_volontario" class="btn btn-success btn-block" data-autosubmit="true">
+                                    Avanti
+                                    <i class="icon-chevron-right"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                    
                 </div>
-                <button disabled class="btn btn-block btn-large disabled" name="nuovaArea" value="1">
-                    <i class="icon-plus"></i> Aggiungi nuova area di interesse
-                </button>
 
+                
+
+                
+                <?php } else { ?>
+                    <div class="alert alert-block alert-error">
+                        <h4><i class="icon-warning-sign"></i> <strong>Attenzione</strong></h4>
+                        <p>È necessario creare almeno un delegato Obiettivo Strategico per poter creare aree di intervento.</p>
+                        <p><i class="icon-arrow-left"></i> <strong>Vai alla scheda obiettivi strategici del comitato.</strong></p>
+                    </div>
                 <?php } ?>
-
+                
+                </form>
 
             </div>
             
-            <h3>Referenti e Attività</h3>
-            <div class="row-fluid">
+            <!-- Tab: Referenti -->
+            <div class="tab-pane"           id="referenti">
+                <h4>Elenco referenti</h4>
+                <p>Per un elenco dei referenti delle attività, vai alla pagina di <a href="?p=attivita.gestione">Gestione delle Attività</a>.</p>
                 
-                <div class="span6">
-                    <a href="?p=attivita.gestione" class="btn btn-large btn-block">
-                        <i class="icon-list"></i>
-                        Elenco delle attività e dei referenti
-                    </a>
-                </div>
-                
-                <div class="span6">
-                    <a href="?p=attivita.idea" class="btn btn-block btn-large btn-primary">
-                        <i class="icon-plus"></i>
-                        Crea un'attività e nomina un referente
-                    </a>
-                </div>
+                <h4>Crea referente</h4>
+                <p>Per creare un'attività ed assegnarvi un referente, vai alla pagina di <a href="?p=attivita.idea">Creazione attività</a>.</p>
 
-
-            </div>
-
-        <?php } ?>
+            </div>   
             
-    </div>
-    </form>
-    
-    <div class="row-fluid" id="parti_delegati">
-        <?php
-        
+            <!-- Tab: Attivita -->
+            <div class="tab-pane"           id="attivita">
+                <h4>Elenco attività</h4>
+                <p>Per un elenco delle attività del comitato, vai alla pagina di <a href="?p=attivita.gestione">Gestione delle Attività</a>.</p>
+                
+                <h4>Crea attività</h4>
+                <p>Per creare un'attività, vai alla pagina di <a href="?p=attivita.idea">Creazione attività</a>.</p>
+            </div>
+            
+            <?php            
             $i = 0;
             foreach ( $_daGestire as $_gestione ) {
                 $_nome = $conf['applicazioni'][$_gestione];
-                
-            ?>
-            
-            <h3>Delegati: <?php echo $_nome; ?></h3>
-            <div>
-                
-                <p>Da qui è possibile selezionare un volontario che abbia accesso alle funzioni
-                    di <strong><?= $_nome; ?></strong> per il <?= $c->nomeCompleto(); ?>.</p>
-                
-                <form action="?p=presidente.comitato.delegato" method="POST">
+                $delegati = $c->delegati($_gestione, true);
+                ?>
+                <!-- Tab: App <?php echo $_nome; ?> -->
+                <div class="tab-pane"   id="app_<?php echo $_gestione; ?>">
                     
+                    <div class="alert alert-info">
+                        <i class="icon-info-sign"></i> 
+                        È possibile delegare le funzioni di
+                        di <strong><?= $_nome; ?></strong> per il <strong><?= $c->nomeCompleto(); ?></strong>.
+                    </div>
+
+                        
+                    <h4>Volontari con accesso alle funzioni di <?php echo $_nome; ?></h4>
+                    
+                    <form action="?p=presidente.comitato.delegato" method="POST">
                     <input type="hidden" name="oid" value="<?= $c->oid(); ?>" />
                     <input type="hidden" name="applicazione" value="<?= $_gestione; ?>" />
-                    <input type="hidden" name="back" value="<?= $i; ?>" />
-                    
-                    <a data-autosubmit="true" data-selettore="true" data-input="persona" class="btn">
-                        <?php if ( $d = $c->delegati($_gestione)[0] ) { ?>
-                            <?= $d->volontario()->nomeCompleto(); ?> <i class="icon-pencil"></i>
-                        <?php } else { ?>
-                            <strong>Ancora nessuno</strong> &mdash; Clicca per selezionare il delegato <i class="icon-pencil"></i>
+
+                    <table class="table table-striped table-bordered">
+
+                        <thead>
+                            <th>Nome volontario</th>
+                            <th>Delegato il</th>
+                            <th>Delegato da</th>
+                            <th>Fine delegazione</th>
+                        </thead>
+                        
+                        <tr>
+                            <td colspan="4">
+                                <a data-autosubmit="true" data-selettore="true" data-input="persona" class="btn btn-block btn-primary">
+                                    <i class="icon-plus"></i>
+                                    Aggiungi un volontario che potrà accedere alle funzioni di <?php echo $_nome; ?>
+                                </a>
+                            </td>
+                        </tr>
+                        
+                        <?php foreach ( $delegati as $delegato ) { ?>
+                        <tr<?php if ($delegato->attuale()) { ?> class="success"<?php } ?>>
+                            
+                            <td>
+                                <strong><a href="?p=public.utente&id=<?php echo $delegato->volontario; ?>" target="_new">
+                                    <?php echo $delegato->volontario()->nomeCompleto(); ?>
+                                </a></strong>
+                            </td>
+                            
+                            <td>
+                                <?php echo $delegato->inizio()->inTesto(); ?>
+                            </td>
+                            
+                            <td>
+                                <a href="?p=public.utente&id=<?php echo $delegato->pConferma; ?>" target="_new">
+                                    <?php echo $delegato->pConferma()->nomeCompleto(); ?>
+                                </a>
+                            </td>
+                            
+                            <td>
+                                <?php if ( $delegato->attuale() ) { ?>
+                                    <i class="icon-time"></i>
+                                    <strong>Attualmente in carica</strong><br />
+                                    <a href="?p=presidente.comitato.delegato.revoca&id=<?php echo $delegato->id; ?>&oid=<?php echo $c->oid(); ?>"
+                                       onclick="return confirm('Sei sicuro di voler terminare i poteri per il volontario?');">
+                                        <i class="icon-remove"></i> termina delegazione
+                                    </a>
+                                <?php } else { ?>
+                                    <?php echo $delegato->fine()->inTesto(); ?>
+                                <?php } ?>
+                                
+                            </td>
+                            
+                            
+                        </tr>
                         <?php } ?>
-                    </a>
+                        
+                        <?php if ( !$delegati ) { ?>
+                            <tr class="warning">
+                                <td colspan="4" class="allinea-centro text-error">
+                                    <i class="icon-warning-sign"></i>
+                                    Nessun volontario selezionato. Solo il presidente
+                                    ha accesso alle funzioni di <?php echo $_nome; ?>.
+                                </td>
+                            </tr>
+                        <?php } ?>
+                            
+                            
+                        
+                    </table>
+                    </form>
+
+                            
+                    <hr />
+                    <p class="text-info">
+                        <i class="icon-info-sign"></i>
+                        Quando deleghi un volontario, notifichiamo automaticamente a quest'ultimo l'autorizzazione via email.
+                    </p>
+
                     
-                </form>
+                </div>
+            <?php } ?>
+                         
 
-                <p class="text-info">
-                    <i class="icon-info-sign"></i>
-                    Notificheremo automaticamente l'autorizzazione alla persona interessata.
-                </p>
-
-
-            </div>
-
-        <?php 
-        $i++;
-        } ?>
-        
+            
+        </div>
     </div>
+
+    
 
 
 </div>

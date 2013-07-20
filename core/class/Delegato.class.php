@@ -42,4 +42,9 @@ class Delegato extends Entita {
     public function fine() {
         return DT::daTimestamp($this->fine);
     }
+    
+    public function pConferma() {
+        return new Volontario($this->pConferma);
+    }
+    
 }

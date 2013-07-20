@@ -31,7 +31,7 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
             
         }
         
-        $back = 0;
+        $back = 'obiettivi';
         /* Crea il nuovo delegato */
         $d = new Delegato();
         $d->inizio      = time();
@@ -72,18 +72,20 @@ if ( $c instanceOf Comitato ) {
         
         /* Salva obiettivo variato */
         if (isset($_POST[$a->id . '_inputObiettivo'])) {
+            $back = 'aree';
             $a->obiettivo = $_POST[$a->id . '_inputObiettivo'];
         }
 
         /* Salva nome variato */
         if (isset($_POST[$a->id . '_inputNome'])) {
+            $back = 'aree';
             $a->nome     = normalizzaNome($_POST[$a->id . '_inputNome']);
         }
         
         /* Salva volontario variato */
         if (isset($_POST[$a->id . '_inputResponsabile'])) {
             
-            $back = 2;
+            $back = 'aree';
             $v = new Volontario($_POST[$a->id . '_inputResponsabile']);
             $a->responsabile = $v->id;
             
@@ -100,15 +102,24 @@ if ( $c instanceOf Comitato ) {
 }
 
 /* Creazione nuova area */
-if ( isset($_POST['nuovaArea']) ) {
+if ( isset($_POST['nuovaArea_volontario']) ) {
         
-    $back = 2;
+    $back = 'aree';
     $a = new Area();
     $a->comitato    = $c->id;
-    $a->obiettivo   = OBIETTIVO_1;
-    $a->nome        = 'NUOVA AREA SENZA NOME';
-    $a->responsabile= $me->id;
+    $a->obiettivo   = (int) $_POST['nuovaArea_inputObiettivo'];
+    $a->nome        = normalizzaTitolo($_POST['nuovaArea_nome']);
+    $a->responsabile= $_POST['nuovaArea_volontario'];
     
+    $v = $a->responsabile();
+
+    $m = new Email('responsabileArea', 'Responsabile per ' . $nom);
+    $m->a           = $v;
+    $m->_NOME       = $v->nome;
+    $m->_AREA       = $a->nomeCompleto();
+    $m->_COMITATO   = $c->nomeCompleto();
+    $m->invia();
+       
 }
 
 $oid = $c->oid();
