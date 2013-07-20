@@ -29,7 +29,7 @@ function paginaApp($app) {
             return true;
         }
     }
-    redirect('utente.me');
+    redirect('errore.permessi');
 }
 
 function paginaPubblica() {
@@ -43,7 +43,7 @@ function paginaAdmin() {
     paginaPrivata();
     global $sessione;
     if ( !$sessione->utente()->admin ) {
-        redirect('utente.me');
+        redirect('errore.permessi');
     }
 }
 
@@ -73,7 +73,7 @@ function paginaAttivita( $attivita = null ) {
             or  (bool) $sessione->utente()->attivitaReferenziate()
         )
     ) {
-        redirect('utente.me');
+        redirect('errore.permessi');
     }
 }
 
