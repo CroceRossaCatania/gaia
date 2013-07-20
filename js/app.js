@@ -35,7 +35,8 @@ $(window).ready( function () {
     $("#_login").click( _login );
     $("#barraRicerca").keyup( _barraRicerca );
     
-    $("[data-attendere]").each( _attendere );
+    $("[data-attendere]")       .each( _attendere );
+    $("[data-suggerimento]")    .each( _suggerimento );
 
     $('.automodal').modal({ keyboard: false, backdrop: 'static' });
     $('.alCambioSalva').change( function () {
@@ -181,6 +182,13 @@ function _attendere(i, e) {
             $(e).parents('form').submit();
             return true;
         }
+    });
+}
+
+function _suggerimento(i, e) {
+    $(e).attr('title', $(e).data('suggerimento'));
+    $(e).tooltip({
+        html:   true
     });
 }
 
