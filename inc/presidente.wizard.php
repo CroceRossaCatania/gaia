@@ -18,7 +18,7 @@ paginaApp([APP_PRESIDENTE]);
 <div class="row-fluid">
     
     <div class="span8">
-        <h2><?php echo $c->nomeCompleto(); ?></h2>
+        <h3><?php echo $c->nomeCompleto(); ?></h3>
     </div>
     
     <div class="span4">
@@ -35,7 +35,7 @@ paginaApp([APP_PRESIDENTE]);
     <h4><i class="icon-info-sign"></i> Completa la scheda dell'Unità territoriale</h4>
     <p>Al fine di migliorare l'esperienza d'uso di Gaia da parte dei volontari, chiediamo ai presidenti di inserire
         alcune informazioni relative alle loro unità territoriali.</p>
-    <p>Per favore, completa immediatamente i dettagli per <strong><?php echo $c->nome; ?></strong>.</p>
+    <p>Per favore, completa immediatamente i dettagli per <strong><?php echo $c->nome; ?></strong>. <strong>Potrai modificarle in seguito.</strong></p>
     <p><i><i class="icon-warning-sign"></i> Non potrai usare altre funzioni di Gaia fino al completamento delle schede delle tue unità territoriali.</i></p>
 </div>
 <?php } ?>
