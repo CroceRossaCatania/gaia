@@ -34,7 +34,16 @@ if ( isset($_GET['riapri']) ) { ?>
     <div class="span9">
         
         <div class="row-fluid">
-            
+            <?php if (isset($_GET['pot'])) { ?>
+                <div class='alert alert-block alert-success'>
+                    <h4>Poteri conferiti con successo &mdash; <?php echo date('d-m-Y H:i:s'); ?></h4>
+                </div>
+            <?php } ?>
+            <?php if (isset($_GET['not'])) { ?>
+                <div class='alert alert-block alert-danger'>
+                    <h4>Poteri già conferiti</h4>
+                </div>
+            <?php } ?>
 
             <div class="span8 btn-group">
                 
@@ -349,6 +358,11 @@ if ( isset($_GET['riapri']) ) { ?>
                                                     <a href="?p=public.utente&id=<?php echo $v->id; ?>" target="_new">
                                                         <?php echo $v->nomeCompleto(); ?>
                                                     </a>
+                                                    <?php if( $me->delegazioni(APP_CO) && $a->modificabileDa($me) ){ ?>
+                                                    <a  class="btn btn-small" href="?p=attivita.poteri&v=<?= $v->id; ?>&turno=<?= $turno;  ?>">
+                                                        <i class="icon-rocket" ></i> Conferisci poteri
+                                                    </a>
+                                                    <?php } ?>
                                                 </li>
                                                 <?php } ?>
                                             </ul>
