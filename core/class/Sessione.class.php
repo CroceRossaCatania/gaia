@@ -82,7 +82,7 @@ class Sessione extends Entita {
         global $db, $conf;
         $q = $db->prepare("
             SELECT id FROM sessioni WHERE azione <= :massimo ");
-        $q->bindValue(':ora', time() - $conf['sessioni']['durata']);
+        $q->bindValue(':massimo', time() - $conf['sessioni']['durata']);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
