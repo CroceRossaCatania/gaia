@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generato il: Giu 25, 2013 alle 13:11
+-- Generato il: Lug 22, 2013 alle 22:47
 -- Versione del server: 5.5.30-1~dotdeb.0
 -- Versione PHP: 5.4.14-1~dotdeb.1
 
@@ -24,10 +24,6 @@ SET time_zone = "+00:00";
 
 --
 -- Struttura della tabella `anagrafica`
---
--- Creazione: Mag 28, 2013 alle 19:52
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `anagrafica` (
@@ -50,11 +46,23 @@ CREATE TABLE IF NOT EXISTS `anagrafica` (
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `appartenenza`
+-- Struttura della tabella `annunci`
 --
--- Creazione: Apr 17, 2013 alle 13:44
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
+
+CREATE TABLE IF NOT EXISTS `annunci` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `oggetto` varchar(255) DEFAULT NULL,
+  `testo` text,
+  `nPresidenti` varchar(64) DEFAULT NULL,
+  `timestamp` varchar(64) DEFAULT NULL,
+  `autore` varchar(16) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `appartenenza`
 --
 
 CREATE TABLE IF NOT EXISTS `appartenenza` (
@@ -76,10 +84,6 @@ CREATE TABLE IF NOT EXISTS `appartenenza` (
 --
 -- Struttura della tabella `aree`
 --
--- Creazione: Giu 25, 2013 alle 11:02
--- Ultimo cambiamento: Giu 25, 2013 alle 11:02
--- Ultimo controllo: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `aree` (
   `id` int(11) NOT NULL,
@@ -96,10 +100,6 @@ CREATE TABLE IF NOT EXISTS `aree` (
 
 --
 -- Struttura della tabella `attivita`
---
--- Creazione: Apr 28, 2013 alle 17:04
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `attivita` (
@@ -124,10 +124,6 @@ CREATE TABLE IF NOT EXISTS `attivita` (
 --
 -- Struttura della tabella `autorizzazioni`
 --
--- Creazione: Apr 17, 2013 alle 13:56
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `autorizzazioni` (
   `id` int(11) NOT NULL,
@@ -148,10 +144,6 @@ CREATE TABLE IF NOT EXISTS `autorizzazioni` (
 --
 -- Struttura della tabella `avatar`
 --
--- Creazione: Apr 17, 2013 alle 13:56
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `avatar` (
   `id` int(11) NOT NULL,
@@ -165,10 +157,6 @@ CREATE TABLE IF NOT EXISTS `avatar` (
 
 --
 -- Struttura della tabella `comitati`
---
--- Creazione: Giu 25, 2013 alle 11:04
--- Ultimo cambiamento: Giu 25, 2013 alle 11:04
--- Ultimo controllo: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `comitati` (
@@ -187,8 +175,6 @@ CREATE TABLE IF NOT EXISTS `comitati` (
 --
 -- Struttura della tabella `commenti`
 --
--- Creazione: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `commenti` (
   `id` int(11) NOT NULL,
@@ -206,8 +192,6 @@ CREATE TABLE IF NOT EXISTS `commenti` (
 
 --
 -- Struttura della tabella `coturni`
---
--- Creazione: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `coturni` (
@@ -231,10 +215,6 @@ CREATE TABLE IF NOT EXISTS `coturni` (
 --
 -- Struttura della tabella `datiComitati`
 --
--- Creazione: Apr 17, 2013 alle 13:50
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `datiComitati` (
   `id` varchar(128) NOT NULL DEFAULT '',
@@ -247,9 +227,6 @@ CREATE TABLE IF NOT EXISTS `datiComitati` (
 
 --
 -- Struttura della tabella `datiLocali`
---
--- Creazione: Apr 17, 2013 alle 13:50
--- Ultimo cambiamento: Apr 17, 2013 alle 13:50
 --
 
 CREATE TABLE IF NOT EXISTS `datiLocali` (
@@ -264,9 +241,6 @@ CREATE TABLE IF NOT EXISTS `datiLocali` (
 --
 -- Struttura della tabella `datiNazionali`
 --
--- Creazione: Apr 17, 2013 alle 13:50
--- Ultimo cambiamento: Apr 17, 2013 alle 13:50
---
 
 CREATE TABLE IF NOT EXISTS `datiNazionali` (
   `id` varchar(128) NOT NULL DEFAULT '',
@@ -279,9 +253,6 @@ CREATE TABLE IF NOT EXISTS `datiNazionali` (
 
 --
 -- Struttura della tabella `datiProvinciali`
---
--- Creazione: Apr 17, 2013 alle 13:50
--- Ultimo cambiamento: Apr 17, 2013 alle 13:50
 --
 
 CREATE TABLE IF NOT EXISTS `datiProvinciali` (
@@ -296,9 +267,6 @@ CREATE TABLE IF NOT EXISTS `datiProvinciali` (
 --
 -- Struttura della tabella `datiRegionali`
 --
--- Creazione: Apr 17, 2013 alle 13:50
--- Ultimo cambiamento: Apr 17, 2013 alle 13:50
---
 
 CREATE TABLE IF NOT EXISTS `datiRegionali` (
   `id` varchar(128) NOT NULL DEFAULT '',
@@ -311,10 +279,6 @@ CREATE TABLE IF NOT EXISTS `datiRegionali` (
 
 --
 -- Struttura della tabella `datiSessione`
---
--- Creazione: Mar 06, 2013 alle 19:53
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `datiSessione` (
@@ -329,10 +293,6 @@ CREATE TABLE IF NOT EXISTS `datiSessione` (
 --
 -- Struttura della tabella `delegati`
 --
--- Creazione: Giu 25, 2013 alle 11:07
--- Ultimo cambiamento: Giu 25, 2013 alle 11:07
--- Ultimo controllo: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `delegati` (
   `id` int(11) NOT NULL,
@@ -345,6 +305,7 @@ CREATE TABLE IF NOT EXISTS `delegati` (
   `fine` varchar(64) DEFAULT NULL,
   `pConferma` varchar(16) DEFAULT NULL,
   `tConferma` varchar(64) DEFAULT NULL,
+  `partecipazione` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `comitato` (`comitato`),
   KEY `applicazione` (`applicazione`),
@@ -355,10 +316,6 @@ CREATE TABLE IF NOT EXISTS `delegati` (
 
 --
 -- Struttura della tabella `dettagliAttivita`
---
--- Creazione: Mar 06, 2013 alle 19:53
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `dettagliAttivita` (
@@ -373,9 +330,6 @@ CREATE TABLE IF NOT EXISTS `dettagliAttivita` (
 --
 -- Struttura della tabella `dettagliComitato`
 --
--- Creazione: Apr 17, 2013 alle 13:50
--- Ultimo cambiamento: Apr 17, 2013 alle 13:50
---
 
 CREATE TABLE IF NOT EXISTS `dettagliComitato` (
   `id` varchar(128) NOT NULL DEFAULT '',
@@ -389,10 +343,6 @@ CREATE TABLE IF NOT EXISTS `dettagliComitato` (
 --
 -- Struttura della tabella `dettagliPersona`
 --
--- Creazione: Mar 06, 2013 alle 19:53
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `dettagliPersona` (
   `id` varchar(128) NOT NULL DEFAULT '',
@@ -405,8 +355,6 @@ CREATE TABLE IF NOT EXISTS `dettagliPersona` (
 
 --
 -- Struttura della tabella `dimissioni`
---
--- Creazione: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `dimissioni` (
@@ -429,10 +377,6 @@ CREATE TABLE IF NOT EXISTS `dimissioni` (
 --
 -- Struttura della tabella `documenti`
 --
--- Creazione: Apr 17, 2013 alle 14:06
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `documenti` (
   `id` varchar(64) NOT NULL,
@@ -448,8 +392,6 @@ CREATE TABLE IF NOT EXISTS `documenti` (
 --
 -- Struttura della tabella `elementiRichieste`
 --
--- Creazione: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `elementiRichieste` (
   `id` int(11) NOT NULL,
@@ -462,10 +404,6 @@ CREATE TABLE IF NOT EXISTS `elementiRichieste` (
 
 --
 -- Struttura della tabella `file`
---
--- Creazione: Apr 17, 2013 alle 13:50
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `file` (
@@ -485,8 +423,6 @@ CREATE TABLE IF NOT EXISTS `file` (
 --
 -- Struttura della tabella `gruppi`
 --
--- Creazione: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `gruppi` (
   `id` int(11) NOT NULL,
@@ -504,10 +440,6 @@ CREATE TABLE IF NOT EXISTS `gruppi` (
 
 --
 -- Struttura della tabella `gruppiPersonali`
---
--- Creazione: Giu 25, 2013 alle 11:09
--- Ultimo cambiamento: Giu 25, 2013 alle 11:09
--- Ultimo controllo: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `gruppiPersonali` (
@@ -528,10 +460,6 @@ CREATE TABLE IF NOT EXISTS `gruppiPersonali` (
 --
 -- Struttura della tabella `locali`
 --
--- Creazione: Apr 17, 2013 alle 13:50
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `locali` (
   `id` int(11) NOT NULL,
@@ -548,10 +476,6 @@ CREATE TABLE IF NOT EXISTS `locali` (
 --
 -- Struttura della tabella `nazionali`
 --
--- Creazione: Apr 17, 2013 alle 13:50
--- Ultimo cambiamento: Apr 17, 2013 alle 14:18
--- Ultimo controllo: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `nazionali` (
   `id` int(11) NOT NULL,
@@ -565,10 +489,6 @@ CREATE TABLE IF NOT EXISTS `nazionali` (
 
 --
 -- Struttura della tabella `partecipazioni`
---
--- Creazione: Apr 17, 2013 alle 14:10
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `partecipazioni` (
@@ -590,10 +510,6 @@ CREATE TABLE IF NOT EXISTS `partecipazioni` (
 --
 -- Struttura della tabella `provinciali`
 --
--- Creazione: Apr 17, 2013 alle 13:50
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `provinciali` (
   `id` int(11) NOT NULL,
@@ -610,8 +526,6 @@ CREATE TABLE IF NOT EXISTS `provinciali` (
 --
 -- Struttura della tabella `quote`
 --
--- Creazione: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `quote` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -623,16 +537,12 @@ CREATE TABLE IF NOT EXISTS `quote` (
   `causale` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `appartenenza` (`appartenenza`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
 -- Struttura della tabella `regionali`
---
--- Creazione: Apr 17, 2013 alle 13:50
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `regionali` (
@@ -649,8 +559,6 @@ CREATE TABLE IF NOT EXISTS `regionali` (
 
 --
 -- Struttura della tabella `reperibilita`
---
--- Creazione: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `reperibilita` (
@@ -672,8 +580,6 @@ CREATE TABLE IF NOT EXISTS `reperibilita` (
 --
 -- Struttura della tabella `richiesteTurni`
 --
--- Creazione: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `richiesteTurni` (
   `id` int(11) NOT NULL,
@@ -686,10 +592,6 @@ CREATE TABLE IF NOT EXISTS `richiesteTurni` (
 
 --
 -- Struttura della tabella `riserve`
---
--- Creazione: Apr 17, 2013 alle 13:50
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `riserve` (
@@ -716,10 +618,6 @@ CREATE TABLE IF NOT EXISTS `riserve` (
 --
 -- Struttura della tabella `sessioni`
 --
--- Creazione: Mar 06, 2013 alle 19:53
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `sessioni` (
   `id` varchar(128) NOT NULL,
@@ -735,10 +633,6 @@ CREATE TABLE IF NOT EXISTS `sessioni` (
 --
 -- Struttura della tabella `titoli`
 --
--- Creazione: Mar 06, 2013 alle 19:53
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
---
 
 CREATE TABLE IF NOT EXISTS `titoli` (
   `id` int(11) NOT NULL,
@@ -752,10 +646,6 @@ CREATE TABLE IF NOT EXISTS `titoli` (
 
 --
 -- Struttura della tabella `titoliPersonali`
---
--- Creazione: Mar 06, 2013 alle 19:53
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `titoliPersonali` (
@@ -775,10 +665,6 @@ CREATE TABLE IF NOT EXISTS `titoliPersonali` (
 
 --
 -- Struttura della tabella `trasferimenti`
---
--- Creazione: Apr 17, 2013 alle 13:50
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `trasferimenti` (
@@ -802,10 +688,6 @@ CREATE TABLE IF NOT EXISTS `trasferimenti` (
 
 --
 -- Struttura della tabella `turni`
---
--- Creazione: Apr 17, 2013 alle 14:14
--- Ultimo cambiamento: Giu 25, 2013 alle 11:10
--- Ultimo controllo: Giu 25, 2013 alle 11:10
 --
 
 CREATE TABLE IF NOT EXISTS `turni` (
