@@ -16,7 +16,7 @@ $t=utente::by('id',$f);
         <h2><i class="icon-envelope muted"></i> Invio Mail</h3>
         <div class="alert alert-block alert-info">
             <h4><i class="icon-question-sign"></i> Pronto a mandare la mail ?</h4>
-            <p>Modulo per l'invio mail agli utenti di GAIA</p>
+            <p>Modulo per l'invio mail agli utenti di Gaia</p>
         </div>
         <?php if (isset($_GET['mass'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&mass&t=<?php echo $_GET['t']; ?>" method="POST">
         <?php }elseif (isset($_GET['com'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&com" method="POST">

@@ -1,0 +1,34 @@
+<?php
+
+/*
+ * ©2013 Croce Rossa Italiana
+ */
+
+$oggetto= $_POST['inputOggetto']; 
+$testo = $_POST['inputTesto'];
+
+foreach ( Comitato::elenco() as $c ) {
+$presidenti[] = $c->unPresidente();
+}
+
+$presidenti = array_unique($presidenti);
+
+$i =0;
+
+foreach($presidenti as $presidente){
+    $m = new Email('mailTestolibero', ''.$oggetto);
+    $m->a = $presidente;
+    $m->_TESTO = $testo;
+    $m->invia();    
+    $i++;
+}
+
+$a = new Annunci();
+$a->oggetto = $oggetto;
+$a->testo = $testo;
+$a->nPresidenti = $i;
+$a->timestamp = time();
+$a->autore = $me;
+
+redirect('utente.me&ok');
+?>

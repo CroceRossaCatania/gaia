@@ -21,7 +21,7 @@
         <p><a href="index.php"><i class="icon-home"></i> Torna alla home</a></p>
         <p>&nbsp;</p>
         <p class="text-info">
-            <i class="icon-info-sign"></i> Nota che questo evento è stat registrato
+            <i class="icon-info-sign"></i> Nota che questo evento è stato registrato
             per motivi di sicurezza.
         </p>
         

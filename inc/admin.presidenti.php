@@ -27,14 +27,26 @@ paginaAdmin();
         </div>
 <?php } ?>
 <br/>
-    <div class="control-group" align="right">
-        <div class="controls">
-            <div class="input-prepend">
-                <span class="add-on"><i class="icon-search"></i></span>
-                <input data-t="<?php echo $t; ?>" autofocus required id="cercaUtente" placeholder="Cerca Presidente..." class="span4" type="text">
-            </div>
+<div class="row-fluid">
+    <div class="span6 allinea-sinistra">
+        <h2>
+            <i class="icon-list muted"></i>
+            Elenco Presidenti
+        </h2>
+    </div>
+    
+    <div class="span6 allinea-destra">
+        <div class="input-prepend">
+            <span class="add-on"><i class="icon-search"></i></span>
+            <input autofocus required id="cercaUtente" placeholder="Cerca Presidente..." type="text">
         </div>
-    </div> 
+    </div>    
+</div>
+<hr />
+<a href="?p=admin.mail.nuova" class="btn btn-block btn-success">
+    <i class="icon-envelope"></i>
+    <strong>Admin</strong> &mdash; Invia mail di massa a tutti i Presidenti.
+</a>
 <hr />
 <table class="table table-striped table-condensed table-bordered" id="tabellaUtenti">
     <thead>

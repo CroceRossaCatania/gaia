@@ -22,5 +22,28 @@ class Patenti extends Entita {
         return $this->appartenenza()->comitato();
     }
     
+     public function ricercaPatente() {
+        $q = $this->db->prepare("
+            SELECT DISTINCT (anagrafica.id)
+            FROM 
+                titoli, titoliPersonali, anagrafica
+            WHERE 
+                anagrafica.id = titoliPersonali.volontario
+            AND 
+                titoli.id = titoliPersonali.titolo
+            AND 
+                titoli.nome LIKE :ricerca
+            ORDER BY 
+                anagrafica.cognome, 
+                anagrafica.nome");
+        $q->bindValue ( ":ricerca", $ricerca );
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Volontario($k[0]);
+        }
+        return $r;
+    }    
+    
     
 }
