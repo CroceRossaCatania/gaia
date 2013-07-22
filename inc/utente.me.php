@@ -56,7 +56,6 @@ if ($rf) {
                   Potranno così richiedere di partecipare attraverso Gaia.
           </p>
               
-                  
           </ul>
           
         </div>
@@ -122,8 +121,7 @@ if ($rf) {
             </div>
         </div>
         <?php } ?>
-        
-        
+       
         <?php foreach ( $me->appartenenzePendenti() as $app ) { $attenzione = true;  ?>
         <div class="alert alert-block">
             <h4><i class="icon-time"></i> In attesa di conferma</h4>
@@ -150,35 +148,31 @@ if ($rf) {
             <h4><i class="icon-pause"></i> In riserva</h4>
             <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d-m-Y', $ris->fine); ?></strong>.</p>
         </div>
-        <?php }} ?>
-        <?php if ($me->unComitato()->gruppi()) { 
-                        if (!$me->mieiGruppi()){
-                        ?>
-                       <div class="alert alert-danger">
-                           <div class="row-fluid">
-                                <span class="span7">
-                                     <h4><i class="icon-group"></i> Non sei iscritto a nessun gruppo!</h4>
-                                         <p>Il tuo Comitato ha attivato i gruppi di lavoro, sei pregato di regolarizzare l'iscrizione ad un gruppo.</p>
-                                </span>
-                                <span class="span5">
-                                    <a href="?p=utente.gruppo" class="btn btn-large">
-                                        <i class="icon-group"></i>
-                                            Iscriviti ora!
-                                    </a>
-                                </span>
-                            </div>
-                       </div>
+        <?php }} ?> 
+        <?php   if (!$me->appartenenzePendenti() && $me->unComitato()->gruppi()) { 
+                        if (!$me->mieiGruppi()){ ?>
+                                <div class="alert alert-danger">
+                                    <div class="row-fluid">
+                                         <span class="span7">
+                                              <h4><i class="icon-group"></i> Non sei iscritto a nessun gruppo!</h4>
+                                                  <p>Il tuo Comitato ha attivato i gruppi di lavoro, sei pregato di regolarizzare l'iscrizione ad un gruppo.</p>
+                                         </span>
+                                         <span class="span5">
+                                             <a href="?p=utente.gruppo" class="btn btn-large">
+                                                 <i class="icon-group"></i>
+                                                     Iscriviti ora!
+                                             </a>
+                                         </span>
+                                     </div>
+                                </div>
         <?php }
-                      } ?>
+                        } ?>
             
         <!-- Per ora mostra sempre... -->
         <div class="alert alert-block alert-info">
             <h4><i class="icon-folder-open"></i> Hai già caricato i tuoi documenti?</h4>
             <p>Ricordati di caricare i tuoi documenti dalla sezione <strong>Documenti</strong>.</p>
-            
         </div>
-        
-        
     </div>
 </div>
 
