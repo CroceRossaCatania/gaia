@@ -4,6 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
+paginaAPP([APP_SOCI,APP_PRESIDENTE]);
 $t = $_GET['id'];
 ?>
 <form class="form-horizontal" action="?p=presidente.aspiranti.comitato.nuovo.ok&id=<?php echo $t; ?>" method="POST">

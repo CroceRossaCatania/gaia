@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaAPP([APP_SOCI,APP_PRESIDENTE]);
 
 $v = $_GET['id'];
 $c = $_POST['inputComitato'];
@@ -60,4 +60,4 @@ $m->_NOME       = $v->nome;
 $m->_PASSWORD   = $password;
 $m->invia();
 
-redirect('presidente.aspiranti');
+redirect('presidente.aspiranti&nasp');

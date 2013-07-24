@@ -4,7 +4,9 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp([APP_SOCI,APP_PRESIDENTE]);
+
+$t = Persona::filtra([['stato',PERSONA],['password', NULL]]);
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -17,12 +19,16 @@ paginaPresidenziale();
             <h4><i class="icon-exclamation-sign"></i> Impossibile eliminare l'utente</h4>
             <p>Contatta l'amministratore</p>
         </div>
+<?php } elseif ( isset($_GET['nasp']) )  { ?>
+        <div class="alert alert-success">
+            <h4><i class="icon-save"></i> Nuovo Volontario assegnato</h4>
+        </div>
 <?php } ?>
     <br/>
 <div class="row-fluid">
     <div class="span8">
         <h2>
-            <i class="icon-group muted"></i>
+            <i class="icon-globe muted"></i>
             Elenco Aspiranti
         </h2>
     </div>
@@ -30,7 +36,7 @@ paginaPresidenziale();
     <div class="span4 allinea-destra">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>
-            <input autofocus required id="cercaUtente" placeholder="Cerca Aspirantii..." type="text">
+            <input autofocus required id="cercaUtente" placeholder="Cerca Aspiranti..." type="text">
         </div>
     </div>    
 </div>
@@ -48,8 +54,8 @@ paginaPresidenziale();
                 <th>Azioni</th>
             </thead>
         <?php
-        $t = Persona::filtra([['stato','0'],['password', NULL]]);
         foreach($t as $_v) {
+            if($_v->stato == 0){
             ?>
                 <tr>
                     <td><?php echo $_v->nome; ?></td>
@@ -76,9 +82,9 @@ paginaPresidenziale();
                             <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                 <i class="icon-envelope"></i>
                             </a>
-                            <!--<a class="btn btn-small btn-info" href="?p=presidente.utente.iscrivi&id=<?php //echo $_v->id; ?>" title="Assegna a Corso">
-                                    <i class="icon-arrow-right"></i> Assegna
-                            </a>-->
+                            <a class="btn btn-small btn-info" href="?p=presidente.aspiranti.comitato.nuovo&id=<?php echo $_v->id; ?>" title="Assegna a Comitato">
+                                    <i class="icon-arrow-right"></i> Assegna a Comitato
+                            </a>
 
                             <?php if ($me->admin) { ?>
                                 <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=presidente.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
@@ -91,7 +97,7 @@ paginaPresidenziale();
                 
                
        
-        <?php }
+        <?php }}
         ?>
 
         
