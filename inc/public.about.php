@@ -94,7 +94,15 @@
 
         <p>Puoi integrare Gaia con le tue applicazioni, usando le API. C'è addirittura una <a href="http://github.com/AlfioEmanueleFresta/gaia-api-php">libreria PHP</a> già pronta per l'uso. Per maggiori informazioni, <a href="mailto:supporto@gaiacri.it">contattaci</a>.</p>
 
+        <hr />
         
+        <p>&nbsp;</p>
+        
+       
+        <h2><i class="icon-lock"></i> Sicurezza Gaia</h2>
+
+        <p>I tuoi dati personali sono veramente importanti per noi scopri come vengono <a href="?p=public.sicurezza">protetti</a> su Gaia.</p>
+
     </div>
 </div>
 
