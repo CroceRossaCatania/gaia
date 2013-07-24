@@ -306,7 +306,7 @@ body {
 .ui-timepicker-rtl{ direction: rtl; }
 .ui-timepicker-rtl dl { text-align: right; }
 .ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }
-#ui-datepicker-div {  z-index: 1042 !important; }
+#ui-datepicker-div {  z-index: 9999 !important; }
 
 .nascosto {
     display: none;
