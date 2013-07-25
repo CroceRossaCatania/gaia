@@ -25,12 +25,7 @@ $attivita->autore       = $me;
 $attivita->visibilita   = ATT_VIS_UNITA;
 
 if ( $_POST['inputGruppo'] ) {
-    $g = new Gruppo();
-    $g->nome        =   $attivita->nome;
-    $g->comitato    =   $comitato->id;
-    $g->obiettivo   =   $area->obiettivo;
-    $g->area        =   $area->id;
-    $g->referente   =   $area->responsabile;
+    redirect('attivita.referente&g&id=' . $attivita->id);
+}else{
+    redirect('attivita.referente&id=' . $attivita->id);
 }
-
-redirect('attivita.referente&id=' . $attivita->id);

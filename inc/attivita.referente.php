@@ -12,8 +12,11 @@ paginaModale();
 $attivita = $_GET['id'];
 $attivita = new Attivita($attivita);
 
-?>
-<form action="?p=attivita.referente.ok" method="POST">
+if(isset($_GET['g'])){ ?>
+        <form action="?p=attivita.referente.ok&g" method="POST">
+<?php }else{ ?>
+        <form action="?p=attivita.referente.ok" method="POST">
+<?php } ?>                
 
 <input type="hidden" name="id" value="<?php echo $attivita->id; ?>" />
 
