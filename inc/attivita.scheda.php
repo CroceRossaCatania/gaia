@@ -359,9 +359,14 @@ if ( isset($_GET['riapri']) ) { ?>
                                                         <?php echo $v->nomeCompleto(); ?>
                                                     </a>
                                                     <?php if( $me->delegazioni(APP_CO) && $a->modificabileDa($me) ){ ?>
-                                                    <a  class="btn btn-small" href="?p=attivita.poteri&v=<?= $v->id; ?>&turno=<?= $turno;  ?>">
-                                                        <i class="icon-rocket" ></i> Conferisci poteri
-                                                    </a>
+                                                        <a  class="btn btn-small" href="?p=attivita.poteri&v=<?= $v->id; ?>&turno=<?= $turno;  ?>">
+                                                            <i class="icon-rocket" ></i> Conferisci poteri
+                                                        </a>
+                                                    <?php } ?>
+                                                    <?php if( $a->modificabileDa($me) && $turno->fine >= time() && $turno->inizio >= time() ){ ?>
+                                                        <a  class="btn btn-small btn-danger" href="?p=attivita.modifica.volontario.rimuovi&v=<?= $v->id; ?>&turno=<?= $turno;  ?>">
+                                                            <i class="icon-trash" ></i> Rimuovi volontario
+                                                        </a>
                                                     <?php } ?>
                                                 </li>
                                                 <?php } ?>
