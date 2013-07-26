@@ -84,7 +84,7 @@ $menu += [
 ];
 
 ?>
-<div class="well" style="padding: 8px 0px;">
+<div class="well hidden-phone" style="padding: 8px 0px;">
     <ul class="nav nav-list">      
         <?php global $p; ?>
         <?php foreach ($menu as $sezione => $contenuto ) { 
@@ -101,3 +101,25 @@ $menu += [
         <?php } ?>
     </ul>
 </div>
+
+<div id="navigatoreMobile" class="visible-phone">
+    <select id='navigatoreMobileSelect'>
+        <?php foreach ($menu as $sezione => $elenco) { ?>
+            <?php if ( !empty($sezione) ) { ?>
+                <option value=''>== <?php echo $sezione; ?> ==</option>
+            <?php } ?>
+            <?php foreach ( $elenco as $href => $valore ) { 
+                $y = false;
+                $larray = explode('&', $href); ?>
+                <option 
+                    <?php if ( (!isset($_GET['t']) && $larray[0] == $p) or (isset($_GET['t']) && $larray[1] == "t={$_GET['t']}") ) { $y = true; ?>selected="selected"<?php } ?>
+                    value="<?php echo $href; ?>">
+                    <?php if ( $y ) { ?>Menu:<?php } ?>
+                        <?php echo $valore; ?>
+                </option>
+            <?php } ?>
+        <?php } ?>
+    </select>
+    <hr />
+</div>
+

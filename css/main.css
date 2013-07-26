@@ -355,3 +355,11 @@ body {
     border:1px #D3D7D8 solid;
     background: #ffffff;
 }
+
+#navigatoreMobile {
+    text-align: center;
+}
+#navigatoreMobileSelect {
+    font-weight: bold;
+    margin: auto;
+}
