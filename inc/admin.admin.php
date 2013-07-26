@@ -21,14 +21,21 @@ paginaAdmin();
         </div>
 <?php } ?>
 <br/>
-    <div class="control-group" align="right">
-        <div class="controls">
-            <div class="input-prepend">
-                <span class="add-on"><i class="icon-search"></i></span>
-                <input autofocus required id="cercaUtente" placeholder="Cerca Admin..." class="span4" type="text">
-            </div>
+    <div class="row-fluid">
+    <div class="span6 allinea-sinistra">
+        <h2>
+            <i class="icon-star muted"></i>
+            Elenco Admin
+        </h2>
+    </div>
+    
+    <div class="span6 allinea-destra">
+        <div class="input-prepend">
+            <span class="add-on"><i class="icon-search"></i></span>
+            <input autofocus required id="cercaUtente" placeholder="Cerca Admin..." type="text">
         </div>
-    </div> 
+    </div>    
+</div>
 <hr />
 <table class="table table-striped table-bordered" id="tabellaUtenti">
     <thead>
