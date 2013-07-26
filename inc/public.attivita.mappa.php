@@ -50,7 +50,7 @@
         if ( !$a->haPosizione() ) { continue; }  
         ?>
         messaggio.push(new google.maps.InfoWindow({
-            content: "<a href='http://www.gaiacri.it/?p=attivita.scheda&id=<?php echo $a->id; ?>'><?php echo htmlentities($a->nome); ?></a><br /><?php echo htmlentities($a->luogo); ?>"
+            content: "<a href='https://www.gaiacri.it/?p=attivita.scheda&id=<?php echo $a->id; ?>'><?php echo htmlentities($a->nome); ?></a><br /><?php echo htmlentities($a->luogo); ?>"
         }));
         marcatore.push(new google.maps.Marker({
             position: new google.maps.LatLng(<?php echo $a->latlng(); ?>),
@@ -67,7 +67,7 @@
     function loadScript() {
       var script = document.createElement("script");
       script.type = "text/javascript";
-      script.src = "http://maps.google.com/maps/api/js?sensor=false&callback=initialize";
+      script.src = "https://maps.google.com/maps/api/js?sensor=false&callback=initialize";
       document.body.appendChild(script);
     }
     window.onload = loadScript;
