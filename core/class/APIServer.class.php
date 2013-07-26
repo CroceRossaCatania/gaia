@@ -145,6 +145,16 @@ class APIServer {
                 } else {
                     $colore = $conf['attivita']['colore_pubbliche'];
                 }
+                if($turno->scoperto()){
+                    $r[] = [
+                    'title'     => $attivita->nome. ', ' . $turno->nome,
+                    'id'        =>  $turno->id,
+                    'start'     =>  $turno->inizio()->toJSON(),
+                    'end'       =>  $turno->fine()->toJSON(),
+                    'color'     =>  '#B20000',
+                    'url'       =>  '?p=attivita.scheda&id=' . $attivita->id . '&turno=' . $turno->id
+                            ];
+                }else{
                 $r[] = [
                     'title'     =>  $attivita->nome. ', ' . $turno->nome,
                     'id'        =>  $turno->id,
@@ -153,7 +163,9 @@ class APIServer {
                     'color'     =>  '#' . $colore,
                     'url'       =>  '?p=attivita.scheda&id=' . $attivita->id . '&turno=' . $turno->id
                 ];
-            }
+            
+                }
+                }
             return $r;
         }
         

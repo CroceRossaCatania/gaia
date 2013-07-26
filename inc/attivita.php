@@ -31,6 +31,14 @@ paginaAnonimo();
                         Comitati di cui faccio parte
                     </td>
                 </tr>
+                <tr>
+                    <td style="color: #B20000">
+                        <i class="icon-sign-blank"></i>
+                    </td>
+                    <td>
+                        Turni scoperti
+                    </td>
+                </tr>
             <?php } ?>
 
         </table>
