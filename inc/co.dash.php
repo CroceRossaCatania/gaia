@@ -25,7 +25,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
             </div>
             
             <div class="span6 allinea-centro">
-                <img src="http://upload.wikimedia.org/wikipedia/it/thumb/4/4a/Emblema_CRI.svg/75px-Emblema_CRI.svg.png" />
+                <img src="https://upload.wikimedia.org/wikipedia/it/thumb/4/4a/Emblema_CRI.svg/75px-Emblema_CRI.svg.png" />
             </div>
 
             <div class="span3">

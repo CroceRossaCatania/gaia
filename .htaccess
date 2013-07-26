@@ -1,0 +1,10 @@
+# Redirige tutte le visite da HTTP a HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} gaiacri.it
+RewriteRule (.*) https://www.gaiacri.it/$1 [R=301,L]
+
+# Redirige tutte le visite da gaiacri.it a www.gaiacri.it
+RewriteCond %{HTTP_HOST} !^www\.
+RewriteCond %{HTTP_HOST} gaiacri.it
+RewriteRule ^(.*)$ https://www.gaiacri.it/$1 [R=301,L]

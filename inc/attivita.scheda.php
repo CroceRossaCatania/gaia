@@ -61,7 +61,7 @@ if ( isset($_GET['riapri']) ) { ?>
                 </a> 
                 <?php } ?>
                 
-                <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("http://www.gaiacri.it/index.php?p=attivita.scheda&id={$a->id}"); ?>" target="_blank">
+                <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://www.gaiacri.it/index.php?p=attivita.scheda&id={$a->id}"); ?>" target="_blank">
                   <i class="icon-facebook-sign"></i> Condividi
                 </a>
             </div>

@@ -61,7 +61,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <link href="css/font-awesome.min.css"   rel="stylesheet" media="screen">
     <link href="css/main.css"               rel="stylesheet" media="screen">
     <link href="css/fullcalendar.css"       rel="stylesheet" media="screen">
-    <link href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet" media="screen">
+    <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.min.css" rel="stylesheet" media="screen">
     <!--[if IE]>
         <link href="css/main-ie.css" rel="stylesheet" media="screen">
     <![endif]-->
@@ -70,10 +70,10 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <![endif]-->
 
     <!-- JS -->
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"        ></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"        ></script>
     <script type="text/javascript" src="js/modernizr.custom.03290.js"                   ></script>
     <script type="text/javascript" src="js/bootstrap.min.js"                            ></script>
-    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"   ></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"   ></script>
     <script type="text/javascript" src="js/jquery.timepicker.js"                        ></script>
     <script type="text/javascript" src="js/fullcalendar.min.js"                         ></script>
     <script type="text/javascript" src="js/jquery.cookie.js"                            ></script>
@@ -333,7 +333,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                         </p>
                     </div>
       	<div class="span6 allinea-destra">
-	        <a href="http://www.gaiacri.it">Torna alla home</a> &middot;
+	        <a href="/">Torna alla home</a> &middot;
 	        <a href="?p=public.about">Informazioni su Gaia</a> &middot;
 	        <a href="docs/Guida.pdf?ref=footer"><strong>Guida in PDF</strong></a> &middot;
 	        <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaiacri.it"><?php } ?>Supporto</a><br />

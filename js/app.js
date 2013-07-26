@@ -164,7 +164,7 @@ function _abilita_filtraggio (idInput, idTabella) {
 function caricaMapsApi( callback ) {
   var script = document.createElement("script");
   script.type = "text/javascript";
-  script.src = "http://maps.google.com/maps/api/js?sensor=false&callback=" + callback;
+  script.src = "https://maps.google.com/maps/api/js?sensor=false&callback=" + callback;
   document.body.appendChild(script);
 }
 
