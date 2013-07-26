@@ -6,8 +6,7 @@
 
 paginaApp([APP_PATENTI , APP_PRESIDENTE]);
 
-$numero = $_GET['inputNumero'];
-$patenti = TitoloPersonale::filtra([['codice', $numero]]);
+$ricerca = $_GET['inputRicerca'];
 
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
@@ -53,7 +52,10 @@ $patenti = TitoloPersonale::filtra([['codice', $numero]]);
                 <th>Data Scadenza</th>
             </thead>
         <?php
-        foreach($patenti as $patente){
+        $elenco = $me->comitatiApp ([ APP_PATENTI, APP_PRESIDENTE ]);
+        foreach($elenco as $comitato){
+            $patenti = $comitato->ricercaPatente($ricerca);
+            foreach($patenti as $patente){
                 ?>
                 <tr>
                     <td><?= $numero; ?></td>
@@ -64,7 +66,7 @@ $patenti = TitoloPersonale::filtra([['codice', $numero]]);
                     <td><?= date('d/m/Y', $patente->inizio); ?></td>
                     <td><?= date('d/m/Y', $patente->fine);  ?></td>
                 </tr>
-               <?php } ?> 
+        <?php }} ?> 
         </table>
        
     </div>

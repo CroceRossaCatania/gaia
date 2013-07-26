@@ -413,12 +413,18 @@ define('PIVA', '01019341005');
  * ===================================
  */
 
-/* Tipologia appartenenza gruppo */
-define('RICHIESTA_PEDENTE',   10);
-define('RICHIESTA_EVASA', 20);
+/* Tipologia richieste patente */
+define('PATENTE_RICHIESTA_PEDENTE',   10);
+define('PATENTE_ATTESA_VISITA', 20);
+define('PATENTE_ATTESA_STAMPA', 30);
+define('PATENTE_ATTESA_CONSEGNA', 40);
+define('PATENTE_CONSEGNATA', 50);
 
 /* Definizioni in stringa */
 $conf['patente'] = [
-    RICHIESTA_PEDENTE     =>  'Rinnovo patente eseguito',
-    RICHIESTA_EVASA   =>  'Rinnovo patente in corso'
+    PATENTE_RICHIESTA_PEDENTE     =>  'Rinnovo patente in corso',
+    PATENTE_ATTESA_VISITA   =>  'In attesa di visita medica',
+    PATENTE_ATTESA_STAMPA => 'In attesa della stampa patente',
+    PATENTE_ATTESA_CONSEGNA => 'In attesa ritiro patente',
+    PATENTE_CONSEGNATA => 'Patente consegnata'
 ];
