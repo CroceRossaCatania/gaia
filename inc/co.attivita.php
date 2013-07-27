@@ -23,7 +23,6 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
             Elenco attività odierne
         </h2>
     </div>
-    
     <div class="span4 allinea-destra">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>
@@ -31,12 +30,9 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
         </div>
     </div>    
 </div>
-    
 <hr />
-    
 <div class="row-fluid">
    <div class="span12">
-      
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
                 <th>Turno</th>
@@ -44,7 +40,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                 <th>Fine</th>
             </thead>
         <?php
-        $i = time()-43200;
+        $i = time();
         $f = time()+86400;
         $comitati = $me->comitatiApp ([ APP_CO, APP_PRESIDENTE ]);
         $elenco = Attivita::elenco();
@@ -54,25 +50,24 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                     $x=0;
                     $turni = $attivita->turni();
                     foreach($turni as $turno){
-                        if ($turno->inizio>= $i  && $turno->fine <= $f) {
-                            if($x==0){ ?> 
-                                <tr class="primary">
-                                    <td colspan="4" class="grassetto">
-                                    <?php echo $attivita->nome; ?>
-                                    </td>
+                        $partecipanti = $turno->partecipazioniStato(AUT_OK);
+                        foreach ($partecipanti as $partecipante){ 
+                            $m= Coturno::filtra([['volontario', $partecipante->volontario()],['turno',$turno]]); 
+                            if (($turno->inizio>= $i  && $turno->fine <= $f) || ($m[0]->pMonta && !$m[0]->pSmonta)) {
+                                if($x==0){ ?> 
+                                    <tr class="primary">
+                                        <td colspan="4" class="grassetto">
+                                        <?php echo $attivita->nome; ?>
+                                        </td>
+                                    </tr>
+                                    <?php 
+                                    $x++;
+                                    } ?>
+                                <tr class="info">
+                                       <td><?php echo $turno->nome; ?></td>
+                                       <td><?php echo date('d-m-Y H:i', $turno->inizio); ?></td>
+                                       <td><?php echo date('d-m-Y H:i', $turno->fine); ?></td>
                                 </tr>
-                                <?php 
-                                $x++;
-                                } ?>
-                            <tr class="info">
-                                   <td><?php echo $turno->nome; ?></td>
-                                   <td><?php echo date('d-m-Y H:i', $turno->inizio); ?></td>
-                                   <td><?php echo date('d-m-Y H:i', $turno->fine); ?></td>
-                            </tr>
-                            <?php
-                            $partecipanti = $turno->partecipazioniStato(AUT_OK);
-                            foreach ($partecipanti as $partecipante){ ?>
-                                <?php $m= Coturno::filtra([['volontario', $partecipante->volontario()],['turno',$turno]]); ?>
                                 <tr class="<?php if(!$m[0]->pSmonta && !$m[0]->stato == CO_MONTA){echo "warning"; }elseif($m[0]->stato == CO_MONTA){ echo "success";}else{echo "error";}?>">
                                    <td><?php echo $partecipante->volontario()->nomeCompleto(); ?></td>
                                    <td><?php echo $partecipante->volontario()->cellulare(); ?></td>
@@ -96,12 +91,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                                        </div>
                                    </td>
                                 </tr>
-                    
         <?php }}}}}}?>
-
-        
         </table>
-
     </div>
-    
 </div>
