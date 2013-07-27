@@ -43,6 +43,8 @@ $(window).ready( function () {
         $(this).parents('form').submit();
     })
     
+    $("#navigatoreMobileSelect").change( _navigatore_mobile );
+    
     tinymce.init({
         selector:   "textarea.conEditor",
         language:   'it',
@@ -190,6 +192,10 @@ function _suggerimento(i, e) {
     $(e).tooltip({
         html:   true
     });
+}
+
+function _navigatore_mobile() {
+    location.href = '?p=' + $("#navigatoreMobileSelect").val();
 }
 
 /* TO ISO STRING */

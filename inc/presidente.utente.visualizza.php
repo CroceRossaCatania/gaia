@@ -9,6 +9,9 @@ paginaApp([APP_SOCI, APP_PRESIDENTE]);
 $f = $_GET['id']; 
 $t = new Volontario($f);
 $g = $v = $t;
+
+proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
+
 $a=TitoloPersonale::filtra([['volontario',$f]]);
 ?>
 <!--Visualizzazione e modifica anagrafica utente-->

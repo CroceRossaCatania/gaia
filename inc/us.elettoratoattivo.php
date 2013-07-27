@@ -16,7 +16,7 @@ $tstamp = $time->getTimestamp();
             <i class="icon-group muted"></i>
             Elettorato attivo
         </h2>
-        <p><strong>Del <?php echo $time->format("d/m/Y");?></strong></p>
+        <p><strong>al giorno <?php echo $time->format("d/m/Y");?></strong></p>
     </div>
             
             <div class="span3">

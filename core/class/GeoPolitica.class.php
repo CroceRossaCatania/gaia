@@ -29,6 +29,32 @@ abstract class GeoPolitica extends GeoEntita {
         return $del;
     }
     
+    public function figliOID() {
+        $r = [];
+        foreach ( $this->figli() as $figlio ) {
+            $r[] = $figlio->oid();
+        }
+        return $r;
+    }
+    
+    /*
+     * Ritorna se questa entità sovrasta/contiene un'altra GeoPolitica
+     * a un livello qualsiasi di profondità, esplorando ricorsivamente
+     */
+    public function contiene( GeoPolitica $comitato ) {
+        if ( $this->oid() == $comitato->oid() ) { return true; } // contengo me stesso
+        foreach ( $this->figli() as $figlio ) {
+            if ( 
+                    $comitato->oid() == $figlio->oid()
+                    or
+                    $figlio->contiene($comitato)
+                    ) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public function unPresidente() {
         $p = $this->presidenti();
         if ( !$p ) { return false; }

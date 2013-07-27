@@ -15,7 +15,7 @@ function paginaPrivata() {
     }
 }
 
-function paginaApp($app) {
+function paginaApp($app, $comitati = []) {
     global $sessione;
     paginaPrivata();
     if ( $sessione->utente()->admin ) {
@@ -24,9 +24,29 @@ function paginaApp($app) {
     if (!is_array($app)) {
         $app = [$app];
     }
+    if (!is_array($comitati)) {
+        $comitati = [$comitati];
+    }
     foreach ( $app as $k ) {
-        if ( $sessione->utente()->delegazioni($k) ) {
-            return true;
+        
+        // Per ogni delegazione dell'utente
+        if ( $d = $sessione->utente()->delegazioni($k) ) {
+            
+            // Se è attivo il filtraggio per comitato
+            if ( $comitati ) {
+                // Ritorna vero solo se il comitato è contenuto
+                foreach ( $comitati as $comitato ) {
+                    if (!$comitato instanceof GeoPolitica) { continue; }
+                    foreach ( $d as $delegazione ) { 
+                        if ( $delegazione->comitato()->contiene($comitato) ) { return true; } 
+                    }
+                }
+            } else {
+                
+                // Filtraggio non attivo, ma da qualche parte ho la delega
+                return true;
+                
+            }
         }
     }
     redirect('errore.permessi');

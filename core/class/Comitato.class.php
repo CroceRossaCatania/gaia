@@ -86,21 +86,23 @@ class Comitato extends GeoPolitica {
      */
     public function elettoriAttivi(DateTime $elezioni, $anzianita = ANZIANITA) {
         $q = $this->db->prepare("
-            SELECT  anagrafica.id, inizio, fine
+            SELECT  DISTINCT( anagrafica.id )
             FROM    appartenenza, anagrafica
             WHERE   
               appartenenza.comitato     = :comitato
             AND
               appartenenza.volontario   = anagrafica.id 
-            GROUP BY
-              volontario
-            HAVING
-              ( fine = 0 OR fine > :elezioni ) 
             AND
               ( inizio <= :minimo )
+            AND
+              appartenenza.volontario IN (
+                SELECT volontario FROM appartenenza
+                WHERE comitato = :comitato AND
+                fine = 0 OR fine > :elezioni
+              )
             ORDER BY
               anagrafica.cognome     ASC,
-              anagrafica.nome  ASC");
+              anagrafica.nome        ASC");
         $minimo = clone $elezioni;
         $anzianita = (int) $anzianita;
         $minimo->modify("-{$anzianita} years");
