@@ -75,7 +75,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                                 <?php $m= Coturno::filtra([['volontario', $partecipante->volontario()],['turno',$turno]]); ?>
                                 <tr class="<?php if(!$m[0]->pSmonta && !$m[0]->stato == CO_MONTA){echo "warning"; }elseif($m[0]->stato == CO_MONTA){ echo "success";}else{echo "error";}?>">
                                    <td><?php echo $partecipante->volontario()->nomeCompleto(); ?></td>
-                                   <td><?php $partecipante->volontario()->cellulare(); ?></td>
+                                   <td><?php echo $partecipante->volontario()->cellulare(); ?></td>
                                    <td>
                                        <div class="btn-group">
                                            <?php if($m[0]->stato == '' || !$m[0]->stato == CO_MONTA || $m[0]->stato == CO_MONTA){ ?>
