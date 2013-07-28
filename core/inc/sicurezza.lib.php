@@ -22,6 +22,7 @@ function debugOnly() {
  */
 function proteggiDatiSensibili( $volontario, $app = [APP_PRESIDENTE] ) {
     global $me;
+    if ( $me->admin ) { return true; }
     $comitati = $me->comitatiApp($app);
     foreach ( $volontario->comitati() as $comitato ) {
         if (in_array($comitato, $comitati)) {
