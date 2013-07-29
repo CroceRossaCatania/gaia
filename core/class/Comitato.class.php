@@ -469,10 +469,6 @@ class Comitato extends GeoPolitica {
                 titoli, titoliPersonali, anagrafica, appartenenza
             WHERE 
                 anagrafica.id = titoliPersonali.volontario
-            AND
-                anagrafica.id = appartenenza.volontario
-            AND
-                appartenenza.comitato = :comitato
             AND 
                 titoli.id = titoliPersonali.titolo
             AND 
@@ -481,7 +477,6 @@ class Comitato extends GeoPolitica {
                 anagrafica.cognome, 
                 anagrafica.nome");
         $q->bindValue ( ":ricerca", $ricerca );
-        $q->bindParam(':comitato', $this->id);
         $q->execute();
         var_dump($q->errorInfo());
         $r = [];

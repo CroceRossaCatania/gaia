@@ -17,19 +17,25 @@ if (isset($_GET['presa'])) {
 }elseif (isset($_GET['visita'])) {
     $r = new PatentiRichieste($id);
     $r->stato = PATENTE_ATTESA_STAMPA;
-    $r->tVisita = time();
+    $time = DT::createFromFormat('d/m/Y', $_POST['inputData']);
+    $time = $time->getTimestamp();
+    $r->tVisita = $time;
     $r->pVisita = $me;
     
 }elseif (isset($_GET['stampa'])) {
     $r = new PatentiRichieste($id);
     $r->stato = PATENTE_ATTESA_CONSEGNA;
-    $r->tStampa = time();
+    $time = DT::createFromFormat('d/m/Y', $_POST['inputData']);
+    $time = $time->getTimestamp();
+    $r->tStampa = $time;
     $r->pStampa = $me;
  
 }elseif(isset($_GET['consegna'])){
     $r = new PatentiRichieste($id);
     $r->stato = PATENTE_CONSEGNATA;
-    $r->tConsegna = time();
+    $time = DT::createFromFormat('d/m/Y', $_POST['inputData']);
+    $time = $time->getTimestamp();
+    $r->tConsegna = $time;
     $r->pConsegna = $me;
     
 }  

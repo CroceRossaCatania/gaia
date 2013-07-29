@@ -21,6 +21,10 @@ $ricerca = $_GET['inputRicerca'];
             
             <div class="span3">
                 <div class="btn-group btn-group-vertical span12">
+                     <a href="?p=patenti.ricerca" class="btn btn-block btn-info">
+                        <i class="icon-search"></i>
+                        Nuova Ricerca
+                    </a>
                     <a href="?p=patenti.dash" class="btn btn-block">
                         <i class="icon-reply"></i>
                         Torna alla dash

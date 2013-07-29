@@ -6,7 +6,8 @@
 
 paginaApp([APP_PATENTI , APP_PRESIDENTE]);
 ?>
-    <br/>
+<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<br/>
 <div class="row-fluid">
     <div class="span5 allinea-sinistra">
         <h2>
@@ -65,12 +66,14 @@ paginaApp([APP_PATENTI , APP_PRESIDENTE]);
             <?php
             foreach ( $t as $v ) {
                 $_v = $v->volontario();
+                $t = new TitoloPersonale($v->titolo);
+                $t = new Titolo ($t->titolo());
             ?>
                 <tr>
                     <td><?= $_v->cognome; ?></td>
                     <td><?= $_v->nome; ?></td>
-                    <td><?= $v->titolo()->nome; ?></td>
-                    <td><?php echo $conf['patente'][$v->stato]; ?></td>
+                    <td><?= $t->nome; ?></td>
+                    <td><?= $conf['patente'][$v->stato]; ?></td>
                     <td>
                         <div class="btn-group">
                             <?php if($v->stato == PATENTE_RICHIESTA_PEDENTE){ ?>
@@ -78,15 +81,15 @@ paginaApp([APP_PATENTI , APP_PRESIDENTE]);
                                     <i class="icon-folder-open"></i> Prendi in carico
                                 </a>
                             <?php }elseif($v->stato == PATENTE_ATTESA_VISITA){ ?>
-                                <a class="btn btn-small btn-danger" href="?p=patenti.richieste.ok&id=<?= $v->id; ?>&visita" title="Visita effettuata">
+                                <a class="btn btn-small btn-danger" href="?p=patenti.richieste.time&id=<?= $v->id; ?>&visita" title="Visita effettuata">
                                         <i class="icon-user-md"></i> Visita effettuata
                                 </a>
                             <?php }elseif($v->stato == PATENTE_ATTESA_STAMPA){ ?>
-                                <a  class="btn btn-small btn-warning" href="?p=patenti.richieste.ok&id=<?= $v->id; ?>&stampa" title="Patente stampata">
+                                <a  class="btn btn-small btn-warning" href="?p=patenti.richieste.time&id=<?= $v->id; ?>&stampa" title="Patente stampata">
                                     <i class="icon-print"></i> Patente stampata
                                 </a>
                             <?php }elseif($v->stato == PATENTE_ATTESA_CONSEGNA){ ?>
-                                <a class="btn btn-small btn-primary" href="?p=patenti.richieste.ok&id=<?= $v->id; ?>&consegna" title="Patente consegnata">
+                                <a class="btn btn-small btn-primary" href="?p=patenti.richieste.time&id=<?= $v->id; ?>&consegna" title="Patente consegnata">
                                     <i class="icon-folder-close"></i> Patente consegnata
                                 </a>
                             <?php } ?>

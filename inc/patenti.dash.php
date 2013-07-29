@@ -5,7 +5,10 @@
  */
 
 paginaApp([APP_PATENTI , APP_PRESIDENTE]);
-
+$elenco = $me->comitatiApp ([ APP_PATENTI, APP_PRESIDENTE ]);
+        foreach($elenco as $comitato) {
+            $t = $comitato->pratichePatenti();
+        }
 ?>
 
 <div class="row-fluid">
@@ -31,7 +34,7 @@ paginaApp([APP_PATENTI , APP_PRESIDENTE]);
             <div class="span3">
                 <table class="table table-striped table-condensed">
                 
-                    <tr><td>Num. Richieste</td><td>Funzione richieste</td></tr>
+                    <tr><td>Num. Richieste</td><td><?= count($t); ?></td></tr>
                     
                 </table>
             </div>
