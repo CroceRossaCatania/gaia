@@ -57,14 +57,14 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             </div>
             <div class="span6">
                 <div class="btn-group btn-group-vertical span12">
-                  <!--<a href="?p=us.quoteNo" class="btn btn-block">
+                  <a href="?p=us.quoteNo" class="btn btn-block">
                         <i class="icon-certificate"></i>
                         Gestione quote associative
                     </a>
                      <a href="?p=us.quote.ricerca" class="btn btn-block">
                         <i class="icon-search"></i>
                         Ricerca quota associativa
-                    </a>-->
+                    </a>
                     <a href="?p=presidente.appartenenzepending" class="btn btn-block btn-success">
                         <i class="icon-group"></i>
                         Appartenenze in attesa
