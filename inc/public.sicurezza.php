@@ -23,6 +23,7 @@
     </div>
     <p>&nbsp;</p>
 </div>
+
 <div class="row-fluid">
     <div class="span12">
         <p>Perchè ti chiediamo questo?</p> 
@@ -30,8 +31,18 @@
         <p>Attraverso una connessione sicura <em>(Secure Sockets Layer)</em> i tuoi dati saranno al protetto.</p>
         <p>Questo tipo di comunicazione garantisce che solamente il client ed il server (mediante certificati di sicurezza) siano in grado di conoscere il contenuto della comunicazione inviata.</p>
         <p>Il certificato che ti proteggerà è erogato da <strong>GlobalSign Root CA.</strong></p>
-        <p>&nbsp;</p>
-        
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span12 centrato">
+        <img src="./img/gaiaverifica.png" /> 
+    </div>
+    <p>&nbsp;</p>
+</div>
+
+<div class="row-fluid">
+    <div class="span12">
         <h3>Sicurezza Dati e gestione accessi</h3>
         <p>Ogni singolo accesso a Gaia ed al server viene registrato in un file di log criptato, mantenuto dagli amministratori di sistema e distrutto in automatico dopo 365 giorni così come disposto dal Garante sulla Privacy. </p>
         <p>Il cuore di Gaia è costantemente protetto da un enorme scudo (Firewall) che si occupa di tener lontani i "nemici" della rete. L'accesso ai sistemi di gestione ed al server avviene mediante delle connessioni sicure e crittografate chiamate VPN. </p>
@@ -39,7 +50,6 @@
         <p>I dati sensibili contenuti all'interno di Gaia (database) sono cifrati con un' algoritmo unidirezionale SHA1 "salato" a doppia passata, nessuno potrà essere in grado di recuperare l'eventuale occorrenza.</p>
         <p>Il futuro di Gaia prevede l'implementazioni di alcuni standard di sicurezza che la renderanno unica tra cui la multi-factor authentication. </p>
         <p>Vogliamo rendere la tua esperienza unica.</p>
-           
     </div>
 </div>
 
