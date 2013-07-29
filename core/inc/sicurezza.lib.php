@@ -24,7 +24,9 @@ function proteggiDatiSensibili( $volontario, $app = [APP_PRESIDENTE] ) {
     global $me;
     if ( $me->admin ) { return true; }
     $comitati = $me->comitatiApp($app);
-    foreach ( $volontario->comitati() as $comitato ) {
+    $comitatiVolontario = $volontario->comitati();
+    if ( !$comitatiVolontario ) { return true; }
+    foreach ( $comitatiVolontario as $comitato ) {
         if (in_array($comitato, $comitati)) {
             return true;
         }
