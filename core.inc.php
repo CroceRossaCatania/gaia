@@ -47,14 +47,18 @@ if (class_exists('Memcached') ) {
     $cache->addServer('127.0.0.1', 11211);
 }
 
-/* Connetto al database */
-$db = new ePDO(
-        $conf['database']['dns'],
-        $conf['database']['user'],
-        $conf['database']['pass'],
-        [
-            PDO::ATTR_PERSISTENT => 
-                $conf['database']['persistent']
-        ]
-);
+try {
+    /* Connetto al database */
+    $db = new ePDO(
+            $conf['database']['dns'],
+            $conf['database']['user'],
+            $conf['database']['pass'],
+            [
+                PDO::ATTR_PERSISTENT => 
+                    $conf['database']['persistent']
+            ]
+    );
+} catch ( PDOException $e ) {
+    throw new Errore(1900);
+}
 
