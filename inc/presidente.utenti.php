@@ -149,6 +149,9 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                                 <a class="btn btn-small btn-primary" href="?p=admin.beuser&id=<?php echo $_v->id; ?>" title="Log in">
                                     <i class="icon-key"></i>
                                 </a> 
+                                <a class="btn btn-small btn-primary" href="?p=admin.password.nuova&id=<?php echo $_v->id; ?>" title="Cambia password">
+                                    <i class="icon-eraser"></i>
+                                </a>
                                 <a class="btn btn-small btn-primary" href="?p=admin.presidente.nuovo&id=<?php echo $_v->id; ?>" title="Nomina Presidente">
                                     <i class="icon-star"></i>
                                 </a> 
