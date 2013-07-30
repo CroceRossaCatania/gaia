@@ -17,12 +17,21 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
 <?php } ?>
     <br/>
 <div class="row-fluid">
-    <div class="span8">
+    <div class="span5 allinea-sinistra">
         <h2>
             <i class="icon-time muted"></i>
             Elenco attività odierne
         </h2>
     </div>
+    
+    <div class="span3">
+        <div class="btn-group btn-group-vertical span12">
+                <a href="?p=co.dash" class="btn btn-block ">
+                    <i class="icon-reply"></i> Torna alla dash
+                </a>
+        </div>
+    </div>
+    
     <div class="span4 allinea-destra">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>

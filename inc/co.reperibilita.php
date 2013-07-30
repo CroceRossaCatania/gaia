@@ -10,20 +10,29 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
 
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
-<div class="span5 allinea-sinistra">
-        <h2>
-            <i class="icon-thumbs-up muted"></i>
-            Reperibilità
-        </h2>
-    </div>
-    <div class="control-group" align="right">
-        <div class="controls">
-            <div class="input-prepend">
-                <span class="add-on"><i class="icon-search"></i></span>
-                <input data-t="<?php echo $t; ?>" autofocus required id="cercaUtente" placeholder="Cerca Volontario..." class="span4" type="text">
+<div class="row-fluid">
+    <div class="span5 allinea-sinistra">
+            <h2>
+                <i class="icon-thumbs-up muted"></i>
+                Reperibilità
+            </h2>
+        </div>
+
+    <div class="span3">
+            <div class="btn-group btn-group-vertical span12">
+                    <a href="?p=co.dash" class="btn btn-block ">
+                        <i class="icon-reply"></i> Torna alla dash
+                    </a>
             </div>
         </div>
+
+    <div class="span4 allinea-destra">
+        <div class="input-prepend">
+            <span class="add-on"><i class="icon-search"></i></span>
+            <input autofocus required id="cercaUtente" placeholder="Cerca Volontari e Attività..." type="text">
+        </div>
     </div> 
+</div>
 <hr />
 <table class="table table-striped table-bordered" id="tabellaUtenti">
     <thead>
