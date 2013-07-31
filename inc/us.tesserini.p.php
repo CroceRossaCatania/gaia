@@ -51,7 +51,7 @@ $t = Volontario::by('id', $f);
     width:150px;
     height:170px;
     position:absolute;
-    margin-left: 90px;
+    margin-left: 10px;
     margin-top: 180px;
 }
 </STYLE>
@@ -73,6 +73,6 @@ $t = Volontario::by('id', $f);
             <p><?= date( 'd/m/Y' , time()); ?></p>
         </div>
         <div id="testo3">
-            <small><p class="text-error"><?= $t->unComitato()->nome; ?></p></small>
+            <small><p class="text-error"><?= $t->unComitato()->locale()->nome; ?></p></small>
         </div>
 </div>
