@@ -383,8 +383,8 @@ class Comitato extends GeoPolitica {
             AND
                 quote.timestamp BETWEEN :anno AND :ora
             ORDER BY
-              anagrafica.nome     ASC,
-              anagrafica.cognome  ASC");
+              anagrafica.cognome     ASC,
+              anagrafica.nome  ASC");
         $q->bindValue(':comitato',  $this->id);
         $q->bindValue(':ora',  time());
         $anno = date ('Y', time());
@@ -424,7 +424,9 @@ class Comitato extends GeoPolitica {
                     quote 
                 WHERE 
                 timestamp BETWEEN :anno AND :ora )
-                ");
+        ORDER BY
+              anagrafica.cognome     ASC,
+              anagrafica.nome  ASC");
         $q->bindValue(':comitato',  $this->id);
         $q->bindValue(':ora',  time());
         $anno = date ('Y', time());
