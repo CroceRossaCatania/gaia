@@ -43,13 +43,13 @@ $i = 0;
 
 }
 
+$p->cambiaPassword($password);
+
 $e = new Email('recuperaPassword', 'Richiesta reimpostazione password');
 $e->a = $p;
 $e->_NOME = $p->nome;
 $e->_DATA = date('d-m-Y H:i');
 $e->_NUOVA = $password;
 $e->invia();
-
-$p->cambiaPassword($password);
 
 redirect('recuperaPassword.fatto');
