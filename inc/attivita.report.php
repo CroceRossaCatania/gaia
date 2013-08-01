@@ -39,7 +39,7 @@ foreach ( $a->turni() as $turno ) {
     
     $f = new Excel();
     $f->intestazione([
-       "Nome", "Cognome", "D. Nascita", "Cod. Fiscale", "Email", "Cellulare"
+       "Nome", "Cognome", "D. Nascita", "Email", "Cellulare", "Firma"
     ]);
     foreach ( $partecipazioni as $p ) {
         $v = new Volontario($p->volontario());
@@ -47,7 +47,6 @@ foreach ( $a->turni() as $turno ) {
             $v->nome,
             $v->cognome,
             date('d-m-Y', $v->dataNascita),
-            $v->codiceFiscale,
             $v->email,
             $v->cellulare()
         ]);

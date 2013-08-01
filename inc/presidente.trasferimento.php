@@ -51,7 +51,7 @@ paginaPresidenziale();
         <th>Codice Fiscale</th>
         <th>Data di Nascita</th>
         <th>Luogo di Nascita</th>
-        <th>Comitato</th>
+        <th>Comitato destinazione</th>
         <th>Azione</th>
     </thead>
 <?php

@@ -349,7 +349,7 @@ class Comitato extends GeoPolitica {
                 reperibilita
             WHERE
                 reperibilita.comitato = :id";
-        $q .= " ORDER BY reperibilita.id DESC";
+        $q .= " ORDER BY reperibilita.inizio ASC";
         $q = $this->db->prepare($q);
         $q->bindParam(':id', $this->id);
         $q->execute();

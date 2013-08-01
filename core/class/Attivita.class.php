@@ -33,7 +33,7 @@ class Attivita extends GeoEntita {
     public function turni() {
         return Turno::filtra([
             ['attivita',    $this->id]
-        ], 'inizio DESC, nome DESC');
+        ], 'inizio ASC, nome ASC');
     }
     
     public function turniScoperti() {

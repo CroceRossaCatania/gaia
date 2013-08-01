@@ -132,9 +132,13 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
                                     Cancella
                                 </button>
                             <?php } ?>
+                            <a class="btn btn-info" href="?p=attivita.turni.ripeti&t=<?php echo $_t->id; ?>">
+                                <i class="icon-copy"></i>
+                                Ripeti Turno
+                            </a>
                             <br />
                             <a href="?p=attivita.report&id=<?php echo $a->id; ?>">
-                                <i class="icon-copy"></i>
+                                <i class="icon-file-text-alt"></i>
                                 Guarda report
                             </a>
                         </td>
