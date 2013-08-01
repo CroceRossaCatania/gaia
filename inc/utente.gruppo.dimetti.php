@@ -9,13 +9,11 @@ paginaPrivata();
 $t = $_GET['id'];
 
 /* Cerco i gruppi a cui appartengo attualmente */
-$g = $me->gruppiAttuali();
+$g = $me->contaGruppi();
 
 /* Se appartengo solo ad un gruppo non dimetto
  */
-
-$x = count ($g);
-if($x == 1){
+if($g == 1){
     
     redirect('utente.gruppo&last');
     
