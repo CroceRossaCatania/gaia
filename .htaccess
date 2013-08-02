@@ -1,10 +1,15 @@
-# Redirige tutte le visite da HTTP a HTTPS
+# 1. Disabilita l'indexing
+Options -Indexes
+
+# 2. Regole di riscrittura
 RewriteEngine On
+
+# 2.1. Redirige tutte le visite da HTTP a HTTPS
 RewriteCond %{HTTPS} off
 RewriteCond %{HTTP_HOST} gaiacri.it
 RewriteRule (.*) https://www.gaiacri.it/$1 [R=301,L]
 
-# Redirige tutte le visite da gaiacri.it a www.gaiacri.it
+# 2.2. Redirige tutte le visite da gaiacri.it a www.gaiacri.it
 RewriteCond %{HTTP_HOST} !^www\.
 RewriteCond %{HTTP_HOST} gaiacri.it
 RewriteRule ^(.*)$ https://www.gaiacri.it/$1 [R=301,L]
