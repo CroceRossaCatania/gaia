@@ -13,7 +13,13 @@
        <h2 class="allinea-centro"><i class="icon-comments-alt text-warning"></i> Supporto Gaia</h2>
         <div class="alert alert-block alert-info">
             <h4><i class="icon-question-sign"></i> Hai bisogno di assistenza?</h4>
+            <?php if($me->presiede()){?>
+            <p>Siamo qui per aiutare. </p>
+            <p>Puoi contattarci allo <i class="icon-phone"></i><strong> +39 0692928574</strong>, attenzione questo numero è riservato solo a voi Presidenti pertanto vi invitiamo a non diffonderlo tra i volontari del vostro Comitato. </p>
+            <p>Oppure con questo modulo potete richiedere supporto per Gaia.</p>
+            <?php }else{ ?>
             <p>Siamo qui per aiutare. Con questo modulo puoi richiedere supporto per Gaia.</p>
+            <?php } ?>
         </div>
            <form class="form-horizontal" action="?p=utente.mail.nuova.ok&supp" method="POST">
             <div class="control-group">

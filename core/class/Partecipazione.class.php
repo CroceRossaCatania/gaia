@@ -74,6 +74,7 @@ class Partecipazione extends Entita {
             $a->richiedi();
             
             $m = new Email('richiestaAutorizzazione', 'Richiesta autorizzazione partecipazione attività');
+            $m->da = $me;
             $m->a            = $this->turno()->attivita()->referente();
             $m->_NOME        = $this->turno()->attivita()->referente()->nome;
             $m->_ATTIVITA    = $this->turno()->attivita()->nome;
@@ -96,6 +97,7 @@ class Partecipazione extends Entita {
             $a->richiedi();
             
             $m = new Email('richiestaAutorizzazione', 'Richiesta autorizzazione partecipazione attività');
+            $m->da = $me;
             $m->a            = $this->turno()->attivita()->referente();
             $m->_NOME        = $this->turno()->attivita()->referente()->nome;
             $m->_ATTIVITA    = $this->turno()->attivita()->nome;

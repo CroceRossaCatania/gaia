@@ -4,6 +4,7 @@
  * ©2012 Croce Rossa Italiana
  */
 
+$sessione->attenzione = false;
 $sessione->logout();
 ?>
 

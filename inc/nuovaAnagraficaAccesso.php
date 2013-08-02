@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 ?>
@@ -48,11 +48,33 @@
         
           <form id="moduloRegistrazione" class="form-horizontal" action="?p=nuovaAnagraficaAccesso.ok" method="POST">
           <div class="control-group">
-            <label class="control-label" for="inputComitato">Comitato</label>
+            <label class="control-label" for="inputRegionale">Comitato Regionale</label>
             <div class="controls">
-                <select required name="inputComitato" id="inputComitato" autofocus class="span11">
+                <select required name="inputRegionale" id="inputRegionale" autofocus class="span11">
+                    <option value="" selected="selected">[ Seleziona un Comitato Regionale ]</option>
+                    <?php foreach (Regionale::elenco('nazionale ASC') as $c ) { ?>
+                        <option value="<?php echo $c->id; ?>"><?php echo $c->nomeCompleto(); ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputProvinciale">Comitato Provinciale</label>
+            <div class="controls">
+                <select required name="inputProvinciale" id="inputProvinciale" autofocus class="span11">
+                    <option value="" selected="selected"v>[ Seleziona un Comitato Provinciale ]</option>
+                    <?php foreach (Provinciale::elenco('Regionale ASC') as $c ) { ?>
+                        <option value="<?php echo $c->id; ?>"><?php echo $c->nomeCompleto(); ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+          </div>
+              <div class="control-group">
+            <label class="control-label" for="InputComitato">Comitato</label>
+            <div class="controls">
+                <select required name="InputComitato" id="InputComitato" autofocus class="span11">
                     <option value="" selected="selected">[ Seleziona un Comitato ]</option>
-                    <?php foreach ( Comitato::elenco('locale ASC') as $c ) { ?>
+                    <?php foreach (Comitato::elenco('locale ASC') as $c ) { ?>
                         <option value="<?php echo $c->id; ?>"><?php echo $c->nomeCompleto(); ?></option>
                     <?php } ?>
                 </select>

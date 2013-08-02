@@ -10,6 +10,27 @@ paginaPresidenziale();
 
 $comitati = $me->comitatiDiCompetenza();
 
+if( $sessione->attenzione == false ){
+    ?>
+
+<div class="modal fade automodal">
+        <div class="modal-header">
+          <h3 class="text-success"><i class="icon-phone"></i> Gaia da oggi ti risponde!</h3>
+        </div>
+        <div class="modal-body">
+          <p>Salve Presidente <?php echo $me->nome; ?>, da oggi Gaia ti risponde!</p>
+          <p>Se hai bisogno di assistenza immediata chiama il <strong>+39 0692928574</strong></p>
+        </div>
+        <div class="modal-footer">
+          <a href="?p=presidente.dash" class="btn btn-primary">Grazie!</a>
+        </div>
+</div>
+    
+
+
+<?php 
+    $sessione->attenzione = true;
+}
 ?>
 
 <div class="row-fluid">
