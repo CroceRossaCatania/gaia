@@ -15,17 +15,14 @@ paginaPrivata();
         <?php        menuVolontario(); ?>
     </div>
     <div class="span9">
-        <h2><i class="icon-puzzle-piece"></i> Statistiche Volontari</h3>
+        <h2><i class="icon-puzzle-piece"></i> Statistiche Volontari</h2>
         <div id="grafico">
-	        <script type="text/javascript">
-	            simplegraph()
-	        </script>
-        </div>
-
-       
-        
-        
-        
+			grafico, dove sei?
+	       <script type="text/javascript">
+	       		volontari()
+	       </script>
+		</div>                
     </div>
-
 </div>
+
+
