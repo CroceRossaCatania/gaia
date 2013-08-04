@@ -8,7 +8,7 @@ paginaPrivata();
 
 
 ?>
-<script type="text/javascript"><?php require './js/utente.statistiche.volontari.js'; ?></script>
+       
 
 <div class="row-fluid">
     <div class="span3">
@@ -16,12 +16,13 @@ paginaPrivata();
     </div>
     <div class="span9">
         <h2><i class="icon-puzzle-piece"></i> Statistiche Volontari</h2>
-        <div id="grafico">
-			grafico, dove sei?
-	       <script type="text/javascript">
-	       		volontari()
-	       </script>
-		</div>                
+        <div class="row-fluid">
+	        <div id="graficosx" class="span6"></div>   
+			<div id="graficodx" class="span6"></div>
+			<script type="text/javascript">
+		       		volontari()
+		    </script> 
+		</div>               
     </div>
 </div>
 
