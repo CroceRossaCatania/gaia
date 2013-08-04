@@ -121,6 +121,11 @@ function caricaSelettore() {
     $_carica_selettore = true;
 }
 
+function caricaSelettoreComitato() {
+    global $_carica_selettore_comitato;
+    $_carica_selettore_comitato = true;
+}
+
 /*
  * Redirige ad una pagina
  * @param $pagina la pagina richiesta
