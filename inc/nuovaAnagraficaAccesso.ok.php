@@ -11,6 +11,9 @@ if ( strlen($_POST['inputPassword']) < 6 || strlen($_POST['inputPassword']) > 15
 }
 
 $comitato     = $_POST['inputComitato'];
+if ( !$comitato ) {
+    redirect('nuovaAnagraficaAccesso&c');
+}
 $comitato     = new Comitato($comitato);
 
 $anno = $_POST['inputAnno'];

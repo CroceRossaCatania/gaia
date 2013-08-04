@@ -4,6 +4,8 @@
 * ©2012 Croce Rossa Italiana
 */
 
+caricaSelettoreComitato();
+
 ?>
 
 <hr />
@@ -36,16 +38,22 @@
             <p>Scegli una password tra 6 e 15 caratteri.</p>
         </div>
     <?php } ?>
+    <?php if (isset($_GET['c'])) { ?>
+        <div class="alert alert-block alert-error">
+            <h4>Seleziona il tuo comitato di appartenenza</h4>
+            <p>Clicca sul pulsante e seleziona la tua unità di appartenenza.</p>
+            <p>Verrà chiesta conferma al Presidente del comitato.</p>
+        </div>
+    <?php } ?>
     <form id="moduloRegistrazione" class="form-horizontal" action="?p=nuovaAnagraficaAccesso.ok" method="POST">
         <div class="control-group">
             <label class="control-label" for="inputComitato">Comitato</label>
             <div class="controls">
-                <select required name="inputComitato" id="inputComitato" autofocus class="span11">
-                    <option value="" selected="selected">[ Seleziona un Comitato ]</option>
-                    <?php foreach ( Comitato::elenco('locale ASC') as $c ) { ?>
-                    <option value="<?php echo $c->id; ?>"><?php echo $c->nomeCompleto(); ?></option>
-                    <?php } ?>
-                </select>
+
+                <a class="btn btn-primary" data-selettore-comitato="true" data-input="inputComitato">
+                    <i class="icon-warning-sign"></i> Seleziona il comitato...
+                </a>
+
             </div>
         </div>
         <div class="control-group">
