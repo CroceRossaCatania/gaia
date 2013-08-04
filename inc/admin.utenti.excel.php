@@ -140,7 +140,6 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
         $f = $_GET['t'];
         $f= new Titolo($f);
         $volontari =  $c->ricercaMembriTitoli([$f]);
-        var_dump($volontari,$c,$f);
             foreach($volontari as $volontario){
                 $excel->aggiungiRiga([
                     $volontario->nome,
