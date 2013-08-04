@@ -31,7 +31,6 @@ function volontari(){
         type: 'bar',
         x: 'cat',
         y: 'female',
-        y: 'male',
         tooltip: 'test',
         color: { const: 'pink' }
     },
