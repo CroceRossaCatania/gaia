@@ -81,6 +81,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <script type="text/javascript" src="js/app.js"                                      ></script>
     <script type="text/javascript" src="js/ui.datepicker-it.js"                         ></script>
     <script type="text/javascript" src="js/tinymce/tinymce.min.js"                      ></script>
+    <script type="text/javascript" src="js/polychart2.standalone.js"  ></script>
     <?php if (file_exists('js/'. $p . '.js')) { /* Javascript dinamico */ ?>
         <script type="text/javascript" src="js/<?php echo $p; ?>.js"></script>
     <?php } ?>
