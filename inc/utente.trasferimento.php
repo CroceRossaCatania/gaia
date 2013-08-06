@@ -5,6 +5,7 @@
  */
 
 paginaPrivata();
+caricaSelettoreComitato();
 
 ?>
 <div class="row-fluid">
@@ -86,13 +87,11 @@ if($i==0){ ?>
     <div class="control-group">
         <label class="control-label" for="inputComitato">Comitato Destinazione </label>
         <div class="controls">
-            <select required name="inputComitato" autofocus class="span8">
-                    <?php foreach ( Comitato::elenco('locale ASC') as $c ) { ?>
-                        <option value="<?php echo $c->id; ?>"><?php echo $c->nomeCompleto(); ?></option>
-                    <?php } ?>
-            </select>
+            <a class="btn btn-inverse" data-selettore-comitato="true" data-input="inputComitato">
+                Seleziona un comitato... <i class="icon-pencil"></i>
+            </a>
             </div>
-          </div>
+    </div>
    <div class="control-group">
         <label class="control-label" for="inputMotivo">Motivazione </label>
         <div class="controls">

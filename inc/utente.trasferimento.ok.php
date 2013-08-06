@@ -8,6 +8,9 @@ paginaPrivata();
 
 $t = $_GET['id'];
 $c = $_POST['inputComitato'];
+if ( !$c ) { 
+    redirect('utente.trasferimento');
+}
 $m = $_POST['inputMotivo'];
 
 /* Cerco appartenenze al comitato specificato */
