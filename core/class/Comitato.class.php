@@ -510,5 +510,35 @@ class Comitato extends GeoPolitica {
         }
         return $r;
     }
+
+    /*
+    manca il fetch del sesso della persona
+
+    */
+
+    public function etaSessoComitatoToJSON() {
+        $q = $this->db->prepare("
+            SELECT 
+                dettagliPersona.valore 
+            FROM  
+                dettagliPersona, anagrafica, appartenenza
+            WHERE 
+                dettagliPersona.id = anagrafica.id
+            AND 
+                dettagliPersona.nome LIKE  'datanascita'
+            AND 
+                anagrafica.id = appartenenza.volontario
+            AND
+                appartenenza.comitato = :comitato");
+        $q->bindParam(':comitato', $this->id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = [$k[0], 'M'];
+        }
+
+        return json_encode($r)
+        
+    }
     
 }
