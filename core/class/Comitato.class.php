@@ -513,8 +513,8 @@ class Comitato extends GeoPolitica {
 
     /*
     manca il fetch del sesso della persona
-
     */
+    
     public function etaSessoComitatoToJSON() {
         $q = $this->db->prepare("
             SELECT 
@@ -533,10 +533,10 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = $k[0];
+            $r[] = ['data'=>$k[0],'sesso'=>'M'];
         }
 
-        return json_encode($r)
+        return json_encode($r);
         
     }
     
