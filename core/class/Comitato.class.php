@@ -515,7 +515,6 @@ class Comitato extends GeoPolitica {
     manca il fetch del sesso della persona
 
     */
-
     public function etaSessoComitatoToJSON() {
         $q = $this->db->prepare("
             SELECT 
@@ -525,16 +524,16 @@ class Comitato extends GeoPolitica {
             WHERE 
                 dettagliPersona.id = anagrafica.id
             AND 
-                dettagliPersona.nome LIKE  'datanascita'
-            AND 
                 anagrafica.id = appartenenza.volontario
+            AND 
+                dettagliPersona.nome LIKE  'datanascita'
             AND
                 appartenenza.comitato = :comitato");
         $q->bindParam(':comitato', $this->id);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = [$k[0], 'M'];
+            $r[] = $k[0];
         }
 
         return json_encode($r)
