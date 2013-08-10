@@ -515,7 +515,7 @@ class Comitato extends GeoPolitica {
     manca il fetch del sesso della persona
     */
     
-    public function etaSessoComitatoToJSON() {
+    public function etaSessoComitato() {
         $q = $this->db->prepare("
             SELECT 
                 dettagliPersona.valore 
@@ -536,7 +536,7 @@ class Comitato extends GeoPolitica {
             $r[] = ['data'=>$k[0],'sesso'=>'M'];
         }
 
-        return json_encode($r);
+        return $r;
         
     }
     

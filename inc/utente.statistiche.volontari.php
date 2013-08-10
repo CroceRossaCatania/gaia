@@ -19,7 +19,10 @@ paginaPrivata();
         <div class="row-fluid">
             <?php
                 $comitato = $me->unComitato();
-                $date = $comitato->etaSessoComitatoToJSON()
+                $datesesso = $comitato->etaSessoComitato();
+                $r = ['datesesso'=>$datesesso];
+
+                $daticomitato = json_encode($r);
 
 
             ?>
@@ -27,7 +30,7 @@ paginaPrivata();
 	        <div id="graficosx" class="span6"></div>   
 			<div id="graficodx" class="span6"></div>
 			<script type="text/javascript">
-		       		volontari(<?php echo($date)?>)
+		       		volontari(<?php echo($daticomitato); ?>)
 		    </script> 
 		</div>               
     </div>
