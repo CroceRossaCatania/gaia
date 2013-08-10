@@ -20,30 +20,25 @@ function volontari(datiComitato){
   var datesesso = datiComitato['datesesso'];
 
   var adesso = moment();
-  console.log(adesso);
-  var meno17 = moment(adesso).subtract('years', 17).unix();
-  console.log(meno17);
-  var meno31 = moment(adesso).subtract('years', 31).unix();
-  console.log(meno31);
-  var meno44 = moment(adesso).subtract('years', 44).unix();
-  console.log(meno44);
-  var meno54 = moment(adesso).subtract('years', 54).unix();
-  console.log(meno54);
-  var meno64 = moment(adesso).subtract('years', 64).unix();
-  console.log(meno64);
+  var meno18 = moment(adesso).subtract('years', 18).unix();
+  var meno32 = moment(adesso).subtract('years', 32).unix();
+  var meno45 = moment(adesso).subtract('years', 45).unix();
+  var meno55 = moment(adesso).subtract('years', 55).unix();
+  var meno65 = moment(adesso).subtract('years', 65).unix();
+
 
   for (var i = datesesso.length - 1; i >= 0; i--) {
     var data = datesesso[i]['data'];
     var sesso = datesesso[i]['sesso'];
-    if (data > meno17) {
+    if (data > meno18) {
       sceglisesso(sesso, 0);
-    } else if (data > meno31) {
+    } else if (data > meno32) {
       sceglisesso(sesso, 1);
-    } else if (data > meno44) {
+    } else if (data > meno45) {
       sceglisesso(sesso, 2);
-    } else if (data > meno54) {
+    } else if (data > meno55) {
       sceglisesso(sesso, 3);
-    } else if (data > meno64) {
+    } else if (data > meno65) {
       sceglisesso(sesso, 4);
     } else {
       sceglisesso(sesso, 5);
@@ -74,7 +69,6 @@ function volontari(datiComitato){
         type: 'bar',
         x: 'età',
         y: 'femmine',
-        tooltip: 'test',
         color: { const: 'pink' }
     },
     guide: {

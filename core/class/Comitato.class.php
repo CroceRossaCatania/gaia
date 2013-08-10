@@ -518,7 +518,7 @@ class Comitato extends GeoPolitica {
     public function etaSessoComitato() {
         $q = $this->db->prepare("
             SELECT 
-                dettagliPersona.valore 
+                dettagliPersona.valore, anagrafica.codiceFiscale
             FROM  
                 dettagliPersona, anagrafica, appartenenza
             WHERE 
@@ -531,9 +531,16 @@ class Comitato extends GeoPolitica {
                 appartenenza.comitato = :comitato");
         $q->bindParam(':comitato', $this->id);
         $q->execute();
+        function mof($cf) {
+            if (intval(substr($cf, 9, 2)) < 40)
+                return 'M';
+            else
+                return 'F';
+        }
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = ['data'=>$k[0],'sesso'=>'M'];
+            $sesso = mof($k[1]);
+            $r[] = ['data'=>$k[0],'sesso'=>$sesso];
         }
 
         return $r;
