@@ -36,6 +36,11 @@ if ( $presidente || $me->delegazioni(APP_CO)) {
     ];
 }
 
+if ( $presidente || $me->delegazioni(APP_OBIETTIVO)) {
+    $menu[''] += [
+        'obiettivo.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Delegato Obiettivo'
+    ];
+}
 
 $nap = count($me->autorizzazioniPendenti());
 if ( $nap ) {
