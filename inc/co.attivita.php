@@ -50,7 +50,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
             </thead>
         <?php
         $i = time();
-        $f = time()+86400;
+        $f = time()-3600;
         $comitati = $me->comitatiApp ([ APP_CO, APP_PRESIDENTE ]);
         $elenco = Attivita::elenco();
         foreach($comitati as $comitato){
@@ -59,10 +59,11 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                     $x=0;
                     $turni = $attivita->turni();
                     foreach($turni as $turno){
+                        $z=0;
                         $partecipanti = $turno->partecipazioniStato(AUT_OK);
                         foreach ($partecipanti as $partecipante){ 
                             $m= Coturno::filtra([['volontario', $partecipante->volontario()],['turno',$turno]]); 
-                            if (($turno->inizio>= $i  && $turno->fine <= $f) || ($m[0]->pMonta && !$m[0]->pSmonta)) {
+                            if (($turno->inizio <= $i  && $turno->fine >= $f) || ($m[0]->pMonta && !$m[0]->pSmonta)) {
                                 if($x==0){ ?> 
                                     <tr class="primary">
                                         <td colspan="4" class="grassetto">
@@ -71,12 +72,17 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                                     </tr>
                                     <?php 
                                     $x++;
-                                    } ?>
+                                    } 
+                                    if ( $z == 0){
+                                    ?>
                                 <tr class="info">
                                        <td><?php echo $turno->nome; ?></td>
                                        <td><?php echo date('d-m-Y H:i', $turno->inizio); ?></td>
                                        <td><?php echo date('d-m-Y H:i', $turno->fine); ?></td>
                                 </tr>
+                                    <?php $z++;
+                                    
+                                    } ?>
                                 <tr class="<?php if(!$m[0]->pSmonta && !$m[0]->stato == CO_MONTA){echo "warning"; }elseif($m[0]->stato == CO_MONTA){ echo "success";}else{echo "error";}?>">
                                    <td><?php echo $partecipante->volontario()->nomeCompleto(); ?></td>
                                    <td><?php echo $partecipante->volontario()->cellulare(); ?></td>
