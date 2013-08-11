@@ -15,6 +15,12 @@ class Appartenenza extends Entita {
             $this->conferma  = 0;
         }
 
+        public function richiediEstensione() {
+            $this->timestamp = time();
+            $this->stato     = MEMBRO_EST_PENDENTE;
+            $this->conferma  = 0;
+        }
+
         public function inizio() {
             return DT::daTimestamp($this->inizio);
         }

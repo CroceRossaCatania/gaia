@@ -18,6 +18,10 @@ define('PERSONA',   0);
 define('ASPIRANTE', 1);
 define('VOLONTARIO',2);
 
+/* Un anno */
+
+define('ANNO',      31536000);
+
 /*
  * ===================================
  * =========== APPARTENENZE ==========
@@ -28,18 +32,22 @@ define('VOLONTARIO',2);
 define('MEMBRO_TRASF_NEGATO',   10);
 define('MEMBRO_TRASF_IN_CORSO', 20);
 define('MEMBRO_PENDENTE',       30);
+define('MEMBRO_EST_PENDENTE',   35);
 define('MEMBRO_VOLONTARIO',     40);
+define('MEMBRO_ESTESO',         45);
 define('MEMBRO_MODERATORE',     50);
 define('MEMBRO_DIPENDENTE',     60);
 define('MEMBRO_PRESIDENTE',     70);
-define('MEMBRO_DIMESSO', 80);
+define('MEMBRO_DIMESSO',        80);
 
 /* Definizioni in stringa */
 $conf['membro'] = [
     MEMBRO_TRASF_NEGATO     =>  'Trasferimento negato',
     MEMBRO_TRASF_IN_CORSO   =>  'Trasferimento in corso',
     MEMBRO_PENDENTE         =>  'Pendente',
+    MEMBRO_EST_PENDENTE     =>  'Estensione in corso',
     MEMBRO_VOLONTARIO       =>  'Volontario',
+    MEMBRO_ESTESO           =>  'Volontario in estensione',
     MEMBRO_MODERATORE       =>  'Moderatore',
     MEMBRO_DIPENDENTE       =>  'Dipendente',
     MEMBRO_PRESIDENTE       =>  'Presidente',
@@ -279,6 +287,23 @@ $conf['trasferimenti'] = [
     TRASF_INCORSO       =>  'In corso',
     TRASF_OK            =>  'Con successo',
     TRASF_AUTO          =>  'Eseguito automaticamente'
+];
+
+/*
+ * ===================================
+ * ============ ESTENSIONI ===========
+ * ===================================
+ */
+define('EST_NEGATA',       10);
+define('EST_INCORSO',      20);
+define('EST_OK',           30);
+define('EST_AUTO',         40);
+
+$conf['trasferimenti'] = [
+    EST_NEGATA        =>  'Negata',
+    EST_INCORSO       =>  'In corso',
+    EST_OK            =>  'Con successo',
+    EST_AUTO          =>  'Eseguita automaticamente'
 ];
 
 /*
