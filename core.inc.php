@@ -7,7 +7,7 @@
 /* Carico la configurazione */
 $_conf = [
     'database', 'smtp', 'costanti', 'sessioni',
-    'generale', 'errori'
+    'generale', 'errori', 'autopull'
 ];
 
 foreach ( $_conf as $_load ) {

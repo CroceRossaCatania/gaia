@@ -32,7 +32,8 @@ Per motivi di sviluppo, è possibile installare Gaia come segue:
 1. Importare il file `/core/conf/gaia.sql` nel proprio database tramite phpMyAdmin
 2. Copiare il file `/core/conf/database.conf.php.sample` in `/core/conf/database.conf.php`
 3. Copiare il file `/core/conf/smtp.conf.php.sample` in `/core/conf/smtp.conf.php`
-4. Modificare, in questi due file, i parametri di accesso a MySQL ed al server SMTP.
+4. Copiare il file `/core/conf/autopull.conf.php.sample` in `/core/conf/autopull.conf.php`
+4. Modificare, nei primi due file, i parametri di accesso a MySQL ed al server SMTP.
 5. Permettere la scrittura alla directory `/upload` ed alle sue sottodirectory.
 6. Da browser, puntare alla pagina: `setup.php`.
 7. Registrare il primo volontario, che sarà automaticamente un amministratore.
