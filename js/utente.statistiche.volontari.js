@@ -43,11 +43,11 @@ function volontari(datiComitato){
     } else {
       sceglisesso(sesso, 5);
     }
-  }
+  };
 
 
   polyjs.chart({
-    title: 'Volontari',
+    title: 'Maschi',
     dom: 'graficosx',
     layer: {
         data: polyjs.data({data: jsondata}),
@@ -58,11 +58,11 @@ function volontari(datiComitato){
     },
     guide: {
         x: { title: 'Età' },
-        y: { title: 'Maschi' }
+        y: { title: 'Numero Volontari' }
     }
   });
   polyjs.chart({
-    title: 'Volontari',
+    title: 'Femmine',
     dom: 'graficodx',
     layer: {
         data: polyjs.data({data: jsondata}),
@@ -73,7 +73,37 @@ function volontari(datiComitato){
     },
     guide: {
         x: { title: 'Età' },
-        y: { title: 'Femmine' }
+        y: { title: 'Numero Volontari' }
+    }
+  });
+
+  var anzianita = datiComitato['anzianita'];
+  for (var i = anzianita.length - 1; i >= 0; i--) {
+    anzianita[i]['ingresso'] = moment.unix(parseInt(anzianita[i]['ingresso'])).format("YYYY");
+  };
+
+  polyjs.chart({
+    title: 'Anni di ingresso dei volontari',
+    dom: 'graficoanz',
+    width: 800,
+    layers: [{
+        data: polyjs.data(anzianita, {'ingresso': { type: 'date', format: 'YYYY' }}),
+        type: 'line',
+        x: {'var': 'ingresso', 'sort': 'ingresso'},
+        y: {'var': 'count(ingresso)'},
+        color: 'sesso',
+        size: {'const': 3}
+    }, {
+        data: polyjs.data(anzianita, {'ingresso': { type: 'date', format: 'YYYY' }}),
+        type: 'point',
+        x: {'var': 'ingresso', 'sort': 'ingresso'},
+        y: {'var': 'count(ingresso)'},
+        color: 'sesso',
+        size: {'const': 3}
+    } ],
+    guide: {
+        x: { title: 'Anno di ingresso' },
+        y: { title: 'Volontari entrati' }
     }
   });
 }

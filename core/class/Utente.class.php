@@ -18,6 +18,13 @@ class Utente extends Persona {
         }
     }
 
+    public static function sesso($cf) {
+            if (intval(substr($cf, 9, 2)) < 40)
+                return 'M';
+            else
+                return 'F';
+    }
+
 
     public static function listaAdmin() {
         global $db;

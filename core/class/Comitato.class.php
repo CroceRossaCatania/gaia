@@ -532,15 +532,10 @@ class Comitato extends GeoPolitica {
                 appartenenza.comitato = :comitato");
         $q->bindParam(':comitato', $this->id);
         $q->execute();
-        function mof($cf) {
-            if (intval(substr($cf, 9, 2)) < 40)
-                return 'M';
-            else
-                return 'F';
-        }
+        
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $sesso = mof($k[1]);
+            $sesso = Utente::sesso($k[1]);
             $r[] = ['data'=>$k[0],'sesso'=>$sesso];
         }
 
@@ -548,13 +543,41 @@ class Comitato extends GeoPolitica {
         
     }
 
+    public function anzianitaMembri($stato = MEMBRO_VOLONTARIO) {
+        $q = $this->db->prepare("
+            SELECT 
+                appartenenza.inizio, anagrafica.codiceFiscale
+            FROM  
+                anagrafica, appartenenza
+            WHERE 
+                anagrafica.id = appartenenza.volontario
+            AND
+                appartenenza.comitato = :comitato
+            AND
+                appartenenza.stato = :stato");
+        $q->bindParam(':comitato', $this->id);
+        $q->bindParam(':stato', $stato);
+        $q->execute();
+        
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $sesso = Utente::sesso($k[1]);
+            $r[] = ['ingresso'=>$k[0],'sesso'=>$sesso];
+        }
+
+        return $r;
+    }
+    
+
     public function informazioniVolontariJSON() {
         $datesesso = $this->etaSessoComitato();
-        $anzianita = 0;
+        $anzianita = $this->anzianitaMembri();
 
         $r = [  'datesesso'=>$datesesso,
                 'anzianita'=>$anzianita];
         return json_encode($r);
     }
+
+   
     
 }
