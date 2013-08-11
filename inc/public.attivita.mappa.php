@@ -47,21 +47,23 @@
       
       var messaggio = [], marcatore = [];                         
       <?php $i = 0; foreach ( Attivita::filtra([['stato', ATT_STATO_OK]]) as $a ) { 
-        if ( !$a->haPosizione() ) { continue; }  
+          foreach ( $a->turni() as $t ){
+              if ( $t->fine <= time() ){ continue; }
+                if ( !$a->haPosizione()) { continue; }  
         ?>
-        messaggio.push(new google.maps.InfoWindow({
-            content: "<a href='https://www.gaiacri.it/?p=attivita.scheda&id=<?php echo $a->id; ?>'><?php echo htmlentities($a->nome); ?></a><br /><?php echo htmlentities($a->luogo); ?>"
-        }));
-        marcatore.push(new google.maps.Marker({
-            position: new google.maps.LatLng(<?php echo $a->latlng(); ?>),
-            map: map, animation: google.maps.Animation.DROP
-        }));
-        google.maps.event.addListener(marcatore[<?php echo $i; ?>], 'click', function() {
-            messaggio[<?php echo $i; ?>].open(map, marcatore[<?php echo $i; ?>]);
-        });
-        <?php $i++; ?>
-        
-      <?php } ?>
+                    messaggio.push(new google.maps.InfoWindow({
+                        content: "<a href='https://www.gaiacri.it/?p=attivita.scheda&id=<?php echo $a->id; ?>'><?php echo htmlentities($a->nome); ?></a><br /><?php echo htmlentities($a->luogo); ?>"
+                    }));
+                    marcatore.push(new google.maps.Marker({
+                        position: new google.maps.LatLng(<?php echo $a->latlng(); ?>),
+                        map: map, animation: google.maps.Animation.DROP
+                    }));
+                    google.maps.event.addListener(marcatore[<?php echo $i; ?>], 'click', function() {
+                        messaggio[<?php echo $i; ?>].open(map, marcatore[<?php echo $i; ?>]);
+                    });
+                    <?php $i++; ?>
+
+      <?php }} ?>
         
     }
     function loadScript() {

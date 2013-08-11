@@ -4,14 +4,12 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $c = $_GET['comitato'];
 $c = new Comitato($c);
 
-if ( !$me->miCompete($c) ) {
-    redirect('presidente.utenti');
-}
+paginaApp([APP_SOCI , APP_PRESIDENTE], [$c]);
+
 
 if(isset($_GET['dimessi'])){
     

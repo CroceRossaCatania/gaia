@@ -342,7 +342,7 @@ class Utente extends Persona {
             SELECT  COUNT(trasferimenti.id)
             FROM    trasferimenti, appartenenza
             WHERE   trasferimenti.stato = :statoPendente
-            AND     trasferimenti.volontario = appartenenza.volontario
+            AND     trasferimenti.appartenenza = appartenenza.id
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', TRASF_INCORSO);

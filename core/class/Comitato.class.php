@@ -332,6 +332,7 @@ class Comitato extends GeoPolitica {
     
     public function toJSON() {
         return [
+            'id'            =>  $this->id,
             'nome'          =>  $this->nome,
             'indirizzo'     =>  $this->formattato,
             'coordinate'    =>  $this->coordinate(),

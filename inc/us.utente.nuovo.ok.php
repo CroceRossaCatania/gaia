@@ -6,9 +6,18 @@
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
-$codiceFiscale = $_GET['inputCodiceFiscale'];
+$comitato = $_POST['inputComitato'];
+if ( !$comitato ) {
+    redirect('us.utente.nuovo&c');
+}
+$comitato = new Comitato($comitato);
+if ( !in_array($comitato, $me->comitatiApp([APP_SOCI, APP_PRESIDENTE])) ) {
+    redirect('us.utente.nuovo&c');
+}
+
+$codiceFiscale = $_POST['inputCodiceFiscale'];
 $codiceFiscale = maiuscolo($codiceFiscale);
-$email      = minuscolo($_GET['inputEmail']);
+$email      = minuscolo($_POST['inputEmail']);
 
 /* Controlli */
 /* Cerca anomalie nel formato del codice fiscale */
@@ -37,18 +46,18 @@ if ($p) {
  * Normalizzazione dei dati
  */
 $id         = $p->id;
-$nome       = normalizzaNome($_GET['inputNome']);
-$cognome    = normalizzaNome($_GET['inputCognome']);
-$dnascita = DT::createFromFormat('d/m/Y', $_GET['inputDataNascita']);
+$nome       = normalizzaNome($_POST['inputNome']);
+$cognome    = normalizzaNome($_POST['inputCognome']);
+$dnascita = DT::createFromFormat('d/m/Y', $_POST['inputDataNascita']);
 $dnascita = $dnascita->getTimestamp();
-$prnascita= maiuscolo($_GET['inputProvinciaNascita']);
-$conascita = normalizzaNome($_GET['inputComuneNascita']);
-$coresidenza= normalizzaNome($_GET['inputComuneResidenza']);
-$caresidenza= normalizzaNome($_GET['inputCAPResidenza']);
-$prresidenza= maiuscolo($_GET['inputProvinciaResidenza']);
-$indirizzo  = normalizzaNome($_GET['inputIndirizzo']);
-$civico     = maiuscolo($_GET['inputCivico']);
-$grsanguigno = maiuscolo($_GET['inputgruppoSanguigno']);
+$prnascita= maiuscolo($_POST['inputProvinciaNascita']);
+$conascita = normalizzaNome($_POST['inputComuneNascita']);
+$coresidenza= normalizzaNome($_POST['inputComuneResidenza']);
+$caresidenza= normalizzaNome($_POST['inputCAPResidenza']);
+$prresidenza= maiuscolo($_POST['inputProvinciaResidenza']);
+$indirizzo  = normalizzaNome($_POST['inputIndirizzo']);
+$civico     = maiuscolo($_POST['inputCivico']);
+$grsanguigno = maiuscolo($_POST['inputgruppoSanguigno']);
 
 /*
  * Registrazione vera e propria...
@@ -71,20 +80,17 @@ $p->consenso = true;
 /*
  * Normalizzazione dei dati
  */
-$cell       = normalizzaNome($_GET['inputCellulare']);
-$cells      = normalizzaNome(@$_GET['inputCellulareServizio']);
+$cell       = normalizzaNome($_POST['inputCellulare']);
+$cells      = normalizzaNome(@$_POST['inputCellulareServizio']);
 
 $p->email               = $email;
 $p->cellulare           = $cell;
 $p->cellulareServizio   = $cells;
 
-$comitato     = $_GET['inputComitato'];
-$comitato     = new Comitato($comitato);
-
 $a = new Appartenenza();
 $a->volontario  = $p->id;
 $a->comitato    = $comitato;
-$inizio = DT::createFromFormat('d/m/Y', $_GET['inputDataIngresso']);
+$inizio = DT::createFromFormat('d/m/Y', $_POST['inputDataIngresso']);
 $inizio = $inizio->getTimestamp();
 $a->inizio      = $inizio;
 $a->fine        = PROSSIMA_SCADENZA;

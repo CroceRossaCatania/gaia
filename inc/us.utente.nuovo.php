@@ -5,10 +5,10 @@
  */
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
+caricaSelettoreComitato();
 
 ?>
-<form action="?" method="GET">
-    <input type="hidden" name="p" value="us.utente.nuovo.ok">
+<form action="?p=us.utente.nuovo.ok" method="POST">
 <div class="modal fade automodal">
     
     <div class="modal-header">
@@ -21,6 +21,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         <div class="alert alert-danger">
             <i class="icon-ban-circle"></i> <strong>Codice Fiscale errato</strong>.
             Il formato del codice fiscale inserito non risulta valido.
+        </div>
+        <?php }elseif ( isset($_GET['c']) ) { ?>
+        <div class="alert alert-danger">
+            <i class="icon-ban-circle"></i> <strong>Scegli un comitato valido</strong>.
+            Seleziona un comitato di appartenenza che rientra nel tuo ruolo di presidente/ufficio soci.
         </div>
         <?php }elseif ( isset($_GET['gia']) ) { ?>
         <div class="alert alert-danger">
@@ -180,12 +185,10 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <label class="control-label" for="inputComitato">Comitato</label>
         </div>
             <div class="span8">
-                <select required name="inputComitato" id="inputComitato" class="span11">
-                    <option value="" selected="selected">[ Seleziona un Comitato ]</option>
-                    <?php foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]) as $c ) { ?>
-                        <option value="<?php echo $c->id; ?>"><?php echo $c->nomeCompleto(); ?></option>
-                    <?php } ?>
-                </select>
+                <a class="btn btn-inverse" data-selettore-comitato="true" data-input="inputComitato">
+                    Seleziona un Comitato... <i class="icon-pencil"></i>
+                </a>
+
             </div>
         </div>
         

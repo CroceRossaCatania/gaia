@@ -32,7 +32,7 @@ $t = Volontario::by('id', $f);
 }
 
 #testo{
-    width:150px;
+    width:170px;
     height:170px;
     position:absolute;
     margin-left: 110px;

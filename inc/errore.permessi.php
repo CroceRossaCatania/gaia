@@ -4,6 +4,11 @@
  * ©2013 Croce Rossa Italiana
  */
 
+if ( !$me instanceof Anonimo ) { 
+    // Ricordati che l'utente si è comportato male...
+    $me->cattivo = (int) $me->cattivo + 1;
+    $me->tCattivo = time();
+}
 ?>
 <div class="row-fluid">
     <div class="span3">
