@@ -54,5 +54,3 @@ caricaSelettoreComitato();
     </script>            
 </div>
 </div>
-
-
