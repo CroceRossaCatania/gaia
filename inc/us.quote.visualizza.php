@@ -14,16 +14,17 @@ $appartenenza = $v->storico();
 <div class="row-fluid">
     <div class="span5 allinea-sinistra">
         <h2>
-            <i class="icon-search muted"></i>
+            <i class="icon-paperclip muted"></i>
             Quote associative
         </h2>
+        <p>Volontario: <strong><?= $v->nomeCompleto(); ?></strong></p>
     </div>
             
             <div class="span3">
                 <div class="btn-group btn-group-vertical span12">
-                    <a href="?p=us.dash" class="btn btn-block">
+                    <a href="?p=us.quoteSi" class="btn btn-block">
                         <i class="icon-reply"></i>
-                        Torna alla dash
+                        Torna indietro
                     </a>
                 </div>
             </div>
@@ -31,7 +32,7 @@ $appartenenza = $v->storico();
     <div class="span4 allinea-destra">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>
-            <input autofocus required id="cercaUtente" placeholder="Cerca Volontari..." type="text">
+            <input autofocus required id="cercaUtente" placeholder="Cerca Volontario..." type="text">
         </div>
     </div>    
 </div>
@@ -58,15 +59,15 @@ $q = Quota::filtra([['appartenenza', $app]], 'timestamp DESC');
     foreach ( $q as $_q ){   
                 ?>
                 <tr>
-                    <td><?php echo $_q->id; ?></td>
-                    <td><?php echo $_q->volontario()->nome; ?></td>
-                    <td><?php echo $_q->volontario()->cognome; ?></td>
-                    <td><?php echo $_q->comitato()->nomeCompleto(); ?></td>
-                    <td><?php echo date('d/m/Y', $_q->timestamp); ?></td>
-                    <td><?php echo $_q->quota ,"€"; ?></td>
-                    <td><?php echo $_q->conferma()->nomeCompleto(); ?></td>
+                    <td><?= $_q->id; ?></td>
+                    <td><?= $_q->volontario()->nome; ?></td>
+                    <td><?= $_q->volontario()->cognome; ?></td>
+                    <td><?= $_q->comitato()->nomeCompleto(); ?></td>
+                    <td><?= date('d/m/Y', $_q->timestamp); ?></td>
+                    <td><?= $_q->quota ,"€"; ?></td>
+                    <td><?= $_q->conferma()->nomeCompleto(); ?></td>
                     <td>
-                        <a class="btn btn-small btn-info" href="?p=us.quote.ricevuta&id=<?php echo $_q->id; ?>" title="Invia Mail">
+                        <a class="btn btn-small btn-info" href="?p=us.quote.ricevuta&id=<?= $_q->id; ?>" title="Invia Mail">
                             <i class="icon-paperclip"></i> Ricevuta
                         </a>
                     </td>
