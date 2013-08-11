@@ -357,6 +357,24 @@ class Utente extends Persona {
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
     }
+
+    public function numEstPending( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma ( $app );
+        $q = $this->db->prepare("
+            SELECT  COUNT(estensioni.id)
+            FROM    estensioni, appartenenza AS app1, appartenenza AS app2
+            WHERE   estensioni.stato = :statoPendente
+            AND     estensioni.appartenenza = app1.id
+            AND     app1.volontario = app2.volontario
+            AND     app2.stato = :membroVolontario
+            AND     app2.comitato  IN
+                ( {$comitati} )");
+        $q->bindValue(':statoPendente', EST_INCORSO);
+        $q->bindValue(':membroVolontario', MEMBRO_VOLONTARIO);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
     
     public function numRisPending( $app = [ APP_PRESIDENTE ] ) {
         $comitati = $this->comitatiAppComma ( $app );
