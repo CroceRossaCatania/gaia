@@ -10,6 +10,7 @@ $elenco = Comitato::elenco();
 foreach ( $elenco as $comitato ){
     $q = $comitato->quoteNo();
     foreach ($q as $_q){
+        set_time_limit(0);
         $t = new Quota();
         $appartenenza = $_q->appartenenzeAttuali();
         $t->appartenenza = $appartenenza[0];
