@@ -546,5 +546,14 @@ class Comitato extends GeoPolitica {
         return $r;
         
     }
+
+    public function informazioniVolontariJSON() {
+        $datesesso = $this->etaSessoComitato();
+        $anzianita = 0;
+
+        $r = [  'datesesso'=>$datesesso,
+                'anzianita'=>$anzianita];
+        return json_encode($r);
+    }
     
 }
