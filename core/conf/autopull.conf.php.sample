@@ -15,14 +15,14 @@
 /* Configurazione del servizio AUTOPULL */
 $conf['autopull'] = [
  
-    'abilitato'	=	true,
-    'ramo'	=	'master',
+    'abilitato'	=>	true,
+    'ramo'	=>	'master',
 
     // Locazione dell'eseguibile di GIT nel sistema
-    'bin'	=	'/usr/bin/git',
+    'bin'	=>	'/usr/bin/git',
     
     // Nome dell'origine
-    'origin'    =	'origin'
+    'origin'    =>	'origin'
 
  
 ];
