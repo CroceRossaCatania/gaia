@@ -4,6 +4,13 @@
  * ©2013 Croce Rossa Italiana
  */
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
+
+
+menuElenchiVolontari(
+    "Volontari dimessi",                // Nome elenco
+    "?p=admin.utenti.excel&dimessi",    // Link scarica elenco
+    false                               // Link email elenco
+);
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -17,55 +24,10 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <p>Contatta l'amministratore</p>
         </div>
 <?php } ?>
-    <br/>
-<div class="row-fluid">
-    <div class="span5 allinea-sinistra">
-        <h2>
-            <i class="icon-group muted"></i>
-            Elenco volontari non attivi
-        </h2>
-    </div>
-            
-            <div class="span3">
-                <div class="btn-group btn-group-vertical span12">
-                    <a href="?p=presidente.utenti" class="btn btn-success btn-block">
-                        <i class="icon-list"></i>
-                        Volontari attivi
-                    </a>
-                    <a href="?p=presidente.utenti.dimessi" class="btn btn-danger btn-block">
-                        <i class="icon-list"></i>
-                        Volontari non attivi
-                    </a>
-                    <a href="?p=presidente.utenti.giovani" class="btn btn-danger btn-block btn-info">
-                        <i class="icon-list"></i>
-                        Volontari giovani
-                    </a>
-                    <a href="?p=us.elettorato" class="btn btn-block btn-primary">
-                        <i class="icon-list"></i>
-                        Elenchi elettorato
-                    </a>
-                </div>
-            </div>
-    
-    <div class="span4 allinea-destra">
-        <div class="input-prepend">
-            <span class="add-on"><i class="icon-search"></i></span>
-            <input autofocus required id="cercaUtente" placeholder="Cerca Volontari..." type="text">
-        </div>
-    </div>    
-</div>
-    
-<hr />
-    
+  
 <div class="row-fluid">
    <div class="span12">
-       <?php if ( count($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ])) > 1 ) { ?>
-       <a href="?p=admin.utenti.excel&dimessi" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
-           <i class="icon-download"></i>
-            <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari dimessi in un archivio zip.
-       </a><hr />
-       <?php } ?>
-       
+
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
                 <th>Cognome</th>
