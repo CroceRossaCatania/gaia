@@ -5,6 +5,13 @@
  */
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
+
+menuElenchiVolontari(
+    "Volontari attivi",         // Nome elenco
+    "?p=admin.utenti.excel",    // Link scarica elenco
+    "?p=utente.mail.nuova&com"  // Link email elenco
+);
+
 ?>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
@@ -22,75 +29,74 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <p>Il Volontario è stato dimesso con successo.</p>
         </div>
 <?php } ?>
-    <br/>
-<div class="row-fluid">
-    <div class="span5 allinea-sinistra">
-        <h2>
-            <i class="icon-group muted"></i>
-            Elenco volontari
-        </h2>
-    </div>
-            
-    <div class="span3">
-        <div class="btn-group btn-group-vertical span12">
-                <a href="?p=presidente.utenti" class="btn btn-success btn-block">
-                    <i class="icon-list"></i>
-                    Volontari attivi
-                </a>
-                <a href="?p=presidente.utenti.dimessi" class="btn btn-danger btn-block">
-                    <i class="icon-list"></i>
-                    Volontari non attivi
-                </a>
-                <a href="?p=presidente.utenti.giovani" class="btn btn-block btn-info">
-                    <i class="icon-list"></i>
-                    Volontari giovani
-                </a>
-                <a href="?p=us.elettorato" class="btn btn-block btn-primary">
-                    <i class="icon-list"></i>
-                    Elenchi elettorato
-                </a>
-        </div>
-    </div>
-    
-    <div class="span4 allinea-destra">
-        <div class="input-prepend">
-            <span class="add-on"><i class="icon-search"></i></span>
-            <input autofocus required id="cercaUtente" placeholder="Cerca Volontari..." type="text">
-        </div>
-    </div>    
-</div>
-    
-<hr />
+
     
 <div class="row-fluid">
    <div class="span12">
-       <div class="btn-group btn-group-vertical span12">
-       <?php if ( count($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ])) > 1 ) { ?>
-       <a href="?p=admin.utenti.excel" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
-           <i class="icon-download"></i>
-            <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari in un archivio zip.
-       </a>
-       <?php } ?>
-       
-       <a href="?p=utente.mail.nuova&com" class="btn btn-block btn-success">
-           <i class="icon-envelope"></i>
-            <strong>Ufficio Soci</strong> &mdash; Invia mail di massa a tutti i Volontari.
-       </a><hr />
-       </div>
-       
-       <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
-            <thead>
-                <th>Cognome</th>
-                <th>Nome</th>
-                <th>Località</th>
-                <th>Cellulare</th>
-                <th>Azioni</th>
-            </thead>
-        <?php
+
+       <?php        
+
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
+        $troppi = false;
+        if ( count($elenco) > 10 && !isset($_GET['coraggio']) ) {
+            $troppi = true;
+        }
+
+       if (!isset($_POST['inputQuery'])) {
+            ?>  
+                <div class="alert alert-info">
+                    <h4>
+                        <i class="icon-info-sign"></i>
+                        Usa la barra di ricerca per trovare i volontari
+                    </h4>
+                    <p>Usa la barra di ricerca in alto a destra per cercare i volontari.
+                    Puoi cercare per: Nome, cognome, codice fiscale o email.</p>
+                </div>
+
+
+            <?php
+        }
+
+        if ( $troppi ) {
+            ?>
+            <div class="alert alert-danger">
+                    <h4>
+                        <i class="icon-warning-sign"></i>
+                        Ci sono molti volontari in questo elenco
+                    </h4>
+                    <p>La lista non è stata caricata in automatico perché potrebbe essere
+                    molto pesante. Cerca i volontari per nome, cognome, ecc.</p>
+                    <a href="?p=presidente.utenti&coraggio" class="btn btn-danger" data-attendere="Avvio caricamento lista...">
+                        <i class="icon-cogs"></i> Carica comunque l'elenco completo (può richiedere del tempo)
+                    </a>
+            </div>
+            <?php
+        }
+        ?>
+
+           <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
+                <thead>
+                    <th>Cognome</th>
+                    <th>Nome</th>
+                    <th>Località</th>
+                    <th>Cellulare</th>
+                    <th>Azioni</th>
+                </thead>
+        <?php
+        
+
+
+        $risultati = 0;
         foreach($elenco as $comitato) {
-            $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
+            $t = [];
+            if ( isset($_POST['inputQuery']) ) { 
+                $t = $comitato->cercaVolontari($_POST['inputQuery']);
+            } elseif ( !$troppi ) {
+                $t = $comitato->tuttiVolontari();
+            }
+            $risultati += count($t);
                 ?>
+            
             
             <tr class="success">
                 <td colspan="7" class="grassetto">
@@ -98,18 +104,22 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     <span class="label label-warning">
                         <?php echo count($t); ?>
                     </span>
-                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unit">
-                           <i class="icon-envelope"></i> Invia mail
-                    </a>
-                    <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>"
-                       data-attendere="Generazione...">
-                            <i class="icon-download"></i> scarica come foglio excel
-                    </a>
+
+                    <div class="pull-right btn-group">
+                        <a class="btn btn-success btn-small" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unit">
+                               <i class="icon-envelope"></i> Invia messaggio a tutti i volontari
+                        </a>
+                        <a class="btn btn-small" 
+                           href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>"
+                           data-attendere="Generazione...">
+                                <i class="icon-download"></i> Scarica volontari come foglio excel
+                        </a>
+                    </div>
                 </td>
             </tr>
             
             <?php
+            if ( $troppi ) { continue; } 
             foreach ( $t as $_v ) {
             ?>
                 <tr>
@@ -165,12 +175,20 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 
                
        
-        <?php }
-        }
+        <?php
+        
+            }
+
+        } 
+
         ?>
 
         </table>
-       
+
+        <?php if ( isset($_POST['inputQuery']) ) { ?>
+            <h4 class="allinea-centro"><?php echo $risultati; ?> risultati trovati</h4>
+        <?php } ?>
+
     </div>
     
 </div>
