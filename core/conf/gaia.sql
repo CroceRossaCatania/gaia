@@ -705,6 +705,32 @@ CREATE TABLE IF NOT EXISTS `turni` (
   KEY `fine` (`fine`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `estensioni`
+--
+
+CREATE TABLE IF NOT EXISTS `estensioni` (
+  `id` int(11) NOT NULL,
+  `stato` varchar(16) DEFAULT NULL,
+  `appartenenza` varchar(16) DEFAULT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `cProvenienza` varchar(16) DEFAULT NULL,
+  `protNumero` varchar(16) DEFAULT NULL,
+  `protData` varchar(64) DEFAULT NULL,
+  `motivo` text,
+  `negazione` text,
+  `timestamp` varchar(64) DEFAULT NULL,
+  `pConferma` varchar(16) DEFAULT NULL,
+  `tConferma` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `appartenenza` (`appartenenza`),
+  KEY `volontario` (`volontario`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+

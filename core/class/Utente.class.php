@@ -362,12 +362,10 @@ class Utente extends Persona {
         $comitati = $this->comitatiAppComma ( $app );
         $q = $this->db->prepare("
             SELECT  COUNT(estensioni.id)
-            FROM    estensioni, appartenenza AS app1, appartenenza AS app2
+            FROM    estensioni, appartenenza
             WHERE   estensioni.stato = :statoPendente
-            AND     estensioni.appartenenza = app1.id
-            AND     app1.volontario = app2.volontario
-            AND     app2.stato = :membroVolontario
-            AND     app2.comitato  IN
+            AND     estensioni.appartenenza = appartenenza.id
+            AND     estensioni.cProvenienza  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', EST_INCORSO);
         $q->bindValue(':membroVolontario', MEMBRO_VOLONTARIO);

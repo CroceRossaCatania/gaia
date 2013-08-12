@@ -48,10 +48,11 @@ $e->stato = EST_INCORSO;
 $e->appartenenza = $a;
 $e->volontario = $me->id;
 $e->motivo = $m;
-$e->timestamp = time();   
+$e->timestamp = time();
+$e->cProvenienza = $me->unComitato()->id;
 
 $sessione->inGenerazioneEstensione = time();
-redirect('presidente.estensioneRichiesta.stampa&id=' . $e);
+redirect('utente.estensioneRichiesta.stampa&id=' . $e->id);
 
 
 
