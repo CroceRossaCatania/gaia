@@ -47,7 +47,7 @@
         <h4>Ricerca</h4>
         <div class="input-append">
             <form action="?p=presidente.utenti" method="POST" class="allinea-centro">
-                <input autofocus required name="inputQuery" placeholder="Cerca tra i volontari" type="text" />
+                <input autofocus required name="inputQuery" id="cercaUtente" placeholder="Cerca tra i volontari" type="text" />
                 <button class="btn btn-primary" type="submit">
                     <i class="icon-search"></i>
                 </button>
