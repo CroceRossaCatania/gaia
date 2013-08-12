@@ -299,7 +299,7 @@ define('EST_INCORSO',      20);
 define('EST_OK',           30);
 define('EST_AUTO',         40);
 
-$conf['trasferimenti'] = [
+$conf['estensioni'] = [
     EST_NEGATA        =>  'Negata',
     EST_INCORSO       =>  'In corso',
     EST_OK            =>  'Con successo',
