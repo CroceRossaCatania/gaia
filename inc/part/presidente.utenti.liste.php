@@ -25,14 +25,18 @@
 
     <div class="span3">
         <h4>Ufficio Soci</h4>
-        <a href="<?php echo $_link_excel; ?>" data-attendere="Generazione e compressione in corso...">
-            <i class="icon-download-alt"></i>
-            Scarica elenco <?php echo $_lista_attiva; ?> (ZIP)
-        </a><br />       
-        <a href="<?php echo $_link_email; ?>">
-            <i class="icon-envelope"></i>
-            Email di massa a <?php echo $_lista_attiva; ?>
-        </a><br />
+        <?php if ( $_link_excel ) { ?>
+	        <a href="<?php echo $_link_excel; ?>" data-attendere="Generazione e compressione in corso...">
+	            <i class="icon-download-alt"></i>
+	            Scarica elenco <?php echo $_lista_attiva; ?> (ZIP)
+	        </a><br />  
+        <?php } ?>     
+        <?php if ( $_link_email ) { ?>
+	        <a href="<?php echo $_link_email; ?>">
+	            <i class="icon-envelope"></i>
+	            Email di massa a <?php echo $_lista_attiva; ?>
+	        </a><br />
+        <?php } ?>
         <a href="?p=us.elettorato">
             <i class="icon-cogs"></i>
             Genera elenchi elettorato
