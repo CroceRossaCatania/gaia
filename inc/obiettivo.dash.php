@@ -26,6 +26,9 @@ foreach ( $d as $_d ){
     if ( $_d == 6 ){
         $sei = true;
     }
+    if ( $me->admin() || $me->presidenziante() ){
+        $uno=$due=$tre=$quattro=$cinque=$sei=true;
+    }
 }
 ?>
 
@@ -66,6 +69,10 @@ foreach ( $d as $_d ){
                     <a href="?p=presidente.utenti" class="btn btn-primary btn-block">
                         <i class="icon-list"></i>
                         Elenco Volontari
+                    </a>
+                    <a href="?p=presidente.titoli.ricerca" class="btn btn-block">
+                        <i class="icon-search"></i>
+                        Ricerca per titoli
                     </a>
                </div>
             </div>

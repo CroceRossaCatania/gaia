@@ -11,7 +11,7 @@ if (isset($_GET['t'])) {
 }
 $titoli = $conf['titoli'][$t];
 
-paginaApp([APP_CO,APP_PRESIDENTE,APP_SOCI]);
+paginaApp([ APP_PRESIDENTE , APP_SOCI , APP_OBIETTIVO ]);
  
 ?>
 <div class="row-fluid">

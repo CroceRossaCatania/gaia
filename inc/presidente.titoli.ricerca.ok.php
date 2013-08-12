@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_CO,APP_PRESIDENTE,APP_SOCI]);
+paginaApp([ APP_OBIETTIVO , APP_PRESIDENTE , APP_SOCI ]);
 $f= new Titolo($_POST['idTitolo']);
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
@@ -49,7 +49,7 @@ $f= new Titolo($_POST['idTitolo']);
         <th>Azioni</th>
     </thead>
 <?php
-  foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE,APP_CO ]) as $elenco){
+  foreach($me->comitatiApp ([ APP_SOCI , APP_PRESIDENTE , APP_OBIETTIVO ]) as $elenco){
       $volontari =  $elenco->ricercaMembriTitoli([$f]);  
       ?>
       <tr class="success">
