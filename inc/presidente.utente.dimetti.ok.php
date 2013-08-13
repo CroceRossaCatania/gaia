@@ -27,7 +27,7 @@ $d->volontario = $v->id;
 $a = Appartenenza::filtra([['volontario', $v]]);
 $i = Delegato::filtra([['volontario',$v]]);
 $g = TitoloPersonale::filtra([['volontario', $v]]);
-$e = Estensione::filtra([['volontario', $v]]);
+$e = Estensione::filtra([['volontario', $v], ['stato', EST_OK]]);
 
 foreach ($i as $_i){
     $b = new Delegato($_i);
