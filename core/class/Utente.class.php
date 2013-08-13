@@ -368,7 +368,6 @@ class Utente extends Persona {
             AND     estensioni.cProvenienza  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', EST_INCORSO);
-        $q->bindValue(':membroVolontario', MEMBRO_VOLONTARIO);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];

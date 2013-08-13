@@ -8,19 +8,19 @@ paginaPrivata();
 
 $f = $_GET['id'];
 $e = Estensione::by('id', $f);
-$cin = $e->comitato();
+$cest = $e->comitato();
 
-$cout = $e->volontario()->unComitato();
+$capp = $e->volontario()->unComitato();
 $app = Appartenenza::filtra([
     ['volontario',  $e->volontario()->id],
-    ['comitato',    $cout->id]
+    ['comitato',    $capp->id]
 ]);
 $app = $app[0];
 
 /* Modificando questo, modificare anche utente.estensione.ok */
 $p = new PDF('estensione', 'Estensione.pdf');
-$p->_COMITATOOUT = $cout->nomeCompleto();
-$p->_COMITATOIN = $cin->nomeCompleto();
+$p->_COMITATOOUT = $capp->nomeCompleto();
+$p->_COMITATOIN = $cest->nomeCompleto();
 $p->_NOME = $e->volontario()->nome;
 $p->_COGNOME = $e->volontario()->cognome;
 $p->_LUOGO = $e->volontario()->comuneNascita;

@@ -59,10 +59,8 @@ $comitati= $me->comitatiDiCompetenza();
 $e = Estensione::filtra([['stato',EST_INCORSO]]);
 foreach ($e as $_e){
     $v =$_e->volontario();
-    $a = Appartenenza::filtra([['volontario',$v],['stato', MEMBRO_VOLONTARIO]]);
     foreach($comitati as $comitato){
-        if ($a[0]->comitato()==$comitato){
-            $b = Estensione::filtra([['volontario',$v],['stato', EST_INCORSO]]);
+        if ($v->unComitato()==$comitato){
  ?>
     <tr>
         <td><?php echo $v->nome; ?></td>
@@ -84,7 +82,7 @@ foreach ($e as $_e){
         <?php }else{ ?>
         <td>   
             <div class="btn-group">
-                <a class="btn btn-info" href="?p=presidente.estensioneRichiesta.stampa&id=<?php echo $_e->id; ?>">
+                <a class="btn btn-info" href="?p=utente.estensioneRichiesta.stampa&id=<?php echo $_e->id; ?>">
                     <i class="icon-print"></i> Stampa richiesta
                 </a>
                 <a class="btn btn-success" href="?p=presidente.estensioneRichiesta&id=<?php echo $_e->id; ?>">
