@@ -21,6 +21,11 @@ paginaAdmin();
             <input type="file" id="inputCSV" name="inputCSV">
           </div>
         </div>    
+        <div class="control-group">
+            <label class="checkbox" for="inputQuote">
+                <input type="checkbox" id="inputQuote" name="inputQuote">Segna contestualmente quote come pagate
+            </label>
+        </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-danger">
                 <i class="icon-fire"></i> Importa dati in massa ed invia email
