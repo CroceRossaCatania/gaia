@@ -121,6 +121,20 @@ $i = 0;
     $m->invia();
     }
     
+    if ( isset($_GET['inputQuote']) ){
+        $t = new Quota();
+        $t->appartenenza = $app->id;
+        $time = date('Y', time());
+        $time = mktime(0,0,0,1,1,$time);
+        $t->timestamp = $time;
+        $t->tConferma = time();
+        $t->pConferma = $me;
+        $t->quota = QUOTA_RINNOVO;
+        $s = QUOTA_RINNOVO;
+        $i = "Versamento quota di rinnovo annuale";
+        $t->causale = $i;
+    }
+    
     $m = new Email('registrazioneFormat', 'Registrati su Gaia');
     $m->a = $p;
     $m->_NOME       = $p->nome;
