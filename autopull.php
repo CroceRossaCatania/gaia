@@ -19,7 +19,7 @@ header('Content-Type: text/plain');
 
 $output = '';
 exec("$GIT_BIN fetch $REMOTE 2>&1; $GIT_BIN checkout -q $REMOTE/$BRANCH 2>&1; $GIT_BIN log -1 2>&1;", $output);
-$output = date('d-m-Y H:i:s') . "\n\n" . $output;
+$output = date('d-m-Y H:i:s') . "\n\n" . print_r($output, true);
 
 /* Salva nel file di log */
-file_put_contents('upload/log/autopull.txt', print_r($output, true));
+file_put_contents('upload/log/autopull.txt', $output);
