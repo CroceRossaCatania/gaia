@@ -85,6 +85,10 @@ $menu += [
     ],
     'Impostazioni' =>  [
         'utente.password'     =>   '<i class="icon-key"></i> Password'
+    ],
+    'Statistiche' =>  [
+        'utente.statistiche.volontari'     =>   '<i class="icon-puzzle-piece"></i> Volontari'
+//        'utente.statistiche.attivita'     =>   '<i class="icon-weibo"></i> Attività'
     ]
 ];
 

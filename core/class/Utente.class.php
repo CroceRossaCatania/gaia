@@ -18,6 +18,13 @@ class Utente extends Persona {
         }
     }
 
+    public static function sesso($cf) {
+            if (intval(substr($cf, 9, 2)) < 40)
+                return 'M';
+            else
+                return 'F';
+    }
+
 
     public static function listaAdmin() {
         global $db;
@@ -357,7 +364,7 @@ class Utente extends Persona {
             SELECT  COUNT(riserve.id)
             FROM    riserve, appartenenza
             WHERE   riserve.stato = :statoPendente
-            AND     riserve.volontario = appartenenza.volontario
+            AND     riserve.appartenenza = appartenenza.id
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', RISERVA_INCORSO);
