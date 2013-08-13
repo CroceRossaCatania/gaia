@@ -51,5 +51,13 @@ class Estensione extends Entita {
         $this->risposta = EST_AUTO;
         $this->tConferma = time();
     }
+
+    public function termina() {
+        $this->timestamp = time();
+        $this->stato = EST_CONCLUSA;
+        $app = new Appartenenza($this->appartenenza);
+        $app->stato = MEMBRO_EST_TERMINATA;
+        $app->fine = time();
+    }
         
 }

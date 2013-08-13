@@ -40,6 +40,7 @@ define('MEMBRO_MODERATORE',     50);
 define('MEMBRO_DIPENDENTE',     60);
 define('MEMBRO_PRESIDENTE',     70);
 define('MEMBRO_DIMESSO',        80);
+define('MEMBRO_EST_TERMINATA',  85);
 
 /* Definizioni in stringa */
 $conf['membro'] = [
@@ -53,7 +54,8 @@ $conf['membro'] = [
     MEMBRO_MODERATORE       =>  'Moderatore',
     MEMBRO_DIPENDENTE       =>  'Dipendente',
     MEMBRO_PRESIDENTE       =>  'Presidente',
-    MEMBRO_DIMESSO       =>  'Dimesso'
+    MEMBRO_DIMESSO          =>  'Dimesso',
+    MEMBRO_EST_TERMINATA    =>  'Estensione terminata'
 ];
 
 
@@ -300,12 +302,14 @@ define('EST_NEGATA',       10);
 define('EST_INCORSO',      20);
 define('EST_OK',           30);
 define('EST_AUTO',         40);
+define('EST_CONCLUSA',     50);
 
 $conf['estensioni'] = [
     EST_NEGATA        =>  'Negata',
     EST_INCORSO       =>  'In corso',
     EST_OK            =>  'Con successo',
-    EST_AUTO          =>  'Eseguita automaticamente'
+    EST_AUTO          =>  'Eseguita automaticamente',
+    EST_CONCLUSA      =>  'Estensione conclusa'
 ];
 
 /*

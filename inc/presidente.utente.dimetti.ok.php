@@ -27,6 +27,7 @@ $d->volontario = $v->id;
 $a = Appartenenza::filtra([['volontario', $v]]);
 $i = Delegato::filtra([['volontario',$v]]);
 $g = TitoloPersonale::filtra([['volontario', $v]]);
+$e = Estensione::filtra([['volontario', $v]]);
 
 foreach ($i as $_i){
     $b = new Delegato($_i);
@@ -36,6 +37,11 @@ foreach ($i as $_i){
 foreach ($g as $_g){
     $g = new TitoloPersonale($_g);
     $g->fine = time();   
+}
+
+foreach ($e as $_e){
+    $est = new Estensione($_e);
+    $est.termina();
 }
 
 foreach ( $a as $_a){
