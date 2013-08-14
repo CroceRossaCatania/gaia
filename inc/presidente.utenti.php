@@ -33,6 +33,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE , APP_OBIETTIVO ]);
             
     <div class="span3">
         <div class="btn-group btn-group-vertical span12">
+            <?php if (!$me->delegazioni(APP_OBIETTIVO)){ ?>
                 <a href="?p=presidente.utenti" class="btn btn-success btn-block">
                     <i class="icon-list"></i>
                     Volontari attivi
@@ -49,6 +50,12 @@ paginaApp([APP_SOCI , APP_PRESIDENTE , APP_OBIETTIVO ]);
                     <i class="icon-list"></i>
                     Elenchi elettorato
                 </a>
+            <?php }else{ ?>
+                <a href="?p=obiettivo.dash" class="btn btn-block">
+                    <i class="icon-reply"></i>
+                    Torna Indietro
+                </a>
+            <?php } ?>
         </div>
     </div>
     

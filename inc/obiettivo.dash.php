@@ -26,10 +26,10 @@ foreach ( $d as $_d ){
     if ( $_d == 6 ){
         $sei = true;
     }
-    if ( $me->admin() || $me->presidenziante() ){
-        $uno=$due=$tre=$quattro=$cinque=$sei=true;
-    }
 }
+if ( $me->admin() || $me->presidenziante() ){
+        $uno=$due=$tre=$quattro=$cinque=$sei=true;
+ }
 ?>
 
 <div class="row-fluid">
@@ -54,10 +54,6 @@ foreach ( $d as $_d ){
 
             <div class="span3">
                 <table class="table table-striped table-condensed">
-<!--                
-                    <tr><td>Reperibili</td><td><?php echo "help"; ?></td></tr>
-                    <tr><td>In servizio</td><td><?php echo "help"; ?></td></tr>
-                    -->
                 </table>
             </div>
         </div>
