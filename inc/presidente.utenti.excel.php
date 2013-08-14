@@ -8,7 +8,7 @@
 $c = $_GET['comitato'];
 $c = new Comitato($c);
 
-paginaApp([APP_SOCI , APP_PRESIDENTE], [$c]);
+paginaApp([APP_SOCI , APP_PRESIDENTE, APP_OBIETTIVO], [$c]);
 
 
 if(isset($_GET['dimessi'])){
