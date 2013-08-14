@@ -81,6 +81,37 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
+    public function membriRiserva() {
+        $q = $this->db->prepare("
+            SELECT
+                anagrafica.id
+            FROM
+                appartenenza, anagrafica, riserve
+            WHERE
+                riserve.stato = :stato
+            AND
+                riserve.appartenenza = appartenenza.id
+            AND
+                appartenenza.comitato = :comitato
+            AND
+                appartenenza.volontario = anagrafica.id
+            AND
+                riserve.inizio    <= :ora
+            AND
+                riserve.fine      >= :ora
+            ORDER BY
+                 cognome ASC, nome ASC");
+        $q->bindValue(':ora', time());
+        $q->bindValue(':stato', RISERVA_OK);
+        $q->bindParam(':comitato', $this->id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Volontario($k[0]);
+        }
+        return $r;
+    }
+    
     /*
      * Volontari che alla data $elezioni hanno certa $anzianita
      */
