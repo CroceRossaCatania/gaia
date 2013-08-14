@@ -75,7 +75,7 @@ foreach ($e as $_e){
                 <a class="btn btn-success" href="?p=presidente.estensione.ok&id=<?php echo $_e->id; ?>&si">
                     <i class="icon-ok"></i> Conferma
                 </a>
-                <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare l'estensione a questo utente ?');" href="?p=presidente.estensioneNegata&id=<?php echo $_e->id; ?>">
+                <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare estensione a questo utente ?');" href="?p=presidente.estensioneNegata&id=<?php echo $_e->id; ?>">
                     <i class="icon-ban-circle"></i> Nega
                 </a>
             </div>
