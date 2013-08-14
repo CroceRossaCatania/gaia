@@ -651,7 +651,7 @@ class Utente extends Persona {
             }
     }
     
-    public function gruppiDiCompetenza( $app = [ APP_PRESIDENTE, APP_SOCI ] ) {
+    public function gruppiDiCompetenza( $app = [ APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO ] ) {
         $gruppi = [];
         $comitati = $this->comitatiApp($app);
         foreach ($comitati as $comitato) {
