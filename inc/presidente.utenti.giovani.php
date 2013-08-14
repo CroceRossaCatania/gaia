@@ -148,7 +148,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE, APP_OBIETTIVO]);
                             <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
                                 <i class="icon-eye-open"></i> Dettagli
                             </a>
-                            <?php if ( $me->presidenziante() ){ ?>
+                            <?php if ( $me->presidenziante() || $me->admin() ){ ?>
                                 <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&id=<?php echo $_v->id; ?>" title="Dimetti Volontario">
                                         <i class="icon-ban-circle"></i> Dimetti
                                 </a>
