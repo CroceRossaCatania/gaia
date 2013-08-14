@@ -8,7 +8,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE,APP_CO, APP_OBIETTIVO]);
 
 $zip = new Zip();
 
-foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE,APP_CO ]) as $c ) {
+foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE,APP_CO, APP_OBIETTIVO ]) as $c ) {
 
     $excel = new Excel();
     
@@ -108,7 +108,7 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
             
         }
     $excel->genera("Elettorato passivo {$c->nome}.xls");
-    }if(isset($_GET['quoteno'])){
+    }elseif(isset($_GET['quoteno'])){
         foreach ( $c->quoteNo() as $v ) {
 
         $excel->aggiungiRiga([
@@ -122,7 +122,7 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
 
     }
     $excel->genera("Volontari mancato pagamento quota {$c->nome}.xls");
-    }if(isset($_GET['quotesi'])){
+    }elseif(isset($_GET['quotesi'])){
         foreach ( $c->quoteSi() as $v ) {
 
         $excel->aggiungiRiga([
@@ -136,7 +136,7 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
 
     }
     $excel->genera("Volontari quota pagata {$c->nome}.xls");
-    }if(isset($_GET['mass'])){
+    }elseif(isset($_GET['mass'])){
         $f = $_GET['t'];
         $f= new Titolo($f);
         $volontari =  $c->ricercaMembriTitoli([$f]);
