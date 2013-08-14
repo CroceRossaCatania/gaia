@@ -159,6 +159,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                 </select>   
             </div>
           </div>
+    <?php if ( !$me->delegazioni(APP_OBIETTIVO) ){ ?>
         <hr />
          
         <div class="form-actions">
@@ -167,6 +168,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                     Salva modifiche
                 </button>
             </div>
+    <?php } ?>
           </form>    
     </div>
     

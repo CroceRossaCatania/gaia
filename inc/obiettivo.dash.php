@@ -72,16 +72,22 @@ if ( $me->admin() || $me->presidenziante() ){
                     </a>
                </div>
             </div>
-            <?php if ( $tre == true ){ ?>
             <div class="span6">
                 <div class="btn-group btn-group-vertical span12">
+            <?php if ( $cinque == true ){ ?>
+                    <a href="?p=presidente.utenti.giovani" class="btn btn-block btn-info">
+                        <i class="icon-list"></i>
+                        Volontari giovani
+                    </a>
+            <?php } ?>
+            <?php if ( $tre == true ){ ?>
                     <a href="?p=co.reperibilita" class="btn btn-block">
                         <i class="icon-thumbs-up"></i>
                         Volontari reperibili
                     </a>
+            <?php } ?>
                 </div>
             </div>
-            <?php } ?>
         </div>
    </div>
     <hr/>

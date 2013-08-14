@@ -3,7 +3,7 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
-paginaApp([APP_SOCI , APP_PRESIDENTE]);
+paginaApp([APP_SOCI , APP_PRESIDENTE, APP_OBIETTIVO]);
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -33,22 +33,33 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             
             <div class="span3">
                 <div class="btn-group btn-group-vertical span12">
-                    <a href="?p=presidente.utenti" class="btn btn-success btn-block">
-                        <i class="icon-list"></i>
-                        Volontari attivi
-                    </a>
-                    <a href="?p=presidente.utenti.dimessi" class="btn btn-danger btn-block">
-                        <i class="icon-list"></i>
-                        Volontari non attivi
-                    </a>
-                    <a href="?p=presidente.utenti.giovani" class="btn btn-danger btn-block btn-info">
-                        <i class="icon-list"></i>
-                        Volontari giovani
-                    </a>
-                    <a href="?p=us.elettorato" class="btn btn-block btn-primary">
-                        <i class="icon-list"></i>
-                        Elenchi elettorato
-                    </a>
+                    <?php if (!$me->delegazioni(APP_OBIETTIVO)){ ?>
+                        <a href="?p=presidente.utenti" class="btn btn-success btn-block">
+                            <i class="icon-list"></i>
+                            Volontari attivi
+                        </a>
+                        <a href="?p=presidente.utenti.dimessi" class="btn btn-danger btn-block">
+                            <i class="icon-list"></i>
+                            Volontari non attivi
+                        </a>
+                        <a href="?p=presidente.utenti.giovani" class="btn btn-block btn-info">
+                            <i class="icon-list"></i>
+                            Volontari giovani
+                        </a>
+                        <a href="?p=presidente.utenti.riserve" class="btn btn-block btn-warning">
+                            <i class="icon-list"></i>
+                            Volontari in riserva
+                        </a>
+                        <a href="?p=us.elettorato" class="btn btn-block btn-primary">
+                            <i class="icon-list"></i>
+                            Elenchi elettorato
+                        </a>
+                    <?php }else{ ?>
+                        <a href="?p=obiettivo.dash" class="btn btn-block">
+                            <i class="icon-reply"></i>
+                            Torna Indietro
+                        </a>
+                    <?php } ?>
                 </div>
             </div>
     
@@ -65,7 +76,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 <div class="row-fluid">
    <div class="span12">
        <div class="btn-group btn-group-vertical span12">
-       <?php if ( count($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ])) > 1 ) { ?>
+       <?php if ( count($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ])) > 1 ) { ?>
        <a href="?p=admin.utenti.excel&giovani" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
            <i class="icon-download"></i>
             <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari giovani in un archivio zip.
@@ -86,7 +97,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 <th>Azioni</th>
             </thead>
         <?php
-        $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
+        $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]);
         foreach($elenco as $comitato) {
             $k =0;
             $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
@@ -137,9 +148,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                             <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
                                 <i class="icon-eye-open"></i> Dettagli
                             </a>
-                            <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&id=<?php echo $_v->id; ?>" title="Dimetti Volontario">
-                                    <i class="icon-ban-circle"></i> Dimetti
-                            </a>
+                            <?php if ( $me->presidenziante() ){ ?>
+                                <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&id=<?php echo $_v->id; ?>" title="Dimetti Volontario">
+                                        <i class="icon-ban-circle"></i> Dimetti
+                                </a>
+                            <?php } ?>
                             <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                 <i class="icon-envelope"></i>
                             </a>
