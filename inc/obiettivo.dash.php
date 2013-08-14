@@ -39,7 +39,7 @@ if ( $me->admin() || $me->presidenziante() ){
     <div class="span9">
         <div class="row-fluid">
             <div class="span12">
-                <h3>Delegato obiettivo </h3>
+                <h3>Delegato d'Area </h3>
             </div>
         </div>
                     

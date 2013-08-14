@@ -38,7 +38,7 @@ if ( $presidente || $me->delegazioni(APP_CO)) {
 
 if ( $presidente || $me->delegazioni(APP_OBIETTIVO)) {
     $menu[''] += [
-        'obiettivo.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Delegato Obiettivo'
+        'obiettivo.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Delegato d\'Area'
     ];
 }
 
