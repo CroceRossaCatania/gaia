@@ -138,7 +138,7 @@ foreach ( $c->elettoriPassivi($time) as $v ) {
 $excel->genera("Elettorato_passivo.xls");
 $excel->download();
 
-}if(isset($_GET['quoteno'])){
+}elseif(isset($_GET['quoteno'])){
     
 $excel = new Excel();
 
@@ -169,7 +169,7 @@ foreach ( $c->quoteNo() as $v ) {
 $excel->genera('Volontari_quoteNo.xls');
 $excel->download();
 
-}if(isset($_GET['quotesi'])){
+}elseif(isset($_GET['quotesi'])){
     
 $excel = new Excel();
 
@@ -200,7 +200,46 @@ foreach ( $c->quoteSi() as $v ) {
 $excel->genera('Volontari_quoteSi.xls');
 $excel->download();
 
-}else{
+}elseif(isset($_GET['riserva'])){
+    $excel = new Excel();
+    
+    $excel->intestazione([
+        'Nome',
+        'Cognome',
+        'Data Nascita',
+        'Luogo Nascita',
+        'Provincia Nascita',
+        'C. Fiscale',
+        'Inizio Riserva',
+        'Fine Riserva',
+        'Numero Protocollo',
+        'Data Protocollo',
+        'Motivazione'
+    ]);
+    
+        foreach ( $c->membriRiserva() as $v ) {
+        $r = $v->inRiserva();
+        $r = $r[0];
+        
+        $excel->aggiungiRiga([
+            $v->nome,
+            $v->cognome,
+            date('d/m/Y', $v->dataNascita),
+            $v->comuneNascita,
+            $v->provinciaNascita,
+            $v->codiceFiscale,
+            date('d/m/Y',$r->inizio),
+            date('d/m/Y',$r->fine),
+            $r->protNumero,
+            date('d/m/Y',$r->protData),
+            $r->motivo
+        ]);
+
+    }
+    $excel->genera("Volontari riserva.xls");
+    $excel->download();
+    
+    }else{
     
 $excel = new Excel();
 
