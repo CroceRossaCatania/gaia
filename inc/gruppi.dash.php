@@ -82,12 +82,14 @@ foreach ($gruppi as $gruppo){
                                 <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?= $gruppo->id; ?>&gruppo">
                                     <i class="icon-envelope"></i> Invia mail
                                 </a>
-                     <?php if ( $me->presidenziante() || $me->admin() ){ ?>
-                                <a class="btn btn-small btn-danger pull-right" onclick="return confirm('Sei davvero sicuro di voler eliminare il gruppo?');" href="?p=gruppi.elimina&id=<?= $gruppo->id; ?>" title="Elimina gruppo">
-                                    <i class="icon-trash"></i> Elimina
-                                </a>
+                        <?php if ( $me->presidenziante() || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
                                 <a class="btn btn-small btn-info pull-right" href="?p=gruppo.modifica&id=<?= $gruppo->id; ?>" title="Modifica gruppo">
                                     <i class="icon-edit"></i> Modifica gruppo
+                                </a>
+                        <?php }
+                        if ( $me->presidenziante() || $me->admin() ){ ?>
+                                <a class="btn btn-small btn-danger pull-right" onclick="return confirm('Sei davvero sicuro di voler eliminare il gruppo?');" href="?p=gruppi.elimina&id=<?= $gruppo->id; ?>" title="Elimina gruppo">
+                                    <i class="icon-trash"></i> Elimina
                                 </a>
                                 <a class="btn btn-small pull-right" href="?p=gruppo.referente.nuovo&id=<?= $gruppo->id; ?>">
                                     <i class="icon-pencil"></i> 

@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_CO , APP_PRESIDENTE]);
+paginaApp([APP_CO , APP_PRESIDENTE , APP_OBIETTIVO]);
 
 ?>
 
@@ -20,7 +20,11 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
 
     <div class="span3">
             <div class="btn-group btn-group-vertical span12">
+                <?php if ( $me->delegazioni(APP_OBIETTIVO) ){ ?>
+                    <a href="?p=obiettivo.dash" class="btn btn-block ">
+                <?php }else{ ?>
                     <a href="?p=co.dash" class="btn btn-block ">
+                <?php } ?>
                         <i class="icon-reply"></i> Torna alla dash
                     </a>
             </div>
@@ -46,7 +50,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
         <th>Azione</th>
     </thead>
 <?php
-$comitati= $me->comitatiApp ([ APP_CO, APP_PRESIDENTE ]);
+$comitati= $me->comitatiApp ([ APP_CO, APP_PRESIDENTE , APP_OBIETTIVO ]);
 foreach($comitati as $comitato){
     foreach($comitato->reperibili() as $_t){
         $_v = $_t->volontario();

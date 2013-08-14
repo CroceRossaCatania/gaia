@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI , APP_PRESIDENTE]);
+paginaApp([APP_SOCI , APP_PRESIDENTE , APP_OBIETTIVO ]);
 ?>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
@@ -33,6 +33,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             
     <div class="span3">
         <div class="btn-group btn-group-vertical span12">
+            <?php if (!$me->delegazioni(APP_OBIETTIVO)){ ?>
                 <a href="?p=presidente.utenti" class="btn btn-success btn-block">
                     <i class="icon-list"></i>
                     Volontari attivi
@@ -53,6 +54,12 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     <i class="icon-list"></i>
                     Elenchi elettorato
                 </a>
+            <?php }else{ ?>
+                <a href="?p=obiettivo.dash" class="btn btn-block">
+                    <i class="icon-reply"></i>
+                    Torna Indietro
+                </a>
+            <?php } ?>
         </div>
     </div>
     
@@ -69,7 +76,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 <div class="row-fluid">
    <div class="span12">
        <div class="btn-group btn-group-vertical span12">
-       <?php if ( count($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ])) > 1 ) { ?>
+       <?php if ( count($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_OBIETTIVO ])) > 1 ) { ?>
        <a href="?p=admin.utenti.excel" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
            <i class="icon-download"></i>
             <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari in un archivio zip.
@@ -91,7 +98,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 <th>Azioni</th>
             </thead>
         <?php
-        $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
+        $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_OBIETTIVO ]);
         foreach($elenco as $comitato) {
             $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
                 ?>
@@ -137,12 +144,14 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                             <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
                                 <i class="icon-eye-open"></i> Dettagli
                             </a>
+                            <?php if ( $me->presidenziante() ){ ?>
                             <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?php echo $_v->id; ?>" title="Stampa tesserino">
                                     <i class="icon-barcode"></i> Tesserino
                             </a>
                             <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&id=<?php echo $_v->id; ?>" title="Dimetti Volontario">
                                     <i class="icon-ban-circle"></i> Dimetti
                             </a>
+                            <?php } ?>
                             <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                 <i class="icon-envelope"></i>
                             </a>

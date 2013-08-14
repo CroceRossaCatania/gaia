@@ -4,19 +4,33 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_CO,APP_PRESIDENTE,APP_SOCI]);
+paginaApp([ APP_OBIETTIVO , APP_PRESIDENTE , APP_SOCI ]);
 $f= new Titolo($_POST['idTitolo']);
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
 <div class="row-fluid">
-    <div class="span8">
+    <div class="span5">
         <h3>
             <i class="icon-search muted"></i>
             Ricerca volontari per titolo
         </h3>
         <p>Titolo cercato: <strong><?= $f->nome; ?></strong>
         <a class="btn btn-small" href="?p=presidente.titoli.ricerca"><i class="icon-pencil"></i> Modifica titolo</a></p>
+    </div>
+    
+    <div class="span3 allinea-centro">
+        <?php if ($me->delegazioni(APP_OBIETTIVO)){ ?>
+            <a href="?p=obiettivo.dash" class="btn btn-block">
+                    <i class="icon-reply"></i>
+                    Torna Indietro
+            </a>
+        <?php }else{ ?>
+            <a href="?p=utente.me" class="btn btn-block">
+                    <i class="icon-reply"></i>
+                    Torna Indietro
+            </a>
+        <?php } ?>
     </div>
     
     <div class="span4 allinea-destra">
@@ -49,7 +63,7 @@ $f= new Titolo($_POST['idTitolo']);
         <th>Azioni</th>
     </thead>
 <?php
-  foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE,APP_CO ]) as $elenco){
+  foreach($me->comitatiApp ([ APP_SOCI , APP_PRESIDENTE , APP_OBIETTIVO ]) as $elenco){
       $volontari =  $elenco->ricercaMembriTitoli([$f]);  
       ?>
       <tr class="success">
