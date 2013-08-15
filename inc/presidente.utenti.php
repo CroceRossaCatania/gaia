@@ -33,7 +33,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE , APP_OBIETTIVO ]);
             
     <div class="span3">
         <div class="btn-group btn-group-vertical span12">
-            <?php if (!$me->delegazioni(APP_OBIETTIVO)){ ?>
+            <?php if (!$me->delegazioni(APP_OBIETTIVO) || $me->admin() ){ ?>
                 <a href="?p=presidente.utenti" class="btn btn-success btn-block">
                     <i class="icon-list"></i>
                     Volontari attivi
