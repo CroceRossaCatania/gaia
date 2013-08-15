@@ -250,7 +250,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                                     <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li> 
                                     <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li> 
                                     <li><a href="?p=admin.format"><i class="icon-upload"></i> Carica format</a></li>                                    
-                                    <li><a href="?p=admin.cache"><i class="icon-cloud"></i> Cache</a></li>                                    
+                                    <li><a href="?p=admin.cache"><i class="icon-cloud"></i> Cache</a></li>  
                                 </ul>
                             </div>
                             <?php } ?>
@@ -366,21 +366,24 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
         include './inc/part/comitato.selettore.php';
     } ?>
     
-    <!-- Statistiche 
-    <script type="text/javascript">
-    var pkBaseURL = (("https:" == document.location.protocol) ? "https://stats.cricatania.it/" : "http://stats.cricatania.it/");
-    document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-    </script><script type="text/javascript">
-    try {
-    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 2);
-    piwikTracker.trackPageView();
-    piwikTracker.enableLinkTracking();
-    } catch( err ) {}
-    </script><noscript><p><img src="http://stats.cricatania.it/piwik.php?idsite=2" style="border:0" alt="" /></p></noscript>
--->
+    <!-- Statistiche -->
+	<script type="text/javascript">
+	  var _paq = _paq || [];
+	  _paq.push(["trackPageView"]);
+	  _paq.push(["enableLinkTracking"]);
+	  (function() {
+	    var u = "https://stats.gaiacri.it/";
+	    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+	    _paq.push(["setSiteId", "1"]);
+	    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+	    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+    <!-- Fine codice statistiche -->
+
     <!-- Q: <?php echo $db->numQuery; ?> -->
-    <!-- BEGIN FUSION TAG CODE - DO NOT EDIT! --><div id="swifttagcontainerf62rpdvx6p"><div id="proactivechatcontainerf62rpdvx6p"></div><div style="display: inline;" id="swifttagdatacontainerf62rpdvx6p"></div></div> <script type="text/javascript">var swiftscriptelemf62rpdvx6p=document.createElement("script");swiftscriptelemf62rpdvx6p.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "f62rpdvx6p"; var swifttagurlf62rpdvx6p="https://supporto.giovanicri.it/visitor/index.php?/Default/LiveChat/HTML/SiteBadge/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPWY2MnJwZHZ4NnAmdmVyc2lvbj00LjU4LjAuMzY1MCZwcm9kdWN0PUZ1c2lvbiZmaWx0ZXJkZXBhcnRtZW50aWQ9NTAmcm91dGVjaGF0c2tpbGxpZD00JnNpdGViYWRnZWNvbG9yPXdoaXRlJmJhZGdlbGFuZ3VhZ2U9ZW4mYmFkZ2V0ZXh0PWxpdmVjaGF0Jm9ubGluZWNvbG9yPSMxZGI1MWQmb25saW5lY29sb3Job3Zlcj0jNjFjYzYxJm9ubGluZWNvbG9yYm9yZGVyPSMxNDdmMTQmb2ZmbGluZWNvbG9yPSNmZjAwMDAmb2ZmbGluZWNvbG9yaG92ZXI9I2ZmNGQ0ZCZvZmZsaW5lY29sb3Jib3JkZXI9I2IzMDAwMCZhd2F5Y29sb3I9I2I4YjhiOCZhd2F5Y29sb3Job3Zlcj0jY2VjZWNlJmF3YXljb2xvcmJvcmRlcj0jODE4MTgxJmJhY2tzaG9ydGx5Y29sb3I9I2UwOTMyMCZiYWNrc2hvcnRseWNvbG9yaG92ZXI9I2VhYjQ2MyZiYWNrc2hvcnRseWNvbG9yYm9yZGVyPSM5ZDY3MTYmY3VzdG9tb25saW5lPSZjdXN0b21vZmZsaW5lPSZjdXN0b21hd2F5PSZjdXN0b21iYWNrc2hvcnRseT0KYjlkYzdkNmE0NGUyNTBlMWE1ZDhlOWJmYzdlOTM2ZmJiYjdlMTU3ZQ==";setTimeout("swiftscriptelemf62rpdvx6p.src=swifttagurlf62rpdvx6p;document.getElementById('swifttagcontainerf62rpdvx6p').appendChild(swiftscriptelemf62rpdvx6p);",1);</script><!-- END FUSION TAG CODE - DO NOT EDIT! -->
-    <!-- BEGIN FUSION TAG CODE - DO NOT EDIT! --><div id="proactivechatcontainerafechw6ctt"></div><div id="swifttagcontainerafechw6ctt" style="display: none;"><div id="swifttagdatacontainerafechw6ctt"></div></div> <script type="text/javascript">var swiftscriptelemafechw6ctt=document.createElement("script");swiftscriptelemafechw6ctt.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "afechw6ctt"; var swifttagurlafechw6ctt="https://supporto.giovanicri.it/visitor/index.php?/LiveChat/HTML/Monitoring/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPWFmZWNodzZjdHQmdmVyc2lvbj00LjU4LjAuMzY1MCZwcm9kdWN0PUZ1c2lvbiZjdXN0b21vbmxpbmU9JmN1c3RvbW9mZmxpbmU9JmN1c3RvbWF3YXk9JmN1c3RvbWJhY2tzaG9ydGx5PQo0ODFmZjE5NjZhOTY3ZDVhNzY0OTZkMmQ1MTdmMmEyZTU4NGQ4OGE0";setTimeout("swiftscriptelemafechw6ctt.src=swifttagurlafechw6ctt;document.getElementById('swifttagcontainerafechw6ctt').appendChild(swiftscriptelemafechw6ctt);",1);</script><!-- END FUSION TAG CODE - DO NOT EDIT! -->
+    <!-- FUSION TAG --><div id="swifttagcontainerf62rpdvx6p"><div id="proactivechatcontainerf62rpdvx6p"></div><div style="display: inline;" id="swifttagdatacontainerf62rpdvx6p"></div></div> <script type="text/javascript">var swiftscriptelemf62rpdvx6p=document.createElement("script");swiftscriptelemf62rpdvx6p.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "f62rpdvx6p"; var swifttagurlf62rpdvx6p="https://supporto.giovanicri.it/visitor/index.php?/Default/LiveChat/HTML/SiteBadge/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPWY2MnJwZHZ4NnAmdmVyc2lvbj00LjU4LjAuMzY1MCZwcm9kdWN0PUZ1c2lvbiZmaWx0ZXJkZXBhcnRtZW50aWQ9NTAmcm91dGVjaGF0c2tpbGxpZD00JnNpdGViYWRnZWNvbG9yPXdoaXRlJmJhZGdlbGFuZ3VhZ2U9ZW4mYmFkZ2V0ZXh0PWxpdmVjaGF0Jm9ubGluZWNvbG9yPSMxZGI1MWQmb25saW5lY29sb3Job3Zlcj0jNjFjYzYxJm9ubGluZWNvbG9yYm9yZGVyPSMxNDdmMTQmb2ZmbGluZWNvbG9yPSNmZjAwMDAmb2ZmbGluZWNvbG9yaG92ZXI9I2ZmNGQ0ZCZvZmZsaW5lY29sb3Jib3JkZXI9I2IzMDAwMCZhd2F5Y29sb3I9I2I4YjhiOCZhd2F5Y29sb3Job3Zlcj0jY2VjZWNlJmF3YXljb2xvcmJvcmRlcj0jODE4MTgxJmJhY2tzaG9ydGx5Y29sb3I9I2UwOTMyMCZiYWNrc2hvcnRseWNvbG9yaG92ZXI9I2VhYjQ2MyZiYWNrc2hvcnRseWNvbG9yYm9yZGVyPSM5ZDY3MTYmY3VzdG9tb25saW5lPSZjdXN0b21vZmZsaW5lPSZjdXN0b21hd2F5PSZjdXN0b21iYWNrc2hvcnRseT0KYjlkYzdkNmE0NGUyNTBlMWE1ZDhlOWJmYzdlOTM2ZmJiYjdlMTU3ZQ==";setTimeout("swiftscriptelemf62rpdvx6p.src=swifttagurlf62rpdvx6p;document.getElementById('swifttagcontainerf62rpdvx6p').appendChild(swiftscriptelemf62rpdvx6p);",1);</script><!-- END FUSION TAG CODE - DO NOT EDIT! -->
+    <!-- FUSION TAG --><div id="proactivechatcontainerafechw6ctt"></div><div id="swifttagcontainerafechw6ctt" style="display: none;"><div id="swifttagdatacontainerafechw6ctt"></div></div> <script type="text/javascript">var swiftscriptelemafechw6ctt=document.createElement("script");swiftscriptelemafechw6ctt.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "afechw6ctt"; var swifttagurlafechw6ctt="https://supporto.giovanicri.it/visitor/index.php?/LiveChat/HTML/Monitoring/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPWFmZWNodzZjdHQmdmVyc2lvbj00LjU4LjAuMzY1MCZwcm9kdWN0PUZ1c2lvbiZjdXN0b21vbmxpbmU9JmN1c3RvbW9mZmxpbmU9JmN1c3RvbWF3YXk9JmN1c3RvbWJhY2tzaG9ydGx5PQo0ODFmZjE5NjZhOTY3ZDVhNzY0OTZkMmQ1MTdmMmEyZTU4NGQ4OGE0";setTimeout("swiftscriptelemafechw6ctt.src=swifttagurlafechw6ctt;document.getElementById('swifttagcontainerafechw6ctt').appendChild(swiftscriptelemafechw6ctt);",1);</script><!-- END FUSION TAG CODE - DO NOT EDIT! -->
   
   </body>
 </html><?php

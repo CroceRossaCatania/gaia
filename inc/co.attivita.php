@@ -49,7 +49,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                 <th>Fine</th>
             </thead>
         <?php
-        $i = time();
+        $i = time()+10800;
         $f = time()-3600;
         $comitati = $me->comitatiApp ([ APP_CO, APP_PRESIDENTE ]);
         $elenco = Attivita::elenco();

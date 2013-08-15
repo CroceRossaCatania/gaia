@@ -35,7 +35,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
 }elseif (isset($_GET['mass'])) {
 $f = $_GET['t'];
 $f= new Titolo($f);
-foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE,APP_CO ]) as $elenco){
+foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenco){
       $volontari =  $elenco->ricercaMembriTitoli([$f]);
             foreach($volontari as $volontario){
                 $m = new Email('mailTestolibero', $oggetto);

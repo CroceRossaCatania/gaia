@@ -379,7 +379,7 @@ class Utente extends Persona {
             SELECT  COUNT(riserve.id)
             FROM    riserve, appartenenza
             WHERE   riserve.stato = :statoPendente
-            AND     riserve.volontario = appartenenza.volontario
+            AND     riserve.appartenenza = appartenenza.id
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', RISERVA_INCORSO);
@@ -666,7 +666,7 @@ class Utente extends Persona {
             }
     }
     
-    public function gruppiDiCompetenza( $app = [ APP_PRESIDENTE, APP_SOCI ] ) {
+    public function gruppiDiCompetenza( $app = [ APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO ] ) {
         $gruppi = [];
         $comitati = $this->comitatiApp($app);
         foreach ($comitati as $comitato) {

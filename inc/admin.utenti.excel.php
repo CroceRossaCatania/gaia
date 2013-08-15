@@ -4,11 +4,11 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI , APP_PRESIDENTE,APP_CO]);
+paginaApp([APP_SOCI , APP_PRESIDENTE,APP_CO, APP_OBIETTIVO]);
 
 $zip = new Zip();
 
-foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE,APP_CO ]) as $c ) {
+foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE,APP_CO, APP_OBIETTIVO ]) as $c ) {
 
     $excel = new Excel();
     
@@ -30,6 +30,20 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
         'E-Mail',
         'Cellulare',
         'Cell. Servizio'
+    ]);
+}elseif(isset($_GET['riserva'])){
+    $excel->intestazione([
+        'Nome',
+        'Cognome',
+        'Data Nascita',
+        'Luogo Nascita',
+        'Provincia Nascita',
+        'C. Fiscale',
+        'Inizio Riserva',
+        'Fine Riserva',
+        'Numero Protocollo',
+        'Data Protocollo',
+        'Motivazione'
     ]);
 }else{
     $excel->intestazione([
@@ -108,7 +122,7 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
             
         }
     $excel->genera("Elettorato passivo {$c->nome}.xls");
-    }if(isset($_GET['quoteno'])){
+    }elseif(isset($_GET['quoteno'])){
         foreach ( $c->quoteNo() as $v ) {
 
         $excel->aggiungiRiga([
@@ -122,7 +136,7 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
 
     }
     $excel->genera("Volontari mancato pagamento quota {$c->nome}.xls");
-    }if(isset($_GET['quotesi'])){
+    }elseif(isset($_GET['quotesi'])){
         foreach ( $c->quoteSi() as $v ) {
 
         $excel->aggiungiRiga([
@@ -136,7 +150,7 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
 
     }
     $excel->genera("Volontari quota pagata {$c->nome}.xls");
-    }if(isset($_GET['mass'])){
+    }elseif(isset($_GET['mass'])){
         $f = $_GET['t'];
         $f= new Titolo($f);
         $volontari =  $c->ricercaMembriTitoli([$f]);
@@ -151,6 +165,26 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
                 ]);
             }
        $excel->genera("Risultati in {$c->nomeCompleto()}.xls");
+    }elseif(isset($_GET['riserva'])){
+        foreach ( $c->membriRiserva() as $v ) {
+        $r = $v->inRiserva();
+        $r = $r[0];
+        $excel->aggiungiRiga([
+            $v->nome,
+            $v->cognome,
+            date('d/m/Y', $v->dataNascita),
+            $v->comuneNascita,
+            $v->provinciaNascita,
+            $v->codiceFiscale,
+            date('d/m/Y',$r->inizio),
+            date('d/m/Y',$r->fine),
+            $r->protNumero,
+            date('d/m/Y',$r->protData),
+            $r->motivo
+        ]);
+
+    }
+    $excel->genera("Volontari riserva {$c->nome}.xls");
     }else{ 
         foreach ( $c->membriAttuali() as $v ) {
 
@@ -185,6 +219,8 @@ if(isset($_GET['dimessi'])){
    $zip->comprimi("Volontari quota versata.zip"); 
 }elseif(isset($_GET['mass'])){
    $zip->comprimi("Volontari con titolo {$f->nome}.zip"); 
+}elseif(isset($_GET['riserva'])){
+   $zip->comprimi("Volontari in riserva {$f->nome}.zip"); 
 }else{
     $zip->comprimi("Anagrafica_volontari.zip");
 }
