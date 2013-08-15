@@ -681,4 +681,17 @@ class Utente extends Persona {
         $gruppi = array_unique($gruppi);
         return $gruppi;
     }
+    
+    public function inEstensione($c) {
+        $app = Appartenenza::filtra([
+            ['volontario', $this->id],
+            ['stato', MEMBRO_ESTESO],
+            ['comitato', $c]
+        ]);
+        return Estensione::filtra([
+            ['appartenenza',  $app[0]->id],
+            ['stato',       EST_OK]
+        ]);
+    }
+    
 }

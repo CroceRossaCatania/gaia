@@ -123,7 +123,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE , APP_OBIETTIVO ]);
             <?php
             foreach ( $t as $_v ) {
             ?>
-                <tr <?php if ($_v->inRiserva()){ ?> class="warning" <?php } ?>>
+                <tr <?php if ($_v->inRiserva()){ ?> class="warning" <?php }elseif($_v->inEstensione($comitato)){ ?> class="info" <?php } ?>>
                     <td><?php echo $_v->cognome; ?></td>
                     <td><?php echo $_v->nome; ?></td>
                     <td>
