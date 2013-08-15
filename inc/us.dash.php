@@ -40,19 +40,38 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         
         <div class="span12">
             <div class="span6">
-                <div class="btn-group btn-group-vertical span12">
-                    <a href="?p=presidente.utenti" class="btn btn-primary btn-block">
-                        <i class="icon-list"></i>
-                        Elenchi volontari
-                    </a>
-                    <a href="?p=us.elettorato" class="btn btn-danger btn-block">
-                        <i class="icon-list"></i>
-                        Elenchi elettorato
-                    </a>
-                    <a href="?p=us.utente.nuovo" class="btn btn-block btn-success">
-                        <i class="icon-plus"></i>
-                        Aggiungi volontario
-                    </a>
+                <div class="row-fluid">
+                    <div class="btn-group btn-group-vertical span12">
+                        <a href="?p=presidente.utenti" class="btn btn-primary btn-block">
+                            <i class="icon-list"></i>
+                            Elenchi volontari
+                        </a>
+                        <a href="?p=us.elettorato" class="btn btn-danger btn-block">
+                            <i class="icon-list"></i>
+                            Elenchi elettorato
+                        </a>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row-fluid">
+                    <div class="btn-group btn-group-vertical span12">
+                        <a href="?p=us.utente.nuovo" class="btn btn-block btn-success">
+                            <i class="icon-plus"></i>
+                            Aggiungi volontario
+                        </a>
+                        <a href="?p=us.utente.trasferisci" class="btn btn-block">
+                            <i class="icon-arrow-right"></i>
+                            Trasferisci volontario
+                        </a>
+                        <a href="?p=#" class="btn btn-block btn-info">
+                            <i class="icon-random"></i>
+                            Estendi volontario
+                        </a>
+                        <a href="?p=#" class="btn btn-block btn-warning">
+                            <i class="icon-pause"></i>
+                            Metti in riserva volontario
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="span6">
