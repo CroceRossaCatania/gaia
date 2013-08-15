@@ -59,7 +59,24 @@ caricaSelettoreComitato();
                                             </div>
                                         </div>           
                                     </div>
-             <?php } } } ?>
+             <?php } } } 
+             $x=0;
+             foreach($me->riserve() as $riserva){
+                 $riservafine = $riserva->fine;
+             if($x==0 && $riserva && $riserva->stato==RISERVA_OK && $riservafine >= time()){ ?>         
+                    <div class="row-fluid">
+                                        <h2><i class="icon-warning-sign muted"></i> In riserva</h2>
+                                        <div class="alert alert-danger">
+                                            <div class="row-fluid">
+                                                <span class="span12">
+                                                    <p>Sei attualmente in riserva</p>
+                                                    <p>Rimarrai nel ruolo di riserva fino al <strong> <?php echo date('d-m-Y', $riserva->fine); ?></strong> alla fine di tale periodo potrai richiedere <strong>l'estensione</strong>.</p>
+                                                </span>
+                                            </div>
+                                        </div>           
+                                    </div>
+             <?php $x=1; }}
+             if($x==0) { ?>
         <div class="row-fluid">
             <h2><i class="icon-chevron-right muted"></i> Richiesta estensione</h2>
             <div class="alert alert-block alert-info ">
@@ -105,10 +122,8 @@ caricaSelettoreComitato();
             </div>
           </div>
         </div>
-    
+             <?php } ?>
  
 
    </div>
 </div>
-
-
