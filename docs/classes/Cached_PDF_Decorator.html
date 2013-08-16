@@ -1,0 +1,2707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                    <i class="icon-list-alt"></i>&#160;Errors
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                    <i class="icon-list-alt"></i>&#160;Markers
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1501308994"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1501308994" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Canvas.html">Canvas</a></li>
+                                                                                                    <li class="class"><a href="../classes/TCPDF_Adapter.html">TCPDF_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/Partecipazione.html">Partecipazione</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Tree.html">Frame_Tree</a></li>
+                                                    <li class="class"><a href="../classes/Generated_Frame_Reflower.html">Generated_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Frame_Reflower.html">Table_Row_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Dimissione.html">Dimissione</a></li>
+                                                    <li class="class"><a href="../classes/Text_Frame_Decorator.html">Text_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Zip.html">Zip</a></li>
+                                                    <li class="class"><a href="../classes/Commento.html">Commento</a></li>
+                                                    <li class="class"><a href="../classes/Canvas_Factory.html">Canvas_Factory</a></li>
+                                                    <li class="class"><a href="../classes/Utente.html">Utente</a></li>
+                                                    <li class="class"><a href="../classes/Appartenenza.html">Appartenenza</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Frame_Decorator.html">Table_Cell_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Anonimo.html">Anonimo</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mimePart.html">Mail_mimePart</a></li>
+                                                    <li class="class"><a href="../classes/Documento.html">Documento</a></li>
+                                                    <li class="class"><a href="../classes/Mail.html">Mail</a></li>
+                                                    <li class="class"><a href="../classes/Sessione.html">Sessione</a></li>
+                                                    <li class="class"><a href="../classes/Null_Positioner.html">Null_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Null_Frame_Reflower.html">Null_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Reflower.html">Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Entita.html">Entita</a></li>
+                                                    <li class="class"><a href="../classes/Area.html">Area</a></li>
+                                                    <li class="class"><a href="../classes/RichiestaTurno.html">RichiestaTurno</a></li>
+                                                    <li class="class"><a href="../classes/Annunci.html">Annunci</a></li>
+                                                    <li class="class"><a href="../classes/Abstract_Renderer.html">Abstract_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Frame_Decorator.html">Table_Row_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Mail_smtpmx.html">Mail_smtpmx</a></li>
+                                                    <li class="class"><a href="../classes/Font_Metrics.html">Font_Metrics</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Positioner.html">Inline_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mime.html">Mail_mime</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Factory.html">Frame_Factory</a></li>
+                                                    <li class="class"><a href="../classes/Null_Frame_Decorator.html">Null_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Gruppo.html">Gruppo</a></li>
+                                                    <li class="class"><a href="../classes/Patentirichieste.html">Patentirichieste</a></li>
+                                                    <li class="class"><a href="../classes/Reperibilita.html">Reperibilita</a></li>
+                                                    <li class="class"><a href="../classes/Table_Frame_Decorator.html">Table_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Mail_null.html">Mail_null</a></li>
+                                                    <li class="class"><a href="../classes/GD_Adapter.html">GD_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/GeocoderResult.html">GeocoderResult</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Positioner.html">List_Bullet_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Decorator.html">Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/AppartenenzaGruppo.html">AppartenenzaGruppo</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Frame_Reflower.html">Inline_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Block_Positioner.html">Block_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/APIServer.html">APIServer</a></li>
+                                                    <li class="class"><a href="../classes/PHP_Evaluator.html">PHP_Evaluator</a></li>
+                                                    <li class="class"><a href="../classes/Volontario.html">Volontario</a></li>
+                                                    <li class="class"><a href="../classes/Veicoli.html">Veicoli</a></li>
+                                                    <li class="class"><a href="../classes/Renderer.html">Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Regionale.html">Regionale</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mail.html">Mail_mail</a></li>
+                                                    <li class="class"><a href="../classes/Page_Cache.html">Page_Cache</a></li>
+                                                    <li class="class"><a href="../classes/Frame.html">Frame</a></li>
+                                                    <li class="class"><a href="../classes/FrameList.html">FrameList</a></li>
+                                                    <li class="class"><a href="../classes/FrameListIterator.html">FrameListIterator</a></li>
+                                                    <li class="class"><a href="../classes/FrameTreeList.html">FrameTreeList</a></li>
+                                                    <li class="class"><a href="../classes/FrameTreeIterator.html">FrameTreeIterator</a></li>
+                                                    <li class="class"><a href="../classes/ElementoRichiesta.html">ElementoRichiesta</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Frame_Reflower.html">Table_Cell_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Block_Renderer.html">Block_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Renderer.html">List_Bullet_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Image_Renderer.html">Image_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Text_Frame_Reflower.html">Text_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Text_Renderer.html">Text_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Image_Frame_Decorator.html">List_Bullet_Image_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Errore.html">Errore</a></li>
+                                                    <li class="class"><a href="../classes/File.html">File</a></li>
+                                                    <li class="class"><a href="../classes/Page_Frame_Reflower.html">Page_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Stylesheet.html">Stylesheet</a></li>
+                                                    <li class="class"><a href="../classes/Mail_smtp.html">Mail_smtp</a></li>
+                                                    <li class="class"><a href="../classes/Page_Frame_Decorator.html">Page_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Quota.html">Quota</a></li>
+                                                    <li class="class"><a href="../classes/Block_Frame_Reflower.html">Block_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Comitato.html">Comitato</a></li>
+                                                    <li class="class"><a href="../classes/Oggetto.html">Oggetto</a></li>
+                                                    <li class="class"><a href="../classes/Mail_RFC822.html">Mail_RFC822</a></li>
+                                                    <li class="class"><a href="../classes/Image_Frame_Decorator.html">Image_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/DOMPDF.html">DOMPDF</a></li>
+                                                    <li class="class"><a href="../classes/Table_Frame_Reflower.html">Table_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Avatar.html">Avatar</a></li>
+                                                    <li class="class"><a href="../classes/Persona.html">Persona</a></li>
+                                                    <li class="class"><a href="../classes/Trasferimento.html">Trasferimento</a></li>
+                                                    <li class="class"><a href="../classes/Turno.html">Turno</a></li>
+                                                    <li class="class"><a href="../classes/Attivita.html">Attivita</a></li>
+                                                    <li class="class"><a href="../classes/Provinciale.html">Provinciale</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Renderer.html">Table_Cell_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/PDF.html">PDF</a></li>
+                                                    <li class="class"><a href="../classes/Cpdf.html">Cpdf</a></li>
+                                                    <li class="class"><a href="../classes/Autorizzazione.html">Autorizzazione</a></li>
+                                                    <li class="class"><a href="../classes/Coturno.html">Coturno</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Frame_Decorator.html">Inline_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/PDFLib_Adapter.html">PDFLib_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/Nazionale.html">Nazionale</a></li>
+                                                    <li class="class"><a href="../classes/Attribute_Translator.html">Attribute_Translator</a></li>
+                                                    <li class="class"><a href="../classes/TitoloPersonale.html">TitoloPersonale</a></li>
+                                                    <li class="class"><a href="../classes/Positioner.html">Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Style.html">Style</a></li>
+                                                    <li class="class"><a href="../classes/DOMPDF_Exception.html">DOMPDF_Exception</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Positioner.html">Table_Row_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mock.html">Mail_mock</a></li>
+                                                    <li class="class"><a href="../classes/Delegato.html">Delegato</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Renderer.html">Inline_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Group_Frame_Decorator.html">Table_Row_Group_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/CPDF_Adapter.html">CPDF_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/Image_Frame_Reflower.html">Image_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Mail_sendmail.html">Mail_sendmail</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Group_Frame_Reflower.html">Table_Row_Group_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Email.html">Email</a></li>
+                                                    <li class="class"><a href="../classes/Riserva.html">Riserva</a></li>
+                                                    <li class="class"><a href="../classes/Excel.html">Excel</a></li>
+                                                    <li class="class"><a href="../classes/Block_Frame_Decorator.html">Block_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/GeoPolitica.html">GeoPolitica</a></li>
+                                                    <li class="class"><a href="../classes/Geocoder.html">Geocoder</a></li>
+                                                    <li class="class"><a href="../classes/Cached_PDF_Decorator.html">Cached_PDF_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Cellmap.html">Cellmap</a></li>
+                                                    <li class="class"><a href="../classes/DOMPDF_Internal_Exception.html">DOMPDF_Internal_Exception</a></li>
+                                                    <li class="class"><a href="../classes/GeoEntita.html">GeoEntita</a></li>
+                                                    <li class="class"><a href="../classes/DT.html">DT</a></li>
+                                                    <li class="class"><a href="../classes/Image_Cache.html">Image_Cache</a></li>
+                                                    <li class="class"><a href="../classes/Locale.html">Locale</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Positioner.html">Table_Cell_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Titolo.html">Titolo</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Frame_Reflower.html">List_Bullet_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Frame_Decorator.html">List_Bullet_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/ePDO.html">ePDO</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>Cached_PDF_Decorator</h1>
+                    <p><em>Caching canvas implementation</em></p>
+                    <p>Each rendered page is serialized and stored in the {@link Page_Cache}.
+This is useful for static forms/pages that do not need to be re-rendered
+all the time.</p>
+
+<p>This class decorates normal CPDF_Adapters.  It is currently completely
+experimental.</p>
+
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/CPDF_Adapter.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_get_cpdf" class="">get_cpdf()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_open_object" class="">open_object()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_reopen_object" class="">reopen_object()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_close_object" class="">close_object()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_add_object" class="">add_object()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_serialize_object" class="">serialize_object()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_reopen_serialized_object" class="">reopen_serialized_object()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_get_width" class="">get_width()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_get_height" class="">get_height()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_get_page_number" class="">get_page_number()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_get_page_count" class="">get_page_count()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_set_page_number" class="">set_page_number()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_set_page_count" class="">set_page_count()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_line" class="">line()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_rectangle" class="">rectangle()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_filled_rectangle" class="">filled_rectangle()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_polygon" class="">polygon()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_circle" class="">circle()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_image" class="">image()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_text" class="">text()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_page_text" class="">page_text()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_new_page" class="">new_page()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_stream" class="">stream()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_output" class="">output()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_get_messages" class="">get_messages()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method___destruct" class="">__destruct()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_stop_object" class="">stop_object()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_add_named_dest" class="">add_named_dest()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_add_link" class="">add_link()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_get_text_width" class="">get_text_width()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_get_font_height" class="">get_font_height()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/CPDF_Adapter.html#property_PAPER_SIZES" class="">$PAPER_SIZES</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/CPDF_Adapter.html#method__set_stroke_color" class="">_set_stroke_color()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method__set_fill_color" class="">_set_fill_color()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method__set_line_transparency" class="">_set_line_transparency()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method__set_fill_transparency" class="">_set_fill_transparency()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method__set_line_style" class="">_set_line_style()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method_y" class="">y()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method__convert_gif_to_png" class="">_convert_gif_to_png()</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#method__add_page_text" class="">_add_page_text()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Cached_PDF_Decorator.html#property__cache_id" class="">$_cache_id</a><br />
+                                                                    <a href="../classes/Cached_PDF_Decorator.html#property__current_page_id" class="">$_current_page_id</a><br />
+                                                                    <a href="../classes/Cached_PDF_Decorator.html#property__fonts" class="">$_fonts</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/CPDF_Adapter.html#property__pdf" class="">$_pdf</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#property__width" class="">$_width</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#property__height" class="">$_height</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#property__page_number" class="">$_page_number</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#property__page_count" class="">$_page_count</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#property__page_text" class="">$_page_text</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#property__pages" class="">$_pages</a><br />
+                                                                    <a href="../classes/CPDF_Adapter.html#property__image_cache" class="">$_image_cache</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/core.inc.dompdf.include.cached_pdf_decorator.cls.php.html"><div class="path-wrapper">core/inc/dompdf/include/cached_pdf_decorator.cls.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\dompdf</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper"><a href="../classes/CPDF_Adapter.html">\CPDF_Adapter</a></div>
+                                                                                                    <div class="namespace-wrapper">\Cached_PDF_Decorator</div>
+                            </dd>
+
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                access
+                            </th>
+                            <td>
+                                                                    <p>private</p>
+
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_PAPER_SIZES" name="property_PAPER_SIZES" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$PAPER_SIZES</h3>
+                <pre class="signature">$PAPER_SIZES : \array;</pre>
+                <p><em>Dimensions of paper sizes in points</em></p>
+                
+
+
+                                <h4>Type</h4>
+                \array;
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__cache_id" name="property__cache_id" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$_cache_id</h3>
+                <pre class="signature">$_cache_id</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__current_page_id" name="property__current_page_id" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$_current_page_id</h3>
+                <pre class="signature">$_current_page_id</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__fonts" name="property__fonts" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$_fonts</h3>
+                <pre class="signature">$_fonts</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__pdf" name="property__pdf" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_pdf</h3>
+                <pre class="signature">$_pdf : \Cpdf</pre>
+                <p><em>Instance of Cpdf class</em></p>
+                
+
+
+                                <h4>Type</h4>
+                <a href="../classes/Cpdf.html">\Cpdf</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__width" name="property__width" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_width</h3>
+                <pre class="signature">$_width : float</pre>
+                <p><em>PDF width, in points</em></p>
+                
+
+
+                                <h4>Type</h4>
+                float
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__height" name="property__height" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_height</h3>
+                <pre class="signature">$_height : \float;</pre>
+                <p><em>PDF height, in points</em></p>
+                
+
+
+                                <h4>Type</h4>
+                \float;
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__page_number" name="property__page_number" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_page_number</h3>
+                <pre class="signature">$_page_number : int</pre>
+                <p><em>Current page number</em></p>
+                
+
+
+                                <h4>Type</h4>
+                int
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__page_count" name="property__page_count" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_page_count</h3>
+                <pre class="signature">$_page_count : int</pre>
+                <p><em>Total number of pages</em></p>
+                
+
+
+                                <h4>Type</h4>
+                int
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__page_text" name="property__page_text" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_page_text</h3>
+                <pre class="signature">$_page_text : array</pre>
+                <p><em>Text to display on every page</em></p>
+                
+
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__pages" name="property__pages" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_pages</h3>
+                <pre class="signature">$_pages : array</pre>
+                <p><em>Array of pages for accesing after rendering is initially complete</em></p>
+                
+
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__image_cache" name="property__image_cache" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_image_cache</h3>
+                <pre class="signature">$_image_cache : array</pre>
+                <p><em>Array of temporary cached images to be deleted when processing is complete</em></p>
+                
+
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(mixed <span class="argument">$paper</span>, string <span class="argument">$orientation</span>)</pre>
+                <p><em>Class constructor</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$paper</td>
+                                <td><p>The size of paper to use in this PDF ({@link CPDF_Adapter::$PAPER_SIZES})</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$orientation</td>
+                                <td><p>The orienation of the document (either 'landscape' or 'portrait')</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_cpdf" name="method_get_cpdf" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_cpdf()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_cpdf() : \Cpdf</pre>
+                <p><em>Returns the Cpdf instance</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Cpdf.html">\Cpdf</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_open_object" name="method_open_object" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">open_object()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">open_object() : int</pre>
+                <p><em>Opens a new &#039;object&#039;</em></p>
+                <p>While an object is open, all drawing actions are recored in the object,
+as opposed to being drawn on the current page.  Objects can be added
+later to a specific page or to several pages.</p>
+
+<p>The return value is an integer ID for the new object.</p>
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    int
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/CPDF_Adapter.html#method_close_object"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/CPDF_Adapter.html#method_add_object"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_reopen_object" name="method_reopen_object" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">reopen_object()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">reopen_object(int <span class="argument">$object</span>)</pre>
+                <p><em>Reopens an existing &#039;object&#039;</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>int</td>
+                                <td>$object</td>
+                                <td><p>the ID of a previously opened object</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/CPDF_Adapter.html#method_open_object"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_close_object" name="method_close_object" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">close_object()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">close_object()</pre>
+                <p><em>Closes the current &#039;object&#039;</em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/CPDF_Adapter.html#method_open_object"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_object" name="method_add_object" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_object()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_object(int <span class="argument">$object</span>, string <span class="argument">$where</span>)</pre>
+                <p><em>Adds a specified &#039;object&#039; to the document</em></p>
+                <p>$object int specifying an object created with {@link
+CPDF_Adapter::open_object()}.  $where can be one of:
+- 'add' add to current page only
+- 'all' add to every page from the current one onwards
+- 'odd' add to all odd numbered pages from now on
+- 'even' add to all even numbered pages from now on
+- 'next' add the object to the next page only
+- 'nextodd' add to all odd numbered pages from the next one
+- 'nexteven' add to all even numbered pages from the next one</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>int</td>
+                                <td>$object</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$where</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Cpdf.html#method_addObject"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_serialize_object" name="method_serialize_object" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">serialize_object()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">serialize_object( <span class="argument">$id</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$id</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_reopen_serialized_object" name="method_reopen_serialized_object" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">reopen_serialized_object()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">reopen_serialized_object( <span class="argument">$obj</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$obj</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_width" name="method_get_width" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_width()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_width() : float</pre>
+                <p><em>Returns the PDF&#039;s width in points</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    float
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_height" name="method_get_height" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_height()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_height() : float</pre>
+                <p><em>Returns the PDF&#039;s height in points</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    float
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_page_number" name="method_get_page_number" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_page_number()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_page_number() : int</pre>
+                <p><em>Returns the current page number</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    int
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_page_count" name="method_get_page_count" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_page_count()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_page_count() : int</pre>
+                <p><em>Returns the total number of pages in the document</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    int
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_page_number" name="method_set_page_number" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_page_number()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_page_number(int <span class="argument">$num</span>)</pre>
+                <p><em>Sets the current page number</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>int</td>
+                                <td>$num</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_page_count" name="method_set_page_count" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_page_count()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_page_count(int <span class="argument">$count</span>)</pre>
+                <p><em>Sets the page count</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>int</td>
+                                <td>$count</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_line" name="method_line" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">line()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">line( <span class="argument">$x1</span>,  <span class="argument">$y1</span>,  <span class="argument">$x2</span>,  <span class="argument">$y2</span>,  <span class="argument">$color</span>,  <span class="argument">$width</span>,  <span class="argument">$style</span>,  <span class="argument">$blend</span>,  <span class="argument">$opacity</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$x1</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$y1</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$x2</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$y2</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$color</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$width</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$style</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$blend</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$opacity</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_rectangle" name="method_rectangle" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">rectangle()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">rectangle( <span class="argument">$x1</span>,  <span class="argument">$y1</span>,  <span class="argument">$w</span>,  <span class="argument">$h</span>,  <span class="argument">$color</span>,  <span class="argument">$width</span>,  <span class="argument">$style</span>,  <span class="argument">$blend</span>,  <span class="argument">$opacity</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$x1</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$y1</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$w</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$h</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$color</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$width</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$style</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$blend</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$opacity</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_filled_rectangle" name="method_filled_rectangle" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">filled_rectangle()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">filled_rectangle( <span class="argument">$x1</span>,  <span class="argument">$y1</span>,  <span class="argument">$w</span>,  <span class="argument">$h</span>,  <span class="argument">$color</span>,  <span class="argument">$blend</span>,  <span class="argument">$opacity</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$x1</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$y1</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$w</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$h</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$color</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$blend</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$opacity</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_polygon" name="method_polygon" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">polygon()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">polygon( <span class="argument">$points</span>,  <span class="argument">$color</span>,  <span class="argument">$width</span>,  <span class="argument">$style</span>,  <span class="argument">$fill</span>,  <span class="argument">$blend</span>,  <span class="argument">$opacity</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$points</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$color</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$width</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$style</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$fill</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$blend</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$opacity</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_circle" name="method_circle" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">circle()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">circle( <span class="argument">$x</span>,  <span class="argument">$y</span>,  <span class="argument">$r1</span>,  <span class="argument">$color</span>,  <span class="argument">$width</span>,  <span class="argument">$style</span>,  <span class="argument">$fill</span>,  <span class="argument">$blend</span>,  <span class="argument">$opacity</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$x</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$y</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$r1</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$color</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$width</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$style</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$fill</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$blend</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$opacity</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_image" name="method_image" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">image()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">image( <span class="argument">$img_url</span>,  <span class="argument">$img_type</span>,  <span class="argument">$x</span>,  <span class="argument">$y</span>,  <span class="argument">$w</span>,  <span class="argument">$h</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$img_url</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$img_type</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$x</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$y</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$w</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$h</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_text" name="method_text" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">text()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">text( <span class="argument">$x</span>,  <span class="argument">$y</span>,  <span class="argument">$text</span>,  <span class="argument">$font</span>,  <span class="argument">$size</span>,  <span class="argument">$color</span>,  <span class="argument">$adjust</span>,  <span class="argument">$angle</span>,  <span class="argument">$blend</span>,  <span class="argument">$opacity</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$x</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$y</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$text</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$font</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$size</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$color</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$adjust</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$angle</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$blend</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$opacity</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_page_text" name="method_page_text" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">page_text()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">page_text(float <span class="argument">$x</span>, float <span class="argument">$y</span>, string <span class="argument">$text</span>, string <span class="argument">$font</span>, float <span class="argument">$size</span>, array <span class="argument">$color</span>, float <span class="argument">$adjust</span>, float <span class="argument">$angle</span>,  <span class="argument">$blend</span>,  <span class="argument">$opacity</span>)</pre>
+                <p><em>Writes text at the specified x and y coordinates on every page</em></p>
+                <p>The strings '{PAGE_NUM}' and '{PAGE_COUNT}' are automatically replaced
+with their current values.</p>
+
+<p>See {@link Style::munge_colour()} for the format of the colour array.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>float</td>
+                                <td>$x</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$y</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$text</td>
+                                <td><p>the text to write</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$font</td>
+                                <td><p>the font file to use</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$size</td>
+                                <td><p>the font size, in points</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$color</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$adjust</td>
+                                <td><p>word spacing adjustment</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$angle</td>
+                                <td><p>angle to write the text at, measured CW starting from the x-axis</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$blend</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$opacity</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_new_page" name="method_new_page" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">new_page()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">new_page()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_stream" name="method_stream" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">stream()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">stream(string <span class="argument">$filename</span>, array <span class="argument">$options</span>)</pre>
+                <p><em>Streams the PDF directly to the browser</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$filename</td>
+                                <td><p>the name of the PDF file</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options</td>
+                                <td><p>associative array, 'Attachment' => 0 or 1, 'compress' => 1 or 0</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_output" name="method_output" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">output()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">output( <span class="argument">$options</span>) : string</pre>
+                <p><em>Returns the PDF as a string</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$options</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_messages" name="method_get_messages" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_messages()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_messages() : string</pre>
+                <p><em>Returns logging messages generated by the Cpdf class</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___destruct" name="method___destruct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__destruct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__destruct()</pre>
+                <p><em>Class destructor</em></p>
+                <p>Deletes all temporary image files</p>
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_stop_object" name="method_stop_object" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">stop_object()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">stop_object(int <span class="argument">$object</span>)</pre>
+                <p><em>Stops the specified &#039;object&#039; from appearing in the document.</em></p>
+                <p>The object will stop being displayed on the page following the current
+one.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>int</td>
+                                <td>$object</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_named_dest" name="method_add_named_dest" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_named_dest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_named_dest(string <span class="argument">$anchorname</span>)</pre>
+                <p><em>Add a named destination (similar to &lt;a name=&quot;foo&quot;&gt;.</em></p>
+                <p>..</a> in html)</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$anchorname</td>
+                                <td><p>The name of the named destination</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_link" name="method_add_link" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_link()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_link(string <span class="argument">$url</span>, float <span class="argument">$x</span>, float <span class="argument">$y</span>, float <span class="argument">$width</span>, float <span class="argument">$height</span>)</pre>
+                <p><em>Add a link to the pdf</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url</td>
+                                <td><p>The url to link to</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$x</td>
+                                <td><p>The x position of the link</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$y</td>
+                                <td><p>The y position of the link</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$width</td>
+                                <td><p>The width of the link</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$height</td>
+                                <td><p>The height of the link</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_text_width" name="method_get_text_width" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_text_width()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_text_width( <span class="argument">$text</span>,  <span class="argument">$font</span>,  <span class="argument">$size</span>,  <span class="argument">$spacing</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$text</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$font</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$size</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$spacing</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_font_height" name="method_get_font_height" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_font_height()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_font_height( <span class="argument">$font</span>,  <span class="argument">$size</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$font</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$size</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__set_stroke_color" name="method__set_stroke_color" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_set_stroke_color()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_set_stroke_color(array <span class="argument">$color</span>)</pre>
+                <p><em>Sets the stroke colour</em></p>
+                <p>See {@link Style::set_colour()} for the format of the color array.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$color</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__set_fill_color" name="method__set_fill_color" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_set_fill_color()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_set_fill_color(array <span class="argument">$color</span>)</pre>
+                <p><em>Sets the fill colour</em></p>
+                <p>See {@link Style::set_colour()} for the format of the colour array.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$color</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__set_line_transparency" name="method__set_line_transparency" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_set_line_transparency()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_set_line_transparency(string <span class="argument">$mode</span>, float <span class="argument">$opacity</span>)</pre>
+                <p><em>Sets line transparency</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$mode</td>
+                                <td><p>the blending mode to use</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$opacity</td>
+                                <td><p>0.0 fully transparent, 1.0 fully opaque</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Cpdf.html#method_setLineTransparency"><span class="namespace-wrapper">Valid blend modes are (case-sensitive):
+Normal, Multiply, Screen, Overlay, Darken, Lighten,
+ColorDodge, ColorBurn, HardLight, SoftLight, Difference,
+Exclusion</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__set_fill_transparency" name="method__set_fill_transparency" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_set_fill_transparency()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_set_fill_transparency(string <span class="argument">$mode</span>, float <span class="argument">$opacity</span>)</pre>
+                <p><em>Sets fill transparency</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$mode</td>
+                                <td><p>the blending mode to use</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$opacity</td>
+                                <td><p>0.0 fully transparent, 1.0 fully opaque</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Cpdf.html#method_setFillTransparency"><span class="namespace-wrapper">Valid blend modes are (case-sensitive):
+Normal, Multiply, Screen, Overlay, Darken, Lighten,
+ColorDogde, ColorBurn, HardLight, SoftLight, Difference,
+Exclusion</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__set_line_style" name="method__set_line_style" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_set_line_style()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_set_line_style( <span class="argument">$width</span>,  <span class="argument">$cap</span>,  <span class="argument">$join</span>,  <span class="argument">$dash</span>)</pre>
+                <p><em>Sets the line style</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$width</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$cap</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$join</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$dash</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Cpdf.html#method_setLineStyle"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_y" name="method_y" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">y()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">y(float <span class="argument">$y</span>) : float</pre>
+                <p><em>Remaps y coords from 4th to 1st quadrant</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>float</td>
+                                <td>$y</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    float
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__convert_gif_to_png" name="method__convert_gif_to_png" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_convert_gif_to_png()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_convert_gif_to_png( <span class="argument">$image_url</span>) : string</pre>
+                <p><em>Convert a GIF image to a PNG image</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$image_url</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The url of the newly converted image</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__add_page_text" name="method__add_page_text" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_add_page_text()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_add_page_text()</pre>
+                <p><em>Add text to each page after rendering is complete</em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/CPDF_Adapter.html"><div class="path-wrapper">\CPDF_Adapter</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">cached_pdf_decorator.cls.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/core/inc/dompdf/include/cached_pdf_decorator.cls.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Errors</a></li>
+                                    <li><a href="">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on August 16th, 2013 at 15:51.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
