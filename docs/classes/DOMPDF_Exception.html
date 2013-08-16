@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                    <i class="icon-list-alt"></i>&#160;Errors
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                    <i class="icon-list-alt"></i>&#160;Markers
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-805848877"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-805848877" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Canvas.html">Canvas</a></li>
+                                                                                                    <li class="class"><a href="../classes/TCPDF_Adapter.html">TCPDF_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/Partecipazione.html">Partecipazione</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Tree.html">Frame_Tree</a></li>
+                                                    <li class="class"><a href="../classes/Generated_Frame_Reflower.html">Generated_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Frame_Reflower.html">Table_Row_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Dimissione.html">Dimissione</a></li>
+                                                    <li class="class"><a href="../classes/Text_Frame_Decorator.html">Text_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Zip.html">Zip</a></li>
+                                                    <li class="class"><a href="../classes/Commento.html">Commento</a></li>
+                                                    <li class="class"><a href="../classes/Canvas_Factory.html">Canvas_Factory</a></li>
+                                                    <li class="class"><a href="../classes/Utente.html">Utente</a></li>
+                                                    <li class="class"><a href="../classes/Appartenenza.html">Appartenenza</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Frame_Decorator.html">Table_Cell_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Anonimo.html">Anonimo</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mimePart.html">Mail_mimePart</a></li>
+                                                    <li class="class"><a href="../classes/Documento.html">Documento</a></li>
+                                                    <li class="class"><a href="../classes/Mail.html">Mail</a></li>
+                                                    <li class="class"><a href="../classes/Sessione.html">Sessione</a></li>
+                                                    <li class="class"><a href="../classes/Null_Positioner.html">Null_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Null_Frame_Reflower.html">Null_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Reflower.html">Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Entita.html">Entita</a></li>
+                                                    <li class="class"><a href="../classes/Area.html">Area</a></li>
+                                                    <li class="class"><a href="../classes/RichiestaTurno.html">RichiestaTurno</a></li>
+                                                    <li class="class"><a href="../classes/Annunci.html">Annunci</a></li>
+                                                    <li class="class"><a href="../classes/Abstract_Renderer.html">Abstract_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Frame_Decorator.html">Table_Row_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Mail_smtpmx.html">Mail_smtpmx</a></li>
+                                                    <li class="class"><a href="../classes/Font_Metrics.html">Font_Metrics</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Positioner.html">Inline_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mime.html">Mail_mime</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Factory.html">Frame_Factory</a></li>
+                                                    <li class="class"><a href="../classes/Null_Frame_Decorator.html">Null_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Gruppo.html">Gruppo</a></li>
+                                                    <li class="class"><a href="../classes/Patentirichieste.html">Patentirichieste</a></li>
+                                                    <li class="class"><a href="../classes/Reperibilita.html">Reperibilita</a></li>
+                                                    <li class="class"><a href="../classes/Table_Frame_Decorator.html">Table_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Mail_null.html">Mail_null</a></li>
+                                                    <li class="class"><a href="../classes/GD_Adapter.html">GD_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/GeocoderResult.html">GeocoderResult</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Positioner.html">List_Bullet_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Decorator.html">Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/AppartenenzaGruppo.html">AppartenenzaGruppo</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Frame_Reflower.html">Inline_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Block_Positioner.html">Block_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/APIServer.html">APIServer</a></li>
+                                                    <li class="class"><a href="../classes/PHP_Evaluator.html">PHP_Evaluator</a></li>
+                                                    <li class="class"><a href="../classes/Volontario.html">Volontario</a></li>
+                                                    <li class="class"><a href="../classes/Veicoli.html">Veicoli</a></li>
+                                                    <li class="class"><a href="../classes/Renderer.html">Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Regionale.html">Regionale</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mail.html">Mail_mail</a></li>
+                                                    <li class="class"><a href="../classes/Page_Cache.html">Page_Cache</a></li>
+                                                    <li class="class"><a href="../classes/Frame.html">Frame</a></li>
+                                                    <li class="class"><a href="../classes/FrameList.html">FrameList</a></li>
+                                                    <li class="class"><a href="../classes/FrameListIterator.html">FrameListIterator</a></li>
+                                                    <li class="class"><a href="../classes/FrameTreeList.html">FrameTreeList</a></li>
+                                                    <li class="class"><a href="../classes/FrameTreeIterator.html">FrameTreeIterator</a></li>
+                                                    <li class="class"><a href="../classes/ElementoRichiesta.html">ElementoRichiesta</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Frame_Reflower.html">Table_Cell_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Block_Renderer.html">Block_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Renderer.html">List_Bullet_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Image_Renderer.html">Image_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Text_Frame_Reflower.html">Text_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Text_Renderer.html">Text_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Image_Frame_Decorator.html">List_Bullet_Image_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Errore.html">Errore</a></li>
+                                                    <li class="class"><a href="../classes/File.html">File</a></li>
+                                                    <li class="class"><a href="../classes/Page_Frame_Reflower.html">Page_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Stylesheet.html">Stylesheet</a></li>
+                                                    <li class="class"><a href="../classes/Mail_smtp.html">Mail_smtp</a></li>
+                                                    <li class="class"><a href="../classes/Page_Frame_Decorator.html">Page_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Quota.html">Quota</a></li>
+                                                    <li class="class"><a href="../classes/Block_Frame_Reflower.html">Block_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Comitato.html">Comitato</a></li>
+                                                    <li class="class"><a href="../classes/Oggetto.html">Oggetto</a></li>
+                                                    <li class="class"><a href="../classes/Mail_RFC822.html">Mail_RFC822</a></li>
+                                                    <li class="class"><a href="../classes/Image_Frame_Decorator.html">Image_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/DOMPDF.html">DOMPDF</a></li>
+                                                    <li class="class"><a href="../classes/Table_Frame_Reflower.html">Table_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Avatar.html">Avatar</a></li>
+                                                    <li class="class"><a href="../classes/Persona.html">Persona</a></li>
+                                                    <li class="class"><a href="../classes/Trasferimento.html">Trasferimento</a></li>
+                                                    <li class="class"><a href="../classes/Turno.html">Turno</a></li>
+                                                    <li class="class"><a href="../classes/Attivita.html">Attivita</a></li>
+                                                    <li class="class"><a href="../classes/Provinciale.html">Provinciale</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Renderer.html">Table_Cell_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/PDF.html">PDF</a></li>
+                                                    <li class="class"><a href="../classes/Cpdf.html">Cpdf</a></li>
+                                                    <li class="class"><a href="../classes/Autorizzazione.html">Autorizzazione</a></li>
+                                                    <li class="class"><a href="../classes/Coturno.html">Coturno</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Frame_Decorator.html">Inline_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/PDFLib_Adapter.html">PDFLib_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/Nazionale.html">Nazionale</a></li>
+                                                    <li class="class"><a href="../classes/Attribute_Translator.html">Attribute_Translator</a></li>
+                                                    <li class="class"><a href="../classes/TitoloPersonale.html">TitoloPersonale</a></li>
+                                                    <li class="class"><a href="../classes/Positioner.html">Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Style.html">Style</a></li>
+                                                    <li class="class"><a href="../classes/DOMPDF_Exception.html">DOMPDF_Exception</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Positioner.html">Table_Row_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mock.html">Mail_mock</a></li>
+                                                    <li class="class"><a href="../classes/Delegato.html">Delegato</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Renderer.html">Inline_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Group_Frame_Decorator.html">Table_Row_Group_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/CPDF_Adapter.html">CPDF_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/Image_Frame_Reflower.html">Image_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Mail_sendmail.html">Mail_sendmail</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Group_Frame_Reflower.html">Table_Row_Group_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Email.html">Email</a></li>
+                                                    <li class="class"><a href="../classes/Riserva.html">Riserva</a></li>
+                                                    <li class="class"><a href="../classes/Excel.html">Excel</a></li>
+                                                    <li class="class"><a href="../classes/Block_Frame_Decorator.html">Block_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/GeoPolitica.html">GeoPolitica</a></li>
+                                                    <li class="class"><a href="../classes/Geocoder.html">Geocoder</a></li>
+                                                    <li class="class"><a href="../classes/Cached_PDF_Decorator.html">Cached_PDF_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Cellmap.html">Cellmap</a></li>
+                                                    <li class="class"><a href="../classes/DOMPDF_Internal_Exception.html">DOMPDF_Internal_Exception</a></li>
+                                                    <li class="class"><a href="../classes/GeoEntita.html">GeoEntita</a></li>
+                                                    <li class="class"><a href="../classes/DT.html">DT</a></li>
+                                                    <li class="class"><a href="../classes/Image_Cache.html">Image_Cache</a></li>
+                                                    <li class="class"><a href="../classes/Locale.html">Locale</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Positioner.html">Table_Cell_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Titolo.html">Titolo</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Frame_Reflower.html">List_Bullet_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Frame_Decorator.html">List_Bullet_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/ePDO.html">ePDO</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>DOMPDF_Exception</h1>
+                    <p><em>Standard exception thrown by DOMPDF classes</em></p>
+                    
+
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/DOMPDF_Exception.html#method___construct" class="">__construct()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/core.inc.dompdf.include.dompdf_exception.cls.php.html"><div class="path-wrapper">core/inc/dompdf/include/dompdf_exception.cls.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\dompdf</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper">\Exception</div>
+                                                                                                    <div class="namespace-wrapper">\DOMPDF_Exception</div>
+                            </dd>
+
+                        
+                        
+                                                                            <dt>See also</dt>
+                                                                                    <dd><a href="http://www.zend.com/php5/articles/engine2-php5-changes.php#Heading12"><div class="namespace-wrapper">http://www.zend.com/php5/articles/engine2-php5-changes.php#Heading12</div></a></dd>
+                                                    
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(string <span class="argument">$message</span>, int <span class="argument">$code</span>)</pre>
+                <p><em>Class constructor</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$message</td>
+                                <td><p>Error message</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>int</td>
+                                <td>$code</td>
+                                <td><p>Error code</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">dompdf_exception.cls.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/core/inc/dompdf/include/dompdf_exception.cls.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Errors</a></li>
+                                    <li><a href="">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on August 16th, 2013 at 15:51.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
