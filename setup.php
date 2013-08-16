@@ -28,14 +28,10 @@ echo "Creazione directory upload/log...\n";
 @mkdir('upload/log');
 
 
-echo "Caricamento dei comitati sul database...\n";
+echo "Prova di scrittura sul database...\n";
 
-$comitati = file_get_contents('upload/setup/comitati.txt');
-$comitati = explode("\n", $comitati);
 try {
-    foreach ( $comitati as $comitato ) {
-        $c = new Comitato; $c->nome = $comitato;
-    }
+    $c = new Comitato; $c->cancella();
 } catch ( Exception $e ) {
     die("Errore: Impossibile scrivere sul database. È stato caricato il file /core/conf/gaia.sql?");
 }
