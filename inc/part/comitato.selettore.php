@@ -94,11 +94,11 @@ function _seleziona_unita() {
         });
         
         $("#selettoreSalvaComitato").click( function() {
-            $('[data-generato]').remove();
+            $('[data-generato-comitato]').remove();
             $("#selettoreComitato").modal('hide');
 
             var stringa = '';
-            stringa += '<input data-generato="true" type="hidden" ';
+            stringa += '<input data-generato-comitato="true" type="hidden" ';
             stringa += 'name="' + c_dataInput + '" ';
             stringa += 'value="' + selezione_comitato.id +'" />';
             $(stringa).insertAfter($(c_origElem));
