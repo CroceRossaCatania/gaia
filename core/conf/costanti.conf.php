@@ -21,6 +21,7 @@ define('VOLONTARIO',2);
 /* Un anno */
 
 define('ANNO',      31536000);
+define('MESE',       2592000);
 
 /*
  * ===================================

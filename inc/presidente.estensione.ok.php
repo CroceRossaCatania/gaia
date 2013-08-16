@@ -16,10 +16,6 @@
         
         $a = new Appartenenza($a);
 
-        $a->timestamp = time();
-        $a->conferma  = $me->id;    
-        $a->stato = MEMBRO_ESTESO;
-
         $m = new Email('richiestaEstensioneok', 'Richiesta estensione approvata: ' . $a->comitato()->nome);
         $m->da = $me; 
         $m->a = $a->volontario();

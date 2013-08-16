@@ -620,6 +620,13 @@ class Comitato extends GeoPolitica {
         return json_encode($r);
     }
 
-   
-    
+    public function presidente() {
+        $d = Delegato::filtra([
+            ['comitato', $this->id],
+            ['applicazione',   APP_PRESIDENTE],
+            ['fine', 0]
+            ]);
+        return $d[0];
+    }
+
 }

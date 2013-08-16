@@ -68,6 +68,29 @@ function cronjobGiornaliero()  {
     }
     $log .= "Cancellate $n sessioni scadute\n";
 
+    /* === 3. AUTORIZZO ESTENSIONI DOPO 30 GG E NOTIFICO AL VOLONTARIO*/
+    $n = 0;
+    foreach (Estensioni::daAutotizzare() as $e) {
+        $e->auto(); $n++;
+        $a = $e->appartenenza;
+        $a = new Appartenenza($a);
+
+        $m = new Email('richiestaEstensioneok', 'Richiesta estensione approvata: ' . $a->comitato()->nome);
+        $m->a = $a->volontario();
+        $m->_NOME       = $a->volontario()->nome;
+        $m->_COMITATO   = $a->comitato()->nomeCompleto();
+        $m-> _TIME = date('d-m-Y', $e->protData);
+        $m->invia();
+    }
+    $log .= "Concesse $n estensioni\n";
+
+    /* === 4. TERMINO ESTENSIONI */
+    $n = 0;
+    foreach (Estensioni::daChiudere() as $e) {
+        $e->termina();
+    }
+    $log .= "Chiuse $n estensioni\n";
+
 
 };
 // =========== FINE CRONJOB GIORNALIERO
