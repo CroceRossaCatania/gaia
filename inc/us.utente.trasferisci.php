@@ -25,14 +25,14 @@ paginaModale();
                  class="btn btn-inverse btn-block btn-large">
                   Seleziona un volontario... <i class="icon-pencil"></i>
               </a>
-          
+          </p>
         </div>
-        <!-- <div class="modal-footer">
-          <a href="?p=attivita" class="btn">Annulla</a>
-          <button type="submit" class="btn btn-primary">
+        <div class="modal-footer">
+          <a href="?p=us.dash" class="btn">Annulla</a>
+         <!-- <button type="submit" class="btn btn-primary">
               <i class="icon-asterisk"></i> Crea attività
-          </button>
-        </div> -->
+          </button>-->
+        </div>
 </div>
     
 </form>
