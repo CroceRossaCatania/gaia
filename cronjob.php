@@ -11,6 +11,27 @@ require './core.inc.php';
  */
 set_time_limit(0);
 
+/*
+ * Controllo di sicurezza, ho lanciato il cronjob troppo spesso?
+ */
+$limite = 3600 * 23; // 23 ore
+$ora 	= (int) time(); $leggibile = date('d-m-Y H:i:s');
+$ultimo = (int) @file_get_contents('upload/log/cronjob.timestamp');
+if ( $ultimo && ($ora - $ultimo) < $limite ) {
+     // 1. Memorizza tentativo negato nel log
+     file_put_contents('upload/log/cronjob.log',
+         "\n\nERRORE: Tentativo negato alle {$leggibile}",
+	FILE_APPEND);
+     // 2. Memorizza dati di connessione sul log
+     file_put_contents('upload/log/cronjob.errori',
+	"\n\n{$leggibile}, ACCESSO BLOCCATO" .
+	    print_r($_SERVER, true),
+	FILE_APPEND);
+     die("Non posso lanciare il cronjob più spesso di ogni 23 ore." .
+         "L'incidente verrà segnalato.");
+}
+// Aggiorna il timestamp dell'ultima esecuzione
+file_put_contents('upload/log/cronjob.timestamp', $ora);
 
 $start = microtime(true);
 
