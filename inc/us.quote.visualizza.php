@@ -68,7 +68,7 @@ $q = Quota::filtra([['appartenenza', $app]], 'timestamp DESC');
                     <td><?= $_q->quota ,"€"; ?></td>
                     <td><?= $_q->conferma()->nomeCompleto(); ?></td>
                     <td>
-                        <a class="btn btn-small btn-info" href="?p=us.quote.ricevuta&id=<?= $_q->id; ?>" title="Invia Mail">
+                        <a class="btn btn-small btn-info" href="?p=us.quote.ricevuta&id=<?= $_q->id; ?>" title="Visualizza ricevuta">
                             <i class="icon-paperclip"></i> Ricevuta
                         </a>
                     </td>
