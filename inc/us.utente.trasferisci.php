@@ -21,7 +21,7 @@ paginaModale();
            <p class="text-error"><i class="icon-warning-sign"></i> Attenzione questa operazione non è reversibile </p>
            <p>&nbsp;</p>
           <p>
-              <a data-selettore="true" data-input="inputReferente" data-autosubmit="false" 
+              <a data-selettore="true" data-input="inputVolontario"
                  class="btn btn-inverse btn-block btn-large">
                   Seleziona un volontario... <i class="icon-pencil"></i>
               </a>
