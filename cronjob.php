@@ -70,7 +70,7 @@ function cronjobGiornaliero()  {
 
     /* === 3. AUTORIZZO ESTENSIONI DOPO 30 GG E NOTIFICO AL VOLONTARIO*/
     $n = 0;
-    foreach (Estensioni::daAutotizzare() as $e) {
+    foreach (Estensioni::daAutorizzare() as $e) {
         $e->auto(); $n++;
         $a = $e->appartenenza;
         $a = new Appartenenza($a);
