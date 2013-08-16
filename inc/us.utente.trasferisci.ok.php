@@ -7,12 +7,18 @@
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 $t = $_POST['inputVolontario'];
+$t = new Volontario($t);
 $c = $_POST['inputComitato'];
+
+if ( !$c ) {
+    redirect('us.utente.trasferisci&c');
+}
+
+$c = new Comitato($c);
 $m = $_POST['inputMotivo'];
-echo $t, '<br/>';
-echo $c, '<br/>';
-echo $m, '<br/>';
+
 /* Cerco appartenenze al comitato specificato */
+
 $f = Appartenenza::filtra([
   ['volontario',    $t],
   ['comitato',      $c]
@@ -49,7 +55,7 @@ foreach ( $t->storico() as $app ) {
         $t->motivo = $m;
         $t->timestamp = time();
         
-       // redirect('us.dash&trasfok');
+        redirect('us.dash&trasfok');
 
     }
     

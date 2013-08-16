@@ -11,13 +11,13 @@ paginaModale();
 
 ?>
 
-<form action="?p=us.utente.trasferisci.ok" method="POST">
+<form action="?p=us.utente.estendi.ok" method="POST">
     <div class="modal fade automodal">
         <div class="modal-header">
-          <h3><i class="icon-arrow-right"></i> Trasferisci volontario</h3>
+          <h3><i class="icon-random"></i> Estendi volontario</h3>
         </div>
         <div class="modal-body">
-           <p> Con questo modulo potrai trasferire un volontario presso un altro Comitato </p>
+           <p> Con questo modulo potrai estendere un volontario presso un altro Comitato </p>
            <ol>
                <li>
                    <a data-selettore="true" data-input="inputVolontario"
@@ -26,7 +26,7 @@ paginaModale();
                     </a><p></p>
                </li>
                <li>
-                   <a class="btn btn-inverse btn-small" data-selettore-comitato="true" data-input="inputComitato">
+                    <a class="btn btn-inverse btn-small" data-selettore-comitato="true" data-input="inputComitato">
                     Seleziona un comitato di destinazione... <i class="icon-pencil"></i>
                     </a><p></p>
                </li>
@@ -38,7 +38,7 @@ paginaModale();
         <div class="modal-footer">
           <a href="?p=us.dash" class="btn">Annulla</a>
          <button type="submit" class="btn btn-primary">
-              <i class="icon-arrow-right"></i> Trasferisci Volontario
+              <i class="icon-random"></i> Estendi Volontario
           </button>
         </div>
     </div>
