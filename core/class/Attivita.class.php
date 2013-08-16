@@ -128,4 +128,32 @@ class Attivita extends GeoEntita {
         return $r;
     }
     
+    public static function elencoMappa() {
+        global $db;
+        $q = $db->prepare("
+            SELECT
+                attivita.id
+            FROM
+                attivita, turni
+            WHERE
+                attivita.stato = :stato
+            AND
+                attivita.luogo  IS NOT NULL
+            AND
+                turni.attivita = attivita.id
+            AND
+                turni.fine    >= :ora
+            AND
+                turni.inizio <= :ora2");
+        $q->bindValue(':ora', time());
+        $q->bindValue(':ora2', time()+1209600);
+        $q->bindValue(':stato', ATT_STATO_OK);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Attivita($k[0]);
+        }
+        return $r;
+    }
+    
 }

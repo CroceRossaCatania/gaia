@@ -128,10 +128,11 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
         $excel->aggiungiRiga([
             $v->nome,
             $v->cognome,
+            date('d/m/Y', $v->dataNascita),
+            $v->comuneNascita,
+            $v->provinciaNascita,
             $v->codiceFiscale,
-            $v->email,
-            $v->cellulare,
-            $v->cellulareServizio
+            date('d/m/Y', $v->primaAppartenenza()->inizio)
         ]);
 
     }
@@ -142,10 +143,11 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
         $excel->aggiungiRiga([
             $v->nome,
             $v->cognome,
+            date('d/m/Y', $v->dataNascita),
+            $v->comuneNascita,
+            $v->provinciaNascita,
             $v->codiceFiscale,
-            $v->email,
-            $v->cellulare,
-            $v->cellulareServizio
+            date('d/m/Y', $v->primaAppartenenza()->inizio)
         ]);
 
     }

@@ -51,6 +51,12 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                 <input readonly type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->comuneNascita; ?>">
               </div>
             </div>
+            <div class="control-group">
+              <label class="control-label" for="ingressoCRI">Data ingresso in CRI</label>
+              <div class="controls">
+                <input readonly type="text" name="ingressoCRI" id="ingressoCRI" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo date('d/m/Y', $g->primaAppartenenza()->inizio); ?>">
+              </div>
+            </div>
           </form>    
     </div>
     <!--Visualizzazione e modifica titoli utente-->

@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                    <i class="icon-list-alt"></i>&#160;Errors
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                    <i class="icon-list-alt"></i>&#160;Markers
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-339576040"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-339576040" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Canvas.html">Canvas</a></li>
+                                                                                                    <li class="class"><a href="../classes/TCPDF_Adapter.html">TCPDF_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/Partecipazione.html">Partecipazione</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Tree.html">Frame_Tree</a></li>
+                                                    <li class="class"><a href="../classes/Generated_Frame_Reflower.html">Generated_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Frame_Reflower.html">Table_Row_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Dimissione.html">Dimissione</a></li>
+                                                    <li class="class"><a href="../classes/Text_Frame_Decorator.html">Text_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Zip.html">Zip</a></li>
+                                                    <li class="class"><a href="../classes/Commento.html">Commento</a></li>
+                                                    <li class="class"><a href="../classes/Canvas_Factory.html">Canvas_Factory</a></li>
+                                                    <li class="class"><a href="../classes/Utente.html">Utente</a></li>
+                                                    <li class="class"><a href="../classes/Appartenenza.html">Appartenenza</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Frame_Decorator.html">Table_Cell_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Anonimo.html">Anonimo</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mimePart.html">Mail_mimePart</a></li>
+                                                    <li class="class"><a href="../classes/Documento.html">Documento</a></li>
+                                                    <li class="class"><a href="../classes/Mail.html">Mail</a></li>
+                                                    <li class="class"><a href="../classes/Sessione.html">Sessione</a></li>
+                                                    <li class="class"><a href="../classes/Null_Positioner.html">Null_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Null_Frame_Reflower.html">Null_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Reflower.html">Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Entita.html">Entita</a></li>
+                                                    <li class="class"><a href="../classes/Area.html">Area</a></li>
+                                                    <li class="class"><a href="../classes/RichiestaTurno.html">RichiestaTurno</a></li>
+                                                    <li class="class"><a href="../classes/Annunci.html">Annunci</a></li>
+                                                    <li class="class"><a href="../classes/Abstract_Renderer.html">Abstract_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Frame_Decorator.html">Table_Row_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Mail_smtpmx.html">Mail_smtpmx</a></li>
+                                                    <li class="class"><a href="../classes/Font_Metrics.html">Font_Metrics</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Positioner.html">Inline_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mime.html">Mail_mime</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Factory.html">Frame_Factory</a></li>
+                                                    <li class="class"><a href="../classes/Null_Frame_Decorator.html">Null_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Gruppo.html">Gruppo</a></li>
+                                                    <li class="class"><a href="../classes/Patentirichieste.html">Patentirichieste</a></li>
+                                                    <li class="class"><a href="../classes/Reperibilita.html">Reperibilita</a></li>
+                                                    <li class="class"><a href="../classes/Table_Frame_Decorator.html">Table_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Mail_null.html">Mail_null</a></li>
+                                                    <li class="class"><a href="../classes/GD_Adapter.html">GD_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/GeocoderResult.html">GeocoderResult</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Positioner.html">List_Bullet_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Decorator.html">Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/AppartenenzaGruppo.html">AppartenenzaGruppo</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Frame_Reflower.html">Inline_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Block_Positioner.html">Block_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/APIServer.html">APIServer</a></li>
+                                                    <li class="class"><a href="../classes/PHP_Evaluator.html">PHP_Evaluator</a></li>
+                                                    <li class="class"><a href="../classes/Volontario.html">Volontario</a></li>
+                                                    <li class="class"><a href="../classes/Veicoli.html">Veicoli</a></li>
+                                                    <li class="class"><a href="../classes/Renderer.html">Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Regionale.html">Regionale</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mail.html">Mail_mail</a></li>
+                                                    <li class="class"><a href="../classes/Page_Cache.html">Page_Cache</a></li>
+                                                    <li class="class"><a href="../classes/Frame.html">Frame</a></li>
+                                                    <li class="class"><a href="../classes/FrameList.html">FrameList</a></li>
+                                                    <li class="class"><a href="../classes/FrameListIterator.html">FrameListIterator</a></li>
+                                                    <li class="class"><a href="../classes/FrameTreeList.html">FrameTreeList</a></li>
+                                                    <li class="class"><a href="../classes/FrameTreeIterator.html">FrameTreeIterator</a></li>
+                                                    <li class="class"><a href="../classes/ElementoRichiesta.html">ElementoRichiesta</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Frame_Reflower.html">Table_Cell_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Block_Renderer.html">Block_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Renderer.html">List_Bullet_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Image_Renderer.html">Image_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Text_Frame_Reflower.html">Text_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Text_Renderer.html">Text_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Image_Frame_Decorator.html">List_Bullet_Image_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Errore.html">Errore</a></li>
+                                                    <li class="class"><a href="../classes/File.html">File</a></li>
+                                                    <li class="class"><a href="../classes/Page_Frame_Reflower.html">Page_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Stylesheet.html">Stylesheet</a></li>
+                                                    <li class="class"><a href="../classes/Mail_smtp.html">Mail_smtp</a></li>
+                                                    <li class="class"><a href="../classes/Page_Frame_Decorator.html">Page_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Quota.html">Quota</a></li>
+                                                    <li class="class"><a href="../classes/Block_Frame_Reflower.html">Block_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Comitato.html">Comitato</a></li>
+                                                    <li class="class"><a href="../classes/Oggetto.html">Oggetto</a></li>
+                                                    <li class="class"><a href="../classes/Mail_RFC822.html">Mail_RFC822</a></li>
+                                                    <li class="class"><a href="../classes/Image_Frame_Decorator.html">Image_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/DOMPDF.html">DOMPDF</a></li>
+                                                    <li class="class"><a href="../classes/Table_Frame_Reflower.html">Table_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Avatar.html">Avatar</a></li>
+                                                    <li class="class"><a href="../classes/Persona.html">Persona</a></li>
+                                                    <li class="class"><a href="../classes/Trasferimento.html">Trasferimento</a></li>
+                                                    <li class="class"><a href="../classes/Turno.html">Turno</a></li>
+                                                    <li class="class"><a href="../classes/Attivita.html">Attivita</a></li>
+                                                    <li class="class"><a href="../classes/Provinciale.html">Provinciale</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Renderer.html">Table_Cell_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/PDF.html">PDF</a></li>
+                                                    <li class="class"><a href="../classes/Cpdf.html">Cpdf</a></li>
+                                                    <li class="class"><a href="../classes/Autorizzazione.html">Autorizzazione</a></li>
+                                                    <li class="class"><a href="../classes/Coturno.html">Coturno</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Frame_Decorator.html">Inline_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/PDFLib_Adapter.html">PDFLib_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/Nazionale.html">Nazionale</a></li>
+                                                    <li class="class"><a href="../classes/Attribute_Translator.html">Attribute_Translator</a></li>
+                                                    <li class="class"><a href="../classes/TitoloPersonale.html">TitoloPersonale</a></li>
+                                                    <li class="class"><a href="../classes/Positioner.html">Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Style.html">Style</a></li>
+                                                    <li class="class"><a href="../classes/DOMPDF_Exception.html">DOMPDF_Exception</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Positioner.html">Table_Row_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mock.html">Mail_mock</a></li>
+                                                    <li class="class"><a href="../classes/Delegato.html">Delegato</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Renderer.html">Inline_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Group_Frame_Decorator.html">Table_Row_Group_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/CPDF_Adapter.html">CPDF_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/Image_Frame_Reflower.html">Image_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Mail_sendmail.html">Mail_sendmail</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Group_Frame_Reflower.html">Table_Row_Group_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Email.html">Email</a></li>
+                                                    <li class="class"><a href="../classes/Riserva.html">Riserva</a></li>
+                                                    <li class="class"><a href="../classes/Excel.html">Excel</a></li>
+                                                    <li class="class"><a href="../classes/Block_Frame_Decorator.html">Block_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/GeoPolitica.html">GeoPolitica</a></li>
+                                                    <li class="class"><a href="../classes/Geocoder.html">Geocoder</a></li>
+                                                    <li class="class"><a href="../classes/Cached_PDF_Decorator.html">Cached_PDF_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Cellmap.html">Cellmap</a></li>
+                                                    <li class="class"><a href="../classes/DOMPDF_Internal_Exception.html">DOMPDF_Internal_Exception</a></li>
+                                                    <li class="class"><a href="../classes/GeoEntita.html">GeoEntita</a></li>
+                                                    <li class="class"><a href="../classes/DT.html">DT</a></li>
+                                                    <li class="class"><a href="../classes/Image_Cache.html">Image_Cache</a></li>
+                                                    <li class="class"><a href="../classes/Locale.html">Locale</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Positioner.html">Table_Cell_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Titolo.html">Titolo</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Frame_Reflower.html">List_Bullet_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Frame_Decorator.html">List_Bullet_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/ePDO.html">ePDO</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>Mail_mimePart</h1>
+                    <p><em>The Mail_mimePart class is used to create MIME E-mail messages</em></p>
+                    <p>This class enables you to manipulate and build a mime email
+from the ground up. The Mail_Mime class is a userfriendly api
+to this class for people who aren't interested in the internals
+of mime mail.
+This class however allows full control over the email.</p>
+
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Mail_mimePart.html#method_Mail_mimePart" class="">Mail_mimePart()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method_encode" class="">encode()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method_encodeToFile" class="">encodeToFile()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method__encodePartToFile" class="">_encodePartToFile()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method_addSubpart" class="">addSubpart()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method__getEncodedData" class="">_getEncodedData()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method__getEncodedDataFromFile" class="">_getEncodedDataFromFile()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method__quotedPrintableEncode" class="">_quotedPrintableEncode()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method__buildHeaderParam" class="">_buildHeaderParam()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method__buildRFC2047Param" class="">_buildRFC2047Param()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method_encodeHeader" class="">encodeHeader()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method__explodeQuotedString" class="">_explodeQuotedString()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method_encodeHeaderValue" class="">encodeHeaderValue()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method_encodeQP" class="">encodeQP()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method_encodeMB" class="">encodeMB()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method__qpReplaceCallback" class="">_qpReplaceCallback()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method__encodeReplaceCallback" class="">_encodeReplaceCallback()</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#method__isError" class="">_isError()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Mail_mimePart.html#property__encoding" class="">$_encoding</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#property__subparts" class="">$_subparts</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#property__encoded" class="">$_encoded</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#property__headers" class="">$_headers</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#property__body" class="">$_body</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#property__body_file" class="">$_body_file</a><br />
+                                                                    <a href="../classes/Mail_mimePart.html#property__eol" class="">$_eol</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/core.class.Mail.mimePart.php.html"><div class="path-wrapper">core/class/Mail/mimePart.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Mail_Mime</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Mail_mimePart</div>
+                            </dd>
+
+                        
+                        
+                                                                            <dt>See also</dt>
+                                                                                    <dd><a href="http://pear.php.net/package/Mail_mime"><div class="namespace-wrapper">http://pear.php.net/package/Mail_mime</div></a></dd>
+                                                    
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                category
+                            </th>
+                            <td>
+                                                                    <p>Mail</p>
+
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Richard Heyes  <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x72;&#x69;&#x63;&#x68;&#x61;&#x72;&#x64;&#x40;&#x70;&#x68;&#x70;&#x67;&#x75;&#x72;&#x75;&#46;&#111;&#114;&#103;">&#x72;&#x69;&#x63;&#x68;&#x61;&#x72;&#x64;&#x40;&#x70;&#x68;&#x70;&#x67;&#x75;&#x72;&#x75;&#46;&#111;&#114;&#103;</a></p>
+
+                                                                    <p>Cipriano Groenendal <a href="&#109;a&#105;l&#116;o&#x3a;c&#x69;&#112;&#x72;&#105;&#x40;&#112;&#x68;&#112;&#x2e;&#110;&#x65;&#116;">c&#x69;&#112;&#x72;&#105;&#x40;&#112;&#x68;&#112;&#x2e;&#110;&#x65;&#116;</a></p>
+
+                                                                    <p>Sean Coates <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;:&#115;&#x65;&#97;&#x6e;&#64;&#x70;&#104;&#x70;.&#110;&#x65;&#116;">&#115;&#x65;&#97;&#x6e;&#64;&#x70;&#104;&#x70;.&#110;&#x65;&#116;</a></p>
+
+                                                                    <p>Aleksander Machniak <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#x61;&#x6c;&#101;c&#x40;&#112;&#104;&#x70;&#x2e;&#110;&#101;&#x74;">&#x61;&#x6c;&#101;c&#x40;&#112;&#104;&#x70;&#x2e;&#110;&#101;&#x74;</a></p>
+
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                copyright
+                            </th>
+                            <td>
+                                                                    <p>2003-2006 PEAR <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x70;&#101;&#x61;&#114;&#x2d;&#103;&#x72;&#111;&#x75;&#112;&#x40;&#112;&#x68;&#112;&#x2e;&#110;&#x65;&#116;">&#x70;&#101;&#x61;&#114;&#x2d;&#103;&#x72;&#111;&#x75;&#112;&#x40;&#112;&#x68;&#112;&#x2e;&#110;&#x65;&#116;</a></p>
+
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                license
+                            </th>
+                            <td>
+                                                                    <p>http://www.opensource.org/licenses/bsd-license.php BSD License</p>
+
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                version
+                            </th>
+                            <td>
+                                                                    <p>Release: @package_version@</p>
+
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__encoding" name="property__encoding" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$_encoding</h3>
+                <pre class="signature">$_encoding : string</pre>
+                <p><em>The encoding type of this part</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__subparts" name="property__subparts" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$_subparts</h3>
+                <pre class="signature">$_subparts : array</pre>
+                <p><em>An array of subparts</em></p>
+                
+
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__encoded" name="property__encoded" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$_encoded</h3>
+                <pre class="signature">$_encoded : string</pre>
+                <p><em>The output of this part after being built</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__headers" name="property__headers" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$_headers</h3>
+                <pre class="signature">$_headers : array</pre>
+                <p><em>Headers for this part</em></p>
+                
+
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__body" name="property__body" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$_body</h3>
+                <pre class="signature">$_body : string</pre>
+                <p><em>The body of this part (not encoded)</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__body_file" name="property__body_file" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$_body_file</h3>
+                <pre class="signature">$_body_file : string</pre>
+                <p><em>The location of file with body of this part (not encoded)</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__eol" name="property__eol" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$_eol</h3>
+                <pre class="signature">$_eol : string</pre>
+                <p><em>The end-of-line sequence</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_Mail_mimePart" name="method_Mail_mimePart" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">Mail_mimePart()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">Mail_mimePart(string <span class="argument">$body</span>, array <span class="argument">$params</span>)</pre>
+                <p><em>Constructor.</em></p>
+                <p>Sets up the object.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$body</td>
+                                <td><p>The body of the mime part if any.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td><p>An associative array of optional parameters:
+    content_type      - The content type for this part eg multipart/mixed
+    encoding          - The encoding to use, 7bit, 8bit,
+                        base64, or quoted-printable
+    charset           - Content character set
+    cid               - Content ID to apply
+    disposition       - Content disposition, inline or attachment
+    filename          - Filename parameter for content disposition
+    description       - Content description
+    name_encoding     - Encoding of the attachment name (Content-Type)
+                        By default filenames are encoded using RFC2231
+                        Here you can set RFC2047 encoding (quoted-printable
+                        or base64) instead
+    filename_encoding - Encoding of the attachment filename (Content-Disposition)
+                        See 'name_encoding'
+    headers_charset   - Charset of the headers e.g. filename, description.
+                        If not set, 'charset' will be used
+    eol               - End of line sequence. Default: "\r\n"
+    headers           - Hash array with additional part headers. Array keys can be
+                        in form of <header_name>:<parameter_name>
+    body_file         - Location of file with part's body (instead of $body)</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_encode" name="method_encode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">encode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">encode(string <span class="argument">$boundary</span>) : \An</pre>
+                <p><em>Encodes and returns the email. Also stores
+it in the encoded member variable</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$boundary</td>
+                                <td><p>Pre-defined boundary string</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \An
+                                            &mdash; <p>associative array containing two elements,
+        body and headers. The headers element is itself
+        an indexed array. On error returns PEAR error object.</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_encodeToFile" name="method_encodeToFile" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">encodeToFile()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">encodeToFile(string <span class="argument">$filename</span>, string <span class="argument">$boundary</span>, boolean <span class="argument">$skip_head</span>) : array</pre>
+                <p><em>Encodes and saves the email into file. File must exist.</em></p>
+                <p>Data will be appended to the file.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$filename</td>
+                                <td><p>Output file location</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$boundary</td>
+                                <td><p>Pre-defined boundary string</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$skip_head</td>
+                                <td><p>True if you don't want to save headers</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>An associative array containing message headers
+              or PEAR error object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__encodePartToFile" name="method__encodePartToFile" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_encodePartToFile()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_encodePartToFile(string <span class="argument">$fh</span>, string <span class="argument">$boundary</span>, boolean <span class="argument">$skip_head</span>) : array</pre>
+                <p><em>Encodes given email part into file</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$fh</td>
+                                <td><p>Output file handle</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$boundary</td>
+                                <td><p>Pre-defined boundary string</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$skip_head</td>
+                                <td><p>True if you don't want to save headers</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>True on sucess or PEAR error object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addSubpart" name="method_addSubpart" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addSubpart()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addSubpart(string <span class="argument">$body</span>, array <span class="argument">$params</span>) : \Mail_mimePart</pre>
+                <p><em>Adds a subpart to current mime part and returns
+a reference to it</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$body</td>
+                                <td><p>The body of the subpart, if any.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td><p>The parameters for the subpart, same
+                      as the $params argument for constructor.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Mail_mimePart.html">\Mail_mimePart</a>
+                                            &mdash; <p>A reference to the part you just added. It is
+                      crucial if using multipart/* in your subparts that
+                      you use =&amp; in your script when calling this function,
+                      otherwise you will not be able to add further subparts.</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__getEncodedData" name="method__getEncodedData" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_getEncodedData()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_getEncodedData(string <span class="argument">$data</span>, string <span class="argument">$encoding</span>) : string</pre>
+                <p><em>Returns encoded data based upon encoding passed to it</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$data</td>
+                                <td><p>The data to encode.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$encoding</td>
+                                <td><p>The encoding type to use, 7bit, base64,
+                        or quoted-printable.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__getEncodedDataFromFile" name="method__getEncodedDataFromFile" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_getEncodedDataFromFile()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_getEncodedDataFromFile(string <span class="argument">$filename</span>, string <span class="argument">$encoding</span>, resource <span class="argument">$fh</span>) : string</pre>
+                <p><em>Returns encoded data based upon encoding passed to it</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$filename</td>
+                                <td><p>Data file location</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$encoding</td>
+                                <td><p>The encoding type to use, 7bit, base64,
+                          or quoted-printable.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>resource</td>
+                                <td>$fh</td>
+                                <td><p>Output file handle. If set, data will be
+                          stored into it instead of returning it</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Encoded data or PEAR error object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__quotedPrintableEncode" name="method__quotedPrintableEncode" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_quotedPrintableEncode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_quotedPrintableEncode(string <span class="argument">$input</span>, int <span class="argument">$line_max</span>) : string</pre>
+                <p><em>Encodes data to quoted-printable standard.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$input</td>
+                                <td><p>The data to encode</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>int</td>
+                                <td>$line_max</td>
+                                <td><p>Optional max line length. Should
+                        not be more than 76 chars</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Encoded data</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__buildHeaderParam" name="method__buildHeaderParam" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_buildHeaderParam()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_buildHeaderParam(string <span class="argument">$name</span>, string <span class="argument">$value</span>, string <span class="argument">$charset</span>, string <span class="argument">$language</span>, string <span class="argument">$encoding</span>, int <span class="argument">$maxLength</span>) : string</pre>
+                <p><em>Encodes the paramater of a header.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name</td>
+                                <td><p>The name of the header-parameter</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value</td>
+                                <td><p>The value of the paramter</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$charset</td>
+                                <td><p>The characterset of $value</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$language</td>
+                                <td><p>The language used in $value</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$encoding</td>
+                                <td><p>Parameter encoding. If not set, parameter value
+                         is encoded according to RFC2231</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>int</td>
+                                <td>$maxLength</td>
+                                <td><p>The maximum length of a line. Defauls to 75</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__buildRFC2047Param" name="method__buildRFC2047Param" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_buildRFC2047Param()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_buildRFC2047Param(string <span class="argument">$name</span>, string <span class="argument">$value</span>, string <span class="argument">$charset</span>, string <span class="argument">$encoding</span>, int <span class="argument">$maxLength</span>) : string</pre>
+                <p><em>Encodes header parameter as per RFC2047 if needed</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name</td>
+                                <td><p>The parameter name</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value</td>
+                                <td><p>The parameter value</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$charset</td>
+                                <td><p>The parameter charset</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$encoding</td>
+                                <td><p>Encoding type (quoted-printable or base64)</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>int</td>
+                                <td>$maxLength</td>
+                                <td><p>Encoded parameter max length. Default: 76</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Parameter line</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_encodeHeader" name="method_encodeHeader" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">encodeHeader()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">encodeHeader(string <span class="argument">$name</span>, string <span class="argument">$value</span>, string <span class="argument">$charset</span>, string <span class="argument">$encoding</span>, string <span class="argument">$eol</span>) : string</pre>
+                <p><em>Encodes a header as per RFC2047</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name</td>
+                                <td><p>The header name</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value</td>
+                                <td><p>The header data to encode</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$charset</td>
+                                <td><p>Character set name</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$encoding</td>
+                                <td><p>Encoding name (base64 or quoted-printable)</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$eol</td>
+                                <td><p>End-of-line sequence. Default: "\r\n"</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Encoded header data (without a name)</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__explodeQuotedString" name="method__explodeQuotedString" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_explodeQuotedString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_explodeQuotedString(string <span class="argument">$delimiter</span>, string <span class="argument">$string</span>) : array</pre>
+                <p><em>Explode quoted string</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$delimiter</td>
+                                <td><p>Delimiter expression string for preg_match()</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$string</td>
+                                <td><p>Input string</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>String tokens array</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_encodeHeaderValue" name="method_encodeHeaderValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">encodeHeaderValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">encodeHeaderValue(string <span class="argument">$value</span>, string <span class="argument">$charset</span>, string <span class="argument">$encoding</span>, int <span class="argument">$prefix_len</span>, string <span class="argument">$eol</span>) : string</pre>
+                <p><em>Encodes a header value as per RFC2047</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value</td>
+                                <td><p>The header data to encode</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$charset</td>
+                                <td><p>Character set name</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$encoding</td>
+                                <td><p>Encoding name (base64 or quoted-printable)</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>int</td>
+                                <td>$prefix_len</td>
+                                <td><p>Prefix length. Default: 0</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$eol</td>
+                                <td><p>End-of-line sequence. Default: "\r\n"</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Encoded header data</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_encodeQP" name="method_encodeQP" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">encodeQP()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">encodeQP(string <span class="argument">$str</span>) : string</pre>
+                <p><em>Encodes the given string using quoted-printable</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$str</td>
+                                <td><p>String to encode</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Encoded string</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_encodeMB" name="method_encodeMB" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">encodeMB()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">encodeMB(string <span class="argument">$str</span>, string <span class="argument">$charset</span>, string <span class="argument">$encoding</span>, int <span class="argument">$prefix_len</span>, string <span class="argument">$eol</span>) : string</pre>
+                <p><em>Encodes the given string using base64 or quoted-printable.</em></p>
+                <p>This method makes sure that encoded-word represents an integral
+number of characters as per RFC2047.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$str</td>
+                                <td><p>String to encode</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$charset</td>
+                                <td><p>Character set name</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$encoding</td>
+                                <td><p>Encoding name (base64 or quoted-printable)</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>int</td>
+                                <td>$prefix_len</td>
+                                <td><p>Prefix length. Default: 0</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$eol</td>
+                                <td><p>End-of-line sequence. Default: "\r\n"</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Encoded string</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__qpReplaceCallback" name="method__qpReplaceCallback" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_qpReplaceCallback()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_qpReplaceCallback(array <span class="argument">$matches</span>) : string</pre>
+                <p><em>Callback function to replace extended characters (\x80-xFF) with their
+ASCII values (RFC2047: quoted-printable)</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$matches</td>
+                                <td><p>Preg_replace's matches array</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Encoded character string</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__encodeReplaceCallback" name="method__encodeReplaceCallback" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_encodeReplaceCallback()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_encodeReplaceCallback(array <span class="argument">$matches</span>) : string</pre>
+                <p><em>Callback function to replace extended characters (\x80-xFF) with their
+ASCII values (RFC2231)</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$matches</td>
+                                <td><p>Preg_replace's matches array</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Encoded character string</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isError" name="method__isError" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_isError()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isError(mixed <span class="argument">$data</span>) : bool</pre>
+                <p><em>PEAR::isError wrapper</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$data</td>
+                                <td><p>Object</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    bool
+                                            &mdash; <p>True if object is an instance of PEAR_Error</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">mimePart.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/core/class/Mail/mimePart.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Errors</a></li>
+                                    <li><a href="">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on August 16th, 2013 at 15:51.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
