@@ -54,7 +54,7 @@ class Comitato extends GeoPolitica {
         }
     }
     
-    public function membriAttuali($stato = MEMBRO_VOLONTARIO) {
+    public function membriAttuali($stato = MEMBRO_ESTESO) {
         $q = $this->db->prepare("
             SELECT
                 anagrafica.id
@@ -77,6 +77,17 @@ class Comitato extends GeoPolitica {
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
             $r[] = new Volontario($k[0]);
+        }
+        return $r;
+    }
+
+    public function membriGiovani() {
+        $t = time()-GIOVANI;
+        $v = $this->membriAttuali();
+        $r = [];
+        foreach ($v as $_v) {
+            if ($t <= $_v->dataNascita)
+                $r[] = $_v;
         }
         return $r;
     }
@@ -165,7 +176,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
-    public function membriDimessi($stato = MEMBRO_DIMESSO) {
+    public function membriDimessi() {
         $q = $this->db->prepare("
             SELECT
                 anagrafica.id
@@ -180,7 +191,7 @@ class Comitato extends GeoPolitica {
             ORDER BY
                 cognome ASC, nome ASC");
         $q->bindParam(':comitato', $this->id);
-        $q->bindParam(':stato',    $stato);
+        $q->bindParam(':stato',    MEMBRO_DIMESSO);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
@@ -189,7 +200,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
-    public function numMembriAttuali($stato = MEMBRO_VOLONTARIO) {
+    public function numMembriAttuali($stato = MEMBRO_ESTESO) {
         $q = $this->db->prepare("
             SELECT
                 COUNT(volontario)
@@ -476,7 +487,7 @@ class Comitato extends GeoPolitica {
     /*
      * @param $titoli Array di elementi Titolo
      */
-    public function ricercaMembriTitoli( $titoli = [], $stato = MEMBRO_VOLONTARIO ) {
+    public function ricercaMembriTitoli( $titoli = [], $stato = MEMBRO_ESTESO ) {
         $daFiltrare = $this->membriAttuali($stato);
         foreach ( $titoli as $titolo ) {
             $filtrato = [];

@@ -100,7 +100,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE , APP_OBIETTIVO ]);
         <?php
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_OBIETTIVO ]);
         foreach($elenco as $comitato) {
-            $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
+            $t = $comitato->membriAttuali();
                 ?>
             
             <tr class="success">

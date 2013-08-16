@@ -100,7 +100,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE, APP_OBIETTIVO]);
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]);
         foreach($elenco as $comitato) {
             $k =0;
-            $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
+            $t = $comitato->membriAttuali();
             $j = $t;
             foreach ( $j as $_j ) {
                 if ($_j->giovane()){ $k++; }}

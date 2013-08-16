@@ -86,6 +86,29 @@ abstract class GeoPolitica extends GeoEntita {
         return $r;
     }
 
+    public function volontariDelegati($app = null) {
+        if ( $app ) {
+            $app = (int) $app;
+            $k = Delegato::filtra([
+                ['comitato',        $this->id],
+                ['estensione',      $this->_estensione()],
+                ['applicazione',    $app]
+            ], 'inizio DESC');
+        } else {
+            $k = Delegato::filtra([
+                ['comitato',    $this->id],
+                ['estensione',  $this->_estensione()]
+            ], 'inizio DESC');
+        }
+        $r = [];
+        foreach ( $k as $u ) {
+            if ( $u->attuale() ) {
+                $r[] = $u->volontario;
+            }
+        }
+        return array_unique($r);
+    }
+
 
     public function obiettivi_delegati($ob = OBIETTIVO_1) {
         $r = [];

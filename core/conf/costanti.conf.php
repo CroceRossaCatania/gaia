@@ -29,18 +29,20 @@ define('ANNO',      31536000);
  */
 
 /* Tipologia appartenenza gruppo */
+define('MEMBRO_DIMESSO',         0);
+define('MEMBRO_EST_TERMINATA',   5);
 define('MEMBRO_TRASF_NEGATO',   10);
 define('MEMBRO_EST_NEGATA',     15);
 define('MEMBRO_TRASF_IN_CORSO', 20);
+define('MEMBRO_EST_PENDENTE',   25);
 define('MEMBRO_PENDENTE',       30);
-define('MEMBRO_EST_PENDENTE',   35);
+define('MEMBRO_ESTESO',         35);
 define('MEMBRO_VOLONTARIO',     40);
-define('MEMBRO_ESTESO',         45);
 define('MEMBRO_MODERATORE',     50);
 define('MEMBRO_DIPENDENTE',     60);
 define('MEMBRO_PRESIDENTE',     70);
-define('MEMBRO_DIMESSO',        80);
-define('MEMBRO_EST_TERMINATA',  85);
+
+
 
 /* Definizioni in stringa */
 $conf['membro'] = [

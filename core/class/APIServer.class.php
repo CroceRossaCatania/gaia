@@ -249,7 +249,7 @@ class APIServer {
             //var_dump($q);
             $q = $this->db->prepare($q);
             $q->bindValue(':ora', time());
-            $q->bindValue(':app', MEMBRO_VOLONTARIO);
+            $q->bindValue(':app', MEMBRO_ESTESO);
             $q->execute();
             $r = [];
             while ( $k = $q->fetch(PDO::FETCH_NUM) ) {

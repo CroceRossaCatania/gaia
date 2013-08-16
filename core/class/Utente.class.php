@@ -83,9 +83,14 @@ class Utente extends Persona {
         $a = Appartenenza::filtra([
             ['volontario',  $this->id],
             ['comitato',    $c->id]
-        ]); 
-        return (bool) $a;
+        ]);
+        foreach ($a as $_a) {
+            if ($_a->stato >= MEMBRO_ESTESO)
+                return True;
+        }
+        return False;
     }
+
     public function volontario() {
         return new Volontario($this->id);
     }
@@ -158,7 +163,7 @@ class Utente extends Persona {
         return $t;
     }
     
-    public function appartenenzeAttuali($tipo = MEMBRO_VOLONTARIO) {
+    public function appartenenzeAttuali($tipo = MEMBRO_ESTESO) {
         $q = $this->db->prepare("
             SELECT
                 appartenenza.id
@@ -184,7 +189,7 @@ class Utente extends Persona {
         return $r;
     }
     
-    public function comitati($tipo = MEMBRO_VOLONTARIO) {
+    public function comitati($tipo = MEMBRO_ESTESO) {
         $c = [];
         foreach ( $this->appartenenzeAttuali($tipo) as $a ) {
             $c[] = $a->comitato();
