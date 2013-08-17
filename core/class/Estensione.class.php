@@ -94,6 +94,7 @@ class Estensione extends Entita {
             if ($_e->appartenenza->inizio < $unmesefa)
                 $r[] = $_e;
         }
+        return $r;
     }
 
     public function daChiudere() {
@@ -104,6 +105,7 @@ class Estensione extends Entita {
             if ($_e->appartenenza->fine > $ora)
                 $r[] = $_e;
         }
+        return $r;
     }
         
 }

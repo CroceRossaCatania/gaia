@@ -70,7 +70,7 @@ function cronjobGiornaliero()  {
 
     /* === 3. AUTORIZZO ESTENSIONI DOPO 30 GG E NOTIFICO AL VOLONTARIO*/
     $n = 0;
-    foreach (Estensioni::daAutorizzare() as $e) {
+    foreach (Estensione::daAutorizzare() as $e) {
         $e->auto(); $n++;
         $a = $e->appartenenza;
         $a = new Appartenenza($a);
@@ -86,7 +86,7 @@ function cronjobGiornaliero()  {
 
     /* === 4. TERMINO ESTENSIONI */
     $n = 0;
-    foreach (Estensioni::daChiudere() as $e) {
+    foreach (Estensione::daChiudere() as $e) {
         $e->termina();
     }
     $log .= "Chiuse $n estensioni\n";
