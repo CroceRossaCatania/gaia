@@ -91,6 +91,14 @@ function cronjobGiornaliero()  {
     }
     $log .= "Chiuse $n estensioni\n";
 
+    /* === 5. AUTORIZZO TRASFERIMENTI DOPO 30GG - NOTIFICO E CHIUDO SOSPESI E TURNI */
+    /* === 6. DIMETTO DOPO 1 ANNO DI RISEVA SENZA RIENTRO */
+    /* === 7. AUTORIZZO RISERVE DOPO 30GG */
+    /* === 8. REMINDER 1 ANNO DI RISERVA TRA 30GG */
+    /* === 9. REMINDER 1 ANNO DI RISERVA TRA 5GG */
+    /* === 10. REMINDER SCADENZA ESTENSIONE TRA 30GG */
+    /* === 11. REMINDER SCADENZA ESTENSIONE TRA 5GG */
+
 
 };
 // =========== FINE CRONJOB GIORNALIERO
@@ -145,8 +153,8 @@ function cronjobSettimanale() {
     foreach ( Comitato::elenco() as $comitato ) {
         $a = count($comitato->appartenenzePendenti());
         $b = count($comitato->titoliPendenti());    
-        $c = $a + $b;
-        if ( $c == 0 ) { continue; }
+        $z = $a + $b;
+        if ( $z == 0 ) { continue; }
         foreach ( $comitato->volontariPresidenti() as $presidente ) {
             $m = new Email('riepilogoPresidente', "Promemoria: Ci sono {$c} azioni in sospeso");
             $m->a       = $presidente;
