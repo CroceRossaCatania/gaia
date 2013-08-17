@@ -78,9 +78,9 @@ class Estensione extends Entita {
             ['referente', $v->id],
             ['comitato', $c->id]
             ]);
-        $presidente = $c->presidente();
+        $presidente = $c->unPresidente();
         foreach ($a as $_a) {
-            $_a->referente = $presidente;
+            $_a->referente = $presidente->id;
         }
 
         //togliere i turni?
