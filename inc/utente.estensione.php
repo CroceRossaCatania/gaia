@@ -13,20 +13,6 @@ caricaSelettoreComitato();
         <?php        menuVolontario(); ?>
     </div>
     <div class="span9">
-        <div>Un po' di debug qui! <br> ID comitato di appartenenza chiamando $me->unComitato() : 
-        <?php 
-          echo $me->unComitato();
-        ?> <br> ID comitato in cui faccio servizio chiamando $me->comitati() : <?php 
-           foreach ($me->comitati() as $a) {
-            echo " ".$a->id;
-          }
-        ?> <br> ID delle appartenenze aperte $me->appartenenzeAttuali() : <?php 
-           foreach ($me->appartenenzeAttuali() as $a) {
-            echo " ".$a;
-          }
-         
-        ?>
-        </div>
         <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-save"></i> <strong>Richiesta inviata</strong>.

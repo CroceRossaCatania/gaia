@@ -37,17 +37,17 @@ if ( $sessione->inGenerazioneEstensione) {
         $m = new Email('richiestaEstensione', 'Richiesta estensione: ' . $e->comitato()->nome);
         $m->a = $me;
         $m->_NOME       = $me->nome;
-        $m->_COMITATO   = $e->comitato()->nomeCompleto();
+        $m->_COMITATO   = $cest->nomeCompleto();
         $m-> _TIME = date('d-m-Y', $e->timestamp);
         $m->allega($f);
         $m->invia();
         
          /* Richiesta per conoscenza al nuovo presidente */
         $m = new Email('richiestaEstensione.cc', 'Richiesta estensione in arrivo a: ' . $e->comitato()->nome);
-        $m->a = $e->comitato()->unPresidente();
+        $m->a = $cest->unPresidente();
         $m->_NOME       = $me->nomeCompleto();
-        $m->_COMITATO   = $e->comitato()->nomeCompleto();
-        $m->_USCENTE = $cout->nomeCompleto();
+        $m->_COMITATO   = $cest->nomeCompleto();
+        $m->_USCENTE = $capp->nomeCompleto();
         $m-> _TIME = date('d-m-Y', $e->timestamp);
         $m->allega($f);
         $m->invia();
