@@ -3,6 +3,7 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
+paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $q = $_GET['id'];
 $app = new Quota($q);

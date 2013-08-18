@@ -195,6 +195,10 @@ class Entita {
             $stringa = " WHERE {$campi[0]} LIKE :stringa";
             $query = '%' . $query . '%';
         } else {
+            foreach ( $campi as &$campo ) {
+                $campo = "`{$campo}`";
+            }
+            $q = $db->quote($query);
             $stringa = " WHERE MATCH (" . implode(', ', $campi) .") AGAINST (:stringa)";
         }
         $q = $db->prepare("

@@ -36,6 +36,11 @@ if ( $presidente || $me->delegazioni(APP_CO)) {
     ];
 }
 
+if ( $presidente || $me->delegazioni(APP_OBIETTIVO)) {
+    $menu[''] += [
+        'obiettivo.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Delegato d\'Area'
+    ];
+}
 
 $nap = count($me->autorizzazioniPendenti());
 if ( $nap ) {
@@ -61,6 +66,7 @@ $menu += [
         
     ],
     'Segreteria'      =>  [
+        'utente.estensione'  =>  '<i class="icon-random"></i> Estensioni',
         'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti',
         'utente.riserva'  =>  '<i class="icon-pause"></i> Riserva',
         'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica',

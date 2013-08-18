@@ -83,9 +83,14 @@ class Utente extends Persona {
         $a = Appartenenza::filtra([
             ['volontario',  $this->id],
             ['comitato',    $c->id]
-        ]); 
-        return (bool) $a;
+        ]);
+        foreach ($a as $_a) {
+            if ($_a->stato >= MEMBRO_ESTESO)
+                return True;
+        }
+        return False;
     }
+
     public function volontario() {
         return new Volontario($this->id);
     }
@@ -144,6 +149,24 @@ class Utente extends Persona {
         ];
     }
 
+            
+    public function toJSONRicerca() {
+        $comitato = $this->unComitato();
+        if ( $comitato ) {
+            $comitato = $comitato->toJSONRicerca();
+        } else {
+            $comitato = false;
+        }
+        return [
+            'id'            =>  $this->id,
+            'cognome'       =>  $this->cognome,
+            'nome'          =>  $this->nome,
+            'email'         =>  $this->email,
+            'codiceFiscale' =>  $this->codiceFiscale,
+            'comitato'      =>  $comitato
+        ];
+    }
+
     public function calendarioAttivita(DT $inizio, DT $fine) {
         $c = $this->comitati();
         $t = [];
@@ -158,7 +181,7 @@ class Utente extends Persona {
         return $t;
     }
     
-    public function appartenenzeAttuali($tipo = MEMBRO_VOLONTARIO) {
+    public function appartenenzeAttuali($tipo = MEMBRO_ESTESO) {
         $q = $this->db->prepare("
             SELECT
                 appartenenza.id
@@ -184,7 +207,7 @@ class Utente extends Persona {
         return $r;
     }
     
-    public function comitati($tipo = MEMBRO_VOLONTARIO) {
+    public function comitati($tipo = MEMBRO_ESTESO) {
         $c = [];
         foreach ( $this->appartenenzeAttuali($tipo) as $a ) {
             $c[] = $a->comitato();
@@ -357,6 +380,21 @@ class Utente extends Persona {
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
     }
+
+    public function numEstPending( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma ( $app );
+        $q = $this->db->prepare("
+            SELECT  COUNT(estensioni.id)
+            FROM    estensioni, appartenenza
+            WHERE   estensioni.stato = :statoPendente
+            AND     estensioni.appartenenza = appartenenza.id
+            AND     estensioni.cProvenienza  IN
+                ( {$comitati} )");
+        $q->bindValue(':statoPendente', EST_INCORSO);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
     
     public function numRisPending( $app = [ APP_PRESIDENTE ] ) {
         $comitati = $this->comitatiAppComma ( $app );
@@ -427,9 +465,16 @@ class Utente extends Persona {
                 ]);
             }
         } else {
-            return Delegato::filtra([
-                ['volontario',      $this->id]
-            ]);
+            if ( $comitato ) {
+                return Delegato::filtra([
+                    ['volontario',      $this->id],
+                    ['comitato',        $comitato]
+                ]);
+            } else {
+                return Delegato::filtra([
+                    ['volontario',      $this->id]
+                ]);
+            }
         }
     }
     
@@ -651,7 +696,7 @@ class Utente extends Persona {
             }
     }
     
-    public function gruppiDiCompetenza( $app = [ APP_PRESIDENTE, APP_SOCI ] ) {
+    public function gruppiDiCompetenza( $app = [ APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO ] ) {
         $gruppi = [];
         $comitati = $this->comitatiApp($app);
         foreach ($comitati as $comitato) {
@@ -666,4 +711,17 @@ class Utente extends Persona {
         $gruppi = array_unique($gruppi);
         return $gruppi;
     }
+    
+    public function inEstensione($c) {
+        $app = Appartenenza::filtra([
+            ['volontario', $this->id],
+            ['stato', MEMBRO_ESTESO],
+            ['comitato', $c]
+        ]);
+        return Estensione::filtra([
+            ['appartenenza',  $app[0]->id],
+            ['stato',       EST_OK]
+        ]);
+    }
+    
 }
