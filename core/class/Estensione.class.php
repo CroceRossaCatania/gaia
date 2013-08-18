@@ -96,7 +96,7 @@ class Estensione extends Entita {
             {
                 $_r->fine = $ora;
                 if ($_r->inizio > $_r->fine)
-                    $_r-> inizio = $ora;
+                    $_r->inizio = $ora;
             }
         }
 
