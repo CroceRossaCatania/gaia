@@ -53,10 +53,7 @@ $excel->intestazione([
     'Cell. Servizio'
 ]);
 
-foreach ( $c->membriDimessi(MEMBRO_VOLONTARIO) as $v ) {
-    $t = time()-GIOVANI;
-    if ($t <=  $v->dataNascita){
-    
+foreach ( $c->membriGiovani as $v ) {
     $excel->aggiungiRiga([
         $v->nome,
         $v->cognome,
@@ -66,7 +63,6 @@ foreach ( $c->membriDimessi(MEMBRO_VOLONTARIO) as $v ) {
         $v->cellulareServizio
     ]);
     
-}
 }
 
 $excel->genera('Volontari_giovani.xls');

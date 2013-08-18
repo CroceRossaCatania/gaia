@@ -89,20 +89,40 @@ if($i==0){ ?>
    <div class="control-group">
         <label class="control-label" for="inputGruppo">Gruppi di lavoro </label>
         <div class="controls">
-            <?php if (!$me->unComitato()->gruppi()) { ?>
+            <?php
+            $comitati = $me->comitati();
+            $nogruppi = True;
+            foreach ($comitati as $c)
+            {
+                if ($c->gruppi())
+                {
+                    $nogruppi = False;
+                    break;
+                }
+
+            }
+            if ($nogruppi)
+            { ?>
                 <span class="text-error">
                     <i class="icon-warning-sign"></i>
                     Spiacente.<br />
                     Attualmente nel tuo Comitato non esistono gruppi di lavoro.
                 </span>
+
             <?php } else { ?>
-                <select name="inputGruppo" required>
-                    <?php foreach ( $me->unComitato()->gruppi() as $g ) { ?>
-                        <option value="<?php echo $g->id; ?>"><?php echo $g->nome; ?></option>
-                    <?php } ?>
+                <select name="inputGruppo" class="input-xxlarge" required>
+                <?php foreach ($comitati as $c) 
+                {
+                    foreach ($c->gruppi() as $g) 
+                    { ?>
+                        <option value="<?php echo $g->id; ?>"><?php echo $c->nomeCompleto() ?> : <?php echo $g->nome; ?></option>
+                    <?php }
+                } ?>
                 </select>
-            <?php } ?>
-            
+            <?php }
+
+
+            ?>            
             </div>
           </div>
         <div class="control-group">

@@ -137,11 +137,12 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                             <div class="btn-group">
                                 <?php
                                     /* Conto le notifiche */
-                                    $_n     =   $_n_titoli = $_n_app = $_n_trasf = $_n_ris= 0;
+                                    $_n     =   $_n_titoli = $_n_app = $_n_trasf = $_n_ris = $_n_est = 0;
                                     $_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
                                     $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                                     $_n     +=  $_n_trasf  = $me->numTrasfPending   ([APP_PRESIDENTE]);
                                     $_n     +=  $_n_ris    = $me->numRisPending     ([APP_PRESIDENTE, APP_SOCI]);
+                                    $_n     +=  $_n_est    = $me->numEstPending     ([APP_PRESIDENTE]);
                                    ?>
                                 <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
                                     <i class="icon-asterisk"></i>
@@ -176,6 +177,18 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                                             <?php if ( $_n_app ) { ?>
                                                 <span class="badge badge-warning">
                                                     <?php echo $_n_app; ?>
+                                                </span>
+                                            <?php } ?>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="?p=presidente.estensione">
+                                            <i class="icon-random"></i>
+                                            Estensioni in attesa
+                                            <?php if ( $_n_est ) { ?>
+                                                <span class="badge badge-warning">
+                                                    <?php echo $_n_est; ?>
                                                 </span>
                                             <?php } ?>
                                         </a>

@@ -23,10 +23,10 @@ if ( $ultimo && ($ora - $ultimo) < $limite ) {
 	FILE_APPEND);
      // 2. Memorizza dati di connessione sul log
      file_put_contents('upload/log/cronjob.errori',
-	"\n\n{$leggibile}, ACCESSO BLOCCATO" .
+	"\n\n{$leggibile}, ACCESSO BLOCCATO\n" .
 	    print_r($_SERVER, true),
 	FILE_APPEND);
-     die("Non posso lanciare il cronjob più spesso di ogni 23 ore." .
+     die("Non posso lanciare il cronjob più spesso di ogni 23 ore. " .
          "L'incidente verrà segnalato.");
 }
 // Aggiorna il timestamp dell'ultima esecuzione
@@ -67,6 +67,37 @@ function cronjobGiornaliero()  {
         $s->cancella(); $n++;
     }
     $log .= "Cancellate $n sessioni scadute\n";
+
+    /* === 3. AUTORIZZO ESTENSIONI DOPO 30 GG E NOTIFICO AL VOLONTARIO*/
+    $n = 0;
+    foreach (Estensione::daAutorizzare() as $e) {
+        $e->auto(); $n++;
+        $a = $e->appartenenza;
+        $a = new Appartenenza($a);
+
+        $m = new Email('richiestaEstensioneok', 'Richiesta estensione approvata: ' . $a->comitato()->nome);
+        $m->a = $a->volontario();
+        $m->_NOME       = $a->volontario()->nome;
+        $m->_COMITATO   = $a->comitato()->nomeCompleto();
+        $m-> _TIME = date('d-m-Y', $e->protData);
+        $m->invia();
+    }
+    $log .= "Concesse $n estensioni\n";
+
+    /* === 4. TERMINO ESTENSIONI */
+    $n = 0;
+    foreach (Estensione::daChiudere() as $e) {
+        $e->termina(); $n++;
+    }
+    $log .= "Chiuse $n estensioni\n";
+
+    /* === 5. AUTORIZZO TRASFERIMENTI DOPO 30GG - NOTIFICO E CHIUDO SOSPESI E TURNI */
+    /* === 6. DIMETTO DOPO 1 ANNO DI RISEVA SENZA RIENTRO */
+    /* === 7. AUTORIZZO RISERVE DOPO 30GG */
+    /* === 8. REMINDER 1 ANNO DI RISERVA TRA 30GG */
+    /* === 9. REMINDER 1 ANNO DI RISERVA TRA 5GG */
+    /* === 10. REMINDER SCADENZA ESTENSIONE TRA 30GG */
+    /* === 11. REMINDER SCADENZA ESTENSIONE TRA 5GG */
 
 
 };
@@ -122,8 +153,8 @@ function cronjobSettimanale() {
     foreach ( Comitato::elenco() as $comitato ) {
         $a = count($comitato->appartenenzePendenti());
         $b = count($comitato->titoliPendenti());    
-        $c = $a + $b;
-        if ( $c == 0 ) { continue; }
+        $z = $a + $b;
+        if ( $z == 0 ) { continue; }
         foreach ( $comitato->volontariPresidenti() as $presidente ) {
             $m = new Email('riepilogoPresidente', "Promemoria: Ci sono {$c} azioni in sospeso");
             $m->a       = $presidente;
