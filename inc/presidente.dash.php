@@ -20,10 +20,11 @@ if ( $sessione->attenzione == false ){
         </div>
         <div class="modal-body">
           <p>Salve Presidente <?php echo $me->nome; ?>, da oggi Gaia ti risponde!</p>
-          <p>Se hai bisogno di assistenza immediata chiama il <strong>+39 0692928574</strong></p>
+          <p>Se hai bisogno di assistenza immediata chiama il +39 <strong>06 9292 8574</strong></p>
         </div>
         <div class="modal-footer">
           <button data-dismiss="modal" aria-hidden="true" class="btn btn-primary">
+            <i class="icon-ok"></i>
             Ok, grazie
           </a>
         </div>

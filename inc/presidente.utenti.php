@@ -68,7 +68,7 @@ menuElenchiVolontari(
     </div>
     <table
         data-volontari="elenco"
-        data-perpagina="50"
+        data-perpagina="30"
         data-azioni="#azioniElenco"
         >
     </table>
