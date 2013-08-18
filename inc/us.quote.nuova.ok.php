@@ -23,10 +23,12 @@ $r = $_GET['inputQuota'];
                                     $t->quota = QUOTA_PRIMO;
                                     $s = QUOTA_PRIMO;
                                     $i = "Versamento quota iscrizione";
+                                    $t->causale = $i;
                                 }elseif($r == QUOTA_RINNOVO){
                                     $t->quota = QUOTA_RINNOVO;
                                     $s = QUOTA_RINNOVO;
                                     $i = "Versamento quota di rinnovo annuale";
+                                    $t->causale = $i;
                                 }elseif($r ==QUOTA_ALTRO){
                                     $t->quota = $_GET['inputImporto'];
                                     $t->causale = $_GET['inputCausale'];

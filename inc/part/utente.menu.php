@@ -36,6 +36,11 @@ if ( $presidente || $me->delegazioni(APP_CO)) {
     ];
 }
 
+if ( $presidente || $me->delegazioni(APP_OBIETTIVO)) {
+    $menu[''] += [
+        'obiettivo.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Delegato d\'Area'
+    ];
+}
 
 $nap = count($me->autorizzazioniPendenti());
 if ( $nap ) {
@@ -80,6 +85,10 @@ $menu += [
     ],
     'Impostazioni' =>  [
         'utente.password'     =>   '<i class="icon-key"></i> Password'
+    ],
+    'Statistiche' =>  [
+        'utente.statistiche.volontari'     =>   '<i class="icon-puzzle-piece"></i> Volontari'
+//        'utente.statistiche.attivita'     =>   '<i class="icon-weibo"></i> Attività'
     ]
 ];
 

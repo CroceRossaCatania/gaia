@@ -22,5 +22,8 @@ class Quota extends Entita {
         return $this->appartenenza()->comitato();
     }
     
+    public function conferma() {
+        return new Volontario($this->pConferma);
+    }
     
 }

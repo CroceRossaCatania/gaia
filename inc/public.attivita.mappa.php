@@ -46,10 +46,7 @@
       var map = new google.maps.Map(document.getElementById("laMappa"), opzioni);
       
       var messaggio = [], marcatore = [];                         
-      <?php $i = 0; foreach ( Attivita::filtra([['stato', ATT_STATO_OK]]) as $a ) { 
-          foreach ( $a->turni() as $t ){
-              if ( $t->fine <= time() ){ continue; }
-                if ( !$a->haPosizione()) { continue; }  
+      <?php $i = 0; $elenco = Attivita::elencoMappa(); foreach ( $elenco as $a ) { 
         ?>
                     messaggio.push(new google.maps.InfoWindow({
                         content: "<a href='https://www.gaiacri.it/?p=attivita.scheda&id=<?php echo $a->id; ?>'><?php echo htmlentities($a->nome); ?></a><br /><?php echo htmlentities($a->luogo); ?>"
@@ -63,7 +60,7 @@
                     });
                     <?php $i++; ?>
 
-      <?php }} ?>
+      <?php } ?>
         
     }
     function loadScript() {

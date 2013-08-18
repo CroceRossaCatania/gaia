@@ -125,6 +125,9 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                             <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                 <i class="icon-envelope"></i>
                             </a>
+                            <a class="btn btn-small btn-info" href="?p=us.quote.visualizza&id=<?php echo $_v->id; ?>" title="Visualizza ricevute">
+                                <i class="icon-paperclip"></i> Ricevute
+                            </a>
                         </div>
                    </td>
                 </tr>

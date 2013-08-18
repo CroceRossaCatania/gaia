@@ -81,6 +81,37 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
+    public function membriRiserva() {
+        $q = $this->db->prepare("
+            SELECT
+                anagrafica.id
+            FROM
+                appartenenza, anagrafica, riserve
+            WHERE
+                riserve.stato = :stato
+            AND
+                riserve.appartenenza = appartenenza.id
+            AND
+                appartenenza.comitato = :comitato
+            AND
+                appartenenza.volontario = anagrafica.id
+            AND
+                riserve.inizio    <= :ora
+            AND
+                riserve.fine      >= :ora
+            ORDER BY
+                 cognome ASC, nome ASC");
+        $q->bindValue(':ora', time());
+        $q->bindValue(':stato', RISERVA_OK);
+        $q->bindParam(':comitato', $this->id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Volontario($k[0]);
+        }
+        return $r;
+    }
+    
     /*
      * Volontari che alla data $elezioni hanno certa $anzianita
      */
@@ -511,5 +542,73 @@ class Comitato extends GeoPolitica {
         }
         return $r;
     }
+
+    /*
+    manca il fetch del sesso della persona
+    */
+    
+    public function etaSessoComitato() {
+        $q = $this->db->prepare("
+            SELECT 
+                dettagliPersona.valore, anagrafica.codiceFiscale
+            FROM  
+                dettagliPersona, anagrafica, appartenenza
+            WHERE 
+                dettagliPersona.id = anagrafica.id
+            AND 
+                anagrafica.id = appartenenza.volontario
+            AND 
+                dettagliPersona.nome LIKE  'datanascita'
+            AND
+                appartenenza.comitato = :comitato");
+        $q->bindParam(':comitato', $this->id);
+        $q->execute();
+        
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $sesso = Utente::sesso($k[1]);
+            $r[] = ['data'=>$k[0],'sesso'=>$sesso];
+        }
+
+        return $r;
+        
+    }
+
+    public function anzianitaMembri($stato = MEMBRO_VOLONTARIO) {
+        $q = $this->db->prepare("
+            SELECT 
+                appartenenza.inizio, anagrafica.codiceFiscale
+            FROM  
+                anagrafica, appartenenza
+            WHERE 
+                anagrafica.id = appartenenza.volontario
+            AND
+                appartenenza.comitato = :comitato
+            AND
+                appartenenza.stato = :stato");
+        $q->bindParam(':comitato', $this->id);
+        $q->bindParam(':stato', $stato);
+        $q->execute();
+        
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $sesso = Utente::sesso($k[1]);
+            $r[] = ['ingresso'=>$k[0],'sesso'=>$sesso];
+        }
+
+        return $r;
+    }
+    
+
+    public function informazioniVolontariJSON() {
+        $datesesso = $this->etaSessoComitato();
+        $anzianita = $this->anzianitaMembri();
+
+        $r = [  'datesesso'=>$datesesso,
+                'anzianita'=>$anzianita];
+        return json_encode($r);
+    }
+
+   
     
 }
