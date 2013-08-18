@@ -389,9 +389,9 @@ function _tabella_ridisegna( e, dati, input ) {
 }
 
 function _tabella_sostituzioni (testo, volontario) {
-    testo = testo.replace('{id}',       volontario.id);
-    testo = testo.replace('{nome}',     volontario.nome);
-    testo = testo.replace('{cognome}',  volontario.cognome);
+    testo = testo.replace(/{id}/g,       volontario.id);
+    testo = testo.replace(/{nome}/g,     volontario.nome);
+    testo = testo.replace(/{cognome}/g,  volontario.cognome);
     return testo;
 }
 
