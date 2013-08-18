@@ -347,6 +347,14 @@ class APIServer {
                 $r->query = $this->par['query'];
             }
 
+            if ( $this->par['pagina'] ) {
+                $r->pagina = (int) $this->par['pagina'];
+            }
+
+            if ( $this->par['perPagina'] ) {
+                $r->perPagina = (int) $this->par['perPagina'];
+            }
+
             $r->esegui();
 
             $risultati = [];
