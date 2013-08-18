@@ -100,7 +100,15 @@ class Estensione extends Entita {
             }
         }
 
-        //togliere i turni?
+        // chiudo le partecipazioni
+        $p = Partecipazione::filtra([
+            ['volontario', $v->id]
+            ]);
+        foreach ($p as $_p) {
+            if ( $_p->turno()->futuro() && $_p->turno()->attivita()->comitato() == $c->id) {
+                $_p->cancella();
+            }
+        }
     }
 
     public function daAutorizzare() {
