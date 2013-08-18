@@ -99,7 +99,7 @@ class Ricerca {
                         anagrafica.email,
                         anagrafica.codiceFiscale
                     ) AGAINST ({$query})";
-            $pPertinenza = "({$pRicerca}) as pertinenza";
+            $pPertinenza = "MAX({$pRicerca}) as pertinenza";
             $pRicerca = "AND {$pRicerca}";
         } else {
             $pPertinenza = "1 as pertinenza";
@@ -123,6 +123,8 @@ class Ricerca {
                     )
                 {$pDominio}
                 {$pRicerca}   
+            GROUP BY    anagrafica.id
+
         ";
         return $query;
     }
