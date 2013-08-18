@@ -7,13 +7,16 @@
 paginaPrivata();
 
 $t = $_GET['id'];
+ if ( count($me->comitati()) > 1 ) {
+     $c = $_POST['inputComitato'];
+ }else{
  foreach ( $me->storico() as $app ) { 
                          if ($app->attuale()) 
                                     {
                              $c = $app->comitato()->id;
                          }
                          } 
-
+ }
         $t = new Reperibilita();
         $t->comitato = $c;
         $t->volontario = $me;
