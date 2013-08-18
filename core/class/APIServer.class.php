@@ -137,24 +137,17 @@ class APIServer {
                     continue;
                 }
                 if ( $this->sessione->utente ) {
-                    if ( in_array($attivita->comitato(), $this->sessione->utente()->comitati()) ) {
+                    if ( $attivita->comitato()->haMembro($this->sessione->utente()) ) {
                         $colore = $conf['attivita']['colore_mie'];
                     } else {
                         $colore = $conf['attivita']['colore_pubbliche'];
                     }
+                    if ( $turno->scoperto() ) {
+                        $colore = $conf['attivita']['colore_scoperto'];
+                    }
                 } else {
                     $colore = $conf['attivita']['colore_pubbliche'];
                 }
-                if($turno->scoperto()){
-                    $r[] = [
-                    'title'     => $attivita->nome. ', ' . $turno->nome,
-                    'id'        =>  $turno->id,
-                    'start'     =>  $turno->inizio()->toJSON(),
-                    'end'       =>  $turno->fine()->toJSON(),
-                    'color'     =>  '#B20000',
-                    'url'       =>  '?p=attivita.scheda&id=' . $attivita->id . '&turno=' . $turno->id
-                            ];
-                }else{
                 $r[] = [
                     'title'     =>  $attivita->nome. ', ' . $turno->nome,
                     'id'        =>  $turno->id,
@@ -163,9 +156,7 @@ class APIServer {
                     'color'     =>  '#' . $colore,
                     'url'       =>  '?p=attivita.scheda&id=' . $attivita->id . '&turno=' . $turno->id
                 ];
-            
-                }
-                }
+            }
             return $r;
         }
         
@@ -214,59 +205,7 @@ class APIServer {
             return $r;
         }
         
-        public function api_cercaVolontario() {
-            $this->richiedi(['query']);
-            $me = $this->sessione->utente();
-            $comitati = array_merge($me->comitatiDiCompetenza(), $me->comitati());
-            $comitati = array_unique($comitati);
-            $comitati = implode(', ', $comitati);
-            $query = str_replace("'", "\'", $this->par['query']);
-            $q = "SELECT
-                    anagrafica.id
-                  FROM
-                    anagrafica, appartenenza
-                  WHERE
-                    anagrafica.id = appartenenza.volontario
-                  AND
-                    (appartenenza.fine = 0 OR appartenenza.fine IS NULL OR appartenenza.fine > :ora)
-                  AND 
-                    appartenenza.stato >= :app
-                  AND
-                    ( (
-                        nome    LIKE '%$query%'
-                      OR
-                        cognome LIKE '%$query%'
-                      
-                    ) OR
-                        (MATCH (anagrafica.nome, anagrafica.cognome)  AGAINST ('$query'))
-                     )
-                  AND
-                    appartenenza.comitato IN ($comitati)
-                  ORDER BY
-                    (MATCH (anagrafica.nome, anagrafica.cognome)  AGAINST ('$query')) DESC, anagrafica.nome, anagrafica.cognome
-                  LIMIT
-                    0, 30";
-            //var_dump($q);
-            $q = $this->db->prepare($q);
-            $q->bindValue(':ora', time());
-            $q->bindValue(':app', MEMBRO_VOLONTARIO);
-            $q->execute();
-            $r = [];
-            while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-                $v = new Volontario($k[0]);
-                $c = $v->unComitato();
-                $r[] = [
-                    'id'        =>  $v->id,
-                    'nome'      =>  str_replace("'", '`', $v->nomeCompleto()),
-                    'comitato'  =>  [
-                        'id'    => $c->id,
-                        'nome'  => $c->nome
-                    ]
-                ];
-            }
-            return $r;
-        }
-        
+
         public function api_autorizza() {
             $this->richiedi(['id']);
             $this->richiediLogin();
@@ -330,6 +269,61 @@ class APIServer {
                 throw new Errore(9050);
             }
             return true;
+        }
+
+        public function api_volontari_cerca() {
+            $this->richiediLogin();
+
+            $r = new Ricerca();
+
+            /* Ordini personalizzati per vari usi */
+            $ordini = [
+                'selettore' =>  [
+                    'pertinenza DESC'
+                ]
+            ];
+            if ( 
+                $this->par['ordine'] &&
+                isset($ordini[$this->par['ordine']])
+                ) {
+                $r->ordine = $ordini[$this->par['ordine']];
+            }
+
+            $me = $this->sessione->utente();
+            $r->comitati = array_merge(
+                $me->comitatiDiCompetenza(),
+                $me->comitati()
+            );
+
+            if ( $this->par['query'] ) {
+                $r->query = $this->par['query'];
+            }
+
+            if ( $this->par['pagina'] ) {
+                $r->pagina = (int) $this->par['pagina'];
+            }
+
+            if ( $this->par['perPagina'] ) {
+                $r->perPagina = (int) $this->par['perPagina'];
+            }
+
+            $r->esegui();
+
+            $risultati = [];
+            foreach ( $r->risultati as $risultato ) {
+                $risultati[] = $risultato->toJSONRicerca();
+            }
+
+            $risposta = [
+                'tempo'     =>  $r->tempo,
+                'totale'    =>  $r->totale,
+                'pagina'    =>  $r->pagina,
+                'pagine'    =>  $r->pagine,
+                'perPagina' =>  $r->perPagina,
+                'risultati' =>  $risultati
+            ];
+            return $risposta;
+
         }
         
 }

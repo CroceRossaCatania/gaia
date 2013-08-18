@@ -30,5 +30,6 @@ $conf['slide']          = ['home'];
 
 $conf['mesi']           = [null, 'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
 
-$conf['attivita']['colore_pubbliche'] = '3135B0';
-$conf['attivita']['colore_mie']='14CC00';
+$conf['attivita']['colore_pubbliche'] 	= '3135B0';
+$conf['attivita']['colore_mie']			= '14CC00';
+$conf['attivita']['colore_scoperto'] 	= 'B20000';
