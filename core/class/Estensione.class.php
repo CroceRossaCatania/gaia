@@ -62,7 +62,7 @@ class Estensione extends Entita {
     }
 
     public function termina() {
-        $ora = time()
+        $ora = time();
         $this->timestamp = $ora;
         $this->stato = EST_CONCLUSA;
         $app = new Appartenenza($this->appartenenza);
