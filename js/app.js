@@ -180,7 +180,7 @@ function _attendere(i, e) {
         setTimeout( function() {
             $(e).html(vecchioTesto);
             $(e).removeClass('disabled').removeAttr('disabled');
-        }, 3500);
+        }, 6500);
         if ( $(e).attr('type') == 'submit' ) {
             $(e).parents('form').submit();
             return true;
@@ -253,7 +253,7 @@ function _tabella (i, e) {
             '</a>' +
         '</div>' + 
         '<div class="span5 allinea-centro input-append">' +
-            '<input type="text" placeholder="Ricerca volontari..." />' +
+            '<input type="text" class="input-xlarge" placeholder="Ricerca volontari..." />' +
             '<button class="btn btn-primary">' +
                 '<i class="icon-search"></i>' +
             '</button>' +

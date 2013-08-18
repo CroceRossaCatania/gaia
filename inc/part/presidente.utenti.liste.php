@@ -14,9 +14,10 @@
             Volontari attivi
         </a> /
         <a href="?p=presidente.utenti.dimessi">
-             non attivi
+             dimessi
         </a><br />
-        <a href="?p=presidente.utenti.giovani">
+        <a href="?p=presidente.utenti.giovani"
+            data-attendere="Generazione lista...">
             <i class="icon-list"></i>
             Volontari giovani
         </a><br />
@@ -44,15 +45,16 @@
     </div>
     
     <div class="span3">
-        <h4>Ricerca</h4>
-        <div class="input-append">
-            <form action="?p=presidente.utenti" method="POST" class="allinea-centro">
-                <input autofocus required name="inputQuery" id="cercaUtente" placeholder="Cerca tra i volontari" type="text" />
-                <button class="btn btn-primary" type="submit">
-                    <i class="icon-search"></i>
-                </button>
-
-            </form>
-        </div>
+        <h4>Presidente</h4>
+        <a href="?p=presidente.dash">
+            <i class="icon-rocket"></i>
+            <strong>Pannello presidente</strong>
+        </a><br />
+        <a href="?p=utente.statistiche.volontari">
+            <i class="icon-signal"></i>
+            Statistiche
+        </a><br />
     </div>    
 </div>
+
+<p>&nbsp;</p>

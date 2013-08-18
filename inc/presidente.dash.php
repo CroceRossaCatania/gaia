@@ -41,7 +41,14 @@ if ( $sessione->attenzione == false ){
         <div class="row-fluid">
             
             <div class="span9">
-                <h2>Salve, <?php if($me->admin()){?>Admin <?php }else{ ?> Presidente <?php } echo $me->cognome; ?>.</h2>
+                <h2>Salve, 
+                    <?php if ( $me->admin ) { ?>
+                        admin
+                    <?php } else { ?>
+                        presidente
+                    <?php } 
+                    echo $me->cognome; ?>.
+                </h2>
             </div>
             
             <div class="span3 allinea-destra">
@@ -75,7 +82,7 @@ if ( $sessione->attenzione == false ){
                 
                 <table class="table table-striped table-condensed">
                 
-                    <tr><td>Num. comitati</td><td><?php echo count($comitati); ?></td></tr>
+                    <tr><td>Num. unità</td><td><?php echo count($comitati); ?></td></tr>
                     <tr><td>Num. volontari</td><td><?php echo $me->numVolontariDiCompetenza(); ?></td></tr>
                     
                 </table>
@@ -125,7 +132,7 @@ if ( $sessione->attenzione == false ){
                                 </a>
                         </td>
                         <td>
-                                <a href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>">
+                                <a href="?p=utente.mail.nuova&unit&id=<?php echo $comitato->id; ?>">
                                     <i class="icon-envelope-alt"></i>
                                     email di massa
                                 </a>
