@@ -318,6 +318,7 @@ class APIServer {
                 'tempo'     =>  $r->tempo,
                 'totale'    =>  $r->totale,
                 'pagina'    =>  $r->pagina,
+                'pagine'    =>  $r->pagine,
                 'perPagina' =>  $r->perPagina,
                 'risultati' =>  $risultati
             ];

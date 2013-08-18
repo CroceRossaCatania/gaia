@@ -60,6 +60,8 @@ class Ricerca {
         $qConta = $qConta->fetch(PDO::FETCH_NUM);
         $this->totale = (int) $qConta[0];
 
+        $this->pagine = ceil( $this->totale / $this->perPagina );
+
         $qRicerca = $this->ordinaLimitaQuery($query);
         $qRicerca = $db->query($qRicerca);
         $this->risultati = [];

@@ -37,6 +37,7 @@ $(window).ready( function () {
     
     $("[data-attendere]")       .each( _attendere );
     $("[data-suggerimento]")    .each( _suggerimento );
+    $("[data-volontari]")       .each( _tabella );
 
     $('.automodal').modal({ keyboard: false, backdrop: 'static' });
     $('.alCambioSalva').change( function () {
@@ -223,4 +224,171 @@ if ( !Date.prototype.toISOString ) {
         };
    
     }() );
+}
+
+/*
+ * Genera, per un dato elemento, una tabella di volontari
+ */
+function _tabella (i, e) {
+    var _tid = 'tabella_' + Math.floor( Math.random() * 100 );
+    $(e)
+        .addClass('table')
+        .addClass('table-condensed')
+        .addClass('table-striped')
+        .addClass('table-bordered');
+    // Crea l'input
+    var x = $(
+        '<div id="'+ _tid + '_ricerca" class="row-fluid ricerca-tabella">' +
+        '<div class="span5 allinea-centro grassetto">' +
+            '<p>Pagina <span id="' + _tid + '_a">X</span> di ' +
+            '<span id="' + _tid + '_b">Y</span> &mdash; ' +
+            '<span id="' + _tid + '_c">Z</span> risultati trovati' +
+        '</div>' + 
+        '<div class="span2 btn-group allinea-centro grassetto">' +
+            '<a id="' + _tid + '_indietro" class="btn">' +
+                '<i class="icon-chevron-left"></i>' +
+            '</a>' +
+            '<a id="' + _tid + '_avanti" class="btn">' +
+                '<i class="icon-chevron-right"></i>' +
+            '</a>' +
+        '</div>' + 
+        '<div class="span5 allinea-centro input-append">' +
+            '<input type="text" placeholder="Ricerca volontari..." />' +
+            '<button class="btn btn-primary">' +
+                '<i class="icon-search"></i>' +
+            '</button>' +
+        '</div>' +
+        '</div>'
+    );
+    $(e).before(x);
+    $(e).data('tid', _tid);
+    $('#' + _tid + '_ricerca').find('input').change( function(x, y) {
+        _tabella_ricerca ( e, $(this).val(), $(this) );
+    });
+    // Avvia senza ricerca...
+    _tabella_ricerca(e, null, $('#' + _tid + '_ricerca').find('input').first());
+}
+
+function _tabella_ricerca ( e, query, input, pagina ) {
+    _tabella_caricamento(e);
+    _tabella_blocca_input(input);
+    if ( !pagina || pagina < 0 ) {
+        pagina = 1;
+    }
+    console.log(pagina);
+    var perPagina = $(e).data('perpagina');
+    var _tid      = $(e).data('tid');
+    if (!perPagina) {
+        perPagina = 30;
+    }
+    api('volontari:cerca', {
+        'query':        query,
+        'pagina':       pagina,
+        'perPagina':    perPagina
+    }, function (dati) {
+        _tabella_ridisegna(e, dati.response, input);
+         /* Pulsante indietro... */
+        if ( pagina == 1 ) {
+            $('#' + _tid + '_indietro')
+                .unbind('click')
+                .addClass('disabled');
+        } else {
+            $('#' + _tid + '_indietro')
+                .unbind('click')
+                .removeClass('disabled')
+                .click ( function () {
+                    _tabella_ricerca(e, query, input, pagina - 1);
+                });
+        }   
+        /* Pulsante avanti... */
+        if ( pagina == dati.response.pagine ) {
+            $('#' + _tid + '_avanti')
+                .unbind('click')
+                .addClass('disabled');
+        } else {
+            $('#' + _tid + '_avanti')
+                .unbind('click')
+                .removeClass('disabled')
+                .click ( function () {
+                    _tabella_ricerca(e, query, input, pagina + 1);
+                });
+        }
+
+    });
+
+}
+
+
+function _tabella_blocca_input( input ) {
+    $(input).addClass('disabled').attr('disabled', 'disabled');
+    $(input).parent().find('button').html (
+        '<i class="icon-spinner icon-spin"></i>'
+    );
+}
+
+function _tabella_sblocca_input ( input ) {
+    $(input).removeClass('disabled').removeAttr('disabled');
+    $(input).parent().find('button').html (
+        '<i class="icon-search"></i>'
+    );
+    $(input).select().focus();
+}
+
+
+
+function _tabella_ridisegna( e, dati, input ) {
+    var _tid = $(e).data('tid');
+
+    /* Eventuale testo */
+    var _rid = $(e).data('azioni');
+    if ( _rid ) {
+        var _testo = $(_rid).html();
+    } else {
+        var _testo = '(nessuna azione)';
+    }
+    /* Aggiorna i totali (pagina x di y, tot risultati) */
+    $('#' + _tid + '_a').text( dati.pagina );
+    $('#' + _tid + '_b').text( dati.pagine );
+    $('#' + _tid + '_c').text( dati.totale );
+    $(e).html(
+        '<thead class="allinea-centro">' +
+            '<th>Cognome</th>' +
+            '<th>Nome</th>' +
+            '<th>Cod. Fisc.</th>' +
+            '<th>Comitato</th>' +
+            '<th>Azioni</th>' +
+        '</thead>' +
+        '<tbody>' +
+        '</tbody>'
+    );
+    var tbody = $(e).find('tbody');
+    $.each( dati.risultati, function (i, volontario) {
+        var nt = _tabella_sostituzioni(_testo, volontario);
+        $(tbody).append(
+            '<tr>' +
+                '<td class="grassetto">' + volontario.cognome         + '</td>' +
+                '<td class="grassetto">' + volontario.nome            + '</td>' +
+                '<td>' + volontario.codiceFiscale   + '</td>' +
+                '<td>' + volontario.comitato.nome   + '</td>' +
+                '<td>' + nt + '</td>' +
+            '</tr>'
+        );
+    });
+    _tabella_sblocca_input(input);
+}
+
+function _tabella_sostituzioni (testo, volontario) {
+    testo = testo.replace('{id}',       volontario.id);
+    testo = testo.replace('{nome}',     volontario.nome);
+    testo = testo.replace('{cognome}',  volontario.cognome);
+    return testo;
+}
+
+function _tabella_caricamento (e) {
+    $(e).html(
+        '<tr><td class="warning allinea-centro"><h3>' +
+            '<i class="icon-spinner icon-spin allinea-centro"></i> ' +
+            '<strong>Caricamento in corso...</strong>' +
+        '</h3></td></tr>'
+    );
 }

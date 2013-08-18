@@ -63,6 +63,20 @@ paginaApp([APP_SOCI , APP_PRESIDENTE , APP_OBIETTIVO ]);
 <hr />
     
 <div class="row-fluid">
+
+    <div class="nascosto" id="azioniElenco">
+        <a href="?p=public.utente&amp;id={id}" class="btn">
+            Dettagli {nome}
+        </a>
+    </div>
+    <table
+        data-volontari="elenco"
+        data-perpagina="50"
+        data-azioni="#azioniElenco"
+        >
+    </table>
+</div>
+<div class="row-fluid">
    <div class="span12">
        <div class="btn-group btn-group-vertical span12">
        <?php if ( count($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ])) > 1 ) { ?>
@@ -89,6 +103,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE , APP_OBIETTIVO ]);
         <?php
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
+            continue; // Debug
             $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
                 ?>
             
