@@ -275,7 +275,6 @@ function _tabella_ricerca ( e, query, input, pagina ) {
     if ( !pagina || pagina < 0 ) {
         pagina = 1;
     }
-    console.log(pagina);
     var perPagina = $(e).data('perpagina');
     var _tid      = $(e).data('tid');
     if (!perPagina) {
