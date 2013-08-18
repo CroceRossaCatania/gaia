@@ -372,6 +372,14 @@ class Comitato extends GeoPolitica {
             'volontari'     =>  count($this->membriAttuali())
         ];
     }
+
+    public function toJSONRicerca() {
+        return [
+            'id'            =>  $this->id,
+            'nome'          =>  $this->nome,
+            'nomeCompleto'  =>  $this->nomeCompleto()
+        ];
+    }
     
     public function reperibili() {
         $q = "

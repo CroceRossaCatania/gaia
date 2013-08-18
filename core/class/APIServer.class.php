@@ -331,5 +331,38 @@ class APIServer {
             }
             return true;
         }
+
+        public function api_volontari_tabella() {
+            $this->richiediLogin();
+
+            $r = new Ricerca();
+
+            $me = $this->sessione->utente();
+            $r->comitati = array_merge(
+                $me->comitatiDiCompetenza(),
+                $me->comitati()
+            );
+
+            if ( $this->par['query'] ) {
+                $r->query = $this->par['query'];
+            }
+
+            $r->esegui();
+
+            $risultati = [];
+            foreach ( $r->risultati as $risultato ) {
+                $risultati[] = $risultato->toJSONRicerca();
+            }
+
+            $risposta = [
+                'tempo'     =>  $r->tempo,
+                'totale'    =>  $r->totale,
+                'pagina'    =>  $r->pagina,
+                'perPagina' =>  $r->perPagina,
+                'risultati' =>  $risultati
+            ];
+            return $risposta;
+
+        }
         
 }

@@ -144,6 +144,24 @@ class Utente extends Persona {
         ];
     }
 
+            
+    public function toJSONRicerca() {
+        $comitato = $this->unComitato();
+        if ( $comitato ) {
+            $comitato = $comitato->toJSONRicerca();
+        } else {
+            $comitato = false;
+        }
+        return [
+            'id'            =>  $this->id,
+            'cognome'       =>  $this->cognome,
+            'nome'          =>  $this->nome,
+            'email'         =>  $this->email,
+            'codiceFiscale' =>  $this->codiceFiscale,
+            'comitato'      =>  $comitato
+        ];
+    }
+
     public function calendarioAttivita(DT $inizio, DT $fine) {
         $c = $this->comitati();
         $t = [];
