@@ -131,7 +131,7 @@ class Estensione extends Entita {
         $r = [];
         $ora = time();
         foreach ($e as $_e) {
-            if ($_e->appartenenza()->fine > $ora)
+            if ($_e->appartenenza()->fine < $ora)
                 $r[] = $_e;
         }
         return $r;

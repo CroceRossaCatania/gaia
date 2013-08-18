@@ -87,7 +87,7 @@ function cronjobGiornaliero()  {
     /* === 4. TERMINO ESTENSIONI */
     $n = 0;
     foreach (Estensione::daChiudere() as $e) {
-        $e->termina();
+        $e->termina(); $n++;
     }
     $log .= "Chiuse $n estensioni\n";
 
