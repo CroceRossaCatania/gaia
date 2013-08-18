@@ -32,7 +32,7 @@ class Estensione extends Entita {
     }
         
     public function rispondi($risposta = EST_OK, $motivo = null, $auto = false) {
-        if ($auto) {
+        if (!$auto) {
             global $sessione;
             $this->pConferma = $sessione->utente()->id;    
         } 
@@ -41,8 +41,11 @@ class Estensione extends Entita {
         $this->negazione = $motivo;
     }
     
-    public function concedi() {
-        $this->rispondi(EST_OK);
+    public function concedi($auto = false) {
+        if (!$auto)
+            $this->rispondi(EST_OK);
+        else
+            $this->rispondi($risposta = EST_AUTO, $auto = true);        
         $a = $this->appartenenza;
         $a = new Appartenenza($a);
         $a->timestamp = time();
@@ -55,8 +58,7 @@ class Estensione extends Entita {
     }
     
     public function auto() {
-        $this->rispondi($risposta = EST_AUTO, $auto = true);
-        $this->concedi();
+        $this->concedi($auto = true);
     }
 
     public function termina() {
