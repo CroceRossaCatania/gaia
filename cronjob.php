@@ -34,7 +34,7 @@ file_put_contents('upload/log/cronjob.giornaliero.timestamp', $ora);
 // Controlla se sia il caso di eseguire il settimanale...
 $limite = (3600 * 24 * 7) - 3600; // 7 giorni meno un'ora
 $settimanale = (int) @file_get_contents('upload/log/cronjob.settimanale.timestamp');
-if ( !$settimanale || ($ora - $ultime) > $limite ) {
+if ( !$settimanale || ($ora - $settimanale) > $limite ) {
     $logS .= "[!] ESECUZIONE SETTIMANALE PROGRAMMATA (son passati 7 giorni)\n";
     $settimanale = true;
 } else {
