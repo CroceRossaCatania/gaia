@@ -111,7 +111,7 @@ class Estensione extends Entita {
         }
     }
 
-    public function daAutorizzare() {
+    public static function daAutorizzare() {
         $e = Estensione::filtra([
             ['stato', EST_INCORSO]
         ]);
