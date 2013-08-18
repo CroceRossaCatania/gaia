@@ -79,15 +79,22 @@ echo "Creazione delle cartelle per i documenti...\n";
 @mkdir('upload/docs/o');
 @mkdir('upload/docs/t');
 
+/* Copia i file di configurazione */
+$cnf = ['database', 'smtp', 'autopull'];
+$strc = "";
+foreach ( $cnf as $cnfs ) {
+    @copy("core/conf/{$cnfs}.conf.php.sample", "core/conf/{$cnfs}.conf.php");
+    $strc .= "- core/conf/{$cnfs}.conf.php\n";
+}
+
 echo "\n
         ================================================       
         =========[OK!] INSTALLAZIONE COMPLETATA ========
         ================================================
 
- [SVILUPPATORI] 
-    Per abilitare l'AUTOPULL via GitHub Web Hook
-    ad 'autopull.php', creare un file vuoto in:
-            /upload/setup/autopull
+ [CONFIGURAZIONE] 
+    Modificare i seguenti file di configurazione:
+    {$strc} 
             
  [CRONJOB]
     Ricordarsi di puntare il un cronjob per eseguire

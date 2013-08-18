@@ -132,5 +132,29 @@ abstract class GeoPolitica extends GeoEntita {
     public function aree() {
     	return [];
     }
+
+    public function tuttiVolontari() {
+        $a = [];
+        foreach ( $this->estensione() as $unita ) {
+            $a = array_merge($unita->membriAttuali(), $a);
+        }
+        return array_unique($a);
+    }
+
+    public function estensioneComma() {
+        return implode(',', $this->estensione());
+    }
+
+    public function cercaVolontari( $query ) {
+        $campi = ['nome', 'cognome', 'email', 'codiceFiscale'];
+        $ora = time(); $stato = MEMBRO_VOLONTARIO; $est = $this->estensioneComma();
+        return Volontario::cercaFulltext($query, $campi, 100000,
+            "AND id IN (
+                    SELECT DISTINCT(volontario) FROM appartenenza
+                    WHERE  (fine > {$ora} OR fine = 0 OR fine IS NULL)
+                    AND    inizio < {$ora} AND stato = {$stato}
+                    AND    comitato IN ({$est})
+                )");
+    }
     
 }

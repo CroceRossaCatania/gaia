@@ -40,3 +40,11 @@ Per motivi di sviluppo, è possibile installare Gaia come segue:
 8. Registrare il primo volontario, che sarà automaticamente un amministratore.
 9. (Opzionale) Impostare cron per richiedere ogni nottevia HTTP il file `cronjob.php`
 
+### Eseguire Gaia
+
+È possibile avviare Gaia nel server di sviluppo di PHP 5.4+ come segue:
+```bash
+cd /percorso/per/gaia
+php -S localhost:8888 index.php
+```
+Basterà dirigersi su (http://localhost:8888/) per accedere alla propria installazione.

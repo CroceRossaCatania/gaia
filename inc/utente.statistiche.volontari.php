@@ -22,17 +22,9 @@ caricaSelettoreComitato();
           <div class="control-group">
             <label class="control-label" for="inputComitato">Scegli il comitato</label>
             <div class="controls">
-              <a class="btn btn-inverse" data-selettore-comitato="true" data-input="inputComitato">
+              <a class="btn btn-inverse btn-large" data-selettore-comitato="true" data-input="inputComitato"  data-autosubmit="true">
                 Seleziona un comitato... <i class="icon-pencil"></i>
               </a>
-            </div>
-          </div>
-          <div class="control-group">
-            <div class="controls">
-              <button type="submit" class="btn btn-large btn-success">
-                <i class="icon-ok"></i>
-                Visualizza dati
-              </button>
             </div>
           </div>
         </form>

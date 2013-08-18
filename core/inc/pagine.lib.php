@@ -116,6 +116,15 @@ function menuVolontario() {
     include('./inc/part/utente.menu.php');
 }
 
+$_lista_attiva = $_link_excel = $_link_email = null;
+function menuElenchiVolontari($a = "Volontari attivi", $b = '#', $c = '#') {
+    global $_lista_attiva, $_link_excel, $_link_email;
+    $_lista_attiva = $a;
+    $_link_excel   = $b;
+    $_link_email   = $c;
+    include './inc/part/presidente.utenti.liste.php';
+}
+
 function caricaSelettore() {
     global $_carica_selettore;
     $_carica_selettore = true;
