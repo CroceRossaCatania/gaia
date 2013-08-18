@@ -26,7 +26,6 @@ $f = Appartenenza::filtra([
 foreach ( $f as $app ) {
     if ($app->attuale()) { 
         redirect('utente.estensione&e'); 
-        break;
     } 
 }
                                      

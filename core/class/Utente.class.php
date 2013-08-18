@@ -465,9 +465,16 @@ class Utente extends Persona {
                 ]);
             }
         } else {
-            return Delegato::filtra([
-                ['volontario',      $this->id]
-            ]);
+            if ( $comitato ) {
+                return Delegato::filtra([
+                    ['volontario',      $this->id],
+                    ['comitato',        $comitato]
+                ]);
+            } else {
+                return Delegato::filtra([
+                    ['volontario',      $this->id]
+                ]);
+            }
         }
     }
     

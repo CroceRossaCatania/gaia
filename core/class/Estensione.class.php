@@ -89,7 +89,7 @@ class Estensione extends Entita {
         // rimetto al presidente i gruppi
         $g = Gruppo::filtra([
             ['referente', $v->id],
-            ['comitato', $c->od]
+            ['comitato', $c->id]
             ]);
         foreach ($g as $_g) 
         {
