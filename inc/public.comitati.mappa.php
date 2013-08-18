@@ -16,7 +16,7 @@
     <div class="span4 allinea-centro">
         <i class="icon-bar-chart icon-2x text-error"></i><br />
         <label class="label label-success"><?php echo count(Comitato::elenco()); ?></label>
-        <strong>Comitati CRI aderiscono al progetto Gaia</strong>
+        <strong>Unità CRI aderiscono al progetto Gaia</strong>
     </div>
  
 </div>
