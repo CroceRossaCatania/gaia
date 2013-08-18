@@ -23,10 +23,10 @@ if ( $ultimo && ($ora - $ultimo) < $limite ) {
 	FILE_APPEND);
      // 2. Memorizza dati di connessione sul log
      file_put_contents('upload/log/cronjob.errori',
-	"\n\n{$leggibile}, ACCESSO BLOCCATO" .
+	"\n\n{$leggibile}, ACCESSO BLOCCATO\n" .
 	    print_r($_SERVER, true),
 	FILE_APPEND);
-     die("Non posso lanciare il cronjob più spesso di ogni 23 ore." .
+     die("Non posso lanciare il cronjob più spesso di ogni 23 ore. " .
          "L'incidente verrà segnalato.");
 }
 // Aggiorna il timestamp dell'ultima esecuzione

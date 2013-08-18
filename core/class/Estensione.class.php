@@ -77,9 +77,9 @@ class Estensione extends Entita {
         }
         // chiudo le attività referenziate
         $a = Attivita::filtra([
-            ['referente', $v->id],
-            ['comitato', $c->id]
-            ]);
+            ['referente',   $v->id],
+            ['comitato',    $c->id]
+        ]);
         $presidente = $c->unPresidente();
         foreach ($a as $_a) {
             $_a->referente = $presidente->id;
@@ -89,7 +89,9 @@ class Estensione extends Entita {
     }
 
     public function daAutorizzare() {
-        $e = Estensione::filtra(['stato', EST_INCORSO]);
+        $e = Estensione::filtra([
+            ['stato', EST_INCORSO]
+        ]);
         $r = [];
         $unmesefa = time() - MESE;
         foreach ($e as $_e) {
@@ -99,12 +101,14 @@ class Estensione extends Entita {
         return $r;
     }
 
-    public function daChiudere() {
-        $e = Estensione::filtra(['stato', EST_OK]);
+    public static function daChiudere() {
+        $e = Estensione::filtra([
+            ['stato', EST_OK]
+        ]);
         $r = [];
         $ora = time();
         foreach ($e as $_e) {
-            if ($_e->appartenenza->fine > $ora)
+            if ($_e->appartenenza()->fine > $ora)
                 $r[] = $_e;
         }
         return $r;
