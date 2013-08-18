@@ -62,7 +62,8 @@ class Estensione extends Entita {
     }
 
     public function termina() {
-        $this->timestamp = time();
+        $ora = time()
+        $this->timestamp = $ora;
         $this->stato = EST_CONCLUSA;
         $app = new Appartenenza($this->appartenenza);
         $app->stato = MEMBRO_EST_TERMINATA;
@@ -83,6 +84,20 @@ class Estensione extends Entita {
         $presidente = $c->unPresidente();
         foreach ($a as $_a) {
             $_a->referente = $presidente->id;
+        }
+
+        // chiudo le reperibilità
+        $r = Reperibilita::filtra([
+            ['volontario', $v->id],
+            ['comitato', $c->id]
+            ]);
+        foreach ($r as $_r) {
+            if ($_r->fine > $ora)
+            {
+                $_r->fine = $ora;
+                if ($_r->inizio > $_r->fine)
+                    $_r-> inizio = $ora;
+            }
         }
 
         //togliere i turni?
