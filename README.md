@@ -35,9 +35,10 @@ Per motivi di sviluppo, è possibile installare Gaia come segue:
 4. Copiare il file `/core/conf/autopull.conf.php.sample` in `/core/conf/autopull.conf.php`
 4. Modificare, nei primi due file, i parametri di accesso a MySQL ed al server SMTP.
 5. Permettere la scrittura alla directory `/upload` ed alle sue sottodirectory.
-6. Avviare Gaia (vedi sotto) e, da browser, puntare alla pagina: `/setup.php`.
-7. Registrare il primo volontario, che sarà automaticamente un amministratore.
-8. (Opzionale) Impostare cron per richiedere ogni nottevia HTTP il file `cronjob.php`
+6. Permettere la scrittura alla directory `/core/inc/dompdf` ed alle sue sottodirectory.
+7. Da browser, puntare alla pagina: `setup.php`.
+8. Registrare il primo volontario, che sarà automaticamente un amministratore.
+9. (Opzionale) Impostare cron per richiedere ogni nottevia HTTP il file `cronjob.php`
 
 ### Eseguire Gaia
 

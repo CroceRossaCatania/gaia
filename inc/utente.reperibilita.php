@@ -54,6 +54,19 @@ if($i==0){ ?>
         
 <div class="row-fluid">
     <form class="form-horizontal" action="?p=utente.reperibilita.ok&id=<?php echo $me->id; ?>" method="POST">
+    <?php if ( count($me->comitati()) > 1 ) { ?>
+        <div class="control-group">
+            <label class="control-label" for="inputComitato">Comitato</label>
+            <div class="controls">
+                <select class="input-xxlarge" id="inputComitato" name="inputComitato"  required>
+                <?php
+                    foreach ( $me->comitati() as $id ) { ?>
+                    <option value="<?php echo $id; ?>"><?php echo $id->nomeCompleto(); ?></option>
+                    <?php } ?>
+                </select>   
+            </div>
+          </div>
+    <?php } ?>
      <div class="control-group">
         <label class="control-label" for="inizio">Inizio </label>
         <div class="controls">
@@ -99,6 +112,7 @@ if($i==0){ ?>
                     <th>Inizio</th>
                     <th>Fine</th>
                     <th>Tempo Attivazione</th>
+                    <th>Comitato</th>
                     <th>Azione</th>
                 </thead>
                 
@@ -125,6 +139,10 @@ if($i==0){ ?>
                         <td>
                                 <i class="icon-time muted"></i>
                                 <?php echo $app->attivazione; ?> min
+                        </td>
+                        
+                        <td>
+                            <?= $app->comitato()->nomeCompleto(); ?>
                         </td>
                         
                         <?php if ($app->attuale()) { ?>
