@@ -374,6 +374,17 @@ function _tabella_ridisegna( e, dati, input ) {
             '</tr>'
         );
     });
+    if ( dati.risultati.length == 0 ) {
+        $(tbody).append(
+            '<tr class="error">' +
+                '<td colspan="5" class="allinea-centro">' +
+                    '<h3><i class="icon-frown"></i> Nessun volontario trovato</h3>' +
+                    '<p>Per favore prova con un altra ricerca.</p>' +
+                    '<p>Sono accettate parti di nome, cognome, email e codice fiscale.</p>' +
+                '</td>' +
+            '</tr>'
+        );
+    }
     _tabella_sblocca_input(input);
 }
 
@@ -386,7 +397,7 @@ function _tabella_sostituzioni (testo, volontario) {
 
 function _tabella_caricamento (e) {
     $(e).html(
-        '<tr><td class="warning allinea-centro"><h3>' +
+        '<tr class="warning"><td class="allinea-centro"><h3>' +
             '<i class="icon-spinner icon-spin allinea-centro"></i> ' +
             '<strong>Caricamento in corso...</strong>' +
         '</h3></td></tr>'
