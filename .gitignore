@@ -1,3 +1,5 @@
+/core/inc/dompdf/lib/fonts/php_Times-Roman.afm
+/core/inc/dompdf/lib/fonts/php_Times-Bold.afm
 # Configurazione del database
 core/conf/database.conf.php
 

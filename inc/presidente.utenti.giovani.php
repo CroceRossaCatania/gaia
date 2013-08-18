@@ -3,9 +3,14 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
-paginaApp([APP_SOCI , APP_PRESIDENTE, APP_OBIETTIVO]);
+paginaApp([APP_SOCI , APP_PRESIDENTE]);
+menuElenchiVolontari(
+    "Volontari giovani",
+    "?p=admin.utenti.excel&giovani",
+    "?p=utente.mail.nuova&comgio"
+);
+
 ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-save"></i> <strong>Volontario eliminato</strong>.
@@ -22,71 +27,9 @@ paginaApp([APP_SOCI , APP_PRESIDENTE, APP_OBIETTIVO]);
             <p>Il Volontario è stato dimesso con successo.</p>
         </div>
 <?php } ?>
-    <br/>
-<div class="row-fluid">
-    <div class="span5 allinea-sinistra">
-        <h2>
-            <i class="icon-group muted"></i>
-            Elenco volontari giovani
-        </h2>
-    </div>
-            
-            <div class="span3">
-                <div class="btn-group btn-group-vertical span12">
-                    <?php if (!$me->delegazioni(APP_OBIETTIVO)){ ?>
-                        <a href="?p=presidente.utenti" class="btn btn-success btn-block">
-                            <i class="icon-list"></i>
-                            Volontari attivi
-                        </a>
-                        <a href="?p=presidente.utenti.dimessi" class="btn btn-danger btn-block">
-                            <i class="icon-list"></i>
-                            Volontari non attivi
-                        </a>
-                        <a href="?p=presidente.utenti.giovani" class="btn btn-block btn-info">
-                            <i class="icon-list"></i>
-                            Volontari giovani
-                        </a>
-                        <a href="?p=presidente.utenti.riserve" class="btn btn-block btn-warning">
-                            <i class="icon-list"></i>
-                            Volontari in riserva
-                        </a>
-                        <a href="?p=us.elettorato" class="btn btn-block btn-primary">
-                            <i class="icon-list"></i>
-                            Elenchi elettorato
-                        </a>
-                    <?php }else{ ?>
-                        <a href="?p=obiettivo.dash" class="btn btn-block">
-                            <i class="icon-reply"></i>
-                            Torna Indietro
-                        </a>
-                    <?php } ?>
-                </div>
-            </div>
-    
-    <div class="span4 allinea-destra">
-        <div class="input-prepend">
-            <span class="add-on"><i class="icon-search"></i></span>
-            <input autofocus required id="cercaUtente" placeholder="Cerca Volontari..." type="text">
-        </div>
-    </div>    
-</div>
-    
-<hr />
     
 <div class="row-fluid">
    <div class="span12">
-       <div class="btn-group btn-group-vertical span12">
-       <?php if ( count($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ])) > 1 ) { ?>
-       <a href="?p=admin.utenti.excel&giovani" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
-           <i class="icon-download"></i>
-            <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari giovani in un archivio zip.
-       </a>
-       <?php } ?>
-       <a href="?p=utente.mail.nuova&comgio" class="btn btn-block btn-success">
-           <i class="icon-envelope"></i>
-            <strong>Ufficio Soci</strong> &mdash; Invia mail di massa a tutti i Giovani.
-       </a><hr />
-       </div>
             
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
@@ -100,7 +43,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE, APP_OBIETTIVO]);
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]);
         foreach($elenco as $comitato) {
             $k =0;
-            $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
+            $t = $comitato->membriAttuali();
             $j = $t;
             foreach ( $j as $_j ) {
                 if ($_j->giovane()){ $k++; }}

@@ -1,0 +1,2442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                    <i class="icon-list-alt"></i>&#160;Errors
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                    <i class="icon-list-alt"></i>&#160;Markers
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-434039867"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-434039867" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Canvas.html">Canvas</a></li>
+                                                                                                    <li class="class"><a href="../classes/TCPDF_Adapter.html">TCPDF_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/Partecipazione.html">Partecipazione</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Tree.html">Frame_Tree</a></li>
+                                                    <li class="class"><a href="../classes/Generated_Frame_Reflower.html">Generated_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Frame_Reflower.html">Table_Row_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Dimissione.html">Dimissione</a></li>
+                                                    <li class="class"><a href="../classes/Text_Frame_Decorator.html">Text_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Zip.html">Zip</a></li>
+                                                    <li class="class"><a href="../classes/Commento.html">Commento</a></li>
+                                                    <li class="class"><a href="../classes/Canvas_Factory.html">Canvas_Factory</a></li>
+                                                    <li class="class"><a href="../classes/Utente.html">Utente</a></li>
+                                                    <li class="class"><a href="../classes/Appartenenza.html">Appartenenza</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Frame_Decorator.html">Table_Cell_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Anonimo.html">Anonimo</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mimePart.html">Mail_mimePart</a></li>
+                                                    <li class="class"><a href="../classes/Documento.html">Documento</a></li>
+                                                    <li class="class"><a href="../classes/Mail.html">Mail</a></li>
+                                                    <li class="class"><a href="../classes/Sessione.html">Sessione</a></li>
+                                                    <li class="class"><a href="../classes/Null_Positioner.html">Null_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Null_Frame_Reflower.html">Null_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Reflower.html">Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Entita.html">Entita</a></li>
+                                                    <li class="class"><a href="../classes/Area.html">Area</a></li>
+                                                    <li class="class"><a href="../classes/RichiestaTurno.html">RichiestaTurno</a></li>
+                                                    <li class="class"><a href="../classes/Annunci.html">Annunci</a></li>
+                                                    <li class="class"><a href="../classes/Abstract_Renderer.html">Abstract_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Frame_Decorator.html">Table_Row_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Mail_smtpmx.html">Mail_smtpmx</a></li>
+                                                    <li class="class"><a href="../classes/Font_Metrics.html">Font_Metrics</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Positioner.html">Inline_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mime.html">Mail_mime</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Factory.html">Frame_Factory</a></li>
+                                                    <li class="class"><a href="../classes/Null_Frame_Decorator.html">Null_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Gruppo.html">Gruppo</a></li>
+                                                    <li class="class"><a href="../classes/Patentirichieste.html">Patentirichieste</a></li>
+                                                    <li class="class"><a href="../classes/Reperibilita.html">Reperibilita</a></li>
+                                                    <li class="class"><a href="../classes/Table_Frame_Decorator.html">Table_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Mail_null.html">Mail_null</a></li>
+                                                    <li class="class"><a href="../classes/GD_Adapter.html">GD_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/GeocoderResult.html">GeocoderResult</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Positioner.html">List_Bullet_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Frame_Decorator.html">Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/AppartenenzaGruppo.html">AppartenenzaGruppo</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Frame_Reflower.html">Inline_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Block_Positioner.html">Block_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/APIServer.html">APIServer</a></li>
+                                                    <li class="class"><a href="../classes/PHP_Evaluator.html">PHP_Evaluator</a></li>
+                                                    <li class="class"><a href="../classes/Volontario.html">Volontario</a></li>
+                                                    <li class="class"><a href="../classes/Veicoli.html">Veicoli</a></li>
+                                                    <li class="class"><a href="../classes/Renderer.html">Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Regionale.html">Regionale</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mail.html">Mail_mail</a></li>
+                                                    <li class="class"><a href="../classes/Page_Cache.html">Page_Cache</a></li>
+                                                    <li class="class"><a href="../classes/Frame.html">Frame</a></li>
+                                                    <li class="class"><a href="../classes/FrameList.html">FrameList</a></li>
+                                                    <li class="class"><a href="../classes/FrameListIterator.html">FrameListIterator</a></li>
+                                                    <li class="class"><a href="../classes/FrameTreeList.html">FrameTreeList</a></li>
+                                                    <li class="class"><a href="../classes/FrameTreeIterator.html">FrameTreeIterator</a></li>
+                                                    <li class="class"><a href="../classes/ElementoRichiesta.html">ElementoRichiesta</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Frame_Reflower.html">Table_Cell_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Block_Renderer.html">Block_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Renderer.html">List_Bullet_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Image_Renderer.html">Image_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Text_Frame_Reflower.html">Text_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Text_Renderer.html">Text_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Image_Frame_Decorator.html">List_Bullet_Image_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Errore.html">Errore</a></li>
+                                                    <li class="class"><a href="../classes/File.html">File</a></li>
+                                                    <li class="class"><a href="../classes/Page_Frame_Reflower.html">Page_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Stylesheet.html">Stylesheet</a></li>
+                                                    <li class="class"><a href="../classes/Mail_smtp.html">Mail_smtp</a></li>
+                                                    <li class="class"><a href="../classes/Page_Frame_Decorator.html">Page_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Quota.html">Quota</a></li>
+                                                    <li class="class"><a href="../classes/Block_Frame_Reflower.html">Block_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Comitato.html">Comitato</a></li>
+                                                    <li class="class"><a href="../classes/Oggetto.html">Oggetto</a></li>
+                                                    <li class="class"><a href="../classes/Mail_RFC822.html">Mail_RFC822</a></li>
+                                                    <li class="class"><a href="../classes/Image_Frame_Decorator.html">Image_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/DOMPDF.html">DOMPDF</a></li>
+                                                    <li class="class"><a href="../classes/Table_Frame_Reflower.html">Table_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Avatar.html">Avatar</a></li>
+                                                    <li class="class"><a href="../classes/Persona.html">Persona</a></li>
+                                                    <li class="class"><a href="../classes/Trasferimento.html">Trasferimento</a></li>
+                                                    <li class="class"><a href="../classes/Turno.html">Turno</a></li>
+                                                    <li class="class"><a href="../classes/Attivita.html">Attivita</a></li>
+                                                    <li class="class"><a href="../classes/Provinciale.html">Provinciale</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Renderer.html">Table_Cell_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/PDF.html">PDF</a></li>
+                                                    <li class="class"><a href="../classes/Cpdf.html">Cpdf</a></li>
+                                                    <li class="class"><a href="../classes/Autorizzazione.html">Autorizzazione</a></li>
+                                                    <li class="class"><a href="../classes/Coturno.html">Coturno</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Frame_Decorator.html">Inline_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/PDFLib_Adapter.html">PDFLib_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/Nazionale.html">Nazionale</a></li>
+                                                    <li class="class"><a href="../classes/Attribute_Translator.html">Attribute_Translator</a></li>
+                                                    <li class="class"><a href="../classes/TitoloPersonale.html">TitoloPersonale</a></li>
+                                                    <li class="class"><a href="../classes/Positioner.html">Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Style.html">Style</a></li>
+                                                    <li class="class"><a href="../classes/DOMPDF_Exception.html">DOMPDF_Exception</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Positioner.html">Table_Row_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Mail_mock.html">Mail_mock</a></li>
+                                                    <li class="class"><a href="../classes/Delegato.html">Delegato</a></li>
+                                                    <li class="class"><a href="../classes/Inline_Renderer.html">Inline_Renderer</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Group_Frame_Decorator.html">Table_Row_Group_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/CPDF_Adapter.html">CPDF_Adapter</a></li>
+                                                    <li class="class"><a href="../classes/Image_Frame_Reflower.html">Image_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Mail_sendmail.html">Mail_sendmail</a></li>
+                                                    <li class="class"><a href="../classes/Table_Row_Group_Frame_Reflower.html">Table_Row_Group_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/Email.html">Email</a></li>
+                                                    <li class="class"><a href="../classes/Riserva.html">Riserva</a></li>
+                                                    <li class="class"><a href="../classes/Excel.html">Excel</a></li>
+                                                    <li class="class"><a href="../classes/Block_Frame_Decorator.html">Block_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/GeoPolitica.html">GeoPolitica</a></li>
+                                                    <li class="class"><a href="../classes/Geocoder.html">Geocoder</a></li>
+                                                    <li class="class"><a href="../classes/Cached_PDF_Decorator.html">Cached_PDF_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/Cellmap.html">Cellmap</a></li>
+                                                    <li class="class"><a href="../classes/DOMPDF_Internal_Exception.html">DOMPDF_Internal_Exception</a></li>
+                                                    <li class="class"><a href="../classes/GeoEntita.html">GeoEntita</a></li>
+                                                    <li class="class"><a href="../classes/DT.html">DT</a></li>
+                                                    <li class="class"><a href="../classes/Image_Cache.html">Image_Cache</a></li>
+                                                    <li class="class"><a href="../classes/Locale.html">Locale</a></li>
+                                                    <li class="class"><a href="../classes/Table_Cell_Positioner.html">Table_Cell_Positioner</a></li>
+                                                    <li class="class"><a href="../classes/Titolo.html">Titolo</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Frame_Reflower.html">List_Bullet_Frame_Reflower</a></li>
+                                                    <li class="class"><a href="../classes/List_Bullet_Frame_Decorator.html">List_Bullet_Frame_Decorator</a></li>
+                                                    <li class="class"><a href="../classes/ePDO.html">ePDO</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>Mail_mime</h1>
+                    <p><em>The Mail_Mime class provides an OO interface to create MIME
+enabled email messages. This way you can create emails that
+contain plain-text bodies, HTML bodies, attachments, inline
+images and specific headers.</em></p>
+                    
+
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Mail_mime.html#method_Mail_mime" class="">Mail_mime()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_setParam" class="">setParam()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_getParam" class="">getParam()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_setTXTBody" class="">setTXTBody()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_getTXTBody" class="">getTXTBody()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_setHTMLBody" class="">setHTMLBody()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_getHTMLBody" class="">getHTMLBody()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_addHTMLImage" class="">addHTMLImage()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_addAttachment" class="">addAttachment()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method__file2str" class="">_file2str()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method__addTextPart" class="">_addTextPart()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method__addHtmlPart" class="">_addHtmlPart()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method__addMixedPart" class="">_addMixedPart()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method__addAlternativePart" class="">_addAlternativePart()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method__addRelatedPart" class="">_addRelatedPart()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method__addHtmlImagePart" class="">_addHtmlImagePart()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method__addAttachmentPart" class="">_addAttachmentPart()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_getMessage" class="">getMessage()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_getMessageBody" class="">getMessageBody()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_saveMessage" class="">saveMessage()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_saveMessageBody" class="">saveMessageBody()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_get" class="">get()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_headers" class="">headers()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_txtHeaders" class="">txtHeaders()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_setContentType" class="">setContentType()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_setSubject" class="">setSubject()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_setFrom" class="">setFrom()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_addTo" class="">addTo()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_addCc" class="">addCc()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_addBcc" class="">addBcc()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_encodeRecipients" class="">encodeRecipients()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method__encodeHeaders" class="">_encodeHeaders()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method_encodeHeader" class="">encodeHeader()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method__basename" class="">_basename()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method__contentHeaders" class="">_contentHeaders()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method__checkParams" class="">_checkParams()</a><br />
+                                                                    <a href="../classes/Mail_mime.html#method__isError" class="">_isError()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Mail_mime.html#property__txtbody" class="">$_txtbody</a><br />
+                                                                    <a href="../classes/Mail_mime.html#property__htmlbody" class="">$_htmlbody</a><br />
+                                                                    <a href="../classes/Mail_mime.html#property__html_images" class="">$_html_images</a><br />
+                                                                    <a href="../classes/Mail_mime.html#property__parts" class="">$_parts</a><br />
+                                                                    <a href="../classes/Mail_mime.html#property__headers" class="">$_headers</a><br />
+                                                                    <a href="../classes/Mail_mime.html#property__build_params" class="">$_build_params</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/core.class.Mail.mime.php.html"><div class="path-wrapper">core/class/Mail/mime.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Mail_Mime</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Mail_mime</div>
+                            </dd>
+
+                        
+                        
+                                                                            <dt>See also</dt>
+                                                                                    <dd><a href="http://pear.php.net/package/Mail_mime"><div class="namespace-wrapper">http://pear.php.net/package/Mail_mime</div></a></dd>
+                                                    
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                category
+                            </th>
+                            <td>
+                                                                    <p>Mail</p>
+
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Richard Heyes  <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x72;&#x69;&#x63;&#x68;&#x61;&#x72;&#x64;&#x40;&#x70;&#x68;&#x70;&#x67;&#x75;&#x72;&#x75;&#46;&#111;&#114;&#103;">&#x72;&#x69;&#x63;&#x68;&#x61;&#x72;&#x64;&#x40;&#x70;&#x68;&#x70;&#x67;&#x75;&#x72;&#x75;&#46;&#111;&#114;&#103;</a></p>
+
+                                                                    <p>Tomas V.V. Cox <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#x63;&#x6f;&#120;&#x40;&#x69;&#100;&#x65;&#x63;&#110;&#x65;&#x74;&#46;&#x63;&#x6f;&#109;">&#x63;&#x6f;&#120;&#x40;&#x69;&#100;&#x65;&#x63;&#110;&#x65;&#x74;&#46;&#x63;&#x6f;&#109;</a></p>
+
+                                                                    <p>Cipriano Groenendal <a href="&#109;a&#105;l&#116;o&#x3a;c&#x69;&#112;&#x72;&#105;&#x40;&#112;&#x68;&#112;&#x2e;&#110;&#x65;&#116;">c&#x69;&#112;&#x72;&#105;&#x40;&#112;&#x68;&#112;&#x2e;&#110;&#x65;&#116;</a></p>
+
+                                                                    <p>Sean Coates <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;:&#115;&#x65;&#97;&#x6e;&#64;&#x70;&#104;&#x70;.&#110;&#x65;&#116;">&#115;&#x65;&#97;&#x6e;&#64;&#x70;&#104;&#x70;.&#110;&#x65;&#116;</a></p>
+
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                copyright
+                            </th>
+                            <td>
+                                                                    <p>2003-2006 PEAR <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x70;&#101;&#x61;&#114;&#x2d;&#103;&#x72;&#111;&#x75;&#112;&#x40;&#112;&#x68;&#112;&#x2e;&#110;&#x65;&#116;">&#x70;&#101;&#x61;&#114;&#x2d;&#103;&#x72;&#111;&#x75;&#112;&#x40;&#112;&#x68;&#112;&#x2e;&#110;&#x65;&#116;</a></p>
+
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                license
+                            </th>
+                            <td>
+                                                                    <p>http://www.opensource.org/licenses/bsd-license.php BSD License</p>
+
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                version
+                            </th>
+                            <td>
+                                                                    <p>Release: @package_version@</p>
+
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__txtbody" name="property__txtbody" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$_txtbody</h3>
+                <pre class="signature">$_txtbody : string</pre>
+                <p><em>Contains the plain text part of the email</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__htmlbody" name="property__htmlbody" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$_htmlbody</h3>
+                <pre class="signature">$_htmlbody : string</pre>
+                <p><em>Contains the html part of the email</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__html_images" name="property__html_images" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$_html_images</h3>
+                <pre class="signature">$_html_images : array</pre>
+                <p><em>list of the attached images</em></p>
+                
+
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__parts" name="property__parts" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$_parts</h3>
+                <pre class="signature">$_parts : array</pre>
+                <p><em>list of the attachements</em></p>
+                
+
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__headers" name="property__headers" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$_headers</h3>
+                <pre class="signature">$_headers : array</pre>
+                <p><em>Headers for the mail</em></p>
+                
+
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__build_params" name="property__build_params" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$_build_params</h3>
+                <pre class="signature">$_build_params : array</pre>
+                <p><em>Build parameters</em></p>
+                
+
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_Mail_mime" name="method_Mail_mime" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">Mail_mime()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">Mail_mime(mixed <span class="argument">$params</span>) : void</pre>
+                <p><em>Constructor function</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$params</td>
+                                <td><p>Build parameters that change the way the email
+                     is built. Should be an associative array.
+                     See $_build_params.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setParam" name="method_setParam" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setParam()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setParam(string <span class="argument">$name</span>, string <span class="argument">$value</span>) : void</pre>
+                <p><em>Set build parameter value</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name</td>
+                                <td><p>Parameter name</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value</td>
+                                <td><p>Parameter value</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getParam" name="method_getParam" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getParam()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getParam(string <span class="argument">$name</span>) : mixed</pre>
+                <p><em>Get build parameter value</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name</td>
+                                <td><p>Parameter name</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>Parameter value</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setTXTBody" name="method_setTXTBody" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setTXTBody()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setTXTBody(string <span class="argument">$data</span>, bool <span class="argument">$isfile</span>, bool <span class="argument">$append</span>) : mixed</pre>
+                <p><em>Accessor function to set the body text. Body text is used if
+it&#039;s not an html mail being sent or else is used to fill the
+text/plain part that emails clients who don&#039;t support
+html should show.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$data</td>
+                                <td><p>Either a string or
+                      the file name with the contents</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$isfile</td>
+                                <td><p>If true the first param should be treated
+                      as a file name, else as a string (default)</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$append</td>
+                                <td><p>If true the text or file is appended to
+                      the existing body, else the old body is
+                      overwritten</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>True on success or PEAR_Error object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTXTBody" name="method_getTXTBody" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTXTBody()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTXTBody() : string</pre>
+                <p><em>Get message text body</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Text body</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setHTMLBody" name="method_setHTMLBody" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setHTMLBody()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setHTMLBody(string <span class="argument">$data</span>, bool <span class="argument">$isfile</span>) : bool</pre>
+                <p><em>Adds a html part to the mail.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$data</td>
+                                <td><p>Either a string or the file name with the
+                      contents</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$isfile</td>
+                                <td><p>A flag that determines whether $data is a
+                      filename, or a string(false, default)</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    bool
+                                            &mdash; <p>True on success</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getHTMLBody" name="method_getHTMLBody" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getHTMLBody()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getHTMLBody() : string</pre>
+                <p><em>Get message HTML body</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>HTML body</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addHTMLImage" name="method_addHTMLImage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addHTMLImage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addHTMLImage(string <span class="argument">$file</span>, string <span class="argument">$c_type</span>, string <span class="argument">$name</span>, bool <span class="argument">$isfile</span>, string <span class="argument">$content_id</span>) : bool</pre>
+                <p><em>Adds an image to the list of embedded images.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$file</td>
+                                <td><p>The image file name OR image data itself</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$c_type</td>
+                                <td><p>The content type</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name</td>
+                                <td><p>The filename of the image.
+                          Only used if $file is the image data.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$isfile</td>
+                                <td><p>Whether $file is a filename or not.
+                          Defaults to true</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$content_id</td>
+                                <td><p>Desired Content-ID of MIME part
+                          Defaults to generated unique ID</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    bool
+                                            &mdash; <p>True on success</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addAttachment" name="method_addAttachment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addAttachment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addAttachment(string <span class="argument">$file</span>, string <span class="argument">$c_type</span>, string <span class="argument">$name</span>, bool <span class="argument">$isfile</span>, string <span class="argument">$encoding</span>, string <span class="argument">$disposition</span>, string <span class="argument">$charset</span>, string <span class="argument">$language</span>, string <span class="argument">$location</span>, string <span class="argument">$n_encoding</span>, string <span class="argument">$f_encoding</span>, string <span class="argument">$description</span>, string <span class="argument">$h_charset</span>, array <span class="argument">$add_headers</span>) : mixed</pre>
+                <p><em>Adds a file to the list of attachments.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$file</td>
+                                <td><p>The file name of the file to attach
+                           or the file contents itself</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$c_type</td>
+                                <td><p>The content type</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name</td>
+                                <td><p>The filename of the attachment
+                           Only use if $file is the contents</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$isfile</td>
+                                <td><p>Whether $file is a filename or not. Defaults to true</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$encoding</td>
+                                <td><p>The type of encoding to use. Defaults to base64.
+                           Possible values: 7bit, 8bit, base64 or quoted-printable.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$disposition</td>
+                                <td><p>The content-disposition of this file
+                           Defaults to attachment.
+                           Possible values: attachment, inline.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$charset</td>
+                                <td><p>The character set of attachment's content.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$language</td>
+                                <td><p>The language of the attachment</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$location</td>
+                                <td><p>The RFC 2557.4 location of the attachment</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$n_encoding</td>
+                                <td><p>Encoding of the attachment's name in Content-Type
+                           By default filenames are encoded using RFC2231 method
+                           Here you can set RFC2047 encoding (quoted-printable
+                           or base64) instead</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$f_encoding</td>
+                                <td><p>Encoding of the attachment's filename
+                           in Content-Disposition header.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$description</td>
+                                <td><p>Content-Description header</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$h_charset</td>
+                                <td><p>The character set of the headers e.g. filename
+                           If not specified, $charset will be used</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$add_headers</td>
+                                <td><p>Additional part headers. Array keys can be in form
+                           of <header_name>:<parameter_name></p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>True on success or PEAR_Error object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__file2str" name="method__file2str" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_file2str()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_file2str(string <span class="argument">$file_name</span>) : string</pre>
+                <p><em>Get the contents of the given file name as string</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$file_name</td>
+                                <td><p>Path of file to process</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Contents of $file_name</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__addTextPart" name="method__addTextPart" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_addTextPart()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_addTextPart( <span class="argument">$obj</span>, string <span class="argument">$text</span>) : object</pre>
+                <p><em>Adds a text subpart to the mimePart object and
+returns it during the build process.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$obj</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$text</td>
+                                <td><p>The text to add.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    object
+                                            &mdash; <p>The text mimePart object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__addHtmlPart" name="method__addHtmlPart" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_addHtmlPart()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_addHtmlPart( <span class="argument">$obj</span>) : object</pre>
+                <p><em>Adds a html subpart to the mimePart object and
+returns it during the build process.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$obj</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    object
+                                            &mdash; <p>The html mimePart object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__addMixedPart" name="method__addMixedPart" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_addMixedPart()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_addMixedPart() : object</pre>
+                <p><em>Creates a new mimePart object, using multipart/mixed as
+the initial content-type and returns it during the
+build process.</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    object
+                                            &mdash; <p>The multipart/mixed mimePart object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__addAlternativePart" name="method__addAlternativePart" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_addAlternativePart()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_addAlternativePart( <span class="argument">$obj</span>) : object</pre>
+                <p><em>Adds a multipart/alternative part to a mimePart
+object (or creates one), and returns it during
+the build process.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$obj</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    object
+                                            &mdash; <p>The multipart/mixed mimePart object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__addRelatedPart" name="method__addRelatedPart" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_addRelatedPart()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_addRelatedPart( <span class="argument">$obj</span>) : object</pre>
+                <p><em>Adds a multipart/related part to a mimePart
+object (or creates one), and returns it during
+the build process.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$obj</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    object
+                                            &mdash; <p>The multipart/mixed mimePart object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__addHtmlImagePart" name="method__addHtmlImagePart" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_addHtmlImagePart()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_addHtmlImagePart( <span class="argument">$obj</span>, array <span class="argument">$value</span>) : object</pre>
+                <p><em>Adds an html image subpart to a mimePart object
+and returns it during the build process.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$obj</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$value</td>
+                                <td><p>The image information</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    object
+                                            &mdash; <p>The image mimePart object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__addAttachmentPart" name="method__addAttachmentPart" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_addAttachmentPart()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_addAttachmentPart( <span class="argument">$obj</span>, array <span class="argument">$value</span>) : object</pre>
+                <p><em>Adds an attachment subpart to a mimePart object
+and returns it during the build process.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$obj</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$value</td>
+                                <td><p>The attachment information</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    object
+                                            &mdash; <p>The image mimePart object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getMessage" name="method_getMessage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getMessage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getMessage(string <span class="argument">$separation</span>, array <span class="argument">$params</span>, array <span class="argument">$headers</span>, bool <span class="argument">$overwrite</span>) : mixed</pre>
+                <p><em>Returns the complete e-mail, ready to send using an alternative
+mail delivery method. Note that only the mailpart that is made
+with Mail_Mime is created. This means that,
+YOU WILL HAVE NO TO: HEADERS UNLESS YOU SET IT YOURSELF
+using the $headers parameter!</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$separation</td>
+                                <td><p>The separation between these two parts.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td><p>The Build parameters passed to the
+                          &amp;get() function. See &amp;get for more info.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$headers</td>
+                                <td><p>The extra headers that should be passed
+                          to the &amp;headers() function.
+                          See that function for more info.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$overwrite</td>
+                                <td><p>Overwrite the existing headers with new.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>The complete e-mail or PEAR error object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getMessageBody" name="method_getMessageBody" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getMessageBody()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getMessageBody(array <span class="argument">$params</span>) : mixed</pre>
+                <p><em>Returns the complete e-mail body, ready to send using an alternative
+mail delivery method.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td><p>The Build parameters passed to the
+                     &amp;get() function. See &amp;get for more info.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>The e-mail body or PEAR error object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_saveMessage" name="method_saveMessage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">saveMessage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">saveMessage(string <span class="argument">$filename</span>, array <span class="argument">$params</span>, array <span class="argument">$headers</span>, bool <span class="argument">$overwrite</span>) : mixed</pre>
+                <p><em>Writes (appends) the complete e-mail into file.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$filename</td>
+                                <td><p>Output file location</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td><p>The Build parameters passed to the
+                         &amp;get() function. See &amp;get for more info.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$headers</td>
+                                <td><p>The extra headers that should be passed
+                         to the &amp;headers() function.
+                         See that function for more info.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$overwrite</td>
+                                <td><p>Overwrite the existing headers with new.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>True or PEAR error object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_saveMessageBody" name="method_saveMessageBody" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">saveMessageBody()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">saveMessageBody(string <span class="argument">$filename</span>, array <span class="argument">$params</span>) : mixed</pre>
+                <p><em>Writes (appends) the complete e-mail body into file.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$filename</td>
+                                <td><p>Output file location</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td><p>The Build parameters passed to the
+                        &amp;get() function. See &amp;get for more info.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>True or PEAR error object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get" name="method_get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get(array <span class="argument">$params</span>, resource <span class="argument">$filename</span>, boolean <span class="argument">$skip_head</span>) : mixed</pre>
+                <p><em>Builds the multipart message from the list ($this-&gt;_parts) and
+returns the mime content.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td><p>Build parameters that change the way the email
+                           is built. Should be associative. See $_build_params.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>resource</td>
+                                <td>$filename</td>
+                                <td><p>Output file where to save the message instead of
+                           returning it</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$skip_head</td>
+                                <td><p>True if you want to return/save only the message
+                           without headers</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>The MIME message content string, null or PEAR error object</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_headers" name="method_headers" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">headers()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">headers(array <span class="argument">$xtra_headers</span>, bool <span class="argument">$overwrite</span>, bool <span class="argument">$skip_content</span>) : array</pre>
+                <p><em>Returns an array with the headers needed to prepend to the email
+(MIME-Version and Content-Type). Format of argument is:
+$array[&#039;header-name&#039;] = &#039;header-value&#039;;</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$xtra_headers</td>
+                                <td><p>Assoc array with any extra headers (optional)
+                           (Don't set Content-Type for multipart messages here!)</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$overwrite</td>
+                                <td><p>Overwrite already existing headers.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$skip_content</td>
+                                <td><p>Don't return content headers: Content-Type,
+                           Content-Disposition and Content-Transfer-Encoding</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Assoc array with the mime headers</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_txtHeaders" name="method_txtHeaders" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">txtHeaders()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">txtHeaders(array <span class="argument">$xtra_headers</span>, bool <span class="argument">$overwrite</span>, bool <span class="argument">$skip_content</span>) : string</pre>
+                <p><em>Get the text version of the headers
+(usefull if you want to use the PHP mail() function)</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$xtra_headers</td>
+                                <td><p>Assoc array with any extra headers (optional)
+                           (Don't set Content-Type for multipart messages here!)</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$overwrite</td>
+                                <td><p>Overwrite the existing headers with new.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>bool</td>
+                                <td>$skip_content</td>
+                                <td><p>Don't return content headers: Content-Type,
+                           Content-Disposition and Content-Transfer-Encoding</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Plain text headers</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setContentType" name="method_setContentType" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setContentType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setContentType(string <span class="argument">$type</span>, array <span class="argument">$params</span>) : void</pre>
+                <p><em>Sets message Content-Type header.</em></p>
+                <p>Use it to build messages with various content-types e.g. miltipart/raport
+not supported by _contentHeaders() function.</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$type</td>
+                                <td><p>Type name</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td><p>Hash array of header parameters</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setSubject" name="method_setSubject" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setSubject()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setSubject(string <span class="argument">$subject</span>) : void</pre>
+                <p><em>Sets the Subject header</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$subject</td>
+                                <td><p>String to set the subject to.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setFrom" name="method_setFrom" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setFrom()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setFrom(string <span class="argument">$email</span>) : void</pre>
+                <p><em>Set an email to the From (the sender) header</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$email</td>
+                                <td><p>The email address to use</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addTo" name="method_addTo" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addTo()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addTo(string <span class="argument">$email</span>) : void</pre>
+                <p><em>Add an email to the To header
+(multiple calls to this method are allowed)</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$email</td>
+                                <td><p>The email direction to add</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addCc" name="method_addCc" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addCc()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addCc(string <span class="argument">$email</span>) : void</pre>
+                <p><em>Add an email to the Cc (carbon copy) header
+(multiple calls to this method are allowed)</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$email</td>
+                                <td><p>The email direction to add</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addBcc" name="method_addBcc" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addBcc()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addBcc(string <span class="argument">$email</span>) : void</pre>
+                <p><em>Add an email to the Bcc (blank carbon copy) header
+(multiple calls to this method are allowed)</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$email</td>
+                                <td><p>The email direction to add</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_encodeRecipients" name="method_encodeRecipients" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">encodeRecipients()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">encodeRecipients(string <span class="argument">$recipients</span>) : string</pre>
+                <p><em>Since the PHP send function requires you to specify
+recipients (To: header) separately from the other
+headers, the To: header is not properly encoded.</em></p>
+                <p>To fix this, you can use this public method to
+encode your recipients before sending to the send
+function</p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$recipients</td>
+                                <td><p>A comma-delimited list of recipients</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Encoded data</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__encodeHeaders" name="method__encodeHeaders" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_encodeHeaders()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_encodeHeaders(array <span class="argument">$input</span>, array <span class="argument">$params</span>) : array</pre>
+                <p><em>Encodes headers as per RFC2047</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$input</td>
+                                <td><p>The header data to encode</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td><p>Extra build parameters</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Encoded data</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_encodeHeader" name="method_encodeHeader" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">encodeHeader()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">encodeHeader(string <span class="argument">$name</span>, string <span class="argument">$value</span>, string <span class="argument">$charset</span>, string <span class="argument">$encoding</span>) : string</pre>
+                <p><em>Encodes a header as per RFC2047</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name</td>
+                                <td><p>The header name</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value</td>
+                                <td><p>The header data to encode</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$charset</td>
+                                <td><p>Character set name</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$encoding</td>
+                                <td><p>Encoding name (base64 or quoted-printable)</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Encoded header data (without a name)</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            
+
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__basename" name="method__basename" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_basename()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_basename(string <span class="argument">$filename</span>) : string</pre>
+                <p><em>Get file&#039;s basename (locale independent)</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$filename</td>
+                                <td><p>Filename</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Basename</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__contentHeaders" name="method__contentHeaders" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_contentHeaders()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_contentHeaders() : array</pre>
+                <p><em>Get Content-Type and Content-Transfer-Encoding headers of the message</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Headers array</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__checkParams" name="method__checkParams" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_checkParams()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_checkParams() : void</pre>
+                <p><em>Validate and set build parameters</em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__isError" name="method__isError" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_isError()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_isError(mixed <span class="argument">$data</span>) : bool</pre>
+                <p><em>PEAR::isError wrapper</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$data</td>
+                                <td><p>Object</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    bool
+                                            &mdash; <p>True if object is an instance of PEAR_Error</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">mime.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/core/class/Mail/mime.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Errors</a></li>
+                                    <li><a href="">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on August 16th, 2013 at 15:51.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
