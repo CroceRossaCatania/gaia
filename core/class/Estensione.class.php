@@ -43,9 +43,9 @@ class Estensione extends Entita {
     
     public function concedi($auto = false) {
         if (!$auto)
-            $this->rispondi(EST_OK);
+            $this->rispondi(EST_OK, null, false);
         else
-            $this->rispondi($risposta = EST_AUTO, $auto = true);        
+            $this->rispondi(EST_AUTO, null, true);        
         $a = $this->appartenenza;
         $a = new Appartenenza($a);
         $a->timestamp = time();
@@ -54,11 +54,11 @@ class Estensione extends Entita {
     }
     
     public function nega($motivo) {
-        $this->rispondi(EST_NEGATA, $motivo);
+        $this->rispondi(EST_NEGATA, $motivo, false);
     }
     
     public function auto() {
-        $this->concedi($auto = true);
+        $this->concedi(true);
     }
 
     public function termina() {
@@ -72,9 +72,9 @@ class Estensione extends Entita {
         $v = new Volontario($this->volontario);
 
         // chiudo le deleghe su quel comitato
-        $d = $v->delegazioni($comitato = $c->id);
+        $d = $v->delegazioni(null, $c->id);
         foreach ($d as $_d) {
-            $_d->fine();
+            $_d->fine = $ora;
         }
         // chiudo le attività referenziate
         $a = Attivita::filtra([
@@ -84,6 +84,26 @@ class Estensione extends Entita {
         $presidente = $c->unPresidente();
         foreach ($a as $_a) {
             $_a->referente = $presidente->id;
+        }
+
+        // rimetto al presidente i gruppi
+        $g = Gruppo::filtra([
+            ['referente', $v->id],
+            ['comitato', $c->od]
+            ]);
+        foreach ($g as $_g) 
+        {
+            $_g->referente = $presidente->id;
+        }
+
+        // chiudo l'appartenenza ad un gruppo
+        $ag = AppartenenzaGruppo::filtra([
+            ['volontario', $v->id],
+            ['comitato', $c->id]
+            ]);
+        foreach ($ag as $_ag)
+        {
+            $_ag->fine = $ora;
         }
 
         // chiudo le reperibilità
