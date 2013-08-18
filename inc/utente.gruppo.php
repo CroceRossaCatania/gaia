@@ -95,7 +95,11 @@ if($i==0){ ?>
             foreach ($comitati as $c)
             {
                 if ($c->gruppi())
+                {
                     $nogruppi = False;
+                    break;
+                }
+
             }
             if ($nogruppi)
             { ?>
