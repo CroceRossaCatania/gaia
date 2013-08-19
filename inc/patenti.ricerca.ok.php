@@ -58,7 +58,8 @@ $ricerca = $_GET['inputRicerca'];
         <?php
         $elenco = $me->comitatiApp ([ APP_PATENTI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato){
-            $patenti = $comitato->ricercaPatente($ricerca);
+            $patenti = TitoloPersonale::filtra([['codice', $ricerca]]);
+            //$comitato->ricercaPatente($ricerca); non funziona questa query
             foreach($patenti as $patente){
                 ?>
                 <tr>

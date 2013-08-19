@@ -42,6 +42,12 @@ if ( $presidente || $me->delegazioni(APP_OBIETTIVO)) {
     ];
 }
 
+if ( $presidente || $me->delegazioni(APP_PATENTI)) {
+    $menu[''] += [
+        'patenti.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Ufficio Patenti'
+    ];
+}
+
 $nap = count($me->autorizzazioniPendenti());
 if ( $nap ) {
     $menu['Da fare'] += [
