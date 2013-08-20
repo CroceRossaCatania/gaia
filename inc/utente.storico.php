@@ -66,8 +66,8 @@ paginaPrivata();
                         </td>
                         <td>
                             <?php if ( $app->stato == MEMBRO_ESTESO ){ ?>
-                                <a class="btn btn- small btn-danger" href="?p=utente.estensione.termina&id=<?= $app->id; ?>" title="Termina Estensione">
-                                    <i class="icon-stop"></i> Termina Estensione
+                                <a class="btn btn-mini btn-danger" href="?p=utente.estensione.termina&id=<?= $app->id; ?>" title="Termina Estensione">
+                                    Termina Estensione
                                 </a> 
                             <?php } ?>
                         </td>
@@ -96,6 +96,7 @@ paginaPrivata();
                     <th>Motivo riserva</th>
                     <th>Inizio</th>
                     <th>Fine</th>
+                    <th>Azioni</th>
                 </thead>
                 
                 <?php foreach ( $me->riserve() as $app ) { ?>
@@ -130,7 +131,13 @@ paginaPrivata();
                                 Indeterminato
                             <?php } ?>
                         </td>
-                        
+                        <td>
+                            <?php if ( $app->attuale() ){ ?>
+                                <a class="btn btn-mini btn-danger" href="?p=utente.riserva.termina&id=<?= $app->id; ?>" title="Termina Riserva">
+                                    Termina Riserva
+                                </a> 
+                            <?php } ?>
+                        </td>
                     </tr>
                 <?php } ?>
             
