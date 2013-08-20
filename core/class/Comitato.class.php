@@ -192,8 +192,7 @@ class Comitato extends GeoPolitica {
             ORDER BY
                 cognome ASC, nome ASC");
         $q->bindParam(':comitato', $this->id);
-        $stato = MEMBRO_DIMESSO;
-        $q->bindParam(':stato', $stato);
+        $q->bindValue(':stato', MEMBRO_DIMESSO);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
