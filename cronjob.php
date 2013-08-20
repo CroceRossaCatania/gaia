@@ -96,7 +96,7 @@ function cronjobGiornaliero()  {
     foreach (Trasferimento::daAutorizzare() as $t) {
         $t->trasferisci(true); $n++;
     }
-    $log .= "Autorizzati $n estensioni\n";
+    $log .= "Autorizzati $n trasferimenti\n";
     /* === 6. DIMETTO DOPO 1 ANNO DI RISEVA SENZA RIENTRO */
     /* === 7. AUTORIZZO RISERVE DOPO 30GG */
     /* === 8. REMINDER 1 ANNO DI RISERVA TRA 30GG */
