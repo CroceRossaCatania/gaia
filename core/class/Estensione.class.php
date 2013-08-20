@@ -23,6 +23,10 @@ class Estensione extends Entita {
         return $this->appartenenza()->comitato();
     }
     
+    public function provenienzaa() {
+        return $this->cProvenienza->comitato();
+    }
+
     public function presaInCarico() {
         if ( $this->protNumero && $this->protData ) {
             return true;

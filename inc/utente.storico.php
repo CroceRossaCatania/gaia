@@ -29,6 +29,7 @@ paginaPrivata();
                     <th>Comitato</th>
                     <th>Inizio</th>
                     <th>Fine</th>
+                    <th>Azioni</th>
                 </thead>
                 
                 <?php foreach ( $me->storico() as $app ) { ?>
@@ -61,6 +62,13 @@ paginaPrivata();
                             <?php } else { ?>
                                 <i class="icon-question-sign muted"></i>
                                 Indeterminato
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <?php if ( $app->stato == MEMBRO_ESTESO ){ ?>
+                                <a class="btn btn- small btn-danger" href="?p=utente.estensione.termina&id=<?= $app->id; ?>" title="Termina Estensione">
+                                    <i class="icon-stop"></i> Termina Estensione
+                                </a> 
                             <?php } ?>
                         </td>
                         
