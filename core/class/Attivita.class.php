@@ -69,7 +69,7 @@ class Attivita extends GeoEntita {
     
     public function puoPartecipare($v) {
         if (!$v) { return true; }
-        if ( $this->referente == $v->id || $v->admin || $v->presiede($this->comitato()) ) {
+        if ( $this->referente == $v->id || $v->admin() || $v->presiede($this->comitato()) ) {
             return true;
         }
         switch ( $this->visibilita ) {

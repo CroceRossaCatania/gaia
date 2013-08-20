@@ -4,8 +4,11 @@
  * ©2012 Croce Rossa Italiana
  */
 
-$sessione->attenzione = false;
+/* Svuota eventuali variabili di sessioni */
+$sessione->attenzione = null;
+$sessione->adminMode  = null;
 $sessione->logout();
+
 ?>
 
 <div class="alert alert-block alert-success">
