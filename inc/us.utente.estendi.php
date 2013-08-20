@@ -31,6 +31,7 @@ paginaModale();
                     </a><p></p>
                </li>
                <li><input class="span4 allinea-sinistra" type="text" name="inputMotivo" id="motivo" placeholder="Inserisci la motivazione" required></li>
+              <li>Vai nella sezione estensioni in attesa e completa la procedura.</li>
            </ol>
            <p class="text-error"><i class="icon-warning-sign"></i> Attenzione questa operazione non è reversibile </p>
            <p>&nbsp;</p>

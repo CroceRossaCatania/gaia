@@ -28,6 +28,7 @@ paginaModale();
                <li><input class="input-large allinea-sinistra" type="text" name="datainizio" id="datainizio" placeholder="Inserisci data di inizio riserva" required></li>
                <li><input class="input-large allinea-sinistra" type="text" name="datafine" id="datafine" placeholder="Inserisci data di fine riserva" required></li>
                <li><input class="span4 allinea-sinistra" type="text" name="inputMotivo" id="motivo" placeholder="Inserisci la motivazione" required></li>
+               <li>Vai nella sezione riserve in attesa e completa la procedura.</li>
            </ol>
            <p class="text-error"><i class="icon-warning-sign"></i> Attenzione questa operazione non è reversibile </p>
            <p>&nbsp;</p>
