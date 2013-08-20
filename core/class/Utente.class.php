@@ -394,14 +394,18 @@ class Utente extends Persona {
         $q = $this->db->prepare("
             SELECT  COUNT(trasferimenti.id)
             FROM    trasferimenti, appartenenza
-            WHERE   appartenenza.stato = :statoPendente
-            AND     trasferimenti.volontario = appartenenza.id
+            WHERE   trasferimenti.volontario = appartenenza.volontario
+            AND     appartenenza.stato = :stato
+            AND     trasferimento.stato = :statoEstensione
             AND     ( appartenenza.fine < 1 
                     OR
-                    appartenenza.fine > :ora )
+                    appartenenza.fine > :ora 
+                    OR
+                    appartenenza.fine IS NULL)
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
-        $q->bindValue(':statoPendente', MEMBRO_VOLONTARIO);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
+        $q->bindValue(':statoEstensione', TRASF_INCORSO);
         $ora = time();
         $q->bindParam(':ora', $ora);
         $q->execute();
@@ -414,14 +418,18 @@ class Utente extends Persona {
         $q = $this->db->prepare("
             SELECT  COUNT(estensioni.id)
             FROM    estensioni, appartenenza
-            WHERE   appartenenza.stato = :statoPendente
-            AND     estensioni.volontario = appartenenza.id
+            WHERE   estensioni.volontario = appartenenza.volontario
+            AND     appartenenza.stato = :stato
+            AND     estensine.stato = :statoEstensione
             AND     ( appartenenza.fine < 1 
                     OR
-                    appartenenza.fine > :ora )
-            AND     estensioni.cProvenienza  IN
+                    appartenenza.fine > :ora 
+                    OR
+                    appartenenza.fine IS NULL)
+            AND     appartenenza.comitato  IN
                 ( {$comitati} )");
-        $q->bindValue(':statoPendente', MEMBRO_VOLONTARIO);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
+        $q->bindValue(':statoEstensione', EST_INCORSO);
         $ora = time();
         $q->bindParam(':ora', $ora);
         $q->execute();
