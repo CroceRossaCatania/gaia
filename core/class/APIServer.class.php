@@ -291,8 +291,12 @@ class APIServer {
 
             $me = $this->sessione->utente();
             $r->comitati = array_merge(
-                $me->comitatiDiCompetenza(),
-                $me->comitati()
+                // Dominio di ricerca
+                $me->comitatiApp([
+                    APP_PRESIDENTE,
+                    APP_SOCI,
+                    APP_OBIETTIVO
+                ])
             );
 
             if ( $this->par['query'] ) {
