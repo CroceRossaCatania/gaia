@@ -213,4 +213,17 @@ class Trasferimento extends Entita {
             }
         }
     }
+
+    public static function daAutorizzare() {
+        $t = Trasferimento::filtra([
+            ['stato', EST_INCORSO]
+        ]);
+        $r = [];
+        $unmesefa = time() - MESE;
+        foreach ($t as $_t) {
+            if ($_t->appartenenza->inizio < $unmesefa)
+                $r[] = $_t;
+        }
+        return $r;
+    }
 }
