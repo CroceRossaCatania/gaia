@@ -255,6 +255,15 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                             </div>
                             <?php } ?>
 
+                            <?php if ( $me->admin && !$me->admin() ) { ?>
+                            <!-- ADMIN MODE NON ATTIVATA... -->
+                                <a href="#adminMode" class="btn btn-inverse" data-toggle="modal" role="button">
+                                    <i class="icon-github-alt icon-large"></i>
+                                </a>
+
+
+                            <?php } ?>
+
                                            
 			</div>
 			<?php } else { ?>
@@ -365,6 +374,46 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <?php if ( $_carica_selettore_comitato ) {
         include './inc/part/comitato.selettore.php';
     } ?>
+
+    <?php if ( $me->admin && !$me->admin() ) { ?>
+    <!-- ADMIN MODE NON ATTIVATA -->
+      <div id="adminMode" class="modal hide fade" role="dialog">
+        <div class="modal-header">
+          <h3>
+            <i class="icon-github-alt icon-large"></i>
+            Stai per entrare nella Admin Mode
+          </h3>
+        </div>
+        <div class="modal-body">
+          <p>Entrando nella modalità amministratore entrerai in contatto con una grande mole
+             di dati sensibili di persone che ti hanno indirettamente dato la loro fiducia.</p>
+          <p>
+             &mdash;
+              <strong class="text-success">
+                Per questo ti chiediamo di rinnovare la tua promessa.
+              </strong>
+          </p>
+          <h4 class="text-error">Tieni in mente tre cose</h4>
+          <ol>
+            <li>Rispetta la privacy degli altri;</li>
+            <li>Pensa sempre prima di scrivere e cliccare;</li>
+            <li><em>Da grandi poteri derivano grandi responsabilità</em>.</li>
+          </ol>
+          <p class="text-info">
+            <i class="icon-time"></i>
+            Rimarri in modalità admin fino al Logout
+          </p>
+
+        </div>
+        <div class="modal-footer">
+          <a href="#" data-dismiss="modal" class="btn">Annulla</a>
+          <a href="?p=admin.mode" class="btn btn-danger">
+            <i class="icon-ok"></i>
+            Okay, lo prometto
+          </a>
+        </div>
+      </div>
+      <?php } ?>
     
     <!-- Statistiche -->
 	<script type="text/javascript">
