@@ -187,11 +187,12 @@ class Comitato extends GeoPolitica {
             AND
                 comitato = :comitato
             AND
-                appartenenza.stato    >= :stato
+                appartenenza.stato = :stato
             ORDER BY
                 cognome ASC, nome ASC");
         $q->bindParam(':comitato', $this->id);
-        $q->bindParam(':stato',    MEMBRO_DIMESSO);
+        $stato = MEMBRO_DIMESSO;
+        $q->bindParam(':stato', $stato);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
