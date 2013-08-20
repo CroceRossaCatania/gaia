@@ -382,14 +382,14 @@ class Utente extends Persona {
         $q = $this->db->prepare("
             SELECT  COUNT(trasferimenti.id)
             FROM    trasferimenti, appartenenza
-            WHERE   trasferimenti.stato = :statoPendente
-            AND     trasferimenti.appartenenza = appartenenza.id
+            WHERE   appartenenza.stato = :statoPendente
+            AND     trasferimenti.volontario = appartenenza.id
             AND     ( appartenenza.fine < 1 
                     OR
                     appartenenza.fine > :ora )
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
-        $q->bindValue(':statoPendente', TRASF_INCORSO);
+        $q->bindValue(':statoPendente', MEMBRO_VOLONTARIO);
         $ora = time();
         $q->bindParam(':ora', $ora);
         $q->execute();
@@ -402,14 +402,14 @@ class Utente extends Persona {
         $q = $this->db->prepare("
             SELECT  COUNT(estensioni.id)
             FROM    estensioni, appartenenza
-            WHERE   estensioni.stato = :statoPendente
-            AND     estensioni.appartenenza = appartenenza.id
+            WHERE   appartenenza.stato = :statoPendente
+            AND     estensioni.volontario = appartenenza.id
             AND     ( appartenenza.fine < 1 
                     OR
                     appartenenza.fine > :ora )
             AND     estensioni.cProvenienza  IN
                 ( {$comitati} )");
-        $q->bindValue(':statoPendente', EST_INCORSO);
+        $q->bindValue(':statoPendente', MEMBRO_VOLONTARIO);
         $ora = time();
         $q->bindParam(':ora', $ora);
         $q->execute();
