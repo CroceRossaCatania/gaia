@@ -31,6 +31,7 @@ class Trasferimento extends Entita {
     }
 
     public function nega($motivo) {
+        global $sessione;    
         $v = $this->volontario();
 
         $this->tCOnferma = time();
@@ -57,6 +58,16 @@ class Trasferimento extends Entita {
     
     public function auto() {
         $this->trasferisci(true);
+        $v = $this->volontario();
+        $destinatari = [$v, $v->comitato()->unPresidente(), $nuovaApp->comitato()->unPresidente];
+        foreach ($destinatari as $destinatario) {
+            $m = new Email('richiestaTrasferimentoauto', 'Approvata richiesta trasferimento verso: ' . $nuovaApp->comitato()->nome);          
+            $m->a = $destinatario;
+            $m->_NOME       = $nuovaApp->volontario()->nome;
+            $m->_COMITATO   = $nuovaApp->comitato()->nomeCompleto();
+            $m-> _TIME = date('d-m-Y', $t->protData);
+            $m->invia();
+        }
     }
 
     public function trasferisci($auto = false) 
@@ -65,6 +76,7 @@ class Trasferimento extends Entita {
         if ($auto) {
             $this->stato = TRASF_AUTO;
         } else {
+            global $sessione;    
             $this->stato = TRASF_OK;
             $this->pConferma = $sessione->utente()->id;
         }
@@ -177,19 +189,21 @@ class Trasferimento extends Entita {
         }
         $nuovaApp->inizio = time();
         $nuovaApp->fine = PROSSIMA_SCADENZA;
-        $destinatari = [$nuovaApp->volontario(), $c->unPresidente(), $nuovaApp->comitato()->unPresidente];
-        foreach ($destinatari as $destinatario) {
-            $m = new Email('richiestaTrasferimentook', 'Approvata richiesta trasferimento verso: ' . $nuovaApp->comitato()->nome);
-            if (!auto)
-            {
-                $m->da = $sessione->utente()->id; 
-            }            
-            $m->a = $destinatario;
-            $m->_NOME       = $nuovaApp->volontario()->nome;
-            $m->_COMITATO   = $nuovaApp->comitato()->nomeCompleto();
-            $m-> _TIME = date('d-m-Y', $t->protData);
-            $m->invia();
-        }        
+        if (!auto) {
+            $destinatari = [$nuovaApp->volontario(), $c->unPresidente(), $nuovaApp->comitato()->unPresidente];
+            foreach ($destinatari as $destinatario) {
+                $m = new Email('richiestaTrasferimentook', 'Approvata richiesta trasferimento verso: ' . $nuovaApp->comitato()->nome);
+                if (!auto)
+                {
+                    $m->da = $sessione->utente()->id; 
+                }            
+                $m->a = $destinatario;
+                $m->_NOME       = $nuovaApp->volontario()->nomeCompleto();
+                $m->_COMITATO   = $nuovaApp->comitato()->nomeCompleto();
+                $m-> _TIME = date('d-m-Y', $t->protData);
+                $m->invia();
+            } 
+        }       
     }
 
     public static function daAutorizzare() {
@@ -205,3 +219,4 @@ class Trasferimento extends Entita {
         return $r;
     }
 }
+?>

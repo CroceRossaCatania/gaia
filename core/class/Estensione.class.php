@@ -59,6 +59,18 @@ class Estensione extends Entita {
     
     public function auto() {
         $this->concedi(true);
+        $a = $this->appartenenza;
+        $a = new Appartenenza($a);
+        $v = $a->volontario();
+        $destinatari = [$v, $app->comitato()->unPresidente(), $v->unComitato()->unPresidente()];
+        foreach ($destinatari as $destinatario) {
+            $m = new Email('richiestaEstensioneauto', 'Richiesta estensione approvata: ' . $a->comitato()->nome);
+            $m->a = $destinatario;
+            $m->_NOME       = $a->volontario()->nomeCompleto();
+            $m->_COMITATO   = $a->comitato()->nomeCompleto();
+            $m-> _TIME = date('d-m-Y', $this->protData);
+            $m->invia();
+        }
     }
 
     public function termina() {
@@ -129,6 +141,16 @@ class Estensione extends Entita {
                 $_p->cancella();
             }
         }
+
+        // mando email per avvisare dello spiacevole evento :o(
+        $destinatari = [$v, $app->comitato()->unPresidente(), $v->unComitato()->unPresidente()];
+        foreach ($destinatari as $destinatario) {
+            $m = new Email('richiestaEstensioneConclusa', 'Termine estensione: ' . $app->comitato()->nome);
+            $m->a = $destinatario;
+            $m->_NOME       = $app->volontario()->nomeCompleto();
+            $m->_COMITATO   = $app->comitato()->nomeCompleto();
+            $m->invia();
+        }
     }
 
     public static function daAutorizzare() {
@@ -145,14 +167,35 @@ class Estensione extends Entita {
     }
 
     public static function daChiudere() {
-        $e = Estensione::filtra([
+        $eok = Estensione::filtra([
             ['stato', EST_OK]
         ]);
+        $eauto = Estensione::filtra([
+            ['stato', EST_AUTO]
+        ]);
+        $e = array_merge($eok, $eauto);
         $r = [];
         $ora = time();
         foreach ($e as $_e) {
             if ($_e->appartenenza()->fine < $ora)
                 $r[] = $_e;
+        }
+        return $r;
+    }
+
+    public static function inScadenza() {
+        $eok = Estensione::filtra([
+            ['stato', EST_OK]
+        ]);
+        $eauto = Estensione::filtra([
+            ['stato', EST_AUTO]
+        ]);
+        $e = array_merge($eok, $eauto);
+        $r = [];
+        $traunmese = time() + MESE;
+        foreach ($e as $_e) {
+            if ($_e->appartenenza()->fine < $traunmese)
+                $r[] = $_ris;
         }
         return $r;
     }
