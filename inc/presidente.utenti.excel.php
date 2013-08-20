@@ -235,6 +235,33 @@ $excel->download();
     $excel->genera("Volontari riserva.xls");
     $excel->download();
     
+    }elseif(isset($_GET['estesi'])){
+    $excel = new Excel();
+    
+    $excel->intestazione([
+        'Nome',
+        'Cognome',
+        'Data Nascita',
+        'Luogo Nascita',
+        'Provincia Nascita',
+        'C. Fiscale'
+    ]);
+        $estesi = array_diff( $c->membriAttuali(MEMBRO_ESTESO), $c->membriAttuali(MEMBRO_VOLONTARIO) );
+        foreach ( $estesi as $v ) {
+
+        $excel->aggiungiRiga([
+            $v->nome,
+            $v->cognome,
+            date('d/m/Y', $v->dataNascita),
+            $v->comuneNascita,
+            $v->provinciaNascita,
+            $v->codiceFiscale
+        ]);
+
+    }
+    $excel->genera("Volontari estesi.xls");
+    $excel->download();
+    
     }else{
     
 $excel = new Excel();

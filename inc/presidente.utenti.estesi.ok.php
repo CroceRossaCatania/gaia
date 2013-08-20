@@ -10,8 +10,8 @@ $unita = $g->estensione();
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 menuElenchiVolontari(
     "Volontari estesi",
-    "?p=admin.utenti.excel&estesi",
-    "?p=utente.mail.nuova&estesi"
+    "#",
+    "#"
 );
 
 ?>
