@@ -39,7 +39,7 @@ class Trasferimento extends Entita {
     }
     
     public function concedi() {
-        $this->rispondi(TRASF_OK);
+        $this->rispondi();
     }
     
     public function nega($motivo) {
@@ -75,10 +75,12 @@ class Trasferimento extends Entita {
         $v = $this->volontario();
         $a = $v->appartenenzaAttuale();
         $c = new Comitato($a->comitato);
-        
+
+        $this->tConferma = time();
         if ($auto) {
-            $this->tConferma = time();
             $this->stato = TRASF_AUTO;
+        } else {
+            $this->stato = TRASF_OK;
         }
         
 
