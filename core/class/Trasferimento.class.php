@@ -30,40 +30,29 @@ class Trasferimento extends Entita {
         }
     }
 
-    public function rispondi($risposta = TRASF_OK, $motivo = null) {
-        global $sessione;
-        $this->stato = $risposta;
-        $this->pConferma = $sessione->utente()->id;
-        $this->tConferma = time();
-        $this->negazione = $motivo;
-    }
-    
-    public function concedi() {
-        $this->rispondi();
-    }
-    
     public function nega($motivo) {
         $v = $this->volontario();
-        $this->rispondi(TRASF_NEGATO, $motivo);
+
+        $this->tCOnferma = time();
+        $this->pConferma = $sessione->utente()->id;
+        $this->negazione = $motivo;
 
         /* rimetto a posto l'appartenenza attuale */
 
-        $a = $v->appartenenzaAttuale(); 
+        $a = new Appartenenza($this->appartenenza);
         $a->timestamp = time();
         $a->stato     = TRASF_NEGATO;
-        $a->conferma  = $me->id;    
+        $a->conferma  = $sessione->utente()->id;    
         $a->inizio = time();
         $a->fine = time();
         $m = new Email('richiestaTrasferimentono', 'Richiesta trasferimento negata: ' . $a->comitato()->nome);
         $m->da = $sessione->utente()->id;   
         $m->a = $a->volontario();
-        $m->_NOME       = $a->volontario()->nome;
+        $m->_NOME       = $v->nome;
         $m->_COMITATO   = $a->comitato()->nomeCompleto();
         $m-> _TIME = date('d-m-Y', $a->timestamp);
-        $m-> _MOTIVO = $_POST['motivo'];
+        $m-> _MOTIVO = $this->motivo;
         $m->invia();
-
-        
     }
     
     public function auto() {
@@ -72,17 +61,17 @@ class Trasferimento extends Entita {
 
     public function trasferisci($auto = false) 
     {
-        $v = $this->volontario();
-        $a = $v->appartenenzaAttuale();
-        $c = new Comitato($a->comitato);
-
         $this->tConferma = time();
         if ($auto) {
             $this->stato = TRASF_AUTO;
         } else {
             $this->stato = TRASF_OK;
+            $this->pConferma = $sessione->utente()->id;
         }
         
+        $v = $this->volontario();
+        $a = $v->appartenenzaAttuale();
+        $c = new Comitato($a->comitato);
 
         /* Chiusura delle estensioni in corso*/
         $e = Estensione::filtra([
@@ -105,16 +94,8 @@ class Trasferimento extends Entita {
             $r->fine = time();
             $r->stato = RISERVA_INT;
         }
-        
 
         /* Chiudo tutto ciò che è legato all'appartenenza attuale */
-
-        $a->timestamp = time();
-        if (!auto)
-            $a->conferma  = $sessione->utente()->id;
-        else
-            $a->conferma  = 0; 
-        $a->fine = time();
 
         // chiudo le deleghe su quel comitato
         $d = $v->delegazioni(null, $c->id);
@@ -179,7 +160,13 @@ class Trasferimento extends Entita {
             }
         }
 
-        /* A questo punto chiudo l'appartenenza in corso */
+        /* Posso chiudere definitivamente la vecchia appartenenza */
+
+        $a->timestamp = time();
+        $a->fine = time();
+        $a->stato = MEMBRO_TRASFERITO;
+
+        /* A questo punto rendo operativa la nuova appartenenza */
         
         $nuovaApp = new Appartenenza($t->appartenenza);
         $nuovaApp->timestamp = time();
