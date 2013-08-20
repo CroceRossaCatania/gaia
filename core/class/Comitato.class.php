@@ -113,7 +113,8 @@ class Comitato extends GeoPolitica {
             ORDER BY
                  cognome ASC, nome ASC");
         $q->bindValue(':ora', time());
-        $q->bindValue(':stato', RISERVA_OK);
+        $stato = RISERVA_OK;
+        $q->bindValue(':stato', $stato);
         $q->bindParam(':comitato', $this->id);
         $q->execute();
         $r = [];
@@ -239,7 +240,8 @@ class Comitato extends GeoPolitica {
                 inizio ASC");
         $q->bindValue(':ora', time());
         $q->bindParam(':comitato', $this->id);
-        $q->bindValue(':stato',    MEMBRO_PENDENTE);
+        $stato = MEMBRO_PENDENTE;
+        $q->bindValue(':stato',  $stato);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
@@ -431,6 +433,8 @@ class Comitato extends GeoPolitica {
             AND
                 anagrafica.id = appartenenza.volontario
             AND
+                appartenenza.stato = :stato
+            AND
                 quote.appartenenza = appartenenza.id
             AND
                 quote.timestamp BETWEEN :anno AND :ora
@@ -438,6 +442,8 @@ class Comitato extends GeoPolitica {
               anagrafica.cognome     ASC,
               anagrafica.nome  ASC");
         $q->bindValue(':comitato',  $this->id);
+        $stato = MEMBRO_VOLONTARIO;
+        $q->bindValue(':stato',  $stato);
         $q->bindValue(':ora',  time());
         $anno = date ('Y', time());
         $anno = mktime(0, 0, 0, 1, 1, $anno);
@@ -484,7 +490,8 @@ class Comitato extends GeoPolitica {
         $anno = date ('Y', time());
         $anno = mktime(0, 0, 0, 1, 1, $anno);
         $q->bindValue(':anno',    $anno);
-        $q->bindValue(':stato',    MEMBRO_VOLONTARIO);
+        $stato = MEMBRO_VOLONTARIO;
+        $q->bindValue(':stato', $stato);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
