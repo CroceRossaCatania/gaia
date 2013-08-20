@@ -105,5 +105,11 @@ class Riserva extends Entita {
         }
         return $r;
     }
+
+    public function termina() {
+       $r = new Riserva($this);
+       $r->fine = time();
+       $r->stato = RISERVA_INT;
+    }
 }
 ?>

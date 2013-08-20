@@ -10,7 +10,7 @@ $id = $_POST['id'];
 $est = new Estensione($id);
 $est->termina();
 
-$m = new Email('estensioneTermina', 'Termine estensione: ' . $app->comitato()->nome);
+$m = new Email('estensioneTermina', 'Termine estensione: ' . $est->comitato()->nomeCompleto());
     $m->a = $me;
     $m->_NOME       = $est->volontario()->nomeCompleto();
     $m->_COMITATO   = $est->provenienza()->nomeCompleto();
