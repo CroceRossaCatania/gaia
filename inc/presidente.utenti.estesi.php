@@ -9,81 +9,29 @@ menuElenchiVolontari(
     "?p=admin.utenti.excel&estesi",
     "?p=utente.mail.nuova&estesi"
 );
-
+$elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
+foreach ( $elenco as $unit ){
+    $t[] = $unit->locale();
+}
+$t = array_unique($t);
 ?>
-    
-<div class="row-fluid">
-   <div class="span12">
-            
-       <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
-            <thead>
-                <th>Nome</th>
-                <th>Cognome</th>
-                <th>Località</th>
-                <th>Cellulare</th>
-                <th>Azioni</th>
-            </thead>
-        <?php
-        $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
-        foreach($elenco as $comitato) { ?>
-            <tr class="success">
-                <td colspan="7" class="grassetto">
-                    <?php echo $comitato->nomeCompleto(); ?>
-                    <span class="label label-warning">
-                        <?php echo $k; ?>
-                    </span>
-                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&estesi">
-                           <i class="icon-envelope"></i> Invia mail
-                    </a>
-                    <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&estesi"
-                       data-attendere="Generazione...">
-                            <i class="icon-download"></i> scarica come foglio excel
-                    </a>
-                </td>
-            </tr>
-            
-            <?php
-            $t = $comitato->membriAttuali(MEMBRO_ESTESO);
-            foreach ( $t as $_v ) {{
-            ?>
-                <tr>
-                    <td><?php echo $_v->cognome; ?></td>
-                    <td><?php echo $_v->nome; ?></td>
-                    <td>
-                        <span class="muted">
-                            <?php echo $_v->CAPResidenza; ?>
-                        </span>
-                        <?php echo $_v->comuneResidenza; ?>,
-                        <?php echo $_v->provinciaResidenza; ?>
-                    </td>
-                    
-                    <td>
-                        <span class="muted">+39</span>
-                            <?php echo $_v->cellulare; ?>
-                    </td>
-
-                    <td>
-                        <div class="btn-group">
-                            <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
-                                <i class="icon-eye-open"></i> Dettagli
-                            </a>
-                            <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
-                                <i class="icon-envelope"></i>
-                            </a>
-                        </div>
-                   </td>
-                </tr>
-                
-               
-       
-        <?php }
-        }
-        }
-        ?>
-
-        </table>
-       
+<form action="?p=presidente.utenti.estesi.ok" method="POST">
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="span4-centrato">
+                <label class="control-label" for="oid">Seleziona Comitato</label>
+            </div>
+            <div class="span8">
+                <select class="input-xxlarge" id="oid" name="oid" required>
+                <?php
+                    foreach ( $t as $numero ) { ?>
+                    <option value="<?php echo $numero->oid(); ?>"><?php echo $numero->nomeCompleto(); ?></option>
+                    <?php } ?>
+                </select>   
+            </div>
+        </div>
     </div>
-    
-</div>
+    <button type="submit" class="btn btn-success">
+        <i class="icon-arrow"></i> Conferma
+    </button>
+</form>
