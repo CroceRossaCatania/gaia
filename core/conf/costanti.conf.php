@@ -31,6 +31,7 @@ define('MESE',       2592000);
 
 /* Tipologia appartenenza gruppo */
 define('MEMBRO_DIMESSO',         0);
+define('MEMBRO_TRASFERITO',      1);
 define('MEMBRO_EST_TERMINATA',   5);
 define('MEMBRO_TRASF_NEGATO',   10);
 define('MEMBRO_EST_NEGATA',     15);
@@ -48,6 +49,7 @@ define('MEMBRO_PRESIDENTE',     70);
 /* Definizioni in stringa */
 $conf['membro'] = [
     MEMBRO_TRASF_NEGATO     =>  'Trasferimento negato',
+    MEMBRO_TRASFERITO       =>  'Membro Trasferito',
     MEMBRO_EST_NEGATA       =>  'Estensione negata',
     MEMBRO_TRASF_IN_CORSO   =>  'Trasferimento in corso',
     MEMBRO_PENDENTE         =>  'Pendente',
