@@ -16,6 +16,11 @@
         <a href="?p=presidente.utenti.dimessi">
              dimessi
         </a><br />
+        <a href="?p=presidente.utenti.riserve"
+            data-attendere="Generazione lista...">
+            <i class="icon-list"></i>
+            Volontari in riserva
+        </a><br />
         <a href="?p=presidente.utenti.giovani"
             data-attendere="Generazione lista...">
             <i class="icon-list"></i>
