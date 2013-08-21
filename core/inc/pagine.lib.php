@@ -54,8 +54,6 @@ function paginaApp($app, $comitati = []) {
 
 function paginaPubblica() {
     global $sessione, $p;
-    var_dump($_GET, $p, $_SERVER);
-    exit(0);
     if ( $sessione->utente ) {
         redirect('utente.me&pubblica');
     }
