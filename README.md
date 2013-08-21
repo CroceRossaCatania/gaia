@@ -45,6 +45,6 @@ Per motivi di sviluppo, è possibile installare Gaia come segue:
 È possibile avviare Gaia nel server di sviluppo di PHP 5.4+ come segue:
 ```bash
 cd /percorso/per/gaia
-php -S localhost:8888 index.php
+php -S localhost:8888 router.php
 ```
-Basterà dirigersi su (http://localhost:8888/) per accedere alla propria installazione.
+Basterà dirigersi su **http://localhost:8888/** per accedere alla propria installazione.
