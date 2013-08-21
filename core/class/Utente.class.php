@@ -96,7 +96,8 @@ class Utente extends Persona {
     }
     
     public function admin() {
-        if ( $this->admin) {
+        global $sessione;
+        if ( $this->admin && $sessione->adminMode ) {
             return true;
         } else {
             return false;
@@ -287,7 +288,7 @@ class Utente extends Persona {
         if (!is_array($app)) {
             $app = [$app];
         }
-        if ( $this->admin ) {
+        if ( $this->admin() ) {
             return $this->comitatiDiCompetenza();
         }
         $r = [];
@@ -332,7 +333,7 @@ class Utente extends Persona {
     }
     
     public function comitatiDiCompetenza() {
-        if ( $this->admin ) {
+        if ( $this->admin() ) {
             return Comitato::elenco('locale ASC');
         } else {
             return $this->comitatiPresidenzianti();
@@ -547,7 +548,11 @@ class Utente extends Persona {
 
     public function entitaDelegazioni($app = null) {
         /* Qualora fossi admin, ho tutto il nazionale... */
-        if ( $this->admin ) { return Nazionale::elenco('nome ASC'); }
+        if (
+            $this->admin()
+        ) { 
+            return Nazionale::elenco('nome ASC');
+        }
         
         $d = $this->delegazioni($app);
         $c = [];
@@ -652,7 +657,7 @@ class Utente extends Persona {
     
     public function areeDiCompetenza( $c = null ) {
         if ( $c ) {
-            if ( $this->admin || $this->presiede($c) ) {
+            if ( $this->admin() || $this->presiede($c) ) {
                 return $c->aree();
             } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $comitato) ) {
                 $r = [];
