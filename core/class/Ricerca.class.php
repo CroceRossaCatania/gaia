@@ -16,8 +16,8 @@ class Ricerca {
         $perPagina      = 30,
         $stato          = MEMBRO_VOLONTARIO,
         $ordine         = [
-            'comitati.nome          ASC',
             'pertinenza             DESC',
+            'comitati.nome          ASC',
             'anagrafica.cognome     ASC',
             'anagrafica.nome        ASC'
         ];
