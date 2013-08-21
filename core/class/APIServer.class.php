@@ -13,10 +13,10 @@ class APIServer {
 	public
             $par		= [];
 	
-	public function __construct( $sessione = null ) {
+	public function __construct( $sid = null ) {
             global $db, $sessione;
             $this->db = $db;
-            $this->sessione = new Sessione($sessione);
+            $this->sessione = new Sessione($sid);
 
             /* Punta alla variabile globale, così da
              * permettere il funzionamento delle funzioni
