@@ -7,14 +7,15 @@
 /*
  * Elenco Applicazioni da gestire
  */
+
 $_daGestire = [
     APP_CO, APP_SOCI
 ];
 
 $c = $_GET['oid'];
-$c = GeoPolitica::daOid($c);
+$c = GeoPolitica::daOid($c); 
 
-paginaApp([APP_PRESIDENTE], [$c]);
+// paginaApp([APP_PRESIDENTE], [$c]);
 caricaSelettore();
 
 $back = false;
