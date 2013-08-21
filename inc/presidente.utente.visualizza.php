@@ -4,36 +4,37 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI, APP_PRESIDENTE , APP_OBIETTIVO ]);
+paginaApp([ APP_SOCI, APP_PRESIDENTE ]);
 
 $f = $_GET['id']; 
 $t = new Volontario($f);
 $g = $v = $t;
 
-proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO]);
+proteggiDatiSensibili($v, [ APP_SOCI, APP_PRESIDENTE ]);
 
 $a=TitoloPersonale::filtra([['volontario',$f]]);
 ?>
 <!--Visualizzazione e modifica anagrafica utente-->
 <div class="row-fluid">
-    <div class="span6">
+  <div class="span6">
     <?php if ( isset($_GET['ok']) ) { ?>
-        <div class="alert alert-success">
-            <i class="icon-save"></i> <strong>Salvato</strong>.
-            Le modifiche richieste sono state memorizzate con successo.
-        </div>
-        <?php }  ?>
+      <div class="alert alert-success">
+        <i class="icon-save"></i> <strong>Salvato</strong>.
+          Le modifiche richieste sono state memorizzate con successo.
+      </div>
+    <?php }  ?>
+
   <!--Visualizzazione e modifica avatar utente-->
-        <div class="span12">
-        <h3><i class="icon-edit muted"></i> Anagrafica</h3>
-            <div class="span6 allinea-centro">
-        <?php if ( isset($_GET['aok']) ) { ?>
+    <div class="span12">
+      <h3><i class="icon-edit muted"></i> Anagrafica</h3>
+        <div class="span6 allinea-centro">
+          <?php if ( isset($_GET['aok']) ) { ?>
             <div class="alert alert-success">
-                <i class="icon-ok"></i> Fotografia modificata!
+              <i class="icon-ok"></i> Fotografia modificata!
             </div>
-        <?php } elseif ( isset($_GET['aerr']) ) { ?>
+          <?php } elseif ( isset($_GET['aerr']) ) { ?>
             <div class="alert alert-error">
-                <i class="icon-warning-sign"></i>
+              <i class="icon-warning-sign"></i>
                 <strong>Errore</strong> &mdash; File troppo grande o non valido.
             </div>
         <?php } else { ?>
@@ -41,7 +42,6 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         <?php } ?>
         <img src="<?php echo $g->avatar()->img(20); ?>" class="img-polaroid" />
                <br/><br/></div>
-        <?php if ( !$me->delegazioni(APP_OBIETTIVO) ) { ?>
             <div class="span5 allinea-sinistra"> 
                <br/>
         <form id="caricaFoto" action="?p=utente.avatar.ok&id=<?php echo $f; ?>&pre" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
@@ -54,7 +54,6 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         </form>
             <br/>   
             </div> 
-        <?php } ?>
             </div>
             
 <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $f; ?>" method="POST">
@@ -145,7 +144,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                <label class="control-label" for="inputCellulareServizio">Cellulare Servizio</label>
                <div class="controls">
                    <span class="add-on">+39</span>
-                 <input <?php if ( $me->delegazioni(APP_OBIETTIVO) ) { ?> readonly <?php } ?> value="<?php echo $v->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" />
+                 <input value="<?php echo $v->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" />
                 </div>
              </div>
             <div class="control-group">
@@ -154,12 +153,11 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                 <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  required class="disabled">
                 <?php
                     foreach ( $conf['sangue_gruppo'] as $numero => $gruppo ) { ?>
-                    <option <?php if ( $me->delegazioni(APP_OBIETTIVO) ) { ?> readonly <?php } ?> value="<?php echo $numero; ?>" <?php if ( $numero == $v->grsanguigno ) { ?>selected<?php } ?>><?php echo $gruppo; ?></option>
+                    <option value="<?php echo $numero; ?>" <?php if ( $numero == $v->grsanguigno ) { ?>selected<?php } ?>><?php echo $gruppo; ?></option>
                     <?php } ?>
                 </select>   
             </div>
           </div>
-    <?php if ( !$me->delegazioni(APP_OBIETTIVO) ){ ?>
         <hr />
          
         <div class="form-actions">
@@ -168,13 +166,9 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                     Salva modifiche
                 </button>
             </div>
-    <?php } ?>
           </form>    
     </div>
     
-    
-    
-        <?php if ( !$me->delegazioni(APP_OBIETTIVO) ) { ?>
         <h4><i class="icon-folder-open"></i> Documenti volontario</h4>
         
         <?php if ( $v->documenti() ) { ?>
@@ -189,7 +183,6 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             </span>
         <?php } ?>
         <hr />
-        <?php } ?>
     <!--Visualizzazione e modifica appartenenze utente -->
     <div class="span6">
         <div class="row-fluid">
@@ -246,13 +239,11 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                         </td>
                         
                         <td>
-                           <?php if ( !$me->delegazioni(APP_OBIETTIVO) ){ ?>
                             <div class="btn-group">
                                 <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
                                     <i class="icon-edit"></i>
                                 </a>
                             <?php 
-                                        }
                             if($me->admin()){ ?>
                                 <a onClick="return confirm('Vuoi veramente cancellare questa appartenenza ?');" href="?p=us.appartenenza.cancella&a=<?php echo $app; ?>" title="Cancella appartenenza" class="btn btn-small btn-danger">
                                     <i class="icon-trash"></i>
@@ -278,7 +269,6 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
     </div>
     <?php } ?>
    <h4><i class="icon-list muted"></i> Curriculum </h4>
-      <?php if ( !$me->delegazioni(APP_OBIETTIVO) ){ ?>
         <div id="step1">
             <div class="alert alert-block alert-success" <?php if ($titoli[2]) { ?>data-richiediDate<?php } ?>>
                 <div class="row-fluid">
@@ -369,10 +359,8 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                 
             </div>
             
-        </div>    
-  
-     <?php }
-     $ttt = $a; ?>
+        </div> 
+     <?php $ttt = $a; ?>
                 <table class="table table-striped">
                     <?php foreach ( $ttt as $titolo ) { ?>
                     <tr <?php if (!$titolo->tConferma) { ?>class="warning"<?php } ?>>
@@ -418,7 +406,6 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                             <?php } ?>
                             
                             <td>
-                             <?php if ( !$me->delegazioni(APP_OBIETTIVO) ){ ?>
                                 <div class="btn-group">
                                     <a href="?p=presidente.titolo.modifica&t=<?php echo $titolo->id; ?>&v=<?php echo $v->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
                                         <i class="icon-edit"></i>
@@ -427,7 +414,6 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                                         <i class="icon-trash"></i>
                                     </a>
                                 </div>
-                             <?php } ?>
                             </td>
                     </tr>
                     <?php } ?>
