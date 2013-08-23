@@ -164,7 +164,7 @@ class Estensione extends Entita {
         $r = [];
         $unmesefa = time() - MESE;
         foreach ($e as $_e) {
-            if ($_e->appartenenza->inizio < $unmesefa)
+            if ($_e->appartenenza()->inizio < $unmesefa)
                 $r[] = $_e;
         }
         return $r;

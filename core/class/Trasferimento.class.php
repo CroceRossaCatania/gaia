@@ -213,7 +213,7 @@ class Trasferimento extends Entita {
         $r = [];
         $unmesefa = time() - MESE;
         foreach ($t as $_t) {
-            if ($_t->appartenenza->inizio < $unmesefa)
+            if ($_t->appartenenza()->inizio < $unmesefa)
                 $r[] = $_t;
         }
         return $r;

@@ -83,7 +83,7 @@ class Riserva extends Entita {
         $r = [];
         $unmesefa = time() - MESE;
         foreach ($ris as $_ris) {
-            if ($_t->appartenenza->inizio < $unmesefa)
+            if ($_ris->timestamp < $unmesefa)
                 $r[] = $_ris;
         }
         return $r;
