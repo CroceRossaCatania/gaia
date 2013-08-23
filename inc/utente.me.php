@@ -142,13 +142,13 @@ if ($rf) {
                }
            } ?>
         <?php 
-        foreach ($me->inriserva() as $ris ){ 
-            if($ris->fine >= time()){?>
+        
+        if($me->inRiserva()){?>
         <div class="alert alert-block">
             <h4><i class="icon-pause"></i> In riserva</h4>
             <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d-m-Y', $ris->fine); ?></strong>.</p>
         </div>
-        <?php }} ?> 
+        <?php } ?> 
         <?php   if (!$me->appartenenzePendenti() && $me->unComitato()->gruppi()) { 
                         if (!$me->mieiGruppi()){ ?>
                                 <div class="alert alert-danger">

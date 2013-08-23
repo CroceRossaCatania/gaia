@@ -30,7 +30,7 @@ caricaSelettoreComitato();
         $x=0;
              foreach($me->riserve() as $riserva){
                  $riservafine = $riserva->fine;
-             if($x==0 && $riserva && $riserva->stato==RISERVA_OK && $riservafine >= time()){ ?>         
+             if($x==0 && $riserva && $me->inRiserva()){ ?>         
                     <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> In riserva</h2>
                                         <div class="alert alert-danger">

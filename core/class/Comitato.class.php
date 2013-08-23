@@ -95,26 +95,23 @@ class Comitato extends GeoPolitica {
     public function membriRiserva() {
         $q = $this->db->prepare("
             SELECT
-                anagrafica.id
+                riserve.id
             FROM
-                appartenenza, anagrafica, riserve
+                appartenenza, riserve, anagrafica
             WHERE
-                riserve.stato = :stato
+                riserve.stato >= :statoRis
             AND
-                riserve.appartenenza = appartenenza.id
+                riserve.volontario = appartenenza.volontario
+            AND
+                appartenenza.stato = :stato
             AND
                 appartenenza.comitato = :comitato
             AND
-                appartenenza.volontario = anagrafica.id
-            AND
-                riserve.inizio    <= :ora
-            AND
-                riserve.fine      >= :ora
+                anagrafica.id = appartenenza.volontario
             ORDER BY
-                 cognome ASC, nome ASC");
-        $q->bindValue(':ora', time());
-        $stato = RISERVA_OK;
-        $q->bindValue(':stato', $stato);
+                 anagrafica.cognome ASC, anagrafica.nome ASC");
+        $q->bindValue(':statoRis', RISERVA_OK);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->bindParam(':comitato', $this->id);
         $q->execute();
         $r = [];
@@ -309,7 +306,9 @@ class Comitato extends GeoPolitica {
             FROM
                 riserve, appartenenza
             WHERE
-                riserve.appartenenza = appartenenza.id
+                riserve.volontario = appartenenza.volontario
+            AND
+                appartenenza.stato = :stato
             AND
                 appartenenza.comitato = :id";
         if ( $stato ) {
@@ -318,6 +317,7 @@ class Comitato extends GeoPolitica {
         $q .= " ORDER BY riserve.timestamp DESC";
         $q = $this->db->prepare($q);
         $q->bindParam(':id', $this->id);
+        $q->bindValue('stato', MEMBRO_VOLONTARIO);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {

@@ -421,7 +421,7 @@ class Utente extends Persona {
             FROM    estensioni, appartenenza
             WHERE   estensioni.volontario = appartenenza.volontario
             AND     appartenenza.stato = :stato
-            AND     estensine.stato = :statoEstensione
+            AND     estensioni.stato = :statoEstensione
             AND     ( appartenenza.fine < 1 
                     OR
                     appartenenza.fine > :ora 
@@ -444,13 +444,15 @@ class Utente extends Persona {
             SELECT  COUNT(riserve.id)
             FROM    riserve, appartenenza
             WHERE   riserve.stato = :statoPendente
-            AND     riserve.appartenenza = appartenenza.id
+            AND     riserve.volontario = appartenenza.volontario
+            AND     appartenenza.stato = :stato
             AND     ( appartenenza.fine < 1 
                     OR
                     appartenenza.fine > :ora )
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', RISERVA_INCORSO);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $ora = time();
         $q->bindParam(':ora', $ora);
         $q->execute();
@@ -599,10 +601,21 @@ class Utente extends Persona {
     }
     
     public function inRiserva() {
-        return Riserva::filtra([
+        $rok = Riserva::filtra([
             ['volontario',  $this->id],
             ['stato',       RISERVA_OK]
         ]);
+        $rauto = Riserva::filtra([
+            ['volontario',  $this->id],
+            ['stato',       RISERVA_AUTO]
+        ]);
+        $r = array_merge($rok, $rauto);
+
+        foreach ($r as $_r) {
+            if ($_r->inizio < time() && $_r->fine > time())
+                return True;
+        }
+        return False;
     }
     
     public function riserve() {

@@ -213,9 +213,9 @@ $excel->download();
         'Motivazione'
     ]);
     
-        foreach ( $c->membriRiserva() as $v ) {
-        $r = $v->inRiserva();
-        $r = $r[0];
+        foreach ( $c->membriRiserva() as $r ) {
+        $r = new Riserva($r);
+        $v = $r->volontario();
         
         $excel->aggiungiRiga([
             $v->nome,

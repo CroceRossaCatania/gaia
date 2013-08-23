@@ -304,15 +304,16 @@ $conf['trasferimenti'] = [
  * ============ ESTENSIONI ===========
  * ===================================
  */
+define('EST_CONCLUSA',      0);
 define('EST_NEGATA',       10);
 define('EST_INCORSO',      20);
 define('EST_OK',           30);
 define('EST_AUTO',         40);
-define('EST_CONCLUSA',     50);
+
 
 $conf['estensioni'] = [
     EST_NEGATA        =>  'Negata',
-    EST_INCORSO       =>  'In corso',
+    EST_INCORSO       =>  'In attesa di autorizzazione',
     EST_OK            =>  'Con successo',
     EST_AUTO          =>  'Eseguita automaticamente',
     EST_CONCLUSA      =>  'Estensione conclusa'
@@ -323,17 +324,18 @@ $conf['estensioni'] = [
  * =========== RISERVE ======== ==========
  * ===================================
  */
+define('RISERVA_SCAD',          0);
+define('RISERVA_INT',           5);
 define('RISERVA_NEGATA',       10);
 define('RISERVA_INCORSO',      20);
 define('RISERVA_OK',           30);
 define('RISERVA_AUTO',         35);
-define('RISERVA_SCAD',         40);
-define('RISERVA_INT',          50);
+
 
 $conf['riserve'] = [
     RISERVA_NEGATA  =>  'Negata',
-    RISERVA_INCORSO =>  'In corso',
-    RISERVA_OK      =>  'In riserva',
+    RISERVA_INCORSO =>  'In attesa di autorizzazione',
+    RISERVA_OK      =>  'Riserva approvata',
     RISERVA_AUTO    =>  'Eseguita automaticamente',  
     RISERVA_SCAD    =>  'Scaduta',
     RISERVA_INT     =>  'Interrotta'
