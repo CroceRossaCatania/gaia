@@ -59,7 +59,7 @@ class Trasferimento extends Entita {
     public function auto() {
         $this->trasferisci(true);
         $v = $this->volontario();
-        $destinatari = [$v, $v->comitato()->unPresidente(), $nuovaApp->comitato()->unPresidente];
+        $destinatari = [$v, $v->unComitato()->unPresidente(), $nuovaApp->comitato()->unPresidente];
         foreach ($destinatari as $destinatario) {
             $m = new Email('richiestaTrasferimentoauto', 'Approvata richiesta trasferimento verso: ' . $nuovaApp->comitato()->nome);          
             $m->a = $destinatario;
@@ -103,8 +103,8 @@ class Trasferimento extends Entita {
 
         foreach ($r as $_r)
         {
-            $r->fine = time();
-            $r->stato = RISERVA_INT;
+            $_r->fine = time();
+            $_r->stato = RISERVA_INT;
         }
 
         /* Chiudo tutto ciò che è legato all'appartenenza attuale */

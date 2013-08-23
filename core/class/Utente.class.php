@@ -397,18 +397,11 @@ class Utente extends Persona {
             FROM    trasferimenti, appartenenza
             WHERE   trasferimenti.volontario = appartenenza.volontario
             AND     appartenenza.stato = :stato
-            AND     trasferimento.stato = :statoEstensione
-            AND     ( appartenenza.fine < 1 
-                    OR
-                    appartenenza.fine > :ora 
-                    OR
-                    appartenenza.fine IS NULL)
+            AND     trasferimenti.stato = :statoTrasferimento
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $q->bindValue(':stato', MEMBRO_VOLONTARIO);
-        $q->bindValue(':statoEstensione', TRASF_INCORSO);
-        $ora = time();
-        $q->bindParam(':ora', $ora);
+        $q->bindValue(':statoTrasferimento', TRASF_INCORSO);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];

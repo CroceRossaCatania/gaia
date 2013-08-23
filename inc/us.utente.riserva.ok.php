@@ -7,42 +7,39 @@
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 $t = $_POST['inputVolontario'];
-$t = new Volontario($t);
+$v = new Volontario($t);
 $m = $_POST['inputMotivo'];
 
- foreach ( $t->storico() as $app ) { 
-                         if ($app->attuale()) 
-                                    {
-                             $c = $app;
-                         }
-                         } 
+$app = $v->appartenenzeAttuali(MEMBRO_VOLONTARIO)[0];
 
 /*Avvio la procedura*/
 
-        $t = new Riserva();
-        $t->stato = RISERVA_INCORSO;
-        $t->appartenenza = $c;
-        $t->volontario = $t->id;
-        $t->motivo = $m;
-        $t->timestamp = time();                
-        if ( $_POST['datainizio'] ) {
-            $inizio = @DateTime::createFromFormat('d/m/Y', $_POST['datainizio']);
-            if ( $inizio ) {
-                $inizio = @$inizio->getTimestamp();
-                $t->inizio = $inizio;
-            } else {
-                $t->inizio = 0;
-            }
-        }
+$r = new Riserva();
+$r->stato = RISERVA_INCORSO;
+$r->appartenenza = $app->id;
+$r->volontario = $v->id;
+$r->motivo = $m;
+$r->timestamp = time();                
+if ( $_POST['datainizio'] ) {
+    $inizio = @DateTime::createFromFormat('d/m/Y', $_POST['datainizio']);
+    if ( $inizio ) {
+        $inizio = @$inizio->getTimestamp();
+        $r->inizio = $inizio;
+    } else {
+        $r->inizio = 0;
+    }
+}
 
-        if ( $_POST['datafine'] ) {
-            $fine = @DateTime::createFromFormat('d/m/Y', $_POST['datafine']);
-            if ( $fine ) {
-                $fine = @$fine->getTimestamp();
-                $t->fine = $fine;
-            } else {
-                $t->fine = 0;
-            }
-        }
-        
-        redirect('us.dash&risok');
+if ( $_POST['datafine'] ) {
+    $fine = @DateTime::createFromFormat('d/m/Y', $_POST['datafine']);
+    if ( $fine ) {
+        $fine = @$fine->getTimestamp();
+        $r->fine = $fine;
+    } else {
+        $r->fine = 0;
+    }
+}
+
+redirect('us.dash&risok');
+
+?>
