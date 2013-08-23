@@ -9,7 +9,7 @@ $g = GeoPolitica::daOid($oid);
 $unita = $g->estensione();
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 menuElenchiVolontari(
-    "Volontari estesi",
+    "Volontari in estesione",
     "#",
     "#"
 );
@@ -23,8 +23,9 @@ menuElenchiVolontari(
             <thead>
                 <th>Nome</th>
                 <th>Cognome</th>
-                <th>Località</th>
-                <th>Cellulare</th>
+                <th>Esteso in</th>
+                <th>Dal</th>
+                <th>Al</th>
                 <th>Azioni</th>
             </thead>
         <?php
@@ -54,19 +55,9 @@ menuElenchiVolontari(
                 <tr>
                     <td><?php echo $v->cognome; ?></td>
                     <td><?php echo $v->nome; ?></td>
-                    <td>
-                        <span class="muted">
-                            <?php echo $v->CAPResidenza; ?>
-                        </span>
-                        <?php echo $v->comuneResidenza; ?>,
-                        <?php echo $v->provinciaResidenza; ?>
-                    </td>
-                    
-                    <td>
-                        <span class="muted">+39</span>
-                            <?php echo $v->cellulare; ?>
-                    </td>
-
+                    <td><?php echo $_v->comitato()->nomeCompleto(); ?></td>
+                    <td><?php echo date('d/m/Y', $_v->appartenenza()->inizio); ?></td>
+                    <td><?php echo date('d/m/Y', $_v->appartenenza()->fine); ?></td>
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $v->id; ?>" title="Dettagli">
