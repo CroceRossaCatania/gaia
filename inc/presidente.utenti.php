@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI , APP_PRESIDENTE , APP_OBIETTIVO ]);
+paginaApp([APP_SOCI , APP_PRESIDENTE ]);
 
 menuElenchiVolontari(
     "Volontari attivi",
