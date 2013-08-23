@@ -30,6 +30,9 @@
             data-attendere="Generazione lista...">
             <i class="icon-list"></i>
             Volontari estesi
+        </a> /
+        <a href="?p=presidente.utenti.inestensione">
+             in estensione
         </a><br />
 
     </div>     

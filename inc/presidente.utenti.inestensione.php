@@ -5,7 +5,7 @@
  */
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 menuElenchiVolontari(
-    "Volontari estesi",
+    "Volontari in estesione",
     "#",
     "#"
 );
@@ -15,7 +15,7 @@ foreach ( $elenco as $unit ){
 }
 $t = array_unique($t);
 ?>
-<form action="?p=presidente.utenti.estesi.ok" method="POST">
+<form action="?p=presidente.utenti.inestensione.ok" method="POST">
     <div class="row-fluid">
         <div class="row-fluid">
             <div class="span4-centrato">
