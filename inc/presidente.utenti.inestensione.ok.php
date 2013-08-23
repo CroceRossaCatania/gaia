@@ -84,9 +84,6 @@ menuElenchiVolontari(
         <?php }
         }
         ?>
-
         </table>
-       
     </div>
-    
 </div>
