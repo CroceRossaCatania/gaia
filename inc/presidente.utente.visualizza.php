@@ -192,10 +192,14 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
           <th>Fine</th>
           <th>Azioni</th>
         </thead>
-        <?php foreach ( $v->storico() as $app ) { ?>
-          <tr<?php if ($app->attuale()) { ?> class="success"<?php } ?>>
+        <?php foreach ( $v->storico() as $app ) { 
+          $attuale = false;
+          if ($app->attuale()) {
+            $attuale = true;
+          }?>
+          <tr<?php if ($attuale) { ?> class="success"<?php } ?>>
             <td>
-              <?php if ($app->attuale()) { ?>
+              <?php if ($attuale) { ?>
                 Attuale
               <?php } else { ?>
                 Passato
@@ -222,10 +226,12 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             </td>
             <td>
               <div class="btn-group">
+                <?php if ($attuale && $app->stato == MEMBRO_VOLONTARIO) { ?>
                 <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
                   <i class="icon-edit"></i>
                 </a>
-                <?php if($me->admin()){ ?>
+                <?php  }
+                  if($me->admin()){ ?>
                   <a onClick="return confirm('Vuoi veramente cancellare questa appartenenza ?');" href="?p=us.appartenenza.cancella&a=<?php echo $app; ?>" title="Cancella appartenenza" class="btn btn-small btn-danger">
                     <i class="icon-trash"></i>
                   </a>
