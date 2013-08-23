@@ -45,6 +45,13 @@ paginaPrivata();
               </div>
             </div>
             <div class="control-group">
+            <label class="control-label" for="inputSesso">Sesso</label>
+            <div class="controls">
+              <input class="input-mini" type="text" name="inpuSesso" id="inpuSesso" readonly value="<?php echo $conf['sesso'][$me->sesso]; ?>"> 
+              <acronym title="Per modificare, contatta supporto@gaiacri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
+            </div>
+          </div>
+            <div class="control-group">
               <label class="control-label" for="inputCodiceFiscale">Codice Fiscale</label>
               <div class="controls">
                 <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale" readonly value="<?php echo $me->codiceFiscale; ?>">
