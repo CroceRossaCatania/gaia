@@ -21,8 +21,8 @@ menuElenchiVolontari(
             
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
-                <th>Nome</th>
                 <th>Cognome</th>
+                <th>Nome</th>
                 <th>Esteso in</th>
                 <th>Dal</th>
                 <th>Al</th>
@@ -30,7 +30,15 @@ menuElenchiVolontari(
             </thead>
         <?php
         foreach($unita as $comitato) { 
-            $estesi = Estensione::filtra([['cProvenienza', $comitato]]);?>
+            $eok = Estensione::filtra([
+                    ['cProvenienza', $comitato],
+                    ['stato', EST_OK]
+                ]);
+            $eauto = Estensione::filtra([
+                    ['cProvenienza', $comitato],
+                    ['stato', EST_AUTO]
+                ]);
+            $estesi = array_merge($eok, $eauto);?>
             <tr class="success">
                 <td colspan="7" class="grassetto">
                     <?php echo $comitato->nomeCompleto(); ?>
