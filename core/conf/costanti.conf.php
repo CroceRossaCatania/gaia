@@ -13,6 +13,12 @@
 define('UOMO',  1);
 define('DONNA', 0);
 
+/* Definizioni in stringa */
+$conf['sesso'] = [
+    UOMO     =>  'Uomo',
+    DONNA       =>  'Donna'
+];
+
 /* Tipologie/stati delle persone */
 define('PERSONA',   0);
 define('ASPIRANTE', 1);

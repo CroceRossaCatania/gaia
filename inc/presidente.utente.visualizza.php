@@ -60,16 +60,28 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         <div class="control-group">
               <label class="control-label" for="inputNome">Nome</label>
               <div class="controls">
-                <input type="text" name="inputNome" id="inputNome"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->nome; ?>">
+                <input type="text" name="inputNome" id="inputNome" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->nome; ?>">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputCognome">Cognome</label>
               <div class="controls">
-                <input type="text" name="inputCognome" id="inputCognome"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->cognome; ?>">
-                
+                <input type="text" name="inputCognome" id="inputCognome" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->cognome; ?>">
               </div>
             </div>
+            <div class="control-group">
+            <label class="control-label" for="inputSesso">Sesso</label>
+            <div class="controls">
+              <?php if(!$me->admin()){?> <input class="input-mini" type="text" name="inpuSesso" id="inpuSesso" readonly value="<?php echo $conf['sesso'][$v->sesso]; ?>"> <?php }else{ ?>
+              <select class="input-small" id="inputSesso" name="inputSesso" required>
+                <?php
+                    foreach ( $conf['sesso'] as $numero => $tipo ) { ?>
+                    <option value="<?php echo $numero; ?>" <?php if ( $numero == $v->sesso ) { ?>selected<?php } ?>><?php echo $tipo; ?></option>
+                    <?php } ?>
+                </select>  
+              <?php } ?>
+            </div>
+          </div>
             <div class="control-group">
               <label class="control-label" for="inputCodiceFiscale">Codice Fiscale</label>
               <div class="controls">

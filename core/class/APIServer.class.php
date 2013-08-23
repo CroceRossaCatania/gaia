@@ -13,10 +13,16 @@ class APIServer {
 	public
             $par		= [];
 	
-	public function __construct( $sessione = null ) {
-            global $db;
+	public function __construct( $sid = null ) {
+            global $db, $sessione;
             $this->db = $db;
-            $this->sessione = new Sessione($sessione);
+            $this->sessione = new Sessione($sid);
+
+            /* Punta alla variabile globale, così da
+             * permettere il funzionamento delle funzioni
+             * Utente->admin() e tutte quelle che fanno
+             * affidamento allo stato in sessione */
+            $sessione = $this->sessione;
 	}
 	
 	public function esegui( $azione = 'welcome' ) {
@@ -273,7 +279,6 @@ class APIServer {
 
         public function api_volontari_cerca() {
             $this->richiediLogin();
-
             $r = new Ricerca();
 
             /* Ordini personalizzati per vari usi */
