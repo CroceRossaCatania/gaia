@@ -44,7 +44,7 @@ while ( $riga = fgetcsv($file, 0, ';') ) {
     }else{
         $p->sesso = DONNA;
     }
-}
+
     if (isset($_POST['pass'])) {
     $p->stato = VOLONTARIO; /* format con pass e conferma*/
     $p->timestamp = time(); /* format con pass e conferma*/
@@ -173,7 +173,3 @@ echo "Sono stati caricati: $h utenti";
 fclose($file);
 ?>
 </code></pre>
-
-
-
-
