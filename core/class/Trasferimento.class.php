@@ -62,10 +62,10 @@ class Trasferimento extends Entita {
         $this->trasferisci(true);
         $destinatari = [$v, $vecchioPresidente, $v->unComitato()->unPresidente];
         foreach ($destinatari as $destinatario) {
-            $m = new Email('richiestaTrasferimentoauto', 'Approvata richiesta trasferimento verso: ' . $nuovaApp->comitato()->nome);          
+            $m = new Email('richiestaTrasferimentoauto', 'Approvata richiesta trasferimento verso: ' . $v->unComitato()->nome);          
             $m->a = $destinatario;
-            $m->_NOME       = $nuovaApp->volontario()->nome;
-            $m->_COMITATO   = $nuovaApp->comitato()->nomeCompleto();
+            $m->_NOME       = $v->nome;
+            $m->_COMITATO   = $v->unComitato()->nomeCompleto();
             $m-> _TIME = date('d-m-Y', $t->protData);
             $m->invia();
         }
