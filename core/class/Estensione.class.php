@@ -119,7 +119,7 @@ class Estensione extends Entita {
             ]);
         foreach ($ag as $_ag)
         {
-            $_ag->fine = $ora;
+            $_ag->cancella();
         }
 
         // chiudo le reperibilità
@@ -128,12 +128,7 @@ class Estensione extends Entita {
             ['comitato', $c->id]
             ]);
         foreach ($r as $_r) {
-            if ($_r->fine > $ora)
-            {
-                $_r->fine = $ora;
-                if ($_r->inizio > $_r->fine)
-                    $_r->inizio = $ora;
-            }
+            $_r->cancella();
         }
 
         // chiudo le partecipazioni

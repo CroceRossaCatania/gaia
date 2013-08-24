@@ -57,9 +57,10 @@ class Trasferimento extends Entita {
     }
     
     public function auto() {
-        $this->trasferisci(true);
         $v = $this->volontario();
-        $destinatari = [$v, $v->unComitato()->unPresidente(), $nuovaApp->comitato()->unPresidente];
+        $vecchioPresidente = $v->unComitato()->unPresidente();
+        $this->trasferisci(true);
+        $destinatari = [$v, $vecchioPresidente, $v->unComitato()->unPresidente];
         foreach ($destinatari as $destinatario) {
             $m = new Email('richiestaTrasferimentoauto', 'Approvata richiesta trasferimento verso: ' . $nuovaApp->comitato()->nome);          
             $m->a = $destinatario;
@@ -93,6 +94,7 @@ class Trasferimento extends Entita {
 
         foreach ($e as $_e){
             $_e = new Estensione($_e);
+            $_e->termina();
         }
 
         /* Chiudo eventuale riserva in corso*/
@@ -144,22 +146,17 @@ class Trasferimento extends Entita {
             ]);
         foreach ($ag as $_ag)
         {
-            $_ag->fine = $ora;
+            $_ag->cancella();
         }
 
         // chiudo le reperibilità
-        $r = Reperibilita::filtra([
+        $re = Reperibilita::filtra([
             ['volontario', $v->id],
             ['comitato', $c->id]
             ]);
         
-        foreach ($r as $_r) {
-            if ($_r->fine > $ora)
-            {
-                $_r->fine = $ora;
-                if ($_r->inizio > $_r->fine)
-                    $_r->inizio = $ora;
-            }
+        foreach ($re as $_re) {
+            $_re->cancella();
         }
 
         // chiudo le partecipazioni
@@ -180,7 +177,7 @@ class Trasferimento extends Entita {
 
         /* A questo punto rendo operativa la nuova appartenenza */
         
-        $nuovaApp = new Appartenenza($t->appartenenza);
+        $nuovaApp = $this->appartenenza();
         $nuovaApp->timestamp = time();
         $nuovaApp->stato     = MEMBRO_VOLONTARIO;
         if (!auto) 
