@@ -250,10 +250,12 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                         
                         <td>
                             <div class="btn-group">
+                            <?php if ($app->attuale()) { ?>
                                 <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
                                     <i class="icon-edit"></i>
                                 </a>
-                            <?php if($me->admin()){ ?>
+                            <?php } 
+                              if($me->admin()){ ?>
                                 <a onClick="return confirm('Vuoi veramente cancellare questa appartenenza ?');" href="?p=us.appartenenza.cancella&a=<?php echo $app; ?>" title="Cancella appartenenza" class="btn btn-small btn-danger">
                                     <i class="icon-trash"></i>
                                 </a>
