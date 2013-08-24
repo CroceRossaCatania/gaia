@@ -253,6 +253,19 @@ class Utente extends Persona {
         if ( !$p ) { return false; }
         return $p[0];
     }
+
+    public function ultimaAppartenenza($stato = MEMBRO_VOLONTARIO) {
+        $p = Appartenenza::filtra([
+            ['volontario',  $this->id],
+            ['stato', $stato]
+        ], 'inizio DESC');
+        if ( !$p ) { return false; }
+        return $p[0];
+    }
+
+    public function appartenenzaAttuale() {
+        return $this->ultimaAppartenenza(MEMBRO_VOLONTARIO);
+    }
     
     public function ingresso() {
         $p = $this->primaAppartenenza();
@@ -293,7 +306,7 @@ class Utente extends Persona {
     
     public function numVolontariDiCompetenza() {
         $n = 0;
-        foreach ( $this->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]) as $c ) {
+        foreach ( $this->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_CO, APP_OBIETTIVO ]) as $c ) {
             $n += $c->numMembriAttuali();
         }
         return $n;
@@ -346,8 +359,13 @@ class Utente extends Persona {
             FROM    titoliPersonali, appartenenza
             WHERE   ( titoliPersonali.tConferma < 1 OR titoliPersonali.tConferma IS NULL )
             AND     titoliPersonali.volontario = appartenenza.volontario
+            AND     ( appartenenza.fine < 1 
+                    OR
+                    appartenenza.fine > :ora )
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
+        $ora = time();
+        $q->bindParam(':ora', $ora);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
@@ -359,9 +377,14 @@ class Utente extends Persona {
             SELECT  COUNT(id)
             FROM    appartenenza
             WHERE   stato = :statoPendente
+            AND     ( appartenenza.fine < 1 
+                    OR
+                    appartenenza.fine > :ora )
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', MEMBRO_PENDENTE);
+        $ora = time();
+        $q->bindParam(':ora', $ora);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
@@ -372,11 +395,13 @@ class Utente extends Persona {
         $q = $this->db->prepare("
             SELECT  COUNT(trasferimenti.id)
             FROM    trasferimenti, appartenenza
-            WHERE   trasferimenti.stato = :statoPendente
-            AND     trasferimenti.appartenenza = appartenenza.id
+            WHERE   trasferimenti.volontario = appartenenza.volontario
+            AND     appartenenza.stato = :stato
+            AND     trasferimenti.stato = :statoTrasferimento
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
-        $q->bindValue(':statoPendente', TRASF_INCORSO);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
+        $q->bindValue(':statoTrasferimento', TRASF_INCORSO);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
@@ -387,11 +412,20 @@ class Utente extends Persona {
         $q = $this->db->prepare("
             SELECT  COUNT(estensioni.id)
             FROM    estensioni, appartenenza
-            WHERE   estensioni.stato = :statoPendente
-            AND     estensioni.appartenenza = appartenenza.id
-            AND     estensioni.cProvenienza  IN
+            WHERE   estensioni.volontario = appartenenza.volontario
+            AND     appartenenza.stato = :stato
+            AND     estensioni.stato = :statoEstensione
+            AND     ( appartenenza.fine < 1 
+                    OR
+                    appartenenza.fine > :ora 
+                    OR
+                    appartenenza.fine IS NULL)
+            AND     appartenenza.comitato  IN
                 ( {$comitati} )");
-        $q->bindValue(':statoPendente', EST_INCORSO);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
+        $q->bindValue(':statoEstensione', EST_INCORSO);
+        $ora = time();
+        $q->bindParam(':ora', $ora);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
@@ -403,10 +437,17 @@ class Utente extends Persona {
             SELECT  COUNT(riserve.id)
             FROM    riserve, appartenenza
             WHERE   riserve.stato = :statoPendente
-            AND     riserve.appartenenza = appartenenza.id
+            AND     riserve.volontario = appartenenza.volontario
+            AND     appartenenza.stato = :stato
+            AND     ( appartenenza.fine < 1 
+                    OR
+                    appartenenza.fine > :ora )
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', RISERVA_INCORSO);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
+        $ora = time();
+        $q->bindParam(':ora', $ora);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
@@ -553,10 +594,21 @@ class Utente extends Persona {
     }
     
     public function inRiserva() {
-        return Riserva::filtra([
+        $rok = Riserva::filtra([
             ['volontario',  $this->id],
             ['stato',       RISERVA_OK]
         ]);
+        $rauto = Riserva::filtra([
+            ['volontario',  $this->id],
+            ['stato',       RISERVA_AUTO]
+        ]);
+        $r = array_merge($rok, $rauto);
+
+        foreach ($r as $_r) {
+            if ($_r->inizio < time() && $_r->fine > time())
+                return True;
+        }
+        return False;
     }
     
     public function riserve() {

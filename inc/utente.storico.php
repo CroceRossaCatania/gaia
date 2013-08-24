@@ -11,6 +11,18 @@ paginaPrivata();
         <?php menuVolontario(); ?>
     </div>
     <div class="span9">
+        <?php if ( isset($_GET['ester']) ) { ?>
+            <div class="alert alert-success">
+                <i class="icon-save"></i> <strong>Estensione Terminata</strong>.
+                La tua estensione è stata terminata con successo.
+            </div>
+        <?php } ?>
+        <?php if ( isset($_GET['rister']) ) { ?>
+            <div class="alert alert-success">
+                <i class="icon-save"></i> <strong>Riserva Terminata</strong>.
+                La tua riserva è stata terminata con successo.
+            </div>
+        <?php } ?>
         <div class="row-fluid">
             <h2>
                 <i class="icon-time muted"></i>
@@ -25,6 +37,7 @@ paginaPrivata();
                     <th>Comitato</th>
                     <th>Inizio</th>
                     <th>Fine</th>
+                    <th>Azioni</th>
                 </thead>
                 <?php foreach ( $me->storico() as $app ) { ?>
                     <tr<?php if ($app->attuale()) { ?> class="success"<?php } ?>>
@@ -56,6 +69,13 @@ paginaPrivata();
                             <?php } else { ?>
                                 <i class="icon-question-sign muted"></i>
                                 Indeterminato
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <?php if ( $app->stato == MEMBRO_ESTESO ){ ?>
+                                <a class="btn btn-small btn-danger" href="?p=utente.estensione.termina&id=<?= $app->id; ?>" title="Termina Estensione">
+                                    Termina
+                                </a> 
                             <?php } ?>
                         </td>
                         
@@ -122,6 +142,7 @@ paginaPrivata();
                     <th>Motivo riserva</th>
                     <th>Inizio</th>
                     <th>Fine</th>
+                    <th>Azioni</th>
                 </thead>
                 
                 <?php foreach ( $me->riserve() as $app ) { ?>
@@ -156,7 +177,13 @@ paginaPrivata();
                                 Indeterminato
                             <?php } ?>
                         </td>
-                        
+                        <td>
+                            <?php if ( $app->attuale() ){ ?>
+                                <a class="btn btn-small btn-danger" href="?p=utente.riserva.termina&id=<?= $app->id; ?>" title="Termina Riserva">
+                                    Termina
+                                </a> 
+                            <?php } ?>
+                        </td>
                     </tr>
                 <?php } ?>
             
