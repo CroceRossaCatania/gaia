@@ -191,6 +191,7 @@ caricaSelettoreComitato();
 
             </div>
         </div>
+        <br/>
         
             <div class="row-fluid">            
             <div class="span4 centrato">

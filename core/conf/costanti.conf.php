@@ -28,6 +28,7 @@ define('VOLONTARIO',2);
 
 define('ANNO',      31536000);
 define('MESE',       2592000);
+define('MESEEMEZZO', 3888000);
 
 /*
  * ===================================
@@ -37,6 +38,7 @@ define('MESE',       2592000);
 
 /* Tipologia appartenenza gruppo */
 define('MEMBRO_DIMESSO',         0);
+define('MEMBRO_TRASFERITO',      1);
 define('MEMBRO_EST_TERMINATA',   5);
 define('MEMBRO_TRASF_NEGATO',   10);
 define('MEMBRO_EST_NEGATA',     15);
@@ -54,6 +56,7 @@ define('MEMBRO_PRESIDENTE',     70);
 /* Definizioni in stringa */
 $conf['membro'] = [
     MEMBRO_TRASF_NEGATO     =>  'Trasferimento negato',
+    MEMBRO_TRASFERITO       =>  'Membro Trasferito',
     MEMBRO_EST_NEGATA       =>  'Estensione negata',
     MEMBRO_TRASF_IN_CORSO   =>  'Trasferimento in corso',
     MEMBRO_PENDENTE         =>  'Pendente',
@@ -307,15 +310,16 @@ $conf['trasferimenti'] = [
  * ============ ESTENSIONI ===========
  * ===================================
  */
+define('EST_CONCLUSA',      0);
 define('EST_NEGATA',       10);
 define('EST_INCORSO',      20);
 define('EST_OK',           30);
 define('EST_AUTO',         40);
-define('EST_CONCLUSA',     50);
+
 
 $conf['estensioni'] = [
     EST_NEGATA        =>  'Negata',
-    EST_INCORSO       =>  'In corso',
+    EST_INCORSO       =>  'In attesa di autorizzazione',
     EST_OK            =>  'Con successo',
     EST_AUTO          =>  'Eseguita automaticamente',
     EST_CONCLUSA      =>  'Estensione conclusa'
@@ -326,18 +330,21 @@ $conf['estensioni'] = [
  * =========== RISERVE ======== ==========
  * ===================================
  */
+define('RISERVA_SCAD',          0);
+define('RISERVA_INT',           5);
 define('RISERVA_NEGATA',       10);
 define('RISERVA_INCORSO',      20);
 define('RISERVA_OK',           30);
-define('RISERVA_SCAD',         40);
-define('RISERVA_INT',         50);
+define('RISERVA_AUTO',         35);
+
 
 $conf['riserve'] = [
-    RISERVA_NEGATA        =>  'Negata',
-    RISERVA_INCORSO       =>  'In corso',
-    RISERVA_OK          =>  'In riserva',
-    RISERVA_SCAD          =>  'Scaduta',
-    RISERVA_INT          =>  'Interrotta'
+    RISERVA_NEGATA  =>  'Negata',
+    RISERVA_INCORSO =>  'In attesa di autorizzazione',
+    RISERVA_OK      =>  'Riserva approvata',
+    RISERVA_AUTO    =>  'Eseguita automaticamente',  
+    RISERVA_SCAD    =>  'Scaduta',
+    RISERVA_INT     =>  'Interrotta'
 ];
 
 /*
