@@ -164,7 +164,7 @@ $conf['docs_t'] = [200, 200];
 /* Tipologie di documenti */
 define('DOC_CARTA_IDENTITA',    10);
 define('DOC_PATENTE_CIVILE',    20);
-define('DOC_QUOTA_ASSOCIATIVA', 30);
+//define('DOC_QUOTA_ASSOCIATIVA', 30);
 define('DOC_CODICE_FISCALE',    40);
 define('DOC_PATENTE_CRI',       50);
 
@@ -172,7 +172,7 @@ define('DOC_PATENTE_CRI',       50);
 $conf['docs_tipologie'] = [
     DOC_CARTA_IDENTITA      =>  'Carta d\'identità',
     DOC_PATENTE_CIVILE      =>  'Patente civile',
-    DOC_QUOTA_ASSOCIATIVA   =>  'Quota associativa',
+//    DOC_QUOTA_ASSOCIATIVA   =>  'Quota associativa',
     DOC_CODICE_FISCALE      =>  'Codice fiscale',
     DOC_PATENTE_CRI         =>  'Patente CRI'
 ];

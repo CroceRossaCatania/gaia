@@ -5,11 +5,10 @@
  */
 
 paginaPrivata();
-
 ?>
 <div class="row-fluid">
     <div class="span3">
-        <?php        menuVolontario(); ?>
+        <?php menuVolontario(); ?>
     </div>
     <div class="span9">
         <?php if ( isset($_GET['ester']) ) { ?>
@@ -29,11 +28,8 @@ paginaPrivata();
                 <i class="icon-time muted"></i>
                 Appartenenze
             </h2>
-            
         </div>
-        
         <div class="row-fluid">
-            
             <table class="table table-bordered table-striped">
                 <thead>
                     <th>Stato</th>
@@ -43,7 +39,6 @@ paginaPrivata();
                     <th>Fine</th>
                     <th>Azioni</th>
                 </thead>
-                
                 <?php foreach ( $me->storico() as $app ) { ?>
                     <tr<?php if ($app->attuale()) { ?> class="success"<?php } ?>>
                         <td>
@@ -89,9 +84,48 @@ paginaPrivata();
             
             </table>
         </div>
-    
+
+    <?php if ( $me->quote() ){ ?>
+        <div class="row-fluid">
+            <h2>
+                <i class="icon-money muted"></i>
+                Riepilogo Quote
+            </h2>
+        </div>
+        
+        <div class="row-fluid">
+            
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <th>N.</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Comitato</th>
+                    <th>Data versamento</th>
+                    <th>Quota</th>
+                    <th>Azioni</th>
+                </thead>
+                <?php foreach ( $me->quote() as $_q ){ ?>
+                        <tr>
+                            <td><?= $_q->id; ?></td>
+                            <td><?= $_q->volontario()->nome; ?></td>
+                            <td><?= $_q->volontario()->cognome; ?></td>
+                            <td><?= $_q->comitato()->nomeCompleto(); ?></td>
+                            <td><?= date('d/m/Y', $_q->timestamp); ?></td>
+                            <td><?= $_q->quota ,"€"; ?></td>
+                            <td>
+                                <a class="btn btn-small btn-info" href="?p=us.quote.ricevuta&id=<?= $_q->id; ?>" title="Visualizza ricevuta">
+                                    <i class="icon-paperclip"></i> Ricevuta
+                                </a>
+                            </td>
+                        </tr>
+                <?php } ?>
+            </table>
+        </div>
+    <?php } ?>
+
 <?php if ( $me->riserve() ) { ?>
-<div class="row-fluid">
+    <div class="row-fluid">
             <h2>
                 <i class="icon-pause muted"></i>
                 Riserve

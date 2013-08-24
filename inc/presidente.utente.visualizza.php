@@ -4,13 +4,13 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI, APP_PRESIDENTE , APP_OBIETTIVO ]);
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 $f = $_GET['id']; 
 $t = new Volontario($f);
 $g = $v = $t;
 
-proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO]);
+proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
 
 $a=TitoloPersonale::filtra([['volontario',$f]]);
 ?>
@@ -41,7 +41,6 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         <?php } ?>
         <img src="<?php echo $g->avatar()->img(20); ?>" class="img-polaroid" />
                <br/><br/></div>
-        <?php if ( !$me->delegazioni(APP_OBIETTIVO) ) { ?>
             <div class="span5 allinea-sinistra"> 
                <br/>
         <form id="caricaFoto" action="?p=utente.avatar.ok&id=<?php echo $f; ?>&pre" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
@@ -54,7 +53,6 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         </form>
             <br/>   
             </div> 
-        <?php } ?>
             </div>
             
 <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $f; ?>" method="POST">
@@ -94,70 +92,70 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             <div class="control-group">
               <label class="control-label" for="inputDataNascita">Data di Nascita</label>
               <div class="controls">
-                <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo date('d/m/Y', $v->dataNascita); ?>">
+                <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" value="<?php echo date('d/m/Y', $v->dataNascita); ?>">
               </div>
             </div>
     <div class="control-group">
               <label class="control-label" for="inputProvinciaNascita">Provincia di Nascita</label>
               <div class="controls">
-                <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
+                <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" value="<?php echo $v->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
              </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
               <div class="controls">
-                <input type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->comuneNascita; ?>">
+                <input type="text" name="inputComuneNascita" id="inputComuneNascita" value="<?php echo $v->comuneNascita; ?>">
               </div>
             </div>
 
             <div class="control-group">
                <label class="control-label" for="inputIndirizzo">Indirizzo</label>
                <div class="controls">
-                 <input <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" required />
+                 <input value="<?php echo $v->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" required />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputCivico">Civico</label>
                <div class="controls">
-                 <input <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" required />
+                 <input value="<?php echo $v->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" required />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputComuneResidenza">Comune di residenza</label>
                <div class="controls">
-                 <input <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->comuneResidenza; ?>" type="text" id="inputComuneResidenza" name="inputComuneResidenza" required />
+                 <input value="<?php echo $v->comuneResidenza; ?>" type="text" id="inputComuneResidenza" name="inputComuneResidenza" required />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputCAPResidenza">CAP di residenza</label>
                <div class="controls">
-                 <input <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" required pattern="[0-9]{5}" />
+                 <input value="<?php echo $v->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" required pattern="[0-9]{5}" />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputProvinciaResidenza">Provincia di residenza</label>
                <div class="controls">
-                 <input <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" required pattern="[A-Za-z]{2}" />
+                 <input value="<?php echo $v->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" required pattern="[A-Za-z]{2}" />
                 </div>
              </div>
             <div class="control-group">
                <label class="control-label" for="inputEmail">Email</label>
                <div class="controls">
-                 <input <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->email; ?>"  type="email" id="inputEmail" name="inputEmail" required  />
+                 <input value="<?php echo $v->email; ?>"  type="email" id="inputEmail" name="inputEmail" required  />
                 </div>
              </div>
              <div class="control-group input-prepend">
                <label class="control-label" for="inputCellulare">Cellulare</label>
                <div class="controls">
                    <span class="add-on">+39</span>
-                 <input <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" required pattern="[0-9]{9,11}" />
+                 <input value="<?php echo $v->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" required pattern="[0-9]{9,11}" />
                 </div>
              </div>
             <div class="control-group input-prepend">
                <label class="control-label" for="inputCellulareServizio">Cellulare Servizio</label>
                <div class="controls">
                    <span class="add-on">+39</span>
-                 <input <?php if ( $me->delegazioni(APP_OBIETTIVO) ) { ?> readonly <?php } ?> value="<?php echo $v->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" />
+                 <input value="<?php echo $v->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" />
                 </div>
              </div>
             <div class="control-group">
@@ -166,12 +164,11 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                 <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  required class="disabled">
                 <?php
                     foreach ( $conf['sangue_gruppo'] as $numero => $gruppo ) { ?>
-                    <option <?php if ( $me->delegazioni(APP_OBIETTIVO) ) { ?> readonly <?php } ?> value="<?php echo $numero; ?>" <?php if ( $numero == $v->grsanguigno ) { ?>selected<?php } ?>><?php echo $gruppo; ?></option>
+                    <option value="<?php echo $numero; ?>" <?php if ( $numero == $v->grsanguigno ) { ?>selected<?php } ?>><?php echo $gruppo; ?></option>
                     <?php } ?>
                 </select>   
             </div>
           </div>
-    <?php if ( !$me->delegazioni(APP_OBIETTIVO) ){ ?>
         <hr />
          
         <div class="form-actions">
@@ -180,13 +177,8 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                     Salva modifiche
                 </button>
             </div>
-    <?php } ?>
           </form>    
     </div>
-    
-    
-    
-        <?php if ( !$me->delegazioni(APP_OBIETTIVO) ) { ?>
         <h4><i class="icon-folder-open"></i> Documenti volontario</h4>
         
         <?php if ( $v->documenti() ) { ?>
@@ -201,7 +193,6 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             </span>
         <?php } ?>
         <hr />
-        <?php } ?>
     <!--Visualizzazione e modifica appartenenze utente -->
     <div class="span6">
         <div class="row-fluid">
@@ -258,14 +249,11 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                         </td>
                         
                         <td>
-                           <?php if ( !$me->delegazioni(APP_OBIETTIVO) ){ ?>
                             <div class="btn-group">
                                 <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
                                     <i class="icon-edit"></i>
                                 </a>
-                            <?php 
-                                        }
-                            if($me->admin()){ ?>
+                            <?php if($me->admin()){ ?>
                                 <a onClick="return confirm('Vuoi veramente cancellare questa appartenenza ?');" href="?p=us.appartenenza.cancella&a=<?php echo $app; ?>" title="Cancella appartenenza" class="btn btn-small btn-danger">
                                     <i class="icon-trash"></i>
                                 </a>
@@ -290,7 +278,6 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
     </div>
     <?php } ?>
    <h4><i class="icon-list muted"></i> Curriculum </h4>
-      <?php if ( !$me->delegazioni(APP_OBIETTIVO) ){ ?>
         <div id="step1">
             <div class="alert alert-block alert-success" <?php if ($titoli[2]) { ?>data-richiediDate<?php } ?>>
                 <div class="row-fluid">
@@ -383,8 +370,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             
         </div>    
   
-     <?php }
-     $ttt = $a; ?>
+     <?php $ttt = $a; ?>
                 <table class="table table-striped">
                     <?php foreach ( $ttt as $titolo ) { ?>
                     <tr <?php if (!$titolo->tConferma) { ?>class="warning"<?php } ?>>
@@ -430,7 +416,6 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                             <?php } ?>
                             
                             <td>
-                             <?php if ( !$me->delegazioni(APP_OBIETTIVO) ){ ?>
                                 <div class="btn-group">
                                     <a href="?p=presidente.titolo.modifica&t=<?php echo $titolo->id; ?>&v=<?php echo $v->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
                                         <i class="icon-edit"></i>
@@ -439,7 +424,6 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                                         <i class="icon-trash"></i>
                                     </a>
                                 </div>
-                             <?php } ?>
                             </td>
                     </tr>
                     <?php } ?>
