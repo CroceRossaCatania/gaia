@@ -728,5 +728,15 @@ class Utente extends Persona {
             ['stato',       EST_OK]
         ]);
     }
+
+    public function quote() {
+        $q = [];
+        foreach ( $this->storico() as $app ) {
+            $q = array_merge($q, Quota::filtra([
+            ['appartenenza', $app]], 
+            'timestamp DESC'));
+        }
+        return $q;
+    }
     
 }
