@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generato il: Ago 23, 2013 alle 20:32
+-- Generato il: Ago 24, 2013 alle 14:18
 -- Versione del server: 5.1.70-cll
 -- Versione PHP: 5.3.17
 
@@ -402,6 +402,30 @@ CREATE TABLE IF NOT EXISTS `elementiRichieste` (
   `titolo` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `estensioni`
+--
+
+CREATE TABLE IF NOT EXISTS `estensioni` (
+  `id` int(11) NOT NULL,
+  `stato` varchar(16) DEFAULT NULL,
+  `appartenenza` varchar(16) DEFAULT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `cProvenienza` varchar(16) DEFAULT NULL,
+  `protNumero` varchar(16) DEFAULT NULL,
+  `protData` varchar(64) DEFAULT NULL,
+  `motivo` text,
+  `negazione` text,
+  `timestamp` varchar(64) DEFAULT NULL,
+  `pConferma` varchar(16) DEFAULT NULL,
+  `tConferma` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `appartenenza` (`appartenenza`),
+  KEY `volontario` (`volontario`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 

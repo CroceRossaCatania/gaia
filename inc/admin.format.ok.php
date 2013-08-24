@@ -39,6 +39,12 @@ while ( $riga = fgetcsv($file, 0, ';') ) {
     $p->codiceFiscale       = $codiceFiscale;
     $p->nome                = normalizzaNome($riga[0]);
     $p->cognome             = normalizzaNome($riga[1]);
+    if (intval(substr($codiceFiscale, 9, 2)) < 40){
+        $p->sesso = UOMO;
+    }else{
+        $p->sesso = DONNA;
+    }
+}
     if (isset($_POST['pass'])) {
     $p->stato = VOLONTARIO; /* format con pass e conferma*/
     $p->timestamp = time(); /* format con pass e conferma*/
