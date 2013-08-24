@@ -5,9 +5,9 @@
  */
 
 caricaSelettoreComitato();
-
+$a = $sessione->a ;
+$sessione->a = NULL;
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
-$a = $_GET['a'];
 $app = Appartenenza::by('id', $a);
 $v = $app->volontario;
 ?>
