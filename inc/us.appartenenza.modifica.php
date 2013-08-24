@@ -59,7 +59,7 @@ $v = $app->volontario;
             <div class="row-fluid">
                 <div class="alert alert-error">
                     <i class="icon-warning-sign"></i>
-                    <strong>Attenzione</strong> &mdash; Modifica il Comitato SOLO SE NECESSARIO. Non verranno modificato tutti i dati annessi (Gruppi, Incarichi,...)
+                    <strong>Attenzione</strong> &mdash; Modifica il Comitato <strong>solo se necessario</strong>. Non verranno modificato tutti i dati annessi (Gruppi, Incarichi,...)
                 </div>
             </div>
                 <?php }else{ ?>
