@@ -16,7 +16,8 @@ $m = $_POST['inputMotivo'];
 /* Cerco appartenenze al comitato specificato */
 $f = Appartenenza::filtra([
   ['volontario',    $t],
-  ['comitato',      $c]
+  ['comitato',      $c],
+  ['stato', MEMBRO_VOLONTARIO]
 ]);
 
 /* Se sono già appartenente *ora*,
