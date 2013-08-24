@@ -143,10 +143,17 @@ if ($rf) {
            } ?>
         <?php 
         
-        if($me->inRiserva()){?>
+        if($me->inRiserva()){
+          $r = Riserva::filtra([
+              ['volontario', $me->id],
+              ['stato', RISERVA_OK]
+            ]);
+          $r = $r[0];
+          ?>
+
         <div class="alert alert-block">
             <h4><i class="icon-pause"></i> In riserva</h4>
-            <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d-m-Y', $ris->fine); ?></strong>.</p>
+            <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d/m/Y', $r->fine); ?></strong>.</p>
         </div>
         <?php } ?> 
         <?php   if (!$me->appartenenzePendenti() && $me->unComitato()->gruppi()) { 
