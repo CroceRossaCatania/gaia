@@ -15,11 +15,6 @@ $t = Volontario::elenco();
             <i class="icon-save"></i> <strong>Utente eliminato</strong>.
             L'utente è stato eliminato con successo.
         </div>
-<?php } elseif ( isset($_GET['e']) )  { ?>
-        <div class="alert alert-block alert-error">
-            <h4><i class="icon-exclamation-sign"></i> Impossibile eliminare l'utente</h4>
-            <p>Contatta l'amministratore</p>
-        </div>
 <?php } elseif ( isset($_GET['nasp']) )  { ?>
         <div class="alert alert-success">
             <h4><i class="icon-save"></i> Nuovo Volontario assegnato</h4>
@@ -90,7 +85,7 @@ $t = Volontario::elenco();
                             </a>
                             <?php } ?>
                             
-                            <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=presidente.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
+                            <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.limbo.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
                             <i class="icon-trash"></i> Cancella
                             </a>
                             
