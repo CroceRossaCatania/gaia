@@ -54,14 +54,15 @@ menuElenchiVolontari(
                     </td>
                 </tr>
             <?php
-                foreach ( $r as $_r ) {
-                    $v = $_r->volontario();
+                foreach ( $r as $ris ) {
+                    $ris = new Riserva($ris);
+                    $v = $ris->volontario();
                     ?>
                         <tr>
                             <td><?php echo $v->cognome; ?></td>
                             <td><?php echo $v->nome; ?></td>
-                            <td><?php echo date('d/m/Y', $_r->inizio); ?></td>
-                            <td><?php echo date('d/m/Y', $_r->fine); ?></td>
+                            <td><?php echo date('d/m/Y', $ris->inizio); ?></td>
+                            <td><?php echo date('d/m/Y', $ris->fine); ?></td>
                             <td>
                                 <div class="btn-group">
                                     <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $v->id; ?>" title="Dettagli">
