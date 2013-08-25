@@ -616,6 +616,15 @@ class Utente extends Persona {
             ['volontario',  $this->id]
         ]);
     }
+
+    public function unaRiserva() {
+        $r = $this->riserve();
+        foreach ($r as $_r) {
+            if ($_r->stato == RISERVA_OK || $_r->stato == RISERVA_AUTO)
+                return $_r;
+        }
+        return NULL;
+    }
     
     public function mieiGruppi() {
         return AppartenenzaGruppo::filtra([
