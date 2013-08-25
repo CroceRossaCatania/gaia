@@ -55,6 +55,7 @@ menuElenchiVolontari(
                 </tr>
             <?php
                 foreach ( $r as $_r ) {
+                    $_r = new Riserva($_r);
                     $v = $_r->volontario();
                     ?>
                         <tr>
