@@ -635,4 +635,24 @@ class Comitato extends GeoPolitica {
         return json_encode($r);
     }
 
+    public function reperibilitaReport(DateTime $inizio, DateTime $fine) {
+        $q = $this->db->prepare("
+            SELECT  id
+            FROM    reperibilita
+            WHERE   
+              comitato     = :comitato
+            AND
+              ( inizio <= :minimo )
+            AND
+              ( fine >= :massimo )");
+        $q->bindValue(':comitato',  $this->id);
+        $q->bindValue(':minimo',    $inizio->getTimestamp());
+        $q->bindValue(':massimo',    $fine->getTimestamp());
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Reperibilita($k[0]);
+        }
+        return $r;
+    }
 }
