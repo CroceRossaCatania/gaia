@@ -35,7 +35,7 @@ menuElenchiVolontari(
             <?php
             $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
             foreach( $elenco as $comitato ) {
-                $r = $comitato->membriRiserva();
+                $v = $comitato->membriRiserva();
                 ?>
                 <tr class="success">
                     <td colspan="7" class="grassetto">
@@ -54,21 +54,20 @@ menuElenchiVolontari(
                     </td>
                 </tr>
             <?php
-                foreach ( $r as $ris ) {
-                    $ris = new Riserva($ris);
-                    $v = $ris->volontario();
+                foreach ( $v as $_v ) {
+                    $ris = $_v->unaRiserva();
                     ?>
                         <tr>
-                            <td><?php echo $v->cognome; ?></td>
-                            <td><?php echo $v->nome; ?></td>
+                            <td><?php echo $_v->cognome; ?></td>
+                            <td><?php echo $_v->nome; ?></td>
                             <td><?php echo date('d/m/Y', $ris->inizio); ?></td>
                             <td><?php echo date('d/m/Y', $ris->fine); ?></td>
                             <td>
                                 <div class="btn-group">
-                                    <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $v->id; ?>" title="Dettagli">
+                                    <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
                                         <i class="icon-eye-open"></i> Dettagli
                                     </a>
-                                    <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $v->id; ?>" title="Invia Mail">
+                                    <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                         <i class="icon-envelope"></i>
                                     </a>
                                 </div>
