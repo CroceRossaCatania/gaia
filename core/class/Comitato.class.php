@@ -107,7 +107,7 @@ class Comitato extends GeoPolitica {
             AND
                 appartenenza.comitato = :comitato
             AND
-                risere.volontario = appartenenza.volontario");
+                riserve.volontario = appartenenza.volontario");
         $q->bindValue(':statoRis', RISERVA_OK);
         $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->bindParam(':comitato', $this->id);
