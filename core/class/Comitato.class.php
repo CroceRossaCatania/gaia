@@ -97,7 +97,7 @@ class Comitato extends GeoPolitica {
             SELECT
                 riserve.id
             FROM
-                appartenenza, riserve, anagrafica
+                appartenenza, riserve
             WHERE
                 riserve.stato >= :statoRis
             AND
@@ -107,9 +107,7 @@ class Comitato extends GeoPolitica {
             AND
                 appartenenza.comitato = :comitato
             AND
-                anagrafica.id = appartenenza.volontario
-            ORDER BY
-                 anagrafica.cognome ASC, anagrafica.nome ASC");
+                risere.volontario = appartenenza.volontario");
         $q->bindValue(':statoRis', RISERVA_OK);
         $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->bindParam(':comitato', $this->id);
