@@ -21,6 +21,12 @@
                 Le modifiche sono state effettuate con successo.
             </div>
         <?php } ?>
+        <?php if ( isset($_GET['esp']) ) { ?>
+            <div class="alert alert-success">
+                <i class="icon-save"></i> <strong>Volontario espulso</strong>.
+                Il volontario è stato espulso dal gruppo con successo.
+            </div>
+        <?php } ?>
     </div>
 </div>
 <div class="row-fluid">
@@ -100,6 +106,7 @@ foreach ($gruppi as $gruppo){
                 </tr>
     <?php
         foreach($g as $volontario){
+            $gp = AppartenenzaGruppo::filtra([['volontario',$volontario->id],['gruppo',$gruppo->id],['fine', NULL]]);
     ?>
                     <tr>
                         <td><?= $volontario->cognome; ?>    </td>
@@ -110,7 +117,11 @@ foreach ($gruppi as $gruppo){
                                 <a class="btn btn-small" href="?p=public.utente&id=<?php echo $volontario->id; ?>" target="_new"  title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>
-
+                                <?php if ( $me->presidenziante() || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
+                                    <a class="btn btn-small btn-danger" href="?p=gruppo.utente.espelli&id=<?= $gp[0]; ?>" title="Espelli dal gruppo" onclick="return confirm('Sei davvero sicuro di voler espellere il volontario dal gruppo?');">
+                                        <i class="icon-ban-circle"></i> Espelli dal gruppo
+                                    </a>
+                                <?php } ?>
                                 <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $volontario->id; ?>" target="_new" title="Invia Mail">
                                     <i class="icon-envelope"></i>
                                 </a>
