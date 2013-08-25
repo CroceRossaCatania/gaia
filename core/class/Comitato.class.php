@@ -642,9 +642,9 @@ class Comitato extends GeoPolitica {
             WHERE   
               comitato     = :comitato
             AND
-              ( inizio <= :minimo )
+              ( inizio >= :minimo )
             AND
-              ( fine >= :massimo )");
+              ( fine <= :massimo )");
         $q->bindValue(':comitato',  $this->id);
         $q->bindValue(':minimo',    $inizio->getTimestamp());
         $q->bindValue(':massimo',    $fine->getTimestamp());
