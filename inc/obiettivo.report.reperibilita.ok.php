@@ -8,8 +8,7 @@ paginaApp([ APP_PRESIDENTE, APP_OBIETTIVO ]);
 
 $oid = $_POST['oid'];
 $g = GeoPolitica::daOid($oid);
-$comitato = $g->estensione();
-$unita = $comitato->estensione();
+$unita = $g->estensione();
 $inizio = DT::createFromFormat('d/m/Y', $_POST['datainizio']);
 $fine = DT::createFromFormat('d/m/Y', $_POST['datafine']);
  
@@ -26,7 +25,6 @@ $excel->intestazione([
 
 foreach ( $unita as $comitato ) {
     foreach($comitato->reperibilitaReport($inizio,$fine) as $v) { 
-    
         $excel->aggiungiRiga([
             $v->volontario()->nome,
             $v->volontario()->cognome,
@@ -38,6 +36,5 @@ foreach ( $unita as $comitato ) {
     
     }
 }
-
 $excel->genera('Report reperibilita.xls');
 $excel->download();
