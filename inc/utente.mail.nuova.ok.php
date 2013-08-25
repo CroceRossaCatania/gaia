@@ -199,6 +199,30 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
             $m->invia();
          }
 
+}elseif (isset($_GET['estesi'])) {
+        $g = $_GET['id'];
+        $comitato = new comitato($g);
+        $estesi = array_diff( $comitato->membriAttuali(MEMBRO_ESTESO), $comitato->membriAttuali(MEMBRO_VOLONTARIO) );
+        foreach($estesi as $_v){
+            $m = new Email('mailTestolibero', ''.$oggetto);
+            $m->da = $me; 
+            $m->a = $_v;
+            $m->_TESTO = $testo;
+            $m->invia();
+         }
+
+}elseif (isset($_GET['riserva'])) {
+        $g = $_GET['id'];
+        $comitato = new comitato($g);
+        $r = $comitato->membriRiserva();
+        foreach($r as $_v){
+            $m = new Email('mailTestolibero', ''.$oggetto);
+            $m->da = $me; 
+            $m->a = $_v;
+            $m->_TESTO = $testo;
+            $m->invia();
+         }
+
 }else{
 
 $m = new Email('mailTestolibero', ''.$oggetto);

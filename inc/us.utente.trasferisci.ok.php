@@ -4,20 +4,24 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPrivata();
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
-$t = $_GET['id'];
+$t = $_POST['inputVolontario'];
+$t = new Volontario($t);
 $c = $_POST['inputComitato'];
-if ( !$c ) { 
-    redirect('utente.trasferimento');
+
+if ( !$c ) {
+    redirect('us.utente.trasferisci&c');
 }
+
+$c = new Comitato($c);
 $m = $_POST['inputMotivo'];
 
 /* Cerco appartenenze al comitato specificato */
+
 $f = Appartenenza::filtra([
   ['volontario',    $t],
-  ['comitato',      $c],
-  ['stato', MEMBRO_VOLONTARIO]
+  ['comitato',      $c]
 ]);
 
 /* Se sono già appartenente *ora*,
@@ -26,19 +30,19 @@ $f = Appartenenza::filtra([
 
 foreach ( $f as $app ) {
     if ($app->attuale()) { 
-        redirect('utente.trasferimento&e'); 
+        redirect('us.utente.trasferisci&e'); 
         break;
     } 
 }
                                      
 /*Se non sono appartenente allora avvio la procedura*/
 
-foreach ( $me->storico() as $app ) {
+foreach ( $t->storico() as $app ) {
     
     if ($app->attuale()) {
         
         $a = new Appartenenza();
-        $a->volontario  = $me->id;
+        $a->volontario  = $t->id;
         $a->comitato    = $c;
         $a->stato =     TRASF_INCORSO;
         $a->timestamp = time();
@@ -47,15 +51,12 @@ foreach ( $me->storico() as $app ) {
         $t = new Trasferimento();
         $t->stato = TRASF_INCORSO;
         $t->appartenenza = $a;
-        $t->volontario = $me->id;
+        $t->volontario = $t->id;
         $t->motivo = $m;
         $t->timestamp = time();
         
+        redirect('us.dash&trasfok');
 
-        $sessione->inGenerazioneTrasferimento = time();
-        redirect('presidente.trasferimentoRichiesta.stampa&id=' . $t);
-        
-        continue;
     }
     
 }

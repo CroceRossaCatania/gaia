@@ -39,6 +39,12 @@ while ( $riga = fgetcsv($file, 0, ';') ) {
     $p->codiceFiscale       = $codiceFiscale;
     $p->nome                = normalizzaNome($riga[0]);
     $p->cognome             = normalizzaNome($riga[1]);
+    if (intval(substr($codiceFiscale, 9, 2)) < 40){
+        $p->sesso = UOMO;
+    }else{
+        $p->sesso = DONNA;
+    }
+
     if (isset($_POST['pass'])) {
     $p->stato = VOLONTARIO; /* format con pass e conferma*/
     $p->timestamp = time(); /* format con pass e conferma*/
@@ -128,11 +134,32 @@ $i = 0;
         $time = mktime(0,0,0,1,1,$time);
         $t->timestamp = $time;
         $t->tConferma = time();
-        $t->pConferma = $me;
+        $t->pConferma = $pres;
         $t->quota = QUOTA_RINNOVO;
         $s = QUOTA_RINNOVO;
         $i = "Versamento quota di rinnovo annuale";
         $t->causale = $i;
+    }
+    
+     if ( isset($riga[14]) ){
+        $r = new Riserva();
+        $r->stato = RISERVA_OK;
+        $r->appartenenza = $app->id;
+        $r->volontario = $p->id;
+        $inizio = @DateTime::createFromFormat('d/m/Y', $riga[14] );
+        $inizio = @$inizio->getTimestamp();
+        $r->inizio = $inizio;
+        $fine = @DateTime::createFromFormat('d/m/Y', $riga[15] );
+        $fine = @$fine->getTimestamp();
+        $r->fine = $fine;
+        $r->protNumero = $riga[16];
+        $protData = @DateTime::createFromFormat('d/m/Y', $riga[17] );
+        $protData = @$protData->getTimestamp();
+        $r->protData = $protData;
+        $r->motivo = $riga[18];
+        $r->timestamp = time();
+        $r->pConferma = $pres;
+        $r->tConferma = time();  
     }
     
     $m = new Email('registrazioneFormat', 'Registrati su Gaia');
@@ -146,7 +173,3 @@ echo "Sono stati caricati: $h utenti";
 fclose($file);
 ?>
 </code></pre>
-
-
-
-

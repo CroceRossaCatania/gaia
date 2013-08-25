@@ -94,26 +94,24 @@ class Comitato extends GeoPolitica {
     
     public function membriRiserva() {
         $q = $this->db->prepare("
-            SELECT
-                anagrafica.id
+            SELECT DISTINCT
+                riserve.volontario
             FROM
-                appartenenza, anagrafica, riserve
+                appartenenza, riserve
             WHERE
-                riserve.stato = :stato
+                riserve.stato >= :statoRis
             AND
-                riserve.appartenenza = appartenenza.id
+                riserve.volontario = appartenenza.volontario
+            AND
+                appartenenza.stato = :stato
             AND
                 appartenenza.comitato = :comitato
             AND
-                appartenenza.volontario = anagrafica.id
-            AND
-                riserve.inizio    <= :ora
-            AND
-                riserve.fine      >= :ora
+                riserve.volontario = appartenenza.volontario
             ORDER BY
-                 cognome ASC, nome ASC");
-        $q->bindValue(':ora', time());
-        $q->bindValue(':stato', RISERVA_OK);
+                riserve.inizio ASC");
+        $q->bindValue(':statoRis', RISERVA_OK);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->bindParam(':comitato', $this->id);
         $q->execute();
         $r = [];
@@ -187,11 +185,11 @@ class Comitato extends GeoPolitica {
             AND
                 comitato = :comitato
             AND
-                appartenenza.stato    >= :stato
+                appartenenza.stato = :stato
             ORDER BY
                 cognome ASC, nome ASC");
         $q->bindParam(':comitato', $this->id);
-        $q->bindParam(':stato',    MEMBRO_DIMESSO);
+        $q->bindValue(':stato', MEMBRO_DIMESSO);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
@@ -238,7 +236,8 @@ class Comitato extends GeoPolitica {
                 inizio ASC");
         $q->bindValue(':ora', time());
         $q->bindParam(':comitato', $this->id);
-        $q->bindValue(':stato',    MEMBRO_PENDENTE);
+        $stato = MEMBRO_PENDENTE;
+        $q->bindValue(':stato',  $stato);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
@@ -307,7 +306,9 @@ class Comitato extends GeoPolitica {
             FROM
                 riserve, appartenenza
             WHERE
-                riserve.appartenenza = appartenenza.id
+                riserve.volontario = appartenenza.volontario
+            AND
+                appartenenza.stato = :stato
             AND
                 appartenenza.comitato = :id";
         if ( $stato ) {
@@ -316,6 +317,7 @@ class Comitato extends GeoPolitica {
         $q .= " ORDER BY riserve.timestamp DESC";
         $q = $this->db->prepare($q);
         $q->bindParam(':id', $this->id);
+        $q->bindValue('stato', MEMBRO_VOLONTARIO);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
@@ -430,6 +432,8 @@ class Comitato extends GeoPolitica {
             AND
                 anagrafica.id = appartenenza.volontario
             AND
+                appartenenza.stato = :stato
+            AND
                 quote.appartenenza = appartenenza.id
             AND
                 quote.timestamp BETWEEN :anno AND :ora
@@ -437,6 +441,8 @@ class Comitato extends GeoPolitica {
               anagrafica.cognome     ASC,
               anagrafica.nome  ASC");
         $q->bindValue(':comitato',  $this->id);
+        $stato = MEMBRO_VOLONTARIO;
+        $q->bindValue(':stato',  $stato);
         $q->bindValue(':ora',  time());
         $anno = date ('Y', time());
         $anno = mktime(0, 0, 0, 1, 1, $anno);
@@ -483,7 +489,8 @@ class Comitato extends GeoPolitica {
         $anno = date ('Y', time());
         $anno = mktime(0, 0, 0, 1, 1, $anno);
         $q->bindValue(':anno',    $anno);
-        $q->bindValue(':stato',    MEMBRO_VOLONTARIO);
+        $stato = MEMBRO_VOLONTARIO;
+        $q->bindValue(':stato', $stato);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
@@ -628,4 +635,24 @@ class Comitato extends GeoPolitica {
         return json_encode($r);
     }
 
+    public function reperibilitaReport(DateTime $inizio, DateTime $fine) {
+        $q = $this->db->prepare("
+            SELECT  id
+            FROM    reperibilita
+            WHERE   
+              comitato     = :comitato
+            AND
+              ( inizio >= :minimo )
+            AND
+              ( fine <= :massimo )");
+        $q->bindValue(':comitato',  $this->id);
+        $q->bindValue(':minimo',    $inizio->getTimestamp());
+        $q->bindValue(':massimo',    $fine->getTimestamp());
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Reperibilita($k[0]);
+        }
+        return $r;
+    }
 }

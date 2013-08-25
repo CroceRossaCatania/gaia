@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.8
+-- version 4.0.5
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 12, 2013 at 12:04 AM
--- Server version: 5.1.70-cll
--- PHP Version: 5.3.17
+-- Generato il: Ago 24, 2013 alle 14:18
+-- Versione del server: 5.1.70-cll
+-- Versione PHP: 5.3.17
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `anagrafica`
+-- Struttura della tabella `anagrafica`
 --
 
 CREATE TABLE IF NOT EXISTS `anagrafica` (
@@ -37,17 +37,19 @@ CREATE TABLE IF NOT EXISTS `anagrafica` (
   `timestamp` varchar(64) DEFAULT NULL,
   `admin` varchar(64) DEFAULT NULL,
   `consenso` varchar(64) DEFAULT NULL,
+  `sesso` bit(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `codiceFiscale` (`codiceFiscale`),
   KEY `email` (`email`),
-  FULLTEXT KEY `nome` (`nome`,`cognome`),
-  FULLTEXT KEY `nome_2` (`nome`,`cognome`,`email`,`codiceFiscale`)
+  KEY `sesso` (`sesso`),
+  FULLTEXT KEY `indice` (`nome`,`cognome`,`email`,`codiceFiscale`),
+  FULLTEXT KEY `nome` (`nome`,`cognome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `annunci`
+-- Struttura della tabella `annunci`
 --
 
 CREATE TABLE IF NOT EXISTS `annunci` (
@@ -58,12 +60,12 @@ CREATE TABLE IF NOT EXISTS `annunci` (
   `timestamp` varchar(64) DEFAULT NULL,
   `autore` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `appartenenza`
+-- Struttura della tabella `appartenenza`
 --
 
 CREATE TABLE IF NOT EXISTS `appartenenza` (
@@ -83,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `appartenenza` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `aree`
+-- Struttura della tabella `aree`
 --
 
 CREATE TABLE IF NOT EXISTS `aree` (
@@ -100,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `aree` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `attivita`
+-- Struttura della tabella `attivita`
 --
 
 CREATE TABLE IF NOT EXISTS `attivita` (
@@ -123,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `attivita` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `autorizzazioni`
+-- Struttura della tabella `autorizzazioni`
 --
 
 CREATE TABLE IF NOT EXISTS `autorizzazioni` (
@@ -143,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `autorizzazioni` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `avatar`
+-- Struttura della tabella `avatar`
 --
 
 CREATE TABLE IF NOT EXISTS `avatar` (
@@ -157,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `avatar` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comitati`
+-- Struttura della tabella `comitati`
 --
 
 CREATE TABLE IF NOT EXISTS `comitati` (
@@ -174,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `comitati` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `commenti`
+-- Struttura della tabella `commenti`
 --
 
 CREATE TABLE IF NOT EXISTS `commenti` (
@@ -192,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `commenti` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `coturni`
+-- Struttura della tabella `coturni`
 --
 
 CREATE TABLE IF NOT EXISTS `coturni` (
@@ -214,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `coturni` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `datiComitati`
+-- Struttura della tabella `datiComitati`
 --
 
 CREATE TABLE IF NOT EXISTS `datiComitati` (
@@ -227,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `datiComitati` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `datiLocali`
+-- Struttura della tabella `datiLocali`
 --
 
 CREATE TABLE IF NOT EXISTS `datiLocali` (
@@ -240,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `datiLocali` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `datiNazionali`
+-- Struttura della tabella `datiNazionali`
 --
 
 CREATE TABLE IF NOT EXISTS `datiNazionali` (
@@ -253,7 +255,7 @@ CREATE TABLE IF NOT EXISTS `datiNazionali` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `datiProvinciali`
+-- Struttura della tabella `datiProvinciali`
 --
 
 CREATE TABLE IF NOT EXISTS `datiProvinciali` (
@@ -266,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `datiProvinciali` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `datiRegionali`
+-- Struttura della tabella `datiRegionali`
 --
 
 CREATE TABLE IF NOT EXISTS `datiRegionali` (
@@ -279,7 +281,7 @@ CREATE TABLE IF NOT EXISTS `datiRegionali` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `datiSessione`
+-- Struttura della tabella `datiSessione`
 --
 
 CREATE TABLE IF NOT EXISTS `datiSessione` (
@@ -292,7 +294,7 @@ CREATE TABLE IF NOT EXISTS `datiSessione` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `delegati`
+-- Struttura della tabella `delegati`
 --
 
 CREATE TABLE IF NOT EXISTS `delegati` (
@@ -316,7 +318,7 @@ CREATE TABLE IF NOT EXISTS `delegati` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dettagliAttivita`
+-- Struttura della tabella `dettagliAttivita`
 --
 
 CREATE TABLE IF NOT EXISTS `dettagliAttivita` (
@@ -329,7 +331,7 @@ CREATE TABLE IF NOT EXISTS `dettagliAttivita` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dettagliComitato`
+-- Struttura della tabella `dettagliComitato`
 --
 
 CREATE TABLE IF NOT EXISTS `dettagliComitato` (
@@ -342,7 +344,7 @@ CREATE TABLE IF NOT EXISTS `dettagliComitato` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dettagliPersona`
+-- Struttura della tabella `dettagliPersona`
 --
 
 CREATE TABLE IF NOT EXISTS `dettagliPersona` (
@@ -355,7 +357,7 @@ CREATE TABLE IF NOT EXISTS `dettagliPersona` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dimissioni`
+-- Struttura della tabella `dimissioni`
 --
 
 CREATE TABLE IF NOT EXISTS `dimissioni` (
@@ -376,7 +378,7 @@ CREATE TABLE IF NOT EXISTS `dimissioni` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `documenti`
+-- Struttura della tabella `documenti`
 --
 
 CREATE TABLE IF NOT EXISTS `documenti` (
@@ -391,7 +393,7 @@ CREATE TABLE IF NOT EXISTS `documenti` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `elementiRichieste`
+-- Struttura della tabella `elementiRichieste`
 --
 
 CREATE TABLE IF NOT EXISTS `elementiRichieste` (
@@ -404,7 +406,31 @@ CREATE TABLE IF NOT EXISTS `elementiRichieste` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `file`
+-- Struttura della tabella `estensioni`
+--
+
+CREATE TABLE IF NOT EXISTS `estensioni` (
+  `id` int(11) NOT NULL,
+  `stato` varchar(16) DEFAULT NULL,
+  `appartenenza` varchar(16) DEFAULT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `cProvenienza` varchar(16) DEFAULT NULL,
+  `protNumero` varchar(16) DEFAULT NULL,
+  `protData` varchar(64) DEFAULT NULL,
+  `motivo` text,
+  `negazione` text,
+  `timestamp` varchar(64) DEFAULT NULL,
+  `pConferma` varchar(16) DEFAULT NULL,
+  `tConferma` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `appartenenza` (`appartenenza`),
+  KEY `volontario` (`volontario`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `file`
 --
 
 CREATE TABLE IF NOT EXISTS `file` (
@@ -422,7 +448,7 @@ CREATE TABLE IF NOT EXISTS `file` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gruppi`
+-- Struttura della tabella `gruppi`
 --
 
 CREATE TABLE IF NOT EXISTS `gruppi` (
@@ -440,7 +466,7 @@ CREATE TABLE IF NOT EXISTS `gruppi` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gruppiPersonali`
+-- Struttura della tabella `gruppiPersonali`
 --
 
 CREATE TABLE IF NOT EXISTS `gruppiPersonali` (
@@ -459,7 +485,7 @@ CREATE TABLE IF NOT EXISTS `gruppiPersonali` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `locali`
+-- Struttura della tabella `locali`
 --
 
 CREATE TABLE IF NOT EXISTS `locali` (
@@ -475,7 +501,7 @@ CREATE TABLE IF NOT EXISTS `locali` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nazionali`
+-- Struttura della tabella `nazionali`
 --
 
 CREATE TABLE IF NOT EXISTS `nazionali` (
@@ -489,7 +515,7 @@ CREATE TABLE IF NOT EXISTS `nazionali` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `partecipazioni`
+-- Struttura della tabella `partecipazioni`
 --
 
 CREATE TABLE IF NOT EXISTS `partecipazioni` (
@@ -509,7 +535,7 @@ CREATE TABLE IF NOT EXISTS `partecipazioni` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `provinciali`
+-- Struttura della tabella `provinciali`
 --
 
 CREATE TABLE IF NOT EXISTS `provinciali` (
@@ -525,7 +551,7 @@ CREATE TABLE IF NOT EXISTS `provinciali` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `quote`
+-- Struttura della tabella `quote`
 --
 
 CREATE TABLE IF NOT EXISTS `quote` (
@@ -538,12 +564,12 @@ CREATE TABLE IF NOT EXISTS `quote` (
   `causale` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `appartenenza` (`appartenenza`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=62 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2547 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `regionali`
+-- Struttura della tabella `regionali`
 --
 
 CREATE TABLE IF NOT EXISTS `regionali` (
@@ -559,7 +585,7 @@ CREATE TABLE IF NOT EXISTS `regionali` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reperibilita`
+-- Struttura della tabella `reperibilita`
 --
 
 CREATE TABLE IF NOT EXISTS `reperibilita` (
@@ -579,7 +605,7 @@ CREATE TABLE IF NOT EXISTS `reperibilita` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `richiesteTurni`
+-- Struttura della tabella `richiesteTurni`
 --
 
 CREATE TABLE IF NOT EXISTS `richiesteTurni` (
@@ -592,7 +618,7 @@ CREATE TABLE IF NOT EXISTS `richiesteTurni` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `riserve`
+-- Struttura della tabella `riserve`
 --
 
 CREATE TABLE IF NOT EXISTS `riserve` (
@@ -617,7 +643,7 @@ CREATE TABLE IF NOT EXISTS `riserve` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sessioni`
+-- Struttura della tabella `sessioni`
 --
 
 CREATE TABLE IF NOT EXISTS `sessioni` (
@@ -632,7 +658,7 @@ CREATE TABLE IF NOT EXISTS `sessioni` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `titoli`
+-- Struttura della tabella `titoli`
 --
 
 CREATE TABLE IF NOT EXISTS `titoli` (
@@ -646,7 +672,7 @@ CREATE TABLE IF NOT EXISTS `titoli` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `titoliPersonali`
+-- Struttura della tabella `titoliPersonali`
 --
 
 CREATE TABLE IF NOT EXISTS `titoliPersonali` (
@@ -665,7 +691,7 @@ CREATE TABLE IF NOT EXISTS `titoliPersonali` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `trasferimenti`
+-- Struttura della tabella `trasferimenti`
 --
 
 CREATE TABLE IF NOT EXISTS `trasferimenti` (
@@ -688,7 +714,7 @@ CREATE TABLE IF NOT EXISTS `trasferimenti` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `turni`
+-- Struttura della tabella `turni`
 --
 
 CREATE TABLE IF NOT EXISTS `turni` (
@@ -706,32 +732,6 @@ CREATE TABLE IF NOT EXISTS `turni` (
   KEY `fine` (`fine`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `estensioni`
---
-
-CREATE TABLE IF NOT EXISTS `estensioni` (
-  `id` int(11) NOT NULL,
-  `stato` varchar(16) DEFAULT NULL,
-  `appartenenza` varchar(16) DEFAULT NULL,
-  `volontario` varchar(16) DEFAULT NULL,
-  `cProvenienza` varchar(16) DEFAULT NULL,
-  `protNumero` varchar(16) DEFAULT NULL,
-  `protData` varchar(64) DEFAULT NULL,
-  `motivo` text,
-  `negazione` text,
-  `timestamp` varchar(64) DEFAULT NULL,
-  `pConferma` varchar(16) DEFAULT NULL,
-  `tConferma` varchar(64) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `appartenenza` (`appartenenza`),
-  KEY `volontario` (`volontario`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-

@@ -168,9 +168,9 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
             }
        $excel->genera("Risultati in {$c->nomeCompleto()}.xls");
     }elseif(isset($_GET['riserva'])){
-        foreach ( $c->membriRiserva() as $v ) {
-        $r = $v->inRiserva();
-        $r = $r[0];
+        foreach ( $c->membriRiserva() as $r ) {
+        $r = new Riserva($r);
+        $v = $r->volontario();
         $excel->aggiungiRiga([
             $v->nome,
             $v->cognome,

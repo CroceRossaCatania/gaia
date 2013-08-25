@@ -26,7 +26,24 @@ caricaSelettoreComitato();
         </div>
         <?php } ?>
         <?php 
-    $i=0;
+        $i=0;
+        $x=0;
+             foreach($me->riserve() as $riserva){
+                 $riservafine = $riserva->fine;
+             if($x==0 && $riserva && $me->inRiserva()){ ?>         
+                    <div class="row-fluid">
+                                        <h2><i class="icon-warning-sign muted"></i> In riserva</h2>
+                                        <div class="alert alert-danger">
+                                            <div class="row-fluid">
+                                                <span class="span12">
+                                                    <p>Sei attualmente in riserva</p>
+                                                    <p>Rimarrai nel ruolo di riserva fino al <strong> <?php echo date('d-m-Y', $riserva->fine); ?></strong> alla fine di tale periodo potrai richiedere <strong>il trasferimento</strong>.</p>
+                                                </span>
+                                            </div>
+                                        </div>           
+                                    </div>
+             <?php $x=1; }}
+             if($x==0) {
     foreach ( $me->storico() as $app ) {
                          if($app->stato == MEMBRO_DIMESSO){
                              redirect('errore.comitato');
@@ -109,8 +126,6 @@ if($i==0){ ?>
         </div>
     
  
-<?php } ?>
+<?php }} ?>
    </div>
 </div>
-
-

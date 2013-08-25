@@ -61,7 +61,7 @@ paginaPrivata();
                                             <div class="row-fluid">
                                                 <span class="span12">
                                                     <p>La tua richiesta di riserva è stata approvata.</p>
-                                                    <p>Rimarrai nel ruolo di riserva fino al <strong> <?php echo date('d-m-Y', $riserva->fine); ?></strong>.</p>
+                                                    <p>Rimarrai nel ruolo di riserva dal <strong> <?php echo date('d-m-Y', $riserva->inizio); ?></strong> fino al <strong> <?php echo date('d-m-Y', $riserva->fine); ?></strong>.</p>
                                                 </span>
                                             </div>
                                         </div>           

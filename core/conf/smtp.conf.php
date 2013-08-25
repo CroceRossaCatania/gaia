@@ -14,7 +14,7 @@
 /* Configurazione del server SMTP */
 $conf['smtp'] = [
  
-    'username'      =>  'informatica@cricatania.it',
-    'password'      =>  'sviluppo'
+    'username'      =>  'SMTP_USERNAME',
+    'password'      =>  'SMTP_PASSWORD'
  
 ];
