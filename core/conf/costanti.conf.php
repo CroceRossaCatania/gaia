@@ -24,6 +24,12 @@ define('PERSONA',   0);
 define('ASPIRANTE', 1);
 define('VOLONTARIO',2);
 
+$conf['statoPersona'] = [
+    NULL        =>  'Nessuno',
+    PERSONA     =>  'Persona',
+    ASPIRANTE   =>  'Aspirante',
+    VOLONTARIO  =>  'Volontario'
+];
 /* Un anno */
 
 define('ANNO',      31536000);
