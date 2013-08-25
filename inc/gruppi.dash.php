@@ -81,7 +81,7 @@ foreach ($gruppi as $gruppo){
     ?>
         <tr class="success">
                     <td colspan="7" class="grassetto">
-                            <?php echo $gruppo->nome; ?>
+                            <?php echo $gruppo->comitato()->nomeCompleto()?> - <?php echo $gruppo->nome; ?>
                             <span class="label label-warning">
                                 <?= count($g); ?>
                             </span>
