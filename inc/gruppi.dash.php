@@ -3,7 +3,7 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
-
+caricaSelettore();
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
@@ -80,7 +80,7 @@ foreach ($gruppi as $gruppo){
         $g = $gruppo->membri();
     ?>
         <tr class="success">
-                    <td colspan="7" class="grassetto">
+                    <td colspan="4" class="grassetto">
                             <?php echo $gruppo->comitato()->nomeCompleto()?> - <?php echo $gruppo->nome; ?>
                             <span class="label label-warning">
                                 <?= count($g); ?>
@@ -89,10 +89,16 @@ foreach ($gruppi as $gruppo){
                                     <i class="icon-envelope"></i> Invia mail
                                 </a>
                         <?php if ( $me->presidenziante() || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
+                                <form action="?p=gruppi.utente.aggiungi&id=<?php echo $gruppo->id; ?>" method="POST">
+                                    <a data-selettore="true" data-input="volontari" data-autosubmit="true" data-multi="true" class="btn btn-small btn-success">
+                                        <i class="icon-plus"></i>
+                                        Aggiungi volontari
+                                    </a>
+                                </form>
                                 <a class="btn btn-small btn-info pull-right" href="?p=gruppo.modifica&id=<?= $gruppo->id; ?>" title="Modifica gruppo">
                                     <i class="icon-edit"></i> Modifica gruppo
                                 </a>
-                        <?php }
+                        <?php } 
                         if ( $me->presidenziante() || $me->admin() ){ ?>
                                 <a class="btn btn-small btn-danger pull-right" onclick="return confirm('Sei davvero sicuro di voler eliminare il gruppo?');" href="?p=gruppi.elimina&id=<?= $gruppo->id; ?>" title="Elimina gruppo">
                                     <i class="icon-trash"></i> Elimina
