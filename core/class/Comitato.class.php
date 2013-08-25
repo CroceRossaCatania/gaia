@@ -94,8 +94,8 @@ class Comitato extends GeoPolitica {
     
     public function membriRiserva() {
         $q = $this->db->prepare("
-            SELECT
-                riserve.id
+            SELECT DISTINCT
+                riserve.volontario
             FROM
                 appartenenza, riserve
             WHERE
@@ -107,7 +107,9 @@ class Comitato extends GeoPolitica {
             AND
                 appartenenza.comitato = :comitato
             AND
-                riserve.volontario = appartenenza.volontario");
+                riserve.volontario = appartenenza.volontario
+            ORDER BY
+                riserve.inizio ASC");
         $q->bindValue(':statoRis', RISERVA_OK);
         $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->bindParam(':comitato', $this->id);
