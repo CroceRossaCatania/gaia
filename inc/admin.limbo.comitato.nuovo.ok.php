@@ -16,9 +16,10 @@ $a->comitato    = $c;
 $a->inizio      = $t->getTimestamp();
 $a->fine        = PROSSIMA_SCADENZA;
 $a->timestamp = time();
-$a->stato     = MEMBRO_VOLONTARIO;
+$a->stato     = MEMBRO_PENDENTE;
 $a->conferma  = $me;
 $v = new Volontario($v);
+$v->stato = VOLONTARIO;
 
 /*Generazione password*/
 $length = 6;

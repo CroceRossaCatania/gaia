@@ -47,6 +47,7 @@ $t = Volontario::elenco();
                 <th>Cognome</th>
                 <th>Località</th>
                 <th>Codice Fiscale</th>
+                <th>Stato</th>
                 <th>Azioni</th>
             </thead>
         <?php
@@ -66,10 +67,8 @@ $t = Volontario::elenco();
                         <?php echo $_v->provinciaResidenza; ?>
                     </td>
                     
-                    <td>
-                        
-                            <?php echo $_v->codiceFiscale; ?>
-                    </td>
+                    <td><?php echo $_v->codiceFiscale; ?></td>
+                    <td><?php echo $conf['statoPersona'][$_v->stato]; ?></td>
 
                     <td>
                         <div class="btn-group">
