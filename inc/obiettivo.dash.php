@@ -81,10 +81,10 @@ if ( $me->admin() || $me->presidenziante() ){
                         <i class="icon-thumbs-up"></i>
                         Volontari reperibili
                     </a>
-                    <a href="?p=obiettivo.report.reperibilita" class="btn btn-block">
+                    <!--<a href="?p=obiettivo.report.reperibilita" class="btn btn-block">
                         <i class="icon-time"></i>
                         Report reperibilità
-                    </a>
+                    </a>-->
             <?php } ?>
                 </div>
             </div>
