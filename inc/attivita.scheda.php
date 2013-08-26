@@ -460,7 +460,7 @@ if ( isset($_GET['riapri']) ) { ?>
                                 
                                 
                             <?php } elseif ( $turno->puoRichiederePartecipazione($me) && !$me->inriserva()) { ?>
-                                <a href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-success btn-large btn-block">
+                                <a name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-success btn-large btn-block">
                                     <i class="icon-ok"></i> Partecipa
                                 </a>
                                 
