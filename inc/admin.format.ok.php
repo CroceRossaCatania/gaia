@@ -37,8 +37,13 @@ paginaAdmin();
         $rigasuexcel++;
 
         /* Controlla se esiste già! */
-        if ($p = Persona::by('codiceFiscale', $codiceFiscale) && isset($_POST['fixproblem'])) {
-            $v = new Volontario($p->id);
+
+        $v = Volontario::by('codiceFiscale', $codiceFiscale);
+
+        if ($v && isset($_POST['fixproblem'])) {
+            
+            echo(' - '.$v->id.' - ');
+
             if ($v->numeroAppartenenzeAttuali() > 0) {
                 echo(' appartiene a '.$v->unComitato()->nomeCompleto().'<br>');
                 continue;
@@ -97,7 +102,7 @@ paginaAdmin();
             if ($v->email == '') {
                 $haemail = true;
             }
-            
+
             if ($haemail) {
                 $m = new Email('registrazioneFormatpass', 'Registrato su Gaia');
                 $m->a = $v;
