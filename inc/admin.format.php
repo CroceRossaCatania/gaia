@@ -14,6 +14,12 @@ paginaAdmin();
 </div>
 
 <div class="span12">
+    <?php if ( isset($_GET['f']) ) { ?>
+        <div class="alert alert-error">
+            <i class="icon-warning-sign"></i>
+            <strong>Errore</strong> &mdash; Devi selezionare un file.
+        </div>
+        <?php } ?>
     <form class="form-horizontal" action="?p=admin.format.ok" method="POST" enctype="multipart/form-data">
         <div class="control-group">
           <label class="control-label" for="inputCSV">File CSV</label>
@@ -28,9 +34,6 @@ paginaAdmin();
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-danger">
-                <i class="icon-fire"></i> Importa dati in massa ed invia email
-            </button>
-            <button name="pass" type="submit" class="btn btn-danger">
                 <i class="icon-key"></i> Importa dati in massa e genera password
             </button>
         </div>
