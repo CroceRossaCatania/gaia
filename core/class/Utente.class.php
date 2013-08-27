@@ -799,5 +799,23 @@ class Utente extends Persona {
         }
         return $q;
     }
+
+    public static function elencoId() {
+         global $db;
+        $q = $db->prepare("
+            SELECT
+                id
+            FROM
+                anagrafica
+            WHERE
+                stato >= :stato");
+        $q->bindValue(':stato', PERSONA);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        return $r;
+    }
     
 }
