@@ -36,6 +36,9 @@ paginaAdmin();
             <button type="submit" class="btn btn-danger">
                 <i class="icon-key"></i> Importa dati in massa e genera password
             </button>
+            <button name="fixproblem" type="submit" class="btn btn-danger">
+                <i class="icon-key"></i> Risove il problema creato da dex
+            </button>
         </div>
 
     </form>

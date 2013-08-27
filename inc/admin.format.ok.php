@@ -37,6 +37,86 @@ paginaAdmin();
         $rigasuexcel++;
 
         /* Controlla se esiste già! */
+
+        $v = Volontario::by('codiceFiscale', $codiceFiscale);
+
+        if ($v && isset($_POST['fixproblem'])) {
+            
+            echo(' - '.$v->id.' - ');
+
+            if ($v->numeroAppartenenzeAttuali() > 0) {
+                echo(' appartiene a '.$v->unComitato()->nomeCompleto().'<br>');
+                continue;
+            }
+
+            /* format con pass e conferma*/
+
+            $length = 6;
+
+            // impostare password bianca
+            $password = "";
+
+            // caratteri possibili
+            $possible = "2346789bcdfghjkmnpqrtvwxyzBCDFGHJKLMNPQRTVWXYZ";
+
+            //massima lunghezza caratteri
+            $maxlength = strlen($possible);
+
+            // se troppo lunga taglia la password
+            if ($length > $maxlength) {
+              $length = $maxlength;
+            }
+
+            $i = 0; 
+
+            // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
+            while ($i < $length) { 
+                // prende un carattere casuale per creare la password
+                $char = substr($possible, mt_rand(0, $maxlength-1), 1);
+                // verifica se il carattere precedente è uguale al successivo
+                if (!strstr($password, $char)) { 
+                    $password .= $char;
+                    $i++;
+                }
+            }
+            
+            $v->cambiaPassword($password);
+            echo(' PASSWORD GENERATA');
+
+            $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[12]);
+            $dingresso   = $dingresso->getTimestamp();
+
+            /* format con pass e conferma*/
+            $app = new Appartenenza();
+            $comitato = Comitato::by('nome', $riga[13]);
+            $pres = $comitato->unPresidente();
+            $app->comitato = $comitato->id;
+            $app->volontario = $v->id;
+            $app->inizio = $dingresso;
+            $app->fine = PROSSIMA_SCADENZA;
+            $app->timestamp   = time();
+            $app->stato     = MEMBRO_VOLONTARIO;
+            $app->conferma  = $pres;
+
+            $haemail = false;
+            if ($v->email == '') {
+                $haemail = true;
+            }
+
+            if ($haemail) {
+                $m = new Email('registrazioneFormatpass', 'Registrato su Gaia');
+                $m->a = $v;
+                $m->_NOME       = $v->nome;
+                $m->_PASSWORD   = $password;
+                $m->invia();
+                echo(' INVIATA EMAIL');
+            }
+            echo(' APPARTENENZA GENERATA su '.$comitato->nomeCompleto().'<br>');
+            continue;
+
+            
+        }
+
         if ( $p = Persona::by('codiceFiscale', $codiceFiscale) ) {
             echo(' cf duplicato :( <br>');
             continue; /* Andiamo avanti con la vita, ci sei già amico, il prossimo! */
@@ -56,7 +136,8 @@ paginaAdmin();
         echo(' importo! '.$p->nome.' '.$p->cognome);
 
         $p->consenso = true;
-        if (intval(substr($p->codiceFiscale, 9, 2)) < 40){
+
+        if (intval(substr($codiceFiscale, 9, 2)) < 40){
             $p->sesso = UOMO;
         }else{
             $p->sesso = DONNA;
