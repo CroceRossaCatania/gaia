@@ -37,7 +37,8 @@ paginaAdmin();
         $rigasuexcel++;
 
         /* Controlla se esiste già! */
-        if ($v = Volontario::by('codiceFiscale', $codiceFiscale) && isset($_POST['fixproblem'])) {
+        if ($p = Persona::by('codiceFiscale', $codiceFiscale) && isset($_POST['fixproblem'])) {
+            $v = new Volontario($p->id);
             if ($v->numeroAppartenenzeAttuali() > 0) {
                 echo(' appartiene a '.$v->unComitato()->nomeCompleto().'<br>');
                 continue;
@@ -81,8 +82,7 @@ paginaAdmin();
             $app = new Appartenenza();
             $comitato = Comitato::by('nome', $riga[13]);
             $pres = $comitato->unPresidente();
-            $comitato = $comitato->id;
-            $app->comitato = $comitato;
+            $app->comitato = $comitato->id;
             $app->volontario = $v->id;
             $app->inizio = $dingresso;
             $app->fine = PROSSIMA_SCADENZA;
