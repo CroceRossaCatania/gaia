@@ -37,8 +37,7 @@ paginaAdmin();
         $rigasuexcel++;
 
         /* Controlla se esiste già! */
-        if ($p = Persona::by('codiceFiscale', $codiceFiscale) && isset($_POST['fixproblem'])) {
-            $v = new Volontario($p);
+        if ($v = Volontario::by('codiceFiscale', $codiceFiscale) && isset($_POST['fixproblem'])) {
             if ($v->numeroAppartenenzeAttuali() > 0) {
                 echo(' appartiene a '.$v->unComitato()->nomeCompleto().'<br>');
                 continue;
