@@ -136,29 +136,29 @@ paginaAdmin();
         $app = null;
         $pres = null;
 
-        if (isset($_POST['pass'])) {
-            /* format con pass e conferma*/
-            $app = new Appartenenza();
-            $comitato = Comitato::by('nome', $riga[13]);
-            $pres = $comitato->unPresidente();
-            $comitato = $comitato->id;
-            $app->comitato = $comitato;
-            $app->volontario = $p->id;
-            $app->inizio = $dingresso;
-            $app->fine = PROSSIMA_SCADENZA;
-            $app->timestamp   = time();
-            $app->stato     = MEMBRO_VOLONTARIO;
-            $app->conferma  = $pres;
-            if ($haemail) {
-                $m = new Email('registrazioneFormatpass', 'Registrato su Gaia');
-                $m->a = $p;
-                $m->_NOME       = $p->nome;
-                $m->_PASSWORD   = $password;
-                $m->invia();
-                echo(' INVIATA EMAIL');
-            }
-            echo(' APPARTENENZA GENERATA');
+
+        /* format con pass e conferma*/
+        $app = new Appartenenza();
+        $comitato = Comitato::by('nome', $riga[13]);
+        $pres = $comitato->unPresidente();
+        $comitato = $comitato->id;
+        $app->comitato = $comitato;
+        $app->volontario = $p->id;
+        $app->inizio = $dingresso;
+        $app->fine = PROSSIMA_SCADENZA;
+        $app->timestamp   = time();
+        $app->stato     = MEMBRO_VOLONTARIO;
+        $app->conferma  = $pres;
+        if ($haemail) {
+            $m = new Email('registrazioneFormatpass', 'Registrato su Gaia');
+            $m->a = $p;
+            $m->_NOME       = $p->nome;
+            $m->_PASSWORD   = $password;
+            $m->invia();
+            echo(' INVIATA EMAIL');
         }
+        echo(' APPARTENENZA GENERATA');
+
         
         if ( isset($_POST['inputQuote']) ){
             $t = new Quota();
