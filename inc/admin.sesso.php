@@ -12,6 +12,7 @@ $utenti = Utente::elencoID();
 
 foreach ($utenti  as $u) {
 	$utente = new Utente($u);
+	echo(''.$utente->id.' ');
 	echo(''.$utente->nome.' '.$utente->cognome);
 	if (intval(substr($utente->codiceFiscale, 9, 2)) < 40){
 		$utente->sesso = UOMO;

@@ -808,7 +808,9 @@ class Utente extends Persona {
             FROM
                 anagrafica
             WHERE
-                stato >= :stato");
+                stato >= :stato
+            ORDER BY
+                id ASC");
         $q->bindValue(':stato', PERSONA);
         $q->execute();
         $r = [];
