@@ -78,6 +78,9 @@ paginaAdmin();
             $v->cambiaPassword($password);
             echo(' PASSWORD GENERATA');
 
+            $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[12]);
+            $dingresso   = $dingresso->getTimestamp();
+
             /* format con pass e conferma*/
             $app = new Appartenenza();
             $comitato = Comitato::by('nome', $riga[13]);
@@ -89,6 +92,12 @@ paginaAdmin();
             $app->timestamp   = time();
             $app->stato     = MEMBRO_VOLONTARIO;
             $app->conferma  = $pres;
+
+            $haemail = false;
+            if ($v->email == '') {
+                $haemail = true;
+            }
+            
             if ($haemail) {
                 $m = new Email('registrazioneFormatpass', 'Registrato su Gaia');
                 $m->a = $v;
