@@ -43,6 +43,7 @@ $t = Volontario::elenco();
    <div class="span12">
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
+                <th>N</th>
                 <th>Nome</th>
                 <th>Cognome</th>
                 <th>Località</th>
@@ -53,10 +54,12 @@ $t = Volontario::elenco();
         <?php
         $totale = 0;
         foreach($t as $_v) {
-            if(count($_v->appartenenze()) == 0){
+            $appartenenze = (int) $_v->numAppartenenzeInCorso();
+            if($appartenenze == 0){
                 $totale++;
             ?>
                 <tr>
+                    <td><?php echo $appartenenze; ?></td>
                     <td><?php echo $_v->nome; ?></td>
                     <td><?php echo $_v->cognome; ?></td>
                     <td>
