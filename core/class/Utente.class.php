@@ -60,6 +60,29 @@ class Utente extends Persona {
         ]);
         return $a;
     }
+
+    public function numAppartenenzeInCorso() {
+        $q = $this->db->prepare("
+            SELECT
+                COUNT(*)
+            FROM
+                appartenenza
+            WHERE
+                volontario = :me
+            AND
+                stato > :stato
+            AND
+                (fine < 1 
+                 OR
+                fine > :ora )");
+        $q->bindParam(':me', $this->id);
+        $q->bindValue(':stato', MEMBRO_DIMESSO);
+        $ora = time();
+        $q->bindParam(':ora',  $ora);
+        $q->execute();
+        $q = $q->fetch(PDO::FETCH_NUM);
+        return $q[0];
+    }
     
     public function storico() {
         return Appartenenza::filtra([
