@@ -98,9 +98,9 @@ paginaAdmin();
             $app->stato     = MEMBRO_VOLONTARIO;
             $app->conferma  = $pres;
 
-            $haemail = false;
+            $haemail = true;
             if ($v->email == '') {
-                $haemail = true;
+                $haemail = false;
             }
 
             if ($haemail) {
@@ -115,6 +115,58 @@ paginaAdmin();
             continue;
 
             
+        }
+
+        if ($v && isset($_POST['resetPassword'])) {
+            /* format con pass e conferma*/
+
+            $length = 6;
+
+            // impostare password bianca
+            $password = "";
+
+            // caratteri possibili
+            $possible = "2346789bcdfghjkmnpqrtvwxyzBCDFGHJKLMNPQRTVWXYZ";
+
+            //massima lunghezza caratteri
+            $maxlength = strlen($possible);
+
+            // se troppo lunga taglia la password
+            if ($length > $maxlength) {
+              $length = $maxlength;
+            }
+
+            $i = 0; 
+
+            // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
+            while ($i < $length) { 
+                // prende un carattere casuale per creare la password
+                $char = substr($possible, mt_rand(0, $maxlength-1), 1);
+                // verifica se il carattere precedente è uguale al successivo
+                if (!strstr($password, $char)) { 
+                    $password .= $char;
+                    $i++;
+                }
+            }
+            
+            $v->cambiaPassword($password);
+            echo(' PASSWORD RIGENERATA');
+
+            $haemail = true;
+            if ($v->email == '') {
+                $haemail = false;
+            }
+
+            if ($haemail) {
+                $m = new Email('registrazioneFormatpass', 'Registrato su Gaia');
+                $m->a = $v;
+                $m->_NOME       = $v->nome;
+                $m->_PASSWORD   = $password;
+                $m->invia();
+                echo(' INVIATA EMAIL A: '.$v->email.' <br>');
+            }
+
+            continue;
         }
 
         if ( $p = Persona::by('codiceFiscale', $codiceFiscale) ) {
