@@ -28,22 +28,43 @@ $t = Volontario::elenco();
             Limbo (aka cose senza appartenenze)
         </h2>
     </div>
-    
+
     <div class="span4 allinea-destra">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>
             <input autofocus required id="cercaUtente" placeholder="Cerca Aspiranti..." type="text">
         </div>
-    </div>    
-</div>
+    </div>
+    </div> 
+
+    <div class="row-fluid">
+        <div class="span4">
+            <a  onClick="return confirm('Vuoi veramente cancellare tutte le persone senza dati? Solo se senza appartenenze');" href="?p=admin.limbo.pulizia&soft" title="Cancella chi non ha dati" class="btn btn-block btn-danger">
+                <i class="icon-trash"></i> Pulizia soft
+            </a>
+        </div>
+        <div class="span4">
+            <a  onClick="return confirm('Vuoi veramente cancellare tutte le persone con codice fiscale orfano? Solo se senza appartenenze');" href="?p=admin.limbo.pulizia&hard" title="Cancella chi ha solo CF ma non appartenenze" class="btn btn-block btn-danger">
+                <i class="icon-trash"></i> Pulizia meno soft
+            </a>
+        </div>
+        <div class="span4">
+            <a  onClick="return confirm('Vuoi veramente cancellare tutte le persone con anagrafica senza stato? Solo se senza appartenenze');" href="?p=admin.limbo.pulizia&extreme" title="Cancella chi ha anagrafica ma non stato" class="btn btn-block btn-danger">
+                <i class="icon-trash"></i> Pulizia ancora meno soft
+            </a>
+        </div>
+    </div>
     
-<hr />
+     
+
+   <div class="row-fluid"> 
+<hr>
+</div>
     
 <div class="row-fluid">
    <div class="span12">
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
-                <th>N</th>
                 <th>Nome</th>
                 <th>Cognome</th>
                 <th>Località</th>
@@ -54,12 +75,11 @@ $t = Volontario::elenco();
         <?php
         $totale = 0;
         foreach($t as $_v) {
-            $appartenenze = (int) $_v->numAppartenenzeInCorso();
+            $appartenenze = $_v->numAppartenenzeTotali();
             if($appartenenze == 0){
                 $totale++;
             ?>
                 <tr>
-                    <td><?php echo $appartenenze; ?></td>
                     <td><?php echo $_v->nome; ?></td>
                     <td><?php echo $_v->cognome; ?></td>
                     <td>
@@ -112,5 +132,4 @@ $t = Volontario::elenco();
             </h2>
         </div>
     </div>
-    
 </div>

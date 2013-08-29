@@ -48,6 +48,7 @@ define('MEMBRO_TRASFERITO',      1);
 define('MEMBRO_EST_TERMINATA',   5);
 define('MEMBRO_TRASF_NEGATO',   10);
 define('MEMBRO_EST_NEGATA',     15);
+define('SOGLIA_APPARTENENZE',   19);
 define('MEMBRO_TRASF_IN_CORSO', 20);
 define('MEMBRO_EST_PENDENTE',   25);
 define('MEMBRO_PENDENTE',       30);
