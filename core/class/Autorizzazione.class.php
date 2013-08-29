@@ -22,7 +22,7 @@ class Autorizzazione extends Entita {
         global $sessione;
         $u = $sessione->utente;
         $this->stato = (int) $t;
-        $this->pFirma = $u->id;
+        $this->pFirma = $u;
         $this->tFirma = time();
         $this->partecipazione()->aggiornaStato();
     }
