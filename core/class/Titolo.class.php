@@ -21,7 +21,7 @@ class Titolo extends Entita {
     }
 
     public function cancella() {
-        foreach ( TitoloPersonale::filtra([['titolo', $this]]) as $t ) {
+        foreach ( TitoloPersonale::filtra([['titolo', $this->id]]) as $t ) {
             $t->cancella();
         }
         parent::cancella();
