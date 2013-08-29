@@ -67,8 +67,7 @@ paginaAdmin();
                 ?>
                   <tr>
                     <td><?php echo $c->nome; ?></td>
-                    <td><?php
-                    foreach ( $conf['titoli'] as $numero => $denominazione) { if ( $numero == $c->tipo ) { echo $denominazione[0]; } } ?></td>
+                    <td><?php echo($conf['titoli'][$c->tipo][0]); ?></td>
                     <td>
                         <div class="btn-group">
                             <a  onClick="return confirm('Vuoi veramente cancellare questo titolo ?');" href="?p=admin.titolo.cancella&id=<?php echo $c->id; ?>" title="Cancella Titolo" class="btn btn-small btn-warning">
