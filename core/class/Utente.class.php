@@ -61,7 +61,7 @@ class Utente extends Persona {
         return $a;
     }
 
-    public function numAppartenenzeInCorso() {
+    public function numAppartenenzeTotali($stato = SOGLIA_APPARTENENZE) {
         $q = $this->db->prepare("
             SELECT
                 COUNT(*)
@@ -70,15 +70,9 @@ class Utente extends Persona {
             WHERE
                 volontario = :me
             AND
-                stato > :stato
-            AND
-                (fine < 1 
-                 OR
-                fine > :ora )");
+                stato > :stato");
         $q->bindParam(':me', $this->id);
-        $q->bindValue(':stato', MEMBRO_DIMESSO);
-        $ora = time();
-        $q->bindParam(':ora',  $ora);
+        $q->bindParam(':stato', $stato);
         $q->execute();
         $q = $q->fetch(PDO::FETCH_NUM);
         return $q[0];
