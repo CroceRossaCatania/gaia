@@ -19,4 +19,11 @@ class Titolo extends Entita {
             return self::cercaFulltext($stringa, ['nome'], 20, "AND tipo = '$tipo'");
         }
     }
+
+    public function cancella() {
+        foreach ( TitoloPersonale::filtra([['titolo', $this]]) as $t ) {
+            $t->cancella();
+        }
+        parent::cancella();
+    }
 }
