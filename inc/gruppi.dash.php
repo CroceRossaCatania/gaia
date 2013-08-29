@@ -86,11 +86,11 @@ foreach ($gruppi as $gruppo){
                                 <?= count($g); ?>
                             </span>
                             <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?= $gruppo->id; ?>&gruppo">
-                                <i class="icon-envelope"></i> Invia mail
+                                <i class="icon-envelope"></i>
                             </a>
                         <?php if ( $me->presidenziante() || $me->admin() ){ ?>
                                 <a class="btn btn-small btn-danger pull-right" onclick="return confirm('Sei davvero sicuro di voler eliminare il gruppo?');" href="?p=gruppi.elimina&id=<?= $gruppo->id; ?>" title="Elimina gruppo">
-                                    <i class="icon-trash"></i> Elimina
+                                    <i class="icon-trash"></i>
                                 </a>
                                 <a class="btn btn-small pull-right" href="?p=gruppo.referente.nuovo&id=<?= $gruppo->id; ?>">
                                     <i class="icon-pencil"></i> 
@@ -98,7 +98,7 @@ foreach ($gruppi as $gruppo){
                                 </a>
                      <?php } if ( $me->presidenziante() || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
                                 <a class="btn btn-small btn-info pull-right" href="?p=gruppo.modifica&id=<?= $gruppo->id; ?>" title="Modifica gruppo">
-                                    <i class="icon-edit"></i> Modifica gruppo
+                                    <i class="icon-edit"></i>
                                 </a>
                                 <form class="pull-right" action="?p=gruppi.utente.aggiungi&id=<?php echo $gruppo->id; ?>" method="POST" style="margin-bottom: 0px;">
                                     <a data-selettore="true" data-input="volontari" data-autosubmit="true" data-multi="true" class="btn btn-small btn-success">
