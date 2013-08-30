@@ -13,7 +13,7 @@ $t = Volontario::elenco();
 <div class="row-fluid">
     <div class="span8">
         <h2>
-            <i class="icon-meh muted"></i>
+            <i class="icon-superscript muted"></i>
             Double or more (Volontari con più appartenenze)
         </h2>
     </div>
