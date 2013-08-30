@@ -1,30 +1,11 @@
--- phpMyAdmin SQL Dump
--- version 4.0.5
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generato il: Ago 24, 2013 alle 14:18
--- Versione del server: 5.1.70-cll
--- Versione PHP: 5.3.17
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
---
--- Database: `gaia_principale`
---
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `anagrafica`
---
 
 CREATE TABLE IF NOT EXISTS `anagrafica` (
   `id` int(11) NOT NULL,
@@ -37,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `anagrafica` (
   `timestamp` varchar(64) DEFAULT NULL,
   `admin` varchar(64) DEFAULT NULL,
   `consenso` varchar(64) DEFAULT NULL,
-  `sesso` bit(1) DEFAULT NULL,
+  `sesso` tinyint(3) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `codiceFiscale` (`codiceFiscale`),
   KEY `email` (`email`),
@@ -45,12 +26,6 @@ CREATE TABLE IF NOT EXISTS `anagrafica` (
   FULLTEXT KEY `indice` (`nome`,`cognome`,`email`,`codiceFiscale`),
   FULLTEXT KEY `nome` (`nome`,`cognome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `annunci`
---
 
 CREATE TABLE IF NOT EXISTS `annunci` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -61,12 +36,6 @@ CREATE TABLE IF NOT EXISTS `annunci` (
   `autore` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `appartenenza`
---
 
 CREATE TABLE IF NOT EXISTS `appartenenza` (
   `id` int(11) NOT NULL,
@@ -82,12 +51,6 @@ CREATE TABLE IF NOT EXISTS `appartenenza` (
   KEY `comitato` (`comitato`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `aree`
---
-
 CREATE TABLE IF NOT EXISTS `aree` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -98,12 +61,6 @@ CREATE TABLE IF NOT EXISTS `aree` (
   KEY `comitato` (`comitato`),
   KEY `responsabile` (`responsabile`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `attivita`
---
 
 CREATE TABLE IF NOT EXISTS `attivita` (
   `id` int(11) NOT NULL DEFAULT '0',
@@ -122,12 +79,6 @@ CREATE TABLE IF NOT EXISTS `attivita` (
   SPATIAL KEY `geo` (`geo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `autorizzazioni`
---
-
 CREATE TABLE IF NOT EXISTS `autorizzazioni` (
   `id` int(11) NOT NULL,
   `volontario` varchar(16) DEFAULT NULL,
@@ -137,16 +88,11 @@ CREATE TABLE IF NOT EXISTS `autorizzazioni` (
   `tFirma` varchar(64) DEFAULT NULL,
   `note` text,
   `stato` varchar(8) NOT NULL,
+  `motivo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `partecipazione` (`partecipazione`),
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `avatar`
---
 
 CREATE TABLE IF NOT EXISTS `avatar` (
   `id` int(11) NOT NULL,
@@ -155,12 +101,6 @@ CREATE TABLE IF NOT EXISTS `avatar` (
   PRIMARY KEY (`id`),
   KEY `utente` (`utente`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `comitati`
---
 
 CREATE TABLE IF NOT EXISTS `comitati` (
   `id` int(11) NOT NULL,
@@ -173,12 +113,6 @@ CREATE TABLE IF NOT EXISTS `comitati` (
   SPATIAL KEY `geo` (`geo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `commenti`
---
-
 CREATE TABLE IF NOT EXISTS `commenti` (
   `id` int(11) NOT NULL,
   `attivita` varchar(16) DEFAULT NULL,
@@ -190,12 +124,6 @@ CREATE TABLE IF NOT EXISTS `commenti` (
   KEY `volontario` (`volontario`),
   KEY `attivita` (`attivita`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `coturni`
---
 
 CREATE TABLE IF NOT EXISTS `coturni` (
   `id` int(11) NOT NULL,
@@ -213,24 +141,12 @@ CREATE TABLE IF NOT EXISTS `coturni` (
   KEY `turno` (`turno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `datiComitati`
---
-
 CREATE TABLE IF NOT EXISTS `datiComitati` (
   `id` varchar(128) NOT NULL DEFAULT '',
   `nome` varchar(32) NOT NULL DEFAULT '',
   `valore` text,
   PRIMARY KEY (`id`,`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `datiLocali`
---
 
 CREATE TABLE IF NOT EXISTS `datiLocali` (
   `id` varchar(128) NOT NULL DEFAULT '',
@@ -239,24 +155,12 @@ CREATE TABLE IF NOT EXISTS `datiLocali` (
   PRIMARY KEY (`id`,`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `datiNazionali`
---
-
 CREATE TABLE IF NOT EXISTS `datiNazionali` (
   `id` varchar(128) NOT NULL DEFAULT '',
   `nome` varchar(32) NOT NULL DEFAULT '',
   `valore` text,
   PRIMARY KEY (`id`,`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `datiProvinciali`
---
 
 CREATE TABLE IF NOT EXISTS `datiProvinciali` (
   `id` varchar(128) NOT NULL DEFAULT '',
@@ -265,12 +169,6 @@ CREATE TABLE IF NOT EXISTS `datiProvinciali` (
   PRIMARY KEY (`id`,`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `datiRegionali`
---
-
 CREATE TABLE IF NOT EXISTS `datiRegionali` (
   `id` varchar(128) NOT NULL DEFAULT '',
   `nome` varchar(32) NOT NULL DEFAULT '',
@@ -278,24 +176,12 @@ CREATE TABLE IF NOT EXISTS `datiRegionali` (
   PRIMARY KEY (`id`,`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `datiSessione`
---
-
 CREATE TABLE IF NOT EXISTS `datiSessione` (
   `id` varchar(128) NOT NULL DEFAULT '',
   `nome` varchar(32) NOT NULL DEFAULT '',
   `valore` text,
   PRIMARY KEY (`id`,`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `delegati`
---
 
 CREATE TABLE IF NOT EXISTS `delegati` (
   `id` int(11) NOT NULL,
@@ -315,24 +201,12 @@ CREATE TABLE IF NOT EXISTS `delegati` (
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `dettagliAttivita`
---
-
 CREATE TABLE IF NOT EXISTS `dettagliAttivita` (
   `id` varchar(128) NOT NULL DEFAULT '',
   `nome` varchar(32) NOT NULL DEFAULT '',
   `valore` text,
   PRIMARY KEY (`id`,`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `dettagliComitato`
---
 
 CREATE TABLE IF NOT EXISTS `dettagliComitato` (
   `id` varchar(128) NOT NULL DEFAULT '',
@@ -341,24 +215,12 @@ CREATE TABLE IF NOT EXISTS `dettagliComitato` (
   PRIMARY KEY (`id`,`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `dettagliPersona`
---
-
 CREATE TABLE IF NOT EXISTS `dettagliPersona` (
   `id` varchar(128) NOT NULL DEFAULT '',
   `nome` varchar(32) NOT NULL DEFAULT '',
   `valore` text,
   PRIMARY KEY (`id`,`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `dimissioni`
---
 
 CREATE TABLE IF NOT EXISTS `dimissioni` (
   `id` int(11) NOT NULL,
@@ -375,12 +237,6 @@ CREATE TABLE IF NOT EXISTS `dimissioni` (
   KEY `appartenenza` (`appartenenza`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `documenti`
---
-
 CREATE TABLE IF NOT EXISTS `documenti` (
   `id` varchar(64) NOT NULL,
   `volontario` varchar(16) DEFAULT NULL,
@@ -390,24 +246,12 @@ CREATE TABLE IF NOT EXISTS `documenti` (
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `elementiRichieste`
---
-
 CREATE TABLE IF NOT EXISTS `elementiRichieste` (
   `id` int(11) NOT NULL,
   `richiesta` int(11) NOT NULL,
   `titolo` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `estensioni`
---
 
 CREATE TABLE IF NOT EXISTS `estensioni` (
   `id` int(11) NOT NULL,
@@ -427,12 +271,6 @@ CREATE TABLE IF NOT EXISTS `estensioni` (
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `file`
---
-
 CREATE TABLE IF NOT EXISTS `file` (
   `id` varchar(64) NOT NULL,
   `creazione` varchar(64) DEFAULT NULL,
@@ -444,12 +282,6 @@ CREATE TABLE IF NOT EXISTS `file` (
   PRIMARY KEY (`id`),
   KEY `scadenza` (`scadenza`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `gruppi`
---
 
 CREATE TABLE IF NOT EXISTS `gruppi` (
   `id` int(11) NOT NULL,
@@ -463,12 +295,6 @@ CREATE TABLE IF NOT EXISTS `gruppi` (
   KEY `referente` (`referente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `gruppiPersonali`
---
-
 CREATE TABLE IF NOT EXISTS `gruppiPersonali` (
   `id` int(11) NOT NULL,
   `volontario` varchar(16) DEFAULT NULL,
@@ -477,16 +303,13 @@ CREATE TABLE IF NOT EXISTS `gruppiPersonali` (
   `inizio` varchar(64) DEFAULT NULL,
   `fine` varchar(64) DEFAULT NULL,
   `timestamp` varchar(64) DEFAULT NULL,
+  `motivazione` varchar(255) DEFAULT NULL,
+  `tNega` varchar(64) DEFAULT NULL,
+  `pNega` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `volontario` (`volontario`),
   KEY `comitato` (`comitato`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `locali`
---
 
 CREATE TABLE IF NOT EXISTS `locali` (
   `id` int(11) NOT NULL,
@@ -498,12 +321,6 @@ CREATE TABLE IF NOT EXISTS `locali` (
   SPATIAL KEY `geo` (`geo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `nazionali`
---
-
 CREATE TABLE IF NOT EXISTS `nazionali` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
@@ -511,12 +328,6 @@ CREATE TABLE IF NOT EXISTS `nazionali` (
   PRIMARY KEY (`id`),
   SPATIAL KEY `geo` (`geo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `partecipazioni`
---
 
 CREATE TABLE IF NOT EXISTS `partecipazioni` (
   `id` int(11) NOT NULL,
@@ -532,12 +343,6 @@ CREATE TABLE IF NOT EXISTS `partecipazioni` (
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `provinciali`
---
-
 CREATE TABLE IF NOT EXISTS `provinciali` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
@@ -547,12 +352,6 @@ CREATE TABLE IF NOT EXISTS `provinciali` (
   KEY `regionale` (`regionale`),
   SPATIAL KEY `geo` (`geo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `quote`
---
 
 CREATE TABLE IF NOT EXISTS `quote` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -564,13 +363,7 @@ CREATE TABLE IF NOT EXISTS `quote` (
   `causale` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `appartenenza` (`appartenenza`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2547 ;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `regionali`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2913 ;
 
 CREATE TABLE IF NOT EXISTS `regionali` (
   `id` int(11) NOT NULL,
@@ -581,12 +374,6 @@ CREATE TABLE IF NOT EXISTS `regionali` (
   KEY `nazionale` (`nazionale`),
   SPATIAL KEY `geo` (`geo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `reperibilita`
---
 
 CREATE TABLE IF NOT EXISTS `reperibilita` (
   `id` int(11) NOT NULL,
@@ -602,24 +389,12 @@ CREATE TABLE IF NOT EXISTS `reperibilita` (
   KEY `fine` (`fine`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `richiesteTurni`
---
-
 CREATE TABLE IF NOT EXISTS `richiesteTurni` (
   `id` int(11) NOT NULL,
   `turno` int(11) NOT NULL,
   `timestamp` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `riserve`
---
 
 CREATE TABLE IF NOT EXISTS `riserve` (
   `id` int(11) NOT NULL,
@@ -640,12 +415,6 @@ CREATE TABLE IF NOT EXISTS `riserve` (
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `sessioni`
---
-
 CREATE TABLE IF NOT EXISTS `sessioni` (
   `id` varchar(128) NOT NULL,
   `utente` int(11) DEFAULT NULL,
@@ -655,12 +424,6 @@ CREATE TABLE IF NOT EXISTS `sessioni` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `titoli`
---
-
 CREATE TABLE IF NOT EXISTS `titoli` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
@@ -668,12 +431,6 @@ CREATE TABLE IF NOT EXISTS `titoli` (
   PRIMARY KEY (`id`),
   FULLTEXT KEY `nome` (`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `titoliPersonali`
---
 
 CREATE TABLE IF NOT EXISTS `titoliPersonali` (
   `id` int(11) NOT NULL,
@@ -687,12 +444,6 @@ CREATE TABLE IF NOT EXISTS `titoliPersonali` (
   `pConferma` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `trasferimenti`
---
 
 CREATE TABLE IF NOT EXISTS `trasferimenti` (
   `id` int(11) NOT NULL,
@@ -710,12 +461,6 @@ CREATE TABLE IF NOT EXISTS `trasferimenti` (
   KEY `appartenenza` (`appartenenza`),
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `turni`
---
 
 CREATE TABLE IF NOT EXISTS `turni` (
   `id` int(11) NOT NULL,
