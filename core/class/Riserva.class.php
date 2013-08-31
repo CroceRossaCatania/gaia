@@ -53,7 +53,7 @@ class Riserva extends Entita {
         $v = $this->volontario();
         $destinatari = [$v, $v->unComitato()->unPresidente];
         foreach ($destinatari as $destinatario) {
-            $m = new Email('richiestaRiservaauto', 'Approvata richiesta estensione');          
+            $m = new Email('richiestaRiservaAuto', 'Approvata richiesta riserva');          
             $m->a = $destinatario;
             $m->_NOME       = $v->nome;
             $m->_INIZIO = date('d-m-Y', $t->inizio);
@@ -109,6 +109,22 @@ class Riserva extends Entita {
     public function termina() {
        $this->fine = time();
        $this->stato = RISERVA_INT;
+    }
+
+    public function annulla() {
+        $v = $this->volontario();
+        $destinatari = [$v, $v->unComitato()->unPresidente];
+        $this->fine = time();
+        $this->stato = RISERVA_ANN;
+        foreach ($destinatari as $destinatario) {
+            $m = new Email('richiestaRiservaAnnullamento', 'Annullata richiesta riserva');          
+            $m->a = $destinatario;
+            $m->_NOME       = $v->nome;
+            $m->_INIZIO = date('d-m-Y', $r->inizio);
+            $m->_FINE = date('d-m-Y', $r->fine);
+            $m->invia();
+        }
+
     }
 }
 ?>

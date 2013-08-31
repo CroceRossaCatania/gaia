@@ -642,6 +642,15 @@ class Utente extends Persona {
         }
         return NULL;
     }
+
+    public function unaRiservaInSospeso() {
+        $r = $this->riserve();
+        foreach ($r as $_r) {
+            if ($_r->stato == RISERVA_INCORSO)
+                return $_r;
+        }
+        return NULL;
+    }
     
     public function mieiGruppi() {
         return AppartenenzaGruppo::filtra([

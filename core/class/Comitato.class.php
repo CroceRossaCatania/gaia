@@ -101,16 +101,14 @@ class Comitato extends GeoPolitica {
             WHERE
                 riserve.stato >= :statoRis
             AND
-                riserve.volontario = appartenenza.volontario
+                riserve.appartenenza = appartenenza.id
             AND
                 appartenenza.stato = :stato
             AND
                 appartenenza.comitato = :comitato
-            AND
-                riserve.volontario = appartenenza.volontario
             ORDER BY
                 riserve.inizio ASC");
-        $q->bindValue(':statoRis', RISERVA_OK);
+        $q->bindValue(':statoRis', RISERVA_OK, PDO::PARAM_INT);
         $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->bindParam(':comitato', $this->id);
         $q->execute();

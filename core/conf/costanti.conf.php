@@ -339,6 +339,7 @@ $conf['estensioni'] = [
  */
 define('RISERVA_SCAD',          0);
 define('RISERVA_INT',           5);
+define('RISERVA_ANN',           6);
 define('RISERVA_NEGATA',       10);
 define('RISERVA_INCORSO',      20);
 define('RISERVA_OK',           30);
@@ -348,6 +349,7 @@ define('RISERVA_AUTO',         35);
 $conf['riserve'] = [
     RISERVA_NEGATA  =>  'Negata',
     RISERVA_INCORSO =>  'In attesa di autorizzazione',
+    RISERVA_ANN     =>  'Richiesta riserva annullata',
     RISERVA_OK      =>  'Riserva approvata',
     RISERVA_AUTO    =>  'Eseguita automaticamente',  
     RISERVA_SCAD    =>  'Scaduta',

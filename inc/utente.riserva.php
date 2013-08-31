@@ -17,8 +17,13 @@ paginaPrivata();
             <i class="icon-save"></i> <strong>Richiesta inviata</strong>.
             La richiesta è stata inviata con successo.
         </div>
-        <?php } ?>
-        <?php 
+        <?php } 
+        if ( isset($_GET['ann']) ) { ?>
+        <div class="alert alert-success">
+            <i class="icon-trash"></i> <strong>Richiesta annullata</strong>.
+            La richiesta di riserva è stata annullata con successo.
+        </div>
+        <?php } 
     $i=0;
     foreach ( $me->storico() as $app ) { 
                          if ($app->attuale()) 
@@ -29,7 +34,7 @@ paginaPrivata();
                  foreach($me->riserve() as $riserva){
                  $riservafine = $riserva->fine;
                  if($riserva && $riserva->stato==RISERVA_INCORSO && !$riserva->presaInCarico()){ ?>
-         <div class="row-fluid">
+                                  <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> Richiesta riserva in elaborazione</h2>
                                         <div class="alert alert-block">
                                             <div class="row-fluid">
@@ -40,9 +45,17 @@ paginaPrivata();
                                             </div>
                                         </div>           
                                     </div>
+                                    <div class="row-fluid">
+                                      <form class="form-horizontal" action="?p=utente.riserva.sospendi.ok" method="POST">
+                                        <input type="hidden" name="elimina" value="true" >
+                                        <button type="submit" class="btn btn-block btn-danger">
+                                          <i class="icon-trash"></i> Annulla la richiesta di transito nel ruolo di riserva
+                                        </button>
+                                      </form>
+                                    <div>
               <?php $i=2;  } 
               if($riserva && $riserva->presaInCarico() && $riserva->stato==RISERVA_INCORSO){ ?>         
-                    <div class="row-fluid">
+                                  <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> Richiesta riserva presa in carico</h2>
                                         <div class="alert alert-block">
                                             <div class="row-fluid">
@@ -53,6 +66,14 @@ paginaPrivata();
                                             </div>
                                         </div>           
                                     </div>
+                                    <div class="row-fluid">
+                                      <form class="form-horizontal" action="?p=utente.riserva.sospendi.ok" method="POST">
+                                        <input type="hidden" name="elimina" value="true" >
+                                        <button type="submit" class="btn btn-block btn-danger">
+                                          <i class="icon-trash"></i> Annulla la richiesta di transito nel ruolo di riserva
+                                        </button>
+                                      </form>
+                                    <div>
              <?php $i=3; } 
              if($riserva && $riserva->stato==RISERVA_OK && $riservafine >= time()){ ?>         
                     <div class="row-fluid">
