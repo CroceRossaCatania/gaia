@@ -184,8 +184,10 @@ $(document).ready(function() {
                 <div class="row-fluid">
                 <?php
                 $nOb = 0;
-                foreach ( $conf['obiettivi'] as $num => $nome ) { ?>
-                    <div class="span2 allinea-centro">
+                $acapo = 0;
+                foreach ( $conf['obiettivi'] as $num => $nome ) { 
+                        $acapo++; ?>
+                    <div class="span4 allinea-centro">
                         <h4><?php echo $nome; ?></h4>
                         <?php
                         $o = $c->obiettivi($num);
@@ -193,9 +195,14 @@ $(document).ready(function() {
                         if ($o) {
                             $o = $o[0];
                         ?>
-                        <a data-autosubmit="true" data-selettore="true" data-input="<?php echo $num; ?>" class="btn btn-small">
-                            <?php echo $o->nomeCompleto(); ?> <i class="icon-pencil"></i> 
-                        </a> 
+                        <div class="btn-group btn-group-vertical">
+                            <a data-autosubmit="true" data-selettore="true" data-input="<?php echo $num; ?>" class="btn btn-small">
+                                <?php echo $o->nomeCompleto(); ?> <i class="icon-pencil"></i> 
+                            </a>
+                            <a  onClick="return confirm('Vuoi veramente rimuovere questo delegato? L\'operazione non è reversibile');" href="?p=" title="Rimuovi delegato" class="btn btn-small btn-danger">
+                                <i class="icon-trash"></i> RImuovi delegato
+                            </a>
+                        </div>
                         <?php } else { ?>
                         <a data-autosubmit="true" data-selettore="true" data-input="<?php echo $num; ?>" class="btn btn-small">
                             Scegli volontario <i class="icon-pencil"></i>
@@ -203,8 +210,11 @@ $(document).ready(function() {
                         <?php } ?>
                     </div>
 
-
-                <?php } ?>
+                    <?php if ($acapo == 3) { ?>
+                            </div>
+                            <div class="row-fluid">
+                        <?php }  
+                    } ?>
                 </div>
                 
                 </form>
