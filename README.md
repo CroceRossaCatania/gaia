@@ -27,7 +27,18 @@ Alternativamente, contattaci a <info@gaiacri.it> per saperne di più.
 
 ### Installazione
 
-Per motivi di sviluppo, è possibile installare Gaia come segue:
+Per motivi di sviluppo, è possibile installare Gaia seguendo una delle due vie...
+
+#### La via facile (Ubuntu 13.04+)
+
+**Script di installazione**, basta aprire un terminale (col proprio utente) ed incollare:
+
+```bash
+wget https://gist.github.com/AlfioEmanueleFresta/6264461/raw/db97582608ccd71b4434f510f2377fe0cdd988a4/gaia.sh
+sh gaia.sh
+```
+
+#### La via difficile
 
 1. Importare il file `/core/conf/gaia.sql` nel proprio database tramite phpMyAdmin
 2. Copiare il file `/core/conf/database.conf.php.sample` in `/core/conf/database.conf.php`
@@ -42,7 +53,7 @@ Per motivi di sviluppo, è possibile installare Gaia come segue:
 
 ### Eseguire Gaia
 
-È possibile avviare Gaia nel server di sviluppo di PHP 5.4+ come segue:
+È possibile avviare Gaia nel server di sviluppo di PHP 5.5+ come segue:
 ```bash
 cd /percorso/per/gaia
 php -S localhost:8888 index.php
