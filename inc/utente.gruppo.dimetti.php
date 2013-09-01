@@ -23,5 +23,8 @@ if($g == 1){
 
         $t = new AppartenenzaGruppo($t);
         $t->fine = time();
+        $t->motivazione = "Abbandono spontaneo del gruppo";
+        $t->tNega = time();
+        $t->pNega = $me;
         
         redirect('utente.gruppo&del');
