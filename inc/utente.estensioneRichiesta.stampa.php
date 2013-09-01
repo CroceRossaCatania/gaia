@@ -19,7 +19,7 @@ $app = $app[0];
 
 /* Modificando questo, modificare anche utente.estensione.ok */
 $p = new PDF('estensione', 'Estensione.pdf');
-$p->_COMITATOOUT = $capp->nomeCompleto();
+$p->_COMITATOOUT = $capp->locale()->nomeCompleto();
 $p->_COMITATOIN = $cest->nomeCompleto();
 $p->_NOME = $e->volontario()->nome;
 $p->_COGNOME = $e->volontario()->cognome;
