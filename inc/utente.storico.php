@@ -275,7 +275,6 @@ paginaPrivata();
             
             </table>
         </div>
-   <?php } ?>        
+   <?php } ?>
     </div>
 </div>
-
