@@ -267,14 +267,15 @@ class APIServer {
                 'comitato'      =>  $a->unComitato()->nomeCompleto()
             ];
         }
-        
-        public function api_area_cancella   () {
+
+        public function api_area_cancella() {
             $this->richiediLogin();
             $this->richiedi(['id']);
             $area = new Area($this->par['id']);
             if ( $area->attivita() ) {
                 throw new Errore(9050);
             }
+            $area->cancella();
             return true;
         }
 
