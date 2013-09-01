@@ -382,6 +382,7 @@ $(document).ready( function() {
                             </ul>
 
                             <?php if ( $a->modificabileDa($me) ) { ?>
+<<<<<<< HEAD
 
                             <hr />
                             <?php
@@ -434,6 +435,163 @@ $(document).ready( function() {
                         <a href="?p=attivita.report&id=<?php echo $a->id; ?>" class="btn btn-block btn-info" data-attendere="Generazione in corso...">
                             <i class="icon-file-alt"></i>
                             Scarica tutti i dati
+=======
+                             (<a data-toggle="modal" data-target="#turno_<?php echo $turno->id; ?>"><i class="icon-plus"></i> Aggiungi</a>)
+                            <?php } ?>
+
+                            <br />                            
+                            <?php foreach ( $accettate as $ppp ) { ?>
+                                <a href="?p=public.utente&id=<?php echo $ppp->id; ?>" target="_new" title="<?php echo $ppp->nomeCompleto(); ?>">
+                                    <img width="30" height="30" src="<?php echo $ppp->avatar()->img(10); ?>" />
+                                </a>
+                            <?php } ?>
+                            
+                            <div id="turno_<?php echo $turno->id; ?>" class="modal hide fade">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                  <h3><?php echo $turno->nome; ?> <span class="muted"><?php echo $turno->inizio()->inTesto(); ?></span></h3>
+                                </div>
+                                <div class="modal-body">
+                                    
+                                    <div class="row-fluid">
+                                        
+                                        <div class="span7">
+
+                                            <p class="text-success"><i class="icon-group"></i> Volontari partecipanti
+                                                <span class="badge badge-success"><?php echo count($accettate); ?></span>
+                                            </p>
+                                            <ul>
+                                                <?php foreach ( $accettate as $v ) { ?>
+                                                <li>
+                                                    <a href="?p=public.utente&id=<?php echo $v->id; ?>" target="_new">
+                                                        <?php echo $v->nomeCompleto(); ?>
+                                                    </a>
+                                                    <?php if( $me->delegazioni(APP_CO) && $a->modificabileDa($me) ){ ?>
+                                                        <a  class="btn btn-small" href="?p=attivita.poteri&v=<?= $v->id; ?>&turno=<?= $turno;  ?>">
+                                                            <i class="icon-rocket" ></i> Conferisci poteri
+                                                        </a>
+                                                    <?php } ?>
+                                                    <?php if( $a->modificabileDa($me) && $turno->fine >= time() && $turno->inizio >= time() ){ ?>
+                                                        <a  class="btn btn-small btn-danger" href="?p=attivita.modifica.volontario.rimuovi&v=<?= $v->id; ?>&turno=<?= $turno;  ?>">
+                                                            <i class="icon-trash" ></i> Rimuovi volontario
+                                                        </a>
+                                                    <?php } ?>
+                                                </li>
+                                                <?php } ?>
+                                            </ul>
+
+                                            <?php if ( $a->modificabileDa($me) ) { ?>
+
+                                              <hr />
+                                              <?php
+                                              $x = $turno->volontari(AUT_PENDING);
+                                              ?>
+                                              <p class="text-warning"><i class="icon-group"></i> Volontari in attesa
+                                                  <span class="badge badge-warning"><?php echo count($x); ?></span>
+                                              </p>
+                                              <ul>
+                                                  <?php foreach ( $x as $v ) { ?>
+                                                  <li>
+                                                      <a href="?p=public.utente&id=<?php echo $v->id; ?>" target="_new">
+                                                          <?php echo $v->nomeCompleto(); ?>
+                                                      </a>
+                                                  </li>
+                                                  <?php } ?>
+                                              </ul>
+
+                                              <hr />
+
+                                              <?php
+                                              $x = $turno->volontari(AUT_NO);
+                                              ?>
+                                              <p class="text-error"><i class="icon-group"></i> Volontari non autorizzati
+                                                  <span class="badge badge-important"><?php echo count($x); ?></span>
+                                              </p>
+                                              <ul>
+                                                  <?php foreach ( $x as $v ) { ?>
+                                                  <li>
+                                                      <a href="?p=public.utente&id=<?php echo $v->id; ?>" target="_new">
+                                                          <?php echo $v->nomeCompleto(); ?>
+                                                      </a>
+                                                  </li>
+                                                  <?php } ?>
+                                              </ul>
+                                          <?php } ?>
+                                    
+                                        </div>
+                                        
+                                        <div class="span5">
+                                            
+                                            <?php if ( $a->modificabileDa($me) ) { ?>
+                                                <form action="?p=attivita.modifica.volontari.aggiungi&id=<?php echo $a->id; ?>" method="POST">
+                                                    <input type="hidden" name="turno" value="<?php echo $turno->id; ?>" />
+                                                    <a data-selettore="true" data-input="volontari" data-autosubmit="true" data-multi="true" class="btn btn-block btn-primary btn-large btn-success">
+                                                        <i class="icon-plus"></i>
+                                                        Aggiungi volontari
+                                                    </a>
+                                                </form>
+                                                <a href="?p=attivita.report&id=<?php echo $a->id; ?>" class="btn btn-block btn-info" data-attendere="Generazione in corso...">
+                                                    <i class="icon-file-alt"></i>
+                                                    Scarica tutti i dati
+                                                </a>
+                                            <?php } ?>
+                                            
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="#" class="btn" data-dismiss="modal">Chiudi</a>
+                                </div>
+                            </div>
+                            
+                            
+
+                            
+                        </td>
+                        <td>
+                            
+                            <?php if ( $pk = $turno->partecipazione($me) ) { ?>
+                                
+                                
+                                 <a class="btn btn-block btn-info btn-large disabled" href="">
+                                      <?php echo $conf['partecipazione'][$pk->stato]; ?>
+                                 </a>
+                                 <?php if($pk->stato == PART_PENDING && $turno->inizio >= time()) {?>
+                                 <a class="btn btn-block btn-danger " href="?p=attivita.ritirati&id=<?php echo $pk->id; ?>">
+                                      <i class="icon-remove"></i>
+                                      Ritirati
+                                 </a>
+                                 <?php } ?>
+                                
+                                
+                                
+                            <?php } elseif ( $turno->puoRichiederePartecipazione($me) && !$me->inriserva()) { ?>
+                                <a name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-success btn-large btn-block">
+                                    <i class="icon-ok"></i> Partecipa
+                                </a>
+                                
+                                
+                            <?php } else { ?>
+                                 <a class="btn btn-block disabled">
+                                     <i class="icon-info-sign"></i> 
+                                     Non puoi partecipare
+                                 </a>
+
+                            <?php } ?>
+                        </td>
+                    </tr>
+                
+                <?php } ?>
+                
+                <tr class="nascosto" id="rigaMostraTuttiTurni">
+                    <td colspan="4">
+                        <a id="mostraTuttiTurni" class="btn btn-block">
+                            <i class="icon-info-sign"></i>
+                            Ci sono <span id="numTurniNascosti"></span> turni passati nascosti.
+                            <strong>Clicca per mostrare i turni nascosti.</strong>
+>>>>>>> master
                         </a>
                         <?php } ?>
 

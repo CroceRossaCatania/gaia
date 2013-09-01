@@ -13,7 +13,7 @@ paginaPrivata();
     </div>
     <div class="span9">
         <h2><i class="icon-envelope muted"></i> Comunicazioni email</h3>
-        
+        <hr />
         <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-save"></i> <strong>Indirizzo salvato</strong>.
@@ -25,20 +25,6 @@ paginaPrivata();
             <p>L'email che hai inserito risulta già in uso.</p>
             <p>Ti preghiamo di inserire il tuo indirizzo email personale.</p>
         </div>
-        <?php }elseif ( isset($_GET['ei']) )  { ?>
-        <div class="alert alert-block alert-error">
-            <h4><i class="icon-exclamation-sign"></i> Email istituzionale già in uso</h4>
-            <p>L'email istituzionale che hai inserito risulta già in uso.</p>
-            <p>Ti preghiamo di verificare il tuo indirizzo email istituzionale.</p>
-        </div>
-        <?php }elseif ( isset($_GET['ee']) )  { ?>
-        <div class="alert alert-block alert-error">
-            <h4><i class="icon-exclamation-sign"></i> Email già in uso</h4>
-            <p>Le email che hai inserito risultano già in uso.</p>
-            <p>Ti preghiamo di verificari i tuoi indirizzi email.</p>
-        </div>
-        <?php } else { ?>
-            <hr />
         <?php } ?>
         <form class="form-horizontal" action="?p=utente.email.ok" method="POST">
 

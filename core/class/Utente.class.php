@@ -60,6 +60,23 @@ class Utente extends Persona {
         ]);
         return $a;
     }
+
+    public function numAppartenenzeTotali($stato = SOGLIA_APPARTENENZE) {
+        $q = $this->db->prepare("
+            SELECT
+                COUNT(*)
+            FROM
+                appartenenza
+            WHERE
+                volontario = :me
+            AND
+                stato > :stato");
+        $q->bindParam(':me', $this->id);
+        $q->bindParam(':stato', $stato);
+        $q->execute();
+        $q = $q->fetch(PDO::FETCH_NUM);
+        return $q[0];
+    }
     
     public function storico() {
         return Appartenenza::filtra([
@@ -306,8 +323,8 @@ class Utente extends Persona {
     
     public function numVolontariDiCompetenza() {
         $n = 0;
-        foreach ( $this->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_CO, APP_OBIETTIVO ]) as $c ) {
-            $n += $c->numMembriAttuali();
+        foreach ( $this->comitatiApp([ APP_SOCI, APP_PRESIDENTE, APP_CO, APP_OBIETTIVO ]) as $c ) {
+            $n += $c->numMembriAttuali(MEMBRO_VOLONTARIO);
         }
         return $n;
     }
@@ -616,6 +633,24 @@ class Utente extends Persona {
             ['volontario',  $this->id]
         ]);
     }
+
+    public function unaRiserva() {
+        $r = $this->riserve();
+        foreach ($r as $_r) {
+            if ($_r->stato == RISERVA_OK || $_r->stato == RISERVA_AUTO)
+                return $_r;
+        }
+        return NULL;
+    }
+
+    public function unaRiservaInSospeso() {
+        $r = $this->riserve();
+        foreach ($r as $_r) {
+            if ($_r->stato == RISERVA_INCORSO)
+                return $_r;
+        }
+        return NULL;
+    }
     
     public function mieiGruppi() {
         return AppartenenzaGruppo::filtra([
@@ -790,5 +825,24 @@ class Utente extends Persona {
         }
         return $q;
     }
-    
+
+    public static function elencoId() {
+         global $db;
+        $q = $db->prepare("
+            SELECT
+                id
+            FROM
+                anagrafica
+            WHERE
+                stato >= :stato
+            ORDER BY
+                id ASC");
+        $q->bindValue(':stato', PERSONA);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        return $r;
+    }
 }

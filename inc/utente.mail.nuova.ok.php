@@ -48,9 +48,13 @@ foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenc
     redirect('utente.me&mass');   
 }elseif(isset($_GET['supp'])){
 
-$m = new Email('mailTestolibero', 'Richiesta supporto: '.$oggetto);
+$m = new Email('mailSupporto', 'Richiesta supporto: '.$oggetto);
 $m->da = $me;
 $m->_TESTO = $testo;
+$m->_STATO = $conf['statoPersona'][$me->stato];
+$m->_NOME = $me->nomeCompleto();
+$m->_ID = $me->id;
+$m->_APP = $me->unComitato()->nomeCompleto();
 $m->invia();
 redirect('utente.me&suppok');    
 
@@ -204,6 +208,18 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         $comitato = new comitato($g);
         $estesi = array_diff( $comitato->membriAttuali(MEMBRO_ESTESO), $comitato->membriAttuali(MEMBRO_VOLONTARIO) );
         foreach($estesi as $_v){
+            $m = new Email('mailTestolibero', ''.$oggetto);
+            $m->da = $me; 
+            $m->a = $_v;
+            $m->_TESTO = $testo;
+            $m->invia();
+         }
+
+}elseif (isset($_GET['riserva'])) {
+        $g = $_GET['id'];
+        $comitato = new comitato($g);
+        $r = $comitato->membriRiserva();
+        foreach($r as $_v){
             $m = new Email('mailTestolibero', ''.$oggetto);
             $m->da = $me; 
             $m->a = $_v;

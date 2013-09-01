@@ -24,6 +24,12 @@ define('PERSONA',   0);
 define('ASPIRANTE', 1);
 define('VOLONTARIO',2);
 
+$conf['statoPersona'] = [
+    NULL        =>  'Nessuno',
+    PERSONA     =>  'Persona',
+    ASPIRANTE   =>  'Aspirante',
+    VOLONTARIO  =>  'Volontario'
+];
 /* Un anno */
 
 define('ANNO',      31536000);
@@ -40,8 +46,11 @@ define('MESEEMEZZO', 3888000);
 define('MEMBRO_DIMESSO',         0);
 define('MEMBRO_TRASFERITO',      1);
 define('MEMBRO_EST_TERMINATA',   5);
+define('MEMBRO_TRASF_ANN',       9);
 define('MEMBRO_TRASF_NEGATO',   10);
+define('MEMBRO_EST_ANN',        14);
 define('MEMBRO_EST_NEGATA',     15);
+define('SOGLIA_APPARTENENZE',   19);
 define('MEMBRO_TRASF_IN_CORSO', 20);
 define('MEMBRO_EST_PENDENTE',   25);
 define('MEMBRO_PENDENTE',       30);
@@ -56,7 +65,9 @@ define('MEMBRO_PRESIDENTE',     70);
 /* Definizioni in stringa */
 $conf['membro'] = [
     MEMBRO_TRASF_NEGATO     =>  'Trasferimento negato',
+    MEMBRO_TRASF_ANN        =>  'Richiesta trasferimento annullata',
     MEMBRO_TRASFERITO       =>  'Membro Trasferito',
+    MEMBRO_EST_ANN          =>  'Richiesta estensione annullata',
     MEMBRO_EST_NEGATA       =>  'Estensione negata',
     MEMBRO_TRASF_IN_CORSO   =>  'Trasferimento in corso',
     MEMBRO_PENDENTE         =>  'Pendente',
@@ -295,12 +306,14 @@ $conf['obiettivi'] = [
  */
 define('TRASF_NEGATO',       10);
 define('TRASF_INCORSO',      20);
+define('TRASF_ANN',          25);
 define('TRASF_OK',           30);
 define('TRASF_AUTO',         40);
 
 $conf['trasferimenti'] = [
     TRASF_NEGATO        =>  'Negato',
     TRASF_INCORSO       =>  'In corso',
+    TRASF_ANN           =>  'Annullato',
     TRASF_OK            =>  'Con successo',
     TRASF_AUTO          =>  'Eseguito automaticamente'
 ];
@@ -313,6 +326,7 @@ $conf['trasferimenti'] = [
 define('EST_CONCLUSA',      0);
 define('EST_NEGATA',       10);
 define('EST_INCORSO',      20);
+define('EST_ANN',          25);
 define('EST_OK',           30);
 define('EST_AUTO',         40);
 
@@ -320,6 +334,7 @@ define('EST_AUTO',         40);
 $conf['estensioni'] = [
     EST_NEGATA        =>  'Negata',
     EST_INCORSO       =>  'In attesa di autorizzazione',
+    EST_ANN           =>  'Annullata',
     EST_OK            =>  'Con successo',
     EST_AUTO          =>  'Eseguita automaticamente',
     EST_CONCLUSA      =>  'Estensione conclusa'
@@ -332,6 +347,7 @@ $conf['estensioni'] = [
  */
 define('RISERVA_SCAD',          0);
 define('RISERVA_INT',           5);
+define('RISERVA_ANN',           6);
 define('RISERVA_NEGATA',       10);
 define('RISERVA_INCORSO',      20);
 define('RISERVA_OK',           30);
@@ -341,6 +357,7 @@ define('RISERVA_AUTO',         35);
 $conf['riserve'] = [
     RISERVA_NEGATA  =>  'Negata',
     RISERVA_INCORSO =>  'In attesa di autorizzazione',
+    RISERVA_ANN     =>  'Richiesta riserva annullata',
     RISERVA_OK      =>  'Riserva approvata',
     RISERVA_AUTO    =>  'Eseguita automaticamente',  
     RISERVA_SCAD    =>  'Scaduta',

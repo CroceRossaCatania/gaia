@@ -94,23 +94,21 @@ class Comitato extends GeoPolitica {
     
     public function membriRiserva() {
         $q = $this->db->prepare("
-            SELECT
-                riserve.id
+            SELECT DISTINCT
+                riserve.volontario
             FROM
-                appartenenza, riserve, anagrafica
+                appartenenza, riserve
             WHERE
                 riserve.stato >= :statoRis
             AND
-                riserve.volontario = appartenenza.volontario
+                riserve.appartenenza = appartenenza.id
             AND
                 appartenenza.stato = :stato
             AND
                 appartenenza.comitato = :comitato
-            AND
-                anagrafica.id = appartenenza.volontario
             ORDER BY
-                 anagrafica.cognome ASC, anagrafica.nome ASC");
-        $q->bindValue(':statoRis', RISERVA_OK);
+                riserve.inizio ASC");
+        $q->bindValue(':statoRis', RISERVA_OK, PDO::PARAM_INT);
         $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->bindParam(':comitato', $this->id);
         $q->execute();
@@ -635,4 +633,24 @@ class Comitato extends GeoPolitica {
         return json_encode($r);
     }
 
+    public function reperibilitaReport(DateTime $inizio, DateTime $fine) {
+        $q = $this->db->prepare("
+            SELECT  id
+            FROM    reperibilita
+            WHERE   
+              comitato     = :comitato
+            AND
+              ( inizio >= :minimo )
+            AND
+              ( fine <= :massimo )");
+        $q->bindValue(':comitato',  $this->id);
+        $q->bindValue(':minimo',    $inizio->getTimestamp());
+        $q->bindValue(':massimo',    $fine->getTimestamp());
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Reperibilita($k[0]);
+        }
+        return $r;
+    }
 }
