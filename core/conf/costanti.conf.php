@@ -46,6 +46,7 @@ define('MESEEMEZZO', 3888000);
 define('MEMBRO_DIMESSO',         0);
 define('MEMBRO_TRASFERITO',      1);
 define('MEMBRO_EST_TERMINATA',   5);
+define('MEMBRO_TRASF_ANN',       9);
 define('MEMBRO_TRASF_NEGATO',   10);
 define('MEMBRO_EST_NEGATA',     15);
 define('SOGLIA_APPARTENENZE',   19);
@@ -63,6 +64,7 @@ define('MEMBRO_PRESIDENTE',     70);
 /* Definizioni in stringa */
 $conf['membro'] = [
     MEMBRO_TRASF_NEGATO     =>  'Trasferimento negato',
+    MEMBRO_TRASF_ANN        =>  'Richiesta annullata',
     MEMBRO_TRASFERITO       =>  'Membro Trasferito',
     MEMBRO_EST_NEGATA       =>  'Estensione negata',
     MEMBRO_TRASF_IN_CORSO   =>  'Trasferimento in corso',
@@ -302,12 +304,14 @@ $conf['obiettivi'] = [
  */
 define('TRASF_NEGATO',       10);
 define('TRASF_INCORSO',      20);
+define('TRASF_ANN',          25);
 define('TRASF_OK',           30);
 define('TRASF_AUTO',         40);
 
 $conf['trasferimenti'] = [
     TRASF_NEGATO        =>  'Negato',
     TRASF_INCORSO       =>  'In corso',
+    TRASF_ANN           =>  'Annullato',
     TRASF_OK            =>  'Con successo',
     TRASF_AUTO          =>  'Eseguito automaticamente'
 ];

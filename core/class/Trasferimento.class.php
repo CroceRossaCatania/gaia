@@ -215,5 +215,16 @@ class Trasferimento extends Entita {
         }
         return $r;
     }
+
+    public function annulla() {
+        $a = $this->appartenenza();
+        $ora = time();
+        $a->fine = $ora;
+        $a->timestamp = $ora;
+        $a->stato = MEMBRO_TRASF_ANN;
+
+        $this->stato = TRASF_ANN;
+        $this->timestamp = $ora;
+    }
 }
 ?>

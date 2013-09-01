@@ -20,7 +20,7 @@ paginaPrivata();
         <?php } 
         if ( isset($_GET['ann']) ) { ?>
         <div class="alert alert-success">
-            <i class="icon-trash"></i> <strong>Richiesta annullata</strong>.
+            <i class="icon-save"></i> <strong>Richiesta annullata</strong>.
             La richiesta di riserva è stata annullata con successo.
         </div>
         <?php } 
@@ -40,7 +40,8 @@ paginaPrivata();
                                             <div class="row-fluid">
                                                 <span class="span12">
                                                     <p>La tua richiesta di transito nel ruolo di riserva è in fase di elaborazione.</p>
-                                                    <p>La tua richiesta è in attesa di essere protocollata dalla segreteria del tuo Comitato.</p>
+                                                    <p>La tua richiesta è in attesa di essere protocollata dalla segreteria del tuo Comitato,
+                                                     potrai chiederne l'annullamento fino a quel momento.</p>
                                                 </span>
                                             </div>
                                         </div>           
@@ -49,7 +50,7 @@ paginaPrivata();
                                       <form class="form-horizontal" action="?p=utente.riserva.sospendi.ok" method="POST">
                                         <input type="hidden" name="elimina" value="true" >
                                         <button type="submit" class="btn btn-block btn-danger">
-                                          <i class="icon-trash"></i> Annulla la richiesta di transito nel ruolo di riserva
+                                          <i class="icon-remove"></i> Annulla la richiesta di transito nel ruolo di riserva
                                         </button>
                                       </form>
                                     <div>
@@ -62,18 +63,11 @@ paginaPrivata();
                                                 <span class="span12">
                                                     <p>La tua richiesta di riserva è stata presa in carico il <strong><?php echo date('d-m-Y', $riserva->protData); ?></strong> con numero di protocollo <strong><?php echo $riserva->protNumero; ?></strong>.</p>
                                                     <p>La tua richiesta è in attesa di conferma da parte del tuo Presidente di Comitato.</p>
+                                                    <p>Da questo momento non puoi più annullare la richiesta. Se hai cambiato idea contatta il tuo Presidente.</p>
                                                 </span>
                                             </div>
                                         </div>           
                                     </div>
-                                    <div class="row-fluid">
-                                      <form class="form-horizontal" action="?p=utente.riserva.sospendi.ok" method="POST">
-                                        <input type="hidden" name="elimina" value="true" >
-                                        <button type="submit" class="btn btn-block btn-danger">
-                                          <i class="icon-trash"></i> Annulla la richiesta di transito nel ruolo di riserva
-                                        </button>
-                                      </form>
-                                    <div>
              <?php $i=3; } 
              if($riserva && $riserva->stato==RISERVA_OK && $riservafine >= time()){ ?>         
                     <div class="row-fluid">
