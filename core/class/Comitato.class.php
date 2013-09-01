@@ -361,7 +361,7 @@ class Comitato extends GeoPolitica {
     public function attivita() {
         return Attivita::filtra([
             ['comitato', $this->id]
-        ]);
+        ],'nome ASC');
     }
     
     public function gruppi() {

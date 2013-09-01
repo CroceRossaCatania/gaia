@@ -744,7 +744,7 @@ class Utente extends Persona {
     public function attivitaReferenziate() {
         return Attivita::filtra([
             ['referente',   $this->id]
-        ]);
+        ], 'nome ASC');
     }
             
     public function attivitaReferenziateDaCompletare() {
