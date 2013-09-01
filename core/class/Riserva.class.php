@@ -119,7 +119,7 @@ class Riserva extends Entita {
         foreach ($destinatari as $destinatario) {
             $m = new Email('richiestaRiservaAnnullamento', 'Annullata richiesta riserva');          
             $m->a = $destinatario;
-            $m->_NOME       = $v->nome;
+            $m->_NOME = $v->nomeCompleto();
             $m->_INIZIO = date('d-m-Y', $r->inizio);
             $m->_FINE = date('d-m-Y', $r->fine);
             $m->invia();

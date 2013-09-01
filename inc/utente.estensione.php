@@ -67,6 +67,7 @@ caricaSelettoreComitato();
                                                     <p>La tua richiesta di estensione presso il <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong> è stata presa in carico il <strong><?php echo date('d-m-Y', $estensione->protData); ?></strong> con numero di protocollo <strong><?php echo $estensione->protNumero; ?></strong>.</p>
                                                     <p>La tua richiesta è in attesa di conferma da parte del tuo Presidente di Comitato.</p>
                                                     <p>Trascorsi 30 giorni senza alcuna risposta del Presidente Gaia effettuerà l'estensione automaticamente come previsto da regolamento.</p>
+                                                    <p>Da questo momento non puoi più annullare la richiesta. Se hai cambiato idea contatta il tuo Presidente.</p>
                                                 </span>
                                             </div>
                                         </div>           

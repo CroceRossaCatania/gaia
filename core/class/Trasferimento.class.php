@@ -225,6 +225,17 @@ class Trasferimento extends Entita {
 
         $this->stato = TRASF_ANN;
         $this->timestamp = $ora;
+
+        $v = $this->volontario();
+
+        $destinatari = [$v, $this->comitato()->unPresidente(), $v->unComitato()->unPresidente()];
+        foreach ($destinatari as $destinatario) {
+            $m = new Email('richiestaTrasferimentoAnnullamento', 'Annullata richiesta estensione');          
+            $m->a = $destinatario;
+            $m->_NOME = $v->nomeCompleto();
+            $m->_COMITATO = $this->comitato()->nomeCompleto();
+            $m->invia();
+        }
     }
 }
 ?>

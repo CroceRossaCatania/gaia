@@ -22,7 +22,7 @@ class Estensione extends Entita {
     public function comitato() {
         return $this->appartenenza()->comitato();
     }
-    
+
     public function provenienzaa() {
         return $this->cProvenienza->comitato();
     }
@@ -208,6 +208,17 @@ class Estensione extends Entita {
 
         $this->timestamp = $ora;
         $this->stato = EST_ANN;
+
+        $v = $this->volontario();
+
+        $destinatari = [$v, $this->comitato()->unPresidente(), $v->unComitato()->unPresidente()];
+        foreach ($destinatari as $destinatario) {
+            $m = new Email('richiestaEstensioneAnnullamento', 'Annullata richiesta estensione');          
+            $m->a = $destinatario;
+            $m->_NOME = $v->nomeCompleto();
+            $m->_COMITATO = $this->comitato()->nomeCompleto();
+            $m->invia();
+        }
     }
         
 }
