@@ -48,6 +48,7 @@ define('MEMBRO_TRASFERITO',      1);
 define('MEMBRO_EST_TERMINATA',   5);
 define('MEMBRO_TRASF_ANN',       9);
 define('MEMBRO_TRASF_NEGATO',   10);
+define('MEMBRO_EST_ANN',        14);
 define('MEMBRO_EST_NEGATA',     15);
 define('SOGLIA_APPARTENENZE',   19);
 define('MEMBRO_TRASF_IN_CORSO', 20);
@@ -64,8 +65,9 @@ define('MEMBRO_PRESIDENTE',     70);
 /* Definizioni in stringa */
 $conf['membro'] = [
     MEMBRO_TRASF_NEGATO     =>  'Trasferimento negato',
-    MEMBRO_TRASF_ANN        =>  'Richiesta annullata',
+    MEMBRO_TRASF_ANN        =>  'Richiesta trasferimento annullata',
     MEMBRO_TRASFERITO       =>  'Membro Trasferito',
+    MEMBRO_EST_ANN          =>  'Richiesta estensione annullata',
     MEMBRO_EST_NEGATA       =>  'Estensione negata',
     MEMBRO_TRASF_IN_CORSO   =>  'Trasferimento in corso',
     MEMBRO_PENDENTE         =>  'Pendente',
@@ -324,6 +326,7 @@ $conf['trasferimenti'] = [
 define('EST_CONCLUSA',      0);
 define('EST_NEGATA',       10);
 define('EST_INCORSO',      20);
+define('EST_ANN',          25);
 define('EST_OK',           30);
 define('EST_AUTO',         40);
 
@@ -331,6 +334,7 @@ define('EST_AUTO',         40);
 $conf['estensioni'] = [
     EST_NEGATA        =>  'Negata',
     EST_INCORSO       =>  'In attesa di autorizzazione',
+    EST_ANN           =>  'Annullata',
     EST_OK            =>  'Con successo',
     EST_AUTO          =>  'Eseguita automaticamente',
     EST_CONCLUSA      =>  'Estensione conclusa'

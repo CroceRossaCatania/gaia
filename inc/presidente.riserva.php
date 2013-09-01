@@ -48,8 +48,7 @@ paginaPresidenziale();
         <th>Nome</th>
         <th>Cognome</th>
         <th>Codice Fiscale</th>
-        <th>Data di Nascita</th>
-        <th>Luogo di Nascita</th>
+        <th>Data richiesta</th>
         <th>Motivo</th>
         <th>Periodo</th>
         <th>Azione</th>
@@ -65,17 +64,16 @@ foreach($comitati as $comitato){
         <td><?php echo $_v->nome; ?></td>
         <td><?php echo $_v->cognome; ?></td>
         <td><?php echo $_v->codiceFiscale; ?></td>
-        <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
-        <td><?php echo $_v->comuneNascita; ?></td>
+        <td><?php echo date('d/m/Y', $_t->timestamp); ?></td> 
         <td><?php echo $_t->motivo; ?></td>
         <td><small>
                                 <i class="icon-calendar muted"></i>
-                                <?php echo date('d-m-Y', $_t->inizio); ?>
+                                <?php echo date('d/m/Y', $_t->inizio); ?>
                                 
                                 <?php if ( $_t->fine ) { ?>
                                     <br />
                                     <i class="icon-time muted"></i>
-                                    <?php echo date('d-m-Y', $_t->fine); ?>
+                                    <?php echo date('d/m/Y', $_t->fine); ?>
                                 <?php } ?>
                 </small>
         </td>

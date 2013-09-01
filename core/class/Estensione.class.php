@@ -198,5 +198,16 @@ class Estensione extends Entita {
         }
         return $r;
     }
+
+    public function annulla() {
+        $a = $this->appartenenza();
+        $ora = time();
+        $a->fine = $ora;
+        $a->timestamp = $ora;
+        $a->stato = MEMBRO_EST_ANN;
+
+        $this->timestamp = $ora;
+        $this->stato = EST_ANN;
+    }
         
 }

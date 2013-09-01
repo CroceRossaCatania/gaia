@@ -78,7 +78,7 @@ caricaSelettoreComitato();
                                           <i class="icon-remove"></i> Annulla la richiesta di trasferimento
                                         </button>
                                       </form>
-                                    <div>
+                                    </div>
               <?php $i=2;  }elseif($trasferimento && $trasferimento->presaInCarico() && $trasferimento->stato==TRASF_INCORSO){ ?>         
                     <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> Richiesta trasferimento presa in carico</h2>
