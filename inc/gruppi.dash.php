@@ -3,7 +3,7 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
-
+caricaSelettore();
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
@@ -19,6 +19,12 @@
             <div class="alert alert-success">
                 <i class="icon-save"></i> <strong>Modifiche effettuate</strong>.
                 Le modifiche sono state effettuate con successo.
+            </div>
+        <?php } ?>
+        <?php if ( isset($_GET['esp']) ) { ?>
+            <div class="alert alert-success">
+                <i class="icon-save"></i> <strong>Volontario espulso</strong>.
+                Il volontario è stato espulso dal gruppo con successo.
             </div>
         <?php } ?>
     </div>
@@ -74,32 +80,39 @@ foreach ($gruppi as $gruppo){
         $g = $gruppo->membri();
     ?>
         <tr class="success">
-                    <td colspan="7" class="grassetto">
-                            <?php echo $gruppo->nome; ?>
+                    <td colspan="4" class="grassetto">
+                            <?php echo $gruppo->comitato()->nomeCompleto()?> - <?php echo $gruppo->nome; ?>
                             <span class="label label-warning">
                                 <?= count($g); ?>
                             </span>
-                                <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?= $gruppo->id; ?>&gruppo">
-                                    <i class="icon-envelope"></i> Invia mail
-                                </a>
-                        <?php if ( $me->presidenziante() || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
-                                <a class="btn btn-small btn-info pull-right" href="?p=gruppo.modifica&id=<?= $gruppo->id; ?>" title="Modifica gruppo">
-                                    <i class="icon-edit"></i> Modifica gruppo
-                                </a>
-                        <?php }
-                        if ( $me->presidenziante() || $me->admin() ){ ?>
+                            <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?= $gruppo->id; ?>&gruppo">
+                                <i class="icon-envelope"></i>
+                            </a>
+                        <?php if ( $me->presidenziante() || $me->admin() ){ ?>
                                 <a class="btn btn-small btn-danger pull-right" onclick="return confirm('Sei davvero sicuro di voler eliminare il gruppo?');" href="?p=gruppi.elimina&id=<?= $gruppo->id; ?>" title="Elimina gruppo">
-                                    <i class="icon-trash"></i> Elimina
+                                    <i class="icon-trash"></i>
                                 </a>
                                 <a class="btn btn-small pull-right" href="?p=gruppo.referente.nuovo&id=<?= $gruppo->id; ?>">
                                     <i class="icon-pencil"></i> 
                                     <?php if($gruppo->referente()){ echo $gruppo->referente()->nomeCompleto(); }else{ ?> Seleziona un volontario <?php } ?>
                                 </a>
-                     <?php } ?>
+                     <?php } if ( $me->presidenziante() || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
+                                <a class="btn btn-small btn-info pull-right" href="?p=gruppo.modifica&id=<?= $gruppo->id; ?>" title="Modifica gruppo">
+                                    <i class="icon-edit"></i>
+                                </a>
+                                <form class="pull-right" action="?p=gruppi.utente.aggiungi&id=<?php echo $gruppo->id; ?>" method="POST" style="margin-bottom: 0px;">
+                                    <a data-selettore="true" data-input="volontari" data-autosubmit="true" data-multi="true" class="btn btn-small btn-success">
+                                        <i class="icon-plus"></i>
+                                        Aggiungi volontari
+                                    </a>
+                                </form>
+                                
+                        <?php } ?>
                     </td>
                 </tr>
     <?php
         foreach($g as $volontario){
+            $gp = AppartenenzaGruppo::filtra([['volontario',$volontario->id],['gruppo',$gruppo->id],['fine', NULL]]);
     ?>
                     <tr>
                         <td><?= $volontario->cognome; ?>    </td>
@@ -110,7 +123,11 @@ foreach ($gruppi as $gruppo){
                                 <a class="btn btn-small" href="?p=public.utente&id=<?php echo $volontario->id; ?>" target="_new"  title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>
-
+                                <?php if ( $me->presidenziante() || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
+                                    <a class="btn btn-small btn-danger" href="?p=gruppo.utente.espelli&id=<?= $gp[0]; ?>" title="Espelli dal gruppo" onclick="return confirm('Sei davvero sicuro di voler espellere il volontario dal gruppo?');">
+                                        <i class="icon-ban-circle"></i> Espelli dal gruppo
+                                    </a>
+                                <?php } ?>
                                 <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $volontario->id; ?>" target="_new" title="Invia Mail">
                                     <i class="icon-envelope"></i>
                                 </a>
