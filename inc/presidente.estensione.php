@@ -49,8 +49,7 @@ paginaPresidenziale();
         <th>Nome</th>
         <th>Cognome</th>
         <th>Codice Fiscale</th>
-        <th>Data di Nascita</th>
-        <th>Luogo di Nascita</th>
+        <th>Data richiesta</th>
         <th>Comitato destinazione</th>
         <th>Azione</th>
     </thead>
@@ -66,8 +65,7 @@ foreach ($e as $_e){
         <td><?php echo $v->nome; ?></td>
         <td><?php echo $v->cognome; ?></td>
         <td><?php echo $v->codiceFiscale; ?></td>
-        <td><?php echo date('d-m-Y', $v->dataNascita); ?></td> 
-        <td><?php echo $v->comuneNascita; ?></td>
+        <td><?php echo date('d/m/Y', $_e->appartenenza()->timestamp); ?></td> 
         <td><?php echo $_e->comitato()->nomeCompleto(); ?></td>
         <?php if($_e->protNumero){ ?>
         <td>
