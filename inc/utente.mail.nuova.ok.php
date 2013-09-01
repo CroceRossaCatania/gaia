@@ -51,6 +51,7 @@ foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenc
 $m = new Email('mailSupporto', 'Richiesta supporto: '.$oggetto);
 $m->da = $me;
 $m->_TESTO = $testo;
+$m->_STATO = $conf['statoPersona'][$me->stato];
 $m->_NOME = $me->nomeCompleto();
 $m->_ID = $me->id;
 $m->_APP = $me->unComitato()->nomeCompleto();
