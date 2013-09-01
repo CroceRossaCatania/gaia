@@ -48,9 +48,12 @@ foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenc
     redirect('utente.me&mass');   
 }elseif(isset($_GET['supp'])){
 
-$m = new Email('mailTestolibero', 'Richiesta supporto: '.$oggetto);
+$m = new Email('mailSupporto', 'Richiesta supporto: '.$oggetto);
 $m->da = $me;
 $m->_TESTO = $testo;
+$m->_NOME = $me->nomeCompleto();
+$m->_ID = $me->id;
+$m->_APP = $me->unComitato()->nomeCompleto();
 $m->invia();
 redirect('utente.me&suppok');    
 
