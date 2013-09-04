@@ -3,6 +3,7 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
+paginaPrivata();
 caricaSelettore();
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
@@ -126,6 +127,9 @@ foreach ($gruppi as $gruppo){
                                 <?php if ( $me->presidenziante() || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
                                     <a class="btn btn-small btn-danger" href="?p=gruppo.utente.espelli&id=<?= $gp[0]; ?>" title="Espelli dal gruppo" onclick="return confirm('Sei davvero sicuro di voler espellere il volontario dal gruppo?');">
                                         <i class="icon-ban-circle"></i> Espelli dal gruppo
+                                    </a>
+                                    <a class="btn btn-small btn-info" href="?p=gruppo.utente.report&id=<?= $volontario->id; ?>" title="Report turni">
+                                        <i class="icon-copy"></i> Turni
                                     </a>
                                 <?php } ?>
                                 <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $volontario->id; ?>" target="_new" title="Invia Mail">
