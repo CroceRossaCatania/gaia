@@ -31,4 +31,11 @@ $a->timestamp   = time();
 $a->pConferma 	= $me->id;
 $a->tConferma	= time();
 
+$m = new Email('nominaPresidente', 'Nomina Presidente: ' . $c->nomeCompleto());
+$m->da = $me;
+$m->a = $v;
+$m->_NOME       = $v->nomeCompleto();
+$m->_COMITATO = $c->nomeCompleto();
+$m->invia();
+
 redirect('admin.presidenti&new');
