@@ -15,6 +15,16 @@ $c = $_GET['oid'];
 $c = GeoPolitica::daOid($c);
 
 paginaApp([APP_PRESIDENTE], [$c]);
+
+/* Nel caso questa sia una unita' territoriale
+ * principale, devo andare a modificare il comitato
+ * locale interessato, a meno che io sia admin mode on.
+ * Ref. #360
+ */
+if ( $c->principale && !$me->admin() ) {
+    redirect("presidente.comitato&oid={$c->locale()->oid()}");
+}
+
 caricaSelettore();
 
 $back = false;
