@@ -16,14 +16,24 @@ foreach ( $_POST['volontari'] as $v ) {
     
     $v = new Volontario($v);
     if ( $turno->partecipa($v) ) { continue; }
+
+    $ora = time();
     
     $p = new Partecipazione();
     $p->stato       = PART_OK;
     $p->volontario  = $v;
     $p->turno       = $turno;
-    $p->timestamp   = time();
-    $p->tConferma   = time();
+    $p->timestamp   = $ora;
+    $p->tConferma   = $ora;
     $p->pConferma   = $me;
+
+    $aut = new Autorizzazione();
+    $aut->partecipazione  = $p->id;
+    $aut->volontario      = $me;
+    $aut->timestamp       = $ora;
+    $aut->tFirma          = $ora;
+    $aut->pFirma          = $me;
+    $aut->stato           = AUT_OK;
     
     $m = new Email('aggiuntoattivita', "Partecipazione  {$a->nome}");
     $m->a               = $v;

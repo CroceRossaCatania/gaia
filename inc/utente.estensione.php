@@ -18,14 +18,19 @@ caricaSelettoreComitato();
             <i class="icon-save"></i> <strong>Richiesta inviata</strong>.
             La richiesta è stata inviata con successo.
         </div>
-        <?php } ?>
-        <?php if ( isset($_GET['e']) ) { ?>
+        <?php } 
+        if ( isset($_GET['e']) ) { ?>
         <div class="alert alert-error">
             <i class="icon-warning-sign"></i>
             <strong>Errore</strong> &mdash; Appartieni già a questo Comitato oppure hai già richiesto l'estensione su questo Comitato.
         </div>
-        <?php } ?>
-        <?php 
+        <?php } 
+        if ( isset($_GET['ann']) ) { ?>
+        <div class="alert alert-success">
+            <i class="icon-save"></i> <strong>Richiesta annullata</strong>.
+            La richiesta è stata annullata con successo.
+        </div>
+        <?php } 
 
     foreach ( $me->storico() as $app ) {
                          if($app->stato == MEMBRO_DIMESSO){
@@ -41,10 +46,17 @@ caricaSelettoreComitato();
                                             <div class="row-fluid">
                                                 <span class="span12">
                                                     <p>La tua richiesta di estensione presso il <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong> è in fase di elaborazione.</p>
-                                                    <p>La tua richiesta è in attesa di essere protocollata dalla segreteria del tuo Comitato.</p>
+                                                    <p>La tua richiesta è in attesa di essere protocollata dalla segreteria del tuo Comitato, 
+                                                    potrai chiederne l'annullamento fino a quel momento.</p>
                                                 </span>
                                             </div>
-                                        </div>           
+                                            <form class="form-horizontal" action="?p=utente.estensione.sospendi.ok" method="POST" style="margin-bottom: 0px;">
+                                        <input type="hidden" name="elimina" value="<?php echo($estensione->id); ?>" >
+                                        <button type="submit" class="btn btn-block btn-danger">
+                                          <i class="icon-remove"></i> Annulla la richiesta di estensione
+                                        </button>
+                                      </form>
+                                    </div>
                                     </div>
               <?php  }elseif($estensione && $estensione->presaInCarico() && $estensione->stato==EST_INCORSO){ ?>         
                     <div class="row-fluid">
@@ -55,6 +67,7 @@ caricaSelettoreComitato();
                                                     <p>La tua richiesta di estensione presso il <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong> è stata presa in carico il <strong><?php echo date('d-m-Y', $estensione->protData); ?></strong> con numero di protocollo <strong><?php echo $estensione->protNumero; ?></strong>.</p>
                                                     <p>La tua richiesta è in attesa di conferma da parte del tuo Presidente di Comitato.</p>
                                                     <p>Trascorsi 30 giorni senza alcuna risposta del Presidente Gaia effettuerà l'estensione automaticamente come previsto da regolamento.</p>
+                                                    <p>Da questo momento non puoi più annullare la richiesta. Se hai cambiato idea contatta il tuo Presidente.</p>
                                                 </span>
                                             </div>
                                         </div>           
@@ -63,7 +76,7 @@ caricaSelettoreComitato();
              $x=0;
              foreach($me->riserve() as $riserva){
                  $riservafine = $riserva->fine;
-             if($x==0 && $riserva && $riserva->stato==RISERVA_OK && $riservafine >= time()){ ?>         
+             if($x==0 && $riserva && $me->inRiserva()){ ?>         
                     <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> In riserva</h2>
                                         <div class="alert alert-danger">

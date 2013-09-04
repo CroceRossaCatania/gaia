@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * ©2013 Croce Rossa Italiana
+ */
+
 paginaAdmin();
 
 if ( !$cache ) {
