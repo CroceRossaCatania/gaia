@@ -12,6 +12,7 @@ $prov = $g->provinciali();
 $cLoc=0;
 $unit=0;
 $numVol=0;
+$a=0;
 foreach ( $prov as $_prov ){
     $locali = $_prov->locali();
     foreach ( $locali as $locale ){
@@ -30,18 +31,17 @@ foreach ( $prov as $_prov ){
 
 <h3><i class="icon-copy muted"></i> Report attivazioni su gaia</h3>
 
-<pre><code>
-    <p>Questo è un report autogenerato da Gaia che permette di avere informazioni relative ai dati caricati sul sistema.</p>
+    <p>Questo è un report autogenerato da Gaia che permette di avere informazioni relative ai dati caricati sul sistema.</p><br/>
     <Ul>
         <h3><li>Dati generali su gaia</li></h3>
-            <p>Attualmente su Gaia sono presenti <strong><?php echo $me->numVolontariDiCompetenza(); ?></strong> volontari, in <strong><?php echo count($comitati); ?></strong> unità territoriali.</p>
+        <p>Attualmente su Gaia sono presenti <strong><?php echo $me->numVolontariDiCompetenza(); ?></strong> volontari, in <strong><?php echo count($comitati); ?></strong> unità territoriali.</p><br/>
         
         <h3><li>Dati inerenti il <?php echo $g->nomeCompleto(); ?></li></h3>
             <p>Il <?php echo $g->nomeCompleto(); ?> ha attualmente su Gaia <strong><?php echo $numVol; ?></strong> volontari iscritti, sono presenti:</p>
             <ul>
                 <li><?php echo count($prov); ?> Comitati Provinciali</li>
                 <li><?php echo $cLoc; ?> Comitati Locali</li>
-                <li><?php echo $cUnit; ?> Unità territoriali</li>
+                <li><?php echo $cUnit; ?> Unità territoriali</li><br/>
             </ul>
         <p>Verranno ora riportati i dati relativi ad ogni Comitato Provinciale</p>
         <ul>
@@ -83,7 +83,12 @@ foreach ( $prov as $_prov ){
                                                     <p>Sono presenti in questa unità territoriale <strong><?php echo count($_unit->membriAttuali()); ?></strong> volontari iscritti</p>
                                                     <p>Vi sono <strong><?php echo $volPen; ?></strong> volontari che attendono di essere confermati</p>
                                                     <p>Il Presidente deve confermare <strong><?php echo $titPen; ?></strong> tra titoli e patenti CRI</p>
-                                        <?php } 
+                                                    <?php foreach ($_unit->attivita() as $attivita){
+                                                    $a++;
+                                                    } ?>
+                                                    <p>Sono presenti <strong><?php echo $a; ?></strong> attività del comitato</p><vr/>
+                                        <?php $a=0;
+                                                } 
                                             } ?>
                                 </ul>
                                 
@@ -92,5 +97,3 @@ foreach ( $prov as $_prov ){
             <?php } ?>
         </ul>
     </ul>
-
-</code></pre>

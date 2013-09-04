@@ -17,7 +17,7 @@ $t = array_unique($t);
 	<form class="form-horizontal" action="?p=admin.report.ok" method="POST">
 		<div class="span12">
 			<div class="row-fluid">
-				<h2><i class="icon-time muted"></i> Genera report delle reperibilità</h2>
+				<h2><i class="icon-copy muted"></i> Genera report delle reperibilità</h2>
 				<div class="alert alert-block alert-info ">
 					<div class="row-fluid">
 						<span class="span12">
