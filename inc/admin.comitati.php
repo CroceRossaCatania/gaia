@@ -57,7 +57,7 @@ paginaAdmin();
                     <td colspan="5"><strong><?php echo $nazionale->nome; ?></strong></td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $nazionale->oid(); ?>" title="Dettagli">
+                            <a class="btn btn-small" href="?p=presidente.comitato&oid=<?php echo $nazionale->oid(); ?>" title="Dettagli">
                                 <i class="icon-eye-open"></i> Dettagli
                             </a>
                             <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $nazionale->id; ?>&t=regi" title="Nuovo">
@@ -72,7 +72,7 @@ paginaAdmin();
                     <td colspan="4" border-left="none"><?php echo $regionale->nome; ?></td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $regionale->oid(); ?>" title="Dettagli">
+                                <a class="btn btn-small" href="?p=presidente.comitato&oid=<?php echo $regionale->oid(); ?>" title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>    
                                 <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $regionale->oid(); ?>" title="Modifica">
@@ -90,7 +90,7 @@ paginaAdmin();
                     <td colspan="3"><?php echo $provinciale->nome; ?></td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $provinciale->oid(); ?>" title="Dettagli">
+                                <a class="btn btn-small" href="?p=presidente.comitato&oid=<?php echo $provinciale->oid(); ?>" title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>  
                                 <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $provinciale->oid(); ?>" title="Modifica">
@@ -118,7 +118,7 @@ paginaAdmin();
                     </td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $locale->oid(); ?>" title="Dettagli">
+                                <a class="btn btn-small" href="?p=presidente.comitato&oid=<?php echo $locale->oid(); ?>" title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>     
                                 <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $locale->oid(); ?>" title="Modifica">
@@ -148,7 +148,7 @@ paginaAdmin();
                     </td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $comitato->oid(); ?>" title="Dettagli">
+                                <a class="btn btn-small" href="?p=presidente.comitato&oid=<?php echo $comitato->oid(); ?>" title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>      
                                 <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $comitato->oid(); ?>" title="Modifica">
