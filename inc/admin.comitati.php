@@ -105,7 +105,17 @@ paginaAdmin();
                 <?php foreach ( $provinciale->locali() as $locale ) { ?>
                 <tr class="alert">
                     <td></td><td></td><td></td>
-                    <td colspan="2"><?php echo $locale->nome; ?></td>
+                    <td colspan="2">
+                    <?php echo $locale->nome; ?>
+
+                    <?php if ( !$locale->principale() ) { ?>
+                        &nbsp; &nbsp; <span class="text-error">
+                            <i class="icon-warning-sign"></i>
+                            Nessuna unita' principale selezionata!
+                        </span>
+                    <?php } ?>
+
+                    </td>
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $locale->oid(); ?>" title="Dettagli">
@@ -123,7 +133,19 @@ paginaAdmin();
                 <?php foreach ( $locale->comitati() as $comitato ) { ?>
                 <tr class="info">
                     <td></td><td></td><td></td><td></td>
-                    <td colspan="1"><?php echo $comitato->nome; ?></td>
+                    <td colspan="1">
+                    
+                    <?php if ( $comitato->principale ) { ?>
+                        <i class="icon-star text-error"></i>
+                    <?php } else { ?>
+                        <a href="?p=admin.comitato.principale&id=<?php echo $comitato; ?>">
+                            <i class="icon-star-empty"></i>
+                        </a>
+                    <?php } ?>
+
+                    <?php echo $comitato->nome; ?>
+
+                    </td>
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $comitato->oid(); ?>" title="Dettagli">
