@@ -200,7 +200,7 @@ $(document).ready(function() {
                                 <?php echo $o->nomeCompleto(); ?> <i class="icon-pencil"></i> 
                             </a>
                             <a  onClick="return confirm('Vuoi veramente rimuovere questo delegato? L\'operazione non è reversibile');" href="?p=" title="Rimuovi delegato" class="btn btn-small btn-danger">
-                                <i class="icon-trash"></i> RImuovi delegato
+                                <i class="icon-remove"></i> Rimuovi delegato
                             </a>
                         </div>
                         <?php } else { ?>

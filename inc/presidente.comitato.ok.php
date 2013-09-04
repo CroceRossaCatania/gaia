@@ -15,7 +15,8 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
     if ( isset($_POST[$num] ) ) {
         
         /* Controllo se è il primo... */
-        $primo = (bool) $c->obiettivi($num);
+        $vecchioDelegato = $c->obiettivi($num);
+        $primo = (bool) $vecchioDelegato;
         $primo = !$primo;
         
         /* Se non è il primo */
@@ -60,8 +61,17 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
             $a->obiettivo   = $num;
             $a->nome        = 'Generale';
             $a->responsabile= $v->id;
+        } else {
+            /* Il problema è che se è cambiato il delegato col cazzo che ribecco l'area.... */
+            $vecchioDelegato = $vecchioDelegato[0]->id;
+            $area = Area::filtra([
+                ['responsabile', $vecchioDelegato],
+                ['comitato', $c->id],
+                ['obiettivo', $num]
+                ]);
+            $area = $area[0];
+            $area->responsabile = $v->id;        
         }
-            
     }
 }
 
