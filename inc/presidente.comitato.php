@@ -18,10 +18,10 @@ paginaApp([APP_PRESIDENTE], [$c]);
 
 /* Nel caso questa sia una unita' territoriale
  * principale, devo andare a modificare il comitato
- * locale interessato, a meno che io sia admin mode on.
+ * locale interessato
  * Ref. #360
  */
-if ( $c->principale && !$me->admin() ) {
+if ( $c->principale ) {
     redirect("presidente.comitato&oid={$c->locale()->oid()}");
 }
 
