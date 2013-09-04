@@ -13,6 +13,18 @@ class Comitato extends GeoPolitica {
     public static 
         $_ESTENSIONE = EST_UNITA;
 
+    /**
+     * Sovrascrive metodo __get se unita' principale
+     * ref. https://github.com/CroceRossaCatania/gaia/issues/360
+     */ 
+    public function __get ($_nome) {
+        $nonSovrascrivere = ['id', 'nome', 'principale', 'locale'];
+        if ( parent::__get('principale') && !in_array($_nome, $nonSovrascrivere) ) {
+            return $this->locale()->{$_nome};
+        }
+        return parent::__get($_nome);
+    }
+
     public function figli() {
         return [];
     }
