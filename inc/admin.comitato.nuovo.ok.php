@@ -18,7 +18,6 @@ if (isset($_GET['com'])){
         $t = new Comitato();
         $t->nome = $nome;
         $t->locale = $c;
-        $t->principale = (int) $_POST['inputPrincipale'];
         redirect('admin.comitati&new');
     
 }elseif (isset($_GET['loc'])){
