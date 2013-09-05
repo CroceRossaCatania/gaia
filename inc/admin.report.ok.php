@@ -58,11 +58,11 @@ foreach ( $prov as $_prov ){
                                             }
                                             foreach ( $unit as $_unit ){ 
                                                 $presidenti = $_unit->presidenti();
-                                                if ( !$presidente ) { 
+                                                if ( !$presidenti ) { 
                                                         $locale = $_unit->locale();
                                                         $presidenti = $locale->presidenti();
                                                 }
-                                                if ( !$presidente ) {
+                                                if ( !$presidenti ) {
                                                     $pres = "Nessun Presidente iscritto";
                                                     $volPen = "0";
                                                     $titPen = "0";
