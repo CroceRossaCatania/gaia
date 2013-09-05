@@ -21,7 +21,7 @@ $fine = mktime(0, 0, 0, $mese, $giorno, $anno);
             <i class="icon-time muted"></i>
             Volontari che non hanno effettuato turno
         </h2>
-        <p><strong>nel mese di <?php echo $mese;?></strong></p>
+        <p><strong>nel mese di <?php echo $mese; ?></strong></p>
     </div>
     
     <div class="span4 allinea-destra">
@@ -75,21 +75,25 @@ $fine = mktime(0, 0, 0, $mese, $giorno, $anno);
                     </tr>
             <?php   foreach($volontari as $v){
                         $partecipazioni = $v->partecipazioni();
+                        $x=0;
                         foreach ( $partecipazioni as $part ) {
-                            if ( $part->turno()->inizio >= $inizio || $part->turno()->fine <= $fine ){ 
+                            if ( $part->turno()->inizio >= $inizio || $part->turno()->fine <= $fine ){
                                 $auts = $part->autorizzazioni();
-                                $turno = $part->turno()->id;
+                                $turno = $part->turno();
                                 $co = Coturno::filtra([['turno', $turno],['volontario', $v]]);
-                                if( $auts->stato != AUT_OK || $co ){
+                                if( $auts[0]->stato == AUT_OK || $co ){
+                                    $x=1;
                                     continue;
-                                }
+                                } 
                             }
-                        }   ?>
+                        }
+                    if ($x==0){
+                    ?>
             <tr>
                 <td><?php echo $v->nome; ?></td>
                 <td><?php echo $v->cognome; ?></td>
                 <td><?php echo $v->codiceFiscale; ?></td>
-                <td><?php echo date('d/m/Y', $v->dataNascita); ?></td> 
+                <td><?php echo date('d/m/Y', $v->dataNascita); ?></td>
                 <td>
                     <div class="btn-group">
                         <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $v->id; ?>" title="Dettagli">
@@ -108,7 +112,7 @@ $fine = mktime(0, 0, 0, $mese, $giorno, $anno);
                 </td>
                
             </tr>
-            <?php }
+            <?php }}
             } ?>
         </table>
     </div>
