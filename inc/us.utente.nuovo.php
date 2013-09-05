@@ -156,7 +156,7 @@ caricaSelettoreComitato();
             <label class="control-label" for="inputEmail">Email</label>
         </div>
         <div class="span8">
-            <input type="email" id="inputEmail" name="inputEmail" required  />
+            <input type="email" id="inputEmail" name="inputEmail"  />
         </div>
 </div>
          
@@ -166,7 +166,7 @@ caricaSelettoreComitato();
      </div>
        <div class="span8">
            <span class="add-on">+39</span>
-         <input   type="text" id="inputCellulare" name="inputCellulare" required pattern="[0-9]{9,11}" />
+         <input   type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" />
         </div>
 </div>
         
