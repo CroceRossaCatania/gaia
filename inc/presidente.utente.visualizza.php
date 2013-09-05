@@ -148,7 +148,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                <label class="control-label" for="inputCellulare">Cellulare</label>
                <div class="controls">
                    <span class="add-on">+39</span>
-                 <input value="<?php echo $v->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" required pattern="[0-9]{9,11}" />
+                 <input value="<?php echo $v->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" />
                 </div>
              </div>
             <div class="control-group input-prepend">
