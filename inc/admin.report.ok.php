@@ -37,6 +37,18 @@ foreach ( $prov as $_prov ){
         <p>Attualmente su Gaia sono presenti <strong><?php echo $me->numVolontariDiCompetenza(); ?></strong> volontari, in <strong><?php echo count($comitati); ?></strong> unità territoriali.</p><br/>
         
         <h3><li>Dati inerenti il <?php echo $g->nomeCompleto(); ?></li></h3>
+        <?php $presidenti = $g->presidenti(); 
+                        if ( !$presidenti ) {
+                            $pres = "Nessun Presidente iscritto";
+                        }
+                        foreach ( $presidenti as $presidente ){
+                            if ( $presidente->attuale() ){
+                                $pres = $presidente->volontario()->nomeCompleto();
+                            }
+                        }
+                        ?>
+                        <p>Il Presidente su Gaia del <?php echo $g->nomeCompleto(); ?> risulta essere <strong><?php echo $pres; ?></strong></p>
+                
             <p>Il <?php echo $g->nomeCompleto(); ?> ha attualmente su Gaia <strong><?php echo $numVol; ?></strong> volontari iscritti, sono presenti:</p>
             <ul>
                 <li><?php echo count($prov); ?> Comitati Provinciali</li>
@@ -46,6 +58,18 @@ foreach ( $prov as $_prov ){
         <p>Verranno ora riportati i dati relativi ad ogni Comitato Provinciale</p>
         <ul>
             <?php   foreach($prov as $_prov){ ?>
+                        <h5><li>Dati inerenti il <?php echo $_prov->nomeCompleto(); ?></li></h5>
+                <?php   $presidenti = $_prov->presidenti(); 
+                        if ( !$presidenti ) {
+                            $pres = "Nessun Presidente iscritto";
+                        }
+                        foreach ( $presidenti as $presidente ){
+                            if ( $presidente->attuale() ){
+                                $pres = $presidente->volontario()->nomeCompleto();
+                            }
+                        }
+                        ?>
+                        <p>Il Presidente su Gaia del <?php echo $_prov->nomeCompleto(); ?> risulta essere <strong><?php echo $pres; ?></strong></p><br/>
                 <?php   $locali = $_prov->locali();
                         foreach ( $locali as $locale ){ ?>
                             <ul>
