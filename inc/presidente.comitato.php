@@ -228,7 +228,9 @@ $(document).ready(function() {
 
                 <div class="alert alert-info"><i class="icon-info-sign"></i> 
                    Inserire le aree di intervento e selezionare i responsabili associati.<br />Essi saranno 
-                   in grado di <strong>organizzare nuove attività su Gaia</strong> riguardanti la loro Area.
+                   in grado di <strong>organizzare nuove attività su Gaia</strong> riguardanti la loro Area. <br>
+                   Sono quando <strong>non</strong> sono presenti attività legate all'area è possibile cancellarla. <br>
+                   In caso di <strong>rimozione</strong> del responsabile la competenza passa al <strong>Presidente</strong>.
                 </div>
 
                 <?php if ( $c->aree() ) { ?>
@@ -237,44 +239,51 @@ $(document).ready(function() {
                     <thead>
                         <th>Obiettivo   </th>
                         <th>Nome area   </th>
-                        <th>Responsabile</th>
                         <th>Attività    </th>
-                        <th>&nbsp;      </th>
+                        <th>Responsabile</th>
                     </thead>
 
                     <?php foreach ( $c->aree() as $area ) {
                         $attivita = count($area->attivita());
                         ?>
                     <tr id="area-<?php echo $area->id; ?>">
-                        <td>
-                            <select class="alCambioSalva" name="<?php echo $area->id; ?>_inputObiettivo">
-                                <?php foreach ( $conf['obiettivi'] as $x => $y ) { ?>
-                                    <option value="<?php echo $x; ?>" <?php if ( $area->obiettivo == $x ) { ?>selected="selected"<?php } ?>><?php echo $y; ?></option>
-                                <?php } ?>
-                            </select>
+                        <td>                            
+                            <?php echo( $conf['obiettivi'][$area->obiettivo] )?>
                         </td>
                         <td>
+                            <?php if ($area->nome == 'Generale') { ?>
+                                Generale
+                            <?php } else { ?>
                             <input class="alCambioSalva" type="text" required name="<?php echo $area->id; ?>_inputNome" value="<?php echo $area->nome; ?>" />
                             <i class="icon-save icon-large text-warning"></i>
-                        </td>
-                        <td>
-                            <a data-selettore="true" data-autosubmit="true" data-input="<?php echo $area->id; ?>_inputResponsabile" class="btn btn-block">
-                                <?php echo $area->responsabile()->nomeCompleto(); ?> <i class="icon-pencil"></i>
-                            </a>
+                            <?php } ?>
                         </td>
                         <td>
                             <?php echo $attivita; ?> attività
                         </td>
                         <td>
-                            <?php if ( !$attivita ) { ?>
-                                <a href="#"
-                                   onclick="cancellaArea('<?php echo $area->id; ?>');">
+                            <?php if ($area->nome == 'Generale') {
+                                echo( $area->responsabile()->nomeCompleto());
+                            } else { ?>
+                            <div class="btn-group">
+                                <a data-selettore="true" data-autosubmit="true" data-input="<?php echo $area->id; ?>_inputResponsabile" class="btn btn-small">
+                                    <?php echo $area->responsabile()->nomeCompleto(); ?> <i class="icon-pencil"></i>
+                                </a>
+                                <a  onClick="return confirm('Vuoi veramente rimuovere questo referente? L\'operazione non è reversibile. Al suo posto verrà nominato il Presidente.');" href="?p=" title="Rimuovi delegato" class="btn btn-small btn-danger">
+                                <i class="icon-remove"></i> Rimuovi referente
+                            </a>
+                            
+                            <?php 
+                                if ( !$attivita ) { ?>
+
+                                <a href="#" 
+                                   onclick="cancellaArea('<?php echo $area->id; ?>');" class="btn btn-small btn-danger">
                                     <i class="icon-trash"></i>
                                     cancella
                                 </a>
-                            <?php } else { ?>
-                                &mdash;
-                            <?php } ?>
+                            <?php }} ?>
+                            </div>
+                               
                         </td>
 
                     </tr>
@@ -283,7 +292,7 @@ $(document).ready(function() {
 
                     <tr>
                         <td colspan="5">
-                            <a id="pulsanteNuovaArea" class="btn btn-block btn-danger">
+                            <a id="pulsanteNuovaArea" class="btn btn-block btn-info">
                                 <i class="icon-plus"></i>
                                 Aggiungi area e responsabile
                             </a>

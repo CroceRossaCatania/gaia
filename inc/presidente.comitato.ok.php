@@ -64,11 +64,21 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
         } else {
             /* Il problema è che se è cambiato il delegato col cazzo che ribecco l'area.... */
             $vecchioDelegato = $vecchioDelegato[0]->id;
+            /* Controllo se c'è l'area del precedente delegato */
             $area = Area::filtra([
                 ['responsabile', $vecchioDelegato],
                 ['comitato', $c->id],
                 ['obiettivo', $num]
                 ]);
+
+            if (!$area) {
+            /* Controllo se c'è almeno un'area con il nome Generale */
+                $area = Area::filtra([
+                ['responsabile', $vecchioDelegato],
+                ['nome', 'Generale'],
+                ['obiettivo', $num]
+                ]);  
+            } 
             if ($area) {
                 $area = $area[0];
                 $area->responsabile = $v->id;
