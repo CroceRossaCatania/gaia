@@ -108,7 +108,13 @@ if ( $c instanceOf Comitato ) {
         /* Salva nome variato */
         if (isset($_POST[$a->id . '_inputNome'])) {
             $back = 'aree';
-            $a->nome     = normalizzaNome($_POST[$a->id . '_inputNome']);
+            $nome = normalizzaNome($_POST[$a->id . '_inputNome']);
+            // !!!! Attenzione, momentaneamente lascio lo la possibilità di chiamare generale le aree
+            if ($nome == 'Generale' && 0) {
+                $oid = $c->oid();
+                redirect("presidente.comitato&errnome&oid={$oid}&back={$back}");
+            }
+            $a->nome     = $nome;
         }
         
         /* Salva volontario variato */
@@ -134,10 +140,17 @@ if ( $c instanceOf Comitato ) {
 if ( isset($_POST['nuovaArea_volontario']) ) {
         
     $back = 'aree';
+
+    $nome = normalizzaTitolo($_POST['nuovaArea_nome']);
+    if ($nome == 'Generale') {
+        $oid = $c->oid();
+        redirect("presidente.comitato&errnome&oid={$oid}&back={$back}");
+    }
+
     $a = new Area();
     $a->comitato    = $c->id;
     $a->obiettivo   = (int) $_POST['nuovaArea_inputObiettivo'];
-    $a->nome        = normalizzaTitolo($_POST['nuovaArea_nome']);
+    $a->nome        = $nome;
     $a->responsabile= $_POST['nuovaArea_volontario'];
     
     $v = $a->responsabile();

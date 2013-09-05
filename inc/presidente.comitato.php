@@ -66,6 +66,13 @@ $(document).ready(function() {
     </div>
     <?php } ?>
 
+    <?php if ( isset($_GET['errnome']) ) { ?>
+    <div class="alert alert-error">
+        <i class="icon-warning-sign"></i> <strong>Modifiche non salvate</strong> &mdash;
+        Non è possibile chiamare un'area <strong>Generale</strong>.
+    </div>
+    <?php } ?>
+
         
 
     <div class="tabbable tabs-left">
@@ -304,6 +311,9 @@ $(document).ready(function() {
                 <div class="nascosto" id="nuovaArea">
                     <hr />
                     <h3><i class="icon-asterisk"></i> Nuova area</h3>
+                    <div class="alert alert-info"><i class="icon-info-sign"></i> 
+                    Non è possibile chiamare la nuova Area <strong>Generale</strong>.
+                    </div>
                     <table class="table">
                         <tr>
                             <td>
