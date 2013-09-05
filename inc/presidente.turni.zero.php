@@ -76,15 +76,14 @@ $fine = mktime(0, 0, 0, $mese, $giorno, $anno);
             <?php   foreach($volontari as $v){
                         $partecipazioni = $v->partecipazioni();
                         foreach ( $partecipazioni as $part ) {
-                            $auts = $part->autorizzazioni();
-                            $turno = $part->turno()->id;
-                            try { 
-                                $t = new Turno($turno); 
-                                } catch ( Errore $e ) { 
-                                    continue; 
+                            if ( $part->turno()->inizio >= $inizio || $part->turno()->fine <= $fine ){ 
+                                $auts = $part->autorizzazioni();
+                                $turno = $part->turno()->id;
+                                $co = Coturno::filtra([['turno', $turno],['volontario', $v]]);
+                                if( $auts->stato != AUT_OK || $co ){
+                                    continue;
                                 }
-                            $co = Coturno::filtra([['turno', $turno],['volontario', $v]]);
-                            if ( $auts || $co || $part->turno()->inizio <= $inizio || $part->turno()->fine >= $fine ){ continue; }
+                            }
                         }   ?>
             <tr>
                 <td><?php echo $v->nome; ?></td>
