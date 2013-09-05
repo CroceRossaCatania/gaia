@@ -36,7 +36,7 @@ $fine = mktime(0, 0, 0, $mese, $giorno, $anno);
 <div class="row-fluid">
     <div class="span12">
         <div class="btn-group btn-group-vertical span12">
-           <?php if ( count($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ])) > 1 ) { ?>
+           <?php if ( count($me->comitatiApp (APP_PRESIDENTE)) > 1 ) { ?>
             <a href="?p=presidente.turni.zero.excel&com" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
                <i class="icon-download"></i>
                 <strong>Presidente</strong> &mdash; Scarica tutti i fogli dei volontari che non hanno effettuato servizio nel mese corrente.
