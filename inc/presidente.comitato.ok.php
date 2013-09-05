@@ -164,5 +164,5 @@ if ( isset($_POST['nuovaArea_volontario']) ) {
        
 }
 
-$oid = $c->oid();
-redirect("presidente.comitato&ok&oid={$oid}&back={$back}");
+//$oid = $c->oid();
+//redirect("presidente.comitato&ok&oid={$oid}&back={$back}");
