@@ -66,19 +66,21 @@ foreach ( $prov as $_prov ){
                                                     $pres = "Nessun Presidente iscritto";
                                                     $volPen = "0";
                                                     $titPen = "0";
+                                                    $isc = "0";
                                                 }
                                                 foreach ( $presidenti as $presidente ){
                                                     if ( $presidente->attuale() ){
                                                         $pres = $presidente->volontario()->nomeCompleto(); 
                                                         $volPen = $presidente->volontario()->numAppPending(APP_PRESIDENTE);
-                                                        $titPen = $presidente->volontario()->NumTitoliPending(APP_PRESIDENTE); 
+                                                        $titPen = $presidente->volontario()->NumTitoliPending(APP_PRESIDENTE);
+                                                        $isc = count($_unit->membriAttuali()); 
                                                     }else{  
                                                         $pres = "Nessun Presidente iscritto";
                                                     }
                                                 } ?>
                                                     <p><li><strong><?php echo $_unit->nomeCompleto(); ?></strong></li></p>
                                                     <p>Il Presidente su Gaia del <?php echo $_unit->nomeCompleto(); ?> risulta essere <strong><?php echo $pres; ?></strong></p>
-                                                    <p>Sono presenti in questa unità territoriale <strong><?php echo count($_unit->membriAttuali()); ?></strong> volontari iscritti</p>
+                                                    <p>Sono presenti in questa unità territoriale <strong><?php echo $isc; ?></strong> volontari iscritti</p>
                                                     <p>Vi sono <strong><?php echo $volPen; ?></strong> volontari che attendono di essere confermati</p>
                                                     <p>Il Presidente deve confermare <strong><?php echo $titPen; ?></strong> tra titoli e patenti CRI</p>
                                                     <?php foreach ($_unit->attivita() as $attivita){
