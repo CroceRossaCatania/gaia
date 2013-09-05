@@ -69,8 +69,17 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
                 ['comitato', $c->id],
                 ['obiettivo', $num]
                 ]);
-            $area = $area[0];
-            $area->responsabile = $v->id;        
+            if ($area) {
+                $area = $area[0];
+                $area->responsabile = $v->id;
+            } else {
+                /* Per compatibilità con le aree cancellate, se l'area non c'è più la ricreo*/
+                $a = new Area();
+                $a->comitato    = $c->id;
+                $a->obiettivo   = $num;
+                $a->nome        = 'Generale';
+                $a->responsabile= $v->id;
+            }     
         }
     }
 }
