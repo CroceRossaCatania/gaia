@@ -45,7 +45,7 @@ foreach ( $prov as $_prov ){
             </ul>
         <p>Verranno ora riportati i dati relativi ad ogni Comitato Provinciale</p>
         <ul>
-            <?php foreach($prov as $_prov){ ?>
+            <?php   foreach($prov as $_prov){ ?>
                 <?php   $locali = $_prov->locali();
                         foreach ( $locali as $locale ){ ?>
                             <ul>
@@ -57,27 +57,25 @@ foreach ( $prov as $_prov ){
                                                 continue;
                                             }
                                             foreach ( $unit as $_unit ){ 
-                                                $presidenti = Delegato::filtra([
-                                                    ['applicazione', APP_PRESIDENTE],
-                                                    ['comitato', $_unit],
-                                                    ['estensione', EST_UNITA]
-                                                ]);
-                                                if(!$presidenti){
-                                                        $presidenti = Delegato::filtra([
-                                                            ['applicazione', APP_PRESIDENTE],
-                                                            ['comitato', $_unit],
-                                                            ['estensione', EST_LOCALE]
-                                                        ]);
+                                                $presidenti = $_unit->presidenti();
+                                                if ( !$presidente ) { 
+                                                        $locale = $_unit->locale();
+                                                        $presidenti = $locale->presidenti();
                                                 }
-                                                foreach ( $presidenti as $presidente ) {
-                                                    if ( !$presidente->attuale() ) { continue; }
-                                                    if ( !$presidente ) { 
+                                                if ( !$presidente ) {
+                                                    $pres = "Nessun Presidente iscritto";
+                                                    $volPen = "0";
+                                                    $titPen = "0";
+                                                }
+                                                foreach ( $presidenti as $presidente ){
+                                                    if ( $presidente->attuale() ){
+                                                        $pres = $presidente->volontario()->nomeCompleto(); 
+                                                        $volPen = $presidente->volontario()->numAppPending(APP_PRESIDENTE);
+                                                        $titPen = $presidente->volontario()->NumTitoliPending(APP_PRESIDENTE); 
+                                                    }else{  
                                                         $pres = "Nessun Presidente iscritto";
-                                                        continue; 
                                                     }
-                                                    $pres = $presidente->volontario()->nomeCompleto(); 
-                                                    $volPen = $presidente->volontario()->numAppPending(APP_PRESIDENTE);
-                                                    $titPen = $presidente->volontario()->NumTitoliPending(APP_PRESIDENTE); ?>
+                                                } ?>
                                                     <p><li><strong><?php echo $_unit->nomeCompleto(); ?></strong></li></p>
                                                     <p>Il Presidente su Gaia del <?php echo $_unit->nomeCompleto(); ?> risulta essere <strong><?php echo $pres; ?></strong></p>
                                                     <p>Sono presenti in questa unità territoriale <strong><?php echo count($_unit->membriAttuali()); ?></strong> volontari iscritti</p>
@@ -86,14 +84,13 @@ foreach ( $prov as $_prov ){
                                                     <?php foreach ($_unit->attivita() as $attivita){
                                                     $a++;
                                                     } ?>
-                                                    <p>Sono presenti <strong><?php echo $a; ?></strong> attività del comitato</p><vr/>
+                                                    <p>Sono presenti <strong><?php echo $a; ?></strong> attività del comitato</p><br/>
                                         <?php $a=0;
-                                                } 
                                             } ?>
                                 </ul>
                                 
                             </ul>
-                <?php } ?>
-            <?php } ?>
+                <?php   } ?>
+            <?php   } ?>
         </ul>
     </ul>
