@@ -131,10 +131,10 @@ abstract class GeoPolitica extends GeoEntita {
     /** Fix #406 
      * Per gli alti livelli (non unita'), elenco aree 
      */
-    public function aree() {
+    public function aree ($obiettivo = null) {
         $r = [];
         foreach ( $this->estensione() as $c ) {
-            $r = array_merge($r, $c->aree());
+            $r = array_merge($r, $c->aree($obiettivo));
         }
         return array_unique($r);
     }
