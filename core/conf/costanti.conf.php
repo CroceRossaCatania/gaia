@@ -494,37 +494,3 @@ $conf['patente'] = [
     PATENTE_ATTESA_CONSEGNA => 'In attesa ritiro patente',
     PATENTE_CONSEGNATA => 'Patente consegnata'
 ];
-
-/*
- * ===================================
- * =========== MESI===================
- * ===================================
- */
-
-define('GENNAIO',       1);
-define('FEBBRAIO',      2);
-define('MARZO',         3);
-define('APRILE',        4);
-define('MAGGIO',        5);
-define('GIUGNO',        6);
-define('LUGLIO',        7);
-define('AGOSTO',        8);
-define('SETTEMBRE',     9);
-define('OTTOBRE',       10);
-define('NOVEMBRE',      11);
-define('DICEMBRE',      12);
-
-$conf['mesi'] = [
-    GENNAIO         =>  'Gennaio',
-    FEBBRAIO        =>  'Febbraio',
-    MARZO           =>  'Marzo',
-    APRILE          =>  'Aprile',
-    MAGGIO          =>  'Maggio',
-    GIUGNO          =>  'Giugno',
-    LUGLIO          =>  'Luglio',
-    AGOSTO          =>  'Agosto',
-    SETTEMBRE       =>  'Settembre',
-    OTTOBRE         =>  'Ottobre',
-    NOVEMBRE        =>  'Novembre',
-    DICEMBRE        =>  'Dicembre'
-];
