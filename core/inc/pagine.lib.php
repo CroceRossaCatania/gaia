@@ -62,7 +62,7 @@ function paginaPubblica() {
 function paginaAdmin() {
     paginaPrivata();
     global $sessione;
-    if ( !$sessione->utente()->admin ) {
+    if ( !$sessione->utente()->admin || $sessione->adminMode == '') {
         redirect('errore.permessi');
     }
 }

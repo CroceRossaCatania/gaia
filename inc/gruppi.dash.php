@@ -74,6 +74,7 @@ if ( isset($_GET['cancellato'] ) ) {
                 <th>Cognome</th>
                 <th>Nome</th>
                 <th>Cellulare</th>
+                <th>Iscritto al gruppo dal</th>
                 <th>Azioni</th>
             </thead>
 <?php
@@ -81,7 +82,7 @@ foreach ($gruppi as $gruppo){
         $g = $gruppo->membri();
     ?>
         <tr class="success">
-                    <td colspan="4" class="grassetto">
+                    <td colspan="5" class="grassetto">
                             <?php echo $gruppo->comitato()->nomeCompleto()?> - <?php echo $gruppo->nome; ?>
                             <span class="label label-warning">
                                 <?= count($g); ?>
@@ -116,9 +117,10 @@ foreach ($gruppi as $gruppo){
             $gp = AppartenenzaGruppo::filtra([['volontario',$volontario->id],['gruppo',$gruppo->id],['fine', NULL]]);
     ?>
                     <tr>
-                        <td><?= $volontario->cognome; ?>    </td>
-                        <td><?= $volontario->nome; ?>       </td>
-                        <td><?= $volontario->cellulare(); ?></td>
+                        <td><?= $volontario->cognome; ?>      </td>
+                        <td><?= $volontario->nome; ?>         </td>
+                        <td><?= $volontario->cellulare(); ?>  </td>
+                        <td><?= date('d/m/Y', $gp[0]->inizio); ?></td>
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-small" href="?p=public.utente&id=<?php echo $volontario->id; ?>" target="_new"  title="Dettagli">

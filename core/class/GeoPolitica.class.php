@@ -128,9 +128,15 @@ abstract class GeoPolitica extends GeoEntita {
         return $r;
     }
 
-    /* HOTFIX: Calendario vuoto */
+    /** Fix #406 
+     * Per gli alti livelli (non unita'), elenco aree 
+     */
     public function aree() {
-    	return [];
+        $r = [];
+        foreach ( $this->estensione() as $c ) {
+            $r = array_merge($r, $c->aree());
+        }
+        return array_unique($r);
     }
 
     public function tuttiVolontari() {
