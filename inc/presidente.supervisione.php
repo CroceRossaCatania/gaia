@@ -33,7 +33,7 @@ paginaPresidenziale();
         </div>
         
         <div class="span6 centrato">
-            <div class="alert alert-success">
+            <!--<div class="alert alert-success">
                 <strong>Volontari con 0 turni</strong>
                 <p>Con questo modulo è possibile visualizzare tutti i volontari che non hanno effetuato turno in un dato mese</p>
             </div>
@@ -41,6 +41,6 @@ paginaPresidenziale();
                 <i class="icon-time"></i>
                 No Turno
             </a>
-        </div>
+        </div>-->
     </div>
 </div>
