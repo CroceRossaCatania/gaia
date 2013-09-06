@@ -65,12 +65,12 @@ $fine = mktime(0, 0, 0, $mese, $giorno, $anno);
                     <?php echo $comitato->nomeCompleto(); ?>
                     <!--<a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&zeroturniunit&id=<?php echo $comitato->id; ?>">
                            <i class="icon-envelope"></i> Invia mail
-                    </a>
+                    </a>-->
                     <a class="btn btn-small pull-right" 
-                       href="?p=presidente.turni.zero.excel&comitato=<?php echo $comitato->id; ?>&unit"
+                       href="?p=presidente.turni.zero.excel&c=<?php echo $comitato->id; ?>&unit&time=<?php echo $inizio; ?>"
                        data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
-                    </a>-->
+                    </a>
                 </td>
             </tr>
     <?php   foreach($volontari as $v){
