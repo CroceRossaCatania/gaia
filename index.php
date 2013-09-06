@@ -230,12 +230,6 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="?p=presidente.turni.zero">
-                                            <i class="icon-time"></i>
-                                            Report volontari 0 turni
-                                        </a>
-                                    </li>
-                                    <li>
                                         <a href="?p=presidente.titoli.ricerca">
                                             <i class="icon-search"></i>
                                             Ricerca volontari per titoli
