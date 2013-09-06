@@ -41,11 +41,11 @@ $fine = mktime(0, 0, 0, $mese, $giorno, $anno);
                <i class="icon-download"></i>
                 <strong>Presidente</strong> &mdash; Scarica tutti i fogli dei volontari che non hanno effettuato servizio nel mese specificato.
             </a>
-           <?php } ?><!--
-           <a href="?p=utente.mail.nuova&zeroturnicom" class="btn btn-block btn-success">
+           <?php } ?>
+           <a href="?p=utente.mail.nuova&zeroturnicom&time=<?php echo $inizio; ?>" class="btn btn-block btn-success">
                <i class="icon-envelope"></i>
                 <strong>Presidente</strong> &mdash; Invia mail di massa a tutti i Volontari.
-           </a>--><hr />
+           </a><hr />
        </div>
         <table class="table table-striped table-bordered" id="tabellaUtenti">
             <thead>
@@ -63,9 +63,9 @@ $fine = mktime(0, 0, 0, $mese, $giorno, $anno);
             <tr class="success">
                 <td colspan="5" class="grassetto">
                     <?php echo $comitato->nomeCompleto(); ?>
-                    <!--<a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&zeroturniunit&id=<?php echo $comitato->id; ?>">
+                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&zeroturniunit&id=<?php echo $comitato->id; ?>&time=<?php echo $inizio; ?>">
                            <i class="icon-envelope"></i> Invia mail
-                    </a>-->
+                    </a>
                     <a class="btn btn-small pull-right" 
                        href="?p=presidente.turni.zero.excel&c=<?php echo $comitato->id; ?>&unit&time=<?php echo $inizio; ?>"
                        data-attendere="Generazione...">
