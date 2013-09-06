@@ -27,8 +27,8 @@ $id = $_GET['id'];
 	</div>
 	<div class="modal-footer">
 		<a href="?p=attivita.autorizzazioni" class="btn">Annulla</a>
-		<button type="submit" class="btn btn-primary">
-              <i class="icon-remove"></i> nega
+		<button type="submit" class="btn btn-danger">
+              <i class="icon-remove"></i> Nega
           </button>
 	</div>
 </div>
