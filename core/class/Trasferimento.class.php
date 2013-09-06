@@ -215,5 +215,27 @@ class Trasferimento extends Entita {
         }
         return $r;
     }
+
+    public function annulla() {
+        $a = $this->appartenenza();
+        $ora = time();
+        $a->fine = $ora;
+        $a->timestamp = $ora;
+        $a->stato = MEMBRO_TRASF_ANN;
+
+        $this->stato = TRASF_ANN;
+        $this->timestamp = $ora;
+
+        $v = $this->volontario();
+
+        $destinatari = [$v, $this->comitato()->unPresidente(), $v->unComitato()->unPresidente()];
+        foreach ($destinatari as $destinatario) {
+            $m = new Email('richiestaTrasferimentoAnnullamento', 'Annullata richiesta estensione');          
+            $m->a = $destinatario;
+            $m->_NOME = $v->nomeCompleto();
+            $m->_COMITATO = $this->comitato()->nomeCompleto();
+            $m->invia();
+        }
+    }
 }
 ?>

@@ -245,12 +245,25 @@ class Entita {
     }
     
     protected function _crea () { 
+        global $me;
+
         $this->id = $this->generaId();
         $q = $this->db->prepare("
             INSERT INTO ". static::$_t ."
             (id) VALUES (:id)");
         $q->bindParam(':id', $this->id);
         $e = $q->execute();
+
+        /* PROCEDURA DI LOGGING SELVAGGIO */
+        $file = './upload/log/estremo.' . date('Ymd') . '.txt';
+        $testo  = date('YmdHis') . ',';
+        $testo .= $this->oid() . ',';
+        $testo .= base64_encode(serialize($_POST)) . ',';
+        $testo .= base64_encode(serialize($_GET)) . ',';
+        $testo .= base64_encode(print_r($me->id, true)) . ',';
+        $testo .= base64_encode(serialize($_SERVER)) . "\n";
+        file_put_contents($file, $testo, FILE_APPEND);
+
         static::_invalidaCacheQuery();
         return $e;
     }

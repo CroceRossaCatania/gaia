@@ -29,8 +29,7 @@ $t = array_unique($t);
 			</div>
 
 			<div class="row-fluid">
-				<form class="form-horizontal" action="?p=presidente.riservaRichiesta.ok&id=<?php echo $t->id; ?>" method="POST">
-					<div class="control-group">
+				<div class="control-group">
 						<label class="control-label" for="oid">Seleziona Comitato</label>
 						<div class="controls">
 							<select class="input-xxlarge" id="oid" name="oid" required>
