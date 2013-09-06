@@ -434,7 +434,7 @@ class Comitato extends GeoPolitica {
             AND
                 quote.appartenenza = appartenenza.id
             AND
-                quote.timestamp BETWEEN :anno AND :ora
+                quote.anno = :anno
             ORDER BY
               anagrafica.cognome     ASC,
               anagrafica.nome  ASC");
@@ -455,40 +455,37 @@ class Comitato extends GeoPolitica {
     
      public function quoteNo() {
         $q = $this->db->prepare("
-           SELECT 
+            SELECT 
                 anagrafica.id 
-           FROM 
+            FROM    
                 anagrafica, appartenenza 
-          WHERE         
+            WHERE         
                 anagrafica.id = appartenenza.volontario 
-          AND
+            AND
                 appartenenza.comitato = :comitato
-          AND
+            AND
                 appartenenza.stato = :stato
-          AND 
-                ( fine < 1 OR fine > :ora 
-                OR 
-                fine IS NULL ) 
-         AND 
-                appartenenza.id 
-         NOT IN 
-                ( 
+            AND 
+                ( appartenenza.fine < 1 OR appartenenza.fine > :ora )
+            AND 
+            appartenenza.id 
+            NOT IN 
+            ( 
                 SELECT 
-                    appartenenza 
+                    quote.appartenenza 
                 FROM 
                     quote 
                 WHERE 
-                timestamp BETWEEN :anno AND :ora )
-        ORDER BY
-              anagrafica.cognome     ASC,
-              anagrafica.nome  ASC");
-        $q->bindValue(':comitato',  $this->id);
-        $q->bindValue(':ora',  time());
+                    quote.anno = :anno)
+            ORDER BY
+                anagrafica.cognome     ASC,
+                anagrafica.nome  ASC");
+        $q->bindParam(':comitato',  $this->id);
+        $q->bindParam(':ora',  time());
         $anno = date ('Y', time());
         $anno = mktime(0, 0, 0, 1, 1, $anno);
-        $q->bindValue(':anno',    $anno);
-        $stato = MEMBRO_VOLONTARIO;
-        $q->bindValue(':stato', $stato);
+        $q->bindValue(':anno', $anno);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
