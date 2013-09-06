@@ -145,8 +145,8 @@ class Comitato extends GeoPolitica {
         $anzianita = (int) $anzianita;
         $minimo->modify("-{$anzianita} years");
         $q->bindValue(':comitato',  $this->id);
-        $q->bindValue(':elezioni',  $elezioni->getTimestamp());
-        $q->bindValue(':minimo',    $minimo->getTimestamp());
+        $q->bindParam(':elezioni',  $elezioni->getTimestamp(), PDO::PARAM_INT);
+        $q->bindParam(':minimo',    $minimo->getTimestamp(), PDO::PARAM_INT);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {

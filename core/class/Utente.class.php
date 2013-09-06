@@ -791,19 +791,43 @@ class Utente extends Persona {
     public function gruppiDiCompetenza( $app = [ APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO ] ) {
         $gruppi = [];
         $comitati = $this->comitatiApp($app);
-        foreach ($comitati as $comitato) {
-            $gruppi = array_merge($gruppi, $comitato->gruppi());
-        }
-        $gruppi = array_merge(
-                $gruppi,
-                Gruppo::filtra([
-                    ['referente',$this]
-                ])
-        );
-        $gruppi = array_unique($gruppi);
+        $domini = $this->dominiDelegazioni(APP_OBIETTIVO);
+        if ( $domini && !$this->admin() && !$this->presidenziante() ){
+            foreach ($comitati as $comitato) {
+                foreach ($domini as $d){
+                    $gruppi = array_merge(
+                        $gruppi,
+                        Gruppo::filtra([
+                            ['referente',$this],
+                            ['obiettivo',$d]
+                        ])
+                    );
+                    if (!$gruppi){
+                        $gruppi = array_merge(
+                            $gruppi,
+                            Gruppo::filtra([
+                            ['referente',$this]
+                        ])
+                        );
+                    }
+                }
+            $gruppi = array_unique($gruppi);
+            }
+        }else{
+            foreach ($comitati as $comitato) {
+                $gruppi = array_merge($gruppi, $comitato->gruppi());
+            }
+            $gruppi = array_merge(
+                    $gruppi,
+                    Gruppo::filtra([
+                        ['referente',$this]
+                    ])
+            );
+            $gruppi = array_unique($gruppi);
+            }
         return $gruppi;
     }
-    
+
     public function inEstensione($c) {
         $app = Appartenenza::filtra([
             ['volontario', $this->id],
