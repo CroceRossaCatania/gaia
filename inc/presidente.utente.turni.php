@@ -32,7 +32,7 @@ $v = Volontario::by('id', $v);
     <div class="span4 allinea-destra">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>
-            <input autofocus required id="cercaUtente" placeholder="Cerca Volontario..." type="text">
+            <input autofocus required id="cercaUtente" placeholder="Cerca Turno..." type="text">
         </div>
     </div>    
 </div>
@@ -59,10 +59,11 @@ $v = Volontario::by('id', $v);
             <tr>
                 <td>
                     <p><strong><?php echo $part->attivita()->nome; ?></strong><br />
-                    <?php echo $part->turno()->nome;  ?><br />
-                    <?php echo $part->turno()->inizio()->inTesto(); ?></p>
-                    
-                    <a href="?p=attivita.scheda&id=<?php echo $part->attivita()->id; ?>">
+                    <?php echo $part->turno()->nome;  ?> dal:
+                    <strong><?php echo date('d/m/Y H:i', $part->turno()->inizio); ?></strong> al:
+                    <strong><?php echo date('d/m/Y H:i', $part->turno()->fine); ?></strong>
+                    </p>
+                    <a href="?p=attivita.scheda&id=<?php echo $part->attivita()->id; ?>" target="_new">
                         <i class="icon-reply"></i> Vedi dettagli attività
                     </a>
                 </td>
@@ -124,11 +125,7 @@ $v = Volontario::by('id', $v);
                 </td>
             </tr>
             <?php } ?>
-                    
-        
-    </table>
-        
-                             
+    </table>                     
     <?php if (!$partecipazioni) { ?>
         <div class="alert alert-block alert-danger allinea-centro">
             <h4><i class="icon-info-sign"></i> Il volontario non ha effettuato turni</h4>
@@ -136,4 +133,3 @@ $v = Volontario::by('id', $v);
     <?php } ?>
    
     </div>
-
