@@ -26,10 +26,27 @@ paginaPresidenziale();
                 <strong>Volontari senza gruppi</strong>
                 <p>Con questo modulo si potranno controllare tutti i volontari che non appartengo ad almeno un gruppo di lavoro</p>
             </div>
+            <?php
+            $comitati = $me->comitatiDiCompetenza();
+            $nogruppi = True;
+            foreach ($comitati as $c) {
+                if ($c->gruppi()){
+                    $nogruppi = False;
+                    break;
+                }
+            }
+            if ($nogruppi) { ?>
+                <span class="text-error">
+                    <i class="icon-warning-sign"></i>
+                    Spiacente Presidente <br />
+                    Attualmente nel suo Comitato non esistono gruppi di lavoro.
+                </span>
+            <?php } else { ?>
             <a href="?p=presidente.supervisione.nogruppo" class="btn btn-large btn-info">
                 <i class="icon-group"></i>
                 No Gruppo
             </a>
+            <?php } ?>
         </div>
         
         <div class="span6 centrato">
