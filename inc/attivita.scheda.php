@@ -249,6 +249,13 @@ $(document).ready( function() {
 
                 </div>
                 <div class="row-fluid">
+                    <div class="alert alert-info">
+                        <i class="icon-info-sign"></i> In caso di turni <strong>pieni</strong> puoi
+                        comunque dare la tua disponibilità aggiuntiva. Potra essere presa in considerazione
+                        nel caso ci siano ulteriori posti a disposizione.
+                    </div>
+                </div>
+                <div class="row-fluid">
                     <table class="table table-bordered table-striped" id="turniAttivita">
                         <thead>
                             <th style="width: 25%;">Nome</th>
@@ -400,12 +407,18 @@ $(document).ready( function() {
                                 <i class="icon-remove"></i>
                                 Ritirati
                             </a>
-                            <?php } ?>
-                            <?php } elseif ( $turno->puoRichiederePartecipazione($me) && !$me->inriserva()) { ?>
-                            <a name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-success btn-large btn-block">
-                                <i class="icon-ok"></i> Partecipa
-                            </a>
-                            <?php } else { ?>
+                            <?php } 
+                            } elseif ( $turno->puoRichiederePartecipazione($me) && !$me->inriserva()) { 
+                                if($turno->pieno()) { ?> 
+                                    <a name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-warning btn-block">
+                                        <i class="icon-warning-sign"></i> Dai disponibilità
+                                    </a>
+                                <?php } else  { ?>
+                                    <a name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-success btn-large btn-block">
+                                        <i class="icon-ok"></i> Partecipa
+                                    </a>
+                                <?php } 
+                            } else { ?>
                             <a class="btn btn-block disabled">
                                 <i class="icon-info-sign"></i>
                                 Non puoi partecipare
