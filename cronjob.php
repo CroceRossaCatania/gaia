@@ -103,6 +103,10 @@ function cronjobGiornaliero()  {
     }
     $log .= "Autorizzate $n riserve\n";
 
+    /* === 8. PULITURA E FIX ATTIVITA' */
+    $n = 0;
+    $n = Attivita::pulizia();
+    $log .= "Fix di $n attività\n";
 };
 // =========== FINE CRONJOB GIORNALIERO
 

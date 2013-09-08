@@ -155,5 +155,54 @@ class Attivita extends GeoEntita {
         }
         return $r;
     }
+
+    public static function pulizia() {
+        $eseguiti=0;
+        $nAttivita = 0;
+        $attivita = Attivita::elenco();
+        foreach( $attivita as $a ){
+            $comitato = $a->comitato();
+            if( $comitato ){
+                try {
+                    $referente = $a->referente();
+                } catch (Exception $e) {
+                    $referente = $a->referente;
+                    $comitato = $a->comitato();
+                    $presidente = $comitato->unPresidente();
+                    if ( !$presidente ) { 
+                        $locale = $comitato->locale();
+                        $presidente = $locale->unPresidente();
+                    }
+                    $autorizzazioni = Autorizzazione::filtra(['volontario', $referente]);
+                    foreach ( $autorizzazioni as $autorizzazione ){
+                        $m = new Autorizzazione($autorizzazione);
+                        $m->volontario = $presidente;
+                    }
+                    $att = new Attivita($a);
+                    $att->referente = $presidente;
+                    $eseguiti++;
+                    continue;
+                }
+                continue;
+            }else{
+                $turni = Turno::filtra([['attivita', $a]]);
+                foreach( $turni as $turno ){
+                    $partecipazioni = Partecipazione::filtra([['turno', $turno]]);
+                    foreach( $partecipazioni as $partecipazione ){
+                        $autorizzazioni = Autorizzazione::filtra(['partecipazione', $partecipazione]);
+                        foreach( $autorizzazioni as $autorizzazione ){
+                            $autorizzazione->cancella();
+                        }
+                        $partecipazione->cancella();
+                    }
+                    $turno->cancella();
+                }
+                $a->cancella();
+                $nAttivita++;
+            }
+        }
+    $t = $eseguiti + $nAttivita;
+    return $t;
+    }
     
 }
