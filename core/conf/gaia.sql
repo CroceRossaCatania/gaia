@@ -108,7 +108,6 @@ CREATE TABLE IF NOT EXISTS `comitati` (
   `colore` varchar(8) DEFAULT NULL,
   `locale` int(11) DEFAULT NULL,
   `geo` point NOT NULL,
-  `principale` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `locale` (`locale`),
   SPATIAL KEY `geo` (`geo`)
@@ -291,6 +290,7 @@ CREATE TABLE IF NOT EXISTS `gruppi` (
   `obiettivo` varchar(8) DEFAULT NULL,
   `area` varchar(16) DEFAULT NULL,
   `referente` varchar(16) DEFAULT NULL,
+  `attivita` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `comitato` (`comitato`),
   KEY `referente` (`referente`)
