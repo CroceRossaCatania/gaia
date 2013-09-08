@@ -50,7 +50,7 @@ foreach ( $_POST['volontari'] as $v ) {
     $m->_REFERENTE      = $a->referente()->nomeCompleto();
     $m->_CELLREFERENTE  = $a->referente()->cellulare();
     $m->allega($cal);
-    $m->invia();
+    $m->invia(true);
     
 }
 
