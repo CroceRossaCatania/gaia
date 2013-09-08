@@ -139,14 +139,13 @@ class APIServer {
             $fine   = DT::daISO($this->par['fine']);
             $cA = Turno::neltempo($inizio, $fine);
             $r = [];
-
             foreach  ( $cA as $turno ) {
                 $attivita = $turno->attivita();
                 if ( !$attivita->puoPartecipare($this->sessione->utente()) ) {
                     continue;
                 }
                 if ( $this->sessione->utente ) {
-                    if ( $attivita->comitato()->haMembro($this->sessione->utente()) ) {
+                    if ( $this->sessione->utente()->unComitato() == $attivita->comitato ) {
                         $colore = $conf['attivita']['colore_mie'];
                     } else {
                         $colore = $conf['attivita']['colore_pubbliche'];
