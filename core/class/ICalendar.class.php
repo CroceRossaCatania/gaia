@@ -6,7 +6,7 @@
 
 class ICalendar extends File {
     
-    public function creaCalendar($attivita, $turno) {
+    public function creaCalendar($turno) {
         
         /* Genero quel che mi serve per popolare */
         $turno = new Turno($turno);
@@ -18,6 +18,11 @@ class ICalendar extends File {
         $f->autore  = $this->utente;
         $f->nome    = ''.date('Ymd_THis', $turno->inizio).'_'.$turno->nome. '_.ics';
         $f->mime    = 'text/calendar';
+
+        return $f;
+    }
+
+    public function aggiungiInformazioni($attivita, $turno) {
 
         /* Inserisco le informazioni */
         $s = "
@@ -33,13 +38,12 @@ class ICalendar extends File {
         SUMMARY:".$attivita->nome.": ".$turno->nome.",  
         LOCATION:".$attivita->luogo."
         UID:".$turno->id."
-        DESCRIPTION:Turno organizzato da".$c->nomeCompleto()." per ".$attivita->descrizione."\n\n\n
+        DESCRIPTION:Turno organizzato da".$c->nomeCompleto()." per ".strip_tags($attivita->descrizione)."\n\n\n
         ORGANIZER;CN=".$ref->nomeCompleto().":mailto:".$ref->email."
         END:VEVENT
         END:VCALENDAR
         ";
-        file_put_contents($this->percorso(), $s);
 
-        return $f;
+        file_put_contents($this->percorso(), $s);
     }    
 }
