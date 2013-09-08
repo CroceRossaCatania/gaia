@@ -6,25 +6,17 @@
 
 class ICalendar extends File {
     
-    public function __construct($turno) {
-        
-        global $sessione;
-        $turno = new Turno($turno);
-
-
-        /* Strutturo il file */
-        $this->autore  = $sessione->utente;
-        $this->nome    = ''.date('Ymd_THis', $turno->inizio).'_'.$turno->nome. '_.ics';
-        $this->mime    = 'text/calendar';
-
-    }
-
     public function genera($attivita, $turno) {
 
         $att = new Attivita($attivita);
         $turno = new Turno($turno);
         $ref = new Volontario($att->referente);
         $c = new Comitato($att->comitato);
+
+        /* Strutturo il file */
+        $this->autore  = $sessione->utente;
+        $this->nome    = ''.date('Ymd_THis', $turno->inizio).'_'.$turno->nome. '_.ics';
+        $this->mime    = 'text/calendar';
 
         /* Inserisco le informazioni */
         $s = "
@@ -36,11 +28,12 @@ class ICalendar extends File {
         BEGIN:VEVENT
         DTSTAMP:".date('Ymd\THis\Z', time())."
         DTSTART:".date('Ymd\THis\Z', $turno->inizio)."
-        DTEND:".date('Ymd\THis\Z', $turno->inizio)."
-        SUMMARY:".$attivita->nome.": ".$turno->nome.",  
-        LOCATION:".$attivita->luogo."
+        DTEND:".date('Ymd\THis\Z', $turno->fine)."
+        SUMMARY:".$att->nome.": ".$turno->nome."  
+        LOCATION:".$att->luogo."
         UID:".$turno->id."
-        DESCRIPTION:Turno organizzato da".$c->nomeCompleto()." per ".strip_tags($attivita->descrizione)."\n\n\n
+        DESCRIPTION:\nTurno organizzato da".$c->nomeCompleto().",
+        dettagli: ".strip_tags($att->descrizione)."
         ORGANIZER;CN=".$ref->nomeCompleto().":mailto:".$ref->email."
         END:VEVENT
         END:VCALENDAR

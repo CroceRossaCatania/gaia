@@ -35,8 +35,8 @@ foreach ( $_POST['volontari'] as $v ) {
     $aut->pFirma          = $me;
     $aut->stato           = AUT_OK;
 
-    $cal = new ICalendar($turno->id);
-    $cal->genera($a, $turno);
+    $cal = new ICalendar();
+    $cal->genera($a->id, $turno->id);
     
     $m = new Email('aggiuntoattivita', "Partecipazione  {$a->nome}");
     $m->a               = $v;
