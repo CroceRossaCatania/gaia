@@ -12,7 +12,7 @@ $_titolo = $a->nome . ' - Attività CRI su Gaia';
 $_descrizione = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita]
 ." || Organizzato da " . $a->comitato()->nomeCompleto();
 
-$g = Gruppo::filtra([['area', $a->area()],['comitato', $a->comitato()],['referente', $a->referente()]]);
+$g = Gruppo::by('attivita', $a);
 if ( isset($_GET['riapri']) ) { ?>
 <script type='text/javascript'>
 $(document).ready( function() {
@@ -59,7 +59,7 @@ $(document).ready( function() {
                 <a href="?p=attivita.cancella&id=<?= $a->id; ?>" class="btn btn-large btn-danger" title="Cancella attività e tutti i turni">
                     <i class="icon-trash"></i>
                 </a>
-                <?php if ($g == NULL){ ?>
+                <?php if (!$g){ ?>
                     <a class="btn btn-large btn-success" href="?p=attivita.gruppo.nuovo&id=<?php echo $a->id; ?>" itle="Crea nuovo gruppo di lavoro">
                         <i class="icon-group"></i> Crea gruppo
                     </a>

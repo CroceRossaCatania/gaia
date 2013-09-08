@@ -10,22 +10,28 @@ caricaSelettore();
 <br/>
 <div class="row-fluid">
     <div class="span12">
-        <?php if ( isset($_GET['newref']) ) { ?>
+        <?php   if ( isset($_GET['newref']) ) { ?>
             <div class="alert alert-success">
                 <i class="icon-save"></i> <strong>Nuovo referente nominato</strong>.
                 Il volontario è stato nominato con successo come referente del gruppo.
             </div>
-        <?php } ?>
-        <?php if ( isset($_GET['ok']) ) { ?>
+        <?php   } 
+                if ( isset($_GET['ok']) ) { ?>
             <div class="alert alert-success">
                 <i class="icon-save"></i> <strong>Modifiche effettuate</strong>.
                 Le modifiche sono state effettuate con successo.
             </div>
-        <?php } ?>
-        <?php if ( isset($_GET['esp']) ) { ?>
+        <?php   } 
+                if ( isset($_GET['esp']) ) { ?>
             <div class="alert alert-success">
                 <i class="icon-save"></i> <strong>Volontario espulso</strong>.
                 Il volontario è stato espulso dal gruppo con successo.
+            </div>
+        <?php   }
+                if ( isset($_GET['nome']) ) { ?>
+            <div class="alert alert-danger">
+                <i class="icon-stop"></i> <strong>Inserire un nome al gruppo</strong>.
+                Il gruppo deve avere il nome!.
             </div>
         <?php } ?>
     </div>
