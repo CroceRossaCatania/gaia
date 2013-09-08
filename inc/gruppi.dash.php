@@ -10,22 +10,28 @@ caricaSelettore();
 <br/>
 <div class="row-fluid">
     <div class="span12">
-        <?php if ( isset($_GET['newref']) ) { ?>
+        <?php   if ( isset($_GET['newref']) ) { ?>
             <div class="alert alert-success">
                 <i class="icon-save"></i> <strong>Nuovo referente nominato</strong>.
                 Il volontario è stato nominato con successo come referente del gruppo.
             </div>
-        <?php } ?>
-        <?php if ( isset($_GET['ok']) ) { ?>
+        <?php   } 
+                if ( isset($_GET['ok']) ) { ?>
             <div class="alert alert-success">
                 <i class="icon-save"></i> <strong>Modifiche effettuate</strong>.
                 Le modifiche sono state effettuate con successo.
             </div>
-        <?php } ?>
-        <?php if ( isset($_GET['esp']) ) { ?>
+        <?php   } 
+                if ( isset($_GET['esp']) ) { ?>
             <div class="alert alert-success">
                 <i class="icon-save"></i> <strong>Volontario espulso</strong>.
                 Il volontario è stato espulso dal gruppo con successo.
+            </div>
+        <?php   }
+                if ( isset($_GET['nome']) ) { ?>
+            <div class="alert alert-danger">
+                <i class="icon-stop"></i> <strong>Inserire un nome al gruppo</strong>.
+                Il gruppo deve avere il nome!.
             </div>
         <?php } ?>
     </div>
@@ -74,6 +80,7 @@ if ( isset($_GET['cancellato'] ) ) {
                 <th>Cognome</th>
                 <th>Nome</th>
                 <th>Cellulare</th>
+                <th>Iscritto al gruppo dal</th>
                 <th>Azioni</th>
             </thead>
 <?php
@@ -81,7 +88,7 @@ foreach ($gruppi as $gruppo){
         $g = $gruppo->membri();
     ?>
         <tr class="success">
-                    <td colspan="4" class="grassetto">
+                    <td colspan="5" class="grassetto">
                             <?php echo $gruppo->comitato()->nomeCompleto()?> - <?php echo $gruppo->nome; ?>
                             <span class="label label-warning">
                                 <?= count($g); ?>
@@ -116,9 +123,10 @@ foreach ($gruppi as $gruppo){
             $gp = AppartenenzaGruppo::filtra([['volontario',$volontario->id],['gruppo',$gruppo->id],['fine', NULL]]);
     ?>
                     <tr>
-                        <td><?= $volontario->cognome; ?>    </td>
-                        <td><?= $volontario->nome; ?>       </td>
-                        <td><?= $volontario->cellulare(); ?></td>
+                        <td><?= $volontario->cognome; ?>      </td>
+                        <td><?= $volontario->nome; ?>         </td>
+                        <td><?= $volontario->cellulare(); ?>  </td>
+                        <td><?= date('d/m/Y', $gp[0]->inizio); ?></td>
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-small" href="?p=public.utente&id=<?php echo $volontario->id; ?>" target="_new"  title="Dettagli">

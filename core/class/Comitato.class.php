@@ -13,6 +13,18 @@ class Comitato extends GeoPolitica {
     public static 
         $_ESTENSIONE = EST_UNITA;
 
+    /**
+     * Sovrascrive metodo __get se unita' principale
+     * ref. https://github.com/CroceRossaCatania/gaia/issues/360
+     */ 
+    public function __get ($_nome) {
+        $nonSovrascrivere = ['id', 'nome', 'principale', 'locale'];
+        if ( parent::__get('principale') && !in_array($_nome, $nonSovrascrivere) ) {
+            return $this->locale()->{$_nome};
+        }
+        return parent::__get($_nome);
+    }
+
     public function figli() {
         return [];
     }
@@ -145,8 +157,8 @@ class Comitato extends GeoPolitica {
         $anzianita = (int) $anzianita;
         $minimo->modify("-{$anzianita} years");
         $q->bindValue(':comitato',  $this->id);
-        $q->bindValue(':elezioni',  $elezioni->getTimestamp());
-        $q->bindValue(':minimo',    $minimo->getTimestamp());
+        $q->bindParam(':elezioni',  $elezioni->getTimestamp(), PDO::PARAM_INT);
+        $q->bindParam(':minimo',    $minimo->getTimestamp(), PDO::PARAM_INT);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {

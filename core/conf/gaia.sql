@@ -290,6 +290,7 @@ CREATE TABLE IF NOT EXISTS `gruppi` (
   `obiettivo` varchar(8) DEFAULT NULL,
   `area` varchar(16) DEFAULT NULL,
   `referente` varchar(16) DEFAULT NULL,
+  `attivita` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `comitato` (`comitato`),
   KEY `referente` (`referente`)

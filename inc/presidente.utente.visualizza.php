@@ -141,14 +141,14 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             <div class="control-group">
                <label class="control-label" for="inputEmail">Email</label>
                <div class="controls">
-                 <input value="<?php echo $v->email; ?>"  type="email" id="inputEmail" name="inputEmail" required  />
+                 <input value="<?php echo $v->email; ?>"  type="email" id="inputEmail" name="inputEmail" />
                 </div>
              </div>
              <div class="control-group input-prepend">
                <label class="control-label" for="inputCellulare">Cellulare</label>
                <div class="controls">
                    <span class="add-on">+39</span>
-                 <input value="<?php echo $v->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" required pattern="[0-9]{9,11}" />
+                 <input value="<?php echo $v->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" />
                 </div>
              </div>
             <div class="control-group input-prepend">

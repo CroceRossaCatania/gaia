@@ -69,10 +69,13 @@ $t=utente::by('id',$f);
             </div>
           </div>
             <div class="form-actions">
-                <button type="submit" class="btn btn-success btn-large">
+                <button onclick="$('#b1').toggle(1000); $('#a1').toggle(1000);" id="b1" type="submit" class="btn btn-success btn-large">
                     <i class="icon-envelope"></i>
                     Invia mail
                 </button>
+                <div id="a1" class="alert alert-block alert-success nascosto">
+                    <h4><i class="icon-warning-sign"></i> <strong>Attendere...</strong>.</h4>
+                </div>
             </div>
           </form>
 

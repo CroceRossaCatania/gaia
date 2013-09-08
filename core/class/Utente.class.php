@@ -802,6 +802,14 @@ class Utente extends Persona {
                             ['obiettivo',$d]
                         ])
                     );
+                    if (!$gruppi){
+                        $gruppi = array_merge(
+                            $gruppi,
+                            Gruppo::filtra([
+                            ['referente',$this]
+                        ])
+                        );
+                    }
                 }
             $gruppi = array_unique($gruppi);
             }

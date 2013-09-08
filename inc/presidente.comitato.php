@@ -15,6 +15,7 @@ $c = $_GET['oid'];
 $c = GeoPolitica::daOid($c);
 
 paginaApp([APP_PRESIDENTE], [$c]);
+
 caricaSelettore();
 
 $back = false;
@@ -131,6 +132,18 @@ $(document).ready(function() {
 
             <!-- Tab: Dettagli -->
             <div class="tab-pane active"    id="dettagli">
+
+                <?php if ( $c->principale ) { ?>
+                    <div class="alert alert-warning">
+                        <i class="icon-info-sign"></i>
+                            Questa &egrave; l'unit&agrave; territoriale principale del <?= $c->locale()->nomeCompleto(); ?>,
+                            di conseguenza ne eredita tutti i dettagli anagrafici.<br />
+                            <a class="btn btn-warning" href="?=presidente.comitato&id=<?= $c->locale()->oid(); ?>">
+                                Modifica i dettagli per il <?= $c->locale()->nomeCompleto(); ?>
+                            </a>
+                    </div>
+                <?php } ?>
+
                 
                 <div class="alert alert-info">
                     <i class="icon-info-sign"></i> Queste informazioni sono rese pubbliche.
@@ -158,12 +171,14 @@ $(document).ready(function() {
                         <p><code><?php echo $c->email; ?></code></p>
                     </div>
                     
+                    <?php if ( !$c->principale ) { ?>
                     <div class="span2">
                         <a class="btn btn-large btn-block btn-info" href="?p=presidente.wizard&oid=<?php echo $c->oid(); ?>">
                             <i class="icon-pencil icon-3x"></i><br />
                             Modifica
                         </a>
                     </div>
+                    <?php } ?>
                 
                 </div>
                 

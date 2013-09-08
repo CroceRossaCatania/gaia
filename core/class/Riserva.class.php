@@ -56,8 +56,8 @@ class Riserva extends Entita {
             $m = new Email('richiestaRiservaAuto', 'Approvata richiesta riserva');          
             $m->a = $destinatario;
             $m->_NOME       = $v->nome;
-            $m->_INIZIO = date('d-m-Y', $t->inizio);
-            $m->_FINE = date('d-m-Y', $t->fine);
+            $m->_INIZIO = date('d-m-Y', $this->inizio);
+            $m->_FINE = date('d-m-Y', $this->fine);
             $m->invia();
         }
     }
