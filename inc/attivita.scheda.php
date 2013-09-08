@@ -12,7 +12,7 @@ $_titolo = $a->nome . ' - Attività CRI su Gaia';
 $_descrizione = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita]
 ." || Organizzato da " . $a->comitato()->nomeCompleto();
 
-$g = Gruppo::filtra([['area', $a->area()],['comitato', $a->comitato()],['referente', $a->referente()]]);
+$g = Gruppo::by('attivita', $a);
 if ( isset($_GET['riapri']) ) { ?>
 <script type='text/javascript'>
 $(document).ready( function() {
