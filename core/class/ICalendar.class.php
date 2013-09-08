@@ -26,14 +26,14 @@ PRODID:-//Croce Rossa Italiana//Progetto GAIA//IT
 METHOD:REQUEST
 BEGIN:VEVENT
 DTSTAMP:".date('Ymd\THis\Z', time())."
-DTSTART:".date('Ymd\THis', $turno->inizio)."
-DTEND:".date('Ymd\THis', $turno->fine)."
+DTSTART;TZID=Europe/Rome:".date('Ymd\THis', $turno->inizio)."
+DTEND;TZID=Europe/Rome:".date('Ymd\THis', $turno->fine)."
 SUMMARY:".$att->nome.": ".$turno->nome."
 LOCATION:".$att->luogo."
 UID:".$turno->id."
 DESCRIPTION:\nTurno organizzato da ".$c->nomeCompleto().",
 dettagli: ".strip_tags($att->descrizione)."
-ORGANIZER;CN=ORGANIZER:mailto:".$ref->email."
+ORGANIZER;CN=\"".$ref->nomeCompleto()."\":mailto:".$ref->email."
 END:VEVENT
 END:VCALENDAR\n";
 
