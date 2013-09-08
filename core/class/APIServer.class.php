@@ -247,8 +247,9 @@ class APIServer {
                     $m->_NOME       = $aut->partecipazione()->volontario()->nome;
                     $m->_ATTIVITA   = $attivita->nome;
                     $m->_TURNO      = $turno->nome;
-                    $m->_DATA      = $turno->inizio()->format('d-m-Y H:i');
-                    $m->_LUOGO     = $attivita->luogo;
+                    $m->_DATA       = $turno->inizio()->format('d-m-Y H:i');
+                    $m->_LUOGO      = $attivita->luogo;
+                    $m->_MOTIVO     = $this->par['motivo'];
                     $m->invia();
                     
                 }
