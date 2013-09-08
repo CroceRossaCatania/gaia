@@ -30,11 +30,10 @@ class ICalendar extends File {
         DTSTAMP:".date('Ymd\THis\Z', time())."
         DTSTART:".date('Ymd\THis\Z', $turno->inizio)."
         DTEND:".date('Ymd\THis\Z', $turno->inizio)."
-        SUMMARY:Trip Milano Centrale-Roma Termini\, Train Frecciarossa 9607\, Coa
-         ch 8\, Position 4D\, PNR UVPNEN\,  
+        SUMMARY:".$attivita->nome.": ".$turno->nome.",  
         LOCATION:".$attivita->luogo."
         UID:".$turno->id."
-        DESCRIPTION:".$attivita->descrizione."\n\n\n
+        DESCRIPTION:Turno organizzato da".$c->nomeCompleto()." per ".$attivita->descrizione."\n\n\n
         ORGANIZER;CN=".$ref->nomeCompleto().":mailto:".$ref->email."
         END:VEVENT
         END:VCALENDAR
