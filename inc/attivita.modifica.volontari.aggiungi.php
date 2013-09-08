@@ -34,6 +34,9 @@ foreach ( $_POST['volontari'] as $v ) {
     $aut->tFirma          = $ora;
     $aut->pFirma          = $me;
     $aut->stato           = AUT_OK;
+
+    $cal = new ICalendar();
+    $cal->genera($a->id, $turno->id);
     
     $m = new Email('aggiuntoattivita', "Partecipazione  {$a->nome}");
     $m->a               = $v;
@@ -46,7 +49,8 @@ foreach ( $_POST['volontari'] as $v ) {
     $m->_LUOGO          = $a->luogo;
     $m->_REFERENTE      = $a->referente()->nomeCompleto();
     $m->_CELLREFERENTE  = $a->referente()->cellulare();
-    $m->invia();
+    $m->allega($cal);
+    $m->invia(true);
     
 }
 

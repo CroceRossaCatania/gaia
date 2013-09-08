@@ -12,7 +12,7 @@ $_titolo = $a->nome . ' - Attività CRI su Gaia';
 $_descrizione = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita]
 ." || Organizzato da " . $a->comitato()->nomeCompleto();
 
-$g = Gruppo::filtra([['area', $a->area()],['comitato', $a->comitato()],['referente', $a->referente()]]);
+$g = Gruppo::by('attivita', $a);
 if ( isset($_GET['riapri']) ) { ?>
 <script type='text/javascript'>
 $(document).ready( function() {
@@ -59,7 +59,7 @@ $(document).ready( function() {
                 <a href="?p=attivita.cancella&id=<?= $a->id; ?>" class="btn btn-large btn-danger" title="Cancella attività e tutti i turni">
                     <i class="icon-trash"></i>
                 </a>
-                <?php if ($g == NULL){ ?>
+                <?php if (!$g){ ?>
                     <a class="btn btn-large btn-success" href="?p=attivita.gruppo.nuovo&id=<?php echo $a->id; ?>" itle="Crea nuovo gruppo di lavoro">
                         <i class="icon-group"></i> Crea gruppo
                     </a>
@@ -249,6 +249,13 @@ $(document).ready( function() {
 
                 </div>
                 <div class="row-fluid">
+                    <div class="alert alert-info">
+                        <i class="icon-info-sign"></i> In caso di turni <strong>pieni</strong> puoi
+                        comunque dare la tua disponibilità aggiuntiva. Potra essere presa in considerazione
+                        nel caso ci siano ulteriori posti a disposizione.
+                    </div>
+                </div>
+                <div class="row-fluid">
                     <table class="table table-bordered table-striped" id="turniAttivita">
                         <thead>
                             <th style="width: 25%;">Nome</th>
@@ -400,12 +407,18 @@ $(document).ready( function() {
                                 <i class="icon-remove"></i>
                                 Ritirati
                             </a>
-                            <?php } ?>
-                            <?php } elseif ( $turno->puoRichiederePartecipazione($me) && !$me->inriserva()) { ?>
-                            <a name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-success btn-large btn-block">
-                                <i class="icon-ok"></i> Partecipa
-                            </a>
-                            <?php } else { ?>
+                            <?php } 
+                            } elseif ( $turno->puoRichiederePartecipazione($me) && !$me->inriserva()) { 
+                                if($turno->pieno()) { ?> 
+                                    <a name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-warning btn-block">
+                                        <i class="icon-warning-sign"></i> Dai disponibilità
+                                    </a>
+                                <?php } else  { ?>
+                                    <a name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-success btn-large btn-block">
+                                        <i class="icon-ok"></i> Partecipa
+                                    </a>
+                                <?php } 
+                            } else { ?>
                             <a class="btn btn-block disabled">
                                 <i class="icon-info-sign"></i>
                                 Non puoi partecipare

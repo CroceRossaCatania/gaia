@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `anagrafica` (
   `timestamp` varchar(64) DEFAULT NULL,
   `admin` varchar(64) DEFAULT NULL,
   `consenso` varchar(64) DEFAULT NULL,
-  `sesso` bit(1) DEFAULT NULL,
+  `sesso` tinyint(3) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `codiceFiscale` (`codiceFiscale`),
   KEY `email` (`email`),
@@ -88,6 +88,7 @@ CREATE TABLE IF NOT EXISTS `autorizzazioni` (
   `tFirma` varchar(64) DEFAULT NULL,
   `note` text,
   `stato` varchar(8) NOT NULL,
+  `motivo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `partecipazione` (`partecipazione`),
   KEY `volontario` (`volontario`)
@@ -289,6 +290,7 @@ CREATE TABLE IF NOT EXISTS `gruppi` (
   `obiettivo` varchar(8) DEFAULT NULL,
   `area` varchar(16) DEFAULT NULL,
   `referente` varchar(16) DEFAULT NULL,
+  `attivita` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `comitato` (`comitato`),
   KEY `referente` (`referente`)
@@ -362,7 +364,7 @@ CREATE TABLE IF NOT EXISTS `quote` (
   `causale` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `appartenenza` (`appartenenza`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2552 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2913 ;
 
 CREATE TABLE IF NOT EXISTS `regionali` (
   `id` int(11) NOT NULL,

@@ -30,6 +30,7 @@ if(isset($_GET['g'])){
     $g->obiettivo   =   $attivita->area()->obiettivo;
     $g->area        =   $attivita->area();
     $g->referente   =   $referente;
+    $g->attivita 	=	$attivita;
 }
     
 if ( $me->id == $referente->id ) {

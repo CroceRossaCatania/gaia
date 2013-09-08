@@ -32,6 +32,15 @@ paginaAdmin();
                 <i class="icon-money"></i>
                 Paga quote associative
             </a>
+            <hr/>
+            <div class="alert alert-danger">
+                <strong>Script per manutenzione delle attività</strong>
+                <p>Questo script elimina le attività con dati mancanti e fixa quelle senza referente</p>
+            </div>
+            <a href="?p=admin.attivita" class="btn btn-large btn-danger">
+                <i class="icon-wrench"></i>
+                Fix attività
+            </a>
         </div>
         
         <div class="span6 centrato">
