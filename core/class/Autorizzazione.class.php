@@ -25,10 +25,6 @@ class Autorizzazione extends Entita {
         $this->pFirma = $u;
         $this->tFirma = time();
         $this->partecipazione()->aggiornaStato();
-        if ( (int) $t == AUT_NO ){
-            $this->motivo = $sessione->motivazione;
-            $sessione->motivazione=0;
-        }
     }
     
     public function firmatario() {

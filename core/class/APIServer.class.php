@@ -240,7 +240,7 @@ class APIServer {
                     
                 } else {
                     $aut->nega();
-                                         
+                                        
                     $m = new Email('autorizzazioneNegata', "Autorizzazione NEGATA: {$attivita->nome}, {$turno->nome}" );
                     $m->a = $aut->partecipazione()->volontario();
                     $m->da = $attivita->referente();
@@ -249,7 +249,6 @@ class APIServer {
                     $m->_TURNO      = $turno->nome;
                     $m->_DATA      = $turno->inizio()->format('d-m-Y H:i');
                     $m->_LUOGO     = $attivita->luogo;
-                    $m->_MOTIVO     = $sessione->motivazione;
                     $m->invia();
                     
                 }

@@ -65,7 +65,7 @@ paginaPrivata();
                             <a data-autorizzazione="<?php echo $richiesta->id; ?>" data-accetta="1" class="btn btn-success">
                                 <i class="icon-ok"></i> Concedi
                             </a>
-                            <a href="?p=attivita.nega&id=<?= $richiesta->id; ?>" class="btn btn-danger">
+                            <a data-autorizzazione="<?php echo $richiesta->id; ?>" data-accetta="0" class="btn btn-danger">
                                 <i class="icon-remove"></i> Nega
                             </a>
                             </div>
