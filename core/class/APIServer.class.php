@@ -223,6 +223,9 @@ class APIServer {
                 
                 if ( $this->par['aut'] ) {
                     $aut->concedi();
+
+                    $cal = new ICalendar();
+                    $cal->genera($attivita->id, $turno->id);
                     
                     
                     $m = new Email('autorizzazioneConcessa', "Autorizzazione CONCESSA: {$attivita->nome}, {$turno->nome}" );
@@ -235,6 +238,7 @@ class APIServer {
                     $m->_LUOGO     = $attivita->luogo;
                     $m->_REFERENTE   = $attivita->referente()->nomeCompleto();
                     $m->_CELLREFERENTE = $attivita->referente()->cellulare();
+                    $m->allega($cal);
                     $m->invia();
                     
                     
