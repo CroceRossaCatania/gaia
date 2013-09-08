@@ -35,7 +35,7 @@ class Email {
         $this->allegati[] = $f;
     }
     
-    public function invia() {
+    public function invia($quoted = null) {
         global $conf; 
         $oggetto    = $this->oggetto;
         if ( !$this->a ) {
@@ -75,7 +75,11 @@ class Email {
         $mime = new Mail_mime("\n");
         $mime->setHTMLBody($corpo);
         foreach ( $this->allegati as $allegato ) {
-            $mime->addAttachment($allegato->percorso(), $allegato->mime, $allegato->nome);
+            if (!$quoted) {
+                $mime->addAttachment($allegato->percorso(), $allegato->mime, $allegato->nome);
+            } else {
+                $mime->addAttachment($allegato->percorso(), $allegato->mime, $allegato->nome, "quoted-printable");
+            }
         }
         $corpo = $mime->get();
         $header = $mime->headers($header);
