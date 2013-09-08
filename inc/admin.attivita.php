@@ -23,13 +23,19 @@ echo "Start manutenzione attività:<br/>";
 foreach( $attivita as $a ){
 	$comitato = $a->comitato();
 	if( $comitato ){
-		/*try {
+		try {
 			$referente = $a->referente();
     	} catch (Exception $e) {
-    		echo "Attività rotta:", $a->nome, "<br/>";
+    		echo "Attività rotta: ", $a->nome;
 			$referente = $a->referente;
 			$comitato = $a->comitato();
+			echo " - ", $comitato->nomeCompleto();
 			$presidente = $comitato->unPresidente();
+			if ( !$presidente ) { 
+                $locale = $comitato->locale();
+                $presidente = $locale->unPresidente();
+            }
+			echo  " - Presidente: ", $presidente->nomeCompleto();
 			$autorizzazioni = Autorizzazione::filtra(['volontario', $referente]);
 			foreach ( $autorizzazioni as $autorizzazione ){
 				$m = new Autorizzazione($autorizzazione);
@@ -37,9 +43,10 @@ foreach( $attivita as $a ){
 			}
 			$att = new Attivita($a);
 			$att->referente = $presidente;
+			echo  " - Operazione completata! <br/>";
 			$eseguiti++;
 			continue;
-    	} */
+    	}
 		continue;
 	}else{
 		echo "Inizio rimozione attività con dati incompleti: ID: ", $a->id, $a->nome;
@@ -52,19 +59,16 @@ foreach( $attivita as $a ){
 					$autorizzazione->cancella();
 					$nAutorizzazioni++;
 				}
-				echo " - Autorizzazioni rimosse";
 				$partecipazione->cancella();
 				$nPartecipazioni++;
 			}
-			echo " - Partecipazioni rimosse";
 			$turno->cancella();		
 			$nTurni++;
 		}
-		echo " - Turni rimossi";
 		$a->cancella();
 		$nAttivita++;
 	}
-	echo " - Attività rimosse - Operazione completata!<br/>";
+	echo " - Attività rimossa - Operazione completata!<br/>";
 }
 ?>
 Ho rimosso <strong><?= $nAutorizzazioni; ?></strong> turni, <strong><?= $nPartecipazioni; ?></strong> partecipazioni, <strong><?= $nTurni; ?></strong> turni, <strong><?= $nAttivita; ?></strong> attivita.
