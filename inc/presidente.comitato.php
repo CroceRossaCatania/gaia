@@ -127,10 +127,13 @@ $(document).ready(function() {
             <div class="tab-pane active"    id="dettagli">
 
                 <?php if ( $c->principale ) { ?>
-                    <div class="alert alert-info">
+                    <div class="alert alert-warning">
                         <i class="icon-info-sign"></i>
                             Questa &egrave; l'unit&agrave; territoriale principale del <?= $c->locale()->nomeCompleto(); ?>,
-                            di conseguenza ne eredita tutti i dettagli anagrafici.
+                            di conseguenza ne eredita tutti i dettagli anagrafici.<br />
+                            <a class="btn btn-warning" href="?=presidente.comitato&id=<?= $c->locale()->oid(); ?>">
+                                Modifica i dettagli per il <?= $c->locale()->nomeCompleto(); ?>
+                            </a>
                     </div>
                 <?php } ?>
 
