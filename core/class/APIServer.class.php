@@ -26,6 +26,7 @@ class APIServer {
 	}
 	
 	public function esegui( $azione = 'welcome' ) {
+            $start = microtime(true);
             if (empty($azione)) { $azione = 'welcome'; }
             $azione = str_replace(':', '_', $azione);
             try {
@@ -43,6 +44,7 @@ class APIServer {
                     'parameters'    =>  $this->par,
                     'time'          =>  new DateTime()
                 ],
+                'time'     => ( microtime(true) - $start ),
                 'session'  => $this->sessione->toJSON(),
                 'response' => $r
             ], JSON_PRETTY_PRINT);
@@ -137,6 +139,7 @@ class APIServer {
             $fine   = DT::daISO($this->par['fine']);
             $cA = Turno::neltempo($inizio, $fine);
             $r = [];
+
             foreach  ( $cA as $turno ) {
                 $attivita = $turno->attivita();
                 if ( !$attivita->puoPartecipare($this->sessione->utente()) ) {
