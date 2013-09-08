@@ -54,5 +54,18 @@ class Locale extends GeoPolitica {
             'unita' =>  $comitati
         ];
     }
+
+    /**
+     * Ottiene l'unita' territoriale principale del comitato,
+     * oppure null se questa non e' presente
+     */
+    public function principale() {
+        $p = Comitato::filtra([
+            ['locale',      $this->id],
+            ['principale',  1]
+        ]);
+        if (!$p) { return false; }
+        return $p[0];
+    }
     
 }
