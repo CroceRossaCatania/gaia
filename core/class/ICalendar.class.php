@@ -33,7 +33,7 @@ LOCATION:".$att->luogo."
 UID:".$turno->id."
 DESCRIPTION:\nTurno organizzato da ".$c->nomeCompleto().",
 dettagli: ".strip_tags($att->descrizione)."
-ORGANIZER;CN=ORGANIZER:mailto:".$ref->email."
+ORGANIZER;CN=\"".$ref->nomeCompleto()."\":mailto:".$ref->email."
 END:VEVENT
 END:VCALENDAR\n";
 
