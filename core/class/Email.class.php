@@ -78,7 +78,7 @@ class Email {
             if (!$quoted) {
                 $mime->addAttachment($allegato->percorso(), $allegato->mime, $allegato->nome);
             } else {
-                $mime->addAttachment($allegato->percorso(), $allegato->mime, $allegato->nome, "quoted-printable");
+                $mime->addAttachment($allegato->percorso(), $allegato->mime, $allegato->nome, true, 'quoted-printable');
             }
         }
         $corpo = $mime->get();
