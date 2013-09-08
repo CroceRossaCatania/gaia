@@ -17,7 +17,7 @@ class ICalendar extends File {
         /* Strutturo il file */
         $this->autore  = $sessione->utente;
         $this->nome    = $name;
-        $this->mime    = 'text/calendar; method=REQUEST';
+        $this->mime    = 'text/calendar; charset=utf-8; method=REQUEST';
 
         /* Inserisco le informazioni */
         $s = "BEGIN:VCALENDAR
@@ -25,7 +25,7 @@ VERSION:2.0
 PRODID:-//Croce Rossa Italiana//Progetto GAIA//IT
 METHOD:REQUEST
 BEGIN:VEVENT
-DTSTAMP:".date('Ymd\THis\Z', time())."
+DTSTAMP:".date('Ymd\THis', time())."
 DTSTART;TZID=Europe/Rome:".date('Ymd\THis', $turno->inizio)."
 DTEND;TZID=Europe/Rome:".date('Ymd\THis', $turno->fine)."
 SUMMARY:".$att->nome.": ".$turno->nome."
@@ -37,6 +37,6 @@ ORGANIZER;CN=\"".$ref->nomeCompleto()."\":mailto:".$ref->email."
 END:VEVENT
 END:VCALENDAR\n";
 
-        file_put_contents($this->percorso(), $s);
+        file_put_contents($this->percorso(), utf8_encode($s));
     }    
 }
