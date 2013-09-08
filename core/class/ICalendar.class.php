@@ -12,11 +12,12 @@ class ICalendar extends File {
         $turno = new Turno($turno);
         $ref = new Volontario($att->referente);
         $c = new Comitato($att->comitato);
+        $name = ''.date('Ymd_THis', $turno->inizio).'_'.$turno->id.'_.ics';
 
         /* Strutturo il file */
         $this->autore  = $sessione->utente;
-        $this->nome    = ''.date('Ymd_THis', $turno->inizio).'_'.$turno->nome. '_.ics';
-        $this->mime    = 'text/calendar';
+        $this->nome    = $name;
+        $this->mime    = 'text/calendar; charset=UTF-8; method=REQUEST';
 
         /* Inserisco le informazioni */
         $s = "
