@@ -239,7 +239,7 @@ class APIServer {
                     $m->_REFERENTE   = $attivita->referente()->nomeCompleto();
                     $m->_CELLREFERENTE = $attivita->referente()->cellulare();
                     $m->allega($cal);
-                    $m->invia();
+                    $m->invia(true);
                     
                     
                 } else {
