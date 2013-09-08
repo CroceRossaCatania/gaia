@@ -6,23 +6,25 @@
 
 class ICalendar extends File {
     
-    public function creaCalendar($turno) {
+    public function __construct($turno) {
         
-        /* Genero quel che mi serve per popolare */
+        global $sessione;
         $turno = new Turno($turno);
-        $att = new Attivita($attivita);
-        $ref = new Volontario($att->referente);
+
 
         /* Strutturo il file */
-        $f = new File();
-        $f->autore  = $this->utente;
-        $f->nome    = ''.date('Ymd_THis', $turno->inizio).'_'.$turno->nome. '_.ics';
-        $f->mime    = 'text/calendar';
+        $this->autore  = $sessione->utente;
+        $this->nome    = ''.date('Ymd_THis', $turno->inizio).'_'.$turno->nome. '_.ics';
+        $this->mime    = 'text/calendar';
 
-        return $f;
     }
 
-    public function aggiungiInformazioni($attivita, $turno) {
+    public function genera($attivita, $turno) {
+
+        $att = new Attivita($attivita);
+        $turno = new Turno($turno);
+        $ref = new Volontario($att->referente);
+        $c = new Comitato($att->comitato);
 
         /* Inserisco le informazioni */
         $s = "
