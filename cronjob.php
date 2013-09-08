@@ -104,59 +104,9 @@ function cronjobGiornaliero()  {
     $log .= "Autorizzate $n riserve\n";
 
     /* === 8. PULITURA E FIX ATTIVITA' */
-    $attivita = Attivita::elenco();
-    $eseguiti=0;
-    $nAutorizzazioni = 0;
-    $nPartecipazioni = 0;
-    $nTurni = 0;
-    $nAttivita = 0;
-    foreach( $attivita as $a ){
-        $comitato = $a->comitato();
-        if( $comitato ){
-            try {
-                $referente = $a->referente();
-            } catch (Exception $e) {
-                $referente = $a->referente;
-                $comitato = $a->comitato();
-                $presidente = $comitato->unPresidente();
-                if ( !$presidente ) { 
-                    $locale = $comitato->locale();
-                    $presidente = $locale->unPresidente();
-                }
-                $autorizzazioni = Autorizzazione::filtra(['volontario', $referente]);
-                foreach ( $autorizzazioni as $autorizzazione ){
-                    $m = new Autorizzazione($autorizzazione);
-                    $m->volontario = $presidente;
-                }
-                $att = new Attivita($a);
-                $att->referente = $presidente;
-                $eseguiti++;
-                continue;
-            }
-            continue;
-        }else{
-            $turni = Turno::filtra([['attivita', $a]]);
-            foreach( $turni as $turno ){
-                $partecipazioni = Partecipazione::filtra([['turno', $turno]]);
-                foreach( $partecipazioni as $partecipazione ){
-                    $autorizzazioni = Autorizzazione::filtra(['partecipazione', $partecipazione]);
-                    foreach( $autorizzazioni as $autorizzazione ){
-                        $autorizzazione->cancella();
-                        $nAutorizzazioni++;
-                    }
-                    $partecipazione->cancella();
-                    $nPartecipazioni++;
-                }
-                $turno->cancella();     
-                $nTurni++;
-            }
-            $a->cancella();
-            $nAttivita++;
-        }
-    }
-    $log .= "Riparate $eseguiti attivita\n";
-    $log .= "Rimosse $nAutorizzazioni Autorizzazioni - $nPartecipazioni Partecipazioni - $nTurni Turni - $nAttivita Attivita\n";
-
+    $n = 0;
+    $n = Attivita::pulizia();
+    $log .= "Fix di $n attività\n";
 };
 // =========== FINE CRONJOB GIORNALIERO
 
