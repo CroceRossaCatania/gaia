@@ -73,9 +73,11 @@ CREATE TABLE IF NOT EXISTS `attivita` (
   `geo` point NOT NULL,
   `descrizione` text,
   `stato` int(11) NOT NULL,
+  `area` int(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `comitato` (`comitato`),
   KEY `referente` (`referente`),
+  KEY `area` (`area`),
   SPATIAL KEY `geo` (`geo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
