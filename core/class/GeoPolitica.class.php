@@ -36,6 +36,18 @@ abstract class GeoPolitica extends GeoEntita {
         }
         return $r;
     }
+
+    abstract public function superiore();
+
+    public function primoPresidente () {
+        $comitato = $this;
+        do {
+            $presidente = $comitato->unPresidente();
+            if ( $presidente ) { break; }
+        } while ( $comitato = $this->superiore() );
+        return $presidente;
+    }
+
     
     /*
      * Ritorna se questa entità sovrasta/contiene un'altra GeoPolitica

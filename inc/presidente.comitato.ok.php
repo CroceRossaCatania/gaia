@@ -8,6 +8,33 @@ $c = GeoPolitica::daOid($c);
 /* A che scheda tornare? Indice 0-based */ 
 $back = null;
 
+if(isset($_POST['cancellaDelegato'])) {
+    $back = 'obiettivi';
+    $num = $_POST['cancellaDelegato'];
+    $delega = $c->obiettivi_delegati($num)[0];
+    $delega->fine = time();
+
+    $area = Area::filtra([
+    ['comitato', $c->id],
+    ['nome', 'Generale'],
+    ['obiettivo', $num]
+    ]); 
+    
+    if ($area) {
+        $area = $area[0];
+        $area->responsabile = $c->primoPresidente()->id;
+    } else {
+        /* Per compatibilità con le aree cancellate, se l'area non c'è più la ricreo*/
+        $a = new Area();
+        $a->comitato    = $c->id;
+        $a->obiettivo   = $num;
+        $a->nome        = 'Generale';
+        $a->responsabile= $c->primoPresidente()->id;
+    } 
+
+
+}
+
 /* Salvataggio obiettivi */
 foreach ( $conf['obiettivi'] as $num => $nom ) {
     
@@ -74,7 +101,7 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
             if (!$area) {
             /* Controllo se c'è almeno un'area con il nome Generale */
                 $area = Area::filtra([
-                ['responsabile', $vecchioDelegato],
+                ['comitato', $c->id],
                 ['nome', 'Generale'],
                 ['obiettivo', $num]
                 ]);  
@@ -164,5 +191,5 @@ if ( isset($_POST['nuovaArea_volontario']) ) {
        
 }
 
-//$oid = $c->oid();
-//redirect("presidente.comitato&ok&oid={$oid}&back={$back}");
+$oid = $c->oid();
+redirect("presidente.comitato&ok&oid={$oid}&back={$back}");

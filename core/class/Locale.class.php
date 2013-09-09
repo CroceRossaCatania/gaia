@@ -26,6 +26,10 @@ class Locale extends GeoPolitica {
         return $this->comitati();
     }
 
+    public function superiore() {
+        return $this->provinciale();
+    }
+
     public function comitati() {
         return Comitato::filtra([
             ['locale',  $this->id]

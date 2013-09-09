@@ -196,7 +196,13 @@ $(document).ready(function() {
                     nel comitato riguardanti il loro Obiettivo Strategico.
                 </div>
                 
-                <?php if (!$c->obiettivi()) { ?>
+                <?php 
+                $delegati = false;
+                foreach ( $conf['obiettivi'] as $num => $nome ) {
+                    if ($c->obiettivi($num)) {
+                        $delegati = true;
+                    }
+                } if (!$delegati) { ?>
                 <div class="alert alert-error">
                     <i class="icon-warning-sign"></i> <strong>Attenzione</strong> &mdash;
                     Ancora nessun delegato obiettivo scelto!
@@ -221,9 +227,10 @@ $(document).ready(function() {
                             <a data-autosubmit="true" data-selettore="true" data-input="<?php echo $num; ?>" class="btn btn-small">
                                 <?php echo $o->nomeCompleto(); ?> <i class="icon-pencil"></i> 
                             </a>
-                            <a  onClick="return confirm('Vuoi veramente rimuovere questo delegato? L\'operazione non è reversibile');" href="?p=" title="Rimuovi delegato" class="btn btn-small btn-danger">
+                            <button onClick="return confirm('Vuoi veramente rimuovere questo delegato? L\'operazione non è reversibile');" name="cancellaDelegato" 
+                            value="<?php echo $num; ?>" title="Rimuovi delegato" class="btn btn-small btn-danger">
                                 <i class="icon-remove"></i> Rimuovi delegato
-                            </a>
+                            </button>
                         </div>
                         <?php } else { ?>
                         <a data-autosubmit="true" data-selettore="true" data-input="<?php echo $num; ?>" class="btn btn-small">

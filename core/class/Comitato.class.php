@@ -25,6 +25,10 @@ class Comitato extends GeoPolitica {
         return parent::__get($_nome);
     }
 
+    public function superiore() {
+        return $this->locale();
+    }
+
     public function figli() {
         return [];
     }
