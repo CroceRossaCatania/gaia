@@ -473,7 +473,7 @@ define('PIVA', '01019341005');
 
 /*
  * ===================================
- * =========== APP_PATENTI==== ============
+ * =========== APP_PATENTI ===========
  * ===================================
  */
 
@@ -492,3 +492,15 @@ $conf['patente'] = [
     PATENTE_ATTESA_CONSEGNA => 'In attesa ritiro patente',
     PATENTE_CONSEGNATA => 'Patente consegnata'
 ];
+
+/*
+ * ===================================
+ * =========== PRVACY ================
+ * ===================================
+ */
+
+/* Tipologia di Privacy */
+define('PRIVACY_PRIVATA',   10);
+define('PRIVACY_COMITATO', 20);
+define('PRIVACY_VOLONTARI', 30);
+define('PRIVACY_PUBBLICA', 40);

@@ -344,6 +344,17 @@ CREATE TABLE IF NOT EXISTS `partecipazioni` (
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `privacy` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `volontario` varchar(16) DEFAULT NULL,
+  `mailphone` int(1) DEFAULT NULL,
+  `mess` int(1) DEFAULT NULL,
+  `curriculum` int(1) DEFAULT NULL,
+  `incarichi` int(1) DEFAULT NULL,
+  `timestamp` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
 CREATE TABLE IF NOT EXISTS `provinciali` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,

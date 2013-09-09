@@ -869,4 +869,57 @@ class Utente extends Persona {
         }
         return $r;
     }
+
+    public function mailphone() {
+        $p = Privacy::by('volontario', $this);
+        if(!$p){
+            $p = PRIVACY_PRIVATA;
+        }else{
+            $p = new Privacy($p);
+            $p = $p->mailphone;
+        }
+        return $p;
+    }
+
+    public function mess() {
+        $p = Privacy::by('volontario', $this);
+        if(!$p){
+            $p = PRIVACY_PRIVATA;
+        }else{
+            $p = new Privacy($p);
+            $p = $p->mess;
+        }
+        return $p;
+    }
+
+    public function curriculum() {
+        $p = Privacy::by('volontario', $this);
+        if(!$p){
+            $p = PRIVACY_PRIVATA;
+        }else{
+            $p = new Privacy($p);
+            $p = $p->curriculum;
+        }
+        return $p;
+    }
+
+    public function incarichi() {
+        $p = Privacy::by('volontario', $this);
+        if(!$p){
+            $p = PRIVACY_PRIVATA;
+        }else{
+            $p = new Privacy($p);
+            $p = $p->incarichi;
+        }
+        return $p;
+    }
+
+    public function privacy() {
+        $p = Privacy::by('volontario', $this);
+        if(!$p){
+            return 0;
+        }else{
+            return 1;
+        };
+    }
 }

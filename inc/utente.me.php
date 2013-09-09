@@ -72,7 +72,26 @@ if ($rf) {
 <?php
 }
 ?>
+<?php echo $me->privacy(); ?>
+<?php if ( $me->privacy() == 0 ){ ?>
 
+<div class="modal fade automodal">
+        <div class="modal-header">
+          <h3 class="text-success"><i class="icon-cog"></i> Impostazioni sulla privacy!</h3>
+        </div>
+        <div class="modal-body">
+          <p>Ciao <strong><?php echo $me->nome; ?></strong>, da oggi Gaia ha le impostazioni sulla privacy!</p>
+          <p>Verifica e conferma le tue impostazioni sulla privacy, potrai modificarla in qualunque momento dal tuo menù utente.</p>
+        </div>
+        <div class="modal-footer">
+          <a href="?p=utente.privacy" class="btn btn-primary">
+            <i class="icon-arrow-right"></i>
+            Vai alle impostazioni
+          </a>
+        </div>
+</div>
+    
+<?php } ?>
 <div class="row-fluid">
     
     <div class="span3"><?php menuVolontario(); ?></div>
