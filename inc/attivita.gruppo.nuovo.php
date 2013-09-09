@@ -16,5 +16,6 @@ $g = new Gruppo();
 	$g->obiettivo   =   $attivita->area()->obiettivo;
 	$g->area        =   $attivita->area();
 	$g->referente   =   $attivita->referente();
+	$g->attivita 	=	$attivita->id;
 
 redirect('attivita.scheda&gok&id=' . $attivita->id);

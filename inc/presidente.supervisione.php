@@ -24,7 +24,7 @@ paginaPresidenziale();
         <div class="span6 centrato">
             <div class='alert alert-info'>
                 <strong>Volontari senza gruppi</strong>
-                <p>Con questo modulo si potranno controllare tutti i volontari che non appartengo ad almeno un gruppo di lavoro</p>
+                <p>Con questo modulo si potranno controllare tutti i volontari che non appartengono ad almeno un gruppo di lavoro</p>
             </div>
             <?php
             $comitati = $me->comitatiDiCompetenza();
@@ -52,7 +52,7 @@ paginaPresidenziale();
         <div class="span6 centrato">
             <!--<div class="alert alert-success">
                 <strong>Volontari con 0 turni</strong>
-                <p>Con questo modulo è possibile visualizzare tutti i volontari che non hanno effetuato turno in un dato mese</p>
+                <p>Con questo modulo è possibile visualizzare tutti i volontari che non hanno effettuato turno in un dato mese</p>
             </div>
             <a href="?p=#" class="btn btn-large btn-success">
                 <i class="icon-time"></i>
