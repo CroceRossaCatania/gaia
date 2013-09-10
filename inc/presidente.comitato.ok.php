@@ -8,6 +8,31 @@ $c = GeoPolitica::daOid($c);
 /* A che scheda tornare? Indice 0-based */ 
 $back = null;
 
+if(isset($_POST['cancellaDelegato'])) {
+    $back = 'obiettivi';
+    $num = $_POST['cancellaDelegato'];
+    $delega = $c->obiettivi_delegati($num)[0];
+    $delega->fine = time();
+
+    $area = Area::filtra([
+    ['comitato', $c->id],
+    ['nome', 'Generale'],
+    ['obiettivo', $num]
+    ]); 
+    
+    if ($area) {
+        $area = $area[0];
+        $area->responsabile = $c->primoPresidente()->id;
+    } else {
+        /* Per compatibilità con le aree cancellate, se l'area non c'è più la ricreo*/
+        $a = new Area();
+        $a->comitato    = $c->id;
+        $a->obiettivo   = $num;
+        $a->nome        = 'Generale';
+        $a->responsabile= $c->primoPresidente()->id;
+    } 
+}
+
 /* Salvataggio obiettivi */
 foreach ( $conf['obiettivi'] as $num => $nom ) {
     
@@ -15,7 +40,8 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
     if ( isset($_POST[$num] ) ) {
         
         /* Controllo se è il primo... */
-        $primo = (bool) $c->obiettivi($num);
+        $vecchioDelegato = $c->obiettivi($num);
+        $primo = (bool) $vecchioDelegato;
         $primo = !$primo;
         
         /* Se non è il primo */
@@ -60,9 +86,55 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
             $a->obiettivo   = $num;
             $a->nome        = 'Generale';
             $a->responsabile= $v->id;
+        } else {
+            /* Il problema è che se è cambiato il delegato col cazzo che ribecco l'area.... */
+            $vecchioDelegato = $vecchioDelegato[0]->id;
+            /* Controllo se c'è l'area del precedente delegato */
+            $area = Area::filtra([
+                ['responsabile', $vecchioDelegato],
+                ['comitato', $c->id],
+                ['obiettivo', $num]
+                ]);
+
+            if (!$area) {
+            /* Controllo se c'è almeno un'area con il nome Generale */
+                $area = Area::filtra([
+                ['comitato', $c->id],
+                ['nome', 'Generale'],
+                ['obiettivo', $num]
+                ]);  
+            } 
+            if ($area) {
+                $area = $area[0];
+                $area->responsabile = $v->id;
+            } else {
+                /* Per compatibilità con le aree cancellate, se l'area non c'è più la ricreo*/
+                $a = new Area();
+                $a->comitato    = $c->id;
+                $a->obiettivo   = $num;
+                $a->nome        = 'Generale';
+                $a->responsabile= $v->id;
+            }     
         }
-            
     }
+}
+
+if(isset($_POST['cancellaProgetto'])) {
+    $back = 'aree';
+    $a = $_POST['cancellaProgetto'];
+    $area = Area::by('id', $a);
+    $area->cancella();
+}
+
+if(isset($_POST['rimuoviReferente'])) {
+    $back = 'aree';
+    $a = $_POST['rimuoviReferente'];
+    $area = Area::by('id', $a);
+    $nuovoRef = $c->obiettivi($area->obiettivo)[0];
+    if(!$nuovoRef) {
+        $nuovoRef = $c->primoPresidente();
+    }
+    $area->responsabile = $nuovoRef->id;
 }
 
 
@@ -79,7 +151,13 @@ if ( $c instanceOf Comitato ) {
         /* Salva nome variato */
         if (isset($_POST[$a->id . '_inputNome'])) {
             $back = 'aree';
-            $a->nome     = normalizzaNome($_POST[$a->id . '_inputNome']);
+            $nome = normalizzaNome($_POST[$a->id . '_inputNome']);
+            // !!!! Attenzione, momentaneamente lascio lo la possibilità di chiamare generale le aree
+            if ($nome == 'Generale' || count($nome) < 3 && 0) {
+                $oid = $c->oid();
+                redirect("presidente.comitato&errnome&oid={$oid}&back={$back}");
+            }
+            $a->nome     = $nome;
         }
         
         /* Salva volontario variato */
@@ -105,10 +183,17 @@ if ( $c instanceOf Comitato ) {
 if ( isset($_POST['nuovaArea_volontario']) ) {
         
     $back = 'aree';
+
+    $nome = normalizzaTitolo($_POST['nuovaArea_nome']);
+    if ($nome == 'Generale') {
+        $oid = $c->oid();
+        redirect("presidente.comitato&errnome&oid={$oid}&back={$back}");
+    }
+
     $a = new Area();
     $a->comitato    = $c->id;
     $a->obiettivo   = (int) $_POST['nuovaArea_inputObiettivo'];
-    $a->nome        = normalizzaTitolo($_POST['nuovaArea_nome']);
+    $a->nome        = $nome;
     $a->responsabile= $_POST['nuovaArea_volontario'];
     
     $v = $a->responsabile();
