@@ -257,10 +257,10 @@ $(document).ready(function() {
 
                 <div class="alert alert-info"><i class="icon-info-sign"></i> 
                    Inserire le aree di intervento e selezionare i responsabili associati.<br />Essi saranno 
-                   in grado di <strong>organizzare nuove attività su Gaia</strong> riguardanti la loro Area. <br>
-                   Sono quando <strong>non</strong> sono presenti attività legate all'area è possibile cancellarla. <br>
-                   In caso di <strong>rimozione</strong> del responsabile la competenza passa al <strong>Delegato d'Area</strong> o
-                   in caso di sua assenza al <strong>Presidente</strong>.
+                   in grado di <strong>organizzare nuove attività su Gaia</strong> riguardanti la loro Area. <br />
+                   &Egrave; possibile cancellare solo le aree che non hanno attivit&agrave; associate.<br />
+                   In caso di <strong>rimozione</strong> del responsabile la competenza passa al <strong>Delegato d'Area</strong> o,
+                   in caso di sua assenza, al <strong>Presidente</strong>.
                 </div>
 
                 <?php if ( $c->aree() ) { ?>
