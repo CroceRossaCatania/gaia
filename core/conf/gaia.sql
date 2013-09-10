@@ -9,15 +9,15 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `anagrafica` (
   `id` int(11) NOT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  `cognome` varchar(255) DEFAULT NULL,
-  `stato` varchar(8) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(127) DEFAULT NULL,
-  `codiceFiscale` varchar(16) DEFAULT NULL,
-  `timestamp` varchar(64) DEFAULT NULL,
-  `admin` varchar(64) DEFAULT NULL,
-  `consenso` varchar(64) DEFAULT NULL,
+  `nome` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `cognome` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `stato` varchar(8) CHARACTER SET latin1 DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `password` varchar(127) CHARACTER SET latin1 DEFAULT NULL,
+  `codiceFiscale` varchar(16) CHARACTER SET latin1 DEFAULT NULL,
+  `timestamp` varchar(64) CHARACTER SET latin1 DEFAULT NULL,
+  `admin` varchar(64) CHARACTER SET latin1 DEFAULT NULL,
+  `consenso` varchar(64) CHARACTER SET latin1 DEFAULT NULL,
   `sesso` tinyint(3) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `codiceFiscale` (`codiceFiscale`),
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `anagrafica` (
   KEY `sesso` (`sesso`),
   FULLTEXT KEY `indice` (`nome`,`cognome`,`email`,`codiceFiscale`),
   FULLTEXT KEY `nome` (`nome`,`cognome`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `annunci` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -110,6 +110,7 @@ CREATE TABLE IF NOT EXISTS `comitati` (
   `colore` varchar(8) DEFAULT NULL,
   `locale` int(11) DEFAULT NULL,
   `geo` point NOT NULL,
+  `principale` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `locale` (`locale`),
   SPATIAL KEY `geo` (`geo`)
@@ -345,6 +346,17 @@ CREATE TABLE IF NOT EXISTS `partecipazioni` (
   KEY `turno` (`turno`),
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `privacy` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `volontario` varchar(16) DEFAULT NULL,
+  `mailphone` int(1) DEFAULT NULL,
+  `mess` int(1) DEFAULT NULL,
+  `curriculum` int(1) DEFAULT NULL,
+  `incarichi` int(1) DEFAULT NULL,
+  `timestamp` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `provinciali` (
   `id` int(11) NOT NULL,

@@ -138,7 +138,7 @@ $(document).ready(function() {
                         <i class="icon-info-sign"></i>
                             Questa &egrave; l'unit&agrave; territoriale principale del <?= $c->locale()->nomeCompleto(); ?>,
                             di conseguenza ne eredita tutti i dettagli anagrafici.<br />
-                            <a class="btn btn-warning" href="?=presidente.comitato&id=<?= $c->locale()->oid(); ?>">
+                            <a class="btn btn-warning" href="?p=presidente.comitato&oid=<?= $c->locale()->oid(); ?>">
                                 Modifica i dettagli per il <?= $c->locale()->nomeCompleto(); ?>
                             </a>
                     </div>
