@@ -292,7 +292,7 @@ $(document).ready(function() {
                             <?php echo $attivita; ?> attività
                         </td>
                         <td>
-                            <?php if ($area->nome == 'Generale' && !$me->admin) {
+                            <?php if ($area->nome == 'Generale' && !$me->admin()) {
                                 echo( $area->responsabile()->nomeCompleto());
                             } else { ?>
                             <div class="btn-group">

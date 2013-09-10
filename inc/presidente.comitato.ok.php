@@ -153,7 +153,7 @@ if ( $c instanceOf Comitato ) {
             $back = 'aree';
             $nome = normalizzaNome($_POST[$a->id . '_inputNome']);
             // !!!! Attenzione, momentaneamente lascio lo la possibilità di chiamare generale le aree
-            if (($nome == 'Generale' || count($nome) < 3) && 0) {
+            if ($nome == 'Generale' || count($nome) < 3) {
                 $oid = $c->oid();
                 redirect("presidente.comitato&errnome&oid={$oid}&back={$back}");
             }
