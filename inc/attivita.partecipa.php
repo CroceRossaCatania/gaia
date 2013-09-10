@@ -11,7 +11,7 @@ $t = new Turno($t);
 $a = $t->attivita();
 
 /* Se non posso partecipare torna alla scheda... */
-if ( !$t->puoPartecipare($me) ) {
+if ( !$t->puoRichiederePartecipazione($me) ) {
     redirect('attivita.scheda&id=' . $a->id);
 }
 
