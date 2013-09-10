@@ -259,7 +259,8 @@ $(document).ready(function() {
                    Inserire le aree di intervento e selezionare i responsabili associati.<br />Essi saranno 
                    in grado di <strong>organizzare nuove attività su Gaia</strong> riguardanti la loro Area. <br>
                    Sono quando <strong>non</strong> sono presenti attività legate all'area è possibile cancellarla. <br>
-                   In caso di <strong>rimozione</strong> del responsabile la competenza passa al <strong>Presidente</strong>.
+                   In caso di <strong>rimozione</strong> del responsabile la competenza passa al <strong>Delegato d'Area</strong> o
+                   in caso di sua assenza al <strong>Presidente</strong>.
                 </div>
 
                 <?php if ( $c->aree() ) { ?>
@@ -298,18 +299,18 @@ $(document).ready(function() {
                                 <a data-selettore="true" data-autosubmit="true" data-input="<?php echo $area->id; ?>_inputResponsabile" class="btn btn-small">
                                     <?php echo $area->responsabile()->nomeCompleto(); ?> <i class="icon-pencil"></i>
                                 </a>
-                                <a  onClick="return confirm('Vuoi veramente rimuovere questo referente? L\'operazione non è reversibile. Al suo posto verrà nominato il Presidente.');" href="?p=" title="Rimuovi delegato" class="btn btn-small btn-danger">
+                                <button  onClick="return confirm('Vuoi veramente rimuovere questo referente? L\'operazione non è reversibile. Al suo posto verrà nominato il Delegato d'area.');" 
+                                value="<?php echo $area->id; ?>" name="rimuoviReferente" title="Rimuovi referente" class="btn btn-small btn-danger">
                                 <i class="icon-remove"></i> Rimuovi referente
-                            </a>
+                                </button>
                             
                             <?php 
                                 if ( !$attivita ) { ?>
 
-                                <a href="#" 
-                                   onclick="cancellaArea('<?php echo $area->id; ?>');" class="btn btn-small btn-danger">
-                                    <i class="icon-trash"></i>
-                                    cancella
-                                </a>
+                                <button onClick="return confirm('Vuoi veramente rimuovere questo progetto? L\'operazione non è reversibile');" name="cancellaProgetto" 
+                                value="<?php echo $area->id; ?>" title="Cancella Progetto" class="btn btn-small btn-danger">
+                                <i class="icon-trash"></i> Cancella
+                                </button>
                             <?php }} ?>
                             </div>
                                
@@ -332,9 +333,9 @@ $(document).ready(function() {
                 
                 <div class="nascosto" id="nuovaArea">
                     <hr />
-                    <h3><i class="icon-asterisk"></i> Nuova area</h3>
+                    <h3><i class="icon-asterisk"></i> Nuovo progetto</h3>
                     <div class="alert alert-info"><i class="icon-info-sign"></i> 
-                    Non è possibile chiamare la nuova Area <strong>Generale</strong>.
+                    Non è possibile chiamare il nuovo Progetto <strong>Generale</strong>.
                     </div>
                     <table class="table">
                         <tr>
@@ -346,7 +347,7 @@ $(document).ready(function() {
                                 </select>
                             </td>
                             <td>
-                                <input type="text" required name="nuovaArea_nome" value="Nome nuova area" />
+                                <input type="text" required name="nuovaArea_nome" value="Nome nuovo Progetto" />
                             <td>
                                 <a data-selettore="true" data-input="nuovaArea_volontario" class="btn btn-success btn-block" data-autosubmit="true">
                                     Avanti

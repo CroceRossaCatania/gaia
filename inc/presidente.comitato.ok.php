@@ -31,8 +31,6 @@ if(isset($_POST['cancellaDelegato'])) {
         $a->nome        = 'Generale';
         $a->responsabile= $c->primoPresidente()->id;
     } 
-
-
 }
 
 /* Salvataggio obiettivi */
@@ -121,6 +119,24 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
     }
 }
 
+if(isset($_POST['cancellaProgetto'])) {
+    $back = 'aree';
+    $a = $_POST['cancellaProgetto'];
+    $area = Area::by('id', $a);
+    $area->cancella();
+}
+
+if(isset($_POST['rimuoviReferente'])) {
+    $back = 'aree';
+    $a = $_POST['rimuoviReferente'];
+    $area = Area::by('id', $a);
+    $nuovoRef = $c->obiettivi($area->obiettivo)[0];
+    if(!$nuovoRef) {
+        $nuovoRef = $c->primoPresidente();
+    }
+    $area->responsabile = $nuovoRef->id;
+}
+
 
 /* Salvataggio aree */
 if ( $c instanceOf Comitato ) { 
@@ -137,7 +153,7 @@ if ( $c instanceOf Comitato ) {
             $back = 'aree';
             $nome = normalizzaNome($_POST[$a->id . '_inputNome']);
             // !!!! Attenzione, momentaneamente lascio lo la possibilità di chiamare generale le aree
-            if ($nome == 'Generale' && 0) {
+            if ($nome == 'Generale' || count($nome) < 3 && 0) {
                 $oid = $c->oid();
                 redirect("presidente.comitato&errnome&oid={$oid}&back={$back}");
             }
