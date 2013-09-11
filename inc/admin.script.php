@@ -46,7 +46,7 @@ paginaAdmin();
         <div class="span6 centrato">
             <div class="alert alert-success">
                 <strong>Script per il popolamento del campo sesso</strong>
-                <p>Questo script assegna il sesso agli utenti di gaia sulla base del loro codice fiscale</p>
+                <p>Questo script assegna il sesso, basandosi sul CF, agli utenti di gaia che hanno il campo sesso pari a null</p>
             </div>
             <a href="?p=admin.sesso" class="btn btn-large btn-success">
                 <i class="icon-male"></i><i class="icon-female"></i>
