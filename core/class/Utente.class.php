@@ -870,7 +870,7 @@ class Utente extends Persona {
         return $r;
     }
 
-    public function mailphone() {
+    public function pri_mailphone() {
         $p = Privacy::by('volontario', $this);
         if(!$p){
             $p = PRIVACY_PRIVATA;
@@ -881,7 +881,7 @@ class Utente extends Persona {
         return $p;
     }
 
-    public function mess() {
+    public function pri_mess() {
         $p = Privacy::by('volontario', $this);
         if(!$p){
             $p = PRIVACY_PRIVATA;
@@ -892,7 +892,7 @@ class Utente extends Persona {
         return $p;
     }
 
-    public function curriculum() {
+    public function pri_curriculum() {
         $p = Privacy::by('volontario', $this);
         if(!$p){
             $p = PRIVACY_PRIVATA;
@@ -903,7 +903,7 @@ class Utente extends Persona {
         return $p;
     }
 
-    public function incarichi() {
+    public function pri_incarichi() {
         $p = Privacy::by('volontario', $this);
         if(!$p){
             $p = PRIVACY_PRIVATA;
@@ -922,4 +922,14 @@ class Utente extends Persona {
             return 1;
         };
     }
+
+    public function consenso() {
+        $p = Volontario::by('volontario', $this);
+        if($p->consenso){
+            return 1;
+        }else{
+            return 0;
+        };
+    }
+
 }
