@@ -42,7 +42,7 @@ foreach ( $t->storico() as $app ) {
     if ($app->attuale()) {
         
         $a = new Appartenenza();
-        $a->volontario  = $t->id;
+        $a->volontario  = $t;
         $a->comitato    = $c;
         $a->stato =     TRASF_INCORSO;
         $a->timestamp = time();
@@ -51,7 +51,7 @@ foreach ( $t->storico() as $app ) {
         $t = new Trasferimento();
         $t->stato = TRASF_INCORSO;
         $t->appartenenza = $a;
-        $t->volontario = $t->id;
+        $t->volontario = $t;
         $t->motivo = $m;
         $t->timestamp = time();
         
