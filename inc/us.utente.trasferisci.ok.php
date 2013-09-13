@@ -48,12 +48,12 @@ foreach ( $t->storico() as $app ) {
         $a->timestamp = time();
         $a->inizio    = time();
         
-        $t = new Trasferimento();
-        $t->stato = TRASF_INCORSO;
-        $t->appartenenza = $a;
-        $t->volontario = $t;
-        $t->motivo = $m;
-        $t->timestamp = time();
+        $x = new Trasferimento();
+        $x->stato = TRASF_INCORSO;
+        $x->appartenenza = $a;
+        $x->volontario = $t;
+        $x->motivo = $m;
+        $x->timestamp = time();
         
         redirect('us.dash&trasfok');
 
