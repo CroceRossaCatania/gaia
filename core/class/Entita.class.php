@@ -161,7 +161,7 @@ class Entita {
          */
         $hash = null;
         if ( $cache ) {
-            $hash = sha1($query);
+            $hash = md5($query);
             $r = static::_ottieniQuery($hash);
             if ( $r !== false  ) {
                 $cache->increment($conf['db_hash'] . '__re');
