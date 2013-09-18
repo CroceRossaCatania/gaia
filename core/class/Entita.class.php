@@ -132,7 +132,9 @@ class Entita {
      */
     protected static function _invalidaCacheQuery() {
         global $cache, $conf;
-        $cache->delete($conf['db_hash'] . static::$_t . ':query:*');
+        foreach ( $cache->keys($conf['db_hash'] . static::$_t . ':query:*') as $chiave ) {
+            $cache->delete($chiave);
+        }
         $cache->delete($conf['db_hash'] . static::$_t . ':num_query');
         return true;
     }
