@@ -598,7 +598,7 @@ class Comitato extends GeoPolitica {
             AND 
                 anagrafica.id = appartenenza.volontario
             AND 
-                dettagliPersona.nome LIKE  'datanascita'
+                dettagliPersona.nome = 'dataNascita'
             AND
                 appartenenza.comitato = :comitato");
         $q->bindParam(':comitato', $this->id);
