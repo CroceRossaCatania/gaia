@@ -5,7 +5,6 @@
  */
 
 paginaPrivata();
-
 ?>
 
 
@@ -60,8 +59,15 @@ paginaPrivata();
     
     
     <td style="width: 20%;">
+        <?php if ($me->presidenziante() || $me->admin()){ ?>
+            <a href="?p=attivita.referente.nuovo&id=<?= $attivita->id; ?>">
+                <i class="icon-pencil"></i> 
+                cambia referente
+            </a>
+            <br />
+        <?php } ?>
         <a href="?p=attivita.modifica&id=<?php echo $attivita->id; ?>">
-            <i class="icon-pencil"></i> modifica attività
+            <i class="icon-edit"></i> modifica attività
         </a>
         <br />
         <a href="?p=attivita.turni&id=<?php echo $attivita->id; ?>">

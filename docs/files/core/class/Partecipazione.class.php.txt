@@ -80,7 +80,7 @@ class Partecipazione extends Entita {
             $m->_ATTIVITA    = $this->turno()->attivita()->nome;
             $m->_VOLONTARIO  = $this->volontario()->nomeCompleto();
             $m->_TURNO       = $this->turno()->nome;
-            $m->_DATA        = $a->timestamp()->format('d-m-Y H:i');
+            $m->_DATA        = date('d/m/Y H:i',$this->turno()->inizio);
             $m->invia();
             
         } else {
