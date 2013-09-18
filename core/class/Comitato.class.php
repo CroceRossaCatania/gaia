@@ -25,6 +25,10 @@ class Comitato extends GeoPolitica {
         return parent::__get($_nome);
     }
 
+    public function superiore() {
+        return $this->locale();
+    }
+
     public function figli() {
         return [];
     }
@@ -373,7 +377,7 @@ class Comitato extends GeoPolitica {
     public function attivita() {
         return Attivita::filtra([
             ['comitato', $this->id]
-        ]);
+        ],'nome ASC');
     }
     
     public function gruppi() {

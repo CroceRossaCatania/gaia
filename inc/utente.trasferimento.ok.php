@@ -6,7 +6,6 @@
 
 paginaPrivata();
 
-$t = $_GET['id'];
 $c = $_POST['inputComitato'];
 if ( !$c ) { 
     redirect('utente.trasferimento');
@@ -15,7 +14,7 @@ $m = $_POST['inputMotivo'];
 
 /* Cerco appartenenze al comitato specificato */
 $f = Appartenenza::filtra([
-  ['volontario',    $t],
+  ['volontario',    $me],
   ['comitato',      $c],
   ['stato', MEMBRO_VOLONTARIO]
 ]);
@@ -38,7 +37,7 @@ foreach ( $me->storico() as $app ) {
     if ($app->attuale()) {
         
         $a = new Appartenenza();
-        $a->volontario  = $me->id;
+        $a->volontario  = $me;
         $a->comitato    = $c;
         $a->stato =     TRASF_INCORSO;
         $a->timestamp = time();
@@ -47,7 +46,7 @@ foreach ( $me->storico() as $app ) {
         $t = new Trasferimento();
         $t->stato = TRASF_INCORSO;
         $t->appartenenza = $a;
-        $t->volontario = $me->id;
+        $t->volontario = $me;
         $t->motivo = $m;
         $t->timestamp = time();
         
