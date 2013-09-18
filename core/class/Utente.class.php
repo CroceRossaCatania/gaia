@@ -983,12 +983,57 @@ class Utente extends Persona {
     }
 
     public function consenso() {
-        $p = Volontario::by('volontario', $this);
+        $p = new Volontario($this);
         if($p->consenso){
-            return 1;
+            return true;
         }else{
-            return 0;
+            return false;
         };
+    }
+
+    public function pri_mailcom() {
+        global $me;
+        if($me->admin()){
+            return true;
+        }else{
+            $h = $this->unComitato()->locale();
+            $z = $me->unComitato()->locale();
+            if( ($h==$z && $this->pri_mailphone()==PRIVACY_COMITATO) || $this->pri_mailphone()==PRIVACY_VOLONTARI){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public function pri_curcom() {
+        global $me;
+        if($me->admin()){
+            return true;
+        }else{
+            $h = $this->unComitato()->locale();
+            $z = $me->unComitato()->locale();
+            if(($h==$z && $this->pri_curriculum()==PRIVACY_COMITATO) || $this->pri_curriculum()==PRIVACY_VOLONTARI ){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public function pri_incom() {
+        global $me;
+        if($me->admin()){
+            return true;
+        }else{
+            $h = $this->unComitato()->locale();
+            $z = $me->unComitato()->locale();
+            if(($h==$z && $this->pri_incarichi()==PRIVACY_COMITATO) || $this->pri_incarichi()==PRIVACY_VOLONTARI ){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 
 }

@@ -13,8 +13,7 @@ $comitati = $me->comitatiDiCompetenza();
 if ( $sessione->attenzione == false ){
     $sessione->attenzione = true;
     ?>
-
-<div class="modal fade automodal">
+    <div class="modal fade automodal">
         <div class="modal-header">
           <h3 class="text-success"><i class="icon-phone"></i> Gaia da oggi ti risponde!</h3>
         </div>
@@ -28,8 +27,30 @@ if ( $sessione->attenzione == false ){
             Ok, grazie
           </a>
         </div>
-</div>
-    
+    </div>
+<?php } ?>
+<?php if ( !$me->consenso() ){ ?>
+  <div class="modal fade automodal">
+    <div class="modal-header">
+      <h3 class="text-success"><i class="icon-cog"></i> Aggiornamento condizioni d'uso di Gaia!</h3>
+    </div>
+    <div class="modal-body">
+      <p>Ciao <strong><?php echo $me->nome; ?></strong>,</p>
+      <p>Per migliorare il nostro servizio, apportiamo periodicamente dei cambiamenti alle Condizioni d'uso.</p>
+      <p>Gli ultimi aggiornamenti sono già disponibili puoi consultarli <a href="?p=public.privacy" target="_new"><i class="icon-link"></i> cliccando qui</a>.</p>
+      <P><strong>Cosa fare</strong></p>
+      Se sei d'accordo con quanto riportato non devi fare nulla. Le nuove regole verranno applicate automaticamente.
+      Se invece non desideri accettare i cambiamenti, troverai sulla stessa pagina le indicazioni sui passi da seguire.
+      Le Condizioni d'uso attuali resteranno valide fino all'entrata in vigore della versione aggiornata.
+      </p>Grazie</p>
+    </div>
+    <div class="modal-footer">
+      <a href="?p=utente.privacy&first" class="btn btn-success">
+        <i class="icon-ok"></i>
+        Ok, Accetto!
+      </a>
+    </div>
+  </div>
 <?php } ?>
 
 <div class="row-fluid">

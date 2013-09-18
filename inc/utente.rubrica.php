@@ -7,10 +7,11 @@
 paginaPrivata();
 
 ?>
+
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <div class="row-fluid">
     <div class="span3">
-        <?php        menuVolontario(); ?>
+        <?php menuVolontario(); ?>
     </div>
     
     <div class="span9">
@@ -70,7 +71,6 @@ paginaPrivata();
                                 <i class="icon-envelope"></i>
                             </a>
                         </td>
-
                     </tr>
                     <?php 
             }

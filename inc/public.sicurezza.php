@@ -1,3 +1,11 @@
+<?php
+
+/*
+ * ©2013 Croce Rossa Italiana
+ */
+
+?>
+
 <div class="row-fluid">
     <div class="span12">
         <h2><i class="icon-lock"></i> Il cuore di Gaia è la sicurezza.</h2>

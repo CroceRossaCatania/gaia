@@ -47,7 +47,7 @@ if (isset($_GET['first'])){
             A tutti i volontari iscritti a gaia
         </label>
         <hr/>
-
+        <!--
         <li><h4><i class="icon-envelope-alt"></i> Messaggi privati</h4></li>
         <p>Consenti l'invio di messaggi privati all'interno di Gaia (Attenzione l'indirizzo email non verrà mostrato):</p>
         <label class="radio">
@@ -63,7 +63,7 @@ if (isset($_GET['first'])){
             A tutti i volontari iscritti a gaia
         </label>
         <hr/>
-
+        -->
         <li><h4><i class="icon-briefcase"></i> Curriculum</h4></li>
         <p>Consenti la visione del mio curriculum (Competenze pers., Patenti Civili, Patenti CRI, Titoli di studio, Titoli CRI) :</p>
         <label class="radio">
