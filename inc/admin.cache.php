@@ -51,7 +51,6 @@ $info = $cache->getStats();
 
         <?php foreach ( $info as $indirizzo => $server ) { ?>
 
-
         <table class="table table-bordered table-striped">
             <thead>
                 <th>Nome parametro</th>
@@ -73,6 +72,10 @@ $info = $cache->getStats();
                 <tr>
                     <td>Spazio usato</td>
                     <td><?= round( $server['bytes'] / 1024 , 2 ); ?> kB<td>
+                </tr>
+                <tr>
+                    <td>Chiavi sfrattate</td>
+                    <td><?= $server['evictions']; ?> chiavi<td>
                 </tr>
                 <tr>
                     <td>Spazio massimo</td>
