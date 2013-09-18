@@ -26,6 +26,7 @@ class APIServer {
 	}
 	
 	public function esegui( $azione = 'welcome' ) {
+            $start = microtime(true);
             if (empty($azione)) { $azione = 'welcome'; }
             $azione = str_replace(':', '_', $azione);
             try {
@@ -43,6 +44,7 @@ class APIServer {
                     'parameters'    =>  $this->par,
                     'time'          =>  new DateTime()
                 ],
+                'time'     => ( microtime(true) - $start ),
                 'session'  => $this->sessione->toJSON(),
                 'response' => $r
             ], JSON_PRETTY_PRINT);
@@ -137,13 +139,14 @@ class APIServer {
             $fine   = DT::daISO($this->par['fine']);
             $cA = Turno::neltempo($inizio, $fine);
             $r = [];
+            $mioComitato = $this->sessione->utente()->unComitato()->id;
             foreach  ( $cA as $turno ) {
                 $attivita = $turno->attivita();
                 if ( !$attivita->puoPartecipare($this->sessione->utente()) ) {
                     continue;
                 }
                 if ( $this->sessione->utente ) {
-                    if ( $attivita->comitato()->haMembro($this->sessione->utente()) ) {
+                    if ( $mioComitato == $attivita->comitato ) {
                         $colore = $conf['attivita']['colore_mie'];
                     } else {
                         $colore = $conf['attivita']['colore_pubbliche'];
@@ -251,8 +254,9 @@ class APIServer {
                     $m->_NOME       = $aut->partecipazione()->volontario()->nome;
                     $m->_ATTIVITA   = $attivita->nome;
                     $m->_TURNO      = $turno->nome;
-                    $m->_DATA      = $turno->inizio()->format('d-m-Y H:i');
-                    $m->_LUOGO     = $attivita->luogo;
+                    $m->_DATA       = $turno->inizio()->format('d-m-Y H:i');
+                    $m->_LUOGO      = $attivita->luogo;
+                    $m->_MOTIVO     = $this->par['motivo'];
                     $m->invia();
                     
                 }
@@ -270,14 +274,15 @@ class APIServer {
                 'comitato'      =>  $a->unComitato()->nomeCompleto()
             ];
         }
-        
-        public function api_area_cancella   () {
+
+        public function api_area_cancella() {
             $this->richiediLogin();
             $this->richiedi(['id']);
             $area = new Area($this->par['id']);
             if ( $area->attivita() ) {
                 throw new Errore(9050);
             }
+            $area->cancella();
             return true;
         }
 

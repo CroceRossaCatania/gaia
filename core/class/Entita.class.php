@@ -116,7 +116,7 @@ class Entita {
     /*
      * Invalida tutta la cache query
      */
-    private static function _invalidaCacheQuery() {
+    protected static function _invalidaCacheQuery() {
         global $cache, $conf;
         /* Cancella prima tutte le query che sono state cacheate */
         foreach ( static::_elencoCacheQuery() as $hash ) {
@@ -368,7 +368,7 @@ class Entita {
         }
     }
     
-    private function cancellaDettagli() {
+    protected function cancellaDettagli() {
         if ( !static::$_dt ) { return true; }
         $q = $this->db->prepare("
             DELETE FROM ". static::$_dt ." WHERE id = :id");
