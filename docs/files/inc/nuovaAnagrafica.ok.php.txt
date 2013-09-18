@@ -10,6 +10,7 @@
 $id         = $_POST['id'];
 $nome       = normalizzaNome($_POST['inputNome']);
 $cognome    = normalizzaNome($_POST['inputCognome']);
+$sesso 		= $_POST['inputSesso'];
 $dnascita   = mktime(0, 0, 0, $_POST['inputMese'], $_POST['inputGiorno'], $_POST['inputAnno']);
 $prnascita= maiuscolo($_POST['inputProvinciaNascita']);
 $conascita = normalizzaNome($_POST['inputComuneNascita']);
@@ -33,6 +34,7 @@ if ( ($p->password) ) {
  */
 $p->nome                = $nome;
 $p->cognome             = $cognome;
+$p->sesso 				= $sesso;
 $p->dataNascita         = $dnascita;
 $p->provinciaNascita =$prnascita;
 $p->comuneNascita = $conascita;

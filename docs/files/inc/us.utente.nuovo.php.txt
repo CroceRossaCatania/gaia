@@ -56,6 +56,20 @@ caricaSelettoreComitato();
                 <input type="text" name="inputCognome" id="inputCognome"  required/>
             </div>
         </div>
+
+        <div class="row-fluid">
+          <div class="span4 centrato">
+            <label class="control-label" for="inputSesso">Sesso</label>
+          </div>
+          <div class="span8">
+                <select class="input-small" id="inputSesso" name="inputSesso" required>
+                <?php
+                    foreach ( $conf['sesso'] as $numero => $tipo ) { ?>
+                    <option value="<?php echo $numero; ?>"><?php echo $tipo; ?></option>
+                    <?php } ?>
+                </select>  
+          </div>
+        </div>
               
         <div class="row-fluid">
             <div class="span4 centrato">
@@ -142,7 +156,7 @@ caricaSelettoreComitato();
             <label class="control-label" for="inputEmail">Email</label>
         </div>
         <div class="span8">
-            <input type="email" id="inputEmail" name="inputEmail" required  />
+            <input type="email" id="inputEmail" name="inputEmail"  />
         </div>
 </div>
          
@@ -152,7 +166,7 @@ caricaSelettoreComitato();
      </div>
        <div class="span8">
            <span class="add-on">+39</span>
-         <input   type="text" id="inputCellulare" name="inputCellulare" required pattern="[0-9]{9,11}" />
+         <input   type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" />
         </div>
 </div>
         
@@ -171,7 +185,7 @@ caricaSelettoreComitato();
         <label class="control-label" for="inputgruppoSanguigno">Gruppo Sanguigno</label>
     </div>
     <div class="span8">
-        <select id="inputgruppoSanguigno" name="inputgruppoSanguigno"  required class="disabled">
+        <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  required class="disabled">
         <?php
             foreach ( $conf['sangue_gruppo'] as $numero => $gruppo ) { ?>
             <option value="<?php echo $numero; ?>"><?php echo $gruppo; ?></option>
@@ -191,6 +205,7 @@ caricaSelettoreComitato();
 
             </div>
         </div>
+        <br/>
         
             <div class="row-fluid">            
             <div class="span4 centrato">

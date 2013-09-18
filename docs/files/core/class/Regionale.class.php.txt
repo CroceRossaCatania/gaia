@@ -29,6 +29,10 @@ class Regionale extends GeoPolitica {
     public function figli() {
         return $this->provinciali();
     }
+
+    public function superiore() {
+        return $this->nazionale();
+    }
     
     public function provinciali() {
         return Provinciale::filtra([
