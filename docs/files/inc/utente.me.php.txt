@@ -10,7 +10,7 @@ if ( !$me->email ) { redirect('nuovaAnagraficaContatti'); }
 if ( !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
 
 foreach ( $me->comitatiPresidenzianti() as $comitato ) {
-    if ( !$comitato->haPosizione() ) {
+    if ( !$comitato->haPosizione() && !$comitato->principale ) {
         redirect('presidente.wizard&forzato&oid=' . $comitato->oid());
     }
 }
@@ -142,13 +142,20 @@ if ($rf) {
                }
            } ?>
         <?php 
-        foreach ($me->inriserva() as $ris ){ 
-            if($ris->fine >= time()){?>
+        
+        if($me->inRiserva()){
+          $r = Riserva::filtra([
+              ['volontario', $me->id],
+              ['stato', RISERVA_OK]
+            ]);
+          $r = $r[0];
+          ?>
+
         <div class="alert alert-block">
             <h4><i class="icon-pause"></i> In riserva</h4>
-            <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d-m-Y', $ris->fine); ?></strong>.</p>
+            <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d/m/Y', $r->fine); ?></strong>.</p>
         </div>
-        <?php }} ?> 
+        <?php } ?> 
         <?php   if (!$me->appartenenzePendenti() && $me->unComitato()->gruppi()) { 
                         if (!$me->mieiGruppi()){ ?>
                                 <div class="alert alert-danger">

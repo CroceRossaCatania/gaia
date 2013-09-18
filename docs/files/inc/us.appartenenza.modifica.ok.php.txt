@@ -23,15 +23,7 @@ if ( $_POST['dataInizio'] ) {
     }
 }
 
-if ( $_POST['dataFine'] ) {
-    $fine = @DateTime::createFromFormat('d/m/Y', $_POST['dataFine']);
-    if ( $fine ) {
-        $fine = @$fine->getTimestamp();
-        $app->fine = $fine;
-    } else {
-        $app->fine = 0;
-    }
-}
+
 
 if ( $_POST['inputComitato'] ) {
     $comitato     = $_POST['inputComitato'];
