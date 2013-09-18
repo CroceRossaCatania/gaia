@@ -10,7 +10,7 @@ if ( !$cache ) {
     die('Gaia non sta usando la cache.');
 }
 
-$info = $cache->getStats();
+$server = $cache->info();
 
 ?>
 
@@ -49,8 +49,6 @@ $info = $cache->getStats();
     
     <div class="span8">
 
-        <?php foreach ( $info as $indirizzo => $server ) { ?>
-
         <table class="table table-bordered table-striped">
             <thead>
                 <th>Nome parametro</th>
@@ -59,46 +57,31 @@ $info = $cache->getStats();
             <tbody>
                 <tr>
                     <td>Indirizzo server</td>
-                    <td><code><?= $indirizzo; ?></code> (versione <?= $server['version']; ?>)<td>
+                    <td>Porta <?= $server['tcp_port']; ?> (versione Redis <?= $server['redis_version']; ?>)<td>
                 </tr>
                 <tr>
                     <td>Attività (uptime)</td>
-                    <td><?= round( $server['uptime'] / 3600, 2 ); ?> ore<td>
+                    <td><?= round( $server['uptime_in_seconds'] / 3600, 2 ); ?> ore<td>
                 </tr>
-                <tr>
-                    <td><strong>Chiavi in memoria</strong></td>
-                    <td><?= $server['total_items']; ?> (<?= $server['curr_items']; ?> attuali)<td>
-                </tr>      
                 <tr>
                     <td>Spazio usato</td>
-                    <td><?= round( $server['bytes'] / 1024 , 2 ); ?> kB<td>
+                    <td><?= $server['used_memory_human']; ?><td>
                 </tr>
                 <tr>
-                    <td>Chiavi sfrattate</td>
-                    <td><?= $server['evictions']; ?> chiavi<td>
-                </tr>
-                <tr>
-                    <td>Spazio massimo</td>
-                    <td><?= round( $server['limit_maxbytes'] / ( 1024 * 1024 ) , 2 ); ?> MB<td>
+                    <td>Ultimo salvataggio su disco</td>
+                    <td><?= date('d-m-Y H:i:s', $server['rdb_last_save_time']); ?><td>
                 </tr>
                 <tr>
                     <td>Connessioni ricevute</td>
-                    <td><?= $server['total_connections']; ?> (<?= $server['curr_connections']; ?> attuali)<td>
+                    <td><?= $server['total_connections_received']; ?><td>
                 </tr>     
                 <tr>
-                    <td>GET ricevuti</td>
-                    <td><?= $server['cmd_get']; ?> (<strong><?= $server['get_hits']; ?> servite</strong>, <?= $server['get_misses']; ?> perse)<td>
-                </tr>
+                    <td>DB0</td>
+                    <td><?= $server['db0']; ?><td>
+                </tr>     
                 <tr>
-                    <td>SET ricevuti</td>
-                    <td><?= $server['cmd_set']; ?><td>
-                </tr>
-                <tr>
-                    <td>I/O</td>
-                    <td>
-                        <?= round( $server['bytes_read'] / 1024 , 2 ); ?> kB letti<br />
-                        <?= round( $server['bytes_written'] / 1024 , 2 ); ?> kB scritti
-                    <td>
+                    <td>Comandi ricevuti</td>
+                    <td><?= $server['total_commands_processed']; ?> (<strong><?= $server['keyspace_hits']; ?> servite</strong>, <?= $server['keyspace_misses']; ?> chiavi non erano in memoria)<td>
                 </tr>
                 <tr>
                     <td><strong>Ricerche in cache</strong><br />
@@ -107,10 +90,10 @@ $info = $cache->getStats();
                         <?php $entita = ['Appartenenza', 'Comitato', 'Provinciale', 'Regionale', 'Nazionale', 'Volontario', 'Delegato', 'Autorizzazione', 'Partecipazione', 'Turno', 'Attivita']; ?>
                         <table class='table table-condensed table-striped'>
                             <?php foreach ( $entita as $singola ) {
-                                $qq = $singola::_elencoCacheQuery(); ?>
+                                $qq = $singola::_numQueryCache(); ?>
                             <tr>
                                 <td><?= $singola; ?></td>
-                                <td><?= count($qq); ?></td>
+                                <td><?= $qq; ?></td>
                             </tr>
                             <?php } ?>
                             
@@ -126,7 +109,6 @@ $info = $cache->getStats();
             </tbody>
         </table>
 
-        <?php } ?>
         
     </div>
 
