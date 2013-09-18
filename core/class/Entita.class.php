@@ -40,7 +40,8 @@ class Entita {
             $q->execute();
             $this->_v = $q->fetch(PDO::FETCH_ASSOC);
             if ( $this->cache ) {
-                $this->cache->set($conf['db_hash'] . static::$_t . ':' . $id . ':___campi', serialize($this->_v));
+                $res = $this->cache->set($conf['db_hash'] . static::$_t . ':' . $id . ':___campi', serialize($this->_v));
+                if ( !$res ) { file_put_contents("/tmp/gaialog", "{time()}\n", FILE_APPEND); }
             }
         } elseif ( $id === null ) {
             /* Creazione nuovo */
@@ -78,7 +79,8 @@ class Entita {
         global $cache, $conf;
         $r = static::_elencoCacheQuery();
         $r[] = $hash;
-        $cache->set($conf['db_hash'] . static::$_t . ':query_cache', json_encode($r));
+        $res = $cache->set($conf['db_hash'] . static::$_t . ':query_cache', json_encode($r));
+        if ( !$res ) { file_put_contents("/tmp/gaialog", "{time()}\n", FILE_APPEND); }
         return true;
     }
     
@@ -92,7 +94,8 @@ class Entita {
             $r[] = $valore->oid();
         }
         $r = json_encode($r);
-        $cache->set($conf['db_hash'] . static::$_t . ':query:' . $hash, $r);
+        $res = $cache->set($conf['db_hash'] . static::$_t . ':query:' . $hash, $r);
+        if ( !$res ) { file_put_contents("/tmp/gaialog", "{time()}\n", FILE_APPEND); }
         static::_aggiungiElencoCacheQuery($hash);
         return true;
     }
@@ -230,7 +233,8 @@ class Entita {
         $q->execute();
         $y = (bool) $q->fetch(PDO::FETCH_NUM);
         if ($cache && $y) {
-            $cache->set($conf['db_hash'] . static::$_t . ':' . $id, 'true');
+            $res = $cache->set($conf['db_hash'] . static::$_t . ':' . $id, 'true');
+            if ( !$res ) { file_put_contents("/tmp/gaialog", "{time()}\n", FILE_APPEND); }
         }
         return $y;
     }
@@ -300,7 +304,8 @@ class Entita {
             }
         }
         if ( $this->cache ) {
-            $this->cache->set($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome, $r);
+            $res = $this->cache->set($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome, $r);
+            if ( !$res ) { file_put_contents("/tmp/gaialog", "{time()}\n", FILE_APPEND); }
         }
         return $r;
     }
@@ -350,7 +355,8 @@ class Entita {
 
         }
         if ( $this->cache ) {
-            $this->cache->set($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome, $_valore);
+            $res = $this->cache->set($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome, $_valore);
+            if ( !$res ) { file_put_contents("/tmp/gaialog", "{time()}\n", FILE_APPEND); }
             static::_invalidaCacheQuery();
         }
     }
