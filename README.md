@@ -34,9 +34,14 @@ Per motivi di sviluppo, è possibile installare Gaia seguendo una delle due vie.
 **Script di installazione**, basta aprire un terminale (col proprio utente) ed incollare:
 
 ```bash
-wget https://gist.github.com/AlfioEmanueleFresta/6264461/raw/3275b45ddbfe53f7abb4c765e22626d03b67db53/gaia.sh
+wget https://gist.github.com/AlfioEmanueleFresta/6264461/raw/59887421d49daa3c18f2fe399584bf02a351c844/gaia.sh
 sh gaia.sh
 ```
+
+##### La via facile (Mint Linux Olivia+)
+
+1. Impostazioni > Sorgenti Software (Software Sources) > PPA > Aggiungi `ppa:ondrej/php5`
+2. Usare lo script di installazione per Ubuntu qua sopra.
 
 #### La via difficile
 
