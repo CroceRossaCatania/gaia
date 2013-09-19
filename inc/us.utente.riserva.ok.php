@@ -6,6 +6,13 @@
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
+$inizio = @DateTime::createFromFormat('d/m/Y', $_POST['datainizio']);
+$fine = @DateTime::createFromFormat('d/m/Y', $_POST['datafine']);
+
+if (@$fine->getTimestamp() < time() || (@$fine->getTimestamp() - @$inizio->getTimestamp()) > ANNO) {
+    redirect('us.dash&riserrdate');
+}
+
 $t = $_POST['inputVolontario'];
 $v = new Volontario($t);
 $m = $_POST['inputMotivo'];
@@ -21,7 +28,6 @@ $r->volontario = $v->id;
 $r->motivo = $m;
 $r->timestamp = time();                
 if ( $_POST['datainizio'] ) {
-    $inizio = @DateTime::createFromFormat('d/m/Y', $_POST['datainizio']);
     if ( $inizio ) {
         $inizio = @$inizio->getTimestamp();
         $r->inizio = $inizio;
@@ -31,7 +37,6 @@ if ( $_POST['datainizio'] ) {
 }
 
 if ( $_POST['datafine'] ) {
-    $fine = @DateTime::createFromFormat('d/m/Y', $_POST['datafine']);
     if ( $fine ) {
         $fine = @$fine->getTimestamp();
         $r->fine = $fine;
