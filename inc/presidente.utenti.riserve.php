@@ -41,7 +41,7 @@ menuElenchiVolontari(
                     <td colspan="7" class="grassetto">
                         <?php echo $comitato->nomeCompleto(); ?>
                         <span class="label label-warning">
-                            <?php echo count($t); ?>
+                            <?php echo count($v); ?>
                         </span>
                         <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&riserva">
                             <i class="icon-envelope"></i> Invia mail
