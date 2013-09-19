@@ -138,11 +138,16 @@ class APIServer {
             $inizio = DT::daISO($this->par['inizio']);
             $fine   = DT::daISO($this->par['fine']);
             $cA = Turno::neltempo($inizio, $fine);
+            $searchPuoPart = [];
             $r = [];
             $mioComitato = $this->sessione->utente()->unComitato()->id;
             foreach  ( $cA as $turno ) {
                 $attivita = $turno->attivita();
-                if ( !$attivita->puoPartecipare($this->sessione->utente()) ) {
+                $idAttivita = ''.$attivita->id;
+                if(!isset($searchPuoPart[$idAttivita])) {
+                    $searchPuoPart[$idAttivita] = $attivita->puoPartecipare($this->sessione->utente());
+                }
+                if ( !$searchPuoPart[$idAttivita] ) {
                     continue;
                 }
                 if ( $this->sessione->utente ) {
