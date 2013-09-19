@@ -132,6 +132,7 @@ class Entita {
      */
     protected static function _invalidaCacheQuery() {
         global $cache, $conf;
+        if ( !$cache ) { return false; }
         foreach ( $cache->keys($conf['db_hash'] . static::$_t . ':query:*') as $chiave ) {
             $cache->delete($chiave);
         }
@@ -306,7 +307,7 @@ class Entita {
         global $conf;
         if ( $this->cache ) {
             $r = $this->cache->get($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome);
-            if ( $r !== false ) {
+            if ( $r !== null && $r !== false && $r !== '' ) {
                 return $r;
             }
         }
