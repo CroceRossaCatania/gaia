@@ -9,6 +9,7 @@ paginaApp([APP_SOCI, APP_PRESIDENTE]);
 $f = $_GET['id']; 
 $t = new Volontario($f);
 $g = $v = $t;
+$admin = $me->admin();
 
 proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
 
@@ -60,19 +61,19 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         <div class="control-group">
               <label class="control-label" for="inputNome">Nome</label>
               <div class="controls">
-                <input type="text" name="inputNome" id="inputNome" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->nome; ?>">
+                <input type="text" name="inputNome" id="inputNome" <?php if(!$admin){?> readonly <?php } ?> value="<?php echo $v->nome; ?>">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputCognome">Cognome</label>
               <div class="controls">
-                <input type="text" name="inputCognome" id="inputCognome" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->cognome; ?>">
+                <input type="text" name="inputCognome" id="inputCognome" <?php if(!$admin){?> readonly <?php } ?> value="<?php echo $v->cognome; ?>">
               </div>
             </div>
             <div class="control-group">
             <label class="control-label" for="inputSesso">Sesso</label>
             <div class="controls">
-              <?php if(!$me->admin()){?> <input class="input-mini" type="text" name="inpuSesso" id="inpuSesso" readonly value="<?php echo $conf['sesso'][$v->sesso]; ?>"> <?php }else{ ?>
+              <?php if(!$admin){?> <input class="input-mini" type="text" name="inpuSesso" id="inpuSesso" readonly value="<?php echo $conf['sesso'][$v->sesso]; ?>"> <?php }else{ ?>
               <select class="input-small" id="inputSesso" name="inputSesso" required>
                 <?php
                     foreach ( $conf['sesso'] as $numero => $tipo ) { ?>
@@ -85,57 +86,57 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             <div class="control-group">
               <label class="control-label" for="inputCodiceFiscale">Codice Fiscale</label>
               <div class="controls">
-                <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->codiceFiscale; ?>">
+                <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale"  <?php if(!$admin){?> readonly <?php } ?> value="<?php echo $v->codiceFiscale; ?>">
                 
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputDataNascita">Data di Nascita</label>
               <div class="controls">
-                <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" value="<?php echo date('d/m/Y', $v->dataNascita); ?>">
+                <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$admin){?> required <?php } ?> value="<?php echo date('d/m/Y', $v->dataNascita); ?>">
               </div>
             </div>
     <div class="control-group">
               <label class="control-label" for="inputProvinciaNascita">Provincia di Nascita</label>
               <div class="controls">
-                <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" value="<?php echo $v->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
+                <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" <?php if(!$admin){?> required <?php } ?> value="<?php echo $v->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
              </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
               <div class="controls">
-                <input type="text" name="inputComuneNascita" id="inputComuneNascita" value="<?php echo $v->comuneNascita; ?>">
+                <input type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$admin){?> required <?php } ?> value="<?php echo $v->comuneNascita; ?>">
               </div>
             </div>
 
             <div class="control-group">
                <label class="control-label" for="inputIndirizzo">Indirizzo</label>
                <div class="controls">
-                 <input value="<?php echo $v->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" required />
+                 <input value="<?php echo $v->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" <?php if(!$admin){?> required <?php } ?> />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputCivico">Civico</label>
                <div class="controls">
-                 <input value="<?php echo $v->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" required />
+                 <input value="<?php echo $v->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" <?php if(!$admin){?> required <?php } ?> />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputComuneResidenza">Comune di residenza</label>
                <div class="controls">
-                 <input value="<?php echo $v->comuneResidenza; ?>" type="text" id="inputComuneResidenza" name="inputComuneResidenza" required />
+                 <input value="<?php echo $v->comuneResidenza; ?>" type="text" id="inputComuneResidenza" name="inputComuneResidenza" <?php if(!$admin){?> required <?php } ?> />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputCAPResidenza">CAP di residenza</label>
                <div class="controls">
-                 <input value="<?php echo $v->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" required pattern="[0-9]{5}" />
+                 <input value="<?php echo $v->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[0-9]{5}" />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputProvinciaResidenza">Provincia di residenza</label>
                <div class="controls">
-                 <input value="<?php echo $v->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" required pattern="[A-Za-z]{2}" />
+                 <input value="<?php echo $v->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[A-Za-z]{2}" />
                 </div>
              </div>
             <div class="control-group">
@@ -161,7 +162,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             <div class="control-group">
             <label class="control-label" for="inputgruppoSanguigno">Gruppo Sanguigno</label>
             <div class="controls">
-                <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  required class="disabled">
+                <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  <?php if(!$admin){?> required <?php } ?> class="disabled">
                 <?php
                     foreach ( $conf['sangue_gruppo'] as $numero => $gruppo ) { ?>
                     <option value="<?php echo $numero; ?>" <?php if ( $numero == $v->grsanguigno ) { ?>selected<?php } ?>><?php echo $gruppo; ?></option>
