@@ -30,10 +30,5 @@ upload/setup/autopull
 # Mantieni i placeholder
 !upload/avatar/placeholder/
 
-#evitiamo i file privati
-core/conf/smtp.conf.php
-core/conf/autopull.conf.php
-core/conf/database.conf.php
-
 .settings/*
 .project
