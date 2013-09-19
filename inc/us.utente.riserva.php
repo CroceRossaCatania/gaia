@@ -10,7 +10,6 @@ caricaSelettoreComitato();
 paginaModale();
 
 ?>
-<script type="text/javascript"><?php require './js/utente.riserva.js'; ?></script>
 <form action="?p=us.utente.riserva.ok" method="POST">
     <div class="modal fade automodal">
         <div class="modal-header">
