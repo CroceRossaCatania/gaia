@@ -306,7 +306,7 @@ class Entita {
         global $conf;
         if ( $this->cache ) {
             $r = $this->cache->get($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome);
-            if ( $r !== false ) {
+            if ( $r !== null && $r !== false && $r !== '' ) {
                 return $r;
             }
         }
