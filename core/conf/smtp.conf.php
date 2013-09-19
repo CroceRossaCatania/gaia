@@ -14,7 +14,7 @@
 /* Configurazione del server SMTP */
 $conf['smtp'] = [
  
-    'username'      =>  'SMTP_USERNAME',
-    'password'      =>  'SMTP_PASSWORD'
+    'username'      =>  'crige',
+    'password'      =>  'password'
  
 ];

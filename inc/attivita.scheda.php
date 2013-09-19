@@ -89,6 +89,8 @@ $(document).ready( function() {
         </div>
         <hr />
         <?php
+        //i turni scoperti non dovrebbero essere visualizzabili da un anonimo!
+        if ( !($me instanceof Anonimo) ) {
         $ts = $a->turniScoperti();
         $tsn = count($ts);
         if ( $ts ) { ?>
@@ -102,7 +104,8 @@ $(document).ready( function() {
             </div>
         </div>
         <hr/>
-        <?php } ?>
+        <?php }
+		} ?>
 
         <div class="row-fluid allinea-centro">
             <div class="span3">
@@ -235,6 +238,7 @@ $(document).ready( function() {
                     </div>
                 </div>
                 <hr />
+              <?php if ( !($me instanceof Anonimo) ) { ?>
                 <div class="row-fluid">
                     <div class="span8">
                         <h2><i class="icon-time"></i> Elenco turni dell'Attività</h2>
@@ -439,5 +443,6 @@ $(document).ready( function() {
                     </tr>
                 </table>
             </div>
+           <?php } ?>
         </div>
     </div>
