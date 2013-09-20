@@ -54,6 +54,10 @@
         <a href="?p=us.elettorato">
             <i class="icon-cogs"></i>
             Genera elenchi elettorato
+        </a><br />
+        <a href="?p=rubrica.sinc">
+        	<i class="icon-cogs"></i>
+        	Sincronizza rubrica google apps
         </a>
     </div>
     
