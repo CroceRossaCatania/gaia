@@ -11,8 +11,8 @@ $v = $_GET['v'];
     
 if (isset($_GET['monta'])) {
     $c = new Coturno();
-    $c->volontario = $v;
     $v = Volontario::by('id', $v);
+    $c->volontario = $v;
     $c->appartenenza = $v->unComitato();
     $c->turno = $t;
     $c->pMonta = $me;

@@ -1,5 +1,5 @@
 $(document).ready( function() {
  
-$("#dataprotocollo").datepicker();
+$("#dataprotocollo").datepicker({maxDate: new Date});
  
 });

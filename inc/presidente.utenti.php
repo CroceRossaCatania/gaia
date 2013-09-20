@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI , APP_PRESIDENTE , APP_OBIETTIVO ]);
+paginaApp([APP_SOCI , APP_PRESIDENTE ]);
 
 menuElenchiVolontari(
     "Volontari attivi",
@@ -35,7 +35,7 @@ menuElenchiVolontari(
 
     <div class="nascosto" id="azioniElenco">
         <div class="btn-group">
-            <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" title="Dettagli">
+            <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" target="_new" title="Dettagli">
                 <i class="icon-eye-open"></i> Dettagli
             </a>
             <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id={id}" title="Stampa tesserino">

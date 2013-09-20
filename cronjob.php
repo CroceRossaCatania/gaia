@@ -51,7 +51,13 @@ $log = date('d-m-Y H:i:s') . " CRONJOB INIZIATO\n{$logS}";
 
 // =========== INIZIO CRONJOB GIORNALIERO
 function cronjobGiornaliero()  {
-    global $log, $db;
+    global $log, $db, $cache;
+
+    /* === 0. PERSISTE LA CACHE SU DISCO */
+    if ( $cache ) {
+        $cache->save();
+    }
+    $log .= "Persiste la cache di Redis sul disco\n";
 
     /* === 1. CANCELLA FILE SCADUTI DA DISCO E DATABASE */
     $n = 0;
@@ -68,21 +74,14 @@ function cronjobGiornaliero()  {
     }
     $log .= "Cancellate $n sessioni scadute\n";
 
+
     /* === 3. AUTORIZZO ESTENSIONI DOPO 30 GG E NOTIFICO AL VOLONTARIO*/
     $n = 0;
     foreach (Estensione::daAutorizzare() as $e) {
         $e->auto(); $n++;
-        $a = $e->appartenenza;
-        $a = new Appartenenza($a);
-
-        $m = new Email('richiestaEstensioneok', 'Richiesta estensione approvata: ' . $a->comitato()->nome);
-        $m->a = $a->volontario();
-        $m->_NOME       = $a->volontario()->nome;
-        $m->_COMITATO   = $a->comitato()->nomeCompleto();
-        $m-> _TIME = date('d-m-Y', $e->protData);
-        $m->invia();
     }
     $log .= "Concesse $n estensioni\n";
+
 
     /* === 4. TERMINO ESTENSIONI */
     $n = 0;
@@ -91,15 +90,29 @@ function cronjobGiornaliero()  {
     }
     $log .= "Chiuse $n estensioni\n";
 
+
     /* === 5. AUTORIZZO TRASFERIMENTI DOPO 30GG - NOTIFICO E CHIUDO SOSPESI E TURNI */
+    $n = 0;
+    foreach (Trasferimento::daAutorizzare() as $t) {
+        $t->auto(); $n++;
+    }
+    $log .= "Autorizzati $n trasferimenti\n";
+
+
     /* === 6. DIMETTO DOPO 1 ANNO DI RISEVA SENZA RIENTRO */
+
+
     /* === 7. AUTORIZZO RISERVE DOPO 30GG */
-    /* === 8. REMINDER 1 ANNO DI RISERVA TRA 30GG */
-    /* === 9. REMINDER 1 ANNO DI RISERVA TRA 5GG */
-    /* === 10. REMINDER SCADENZA ESTENSIONE TRA 30GG */
-    /* === 11. REMINDER SCADENZA ESTENSIONE TRA 5GG */
+    $n = 0;
+    foreach (Riserva::daAutorizzare() as $r) {
+        $r->auto(); $n++;
+    }
+    $log .= "Autorizzate $n riserve\n";
 
-
+    /* === 8. PULITURA E FIX ATTIVITA' */
+    $n = 0;
+    $n = Attivita::pulizia();
+    $log .= "Fix di $n attività\n";
 };
 // =========== FINE CRONJOB GIORNALIERO
 
@@ -167,6 +180,33 @@ function cronjobSettimanale() {
         }
     }
     $log .= "Inviati $n promemoria ai presidenti\n";
+
+
+    /* === 4. REMINDER 1 ANNO DI RISERVA TRA POCHI GG */
+    $n = 0;
+    foreach (Riserva::inScadenza() as $r) {
+        $n++;
+        $m = new Email('promemoriaScadenzaRiserva', "Promemoria: Riserva in scadenza tra pochi giorni");
+        $m->a           = $r->volontario();
+        $m->_NOME       = $r->volontario()->nome;
+        $m->_SCADENZA   = date('d-m-Y', $r->fine);
+        $m->invia();
+    }
+    $log .= "Notificate $n riserve in scadenza\n";
+
+
+    /* === 5. REMINDER SCADENZA ESTENSIONE TRA POCHI GG */
+    $n = 0;
+    foreach (Estensione::inScadenza() as $e) {
+        $n++;
+        $m = new Email('promemoriaScadenzaEstensione', "Promemoria: Estensione in scadenza tra pochi giorni");
+        $m->a           = $e->volontario();
+        $m->_NOME       = $e->volontario()->nome;
+        $m->_COMITATO   = $e->appartenenza()->comitato()->nomeCompleto();
+        $m->_SCADENZA   = date('d-m-Y', $e->appartenenza()->fine);
+        $m->invia();
+    }
+    $log .= "Notificate $n estensioni in scadenza\n";
 
 };
 // =========== FINE CRONJOB SETTIMANALE

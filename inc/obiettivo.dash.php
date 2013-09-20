@@ -62,10 +62,6 @@ if ( $me->admin() || $me->presidenziante() ){
         <div class="span12">
             <div class="span6">
                 <div class="btn-group btn-group-vertical span12">
-                   <!-- <a href="?p=presidente.utenti" class="btn btn-primary btn-block">
-                        <i class="icon-list"></i>
-                        Elenco Volontari
-                    </a>-->
                     <a href="?p=presidente.titoli.ricerca" class="btn btn-block">
                         <i class="icon-search"></i>
                         Ricerca per titoli
@@ -84,6 +80,10 @@ if ( $me->admin() || $me->presidenziante() ){
                     <a href="?p=co.reperibilita" class="btn btn-block">
                         <i class="icon-thumbs-up"></i>
                         Volontari reperibili
+                    </a>
+                    <<a href="?p=obiettivo.report.reperibilita" class="btn btn-block">
+                        <i class="icon-time"></i>
+                        Report reperibilità
                     </a>
             <?php } ?>
                 </div>

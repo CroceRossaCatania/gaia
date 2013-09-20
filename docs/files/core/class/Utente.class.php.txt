@@ -60,6 +60,23 @@ class Utente extends Persona {
         ]);
         return $a;
     }
+
+    public function numAppartenenzeTotali($stato = SOGLIA_APPARTENENZE) {
+        $q = $this->db->prepare("
+            SELECT
+                COUNT(*)
+            FROM
+                appartenenza
+            WHERE
+                volontario = :me
+            AND
+                stato > :stato");
+        $q->bindParam(':me', $this->id);
+        $q->bindParam(':stato', $stato);
+        $q->execute();
+        $q = $q->fetch(PDO::FETCH_NUM);
+        return $q[0];
+    }
     
     public function storico() {
         return Appartenenza::filtra([
@@ -83,15 +100,21 @@ class Utente extends Persona {
         $a = Appartenenza::filtra([
             ['volontario',  $this->id],
             ['comitato',    $c->id]
-        ]); 
-        return (bool) $a;
+        ]);
+        foreach ($a as $_a) {
+            if ($_a->stato >= MEMBRO_ESTESO)
+                return True;
+        }
+        return False;
     }
+
     public function volontario() {
         return new Volontario($this->id);
     }
     
     public function admin() {
-        if ( $this->admin) {
+        global $sessione;
+        if ( $this->admin && $sessione->adminMode ) {
             return true;
         } else {
             return false;
@@ -144,6 +167,24 @@ class Utente extends Persona {
         ];
     }
 
+            
+    public function toJSONRicerca() {
+        $comitato = $this->unComitato();
+        if ( $comitato ) {
+            $comitato = $comitato->toJSONRicerca();
+        } else {
+            $comitato = false;
+        }
+        return [
+            'id'            =>  $this->id,
+            'cognome'       =>  $this->cognome,
+            'nome'          =>  $this->nome,
+            'email'         =>  $this->email,
+            'codiceFiscale' =>  $this->codiceFiscale,
+            'comitato'      =>  $comitato
+        ];
+    }
+
     public function calendarioAttivita(DT $inizio, DT $fine) {
         $c = $this->comitati();
         $t = [];
@@ -158,7 +199,7 @@ class Utente extends Persona {
         return $t;
     }
     
-    public function appartenenzeAttuali($tipo = MEMBRO_VOLONTARIO) {
+    public function appartenenzeAttuali($tipo = MEMBRO_ESTESO) {
         $q = $this->db->prepare("
             SELECT
                 appartenenza.id
@@ -184,7 +225,7 @@ class Utente extends Persona {
         return $r;
     }
     
-    public function comitati($tipo = MEMBRO_VOLONTARIO) {
+    public function comitati($tipo = MEMBRO_ESTESO) {
         $c = [];
         foreach ( $this->appartenenzeAttuali($tipo) as $a ) {
             $c[] = $a->comitato();
@@ -229,6 +270,19 @@ class Utente extends Persona {
         if ( !$p ) { return false; }
         return $p[0];
     }
+
+    public function ultimaAppartenenza($stato = MEMBRO_VOLONTARIO) {
+        $p = Appartenenza::filtra([
+            ['volontario',  $this->id],
+            ['stato', $stato]
+        ], 'inizio DESC');
+        if ( !$p ) { return false; }
+        return $p[0];
+    }
+
+    public function appartenenzaAttuale() {
+        return $this->ultimaAppartenenza(MEMBRO_VOLONTARIO);
+    }
     
     public function ingresso() {
         $p = $this->primaAppartenenza();
@@ -251,7 +305,7 @@ class Utente extends Persona {
         if (!is_array($app)) {
             $app = [$app];
         }
-        if ( $this->admin ) {
+        if ( $this->admin() ) {
             return $this->comitatiDiCompetenza();
         }
         $r = [];
@@ -269,8 +323,8 @@ class Utente extends Persona {
     
     public function numVolontariDiCompetenza() {
         $n = 0;
-        foreach ( $this->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]) as $c ) {
-            $n += $c->numMembriAttuali();
+        foreach ( $this->comitatiApp([ APP_SOCI, APP_PRESIDENTE, APP_CO, APP_OBIETTIVO ]) as $c ) {
+            $n += $c->numMembriAttuali(MEMBRO_VOLONTARIO);
         }
         return $n;
     }
@@ -296,7 +350,7 @@ class Utente extends Persona {
     }
     
     public function comitatiDiCompetenza() {
-        if ( $this->admin ) {
+        if ( $this->admin() ) {
             return Comitato::elenco('locale ASC');
         } else {
             return $this->comitatiPresidenzianti();
@@ -307,10 +361,69 @@ class Utente extends Persona {
         return (bool) in_array($c, $this->comitatiDiCompetenza());
     }
 
+    public function commenti ( $limita = null ) {
+        if ( $limita ) {
+            $limita = (int) $limita;
+            return Commento::filtra([
+                ['volontario', $this]
+            ], "tCommenta DESC LIMIT 0, {$limita}");
+        } else {
+            return Commento::filtra([
+                ['volontario', $this]
+            ], "tCommenta DESC");
+        }
+    }
+
     public function cancella() {
+        // 1. Cancella il mio avatar
         $this->avatar()->cancella();
+        // 2. Cancella le mie appartenenze ai gruppi
         foreach ( $this->appartenenze() as $a ) {
             $a->cancella();
+        }
+        // 3. Cancella le mie partecipazioni
+        foreach ( $this->partecipazioni() as $p ) {
+            $p->cancella();
+        }
+        // 4. Elimina le autorizzazioni che mi sono state chieste
+        foreach ( $this->autorizzazioniPendenti() as $a ) {
+            $a->cancella();
+        }
+        // 5. Elimina tutte le delegazioni che mi sono associate
+        foreach ( $this->storicoDelegazioni() as $d ) {
+            $d->cancella();
+        }
+        // 6. Riassegna le Aree al primo presidente a salire l'albero
+        foreach ( $this->areeDiResponsabilita() as $a ) {
+            $a->responsabile = $a->comitato()->primoPresidente();
+        }
+        // 7. Commenti lasciati in giro
+        foreach ( $this->commenti() as $c ) {
+            $c->cancella();
+        }
+        // 8. Gruppi di cui sono referente
+        foreach ( Gruppo::filtra([['referente',$this]]) as $g ) {
+            $g->cancella();
+        }
+        // 9. Mie estensioni
+        foreach ( Estensione::filtra([['volontario',$this]]) as $g ) {
+            $g->cancella();
+        }
+        // 10. Mie Riserve
+        foreach ( Riserva::filtra([['volontario',$this]]) as $g ) {
+            $g->cancella();
+        }
+        // 11. Mie reperibilita'
+        foreach ( Reperibilita::filtra([['volontario',$this]]) as $g ) {
+            $g->cancella();
+        }
+        // 12. Sessioni in corso
+        foreach ( Sessione::filtra([['utente',$this]]) as $g ) {
+            $g->cancella();
+        }
+        // 13. Titoli personali
+        foreach ( TitoloPersonale::filtra([['volontario',$this]]) as $g ) {
+            $g->cancella();
         }
         parent::cancella();
     }
@@ -322,8 +435,13 @@ class Utente extends Persona {
             FROM    titoliPersonali, appartenenza
             WHERE   ( titoliPersonali.tConferma < 1 OR titoliPersonali.tConferma IS NULL )
             AND     titoliPersonali.volontario = appartenenza.volontario
+            AND     ( appartenenza.fine < 1 
+                    OR
+                    appartenenza.fine > :ora )
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
+        $ora = time();
+        $q->bindParam(':ora', $ora);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
@@ -335,9 +453,14 @@ class Utente extends Persona {
             SELECT  COUNT(id)
             FROM    appartenenza
             WHERE   stato = :statoPendente
+            AND     ( appartenenza.fine < 1 
+                    OR
+                    appartenenza.fine > :ora )
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', MEMBRO_PENDENTE);
+        $ora = time();
+        $q->bindParam(':ora', $ora);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
@@ -348,11 +471,37 @@ class Utente extends Persona {
         $q = $this->db->prepare("
             SELECT  COUNT(trasferimenti.id)
             FROM    trasferimenti, appartenenza
-            WHERE   trasferimenti.stato = :statoPendente
-            AND     trasferimenti.appartenenza = appartenenza.id
+            WHERE   trasferimenti.volontario = appartenenza.volontario
+            AND     appartenenza.stato = :stato
+            AND     trasferimenti.stato = :statoTrasferimento
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
-        $q->bindValue(':statoPendente', TRASF_INCORSO);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
+        $q->bindValue(':statoTrasferimento', TRASF_INCORSO);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+
+    public function numEstPending( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma ( $app );
+        $q = $this->db->prepare("
+            SELECT  COUNT(estensioni.id)
+            FROM    estensioni, appartenenza
+            WHERE   estensioni.volontario = appartenenza.volontario
+            AND     appartenenza.stato = :stato
+            AND     estensioni.stato = :statoEstensione
+            AND     ( appartenenza.fine < 1 
+                    OR
+                    appartenenza.fine > :ora 
+                    OR
+                    appartenenza.fine IS NULL)
+            AND     appartenenza.comitato  IN
+                ( {$comitati} )");
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
+        $q->bindValue(':statoEstensione', EST_INCORSO);
+        $ora = time();
+        $q->bindParam(':ora', $ora);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
@@ -364,10 +513,17 @@ class Utente extends Persona {
             SELECT  COUNT(riserve.id)
             FROM    riserve, appartenenza
             WHERE   riserve.stato = :statoPendente
-            AND     riserve.appartenenza = appartenenza.id
+            AND     riserve.volontario = appartenenza.volontario
+            AND     appartenenza.stato = :stato
+            AND     ( appartenenza.fine < 1 
+                    OR
+                    appartenenza.fine > :ora )
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', RISERVA_INCORSO);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
+        $ora = time();
+        $q->bindParam(':ora', $ora);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
@@ -427,9 +583,16 @@ class Utente extends Persona {
                 ]);
             }
         } else {
-            return Delegato::filtra([
-                ['volontario',      $this->id]
-            ]);
+            if ( $comitato ) {
+                return Delegato::filtra([
+                    ['volontario',      $this->id],
+                    ['comitato',        $comitato]
+                ]);
+            } else {
+                return Delegato::filtra([
+                    ['volontario',      $this->id]
+                ]);
+            }
         }
     }
     
@@ -456,7 +619,11 @@ class Utente extends Persona {
 
     public function entitaDelegazioni($app = null) {
         /* Qualora fossi admin, ho tutto il nazionale... */
-        if ( $this->admin ) { return Nazionale::elenco('nome ASC'); }
+        if (
+            $this->admin()
+        ) { 
+            return Nazionale::elenco('nome ASC');
+        }
         
         $d = $this->delegazioni($app);
         $c = [];
@@ -503,16 +670,45 @@ class Utente extends Persona {
     }
     
     public function inRiserva() {
-        return Riserva::filtra([
+        $rok = Riserva::filtra([
             ['volontario',  $this->id],
             ['stato',       RISERVA_OK]
         ]);
+        $rauto = Riserva::filtra([
+            ['volontario',  $this->id],
+            ['stato',       RISERVA_AUTO]
+        ]);
+        $r = array_merge($rok, $rauto);
+
+        foreach ($r as $_r) {
+            if ($_r->inizio < time() && $_r->fine > time())
+                return True;
+        }
+        return False;
     }
     
     public function riserve() {
         return Riserva::filtra([
             ['volontario',  $this->id]
         ]);
+    }
+
+    public function unaRiserva() {
+        $r = $this->riserve();
+        foreach ($r as $_r) {
+            if ($_r->stato == RISERVA_OK || $_r->stato == RISERVA_AUTO)
+                return $_r;
+        }
+        return NULL;
+    }
+
+    public function unaRiservaInSospeso() {
+        $r = $this->riserve();
+        foreach ($r as $_r) {
+            if ($_r->stato == RISERVA_INCORSO)
+                return $_r;
+        }
+        return NULL;
     }
     
     public function mieiGruppi() {
@@ -561,7 +757,7 @@ class Utente extends Persona {
     
     public function areeDiCompetenza( $c = null ) {
         if ( $c ) {
-            if ( $this->admin || $this->presiede($c) ) {
+            if ( $this->admin() || $this->presiede($c) ) {
                 return $c->aree();
             } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $comitato) ) {
                 $r = [];
@@ -607,7 +803,7 @@ class Utente extends Persona {
     public function attivitaReferenziate() {
         return Attivita::filtra([
             ['referente',   $this->id]
-        ]);
+        ], 'nome ASC');
     }
             
     public function attivitaReferenziateDaCompletare() {
@@ -654,17 +850,83 @@ class Utente extends Persona {
     public function gruppiDiCompetenza( $app = [ APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO ] ) {
         $gruppi = [];
         $comitati = $this->comitatiApp($app);
-        foreach ($comitati as $comitato) {
-            $gruppi = array_merge($gruppi, $comitato->gruppi());
-        }
-        $gruppi = array_merge(
-                $gruppi,
-                Gruppo::filtra([
-                    ['referente',$this]
-                ])
-        );
-        $gruppi = array_unique($gruppi);
+        $domini = $this->dominiDelegazioni(APP_OBIETTIVO);
+        if ( $domini && !$this->admin() && !$this->presidenziante() ){
+            foreach ($comitati as $comitato) {
+                foreach ($domini as $d){
+                    $gruppi = array_merge(
+                        $gruppi,
+                        Gruppo::filtra([
+                            ['referente',$this],
+                            ['obiettivo',$d]
+                        ])
+                    );
+                    if (!$gruppi){
+                        $gruppi = array_merge(
+                            $gruppi,
+                            Gruppo::filtra([
+                            ['referente',$this]
+                        ])
+                        );
+                    }
+                }
+            $gruppi = array_unique($gruppi);
+            }
+        }else{
+            foreach ($comitati as $comitato) {
+                $gruppi = array_merge($gruppi, $comitato->gruppi());
+            }
+            $gruppi = array_merge(
+                    $gruppi,
+                    Gruppo::filtra([
+                        ['referente',$this]
+                    ])
+            );
+            $gruppi = array_unique($gruppi);
+            }
         return $gruppi;
+    }
+
+    public function inEstensione($c) {
+        $app = Appartenenza::filtra([
+            ['volontario', $this->id],
+            ['stato', MEMBRO_ESTESO],
+            ['comitato', $c]
+        ]);
+        return Estensione::filtra([
+            ['appartenenza',  $app[0]->id],
+            ['stato',       EST_OK]
+        ]);
+    }
+
+    public function quote() {
+        $q = [];
+        foreach ( $this->storico() as $app ) {
+            $q = array_merge($q, Quota::filtra([
+            ['appartenenza', $app]], 
+            'timestamp DESC'));
+        }
+        return $q;
+    }
+
+    public static function elencoId() {
+         global $db;
+        $q = $db->prepare("
+            SELECT
+                id
+            FROM
+                anagrafica
+            WHERE
+                stato >= :stato
+            ORDER BY
+                id ASC");
+        $q->bindValue(':stato', PERSONA);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        return $r;
     }
 }
 

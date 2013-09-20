@@ -19,7 +19,7 @@ $app = $app[0];
 
 /* Modificando questo, modificare anche utente.trasferimento.ok */
 $p = new PDF('trasferimento', 'Trasferimento.pdf');
-$p->_COMITATOOUT = $cout->nomeCompleto();
+$p->_COMITATOOUT = $cout->locale()->nomeCompleto();
 $p->_COMITATOIN = $cin->nomeCompleto();
 $p->_NOME = $t->volontario()->nome;
 $p->_COGNOME = $t->volontario()->cognome;

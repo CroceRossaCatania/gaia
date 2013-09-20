@@ -18,7 +18,7 @@ $app = $app[0];
 
 /* Modificando questo, modificare anche utente.trasferimento.ok */
 $p = new PDF('riserva', 'Riserva.pdf');
-$p->_COMITATO = $c->nome;
+$p->_COMITATO = $c->locale()->nome;
 $p->_NOME = $t->volontario()->nome;
 $p->_COGNOME = $t->volontario()->cognome;
 $p->_LUOGO = $t->volontario()->comuneNascita;

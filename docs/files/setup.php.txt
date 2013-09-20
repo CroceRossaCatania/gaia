@@ -28,14 +28,10 @@ echo "Creazione directory upload/log...\n";
 @mkdir('upload/log');
 
 
-echo "Caricamento dei comitati sul database...\n";
+echo "Prova di scrittura sul database...\n";
 
-$comitati = file_get_contents('upload/setup/comitati.txt');
-$comitati = explode("\n", $comitati);
 try {
-    foreach ( $comitati as $comitato ) {
-        $c = new Comitato; $c->nome = $comitato;
-    }
+    $c = new Comitato; $c->cancella();
 } catch ( Exception $e ) {
     die("Errore: Impossibile scrivere sul database. È stato caricato il file /core/conf/gaia.sql?");
 }
@@ -83,15 +79,21 @@ echo "Creazione delle cartelle per i documenti...\n";
 @mkdir('upload/docs/o');
 @mkdir('upload/docs/t');
 
+/* Copia i file di configurazione */
+$cnf = ['database', 'smtp', 'autopull'];
+$strc = "";
+foreach ( $cnf as $cnfs ) {
+    $strc .= "- core/conf/{$cnfs}.conf.php\n";
+}
+
 echo "\n
         ================================================       
         =========[OK!] INSTALLAZIONE COMPLETATA ========
         ================================================
 
- [SVILUPPATORI] 
-    Per abilitare l'AUTOPULL via GitHub Web Hook
-    ad 'autopull.php', creare un file vuoto in:
-            /upload/setup/autopull
+ [CONFIGURAZIONE] 
+    Controllare i seguenti file di configurazione:
+    {$strc} 
             
  [CRONJOB]
     Ricordarsi di puntare il un cronjob per eseguire
@@ -101,3 +103,4 @@ echo "\n
 /* Crea il file di lock, evita ultreriori installazioni */
 file_put_contents('upload/setup/lock', time() );
 ?></pre>
+

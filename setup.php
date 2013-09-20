@@ -83,7 +83,6 @@ echo "Creazione delle cartelle per i documenti...\n";
 $cnf = ['database', 'smtp', 'autopull'];
 $strc = "";
 foreach ( $cnf as $cnfs ) {
-    @copy("core/conf/{$cnfs}.conf.php.sample", "core/conf/{$cnfs}.conf.php");
     $strc .= "- core/conf/{$cnfs}.conf.php\n";
 }
 
@@ -93,7 +92,7 @@ echo "\n
         ================================================
 
  [CONFIGURAZIONE] 
-    Modificare i seguenti file di configurazione:
+    Controllare i seguenti file di configurazione:
     {$strc} 
             
  [CRONJOB]

@@ -18,15 +18,37 @@ caricaSelettoreComitato();
             <i class="icon-save"></i> <strong>Richiesta inviata</strong>.
             La richiesta è stata inviata con successo.
         </div>
-        <?php } ?>
-        <?php if ( isset($_GET['e']) ) { ?>
+        <?php } 
+        if ( isset($_GET['e']) ) { ?>
         <div class="alert alert-error">
             <i class="icon-warning-sign"></i>
             <strong>Errore</strong> &mdash; Appartieni già a questo Comitato.
         </div>
-        <?php } ?>
-        <?php 
-    $i=0;
+        <?php } 
+        if ( isset($_GET['ann']) ) { ?>
+        <div class="alert alert-success">
+            <i class="icon-save"></i> <strong>Richiesta annullata</strong>.
+            La richiesta è stata annullata con successo.
+        </div>
+        <?php } 
+        $i=0;
+        $x=0;
+             foreach($me->riserve() as $riserva){
+                 $riservafine = $riserva->fine;
+             if($x==0 && $riserva && $me->inRiserva()){ ?>         
+                    <div class="row-fluid">
+                                        <h2><i class="icon-warning-sign muted"></i> In riserva</h2>
+                                        <div class="alert alert-danger">
+                                            <div class="row-fluid">
+                                                <span class="span12">
+                                                    <p>Sei attualmente in riserva</p>
+                                                    <p>Rimarrai nel ruolo di riserva fino al <strong> <?php echo date('d-m-Y', $riserva->fine); ?></strong> alla fine di tale periodo potrai richiedere <strong>il trasferimento</strong>.</p>
+                                                </span>
+                                            </div>
+                                        </div>           
+                                    </div>
+             <?php $x=1; }}
+             if($x==0) {
     foreach ( $me->storico() as $app ) {
                          if($app->stato == MEMBRO_DIMESSO){
                              redirect('errore.comitato');
@@ -37,16 +59,25 @@ caricaSelettoreComitato();
                            if($app->stato == MEMBRO_PENDENTE){
                                     redirect('errore.comitato');
                                     $i=1; }elseif($trasferimento && $trasferimento->stato==TRASF_INCORSO && !$trasferimento->presaInCarico()){ ?>
-                     <div class="row-fluid">
+                                  <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> Richiesta trasferimento in elaborazione</h2>
                                         <div class="alert alert-block">
                                             <div class="row-fluid">
                                                 <span class="span12">
                                                     <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong> è in fase di elaborazione.</p>
-                                                    <p>La tua richiesta è in attesa di essere protocollata dalla segreteria del tuo Comitato.</p>
+                                                    <p>La tua richiesta è in attesa di essere protocollata dalla segreteria del tuo Comitato, 
+                                                    potrai chiederne l'annullamento fino a quel momento.</p>
                                                 </span>
                                             </div>
                                         </div>           
+                                    </div>
+                                    <div class="row-fluid">
+                                      <form class="form-horizontal" action="?p=utente.trasferimento.sospendi.ok" method="POST">
+                                        <input type="hidden" name="elimina" value="true" >
+                                        <button type="submit" class="btn btn-block btn-danger">
+                                          <i class="icon-remove"></i> Annulla la richiesta di trasferimento
+                                        </button>
+                                      </form>
                                     </div>
               <?php $i=2;  }elseif($trasferimento && $trasferimento->presaInCarico() && $trasferimento->stato==TRASF_INCORSO){ ?>         
                     <div class="row-fluid">
@@ -57,6 +88,7 @@ caricaSelettoreComitato();
                                                     <p>La tua richiesta di trasferimento presso il <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong> è stata presa in carico il <strong><?php echo date('d-m-Y', $trasferimento->protData); ?></strong> con numero di protocollo <strong><?php echo $trasferimento->protNumero; ?></strong>.</p>
                                                     <p>La tua richiesta è in attesa di conferma da parte del tuo Presidente di Comitato.</p>
                                                     <p>Trascorsi 30 giorni senza alcuna risposta del Presidente Gaia effettuerà il trasferimento automaticamente come previsto da regolamento.</p>
+                                                    <p>Da questo momento non puoi più annullare la richiesta. Se hai cambiato idea contatta il tuo Presidente.</p>
                                                 </span>
                                             </div>
                                         </div>           
@@ -77,7 +109,7 @@ if($i==0){ ?>
         </div>
         
 <div class="row-fluid">
-    <form class="form-horizontal" action="?p=utente.trasferimento.ok&id=<?php echo $me->id; ?>" method="POST">
+    <form class="form-horizontal" action="?p=utente.trasferimento.ok" method="POST">
      <div class="control-group">
         <label class="control-label" for="comitato">Comitato Attuale </label>
         <div class="controls">
@@ -109,8 +141,6 @@ if($i==0){ ?>
         </div>
     
  
-<?php } ?>
+<?php }} ?>
    </div>
 </div>
-
-
