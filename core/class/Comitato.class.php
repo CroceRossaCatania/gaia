@@ -381,9 +381,15 @@ class Comitato extends GeoPolitica {
     }
     
     public function gruppi() {
-        return Gruppo::filtra([
+        $g = Gruppo::filtra([
             ['comitato',    $this->id]
         ], 'nome ASC');
+        $c = $this->locale();
+        $locali = $c->figli();
+        foreach ($locali as $loc){
+            $g = array_merge($g, Gruppo::filtra([['comitato', $loc],['estensione', EST_LOCALE]]));
+        }
+        return array_unique($g);
     }
     
 
