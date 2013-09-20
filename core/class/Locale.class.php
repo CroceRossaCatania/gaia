@@ -71,5 +71,23 @@ class Locale extends GeoPolitica {
         if (!$p) { return false; }
         return $p[0];
     }
+
+    public static function localiNull() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                locali
+            WHERE 
+                nome IS NULL
+            ");
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Locale($k[0]);
+        }
+        return $r;
+    }
     
 }

@@ -669,4 +669,22 @@ class Comitato extends GeoPolitica {
         }
         return $r;
     }
+
+    public static function comitatiNull() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                comitati
+            WHERE 
+                nome IS NULL
+            ");
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Comitato($k[0]);
+        }
+        return $r;
+    }
 }
