@@ -26,15 +26,12 @@ if (isset($_GET['first'])){
     <?php } ?>
 
     <div class="alert alert-block alert-info">
-        <h4><i class="icon-question-sign"></i> A cosa serve?</h4>
-        <p>Al fine di tutelare la tua <strong>Privacy</strong>, da questo menù potrai impostare la visibilità dei tuoi contatti; seleziona le impostazioni e clicca su salva modifiche.</p>
+      <h4><i class="icon-question-sign"></i> A cosa serve?</h4>
+      <p>Al fine di tutelare la tua <strong>Privacy</strong>, da questo menù potrai impostare la visibilità dei tuoi contatti; seleziona le impostazioni e clicca su salva modifiche.</p>
+      <?php if($me->pri_delegato()){ ?>
+        <p>Attenzione! Se sei un Presidente, un Delegato o un Referente la tua email di servizio e il tuo numero di cellulare di servizio saranno in ogni caso visibili ai volontari della tua Unità Territoriale o del tuo Comitato. Nel caso in cui tu non abbia indicato telefono o email di servizio verranno resi visibili quelli personali.</p>
+      <?php } ?>
     </div>
-        <?php if($me->pri_delegato()){ ?>
-          <div class="alert alert-block alert-danger">
-            <h4><i class="icon-warning-sign"></i> Attenzione!!!</h4>
-             <p>Attenzione!!! Per i Presidenti, Delegati e Referenti, ai fini organizzativi, l'email e il numero di cellulare saranno sempre in chiaro per i Volontari del Comitato in cui si espleta il ruolo.</p>
-          </div>
-        <?php } ?>
     <br/>
     <form class="form-horizontal" action="?p=utente.privacy.ok" method="POST">
       <ul>
