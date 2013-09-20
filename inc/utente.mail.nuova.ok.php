@@ -227,6 +227,81 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
             $m->invia();
          }
 
+}elseif (isset($_GET['zeroturnicom'])) {
+    $anno = date('Y', $_GET['time']);
+    $mese = date('m', $_GET['time']);
+    $inizio = mktime(0, 0, 0, $mese, 1, $anno);
+    $giorno = cal_days_in_month(CAL_GREGORIAN, $mese, $anno);
+    $fine = mktime(0, 0, 0, $mese, $giorno, $anno);
+    $comitati = $me->comitatiApp (APP_PRESIDENTE);
+    foreach($comitati as $comitato){
+        $volontari = $comitato->membriAttuali();
+        foreach($volontari as $v){
+            $partecipazioni = $v->partecipazioni();
+            $x=0;
+            foreach ($partecipazioni as $part){
+                if ($x==0){
+                    if ( $part->turno()->inizio >= $inizio && $part->turno()->fine <= $fine ){
+                        $auts = $part->autorizzazioni();
+                        if ($auts[0]->stato == AUT_OK){
+                            $x=1;
+                        }
+                        $turno = $part->turno();
+                        $co = Coturno::filtra([['turno', $turno],['volontario', $v]]);
+                        if ($co){
+                            $x=1;
+                        }
+                    }
+                }
+            }
+
+            if ( $x==0 ){
+                $m = new Email('mailTestolibero', ''.$oggetto);
+                $m->da = $me; 
+                $m->a = $v;
+                $m->_TESTO = $testo;
+                $m->invia();
+            }
+        }
+    }
+
+}elseif (isset($_GET['zeroturnicom'])) {
+    $anno = date('Y', $_GET['time']);
+    $mese = date('m', $_GET['time']);
+    $inizio = mktime(0, 0, 0, $mese, 1, $anno);
+    $giorno = cal_days_in_month(CAL_GREGORIAN, $mese, $anno);
+    $fine = mktime(0, 0, 0, $mese, $giorno, $anno);
+    $comitato = $_GET['id'];
+    $comitato = new Comitato($comitato);
+    $volontari = $comitato->membriAttuali();
+    foreach($volontari as $v){
+        $partecipazioni = $v->partecipazioni();
+        $x=0;
+        foreach ($partecipazioni as $part){
+            if ($x==0){
+                if ( $part->turno()->inizio >= $inizio && $part->turno()->fine <= $fine ){
+                    $auts = $part->autorizzazioni();
+                    if ($auts[0]->stato == AUT_OK){
+                        $x=1;
+                    }
+                    $turno = $part->turno();
+                    $co = Coturno::filtra([['turno', $turno],['volontario', $v]]);
+                    if ($co){
+                        $x=1;
+                    }
+                }
+            }
+        }
+
+        if ( $x==0 ){
+            $m = new Email('mailTestolibero', ''.$oggetto);
+            $m->da = $me; 
+            $m->a = $v;
+            $m->_TESTO = $testo;
+            $m->invia();
+        }
+    }
+
 }else{
 
 $m = new Email('mailTestolibero', ''.$oggetto);
