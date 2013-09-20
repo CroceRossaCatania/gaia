@@ -13,3 +13,8 @@ RewriteRule (.*) https://www.gaiacri.it/$1 [R=301,L]
 RewriteCond %{HTTP_HOST} !^www\.
 RewriteCond %{HTTP_HOST} gaiacri.it
 RewriteRule ^(.*)$ https://www.gaiacri.it/$1 [R=301,L]
+
+# 3. Tutte le richieste ad index.php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule . index.php [L]
