@@ -494,3 +494,17 @@ $conf['patente'] = [
     PATENTE_ATTESA_CONSEGNA => 'In attesa ritiro patente',
     PATENTE_CONSEGNATA => 'Patente consegnata'
 ];
+
+/*
+ * ===================================
+ * ======= ESTENSIONE GRUPPI =========
+ * ===================================
+ */
+
+define('EST_GRP_UNITA',          0);
+define('EST_GRP_LOCALE',        10);
+
+$conf['est_grp'] = [
+    EST_GRP_UNITA       =>  'Unità Territoriale',
+    EST_GRP_LOCALE      =>  'Comitato Locale'    
+];
