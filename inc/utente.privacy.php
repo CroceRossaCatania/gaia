@@ -45,11 +45,11 @@ if (isset($_GET['first'])){
         <?php } ?>
         <label class="radio">
           <input type="radio" name="phoneradio" id="phoneradio2" value="20" <?php if($me->pri_mailphone()==PRIVACY_COMITATO){ ?> checked <?php } ?>>
-            A tutti i volontari del mio comitato
+            A tutti i volontari del mio Comitato
         </label>
         <label class="radio">
           <input type="radio" name="phoneradio" id="phoneradio3" value="30" <?php if($me->pri_mailphone()==PRIVACY_VOLONTARI){ ?> checked <?php } ?>>
-            A tutti i volontari iscritti a gaia
+            A tutti i volontari iscritti a Gaia
         </label>
         <hr/>
         <!--
@@ -63,11 +63,11 @@ if (isset($_GET['first'])){
         <?php } ?>
         <label class="radio">
           <input type="radio" name="messradio" id="omessradio2" value="20" <?php if($me->pri_mess()==PRIVACY_COMITATO){ ?> checked <?php } ?>>
-            A tutti i volontari del mio comitato
+            A tutti i volontari del mio Comitato
         </label>
         <label class="radio">
           <input type="radio" name="messradio" id="messradio3" value="30" <?php if($me->pri_mess()==PRIVACY_VOLONTARI){ ?> checked <?php } ?>>
-            A tutti i volontari iscritti a gaia
+            A tutti i volontari iscritti a Gaia
         </label>
         <hr/>
         -->
@@ -81,15 +81,15 @@ if (isset($_GET['first'])){
         <?php } ?>
         <label class="radio">
           <input type="radio" name="curriculumradio" id="curriculumradio2" value="20" <?php if($me->pri_curriculum()==PRIVACY_COMITATO){ ?> checked <?php } ?>>
-            A tutti i volontari del mio comitato
+            A tutti i volontari del mio Comitato
         </label>
         <label class="radio">
           <input type="radio" name="curriculumradio" id="curriculumradio3" value="30" <?php if($me->pri_curriculum()==PRIVACY_VOLONTARI){ ?> checked <?php } ?>>
-            A tutti i volontari iscritti a gaia
+            A tutti i volontari iscritti a Gaia
         </label>
         <label class="radio">
           <input type="radio" name="curriculumradio" id="curriculumradio4" value="40" <?php if($me->pri_curriculum()==PRIVACY_PUBBLICA){ ?> checked <?php } ?>>
-            Pubblico
+            Anche a chi non è iscritto a Gaia
         </label>
         <hr/>
 
@@ -103,15 +103,15 @@ if (isset($_GET['first'])){
         <?php } ?>
         <label class="radio">
           <input type="radio" name="incarichiradio" id="incarichiradio2" value="20" <?php if($me->pri_incarichi()==PRIVACY_COMITATO){ ?> checked <?php } ?>>
-            A tutti i volontari del mio comitato
+            A tutti i volontari del mio Comitato
         </label>
         <label class="radio">
           <input type="radio" name="incarichiradio" id="incarichiradio3" value="30" <?php if($me->pri_incarichi()==PRIVACY_VOLONTARI){ ?> checked <?php } ?>>
-            A tutti i volontari iscritti a gaia
+            A tutti i volontari iscritti a Gaia
         </label>
         <label class="radio">
           <input type="radio" name="incarichiradio" id="incarichiradio4" value="40" <?php if($me->pri_incarichi()==PRIVACY_PUBBLICA){ ?> checked <?php } ?>>
-            Pubblico
+            Anche a chi non è iscritto a Gaia
         </label>
         <hr/>
       </ul>
