@@ -296,6 +296,7 @@ CREATE TABLE IF NOT EXISTS `gruppi` (
   `area` varchar(16) DEFAULT NULL,
   `referente` varchar(16) DEFAULT NULL,
   `attivita` varchar(16) DEFAULT NULL,
+  `estensione` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `comitato` (`comitato`),
   KEY `referente` (`referente`)
@@ -497,3 +498,4 @@ CREATE TABLE IF NOT EXISTS `turni` (
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+         
