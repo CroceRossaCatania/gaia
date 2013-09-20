@@ -9,7 +9,7 @@ paginaAdmin();
 
 set_time_limit(0);
 ?>
-<h3><i class="icon-certificate muted"></i> Fix comitati</h3>
+<h3><i class="icon-bookmark muted"></i> Fix comitati</h3>
 
 <code><pre>Rimozione comitati con name null:
 <?php
