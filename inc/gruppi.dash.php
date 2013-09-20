@@ -101,6 +101,10 @@ foreach ($gruppi as $gruppo){
                                     <i class="icon-trash"></i>
                                 </a>
                                 <a class="btn btn-small pull-right" href="?p=gruppo.referente.nuovo&id=<?= $gruppo->id; ?>">
+                                    <i class="icon-random"></i> 
+                                    <?php if($gruppo->referente()){ echo $gruppo->referente()->nomeCompleto(); }else{ ?> Seleziona un volontario <?php } ?>
+                                </a>
+                                <a class="btn btn-small pull-right" href="?p=gruppo.referente.nuovo&id=<?= $gruppo->id; ?>">
                                     <i class="icon-pencil"></i> 
                                     <?php if($gruppo->referente()){ echo $gruppo->referente()->nomeCompleto(); }else{ ?> Seleziona un volontario <?php } ?>
                                 </a>

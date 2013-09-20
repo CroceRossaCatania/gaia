@@ -39,7 +39,7 @@ paginaPrivata();
             <div class="span4 allinea-destra">
                 <div class="input-prepend">
                     <span class="add-on"><i class="icon-search"></i></span>
-                    <input autofocus required id="cercaUtente" placeholder="Cerca Referente..." type="text">
+                    <input autofocus required id="cercaUtente" placeholder="Cerca Volontario..." type="text">
                 </div>
             </div>
         </div>
