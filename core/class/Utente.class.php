@@ -1036,4 +1036,14 @@ class Utente extends Persona {
         }
     }
 
+    public function pri_delegato() {
+        global $me;
+        if($me->presidenziante() || $me->attivitaReferenziate() || $me->delegazioni()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
 }
