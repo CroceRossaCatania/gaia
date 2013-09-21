@@ -499,8 +499,8 @@ $conf['patente'] = [
  * ===================================
  */
 
-define('EST_GRP_UNITA',          0);
-define('EST_GRP_LOCALE',        10);
+define('EST_GRP_UNITA',         10);
+define('EST_GRP_LOCALE',        20);
 
 $conf['est_grp'] = [
     EST_GRP_UNITA       =>  'Unità Territoriale',
