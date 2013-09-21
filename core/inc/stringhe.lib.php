@@ -46,7 +46,7 @@ function minuscolo( $stringa ) {
 }
 
 
-/**
+/*
  * Converte notazione pagina -> file, es.
  * (IGNORA GLI ALTRI PARAMETRI GET)
  * /utente/me               =>  utente.me
@@ -60,7 +60,7 @@ function convertiNotazioneURLFile ( $p1 ) {
     return $p1;
 }
 
-/**
+/*
  * Converte notazione file -> pagina, es.
  * utente.me                => utente/me
  * attivita.scheda&id=4     => utente.me?id=4
@@ -78,7 +78,7 @@ function convertiNotazioneFileURL ( $p1 ) {
     return $stringa;
 }
 
-/**
+/*
  * Converte notazione file -> pagina, es.
  * ?p=utente.me               => utente/me
  * /?p=attivita.scheda&id=4   => utente.me?id=4
