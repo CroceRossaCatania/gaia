@@ -49,7 +49,7 @@ class File extends Entita {
     }
     
     public function download() {
-        header('Location: /download.php?id=' . $this->id );
+        header('Location: ./download.php?id=' . $this->id );
         exit(0);
     }
     

@@ -53,9 +53,9 @@ function paginaApp($app, $comitati = []) {
 }
 
 function paginaPubblica() {
-    global $sessione, $p;
+    global $sessione;
     if ( $sessione->utente ) {
-        redirect('utente.me&pubblica');
+        redirect('utente.me');
     }
 }
 
@@ -105,7 +105,7 @@ function paginaPresidenziale( $comitato = null ) {
     global $sessione;
         paginaPrivata();
     if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin ) {
-        redirect('utente.me&cattivo2');
+        redirect('utente.me');
     }
     if ( $comitato && !in_array($comitato, $sessione->utente()->comitatiDiCompetenza() ) ) {
         redirect('utente.me&ErroreSicurezza');
@@ -140,15 +140,7 @@ function caricaSelettoreComitato() {
  * @param $pagina la pagina richiesta
  */
 function redirect($pagina) {
-    $pagina = explode('&', $pagina);
-    $pagina[0] = str_replace('.', '/', $pagina[0]);
-    if ( count ($pagina) > 1 ) {
-        $pagina[0] .= '?';
-    }
-    $pagina = implode('', $pagina);
-    if ( $pagina[0] != '/' ) { $pagina = "/{$pagina}"; }
-    //$pagina = str_replace(':', '.', $pagina);
-    header("Location: $pagina");
+    header('Location: ?p=' . $pagina);
     exit(0);
 }
 

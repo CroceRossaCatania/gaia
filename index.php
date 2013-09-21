@@ -35,29 +35,8 @@ $_carica_selettore              = false;
 $_carica_selettore_comitato     = false;
 
 /* Pagina da visualizzare */
-if ( isset($_GET['p']) && !$_POST && !$_FILES ) { // Vecchio stile
-  redirect(
-    convertiNotazioneVecchia(
-      $_SERVER['REQUEST_URI']
-    )
-  );
-}
-
-
 $p = $_GET['p'];
-
-/* Processa il path */
-if (!$p) {
-  $p = convertiNotazioneURLFile(
-    $_SERVER['REQUEST_URI']
-  );
-}
-
-if (
-    !$p || $p == 'index.php'
-  ) { 
-    $p = 'home';
-}
+if (!$p) { $p = 'home'; }
 $_f = "./inc/$p.php";
 if ( !file_exists($_f) ) {
 	$_f = "./inc/errore.404.php";
@@ -78,10 +57,6 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <title>{_titolo}</title>
     <meta name="description" content="{_descrizione}">
     <meta name="author" content="Progetto Gaia - Croce Rossa Italiana">
-
-    <!-- Imposta la base delle richieste -->
-    <base href="//<?= $_SERVER['HTTP_HOST']; ?>/">
-
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
     <!-- CSS -->
