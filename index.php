@@ -344,7 +344,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <div id="caroselloHome" class="carousel slide">
       <div class="carousel-inner">
         <div class="item active altoCento">
-          <img class="altoCento" src="./img/noSlide.png" alt="">
+          <img class="altoCento" src="./img/noSlide_cri.png" alt="">
           <div class="container">
           </div>
         </div>
