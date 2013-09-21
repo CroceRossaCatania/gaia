@@ -90,7 +90,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
 
   </head>
   <body>
-    <!--  <div class="navbar-wrapper"> -->
+    <div class="navbar-wrapper">
       <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
           <div class="container">
@@ -289,7 +289,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
             </div>
           </div>
         </div>
-    <!--  </div>  -->
+    </div>
     </div>
 
     <?php if ( in_array($p, $conf['slide'] ) ) { ?>
