@@ -147,7 +147,7 @@ function redirect($pagina) {
     }
     $pagina = implode('&', $pagina);
     if ( $pagina[0] != '/' ) { $pagina = "/{$pagina}"; }
-    $pagina = str_replace('?&', '?', $pagina);
+    //$pagina = str_replace(':', '.', $pagina);
     header("Location: $pagina");
     exit(0);
 }
