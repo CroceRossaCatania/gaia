@@ -65,7 +65,7 @@ class Partecipazione extends Entita {
         if ( $this->comitatoAppartenenza()->haMembro($this->volontario()) ) {
             
             /* Allora come da accordi, genero
-             * una sola Autorizzazione al presidente
+             * una sola Autorizzazione al referente
              * del comitato organizzatore...
              */
             $a = new Autorizzazione();
@@ -87,7 +87,7 @@ class Partecipazione extends Entita {
             
             /*
              * Se chiedo partecipazione in un comitato differente,
-             * faccio richiesta al mio ed al suo presidente.
+             * faccio richiesta al mio presidente ed al referente.
              */
             
             // Al suo...
@@ -106,7 +106,6 @@ class Partecipazione extends Entita {
             $m->_DATA        = $a->timestamp()->format('d-m-Y H:i');
             $m->invia();
             
-            /*
             // Al mio...
             $a = new Autorizzazione();
             $a->partecipazione = $this->id;
@@ -121,8 +120,7 @@ class Partecipazione extends Entita {
             $m->_TURNO       = $this->turno()->nome;
             $m->_DATA        = $a->timestamp()->format('d-m-Y H:i');
             $m->invia();
-             * 
-             */
+            
              
         }
         
