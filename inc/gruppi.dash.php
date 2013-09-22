@@ -133,7 +133,7 @@ foreach ($gruppi as $gruppo){
                         <td><?= date('d/m/Y', $gp[0]->inizio); ?></td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-small" href="?p=public.utente&id=<?php echo $volontario->id; ?>" target="_new"  title="Dettagli">
+                                <a class="btn btn-small" href="?p=profilo.controllo&id=<?php echo $volontario->id; ?>" target="_new"  title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>
                                 <?php if ( $me->presidenziante() || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>

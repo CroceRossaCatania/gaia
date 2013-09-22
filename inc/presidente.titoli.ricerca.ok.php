@@ -84,7 +84,7 @@ $f= new Titolo($_POST['idTitolo']);
                 <td><?= $volontario->cellulare(); ?></td>
                 <td>    
                     <div class="btn-group">
-                        <a class="btn btn-small btn" target="_new" href="?p=public.utente&id=<?= $volontario->id; ?>" title="Visualizza">
+                        <a class="btn btn-small btn" target="_new" href="?p=profilo.controllo&id=<?= $volontario->id; ?>" title="Visualizza">
                             <i class="icon-eye-open"></i> Visualizza
                         </a>
                         <a class="btn btn-success btn-small" href="?p=utente.mail.nuova&id=<?= $volontario->id; ?>">

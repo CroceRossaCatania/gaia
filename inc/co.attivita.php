@@ -113,7 +113,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                                    <td>
                                        <div class="btn-group">
                                            <?php if($m[0]->stato == '' || !$m[0]->stato == CO_MONTA || $m[0]->stato == CO_MONTA){ ?>
-                                            <a class="visualizza btn btn-small btn nascosto" target="_new" href="?p=public.utente&id=<?php echo $partecipante->volontario(); ?>" title="Visualizza">
+                                            <a class="visualizza btn btn-small btn nascosto" target="_new" href="?p=profilo.controllo&id=<?php echo $partecipante->volontario(); ?>" title="Visualizza">
                                                 <i class="icon-eye-open"></i> Visualizza
                                             </a>
                                            <?php } ?>

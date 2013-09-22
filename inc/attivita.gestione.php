@@ -41,7 +41,7 @@ paginaPrivata();
         <br />
         <?php if ( $attivita->referente ) { ?>
             Referente: 
-                <a href="?p=public.utente&id=<?php echo $attivita->referente()->id; ?>" target="_new">
+                <a href="?p=profilo.controllo&id=<?php echo $attivita->referente()->id; ?>" target="_new">
                     <?php echo $attivita->referente()->nomeCompleto(); ?>
                 </a>
         <?php } else { ?>
