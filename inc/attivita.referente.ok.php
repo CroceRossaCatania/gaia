@@ -31,6 +31,7 @@ if(isset($_GET['g'])){
     $g->area        =   $attivita->area();
     $g->referente   =   $referente;
     $g->attivita 	=	$attivita;
+    $g->estensione	=	EST_GRP_UNITA;
 }
     
 if ( $me->id == $referente->id ) {

@@ -115,7 +115,7 @@ if($i==0){ ?>
                 {
                     foreach ($c->gruppi() as $g) 
                     { ?>
-                        <option value="<?php echo $g->id; ?>"><?php echo $c->nomeCompleto() ?> : <?php echo $g->nome; ?></option>
+                        <option value="<?php echo $g->id; ?>"><?php echo $g->comitato()->nomeCompleto() ?> : <?php echo $g->nome; ?></option>
                     <?php }
                 } ?>
                 </select>

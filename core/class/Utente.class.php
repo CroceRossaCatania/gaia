@@ -44,6 +44,23 @@ class Utente extends Persona {
         }
         return $r;
     }
+
+    public static function senzaSesso() {
+        global $db;
+        $q = $db->prepare("
+            SELECT
+                id
+            FROM
+                anagrafica
+            WHERE
+                sesso IS NULL");
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        return $r;
+    }
     
     public function nomeCompleto() {
         return $this->nome . ' ' . $this->cognome;
@@ -361,10 +378,69 @@ class Utente extends Persona {
         return (bool) in_array($c, $this->comitatiDiCompetenza());
     }
 
+    public function commenti ( $limita = null ) {
+        if ( $limita ) {
+            $limita = (int) $limita;
+            return Commento::filtra([
+                ['volontario', $this]
+            ], "tCommenta DESC LIMIT 0, {$limita}");
+        } else {
+            return Commento::filtra([
+                ['volontario', $this]
+            ], "tCommenta DESC");
+        }
+    }
+
     public function cancella() {
+        // 1. Cancella il mio avatar
         $this->avatar()->cancella();
+        // 2. Cancella le mie appartenenze ai gruppi
         foreach ( $this->appartenenze() as $a ) {
             $a->cancella();
+        }
+        // 3. Cancella le mie partecipazioni
+        foreach ( $this->partecipazioni() as $p ) {
+            $p->cancella();
+        }
+        // 4. Elimina le autorizzazioni che mi sono state chieste
+        foreach ( $this->autorizzazioniPendenti() as $a ) {
+            $a->cancella();
+        }
+        // 5. Elimina tutte le delegazioni che mi sono associate
+        foreach ( $this->storicoDelegazioni() as $d ) {
+            $d->cancella();
+        }
+        // 6. Riassegna le Aree al primo presidente a salire l'albero
+        foreach ( $this->areeDiResponsabilita() as $a ) {
+            $a->responsabile = $a->comitato()->primoPresidente();
+        }
+        // 7. Commenti lasciati in giro
+        foreach ( $this->commenti() as $c ) {
+            $c->cancella();
+        }
+        // 8. Gruppi di cui sono referente
+        foreach ( Gruppo::filtra([['referente',$this]]) as $g ) {
+            $g->cancella();
+        }
+        // 9. Mie estensioni
+        foreach ( Estensione::filtra([['volontario',$this]]) as $g ) {
+            $g->cancella();
+        }
+        // 10. Mie Riserve
+        foreach ( Riserva::filtra([['volontario',$this]]) as $g ) {
+            $g->cancella();
+        }
+        // 11. Mie reperibilita'
+        foreach ( Reperibilita::filtra([['volontario',$this]]) as $g ) {
+            $g->cancella();
+        }
+        // 12. Sessioni in corso
+        foreach ( Sessione::filtra([['utente',$this]]) as $g ) {
+            $g->cancella();
+        }
+        // 13. Titoli personali
+        foreach ( TitoloPersonale::filtra([['volontario',$this]]) as $g ) {
+            $g->cancella();
         }
         parent::cancella();
     }
@@ -744,7 +820,7 @@ class Utente extends Persona {
     public function attivitaReferenziate() {
         return Attivita::filtra([
             ['referente',   $this->id]
-        ]);
+        ], 'nome ASC');
     }
             
     public function attivitaReferenziateDaCompletare() {
@@ -869,4 +945,5 @@ class Utente extends Persona {
         }
         return $r;
     }
+    
 }

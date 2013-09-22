@@ -51,7 +51,13 @@ $log = date('d-m-Y H:i:s') . " CRONJOB INIZIATO\n{$logS}";
 
 // =========== INIZIO CRONJOB GIORNALIERO
 function cronjobGiornaliero()  {
-    global $log, $db;
+    global $log, $db, $cache;
+
+    /* === 0. PERSISTE LA CACHE SU DISCO */
+    if ( $cache ) {
+        $cache->save();
+    }
+    $log .= "Persiste la cache di Redis sul disco\n";
 
     /* === 1. CANCELLA FILE SCADUTI DA DISCO E DATABASE */
     $n = 0;

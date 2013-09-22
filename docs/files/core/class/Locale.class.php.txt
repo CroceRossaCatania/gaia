@@ -26,6 +26,10 @@ class Locale extends GeoPolitica {
         return $this->comitati();
     }
 
+    public function superiore() {
+        return $this->provinciale();
+    }
+
     public function comitati() {
         return Comitato::filtra([
             ['locale',  $this->id]
@@ -53,6 +57,19 @@ class Locale extends GeoPolitica {
             'nome'  =>  $this->nome,
             'unita' =>  $comitati
         ];
+    }
+
+    /**
+     * Ottiene l'unita' territoriale principale del comitato,
+     * oppure null se questa non e' presente
+     */
+    public function principale() {
+        $p = Comitato::filtra([
+            ['locale',      $this->id],
+            ['principale',  1]
+        ]);
+        if (!$p) { return false; }
+        return $p[0];
     }
     
 }

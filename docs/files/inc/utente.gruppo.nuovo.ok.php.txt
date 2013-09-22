@@ -8,7 +8,7 @@ paginaPrivata();
 
 $t = $_GET['id'];
 $g = $_POST['inputGruppo'];
-
+$g = new Gruppo($g);
 /* Cerco se già iscritto a gruppo */
 $x = AppartenenzaGruppo::filtra([
   ['volontario',    $t],
@@ -30,7 +30,7 @@ foreach ( $x as $app ) {
 
 $t = new AppartenenzaGruppo();
 $t->volontario = $me;
-$t->comitato = $me->unComitato();
+$t->comitato = $g->comitato();
 $t->gruppo = $g;
 $t->inizio      = time();
 $t->timestamp   = time();

@@ -8,7 +8,8 @@ class Sessione extends Entita {
     
     protected static
             $_t  = 'sessioni',
-            $_dt = 'datiSessione';
+            $_dt = 'datiSessione',
+            $_cacheable = false;        // Non memorizzare in cache!
     
     public function __construct ( $id = null ) {
         try {

@@ -45,5 +45,9 @@ class Gruppo extends Entita {
         }
         parent::cancella();
     }
+
+    public function estensione() {
+        return $this->estensione;
+    }
     
 }

@@ -99,8 +99,9 @@ class Riserva extends Entita {
         $ris = array_merge($risok, $risauto);
         $r = [];
         $traunmese = time() + MESE;
+        $ora       = time();
         foreach ($ris as $_ris) {
-            if ($_ris->fine < $traunmese)
+            if ($_ris->fine > $adesso && $_ris->fine < $traunmese)
                 $r[] = $_ris;
         }
         return $r;

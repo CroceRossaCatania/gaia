@@ -29,6 +29,10 @@ class Provinciale extends GeoPolitica {
         return $this->locali();
     }
 
+    public function superiore() {
+        return $this->regionale();
+    }
+
     public function locali() {
         return Locale::filtra([
             ['provinciale',  $this->id]
@@ -52,5 +56,23 @@ class Provinciale extends GeoPolitica {
             'nome'      =>  $this->nome,
             'comitati'  =>  $locali
         ]; 
+    }
+
+    public static function provincialiNull() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                provinciali
+            WHERE 
+                nome IS NULL
+            ");
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Provinciale($k[0]);
+        }
+        return $r;
     }
 }

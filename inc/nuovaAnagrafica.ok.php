@@ -34,7 +34,7 @@ if ( ($p->password) ) {
  */
 $p->nome                = $nome;
 $p->cognome             = $cognome;
-$p->sesso 				= $sesso;
+$p->sesso 				= ($sesso) ? UOMO : DONNA;
 $p->dataNascita         = $dnascita;
 $p->provinciaNascita =$prnascita;
 $p->comuneNascita = $conascita;

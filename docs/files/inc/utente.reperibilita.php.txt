@@ -38,6 +38,23 @@ paginaPrivata();
                                         </div>           
                                     </div>  
              <?php $i=2; } } }
+             $x=0;
+             foreach($me->riserve() as $riserva){
+                 $riservafine = $riserva->fine;
+             if($x==0 && $riserva && $me->inRiserva()){ ?>         
+                    <div class="row-fluid">
+                                        <h2><i class="icon-warning-sign muted"></i> In riserva</h2>
+                                        <div class="alert alert-danger">
+                                            <div class="row-fluid">
+                                                <span class="span12">
+                                                    <p>Sei attualmente in riserva</p>
+                                                    <p>Rimarrai nel ruolo di riserva fino al <strong> <?php echo date('d-m-Y', $riserva->fine); ?></strong> alla fine di tale periodo potrai fornire la tua <strong>reperibilità</strong>.</p>
+                                                </span>
+                                            </div>
+                                        </div>           
+                                    </div>
+             <?php $x=1; }}
+             if($x==0) {
 if($i==0){ ?>
         <div class="row-fluid">
             <h2><i class="icon-thumbs-up muted"></i> Reperibilità</h2>
@@ -54,6 +71,19 @@ if($i==0){ ?>
         
 <div class="row-fluid">
     <form class="form-horizontal" action="?p=utente.reperibilita.ok&id=<?php echo $me->id; ?>" method="POST">
+    <?php if ( count($me->comitati()) > 1 ) { ?>
+        <div class="control-group">
+            <label class="control-label" for="inputComitato">Comitato</label>
+            <div class="controls">
+                <select class="input-xxlarge" id="inputComitato" name="inputComitato"  required>
+                <?php
+                    foreach ( $me->comitati() as $id ) { ?>
+                    <option value="<?php echo $id; ?>"><?php echo $id->nomeCompleto(); ?></option>
+                    <?php } ?>
+                </select>   
+            </div>
+          </div>
+    <?php } ?>
      <div class="control-group">
         <label class="control-label" for="inizio">Inizio </label>
         <div class="controls">
@@ -99,6 +129,7 @@ if($i==0){ ?>
                     <th>Inizio</th>
                     <th>Fine</th>
                     <th>Tempo Attivazione</th>
+                    <th>Comitato</th>
                     <th>Azione</th>
                 </thead>
                 
@@ -127,6 +158,10 @@ if($i==0){ ?>
                                 <?php echo $app->attivazione; ?> min
                         </td>
                         
+                        <td>
+                            <?= $app->comitato()->nomeCompleto(); ?>
+                        </td>
+                        
                         <?php if ($app->attuale()) { ?>
                         <td>
                             <a class="btn btn-danger" href="?p=utente.reperibilita.cancella&id=<?php echo $app->id; ?>">
@@ -144,6 +179,6 @@ if($i==0){ ?>
             </table>
         </div>
         <?php }?>
-<?php } ?>
+<?php }} ?>
     </div>
 </div>

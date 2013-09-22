@@ -26,6 +26,10 @@ class Locale extends GeoPolitica {
         return $this->comitati();
     }
 
+    public function superiore() {
+        return $this->provinciale();
+    }
+
     public function comitati() {
         return Comitato::filtra([
             ['locale',  $this->id]
@@ -66,6 +70,24 @@ class Locale extends GeoPolitica {
         ]);
         if (!$p) { return false; }
         return $p[0];
+    }
+
+    public static function localiNull() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                locali
+            WHERE 
+                nome IS NULL
+            ");
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Locale($k[0]);
+        }
+        return $r;
     }
     
 }
