@@ -59,6 +59,17 @@ if ( ($p->password) ) {
             </div>
           </div>
           <div class="control-group">
+            <label class="control-label" for="inputSesso">Sesso</label>
+            <div class="controls">
+                <select class="input-small" id="inputSesso" name="inputSesso" required>
+                <?php
+                    foreach ( $conf['sesso'] as $numero => $tipo ) { ?>
+                    <option value="<?php echo $numero; ?>"><?php echo $tipo; ?></option>
+                    <?php } ?>
+                </select>   
+            </div>
+          </div>
+          <div class="control-group">
             <label class="control-label" for="inputCodiceFiscale">Cod. Fiscale</label>
             <div class="controls">
               <input value="<?php echo $p->codiceFiscale; ?>" class="input-large" readonly="readonly" type="text" id="inputCodiceFiscale" name="inputCodiceFiscale" required  pattern="[A-Za-z0-9]{16}" />

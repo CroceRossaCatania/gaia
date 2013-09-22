@@ -90,10 +90,10 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
 
   </head>
   <body>
-      <div class="navbar-wrapper">
-      <div class="container">
-        <div class="navbar">
-          <div class="navbar-inner">
+    <div class="navbar-wrapper">
+      <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
@@ -287,7 +287,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
             </div>
           </div>
         </div>
-      </div>
+    </div>
     </div>
 
     <?php if ( in_array($p, $conf['slide'] ) ) { ?>
@@ -342,7 +342,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <div id="caroselloHome" class="carousel slide">
       <div class="carousel-inner">
         <div class="item active altoCento">
-          <img class="altoCento" src="./img/noSlide.png" alt="">
+          <img class="altoCento" src="./img/noSlide_cri.png" alt="">
           <div class="container">
           </div>
         </div>

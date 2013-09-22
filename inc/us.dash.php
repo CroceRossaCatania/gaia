@@ -32,6 +32,13 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     La richiesta di riserva è stata inoltrata con successo.
                 </div>
             <?php } ?>
+            <?php if ( isset($_GET['riserrdate']) ) { ?>
+                <div class="alert alert-error">
+                    <i class="icon-warning-sign"></i> <strong>Richiesta di riserva non inserita</strong>.
+                    Ricorda che la riserva può durare al massimo un anno e che non è possibile
+                    inserire riserve che terminano nel passato.
+                </div>
+            <?php } ?>
             <div class="span12">
                 <h3>Ufficio Soci</h3>
             </div>

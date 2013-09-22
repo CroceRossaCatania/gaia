@@ -31,7 +31,13 @@ caricaSelettore();
                 if ( isset($_GET['nome']) ) { ?>
             <div class="alert alert-danger">
                 <i class="icon-stop"></i> <strong>Inserire un nome al gruppo</strong>.
-                Il gruppo deve avere il nome!.
+                Il gruppo deve avere il nome!
+            </div>
+        <?php }
+                if ( isset($_GET['estok']) ) { ?>
+            <div class="alert alert-success">
+                <i class="icon-save"></i> <strong>Estensione modificata</strong>.
+                L'estensione del gruppo è stata modificata correttamente.
             </div>
         <?php } ?>
     </div>
@@ -80,6 +86,7 @@ if ( isset($_GET['cancellato'] ) ) {
                 <th>Cognome</th>
                 <th>Nome</th>
                 <th>Cellulare</th>
+                <th>Unità Territoriale</th>
                 <th>Iscritto al gruppo dal</th>
                 <th>Azioni</th>
             </thead>
@@ -88,15 +95,17 @@ foreach ($gruppi as $gruppo){
         $g = $gruppo->membri();
     ?>
         <tr class="success">
-                    <td colspan="5" class="grassetto">
+                    <td colspan="6" class="grassetto">
                             <?php echo $gruppo->comitato()->nomeCompleto()?> - <?php echo $gruppo->nome; ?>
                             <span class="label label-warning">
                                 <?= count($g); ?>
                             </span>
+                        <?php if (count($g)!=0){ ?>
                             <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?= $gruppo->id; ?>&gruppo">
                                 <i class="icon-envelope"></i>
                             </a>
-                        <?php if ( $me->presidenziante() || $me->admin() ){ ?>
+                        <?php }
+                             if ( $me->presidenziante() || $me->admin() ){ ?>
                                 <a class="btn btn-small btn-danger pull-right" onclick="return confirm('Sei davvero sicuro di voler eliminare il gruppo?');" href="?p=gruppi.elimina&id=<?= $gruppo->id; ?>" title="Elimina gruppo">
                                     <i class="icon-trash"></i>
                                 </a>
@@ -107,6 +116,10 @@ foreach ($gruppi as $gruppo){
                                 <a class="btn btn-small pull-right" href="?p=gruppo.referente.nuovo&id=<?= $gruppo->id; ?>">
                                     <i class="icon-pencil"></i> 
                                     <?php if($gruppo->referente()){ echo $gruppo->referente()->nomeCompleto(); }else{ ?> Seleziona un volontario <?php } ?>
+                                </a>
+                                <a class="btn btn-small btn-primary pull-right" href="?p=gruppo.estensione&id=<?= $gruppo->id; ?>" title="Estensione gruppi">
+                                    <i class="icon-random"></i> 
+                                    <?php if($gruppo->estensione() != null){ echo $conf['est_grp'][$gruppo->estensione()]; }else{ ?> Seleziona una estensione per il gruppo <?php } ?>
                                 </a>
                      <?php } if ( $me->presidenziante() || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
                                 <a class="btn btn-small btn-info pull-right" href="?p=gruppo.modifica&id=<?= $gruppo->id; ?>" title="Modifica gruppo">
@@ -130,6 +143,7 @@ foreach ($gruppi as $gruppo){
                         <td><?= $volontario->cognome; ?>      </td>
                         <td><?= $volontario->nome; ?>         </td>
                         <td><?= $volontario->cellulare(); ?>  </td>
+                        <td><?= $volontario->unComitato()->nome; ?></td>
                         <td><?= date('d/m/Y', $gp[0]->inizio); ?></td>
                         <td>
                             <div class="btn-group">

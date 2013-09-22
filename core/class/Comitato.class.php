@@ -381,9 +381,15 @@ class Comitato extends GeoPolitica {
     }
     
     public function gruppi() {
-        return Gruppo::filtra([
+        $g = Gruppo::filtra([
             ['comitato',    $this->id]
         ], 'nome ASC');
+        $c = $this->locale();
+        $locali = $c->figli();
+        foreach ($locali as $loc){
+            $g = array_merge($g, Gruppo::filtra([['comitato', $loc],['estensione', EST_GRP_LOCALE]]));
+        }
+        return array_unique($g);
     }
     
 
@@ -598,7 +604,7 @@ class Comitato extends GeoPolitica {
             AND 
                 anagrafica.id = appartenenza.volontario
             AND 
-                dettagliPersona.nome LIKE  'datanascita'
+                dettagliPersona.nome = 'dataNascita'
             AND
                 appartenenza.comitato = :comitato");
         $q->bindParam(':comitato', $this->id);
@@ -670,7 +676,25 @@ class Comitato extends GeoPolitica {
         return $r;
     }
 
-    public function membriRubrica($stato = MEMBRO_ESTESO) {
+    public static function comitatiNull() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                comitati
+            WHERE 
+                nome IS NULL
+            ");
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = new Comitato($k[0]);
+        }
+        return $r;
+    }
+
+	public function membriRubrica($stato = MEMBRO_ESTESO) {
         $q = $this->db->prepare("
             SELECT
                 anagrafica.id
@@ -701,5 +725,4 @@ class Comitato extends GeoPolitica {
         }
         return $r;
     }
-
 }

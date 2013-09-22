@@ -41,8 +41,10 @@ menuElenchiVolontari(
                     <td colspan="7" class="grassetto">
                         <?php echo $comitato->nomeCompleto(); ?>
                         <span class="label label-warning">
-                            <?php echo count($t); ?>
+                            <?php $count = count($v);
+                            echo $count; ?>
                         </span>
+                        <?php if ($count > 0) { ?>
                         <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&riserva">
                             <i class="icon-envelope"></i> Invia mail
                         </a>
@@ -51,6 +53,7 @@ menuElenchiVolontari(
                             data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                         </a>
+                        <?php } ?>
                     </td>
                 </tr>
             <?php

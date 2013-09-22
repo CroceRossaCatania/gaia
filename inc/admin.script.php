@@ -41,6 +41,15 @@ paginaAdmin();
                 <i class="icon-wrench"></i>
                 Fix attività
             </a>
+            <hr/>
+            <div class="alert alert-warning">
+                <strong>Script per cancellazione comitati </strong>
+                <p>Questo script elimina i comitati che hanno come nome null</p>
+            </div>
+            <a href="?p=admin.fix.comitati" class="btn btn-large btn-warning">
+                <i class="icon-bookmark"></i>
+                Fix Comitati
+            </a>
         </div>
         
         <div class="span6 centrato">

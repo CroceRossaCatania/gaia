@@ -57,7 +57,7 @@ paginaAdmin();
                     <td colspan="5"><strong><?php echo $nazionale->nome; ?></strong></td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $nazionale->oid(); ?>" title="Dettagli">
+                            <a class="btn btn-small" href="?p=presidente.comitato&oid=<?php echo $nazionale->oid(); ?>" title="Dettagli">
                                 <i class="icon-eye-open"></i> Dettagli
                             </a>
                             <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $nazionale->id; ?>&t=regi" title="Nuovo">
@@ -72,7 +72,7 @@ paginaAdmin();
                     <td colspan="4" border-left="none"><?php echo $regionale->nome; ?></td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $regionale->oid(); ?>" title="Dettagli">
+                                <a class="btn btn-small" href="?p=presidente.comitato&oid=<?php echo $regionale->oid(); ?>" title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>    
                                 <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $regionale->oid(); ?>" title="Modifica">
@@ -90,7 +90,7 @@ paginaAdmin();
                     <td colspan="3"><?php echo $provinciale->nome; ?></td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $provinciale->oid(); ?>" title="Dettagli">
+                                <a class="btn btn-small" href="?p=presidente.comitato&oid=<?php echo $provinciale->oid(); ?>" title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>  
                                 <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $provinciale->oid(); ?>" title="Modifica">
@@ -105,10 +105,20 @@ paginaAdmin();
                 <?php foreach ( $provinciale->locali() as $locale ) { ?>
                 <tr class="alert">
                     <td></td><td></td><td></td>
-                    <td colspan="2"><?php echo $locale->nome; ?></td>
+                    <td colspan="2">
+                    <?php echo $locale->nome; ?>
+
+                    <?php if ( !$locale->principale() ) { ?>
+                        &nbsp; &nbsp; <span class="text-error">
+                            <i class="icon-warning-sign"></i>
+                            Nessuna unita' principale selezionata!
+                        </span>
+                    <?php } ?>
+
+                    </td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $locale->oid(); ?>" title="Dettagli">
+                                <a class="btn btn-small" href="?p=presidente.comitato&oid=<?php echo $locale->oid(); ?>" title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>     
                                 <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $locale->oid(); ?>" title="Modifica">
@@ -123,10 +133,22 @@ paginaAdmin();
                 <?php foreach ( $locale->comitati() as $comitato ) { ?>
                 <tr class="info">
                     <td></td><td></td><td></td><td></td>
-                    <td colspan="1"><?php echo $comitato->nome; ?></td>
+                    <td colspan="1">
+                    
+                    <?php if ( $comitato->principale ) { ?>
+                        <i class="icon-star text-error"></i>
+                    <?php } else { ?>
+                        <a href="?p=admin.comitato.principale&id=<?php echo $comitato; ?>">
+                            <i class="icon-star-empty"></i>
+                        </a>
+                    <?php } ?>
+
+                    <?php echo $comitato->nome; ?>
+
+                    </td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-small" href="?p=presidente.wizard&oid=<?php echo $comitato->oid(); ?>" title="Dettagli">
+                                <a class="btn btn-small" href="?p=presidente.comitato&oid=<?php echo $comitato->oid(); ?>" title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>      
                                 <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $comitato->oid(); ?>" title="Modifica">

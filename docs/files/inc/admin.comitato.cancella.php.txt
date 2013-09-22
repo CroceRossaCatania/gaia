@@ -6,7 +6,8 @@
 
 paginaAdmin();
 
-$t = $_GET['id'];
+$t = $_GET['oid'];
+$t = GeoPolitica::daOid($t);
 
 if (isset($_GET['com'])){
     

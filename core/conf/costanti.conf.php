@@ -99,13 +99,15 @@ define('ATTIVITA_PUBBLICA',		1);
  */
 
 define('AUT_PENDING',       10);
+define('AUT_NP',            15);
 define('AUT_NO',            20);
 define('AUT_OK',            30);
 
 $conf['autorizzazione'] = [
     AUT_PENDING         =>  'In attesa',
     AUT_OK              =>  'Concessa',
-    AUT_NO              =>  'Negata'
+    AUT_NO              =>  'Negata',
+    AUT_NP              =>  'Mancata partecipazione turno'
 ];
 
 
@@ -491,6 +493,20 @@ $conf['patente'] = [
     PATENTE_ATTESA_STAMPA => 'In attesa della stampa patente',
     PATENTE_ATTESA_CONSEGNA => 'In attesa ritiro patente',
     PATENTE_CONSEGNATA => 'Patente consegnata'
+];
+
+/*
+ * ===================================
+ * ======= ESTENSIONE GRUPPI =========
+ * ===================================
+ */
+
+define('EST_GRP_UNITA',         10);
+define('EST_GRP_LOCALE',        20);
+
+$conf['est_grp'] = [
+    EST_GRP_UNITA       =>  'Unità Territoriale',
+    EST_GRP_LOCALE      =>  'Comitato Locale'    
 ];
 
 /*

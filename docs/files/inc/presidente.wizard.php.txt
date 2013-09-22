@@ -96,7 +96,7 @@ paginaApp([APP_PRESIDENTE]);
             <div class="control-group">
               <label class="control-label" for="inputCivico">Civico</label>
               <div class="controls">
-                <input type="text" class="input-mini" name="inputCivico" id="inputCivico" required value="<?php echo $c->civico; ?>" />
+                <input type="text" class="input-mini" name="inputCivico" id="inputCivico" value="<?php echo $c->civico; ?>" />
               </div>
             </div>
             
