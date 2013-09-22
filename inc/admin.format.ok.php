@@ -187,8 +187,6 @@ paginaAdmin();
 
         echo(' importo! '.$p->nome.' '.$p->cognome);
 
-        $p->consenso = true;
-
         if (intval(substr($codiceFiscale, 9, 2)) < 40){
             $p->sesso = UOMO;
         }else{

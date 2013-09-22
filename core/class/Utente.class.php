@@ -837,6 +837,14 @@ class Utente extends Persona {
                 return $this->cellulare;
             }
     }
+
+    public function email() {
+        if($this->emailServizio){
+            return $this->emailServizio;
+            }else{
+                return $this->email;
+            }
+    }
     
     public function giovane() {
         $u = time()-GIOVANI;
