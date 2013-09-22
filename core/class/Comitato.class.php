@@ -341,6 +341,9 @@ class Comitato extends GeoPolitica {
     }
     
     public function locale() {
+        if (!$this->locale) {
+            return null;
+        }
         return new Locale($this->locale);
     }
     
