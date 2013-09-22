@@ -139,7 +139,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                         <?php echo $app->inizio()->inTesto(false); ?>
                     </td>
                     <td>
-                        ?php if ($app->fine) { ?>
+                        <?php if ($app->fine) { ?>
                             <i class="icon-time muted"></i>
                             <?php echo $app->fine()->inTesto(false); ?>
                         <?php } else { ?>
