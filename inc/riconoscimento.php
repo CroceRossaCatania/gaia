@@ -66,7 +66,7 @@ if ( isset($_GET['tipo'] ) ) {
           <div class="control-group">
             <label class="control-label" for="inputCodiceFiscale">Cod. Fiscale</label>
             <div class="controls">
-              <input autofocus class="input-large" type="text" id="inputCodiceFiscale" name="inputCodiceFiscale" placeholder="16 caratteri alfanumerici" required  pattern="[A-Za-z0-9]{16}" />
+              <input autofocus class="input-large" type="text" id="inputCodiceFiscale" name="inputCodiceFiscale" placeholder="16 caratteri alfanumerici" required  pattern="[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]" />
             </div>
           </div>
           
