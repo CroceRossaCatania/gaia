@@ -44,6 +44,23 @@ class Utente extends Persona {
         }
         return $r;
     }
+
+    public static function senzaSesso() {
+        global $db;
+        $q = $db->prepare("
+            SELECT
+                id
+            FROM
+                anagrafica
+            WHERE
+                sesso IS NULL");
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        return $r;
+    }
     
     public function nomeCompleto() {
         return $this->nome . ' ' . $this->cognome;
