@@ -16,7 +16,7 @@ $r = $tp->titolo()->tipo;
                         <label for="dataInizio"><i class="icon-calendar"></i> Ottenimento</label>
                     </div>
                     <div class="span8">
-                        <input id="dataInizio" class="span12" name="dataInizio" type="text"  value="<?php echo date('d/m/Y', $tp->inizio); ?>" />
+                        <input id="dataInizio" class="span12" name="dataInizio" type="text"  value="<?php if($tp->inizio) echo date('d/m/Y', $tp->inizio); ?>" />
                     </div>
                 </div>
          <?php if ($r != TITOLO_STUDIO ) { ?>
@@ -25,7 +25,7 @@ $r = $tp->titolo()->tipo;
                         <label for="dataFine"><i class="icon-time"></i> Scadenza</label>
                     </div>
                     <div class="span8">
-                        <input id="dataFine" class="span12" name="dataFine" type="text"  value="<?php echo date('d/m/Y', $tp->fine); ?>" />
+                        <input id="dataFine" class="span12" name="dataFine" type="text"  value="<?php if($tp->fine) echo date('d/m/Y', $tp->fine); ?>" />
                     </div>
                 </div>
           <?php } ?>

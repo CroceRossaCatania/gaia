@@ -251,9 +251,8 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                         
                         <td>
                             <div class="btn-group">
-                            <?php if ($app->attuale()) { 
-                              $sessione->a= $app;?>
-                                <a href="?p=us.appartenenza.modifica" title="Modifica appartenenza" class="btn btn-small btn-info">
+                            <?php if ($app->attuale()) { ?>
+                                <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
                                     <i class="icon-edit"></i>
                                 </a>
                             <?php } 
