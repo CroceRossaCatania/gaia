@@ -27,7 +27,7 @@ $i = 0;
 foreach ( $a->turni() as $turno ) {
     
     $i++;
-    $partecipazioni = $turno->partecipazioni();
+    $partecipazioni = $turno->partecipazioniStato();
     
     $t->aggiungiRiga([
         $a->nome,
