@@ -41,10 +41,19 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
 </div>
     <hr />
 <div class="row-fluid">
-    <div class="span8">    
-
-
-
+    <div class="span8">
+    
+        <div class="alert alert-info">
+            <i class="icon-info-sign"></i>
+            Presta molta attenzione quando decidi <strong> quali volontari possono partecipare </strong>:</br>
+            <ul>
+            <li>Se selezioni <strong>Tutti i Volontari della Croce Rossa Italiana</strong> permetti a tutti gli
+            iscritti su Gaia di dare disponibilità per l'attività. </li>
+            <li>Se selezioni <strong>Pubblica</strong> permetti anche a chi <strong>non</strong> è Volontario
+            di partecipare. </li>
+            </ul>
+        </div>
+        
           <div class="form-horizontal">
           <div class="control-group">
             <label class="control-label" for="inputNome">Nome</label>
