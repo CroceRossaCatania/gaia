@@ -42,4 +42,12 @@ class Appartenenza extends Entita {
             /* Vero se la fine è dopo, o non c'è fine! */
             return ( ( $this->fine > time() ) || ( !$this->fine ) );
         }
+
+        public function trasferimento(){
+            return Trasferimento::by('appartenenza', $this);
+        }
+
+        public function estensione(){
+            return Estensione::by('appartenenza', $this);
+        }
 }
