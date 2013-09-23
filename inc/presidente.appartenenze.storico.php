@@ -66,11 +66,11 @@ proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
                         <td>
                             <div class="btn-group">
                                 <?php if ($app->trasferimento()){ ?>
-                                    <a class="btn btn-small btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $app->trasferimento(); ?>" title="Visualizza ricevuta">
+                                    <a class="btn btn-small btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $app->trasferimento(); ?>" title="Visualizza ricevuta" data-attendere="Attendere..." >
                                         <i class="icon-paperclip"></i> Richiesta trasferimento
                                     </a>
                                 <?php }elseif($app->estensione()){ ?>
-                                    <a class="btn btn-small btn-info" href="?p=presidente.estensioneRichiesta.stampa&id=<?php echo $app->estensione(); ?>" title="Visualizza ricevuta">
+                                    <a class="btn btn-small btn-info" href="?p=presidente.estensioneRichiesta.stampa&id=<?php echo $app->estensione(); ?>" title="Visualizza ricevuta" data-attendere="Attendere...">
                                         <i class="icon-paperclip"></i> Richiesta estensione
                                     </a>
                                 <?php } ?>

@@ -197,18 +197,8 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             </span>
         <?php } ?>
         <hr />
-        <div class="span12 allinea-centro">
-          <div class="btn-group">
-            <a class="btn btn-small btn-warning" target="_new" href="?p=presidente.riserva.storico&id=<?php echo $v->id; ?>">
-              <i class="icon-pause"></i> Storico riserve
-            </a>
-            <a class="btn btn-small btn-primary" target="_new" href="?p=presidente.appartenenze.storico&id=<?php echo $v->id; ?>">
-              <i class="icon-time"></i> Storico appartenenze
-            </a>
-          </div>
-        </div>
+
         <div class="row-fluid">
-            <br/><br/>
             <h4>
                 <i class="icon-time muted"></i>
                 Appartenenze attuali
@@ -268,6 +258,23 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                 <?php } ?>
             
             </table>
+        </div>
+        <div class="row-fluid">
+            <h4>
+                <i class="icon-ellipsis-horizontal muted"></i>
+                Storico
+            </h4>
+            
+        </div>
+        <div class="span12 allinea-centro">
+          
+            <a class="btn" target="_new" href="?p=presidente.riserva.storico&id=<?php echo $v->id; ?>">
+              <i class="icon-pause"></i> Storico riserve
+            </a>
+            <a class="btn" target="_new" href="?p=presidente.appartenenze.storico&id=<?php echo $v->id; ?>">
+              <i class="icon-time"></i> Storico appartenenze
+            </a>
+          
         </div>
         
     </div>

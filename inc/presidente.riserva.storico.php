@@ -66,7 +66,7 @@ proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
                             <?php } ?>
                         </td>
                         <td>
-                            <a class="btn btn-small btn-info" href="?p=presidente.riservaRichiesta.stampa&id=<?php echo $app->id; ?>" title="Visualizza ricevuta">
+                            <a class="btn btn-small btn-info" href="?p=presidente.riservaRichiesta.stampa&id=<?php echo $app->id; ?>" title="Visualizza ricevuta" data-attendere="Attendere...">
                                 <i class="icon-paperclip"></i> Richiesta
                             </a>
                         </td>

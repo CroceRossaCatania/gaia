@@ -10,7 +10,7 @@ $f = $_GET['id'];
 $t = Trasferimento::by('id', $f);
 $cin = $t->comitato();
 
-$cout = $t->volontario()->unComitato();
+$cout = Comitato::by('id', $t->cProvenienza);
 $app = Appartenenza::filtra([
     ['volontario',  $t->volontario()->id],
     ['comitato',    $cout->id]
