@@ -101,7 +101,7 @@ class Riserva extends Entita {
         $traunmese = time() + MESE;
         $ora       = time();
         foreach ($ris as $_ris) {
-            if ($_ris->fine > $adesso && $_ris->fine < $traunmese)
+            if ($_ris->fine > $ora && $_ris->fine < $traunmese)
                 $r[] = $_ris;
         }
         return $r;
