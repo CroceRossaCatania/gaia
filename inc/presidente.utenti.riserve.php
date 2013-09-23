@@ -70,6 +70,9 @@ menuElenchiVolontari(
                                     <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
                                         <i class="icon-eye-open"></i> Dettagli
                                     </a>
+                                    <a class="btn btn-small btn-primary" target="_new" href="?p=presidente.riserva.storico&id=<?php echo $_v->id; ?>">
+                                        <i class="icon-time"></i> Storico riserve
+                                    </a>
                                     <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                         <i class="icon-envelope"></i>
                                     </a>
