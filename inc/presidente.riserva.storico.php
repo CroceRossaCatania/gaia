@@ -28,6 +28,7 @@ $v = Volontario::by('id', $v);
                     <th>Motivo riserva</th>
                     <th>Inizio</th>
                     <th>Fine</th>
+                    <th>Azioni</th>
                 </thead>
                 
                 <?php foreach ( $v->riserve() as $app ) { ?>
@@ -62,6 +63,11 @@ $v = Volontario::by('id', $v);
                                 <i class="icon-question-sign muted"></i>
                                 Indeterminato
                             <?php } ?>
+                        </td>
+                        <td>
+                            <a class="btn btn-small btn-info" href="?p=presidente.riservaRichiesta.stampa&id=<?php echo $app->id; ?>" title="Visualizza ricevuta">
+                            <i class="icon-paperclip"></i> Richiesta
+                        </a>
                         </td>
                         
                     </tr>
