@@ -103,6 +103,15 @@
 
         <p>I tuoi dati personali sono veramente importanti per noi scopri come vengono <a href="?p=public.sicurezza">protetti</a> su Gaia.</p>
         
+        <hr />
+        
+        <p>&nbsp;</p>
+        
+       
+        <h2><i class="icon-shield"></i> Condizioni d'uso</h2>
+
+        <p>Scopri le<a href="?p=public.privacy">condizioni d'uso</a> di Gaia.</p>
+        
         
     </div>
 </div>
