@@ -54,6 +54,7 @@ foreach ( $t->storico() as $app ) {
         $x->volontario = $t;
         $x->motivo = $m;
         $x->timestamp = time();
+        $x->cProvenienza = $t->unComitato()->id;
         
         redirect('us.dash&trasfok');
 

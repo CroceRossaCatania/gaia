@@ -475,6 +475,7 @@ CREATE TABLE IF NOT EXISTS `trasferimenti` (
   `timestamp` varchar(64) DEFAULT NULL,
   `pConferma` varchar(16) DEFAULT NULL,
   `tConferma` varchar(64) DEFAULT NULL,
+  `cProvenienza` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `appartenenza` (`appartenenza`),
   KEY `volontario` (`volontario`)
