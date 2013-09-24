@@ -692,7 +692,7 @@ class Comitato extends GeoPolitica {
         $r = $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Comitato($k[0]);
+            $r[] = $k[0];
         }
         return $r;
     }
