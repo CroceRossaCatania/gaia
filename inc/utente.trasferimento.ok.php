@@ -49,6 +49,7 @@ foreach ( $me->storico() as $app ) {
         $t->volontario = $me;
         $t->motivo = $m;
         $t->timestamp = time();
+        $t->cProvenienza = $me->unComitato()->id;
         
 
         $sessione->inGenerazioneTrasferimento = time();
