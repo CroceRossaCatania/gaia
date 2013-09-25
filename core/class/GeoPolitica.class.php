@@ -67,8 +67,12 @@ abstract class GeoPolitica extends GeoEntita {
         return false;
     }
 
+    /*
+     * Brutto stronzo ti ho fottuto!
+     * ora controllo se il comitato di appartenenza del volontario sta nel sottoalbero
+     */
     public function contieneVolontario($v) {
-        $c = $v->comitati($tipo);
+        $c = $v->comitati();
         if (!$c) {
             return false;
         }

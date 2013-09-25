@@ -80,21 +80,21 @@ class Attivita extends GeoEntita {
                 break;
                 
             case ATT_VIS_LOCALE:
-                while($geoComitato->_estensione() != EST_LOCALE) {
+                while(intval($geoComitato->_estensione()) < EST_LOCALE) {
                     $oid = $geoComitato->superiore()->oid();
                     $geoComitato = GeoPolitica::daOid($oid);
                 }
                 return (bool) $geoComitato->contieneVolontario($v);
                 break;
             case ATT_VIS_PROVINCIALE:
-                while($geoComitato->_estensione() != EST_PROVINCIALE) {
+                while(intval($geoComitato->_estensione()) < EST_PROVINCIALE) {
                     $oid = $geoComitato->superiore()->oid();
                     $geoComitato = GeoPolitica::daOid($oid);
                 }
                 return (bool) $geoComitato->contieneVolontario($v);
                 break;
             case ATT_VIS_REGIONALE:
-                while($geoComitato->_estensione() != EST_REGIONALE) {
+                while(intval($geoComitato->_estensione()) < EST_REGIONALE) {
                     $oid = $geoComitato->superiore()->oid();
                     $geoComitato = GeoPolitica::daOid($oid);
                 }
