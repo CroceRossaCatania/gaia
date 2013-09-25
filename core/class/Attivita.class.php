@@ -222,5 +222,21 @@ class Attivita extends GeoEntita {
     $t = $eseguiti + $nAttivita;
     return $t;
     }
+
+    public function visibilitaMinima(GeoPolitica $g) {
+        $livello = $g->_estensione();
+        switch ($livello) {
+            case EST_UNITA:         return ATT_VIS_UNITA;
+                                    break;
+            case EST_LOCALE:        return ATT_VIS_LOCALE;
+                                    break;
+            case EST_PROVINCIALE:   return ATT_VIS_PROVINCIALE;
+                                    break;
+            case EST_REGIONALE:     return ATT_VIS_REGIONALE;
+                                    break;
+            case EST_NAZIONALE:     return ATT_VIS_NAZIONALE;
+                                    break;
+        }
+    }
     
 }

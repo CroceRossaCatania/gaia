@@ -18,6 +18,9 @@ $del        = $me->delegazioni(APP_ATTIVITA);
 $comitati   = $me->comitatiDelegazioni(APP_ATTIVITA);
 $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
 
+$g = GeoPolitica::daOid($a->comitato);
+$visMinima = $a->visibilitaMinima($g);
+
 ?>
 
 <form action="?p=attivita.modifica.ok" method="POST">
@@ -66,7 +69,8 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
             <label class="control-label" for="inputVisibilita">Quali volontari possono chiedere di partecipare?</label>
             <div class="controls">
                 <select class="input-xxlarge" name="inputVisibilita">
-                    <?php foreach ( $conf['att_vis'] as $num => $nom ) { ?>
+                    <?php foreach ( $conf['att_vis'] as $num => $nom ) { 
+                        if ($num < $visMinima) { continue; }?>
                         <option value="<?php echo $num; ?>"
                             <?php if ( $a->visibilita == $num ) { ?>
                                 selected="selected"
@@ -103,7 +107,9 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
         
         <p>
             <strong>Organizzatore</strong><br />
-            <?php echo $a->comitato()->nomeCompleto(); ?>
+            <?php 
+            
+            echo $g->nomeCompleto(); ?>
         </p>
         
         <p>
