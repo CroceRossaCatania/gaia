@@ -5,15 +5,15 @@
  */
 
 class APIServer {
-	
-	private
-		$db             = null,
-		$sessione	= null;
-	
-	public
-            $par		= [];
-	
-	public function __construct( $sid = null ) {
+    
+    private
+        $db             = null,
+        $sessione   = null;
+    
+    public
+            $par        = [];
+    
+    public function __construct( $sid = null ) {
             global $db, $sessione;
             $this->db = $db;
             $this->sessione = new Sessione($sid);
@@ -23,9 +23,9 @@ class APIServer {
              * Utente->admin() e tutte quelle che fanno
              * affidamento allo stato in sessione */
             $sessione = $this->sessione;
-	}
-	
-	public function esegui( $azione = 'welcome' ) {
+    }
+    
+    public function esegui( $azione = 'welcome' ) {
             $start = microtime(true);
             if (empty($azione)) { $azione = 'welcome'; }
             $azione = str_replace(':', '_', $azione);
@@ -48,14 +48,14 @@ class APIServer {
                 'session'  => $this->sessione->toJSON(),
                 'response' => $r
             ], JSON_PRETTY_PRINT);
-	}
+    }
         
         private function richiediLogin() {
             if ( !$this->sessione->utente ) {
                 throw new Errore(1010);
             }
         }
-	
+    
         private function richiedi ( $campi ) {
             foreach ( $campi as $campo ) {
                 if ( empty($this->par[$campo] ) ) {
@@ -66,24 +66,24 @@ class APIServer {
             }
         }
         
-	private function api_welcome() {
+    private function api_welcome() {
             global $conf;
             return [
-                'version'   =>	$conf['version'],
-                'name'      =>	$conf['name'],
-                'vendor'    =>	$conf['vendor'],
-                'copyright' =>	$conf['copyright'],
-                'status'    =>	$conf['status'],
-                'docs'      =>	$conf['docs']
+                'version'   =>  $conf['version'],
+                'name'      =>  $conf['name'],
+                'vendor'    =>  $conf['vendor'],
+                'copyright' =>  $conf['copyright'],
+                'status'    =>  $conf['status'],
+                'docs'      =>  $conf['docs']
             ];
-	}
+    }
         
         public function api_user() {
             $this->richiedi(['id']);
             $u = new Utente($this->par['id']);
             return $u->toJSON();
         }
-	
+    
         public function api_login() {
             $this->richiedi(['email', 'password']);
             $this->sessione->logout();
@@ -140,7 +140,8 @@ class APIServer {
             $cA = Turno::neltempo($inizio, $fine);
             $searchPuoPart = [];
             $r = [];
-            $mioComitato = $this->sessione->utente()->unComitato()->id;
+            $mioGeoComitatoOid = $this->sessione->utente()->unComitato()->oid();
+            $mioGeoComitato = GeoPolitica::daOid($mioGeoComitatoOid);
             foreach  ( $cA as $turno ) {
                 $attivita = $turno->attivita();
                 $idAttivita = ''.$attivita->id;
@@ -151,7 +152,8 @@ class APIServer {
                     continue;
                 }
                 if ( $this->sessione->utente ) {
-                    if ( $mioComitato == $attivita->comitato ) {
+                    $geoAttivita = GeoPolitica::daOid($attivita->comitato);
+                    if ( $geoAttivita->contiene($mioGeoComitato) ) {
                         $colore = $conf['attivita']['colore_mie'];
                     } else {
                         $colore = $conf['attivita']['colore_pubbliche'];
