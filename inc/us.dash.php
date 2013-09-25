@@ -5,7 +5,8 @@
  */
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
-
+$_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
+$_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
 ?>
 
 <div class="row-fluid">
@@ -111,11 +112,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     </a>
                     <a href="?p=presidente.appartenenzepending" class="btn btn-block btn-success">
                         <i class="icon-group"></i>
-                        Appartenenze in attesa
+                        Appartenenze in attesa <span class="badge badge-success"><?= $_n_app; ?></span>
                     </a>
                     <a href="?p=presidente.titoli" class="btn btn-block btn-success">
                         <i class="icon-star"></i>
-                        Titoli in attesa
+                        Titoli in attesa <span class="badge badge-success"><?= $_n_titoli; ?></span>
                     </a>
                 </div>
             </div>
