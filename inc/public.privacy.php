@@ -13,7 +13,7 @@
         <h3>Trattamento dei dati</h3>
         <p>I dati da Lei spontaneamente forniti o precaricati dagli uffici della Sua struttura CRI
         di appartenenza verranno trattati, ai sensi della normativa sulla
-        privacy Decreto legislativo 30 giugno 2003, n. 196, per le seguenti finalità: </p>
+        privacy Decreto legislativo 30 giugno 2003, n. 196 e successive modificazioni, per le seguenti finalità: </p>
         <p>
         <ul>
             <li>Gestione dell'archivio Soci</li>
