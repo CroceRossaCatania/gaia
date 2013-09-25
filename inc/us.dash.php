@@ -110,13 +110,13 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                         <i class="icon-search"></i>
                         Ricerca quota associativa
                     </a>
-                    <a href="?p=presidente.appartenenzepending" class="btn btn-block btn-success">
+                    <a href="?p=presidente.appartenenzepending" class="btn btn-block">
                         <i class="icon-group"></i>
-                        Appartenenze in attesa <span class="badge badge-success"><?= $_n_app; ?></span>
+                        Appartenenze in attesa <span class="badge badge-important"><?= $_n_app; ?></span>
                     </a>
-                    <a href="?p=presidente.titoli" class="btn btn-block btn-success">
+                    <a href="?p=presidente.titoli" class="btn btn-block">
                         <i class="icon-star"></i>
-                        Titoli in attesa <span class="badge badge-success"><?= $_n_titoli; ?></span>
+                        Titoli in attesa <span class="badge badge-important"><?= $_n_titoli; ?></span>
                     </a>
                 </div>
             </div>
