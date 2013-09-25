@@ -8,9 +8,10 @@ paginaAnonimo();
 caricaSelettore();
 $a = new Attivita($_GET['id']);
 
+$geoComitato = GeoPolitica::daOid($a->comitato);
 $_titolo = $a->nome . ' - Attività CRI su Gaia';
 $_descrizione = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita]
-." || Organizzato da " . $a->comitato()->nomeCompleto();
+." || Organizzato da " . $geoComitato->nomeCompleto();
 
 $g = Gruppo::by('attivita', $a);
 if ( isset($_GET['riapri']) ) { ?>
@@ -132,7 +133,9 @@ $(document).ready( function() {
                     <i class="icon-home"></i>
                     Organizzato da
                 </span><br />
-                <span class="text-info"><?php echo $a->comitato()->nomeCompleto(); ?></span>
+                <span class="text-info">
+                <?php echo $geoComitato->nomeCompleto(); ?>
+                </span>
             </div>
             <div class="span3">
                 <span>

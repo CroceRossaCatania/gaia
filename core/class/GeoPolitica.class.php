@@ -66,6 +66,21 @@ abstract class GeoPolitica extends GeoEntita {
         }
         return false;
     }
+
+    public function contieneVolontario($v) {
+        $c = $v->comitati($tipo);
+        if (!$c) {
+            return false;
+        }
+        foreach($c as $comitato) {
+            $g = GeoPolitica::daOid($comitato->oid());
+            if ($this->contiene($g)) {
+                return true;
+            }
+        }
+        return false;
+
+    }
     
     public function unPresidente() {
         $p = $this->presidenti();

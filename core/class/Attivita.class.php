@@ -69,18 +69,36 @@ class Attivita extends GeoEntita {
     
     public function puoPartecipare($v) {
         if (!$v) { return true; }
-        if ( $this->referente == $v->id || $v->admin() || $v->presiede($this->comitato()) ) {
+
+        $geoComitato = GeoPolitica::daOid($this->comitato);
+        if ( $this->referente == $v->id || $v->admin() || $geoComitato->unPresidente()->id == $v->id ) {
             return true;
         }
         switch ( $this->visibilita ) {
             case ATT_VIS_UNITA:
-                return (bool) $this->comitato()->haMembro($v);
+                return (bool) $geoComitato->haMembro($v);
                 break;
+                
             case ATT_VIS_LOCALE:
-                return (bool) ($this->comitato()->locale == $v->unComitato()->locale);
+                while($geoComitato->_estensione() != EST_LOCALE) {
+                    $oid = $geoComitato->superiore()->oid();
+                    $geoComitato = GeoPolitica::daOid($oid);
+                }
+                return (bool) $geoComitato->contieneVolontario($v);
                 break;
             case ATT_VIS_PROVINCIALE:
-                return (bool) ($this->comitato()->locale()->provinciale == $v->unComitato()->locale()->provinciale);
+                while($geoComitato->_estensione() != EST_PROVINCIALE) {
+                    $oid = $geoComitato->superiore()->oid();
+                    $geoComitato = GeoPolitica::daOid($oid);
+                }
+                return (bool) $geoComitato->contieneVolontario($v);
+                break;
+            case ATT_VIS_REGIONALE:
+                while($geoComitato->_estensione() != EST_REGIONALE) {
+                    $oid = $geoComitato->superiore()->oid();
+                    $geoComitato = GeoPolitica::daOid($oid);
+                }
+                return (bool) $geoComitato->contieneVolontario($v);
                 break;
             case ATT_VIS_VOLONTARI:
                 return (bool) $v->unComitato();
