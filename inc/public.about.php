@@ -110,7 +110,7 @@
        
         <h2><i class="icon-shield"></i> Condizioni d'uso</h2>
 
-        <p>Scopri le<a href="?p=public.privacy">condizioni d'uso</a> di Gaia.</p>
+        <p>Scopri le<a href="?p=public.privacy"> condizioni d'uso</a> di Gaia.</p>
         
         
     </div>
