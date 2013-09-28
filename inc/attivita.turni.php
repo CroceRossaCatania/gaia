@@ -106,7 +106,7 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
                         </td>
                         <?php
                         $part   = $_t->partecipazioni();
-                        $partC  = $_t->partecipazioniStato(AUT_OK);
+                        $partC  = $_t->partecipazioniStato(PART_OK);
                         ?>
                         <td>
                             <?php echo count($part) ?> richieste;<br />

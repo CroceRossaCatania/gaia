@@ -8,7 +8,7 @@ paginaAdmin();
 
 set_time_limit(0);
 
-$utenti = Utente::filtra([['sesso', NULL]]);
+$utenti = Utente::senzaSesso();
 
 foreach ($utenti  as $u) {
 	$utente = new Utente($u);

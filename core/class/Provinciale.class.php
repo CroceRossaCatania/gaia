@@ -57,4 +57,22 @@ class Provinciale extends GeoPolitica {
             'comitati'  =>  $locali
         ]; 
     }
+
+    public static function provincialiNull() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                provinciali
+            WHERE 
+                nome IS NULL
+            ");
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        return $r;
+    }
 }

@@ -50,14 +50,14 @@ paginaPresidenziale();
         </div>
         
         <div class="span6 centrato">
-            <!--<div class="alert alert-success">
+            <div class="alert alert-success">
                 <strong>Volontari con 0 turni</strong>
                 <p>Con questo modulo è possibile visualizzare tutti i volontari che non hanno effettuato turno in un dato mese</p>
             </div>
-            <a href="?p=#" class="btn btn-large btn-success">
+            <a href="?p=presidente.supervisione.noturni" class="btn btn-large btn-success">
                 <i class="icon-time"></i>
                 No Turno
             </a>
-        </div>-->
+        </div>
     </div>
 </div>

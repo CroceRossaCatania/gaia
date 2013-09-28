@@ -36,7 +36,7 @@ $p = new Persona($id);
  */
 $p->nome                = $nome;
 $p->cognome             = $cognome;
-$p->sesso 				= $sesso;
+$p->sesso 				= ($sesso) ? UOMO : DONNA;
 $p->codiceFiscale = $codiceFiscale;
 $p->dataNascita         = $dnascita;
 $p->provinciaNascita =$prnascita;

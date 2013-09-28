@@ -10,7 +10,7 @@ $f = $_GET['id'];
 $t = Trasferimento::by('id', $f);
 $cin = $t->comitato();
 
-$cout = $t->volontario()->unComitato();
+$cout = Comitato::by('id', $t->cProvenienza);
 $app = Appartenenza::filtra([
     ['volontario',  $t->volontario()->id],
     ['comitato',    $cout->id]
@@ -21,13 +21,14 @@ $app = $app[0];
 $p = new PDF('trasferimento', 'Trasferimento.pdf');
 $p->_COMITATOOUT = $cout->locale()->nomeCompleto();
 $p->_COMITATOIN = $cin->nomeCompleto();
+$p->_COMITATOC = $cout->nomeCompleto();
 $p->_NOME = $t->volontario()->nome;
 $p->_COGNOME = $t->volontario()->cognome;
 $p->_LUOGO = $t->volontario()->comuneNascita;
-$p->_DATA = date('d-m-Y', $t->volontario()->dataNascita);
+$p->_DATA = date('d/m/Y', $t->volontario()->dataNascita);
 $p->_ANNOCRI =$t->volontario()->ingresso()->format('d/m/Y');
 $p->_MOTIVO = $t->motivo;
-$p->_TIME = date('d-m-Y', $t->timestamp);
+$p->_TIME = date('d/m/Y', $t->timestamp);
 $f = $p->salvaFile();
 
 if ( $sessione->inGenerazioneTrasferimento) {
@@ -38,7 +39,7 @@ if ( $sessione->inGenerazioneTrasferimento) {
         $m->a = $me;
         $m->_NOME       = $me->nome;
         $m->_COMITATO   = $t->comitato()->nomeCompleto();
-        $m-> _TIME = date('d-m-Y', $t->timestamp);
+        $m-> _TIME = date('d/m/Y', $t->timestamp);
         $m->allega($f);
         $m->invia();
         
@@ -48,7 +49,7 @@ if ( $sessione->inGenerazioneTrasferimento) {
         $m->_NOME       = $me->nomeCompleto();
         $m->_COMITATO   = $t->comitato()->nomeCompleto();
         $m->_USCENTE = $cout->nomeCompleto();
-        $m-> _TIME = date('d-m-Y', $t->timestamp);
+        $m-> _TIME = date('d/m/Y', $t->timestamp);
         $m->allega($f);
         $m->invia();
        

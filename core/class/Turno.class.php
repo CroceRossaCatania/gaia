@@ -24,12 +24,11 @@ class Turno extends Entita {
     
     public function partecipazioni() {
         return Partecipazione::filtra([
-            ['turno',   $this->id],
-            ['stato', PART_OK]
+            ['turno',   $this->id]
         ]);
     }
     
-    public function volontari( $stato = AUT_OK ) {
+    public function volontari( $stato = PART_OK ) {
         $r = [];
         foreach ( $this->partecipazioniStato($stato) as $p ) {
             $r[] = $p->volontario();
@@ -38,7 +37,7 @@ class Turno extends Entita {
     }
     
     
-    public function partecipazioniStato($stato = AUT_OK) {
+    public function partecipazioniStato($stato = PART_OK) {
         return Partecipazione::filtra([
             ['turno',   $this->id],
             ['stato',   $stato]
@@ -113,11 +112,11 @@ class Turno extends Entita {
     }
 
     public function scoperto() {
-        return (bool) ( count($this->partecipazioni()) < $this->minimo && $this->inizio()->getTimestamp() > time() );
+        return (bool) ( count($this->partecipazioniStato()) < $this->minimo && $this->inizio()->getTimestamp() > time() );
     }
     
     public function pieno() {
-        return (bool) ( count($this->partecipazioni()) >= $this->massimo );
+        return (bool) ( count($this->partecipazioniStato()) >= $this->massimo );
     }
     
     public function futuro() {
