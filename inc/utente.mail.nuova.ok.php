@@ -54,7 +54,13 @@ $m->_TESTO = $testo;
 $m->_STATO = $conf['statoPersona'][$me->stato];
 $m->_NOME = $me->nomeCompleto();
 $m->_ID = $me->id;
-$m->_APP = $me->unComitato()->nomeCompleto();
+$comitato = $me->unComitato();
+if ($comitato) {
+    $comitato = $comitato->nomeCompleto();
+} else {
+    $comitato = 'nessun comitato assegnato';
+}
+$m->_APP = $comitato;
 $m->invia();
 redirect('utente.me&suppok');    
 
