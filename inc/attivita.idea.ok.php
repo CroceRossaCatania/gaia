@@ -8,7 +8,7 @@ paginaPrivata();
 paginaAttivita();
 
 $comitato = $_POST['comitato'];
-$comitato = new Comitato($comitato);
+$comitato = GeoPolitica::daOid($comitato);
 
 $area     = $_POST['inputArea'];
 $area     = new Area($area);
@@ -16,7 +16,7 @@ $area     = new Area($area);
 $attivita           = new Attivita();
 $attivita->stato    = ATT_STATO_BOZZA;
 $attivita->area     = $area;
-$attivita->comitato = $comitato;
+$attivita->comitato = $comitato->oid();
 
 $attivita->nome     = normalizzaTitolo($_POST['inputNome']);
 

@@ -12,7 +12,7 @@ class Attivita extends GeoEntita {
 
     public function comitato() {
         if ( $this->comitato ) {
-            return new Comitato($this->comitato);
+            return GeoPolitica::daOid($this->comitato);
         } else {
             return false;
         }

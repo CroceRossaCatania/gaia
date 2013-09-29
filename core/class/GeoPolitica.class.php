@@ -159,7 +159,7 @@ abstract class GeoPolitica extends GeoEntita {
         return $r;
     }
 
-    public function aree( $obiettivo = null ) {
+    public function aree( $obiettivo = null, $espandiLocali = false ) {
         if ( $obiettivo ) {
             $obiettivo = (int) $obiettivo;
             return Area::filtra([

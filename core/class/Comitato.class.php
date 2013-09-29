@@ -341,9 +341,11 @@ class Comitato extends GeoPolitica {
     }
     
     public function locale() {
-        if (!$this->locale) {
+        /*
+        if ($this->locale) {
             return null;
         }
+        */
         return new Locale($this->locale);
     }
     
@@ -385,13 +387,17 @@ class Comitato extends GeoPolitica {
     
     public function gruppi() {
         $g = Gruppo::filtra([
-            ['comitato',    $this->id]
+            ['comitato',    $this->oid()]
         ], 'nome ASC');
         $c = $this->locale();
         $locali = $c->figli();
+        
         foreach ($locali as $loc){
-            $g = array_merge($g, Gruppo::filtra([['comitato', $loc],['estensione', EST_GRP_LOCALE]]));
+            $loc = $loc->oid();
+            $g = array_merge($g, Gruppo::filtra([['comitato', $loc],['estensione', EST_GRP_UNITA]]));
+            //$g = array_merge($g, Gruppo::filtra([['comitato', $loc],['estensione', EST_GRP_LOCALE]]));
         }
+        
         return array_unique($g);
     }
     

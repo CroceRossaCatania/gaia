@@ -772,14 +772,14 @@ class Utente extends Persona {
         ]);
     }
     
-    public function areeDiCompetenza( $c = null ) {
+    public function areeDiCompetenza( $c = null , $espandiLocale = false) {
         if ( $c ) {
             if ( $this->admin() || $this->presiede($c) ) {
                 return $c->aree();
             } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $comitato) ) {
                 $r = [];
                 foreach ( $o as $io ) {
-                    $r = array_merge($r, $c->aree($io->dominio));
+                    $r = array_merge($r, $c->aree($io->dominio, $espandiLocale));
                 }
                 $r = array_unique($r);
                 return $r;
@@ -807,7 +807,7 @@ class Utente extends Persona {
     }
     
     public function comitatiAreeDiCompetenza() {
-        $a = $this->areeDiCompetenza();
+        $a = $this->areeDiCompetenza(null, true);
         $r = [];
         foreach ($a as $ia) {
             $r[] = $ia->comitato();

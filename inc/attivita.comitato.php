@@ -58,7 +58,7 @@ if (!$comitati) {
           <p>Seleziona l'unità organizzatrice dell'attività.</p>
           <select name="c" class="input-xxlarge">
               <?php foreach ( $comitati as $comitato ) { ?>
-              <option value="<?php echo $comitato->id; ?>"><?php echo $comitato->nomeCompleto(); ?></option>
+              <option value="<?php echo $comitato->oid(); ?>"><?php echo $comitato->nomeCompleto(); ?></option>
               <?php } ?>
           </select>
           <p class="muted">Non sarà facilmente modificabile in seguito.</p>

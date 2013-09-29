@@ -34,9 +34,12 @@ class Locale extends GeoPolitica {
         return Comitato::filtra([
             ['locale',  $this->id]
         ]);
-    }
+    }    
 
-    public function aree($obiettivo = null) {
+    public function aree($obiettivo = null, $espandiLocali = false ) {
+        if (!$espandiLocali) {
+            return parent::aree($obiettivo);
+        }
         $r = parent::aree($obiettivo);
         foreach ( $this->estensione() as $c ) {
             $r = array_merge($r, $c->aree($obiettivo));
