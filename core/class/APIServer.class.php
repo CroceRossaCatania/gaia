@@ -170,7 +170,7 @@ class APIServer {
                     'start'     =>  $turno->inizio()->toJSON(),
                     'end'       =>  $turno->fine()->toJSON(),
                     'color'     =>  '#' . $colore,
-                    'url'       =>  '?p=attivita.scheda&id=' . $attivita->id . '&turno=' . $turno->id .'#'. $turno->id
+                    'url'       =>  '?p=attivita.scheda&id=' . $attivita->id . '#'. $turno->id
                 ];
             }
             return $r;
