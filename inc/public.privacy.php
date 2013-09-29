@@ -41,10 +41,9 @@
         ?>
         <p>Accedendo al servizio autorizza la comunicazione dei dati ad altri soggetti 
         (enti o associazioni) solo per le finalità previste dallo Statuto dell'Associazione.</p>
-        <p>Il titolare del trattamento è Carmelo Stefano Principato, presidente le Comitato Provinciale
-        CRI di Catania.</p>
-        <p>Il trattamento dei dati ha luogo presso la predetta sede, presso le altre sedi 
-        dislocate in Italia, nonchè presso strutture esterne presso cui questo portale è ospitato
+        <p>Il titolare del trattamento dei dati è Croce Rossa Italiana - Comitato Provinciale di Catania.</p>
+        <p>Il trattamento dei dati ha luogo presso la predetta sede nonchè presso strutture esterne 
+        all'interno delle quali il Portale è ospitato
         in modalità VPS e sarà curato solo dal personale ad esso incaricato secondo la normativa 
         attuale.</p>
         <p>In ogni momento potrà esercitare i Suoi diritti nei confronti del titolare del trattamento, 
@@ -92,6 +91,7 @@
             condizioni aggiuntive che siano previste nel presente Portale. In caso di mancata accettazione 
             di tutte le suddette condizioni, l'utente NON è autorizzato ad accedere e a utilizzare il Sito 
             Web.</p></li>
+
             <h4><li>Modifica delle condizioni d'uso</h4>
             <p>Croce Rossa Italiana - Comitato Provinciale di Catania si riserva il diritto di modificare le presenti 
             Condizioni d'Uso in qualsiasi momento: le Condizioni d’Uso così come modificate saranno 
@@ -107,12 +107,14 @@
             e per qualunque motivo, di limitare, rifiutare o interrompere, del tutto o in parte, l'accesso 
             al Portale, o a parte di esso, da parte di qualsiasi utente. Croce Rossa Italiana - Comitato Provinciale di Catania
             si impegna in ogni caso ad informare l'utente al sopraggiungere di variazioni delle Condizioni d'Uso.</p></li>
+            
             <h4><li>Tutela della Privacy</h4>
             <p>L'utilizzo dei dati personali forniti o raccolti mediante il presente Portale o in 
             connessione con il medesimo avverrà esclusivamente nel rispetto della tutela della Privacy 
             e le presenti Condizioni d’Uso sono soggette alla normativa in materia, l'utente è vincolato 
             al rispetto della normativa sulla privacy e a segnalare tempesticamente qualsisi problematica 
             al servizio di assistenza in modo confidenziale.</p></li>
+            
             <h4><li>Responsabilità</h4>
             <p>Tutte le informazioni (compresi, a titolo esemplificativo e non esaustivo, testi, 
             immagini, elementi grafici, collegamenti e altri materiali) riportati nel presente Portale
@@ -141,6 +143,7 @@
             avviene a discrezione e a rischio dell’utente. L’utente si assume l'esclusiva responsabilità 
             di eventuali danni al suo sistema informatico o perdite di dati provocate dai contenuti 
             scaricati.</p></li>
+            
             <h4><li>Registrazione</h4>
             <p>Al fine di consentire l’accesso a determinate aree del Portale e 
             utilizzare determinate funzioni o elementi del Portale, all'utente venga richiesto di 
@@ -231,6 +234,7 @@
             in tempi ragionevolmente brevi, i provvedimenti reputati necessari: vista la natura non 
             automatica di tale processo, l'utente è avvisato che l'immediata eliminazione o modifica 
             dei Contenuti incriminati potrebbe non essere possibile.</p></li>
+            
             <h4><li>Limitazione di responsabilità</h4>
             <p>Croce Rossa Italiana - Comitato Provinciale di Catania, partner, concedenti 
             licenze o fornitori non assumono in nessun caso alcuna responsabilità per danni 
@@ -244,6 +248,7 @@
             Paragrafo 8, dette limitazioni ed esclusioni saranno applicabili solo nella misura in cui 
             siano consentite. In tal caso, le limitazioni ed esclusioni in questione saranno tanto 
             estese quanto sia consentito dalla legge applicabile.</p></li>
+            
             <h4><li>Contenuti/software di terzi</h4>
             <p>Croce Rossa Italiana - Comitato Provinciale di Catania non assume alcuna responsabilità in merito ai contenuti di qualsiasi sito di 
             proprietà di terzi eventualmente connesso al Portale mediante un collegamento ipertestuale, 
@@ -262,6 +267,7 @@
             Croce Rossa Italiana - Comitato Provinciale di Catania nega espressamente qualsiasi ulteriore dichiarazione e garanzia di qualsiasi tipo, 
             esplicita o implicita, comprese garanzie di commerciabilità, di idoneità a un particolare 
             scopo o di non-violazione in relazione al software.</p></li>
+            
             <h4><li>Diritti di proprietà sul Portale</h4>
             <p>Questo Portale è pubblico e qualsiasi informazione inviata verrà considerata non 
             riservata. L'utente riconosce che la presentazione di qualsiasi invenzione compresa nei 
@@ -309,6 +315,7 @@
             <li><a href='mailto:cp.catania@cert.cri.it'><i class="icon-envelope-alt"></i> cp.catania@cert.cri.it</a></li>
             </ul>
             </p></li>
+            
             <h4><li>Indennità ed esclusione di responsabilità</h4>
             <p>L'utente accetta di tenere indenni Croce Rossa Italiana - Comitato Provinciale di Catania, gli amministratori del Portale, partner, 
             concedenti licenze e fornitori nonché i rispettivi funzionari, dirigenti, dipendenti, 
@@ -325,16 +332,19 @@
             rappresentanti legali, successori e cessionari, da qualsiasi 
             responsabilità per reclami, rivendicazioni e danni (effettivi e consequenziali) di qualsiasi 
             tipo e natura, nota e ignota, derivanti da o in qualunque modo connessi a tali controversie.</p></li>
+            
             <h4><li>Chiusura del Portale</h4>
             <p>Croce Rossa Italiana - Comitato Provinciale di Catania si riserva il diritto esclusivo di chiudere in tutto o in parte il Portale, 
             in qualsiasi momento, per qualsiasi motivo e senza alcun preavviso o necessità di autorizzazione. 
             Croce Rossa Italiana - Comitato Provinciale di Catania non assume alcuna responsabilità per la memorizzazione o eliminazione di qualsiasi 
             Contenuto e/o Contenuto - utente pubblicato sul Portale.</p></li>
+            
             <h4><li>Servizi forniti dal Portale</h4>
             <p>Il Portale può contenere riferimenti a specifici servizi che 
             possono risultare non (immediatamente) disponibili. Tali riferimenti 
             non implicano o garantiscono la disponibilità, in qualsiasi momento, di tali prodotti o 
             servizi.</p></li>
+            
             <h4><li>Risoluzione dei casi di contestazione</h4>
             <p>Le presenti condizioni d'uso verranno disciplinate e interpretate ai sensi delle 
             leggi italiane. L'utente accetta la giurisdizione non esclusiva dei tribunali di ????, 
@@ -342,11 +352,13 @@
             da o ascrivibili alle presenti Condizioni d’Uso o all'utilizzo del presente Portale da 
             parte dell'utente, comprese, fra l'altro, eventuali contestazioni in merito all'esistenza 
             o validità delle presenti Condizioni d’Uso.</p></li>
+            
             <h4><li>Clausole Invalide</h4>
             <p>Nell'eventualità che una qualsiasi delle presenti Condizioni d'Uso venga dichiarata 
             non valida o non applicabile, la suddetta verrà sostituita da una disposizione valida 
             e applicabile tale da avvicinarsi il più possibile al contenuto di quella originaria, 
             mentre le altre verranno regolarmente applicate.</p></li>
+            
             <h4><li>Rinuncia</h4>
             <p>Il mancato esercizio, da parte di Croce Rossa Italiana - Comitato Provinciale di Catania in relazione ad azioni passate o future 
             da parte di altre persone, di qualsiasi diritto contenuto nelle presenti Condizioni 
