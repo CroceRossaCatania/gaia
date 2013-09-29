@@ -367,12 +367,12 @@ class Comitato extends GeoPolitica {
         if ( $obiettivo ) {
             $obiettivo = (int) $obiettivo;
             return Area::filtra([
-                ['comitato',    $this->id],
+                ['comitato',    $this->oid()],
                 ['obiettivo',   $obiettivo]
             ], 'obiettivo ASC'); 
         } else {
             return Area::filtra([
-                ['comitato',    $this->id]
+                ['comitato',    $this->oid()]
             ], 'obiettivo ASC');
         }
     }

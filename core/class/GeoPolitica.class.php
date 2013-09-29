@@ -159,15 +159,18 @@ abstract class GeoPolitica extends GeoEntita {
         return $r;
     }
 
-    /** Fix #406 
-     * Per gli alti livelli (non unita'), elenco aree 
-     */
-    public function aree ($obiettivo = null) {
-        $r = [];
-        foreach ( $this->estensione() as $c ) {
-            $r = array_merge($r, $c->aree($obiettivo));
+    public function aree( $obiettivo = null ) {
+        if ( $obiettivo ) {
+            $obiettivo = (int) $obiettivo;
+            return Area::filtra([
+                ['comitato',    $this->oid()],
+                ['obiettivo',   $obiettivo]
+            ], 'obiettivo ASC'); 
+        } else {
+            return Area::filtra([
+                ['comitato',    $this->oid()]
+            ], 'obiettivo ASC');
         }
-        return array_unique($r);
     }
 
     public function tuttiVolontari() {

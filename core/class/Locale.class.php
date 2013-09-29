@@ -35,6 +35,14 @@ class Locale extends GeoPolitica {
             ['locale',  $this->id]
         ]);
     }
+
+    public function aree($obiettivo = null) {
+        $r = parent::aree($obiettivo);
+        foreach ( $this->estensione() as $c ) {
+            $r = array_merge($r, $c->aree($obiettivo));
+        }
+        return array_unique($r);
+    }
     
     public function provinciale() {
         return new Provinciale($this->provinciale);
