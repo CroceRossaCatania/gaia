@@ -270,7 +270,7 @@ $(document).ready( function() {
                         <tr<?php if ( $turno->scoperto() ) { ?> class="warning"<?php } ?> data-timestamp="<?php echo $turno->fine()->toJSON(); ?>">
 
                         <td>
-                            <a name="<?php echo '#'.$turno->id; ?>">
+                            <a id="<?php echo $turno->id; ?>">
                             <big><strong><?php echo $turno->nome; ?></strong></big>
                             <br />
                             <?php echo $turno->durata()->format('%H ore %i min'); ?>
