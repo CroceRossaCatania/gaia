@@ -6,12 +6,8 @@
  
 paginaApp([APP_PRESIDENTE ]);
  
-//form inserimento nome dominio (memorizzare?)
-//login su oauth
-//al ritorno sincronia rubrica
-
+if(!isset($_REQUEST['SUBMIT']) || !isset($_GET['code']) ){
 ?>
-
 <form action="?p=rubrica.sinc" method="POST" id="step1">
 	<div class="alert alert-block alert-success">
         <div class="row-fluid">
@@ -106,12 +102,12 @@ paginaApp([APP_PRESIDENTE ]);
         	</span>
     	</div>
 	</div>
-	<a href="?p=rubrica.sinc" class="btn btn-large">Inizia sincronizzazione <i class="icon-chevron-right"></i></a>
+	<input name="submit" type="submit" class="btn btn-large" value="Conferma Dati e procedi"></input>
 </form>
 <div id="identificazione">
 
 <?php
-if(isset($_POST['submit'])){
+}else{
 	global $apiConfig;
 	$apiConfig = array(
 	    // True if objects should be returned by the service classes.
@@ -267,7 +263,7 @@ EOF;
 	  $authUrl = $client->createAuthUrl();
 	}
 	if(isset($authUrl)) {
-		print '<a href="'.$authUrl.'" class="btn btn-large">Inizia sincronizzazione <i class="icon-chevron-right"></i></a>';
+		print '<a href="'.$authUrl.'" class="btn btn-large">Autenticati per sincronizzare <i class="icon-chevron-right"></i></a>';
 	} else {
 		echo '<a href="?logout" class="btn btn-large">Logout <i class="icon-remove"></i></a>';
 	}
