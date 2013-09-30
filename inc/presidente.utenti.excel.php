@@ -40,6 +40,34 @@ foreach ( $c->membriDimessi(MEMBRO_DIMESSO) as $v ) {
 $excel->genera('Volontari_dimessi.xls');
 $excel->download();
 
+}elseif(isset($_GET['senior'])){
+    
+$excel = new Excel();
+
+$excel->intestazione([
+    'Nome',
+    'Cognome',
+    'C. Fiscale',
+    'EMail',
+    'Cellulare',
+    'Cell. Servizio'
+]);
+
+foreach ( $c->membriSenior as $v ) {
+    $excel->aggiungiRiga([
+        $v->nome,
+        $v->cognome,
+        $v->codiceFiscale,
+        $v->email,
+        $v->cellulare,
+        $v->cellulareServizio
+    ]);
+    
+}
+
+$excel->genera('Volontari_senior.xls');
+$excel->download();
+
 }elseif(isset($_GET['giovani'])){
     
 $excel = new Excel();

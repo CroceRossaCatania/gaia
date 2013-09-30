@@ -25,6 +25,9 @@
             data-attendere="Generazione lista...">
             <i class="icon-list"></i>
             Volontari giovani
+        </a> /
+        <a href="?p=presidente.utenti.senior">
+             senior
         </a><br />
         <a href="?p=presidente.utenti.estesi"
             data-attendere="Generazione lista...">
