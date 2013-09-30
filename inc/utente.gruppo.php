@@ -127,7 +127,7 @@ if($i==0){ ?>
           </div>
         <div class="control-group">
             <div class="controls">
-              <button type="submit" class="btn btn-large btn-success <?php if (!$me->unComitato()->gruppi()) {?> disabled" disabled="disabled"<?php } else { ?>"<?php } ?>>
+              <button type="submit" class="btn btn-large btn-success" <?php if (!$me->unComitato()->gruppi()) { ?> disabled="disabled" <?php } ?>>
                   <i class="icon-ok"></i>
                   Iscriviti
               </button>
@@ -189,7 +189,7 @@ if($i==0){ ?>
                         </td>
                         
                         <td>
-                            <?php if ($app->attuale() && count($me->contaGruppi())>1) { ?>
+                            <?php if ($app->attuale() && $me->contaGruppi()>1) { ?>
                             <a class="btn btn-danger" onClick="return confirm('Vuoi veramente abbandonare questo gruppo di lavoro ?');" href="?p=utente.gruppo.dimetti&id=<?php echo $app->id; ?>">
                                 <i class="icon-ban-circle"></i>
                                 Abbandona

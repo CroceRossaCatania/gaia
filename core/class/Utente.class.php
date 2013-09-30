@@ -735,28 +735,44 @@ class Utente extends Persona {
     }
     
     public function contaGruppi() {
-        return AppartenenzaGruppo::filtra([
-            ['volontario',  $this->id],
-            ['fine',NULL]
-        ]);
-    }
-    
-     public function gruppiAttuali() {
         $q = $this->db->prepare("
             SELECT
-                volontario
+                COUNT(volontario)
             FROM
                 gruppiPersonali
             WHERE
                 ( fine >= :ora OR fine IS NULL OR fine = 0) 
+            AND
+                volontario = :volontario
             ORDER BY
                 inizio ASC");
         $q->bindValue(':ora', time());
+        $q->bindParam(':volontario', $this->id);
         $q->execute();
-        $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new AppartenenzaGruppo($k[0]);
-        }
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+    
+     public function gruppoAttuale($g) {
+        $q = $this->db->prepare("
+            SELECT
+                id
+            FROM
+                gruppiPersonali
+            WHERE
+                ( fine >= :ora OR fine IS NULL OR fine = 0)
+            AND
+                volontario = :volontario 
+            AND
+                gruppo = :gruppo
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':volontario', $this->id);
+        $q->bindParam(':gruppo', $g);
+        $q->execute();
+        $r = $q->fetch();
+        $r = new AppartenenzaGruppo($r[0]);
         return $r;
     }
     
