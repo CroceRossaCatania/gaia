@@ -7,7 +7,7 @@
 /**
  * Rappresenta una Entita generica nel database
  */
-class Entita {
+abstract class Entita {
     
     protected
             $db         = null,
