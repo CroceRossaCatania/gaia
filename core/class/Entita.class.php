@@ -216,6 +216,7 @@ abstract class Entita {
      * @return string Stringa SQL
      */
     public static function preparaCondizioni($_array, $prefisso = 'AND') {
+        if (!$_array) { return ' '; }
         $_condizioni = [];
         foreach ( $_array as $_elem ) {
             if ( $_elem[1] === null ) {
@@ -229,9 +230,7 @@ abstract class Entita {
             }
         }
         $stringa = implode(' AND ', $_condizioni);
-        if ( $_condizioni ) {
-            $stringa = " {$prefisso} {$stringa}";
-        }
+        $stringa = " {$prefisso} {$stringa} ";
         return $stringa;
     }
 

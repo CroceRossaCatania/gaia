@@ -7,6 +7,10 @@
 /**
  * Rappresenta una entita' con una posizione nello
  * spazio (coordinate polari).
+ *
+ * ATTENZIONE: Deve avere campo
+ *  geo point
+ * Nella tabella principale del database
  */
 abstract class GeoEntita extends Entita {
     
@@ -69,30 +73,60 @@ abstract class GeoEntita extends Entita {
      * @param float     $lng    Longitudine del centro della ricerca
      * @param float     $raggio Raggio di ricerca
      * @param array     $_array Opzionale. Array associativo delle condizioni da soddisfare
-     * @param string    $order  Opzionale. Eventuale ordine (espresso come ORDER BY <$order> in SQL)
+     * @param string    $order  Opzionale. Eventuale ordine (espresso come in SQL)
      * @return  array   Un array di oggetti trovati, od un array vuoto
      */
-    public static function filtraRaggio ( $lat, $lng, $raggio, $_array = [], $order = null) {
-        $lat = (double) $lat;
-        $lng = (double) $lng;
-        $raggio = (float) $raggio0 / 69;
+    public static function filtraRaggio ( $lat, $lng, $raggio, $_array = [], $order = 'distanza ASC') {
         global $db;
         $entita = get_called_class();
-        $stringa = static::preparaCondizioni($_array);
         if ( $order ) { $order = " ORDER BY $order"; }
-        $centro = "GeomFromText(\"POINT({$lat} {$lng})\")"; 
-        $q = $db->prepare("
-            SELECT id FROM ". static::$_t . " WHERE 
-                SQRT(POW( ABS( X(geo) - X($centro)), 2) + POW( ABS(Y(geo) - Y($centro)), 2 )) < $raggio
-              
-                $stringa
-                $order");
-        $q->execute();
+        $distanza = static::formulaDistanzaEuclidea($lat, $lng); 
+        $query  = "SELECT id, ";
+        $query .= static::formulaDistanzaEuclidea($lat, $lng) . " as distanza ";
+        $query .= "FROM ". static::$_t . " WHERE";
+        $query .= static::formulaDistanzaEuclidea($lat, $lng) . " < "
+                  . static::raggioInRadiani($raggio);
+        $query .= static::preparaCondizioni($_array);
+        $query .= " ORDER BY {$order}";
+        $q = $db->query($q);
         $t = [];
         while ( $r = $q->fetch(PDO::FETCH_NUM) ) {
-            $t[] = new $entita($r[0]);
+            $t[] = $entita::id($r[0]);
         }
         return $t;
+    }
+
+    /**
+     * Ritorna l'espressione SQL della distanza euclidea di un oggetto da un PUNTO (Lat, Lng)
+     * @param float $x Latitudine del punto
+     * @param float $y Longitudine del punto     
+     * @return string Stringa SQL
+     */
+    public static function formulaDistanzaEuclidea($x, $y) {
+        $x = (double) $x;
+        $y = (double) $y;
+        $punto = "GeomFromText(\"POINT({$x} {$y})\")";
+        return " SQRT(POW(ABS(X(geo)-X({$punto})),2)+POW(ABS(Y(geo)-Y({$punto})),2)) ";
+    }
+
+    /**
+     * Ritorna l'espressione SQL della distanza euclidea di un oggetto da un PUNTO (GeoEntita)
+     * @param GeoEntita $punto Un punto in database
+     * @return string Stringa SQL
+     */
+    public static function formulaDistanzaEuclideaPunto(GeoEntita $punto) {
+        $coordinate = $punto->coordinate();
+        return static::formulaDistanzaEuclidea($coordinate[0], $coordinate[1]);
+    }
+
+    /**
+     * Converte il raggio da RADIANI in KM (se si scrive cosi')
+     * @todo Questa roba e' molto ma molto approssimativa
+     * @param float $km In km
+     * @return double $rad 
+     */
+    public static function raggioInRadiani($km) {
+        return (float) $km / 69;
     }
     
     /**

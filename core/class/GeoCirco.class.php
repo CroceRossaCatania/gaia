@@ -7,6 +7,10 @@
 /**
  * Rappresenta una entita' con posizione nello spazio
  * e raggio (una circonferenza)
+ *
+ * ATTENZIONE: Deve avere campo
+ *  raggio float
+ * Nella tabella principale del database
  */
 abstract class GeoCirco extends GeoEntita {
     
@@ -22,20 +26,23 @@ abstract class GeoCirco extends GeoEntita {
     	$_condizioni = [],
     	$_ordine = 'distanza ASC'
     ) {
-
         global $db;
-
-        $query  = "SELECT id FROM ". static::$_t ." WHERE ";
+        $query  = "SELECT id, ";
+        $query .= static::formulaDistanzaEuclideaPunto($punto) . 'as distanza';
+        $query .= 'FROM '. static::$_t .' WHERE ';
         $query .= "ST_CONTAINS( ";
         $query .=   "BUFFER(GEOMFROMTEXT('POINT({$this->latlng()})'), raggio),";
         $query .=   "GEOMFROMTEXT('POINT({$punto->latlng()})')";
         $query .= ") ";
-    	SET @point = BUFFER(GEOMFROMTEXT('POINT(1 0)'), 0.0001);
-SET @poly = GEOMFROMTEXT('POLYGON((0 0,2 0,2 4,0 6,0 0))');
-SELECT ST_CROSSES( @point, @poly);
-
+        $query .= static::preparaCondizioni($_condizioni);
+        $query .= "ORDER BY {$_ordine}";
+        $query = $db->query($query);
+        $r = [];
+        while ( $k = $query->fetch(PDO::FETCH_NUM) ) {
+            $r[] = static::id($k[0]);
+        }
+        return $r;
     }
 
-    public static function cheIntersecano ( GeoCirco $circonferenza, $_condizioni = [] ) {}
 
 }
