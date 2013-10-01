@@ -20,7 +20,7 @@ $prresidenza= maiuscolo($_POST['inputProvinciaResidenza']);
 $indirizzo  = normalizzaNome($_POST['inputIndirizzo']);
 $civico     = maiuscolo($_POST['inputCivico']);
 $grsanguigno = maiuscolo($_POST['inputgruppoSanguigno']);
-$consenso = $_POST['inputConsenso'];
+
 /*
  * Controlla esistenza varia e ti porta dove dovrebbe 
  */
@@ -36,17 +36,17 @@ $p->nome                = $nome;
 $p->cognome             = $cognome;
 $p->sesso 				= $sesso;
 $p->dataNascita         = $dnascita;
-$p->provinciaNascita =$prnascita;
-$p->comuneNascita = $conascita;
+$p->provinciaNascita 	= $prnascita;
+$p->comuneNascita 		= $conascita;
 $p->comuneResidenza     = $coresidenza;
 $p->CAPResidenza        = $caresidenza;
 $p->provinciaResidenza  = $prresidenza;
-$p->indirizzo 		= $indirizzo;
-$p->civico   		= $civico;
+$p->indirizzo 			= $indirizzo;
+$p->civico   			= $civico;
 $p->grsanguigno   		= $grsanguigno;
 $p->timestamp           = time();
 $p->stato               = PERSONA;
-$p->consenso = $consenso;
+$p->consenso 			= time();
 
 /*
  * Associa la sessione all'utente...

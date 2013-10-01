@@ -27,7 +27,6 @@ set_time_limit(0);
 $utenti = Utente::elenco();
 $i=0;
 foreach ( $utenti as $utente ){
-    $utente = new Utente($utente);
     echo "[",$i,"]"," - ";
     echo $utente->nomeCompleto(), " - ", date('d/m/Y', $utente->consenso),"<br/>";
     $utente->consenso = null;
