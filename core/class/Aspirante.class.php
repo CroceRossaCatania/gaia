@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 /**
@@ -13,6 +13,23 @@ class Aspirante extends GeoCirco {
     protected static
         $_t  = 'aspiranti',
         $_dt = 'aspiranti_dettagli';
+
+    /**
+     * Ottiene l'utente collegato all'oggetto aspirante
+     * @return Utente
+     */
+    public function utente() {
+    	return Utente::id($this->utente);
+    }
+
+    /**
+	 * Ottiene la data di inserimento della richiesta
+	 * @return DT
+	 */   
+    public function data() {
+    	return DT::daTimestamp($this->data);
+    }
+
 
 
 }
