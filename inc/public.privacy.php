@@ -346,8 +346,8 @@
             
             <h4><li>Risoluzione dei casi di contestazione</h4>
             <p>Le presenti condizioni d'uso verranno disciplinate e interpretate ai sensi delle 
-            leggi italiane. L'utente accetta la giurisdizione del Foro di Catania, 
-            Italia, nell'eventualità di contestazioni, rivendicazioni o procedimenti legali derivanti 
+            leggi italiane. L'utente accetta la giurisdizione del Foro di Catania nell'eventualità 
+            di contestazioni, rivendicazioni o procedimenti legali derivanti 
             da o ascrivibili alle presenti Condizioni d’Uso o all'utilizzo del presente Portale da 
             parte dell'utente, comprese, fra l'altro, eventuali contestazioni in merito all'esistenza 
             o validità delle presenti Condizioni d’Uso.</p></li>
