@@ -10,6 +10,6 @@ class ElementoRichiesta extends Entita {
             $_dt = null;
         
         public function titolo() {
-            return new Titolo($this->titolo);
+            return Titolo::id($this->titolo);
         }
 }

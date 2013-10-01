@@ -92,7 +92,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Volontario($k[0]);
+            $r[] = Volontario::id($k[0]);
         }
         return $r;
     }
@@ -130,7 +130,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Volontario($k[0]);
+            $r[] = Volontario::id($k[0]);
         }
         return $r;
     }
@@ -166,7 +166,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Volontario($k[0]);
+            $r[] = Volontario::id($k[0]);
         }
         return $r;
     }    
@@ -207,7 +207,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Volontario($k[0]);
+            $r[] = Volontario::id($k[0]);
         }
         return $r;
     }
@@ -255,7 +255,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Appartenenza($k[0]);
+            $r[] = Appartenenza::id($k[0]);
         }
         return $r;
     }
@@ -281,7 +281,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new TitoloPersonale($k[0]);
+            $r[] = TitoloPersonale::id($k[0]);
         }
         return $r;
     }
@@ -307,7 +307,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Trasferimento($k[0]);
+            $r[] = Trasferimento::id($k[0]);
         }
         return $r;
     }
@@ -335,16 +335,13 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Riserva($k[0]);
+            $r[] = Riserva::id($k[0]);
         }
         return $r;
     }
     
     public function locale() {
-        if (!$this->locale) {
-            return null;
-        }
-        return new Locale($this->locale);
+        return Locale::id($this->locale);
     }
     
     public function provinciale() {
@@ -431,7 +428,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Reperibilita($k[0]);
+            $r[] = Reperibilita::id($k[0]);
         }
         return $r;
     }
@@ -473,7 +470,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Volontario($k[0]);
+            $r[] = Volontario::id($k[0]);
         }
         return $r;
     }
@@ -517,7 +514,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Volontario($k[0]);
+            $r[] = Volontario::id($k[0]);
         }
         return $r;
     }
@@ -564,7 +561,7 @@ class Comitato extends GeoPolitica {
         var_dump($q->errorInfo());
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Volontario($k[0]);
+            $r[] = Volontario::id($k[0]);
         }
         return $r;
     }   
@@ -587,7 +584,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new PatentiRichieste($k[0]);
+            $r[] = PatentiRichieste::id($k[0]);
         }
         return $r;
     }
@@ -674,7 +671,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Reperibilita($k[0]);
+            $r[] = Reperibilita::id($k[0]);
         }
         return $r;
     }

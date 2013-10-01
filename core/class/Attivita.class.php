@@ -12,19 +12,19 @@ class Attivita extends GeoEntita {
 
     public function comitato() {
         if ( $this->comitato ) {
-            return new Comitato($this->comitato);
+            return Comitato::id($this->comitato);
         } else {
             return false;
         }
     }
 
     public function area() {
-        return new Area($this->area);
+        return Area::id($this->area);
     }
     
     public function referente() {
         if ( $this->referente ) {
-            return new Volontario($this->referente);
+            return Volontario::id($this->referente);
         } else {
             return null;
         }
@@ -151,7 +151,7 @@ class Attivita extends GeoEntita {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Attivita($k[0]);
+            $r[] = Attivita::id($k[0]);
         }
         return $r;
     }
@@ -175,10 +175,10 @@ class Attivita extends GeoEntita {
                     }
                     $autorizzazioni = Autorizzazione::filtra(['volontario', $referente]);
                     foreach ( $autorizzazioni as $autorizzazione ){
-                        $m = new Autorizzazione($autorizzazione);
+                        $m = Autorizzazione::id($autorizzazione);
                         $m->volontario = $presidente;
                     }
-                    $att = new Attivita($a);
+                    $att = Attivita::id($a);
                     $att->referente = $presidente;
                     $eseguiti++;
                     continue;
