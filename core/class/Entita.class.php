@@ -172,26 +172,13 @@ abstract class Entita {
     public static function filtra($_array, $_order = null) {
         global $db, $conf, $cache;
         $entita = get_called_class();
-        $_condizioni = [];
-        foreach ( $_array as $_elem ) {
-            if ( $_elem[1] === null ) {
-                $_condizioni[] = "{$_elem[0]} IS NULL OR {$_elem[0]} = 0";
-            } else {
-                if ( is_int($_elem[1]) ) {
-                    $_condizioni[] = "{$_elem[0]} = {$_elem[1]}";
-                } else {
-                    $_condizioni[] = "{$_elem[0]} = '{$_elem[1]}'";
-                }
-            }
-        }
-        $stringa = implode(' AND ', $_condizioni);
+
         if ( $_order ) {
             $_order = 'ORDER BY ' . $_order;
         }
-        $where = ''; // Permette query senza condizioni
-        if ( $_condizioni ) {
-            $where = 'WHERE';
-        }
+
+        $where = static::preparaCondizioni($_array, 'WHERE');
+
         $query = "
             SELECT id FROM ". static::$_t . " $where $stringa $_order";
         
@@ -222,6 +209,32 @@ abstract class Entita {
         return $t;
     }
     
+    /**
+     * Ritora espressioni SQL (per WHERE clause) da un array associativo
+     * @param array $_array Array associativo
+     * @param string $prefisso Opzionale. Se c'e' almeno una condizione, premetti questa stringa
+     * @return string Stringa SQL
+     */
+    public static function preparaCondizioni($_array, $prefisso = 'AND') {
+        $_condizioni = [];
+        foreach ( $_array as $_elem ) {
+            if ( $_elem[1] === null ) {
+                $_condizioni[] = "{$_elem[0]} IS NULL OR {$_elem[0]} = 0";
+            } else {
+                if ( is_int($_elem[1]) ) {
+                    $_condizioni[] = "{$_elem[0]} = {$_elem[1]}";
+                } else {
+                    $_condizioni[] = "{$_elem[0]} = '{$_elem[1]}'";
+                }
+            }
+        }
+        $stringa = implode(' AND ', $_condizioni);
+        if ( $_condizioni ) {
+            $stringa = " {$prefisso} {$stringa}";
+        }
+        return $stringa;
+    }
+
     /**
      * Ritorna un elenco di tutti gli oggetti nel database
      *
@@ -451,13 +464,18 @@ abstract class Entita {
     
     /**
      * Ritorna un oggetto dall'OID specificato
-     *
+     * @throws Errore  Se l'oggetto non esiste, oppure non e' del tipo corretto 
      * @return static  Oggetto
      */
     public static function daOid($oid) {
         $obj = explode(':', $oid);
-        $cl = $obj[0];
-        return new $cl($obj[1]);
+        $classe = $obj[0];
+        $obj = $classe::id($obj[1]);
+        // Protezione oggetto figlio di questa classe
+        if ( !$obj instanceOf static ) {
+            throw new Errore(1013);
+        }
+        return $obj;
     }
 
 }

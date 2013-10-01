@@ -14,6 +14,5 @@ class Aspirante extends GeoCirco {
         $_t  = 'aspiranti',
         $_dt = 'aspiranti_dettagli';
 
-    public static function 
 
 }

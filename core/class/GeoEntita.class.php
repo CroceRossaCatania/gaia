@@ -32,7 +32,11 @@ abstract class GeoEntita extends Entita {
      * @return string "x, y" es. "1.23, 4.56"
      */
     public function latlng() {
-        return $this->coordinate()[0].', '.$this->coordinate()[1];
+        $coordinate = $this->coordinate();
+        if ( $coordinate[0] === false ) {
+            return '0.0, 0.0';
+        }
+        return $coordinate()[0].', '.$coordinate()[1];
     }
     
     /**
@@ -74,21 +78,13 @@ abstract class GeoEntita extends Entita {
         $raggio = (float) $raggio0 / 69;
         global $db;
         $entita = get_called_class();
-        $_condizioni = [];
-        foreach ( $_array as $_elem ) {
-            if ( $_elem[1] == null ) {
-                $_condizioni[] = "{$_elem[0]} IS NULL";
-            } else {
-                $_condizioni[] = "{$_elem[0]} = '{$_elem[1]}'";
-            }
-        }
-        $stringa = implode(' AND ', $_condizioni);
+        $stringa = static::preparaCondizioni($_array);
         if ( $order ) { $order = " ORDER BY $order"; }
         $centro = "GeomFromText(\"POINT({$lat} {$lng})\")"; 
         $q = $db->prepare("
             SELECT id FROM ". static::$_t . " WHERE 
                 SQRT(POW( ABS( X(geo) - X($centro)), 2) + POW( ABS(Y(geo) - Y($centro)), 2 )) < $raggio
-              AND
+              
                 $stringa
                 $order");
         $q->execute();

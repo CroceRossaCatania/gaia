@@ -22,7 +22,18 @@ abstract class GeoCirco extends GeoEntita {
     	$_condizioni = [],
     	$_ordine = 'distanza ASC'
     ) {
-    	
+
+        global $db;
+
+        $query  = "SELECT id FROM ". static::$_t ." WHERE ";
+        $query .= "ST_CONTAINS( ";
+        $query .=   "BUFFER(GEOMFROMTEXT('POINT({$this->latlng()})'), raggio),";
+        $query .=   "GEOMFROMTEXT('POINT({$punto->latlng()})')";
+        $query .= ") ";
+    	SET @point = BUFFER(GEOMFROMTEXT('POINT(1 0)'), 0.0001);
+SET @poly = GEOMFROMTEXT('POLYGON((0 0,2 0,2 4,0 6,0 0))');
+SELECT ST_CROSSES( @point, @poly);
+
     }
 
     public static function cheIntersecano ( GeoCirco $circonferenza, $_condizioni = [] ) {}
