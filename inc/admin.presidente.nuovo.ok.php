@@ -10,7 +10,7 @@ $v = $_GET['v'];
 $c = $_GET['oid'];
 
 $c = GeoPolitica::daOid($c);
-$v = new Volontario($v);
+$v = Volontario::id($v);
 
 if ( $c->unPresidente() ) {
     if ($c->unPresidente()->attuale()){
