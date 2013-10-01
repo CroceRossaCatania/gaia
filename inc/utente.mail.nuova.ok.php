@@ -47,22 +47,26 @@ foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenc
     }
     redirect('utente.me&mass');   
 }elseif(isset($_GET['supp'])){
+    $text = strip_tags($testo);                 
+    if (strlen($text) < 10) {
+        redirect('utente.supporto&len');    
+    }
 
-$m = new Email('mailSupporto', 'Richiesta supporto: '.$oggetto);
-$m->da = $me;
-$m->_TESTO = $testo;
-$m->_STATO = $conf['statoPersona'][$me->stato];
-$m->_NOME = $me->nomeCompleto();
-$m->_ID = $me->id;
-$comitato = $me->unComitato();
-if ($comitato) {
-    $comitato = $comitato->nomeCompleto();
-} else {
-    $comitato = 'nessun comitato assegnato';
-}
-$m->_APP = $comitato;
-$m->invia();
-redirect('utente.me&suppok');    
+    $m = new Email('mailSupporto', 'Richiesta supporto: '.$oggetto);
+    $m->da = $me;
+    $m->_TESTO = $testo;
+    $m->_STATO = $conf['statoPersona'][$me->stato];
+    $m->_NOME = $me->nomeCompleto();
+    $m->_ID = $me->id;
+    $comitato = $me->unComitato();
+    if ($comitato) {
+        $comitato = $comitato->nomeCompleto();
+    } else {
+        $comitato = 'nessun comitato assegnato';
+    }
+    $m->_APP = $comitato;
+    $m->invia();
+    redirect('utente.me&suppok');    
 
 }elseif (isset($_GET['comgio'])) {
 $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
