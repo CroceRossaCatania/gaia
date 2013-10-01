@@ -75,11 +75,33 @@ abstract class Entita {
         }
     }
     
+    /**
+     * Ottiene un singolo elemento per un parametro univoco
+     * @param string $_nome Il nome del parametro
+     * @param string $_valore Il suo valore
+     * @return static|bool(false) Un elemento o false
+     */
     public static function by($_nome, $_valore) {
         $r = static::filtra([[$_nome, $_valore]], 'id LIMIT 0,1');
         if (!$r) { return false; }
         return $r[0];
     }
+
+    /**
+     * Ottiene un elemento per ID oppure lancia un'eccezione
+     * @param mixed $id L'ID univoco dell'oggetto
+     * @return static Un oggetto
+     * @throws Errore in caso di non esistente
+     */
+    public static function id($id = null) {
+        if ( $id === null ) {
+            // Non creero' un nuovo oggetto, ID mancante!
+            throw new Errore(1011);
+        }
+        return new static($id);
+    }
+
+
 
     /**
      * Dato hash della query e array di oggetti, salva in cache
