@@ -44,5 +44,17 @@ abstract class GeoCirco extends GeoEntita {
         return $r;
     }
 
+    /**
+     * Ottiene tutti gli oggetti che intersecano un altro GeoCirco
+     * @todo Da implementare!
+     * @param GeoCirco      $circo          Circonferenza che deve essere intersecata
+     * @param array         $_condizioni    Eventuali condizioni aggiuntive
+     * @return array Un array di oggetti
+     */
+    public static function cheIntersecano(
+        GeoCirco $circo,
+        $_condizioni = []
+    ) { }
+
 
 }
