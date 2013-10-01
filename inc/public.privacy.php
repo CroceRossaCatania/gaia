@@ -21,7 +21,6 @@
             di organizzazione del volontariato (es riserve, trasferimenti, estensioni)</li>
             <li>Gestione di quanto previsto dai regolamenti e dalle normative interne CRI in materia
             di formazione, attività, qualifiche e ulteriore procedure che possono essere informatizzate.</li>
-            <li>asd</li>
         </ul>
         </p>
         <p>Il trattamento sarà effettuato attraverso modalità cartacee e/o informatizzate.</p>
@@ -324,7 +323,7 @@
             legali) derivati dalla pubblicazione, contenuto o trasmissione di qualsiasi messaggio, 
             informazione, materiale o altri Contenuti - utente pubblicati sul Portale o da qualsiasi 
             violazione delle presenti Condizioni d’Uso da parte dell'utente. Nell'eventualità di reclami 
-            o azioni legali dovuti a messaggi o Contenuti -utente inviati dall’ utente, gli amministratori del Portale si riserva il 
+            o azioni legali dovuti a messaggi o Contenuti -utente inviati dall’utente, gli amministratori del Portale si riservano il 
             diritto di rivelare l'identità del medesimo e qualsiasi altra informazione sul suo conto 
             eventualmente in suo possesso.</p>
             <p>In caso di controversie con altri utenti, l'utente solleva Croce Rossa Italiana - Comitato Provinciale di Catania, gli amministratori del Portale,
@@ -347,7 +346,7 @@
             
             <h4><li>Risoluzione dei casi di contestazione</h4>
             <p>Le presenti condizioni d'uso verranno disciplinate e interpretate ai sensi delle 
-            leggi italiane. L'utente accetta la giurisdizione non esclusiva dei tribunali di ????, 
+            leggi italiane. L'utente accetta la giurisdizione del Foro di Catania, 
             Italia, nell'eventualità di contestazioni, rivendicazioni o procedimenti legali derivanti 
             da o ascrivibili alle presenti Condizioni d’Uso o all'utilizzo del presente Portale da 
             parte dell'utente, comprese, fra l'altro, eventuali contestazioni in merito all'esistenza 
@@ -366,6 +365,31 @@
             Solo una specifica rinuncia scritta, firmata da un rappresentante 
             autorizzato di GAIA, avrà effetti giuridici.</p></li>
         </ol>
+        <h3>Utenti responsabili del trattamento dei dati dei Soci e dei Procedimenti</h3>
+        <p>Le categorie di utenti che hanno responsabilità sul trattamento dei dati degli utenti afferenti
+        ad un comitato, e che rivestono quindi il ruolo di  titolari dei procedimenti riguardo 
+        dati dei soci, sono:</p>
+        <p>
+        <ul>
+        <li> Presidente </li>
+        <li> Referenti Ufficio Soci (nominati dal presidente) </li>
+        <li> Referenti Centrale Operativa (nominati dal presidente) </li>
+        <li> Delegati di Area (nominati dal presidente) </li>
+        <li> Referenti di progetto (nominati dal presidente) </li>
+        <li> Responsabili di attività (nominati da presidente, delegato d'area o referente di progetto)</li>
+        </ul>
+        </p>
+        <p>Accettando le condizioni d'uso i titolari dei procedimenti riguardo dati dei soci:</p>
+        <p>
+        <ul>
+        <li>si impegnano a vigilare sull'operato degli addetti (es. referenti Ufficio soci o referenti di ogni altra struttura
+        sotto il coordinamento del presidente) riguardo all'utilizzo del Portale.</li>
+        <li> dichiarano di considerare valide le istanze e le dichiarazioni presentate per via 
+        telematica tramite il Portale GAIA e di di essere a conoscenza che il mancato avvio del procedimento 
+        da parte del titolare dell'ufficio competente a seguito di istanza o dichiarazione inviate 
+        tramite GAIA comporta responsabilità dirigenziale e responsabilità disciplinare dello stesso.</li>
+        </ul>
+        </p>
         <p>Grazie per avere visitato il Portale GAIA.</p>
     </div>
 </div>
