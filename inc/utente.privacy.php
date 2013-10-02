@@ -39,16 +39,16 @@ if (isset($_GET['first'])){
         <p>Mostra il mio numero di telefono e il mio indirizzo email:</p>
         <?php if(!$me->pri_delegato()){ ?>
           <label class="radio">
-            <input type="radio" name="phoneradio" id="phoneradio1" value="10" <?php if($me->pri_mailphone()==PRIVACY_PRIVATA){ ?> checked <?php } ?>>
+            <input type="radio" name="phoneradio" id="phoneradio1" value="10" <?php if($me->privacy()->mailphone==PRIVACY_PRIVATA){ ?> checked <?php } ?>>
               Solo ad ufficio soci, presidente e responsabili delle attività di cui faccio parte
           </label>
         <?php } ?>
         <label class="radio">
-          <input type="radio" name="phoneradio" id="phoneradio2" value="20" <?php if($me->pri_mailphone()==PRIVACY_COMITATO){ ?> checked <?php } ?>>
+          <input type="radio" name="phoneradio" id="phoneradio2" value="20" <?php if($me->privacy()->mailphone==PRIVACY_COMITATO){ ?> checked <?php } ?>>
             A tutti i volontari del mio Comitato
         </label>
         <label class="radio">
-          <input type="radio" name="phoneradio" id="phoneradio3" value="30" <?php if($me->pri_mailphone()==PRIVACY_VOLONTARI){ ?> checked <?php } ?>>
+          <input type="radio" name="phoneradio" id="phoneradio3" value="30" <?php if($me->privacy()->mailphone==PRIVACY_VOLONTARI){ ?> checked <?php } ?>>
             A tutti i volontari iscritti a Gaia
         </label>
         <hr/>
@@ -57,16 +57,16 @@ if (isset($_GET['first'])){
         <p>Consenti l'invio di messaggi privati all'interno di Gaia (Attenzione l'indirizzo email non verrà mostrato):</p>
         <?php if(!$me->pri_delegato()){ ?>
           <label class="radio">
-            <input type="radio" name="messradio" id="messradio1" value="10" <?php if($me->pri_mess()==PRIVACY_PRIVATA){ ?> checked <?php } ?>>
+            <input type="radio" name="messradio" id="messradio1" value="10" <?php if($me->privacy()->mess==PRIVACY_PRIVATA){ ?> checked <?php } ?>>
               Solo ad ufficio soci, presidente e responsabili delle attività di cui faccio parte
           </label>
         <?php } ?>
         <label class="radio">
-          <input type="radio" name="messradio" id="omessradio2" value="20" <?php if($me->pri_mess()==PRIVACY_COMITATO){ ?> checked <?php } ?>>
+          <input type="radio" name="messradio" id="omessradio2" value="20" <?php if($me->privacy()->mess==PRIVACY_COMITATO){ ?> checked <?php } ?>>
             A tutti i volontari del mio Comitato
         </label>
         <label class="radio">
-          <input type="radio" name="messradio" id="messradio3" value="30" <?php if($me->pri_mess()==PRIVACY_VOLONTARI){ ?> checked <?php } ?>>
+          <input type="radio" name="messradio" id="messradio3" value="30" <?php if($me->privacy()->mess==PRIVACY_VOLONTARI){ ?> checked <?php } ?>>
             A tutti i volontari iscritti a Gaia
         </label>
         <hr/>
@@ -75,20 +75,20 @@ if (isset($_GET['first'])){
         <p>Consenti la visione del mio curriculum (Competenze pers., Patenti Civili, Patenti CRI, Titoli di studio, Titoli CRI) :</p>
         <?php if(!$me->pri_delegato()){ ?>
           <label class="radio">
-            <input type="radio" name="curriculumradio" id="curriculumradio1" value="10" <?php if($me->pri_curriculum()==PRIVACY_PRIVATA){ ?> checked <?php } ?>>
+            <input type="radio" name="curriculumradio" id="curriculumradio1" value="10" <?php if($me->privacy()->curriculum==PRIVACY_PRIVATA){ ?> checked <?php } ?>>
               Solo ad ufficio soci, presidente e responsabili delle attività di cui faccio parte
           </label>
         <?php } ?>
         <label class="radio">
-          <input type="radio" name="curriculumradio" id="curriculumradio2" value="20" <?php if($me->pri_curriculum()==PRIVACY_COMITATO){ ?> checked <?php } ?>>
+          <input type="radio" name="curriculumradio" id="curriculumradio2" value="20" <?php if($me->privacy()->curriculum==PRIVACY_COMITATO){ ?> checked <?php } ?>>
             A tutti i volontari del mio Comitato
         </label>
         <label class="radio">
-          <input type="radio" name="curriculumradio" id="curriculumradio3" value="30" <?php if($me->pri_curriculum()==PRIVACY_VOLONTARI){ ?> checked <?php } ?>>
+          <input type="radio" name="curriculumradio" id="curriculumradio3" value="30" <?php if($me->privacy()->curriculum==PRIVACY_VOLONTARI){ ?> checked <?php } ?>>
             A tutti i volontari iscritti a Gaia
         </label>
         <label class="radio">
-          <input type="radio" name="curriculumradio" id="curriculumradio4" value="40" <?php if($me->pri_curriculum()==PRIVACY_PUBBLICA){ ?> checked <?php } ?>>
+          <input type="radio" name="curriculumradio" id="curriculumradio4" value="40" <?php if($me->privacy()->curriculum==PRIVACY_PUBBLICA){ ?> checked <?php } ?>>
             Anche a chi non è iscritto a Gaia
         </label>
         <hr/>
@@ -97,20 +97,20 @@ if (isset($_GET['first'])){
         <p>Consenti la visione dello storico dei miei incarichi :</p>
         <?php if(!$me->pri_delegato()){ ?>
           <label class="radio">
-            <input type="radio" name="incarichiradio" id="incarichiradio1" value="10" <?php if($me->pri_incarichi()==PRIVACY_PRIVATA){ ?> checked <?php } ?>>
+            <input type="radio" name="incarichiradio" id="incarichiradio1" value="10" <?php if($me->privacy()->incarichi==PRIVACY_PRIVATA){ ?> checked <?php } ?>>
               Solo ad ufficio soci, presidente e responsabili delle attività di cui faccio parte
           </label>
         <?php } ?>
         <label class="radio">
-          <input type="radio" name="incarichiradio" id="incarichiradio2" value="20" <?php if($me->pri_incarichi()==PRIVACY_COMITATO){ ?> checked <?php } ?>>
+          <input type="radio" name="incarichiradio" id="incarichiradio2" value="20" <?php if($me->privacy()->incarichi==PRIVACY_COMITATO){ ?> checked <?php } ?>>
             A tutti i volontari del mio Comitato
         </label>
         <label class="radio">
-          <input type="radio" name="incarichiradio" id="incarichiradio3" value="30" <?php if($me->pri_incarichi()==PRIVACY_VOLONTARI){ ?> checked <?php } ?>>
+          <input type="radio" name="incarichiradio" id="incarichiradio3" value="30" <?php if($me->privacy()->incarichi==PRIVACY_VOLONTARI){ ?> checked <?php } ?>>
             A tutti i volontari iscritti a Gaia
         </label>
         <label class="radio">
-          <input type="radio" name="incarichiradio" id="incarichiradio4" value="40" <?php if($me->pri_incarichi()==PRIVACY_PUBBLICA){ ?> checked <?php } ?>>
+          <input type="radio" name="incarichiradio" id="incarichiradio4" value="40" <?php if($me->privacy()->incarichi==PRIVACY_PUBBLICA){ ?> checked <?php } ?>>
             Anche a chi non è iscritto a Gaia
         </label>
         <hr/>

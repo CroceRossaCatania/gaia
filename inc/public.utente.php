@@ -6,13 +6,9 @@
 
 paginaPrivata();
 
-$f = $_GET['id']; 
-$t = Volontario::by('id',$f);
-$g = $v = $t;
-$a = TitoloPersonale::filtra([['volontario',$f]]);
-$mailphone = $me->pri_mailcom($v);
-$curriculum = $me->pri_curcom($v);
-$incarichi = $me->pri_incom($v);
+$id = $_GET['id']; 
+$u = Utente::by('id',$id);
+$t = TitoloPersonale::filtra([['volontario', $u]]);
 ?>
 <!--Visualizzazione e modifica anagrafica utente-->
 <div class="row-fluid">
@@ -22,66 +18,66 @@ $incarichi = $me->pri_incom($v);
             <h2><i class="icon-edit muted"></i> Anagrafica</h2>
         </div>
         <div class="span12 allinea-centro">
-            <img src="<?php echo $g->avatar()->img(20); ?>" class="img-polaroid" />
+            <img src="<?php echo $u->avatar()->img(20); ?>" class="img-polaroid" />
             <br/><br/>
         </div>
-        <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $f; ?>" method="POST">
+        <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $id; ?>" method="POST">
             <hr />
             <div class="control-group">
                 <label class="control-label" for="inputNome">Nome</label>
                 <div class="controls">
-                    <input readonly type="text" name="inputNome" id="inputNome" value="<?php echo $t->nome; ?>">
+                    <input readonly type="text" name="inputNome" id="inputNome" value="<?php echo $u->nome; ?>">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputCognome">Cognome</label>
                 <div class="controls">
-                    <input readonly type="text" name="inputCognome" id="inputCognome" value="<?php echo $t->cognome; ?>">
+                    <input readonly type="text" name="inputCognome" id="inputCognome" value="<?php echo $u->cognome; ?>">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputDataNascita">Data di Nascita</label>
                 <div class="controls">
-                    <input readonly type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" value="<?php echo date('d/m/Y', $t->dataNascita); ?>">
+                    <input readonly type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" value="<?php echo date('d/m/Y', $u->dataNascita); ?>">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
                 <div class="controls">
-                    <input readonly type="text" name="inputComuneNascita" id="inputComuneNascita" value="<?php echo $t->comuneNascita; ?>">
+                    <input readonly type="text" name="inputComuneNascita" id="inputComuneNascita" value="<?php echo $u->comuneNascita; ?>">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="ingressoCRI">Data ingresso in CRI</label>
                 <div class="controls">
-                    <input readonly type="text" name="ingressoCRI" id="ingressoCRI" value="<?php echo date('d/m/Y', $g->primaAppartenenza()->inizio); ?>">
+                    <input readonly type="text" name="ingressoCRI" id="ingressoCRI" value="<?php echo date('d/m/Y', $u->primaAppartenenza()->inizio); ?>">
                 </div>
             </div>
-            <?php if($mailphone){ ?>
+            <?php if($u->privacy()->mailphone($me)){ ?>
                 <div class="control-group">
                     <label class="control-label" for="inputEmail">Email</label>
                     <div class="controls">
-                        <input value="<?php echo $v->email; ?>"  type="email" id="inputEmail" name="inputEmail" readonly/>
+                        <input value="<?php echo $u->email; ?>"  type="email" id="inputEmail" name="inputEmail" readonly/>
                     </div>
                 </div>
                 <div class="control-group input-prepend">
                     <label class="control-label" for="inputCellulare">Cellulare</label>
                     <div class="controls">
                       <span class="add-on">+39</span>
-                      <input value="<?php echo $v->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" readonly />
+                      <input value="<?php echo $u->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" readonly />
                     </div>
                 </div>
                 <div class="control-group input-prepend">
                     <label class="control-label" for="inputCellulareServizio">Cellulare Servizio</label>
                     <div class="controls">
                       <span class="add-on">+39</span>
-                      <input value="<?php echo $v->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" name="inputCellulareServizio" readonly />
+                      <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" name="inputCellulareServizio" readonly />
                     </div>
                 </div>
             <?php } ?>
         </form>    
     </div>
-    <?php if ( $v->storicoDelegazioni() && $incarichi) { ?>
+    <?php if ( $u->storicoDelegazioni() && $u->privacy()->incarichi($me)) { ?>
         <div class="span6">
             <h2>
                 <i class="icon-briefcase muted"></i>
@@ -97,7 +93,7 @@ $incarichi = $me->pri_incom($v);
                 <th>Inizio</th>
                 <th>Fine</th>
               </thead>
-              <?php foreach ( $v->storicoDelegazioni() as $app ) { ?>
+              <?php foreach ( $u->storicoDelegazioni() as $app ) { ?>
                 <tr<?php if ($app->fine >= time() || $app->fine == 0 ) { ?> class="success"<?php } ?>>
                   <td>
                     <?php if ($app->fine >= time() || $app->fine == 0 ) { ?>
@@ -154,13 +150,12 @@ $incarichi = $me->pri_incom($v);
         </div>
 <?php } ?>
 <!--Visualizzazione e modifica titoli utente-->
-<?php if($curriculum){
+<?php if($u->privacy()->curriculum($me)){
         $titoli = $conf['titoli']; ?>
         <div class="span6">
-            <h3><i class="icon-list muted"></i> Curriculum </h3>  
-            <?php $ttt = $a; ?>
+            <h3><i class="icon-list muted"></i> Curriculum </h3>
             <table class="table table-striped">
-                <?php foreach ( $ttt as $titolo ) { ?>
+                <?php foreach ( $t as $titolo ) { ?>
                     <?php if ($titolo->tConferma) { ?>
                         <tr>
                             <td>

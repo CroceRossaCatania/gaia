@@ -937,57 +937,17 @@ class Utente extends Persona {
         return $r;
     }
 
-    public function pri_mailphone() {
-        $p = Privacy::by('volontario', $this);
-        if(!$p){
-            $p = PRIVACY_PRIVATA;
-        }else{
-            $p = new Privacy($p);
-            $p = $p->mailphone;
-        }
-        return $p;
-    }
-
-    public function pri_mess() {
-        $p = Privacy::by('volontario', $this);
-        if(!$p){
-            $p = PRIVACY_PRIVATA;
-        }else{
-            $p = new Privacy($p);
-            $p = $p->mess;
-        }
-        return $p;
-    }
-
-    public function pri_curriculum() {
-        $p = Privacy::by('volontario', $this);
-        if(!$p){
-            $p = PRIVACY_PRIVATA;
-        }else{
-            $p = new Privacy($p);
-            $p = $p->curriculum;
-        }
-        return $p;
-    }
-
-    public function pri_incarichi() {
-        $p = Privacy::by('volontario', $this);
-        if(!$p){
-            $p = PRIVACY_PRIVATA;
-        }else{
-            $p = new Privacy($p);
-            $p = $p->incarichi;
-        }
-        return $p;
-    }
-
     public function privacy() {
-        $p = Privacy::by('volontario', $this);
-        if(!$p){
-            return 0;
-        }else{
-            return 1;
-        };
+        $privacy = Privacy::by('volontario', $this);
+        if ( !$privacy ) {
+            $privacy = new Privacy;
+            $privacy->volontario = $this;
+            $privacy->contatti = PRIVACY_COMITATO;
+            $privacy->mess = PRIVACY_COMITATO;
+            $privacy->curriculum = PRIVACY_COMITATO;
+            $privacy->incarichi = PRIVACY_COMITATO;
+        }
+        return $privacy;
     }
 
     public function consenso() {
@@ -999,51 +959,8 @@ class Utente extends Persona {
         };
     }
 
-    public function pri_mailcom($altroutente) {
-        if($this->admin()){
-            return true;
-        }else{
-            $h = $altroutente->unComitato()->locale();
-            $z = $this->unComitato()->locale();
-            if( $this->presiede($altroutente->unComitato()) || ($h==$z && $altroutente->pri_mailphone()==PRIVACY_COMITATO) || $altroutente->pri_mailphone()==PRIVACY_VOLONTARI){
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
-
-    public function pri_curcom($altroutente) {
-        if($this->admin()){
-            return true;
-        }else{
-            $h = $altroutente->unComitato()->locale();
-            $z = $this->unComitato()->locale();
-            if($this->presiede($altroutente->unComitato()) || ($h==$z && $altroutente->pri_curriculum()==PRIVACY_COMITATO) || $altroutente->pri_curriculum()==PRIVACY_VOLONTARI ){
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
-
-    public function pri_incom($altroutente) {
-        if($this->admin()){
-            return true;
-        }else{
-            $h = $altroutente->unComitato()->locale();
-            $z = $this->unComitato()->locale();
-            if($this->presiede($altroutente->unComitato()) || ($h==$z && $altroutente->pri_incarichi()==PRIVACY_COMITATO) || $altroutente->pri_incarichi()==PRIVACY_VOLONTARI ){
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
-
     public function pri_delegato() {
-        global $me;
-        if($me->presidenziante() || $me->attivitaReferenziate() || $me->delegazioni()){
+        if($this->presidenziante() || $this->attivitaReferenziate() || $this->delegazioni()){
             return true;
         }else{
             return false;

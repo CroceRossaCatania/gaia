@@ -6,10 +6,9 @@
 
 paginaPrivata();
 
-$f = $_GET['id']; 
-$t = Utente::by('id',$f);
-$g = $v = $t;
-$a=TitoloPersonale::filtra([['volontario',$f]]);
+$id = $_GET['id']; 
+$u = Utente::by('id',$id);
+$t = TitoloPersonale::filtra([['volontario',$u]]);
 ?>
 <div class="row-fluid">
     <div class="span6">
@@ -17,70 +16,70 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             <h3><i class="icon-edit muted"></i> Anagrafica</h3>
         </div>
         <div class="span12 allinea-centro">
-            <img src="<?php echo $g->avatar()->img(20); ?>" class="img-polaroid" />
+            <img src="<?php echo $u->avatar()->img(20); ?>" class="img-polaroid" />
             <br/><br/>
         </div>
-        <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $f; ?>" method="POST">
+        <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $id; ?>" method="POST">
         <hr />
             <div class="control-group">
                 <label class="control-label" for="inputNome">Nome</label>
                 <div class="controls">
-                    <input type="text" name="inputNome" id="inputNome" readonly value="<?php echo $v->nome; ?>">
+                    <input type="text" name="inputNome" id="inputNome" readonly value="<?php echo $u->nome; ?>">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputCognome">Cognome</label>
                 <div class="controls">
-                    <input type="text" name="inputCognome" id="inputCognome" readonly value="<?php echo $v->cognome; ?>">
+                    <input type="text" name="inputCognome" id="inputCognome" readonly value="<?php echo $u->cognome; ?>">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputSesso">Sesso</label>
                 <div class="controls">
-                    <input type="text" name="inputSesso" id="inputSesso" readonly value="<?php echo $conf['sesso'][$v->sesso]; ?>">
+                    <input type="text" name="inputSesso" id="inputSesso" readonly value="<?php echo $conf['sesso'][$u->sesso]; ?>">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputDataNascita">Data di Nascita</label>
                 <div class="controls">
-                    <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" readonly value="<?php echo date('d/m/Y', $v->dataNascita); ?>">
+                    <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" readonly value="<?php echo date('d/m/Y', $u->dataNascita); ?>">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
                 <div class="controls">
-                    <input type="text" name="inputComuneNascita" id="inputComuneNascita" readonly value="<?php echo $v->comuneNascita; ?>">
+                    <input type="text" name="inputComuneNascita" id="inputComuneNascita" readonly value="<?php echo $u->comuneNascita; ?>">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="ingressoCRI">Data ingresso in CRI</label>
                 <div class="controls">
-                    <input readonly type="text" name="ingressoCRI" id="ingressoCRI" value="<?php echo date('d/m/Y', $g->primaAppartenenza()->inizio); ?>">
+                    <input readonly type="text" name="ingressoCRI" id="ingressoCRI" value="<?php echo date('d/m/Y', $u->primaAppartenenza()->inizio); ?>">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputEmail">Email</label>
                 <div class="controls">
-                    <input value="<?php echo $v->email; ?>"  type="email" id="inputEmail" name="inputEmail" readonly/>
+                    <input value="<?php echo $u->email; ?>"  type="email" id="inputEmail" name="inputEmail" readonly/>
                 </div>
             </div>
             <div class="control-group input-prepend">
                 <label class="control-label" for="inputCellulare">Cellulare</label>
                 <div class="controls">
                     <span class="add-on">+39</span>
-                    <input value="<?php echo $v->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" readonly />
+                    <input value="<?php echo $u->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" readonly />
                 </div>
             </div>
             <div class="control-group input-prepend">
                 <label class="control-label" for="inputCellulareServizio">Cellulare Servizio</label>
                 <div class="controls">
                     <span class="add-on">+39</span>
-                    <input value="<?php echo $v->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" name="inputCellulareServizio" readonly />
+                    <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" name="inputCellulareServizio" readonly />
                 </div>
             </div>
         </form>    
     </div>
-    <?php if ( $v->storicoDelegazioni()) { ?>
+    <?php if ( $u->storicoDelegazioni()) { ?>
     <div class="span6">
         <h2>
             <i class="icon-briefcase muted"></i>
@@ -96,7 +95,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                 <th>Inizio</th>
                 <th>Fine</th>
             </thead>
-            <?php foreach ( $v->storicoDelegazioni() as $app ) { ?>
+            <?php foreach ( $u->storicoDelegazioni() as $app ) { ?>
                 <tr<?php if ($app->fine >= time() || $app->fine == 0 ) { ?> class="success"<?php } ?>>
                     <td>
                         <?php if ($app->fine >= time() || $app->fine == 0 ) { ?>
@@ -152,12 +151,11 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         </table>
     </div>
     <?php }
-    $titoli = $conf['titoli']; 
-    $ttt = $a; ?>
+    $titoli = $conf['titoli'];?>
     <div class="span6">
         <h4><i class="icon-list muted"></i> Curriculum </h4>
         <table class="table table-striped">
-            <?php foreach ( $ttt as $titolo ) { ?>
+            <?php foreach ( $t as $titolo ) { ?>
                 <tr <?php if (!$titolo->tConferma) { ?>class="warning"<?php } ?>>
                     <td>
                         <?php if ($titolo->tConferma) { ?>
