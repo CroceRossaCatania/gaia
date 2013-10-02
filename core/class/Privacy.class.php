@@ -30,8 +30,9 @@ class Privacy extends Entita {
 		);
 	}
 
+	// vaffanculo! e tu sai perche. stronzo!
     public function volontario() {
-        return new Volontario($this->id);
+        return Volontario::by('id', $this->volontario);
     }
     
 }

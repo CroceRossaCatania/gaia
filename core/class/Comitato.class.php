@@ -88,7 +88,7 @@ class Comitato extends GeoPolitica {
                  cognome ASC, nome ASC");
         $q->bindValue(':ora', time());
         $q->bindParam(':comitato', $this->id);
-        $q->bindParam(':stato',    $stato);
+        $q->bindParam(':stato',    $stato, PDO::PARAM_INT);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
@@ -690,38 +690,6 @@ class Comitato extends GeoPolitica {
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
             $r[] = new Comitato($k[0]);
-        }
-        return $r;
-    }
-
-	public function membriRubrica($stato = MEMBRO_ESTESO) {
-        $q = $this->db->prepare("
-            SELECT
-                anagrafica.id
-            FROM
-                appartenenza, anagrafica, privacy
-            WHERE
-                anagrafica.id = appartenenza.volontario
-            AND
-                ( fine >= :ora OR fine IS NULL OR fine = 0) 
-            AND
-                comitato = :comitato
-            AND
-                appartenenza.stato    >= :stato
-            AND
-                privacy.volontario = anagrafica.id
-            AND
-                privacy.contatti = :set
-            ORDER BY
-                 cognome ASC, nome ASC");
-        $q->bindValue(':ora', time());
-        $q->bindParam(':comitato', $this->id);
-        $q->bindParam(':stato',    $stato);
-        $q->bindValue(':set', PRIVACY_COMITATO);
-        $q->execute();
-        $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Volontario($k[0]);
         }
         return $r;
     }

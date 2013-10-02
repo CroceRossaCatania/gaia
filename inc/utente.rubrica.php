@@ -55,10 +55,10 @@ paginaPrivata();
             </thead>
             <?php 
             $comitato = $me->unComitato();
-            $volontari = $comitato->membriRubrica();
+            $volontari = $comitato->membriAttuali();
 
-            foreach ( $volontari as $volontario ) {
-                    $_v = new Volontario($volontario);
+            foreach ( $volontari as $_v ) {
+                    if($_v->privacy()->contatti($me)) {
                     ?>
                     <tr>
                         <td><img src="<?php echo $_v->avatar()->img(10); ?>" class="img-polaroid" /></td>
@@ -72,7 +72,7 @@ paginaPrivata();
                             </a>
                         </td>
                     </tr>
-                    <?php 
+                    <?php }
             }
             ?>
         </table>

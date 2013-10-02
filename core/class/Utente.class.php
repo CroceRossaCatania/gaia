@@ -944,27 +944,24 @@ class Utente extends Persona {
             $privacy->volontario = $this;
             $privacy->contatti = PRIVACY_COMITATO;
             $privacy->mess = PRIVACY_COMITATO;
-            $privacy->curriculum = PRIVACY_COMITATO;
-            $privacy->incarichi = PRIVACY_COMITATO;
+            $privacy->curriculum = PRIVACY_PRIVATA;
+            $privacy->incarichi = PRIVACY_PRIVATA;
         }
         return $privacy;
     }
 
     public function consenso() {
-        $p = new Volontario($this);
-        if($p->consenso){
-            return true;
-        }else{
+        if(!$this->consenso) {
             return false;
-        };
+        }
+        return true;
     }
 
     public function pri_delegato() {
         if($this->presidenziante() || $this->attivitaReferenziate() || $this->delegazioni()){
             return true;
-        }else{
-            return false;
         }
+        return false;
     }
 
     public function pri_smistatore($altroutente){
@@ -973,8 +970,6 @@ class Utente extends Persona {
             foreach ($comitati as $comitato){
                 if($altroutente->in($comitato)){
                     return PRIVACY_RISTRETTA;            
-                }else{
-                    continue;
                 }
             }
             return PRIVACY_PUBBLICA;
@@ -984,8 +979,6 @@ class Utente extends Persona {
                 $c = $_a->comitato();
                 if($altroutente->in($c)){
                     return PRIVACY_RISTRETTA;
-                }else{
-                    continue;
                 }
             }
             redirect('public.utente&id=' . $id);
@@ -995,13 +988,10 @@ class Utente extends Persona {
                 $c = $_a->area()->comitato();
                 if($altroutente->in($c)){
                     return PRIVACY_RISTRETTA;
-                }else{
-                    continue;
                 }
             }
             return PRIVACY_PUBBLICA;
-        }else{
-            return PRIVACY_PUBBLICA;
         }
+        return PRIVACY_PUBBLICA;
     }
 }
