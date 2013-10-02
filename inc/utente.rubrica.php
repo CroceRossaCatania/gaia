@@ -55,7 +55,7 @@ paginaPrivata();
             </thead>
             <?php 
             $comitato = $me->unComitato();
-            $volontari = $comitato->membriAttuali();
+            $volontari = $comitato->locale()->tuttiVolontari();
 
             foreach ( $volontari as $_v ) {
                     if($_v->privacy()->contatti($me)) {
