@@ -12,7 +12,7 @@ if($p){
 }
 
 $p->volontario     	= $me;
-$p->mailphone       = $_POST['phoneradio'];
+$p->contatti        = $_POST['phoneradio'];
 $p->mess  			= $_POST['messradio'];
 $p->curriculum 		= $_POST['curriculumradio'];
 $p->incarichi   	= $_POST['incarichiradio'];

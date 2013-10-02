@@ -53,7 +53,7 @@ $t = TitoloPersonale::filtra([['volontario', $u]]);
                     <input readonly type="text" name="ingressoCRI" id="ingressoCRI" value="<?php echo date('d/m/Y', $u->primaAppartenenza()->inizio); ?>">
                 </div>
             </div>
-            <?php if($u->privacy()->mailphone($me)){ ?>
+            <?php if($u->privacy()->contatti($me)){ ?>
                 <div class="control-group">
                     <label class="control-label" for="inputEmail">Email</label>
                     <div class="controls">

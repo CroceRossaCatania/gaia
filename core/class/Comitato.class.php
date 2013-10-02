@@ -711,7 +711,7 @@ class Comitato extends GeoPolitica {
             AND
                 privacy.volontario = anagrafica.id
             AND
-                privacy.mailphone = :set
+                privacy.contatti = :set
             ORDER BY
                  cognome ASC, nome ASC");
         $q->bindValue(':ora', time());

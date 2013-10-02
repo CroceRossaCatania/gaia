@@ -39,16 +39,16 @@ if (isset($_GET['first'])){
         <p>Mostra il mio numero di telefono e il mio indirizzo email:</p>
         <?php if(!$me->pri_delegato()){ ?>
           <label class="radio">
-            <input type="radio" name="phoneradio" id="phoneradio1" value="10" <?php if($me->privacy()->mailphone==PRIVACY_PRIVATA){ ?> checked <?php } ?>>
+            <input type="radio" name="phoneradio" id="phoneradio1" value="10" <?php if($me->privacy()->contatti==PRIVACY_PRIVATA){ ?> checked <?php } ?>>
               Solo ad ufficio soci, presidente e responsabili delle attività di cui faccio parte
           </label>
         <?php } ?>
         <label class="radio">
-          <input type="radio" name="phoneradio" id="phoneradio2" value="20" <?php if($me->privacy()->mailphone==PRIVACY_COMITATO){ ?> checked <?php } ?>>
+          <input type="radio" name="phoneradio" id="phoneradio2" value="20" <?php if($me->privacy()->contatti==PRIVACY_COMITATO){ ?> checked <?php } ?>>
             A tutti i volontari del mio Comitato
         </label>
         <label class="radio">
-          <input type="radio" name="phoneradio" id="phoneradio3" value="30" <?php if($me->privacy()->mailphone==PRIVACY_VOLONTARI){ ?> checked <?php } ?>>
+          <input type="radio" name="phoneradio" id="phoneradio3" value="30" <?php if($me->privacy()->contatti==PRIVACY_VOLONTARI){ ?> checked <?php } ?>>
             A tutti i volontari iscritti a Gaia
         </label>
         <hr/>
