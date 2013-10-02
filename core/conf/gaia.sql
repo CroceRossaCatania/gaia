@@ -353,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `partecipazioni` (
 CREATE TABLE IF NOT EXISTS `privacy` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `volontario` varchar(16) DEFAULT NULL,
-  `mailphone` int(1) DEFAULT NULL,
+  `contatti` int(1) DEFAULT NULL,
   `mess` int(1) DEFAULT NULL,
   `curriculum` int(1) DEFAULT NULL,
   `incarichi` int(1) DEFAULT NULL,
