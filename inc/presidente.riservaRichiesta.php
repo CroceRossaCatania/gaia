@@ -6,7 +6,7 @@
 
 paginaPresidenziale();
 $t = $_GET['id'];
-$t = new Riserva($t);
+$t = Riserva::id($t);
 $_v = $t->volontario();
 ?>
 <script type="text/javascript"><?php require './js/presidente.trasferimentoRichiesta.js'; ?></script>

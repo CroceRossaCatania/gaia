@@ -8,7 +8,7 @@ paginaPresidenziale();
 caricaSelettore();
 
 $id = $_GET['id'];
-$c = new Comitato($id);
+$c = Comitato::id($id);
 
 ?>
 
