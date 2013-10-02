@@ -28,16 +28,10 @@ $d->volontario = $_v->id;
 
 $a = Appartenenza::filtra([['volontario', $_v]]);
 $i = Delegato::filtra([['volontario',$_v]]);
-$g = TitoloPersonale::filtra([['volontario', $_v]]);
 
 foreach ($i as $_i){
-    $b = new Delegato($_i);
+    $b = Delegato::id($_i);
     $b->fine = time();   
-}
-
-foreach ($g as $_g){
-    $g = new TitoloPersonale($_g);
-    $g->fine = time();   
 }
 
 foreach ( $a as $_a){
@@ -47,10 +41,10 @@ foreach ( $a as $_a){
         $d->motivo = DIM_QUOTA;
         $d->tConferma = time();
         $d->pConferma = $me;
-        $x = new Appartenenza($_a);
+        $x = Appartenenza::id($_a);
         $x->fine = time();
         $x->stato = MEMBRO_DIMESSO;
-        $f = new Persona($_v);
+        $f = Persona::id($_v);
         $f->stato = PERSONA;
         $f->admin='';
     }

@@ -9,7 +9,7 @@ ini_set('memory_limit', '512M');
 if(isset($_GET['pre'])){
 
     $a = $_GET['id'];
-    $v = new Volontario($a);
+    $v = Volontario::id($a);
     $v = $v->avatar();
 
     try {

@@ -7,10 +7,10 @@
 paginaPrivata();
 
 $t = $_GET['t'];
-$tp = TitoloPersonale::by('id', $t);
+$tp = TitoloPersonale::id($t);
 $tp = $tp->titolo();
 
-$p = new TitoloPersonale($t);
+$p = TitoloPersonale::id($t);
 $p->volontario  = $me;
 $p->titolo      = $tp;
 
