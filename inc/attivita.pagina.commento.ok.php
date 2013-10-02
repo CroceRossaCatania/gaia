@@ -7,7 +7,7 @@
 paginaPrivata();
 
 $a = $_GET['id'];
-$a = new Attivita($a);
+$a = Attivita::id($a);
 
 $h = $_GET['h'];
 

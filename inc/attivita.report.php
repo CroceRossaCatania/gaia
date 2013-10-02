@@ -5,7 +5,7 @@
  */
 
 $a = $_GET['id'];
-$a = new Attivita($a);
+$a = Attivita::id($a);
 
 paginaAttivita($a);
 
@@ -42,7 +42,7 @@ foreach ( $a->turni() as $turno ) {
        "Nome", "Cognome", "D. Nascita", "Email", "Cellulare", "Firma"
     ]);
     foreach ( $partecipazioni as $p ) {
-        $v = new Volontario($p->volontario());
+        $v = $p->volontario();
         $f->aggiungiRiga([
             $v->nome,
             $v->cognome,

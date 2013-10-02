@@ -12,7 +12,7 @@ if (!isset($_GET['c'])) {
     redirect('attivita.comitato');
 }
 $c = $_GET['c'];
-$c = new Comitato($c);
+$c = Comitato::id($c);
 
 $comitati = $me->comitatiAreeDiCompetenza();
 $aree     = $me->areeDiCompetenza($c);

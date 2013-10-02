@@ -7,7 +7,7 @@
 paginaPrivata();
 paginaAttivita();
 
-$t = new Turno($_GET['id']);
+$t = Turno::id($_GET['id']);
 
 
 ?>

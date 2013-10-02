@@ -9,10 +9,10 @@ paginaAttivita();
 paginaModale();
 
 $attivita = $_POST['id'];
-$attivita = new Attivita($attivita);
+$attivita = Attivita::id($attivita);
 
 $referente = $_POST['inputReferente'];
-$referente = new Volontario($referente);
+$referente = Volontario::id($referente);
 
 $attivita->referente    = $referente;
 
