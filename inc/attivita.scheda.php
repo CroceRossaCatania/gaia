@@ -278,6 +278,7 @@ $(document).ready( function() {
                         <td>
                             <big><?php echo $turno->inizio()->inTesto(); ?></big><br />
                             <span class="muted">Fine: <strong><?php echo $turno->fine()->inTesto(); ?></strong></span>
+                            <span>Prenotarsi entro: <strong><?php echo $turno->prenotazione()->inTesto(); ?></strong></span>
                         </td>
                         <td>
                             <?php if ( $turno->scoperto() ) { ?>
