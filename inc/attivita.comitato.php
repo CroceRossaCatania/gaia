@@ -12,7 +12,7 @@ $comitati = $me->comitatiAreeDiCompetenza();
 
 if ( count($comitati) == 1 ) {
     $comitato = $comitati[0];
-    redirect('attivita.idea&c=' . $comitato->id);
+    redirect('attivita.idea&c=' . $comitato->oid());
 }
 
 /* Se non ci sono Aree create... */
