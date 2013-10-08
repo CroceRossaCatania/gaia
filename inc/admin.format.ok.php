@@ -331,7 +331,7 @@ paginaAdmin();
             $fine = @DateTime::createFromFormat('d/m/Y', $riga[17] );
             $fine = @$fine->getTimestamp();
             $r->fine = $fine;
-            $r->protNumero = $riga[18;
+            $r->protNumero = $riga[18];
             $protData = @DateTime::createFromFormat('d/m/Y', $riga[19] );
             $protData = @$protData->getTimestamp();
             $r->protData = $protData;
