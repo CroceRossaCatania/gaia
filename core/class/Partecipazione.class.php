@@ -107,10 +107,16 @@ class Partecipazione extends Entita {
             $m->invia();
             
             // Al mio...
+            
+            /* HOTFIX TEMPORANEO "MA GRAN PORCO CAZZO"
             $a = new Autorizzazione();
             $a->partecipazione = $this->id;
             $a->volontario     = $this->volontario()->unComitato()->unPresidente()->id;
             $a->richiedi();
+            
+            -- Questa roba non funziona se l'estensione dell'attivita' e' cazzo provinciale o superiore...
+            -- o comunque superiore alla territoriale. Insomma da rivedere.
+            -- Per ora meglio non generare la seconda autorizzazione che generarne una a minchia.
             
             $m = new Email('richiestaAutorizzazione', 'Richiesta autorizzazione partecipazione attività');
             $m->a            = $this->volontario()->unComitato()->unPresidente();
@@ -120,7 +126,7 @@ class Partecipazione extends Entita {
             $m->_TURNO       = $this->turno()->nome;
             $m->_DATA        = $a->timestamp()->format('d-m-Y H:i');
             $m->invia();
-            
+            */
              
         }
         
