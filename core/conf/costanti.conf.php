@@ -509,3 +509,19 @@ $conf['est_grp'] = [
     EST_GRP_UNITA       =>  'Unità Territoriale',
     EST_GRP_LOCALE      =>  'Comitato Locale'    
 ];
+
+/*
+ * ===================================
+ * ======= RICHIESTE TITOLI ==========
+ * ===================================
+ */
+
+define('RIC_UNICA',  0);
+define('RIC_OR',    10);
+define('RIC_AND',   20);
+
+$conf['RIC_TIT'] = [
+    RIC_UNICA   =>  'Titolo necessario',
+    RIC_OR      =>  'Oppure',
+    RIC_AND     =>  'E'
+];
