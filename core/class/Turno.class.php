@@ -15,11 +15,11 @@ class Turno extends Entita {
     }
 
     public function inizio() {
-    	return DT::daTimestamp($this->inizio);
+        return DT::daTimestamp($this->inizio);
     }
 
     public function fine() {
-    	return DT::daTimestamp($this->fine);
+        return DT::daTimestamp($this->fine);
     }
     
     public function prenotazione() {

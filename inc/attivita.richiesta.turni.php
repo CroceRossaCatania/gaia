@@ -61,13 +61,13 @@ $t = Turno::by('id', $_GET['id']);
                 foreach ( $r->elementi() as $e ) { ?>
              <tr>
                  <td>
-                    <?= $conf['RIC_TIT'][$e->operatore]; ?>
+                    Titolo necessario
                 </td>
                  <td>
                     <?= $e->titolo()->nome; ?>
                 </td>
                 <td>
-                    <a class="btn btn-danger" href="?p=attivita.richiesta.turni.cancella&id=<?= $e; ?>">
+                    <a class="btn btn-danger" onClick="return confirm('Vuoi veramente togliere questa rischiesta di titolo ?');" href="?p=attivita.richiesta.turni.cancella&id=<?= $e; ?>">
                             <i class="icon-trash"></i>
                     </a>
                 </td>
@@ -76,14 +76,7 @@ $t = Turno::by('id', $_GET['id']);
             } ?>
             <tr>
                 <td>
-                <?php if(!$t->richieste()){ ?> Titolo necessario<?php }else{ ?> 
-                    <select class="input-medium" id="inputOperatore" name="inputOperatore" required>
-                        <?php foreach ( $conf['RIC_TIT'] as $numero => $tipo ) { 
-                            if($numero == RIC_UNICA && $t->richieste() ){ continue; } ?>
-                            <option value="<?php echo $numero; ?>"><?php echo $tipo; ?></option>
-                        <?php } ?>
-                    </select>
-                <?php } ?>
+                    <?php if($t->richieste()){ ?> e <?php }else{ ?> Titolo necessario <?php } ?>
                 </td>
                 <td>
                     <div class="span6">

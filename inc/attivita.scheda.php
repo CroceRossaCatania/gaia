@@ -424,11 +424,10 @@ $(document).ready( function() {
                                     </a>
                                 <?php } 
                             } else { ?>
-                            <a class="btn btn-block disabled">
-                                <i class="icon-info-sign"></i>
-                                Non puoi partecipare
-                            </a>
-
+                                <a class="btn btn-block disabled">
+                                    <i class="icon-info-sign"></i>
+                                    Non puoi partecipare
+                                </a>
                             <?php } ?>
                         </td>
                     </tr>

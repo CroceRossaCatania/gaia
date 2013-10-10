@@ -31,11 +31,6 @@ $r->turno = $t;
 $r->timestamp = time();
 
 $e = new ElementoRichiesta();
-if ($richiesta){
-	$e->operatore == $_POST['inputOperatore'];
-}else{
-	$e->operatore == RIC_UNICA;
-}
 $e->titolo = $titolo;
 $e->richiesta = $r;
 

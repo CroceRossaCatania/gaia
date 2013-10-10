@@ -8,7 +8,12 @@ paginaPrivata();
 paginaAttivita();
 
 $e = ElementoRichiesta::by('id', $_GET['id']);
-$t = $e->richiesta()->turno();
+$r = $e->richiesta();
+$t = $r->turno();
 $e->cancella();
+
+if (!$r->elementi()){
+	$r->cancella();
+}
 
 redirect("attivita.richiesta.turni&del&id={$t}");
