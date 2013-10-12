@@ -68,9 +68,16 @@ $q = Quota::filtra([['appartenenza', $app]], 'timestamp DESC');
                     <td><?= $_q->quota ,"€"; ?></td>
                     <td><?= $_q->conferma()->nomeCompleto(); ?></td>
                     <td>
-                        <a class="btn btn-small btn-info" href="?p=us.quote.ricevuta&id=<?= $_q->id; ?>" title="Visualizza ricevuta">
-                            <i class="icon-paperclip"></i> Ricevuta
-                        </a>
+                        <div class="btn-group">
+                            <a class="btn btn-small btn-info" href="?p=us.quote.ricevuta&id=<?= $_q->id; ?>" title="Visualizza ricevuta">
+                                <i class="icon-paperclip"></i> Ricevuta
+                            </a>
+                            <?php if( $me->admin()){ ?>
+                                <a class="btn btn-small btn-info" href="?p=us.quote.modifica&id=<?= $_q->id; ?>" title="Modifica quota">
+                                    <i class="icon-edit"></i>
+                                </a>
+                            <?php } ?>
+                        </div>
                     </td>
                 </tr>
                 <?php 
