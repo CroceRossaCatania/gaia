@@ -41,7 +41,7 @@ if (!in_array($c, $comitati)) {
               <?php } ?>
           </select>
           <?php if ( in_array($c, $me->comitatiDiCompetenza() ) ) { ?>
-            <p><a href="?p=presidente.dash&id=<?php echo $c->id; ?>"><i class="icon-pencil"></i> Modifica od aggiungi aree dal pannello presidente</a>.</p>
+            <p><a href="?p=presidente.dash&id=<?php echo $c->oid(); ?>"><i class="icon-pencil"></i> Modifica od aggiungi aree dal pannello presidente</a>.</p>
           <?php } ?>
           <hr />
           <p><strong>Nome dell'attività</strong></p>
