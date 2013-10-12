@@ -49,9 +49,6 @@ $(document).ready( function() {
             <?php } ?>
 
             <div class="span8 btn-group">
-                <a href="?p=attivita" class="btn btn-large">
-                    <i class="icon-reply"></i> Calendario
-                </a>
                 <?php if ( $a->modificabileDa($me) ) { ?>
                 <a href="?p=attivita.modifica&id=<?php echo $a->id; ?>" class="btn btn-large btn-info">
                     <i class="icon-edit"></i>
