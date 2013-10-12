@@ -36,9 +36,6 @@ $visMinima = $a->visibilitaMinima($g);
         <button type="submit" name="azione" value="salva" class="btn btn-success btn-large">
             <i class="icon-save"></i> Salva l'attività
         </button>
-        <a href="?p=attivita.turni&id=<?= $a ?>" class="btn btn-primary btn-large">
-            <i class="icon-pencil"></i> Modifica turni
-        </a>
     </div>
     
 </div>

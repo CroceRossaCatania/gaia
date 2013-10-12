@@ -57,6 +57,9 @@ $(document).ready( function() {
                     <i class="icon-edit"></i>
                     Modifica
                 </a>
+                <a href="?p=attivita.turni&id=<?= $a ?>" class="btn btn-primary btn-large">
+                    <i class="icon-calendar"></i> Turni
+                </a>
                 <a href="?p=attivita.cancella&id=<?= $a->id; ?>" class="btn btn-large btn-danger" title="Cancella attività e tutti i turni">
                     <i class="icon-trash"></i>
                 </a>
