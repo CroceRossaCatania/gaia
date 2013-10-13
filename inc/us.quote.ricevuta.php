@@ -6,7 +6,7 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $q = $_GET['id'];
-$app = new Quota($q);
+$app = Quota::by('id', $q);
 $p = new PDF('ricevutaquota', 'ricevuta.pdf');
 $p->_COMITATO = $app->comitato()->locale()->nomeCompleto();
 $p->_INDIRIZZO = $app->comitato()->locale()->formattato;
