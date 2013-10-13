@@ -127,7 +127,7 @@ if($i==0){ ?>
           </div>
         <div class="control-group">
             <div class="controls">
-              <button type="submit" class="btn btn-large btn-success <?php if (!$me->unComitato()->gruppi()) {?>disabled" disabled="disabled"<?php } else { ?>"<?php } ?>>
+              <button type="submit" class="btn btn-large btn-success <?php if ($nogruppi) {?>disabled" disabled="disabled"<?php } else { ?>"<?php } ?>>
                   <i class="icon-ok"></i>
                   Iscriviti
               </button>
