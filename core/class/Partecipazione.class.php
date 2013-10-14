@@ -23,7 +23,8 @@ class Partecipazione extends Entita {
     }
 
     public function comitatoAppartenenza() {
-        return $this->turno()->attivita()->comitato();
+        $oid = $this->turno()->attivita()->comitato;
+        return GeoPolitica::daOid($oid);
     }
 
     public function autorizzazioni() {
@@ -60,9 +61,8 @@ class Partecipazione extends Entita {
     public function generaAutorizzazioni() {
         
         /* IMPORTANTE: Logica generazione autorizzazioni */
-        
         // Se richiedo part., nello stesso comitato
-        if ( $this->comitatoAppartenenza()->haMembro($this->volontario()) ) {
+        if ( $this->comitatoAppartenenza()->contieneVolontario($this->volontario()) ) {
             
             /* Allora come da accordi, genero
              * una sola Autorizzazione al referente

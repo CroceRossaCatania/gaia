@@ -66,6 +66,25 @@ abstract class GeoPolitica extends GeoEntita {
         }
         return false;
     }
+
+    /*
+     * Brutto stronzo ti ho fottuto!
+     * ora controllo se il comitato di appartenenza del volontario sta nel sottoalbero
+     */
+    public function contieneVolontario($v) {
+        $c = $v->comitati();
+        if (!$c) {
+            return false;
+        }
+        foreach($c as $comitato) {
+            $g = GeoPolitica::daOid($comitato->oid());
+            if ($this->contiene($g)) {
+                return true;
+            }
+        }
+        return false;
+
+    }
     
     public function unPresidente() {
         $p = $this->presidenti();
@@ -140,15 +159,18 @@ abstract class GeoPolitica extends GeoEntita {
         return $r;
     }
 
-    /** Fix #406 
-     * Per gli alti livelli (non unita'), elenco aree 
-     */
-    public function aree ($obiettivo = null) {
-        $r = [];
-        foreach ( $this->estensione() as $c ) {
-            $r = array_merge($r, $c->aree($obiettivo));
+    public function aree( $obiettivo = null, $espandiLocali = false ) {
+        if ( $obiettivo ) {
+            $obiettivo = (int) $obiettivo;
+            return Area::filtra([
+                ['comitato',    $this->oid()],
+                ['obiettivo',   $obiettivo]
+            ], 'obiettivo ASC'); 
+        } else {
+            return Area::filtra([
+                ['comitato',    $this->oid()]
+            ], 'obiettivo ASC');
         }
-        return array_unique($r);
     }
 
     public function tuttiVolontari() {
