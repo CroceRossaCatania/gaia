@@ -76,7 +76,7 @@ caricaSelettoreComitato();
               <label class="control-label" for="inputCodiceFiscale">Codice Fiscale</label>
             </div>
             <div class="span8">
-                <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale"  required/>
+                <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale" required pattern="[A-Za-z]{6}[0-9]{2}[A-Za-z][0-9]{2}[A-Za-z][0-9]{3}[A-Za-z]" />
             </div>
         </div>
               

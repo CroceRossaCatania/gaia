@@ -11,6 +11,12 @@
     </div>
     <div class="span9">
        <h2 class="allinea-centro"><i class="icon-comments-alt text-warning"></i> Supporto Gaia</h2>
+        <?php if ( isset($_GET['len']) ) { ?>
+        <div class="alert alert-error">
+            <i class="icon-warning-sign"></i>
+            <strong>Errore</strong> &mdash; Il testo deve essere lungo almeno 10 caratteri.
+        </div>
+        <?php } ?>
         <div class="alert alert-block alert-info">
             <h4><i class="icon-question-sign"></i> Hai bisogno di assistenza?</h4>
             <?php if($me->presiede()){?>
