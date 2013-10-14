@@ -17,7 +17,6 @@ if (!$a->haPosizione()) {
 $del        = $me->delegazioni(APP_ATTIVITA);
 $comitati   = $me->comitatiDelegazioni(APP_ATTIVITA);
 $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
-
 ?>
 
 <form action="?p=attivita.modifica.ok" method="POST">
@@ -70,6 +69,7 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
                  <th>Fine</th>
                  <th>Min vv. <a href="#" onclick="$('#i1').toggle(500);"><i class="icon-question-sign"></i></a></th>
                  <th>Max vv. <a href="#" onclick="$('#i1').toggle(500);"><i class="icon-question-sign"></i></a></th>
+                 <th>Prenotazione</th>
                  <th>Partecipazioni</th>
                  <th>&nbsp;</th>
                  <th>&nbsp;</th>
@@ -85,6 +85,7 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
                      $x->nome     = 'Turno 1';
                      $x->minimo   = 1;
                      $x->massimo  = 4;
+                     $x->prenotazione = time();
                      $t[] = $x;
                  }
                  foreach ( $t as $_t ) { ?>
@@ -104,6 +105,9 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
                         <td>
                             <input class="input-mini" type="number" required min="0" max="999" step="1" name="<?php echo $_t->id; ?>_massimo" value="<?php echo $_t->massimo; ?>" />
                         </td>
+                        <td>
+                            <input class="dtprenot span12" required type="text" name="<?php echo $_t->id; ?>_prenotazione" value="<?php echo $_t->prenotazione()->format('d/m/Y H:i'); ?>" />
+                        </td> 
                         <?php
                         $part   = $_t->partecipazioni();
                         $partC  = $_t->partecipazioniStato(PART_OK);
@@ -111,7 +115,7 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
                         <td>
                             <?php echo count($part) ?> richieste;<br />
                             <strong><?php echo count($partC); ?> accettate</strong>
-                        </td>
+                        </td>                
                         <!-- <td>
                             <a href="?p=attivita.richiesta.turni&id=<?php echo $_t->id; ?>" class="btn btn-primary">
                                 <i class="icon-plus"></i>

@@ -117,36 +117,35 @@ foreach ($gruppi as $gruppo){
                                     <i class="icon-random"></i> 
                                     <?php if($gruppo->estensione() != null){ echo $conf['est_grp'][$gruppo->estensione()]; }else{ ?> Seleziona una estensione per il gruppo <?php } ?>
                                 </a>
-                     <?php } if ( $me->presidenziante() || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
+                        <?php } if ( $me->presidenziante() || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
                                 <a class="btn btn-small btn-info pull-right" href="?p=gruppo.modifica&id=<?= $gruppo->id; ?>" title="Modifica gruppo">
                                     <i class="icon-edit"></i>
                                 </a>
-                                <form class="pull-right" action="?p=gruppi.utente.aggiungi&id=<?php echo $gruppo->id; ?>" method="POST" style="margin-bottom: 0px;">
-                                    <a data-selettore="true" data-input="volontari" data-autosubmit="true" data-multi="true" class="btn btn-small btn-success">
-                                        <i class="icon-plus"></i>
-                                        Aggiungi volontari
-                                    </a>
-                                </form>
-                                
                         <?php } ?>
+                        <form class="pull-right" action="?p=gruppi.utente.aggiungi&id=<?php echo $gruppo->id; ?>" method="POST" style="margin-bottom: 0px;">
+                            <a data-selettore="true" data-input="volontari" data-autosubmit="true" data-multi="true" class="btn btn-small btn-success">
+                                <i class="icon-plus"></i>
+                                Aggiungi volontari
+                            </a>
+                        </form>
                     </td>
                 </tr>
     <?php
         foreach($g as $volontario){
-            $gp = AppartenenzaGruppo::filtra([['volontario',$volontario->id],['gruppo',$gruppo->id],['fine', NULL]]);
+            $gp = AppartenenzaGruppo::filtra([['volontario',$volontario->id],['gruppo',$gruppo->id]]);
     ?>
                     <tr>
                         <td><?= $volontario->cognome; ?>      </td>
                         <td><?= $volontario->nome; ?>         </td>
                         <td><?= $volontario->cellulare(); ?>  </td>
                         <td><?= $volontario->unComitato()->nome; ?></td>
-                        <td><?= date('d/m/Y', $gp[0]->inizio); ?></td>
+                        <td><?php echo date('d/m/Y', $volontario->gruppoAttuale($gruppo)->inizio); ?></td>
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-small" href="?p=public.utente&id=<?php echo $volontario->id; ?>" target="_new"  title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>
-                                <?php if ( $me->presidenziante() || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
+                                <?php if ( $me->presidenziante() || $me->admin() || $me->gruppiDiCompetenza()){ ?>
                                     <a class="btn btn-small btn-danger" href="?p=gruppo.utente.espelli&id=<?= $gp[0]; ?>" title="Espelli dal gruppo" onclick="return confirm('Sei davvero sicuro di voler espellere il volontario dal gruppo?');">
                                         <i class="icon-ban-circle"></i> Espelli dal gruppo
                                     </a>

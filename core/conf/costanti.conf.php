@@ -259,7 +259,7 @@ $conf['applicazioni'] = [
 define('ATT_VIS_UNITA',         10);
 define('ATT_VIS_LOCALE',        20);
 define('ATT_VIS_PROVINCIALE',   30);
-//...
+define('ATT_VIS_REGIONALE',     40);
 define('ATT_VIS_VOLONTARI',     80);
 define('ATT_VIS_PUBBLICA',      90);
 
@@ -267,6 +267,7 @@ $conf['att_vis'] = [
     ATT_VIS_UNITA           =>  'Unità territoriale',
     ATT_VIS_LOCALE          =>  'Comitato Locale',
     ATT_VIS_PROVINCIALE     =>  'Comitato Provinciale',
+    ATT_VIS_REGIONALE       =>  'Comitato Regionale',
     ATT_VIS_VOLONTARI       =>  'Tutti i Volontari della Croce Rossa Italiana',
     ATT_VIS_PUBBLICA        =>  'Pubblica: Volontari e civili'
 ];
@@ -423,7 +424,7 @@ $conf['veicoli'] = [
 
 /*
  * ===================================
- * =========== ESTENSIONE ============
+ * ====== ESTENSIONE TERRITORIALE ====
  * ===================================
  */
 

@@ -26,4 +26,5 @@ class Titolo extends Entita {
         }
         parent::cancella();
     }
+
 }

@@ -90,14 +90,13 @@ $(document).ready(function() {
                     Obiettivi strategici
                 </a>
             </li>
-            
-            <?php if ( $c instanceOf Comitato ) { ?>
             <li>
                 <a data-toggle="tab" href="#aree">
                     <i class='icon-compass'></i>
                     Aree di intervento
                 </a>
             </li>
+            <?php if ( $c instanceOf Comitato ) { ?>
             <li>
                 <a data-toggle="tab" href="#referenti">
                     <i class='icon-group'></i>

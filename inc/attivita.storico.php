@@ -69,7 +69,7 @@ richiediComitato();
                         <?php echo $part->turno()->nome;  ?><br />
                         <?php echo $part->turno()->inizio()->inTesto(); ?></p>
                         
-                        <a href="?p=attivita.scheda&id=<?php echo $part->attivita()->id; ?>">
+                        <a href="?p=attivita.scheda&id=<?php echo $part->attivita()->id.'#'.$part->turno()->id ; ?>">
                             <i class="icon-reply"></i> Vedi dettagli attività
                         </a>
                     </td>
