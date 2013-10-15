@@ -325,16 +325,18 @@ $(document).ready( function() {
                                                 <?php foreach ( $accettate as $v ) { ?>
                                                 <li>
                                                     <a href="?p=public.utente&id=<?php echo $v->id; ?>" target="_new">
-                                                        <?php   $colore = "#222"; 
+                                                        <?php   $potere = true;
+                                                                $colore = "#222"; 
                                                                 if ($turno->partecipazione($v)->poteri()) { 
                                                                     $colore = "#0000FF"; 
+                                                                    $potere = false;
                                                                 }
                                                                 echo "<span style='color: {$colore};'>"; 
                                                                 echo $v->nomeCompleto(); 
                                                                 echo "</span>";
                                                         ?>
                                                     </a>
-                                                    <?php if( $me->delegazioni(APP_CO) && $a->modificabileDa($me) && !$turno->partecipazione($v)->poteri()){ ?>
+                                                    <?php if( $me->delegazioni(APP_CO) && $a->modificabileDa($me) && $potere){ ?>
                                                     <a class="btn btn-small" href="?p=attivita.poteri&v=<?= $v->id; ?>&turno=<?= $turno; ?>">
                                                         <i class="icon-rocket" ></i> Conferisci poteri
                                                     </a>
