@@ -31,7 +31,7 @@ class Delegato extends Entita {
 	$ora = time();
         if (
 	    ( !$this->fine || $this->fine > $ora )
-	      && $this->inizio <= $this->fine ) {
+	      && $this->inizio <= $ora ) {
             return true;
         } else {
             return false;
