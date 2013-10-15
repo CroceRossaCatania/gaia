@@ -28,7 +28,10 @@ class Delegato extends Entita {
     }
 
     public function attuale() {
-        if ( !$this->fine || $this->fine > time() ) {
+	$ora = time();
+        if (
+	    ( !$this->fine || $this->fine > $ora )
+	      && $this->inizio <= $this->fine ) {
             return true;
         } else {
             return false;
