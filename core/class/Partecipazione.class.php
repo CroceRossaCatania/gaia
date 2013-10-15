@@ -132,4 +132,13 @@ class Partecipazione extends Entita {
         
     }
 
+    public function poteri(){
+
+        return (bool) Delegato::filtra([
+                ['partecipazione', $this], 
+                ['volontario', $this->volontario()]
+                ]);
+
+    }
+
 }
