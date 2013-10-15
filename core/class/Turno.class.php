@@ -15,13 +15,17 @@ class Turno extends Entita {
     }
 
     public function inizio() {
-    	return DT::daTimestamp($this->inizio);
+        return DT::daTimestamp($this->inizio);
     }
 
     public function fine() {
-    	return DT::daTimestamp($this->fine);
+        return DT::daTimestamp($this->fine);
     }
     
+    public function prenotazione() {
+        return DT::daTimestamp($this->prenotazione);
+    }
+
     public function partecipazioni() {
         return Partecipazione::filtra([
             ['turno',   $this->id]
@@ -108,7 +112,7 @@ class Turno extends Entita {
     
     public function puoRichiederePartecipazione($v) {
         if ( $v === null || $v instanceof Anonimo ) { return true; }
-        return (( time() <= $this->fine ) && $this->attivita()->puoPartecipare($v));
+        return (( time() <= $this->fine ) && ( time() <= $this->prenotazione ) && $this->attivita()->puoPartecipare($v));
     }
 
     public function scoperto() {

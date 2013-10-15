@@ -364,12 +364,12 @@ class Comitato extends GeoPolitica {
         if ( $obiettivo ) {
             $obiettivo = (int) $obiettivo;
             return Area::filtra([
-                ['comitato',    $this->id],
+                ['comitato',    $this->oid()],
                 ['obiettivo',   $obiettivo]
             ], 'obiettivo ASC'); 
         } else {
             return Area::filtra([
-                ['comitato',    $this->id]
+                ['comitato',    $this->oid()]
             ], 'obiettivo ASC');
         }
     }
@@ -382,11 +382,19 @@ class Comitato extends GeoPolitica {
     
     public function gruppi() {
         $g = Gruppo::filtra([
-            ['comitato',    $this->id]
+            ['comitato',    $this->oid()]
         ], 'nome ASC');
         $c = $this->locale();
+        $g = array_merge($g, Gruppo::filtra([['comitato', $c->oid()],['estensione', EST_GRP_LOCALE]]));
         $locali = $c->figli();
+
+        /*
+         * La parte qua sotto vuol dire che noi facciamo dei gruppo di attività di unità
+         * aperte al comitato..... Ora..... perchè non facciamo attività aperte al comitato?
+         */
+        
         foreach ($locali as $loc){
+            $loc = $loc->oid();
             $g = array_merge($g, Gruppo::filtra([['comitato', $loc],['estensione', EST_GRP_LOCALE]]));
         }
         return array_unique($g);

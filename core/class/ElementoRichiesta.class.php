@@ -12,4 +12,9 @@ class ElementoRichiesta extends Entita {
         public function titolo() {
             return Titolo::id($this->titolo);
         }
+
+     	public function richiesta() {
+            return new RichiestaTurno($this->richiesta);
+        }
+
 }

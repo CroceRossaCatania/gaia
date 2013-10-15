@@ -7,7 +7,7 @@ class Gruppo extends Entita {
         $_dt = null;
     
     public function comitato() {
-        return Comitato::id($this->comitato);
+        return GeoPolitica::daOid($this->comitato);
     }
     
     public function referente() {

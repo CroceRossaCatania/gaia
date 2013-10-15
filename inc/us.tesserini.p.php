@@ -12,14 +12,14 @@ $t = Volontario::id($f);
 #fronte{
     width:330px;
     height:200px;
-    background-image: url('http://beta.cricatania.it/federico.durso/img/tesserino_fronte.jpg');
+    background-image: url('/img/tesserino_fronte.jpg');
     position:relative;
 }
 
 #retro{
     width:330px;
     height:200px;
-    background-image: url('http://beta.cricatania.it/federico.durso/img/tesserino_retro.png');
+    background-image: url('/img/tesserino_retro.png');
     position:relative;
 }
 

@@ -26,12 +26,17 @@ $m->invia();
 if(isset($_GET['g'])){
     $g = new Gruppo();
     $g->nome        =   $attivita->nome;
-    $g->comitato    =   $attivita->comitato()->id;
+    $g->comitato    =   $attivita->comitato()->oid();
     $g->obiettivo   =   $attivita->area()->obiettivo;
     $g->area        =   $attivita->area();
     $g->referente   =   $referente;
     $g->attivita 	=	$attivita;
-    $g->estensione	=	EST_GRP_UNITA;
+    if ($attivita->comitato()->_estensione() == EST_UNITA) {
+        $g->estensione  =   EST_GRP_UNITA;    
+    } else {
+        $g->estensione  =   EST_GRP_LOCALE;
+    }
+    
 }
     
 if ( $me->id == $referente->id ) {

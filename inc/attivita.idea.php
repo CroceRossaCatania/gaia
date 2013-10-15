@@ -12,7 +12,7 @@ if (!isset($_GET['c'])) {
     redirect('attivita.comitato');
 }
 $c = $_GET['c'];
-$c = Comitato::id($c);
+$c = GeoPolitica::daOid($c);
 
 $comitati = $me->comitatiAreeDiCompetenza();
 $aree     = $me->areeDiCompetenza($c);
@@ -23,7 +23,7 @@ if (!in_array($c, $comitati)) {
 ?>
 <form action="?p=attivita.idea.ok" method="POST">
 
-<input type="hidden" name="comitato" value="<?php echo $c->id; ?>" />
+<input type="hidden" name="comitato" value="<?php echo $c->oid(); ?>" />
 
 <div class="modal fade automodal">
         <div class="modal-header">
@@ -41,17 +41,19 @@ if (!in_array($c, $comitati)) {
               <?php } ?>
           </select>
           <?php if ( in_array($c, $me->comitatiDiCompetenza() ) ) { ?>
-            <p><a href="?p=presidente.dash&id=<?php echo $c->id; ?>"><i class="icon-pencil"></i> Modifica od aggiungi aree dal pannello presidente</a>.</p>
+            <p><a href="?p=presidente.comitato&oid=<?php echo $c->oid(); ?>"><i class="icon-pencil"></i> Modifica od aggiungi aree dal pannello presidente</a>.</p>
           <?php } ?>
           <hr />
           <p><strong>Nome dell'attività</strong></p>
           <p>Ricorda: I nomi migliori son corti e memorabili.</p>
           <input type="text" required name="inputNome" class="input-xlarge" placeholder="es.: Aggiungi un posto a tavola" />
+          <?php if($c->_estensione() < EST_PROVINCIALE) { ?>
           <input type="hidden" name="inputGruppo" value="0" />
           <label>
           <input type="checkbox" name="inputGruppo" value="1" />
           <span class="muted">Opzionale &mdash;</span> Creare un <strong>Gruppo di lavoro</strong> per l'attività?
           </label>
+          <?php } ?>
           
         </div>
         <div class="modal-footer">

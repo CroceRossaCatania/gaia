@@ -8,9 +8,10 @@ paginaAnonimo();
 caricaSelettore();
 $a = Attivita::id($_GET['id']);
 
+$geoComitato = GeoPolitica::daOid($a->comitato);
 $_titolo = $a->nome . ' - Attività CRI su Gaia';
 $_descrizione = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita]
-." || Organizzato da " . $a->comitato()->nomeCompleto();
+." || Organizzato da " . $geoComitato->nomeCompleto();
 
 $g = Gruppo::by('attivita', $a);
 if ( isset($_GET['riapri']) ) { ?>
@@ -48,18 +49,18 @@ $(document).ready( function() {
             <?php } ?>
 
             <div class="span8 btn-group">
-                <a href="?p=attivita" class="btn btn-large">
-                    <i class="icon-reply"></i> Calendario
-                </a>
                 <?php if ( $a->modificabileDa($me) ) { ?>
                 <a href="?p=attivita.modifica&id=<?php echo $a->id; ?>" class="btn btn-large btn-info">
                     <i class="icon-edit"></i>
                     Modifica
                 </a>
+                <a href="?p=attivita.turni&id=<?= $a ?>" class="btn btn-primary btn-large">
+                    <i class="icon-calendar"></i> Turni
+                </a>
                 <a href="?p=attivita.cancella&id=<?= $a->id; ?>" class="btn btn-large btn-danger" title="Cancella attività e tutti i turni">
                     <i class="icon-trash"></i>
                 </a>
-                <?php if (!$g){ ?>
+                <?php if (!$g && $a->comitato()->_estensione() < EST_PROVINCIALE){ ?>
                     <a class="btn btn-large btn-success" href="?p=attivita.gruppo.nuovo&id=<?php echo $a->id; ?>" itle="Crea nuovo gruppo di lavoro">
                         <i class="icon-group"></i> Crea gruppo
                     </a>
@@ -132,7 +133,9 @@ $(document).ready( function() {
                     <i class="icon-home"></i>
                     Organizzato da
                 </span><br />
-                <span class="text-info"><?php echo $a->comitato()->nomeCompleto(); ?></span>
+                <span class="text-info">
+                <?php echo $geoComitato->nomeCompleto(); ?>
+                </span>
             </div>
             <div class="span3">
                 <span>
@@ -267,6 +270,7 @@ $(document).ready( function() {
                         <tr<?php if ( $turno->scoperto() ) { ?> class="warning"<?php } ?> data-timestamp="<?php echo $turno->fine()->toJSON(); ?>">
 
                         <td>
+                            <a id="<?php echo $turno->id; ?>">
                             <big><strong><?php echo $turno->nome; ?></strong></big>
                             <br />
                             <?php echo $turno->durata()->format('%H ore %i min'); ?>
@@ -274,6 +278,7 @@ $(document).ready( function() {
                         <td>
                             <big><?php echo $turno->inizio()->inTesto(); ?></big><br />
                             <span class="muted">Fine: <strong><?php echo $turno->fine()->inTesto(); ?></strong></span>
+                            <span>Prenotarsi entro: <strong><?php echo $turno->prenotazione()->inTesto(); ?></strong></span>
                         </td>
                         <td>
                             <?php if ( $turno->scoperto() ) { ?>
@@ -419,11 +424,10 @@ $(document).ready( function() {
                                     </a>
                                 <?php } 
                             } else { ?>
-                            <a class="btn btn-block disabled">
-                                <i class="icon-info-sign"></i>
-                                Non puoi partecipare
-                            </a>
-
+                                <a class="btn btn-block disabled">
+                                    <i class="icon-info-sign"></i>
+                                    Non puoi partecipare
+                                </a>
                             <?php } ?>
                         </td>
                     </tr>
