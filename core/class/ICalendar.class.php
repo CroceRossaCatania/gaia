@@ -11,7 +11,7 @@ class ICalendar extends File {
         $att = Attivita::id($attivita);
         $turno = Turno::id($turno);
         $ref = Volontario::id($att->referente);
-        $c = Comitato::id($att->comitato);
+        $c = $att->comitato();
         $name = ''.date('Ymd_THis', $turno->inizio).'_'.$turno->id.'_.ics';
 
         /* Strutturo il file */
