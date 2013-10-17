@@ -85,24 +85,7 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
 
     }
         }
-    $excel->genera("Volontari senior {$c->nome}.xls");
-    }elseif(isset($_GET['senior'])){
-        foreach ( $c->membriAttuali() as $v ) {
-            $t = time()-GIOVANI;
-            if ($t >  $v->dataNascita){
-
-        $excel->aggiungiRiga([
-            $v->nome,
-            $v->cognome,
-            $v->codiceFiscale,
-            $v->email,
-            $v->cellulare,
-            $v->cellulareServizio
-        ]);
-
-    }
-        }
-    $excel->genera("Volontari senior {$c->nome}.xls");
+    $excel->genera("Volontari giovani {$c->nome}.xls");
     }elseif(isset($_GET['eleatt'])){
         $time = $_GET['time'];
         $time = DT::daTimestamp($time);
