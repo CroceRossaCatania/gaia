@@ -25,6 +25,9 @@
             data-attendere="Generazione lista...">
             <i class="icon-list"></i>
             Volontari giovani
+        </a> /
+        <a href="?p=presidente.utenti.senior">
+             senior
         </a><br />
         <a href="?p=presidente.utenti.estesi"
             data-attendere="Generazione lista...">
@@ -43,7 +46,7 @@
 	        <a href="<?php echo $_link_excel; ?>" data-attendere="Generazione e compressione in corso...">
 	            <i class="icon-download-alt"></i>
 	            Scarica elenco <?php echo $_lista_attiva; ?> (ZIP)
-	        </a><br />  
+	        </a><br />
         <?php } ?>     
         <?php if ( $_link_email ) { ?>
 	        <a href="<?php echo $_link_email; ?>">
