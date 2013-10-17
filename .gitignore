@@ -29,6 +29,3 @@ upload/setup/autopull
 
 # Mantieni i placeholder
 !upload/avatar/placeholder/
-
-.settings/*
-.project
