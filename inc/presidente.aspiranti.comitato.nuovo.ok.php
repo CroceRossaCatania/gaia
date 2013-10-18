@@ -18,7 +18,7 @@ $a->fine        = PROSSIMA_SCADENZA;
 $a->timestamp = time();
 $a->stato     = MEMBRO_VOLONTARIO;
 $a->conferma  = $me;
-$v = new Volontario($v);
+$v = Volontario::id($v);
 $v->stato    = VOLONTARIO;
 
 /*Generazione password*/

@@ -8,7 +8,7 @@ paginaPrivata();
 paginaAttivita();
 
 $attivita = $_GET['id'];
-$attivita = new Attivita($attivita);
+$attivita = Attivita::id($attivita);
 
 $g = new Gruppo();
 	$g->nome        =   $attivita->nome;

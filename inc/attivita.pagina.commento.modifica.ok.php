@@ -8,7 +8,7 @@ paginaPrivata();
 
 $a = $_GET['id'];
 
-$a = new Commento($a);
+$a = Commento::id($a);
 $a->commento = $_POST['inputCommento'];
 $a->tCommenta = time();
 

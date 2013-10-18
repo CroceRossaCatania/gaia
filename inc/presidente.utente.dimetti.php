@@ -6,7 +6,7 @@
 
 paginaPresidenziale();
 $v = $_GET['id'];
-$v = Volontario::by('id', $v);
+$v = Volontario::id($v);
 ?>
 <div class="row-fluid">
     <div class="span12">

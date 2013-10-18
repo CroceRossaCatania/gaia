@@ -11,7 +11,7 @@ class Documento extends Entita {
             $_dt    = null;
     
     public function utente() {
-        return new Utente($this->utente);
+        return Utente::id($this->utente);
     }
     
     protected function generaId() {

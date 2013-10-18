@@ -7,10 +7,10 @@
 paginaPrivata();
 
 $f = $_GET['id'];
-$t = Trasferimento::by('id', $f);
+$t = Trasferimento::id($f);
 $cin = $t->comitato();
 
-$cout = Comitato::by('id', $t->cProvenienza);
+$cout = Comitato::id($t->cProvenienza);
 $app = Appartenenza::filtra([
     ['volontario',  $t->volontario()->id],
     ['comitato',    $cout->id]

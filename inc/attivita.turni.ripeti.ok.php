@@ -5,7 +5,7 @@
  */
 
 $t = $_GET['t'];
-$x = new Turno($t);
+$x = Turno::id($t);
 $a = $x->attivita();
 $volte = $_POST['inputGiorni'];
 

@@ -11,11 +11,11 @@ class Reperibilita extends Entita {
         $_dt = null;
     
     public function volontario() {
-        return new Volontario($this->volontario);
+        return Volontario::id($this->volontario);
     }
     
     public function comitato() {
-        return new Comitato($this->comitato);
+        return Comitato::id($this->comitato);
     }
     
     public function attuale() {

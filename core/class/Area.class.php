@@ -11,7 +11,7 @@ class Area extends Entita {
     }
     
     public function responsabile() {
-        return new Volontario($this->responsabile);
+        return Volontario::id($this->responsabile);
     }
     
     public function attivita() {

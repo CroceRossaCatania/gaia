@@ -8,7 +8,7 @@ paginaPrivata();
 
 $t = $_GET['id'];
 $g = $_POST['inputGruppo'];
-$g = new Gruppo($g);
+$g = Gruppo::id($g);
 /* Cerco se già iscritto a gruppo */
 $x = AppartenenzaGruppo::filtra([
   ['volontario',    $t],

@@ -80,7 +80,7 @@ class APIServer {
         
         public function api_user() {
             $this->richiedi(['id']);
-            $u = new Utente($this->par['id']);
+            $u = Utente::id($this->par['id']);
             return $u->toJSON();
         }
     
@@ -225,7 +225,7 @@ class APIServer {
         public function api_autorizza() {
             $this->richiedi(['id']);
             $this->richiediLogin();
-            $aut = new Autorizzazione($this->par['id']);
+            $aut = Autorizzazione::id($this->par['id']);
             if ( $aut->stato == AUT_PENDING ) {
                 
                 $turno = $aut->partecipazione()->turno();
@@ -285,7 +285,7 @@ class APIServer {
         public function api_area_cancella() {
             $this->richiediLogin();
             $this->richiedi(['id']);
-            $area = new Area($this->par['id']);
+            $area = Area::id($this->par['id']);
             if ( $area->attivita() ) {
                 throw new Errore(9050);
             }

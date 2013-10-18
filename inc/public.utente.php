@@ -7,10 +7,8 @@
 paginaPrivata();
 
 $f = $_GET['id']; 
-$t= Persona::filtra([
-  ['id', $f]
-]);
-$g= Volontario::by('id',$f);
+$t= Persona::id($f);
+$g= Volontario::id($f);
 $a=TitoloPersonale::filtra([['volontario',$f]]);
 ?>
 <!--Visualizzazione e modifica anagrafica utente-->

@@ -9,7 +9,7 @@ paginaPresidenziale();
 $e     = $_GET['id'];
 
 
-                                    $a = new Estensione($e);
+                                    $a = Estensione::id($e);
                                     $a->protNumero = $_POST['numprotocollo'];
                                     $protData = @DateTime::createFromFormat('d/m/Y', $_POST['dataprotocollo']);
                                     $protData = @$protData->getTimestamp();

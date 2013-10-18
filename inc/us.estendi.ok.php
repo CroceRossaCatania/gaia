@@ -7,14 +7,14 @@
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 $t = $_POST['inputVolontario'];
-$t = new Volontario($t);
+$t = Volontario::id($t);
 $c = $_POST['inputComitato'];
 
 if ( !$c ) {
     redirect('us.utente.estendi&c');
 }
 
-$c = new Comitato($c);
+$c = Comitato::id($c);
 $m = $_POST['inputMotivo'];
 
 /* Cerco appartenenze al comitato specificato */

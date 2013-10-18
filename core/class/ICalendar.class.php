@@ -8,9 +8,9 @@ class ICalendar extends File {
     
     public function genera($attivita, $turno) {
 
-        $att = new Attivita($attivita);
-        $turno = new Turno($turno);
-        $ref = new Volontario($att->referente);
+        $att = Attivita::id($attivita);
+        $turno = Turno::id($turno);
+        $ref = Volontario::id($att->referente);
         $c = $att->comitato();
         $name = ''.date('Ymd_THis', $turno->inizio).'_'.$turno->id.'_.ics';
 

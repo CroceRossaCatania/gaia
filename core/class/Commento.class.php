@@ -11,7 +11,7 @@ class Commento extends Entita {
         $_dt = null;
         
     public function volontario() {
-        return new Volontario($this->volontario);
+        return Volontario::id($this->volontario);
     }
     
     public function autore() {

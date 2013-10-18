@@ -2,7 +2,7 @@
 paginaPrivata();
 
 $t = $_GET['t'];
-$tp = TitoloPersonale::by('id', $t);
+$tp = TitoloPersonale::id($t);
 $r = $tp->titolo()->tipo;
 ?>
 <form action="?p=utente.titolo.modifica.ok&t=<?php echo $t; ?>" method="POST">

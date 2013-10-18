@@ -6,7 +6,7 @@
 
 paginaAnonimo();
 caricaSelettore();
-$a = new Attivita($_GET['id']);
+$a = Attivita::id($_GET['id']);
 
 $geoComitato = GeoPolitica::daOid($a->comitato);
 $_titolo = $a->nome . ' - Attività CRI su Gaia';
@@ -445,3 +445,4 @@ $(document).ready( function() {
             </div>
         </div>
     </div>
+    

@@ -8,7 +8,7 @@ paginaAdmin();
 
 $t = $_GET['id'];
 
-$t = new Titolo($t);
+$t = Titolo::id($t);
 $t->tipo = $_POST['inputTipo'];
 $t->nome = maiuscolo( $_POST['inputNome'] );
    

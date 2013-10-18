@@ -11,7 +11,7 @@ class Turno extends Entita {
         $_dt = null;
     
     public function attivita() {
-        return new Attivita($this->attivita);
+        return Attivita::id($this->attivita);
     }
 
     public function inizio() {
@@ -101,7 +101,7 @@ class Turno extends Entita {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Turno($k[0]);
+            $r[] = Turno::id($k[0]);
         }
         return $r;
     }

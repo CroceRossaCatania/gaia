@@ -10,7 +10,7 @@ $c = $_GET['oid'];
 $c = GeoPolitica::daOid($c);
 
 $d = $_GET['id'];
-$d = new Delegato($d);
+$d = Delegato::id($d);
 
 $app        = (int) $d->applicazione;
 $app_nome   = $conf['applicazioni'][$app];

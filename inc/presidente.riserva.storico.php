@@ -6,7 +6,7 @@
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 $v = $_GET['id'];
-$v = Volontario::by('id', $v);
+$v = Volontario::id($v);
 proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
 ?>
 <div class="row-fluid">

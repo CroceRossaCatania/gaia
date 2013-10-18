@@ -11,7 +11,7 @@ $comitato = $_POST['comitato'];
 $comitato = GeoPolitica::daOid($comitato);
 
 $area     = $_POST['inputArea'];
-$area     = new Area($area);
+$area     = Area::id($area);
 
 $attivita           = new Attivita();
 $attivita->stato    = ATT_STATO_BOZZA;

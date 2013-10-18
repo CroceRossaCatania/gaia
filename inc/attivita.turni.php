@@ -8,7 +8,7 @@ paginaPrivata();
 paginaAttivita();
 caricaSelettore();
 
-$a = new Attivita(@$_GET['id']);
+$a = Attivita::id($_GET['id']);
 
 if (!$a->haPosizione()) {
     redirect('attivita.localita&id=' . $a->id);
@@ -157,4 +157,4 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
     
 <!--Mappa-->    
 </div>
-</form
+</form>

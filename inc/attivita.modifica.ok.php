@@ -1,7 +1,7 @@
 <?php
 
 $id = $_POST['id'];
-$a = new Attivita($id);
+$a = Attivita::id($id);
 
 if ( isset($_POST['inputNome']) ) {
     $a->nome            = normalizzaTitolo($_POST['inputNome']);
@@ -45,7 +45,7 @@ switch ( $_POST['azione'] ) {
     
     default:
         /* Cancella un turno ... */
-        $t = new Turno($_POST['azione']);
+        $t = Turno::id($_POST['azione']);
         $t->cancella();
         redirect('attivita.turni&id=' . $a->id);
         break;

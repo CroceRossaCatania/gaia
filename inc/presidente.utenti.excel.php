@@ -6,7 +6,7 @@
 
 
 $c = $_GET['comitato'];
-$c = new Comitato($c);
+$c = Comitato::id($c);
 
 paginaApp([APP_SOCI , APP_PRESIDENTE, APP_OBIETTIVO], [$c]);
 
@@ -214,7 +214,7 @@ $excel->download();
     ]);
     
         foreach ( $c->membriRiserva() as $r ) {
-        $r = new Riserva($r);
+        $r = Riserva::id($r);
         $v = $r->volontario();
         
         $excel->aggiungiRiga([

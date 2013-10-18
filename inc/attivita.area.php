@@ -6,7 +6,7 @@
 
 paginaPrivata();
 $a = $_GET['id'];
-$a = new Attivita($a);
+$a = Attivita::id($a);
 
 ?>
     <form action="?p=attivita.obiettivo.ok" method="POST">
