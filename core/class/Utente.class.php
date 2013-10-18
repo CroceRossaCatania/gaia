@@ -347,8 +347,20 @@ class Utente extends Persona {
     }
     
     public function presiede( $comitato = null ) {
+        if ( $this->admin() ) {
+            return $this->comitatiDiCompetenza();
+        }
         if ( $comitato ) {
-            return (bool) in_array($comitato, $this->comitatiApp([APP_PRESIDENTE]));
+            //return (bool) in_array($comitato, $this->comitatiApp([APP_PRESIDENTE]));
+            if ($this->id == $comitato->unPresidente()->id) {
+                return true;
+            }
+            return false;
+            /*
+             * Se stai leggendo ciò vuol dire che sei un illuminato
+             * e hai compreso che è necessario che questa funzione
+             * ritorni l'elenco corretto di cosa tu presiedi 
+             */
         } else {
             return (bool) $this->comitatiApp([APP_PRESIDENTE]);
         }
@@ -812,7 +824,7 @@ class Utente extends Persona {
             foreach ( $this->delegazioni(APP_OBIETTIVO) as $d ) {
                 $r = array_merge(
                         $r,
-                        $d->comitato()->aree($d->dominio)
+                        $d->comitato()->aree($d->dominio, $espandiLocale)
                 );
             }
             $r = array_merge($r, $this->areeDiResponsabilita());
