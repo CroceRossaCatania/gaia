@@ -76,7 +76,7 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
              </thead>
              
                  <?php 
-                 $t = $a->turni();
+                 $t = $a->turniFut();
                  if ( !$t ) {
                      $x = new Turno();
                      $x->attivita = $a->id;

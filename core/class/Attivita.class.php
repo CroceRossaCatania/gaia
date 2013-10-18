@@ -36,6 +36,29 @@ class Attivita extends GeoEntita {
         ], 'inizio ASC, nome ASC');
     }
     
+    public function turniFut(){
+        global $db;
+        $q = $db->prepare("
+            SELECT
+                id
+            FROM
+                turni
+            WHERE
+                attivita = :attivita
+            AND
+                fine > :ora
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':attivita', $this);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Turno::id($k[0]);
+        }
+        return $r;
+    }
+
     public function turniScoperti() {
         $t = [];
         foreach ( $this->turni() as $_t ) {

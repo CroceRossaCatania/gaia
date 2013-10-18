@@ -415,11 +415,11 @@ $(document).ready( function() {
                             <?php } 
                             } elseif ( $turno->puoRichiederePartecipazione($me) && !$me->inriserva()) { 
                                 if($turno->pieno()) { ?> 
-                                    <a name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-warning btn-block">
+                                    <a data-attendere="Attendere..." name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-warning btn-block">
                                         <i class="icon-warning-sign"></i> Dai disponibilità
                                     </a>
                                 <?php } else  { ?>
-                                    <a name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-success btn-large btn-block">
+                                    <a data-attendere="Attendere..." name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-success btn-large btn-block">
                                         <i class="icon-ok"></i> Partecipa
                                     </a>
                                 <?php } 
