@@ -73,7 +73,8 @@ foreach ( $prov as $_prov ){
                             <ul>
                                 <h5><li>Dati inerenti il <?php echo $locale->nomeCompleto(); ?></li></h5>
                                 <ul>
-                                    <?php   $unit = $locale->comitati();
+                                    <?php   $h=0;
+                                            $unit = $locale->comitati();
                                             if (!$unit){ 
                                                 echo "Non esistono unità territoriali per questo comitato";
                                                 continue;
@@ -92,7 +93,10 @@ foreach ( $prov as $_prov ){
                                                 } 
                                                 $volPen = count($_unit->appartenenzePendenti());
                                                 $titPen = count($_unit->titoliPendenti());
-                                                $isc = $_unit->numMembriAttuali(); ?>
+                                                $isc = $_unit->numMembriAttuali();
+                                                if($h==0){ ?>
+                                                    <p>Il Presidente su Gaia del <?php echo $locale->nomeCompleto(); ?> risulta essere <strong><?php echo $pres; ?></strong></p>
+                                                <?php $h=1; } ?>
                                                 <p><li><strong><?php echo $_unit->nomeCompleto(); ?></strong></li></p>
                                                 <p>Sono presenti in questa unità territoriale <strong><?php echo $isc; ?></strong> volontari iscritti</p>
                                                 <p>Vi sono <strong><?php echo $volPen; ?></strong> volontari che attendono di essere confermati</p>
