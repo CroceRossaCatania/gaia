@@ -11,7 +11,7 @@ $comitati = $me->comitatiDiCompetenza();
 $prov = $g->provinciali();
 $cLoc=0;
 $unit=0;
-$numVol=0;
+$numVol = 0;
 $a=0;
 foreach ( $prov as $_prov ){
     $locali = $_prov->locali();
@@ -20,10 +20,8 @@ foreach ( $prov as $_prov ){
         $unit = $locale->comitati();
         foreach ( $unit as $_unit ){
             $cUnit++;
-            $volUnit = $_unit->membriAttuali();
-            foreach ( $volUnit as $_volUnit ){
-                $numVol++;
-            }
+            $volUnit = count($_unit->membriAttuali());
+            $numVol = $numVol+$volUnit;
         }
     }
 }
@@ -81,40 +79,31 @@ foreach ( $prov as $_prov ){
                                                 continue;
                                             }
                                             foreach ( $unit as $_unit ){ 
-                                                $presidenti = $_unit->presidenti();
-                                                if ( !$presidenti ) { 
-                                                        $locale = $_unit->locale();
-                                                        $presidenti = $locale->presidenti();
-                                                }
+                                                $presidenti = $_unit->locale()->presidenti();
                                                 if ( !$presidenti ) {
                                                     $pres = "Nessun Presidente iscritto";
-                                                    $volPen = "0";
-                                                    $titPen = "0";
-                                                    $isc = "0";
                                                 }
                                                 foreach ( $presidenti as $presidente ){
                                                     if ( $presidente->attuale() ){
                                                         $pres = $presidente->volontario()->nomeCompleto(); 
-                                                        $volPen = $presidente->volontario()->numAppPending(APP_PRESIDENTE);
-                                                        $titPen = $presidente->volontario()->NumTitoliPending(APP_PRESIDENTE);
-                                                        $isc = count($_unit->membriAttuali()); 
                                                     }else{  
                                                         $pres = "Nessun Presidente iscritto";
                                                     }
-                                                } ?>
-                                                    <p><li><strong><?php echo $_unit->nomeCompleto(); ?></strong></li></p>
-                                                    <p>Il Presidente su Gaia del <?php echo $_unit->nomeCompleto(); ?> risulta essere <strong><?php echo $pres; ?></strong></p>
-                                                    <p>Sono presenti in questa unità territoriale <strong><?php echo $isc; ?></strong> volontari iscritti</p>
-                                                    <p>Vi sono <strong><?php echo $volPen; ?></strong> volontari che attendono di essere confermati</p>
-                                                    <p>Il Presidente deve confermare <strong><?php echo $titPen; ?></strong> tra titoli e patenti CRI</p>
-                                                    <?php foreach ($_unit->attivita() as $attivita){
-                                                    $a++;
-                                                    } ?>
-                                                    <p>Sono presenti <strong><?php echo $a; ?></strong> attività del comitato</p><br/>
-                                        <?php $a=0;
+                                                } 
+                                                $volPen = count($_unit->appartenenzePendenti());
+                                                $titPen = count($_unit->titoliPendenti());
+                                                $isc = $_unit->numMembriAttuali(); ?>
+                                                <p><li><strong><?php echo $_unit->nomeCompleto(); ?></strong></li></p>
+                                                <p>Sono presenti in questa unità territoriale <strong><?php echo $isc; ?></strong> volontari iscritti</p>
+                                                <p>Vi sono <strong><?php echo $volPen; ?></strong> volontari che attendono di essere confermati</p>
+                                                <p>Il Presidente deve confermare <strong><?php echo $titPen; ?></strong> tra titoli e patenti CRI</p>
+                                                <p>Sono presenti <strong><?php echo count($_unit->attivita()); ?></strong> attività del comitato</p><br/>
+                                                <?php   $a=0;
+                                                $volPen = 0;
+                                                $titPen = 0;
+                                                $isc = 0;
                                             } ?>
                                 </ul>
-                                
                             </ul>
                 <?php   } ?>
             <?php   } ?>
