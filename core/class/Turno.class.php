@@ -11,17 +11,21 @@ class Turno extends Entita {
         $_dt = null;
     
     public function attivita() {
-        return new Attivita($this->attivita);
+        return Attivita::id($this->attivita);
     }
 
     public function inizio() {
-    	return DT::daTimestamp($this->inizio);
+        return DT::daTimestamp($this->inizio);
     }
 
     public function fine() {
-    	return DT::daTimestamp($this->fine);
+        return DT::daTimestamp($this->fine);
     }
     
+    public function prenotazione() {
+        return DT::daTimestamp($this->prenotazione);
+    }
+
     public function partecipazioni() {
         return Partecipazione::filtra([
             ['turno',   $this->id]
@@ -97,7 +101,7 @@ class Turno extends Entita {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Turno($k[0]);
+            $r[] = Turno::id($k[0]);
         }
         return $r;
     }
@@ -108,7 +112,7 @@ class Turno extends Entita {
     
     public function puoRichiederePartecipazione($v) {
         if ( $v === null || $v instanceof Anonimo ) { return true; }
-        return (( time() <= $this->fine ) && $this->attivita()->puoPartecipare($v));
+        return (( time() <= $this->fine ) && ( time() <= $this->prenotazione ) && $this->attivita()->puoPartecipare($v));
     }
 
     public function scoperto() {

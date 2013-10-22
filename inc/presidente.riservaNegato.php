@@ -6,7 +6,7 @@
 
 paginaPresidenziale();
 $t = $_GET['id'];
-$t = new Riserva($t);
+$t = Riserva::id($t);
 $v = $t->volontario();
 
 ?>

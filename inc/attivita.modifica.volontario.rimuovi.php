@@ -6,13 +6,13 @@
 
 paginaPrivata();
 $turno = $_GET['turno'];
-$turno = new Turno($turno);
+$turno = Turno::id($turno);
 $a = $turno->attivita();
 paginaAttivita($a);
 
 
 $v = $_GET['v'];
-$v = new Volontario($v);
+$v = Volontario::id($v);
 
 $p = Partecipazione::filtra([['turno', $turno],['volontario', $v]]);
 $p[0]->cancella();

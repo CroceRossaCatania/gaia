@@ -40,7 +40,7 @@ class Utente extends Persona {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Utente($k[0]);
+            $r[] = Utente::id($k[0]);
         }
         return $r;
     }
@@ -237,7 +237,7 @@ class Utente extends Persona {
         $q->execute();
         $r = [];
         while ( $x = $q->fetch(PDO::FETCH_NUM ) ) {
-            $r[] = new Appartenenza($x[0]);
+            $r[] = Appartenenza::id($x[0]);
         }
         return $r;
     }
@@ -735,28 +735,44 @@ class Utente extends Persona {
     }
     
     public function contaGruppi() {
-        return AppartenenzaGruppo::filtra([
-            ['volontario',  $this->id],
-            ['fine',NULL]
-        ]);
-    }
-    
-     public function gruppiAttuali() {
         $q = $this->db->prepare("
             SELECT
-                volontario
+                COUNT(volontario)
             FROM
                 gruppiPersonali
             WHERE
                 ( fine >= :ora OR fine IS NULL OR fine = 0) 
+            AND
+                volontario = :volontario
             ORDER BY
                 inizio ASC");
         $q->bindValue(':ora', time());
+        $q->bindParam(':volontario', $this->id);
         $q->execute();
-        $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new AppartenenzaGruppo($k[0]);
-        }
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+    
+     public function gruppoAttuale($g) {
+        $q = $this->db->prepare("
+            SELECT
+                id
+            FROM
+                gruppiPersonali
+            WHERE
+                ( fine >= :ora OR fine IS NULL OR fine = 0)
+            AND
+                volontario = :volontario 
+            AND
+                gruppo = :gruppo
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':volontario', $this->id);
+        $q->bindParam(':gruppo', $g);
+        $q->execute();
+        $r = $q->fetch();
+        $r = new AppartenenzaGruppo($r[0]);
         return $r;
     }
     
@@ -772,14 +788,14 @@ class Utente extends Persona {
         ]);
     }
     
-    public function areeDiCompetenza( $c = null ) {
+    public function areeDiCompetenza( $c = null , $espandiLocale = false) {
         if ( $c ) {
             if ( $this->admin() || $this->presiede($c) ) {
                 return $c->aree();
             } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $comitato) ) {
                 $r = [];
                 foreach ( $o as $io ) {
-                    $r = array_merge($r, $c->aree($io->dominio));
+                    $r = array_merge($r, $c->aree($io->dominio, $espandiLocale));
                 }
                 $r = array_unique($r);
                 return $r;
@@ -807,7 +823,7 @@ class Utente extends Persona {
     }
     
     public function comitatiAreeDiCompetenza() {
-        $a = $this->areeDiCompetenza();
+        $a = $this->areeDiCompetenza(null, true);
         $r = [];
         foreach ($a as $ia) {
             $r[] = $ia->comitato();

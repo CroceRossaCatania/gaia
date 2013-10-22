@@ -29,7 +29,7 @@ $grsanguigno = $_POST['inputgruppoSanguigno'];
 /*
  * Controlla esistenza varia e ti porta dove dovrebbe 
  */
-$p = new Persona($id);
+$p = Persona::id($id);
 
 /*
  * Registrazione vera e propria...

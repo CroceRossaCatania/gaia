@@ -13,7 +13,7 @@ if(!isset($_POST['elimina']))
 
 $id = $_POST['elimina'];
 
-$e = Estensione::by('id', $id);
+$e = Estensione::id($id);
 $e->annulla();
 
 redirect('utente.estensione&ann');

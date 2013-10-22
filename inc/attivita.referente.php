@@ -10,7 +10,7 @@ caricaSelettore();
 paginaModale();
 
 $attivita = $_GET['id'];
-$attivita = new Attivita($attivita);
+$attivita = Attivita::id($attivita);
 
 if(isset($_GET['g'])){ ?>
         <form action="?p=attivita.referente.ok&g" method="POST">

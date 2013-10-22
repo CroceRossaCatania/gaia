@@ -11,7 +11,7 @@ class Delegato extends Entita {
         $_dt = null;
     
     public function volontario() {
-        return new Volontario($this->volontario);
+        return Volontario::id($this->volontario);
     }
 
     public function comitato() {
@@ -28,7 +28,10 @@ class Delegato extends Entita {
     }
 
     public function attuale() {
-        if ( !$this->fine || $this->fine > time() ) {
+	$ora = time();
+        if (
+	    ( !$this->fine || $this->fine > $ora )
+	      && $this->inizio <= $ora ) {
             return true;
         } else {
             return false;
@@ -44,7 +47,7 @@ class Delegato extends Entita {
     }
     
     public function pConferma() {
-        return new Volontario($this->pConferma);
+        return Volontario::id($this->pConferma);
     }
     
 }

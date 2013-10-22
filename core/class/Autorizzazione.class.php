@@ -11,11 +11,11 @@ class Autorizzazione extends Entita {
         $_dt = null;
 
     public function partecipazione() {
-        return new Partecipazione($this->partecipazione);
+        return Partecipazione::id($this->partecipazione);
     }
     
     public function volontario() {
-        return new Volontario($this->volontario);
+        return Volontario::id($this->volontario);
     }
     
     public function aggiorna( $t = AUT_OK ) {
@@ -29,7 +29,7 @@ class Autorizzazione extends Entita {
     
     public function firmatario() {
         if ( $this->pFirma ) {
-            return new Utente($this->pFirma);
+            return Utente::id($this->pFirma);
         } else {
             return false;
         }

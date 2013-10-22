@@ -8,9 +8,9 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $id = $_POST['idTitolo'];
 $f = $_GET['id']; 
-$v= Volontario::by('id', $f);
+$v= Volontario::id($f);
 
-$t = new Titolo($id);
+$t = Titolo::id($id);
 
 if ($v->haTitolo($t)) { redirect('presidente.utente.visualizza&gia&id=' . $f ); }
 

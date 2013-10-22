@@ -2,7 +2,7 @@
 
 paginaPrivata();
 $a = $_GET['id'];
-$c = new Commento($a);
+$c = Commento::id($a);
 ?>
 <form action="?p=attivita.pagina.commento.modifica.ok&id=<?php echo $c; ?>" method="POST">
 <div class="modal fade automodal">

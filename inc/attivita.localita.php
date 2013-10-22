@@ -1,5 +1,5 @@
 <?php
-$a = new Attivita(@$_GET['id']);
+$a = Attivita::id($_GET['id']);
 ?>
 
 <div class="row-fluid">

@@ -7,7 +7,7 @@
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 $f = $_GET['id']; 
-$t = new Volontario($f);
+$t = Volontario::id($f);
 $g = $v = $t;
 $admin = $me->admin();
 
