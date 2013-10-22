@@ -27,26 +27,26 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         <div class="control-group">
               <label class="control-label" for="inputNome">Nome</label>
               <div class="controls">
-                <input readonly type="text" name="inputNome" id="inputNome"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->nome; ?>">
+                <input readonly type="text" name="inputNome" id="inputNome"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t->nome; ?>">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputCognome">Cognome</label>
               <div class="controls">
-                <input readonly type="text" name="inputCognome" id="inputCognome"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->cognome; ?>">
+                <input readonly type="text" name="inputCognome" id="inputCognome"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t->cognome; ?>">
                 
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputDataNascita">Data di Nascita</label>
               <div class="controls">
-                <input readonly type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo date('d/m/Y', $t[0]->dataNascita); ?>">
+                <input readonly type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo date('d/m/Y', $t->dataNascita); ?>">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
               <div class="controls">
-                <input readonly type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->comuneNascita; ?>">
+                <input readonly type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t->comuneNascita; ?>">
               </div>
             </div>
             <div class="control-group">
@@ -74,7 +74,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
           </div>
         
         <div id="step2" style="display: none;">
-            <form action='?p=presidente.titolo.nuovo&id=<?php echo $t[0]->id; ?>' method="POST">
+            <form action='?p=presidente.titolo.nuovo&id=<?php echo $t->id; ?>' method="POST">
             <input type="hidden" name="idTitolo" id="idTitolo" />
             <div class="alert alert-block alert-success">
                 <div class="row-fluid">
