@@ -13,9 +13,7 @@ $c = GeoPolitica::daOid($c);
 $v = Volontario::id($v);
 
 if ( $c->unPresidente() ) {
-    if ($c->unPresidente()->attuale()){
-    	redirect('admin.presidenti&duplicato');
-    }
+    redirect('admin.presidenti&duplicato');
 }
 
 /* Creo la nuova appartenenza... */
