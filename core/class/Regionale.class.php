@@ -41,7 +41,7 @@ class Regionale extends GeoPolitica {
     }
     
     public function nazionale() {
-        return new Nazionale($this->nazionale);
+        return Nazionale::id($this->nazionale);
     }
     
         

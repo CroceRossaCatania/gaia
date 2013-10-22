@@ -19,12 +19,12 @@ class Attivita extends GeoEntita {
     }
 
     public function area() {
-        return new Area($this->area);
+        return Area::id($this->area);
     }
     
     public function referente() {
         if ( $this->referente ) {
-            return new Volontario($this->referente);
+            return Volontario::id($this->referente);
         } else {
             return null;
         }
@@ -36,6 +36,29 @@ class Attivita extends GeoEntita {
         ], 'inizio ASC, nome ASC');
     }
     
+    public function turniFut(){
+        global $db;
+        $q = $db->prepare("
+            SELECT
+                id
+            FROM
+                turni
+            WHERE
+                attivita = :attivita
+            AND
+                fine > :ora
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':attivita', $this);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Turno::id($k[0]);
+        }
+        return $r;
+    }
+
     public function turniScoperti() {
         $t = [];
         foreach ( $this->turni() as $_t ) {
@@ -169,7 +192,7 @@ class Attivita extends GeoEntita {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Attivita($k[0]);
+            $r[] = Attivita::id($k[0]);
         }
         return $r;
     }
@@ -193,10 +216,10 @@ class Attivita extends GeoEntita {
                     }
                     $autorizzazioni = Autorizzazione::filtra(['volontario', $referente]);
                     foreach ( $autorizzazioni as $autorizzazione ){
-                        $m = new Autorizzazione($autorizzazione);
+                        $m = Autorizzazione::id($autorizzazione);
                         $m->volontario = $presidente;
                     }
-                    $att = new Attivita($a);
+                    $att = Attivita::id($a);
                     $att->referente = $presidente;
                     $eseguiti++;
                     continue;

@@ -8,7 +8,7 @@ class Veicoli extends Oggetto {
   
     public function comitato() {
         if ( $this->comitato ) {
-            return new Comitato($this->comitato);
+            return Comitato::id($this->comitato);
         } else {
             return false;
         }

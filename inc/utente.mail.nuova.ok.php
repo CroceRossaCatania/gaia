@@ -10,7 +10,7 @@ $testo = $_POST['inputTesto'];
 
 if (isset($_GET['unit'])) {
         $c = $_GET['id'];
-        $c = Comitato::by('id', $c);
+        $c = Comitato::id($c);
         $t = $c->membriAttuali(MEMBRO_VOLONTARIO);
         foreach($t as $_t){
             $m = new Email('mailTestolibero', ''.$oggetto);
@@ -34,7 +34,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
      }
 }elseif (isset($_GET['mass'])) {
 $f = $_GET['t'];
-$f= new Titolo($f);
+$f= Titolo::id($f);
 foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenco){
       $volontari =  $elenco->ricercaMembriTitoli([$f]);
             foreach($volontari as $volontario){
@@ -85,7 +85,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
      
 }elseif (isset($_GET['unitgio'])) {
         $c = $_GET['id'];
-        $c = Comitato::by('id', $c);
+        $c = Comitato::id($c);
         $t = $c->membriAttuali(MEMBRO_VOLONTARIO);
         foreach($t as $_t){
             if ($_t->giovane()){
@@ -123,7 +123,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
      }
 }elseif (isset($_GET['unitquoteno'])) {
         $c = $_GET['id'];
-        $c = Comitato::by('id', $c);
+        $c = Comitato::id($c);
         $t = $c->quoteNo();
         foreach($t as $_t){
             $m = new Email('mailTestolibero', ''.$oggetto);
@@ -135,7 +135,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
 
 }elseif (isset($_GET['unitquotesi'])) {
         $c = $_GET['id'];
-        $c = Comitato::by('id', $c);
+        $c = Comitato::id($c);
         $t = $c->quoteNo();
         foreach($t as $_t){
             $m = new Email('mailTestolibero', ''.$oggetto);
@@ -175,7 +175,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
      }
 }elseif (isset($_GET['uniteleatt'])) {
         $c = $_GET['id'];
-        $c = Comitato::by('id', $c);
+        $c = Comitato::id($c);
         $time = $_GET['time'];
         $time = DT::daTimestamp($time);
         $t = $c->elettoriAttivi($time);
@@ -189,7 +189,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
 
 }elseif (isset($_GET['unitelepass'])) {
         $c = $_GET['id'];
-        $c = Comitato::by('id', $c);
+        $c = Comitato::id($c);
         $time = $_GET['time'];
         $time = DT::daTimestamp($time);
         $t = $c->elettoriPassivi($time);
@@ -203,7 +203,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
 
 }elseif (isset($_GET['gruppo'])) {
         $g = $_GET['id'];
-        $g = Gruppo::by('id', $g);
+        $g = Gruppo::id($g);
         $v = $g->membri();
         foreach($v as $_v){
             $m = new Email('mailTestolibero', ''.$oggetto);
@@ -215,7 +215,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
 
 }elseif (isset($_GET['estesi'])) {
         $g = $_GET['id'];
-        $comitato = new comitato($g);
+        $comitato = Comitato::id($g);
         $estesi = array_diff( $comitato->membriAttuali(MEMBRO_ESTESO), $comitato->membriAttuali(MEMBRO_VOLONTARIO) );
         foreach($estesi as $_v){
             $m = new Email('mailTestolibero', ''.$oggetto);
@@ -227,7 +227,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
 
 }elseif (isset($_GET['riserva'])) {
         $g = $_GET['id'];
-        $comitato = new comitato($g);
+        $comitato = Comitato::id($g);
         $r = $comitato->membriRiserva();
         foreach($r as $_v){
             $m = new Email('mailTestolibero', ''.$oggetto);

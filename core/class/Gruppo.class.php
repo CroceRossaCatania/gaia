@@ -11,7 +11,7 @@ class Gruppo extends Entita {
     }
     
     public function referente() {
-        return new Volontario($this->referente);
+        return Volontario::id($this->referente);
     }
     
     public function appartenenze() {

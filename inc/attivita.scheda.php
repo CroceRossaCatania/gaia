@@ -6,7 +6,7 @@
 
 paginaAnonimo();
 caricaSelettore();
-$a = new Attivita($_GET['id']);
+$a = Attivita::id($_GET['id']);
 
 $geoComitato = GeoPolitica::daOid($a->comitato);
 $_titolo = $a->nome . ' - Attività CRI su Gaia';
@@ -325,9 +325,18 @@ $(document).ready( function() {
                                                 <?php foreach ( $accettate as $v ) { ?>
                                                 <li>
                                                     <a href="?p=public.utente&id=<?php echo $v->id; ?>" target="_new">
-                                                        <?php echo $v->nomeCompleto(); ?>
+                                                        <?php   $potere = true;
+                                                                $colore = "#222"; 
+                                                                if ($turno->partecipazione($v)->poteri()) { 
+                                                                    $colore = "#0000FF"; 
+                                                                    $potere = false;
+                                                                }
+                                                                echo "<span style='color: {$colore};'>"; 
+                                                                echo $v->nomeCompleto(); 
+                                                                echo "</span>";
+                                                        ?>
                                                     </a>
-                                                    <?php if( $me->delegazioni(APP_CO) && $a->modificabileDa($me) ){ ?>
+                                                    <?php if( $me->delegazioni(APP_CO) && $a->modificabileDa($me) && $potere){ ?>
                                                     <a class="btn btn-small" href="?p=attivita.poteri&v=<?= $v->id; ?>&turno=<?= $turno; ?>">
                                                         <i class="icon-rocket" ></i> Conferisci poteri
                                                     </a>
@@ -415,11 +424,11 @@ $(document).ready( function() {
                             <?php } 
                             } elseif ( $turno->puoRichiederePartecipazione($me) && !$me->inriserva()) { 
                                 if($turno->pieno()) { ?> 
-                                    <a name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-warning btn-block">
+                                    <a data-attendere="Attendere..." name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-warning btn-block">
                                         <i class="icon-warning-sign"></i> Dai disponibilità
                                     </a>
                                 <?php } else  { ?>
-                                    <a name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-success btn-large btn-block">
+                                    <a data-attendere="Attendere..." name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-success btn-large btn-block">
                                         <i class="icon-ok"></i> Partecipa
                                     </a>
                                 <?php } 
@@ -445,3 +454,4 @@ $(document).ready( function() {
             </div>
         </div>
     </div>
+    

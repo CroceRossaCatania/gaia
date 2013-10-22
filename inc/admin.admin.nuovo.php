@@ -7,7 +7,7 @@
 paginaAdmin();
 
 $t = $_GET['id'];
-$f = new Persona($t);
+$f = Persona::id($t);
 $f->admin = time();
 
 redirect('admin.admin&new');

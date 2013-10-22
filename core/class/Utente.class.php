@@ -40,7 +40,7 @@ class Utente extends Persona {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Utente($k[0]);
+            $r[] = Utente::id($k[0]);
         }
         return $r;
     }
@@ -237,7 +237,7 @@ class Utente extends Persona {
         $q->execute();
         $r = [];
         while ( $x = $q->fetch(PDO::FETCH_NUM ) ) {
-            $r[] = new Appartenenza($x[0]);
+            $r[] = Appartenenza::id($x[0]);
         }
         return $r;
     }

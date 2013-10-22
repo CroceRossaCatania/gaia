@@ -14,7 +14,7 @@ if (@$fine->getTimestamp() < time() || (@$fine->getTimestamp() - @$inizio->getTi
 }
 
 $t = $_POST['inputVolontario'];
-$v = new Volontario($t);
+$v = Volontario::id($t);
 $m = $_POST['inputMotivo'];
 
 $app = $v->appartenenzeAttuali(MEMBRO_VOLONTARIO)[0];

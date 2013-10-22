@@ -8,7 +8,7 @@ paginaPrivata();
 paginaModale();
 
 $attivita = $_GET['id'];
-$attivita = new Attivita($attivita);
+$attivita = Attivita::id($attivita);
 
 ?>
 

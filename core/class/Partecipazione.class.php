@@ -11,11 +11,11 @@ class Partecipazione extends Entita {
         $_dt = null;
 
     public function volontario() {
-        return new Volontario($this->volontario);
+        return Volontario::id($this->volontario);
     }
     
     public function turno() {
-        return new Turno($this->turno);
+        return Turno::id($this->turno);
     }
     
     public function attivita() {
@@ -130,6 +130,15 @@ class Partecipazione extends Entita {
              
         }
         
+    }
+
+    public function poteri(){
+
+        return (bool) Delegato::filtra([
+                ['partecipazione', $this], 
+                ['volontario', $this->volontario()]
+                ]);
+
     }
 
 }

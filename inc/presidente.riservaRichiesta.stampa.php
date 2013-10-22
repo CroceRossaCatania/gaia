@@ -7,7 +7,7 @@
 paginaPrivata();
 
 $f = $_GET['id'];
-$t = Riserva::by('id', $f);
+$t = Riserva::id($f);
 
 $c = $t->volontario()->unComitato();
 $app = Appartenenza::filtra([

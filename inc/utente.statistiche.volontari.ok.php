@@ -9,7 +9,7 @@
   if (!$c) {
     redirect('utente.statistiche.volontari');
   }
-  $comitato = new Comitato($c);
+  $comitato = Comitato::id($c);
   $info = $comitato->informazioniVolontariJSON();
 ?>
 

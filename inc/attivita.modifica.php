@@ -8,7 +8,7 @@ paginaPrivata();
 paginaAttivita();
 caricaSelettore();
 
-$a = new Attivita(@$_GET['id']);
+$a = Attivita::id($_GET['id']);
 
 if (!$a->haPosizione()) {
     redirect('attivita.localita&id=' . $a->id);

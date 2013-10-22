@@ -28,7 +28,7 @@ echo "Start manutenzione Comitati:<br/>";
 
 $regionali = Regionale::regionaliNull();
 foreach( $regionali as $r ){
-	$r = new Regionale($r);
+	$r = Regionale::id($r);
 	echo $r->id,"<br/>";
 	$r->cancella();
 	$nRegionali++;
@@ -36,7 +36,7 @@ foreach( $regionali as $r ){
 
 $provinciali = Provinciale::provincialiNull();
 foreach( $provinciali as $p ){
-	$p = new Provinciale($p);
+	$p = Provinciale::id($p);
 	echo $p->id,"<br/>";
 	$p->cancella();
 	$nProvinciali++;
@@ -44,7 +44,7 @@ foreach( $provinciali as $p ){
 
 $locali = Locale::localiNull();
 foreach( $locali as $l ){
-	$l = new Locale($l);
+	$l = Locale::id($l);
 	echo $l->id,"<br/>";
 	$l->cancella();
 	$nLocali++;
@@ -52,7 +52,7 @@ foreach( $locali as $l ){
 
 $comitati = Comitato::comitatiNull();
 foreach( $comitati as $c ){
-	$c = new Comitato($c);
+	$c = Comitato::id($c);
 	echo $c->id,"<br/>";
 	$c->cancella();
 	$nComitati++;

@@ -8,7 +8,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $t = $_GET['t'];
 $v = $_GET['v'];  
-$tp = TitoloPersonale::by('id', $t);
+$tp = TitoloPersonale::id($t);
 $r = $tp->titolo()->tipo;
 ?>
 <script type="text/javascript"><?php require './js/utente.titolo.modifica.js'; ?></script>

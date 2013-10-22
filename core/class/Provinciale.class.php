@@ -40,7 +40,7 @@ class Provinciale extends GeoPolitica {
     }
     
     public function regionale() {
-        return new Regionale($this->regionale);
+        return Regionale::id($this->regionale);
     }
     
     public function nazionale() {

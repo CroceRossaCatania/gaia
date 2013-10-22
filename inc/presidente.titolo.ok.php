@@ -7,7 +7,7 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $id     = $_GET['id'];
-$t      = new TitoloPersonale($id);
+$t      = TitoloPersonale::id($id);
 
 if (isset($_GET['si'])) {
     $t->tConferma   = time();

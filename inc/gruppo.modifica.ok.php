@@ -7,7 +7,7 @@
 paginaPresidenziale();
 
 $g = $_POST['id'];
-$g = new Gruppo($g);
+$g = Gruppo::id($g);
 $nome = $_POST['inputNome'];
 if(!$nome){
 	redirect('gruppi.dash&nome');

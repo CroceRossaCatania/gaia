@@ -6,7 +6,7 @@
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 $f = $_GET['id'];
-$t = Volontario::by('id', $f);
+$t = Volontario::id($f);
 ?>
 <STYLE TYPE="text/css">
 #fronte{

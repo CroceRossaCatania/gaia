@@ -7,7 +7,7 @@
 paginaPresidenziale();
 
 $v = $_GET['id'];
-$v = Volontario::by('id', $v);
+$v = Volontario::id($v);
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>

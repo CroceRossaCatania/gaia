@@ -8,11 +8,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $t = $_GET['t'];
 $id = $_GET['v']; 
-$v= Volontario::by('id', $id);
-$tp = TitoloPersonale::by('id', $t);
+$v= Volontario::id($id);
+$tp = TitoloPersonale::id($t);
 $tp = $tp->titolo;
 
-$p = new TitoloPersonale($t);
+$p = TitoloPersonale::id($t);
 $p->volontario  = $v->id;
 $p->titolo      = $tp;
 

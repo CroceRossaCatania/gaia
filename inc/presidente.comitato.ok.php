@@ -71,7 +71,7 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
         $d->estensione  = $c->_estensione();
         
         /* Da fare: INVIA MAIL */
-        $v = new Volontario($_POST[$num]);
+        $v = Volontario::id($_POST[$num]);
         $m = new Email('nuovoObiettivo', 'Delegato per ' . $nom);
         $m->a           = $v;
         $m->_NOME       = $v->nome;
@@ -122,14 +122,14 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
 if(isset($_POST['cancellaProgetto'])) {
     $back = 'aree';
     $a = $_POST['cancellaProgetto'];
-    $area = Area::by('id', $a);
+    $area = Area::id($a);
     $area->cancella();
 }
 
 if(isset($_POST['rimuoviReferente'])) {
     $back = 'aree';
     $a = $_POST['rimuoviReferente'];
-    $area = Area::by('id', $a);
+    $area = Area::id($a);
     $nuovoRef = $c->obiettivi($area->obiettivo)[0];
     if(!$nuovoRef) {
         $nuovoRef = $c->primoPresidente();

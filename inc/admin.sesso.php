@@ -11,7 +11,7 @@ set_time_limit(0);
 $utenti = Utente::senzaSesso();
 
 foreach ($utenti  as $u) {
-	$utente = new Utente($u);
+	$utente = Utente::id($u);
 	echo(''.$utente->id.' ');
 	echo(''.$utente->nome.' '.$utente->cognome);
 	if (intval(substr($utente->codiceFiscale, 9, 2)) < 40){

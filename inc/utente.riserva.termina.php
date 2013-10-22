@@ -7,7 +7,8 @@
 paginaPrivata();
 
 $id = $_GET['id'];
-$ris = new Riserva($id);
+$ris = Riserva::id($id);
+$ris->termina();
 
 $m = new Email('riservaTermina', 'Termine riserva: ' . $ris->comitato()->nomeCompleto());
     $m->a = $ris->comitato()->unPresidente();
@@ -15,6 +16,5 @@ $m = new Email('riservaTermina', 'Termine riserva: ' . $ris->comitato()->nomeCom
     $m->_COMITATO   = $ris->comitato()->nomeCompleto();
     $m->invia();
 
-$ris->termina();
 redirect('utente.storico&rister');
 ?>
