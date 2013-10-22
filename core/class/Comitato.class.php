@@ -107,6 +107,17 @@ class Comitato extends GeoPolitica {
         }
         return $r;
     }
+	
+    public function membriSenior() {
+        $t = time()-GIOVANI;
+        $v = $this->membriAttuali();
+        $r = [];
+        foreach ($v as $_v) {
+            if ($t >= $_v->dataNascita)
+                $r[] = $_v;
+        }
+        return $r;
+    }
     
     public function membriRiserva() {
         $q = $this->db->prepare("

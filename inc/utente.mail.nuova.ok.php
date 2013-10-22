@@ -83,12 +83,41 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
          }
      }
      
+}elseif (isset($_GET['comsen'])) {
+$elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
+        foreach($elenco as $comitato) {
+            $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
+            foreach($t as $_t){
+                if (!$_t->giovane()){
+                $m = new Email('mailTestolibero', ''.$oggetto);
+                $m->da = $me; 
+                $m->a = $_t;
+                $m->_TESTO = $testo;
+                $m->invia();
+                }
+         }
+     }
+     
 }elseif (isset($_GET['unitgio'])) {
         $c = $_GET['id'];
         $c = Comitato::id($c);
         $t = $c->membriAttuali(MEMBRO_VOLONTARIO);
         foreach($t as $_t){
             if ($_t->giovane()){
+            $m = new Email('mailTestolibero', ''.$oggetto);
+            $m->da = $me; 
+            $m->a = $_t;
+            $m->_TESTO = $testo;
+            $m->invia();
+            }
+         }
+
+}elseif (isset($_GET['unitsen'])) {
+        $c = $_GET['id'];
+        $c = Comitato::by('id', $c);
+        $t = $c->membriAttuali(MEMBRO_VOLONTARIO);
+        foreach($t as $_t){
+            if (!$_t->giovane()){
             $m = new Email('mailTestolibero', ''.$oggetto);
             $m->da = $me; 
             $m->a = $_t;
