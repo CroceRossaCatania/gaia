@@ -22,6 +22,15 @@ class Locale extends GeoPolitica {
         return $this->comitati();
     }
 
+    public function geoEstensione() {
+        $c = $this->comitati();
+        $r = [];
+        foreach ($c as $_c) {
+            $r[] = GeoPolitica::daOid($_c->oid());
+        }
+        return $r;
+    }
+
     public function figli() {
         return $this->comitati();
     }
