@@ -137,22 +137,47 @@ if(isset($_POST['rimuoviReferente'])) {
     $area->responsabile = $nuovoRef->id;
 }
 
+/* Creazione nuova area */
+if ( isset($_POST['nuovaArea_volontario']) ) {
+        
+    $back = 'aree';
+
+    $nome = normalizzaTitolo($_POST['nuovaArea_nome']);
+    if ($nome == 'Generale') {
+        $oid = $c->oid();
+        redirect("presidente.comitato&errnome&oid={$oid}&back={$back}");
+    }
+
+    
+    $a = new Area();
+    $a->comitato    = $c->oid();
+    $a->obiettivo   = (int) $_POST['nuovaArea_inputObiettivo'];
+    $a->nome        = $nome;
+    $a->responsabile= $_POST['nuovaArea_volontario'];
+    
+    $v = $a->responsabile();
+
+    $m = new Email('responsabileArea', 'Responsabile per ' . $nom);
+    $m->a           = $v;
+    $m->_NOME       = $v->nome;
+    $m->_AREA       = $a->nomeCompleto();
+    $m->_COMITATO   = $c->nomeCompleto();
+    $m->invia();
+
+    $oid = $c->oid();
+    redirect("presidente.comitato&ok&oid={$oid}&back={$back}");
+       
+}
+
 
 /* Salvataggio aree */
-
 foreach ( $c->aree() as $a ) {
-    
-    /* Salva obiettivo variato */
-    if (isset($_POST[$a->id . '_inputObiettivo'])) {
-        $back = 'aree';
-        $a->obiettivo = $_POST[$a->id . '_inputObiettivo'];
-    }
 
     /* Salva nome variato */
     if (isset($_POST[$a->id . '_inputNome'])) {
         $back = 'aree';
         $nome = normalizzaNome($_POST[$a->id . '_inputNome']);
-        if ($nome == 'Generale' || count($nome) < 3) {
+        if ($nome == 'Generale' || strlen($nome) < 3) {
             $oid = $c->oid();
             redirect("presidente.comitato&errnome&oid={$oid}&back={$back}");
         }
@@ -177,34 +202,7 @@ foreach ( $c->aree() as $a ) {
     
 }
 
-
-/* Creazione nuova area */
-if ( isset($_POST['nuovaArea_volontario']) ) {
-        
-    $back = 'aree';
-
-    $nome = normalizzaTitolo($_POST['nuovaArea_nome']);
-    if ($nome == 'Generale') {
-        $oid = $c->oid();
-        redirect("presidente.comitato&errnome&oid={$oid}&back={$back}");
-    }
-
-    $a = new Area();
-    $a->comitato    = $c->oid();
-    $a->obiettivo   = (int) $_POST['nuovaArea_inputObiettivo'];
-    $a->nome        = $nome;
-    $a->responsabile= $_POST['nuovaArea_volontario'];
-    
-    $v = $a->responsabile();
-
-    $m = new Email('responsabileArea', 'Responsabile per ' . $nom);
-    $m->a           = $v;
-    $m->_NOME       = $v->nome;
-    $m->_AREA       = $a->nomeCompleto();
-    $m->_COMITATO   = $c->nomeCompleto();
-    $m->invia();
-       
-}
-
 $oid = $c->oid();
 redirect("presidente.comitato&ok&oid={$oid}&back={$back}");
+
+
