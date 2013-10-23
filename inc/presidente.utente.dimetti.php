@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 $v = $_GET['id'];
 $v = Volontario::id($v);
 ?>
