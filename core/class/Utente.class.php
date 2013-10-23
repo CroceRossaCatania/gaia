@@ -640,8 +640,11 @@ class Utente extends Persona {
         $d = $this->delegazioni($app);
         $c = [];
         foreach ( $d as $k ) {
-            // $c[] = $k->comitato();
-            $c = array_merge($k->estensione(), $c);
+            $comitato = $k->comitato();
+            $c[] = $comitato; 
+            if ($comitato->_estensione() < EST_PROVINCIALE) {
+                $c = array_merge($k->geoEstensione(), $c);
+            }
         }
         return array_unique($c);
     }
@@ -803,7 +806,7 @@ class Utente extends Persona {
     public function areeDiCompetenza( $c = null , $espandiLocale = false) {
         if ( $c ) {
             if ( $this->admin() || $this->presiede($c) ) {
-                return $c->aree();
+                return $c->aree(null, $espandiLocale);
             } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $c) ) {
                 $r = [];
                 foreach ( $o as $io ) {
