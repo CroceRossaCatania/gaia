@@ -804,7 +804,7 @@ class Utente extends Persona {
         if ( $c ) {
             if ( $this->admin() || $this->presiede($c) ) {
                 return $c->aree();
-            } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $comitato) ) {
+            } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $c) ) {
                 $r = [];
                 foreach ( $o as $io ) {
                     $r = array_merge($r, $c->aree($io->dominio, $espandiLocale));
@@ -818,8 +818,8 @@ class Utente extends Persona {
         } else {
             
             $r = [];
-            foreach ( $this->comitatiDiCompetenza() as $c ) {
-                $r = array_merge($r, $c->aree());
+            foreach ( $this->comitatiDiCompetenza() as $comitato ) {
+                $r = array_merge($r, $comitato->aree(null, $espandiLocale));
             }
             foreach ( $this->delegazioni(APP_OBIETTIVO) as $d ) {
                 $r = array_merge(
