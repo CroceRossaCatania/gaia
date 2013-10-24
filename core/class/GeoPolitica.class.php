@@ -192,5 +192,17 @@ abstract class GeoPolitica extends GeoEntita {
                     AND    comitato IN ({$est})
                 )");
     }
+
+    public function attivita() {
+        return Attivita::filtra([
+            ['comitato', $this->oid()]
+        ],'nome ASC');
+    }
+
+    public function calendarioAttivitaPrivate() {
+        return Attivita::filtra([
+            ['comitato',  $this->oid()]
+        ]);
+    }
     
 }

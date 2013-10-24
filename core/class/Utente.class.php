@@ -341,7 +341,11 @@ class Utente extends Persona {
     public function numVolontariDiCompetenza() {
         $n = 0;
         foreach ( $this->comitatiApp([ APP_SOCI, APP_PRESIDENTE, APP_CO, APP_OBIETTIVO ]) as $c ) {
-            $n += $c->numMembriAttuali(MEMBRO_VOLONTARIO);
+            $comitato = $c->estensione();
+        }
+        array_unique($comitato);
+        foreach($comitato as $_c) {
+            $n +=$_c->numMembriAttuali(MEMBRO_VOLONTARIO);    
         }
         return $n;
     }
@@ -627,9 +631,12 @@ class Utente extends Persona {
     public function comitatiDelegazioni($app = null) {
         $d = $this->delegazioni($app);
         $c = [];
-        foreach ( $d as $k ) {
-            // $c[] = $k->comitato();
-            $c = array_merge($k->estensione(), $c);
+        foreach ( $d as $_d ) {
+            $comitato = $_d->comitato();
+            $c[] = $comitato;
+            if ($comitato instanceof Locale) {
+                $c = array_merge($comitato->estensione(), $c);
+            }
         }
         return array_unique($c);
     }
@@ -792,7 +799,7 @@ class Utente extends Persona {
         if ( $c ) {
             if ( $this->admin() || $this->presiede($c) ) {
                 return $c->aree();
-            } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $comitato) ) {
+            } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $c) ) {
                 $r = [];
                 foreach ( $o as $io ) {
                     $r = array_merge($r, $c->aree($io->dominio, $espandiLocale));
