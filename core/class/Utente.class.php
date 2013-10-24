@@ -349,10 +349,13 @@ class Utente extends Persona {
     
     public function presiede( $comitato = null ) {
         if ( $comitato ) {
-            return (bool) in_array($comitato, $this->comitatiApp([APP_PRESIDENTE]));
+            if($comitato->unPresidente()->id == $this->id) {
+                return true;
+            }
         } else {
             return (bool) $this->comitatiApp([APP_PRESIDENTE]);
         }
+        return false;
     }
     
     /* Avatar */
