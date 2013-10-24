@@ -124,12 +124,12 @@ abstract class GeoPolitica extends GeoEntita {
                 ['comitato',        $this->id],
                 ['estensione',      $this->_estensione()],
                 ['applicazione',    $app]
-            ], 'inizio DESC');
+            ], 'dominio ASC');
         } else {
             $k = Delegato::filtra([
                 ['comitato',    $this->id],
                 ['estensione',  $this->_estensione()]
-            ], 'inizio DESC');
+            ], 'dominio ASC');
         }
         $r = [];
         foreach ( $k as $u ) {
