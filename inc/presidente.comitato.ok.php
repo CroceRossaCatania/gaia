@@ -22,7 +22,12 @@ if(isset($_POST['cancellaDelegato'])) {
     
     if ($area) {
         $area = $area[0];
-        $area->responsabile = $c->primoPresidente()->id;
+        if($area->attivita()) {
+            $area->responsabile = $c->primoPresidente()->id;    
+        } else {
+            $area->cancella();
+        }
+        
     } else {
         /* Per compatibilità con le aree cancellate, se l'area non c'è più la ricreo*/
         $a = new Area();
@@ -40,7 +45,7 @@ foreach ( $conf['obiettivi'] as $num => $nom ) {
     if ( isset($_POST[$num] ) ) {
         
         /* Controllo se è il primo... */
-        $vecchioDelegato = $c->obiettivi($num);
+        $vecchioDelegato = $c->obiettivi($num, true);
         $primo = (bool) $vecchioDelegato;
         $primo = !$primo;
         
