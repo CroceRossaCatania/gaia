@@ -374,6 +374,17 @@ class Utente extends Persona {
             return $this->comitatiPresidenzianti();
         }
     }
+
+    public function unitaDiCompetenza() {
+        $c = $this->comitatiDiCompetenza();
+        $r = [];
+        foreach($c as $_c) {
+            if($_c instanceof Comitato) {
+                $r[] = $_c;
+            }
+        }
+        return $r;
+    }
     
     public function miCompete(Comitato $c) {
         return (bool) in_array($c, $this->comitatiDiCompetenza());
