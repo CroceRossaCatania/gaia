@@ -97,14 +97,12 @@ abstract class GeoPolitica extends GeoEntita {
         if ( $app ) {
             $app = (int) $app;
             $k = Delegato::filtra([
-                ['comitato',        $this->id],
-                ['estensione',      $this->_estensione()],
+                ['comitato',        $this->oid()],
                 ['applicazione',    $app]
             ], 'inizio DESC');
         } else {
             $k = Delegato::filtra([
-                ['comitato',    $this->id],
-                ['estensione',  $this->_estensione()]
+                ['comitato',    $this->oid()]
             ], 'inizio DESC');
         }
         if ( $storico ) { return $k; }
@@ -121,14 +119,12 @@ abstract class GeoPolitica extends GeoEntita {
         if ( $app ) {
             $app = (int) $app;
             $k = Delegato::filtra([
-                ['comitato',        $this->id],
-                ['estensione',      $this->_estensione()],
+                ['comitato',        $this->oid()],
                 ['applicazione',    $app]
             ], 'inizio DESC');
         } else {
             $k = Delegato::filtra([
-                ['comitato',    $this->id],
-                ['estensione',  $this->_estensione()]
+                ['comitato',    $this->oid()]
             ], 'inizio DESC');
         }
         $r = [];
