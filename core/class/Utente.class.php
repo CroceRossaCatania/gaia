@@ -817,10 +817,14 @@ class Utente extends Persona {
                 $r = array_merge($r, $c->aree());
             }
             foreach ( $this->delegazioni(APP_OBIETTIVO) as $d ) {
-                $r = array_merge(
-                        $r,
-                        $d->comitato()->aree($d->dominio)
-                );
+                $comitato = $d->comitato();
+                $r = array_merge($r, $comitato->aree($d->dominio));
+                if ($comitato instanceof Locale) {
+                    $comitati = $comitato->estensione();
+                    foreach ($comitati as $_c) {
+                        $r = array_merge($r, $_c->aree($d->dominio));
+                    } 
+                }
             }
             $r = array_merge($r, $this->areeDiResponsabilita());
             $r = array_unique($r);
@@ -833,7 +837,11 @@ class Utente extends Persona {
         $a = $this->areeDiCompetenza(null, true);
         $r = [];
         foreach ($a as $ia) {
-            $r[] = $ia->comitato();
+            $comitato = $ia->comitato();
+            $r[] = $comitato;
+            if ($comitato instanceof Locale) {
+                $r = array_merge($r, $comitato->estensione());
+            }
         }
         $r = array_unique($r);
         return $r;
