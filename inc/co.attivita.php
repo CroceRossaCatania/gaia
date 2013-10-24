@@ -73,24 +73,20 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                 <th>Fine</th>
             </thead>
         <?php
-        $i = time()+10800;
         $f = time()-3600;
         $comitati = $me->comitatiApp ([ APP_CO, APP_PRESIDENTE ]);
         foreach($comitati as $comitato){
-            $elenco = Attivita::filtra([['comitato', $comitato->oid()]]);
-            foreach($elenco as $attivita) {
-                    $x=0;
-                    $turni = $attivita->turni();
+            $turni = $comitato->coTurni();
                     foreach($turni as $turno){
                         $z=0;
                         $partecipanti = $turno->partecipazioniStato(AUT_OK);
                         foreach ($partecipanti as $partecipante){ 
                             $m = Coturno::filtra([['volontario', $partecipante->volontario()],['turno',$turno]]); 
-                            if (($turno->inizio <= $i  && $turno->fine >= $f) || ($m[0]->pMonta && !$m[0]->pSmonta)) {
+                            if ( $turno->fine >= $f || ($m[0]->pMonta && !$m[0]->pSmonta) ) {
                                 if($x==0){ ?> 
                                     <tr class="primary">
                                         <td colspan="4" class="grassetto">
-                                        <?php echo $attivita->nome ," - Referente: " , $attivita->referente()->nomeCompleto() , " Cell: ", $attivita->referente()->cellulare(); ?>
+                                        <?php $attivita = $turno->attivita(); echo $attivita->nome ," - Referente: " , $attivita->referente()->nomeCompleto() , " Cell: ", $attivita->referente()->cellulare(); ?>
                                         </td>
                                     </tr>
                                     <?php 
@@ -135,7 +131,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                                        </div>
                                    </td>
                                 </tr>
-        <?php }}}}}?>
+        <?php }}}}?>
         </table>
     </div>
 </div>
