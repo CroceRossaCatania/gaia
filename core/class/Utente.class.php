@@ -327,7 +327,7 @@ class Utente extends Persona {
         }
         $r = [];
         foreach ( $app as $k ) {
-            $r = array_merge($r, $this->comitatiDelegazioni($k));
+            $r = array_merge($r, $this->comitatiDelegazioni($k, true));
         }
         $r = array_unique($r);
         return $r;
@@ -625,12 +625,14 @@ class Utente extends Persona {
         return $r;
     }
     
-    public function comitatiDelegazioni($app = null) {
+    public function comitatiDelegazioni($app = null, $soloComitati = false) {
         $d = $this->delegazioni($app);
         $c = [];
         foreach ( $d as $_d ) {
             $comitato = $_d->comitato();
-            $c[] = $comitato;
+            if (!$soloComitati) {
+                $c[] = $comitato;
+            }
             if ($comitato instanceof Locale) {
                 $c = array_merge($comitato->estensione(), $c);
             }
