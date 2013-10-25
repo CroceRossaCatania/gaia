@@ -23,6 +23,11 @@ paginaAdmin();
             <i class="icon-warning-sign"></i> <strong>Comitato presente</strong>.
             Il Comitato è già presente in elenco.
         </div>
+<?php }elseif ( isset($_GET['err']) ) { ?>
+        <div class="alert alert-error">
+            <i class="icon-warning-sign"></i> <strong>Comitati correlati</strong>.
+            Attenzione il Comitato che si vuole cancellare ha dei comitati sottostanti, rimuoverli e riprovare.
+        </div>
 <?php } ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
     <br/>
