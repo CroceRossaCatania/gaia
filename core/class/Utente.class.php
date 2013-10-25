@@ -349,7 +349,7 @@ class Utente extends Persona {
     
     public function presiede( $comitato = null ) {
         if ( $comitato ) {
-            if($comitato->unPresidente()->id == $this->id) {
+            if($comitato->unPresidente() == $this->id) {
                 return true;
             }
         } else {
@@ -644,7 +644,7 @@ class Utente extends Persona {
         $c = [];
         foreach ( $d as $_d ) {
             $comitato = $_d->comitato();
-            if (!$soloComitati) {
+            if (!$soloComitati || $comitato instanceof Comitato) {
                 $c[] = $comitato;
             }
             if ($comitato instanceof Locale) {

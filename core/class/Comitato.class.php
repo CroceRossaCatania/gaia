@@ -42,6 +42,10 @@ class Comitato extends GeoPolitica {
     	return $c;
     }
 
+    public function unPresidente() {
+        return $this->locale()->unPresidente();
+    }
+
     private function generaColore() { 
     	$r = 100 + rand(0, 155);
     	$g = 100 + rand(0, 155);
