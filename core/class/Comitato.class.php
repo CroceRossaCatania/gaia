@@ -51,12 +51,6 @@ class Comitato extends GeoPolitica {
     	$b = dechex($b);
     	$this->colore = $r . $g . $b;
     }
-
-    public function calendarioAttivitaPrivate() {
-        return Attivita::filtra([
-            ['comitato',  $this->id]
-        ]);
-    }
     
     public function haMembro ( Persona $tizio, $stato = MEMBRO_VOLONTARIO ) {
         $membri = [];
@@ -373,11 +367,7 @@ class Comitato extends GeoPolitica {
         }
     }
     
-    public function attivita() {
-        return Attivita::filtra([
-            ['comitato', $this->id]
-        ],'nome ASC');
-    }
+    
     
     public function gruppi() {
         $g = Gruppo::filtra([

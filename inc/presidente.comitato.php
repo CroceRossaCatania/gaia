@@ -304,7 +304,7 @@ $(document).ready(function() {
                                 </button>
                             
                             <?php 
-                                if ( !$attivita || $me->admin ) { ?>
+                                if ( $area->nome != 'Generale' && (!$attivita || $me->admin)  ) { ?>
 
                                 <button onClick="return confirm('Vuoi veramente rimuovere questo progetto? L\'operazione non è reversibile');" name="cancellaProgetto" 
                                 value="<?php echo $area->id; ?>" title="Cancella Progetto" class="btn btn-small btn-danger">

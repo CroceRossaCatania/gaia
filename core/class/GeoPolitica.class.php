@@ -97,14 +97,12 @@ abstract class GeoPolitica extends GeoEntita {
         if ( $app ) {
             $app = (int) $app;
             $k = Delegato::filtra([
-                ['comitato',        $this->id],
-                ['estensione',      $this->_estensione()],
+                ['comitato',        $this->oid()],
                 ['applicazione',    $app]
             ], 'inizio DESC');
         } else {
             $k = Delegato::filtra([
-                ['comitato',    $this->id],
-                ['estensione',  $this->_estensione()]
+                ['comitato',    $this->oid()]
             ], 'inizio DESC');
         }
         if ( $storico ) { return $k; }
@@ -121,14 +119,12 @@ abstract class GeoPolitica extends GeoEntita {
         if ( $app ) {
             $app = (int) $app;
             $k = Delegato::filtra([
-                ['comitato',        $this->id],
-                ['estensione',      $this->_estensione()],
+                ['comitato',        $this->oid()],
                 ['applicazione',    $app]
             ], 'inizio DESC');
         } else {
             $k = Delegato::filtra([
-                ['comitato',    $this->id],
-                ['estensione',  $this->_estensione()]
+                ['comitato',    $this->oid()]
             ], 'inizio DESC');
         }
         $r = [];
@@ -141,9 +137,9 @@ abstract class GeoPolitica extends GeoEntita {
     }
 
 
-    public function obiettivi_delegati($ob = OBIETTIVO_1) {
+    public function obiettivi_delegati($ob = OBIETTIVO_1, $storico = false) {
         $r = [];
-        foreach ( $this->delegati(APP_OBIETTIVO) as $d ) {
+        foreach ( $this->delegati(APP_OBIETTIVO, $storico) as $d ) {
             if ( $d->dominio == $ob ) {
                 $r[] = $d;
             }
@@ -151,9 +147,9 @@ abstract class GeoPolitica extends GeoEntita {
         return $r;
     }
     
-    public function obiettivi($ob = OBIETTIVO_1) {
+    public function obiettivi($ob = OBIETTIVO_1, $storico = false) {
         $r = [];
-        foreach ( $this->obiettivi_delegati($ob) as $d ) {
+        foreach ( $this->obiettivi_delegati($ob, $storico) as $d ) {
             $r[] = $d->volontario();
         }
         return $r;
@@ -195,6 +191,18 @@ abstract class GeoPolitica extends GeoEntita {
                     AND    inizio < {$ora} AND stato = {$stato}
                     AND    comitato IN ({$est})
                 )");
+    }
+
+    public function attivita() {
+        return Attivita::filtra([
+            ['comitato', $this->oid()]
+        ],'nome ASC');
+    }
+
+    public function calendarioAttivitaPrivate() {
+        return Attivita::filtra([
+            ['comitato',  $this->oid()]
+        ]);
     }
     
 }
