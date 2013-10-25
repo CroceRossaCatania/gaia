@@ -28,6 +28,11 @@ paginaAdmin();
             <i class="icon-warning-sign"></i> <strong>Comitati correlati</strong>.
             Attenzione il Comitato che si vuole cancellare ha dei comitati sottostanti, rimuoverli e riprovare.
         </div>
+<?php }elseif ( isset($_GET['evol']) ) { ?>
+        <div class="alert alert-error">
+            <i class="icon-warning-sign"></i> <strong>Volontari correlati</strong>.
+            Attenzione il Comitato che si vuole cancellare ha dei Volontari iscritti, rimuoverli e riprovare.
+        </div>
 <?php } ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
     <br/>
