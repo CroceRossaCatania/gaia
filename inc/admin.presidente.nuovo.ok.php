@@ -19,7 +19,7 @@ if ( $c->unPresidente() ) {
 /* Creo la nuova appartenenza... */
 $a = new Delegato();
 $a->volontario  = $v;
-$a->comitato    = $c->id;
+$a->comitato    = $c->oid();
 $a->estensione  = $c->_estensione();
 $a->inizio      = time();
 $a->fine        = PROSSIMA_SCADENZA;
