@@ -156,7 +156,7 @@ if ($rf) {
             <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d/m/Y', $r->fine); ?></strong>.</p>
         </div>
         <?php } ?> 
-        <?php   if (!$me->appartenenzePendenti() && $me->unComitato()->gruppi()) { 
+        <?php   if ( $me->storico() && !$me->appartenenzePendenti() && $me->unComitato()->gruppi() ) { 
                         if (!$me->mieiGruppi()){ ?>
                                 <div class="alert alert-danger">
                                     <div class="row-fluid">
