@@ -5,7 +5,7 @@
  */
 
 paginaApp([ APP_OBIETTIVO , APP_PRESIDENTE , APP_SOCI ]);
-$f= new Titolo($_POST['idTitolo']);
+$f= Titolo::id($_POST['idTitolo']);
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>

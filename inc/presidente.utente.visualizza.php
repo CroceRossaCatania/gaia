@@ -7,7 +7,7 @@
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 $id = $_GET['id']; 
-$u = Utente::by('id', $id);
+$u = Utente::id($id);
 $t = TitoloPersonale::filtra([['volontario',$u]]);
 $admin = $me->admin();
 
@@ -178,6 +178,9 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
             </div>
           </form>    
     </div>
+    <!--Visualizzazione e modifica appartenenze utente -->
+    <div class="span6">
+
         <h4><i class="icon-folder-open"></i> Documenti volontario</h4>
         
         <?php if ( $u->documenti() ) { ?>
@@ -192,12 +195,11 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
             </span>
         <?php } ?>
         <hr />
-    <!--Visualizzazione e modifica appartenenze utente -->
-    <div class="span6">
+
         <div class="row-fluid">
             <h4>
                 <i class="icon-time muted"></i>
-                Appartenenze
+                Appartenenze attuali
             </h4>
             
         </div>
@@ -206,24 +208,14 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
             
             <table class="table table-bordered table-striped">
                 <thead>
-                    <th>Stato</th>
                     <th>Ruolo</th>
                     <th>Comitato</th>
                     <th>Inizio</th>
                     <th>Fine</th>
                     <th>Azioni</th>
                 </thead>
-                
-                <?php foreach ( $u->storico() as $app ) { ?>
-                    <tr<?php if ($app->attuale()) { ?> class="success"<?php } ?>>
-                        <td>
-                            <?php if ($app->attuale()) { ?>
-                                Attuale
-                            <?php } else { ?>
-                                Passato
-                            <?php } ?>
-                        </td>
-                        
+                <?php foreach ( $u->appartenenzeAttuali() as $app ) { ?>
+                    <tr class="success">
                         <td>
                             <strong><?php echo $conf['membro'][$app->stato]; ?></strong>
                         </td>
@@ -249,13 +241,10 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
                         
                         <td>
                             <div class="btn-group">
-                            <?php if ($app->attuale()) { 
-                              $sessione->a= $app;?>
-                                <a href="?p=us.appartenenza.modifica" title="Modifica appartenenza" class="btn btn-small btn-info">
+                                <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
                                     <i class="icon-edit"></i>
                                 </a>
-                            <?php } 
-                              if($me->admin()){ ?>
+                            <?php if($me->admin()){ ?>
                                 <a onClick="return confirm('Vuoi veramente cancellare questa appartenenza ?');" href="?p=us.appartenenza.cancella&a=<?php echo $app; ?>" title="Cancella appartenenza" class="btn btn-small btn-danger">
                                     <i class="icon-trash"></i>
                                 </a>
@@ -267,6 +256,23 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
                 <?php } ?>
             
             </table>
+        </div>
+        <div class="row-fluid">
+            <h4>
+                <i class="icon-ellipsis-horizontal muted"></i>
+                Storico
+            </h4>
+            
+        </div>
+        <div class="span12 allinea-centro">
+          
+            <a class="btn" target="_new" href="?p=presidente.riserva.storico&id=<?php echo $u->id; ?>">
+              <i class="icon-pause"></i> Storico riserve
+            </a>
+            <a class="btn" target="_new" href="?p=presidente.appartenenze.storico&id=<?php echo $u->id; ?>">
+              <i class="icon-time"></i> Storico appartenenze
+            </a>
+          
         </div>
         
     </div>

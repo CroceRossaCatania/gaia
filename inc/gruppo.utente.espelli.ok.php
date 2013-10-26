@@ -6,7 +6,7 @@
 
 $id = $_GET['id'];
 
-$g = new AppartenenzaGruppo($id);
+$g = AppartenenzaGruppo::id($id);
 	$g->fine = time();
 	$g->motivazione = $_POST['motivo'];
 	$g->tNega = time();

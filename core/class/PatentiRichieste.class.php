@@ -11,11 +11,11 @@ class Patentirichieste extends Entita {
         $_dt = null;
     
     public function volontario() {
-        return new Volontario($this->appartenenza()->volontario());
+        return Volontario::id($this->appartenenza()->volontario());
     }
     
     public function appartenenza() {
-        return new Appartenenza($this->appartenenza);
+        return Appartenenza::id($this->appartenenza);
     }
     
     public function comitato() {

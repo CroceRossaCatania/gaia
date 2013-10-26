@@ -34,7 +34,7 @@ if ( ($p->password) ) {
  */
 $p->nome                = $nome;
 $p->cognome             = $cognome;
-$p->sesso 				= $sesso;
+$p->sesso 				= ($sesso) ? UOMO : DONNA;
 $p->dataNascita         = $dnascita;
 $p->provinciaNascita 	= $prnascita;
 $p->comuneNascita 		= $conascita;
@@ -46,7 +46,15 @@ $p->civico   			= $civico;
 $p->grsanguigno   		= $grsanguigno;
 $p->timestamp           = time();
 $p->stato               = PERSONA;
-$p->consenso 			= time();
+$p->consenso            = time();
+
+if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
+    $p->stato               = PERSONA;
+} else {
+    $p->stato               = ASPIRANTE;
+}
+
+
 
 /*
  * Associa la sessione all'utente...

@@ -7,13 +7,13 @@
 paginaPrivata();
 
 $id = $_GET['id']; 
-$u = Utente::by('id',$id);
+$u = Utente::id($id);
 $t = TitoloPersonale::filtra([['volontario', $u]]);
 ?>
 <!--Visualizzazione e modifica anagrafica utente-->
 <div class="row-fluid">
-    <!--Visualizzazione e modifica avatar utente-->
     <div class="span6">
+  <!--Visualizzazione e modifica avatar utente-->
         <div class="span12">
             <h2><i class="icon-edit muted"></i> Anagrafica</h2>
         </div>

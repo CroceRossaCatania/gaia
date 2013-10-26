@@ -10,18 +10,16 @@ $v = $_GET['v'];
 $c = $_GET['oid'];
 
 $c = GeoPolitica::daOid($c);
-$v = new Volontario($v);
+$v = Volontario::id($v);
 
 if ( $c->unPresidente() ) {
-    if ($c->unPresidente()->attuale()){
-    	redirect('admin.presidenti&duplicato');
-    }
+    redirect('admin.presidenti&duplicato');
 }
 
 /* Creo la nuova appartenenza... */
 $a = new Delegato();
 $a->volontario  = $v;
-$a->comitato    = $c->id;
+$a->comitato    = $c->oid();
 $a->estensione  = $c->_estensione();
 $a->inizio      = time();
 $a->fine        = PROSSIMA_SCADENZA;

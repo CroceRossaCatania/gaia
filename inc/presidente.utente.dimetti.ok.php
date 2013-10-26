@@ -4,10 +4,10 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 $v     = $_GET['id'];
-$v = Volontario::by('id', $v);
+$v = Volontario::id($v);
 
 foreach ( $conf['dimissioni'] as $numero => $dimissioni ) {
     if ( $numero == $_POST['motivo']) { $motivo =  $dimissioni;} 
@@ -26,22 +26,14 @@ $d->volontario = $v->id;
 
 $a = Appartenenza::filtra([['volontario', $v]]);
 $i = Delegato::filtra([['volontario',$v]]);
-$g = TitoloPersonale::filtra([['volontario', $v]]);
 $e = Estensione::filtra([['volontario', $v], ['stato', EST_OK]]);
 
 foreach ($i as $_i){
-    $b = new Delegato($_i);
     $b->fine = time();   
 }
 
-foreach ($g as $_g){
-    $g = new TitoloPersonale($_g);
-    $g->fine = time();   
-}
-
 foreach ($e as $_e){
-    $est = new Estensione($_e);
-    $est.termina();
+    $est->termina();
 }
 
 foreach ( $a as $_a){
@@ -52,10 +44,10 @@ foreach ( $a as $_a){
         $d->info = $_POST['info'];
         $d->tConferma = time();
         $d->pConferma = $me;
-        $x = new Appartenenza($_a);
+        $x = Appartenenza::id($_a);
         $x->fine = time();
         $x->stato = MEMBRO_DIMESSO;
-        $f = new Persona($v);
+        $f = Persona::id($v);
         $f->stato = PERSONA;
         $f->admin='';
     }

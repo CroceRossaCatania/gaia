@@ -10,7 +10,7 @@ $comitato = $_POST['inputComitato'];
 if ( !$comitato ) {
     redirect('us.utente.nuovo&c');
 }
-$comitato = new Comitato($comitato);
+$comitato = Comitato::id($comitato);
 if ( !in_array($comitato, $me->comitatiApp([APP_SOCI, APP_PRESIDENTE])) ) {
     redirect('us.utente.nuovo&c');
 }
@@ -21,7 +21,7 @@ $email      = minuscolo($_POST['inputEmail']);
 
 /* Controlli */
 /* Cerca anomalie nel formato del codice fiscale */
-if ( !preg_match("/^[A-Z]{6}[0-9]{2}[A-Z][A-Z0-9]{2}[A-Z][A-Z0-9]{3}[A-Z]$/", $codiceFiscale) ) {
+if ( !preg_match("/^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$/", $codiceFiscale) ) {
 	redirect('us.utente.nuovo&e');
 }
 

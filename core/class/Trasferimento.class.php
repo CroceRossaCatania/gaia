@@ -11,11 +11,11 @@ class Trasferimento extends Entita {
     $_dt = null;
     
     public function volontario() {
-        return new Volontario($this->volontario);
+        return Volontario::id($this->volontario);
     }
     
     public function appartenenza() {
-        return new Appartenenza($this->appartenenza);
+        return Appartenenza::id($this->appartenenza);
     }
     
     public function comitato() {
@@ -40,7 +40,7 @@ class Trasferimento extends Entita {
 
         /* rimetto a posto l'appartenenza attuale */
 
-        $a = new Appartenenza($this->appartenenza);
+        $a = Appartenenza::id($this->appartenenza);
         $a->timestamp = time();
         $a->stato     = TRASF_NEGATO;
         $a->conferma  = $sessione->utente()->id;    
@@ -84,7 +84,7 @@ class Trasferimento extends Entita {
         
         $v = $this->volontario();
         $a = $v->appartenenzaAttuale();
-        $c = new Comitato($a->comitato);
+        $c = Comitato::id($a->comitato);
 
         /* Chiusura delle estensioni in corso*/
         $e = Estensione::filtra([
@@ -93,7 +93,6 @@ class Trasferimento extends Entita {
             ]);
 
         foreach ($e as $_e){
-            $_e = new Estensione($_e);
             $_e->termina();
         }
 

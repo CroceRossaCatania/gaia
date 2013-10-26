@@ -48,7 +48,7 @@ richiediComitato();
                 
         <div class="row-fluid">
        
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped" id="partecipazioniAttivita">
             
             <thead>
                 <th>Attività</th>
@@ -63,13 +63,13 @@ richiediComitato();
                 ?>
             
 
-                <tr>
+                <tr data-timestamp="<?php echo $part->turno()->fine()->toJSON(); ?>">
                     <td>
                         <p><strong><?php echo $part->attivita()->nome; ?></strong><br />
                         <?php echo $part->turno()->nome;  ?><br />
                         <?php echo $part->turno()->inizio()->inTesto(); ?></p>
                         
-                        <a href="?p=attivita.scheda&id=<?php echo $part->attivita()->id; ?>">
+                        <a href="?p=attivita.scheda&id=<?php echo $part->attivita()->id.'#'.$part->turno()->id ; ?>">
                             <i class="icon-reply"></i> Vedi dettagli attività
                         </a>
                     </td>
@@ -131,8 +131,15 @@ richiediComitato();
                     </td>
                 </tr>
                 <?php } ?>
-                        
-            
+                <tr class="nascosto" id="rigaMostraTuttiTurni">
+                        <td colspan="4">
+                            <a id="mostraTuttiTurni" class="btn btn-block">
+                                <i class="icon-info-sign"></i>
+                                Ci sono <span id="numTurniNascosti"></span> attività passate nascoste.
+                                <strong>Clicca per mostrare le attività nascoste.</strong>
+                            </a>
+                        </td>
+                    </tr>     
         </table>
             
                                  

@@ -60,7 +60,7 @@ if (isset($_GET['com'])){
     $zip->comprimi("Report volontari zero turni.zip"); 
     $zip->download();
     }elseif (isset($_GET['unit'])){
-        $comitato = new Comitato ($_GET['c']);
+        $comitato = Comitato::id($_GET['c']);
         $excel = new Excel();
         $excel->intestazione([
             'Nome',

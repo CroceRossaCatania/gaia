@@ -8,7 +8,7 @@ paginaPresidenziale();
 // caricaSelettore();
 
 
-$comitati = $me->comitatiDiCompetenza();
+$comitati = $me->unitaDiCompetenza();
 
 if ( $sessione->attenzione == false ){
     $sessione->attenzione = true;

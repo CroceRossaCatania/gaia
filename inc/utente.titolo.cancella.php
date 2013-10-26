@@ -7,7 +7,7 @@
 paginaPrivata();
 
 $t = $_GET['id'];
-$t = new TitoloPersonale($t);
+$t = TitoloPersonale::id($t);
 $v = $t->volontario();
 $tipo = $t->titolo()->tipo;
 $t->cancella();

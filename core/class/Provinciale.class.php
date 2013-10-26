@@ -40,7 +40,7 @@ class Provinciale extends GeoPolitica {
     }
     
     public function regionale() {
-        return new Regionale($this->regionale);
+        return Regionale::id($this->regionale);
     }
     
     public function nazionale() {
@@ -71,7 +71,7 @@ class Provinciale extends GeoPolitica {
         $r = $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Provinciale($k[0]);
+            $r[] = $k[0];
         }
         return $r;
     }

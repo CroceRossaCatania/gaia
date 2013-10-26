@@ -11,11 +11,11 @@ class Partecipazione extends Entita {
         $_dt = null;
 
     public function volontario() {
-        return new Volontario($this->volontario);
+        return Volontario::id($this->volontario);
     }
     
     public function turno() {
-        return new Turno($this->turno);
+        return Turno::id($this->turno);
     }
     
     public function attivita() {
@@ -23,7 +23,8 @@ class Partecipazione extends Entita {
     }
 
     public function comitatoAppartenenza() {
-        return $this->turno()->attivita()->comitato();
+        $oid = $this->turno()->attivita()->comitato;
+        return GeoPolitica::daOid($oid);
     }
 
     public function autorizzazioni() {
@@ -60,12 +61,11 @@ class Partecipazione extends Entita {
     public function generaAutorizzazioni() {
         
         /* IMPORTANTE: Logica generazione autorizzazioni */
-        
         // Se richiedo part., nello stesso comitato
-        if ( $this->comitatoAppartenenza()->haMembro($this->volontario()) ) {
+        if ( $this->comitatoAppartenenza()->contieneVolontario($this->volontario()) ) {
             
             /* Allora come da accordi, genero
-             * una sola Autorizzazione al presidente
+             * una sola Autorizzazione al referente
              * del comitato organizzatore...
              */
             $a = new Autorizzazione();
@@ -87,7 +87,7 @@ class Partecipazione extends Entita {
             
             /*
              * Se chiedo partecipazione in un comitato differente,
-             * faccio richiesta al mio ed al suo presidente.
+             * faccio richiesta al mio presidente ed al referente.
              */
             
             // Al suo...
@@ -106,12 +106,17 @@ class Partecipazione extends Entita {
             $m->_DATA        = $a->timestamp()->format('d-m-Y H:i');
             $m->invia();
             
-            /*
             // Al mio...
+            
+            /* HOTFIX TEMPORANEO "MA GRAN PORCO CAZZO"
             $a = new Autorizzazione();
             $a->partecipazione = $this->id;
             $a->volontario     = $this->volontario()->unComitato()->unPresidente()->id;
             $a->richiedi();
+            
+            -- Questa roba non funziona se l'estensione dell'attivita' e' cazzo provinciale o superiore...
+            -- o comunque superiore alla territoriale. Insomma da rivedere.
+            -- Per ora meglio non generare la seconda autorizzazione che generarne una a minchia.
             
             $m = new Email('richiestaAutorizzazione', 'Richiesta autorizzazione partecipazione attività');
             $m->a            = $this->volontario()->unComitato()->unPresidente();
@@ -121,11 +126,19 @@ class Partecipazione extends Entita {
             $m->_TURNO       = $this->turno()->nome;
             $m->_DATA        = $a->timestamp()->format('d-m-Y H:i');
             $m->invia();
-             * 
-             */
+            */
              
         }
         
+    }
+
+    public function poteri(){
+
+        return (bool) Delegato::filtra([
+                ['partecipazione', $this], 
+                ['volontario', $this->volontario()]
+                ]);
+
     }
 
 }

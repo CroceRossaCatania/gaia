@@ -1,12 +1,13 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 $v = $_GET['id'];
-$v = Volontario::by('id', $v);
+$v = Volontario::id($v);
+proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
 ?>
 <div class="row-fluid">
     <div class="span12">
@@ -15,6 +16,7 @@ $v = Volontario::by('id', $v);
                 <i class="icon-pause muted"></i>
                 Storico Riserve
             </h2>
+            <p>Volontario: <strong><?= $v->nomeCompleto(); ?></strong></p>
             
         </div>
         
@@ -22,12 +24,12 @@ $v = Volontario::by('id', $v);
             
             <table class="table table-bordered table-striped">
                 <thead>
-                    <th>Nome e Cognome</th>
                     <th>Stato</th>
                     <th>Ruolo</th>
                     <th>Motivo riserva</th>
                     <th>Inizio</th>
                     <th>Fine</th>
+                    <th>Azioni</th>
                 </thead>
                 
                 <?php foreach ( $v->riserve() as $app ) { ?>
@@ -62,6 +64,11 @@ $v = Volontario::by('id', $v);
                                 <i class="icon-question-sign muted"></i>
                                 Indeterminato
                             <?php } ?>
+                        </td>
+                        <td>
+                            <a class="btn btn-small btn-info" href="?p=presidente.riservaRichiesta.stampa&id=<?php echo $app->id; ?>" title="Visualizza ricevuta" data-attendere="Attendere...">
+                                <i class="icon-paperclip"></i> Richiesta
+                            </a>
                         </td>
                         
                     </tr>

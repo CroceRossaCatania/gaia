@@ -7,7 +7,7 @@
 paginaPrivata();
 
 $f = $_GET['id'];
-$e = Estensione::by('id', $f);
+$e = Estensione::id($f);
 $cest = $e->comitato();
 
 $capp = $e->volontario()->unComitato();
@@ -21,13 +21,14 @@ $app = $app[0];
 $p = new PDF('estensione', 'Estensione.pdf');
 $p->_COMITATOOUT = $capp->locale()->nomeCompleto();
 $p->_COMITATOIN = $cest->nomeCompleto();
+$p->_COMITATOC = $capp->nomeCompleto();
 $p->_NOME = $e->volontario()->nome;
 $p->_COGNOME = $e->volontario()->cognome;
 $p->_LUOGO = $e->volontario()->comuneNascita;
-$p->_DATA = date('d-m-Y', $e->volontario()->dataNascita);
+$p->_DATA = date('d/m/Y', $e->volontario()->dataNascita);
 $p->_ANNOCRI =$e->volontario()->ingresso()->format('d/m/Y');
 $p->_MOTIVO = $e->motivo;
-$p->_TIME = date('d-m-Y', $e->timestamp);
+$p->_TIME = date('d/m/Y', $e->timestamp);
 $f = $p->salvaFile();
 
 if ( $sessione->inGenerazioneEstensione) {
@@ -38,7 +39,7 @@ if ( $sessione->inGenerazioneEstensione) {
         $m->a = $me;
         $m->_NOME       = $me->nome;
         $m->_COMITATO   = $cest->nomeCompleto();
-        $m-> _TIME = date('d-m-Y', $e->timestamp);
+        $m-> _TIME = date('d/m/Y', $e->timestamp);
         $m->allega($f);
         $m->invia();
         
@@ -48,7 +49,7 @@ if ( $sessione->inGenerazioneEstensione) {
         $m->_NOME       = $me->nomeCompleto();
         $m->_COMITATO   = $cest->nomeCompleto();
         $m->_USCENTE = $capp->nomeCompleto();
-        $m-> _TIME = date('d-m-Y', $e->timestamp);
+        $m-> _TIME = date('d/m/Y', $e->timestamp);
         $m->allega($f);
         $m->invia();
        

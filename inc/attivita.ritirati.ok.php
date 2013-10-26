@@ -12,7 +12,7 @@ if (!isset($_POST['partecipazione'])) {
 }
 
 $pk = $_POST['partecipazione'];
-$pk = new Partecipazione($pk);
+$pk = Partecipazione::id($pk);
 
 $m = new Email('volontarioRitirato', 'Un volontario si è ritirato');
 $m->a = $pk->attivita()->referente();

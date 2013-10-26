@@ -41,7 +41,7 @@ class Regionale extends GeoPolitica {
     }
     
     public function nazionale() {
-        return new Nazionale($this->nazionale);
+        return Nazionale::id($this->nazionale);
     }
     
         
@@ -69,7 +69,7 @@ class Regionale extends GeoPolitica {
         $r = $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Regionale($k[0]);
+            $r[] = $k[0];
         }
         return $r;
     }

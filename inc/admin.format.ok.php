@@ -83,12 +83,12 @@ paginaAdmin();
             $v->cambiaPassword($password);
             echo(' PASSWORD GENERATA');
 
-            $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[12]);
+            $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[14]);
             $dingresso   = $dingresso->getTimestamp();
 
             /* format con pass e conferma*/
             $app = new Appartenenza();
-            $comitato = Comitato::by('nome', $riga[13]);
+            $comitato = Comitato::by('nome', $riga[15]);
             $pres = $comitato->unPresidente();
             $app->comitato = $comitato->id;
             $app->volontario = $v->id;
@@ -248,20 +248,27 @@ paginaAdmin();
         $p->provinciaResidenza  = maiuscolo($riga[8]);
         $p->CAPResidenza        = maiuscolo($riga[9]);
         $p->email               = minuscolo($riga[10]);
+        $p->emailServizio       = minuscolo($riga[11]);
         if ($p->email == '') {
             $haemail = true;
         } else {
             $haemail = flase;
         }
         
-        $cell = maiuscolo($riga[11]);
+        $cell = maiuscolo($riga[12]);
         $cell = str_replace(', ', ' / ', $cell);
         $cell = str_replace('', ' ', $cell);
         $cell = str_replace('-', '', $cell);
         $p->cellulare = $cell;
+
+        $cells = maiuscolo($riga[13]);
+        $cells = str_replace(', ', ' / ', $cells);
+        $cells = str_replace('', ' ', $cells);
+        $cells = str_replace('-', '', $cells);
+        $p->cellulareServizio = $cells;
         
-        /* Imposta la data di nascita */
-        $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[12]);
+        /* Imposta la data di ingresso in CRI */
+        $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[14]);
         $dingresso   = $dingresso->getTimestamp();
 
         $app = null;
@@ -270,7 +277,7 @@ paginaAdmin();
 
         /* format con pass e conferma*/
         $app = new Appartenenza();
-        $comitato = Comitato::by('nome', $riga[13]);
+        $comitato = Comitato::by('nome', $riga[15]);
         $pres = $comitato->unPresidente();
         $comitato = $comitato->id;
         $app->comitato = $comitato;
@@ -304,7 +311,7 @@ paginaAdmin();
             echo(' INSERITA QUOTA');
         }
 
-        if ($riga[14] == '') {
+        if ($riga[16] == '') {
             $riserva = false;    
         } else {
             $riserva = true;    
@@ -316,17 +323,17 @@ paginaAdmin();
             $r->stato = RISERVA_OK;
             $r->appartenenza = $app->id;
             $r->volontario = $p->id;
-            $inizio = @DateTime::createFromFormat('d/m/Y', $riga[14] );
+            $inizio = @DateTime::createFromFormat('d/m/Y', $riga[16] );
             $inizio = @$inizio->getTimestamp();
             $r->inizio = $inizio;
-            $fine = @DateTime::createFromFormat('d/m/Y', $riga[15] );
+            $fine = @DateTime::createFromFormat('d/m/Y', $riga[17] );
             $fine = @$fine->getTimestamp();
             $r->fine = $fine;
-            $r->protNumero = $riga[16];
-            $protData = @DateTime::createFromFormat('d/m/Y', $riga[17] );
+            $r->protNumero = $riga[18];
+            $protData = @DateTime::createFromFormat('d/m/Y', $riga[19] );
             $protData = @$protData->getTimestamp();
             $r->protData = $protData;
-            $r->motivo = $riga[18];
+            $r->motivo = $riga[20];
             $r->timestamp = time();
             $r->pConferma = $pres;
             $r->tConferma = time();

@@ -64,7 +64,7 @@ paginaPrivata();
             foreach ( $comitati as $comitato ) {
                 foreach ( $comitato->volontariDelegati() as $delegato ) { 
 
-                    $_v = Volontario::by('id', $delegato);
+                    $_v = Volontario::id($delegato);
                     $d = $_v->delegazioni();
                     ?>
                     <tr>

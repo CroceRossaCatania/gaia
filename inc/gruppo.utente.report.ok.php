@@ -7,7 +7,7 @@
 paginaPrivata();
 
 $id = $_GET['id'];
-$v = new Volontario($id);
+$v = Volontario::id($id);
 $inizio = DT::createFromFormat('d/m/Y', $_POST['datainizio']);
 $fine = DT::createFromFormat('d/m/Y', $_POST['datafine']);
 $inizio = $inizio->getTimestamp();

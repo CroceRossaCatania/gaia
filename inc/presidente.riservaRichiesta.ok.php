@@ -9,7 +9,7 @@ paginaPresidenziale();
 $t     = $_GET['id'];
 
 
-                                    $a = new Riserva($t);
+                                    $a = Riserva::id($t);
                                     $a->protNumero = $_POST['numprotocollo'];
                                     $protData = @DateTime::createFromFormat('d/m/Y', $_POST['dataprotocollo']);
                                     $protData = @$protData->getTimestamp();

@@ -7,7 +7,7 @@
 paginaPrivata();
 
 $id = $_POST['id'];
-$est = new Estensione($id);
+$est = Estensione::id($id);
 $est->termina();
 
 $m = new Email('estensioneTermina', 'Termine estensione: ' . $est->comitato()->nomeCompleto());
