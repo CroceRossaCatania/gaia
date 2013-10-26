@@ -266,7 +266,7 @@ $(document).ready( function() {
                             <th style="width: 35%;">Volontari</th>
                             <th style="width: 15%;">Partecipa</th>
                         </thead>
-                        <?php foreach ( $a->turni() as $turno ) { ?>
+                        <?php foreach ( $a->turniFut() as $turno ) { ?>
                         <tr<?php if ( $turno->scoperto() ) { ?> class="warning"<?php } ?> data-timestamp="<?php echo $turno->fine()->toJSON(); ?>">
 
                         <td>
@@ -440,16 +440,18 @@ $(document).ready( function() {
                             <?php } ?>
                         </td>
                     </tr>
-                    <?php } ?>
-                    <tr class="nascosto" id="rigaMostraTuttiTurni">
+                    <?php } 
+                    if($a->turni() != $a->turniFut()){ ?>
+                    <tr>
                         <td colspan="4">
-                            <a id="mostraTuttiTurni" class="btn btn-block">
+                            <a data-attendere="Attendere..." href="?p=attivita.turni.passati&id=<?= $a; ?>" class="btn btn-block">
                                 <i class="icon-info-sign"></i>
                                 Ci sono <span id="numTurniNascosti"></span> turni passati nascosti.
-                                <strong>Clicca per mostrare i turni nascosti.</strong>
+                                <strong>Clicca per mostrare tutti i turni.</strong>
                             </a>
                         </td>
                     </tr>
+                    <?php } ?>
                 </table>
             </div>
         </div>

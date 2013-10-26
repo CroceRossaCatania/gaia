@@ -318,7 +318,7 @@ class Utente extends Persona {
         return $this->comitatiDelegazioni(APP_PRESIDENTE);
     }
     
-    public function comitatiApp( $app ) {
+    public function comitatiApp( $app , $soloComitati = true) {
         if (!is_array($app)) {
             $app = [$app];
         }
@@ -327,7 +327,7 @@ class Utente extends Persona {
         }
         $r = [];
         foreach ( $app as $k ) {
-            $r = array_merge($r, $this->comitatiDelegazioni($k));
+            $r = array_merge($r, $this->comitatiDelegazioni($k, $soloComitati));
         }
         $r = array_unique($r);
         return $r;
@@ -340,18 +340,22 @@ class Utente extends Persona {
     
     public function numVolontariDiCompetenza() {
         $n = 0;
-        foreach ( $this->comitatiApp([ APP_SOCI, APP_PRESIDENTE, APP_CO, APP_OBIETTIVO ]) as $c ) {
-            $n += $c->numMembriAttuali(MEMBRO_VOLONTARIO);
+        $comitati = $this->comitatiApp([ APP_SOCI, APP_PRESIDENTE, APP_CO, APP_OBIETTIVO ]);
+        foreach($comitati as $_c) {
+                $n += $_c->numMembriAttuali(MEMBRO_VOLONTARIO);          
         }
         return $n;
     }
     
     public function presiede( $comitato = null ) {
         if ( $comitato ) {
-            return (bool) in_array($comitato, $this->comitatiApp([APP_PRESIDENTE]));
+            if($comitato->unPresidente() == $this->id) {
+                return true;
+            }
         } else {
-            return (bool) $this->comitatiApp([APP_PRESIDENTE]);
+            return (bool) $this->comitatiApp([APP_PRESIDENTE], false);
         }
+        return false;
     }
     
     /* Avatar */
@@ -372,6 +376,17 @@ class Utente extends Persona {
         } else {
             return $this->comitatiPresidenzianti();
         }
+    }
+
+    public function unitaDiCompetenza() {
+        $c = $this->comitatiDiCompetenza();
+        $r = [];
+        foreach($c as $_c) {
+            if($_c instanceof Comitato) {
+                $r[] = $_c;
+            }
+        }
+        return $r;
     }
     
     public function miCompete(Comitato $c) {
@@ -624,12 +639,17 @@ class Utente extends Persona {
         return $r;
     }
     
-    public function comitatiDelegazioni($app = null) {
+    public function comitatiDelegazioni($app = null, $soloComitati = false) {
         $d = $this->delegazioni($app);
         $c = [];
-        foreach ( $d as $k ) {
-            // $c[] = $k->comitato();
-            $c = array_merge($k->estensione(), $c);
+        foreach ( $d as $_d ) {
+            $comitato = $_d->comitato();
+            if (!$soloComitati || $comitato instanceof Comitato) {
+                $c[] = $comitato;
+            }
+            if (!$comitato instanceof Comitato) {
+                $c = array_merge($comitato->estensione(), $c);
+            }
         }
         return array_unique($c);
     }
@@ -792,7 +812,7 @@ class Utente extends Persona {
         if ( $c ) {
             if ( $this->admin() || $this->presiede($c) ) {
                 return $c->aree();
-            } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $comitato) ) {
+            } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $c) ) {
                 $r = [];
                 foreach ( $o as $io ) {
                     $r = array_merge($r, $c->aree($io->dominio, $espandiLocale));
@@ -810,10 +830,14 @@ class Utente extends Persona {
                 $r = array_merge($r, $c->aree());
             }
             foreach ( $this->delegazioni(APP_OBIETTIVO) as $d ) {
-                $r = array_merge(
-                        $r,
-                        $d->comitato()->aree($d->dominio)
-                );
+                $comitato = $d->comitato();
+                $r = array_merge($r, $comitato->aree($d->dominio));
+                if ($comitato instanceof Locale) {
+                    $comitati = $comitato->estensione();
+                    foreach ($comitati as $_c) {
+                        $r = array_merge($r, $_c->aree($d->dominio));
+                    } 
+                }
             }
             $r = array_merge($r, $this->areeDiResponsabilita());
             $r = array_unique($r);
@@ -826,7 +850,11 @@ class Utente extends Persona {
         $a = $this->areeDiCompetenza(null, true);
         $r = [];
         foreach ($a as $ia) {
-            $r[] = $ia->comitato();
+            $comitato = $ia->comitato();
+            $r[] = $comitato;
+            if ($comitato instanceof Locale) {
+                $r = array_merge($r, $comitato->estensione());
+            }
         }
         $r = array_unique($r);
         return $r;

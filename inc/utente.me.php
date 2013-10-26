@@ -10,7 +10,8 @@ if ( !$me->email ) { redirect('nuovaAnagraficaContatti'); }
 if ( !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
 
 foreach ( $me->comitatiPresidenzianti() as $comitato ) {
-    if ( !$comitato->haPosizione() && !$comitato->principale ) {
+    $p = $comitato->unPresidente();
+    if ( $p && $p == $me->id && !$comitato->haPosizione() && !$comitato->principale ) {
         redirect('presidente.wizard&forzato&oid=' . $comitato->oid());
     }
 }
@@ -156,7 +157,7 @@ if ($rf) {
             <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d/m/Y', $r->fine); ?></strong>.</p>
         </div>
         <?php } ?> 
-        <?php   if (!$me->appartenenzePendenti() && $me->unComitato()->gruppi()) { 
+        <?php   if ( $me->storico() && !$me->appartenenzePendenti() && $me->unComitato()->gruppi() ) { 
                         if (!$me->mieiGruppi()){ ?>
                                 <div class="alert alert-danger">
                                     <div class="row-fluid">
