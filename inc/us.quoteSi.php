@@ -18,7 +18,14 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <i class="icon-remove"></i> <strong>Quote annuali chiuse</strong>.
             Anno chiuso.
         </div>
-<?php } ?>
+<?php } 
+
+    if (!isset($_POST['anno'])) {
+        $anno = date('Y', time());
+    } else {
+        $anno = $_POST['anno'];
+    } ?>
+
     <br/>
 <div class="row-fluid">
     <div class="span5 allinea-sinistra">
@@ -50,6 +57,12 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <span class="add-on"><i class="icon-search"></i></span>
             <input autofocus required id="cercaUtente" placeholder="Cerca Volontario..." type="text">
         </div>
+        <form action="?p=us.quoteSi" method="POST">
+        <div class="input-prepend">
+            <span class="add-on"><i class="icon-calendar"></i></span>
+            <input data-autosubmit="true" name="anno" class="alCambioSalva annoQuota" type="text" value="<?php echo $anno; ?>">
+        </div>
+        </form>
     </div>    
 </div>
     
@@ -81,7 +94,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         <?php
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
-            $t = $comitato->quoteSi();
+            $t = $comitato->quoteSi($anno);
                 ?>
             
             <tr class="success">

@@ -438,7 +438,7 @@ class Comitato extends GeoPolitica {
         return [$this];
     }
     
-    public function quoteSi() {
+    public function quoteSi($anno) {
         $q = $this->db->prepare("
             SELECT  anagrafica.id
             FROM    appartenenza, anagrafica, quote
@@ -461,12 +461,10 @@ class Comitato extends GeoPolitica {
             ORDER BY
               anagrafica.cognome     ASC,
               anagrafica.nome  ASC");
-        $q->bindValue(':comitato',  $this->id);
-        $stato = MEMBRO_VOLONTARIO;
-        $q->bindValue(':stato',  $stato);
+        $q->bindParam(':comitato',  $this->id);
+        $q->bindValue(':stato',  MEMBRO_VOLONTARIO);
         $q->bindValue(':ora',  time());
-        $anno = date ('Y', time());
-        $anno = mktime(0, 0, 0, 1, 1, $anno);
+        //$anno = date ('Y', time());
         $q->bindValue(':anno',    $anno);
         $q->execute();
         $r = [];
@@ -476,7 +474,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
-     public function quoteNo() {
+     public function quoteNo($anno) {
         $q = $this->db->prepare("
             SELECT 
                 anagrafica.id 
@@ -489,24 +487,23 @@ class Comitato extends GeoPolitica {
             AND
                 appartenenza.stato = :stato
             AND 
-                ( appartenenza.fine < 1 OR appartenenza.fine > :ora )
+                ( appartenenza.fine < 1 OR appartenenza.fine > :ora OR appartenenza.fine IS NULL)
             AND 
             appartenenza.id 
             NOT IN 
             ( 
                 SELECT 
-                    quote.appartenenza 
+                    appartenenza 
                 FROM 
                     quote 
                 WHERE 
-                    quote.anno = :anno)
+                    anno = :anno)
             ORDER BY
                 anagrafica.cognome     ASC,
                 anagrafica.nome  ASC");
         $q->bindParam(':comitato',  $this->id);
         $q->bindParam(':ora',  time());
-        $anno = date ('Y', time());
-        $anno = mktime(0, 0, 0, 1, 1, $anno);
+        //$anno = date ('Y', time());
         $q->bindValue(':anno', $anno);
         $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->execute();
