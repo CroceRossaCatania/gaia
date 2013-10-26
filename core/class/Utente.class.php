@@ -318,7 +318,7 @@ class Utente extends Persona {
         return $this->comitatiDelegazioni(APP_PRESIDENTE);
     }
     
-    public function comitatiApp( $app ) {
+    public function comitatiApp( $app , $soloComitati = true) {
         if (!is_array($app)) {
             $app = [$app];
         }
@@ -327,7 +327,7 @@ class Utente extends Persona {
         }
         $r = [];
         foreach ( $app as $k ) {
-            $r = array_merge($r, $this->comitatiDelegazioni($k, true));
+            $r = array_merge($r, $this->comitatiDelegazioni($k, $soloComitati));
         }
         $r = array_unique($r);
         return $r;
@@ -353,7 +353,7 @@ class Utente extends Persona {
                 return true;
             }
         } else {
-            return (bool) $this->comitatiApp([APP_PRESIDENTE]);
+            return (bool) $this->comitatiApp([APP_PRESIDENTE], false);
         }
         return false;
     }
