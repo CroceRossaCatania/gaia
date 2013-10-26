@@ -1,5 +1,10 @@
 <?php  
-paginaPresidenziale();
+
+/*
+ * ©2013 Croce Rossa Italiana
+ */
+
+paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $t = $_GET['t'];
 $v = $_GET['v'];  

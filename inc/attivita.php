@@ -8,7 +8,7 @@ paginaAnonimo();
 
 ?>
 <div class="row-fluid">
-    
+    <?php if ( !$me instanceof Anonimo ) { ?>
     <div class="span3">
         <?php menuVolontario(); ?>
         <hr />
@@ -22,7 +22,7 @@ paginaAnonimo();
                     Tutti i comitati
                 </td>
             </tr>
-            <?php if ( !$me instanceof Anonimo ) { ?>
+            
                 <tr>
                     <td style="color: #<?php echo $conf['attivita']['colore_mie']; ?>;">
                         <i class="icon-sign-blank"></i>
@@ -39,18 +39,18 @@ paginaAnonimo();
                         Turni scoperti
                     </td>
                 </tr>
-            <?php } ?>
+           
 
         </table>
 
 
     </div>
-    
-
 
     <div class="span9">
-        
-    <?php if ( $me instanceOf Anonimo ) { ?>
+    <?php } else { ?>
+    <div class="span12">
+    <?php } 
+     if ( $me instanceOf Anonimo ) { ?>
     
         <div class="alert alert-block alert-warning">
 

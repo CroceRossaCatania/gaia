@@ -11,8 +11,8 @@ $v = $_GET['v'];
     
 if (isset($_GET['monta'])) {
     $c = new Coturno();
+    $v = Volontario::id($v);
     $c->volontario = $v;
-    $v = Volontario::by('id', $v);
     $c->appartenenza = $v->unComitato();
     $c->turno = $t;
     $c->pMonta = $me;
@@ -23,7 +23,7 @@ redirect('co.attivita&monta');
 
 if (isset($_GET['smonta'])) {
     $c = Coturno::filtra([['volontario', $v],['turno',$t]]);
-    $c = new Coturno($c[0]);
+    $c = Coturno::id($c[0]);
     $c->volontario = $v;
     $c->pSmonta = $me;
     $c->smonta();

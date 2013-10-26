@@ -8,7 +8,7 @@ paginaAdmin();
 
 $a = $_GET['a'];
 
-$app = new Appartenenza($a);
+$app = Appartenenza::id($a);
 $v = $app->volontario;
 $app->cancella();
 

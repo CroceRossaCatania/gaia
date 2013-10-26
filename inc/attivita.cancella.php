@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-$a = new Attivita($_GET['id']);
+$a = Attivita::id($_GET['id']);
 paginaAttivita($a);
 
 ?>
@@ -30,6 +30,7 @@ paginaAttivita($a);
                     <li>Tutti i turni passati e futuri;</li>
                     <li>Le partecipazioni dei volontari, anche dai loro fogli di servizio;</li>
                     <li>Le autorizzazioni richieste, accettate e negate.</li>
+                    <li>I gruppi di lavoro legati all'attività.</li>
                 </ul>
                 Una volta eliminata, non sarà possibile recuperare le informazioni.
               

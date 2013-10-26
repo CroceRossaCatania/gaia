@@ -7,13 +7,37 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
 
 ?>
 <?php if ( isset($_GET['monta']) ) { ?>
-        <div class="alert alert-success">
+    <script>
+        $(window).load(function () {
+            $('#ok').toggle(1500);
+            $('.monta').toggle(1500);
+            $('.smonta').toggle(1500);
+            $('.visualizza').toggle(1500);
+        });
+    </script>
+        <div id="ok" class="alert alert-success">
             <i class="icon-ok"></i><strong> Volontario in turno</strong>
         </div>
 <?php } elseif ( isset($_GET['smonta']) )  { ?>
-        <div class="alert alert-block alert-error">
-            <i class="icon-exclamation-sign"></i><strong> Volontario smontato</strong>
-        </div>
+    <script>
+        $(window).load(function () {
+            $('#no').toggle(1500);
+            $('.monta').toggle(1500);
+            $('.smonta').toggle(1500);
+            $('.visualizza').toggle(1500);
+        });
+    </script>
+    <div id="no" class="alert alert-block alert-error">
+        <i class="icon-exclamation-sign"></i><strong> Volontario smontato</strong>
+    </div>
+<?php }else{ ?>
+    <script>
+        $(window).load(function () {
+            $('.monta').toggle(1500);
+            $('.smonta').toggle(1500);
+            $('.visualizza').toggle(1500);
+        });
+    </script>
 <?php } ?>
     <br/>
 <div class="row-fluid">
@@ -52,22 +76,21 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
         $i = time()+10800;
         $f = time()-3600;
         $comitati = $me->comitatiApp ([ APP_CO, APP_PRESIDENTE ]);
-        $elenco = Attivita::elenco();
         foreach($comitati as $comitato){
+            $elenco = Attivita::filtra([['comitato', $comitato->oid()]]);
             foreach($elenco as $attivita) {
-                if($attivita->comitato == $comitato){
                     $x=0;
                     $turni = $attivita->turni();
                     foreach($turni as $turno){
                         $z=0;
                         $partecipanti = $turno->partecipazioniStato(AUT_OK);
                         foreach ($partecipanti as $partecipante){ 
-                            $m= Coturno::filtra([['volontario', $partecipante->volontario()],['turno',$turno]]); 
+                            $m = Coturno::filtra([['volontario', $partecipante->volontario()],['turno',$turno]]); 
                             if (($turno->inizio <= $i  && $turno->fine >= $f) || ($m[0]->pMonta && !$m[0]->pSmonta)) {
                                 if($x==0){ ?> 
                                     <tr class="primary">
                                         <td colspan="4" class="grassetto">
-                                        <?php echo $attivita->nome; ?>
+                                        <?php echo $attivita->nome ," - Referente: " , $attivita->referente()->nomeCompleto() , " Cell: ", $attivita->referente()->cellulare(); ?>
                                         </td>
                                     </tr>
                                     <?php 
@@ -83,30 +106,36 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                                     <?php $z++;
                                     
                                     } ?>
-                                <tr class="<?php if(!$m[0]->pSmonta && !$m[0]->stato == CO_MONTA){echo "warning"; }elseif($m[0]->stato == CO_MONTA){ echo "success";}else{echo "error";}?>">
+                                <tr class="<?php if(!$m[0]->pSmonta && !$m[0]->stato == CO_MONTA){ ?> warning <?php }elseif($m[0]->stato == CO_MONTA){ ?> success <?php }else{ ?> error <?php } ?>">
                                    <td><?php echo $partecipante->volontario()->nomeCompleto(); ?></td>
                                    <td><?php echo $partecipante->volontario()->cellulare(); ?></td>
                                    <td>
                                        <div class="btn-group">
                                            <?php if($m[0]->stato == '' || !$m[0]->stato == CO_MONTA || $m[0]->stato == CO_MONTA){ ?>
-                                            <a class="btn btn-small btn" target="_new" href="?p=public.utente&id=<?php echo $partecipante->volontario(); ?>" title="Monta">
+                                            <a class="visualizza btn btn-small btn nascosto" target="_new" href="?p=public.utente&id=<?php echo $partecipante->volontario(); ?>" title="Visualizza">
                                                 <i class="icon-eye-open"></i> Visualizza
                                             </a>
                                            <?php } ?>
                                            <?php if(!$m[0]->stato == CO_MONTA){ ?>
-                                                <a class="btn btn-small btn-success" href="?p=co.attivita.ok&v=<?php echo $partecipante->volontario(); ?>&t=<?php echo $turno; ?>&monta" title="Monta">
+                                                <a onclick="$('.monta').hide(500); $('.smonta').hide(500); $('.visualizza').hide(500); $('.m1').toggle(500);" class="monta btn btn-small btn-success nascosto" href="?p=co.attivita.ok&v=<?php echo $partecipante->volontario(); ?>&t=<?php echo $turno; ?>&monta" title="Monta">
                                                     <i class="icon-arrow-up"></i> Monta
                                                 </a>
+                                                <div class="m1 alert alert-block alert-warning nascosto">
+                                                    <h4><i class="icon-warning-sign"></i> <strong>Attendere...</strong>.</h4>
+                                                </div>
                                             <?php } 
                                             if($m[0]->stato == CO_MONTA){ ?>
-                                                <a class="btn btn-small btn-danger" href="?p=co.attivita.ok&v=<?php echo $partecipante->volontario(); ?>&t=<?php echo $turno; ?>&smonta" title="Smonta">
+                                                <a class="smonta btn btn-small btn-danger nascosto" onclick="$('.smonta').hide(500); $('.monta').hide(500); $('.visualizza').hide(500);  $('.m1').toggle(500);" href="?p=co.attivita.ok&v=<?php echo $partecipante->volontario(); ?>&t=<?php echo $turno; ?>&smonta" title="Smonta">
                                                     <i class="icon-arrow-down"></i> Smonta
                                                 </a>
+                                                <div class="m1 alert alert-block alert-success nascosto">
+                                                    <h4><i class="icon-warning-sign"></i> <strong>Attendere...</strong>.</h4>
+                                                </div>
                                            <?php } ?>
                                        </div>
                                    </td>
                                 </tr>
-        <?php }}}}}}?>
+        <?php }}}}}?>
         </table>
     </div>
 </div>

@@ -5,7 +5,7 @@
  */
 
 $t = $_GET['t'];
-$x = new Turno($t);
+$x = Turno::id($t);
 $a = $x->attivita();
 $volte = $_POST['inputGiorni'];
 
@@ -22,6 +22,7 @@ for($i=1; $i<=$volte;$i++){
     $t->massimo     = $x->massimo;
     $t->inizio      = strtotime("+$i day", $x->inizio);
     $t->fine        = strtotime("+$i day", $x->fine);
+    $t->prenotazione= strtotime("+$i day", $x->prenotazione);
 }
 
 redirect('attivita.turni&id=' . $a->id);

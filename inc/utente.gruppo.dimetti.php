@@ -21,7 +21,7 @@ if($g == 1){
 
 /*Se non sono appartenente allora avvio la procedura*/
 
-        $t = new AppartenenzaGruppo($t);
+        $t = AppartenenzaGruppo::id($t);
         $t->fine = time();
         $t->motivazione = "Abbandono spontaneo del gruppo";
         $t->tNega = time();

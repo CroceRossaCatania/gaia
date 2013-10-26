@@ -7,7 +7,7 @@
 paginaPresidenziale();
 
 $gruppo = $_GET['id'];
-$gruppo = new Gruppo($gruppo);
+$gruppo = Gruppo::id($gruppo);
 
 ?>
 <form action="?p=gruppo.modifica.ok" method="POST">

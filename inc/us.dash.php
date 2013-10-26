@@ -5,7 +5,8 @@
  */
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
-
+$_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
+$_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
 ?>
 
 <div class="row-fluid">
@@ -30,6 +31,13 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 <div class="alert alert-success">
                     <i class="icon-ok"></i> <strong>Richiesta di riserva inoltrata</strong>.
                     La richiesta di riserva è stata inoltrata con successo.
+                </div>
+            <?php } ?>
+            <?php if ( isset($_GET['riserrdate']) ) { ?>
+                <div class="alert alert-error">
+                    <i class="icon-warning-sign"></i> <strong>Richiesta di riserva non inserita</strong>.
+                    Ricorda che la riserva può durare al massimo un anno e che non è possibile
+                    inserire riserve che terminano nel passato.
                 </div>
             <?php } ?>
             <div class="span12">
@@ -102,13 +110,13 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                         <i class="icon-search"></i>
                         Ricerca quota associativa
                     </a>
-                    <a href="?p=presidente.appartenenzepending" class="btn btn-block btn-success">
+                    <a href="?p=presidente.appartenenzepending" class="btn btn-block">
                         <i class="icon-group"></i>
-                        Appartenenze in attesa
+                        Appartenenze in attesa <span class="badge badge-important"><?= $_n_app; ?></span>
                     </a>
-                    <a href="?p=presidente.titoli" class="btn btn-block btn-success">
+                    <a href="?p=presidente.titoli" class="btn btn-block">
                         <i class="icon-star"></i>
-                        Titoli in attesa
+                        Titoli in attesa <span class="badge badge-important"><?= $_n_titoli; ?></span>
                     </a>
                 </div>
             </div>

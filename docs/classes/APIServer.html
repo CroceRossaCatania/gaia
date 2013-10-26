@@ -138,10 +138,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1487713699"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1791145528"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1487713699" class="accordion-body collapse in">
+            <div id="namespace-1791145528" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -154,6 +154,7 @@
                                                     <li class="class"><a href="../classes/Appartenenza.html">Appartenenza</a></li>
                                                     <li class="class"><a href="../classes/Anonimo.html">Anonimo</a></li>
                                                     <li class="class"><a href="../classes/Documento.html">Documento</a></li>
+                                                    <li class="class"><a href="../classes/Mail.html">Mail</a></li>
                                                     <li class="class"><a href="../classes/Sessione.html">Sessione</a></li>
                                                     <li class="class"><a href="../classes/Entita.html">Entita</a></li>
                                                     <li class="class"><a href="../classes/Area.html">Area</a></li>
@@ -164,11 +165,13 @@
                                                     <li class="class"><a href="../classes/Reperibilita.html">Reperibilita</a></li>
                                                     <li class="class"><a href="../classes/GeocoderResult.html">GeocoderResult</a></li>
                                                     <li class="class"><a href="../classes/AppartenenzaGruppo.html">AppartenenzaGruppo</a></li>
+                                                    <li class="class"><a href="../classes/Ricerca.html">Ricerca</a></li>
                                                     <li class="class"><a href="../classes/APIServer.html">APIServer</a></li>
                                                     <li class="class"><a href="../classes/Volontario.html">Volontario</a></li>
                                                     <li class="class"><a href="../classes/Veicoli.html">Veicoli</a></li>
                                                     <li class="class"><a href="../classes/Regionale.html">Regionale</a></li>
                                                     <li class="class"><a href="../classes/ElementoRichiesta.html">ElementoRichiesta</a></li>
+                                                    <li class="class"><a href="../classes/ICalendar.html">ICalendar</a></li>
                                                     <li class="class"><a href="../classes/Errore.html">Errore</a></li>
                                                     <li class="class"><a href="../classes/File.html">File</a></li>
                                                     <li class="class"><a href="../classes/Quota.html">Quota</a></li>
@@ -181,6 +184,7 @@
                                                     <li class="class"><a href="../classes/Attivita.html">Attivita</a></li>
                                                     <li class="class"><a href="../classes/Provinciale.html">Provinciale</a></li>
                                                     <li class="class"><a href="../classes/PDF.html">PDF</a></li>
+                                                    <li class="class"><a href="../classes/Estensione.html">Estensione</a></li>
                                                     <li class="class"><a href="../classes/Autorizzazione.html">Autorizzazione</a></li>
                                                     <li class="class"><a href="../classes/Coturno.html">Coturno</a></li>
                                                     <li class="class"><a href="../classes/Nazionale.html">Nazionale</a></li>
@@ -244,10 +248,10 @@
                                                                     <a href="../classes/APIServer.html#method_api_geocoding" class="">api_geocoding()</a><br />
                                                                     <a href="../classes/APIServer.html#method_api_me" class="">api_me()</a><br />
                                                                     <a href="../classes/APIServer.html#method_api_comitati" class="">api_comitati()</a><br />
-                                                                    <a href="../classes/APIServer.html#method_api_cercaVolontario" class="">api_cercaVolontario()</a><br />
                                                                     <a href="../classes/APIServer.html#method_api_autorizza" class="">api_autorizza()</a><br />
                                                                     <a href="../classes/APIServer.html#method_api_scansione" class="">api_scansione()</a><br />
                                                                     <a href="../classes/APIServer.html#method_api_area_cancella" class="">api_area_cancella()</a><br />
+                                                                    <a href="../classes/APIServer.html#method_api_volontari_cerca" class="">api_volontari_cerca()</a><br />
                                                             </section>
                             <section class="span4">
                                                                     <a href="../classes/APIServer.html#property_par" class="">$par</a><br />
@@ -290,7 +294,7 @@
                         <dt>File</dt>
                             <dd><a href="../files/core.class.APIServer.class.php.html"><div class="path-wrapper">core/class/APIServer.class.php</div></a></dd>
                                                 <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">\Default</div></dd>
+                            <dd><div class="namespace-wrapper">\Gaia</div></dd>
                                                 <dt>Class hierarchy</dt>
                             <dd class="hierarchy">
                                                                                                                                                                     <div class="namespace-wrapper">\APIServer</div>
@@ -398,7 +402,7 @@
             <article class="method">
                 <h3 class="public ">__construct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">__construct( <span class="argument">$sessione</span>)</pre>
+                <pre class="signature" style="margin-right: 54px;">__construct( <span class="argument">$sid</span>)</pre>
                 <p><em></em></p>
                 
 
@@ -407,7 +411,7 @@
                     <table class="table table-condensed table-hover">
                                                     <tr>
                                 <td></td>
-                                <td>$sessione</td>
+                                <td>$sid</td>
                                 <td>
 </td>
                             </tr>
@@ -698,32 +702,6 @@
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_api_cercaVolontario" name="method_api_cercaVolontario" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">api_cercaVolontario()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">api_cercaVolontario()</pre>
-                <p><em></em></p>
-                
-
-
-                
-                
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
             <a id="method_api_autorizza" name="method_api_autorizza" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">api_autorizza()</h3>
@@ -781,6 +759,32 @@
                 <h3 class="public ">api_area_cancella()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">api_area_cancella()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_api_volontari_cerca" name="method_api_volontari_cerca" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">api_volontari_cerca()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">api_volontari_cerca()</pre>
                 <p><em></em></p>
                 
 
@@ -936,7 +940,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on August 16th, 2013 at 15:53.
+                    on September 18th, 2013 at 18:37.
                 </section>
             </section>
         </section>

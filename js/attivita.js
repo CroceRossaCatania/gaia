@@ -41,8 +41,8 @@ $(document).ready(function() {
 
 		header:  			{
 							    left:   'title',
-							    //center: 'month',
-							    right:  'today prev,next'
+							    //center: '',
+							    right:  'month,basicWeek today prev,next'
 							}, 
 
                 events: function ( inizio, fine, callback ) {

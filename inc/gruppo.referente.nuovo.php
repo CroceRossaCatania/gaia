@@ -9,7 +9,7 @@ caricaSelettore();
 paginaModale();
 
 $gruppo = $_GET['id'];
-$gruppo = new Gruppo($gruppo);
+$gruppo = Gruppo::id($gruppo);
 
 ?>
 <form action="?p=gruppo.referente.nuovo.ok" method="POST">

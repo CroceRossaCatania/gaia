@@ -26,14 +26,29 @@ class Locale extends GeoPolitica {
         return $this->comitati();
     }
 
+    public function superiore() {
+        return $this->provinciale();
+    }
+
     public function comitati() {
         return Comitato::filtra([
             ['locale',  $this->id]
         ]);
+    }    
+
+    public function aree($obiettivo = null, $espandiLocali = false ) {
+        if (!$espandiLocali) {
+            return parent::aree($obiettivo);
+        }
+        $r = parent::aree($obiettivo);
+        foreach ( $this->estensione() as $c ) {
+            $r = array_merge($r, $c->aree($obiettivo));
+        }
+        return array_unique($r);
     }
     
     public function provinciale() {
-        return new Provinciale($this->provinciale);
+        return Provinciale::id($this->provinciale);
     }
     
     public function regionale() {
@@ -53,6 +68,37 @@ class Locale extends GeoPolitica {
             'nome'  =>  $this->nome,
             'unita' =>  $comitati
         ];
+    }
+
+    /**
+     * Ottiene l'unita' territoriale principale del comitato,
+     * oppure null se questa non e' presente
+     */
+    public function principale() {
+        $p = Comitato::filtra([
+            ['locale',      $this->id],
+            ['principale',  1]
+        ]);
+        if (!$p) { return false; }
+        return $p[0];
+    }
+
+    public static function localiNull() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                locali
+            WHERE 
+                nome IS NULL
+            ");
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        return $r;
     }
     
 }

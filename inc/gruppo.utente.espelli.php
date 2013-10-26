@@ -5,7 +5,7 @@
  */
 
 $id = $_GET['id'];
-$g = new AppartenenzaGruppo($id);
+$g = AppartenenzaGruppo::id($id);
 ?>
 <div class="row-fluid">
     <div class="span12">

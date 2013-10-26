@@ -29,14 +29,14 @@ $grsanguigno = $_POST['inputgruppoSanguigno'];
 /*
  * Controlla esistenza varia e ti porta dove dovrebbe 
  */
-$p = new Persona($id);
+$p = Persona::id($id);
 
 /*
  * Registrazione vera e propria...
  */
 $p->nome                = $nome;
 $p->cognome             = $cognome;
-$p->sesso 				= $sesso;
+$p->sesso 				= ($sesso) ? UOMO : DONNA;
 $p->codiceFiscale = $codiceFiscale;
 $p->dataNascita         = $dnascita;
 $p->provinciaNascita =$prnascita;

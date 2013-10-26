@@ -62,7 +62,7 @@ function paginaPubblica() {
 function paginaAdmin() {
     paginaPrivata();
     global $sessione;
-    if ( !$sessione->utente()->admin ) {
+    if ( !$sessione->utente()->admin || $sessione->adminMode == '') {
         redirect('errore.permessi');
     }
 }
@@ -114,6 +114,15 @@ function paginaPresidenziale( $comitato = null ) {
 
 function menuVolontario() {
     include('./inc/part/utente.menu.php');
+}
+
+$_lista_attiva = $_link_excel = $_link_email = null;
+function menuElenchiVolontari($a = "Volontari attivi", $b = '#', $c = '#') {
+    global $_lista_attiva, $_link_excel, $_link_email;
+    $_lista_attiva = $a;
+    $_link_excel   = $b;
+    $_link_email   = $c;
+    include './inc/part/presidente.utenti.liste.php';
 }
 
 function caricaSelettore() {

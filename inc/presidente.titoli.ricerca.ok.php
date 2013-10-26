@@ -5,7 +5,7 @@
  */
 
 paginaApp([ APP_OBIETTIVO , APP_PRESIDENTE , APP_SOCI ]);
-$f= new Titolo($_POST['idTitolo']);
+$f= Titolo::id($_POST['idTitolo']);
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
@@ -60,6 +60,7 @@ $f= new Titolo($_POST['idTitolo']);
         <th>Nome</th>
         <th>Cognome</th>
         <th>Data di Nascita</th>
+        <th>Cellulare</th>
         <th>Azioni</th>
     </thead>
 <?php
@@ -67,7 +68,7 @@ $f= new Titolo($_POST['idTitolo']);
       $volontari =  $elenco->ricercaMembriTitoli([$f]);  
       ?>
       <tr class="success">
-                <td colspan="7" class="grassetto">
+                <td colspan="5" class="grassetto">
                     <?= $elenco->nomeCompleto(); ?>
                     <span class="label label-warning">
                           <?= count($volontari); ?>
@@ -80,11 +81,16 @@ $f= new Titolo($_POST['idTitolo']);
                 <td><?= $volontario->nome; ?></td>
                 <td><?= $volontario->cognome; ?></td>
                 <td><?= date('d-m-Y', $volontario->dataNascita); ?></td>
+                <td><?= $volontario->cellulare(); ?></td>
                 <td>    
-                    <a class="btn btn-success" href="?p=utente.mail.nuova&id=<?= $volontario->id; ?>">
-                    <i class="icon-envelope"></i>
-                    Invia mail
-                    </a>
+                    <div class="btn-group">
+                        <a class="btn btn-small btn" target="_new" href="?p=public.utente&id=<?= $volontario->id; ?>" title="Visualizza">
+                            <i class="icon-eye-open"></i> Visualizza
+                        </a>
+                        <a class="btn btn-success btn-small" href="?p=utente.mail.nuova&id=<?= $volontario->id; ?>">
+                            <i class="icon-envelope"></i>
+                        </a>
+                    </div>
                 </td>
             </tr>
 <?php }} ?>

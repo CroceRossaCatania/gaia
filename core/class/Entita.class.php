@@ -1,28 +1,49 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
+/**
+ * Rappresenta una Entita generica nel database
+ */
 class Entita {
     
     protected
-            $db     = null,
-            $cache  = null,
-            $_v     = [],
-            $_cacheable = true;
+            $db         = null,
+            $cache      = null,
+            $_v         = [];
+
+    /**
+     * L'oggetto puo' essere rappresentato in cache?
+     */
+    protected static $_cacheable = true;
     
-    private static
-            $_t     = 'nomeEntita',
-            $_dt    = null;
+    /**
+     * Il nome della tabella in database 
+     */
+    protected static $_t     = 'entita';
+
+    /**
+     * Il nome della tabella associata all'entita'.
+     *
+     * Struttura:
+     *  id      int,
+     *  nome    varchar(64),
+     *  valore  text,
+     * PRIMARY KEY (id, nome)
+     */
+    protected static $_dt    = 'entita_dettagli';
     
-    public
-            $id;
+    /** 
+     * L'ID dell'oggetto caricato 
+     */
+    public          $id;
     
     public function __construct ( $id = null ) {
         global $db, $cache;
         $this->db = $db;
-        if ( $this->_cacheable ) {
+        if ( static::$_cacheable ) {
             $this->cache = $cache;
         }
         /* Check esistenza */
@@ -54,36 +75,39 @@ class Entita {
         }
     }
     
+    /**
+     * Ottiene un singolo elemento per un parametro univoco
+     * @param string $_nome Il nome del parametro
+     * @param string $_valore Il suo valore
+     * @return static|bool(false) Un elemento o false
+     */
     public static function by($_nome, $_valore) {
         $r = static::filtra([[$_nome, $_valore]], 'id LIMIT 0,1');
         if (!$r) { return false; }
         return $r[0];
     }
 
-    /*
-     * Ottiene un elenco di tutti gli hash delle query in cache per l'oggetto
+    /**
+     * Ottiene un elemento per ID oppure lancia un'eccezione
+     * @param mixed $id L'ID univoco dell'oggetto
+     * @return static Un oggetto
+     * @throws Errore in caso di non esistente
      */
-    public static function _elencoCacheQuery() {
-        global $cache, $conf;
-        if ( !$cache ) { return []; }
-        $get = $cache->get($conf['db_hash'] . static::$_t . ':query_cache');
-        if (!$get) { return []; }
-        return json_decode($get);
+    public static function id($id = null) {
+        if ( $id === null ) {
+            // Non creero' un nuovo oggetto, ID mancante!
+            throw new Errore(1011);
+        }
+        return new static($id);
     }
-    
-    /*
-     * Aggiunge un determinato hash all'elenco delle query in cache
-     */
-    public static function _aggiungiElencoCacheQuery($hash) {
-        global $cache, $conf;
-        $r = static::_elencoCacheQuery();
-        $r[] = $hash;
-        $cache->set($conf['db_hash'] . static::$_t . ':query_cache', json_encode($r));
-        return true;
-    }
-    
-    /*
-     * Dato hash della query e array di oggetti, lo aggiunge
+
+
+
+    /**
+     * Dato hash della query e array di oggetti, salva in cache
+     *
+     * @param string $hash Hash md5 della query SQL
+     * @param array $valori Array di Entita da salvare come risultato query
      */
     public static function _cacheQuery($hash, $valori) {
         global $cache, $conf;
@@ -93,12 +117,24 @@ class Entita {
         }
         $r = json_encode($r);
         $cache->set($conf['db_hash'] . static::$_t . ':query:' . $hash, $r);
-        static::_aggiungiElencoCacheQuery($hash);
+        $cache->incr($conf['db_hash'] . static::$_t . ':num_query');
         return true;
     }
+
+    /**
+     * Numero di query in cache per un determinato oggetto
+     *
+     * @return int Il numero di query in cache
+     */
+    public static function _numQueryCache() {
+        global $cache;
+        return (int) $cache->get($conf['db_hash'] . static::$_t . ':num_query');
+    }
     
-    /*
-     * Dato un hash vede se esiste e torna il risultato
+    /**
+     * Dato un hash di query SQL ne ritorna il risultato o false se non in cache
+     *
+     * @param string $hash Hash md5 della query SQL da recuperare
      */
     public static function _ottieniQuery($hash) {
         global $cache, $conf;
@@ -113,20 +149,26 @@ class Entita {
         }
     }
 
-    /*
-     * Invalida tutta la cache query
+    /**
+     * Invalida le query in cache per questo tipo di oggetto
      */
-    private static function _invalidaCacheQuery() {
+    protected static function _invalidaCacheQuery() {
         global $cache, $conf;
-        /* Cancella prima tutte le query che sono state cacheate */
-        foreach ( static::_elencoCacheQuery() as $hash ) {
-            $cache->delete($conf['db_hash'] . static::$_t . ':query:' . $hash);
+        if ( !$cache ) { return false; }
+        foreach ( $cache->keys($conf['db_hash'] . static::$_t . ':query:*') as $chiave ) {
+            $cache->delete($chiave);
         }
-        /* Cancella poi l'elenco stesso in cache */
-        $cache->delete($conf['db_hash'] . static::$_t . ':query_cache');
+        $cache->delete($conf['db_hash'] . static::$_t . ':num_query');
         return true;
     }
     
+    /**
+     * Cerca oggetti con le corrispondenze specificate
+     *
+     * @param array $_array     La query associativa di ricerca
+     * @param string $_order    Ordine espresso come SQL
+     * @return array            Array di oggetti
+     */
     public static function filtra($_array, $_order = null) {
         global $db, $conf, $cache;
         $entita = get_called_class();
@@ -157,11 +199,11 @@ class Entita {
          * Controlla se la query è già in cache
          */
         $hash = null;
-        if ( $cache ) {
-            $hash = sha1($query);
+        if ( $cache && static::$_cacheable ) {
+            $hash = md5($query);
             $r = static::_ottieniQuery($hash);
             if ( $r !== false  ) {
-                $cache->increment($conf['db_hash'] . '__re');
+                $cache->incr($conf['db_hash'] . '__re');
                 return $r;
             }
         }
@@ -173,20 +215,31 @@ class Entita {
             $t[] = new $entita($r[0]);
         }
         
-        /*
-         * Mette in cache la query
-         */
-        if ( $cache ) {
+        if ( $cache && static::$_cacheable ) {
             static::_cacheQuery($hash, $t);
         }
         
         return $t;
     }
     
+    /**
+     * Ritorna un elenco di tutti gli oggetti nel database
+     *
+     * @param string $ordine    Opzionale. Ordine in SQL
+     * @return array            Array di oggetti
+     */
     public static function elenco($ordine = '') {
         return static::filtra([], $ordine);
     }
     
+    /**
+     * Effettua una ricerca MySQL FULLTEXT sui campi specificati
+     *
+     * @param string $query         La query di ricerca.
+     * @param array  $campi         Array contenente i campi sui quali effettuare la ricerca
+     * @param int    $limit         Opzionale. Default 20. Numero di risultati da ritornare.
+     * @param string $altroWhere    Opzionale. Espressione SQL aggiuntiva nel WHERE. Deve iniziare con operatore logico.
+     */
     public static function cercaFulltext($query, $campi, $limit = 20, $altroWhere = '') {
         global $db;
         $entita = get_called_class();
@@ -216,6 +269,12 @@ class Entita {
         return $this->id;
     }
     
+    /**
+     * Controlla l'esistenza dell'oggetto con un dato ID
+     *
+     * @param mixed $id     L'ID dell'oggetto da verificare
+     * @return bool         Esistenza dell'oggetto
+     */
     public static function _esiste ( $id = null ) {
         if (!$id) { return false; }
         global $db, $cache, $conf;
@@ -229,12 +288,17 @@ class Entita {
         $q->bindParam(':id', $id);
         $q->execute();
         $y = (bool) $q->fetch(PDO::FETCH_NUM);
-        if ($cache && $y) {
+        if ($y && $cache) {
             $cache->set($conf['db_hash'] . static::$_t . ':' . $id, 'true');
         }
         return $y;
     }
     
+    /**
+     * Metodo di generazione dell'ID per l'oggetto. Sovrascrivibile.
+     *
+     * @return int  ID numerico progressivo
+     */
     protected function generaId() {
         $q = $this->db->prepare("
             SELECT MAX(id) FROM ". static::$_t );
@@ -244,6 +308,9 @@ class Entita {
         return (int) $r[0] + 1;
     }
     
+    /**
+     * Inizializza un nuovo oggetto e ne aggiunga la riga al database
+     */
     protected function _crea () { 
         global $me;
 
@@ -254,16 +321,6 @@ class Entita {
         $q->bindParam(':id', $this->id);
         $e = $q->execute();
 
-        /* PROCEDURA DI LOGGING SELVAGGIO */
-        $file = './upload/log/estremo.' . date('Ymd') . '.txt';
-        $testo  = date('YmdHis') . ',';
-        $testo .= $this->oid() . ',';
-        $testo .= base64_encode(serialize($_POST)) . ',';
-        $testo .= base64_encode(serialize($_GET)) . ',';
-        $testo .= base64_encode(print_r($me->id, true)) . ',';
-        $testo .= base64_encode(serialize($_SERVER)) . "\n";
-        file_put_contents($file, $testo, FILE_APPEND);
-
         static::_invalidaCacheQuery();
         return $e;
     }
@@ -272,7 +329,7 @@ class Entita {
         global $conf;
         if ( $this->cache ) {
             $r = $this->cache->get($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome);
-            if ( $r !== false ) {
+            if ( $r !== null && $r !== false && $r !== '' ) {
                 return $r;
             }
         }
@@ -355,6 +412,9 @@ class Entita {
         }
     }
     
+    /**
+     * Cancella l'oggetto ed eventuali dettagli
+     */
     public function cancella() {
         global $conf;
         $this->cancellaDettagli();
@@ -368,7 +428,10 @@ class Entita {
         }
     }
     
-    private function cancellaDettagli() {
+    /**
+     * Cancella i dettagli dell'oggetto nella tabella associata
+     */
+    protected function cancellaDettagli() {
         if ( !static::$_dt ) { return true; }
         $q = $this->db->prepare("
             DELETE FROM ". static::$_dt ." WHERE id = :id");
@@ -376,11 +439,21 @@ class Entita {
         return $q->execute();
     }
     
+    /**
+     * Ottiene l'OID dell'oggetto come stringa. Es. 'Utente:15'
+     *
+     * @return string   OID dell'oggetto
+     */
     public function oid() {
         $c = get_called_class();
         return "{$c}:{$this->id}";
     }
     
+    /**
+     * Ritorna un oggetto dall'OID specificato
+     *
+     * @return static  Oggetto
+     */
     public static function daOid($oid) {
         $obj = explode(':', $oid);
         $cl = $obj[0];

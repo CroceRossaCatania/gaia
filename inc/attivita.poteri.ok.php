@@ -6,7 +6,7 @@
 
 $v = $_GET['v'];
 $turno = $_GET['turno'];
-$turno = new Turno($turno);
+$turno = Turno::id($turno);
 
 $comitato = $turno->Attivita()->comitato();
 

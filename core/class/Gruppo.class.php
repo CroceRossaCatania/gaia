@@ -7,11 +7,14 @@ class Gruppo extends Entita {
         $_dt = null;
     
     public function comitato() {
-        return new Comitato($this->comitato);
+        return GeoPolitica::daOid($this->comitato);
     }
     
     public function referente() {
-        return new Volontario($this->referente);
+        if(!$this->referente){
+            return false;
+        }
+        return Volontario::id($this->referente);
     }
     
     public function appartenenze() {
@@ -44,6 +47,10 @@ class Gruppo extends Entita {
             $app->cancella();
         }
         parent::cancella();
+    }
+
+    public function estensione() {
+        return $this->estensione;
     }
     
 }

@@ -36,12 +36,30 @@ paginaAdmin();
                 <i class="icon-money"></i>
                 Assegna anno alla quota
             </a>
+            <hr />
+            <div class="alert alert-danger">
+                <strong>Script per manutenzione delle attività</strong>
+                <p>Questo script elimina le attività con dati mancanti e fixa quelle senza referente</p>
+            </div>
+            <a href="?p=admin.attivita" class="btn btn-large btn-danger">
+                <i class="icon-wrench"></i>
+                Fix attività
+            </a>
+            <hr/>
+            <div class="alert alert-warning">
+                <strong>Script per cancellazione comitati </strong>
+                <p>Questo script elimina i comitati che hanno come nome null</p>
+            </div>
+            <a href="?p=admin.fix.comitati" class="btn btn-large btn-warning">
+                <i class="icon-bookmark"></i>
+                Fix Comitati
+            </a>
         </div>
         
         <div class="span6 centrato">
             <div class="alert alert-success">
                 <strong>Script per il popolamento del campo sesso</strong>
-                <p>Questo script assegna il sesso agli utenti di gaia sulla base del loro codice fiscale</p>
+                <p>Questo script assegna il sesso, basandosi sul CF, agli utenti di gaia che hanno il campo sesso pari a null</p>
             </div>
             <a href="?p=admin.sesso" class="btn btn-large btn-success">
                 <i class="icon-male"></i><i class="icon-female"></i>

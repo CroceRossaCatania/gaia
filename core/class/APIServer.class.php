@@ -5,15 +5,15 @@
  */
 
 class APIServer {
-	
-	private
-		$db             = null,
-		$sessione	= null;
-	
-	public
-            $par		= [];
-	
-	public function __construct( $sid = null ) {
+    
+    private
+        $db             = null,
+        $sessione   = null;
+    
+    public
+            $par        = [];
+    
+    public function __construct( $sid = null ) {
             global $db, $sessione;
             $this->db = $db;
             $this->sessione = new Sessione($sid);
@@ -23,9 +23,10 @@ class APIServer {
              * Utente->admin() e tutte quelle che fanno
              * affidamento allo stato in sessione */
             $sessione = $this->sessione;
-	}
-	
-	public function esegui( $azione = 'welcome' ) {
+    }
+    
+    public function esegui( $azione = 'welcome' ) {
+            $start = microtime(true);
             if (empty($azione)) { $azione = 'welcome'; }
             $azione = str_replace(':', '_', $azione);
             try {
@@ -43,17 +44,18 @@ class APIServer {
                     'parameters'    =>  $this->par,
                     'time'          =>  new DateTime()
                 ],
+                'time'     => ( microtime(true) - $start ),
                 'session'  => $this->sessione->toJSON(),
                 'response' => $r
             ], JSON_PRETTY_PRINT);
-	}
+    }
         
         private function richiediLogin() {
             if ( !$this->sessione->utente ) {
                 throw new Errore(1010);
             }
         }
-	
+    
         private function richiedi ( $campi ) {
             foreach ( $campi as $campo ) {
                 if ( empty($this->par[$campo] ) ) {
@@ -64,24 +66,24 @@ class APIServer {
             }
         }
         
-	private function api_welcome() {
+    private function api_welcome() {
             global $conf;
             return [
-                'version'   =>	$conf['version'],
-                'name'      =>	$conf['name'],
-                'vendor'    =>	$conf['vendor'],
-                'copyright' =>	$conf['copyright'],
-                'status'    =>	$conf['status'],
-                'docs'      =>	$conf['docs']
+                'version'   =>  $conf['version'],
+                'name'      =>  $conf['name'],
+                'vendor'    =>  $conf['vendor'],
+                'copyright' =>  $conf['copyright'],
+                'status'    =>  $conf['status'],
+                'docs'      =>  $conf['docs']
             ];
-	}
+    }
         
         public function api_user() {
             $this->richiedi(['id']);
-            $u = new Utente($this->par['id']);
+            $u = Utente::id($this->par['id']);
             return $u->toJSON();
         }
-	
+    
         public function api_login() {
             $this->richiedi(['email', 'password']);
             $this->sessione->logout();
@@ -136,14 +138,22 @@ class APIServer {
             $inizio = DT::daISO($this->par['inizio']);
             $fine   = DT::daISO($this->par['fine']);
             $cA = Turno::neltempo($inizio, $fine);
+            $searchPuoPart = [];
             $r = [];
+            $mioGeoComitatoOid = $this->sessione->utente()->unComitato()->oid();
+            $mioGeoComitato = GeoPolitica::daOid($mioGeoComitatoOid);
             foreach  ( $cA as $turno ) {
                 $attivita = $turno->attivita();
-                if ( !$attivita->puoPartecipare($this->sessione->utente()) ) {
+                $idAttivita = ''.$attivita->id;
+                if(!isset($searchPuoPart[$idAttivita])) {
+                    $searchPuoPart[$idAttivita] = $attivita->puoPartecipare($this->sessione->utente());
+                }
+                if ( !$searchPuoPart[$idAttivita] ) {
                     continue;
                 }
                 if ( $this->sessione->utente ) {
-                    if ( $attivita->comitato()->haMembro($this->sessione->utente()) ) {
+                    $geoAttivita = GeoPolitica::daOid($attivita->comitato);
+                    if ( $geoAttivita->contiene($mioGeoComitato) ) {
                         $colore = $conf['attivita']['colore_mie'];
                     } else {
                         $colore = $conf['attivita']['colore_pubbliche'];
@@ -160,7 +170,7 @@ class APIServer {
                     'start'     =>  $turno->inizio()->toJSON(),
                     'end'       =>  $turno->fine()->toJSON(),
                     'color'     =>  '#' . $colore,
-                    'url'       =>  '?p=attivita.scheda&id=' . $attivita->id . '&turno=' . $turno->id .'#'. $turno->id
+                    'url'       =>  '?p=attivita.scheda&id=' . $attivita->id . '#'. $turno->id
                 ];
             }
             return $r;
@@ -215,7 +225,7 @@ class APIServer {
         public function api_autorizza() {
             $this->richiedi(['id']);
             $this->richiediLogin();
-            $aut = new Autorizzazione($this->par['id']);
+            $aut = Autorizzazione::id($this->par['id']);
             if ( $aut->stato == AUT_PENDING ) {
                 
                 $turno = $aut->partecipazione()->turno();
@@ -223,6 +233,9 @@ class APIServer {
                 
                 if ( $this->par['aut'] ) {
                     $aut->concedi();
+
+                    $cal = new ICalendar();
+                    $cal->genera($attivita->id, $turno->id);
                     
                     
                     $m = new Email('autorizzazioneConcessa', "Autorizzazione CONCESSA: {$attivita->nome}, {$turno->nome}" );
@@ -235,7 +248,8 @@ class APIServer {
                     $m->_LUOGO     = $attivita->luogo;
                     $m->_REFERENTE   = $attivita->referente()->nomeCompleto();
                     $m->_CELLREFERENTE = $attivita->referente()->cellulare();
-                    $m->invia();
+                    $m->allega($cal);
+                    $m->invia(true);
                     
                     
                 } else {
@@ -247,8 +261,9 @@ class APIServer {
                     $m->_NOME       = $aut->partecipazione()->volontario()->nome;
                     $m->_ATTIVITA   = $attivita->nome;
                     $m->_TURNO      = $turno->nome;
-                    $m->_DATA      = $turno->inizio()->format('d-m-Y H:i');
-                    $m->_LUOGO     = $attivita->luogo;
+                    $m->_DATA       = $turno->inizio()->format('d-m-Y H:i');
+                    $m->_LUOGO      = $attivita->luogo;
+                    $m->_MOTIVO     = $this->par['motivo'];
                     $m->invia();
                     
                 }
@@ -266,14 +281,15 @@ class APIServer {
                 'comitato'      =>  $a->unComitato()->nomeCompleto()
             ];
         }
-        
-        public function api_area_cancella   () {
+
+        public function api_area_cancella() {
             $this->richiediLogin();
             $this->richiedi(['id']);
-            $area = new Area($this->par['id']);
+            $area = Area::id($this->par['id']);
             if ( $area->attivita() ) {
                 throw new Errore(9050);
             }
+            $area->cancella();
             return true;
         }
 

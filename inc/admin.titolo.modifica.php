@@ -7,7 +7,7 @@
 paginaAdmin();
 
 $t = $_GET['id'];
-$f = Titolo::by('id',$t);
+$f = Titolo::id($t);
 ?>
 <div class="row-fluid">
             <h2><i class="icon-chevron-right muted"></i> Modifica Titolo</h2>

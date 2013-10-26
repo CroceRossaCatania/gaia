@@ -11,6 +11,12 @@
     </div>
     <div class="span9">
        <h2 class="allinea-centro"><i class="icon-comments-alt text-warning"></i> Supporto Gaia</h2>
+        <?php if ( isset($_GET['len']) ) { ?>
+        <div class="alert alert-error">
+            <i class="icon-warning-sign"></i>
+            <strong>Errore</strong> &mdash; Il testo deve essere lungo almeno 10 caratteri.
+        </div>
+        <?php } ?>
         <div class="alert alert-block alert-info">
             <h4><i class="icon-question-sign"></i> Hai bisogno di assistenza?</h4>
             <?php if($me->presiede()){?>
@@ -41,10 +47,13 @@
             </div>
           </div>
             <div class="form-actions">
-                <button type="submit" class="btn btn-success btn-large">
+                <button onclick="$('#b1').toggle(1000); $('#a1').toggle(1000);" type="submit" id="b1" class="btn btn-success btn-large">
                     <i class="icon-envelope"></i>
                     Invia richiesta
                 </button>
+                <div id="a1" class="alert alert-block alert-success nascosto">
+                    <h4><i class="icon-warning-sign"></i> <strong>Attendere...</strong>.</h4>
+                </div>
                 <p>Risponderemo appena possibile.</p>
             </div>
           </form>

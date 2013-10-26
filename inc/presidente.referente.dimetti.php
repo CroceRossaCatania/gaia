@@ -5,7 +5,7 @@
  */
 
 $t = $_GET['id'];
-$f = new Delegato($t);
+$f = Delegato::id($t);
 $f->cancella();
 
 redirect('presidente.referenti&ok');

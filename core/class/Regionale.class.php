@@ -29,6 +29,10 @@ class Regionale extends GeoPolitica {
     public function figli() {
         return $this->provinciali();
     }
+
+    public function superiore() {
+        return $this->nazionale();
+    }
     
     public function provinciali() {
         return Provinciale::filtra([
@@ -37,7 +41,7 @@ class Regionale extends GeoPolitica {
     }
     
     public function nazionale() {
-        return new Nazionale($this->nazionale);
+        return Nazionale::id($this->nazionale);
     }
     
         
@@ -52,4 +56,21 @@ class Regionale extends GeoPolitica {
         ];
     }
     
+    public static function regionaliNull() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                regionali
+            WHERE 
+                nome IS NULL
+            ");
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        return $r;
+    }
 }

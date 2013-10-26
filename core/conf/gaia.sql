@@ -9,23 +9,23 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `anagrafica` (
   `id` int(11) NOT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  `cognome` varchar(255) DEFAULT NULL,
-  `stato` varchar(8) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(127) DEFAULT NULL,
-  `codiceFiscale` varchar(16) DEFAULT NULL,
-  `timestamp` varchar(64) DEFAULT NULL,
-  `admin` varchar(64) DEFAULT NULL,
-  `consenso` varchar(64) DEFAULT NULL,
-  `sesso` bit(1) DEFAULT NULL,
+  `nome` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `cognome` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `stato` varchar(8) CHARACTER SET latin1 DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `password` varchar(127) CHARACTER SET latin1 DEFAULT NULL,
+  `codiceFiscale` varchar(16) CHARACTER SET latin1 DEFAULT NULL,
+  `timestamp` varchar(64) CHARACTER SET latin1 DEFAULT NULL,
+  `admin` varchar(64) CHARACTER SET latin1 DEFAULT NULL,
+  `consenso` varchar(64) CHARACTER SET latin1 DEFAULT NULL,
+  `sesso` tinyint(3) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `codiceFiscale` (`codiceFiscale`),
   KEY `email` (`email`),
   KEY `sesso` (`sesso`),
   FULLTEXT KEY `indice` (`nome`,`cognome`,`email`,`codiceFiscale`),
   FULLTEXT KEY `nome` (`nome`,`cognome`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `annunci` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `annunci` (
   `timestamp` varchar(64) DEFAULT NULL,
   `autore` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 CREATE TABLE IF NOT EXISTS `appartenenza` (
   `id` int(11) NOT NULL,
@@ -73,10 +73,12 @@ CREATE TABLE IF NOT EXISTS `attivita` (
   `geo` point NOT NULL,
   `descrizione` text,
   `stato` int(11) NOT NULL,
+  `area` int(16) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `comitato` (`comitato`),
   KEY `referente` (`referente`),
-  SPATIAL KEY `geo` (`geo`)
+  SPATIAL KEY `geo` (`geo`),
+  KEY `area` (`area`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `autorizzazioni` (
@@ -88,6 +90,7 @@ CREATE TABLE IF NOT EXISTS `autorizzazioni` (
   `tFirma` varchar(64) DEFAULT NULL,
   `note` text,
   `stato` varchar(8) NOT NULL,
+  `motivo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `partecipazione` (`partecipazione`),
   KEY `volontario` (`volontario`)
@@ -107,6 +110,7 @@ CREATE TABLE IF NOT EXISTS `comitati` (
   `colore` varchar(8) DEFAULT NULL,
   `locale` int(11) DEFAULT NULL,
   `geo` point NOT NULL,
+  `principale` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `locale` (`locale`),
   SPATIAL KEY `geo` (`geo`)
@@ -218,7 +222,9 @@ CREATE TABLE IF NOT EXISTS `dettagliPersona` (
   `id` varchar(128) NOT NULL DEFAULT '',
   `nome` varchar(32) NOT NULL DEFAULT '',
   `valore` text,
-  PRIMARY KEY (`id`,`nome`)
+  PRIMARY KEY (`id`,`nome`),
+  KEY `id` (`id`),
+  KEY `nome` (`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `dimissioni` (
@@ -289,6 +295,8 @@ CREATE TABLE IF NOT EXISTS `gruppi` (
   `obiettivo` varchar(8) DEFAULT NULL,
   `area` varchar(16) DEFAULT NULL,
   `referente` varchar(16) DEFAULT NULL,
+  `attivita` varchar(16) DEFAULT NULL,
+  `estensione` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `comitato` (`comitato`),
   KEY `referente` (`referente`)
@@ -342,6 +350,17 @@ CREATE TABLE IF NOT EXISTS `partecipazioni` (
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `privacy` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `volontario` varchar(16) DEFAULT NULL,
+  `mailphone` int(1) DEFAULT NULL,
+  `mess` int(1) DEFAULT NULL,
+  `curriculum` int(1) DEFAULT NULL,
+  `incarichi` int(1) DEFAULT NULL,
+  `timestamp` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
 CREATE TABLE IF NOT EXISTS `provinciali` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
@@ -362,7 +381,7 @@ CREATE TABLE IF NOT EXISTS `quote` (
   `causale` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `appartenenza` (`appartenenza`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2552 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3090 ;
 
 CREATE TABLE IF NOT EXISTS `regionali` (
   `id` int(11) NOT NULL,
@@ -456,6 +475,7 @@ CREATE TABLE IF NOT EXISTS `trasferimenti` (
   `timestamp` varchar(64) DEFAULT NULL,
   `pConferma` varchar(16) DEFAULT NULL,
   `tConferma` varchar(64) DEFAULT NULL,
+  `cProvenienza` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `appartenenza` (`appartenenza`),
   KEY `volontario` (`volontario`)
@@ -479,3 +499,4 @@ CREATE TABLE IF NOT EXISTS `turni` (
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+         

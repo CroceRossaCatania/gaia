@@ -7,7 +7,7 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $v = $_GET['id'];
-$v = Volontario::by('id', $v);
+$v = Volontario::id($v);
 $appartenenza = $v->storico();
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>

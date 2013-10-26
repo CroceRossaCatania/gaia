@@ -7,7 +7,7 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $id = $_GET['id'];
-$id = Volontario::by('id', $id);
+$id = Volontario::id($id);
 $r = $_GET['inputQuota'];
 
  foreach ( $id->storico() as $app ) { 

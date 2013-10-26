@@ -8,7 +8,7 @@ paginaPrivata();
 paginaAttivita();
 caricaSelettore();
 
-$a = new Attivita(@$_GET['id']);
+$a = Attivita::id($_GET['id']);
 
 if (!$a->haPosizione()) {
     redirect('attivita.localita&id=' . $a->id);
@@ -17,7 +17,6 @@ if (!$a->haPosizione()) {
 $del        = $me->delegazioni(APP_ATTIVITA);
 $comitati   = $me->comitatiDelegazioni(APP_ATTIVITA);
 $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
-
 ?>
 
 <form action="?p=attivita.modifica.ok" method="POST">
@@ -70,13 +69,14 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
                  <th>Fine</th>
                  <th>Min vv. <a href="#" onclick="$('#i1').toggle(500);"><i class="icon-question-sign"></i></a></th>
                  <th>Max vv. <a href="#" onclick="$('#i1').toggle(500);"><i class="icon-question-sign"></i></a></th>
+                 <th>Prenotazione</th>
                  <th>Partecipazioni</th>
                  <th>&nbsp;</th>
                  <th>&nbsp;</th>
              </thead>
              
                  <?php 
-                 $t = $a->turni();
+                 $t = $a->turniFut();
                  if ( !$t ) {
                      $x = new Turno();
                      $x->attivita = $a->id;
@@ -85,6 +85,7 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
                      $x->nome     = 'Turno 1';
                      $x->minimo   = 1;
                      $x->massimo  = 4;
+                     $x->prenotazione = time();
                      $t[] = $x;
                  }
                  foreach ( $t as $_t ) { ?>
@@ -93,10 +94,10 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
                             <input class="span12 grassetto" required type="text" name="<?php echo $_t->id; ?>_nome" value="<?php echo $_t->nome; ?>" />
                         </td>
                         <td>
-                            <input class="dt span12 grassetto" required type="text" name="<?php echo $_t->id; ?>_inizio" value="<?php echo $_t->inizio()->format('d/m/Y H:i'); ?>" />
+                            <input class="dti span12 grassetto" required type="text" name="<?php echo $_t->id; ?>_inizio" value="<?php echo $_t->inizio()->format('d/m/Y H:i'); ?>" />
                         </td>
                         <td>
-                            <input class="dt span12 grassetto" required type="text" name="<?php echo $_t->id; ?>_fine" value="<?php echo $_t->fine()->format('d/m/Y H:i'); ?>" />
+                            <input class="dtf span12 grassetto" required type="text" name="<?php echo $_t->id; ?>_fine" value="<?php echo $_t->fine()->format('d/m/Y H:i'); ?>" />
                         </td>
                         <td>
                             <input class="input-mini" type="number" required min="0" max="999" step="1" name="<?php echo $_t->id; ?>_minimo" value="<?php echo $_t->minimo; ?>" />
@@ -104,14 +105,17 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
                         <td>
                             <input class="input-mini" type="number" required min="0" max="999" step="1" name="<?php echo $_t->id; ?>_massimo" value="<?php echo $_t->massimo; ?>" />
                         </td>
+                        <td>
+                            <input class="dtprenot span12" required type="text" name="<?php echo $_t->id; ?>_prenotazione" value="<?php echo $_t->prenotazione()->format('d/m/Y H:i'); ?>" />
+                        </td> 
                         <?php
                         $part   = $_t->partecipazioni();
-                        $partC  = $_t->partecipazioniStato(AUT_OK);
+                        $partC  = $_t->partecipazioniStato(PART_OK);
                         ?>
                         <td>
                             <?php echo count($part) ?> richieste;<br />
                             <strong><?php echo count($partC); ?> accettate</strong>
-                        </td>
+                        </td>                
                         <!-- <td>
                             <a href="?p=attivita.richiesta.turni&id=<?php echo $_t->id; ?>" class="btn btn-primary">
                                 <i class="icon-plus"></i>
@@ -153,4 +157,4 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
     
 <!--Mappa-->    
 </div>
-</form
+</form>

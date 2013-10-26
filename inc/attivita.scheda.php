@@ -6,13 +6,14 @@
 
 paginaAnonimo();
 caricaSelettore();
-$a = new Attivita($_GET['id']);
+$a = Attivita::id($_GET['id']);
 
+$geoComitato = GeoPolitica::daOid($a->comitato);
 $_titolo = $a->nome . ' - Attività CRI su Gaia';
 $_descrizione = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita]
-." || Organizzato da " . $a->comitato()->nomeCompleto();
+." || Organizzato da " . $geoComitato->nomeCompleto();
 
-$g = Gruppo::filtra([['area', $a->area()],['comitato', $a->comitato()],['referente', $a->referente()]]);
+$g = Gruppo::by('attivita', $a);
 if ( isset($_GET['riapri']) ) { ?>
 <script type='text/javascript'>
 $(document).ready( function() {
@@ -48,18 +49,18 @@ $(document).ready( function() {
             <?php } ?>
 
             <div class="span8 btn-group">
-                <a href="?p=attivita" class="btn btn-large">
-                    <i class="icon-reply"></i> Calendario
-                </a>
                 <?php if ( $a->modificabileDa($me) ) { ?>
                 <a href="?p=attivita.modifica&id=<?php echo $a->id; ?>" class="btn btn-large btn-info">
                     <i class="icon-edit"></i>
                     Modifica
                 </a>
+                <a href="?p=attivita.turni&id=<?= $a ?>" class="btn btn-primary btn-large">
+                    <i class="icon-calendar"></i> Turni
+                </a>
                 <a href="?p=attivita.cancella&id=<?= $a->id; ?>" class="btn btn-large btn-danger" title="Cancella attività e tutti i turni">
                     <i class="icon-trash"></i>
                 </a>
-                <?php if ($g == NULL){ ?>
+                <?php if (!$g && $a->comitato()->_estensione() < EST_PROVINCIALE){ ?>
                     <a class="btn btn-large btn-success" href="?p=attivita.gruppo.nuovo&id=<?php echo $a->id; ?>" itle="Crea nuovo gruppo di lavoro">
                         <i class="icon-group"></i> Crea gruppo
                     </a>
@@ -132,7 +133,9 @@ $(document).ready( function() {
                     <i class="icon-home"></i>
                     Organizzato da
                 </span><br />
-                <span class="text-info"><?php echo $a->comitato()->nomeCompleto(); ?></span>
+                <span class="text-info">
+                <?php echo $geoComitato->nomeCompleto(); ?>
+                </span>
             </div>
             <div class="span3">
                 <span>
@@ -249,6 +252,13 @@ $(document).ready( function() {
 
                 </div>
                 <div class="row-fluid">
+                    <div class="alert alert-info">
+                        <i class="icon-info-sign"></i> In caso di turni <strong>pieni</strong> puoi
+                        comunque dare la tua disponibilità aggiuntiva. Potra essere presa in considerazione
+                        nel caso ci siano ulteriori posti a disposizione.
+                    </div>
+                </div>
+                <div class="row-fluid">
                     <table class="table table-bordered table-striped" id="turniAttivita">
                         <thead>
                             <th style="width: 25%;">Nome</th>
@@ -256,10 +266,11 @@ $(document).ready( function() {
                             <th style="width: 35%;">Volontari</th>
                             <th style="width: 15%;">Partecipa</th>
                         </thead>
-                        <?php foreach ( $a->turni() as $turno ) { ?>
+                        <?php foreach ( $a->turniFut() as $turno ) { ?>
                         <tr<?php if ( $turno->scoperto() ) { ?> class="warning"<?php } ?> data-timestamp="<?php echo $turno->fine()->toJSON(); ?>">
 
                         <td>
+                            <a id="<?php echo $turno->id; ?>">
                             <big><strong><?php echo $turno->nome; ?></strong></big>
                             <br />
                             <?php echo $turno->durata()->format('%H ore %i min'); ?>
@@ -267,6 +278,7 @@ $(document).ready( function() {
                         <td>
                             <big><?php echo $turno->inizio()->inTesto(); ?></big><br />
                             <span class="muted">Fine: <strong><?php echo $turno->fine()->inTesto(); ?></strong></span>
+                            <span>Prenotarsi entro: <strong><?php echo $turno->prenotazione()->inTesto(); ?></strong></span>
                         </td>
                         <td>
                             <?php if ( $turno->scoperto() ) { ?>
@@ -313,9 +325,18 @@ $(document).ready( function() {
                                                 <?php foreach ( $accettate as $v ) { ?>
                                                 <li>
                                                     <a href="?p=public.utente&id=<?php echo $v->id; ?>" target="_new">
-                                                        <?php echo $v->nomeCompleto(); ?>
+                                                        <?php   $potere = true;
+                                                                $colore = "#222"; 
+                                                                if ($turno->partecipazione($v)->poteri()) { 
+                                                                    $colore = "#0000FF"; 
+                                                                    $potere = false;
+                                                                }
+                                                                echo "<span style='color: {$colore};'>"; 
+                                                                echo $v->nomeCompleto(); 
+                                                                echo "</span>";
+                                                        ?>
                                                     </a>
-                                                    <?php if( $me->delegazioni(APP_CO) && $a->modificabileDa($me) ){ ?>
+                                                    <?php if( $me->delegazioni(APP_CO) && $a->modificabileDa($me) && $potere){ ?>
                                                     <a class="btn btn-small" href="?p=attivita.poteri&v=<?= $v->id; ?>&turno=<?= $turno; ?>">
                                                         <i class="icon-rocket" ></i> Conferisci poteri
                                                     </a>
@@ -400,31 +421,39 @@ $(document).ready( function() {
                                 <i class="icon-remove"></i>
                                 Ritirati
                             </a>
+                            <?php } 
+                            } elseif ( $turno->puoRichiederePartecipazione($me) && !$me->inriserva()) { 
+                                if($turno->pieno()) { ?> 
+                                    <a data-attendere="Attendere..." name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-warning btn-block">
+                                        <i class="icon-warning-sign"></i> Dai disponibilità
+                                    </a>
+                                <?php } else  { ?>
+                                    <a data-attendere="Attendere..." name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-success btn-large btn-block">
+                                        <i class="icon-ok"></i> Partecipa
+                                    </a>
+                                <?php } 
+                            } else { ?>
+                                <a class="btn btn-block disabled">
+                                    <i class="icon-info-sign"></i>
+                                    Non puoi partecipare
+                                </a>
                             <?php } ?>
-                            <?php } elseif ( $turno->puoRichiederePartecipazione($me) && !$me->inriserva()) { ?>
-                            <a name="<?= $turno->id; ?>" href="?p=attivita.partecipa&turno=<?php echo $turno->id; ?>" class="btn btn-success btn-large btn-block">
-                                <i class="icon-ok"></i> Partecipa
-                            </a>
-                            <?php } else { ?>
-                            <a class="btn btn-block disabled">
+                        </td>
+                    </tr>
+                    <?php } 
+                    if($a->turni() != $a->turniFut()){ ?>
+                    <tr>
+                        <td colspan="4">
+                            <a data-attendere="Attendere..." href="?p=attivita.turni.passati&id=<?= $a; ?>" class="btn btn-block">
                                 <i class="icon-info-sign"></i>
-                                Non puoi partecipare
+                                Ci sono <span id="numTurniNascosti"></span> turni passati nascosti.
+                                <strong>Clicca per mostrare tutti i turni.</strong>
                             </a>
-
-                            <?php } ?>
                         </td>
                     </tr>
                     <?php } ?>
-                    <tr class="nascosto" id="rigaMostraTuttiTurni">
-                        <td colspan="4">
-                            <a id="mostraTuttiTurni" class="btn btn-block">
-                                <i class="icon-info-sign"></i>
-                                Ci sono <span id="numTurniNascosti"></span> turni passati nascosti.
-                                <strong>Clicca per mostrare i turni nascosti.</strong>
-                            </a>
-                        </td>
-                    </tr>
                 </table>
             </div>
         </div>
     </div>
+    

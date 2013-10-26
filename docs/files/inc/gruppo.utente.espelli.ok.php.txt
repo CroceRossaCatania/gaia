@@ -1,0 +1,24 @@
+<?php
+
+/*
+ * ©2013 Croce Rossa Italiana
+ */
+
+$id = $_GET['id'];
+
+$g = new AppartenenzaGruppo($id);
+	$g->fine = time();
+	$g->motivazione = $_POST['motivo'];
+	$g->tNega = time();
+	$g->pNega = $me;
+
+$m = new Email('espulsionegruppo', 'Espulsione da gruppo di lavoro: ' . $g->gruppo()->nome);
+    $m->da = $me; 
+    $m->a = $g->volontario();
+    $m->_NOME       = $g->volontario()->nome;
+    $m->_GRUPPO   = $g->gruppo()->nome;
+    $m->_MOTIVO  = $_POST['motivo'];
+    $m->_REFERENTE = $me->nomeCompleto();
+    $m->invia();
+
+redirect('gruppi.dash&esp');

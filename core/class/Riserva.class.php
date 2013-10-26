@@ -11,11 +11,11 @@ class Riserva extends Entita {
     $_dt = null;
     
     public function volontario() {
-        return new Volontario($this->volontario);
+        return Volontario::id($this->volontario);
     }
     
     public function appartenenza() {
-        return new Appartenenza($this->appartenenza);
+        return Appartenenza::id($this->appartenenza);
     }
     
     public function comitato() {
@@ -56,8 +56,8 @@ class Riserva extends Entita {
             $m = new Email('richiestaRiservaAuto', 'Approvata richiesta riserva');          
             $m->a = $destinatario;
             $m->_NOME       = $v->nome;
-            $m->_INIZIO = date('d-m-Y', $t->inizio);
-            $m->_FINE = date('d-m-Y', $t->fine);
+            $m->_INIZIO = date('d-m-Y', $this->inizio);
+            $m->_FINE = date('d-m-Y', $this->fine);
             $m->invia();
         }
     }
@@ -99,8 +99,9 @@ class Riserva extends Entita {
         $ris = array_merge($risok, $risauto);
         $r = [];
         $traunmese = time() + MESE;
+        $ora       = time();
         foreach ($ris as $_ris) {
-            if ($_ris->fine < $traunmese)
+            if ($_ris->fine > $ora && $_ris->fine < $traunmese)
                 $r[] = $_ris;
         }
         return $r;
