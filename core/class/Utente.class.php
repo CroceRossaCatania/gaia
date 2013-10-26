@@ -342,7 +342,7 @@ class Utente extends Persona {
         $n = 0;
         $comitati = $this->comitatiApp([ APP_SOCI, APP_PRESIDENTE, APP_CO, APP_OBIETTIVO ]);
         foreach($comitati as $_c) {
-            $n += $_c->numMembriAttuali(MEMBRO_VOLONTARIO);    
+                $n += $_c->numMembriAttuali(MEMBRO_VOLONTARIO);          
         }
         return $n;
     }
@@ -647,7 +647,7 @@ class Utente extends Persona {
             if (!$soloComitati || $comitato instanceof Comitato) {
                 $c[] = $comitato;
             }
-            if ($comitato instanceof Locale) {
+            if (!$comitato instanceof Comitato) {
                 $c = array_merge($comitato->estensione(), $c);
             }
         }
