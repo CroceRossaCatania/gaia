@@ -19,12 +19,18 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             Anno chiuso.
         </div>
 <?php } 
-
+    $questanno = $anno = date('Y', time());
     if (!isset($_POST['anno'])) {
-        $anno = date('Y', time());
+        $anno = $questanno;
     } else {
         $anno = $_POST['anno'];
-    } ?>
+        if ($anno < 2005 || $anno > (int) $questanno) {
+            redirect('us.quoteNo');
+        }
+    } 
+    if ($anno == $questanno) {
+        $registraOk = true;
+    }?>
     <br/>
 <div class="row-fluid">
     <div class="span5 allinea-sinistra">
@@ -59,7 +65,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
        <form action="?p=us.quoteNo" method="POST">
         <div class="form-search">
             <span class="add-on"><i class="icon-calendar"></i></span>
-            <input class="input-medium" autocomplete="off" name="anno" type="number" min="1990" max="2013" step="1" value="<?php echo $anno; ?>">
+            <input class="input-medium" autocomplete="off" name="anno" type="number" min="2005" max="2013" step="1" value="<?php echo $anno; ?>">
             <button class="btn btn-info" type="submit" ><i class="icon-search"></i>
             </button>
         </div>
@@ -140,9 +146,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
                     <td>
                         <div class="btn-group">
+                            <?php if($registraOk) { ?>
                             <a class="btn btn-small btn-info" href="?p=us.quote.nuova&id=<?php echo $_v->id; ?>" title="Paga quota">
                                 <i class="icon-certificate"></i> Registra
                             </a>
+                            <?php } ?>
                             <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                 <i class="icon-envelope"></i>
                             </a>
