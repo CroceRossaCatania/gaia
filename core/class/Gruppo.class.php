@@ -11,6 +11,9 @@ class Gruppo extends Entita {
     }
     
     public function referente() {
+        if(!$this->referente){
+            return false;
+        }
         return Volontario::id($this->referente);
     }
     
