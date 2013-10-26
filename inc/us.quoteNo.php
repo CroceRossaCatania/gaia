@@ -56,10 +56,12 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <span class="add-on"><i class="icon-search"></i></span>
             <input autofocus required id="cercaUtente" placeholder="Cerca Volontario..." type="text">
         </div>
-        <form action="?p=us.quoteNo" method="POST">
-        <div class="input-prepend">
+       <form action="?p=us.quoteNo" method="POST">
+        <div class="form-search">
             <span class="add-on"><i class="icon-calendar"></i></span>
-            <input data-autosubmit="true" name="anno" class="alCambioSalva annoQuota" type="text" value="<?php echo $anno; ?>">
+            <input class="input-medium" autocomplete="off" name="anno" type="number" min="1990" max="2013" step="1" value="<?php echo $anno; ?>">
+            <button class="btn btn-info" type="submit" ><i class="icon-search"></i>
+            </button>
         </div>
         </form>
     </div>    
