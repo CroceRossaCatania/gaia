@@ -53,6 +53,8 @@ class Regionale extends GeoPolitica {
         return [
             'nome'          =>  $this->nome,
             'indirizzo'     =>  $this->formattato,
+            'telefono'      =>  $this->telefono,
+            'email'         =>  $this->email,
             'coordinate'    =>  $this->coordinate(),
             'provinciali'   =>  $provinciali,
             'id'            =>  $this->id

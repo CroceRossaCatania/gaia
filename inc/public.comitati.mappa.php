@@ -44,10 +44,10 @@ $albero = GeoPolitica::ottieniAlbero()[0];
 
             if ( $regionale->indirizzo ) {
                 $marcatori[] = [EST_REGIONALE, $regionale->coordinate];
-                $finestre[]  = ['Comitato Regionale', 
-                    "<strong>{$regionale->nome}</strong><br />" .
+                $finestre[]  = ["<strong>{$regionale->nome}</strong>", 
                     "{$regionale->indirizzo}<br />" .
-                    "{$regionale->telefono}"
+                    "{$regionale->telefono}" .
+                    "{$locali->email}"
                 ];
 
             }
@@ -56,15 +56,24 @@ $albero = GeoPolitica::ottieniAlbero()[0];
                     <strong><?php echo $regionale->nome; ?></strong>
                 </a>
                 <ul class="nascosto" id="reg_<?php echo $regionale->id; ?>">
+                    <?php if ( $t = $regionale->telefono ) { ?>
+                        <i class="icon-phone"></i> <?php echo $t; ?>
+                    <?php } ?>
+                    <?php if ( $t = $regionale->email ) { ?>
+                        <br /><i class="icon-envelope"></i> <?php echo $t; ?>
+                    <?php } ?>
+                    <?php if ( $t = $regionale->indirizzo ) { ?>
+                        <br /><span class="muted"><?php echo $t; ?></span>
+                    <?php } ?>
                     <h4>Comitati provinciali</h4>
                     <?php foreach ( $regionale->provinciali as $provinciale ) {
 
                         if ( $provinciale->indirizzo ) {
                             $marcatori[] = [EST_PROVINCIALE, $provinciale->coordinate];
-                            $finestre[]  = ['Comitato Provinciale', 
-                                "<strong>{$provinciale->nome}</strong><br />" .
+                            $finestre[]  = ["<strong>{$provinciale->nome}</strong>", 
                                 "{$provinciale->indirizzo}<br />" .
-                                "{$provinciale->telefono}"
+                                "{$provinciale->telefono}" .
+                                "{$provinciale->email}"
                             ];
                         }
                         ?>
@@ -73,13 +82,21 @@ $albero = GeoPolitica::ottieniAlbero()[0];
                             <?php echo $provinciale->nome; ?>
                         </a>
                         <ul class="nascosto" id="prov_<?php echo $provinciale->id; ?>">
+                            <?php if ( $t = $provinciale->telefono ) { ?>
+                                <i class="icon-phone"></i> <?php echo $t; ?>
+                            <?php } ?>
+                            <?php if ( $t = $provinciale->email ) { ?>
+                                <br /><i class="icon-envelope"></i> <?php echo $t; ?>
+                            <?php } ?>
+                            <?php if ( $t = $provinciale->indirizzo ) { ?>
+                                <br /><span class="muted"><?php echo $t; ?></span>
+                            <?php } ?>
                             <h4>Comitati locali</h4>
                             <?php foreach ( $provinciale->comitati as $locali ) {
 
                             if ( $locali->indirizzo ) {
                                 $marcatori[] = [EST_LOCALE, $locali->coordinate];
-                                $finestre[]  = ['Comitato Locale', 
-                                    "<strong>{$locali->nome}</strong><br />" .
+                                $finestre[]  = ["<strong>$locali->nome</strong>", 
                                     "{$locali->indirizzo}<br />" .
                                     "{$locali->telefono}<br />" .
                                     "{$locali->email}"
@@ -87,50 +104,45 @@ $albero = GeoPolitica::ottieniAlbero()[0];
                             }
                             ?>
                             <li>
-                                <?php if($locali->unita) { ?>
+                                
                                 <a class="btn btn-link" onclick="$('#loc_<?php echo $locali->id; ?>').toggle(500);">
                                     <?php echo $locali->nome; ?>
                                 </a>
-                                <?php } else { ?>
-                                    <?php echo $locali->nome; ?>
-                                <?php } ?>
-                                <?php if ( $t = $locali->telefono ) { ?>
-                                    <br /><i class="icon-phone"></i> <?php echo $t; ?>
-                                <?php } ?>
-                                <?php if ( $t = $locali->email ) { ?>
-                                    <br /><i class="icon-envelope"></i> <?php echo $t; ?>
-                                <?php } ?>
-                                <?php if ( $t = $locali->indirizzo ) { ?>
-                                    <br /><span class="muted"><?php echo $t; ?></span>
-                                <?php } ?>
-
                                 <ul class="nascosto" id="loc_<?php echo $locali->id; ?>">
+                                    <?php if ( $t = $locali->telefono ) { ?>
+                                        <i class="icon-phone"></i> <?php echo $t; ?>
+                                    <?php } ?>
+                                    <?php if ( $t = $locali->email ) { ?>
+                                        <br /><i class="icon-envelope"></i> <?php echo $t; ?>
+                                    <?php } ?>
+                                    <?php if ( $t = $locali->indirizzo ) { ?>
+                                        <br /><span class="muted"><?php echo $t; ?></span>
+                                    <?php } ?>
+                                    <?php if($locali->unita) { ?>
                                     <h4>Unità territoriali</h4>
-                                <?php foreach ( $locali->unita as $comitato ) { 
-                                    if ( $comitato->indirizzo ) {
-                                        $marcatori[] = [EST_UNITA, $comitato->coordinate];
-                                        $finestre[]  = ['Unità territoriale', 
-                                            "<strong>{$comitato->nome}</strong><br />" .
-                                            "{$comitato->indirizzo}<br />" .
-                                            "{$comitato->telefono}<br />" 
-                                        ];
-                                    }
-                                    ?>
-                                    <li>
-                                        <strong><?php echo $comitato->nome; ?></strong>
-                                        <?php if ( $t = $comitato->telefono ) { ?>
-                                            <br /><i class="icon-phone"></i> <?php echo $t; ?>
-                                        <?php } ?>
-                                        <?php if ( $t = $comitato->email ) { ?>
-                                            <br /><i class="icon-envelope"></i> <?php echo $t; ?>
-                                        <?php } ?>
-                                        <?php if ( $comitato->indirizzo ) { ?>
-                                            <br /><span class="muted"><?php echo $comitato->indirizzo; ?></span>
-                                        <?php } ?>
-                                    </li>
+                                        <?php foreach ( $locali->unita as $comitato ) { 
+                                        if ( $comitato->indirizzo ) {
+                                            $marcatori[] = [EST_UNITA, $comitato->coordinate];
+                                            $finestre[]  = ['Unità territoriale', 
+                                                "<strong>{$comitato->nome}</strong><br />" .
+                                                "{$comitato->indirizzo}<br />" .
+                                                "{$comitato->telefono}<br />" 
+                                            ];
+                                        }
+                                        ?>
+                                        <li>
+                                            <strong><?php echo $comitato->nome; ?></strong>
+                                            <?php if ( $t = $comitato->telefono ) { ?>
+                                                <br /><i class="icon-phone"></i> <?php echo $t; ?>
+                                            <?php } ?>
+                                            <?php if ( $comitato->indirizzo ) { ?>
+                                                <br /><span class="muted"><?php echo $comitato->indirizzo; ?></span>
+                                            <?php } ?>
+                                        </li>
+                                    <?php } ?>
+                                <h4>&nbsp;</h4>
                                 <?php } ?>
-                                <h4>&nbsp;</h4></ul>
-                                <hr />
+                                </ul>
                             </li>
                             <?php } ?>
                         <h4>&nbsp;</h4></ul>
