@@ -504,7 +504,7 @@ class Comitato extends GeoPolitica {
         $q->bindParam(':comitato',  $this->id);
         $q->bindParam(':ora',  time());
         //$anno = date ('Y', time());
-        $q->bindValue(':anno', $anno);
+        $q->bindParam(':anno', $anno);
         $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->execute();
         $r = [];
