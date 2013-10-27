@@ -20,6 +20,8 @@ abstract class GeoPolitica extends GeoEntita {
         foreach ( Nazionale::elenco() as $n ) {
             $r[] = $n->toJSON();
         }
+        $r = json_encode($r);
+        return file_put_contents('./upload/setup/albero.json', $r);
     }
 
     /**
@@ -29,7 +31,7 @@ abstract class GeoPolitica extends GeoEntita {
      * @return array|string L'albero come stringa o JSON
      */
     public static function ottieniAlbero( $comeJSON = false ) {
-        $json = file_get_contents('./upload/setup/albero.json');
+        $json = @file_get_contents('./upload/setup/albero.json');
         if ( !$json ) {
             static::rigeneraAlbero();
             return static::ottieniAlbero($comeJSON);
