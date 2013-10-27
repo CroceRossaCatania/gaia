@@ -210,14 +210,9 @@ class APIServer {
         }
         
         public function api_comitati() {
-            $r = [];
-            foreach ( Nazionale::elenco() as $n ) {
-                $r[] = $n->toJSON();
-            }
-            return $r;
+            return GeoPolitica::ottieniAlbero();
         }
         
-
         public function api_autorizza() {
             $this->richiedi(['id']);
             $this->richiediLogin();
