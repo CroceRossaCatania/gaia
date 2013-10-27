@@ -118,28 +118,30 @@ $albero = GeoPolitica::ottieniAlbero()[0];
                                     <?php if ( $t = $locali->indirizzo ) { ?>
                                         <br /><span class="muted"><?php echo $t; ?></span>
                                     <?php } ?>
-                                    <?php if($locali->unita) { ?>
+                                    <?php if(count($locali->unita) > 1) { ?>
                                     <h4>Unità territoriali</h4>
                                         <?php foreach ( $locali->unita as $comitato ) { 
-                                        if ( $comitato->indirizzo ) {
-                                            $marcatori[] = [EST_UNITA, $comitato->coordinate];
-                                            $finestre[]  = ['Unità territoriale', 
-                                                "<strong>{$comitato->nome}</strong><br />" .
-                                                "{$comitato->indirizzo}<br />" .
-                                                "{$comitato->telefono}<br />" 
-                                            ];
-                                        }
-                                        ?>
-                                        <li>
-                                            <strong><?php echo $comitato->nome; ?></strong>
-                                            <?php if ( $t = $comitato->telefono ) { ?>
-                                                <br /><i class="icon-phone"></i> <?php echo $t; ?>
-                                            <?php } ?>
-                                            <?php if ( $comitato->indirizzo ) { ?>
-                                                <br /><span class="muted"><?php echo $comitato->indirizzo; ?></span>
-                                            <?php } ?>
-                                        </li>
-                                    <?php } ?>
+                                        if ($locali->principale != $comitato->id) {
+                                            if ( $comitato->indirizzo ) {
+                                                $marcatori[] = [EST_UNITA, $comitato->coordinate];
+                                                $finestre[]  = ['Unità territoriale', 
+                                                    "<strong>{$comitato->nome}</strong><br />" .
+                                                    "{$comitato->indirizzo}<br />" .
+                                                    "{$comitato->telefono}<br />" 
+                                                ];
+                                            }
+                                            ?>
+                                            <li>
+                                                <strong><?php echo $comitato->nome; ?></strong>
+                                                <?php if ( $t = $comitato->telefono ) { ?>
+                                                    <br /><i class="icon-phone"></i> <?php echo $t; ?>
+                                                <?php } ?>
+                                                <?php if ( $comitato->indirizzo ) { ?>
+                                                    <br /><span class="muted"><?php echo $comitato->indirizzo; ?></span>
+                                                <?php } ?>
+                                            </li>
+                                    <?php }
+                                    } ?>
                                 <h4>&nbsp;</h4>
                                 <?php } ?>
                                 </ul>
