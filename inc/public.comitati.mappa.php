@@ -37,13 +37,20 @@ $albero = GeoPolitica::ottieniAlbero()[0];
         </p>
         
         <ul>
-        <?php foreach($albero->regionali as $regionale) { ?>
+        <?php 
+        $marcatori = [];
+        $finestre  = [];
+        foreach($albero->regionali as $regionale) { ?>
             <li><a class="btn btn-link" onclick="$('#reg_<?php echo $regionale->id; ?>').toggle(500);">
                     <strong><?php echo $regionale->nome; ?></strong>
                 </a>
                 <ul class="nascosto" id="reg_<?php echo $regionale->id; ?>">
                     <h4>Comitati provinciali</h4>
-                    <?php foreach ( $regionale->provinciali as $provinciale ) { ?>
+                    <?php foreach ( $regionale->provinciali as $provinciale ) {
+
+                        if ( $provinciale->indirizzo )
+                            $marcatori[] = ['Provinciale', $provinciale->coordinate];
+                        ?>
                     <li>
                         <a class="btn btn-link" onclick="$('#prov_<?php echo $provinciale->id; ?>').toggle(500);">
                             <?php echo $provinciale->nome; ?>
@@ -96,6 +103,12 @@ $albero = GeoPolitica::ottieniAlbero()[0];
 </div>
 
  <script type="text/javascript">
+    var marker = {
+        'Regionale':    MapIconMaker.createMarkerIcon({width: 20, height: 34, primaryColor: "#0000FF", cornercolor:"#0000FF"}),
+        'Provinciale':  MapIconMaker.createMarkerIcon({width: 20, height: 34, primaryColor: "#0000FF", cornercolor:"#0000FF"}),
+        'Locale':       MapIconMaker.createMarkerIcon({width: 20, height: 34, primaryColor: "#0000FF", cornercolor:"#0000FF"}),
+        'Comitato':     MapIconMaker.createMarkerIcon({width: 20, height: 34, primaryColor: "#0000FF", cornercolor:"#0000FF"}),
+    };
     function initialize() {
       var opzioni = {
         zoom: 6,

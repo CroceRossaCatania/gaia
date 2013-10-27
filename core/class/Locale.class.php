@@ -65,8 +65,10 @@ class Locale extends GeoPolitica {
             $comitato = $comitato->toJSON();
         }
         return [
-            'nome'  =>  $this->nome,
-            'unita' =>  $comitati
+            'nome'      =>  $this->nome,
+            'indirizzo' =>  $this->formattato,
+            'coordinate'=>  $this->coordinate(),
+            'unita'     =>  $comitati
         ];
     }
 
