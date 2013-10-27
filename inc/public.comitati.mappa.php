@@ -4,6 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
+$albero = GeoPolitica::ottieniAlbero()[0];
 ?>
 
 <div class="row-fluid">
@@ -36,27 +37,27 @@
         </p>
         
         <ul>
-        <?php foreach(Regionale::elenco('nome ASC') as $regionale) { ?>
+        <?php foreach($albero->regionali as $regionale) { ?>
             <li><a class="btn btn-link" onclick="$('#reg_<?php echo $regionale->id; ?>').toggle(500);">
                     <strong><?php echo $regionale->nome; ?></strong>
                 </a>
                 <ul class="nascosto" id="reg_<?php echo $regionale->id; ?>">
                     <h4>Comitati provinciali</h4>
-                    <?php foreach ( $regionale->provinciali() as $provinciale ) { ?>
+                    <?php foreach ( $regionale->provinciali as $provinciale ) { ?>
                     <li>
                         <a class="btn btn-link" onclick="$('#prov_<?php echo $provinciale->id; ?>').toggle(500);">
                             <?php echo $provinciale->nome; ?>
                         </a>
                         <ul class="nascosto" id="prov_<?php echo $provinciale->id; ?>">
                             <h4>Comitati locali</h4>
-                            <?php foreach ( $provinciale->locali() as $locali ) { ?>
+                            <?php foreach ( $provinciale->comitati as $locali ) { ?>
                             <li>
                                 <a class="btn btn-link" onclick="$('#loc_<?php echo $locali->id; ?>').toggle(500);">
                                     <?php echo $locali->nome; ?>
                                 </a>
                                 <ul class="nascosto" id="loc_<?php echo $locali->id; ?>">
                                     <h4>Unità territoriali</h4>
-                                <?php foreach ( $locali->comitati() as $comitato ) { ?>
+                                <?php foreach ( $locali->unita as $comitato ) { ?>
                                     <li>
                                         <strong><?php echo $comitato->nome; ?></strong>
                                         <?php if ( $t = $comitato->telefono ) { ?>
@@ -65,8 +66,8 @@
                                         <?php if ( $t = $comitato->email ) { ?>
                                             <br /><i class="icon-envelope"></i> <?php echo $t; ?>
                                         <?php } ?>
-                                        <?php if ( $comitato->haPosizione() ) { ?>
-                                            <br /><span class="muted"><?php echo $comitato->formattato; ?></span>
+                                        <?php if ( $comitato->indirizzo ) { ?>
+                                            <br /><span class="muted"><?php echo $comitato->indirizzo; ?></span>
                                         <?php } ?>
                                     </li>
                                 <?php } ?>
