@@ -54,7 +54,7 @@ paginaPresidenziale();
         <th>Azione</th>
     </thead>
 <?php
-$comitati= $me->comitatiDiCompetenza();
+$comitati= $me->unitaDiCompetenza();
 foreach($comitati as $comitato){
     foreach($comitato->riserve(RISERVA_INCORSO) as $_t){
         $_v = $_t->volontario();
