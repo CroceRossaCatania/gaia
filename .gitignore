@@ -24,6 +24,9 @@ upload/get/
 # Lock file
 upload/setup/lock
 
+# Albero dei comitati
+upload/setup/albero.json
+
 # Autopull
 upload/setup/autopull
 
