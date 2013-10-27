@@ -77,18 +77,33 @@ $albero = GeoPolitica::ottieniAlbero()[0];
                             <?php foreach ( $provinciale->comitati as $locali ) {
 
                             if ( $locali->indirizzo ) {
-                                $marcatori[] = [EST_COMITATO, $locali->coordinate];
+                                $marcatori[] = [EST_LOCALE, $locali->coordinate];
                                 $finestre[]  = ['Comitato Locale', 
                                     "<strong>{$locali->nome}</strong><br />" .
                                     "{$locali->indirizzo}<br />" .
-                                    "{$locali->telefono}"
+                                    "{$locali->telefono}<br />" .
+                                    "{$locali->email}"
                                 ];
                             }
                             ?>
                             <li>
+                                <?php if($locali->unita) { ?>
                                 <a class="btn btn-link" onclick="$('#loc_<?php echo $locali->id; ?>').toggle(500);">
                                     <?php echo $locali->nome; ?>
                                 </a>
+                                <?php } else { ?>
+                                    <?php echo $locali->nome; ?>
+                                <?php } ?>
+                                <?php if ( $t = $locali->telefono ) { ?>
+                                    <br /><i class="icon-phone"></i> <?php echo $t; ?>
+                                <?php } ?>
+                                <?php if ( $t = $locali->email ) { ?>
+                                    <br /><i class="icon-envelope"></i> <?php echo $t; ?>
+                                <?php } ?>
+                                <?php if ( $t = $locali->indirizzo ) { ?>
+                                    <br /><span class="muted"><?php echo $t; ?></span>
+                                <?php } ?>
+
                                 <ul class="nascosto" id="loc_<?php echo $locali->id; ?>">
                                     <h4>Unità territoriali</h4>
                                 <?php foreach ( $locali->unita as $comitato ) { 
@@ -97,8 +112,7 @@ $albero = GeoPolitica::ottieniAlbero()[0];
                                         $finestre[]  = ['Unità territoriale', 
                                             "<strong>{$comitato->nome}</strong><br />" .
                                             "{$comitato->indirizzo}<br />" .
-                                            "{$comitato->telefono}<br />" .
-                                            "{$comitato->email}"
+                                            "{$comitato->telefono}<br />" 
                                         ];
                                     }
                                     ?>
@@ -116,6 +130,7 @@ $albero = GeoPolitica::ottieniAlbero()[0];
                                     </li>
                                 <?php } ?>
                                 <h4>&nbsp;</h4></ul>
+                                <hr />
                             </li>
                             <?php } ?>
                         <h4>&nbsp;</h4></ul>
@@ -143,8 +158,8 @@ $albero = GeoPolitica::ottieniAlbero()[0];
     $icone = [
         EST_REGIONALE     =>  'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
         EST_PROVINCIALE   =>  'http://maps.google.com/mapfiles/ms/icons/orange-dot.png',
-        EST_LOCALE        =>  'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-        EST_UNITA         =>  'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+        EST_LOCALE        =>  'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+        EST_UNITA         =>  'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
     ];
     ?>
     function initialize() {
