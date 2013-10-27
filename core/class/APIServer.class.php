@@ -47,7 +47,7 @@ class APIServer {
                 'time'     => ( microtime(true) - $start ),
                 'session'  => $this->sessione->toJSON(),
                 'response' => $r
-            ], JSON_PRETTY_PRINT);
+            ]);
     }
         
         private function richiediLogin() {
@@ -110,11 +110,7 @@ class APIServer {
                 ];
             }
         }
-        
-        public function api_ciao() {
-            $this->richiedi(['a', 'b']);
-            
-        }
+
         
         public function api_logout() {
             $this->richiediLogin();
