@@ -4,6 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
+$albero = GeoPolitica::ottieniAlbero()[0];
 ?>
 
 <div class="row-fluid">
@@ -36,27 +37,71 @@
         </p>
         
         <ul>
-        <?php foreach(Regionale::elenco('nome ASC') as $regionale) { ?>
+        <?php 
+        $marcatori = [];
+        $finestre  = [];
+        foreach($albero->regionali as $regionale) {
+
+            if ( $regionale->indirizzo ) {
+                $marcatori[] = [EST_REGIONALE, $regionale->coordinate];
+                $finestre[]  = ['Comitato Regionale', 
+                    "<strong>{$regionale->nome}</strong><br />" .
+                    "{$regionale->indirizzo}<br />" .
+                    "{$regionale->telefono}"
+                ];
+
+            }
+            ?>
             <li><a class="btn btn-link" onclick="$('#reg_<?php echo $regionale->id; ?>').toggle(500);">
                     <strong><?php echo $regionale->nome; ?></strong>
                 </a>
                 <ul class="nascosto" id="reg_<?php echo $regionale->id; ?>">
                     <h4>Comitati provinciali</h4>
-                    <?php foreach ( $regionale->provinciali() as $provinciale ) { ?>
+                    <?php foreach ( $regionale->provinciali as $provinciale ) {
+
+                        if ( $provinciale->indirizzo ) {
+                            $marcatori[] = [EST_PROVINCIALE, $provinciale->coordinate];
+                            $finestre[]  = ['Comitato Provinciale', 
+                                "<strong>{$provinciale->nome}</strong><br />" .
+                                "{$provinciale->indirizzo}<br />" .
+                                "{$provinciale->telefono}"
+                            ];
+                        }
+                        ?>
                     <li>
                         <a class="btn btn-link" onclick="$('#prov_<?php echo $provinciale->id; ?>').toggle(500);">
                             <?php echo $provinciale->nome; ?>
                         </a>
                         <ul class="nascosto" id="prov_<?php echo $provinciale->id; ?>">
                             <h4>Comitati locali</h4>
-                            <?php foreach ( $provinciale->locali() as $locali ) { ?>
+                            <?php foreach ( $provinciale->comitati as $locali ) {
+
+                            if ( $locali->indirizzo ) {
+                                $marcatori[] = [EST_COMITATO, $locali->coordinate];
+                                $finestre[]  = ['Comitato Locale', 
+                                    "<strong>{$locali->nome}</strong><br />" .
+                                    "{$locali->indirizzo}<br />" .
+                                    "{$locali->telefono}"
+                                ];
+                            }
+                            ?>
                             <li>
                                 <a class="btn btn-link" onclick="$('#loc_<?php echo $locali->id; ?>').toggle(500);">
                                     <?php echo $locali->nome; ?>
                                 </a>
                                 <ul class="nascosto" id="loc_<?php echo $locali->id; ?>">
                                     <h4>Unità territoriali</h4>
-                                <?php foreach ( $locali->comitati() as $comitato ) { ?>
+                                <?php foreach ( $locali->unita as $comitato ) { 
+                                    if ( $comitato->indirizzo ) {
+                                        $marcatori[] = [EST_UNITA, $comitato->coordinate];
+                                        $finestre[]  = ['Unità territoriale', 
+                                            "<strong>{$comitato->nome}</strong><br />" .
+                                            "{$comitato->indirizzo}<br />" .
+                                            "{$comitato->telefono}<br />" .
+                                            "{$comitato->email}"
+                                        ];
+                                    }
+                                    ?>
                                     <li>
                                         <strong><?php echo $comitato->nome; ?></strong>
                                         <?php if ( $t = $comitato->telefono ) { ?>
@@ -65,8 +110,8 @@
                                         <?php if ( $t = $comitato->email ) { ?>
                                             <br /><i class="icon-envelope"></i> <?php echo $t; ?>
                                         <?php } ?>
-                                        <?php if ( $comitato->haPosizione() ) { ?>
-                                            <br /><span class="muted"><?php echo $comitato->formattato; ?></span>
+                                        <?php if ( $comitato->indirizzo ) { ?>
+                                            <br /><span class="muted"><?php echo $comitato->indirizzo; ?></span>
                                         <?php } ?>
                                     </li>
                                 <?php } ?>
@@ -93,8 +138,15 @@
     </div>
     
 </div>
-
  <script type="text/javascript">
+    <?php
+    $icone = [
+        EST_REGIONALE     =>  'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+        EST_PROVINCIALE   =>  'http://maps.google.com/mapfiles/ms/icons/orange-dot.png',
+        EST_LOCALE        =>  'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+        EST_UNITA         =>  'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+    ];
+    ?>
     function initialize() {
       var opzioni = {
         zoom: 6,
@@ -104,15 +156,14 @@
       var map = new google.maps.Map(document.getElementById("laMappa"), opzioni);
       
       var messaggio = [], marcatore = [];                         
-      <?php $i = 0; foreach (Comitato::elenco() as $c ) { 
-        if ( !$c->haPosizione() ) { continue; }  
+      <?php $i = 0; foreach ($marcatori as $m) { 
         ?>
         messaggio.push(new google.maps.InfoWindow({
-            content: "<?php echo htmlentities($c->nomeCompleto()); ?><br /><span class='muted'><?php echo $c->formattato; ?></span><br /><?php echo $c->telefono; ?><br /><?php echo $c->email; ?>"
+            content: "<?php echo $finestre[$i][0]; ?>:<br /><?php echo $finestre[$i][1]; ?>"
         }));
         marcatore.push(new google.maps.Marker({
-            position: new google.maps.LatLng(<?php echo $c->latlng(); ?>),
-            map: map, animation: google.maps.Animation.DROP
+            position: new google.maps.LatLng(<?php echo $m[1][0] ?>, <?php echo $m[1][1] ?>),
+            map: map, animation: google.maps.Animation.DROP, icon: '<?php echo $icone[$m[0]]; ?>'
         }));
         google.maps.event.addListener(marcatore[<?php echo $i; ?>], 'click', function() {
             messaggio[<?php echo $i; ?>].open(map, marcatore[<?php echo $i; ?>]);
