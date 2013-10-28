@@ -13,7 +13,8 @@ class Anonimo extends Utente {
             $email  = 'fittizziacri@mailinator.com';
     
     public function __construct() {
-        
+        global $db;
+        $this->db = $db; 
     }
     
     public function __set($a, $b) {
