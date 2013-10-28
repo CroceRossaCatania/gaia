@@ -136,8 +136,12 @@ class APIServer {
             $cA = Turno::neltempo($inizio, $fine);
             $searchPuoPart = [];
             $r = [];
-            $mioGeoComitatoOid = $this->sessione->utente()->unComitato()->oid();
-            $mioGeoComitato = GeoPolitica::daOid($mioGeoComitatoOid);
+            if (!$this->sessione->utente()){
+                $mioGeoComitato = null;
+            } else {
+                $mioGeoComitatoOid = $this->sessione->utente()->unComitato()->oid();
+                $mioGeoComitato = GeoPolitica::daOid($mioGeoComitatoOid);
+            }
             foreach  ( $cA as $turno ) {
                 $attivita = $turno->attivita();
                 $idAttivita = ''.$attivita->id;
