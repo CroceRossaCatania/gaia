@@ -54,7 +54,12 @@ class Provinciale extends GeoPolitica {
         }
         return [
             'nome'      =>  $this->nome,
-            'comitati'  =>  $locali
+            'indirizzo' =>  $this->formattato,
+            'telefono'  =>  $this->telefono,
+            'email'     =>  $this->email,
+            'coordinate'=>  $this->coordinate(),
+            'comitati'  =>  $locali,
+            'id'        =>  $this->id
         ]; 
     }
 
