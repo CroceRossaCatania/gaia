@@ -36,7 +36,7 @@ class Nazionale extends GeoPolitica {
     public function regionali() {
         return Regionale::filtra([
             ['nazionale',  $this->id]
-        ]);
+        ], 'nome ASC');
     }
     
     public function toJSON() {

@@ -33,7 +33,7 @@ class Locale extends GeoPolitica {
     public function comitati() {
         return Comitato::filtra([
             ['locale',  $this->id]
-        ]);
+        ], 'nome ASC');
     }    
 
     public function aree($obiettivo = null, $espandiLocali = false ) {

@@ -37,7 +37,7 @@ class Regionale extends GeoPolitica {
     public function provinciali() {
         return Provinciale::filtra([
             ['regionale',  $this->id]
-        ]);
+        ], 'nome ASC');
     }
     
     public function nazionale() {
