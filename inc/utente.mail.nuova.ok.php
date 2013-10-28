@@ -69,16 +69,16 @@ foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenc
         $m->_APP = $comitato;
         //inserisco i dati del volontari per cui è richiesta assistenza
         $u = Utente::id($_POST['inputVolontario']);
-        $m->_STATO = $conf['statoPersona'][$u->stato];
-        $m->_NOME = $u->nomeCompleto();
-        $m->_ID = $u->id;
+        $m->_STATO_V = $conf['statoPersona'][$u->stato];
+        $m->_NOME_V = $u->nomeCompleto();
+        $m->_ID_V = $u->id;
         $comitato = $u->unComitato();
         if ($comitato) {
             $comitato = $comitato->nomeCompleto();
         } else {
             $comitato = 'nessun comitato assegnato o volontario in attesa di conferma';
         }
-        $m->_APP = $comitato;
+        $m->_APP_V = $comitato;
         
         $m->invia();
         redirect('utente.me&suppok');
