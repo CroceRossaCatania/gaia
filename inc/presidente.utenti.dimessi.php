@@ -39,7 +39,7 @@ menuElenchiVolontari(
         <?php
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
-            $t = $comitato->membriDimessi(MEMBRO_DIMESSO);
+            $t = $comitato->membriDimessi();
                 ?>
             
             <tr class="success">
