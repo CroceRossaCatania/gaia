@@ -8,8 +8,48 @@ paginaPrivata();
 ?>
 
 
-<h2>Gestione delle attività</h2>
 
+
+<div class="row-fluid">
+    
+    <div class="span3">
+        <?php menuVolontario(); ?>
+    </div>
+
+        <div class="span9">
+
+        <div class="row-fluid">
+
+            <div class="span7">
+                <h2>
+                    <i class="icon-star muted"></i>
+                    Gestione delle attività
+                </h2>
+            </div>
+
+            
+                
+                <div class="span5">
+                    
+                        <?php if ( $me->comitatiAreeDiCompetenza() ) { ?>
+
+                        <a href="?p=attivita.idea" class="btn btn-large btn-block btn-success">
+                            <i class="icon-plus-sign"></i>
+                                Crea una nuova attività
+                        </a>
+                        
+                        <?php } ?>
+                        
+                    
+
+                </div>
+            </div>
+
+            <div class="row-fluid">
+
+
+
+<div class="span12">
 <table class="table table-striped table-bordered">
 
 <thead>
@@ -84,3 +124,6 @@ paginaPrivata();
 <?php } ?>
 
 </table>
+</div>
+</div>
+</div>

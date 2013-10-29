@@ -62,38 +62,13 @@ paginaAnonimo();
 
     <?php } ?>
         
-        <!--<div class="row-fluid">
+        <div class="row-fluid">
             <div class="span12">
-                <h2><span class="muted">Le </span>attività.</h2>
+                <h2>Calendario delle attività</h2>
+                <hr />
             </div>
-        </div>-->
-        
-            
-            <div class="row-fluid">
-                
-                <div class="span6 offset6">
-                    <div class="btn-group">
-                        <?php if ( $me->comitatiAreeDiCompetenza() ) { ?>
-
-                        <a href="?p=attivita.idea" class="btn btn-large btn-success">
-                            <i class="icon-plus-sign"></i>
-                                Crea attività
-                        </a>
-                        
-                        <?php } ?>
-                        
-                        <?php if ( $me->attivitaDiGestione() ) { ?>
-                        <a href="?p=attivita.gestione" class="btn btn-primary btn-large">
-                            <i class="icon-list"></i>
-                                Gestisci attività
-                        </a>
-                        
-                        <?php } ?>
-                    </div>
-                </div>
-                
-                 
-            </div><hr />
+            <hr
+        </div>
 
         <div class="row-fluid">
             <div class="span12" id="calendario"></div>
