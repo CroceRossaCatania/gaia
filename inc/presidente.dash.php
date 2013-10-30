@@ -42,8 +42,8 @@ if ( $sessione->attenzione == false ){
 
         <?php if ( isset($_GET['resetOk']) ) { ?>
             <div class="alert alert-success">
-                <i class="icon-ok"></i> <strong>Modifiche salvate</strong> &mdash;
-                Reset JSON Comitati effettuato correttamente.
+                <i class="icon-fire"></i> <strong>Albero dei Comitati bruciato!</strong> &mdash;
+                Sta piano piano ricrescendo...
             </div>
         <?php } ?>
 
