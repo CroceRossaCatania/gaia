@@ -32,11 +32,20 @@ if ( $sessione->attenzione == false ){
     
 <?php } ?>
 
+
+
 <div class="row-fluid">
     <div class="span3">
         <?php menuVolontario(); ?>
     </div>
     <div class="span9">
+
+        <?php if ( isset($_GET['resetOk']) ) { ?>
+            <div class="alert alert-success">
+                <i class="icon-fire"></i> <strong>Albero dei Comitati bruciato!</strong> &mdash;
+                Sta piano piano ricrescendo...
+            </div>
+        <?php } ?>
 
         
         <div class="row-fluid">
