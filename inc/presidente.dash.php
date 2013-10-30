@@ -32,11 +32,20 @@ if ( $sessione->attenzione == false ){
     
 <?php } ?>
 
+
+
 <div class="row-fluid">
     <div class="span3">
         <?php menuVolontario(); ?>
     </div>
     <div class="span9">
+
+        <?php if ( isset($_GET['resetOk']) ) { ?>
+            <div class="alert alert-success">
+                <i class="icon-ok"></i> <strong>Modifiche salvate</strong> &mdash;
+                Reset JSON Comitati effettuato correttamente.
+            </div>
+        <?php } ?>
 
         
         <div class="row-fluid">
