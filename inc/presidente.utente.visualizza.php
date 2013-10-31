@@ -168,6 +168,12 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
                 </select>   
             </div>
           </div>
+          <div class="control-group input-prepend">
+            <label class="control-label" for="inputConsenso">Consenso dati personali</label>
+            <div class="controls">
+             <input value="<?php if($u->consenso()){ echo "Acquisito";}else{ echo "Non Acquisito"; } ?>"  type="text" id="inputConsenso" name="inputConsenso" readonly/>
+            </div>
+          </div>
         <hr />
          
         <div class="form-actions">
