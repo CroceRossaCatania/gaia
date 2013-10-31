@@ -715,7 +715,9 @@ class Comitato extends GeoPolitica {
             AND
                 turni.attivita = attivita.id
             AND
-                turni.inizio <= :inizio");
+                turni.inizio <= :inizio
+            ORDER BY
+                turni.inizio ASC");
         $inizio = time()+3600;
         $q->bindValue(':inizio', $inizio);
         $q->bindValue(':stato', ATT_STATO_OK);

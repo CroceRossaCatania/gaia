@@ -83,14 +83,15 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                         foreach ($partecipanti as $partecipante){ 
                             $m = Coturno::filtra([['volontario', $partecipante->volontario()],['turno',$turno]]); 
                             if ( $turno->fine >= $f || ($m[0]->pMonta && !$m[0]->pSmonta) ) {
-                                if($x==0){ ?> 
+                                $attivita = $turno->attivita();
+                                if($x!=$attivita){ 
+                                    $x=$attivita; ?> 
                                     <tr class="primary">
                                         <td colspan="4" class="grassetto">
-                                        <?php $attivita = $turno->attivita(); echo $attivita->nome ," - Referente: " , $attivita->referente()->nomeCompleto() , " Cell: ", $attivita->referente()->cellulare(); ?>
+                                        <?php echo $attivita->nome ," - Referente: " , $attivita->referente()->nomeCompleto() , " Cell: ", $attivita->referente()->cellulare(); ?>
                                         </td>
                                     </tr>
                                     <?php 
-                                    $x++;
                                     } 
                                     if ( $z == 0){
                                     ?>
