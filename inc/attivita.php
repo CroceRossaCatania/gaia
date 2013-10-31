@@ -9,20 +9,19 @@ paginaAnonimo();
 ?>
 <div class="row-fluid">
     <?php if ( !$me instanceof Anonimo ) { ?>
-    <div class="span3">
-        <?php menuVolontario(); ?>
-        <hr />
-        <h4>Legenda dei colori</h4>
-        <table class="table table-condensed table-striped">
-            <tr>
-                <td style="color: #<?php echo $conf['attivita']['colore_pubbliche']; ?>;">
-                    <i class="icon-sign-blank"></i>
-                </td>
-                <td>
-                    Tutti i comitati
-                </td>
-            </tr>
-            
+        <div class="span3">
+            <?php menuVolontario(); ?>
+            <hr />
+            <h4>Legenda dei colori</h4>
+            <table class="table table-condensed table-striped">
+                <tr>
+                    <td style="color: #<?php echo $conf['attivita']['colore_pubbliche']; ?>;">
+                        <i class="icon-sign-blank"></i>
+                    </td>
+                    <td>
+                        Tutti i comitati
+                    </td>
+                </tr>
                 <tr>
                     <td style="color: #<?php echo $conf['attivita']['colore_mie']; ?>;">
                         <i class="icon-sign-blank"></i>
@@ -39,16 +38,11 @@ paginaAnonimo();
                         Turni scoperti
                     </td>
                 </tr>
-           
-
-        </table>
-
-
-    </div>
-
-    <div class="span9">
+            </table>
+        </div>
+        <div class="span9">
     <?php } else { ?>
-    <div class="span12">
+        <div class="span12">
     <?php } 
      if ( $me instanceOf Anonimo ) { ?>
     
@@ -68,7 +62,7 @@ paginaAnonimo();
                 Calendario delle attività</h2>
                 <hr />
             </div>
-            <hr
+            <hr />
         </div>
 
         <div class="row-fluid">
@@ -85,6 +79,4 @@ paginaAnonimo();
         
     </div>
       
-    
 </div>
-
