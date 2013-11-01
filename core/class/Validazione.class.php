@@ -45,7 +45,7 @@ class Validazione extends Entita {
         return $password;
     }
 
-    public static function generaValidazione($v, $stato) {
+    public static function generaValidazione($v, $stato, $note) {
 
         $validazione = Validazione::filtra([['volontario', $v],['stato', $stato]]);
         if($validazione){
@@ -88,6 +88,7 @@ class Validazione extends Entita {
         $val->stato = $stato;
         $val->volontario = $v;
         $val->timestamp = time();
+        $val->note = $note;
         return $codice;
     }
 

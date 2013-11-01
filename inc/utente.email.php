@@ -25,6 +25,21 @@ paginaPrivata();
             <p>L'email che hai inserito risulta già in uso.</p>
             <p>Ti preghiamo di inserire il tuo indirizzo email personale.</p>
         </div>
+        <?php } elseif ( isset($_GET['link']) )  { ?>
+        <div class="alert alert-success">
+            <h4><i class="icon-envelope"></i> Hai una nuova email</h4>
+            <p>Nella mail che hai ricevuto troverai un link, copialo e incollalo nella barra indirizzo del tuo broswer per terminare la sostituzione della email</p>
+        </div>
+        <?php } elseif ( isset($_GET['gia']) ) { ?>
+          <div class="alert alert-block alert-error">
+              <h4><i class="icon-exclamation-sign"></i> Richiesta già effettuata</h4>
+              <p>La richiesta di sostituzione della email è stata già effettuata controlla la tua email</p>
+          </div>
+        <?php }elseif ( isset($_GET['sca']) ) { ?>
+          <div class="alert alert-block alert-error">
+              <h4><i class="icon-exclamation-sign"></i> Richiesta scaduta o non effettuata</h4>
+              <p>La richiesta di sostituzione della email è scaduta o non è mai stata effettuata, compila i campi qui sotto per effettuarne una nuova</p>
+          </div>
         <?php } ?>
         <form class="form-horizontal" action="?p=utente.email.ok" method="POST">
 
