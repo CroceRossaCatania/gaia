@@ -11,35 +11,35 @@ class Validazione extends Entita {
         $_dt = null;
 
     public static function generaPassword() {
-        $length = 6;
+        $length = 8;
 
         // impostare password bianca
         $password = "";
 
         // caratteri possibili
-        $possible = "12346789abcdefghijklmnopqrtsuvwxyzABCDEFGHIJKLMNoPQRSTUVWXYZ";
+        $possible = "123467890abcdefghijklmnopqrtsuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?$%&";
 
-         //massima lunghezza caratteri
-         $maxlength = strlen($possible);
+        //massima lunghezza caratteri
+        $maxlength = strlen($possible);
           
-         // se troppo lunga taglia la password
+        // se troppo lunga taglia la password
         if ($length > $maxlength) {
               $length = $maxlength;
         }
             
         $i = 0; 
             
-         // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
-         while ($i < $length) { 
+        // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
+        while ($i < $length) { 
 
             // prende un carattere casuale per creare la password
            $char = substr($possible, mt_rand(0, $maxlength-1), 1);
 
             // verifica se il carattere precedente è uguale al successivo
-           if (!strstr($password, $char)) { 
+            if (!strstr($password, $char)) { 
                 $password .= $char;
                 $i++;
-           }
+            }
 
         }
         return $password;
@@ -52,13 +52,13 @@ class Validazione extends Entita {
             return false;
         }
 
-        $length = 14;
+        $length = 26;
 
         // impostare codice bianca
         $codice = "";
 
         // caratteri possibili
-        $possible = "12346789abcdefghijklmnopqrtsuvwxyzABCDEFGHIJKLMNoPQRSTUVWXYZ";
+        $possible = "123467890abcdefghijklmnopqrtsuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
          //massima lunghezza caratteri
          $maxlength = strlen($possible);
@@ -71,7 +71,7 @@ class Validazione extends Entita {
         $i = 0; 
             
          // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
-         while ($i < $length) { 
+        while ($i < $length) { 
 
             // prende un carattere casuale per creare la codice
            $char = substr($possible, mt_rand(0, $maxlength-1), 1);
@@ -92,12 +92,14 @@ class Validazione extends Entita {
         return $codice;
     }
 
+    // non ho ben capito a cosa serve la ricerca per codice e stato e non per codice e volontario...
     public static function cercaValidazione($codice , $stato) {
 
         $validazione = Validazione::filtra([['codice', $codice],['stato', $stato]]);
         if(!$validazione){
             return false;
         }
+        // brutto!!! il v[0]
         return Validazione::id($validazione[0]);
     }
 
