@@ -1,5 +1,29 @@
-<h2><i class="icon-ok muted"></i> Hai una nuova email</h2>
+<?php
 
-<p>La nuova password ti è stata spedita per email.</p>
+/*
+ * ©2013 Croce Rossa Italiana
+ */
 
-<a href="?p=login" class="btn btn-large"><i class="icon-key"></i> Accedi</a>
+$codice = $_GET['c'];
+
+/* Cerca codice di validazione */
+$validazione = Validazione::cercaValidazione($codice,VAL_PASS);
+if($validazione==false){
+	redirect('recuperaPassword&sca');
+}
+
+$p = Volontario::id($validazione->volontario());
+
+/* Genera la password casuale */
+$password = Validazione::generaPassword();
+
+/* Imposta la password */
+$p->cambiaPassword($password);
+
+$e = new Email('generaPassword', 'Nuova password generata');
+$e->a = $p;
+$e->_NOME = $p->nome;
+$e->_PASSWORD = $password;
+$e->invia();
+
+redirect('recuperaPassword.step');

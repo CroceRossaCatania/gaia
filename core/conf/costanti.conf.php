@@ -509,3 +509,13 @@ $conf['est_grp'] = [
     EST_GRP_UNITA       =>  'Unità Territoriale',
     EST_GRP_LOCALE      =>  'Comitato Locale'    
 ];
+
+/*
+ * ===================================
+ * ======= VALIDAZIONI ===============
+ * ===================================
+ */
+
+define('VAL_CHIUSA',   10);
+define('VAL_PASS',     20);
+define('VAL_MAIL',     30);

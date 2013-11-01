@@ -1,55 +1,31 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
+
 $codiceFiscale = $_POST['inputCodiceFiscale'];
 $codiceFiscale = maiuscolo($codiceFiscale);
+$email = $_POST['inputEmail'];
 
 $p = Utente::by('codiceFiscale', $codiceFiscale);
 if (!$p) {
-	redirect('resetPassword&e');
-} 
-
-$length = 6;
-
-// impostare password bianca
-$password = "";
-
-// caratteri possibili
-$possible = "2346789bcdfghjkmnpqrtvwxyzBCDFGHJKLMNPQRTVWXYZ";
-
- //massima lunghezza caratteri
- $maxlength = strlen($possible);
-  
- // se troppo lunga taglia la password
-if ($length > $maxlength) {
-      $length = $maxlength;
-}
-    
-$i = 0; 
-    
- // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
- while ($i < $length) { 
-
-    // prende un carattere casuale per creare la password
-   $char = substr($possible, mt_rand(0, $maxlength-1), 1);
-
-    // verifica se il carattere precedente è uguale al successivo
-   if (!strstr($password, $char)) { 
-        $password .= $char;
-        $i++;
-   }
-
+	redirect('recuperaPassword&cf');
+}elseif($p->email != $email){
+	redirect('recuperaPassword&email');
 }
 
-$p->cambiaPassword($password);
+/* Genera codice di validazione */
+$codice = Validazione::generaValidazione($p,VAL_PASS);
+if($codice==false){
+	redirect('recuperaPassword&gia');
+}
 
 $e = new Email('recuperaPassword', 'Richiesta reimpostazione password');
 $e->a = $p;
 $e->_NOME = $p->nome;
 $e->_DATA = date('d-m-Y H:i');
-$e->_NUOVA = $password;
+$e->_CODICE = $codice;
 $e->invia();
 
-redirect('recuperaPassword.fatto');
+redirect('recuperaPassword.step');
