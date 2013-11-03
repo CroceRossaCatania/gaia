@@ -7,7 +7,7 @@
 $codice = $_GET['c'];
 
 /* Cerca codice di validazione */
-$validazione = Validazione::esiste($codice, false);
+$validazione = Validazione::cercaValidazione($codice, VAL_EMAIL);
 if($validazione == false){
 	redirect('&sca');
 }

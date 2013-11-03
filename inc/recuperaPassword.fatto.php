@@ -7,18 +7,20 @@
 $codice = $_GET['c'];
 
 /* Cerca codice di validazione */
-$validazione = Validazione::esiste($codice, false);
+$validazione = Validazione::cercaValidazione($codice, VAL_PASS);
 if(!$validazione){
 	redirect('recuperaPassword&sca');
 }
 
-$p = Volontario::id($validazione->volontario());
+$p = $validazione->volontario();
 
 /* Genera la password casuale */
 $password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
 
 /* Imposta la password */
 $p->cambiaPassword($password);
+
+$validazione->stato = VAL_CHIUSO;
 
 $e = new Email('generaPassword', 'Nuova password generata');
 $e->a = $p;
