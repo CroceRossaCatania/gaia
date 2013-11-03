@@ -19,4 +19,4 @@ $e->a = $p;
 $e->_NOME = $p->nome;
 $e->invia();
 
-redirect('login');
+redirect('validazione.ok&mail');
