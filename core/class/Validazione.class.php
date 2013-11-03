@@ -52,39 +52,12 @@ class Validazione extends Entita {
             return false;
         }
 
-        $length = 26;
-
-        // impostare codice bianca
-        $codice = "";
-
-        // caratteri possibili
-        $possible = "123467890abcdefghijklmnopqrtsuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-         //massima lunghezza caratteri
-         $maxlength = strlen($possible);
-          
-         // se troppo lunga taglia la codice
-        if ($length > $maxlength) {
-              $length = $maxlength;
-        }
-            
-        $i = 0; 
-        
-        do {
-            // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
-            while ($i < $length) { 
-
-                // prende un carattere casuale per creare la codice
-               $char = substr($possible, mt_rand(0, $maxlength-1), 1);
-
-                // verifica se il carattere precedente è uguale al successivo
-               if (!strstr($codice, $char)) { 
-                    $codice .= $char;
-                    $i++;
-               }
-
-            }
-        } while (Validazione::by(['codice', $codice]));
+        /*Inserire qui la genereazione della stringa casuale */
+        $caratteri= 26;
+        $dizionario = DIZIONARIO_ALFANUMERICO;
+        $controllo_esistenza = null;
+        $codice = generaStringaCasuale($caratteri,$dizionario,$controllo_esistenza);
+        /**/
 
         $val = new Validazione();
         $val->codice = $codice;
@@ -95,15 +68,13 @@ class Validazione extends Entita {
         return $codice;
     }
 
-    // non ho ben capito a cosa serve la ricerca per codice e stato e non per codice e volontario...
     public static function cercaValidazione($codice , $stato) {
 
         $validazione = Validazione::filtra([['codice', $codice],['stato', $stato]]);
         if(!$validazione){
             return false;
         }
-        // brutto!!! il v[0]
-        return Validazione::id($validazione[0]);
+        return $validazione[0];
     }
 
     public function volontario() {
