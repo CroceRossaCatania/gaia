@@ -9,20 +9,31 @@ $codice = $_GET['c'];
 /* Cerca codice di validazione */
 $validazione = Validazione::esiste($codice, false);
 if($validazione == false){
-	redirect('&sca');
+	redirect('validazione.ok&sca');
 }
 
+$stato = $validazione->stato
 $validazione->stato = VAL_CHIUSO;
+$volontario = $validazione->volontario();
 
+if($stato==VAL_MAIL){
+	$codice = Validazione::generaValidazione($volontario , VAL_MAIL2, $validazione->note);
+}else{
+	$codice = Validazione::generaValidazione($volontario , VAL_MAILS2, $validazione->note);
+}
 
-/*
- * Inserire qui il secondi step di validazione!
- * Attenzione modificare l'email solamente quando il secondo step è ok
- * Serve un nuovo stato nelle validazioni
- */
-$e = new Email('convalidaEmail', 'Email sostituita');
-$e->a = $p;
-$e->_NOME = $p->nome;
+if($codice == false){
+    redirect('validazione.ok&gia');
+}
+
+$email = $volontario->email;
+
+$e = new Email('validazioneMail2', 'Richiesta di sostituizione email');
+$e->a       = $volontario;
+$e->_NOME   = $volontario->nome;
+$e->_CODICE = $codice;
 $e->invia();
+
+$volontario->email = $email;
 
 redirect('validazione.ok&mail');
