@@ -85,7 +85,7 @@ function generaStringaCasuale(  $caratteri = 10,
         /* controllo: $controllo_esistenza[0]::$controllo_esistenza[1]($password)
          * se TRUE allora rigenera
          */
-        } while (call_user_func(array_merge($controllo_esistenza, $password)));
+        } while (call_user_func($controllo_esistenza, $password));
         return $password;
 
 
