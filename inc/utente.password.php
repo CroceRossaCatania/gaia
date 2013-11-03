@@ -28,7 +28,7 @@ paginaPrivata();
         <div class="alert alert-block alert-error">
             <h4><i class="icon-exclamation-sign"></i> Inserisci una password complessa</h4>
             <p>Le password complesse sono più difficili da indovinare.</p>
-            <p>Scegli una password tra 6 e 15 caratteri.</p>
+            <p>Scegli una password che abbia tra 8 e 15 caratteri.</p>
         </div>
         <?php } elseif ( isset($_GET['en']) )  { ?>
         <div class="alert alert-block alert-error">
@@ -57,14 +57,14 @@ paginaPrivata();
                     <label class="control-label" for="inputPassword"><strong>Nuova</strong> password</label>
                     <div class="controls ">
                         <span class="add-on"><i class="icon-key"></i></span>
-                        <input type="password" id="inputPassword" name="inputPassword" required pattern=".{6,15}" />
+                        <input type="password" id="inputPassword" name="inputPassword" required pattern=".{8,15}" />
                     </div>
                 </div>
                 <div class="control-group input-prepend">
                     <label class="control-label" for="inputPassword2"><strong>Ripeti</strong> nuova password</label>
                     <div class="controls ">
                         <span class="add-on"><i class="icon-key"></i></span>
-                        <input type="password" id="inputPassword2" name="inputPassword2" required pattern=".{6,15}" />
+                        <input type="password" id="inputPassword2" name="inputPassword2" required pattern=".{8,15}" />
                     </div>
                 </div>
               
