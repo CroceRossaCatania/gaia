@@ -69,20 +69,23 @@ class Validazione extends Entita {
         }
             
         $i = 0; 
-            
-         // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
-        while ($i < $length) { 
+        
+        do {
+            // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
+            while ($i < $length) { 
 
-            // prende un carattere casuale per creare la codice
-           $char = substr($possible, mt_rand(0, $maxlength-1), 1);
+                // prende un carattere casuale per creare la codice
+               $char = substr($possible, mt_rand(0, $maxlength-1), 1);
 
-            // verifica se il carattere precedente è uguale al successivo
-           if (!strstr($codice, $char)) { 
-                $codice .= $char;
-                $i++;
-           }
+                // verifica se il carattere precedente è uguale al successivo
+               if (!strstr($codice, $char)) { 
+                    $codice .= $char;
+                    $i++;
+               }
 
-        }
+            }
+        } while (Validazione::by(['codice', $codice]));
+
         $val = new Validazione();
         $val->codice = $codice;
         $val->stato = $stato;
