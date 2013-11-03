@@ -13,15 +13,11 @@ class Validazione extends Entita {
     /**
      * Verifica se una validazione è già esistente
      * @param string $codice la codifica della validazione
-     * @param bool $ancheChiusa se messo a false non ritorna validazioni scaudute
      */
-    public static function esiste($codice, $ancheChiusa = true) {
+    public static function esiste($codice) {
         $v = Validazione::by('codice', $codice);
         if ($v) {
-            if (!$ancheChiusa && $v->stato == VAL_CHIUSA) {
-                 return false;
-            }
-            return $v;
+            return true;
         }
         return false;
     }
@@ -49,6 +45,16 @@ class Validazione extends Entita {
             $val->note = $note;
         }
         return $codice;
+    }
+
+    public static function cercaValidazione($codice, $stato) {
+        $v = Validazione::filtra([
+            ['codice', $codice],
+            ['stato', $stato]]);
+        if ($v) {
+            return $v[0];
+        }
+        return false;
     }
 
     public function volontario() {
