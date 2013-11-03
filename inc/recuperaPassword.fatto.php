@@ -26,4 +26,4 @@ $e->_NOME = $p->nome;
 $e->_PASSWORD = $password;
 $e->invia();
 
-redirect('login');
+redirect('validazione.ok&pass');

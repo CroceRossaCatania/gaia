@@ -13,7 +13,7 @@
             Perso la password?
         </h2>
         <p>
-            Inserisci il tuo codice fiscale e la mail che hai usato per iscriverti a Gaia.
+            Inserisci il tuo codice fiscale e l'indirizzo email che hai usato per iscriverti a Gaia.
         </p>
     </div>
     <div class="span8">
@@ -32,12 +32,12 @@
         <?php }elseif ( isset($_GET['gia']) ) { ?>
           <div class="alert alert-block alert-error">
               <h4><i class="icon-exclamation-sign"></i> Richiesta già effettuata</h4>
-              <p>La richiesta di reset della password è stata già effettuata controlla la tua email</p>
+              <p>La richiesta di reset della password è stata già effettuata controlla il tuo indirizzo email.</p>
           </div>
         <?php }elseif ( isset($_GET['sca']) ) { ?>
           <div class="alert alert-block alert-error">
               <h4><i class="icon-exclamation-sign"></i> Richiesta scaduta o non effettuata</h4>
-              <p>La richiesta di reset della password è scaduta o non è mai stata effettuata, compila i campi qui sotto per effettuarne una nuova</p>
+              <p>La richiesta di reset della password è scaduta o non è mai stata effettuata, compila i campi sottostanti per effettuarne una nuova.</p>
           </div>
         <?php } ?>
         
@@ -53,7 +53,7 @@
           <div class="control-group">
             <label class="control-label" for="inputEmail">Email</label>
             <div class="controls">
-              <input type="email" id="inputEmail" name="inputEmail" required />
+              <input type="email" id="inputEmail" name="inputEmail" required placeholder="Es: mario.rossi@miamail.com" />
             </div>
           </div>
 
