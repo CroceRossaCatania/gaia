@@ -22,9 +22,9 @@ function debugOnly() {
  */
 function proteggiDatiSensibili( $volontario, $app = [APP_PRESIDENTE] ) {
     global $me;
-    if ( $me->admin ) { return true; }
+    if ( $me->admin() ) { return true; }
     $comitati = $me->comitatiApp($app);
-    $comitatiVolontario = $volontario->comitati();
+    $comitatiVolontario = $volontario->comitati(MEMBRO_DIMESSO);
     if ( !$comitatiVolontario ) { return true; }
     foreach ( $comitatiVolontario as $comitato ) {
         if (in_array($comitato, $comitati)) {
