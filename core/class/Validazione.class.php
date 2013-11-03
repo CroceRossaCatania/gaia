@@ -10,42 +10,23 @@ class Validazione extends Entita {
         $_t  = 'validazioni',
         $_dt = null;
 
-    public static function generaPassword() {
-        $length = 8;
-
-        // impostare password bianca
-        $password = "";
-
-        // caratteri possibili
-        $possible = "123467890abcdefghijklmnopqrtsuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?$%&";
-
-        //massima lunghezza caratteri
-        $maxlength = strlen($possible);
-          
-        // se troppo lunga taglia la password
-        if ($length > $maxlength) {
-              $length = $maxlength;
-        }
-            
-        $i = 0; 
-            
-        // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
-        while ($i < $length) { 
-
-            // prende un carattere casuale per creare la password
-           $char = substr($possible, mt_rand(0, $maxlength-1), 1);
-
-            // verifica se il carattere precedente è uguale al successivo
-            if (!strstr($password, $char)) { 
-                $password .= $char;
-                $i++;
+    /**
+     * Verifica se una validazione è già esistente
+     * @param string $codice la codifica della validazione
+     * @param bool $ancheChiusa se messo a false non ritorna validazioni scaudute
+     */
+    public static function esiste($codice, $ancheChiusa = true) {
+        $v = Validazione::by('codice', $codice);
+        if ($v) {
+            if (!$ancheChiusa && $v->stato == VAL_CHIUSA) {
+                 return false;
             }
-
+            return $v;
         }
-        return $password;
+        return false;
     }
 
-    public static function generaValidazione($v, $stato, $note) {
+    public static function generaValidazione($v, $stato, $note = null) {
 
         $validazione = Validazione::filtra([['volontario', $v],['stato', $stato]]);
         if($validazione){
@@ -64,17 +45,10 @@ class Validazione extends Entita {
         $val->stato = $stato;
         $val->volontario = $v;
         $val->timestamp = time();
-        $val->note = $note;
-        return $codice;
-    }
-
-    public static function cercaValidazione($codice , $stato) {
-
-        $validazione = Validazione::filtra([['codice', $codice],['stato', $stato]]);
-        if(!$validazione){
-            return false;
+        if ($note) {
+            $val->note = $note;
         }
-        return $validazione[0];
+        return $codice;
     }
 
     public function volontario() {

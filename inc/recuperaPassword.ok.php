@@ -2,7 +2,7 @@
 
 /*
  * ©2013 Croce Rossa Italiana
- */
+ */	
 
 $codiceFiscale = $_POST['inputCodiceFiscale'];
 $codiceFiscale = maiuscolo($codiceFiscale);
@@ -11,13 +11,13 @@ $email = $_POST['inputEmail'];
 $p = Utente::by('codiceFiscale', $codiceFiscale);
 if (!$p) {
 	redirect('recuperaPassword&cf');
-}elseif($p->email != $email){
+} elseif($p->email != $email) {
 	redirect('recuperaPassword&email');
 }
 
 /* Genera codice di validazione */
-$codice = Validazione::generaValidazione($p,VAL_PASS);
-if($codice==false){
+$codice = Validazione::generaValidazione($p, VAL_PASS);
+if($codice == false){
 	redirect('recuperaPassword&gia');
 }
 
@@ -29,3 +29,5 @@ $e->_CODICE = $codice;
 $e->invia();
 
 redirect('recuperaPassword.step');
+
+?>

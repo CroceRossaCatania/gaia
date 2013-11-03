@@ -4,8 +4,9 @@
  * ©2012 Croce Rossa Italiana
  */
 
-/*
+/**
  * Ritorna una stringa normalizzata come nome (maiuscole e niente spazi di troppo)
+ * @param string Una stringa
  * @return string La stringa normalizzata
  */
 function normalizzaNome( $stringa ) {
@@ -15,8 +16,9 @@ function normalizzaNome( $stringa ) {
     return $stringa;
 }
 
-/*
+/**
  * Ritorna una stringa normalizzata come titolo 
+ * @param string Una stringa
  * @return string La stringa normalizzata
  */
 function normalizzaTitolo( $stringa ) {
@@ -25,8 +27,9 @@ function normalizzaTitolo( $stringa ) {
     return $stringa;
 }
 
-/*
+/**
  * Ritorna una stringa in maiuscolo
+ * @param string Una stringa
  * @return string La stringa maiuscola
  */
 function maiuscolo( $stringa ) {
@@ -35,8 +38,9 @@ function maiuscolo( $stringa ) {
     return $stringa;
 }
 
-/*
+/**
  * Ritorna una stringa in minuscolo
+ * @param string Una stringa
  * @return string La stringa minuscola
  */
 function minuscolo( $stringa ) {
@@ -55,54 +59,46 @@ function minuscolo( $stringa ) {
 function generaStringaCasuale(  $caratteri = 10, 
                                 $dizionario = DIZIONARIO_ALFANUMERICO, 
                                 $controllo_esistenza = null) {
-    // impostare password bianca
-    
-
     // caratteri possibili
     $dizionario = $conf[$dizionario];
 
     //massima lunghezza caratteri
     $maxlength = strlen($dizionario);
-      
-    
 
     if (is_callable($controllo_esistenza)) {
         do {
-            $password = "";
+            $codice = "";
             $i = 0; 
-            // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
             while ($i < $length) { 
 
-                // prende un carattere casuale per creare la password
+                // prende un carattere casuale per creare il codice
                 $char = substr($dizionario, mt_rand(0, $maxlength-1), 1);
 
                 // verifica se il carattere precedente è uguale al successivo
-                if (!strstr($password, $char)) { 
-                    $password .= $char;
+                if (!strstr($codice, $char)) { 
+                    $codice .= $char;
                     $i++;
                 }
             }
-        /* controllo: $controllo_esistenza[0]::$controllo_esistenza[1]($password)
+        /* controllo: $controllo_esistenza[0]::$controllo_esistenza[1]($codice)
          * se TRUE allora rigenera
          */
-        } while (call_user_func($controllo_esistenza, $password));
-        return $password;
+        } while (call_user_func($controllo_esistenza, $codice));
+        return $codice;
 
 
     }
 
-    $password = "";
+    $codice = "";
     $i = 0; 
     // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
     while ($i < $length) { 
-
         $char = substr($dizionario, mt_rand(0, $maxlength-1), 1);
-
-        if (!strstr($password, $char)) { 
-            $password .= $char;
+        if (!strstr($codice, $char)) { 
+            $codice .= $char;
             $i++;
         }
     }
 
-    return $password;
+    return $codice;
 }
