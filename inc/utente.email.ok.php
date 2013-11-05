@@ -5,45 +5,38 @@
  
 paginaPrivata();
  
-$email = minuscolo($_POST['inputEmail']);
-$emailServizio = minuscolo($_POST['inputemailServizio']);
- 
+$email = $sessione->email;
+$emailServizio = $sessione->emailServizio;
+$password = $_POST['inputPassword'];
+
+if(!$me->login($password)){
+    redirect('utente.email&pass');
+}
+
 if ( $email != $me->email && Utente::by('email', $email) ) {
     redirect('utente.email&ep');
-} else {
-    $codice = Validazione::generaValidazione($me , VAL_MAIL, $email);
-    if($codice == false){
-        redirect('utente.email&gia');
-    }
-
-    $e = new Email('validazioneMail', 'Richiesta di sostituizione email');
+}else{
+    $me->email = $email;
+    $e = new Email('cambioMail', 'Richiesta di sostituizione email');
     $e->a       = $me;
     $e->_TIPO   = "personale";
     $e->_NOME   = $me->nome;
     $e->_NUOVA  = $email;
     $e->_DATA   = date('d-m-Y H:i');
-    $e->_CODICE = $codice;
     $e->invia();
-
+    redirect('utente.email&ok');
 }
 
 if($emailServizio != $me->emailServizio && Utente::by('email', $emailServizio)){
     redirect('utente.email&ep');
-} else {
-    $codice = Validazione::generaValidazione($me , VAL_MAIL, $emailServizio);
-    if($codice == false){
-        redirect('utente.email&gia');
-    }
-
-    $e = new Email('validazioneMail', 'Richiesta di sostituizione email');
+}else{
+    $me->emailServizio = $emailServizio;
+    $e = new Email('cambioMail', 'Richiesta di sostituizione email');
     $e->a       = $me;
     $e->_TIPO   = "di servizio";
     $e->_NOME   = $me->nome;
     $e->_NUOVA  = $emailServizio;
     $e->_DATA   = date('d-m-Y H:i');
-    $e->_CODICE = $codice;
     $e->invia();
-
+    redirect('utente.email&ok');
 }
-
-redirect('utente.email&link');
