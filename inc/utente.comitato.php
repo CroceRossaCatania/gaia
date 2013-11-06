@@ -5,7 +5,6 @@
  */
 
 paginaPrivata();
-caricaSelettore();
 caricaSelettoreComitato();
 paginaModale();
 
