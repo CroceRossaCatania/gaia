@@ -124,12 +124,12 @@ if ($rf) {
         <?php } ?>
        
         <?php foreach ( $me->appartenenzePendenti() as $app ) { $attenzione = true;  ?>
-        <div class="alert alert-block">
-            <h4><i class="icon-time"></i> In attesa di conferma</h4>
-            <p>La tua appartenenza a <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong> attende conferma.</p>
-            <p>Successivamente riceverai una email di notifica e potrai partecipare ai servizi del comitato.</p>
-            
-        </div>
+          <div class="alert alert-block">
+              <h4><i class="icon-time"></i> In attesa di conferma</h4>
+              <p>La tua appartenenza a <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong> attende conferma.</p>
+              <p>Successivamente riceverai una email di notifica e potrai partecipare ai servizi del comitato.</p>
+              
+          </div>
         <?php } ?>
         <?php 
             $h=0;
@@ -181,8 +181,24 @@ if ($rf) {
             <h4><i class="icon-folder-open"></i> Hai già caricato i tuoi documenti?</h4>
             <p>Ricordati di caricare i tuoi documenti dalla sezione <strong>Documenti</strong>.</p>
         </div>
+        <?php if ( !$me->appartenenze() && $me->stato==VOLONTARIO ) { ?>
+          <div class="alert alert-danger">
+            <div class="row-fluid">
+                  <span class="span7">
+                    <h4><i class="icon-warning-sign"></i> Seleziona il tuo Comitato</h4>
+                    <p>Ci risulta che non hai selezionato alcun Comitato di appartenenza.</p>   
+                  </span>
+                  <span class="span5">
+                    <a href="?p=utente.comitato" class="btn btn-large"><i class="icon-sitemap"></i> 
+                      Seleziona comitato
+                    </a>
+                  </span>
+              </div>
+          </div>
+        <?php } ?>
     </div>
 </div>
+
 
 <?php
 if ( !$attenzione && $me->comitatiDiCompetenza() ) {
