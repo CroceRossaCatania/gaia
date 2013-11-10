@@ -28,17 +28,19 @@
             <i class="icon-phone"></i>
             Contatti
         </h2>
+        <p>
+            Inserisci i tuoi dati di contatto.
+        </p>
         <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
         <p>
             Verrai informato sulle attività nel tuo territorio.
         </p>
-        <?php } ?>
         <p>
-            Inserisci i tuoi dati di contatto.
+            <i class="icon-key"></i> Inserisci inoltre la password che userai per accedere.
         </p>
+        <?php } ?>
     </div>
     <div class="span8">
-          <form class="form-horizontal" action="?p=nuovaAnagraficaContatti.ok" method="POST">
           <?php if ( isset($_GET['email'] ) ) { ?>
               <div class="alert alert-block alert-error">
                   <h4>Email già in uso</h4>
@@ -47,9 +49,18 @@
                      comunicazioni personali ed al momento dell'accesso.</p>
               </div>
           <?php } ?>
-          <div class="control-group">
+          <?php if (isset($_GET['e'])) { ?>
+              <div class="alert alert-block alert-error">
+                  <h4>Inserisci una password complessa</h4>
+                  <p>Le password complesse sono più difficili da indovinare.</p>
+                  <p>Scegli una password tra 6 e 15 caratteri.</p>
+              </div>
+          <?php } ?>
+        <form class="form-horizontal" action="?p=nuovaAnagraficaContatti.ok" method="POST">
+          <div class="control-group input-prepend">
             <label class="control-label" for="inputEmail">Email</label>
             <div class="controls">
+              <span class="add-on"><i class="icon-envelope"></i></span>
               <input type="email" id="inputEmail" name="inputEmail" autofocus required value="<?php echo $me->email; ?>"/>
             </div>
           </div>
@@ -61,14 +72,24 @@
             </div>
           </div>
           <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
-          <div class="control-group input-prepend">
-            <label class="control-label" for="inputCellulareServizio">Cell. servizio</label>
-            <div class="controls">
-              <span class="add-on">+39</span>
-              <input type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" value="<?php echo $me->cellulareServizio; ?>"/>
+            <div class="control-group input-prepend">
+              <label class="control-label" for="inputCellulareServizio">Cell. servizio</label>
+              <div class="controls">
+                <span class="add-on">+39</span>
+                <input type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" value="<?php echo $me->cellulareServizio; ?>"/>
+              </div>
             </div>
-          </div>
           <?php } ?>
+          <hr />
+          <div class="control-group input-prepend">
+              <label class="control-label" for="inputPassword">Password</label>
+              <div class="controls ">
+                  <span class="add-on"><i class="icon-key"></i></span>
+                  <input type="password" id="inputPassword" name="inputPassword" required pattern=".{6,15}" />
+              </div>
+          </div>
+          <p class="centrato muted">Scegli una password complessa, dai 6 ai 15 caratteri.</p>
+          <hr/>
           <div class="control-group">
             <div class="controls">
               <button type="submit" class="btn btn-large btn-success">

@@ -24,7 +24,7 @@ paginaModale();
             <p class="text-error"><i class="icon-warning-sign"></i> Attenzione questa operazione non è reversibile </p>
            </div>
         <div class="modal-footer">
-          <a href="?p=utente.me" class="btn btn-danger">Il mio comitato non è in elenco</a>
+          <a href="?p=public.nocomitato" class="btn btn-danger"><i class="icon-remove"></i> Il mio comitato non è in elenco</a>
          <button type="submit" class="btn btn-success">
               <i class="icon-save"></i> Seleziona
           </button>
