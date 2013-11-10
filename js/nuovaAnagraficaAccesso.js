@@ -8,4 +8,15 @@ $(document).ready( function() {
            return true;
        }
     });
+
+    $('#inputAnno').bind('change', function(event) {
+       $('#inputMese').show();
+       $('#mese').show();
+    });
+
+	$('#inputMese').bind('change', function(event) {
+     $('#inputGiorno').show();
+     $('#giorno').show();
+	});
+  
 });

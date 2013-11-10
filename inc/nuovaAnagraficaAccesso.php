@@ -48,13 +48,36 @@ caricaSelettoreComitato();
         <div class="control-group">
             <label class="control-label" for="inputAnno">Anno di ingresso</label>
             <div class="controls">
-                <select required name="inputAnno" class="span6">
+                <select id="inputAnno" required name="inputAnno" class="span5">
                 <?php for ( $i = date('Y'); $i >= 1900; $i-- ) { ?>
-                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                <option value="<?php echo $i; ?>" <?php if ( $i == 1 ) { ?>selected<?php } ?>><?php echo $i; ?></option>
                 <?php } ?>
                 </select>
             </div>
         </div>
+
+        <div class="control-group">
+            <label class="control-label" id="mese" for="inputMese" style="display: none">Mese di ingresso</label>
+            <div class="controls">
+              <select class="input-medium" id="inputMese" name="inputMese" style="display: none">
+                    <?php for ( $i = 1; $i <= 12; $i++ ) { ?>
+                        <option value="<?php echo $i ?>" <?php if ( $i == 1 ) { ?>selected<?php } ?>><?php echo $conf['mesi'][$i]; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" id="giorno" for="inputGiorno" style="display: none">Giorno di ingresso</label>
+            <div class="controls">
+              <select class="input-small" id="inputGiorno" name="inputGiorno" style="display: none">
+                    <?php for ( $i = 1; $i <= 31; $i++ ) { ?>
+                        <option value="<?php echo $i ?>"><?php echo $i; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+
         <hr />
         <div class="control-group btn-group">
             <a href="?p=public.nocomitato&rege" class="btn btn-large btn-danger">
