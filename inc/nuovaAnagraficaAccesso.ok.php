@@ -26,7 +26,6 @@ $a->richiedi();
 $m = new Email('registrazioneVolontario', 'Benvenuto su Gaia');
 $m->a = $sessione->utente();
 $m->_NOME       = $sessione->utente()->nome;
-$m->_PASSWORD   = $sessione->password;
 $m->invia();
 
 /* Installazione: Se sono il primo utente... */

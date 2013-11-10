@@ -56,19 +56,26 @@
                   <p>Scegli una password tra 6 e 15 caratteri.</p>
               </div>
           <?php } ?>
+          <?php if (isset($_GET['dis'])) { ?>
+              <div class="alert alert-block alert-error">
+                  <h4>Password non coincidenti</h4>
+                  <p>Le due password che hai inserito non sono coincidenti.</p>
+                  <p>Reinserici correttamente le password.</p>
+              </div>
+          <?php } ?>
         <form class="form-horizontal" action="?p=nuovaAnagraficaContatti.ok" method="POST">
           <div class="control-group input-prepend">
             <label class="control-label" for="inputEmail">Email</label>
             <div class="controls">
               <span class="add-on"><i class="icon-envelope"></i></span>
-              <input type="email" id="inputEmail" name="inputEmail" autofocus required value="<?php echo $me->email; ?>"/>
+              <input type="email" id="inputEmail" name="inputEmail" autofocus required value="<?php echo $sessione->email; ?>"/>
             </div>
           </div>
           <div class="control-group input-prepend">
             <label class="control-label" for="inputCellulare">Cellulare</label>
             <div class="controls ">
               <span class="add-on">+39</span>
-              <input type="text" id="inputCellulare" name="inputCellulare" required pattern="[0-9]{9,11}" value="<?php echo $me->cellulare; ?>"/>
+              <input type="text" id="inputCellulare" name="inputCellulare" required pattern="[0-9]{9,11}" value="<?php echo $sessione->cell; ?>"/>
             </div>
           </div>
           <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
@@ -76,7 +83,7 @@
               <label class="control-label" for="inputCellulareServizio">Cell. servizio</label>
               <div class="controls">
                 <span class="add-on">+39</span>
-                <input type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" value="<?php echo $me->cellulareServizio; ?>"/>
+                <input type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" value="<?php echo $sessione->cells; ?>"/>
               </div>
             </div>
           <?php } ?>
@@ -86,6 +93,13 @@
               <div class="controls ">
                   <span class="add-on"><i class="icon-key"></i></span>
                   <input type="password" id="inputPassword" name="inputPassword" required pattern=".{6,15}" />
+              </div>
+          </div>
+          <div class="control-group input-prepend">
+              <label class="control-label" for="inputPassword2">Reinserire Password</label>
+              <div class="controls ">
+                  <span class="add-on"><i class="icon-key"></i></span>
+                  <input type="password" id="inputPassword2" name="inputPassword2" required pattern=".{6,15}" />
               </div>
           </div>
           <p class="centrato muted">Scegli una password complessa, dai 6 ai 15 caratteri.</p>
