@@ -21,5 +21,5 @@ if($_GET['sca']){ ?>
 <?php }else{ ?>
 
 <h2><i class="icon-ok muted"></i> Indirizzo email sostituito</h2>
-<p>La richiesta di variazione dell'indirizzio email che hai è andata a buon fine.</p>
+<p>La richiesta di variazione dell'indirizzio email che hai richiesto è andata a buon fine.</p>
 <?php } ?>
