@@ -6,6 +6,16 @@
 
 paginaPrivata();
 
+// controllo se ho in giro cambi email tra le validazioni del tizio
+$mailSospesa = Validazione::filtra([['volontario', $me], ['stato', VAL_MAIL]]);
+$mailServizioSospesa = Validazione::filtra([['volontario', $me], ['stato', VAL_MAILS]]);
+if ($mailSospesa) {
+    $mailSospesa = $mailSospesa[0];
+}
+if ($mailServizioSospesa) {
+    $mailServizioSospesa = $mailServizioSospesa[0];
+} 
+
 ?>
 <div class="row-fluid">
     <div class="span3">
@@ -35,6 +45,18 @@ paginaPrivata();
                 <h4><i class="icon-exclamation-sign"></i> Richiesta già effettuata</h4>
                 <p>La richiesta di sostituzione della email è stata già effettuata controlla la tua email</p>
             </div>
+        <?php } 
+        if($mailSospesa) { ?>
+            <div class="alert alert-block alert-error">
+                <h4><i class="icon-exclamation-sign"></i> Richiesta variazione email in corso</h4>
+                <p>La richiesta di sostituzione della email con <?php echo $mailSospesa->note; ?> è stata effettuata. Controlla la tua email per confermare.</p>
+            </div>
+        <?php }
+        if($mailServizioSospesa) { ?>
+            <div class="alert alert-block alert-error">
+                <h4><i class="icon-exclamation-sign"></i> Richiesta variazione email di servizio in corso</h4>
+                <p>La richiesta di sostituzione della email con <?php echo $mailServizioSospesa->note; ?> è stata effettuata. Controlla la tua email per confermare.</p>
+            </div>
         <?php } ?>
         <form class="form-horizontal" action="?p=utente.email.conferma" method="POST">
 
@@ -45,20 +67,28 @@ paginaPrivata();
                        dove ti invieremo tutte le comunicazioni importanti.</p>
                     <p>L'<strong>Email di Servizio</strong> è quella da partiranno le comunicazioni che spedisci
                     nel caso tu abbia qualche incarico in un Comitato CRI.</p>
-                    <p>Se <strong>non sei in possesso</strong> di un cellulare di servizio 
+                    <p>Se <strong>non sei in possesso</strong> di una email di servizio 
                     lascia il campo vuoto</p>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="inputEmail">Email principale</label>
                     <div class="controls">
+                        <?php if($mailSospesa) { ?>
+                        <input id="disabledInput" type="text" placeholder="<?php echo $me->email; ?>" disabled>
+                        <?php } else { ?>
                         <input type="email" autofocus name="inputEmail" id="inputEmail" required value="<?php echo $me->email; ?>">
+                        <?php } ?>
                     </div>
                 </div>
                 <?php if ($me->volontario()){ ?>
                 <div class="control-group">
                     <label class="control-label" for="inputemailServizio">Email di servizio</label>
                     <div class="controls">
+                        <?php if($mailServizioSospesa) { ?>
+                        <input id="disabledInput" type="text" placeholder="<?php echo $me->emailServizio; ?>" disabled>
+                        <?php } else { ?>
                         <input type="email" autofocus name="inputemailServizio" id="inputemailServizio" value="<?php echo $me->emailServizio; ?>">
+                        <?php } ?>
                     </div>
                 </div>
                 <?php } ?>

@@ -20,7 +20,7 @@ $password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
 /* Imposta la password */
 $p->cambiaPassword($password);
 
-$validazione->stato = VAL_CHIUSO;
+$validazione->stato = VAL_CHIUSA;
 
 $e = new Email('generaPassword', 'Nuova password generata');
 $e->a = $p;
