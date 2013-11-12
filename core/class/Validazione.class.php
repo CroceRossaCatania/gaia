@@ -30,11 +30,7 @@ class Validazione extends Entita {
         }
 
         /*Inserire qui la genereazione della stringa casuale */
-        $caratteri= 26;
-        $dizionario = DIZIONARIO_ALFANUMERICO;
-        $controllo_esistenza = null;
-        $codice = generaStringaCasuale($caratteri,$dizionario,$controllo_esistenza);
-        /**/
+        $codice = generaStringaCasuale(26, DIZIONARIO_ALFANUMERICO, array($this, 'esiste'));
 
         $val = new Validazione();
         $val->codice = $codice;

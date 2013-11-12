@@ -57,10 +57,13 @@ function minuscolo( $stringa ) {
  * @return string La stringa generata
 */
 function generaStringaCasuale(  $caratteri = 10, 
-                                $dizionario = DIZIONARIO_ALFANUMERICO, 
+                                $dizionarioTipo = DIZIONARIO_ALFANUMERICO, 
                                 $controllo_esistenza = null) {
+    global $conf;
+
     // caratteri possibili
-    $dizionario = $conf[$dizionario];
+    $dizionario = $conf['dizionario'][$dizionarioTipo];
+    echo('dizionario: '.$dizionario);
 
     //massima lunghezza caratteri
     $maxlength = strlen($dizionario);
@@ -69,7 +72,7 @@ function generaStringaCasuale(  $caratteri = 10,
         do {
             $codice = "";
             $i = 0; 
-            while ($i < $length) { 
+            while ($i < $caratteri) { 
 
                 // prende un carattere casuale per creare il codice
                 $char = substr($dizionario, mt_rand(0, $maxlength-1), 1);
@@ -92,7 +95,7 @@ function generaStringaCasuale(  $caratteri = 10,
     $codice = "";
     $i = 0; 
     // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
-    while ($i < $length) { 
+    while ($i < $caratteri) { 
         $char = substr($dizionario, mt_rand(0, $maxlength-1), 1);
         if (!strstr($codice, $char)) { 
             $codice .= $char;

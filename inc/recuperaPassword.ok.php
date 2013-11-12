@@ -17,7 +17,7 @@ if (!$p) {
 
 /* Genera codice di validazione */
 $codice = Validazione::generaValidazione($p, VAL_PASS);
-if($codice == false){
+if(!$codice){
 	redirect('recuperaPassword&gia');
 }
 
@@ -27,7 +27,5 @@ $e->_NOME = $p->nome;
 $e->_DATA = date('d-m-Y H:i');
 $e->_CODICE = $codice;
 $e->invia();
-
-redirect('recuperaPassword.step');
 
 ?>
