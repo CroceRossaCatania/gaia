@@ -28,4 +28,6 @@ $e->_DATA = date('d-m-Y H:i');
 $e->_CODICE = $codice;
 $e->invia();
 
+redirect('recuperaPassword.step');
+
 ?>
