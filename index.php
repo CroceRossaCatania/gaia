@@ -254,6 +254,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a href="?p=admin.presidenti"><i class="icon-list"></i> Presidenti</a></li>
+                                    <li><a href="?p=admin.delegati"><i class="icon-list"></i> Delegati</a></li>
                                     <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
                                     <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li>
                                     <li><a href="?p=admin.reset.comitati"><i class="icon-fire"></i> Reset Comitati</a></li> 
