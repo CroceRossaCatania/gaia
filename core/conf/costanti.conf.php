@@ -520,6 +520,7 @@ $conf['est_grp'] = [
 define('VAL_CHIUSA',   10);
 define('VAL_PASS',     20);
 define('VAL_MAIL',     30);
+define('VAL_MAILS',    40);
 
 /*
  * ===================================

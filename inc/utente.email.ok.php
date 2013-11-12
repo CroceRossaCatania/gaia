@@ -4,39 +4,62 @@
 */
  
 paginaPrivata();
- 
-$email = $sessione->email;
-$emailServizio = $sessione->emailServizio;
+$newemail = $sessione->email;
+$newmailservizio = $sessione->emailServizio;
 $password = $_POST['inputPassword'];
 
 if(!$me->login($password)){
     redirect('utente.email&pass');
 }
 
-if ( $email != $me->email && Utente::by('email', $email) ) {
+if ( $newemail != $me->email && Utente::by('email', $newemail) ) {
     redirect('utente.email&ep');
 }else{
-    $me->email = $email;
-    $e = new Email('cambioMail', 'Richiesta di sostituizione email');
+    /* Genera codice di validazione */
+    $codice = Validazione::generaValidazione($me, VAL_MAIL, $newemail);
+    if(!$codice){
+        redirect('utente.email&gia');
+    }
+
+    /* Stratagemma per mandare la mail al nuovo indirizzo e validarlo */
+    $email = $me->email;
+    $me->email = $newemail;
+
+    $e = new Email('validazioneMail', 'Richiesta sostituzione indirizzo email');
     $e->a       = $me;
-    $e->_TIPO   = "personale";
-    $e->_NOME   = $me->nome;
-    $e->_NUOVA  = $email;
+    $e->_NOME   = $p->nome;
     $e->_DATA   = date('d-m-Y H:i');
+    $e->_TIPO   = 'personale';
+    $e->_NUOVA  = $newemail;
+    $e->_CODICE = $codice;
     $e->invia();
+
+    $me->email = $email;
     redirect('utente.email&ok');
 }
 
-if($emailServizio != $me->emailServizio && Utente::by('email', $emailServizio)){
+if($newmailservizio != $me->newmailservizio && Utente::by('email', $newmailservizio)){
     redirect('utente.email&ep');
 }else{
-    $me->emailServizio = $emailServizio;
-    $e = new Email('cambioMail', 'Richiesta di sostituizione email');
+    /* Genera codice di validazione */
+    $codice = Validazione::generaValidazione($me, VAL_MAILS, $newemailservizio);
+    if(!$codice){
+        redirect('utente.email&gia');
+    }
+
+    /* Stratagemma per mandare la mail al nuovo indirizzo e validarlo */
+    $email = $me->email;
+    $me->email = $newemailservizio;
+
+    $e = new Email('validazioneMail', 'Richiesta sostituzione indirizzo email');
     $e->a       = $me;
-    $e->_TIPO   = "di servizio";
-    $e->_NOME   = $me->nome;
-    $e->_NUOVA  = $emailServizio;
+    $e->_NOME   = $p->nome;
     $e->_DATA   = date('d-m-Y H:i');
+    $e->_TIPO   = 'di servizio';
+    $e->_NUOVA  = $newemailservizio;
+    $e->_CODICE = $codice;
     $e->invia();
+
+    $me->email = $email;
     redirect('utente.email&ok');
 }

@@ -16,8 +16,8 @@ paginaPrivata();
         <hr />
         <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
-            <i class="icon-save"></i> <strong>Indirizzo salvato</strong>.
-            Le comunicazioni verranno ora inviate alla nuova email.
+            <i class="icon-save"></i> <strong>Richiesta salvata</strong>.
+            Controlla casella di posta specificata e conferma il tuo nuovo indirizzo per completare la procedura.
         </div>
         <?php } elseif ( isset($_GET['ep']) )  { ?>
         <div class="alert alert-block alert-error">
@@ -30,6 +30,11 @@ paginaPrivata();
             <h4><i class="icon-exclamation-sign"></i> Password errata!</h4>
             <p>La password che hai inserito non risulta corretta</p>
         </div>
+        <?php }elseif($_GET['gia']) { ?>
+            <div class="alert alert-block alert-error">
+                <h4><i class="icon-exclamation-sign"></i> Richiesta già effettuata</h4>
+                <p>La richiesta di sostituzione della email è stata già effettuata controlla la tua email</p>
+            </div>
         <?php } ?>
         <form class="form-horizontal" action="?p=utente.email.conferma" method="POST">
 

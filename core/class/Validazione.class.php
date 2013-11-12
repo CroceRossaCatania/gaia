@@ -22,6 +22,13 @@ class Validazione extends Entita {
         return false;
     }
 
+    /**
+     * Crea la validazione
+     * @param $v id volontario
+     * @param $stato tipologia di validazione da effettuare
+     * @param $note default null, eventuali campi aggiuntivi
+     * @return codice o false nel caso in cui sia già presente una richiesta
+     */
     public static function generaValidazione($v, $stato, $note = null) {
 
         $validazione = Validazione::filtra([['volontario', $v],['stato', $stato]]);
@@ -43,16 +50,23 @@ class Validazione extends Entita {
         return $codice;
     }
 
-    public static function cercaValidazione($codice, $stato) {
-        $v = Validazione::filtra([
-            ['codice', $codice],
-            ['stato', $stato]]);
-        if ($v) {
-            return $v[0];
+    /**
+     * Cerca la validazione per codice e controlla se è attiva
+     * @param $codice della validazione da cercare
+     * @return validazione o false nel caso in cui sia assente o scaduta
+     */
+    public static function cercaValidazione($codice) {
+        $v = Validazione::by('codice', $codice);
+        if ($v && $v->stato !=VAL_CHIUSA) {
+            return $v;
         }
         return false;
     }
 
+    /**
+     * Restituisce il volontario di una validazione
+     * @return volontario
+     */
     public function volontario() {
         return Volontario::id($this->volontario);
     }
