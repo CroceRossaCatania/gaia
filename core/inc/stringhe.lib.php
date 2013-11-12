@@ -63,7 +63,6 @@ function generaStringaCasuale(  $caratteri = 10,
 
     // caratteri possibili
     $dizionario = $conf['dizionario'][$dizionarioTipo];
-    echo('dizionario: '.$dizionario);
 
     //massima lunghezza caratteri
     $maxlength = strlen($dizionario);
