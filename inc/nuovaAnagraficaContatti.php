@@ -53,7 +53,7 @@
               <div class="alert alert-block alert-error">
                   <h4>Inserisci una password complessa</h4>
                   <p>Le password complesse sono più difficili da indovinare.</p>
-                  <p>Scegli una password tra 6 e 15 caratteri.</p>
+                  <p>Scegli una password tra 8 e 15 caratteri.</p>
               </div>
           <?php } ?>
           <?php if (isset($_GET['dis'])) { ?>
@@ -75,7 +75,7 @@
             <label class="control-label" for="inputCellulare">Cellulare</label>
             <div class="controls ">
               <span class="add-on">+39</span>
-              <input type="text" id="inputCellulare" name="inputCellulare" required pattern="[0-9]{9,11}" value="<?php echo $sessione->cell; ?>"/>
+              <input type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" value="<?php echo $sessione->cell; ?>"/>
             </div>
           </div>
           <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
@@ -92,17 +92,17 @@
               <label class="control-label" for="inputPassword">Password</label>
               <div class="controls ">
                   <span class="add-on"><i class="icon-key"></i></span>
-                  <input type="password" id="inputPassword" name="inputPassword" required pattern=".{6,15}" />
+                  <input type="password" id="inputPassword" name="inputPassword" required pattern=".{8,15}" />
               </div>
           </div>
           <div class="control-group input-prepend">
               <label class="control-label" for="inputPassword2">Reinserire Password</label>
               <div class="controls ">
                   <span class="add-on"><i class="icon-key"></i></span>
-                  <input type="password" id="inputPassword2" name="inputPassword2" required pattern=".{6,15}" />
+                  <input type="password" id="inputPassword2" name="inputPassword2" required pattern=".{8,15}" />
               </div>
           </div>
-          <p class="centrato muted">Scegli una password complessa, dai 6 ai 15 caratteri.</p>
+          <p class="centrato muted">Scegli una password complessa, dai 8 ai 15 caratteri.</p>
           <hr/>
           <div class="control-group">
             <div class="controls">

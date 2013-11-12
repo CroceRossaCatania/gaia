@@ -24,6 +24,7 @@ caricaSelettoreComitato();
             Comitato
         </h2>
         <p>Seleziona il comitato del quale fai parte.</p>
+        <p>Seleziona la data di ingresso. È necessario inserire almeno l'anno. </p>
         <p>La tua iscrizione verrà confermata da un vertice del tuo comitato.</p>
     </div>
     <div class="span8">
