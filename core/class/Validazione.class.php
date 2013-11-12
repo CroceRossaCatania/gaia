@@ -71,4 +71,19 @@ class Validazione extends Entita {
         return Volontario::id($this->volontario);
     }
 
+    public static function chiudi() {
+        $valpass = Validazione::filtra([['stato', VAL_PASS]]);
+        $valmail = Validazione::filtra([['stato', VAL_MAIL]]);
+        $valmails = Validazione::filtra([['stato', VAL_MAILS]]);
+        $validazioni = array_merge($valpass, $valmail);
+        $validazioni = array_merge($validazioni, $valmails);
+        $duegiornifa = time() - DUEGIORNI;
+        foreach ($validazioni as $v) {
+            if($v->timestamp < $duegiornifa) {
+                $v->stato = VAL_CHIUSA;
+            }
+        }
+
+    }
+
 }

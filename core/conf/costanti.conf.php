@@ -36,6 +36,7 @@ $conf['statoPersona'] = [
 define('ANNO',      31536000);
 define('MESE',       2592000);
 define('MESEEMEZZO', 3888000);
+define('DUEGIORNI',   172800);
 
 /*
  * ===================================
