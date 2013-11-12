@@ -117,6 +117,10 @@ function cronjobGiornaliero()  {
     /* === 9. RIGENERO L'ALBERO DEI COMITATI */
     GeoPolitica::rigeneraAlbero();
     $log .= "Rigenerato l'albero dei comitati\n";
+
+    /* === 10. CHIUDE LE VALIDAZIONI SCADUTE */
+    Validazione::chiudi();
+    $log .= "Chiuse le validazioni scadute\n";
     
 };
 // =========== FINE CRONJOB GIORNALIERO

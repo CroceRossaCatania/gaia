@@ -30,11 +30,13 @@ $conf['statoPersona'] = [
     ASPIRANTE   =>  'Aspirante',
     VOLONTARIO  =>  'Volontario'
 ];
-/* Un anno */
+
+/* Un anno, un mese e un giorno */
 
 define('ANNO',      31536000);
 define('MESE',       2592000);
 define('MESEEMEZZO', 3888000);
+define('DUEGIORNI',   172800);
 
 /*
  * ===================================
@@ -509,3 +511,33 @@ $conf['est_grp'] = [
     EST_GRP_UNITA       =>  'Unità Territoriale',
     EST_GRP_LOCALE      =>  'Comitato Locale'    
 ];
+
+/*
+ * ===================================
+ * ======= VALIDAZIONI ===============
+ * ===================================
+ */
+
+define('VAL_CHIUSA',   10);
+define('VAL_PASS',     20);
+define('VAL_MAIL',     30);
+define('VAL_MAILS',    40);
+
+/*
+ * ===================================
+ * =========== DIZIONARI =============
+ * ===================================
+ */
+
+define('DIZIONARIO_ALFANUMERICO',   10);
+define('DIZIONARIO_NUMERICO',       20);
+define('DIZIONARIO_ESADECIMALE',    30);
+define('DIZIONARIO_BASE64',         40);
+
+$conf['dizionario'] = [
+    DIZIONARIO_ALFANUMERICO =>  '0123456789abcdefghijklmnopqrtsuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    DIZIONARIO_NUMERICO     =>  '0123456789',
+    DIZIONARIO_ESADECIMALE  =>  '0123456789abcdef',
+    DIZIONARIO_BASE64       =>  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+];
+
