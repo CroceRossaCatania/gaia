@@ -35,12 +35,16 @@ paginaPrivata();
 
             <div class="control-group">
                 <div class="alert alert-warning alert-block">
-                    <h4><i class="icon-warning-sign"></i> Nota bene</h4>
-                    <p>Questa email è quella che <strong>usi per accedere</strong> ed è<br />
-                       dove ti invieremo <strong>tutte le comunicazioni importanti</strong>.</p>
+                    <p><h4><i class="icon-warning-sign"></i> Nota bene</h4></p>
+                    <p>L'<strong>Email Principale</strong> è quella che <strong>usi per accedere</strong> ed è 
+                       dove ti invieremo tutte le comunicazioni importanti.</p>
+                    <p>L'<strong>Email di Servizio</strong> è quella da partiranno le comunicazioni che spedisci
+                    nel caso tu abbia qualche incarico in un Comitato CRI.</p>
+                    <p>Se <strong>non sei in possesso</strong> di un cellulare di servizio 
+                    lascia il campo vuoto</p>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="inputEmail">Email</label>
+                    <label class="control-label" for="inputEmail">Email principale</label>
                     <div class="controls">
                         <input type="email" autofocus name="inputEmail" id="inputEmail" required value="<?php echo $me->email; ?>">
                     </div>

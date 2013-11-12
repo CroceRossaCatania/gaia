@@ -21,7 +21,7 @@ $sessione->emailServizio = minuscolo($_POST['inputemailServizio']);
               <div class="span4 allinea-centro">
                 <label class="control-label" for="inputPassword">Password </label>
               </div>  
-              <div class="span7">
+              <div class="span7 input-prepend">
                   <span class="add-on"><i class="icon-key"></i></span>
                   <input type="password" id="inputPassword" name="inputPassword" required pattern=".{6,15}" />
               </div>
