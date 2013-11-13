@@ -18,7 +18,7 @@ foreach ( $_conf as $_load ) {
 $conf['db_hash'] = substr( md5($conf['database']['dns']), 2, 8) . ':';
 
 /* Carico le librerie */
-$_lib = ['sicurezza', 'stringhe', 'pagine', 'captcha'];
+$_lib = ['sicurezza', 'stringhe', 'pagine', 'http', 'captcha'];
 foreach ( $_lib as $_load ) {
     require('./core/inc/'. $_load .'.lib.php');
 }
