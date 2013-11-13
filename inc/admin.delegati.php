@@ -5,6 +5,7 @@
  */
 
 paginaAdmin();
+global $conf;
 
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
@@ -33,15 +34,15 @@ paginaAdmin();
     <thead>
         <th>Nome</th>
         <th>Cognome</th>
-        <th>Codice Fiscale</th>
-        <th>Data di Nascita</th>
-        <th>Luogo di Nascita</th>
+        <th>Cellulare</th>
+        <th>Email</th>
         <th>Comitato Delegato</th>
+        <th>Area</th>
     </thead>
 <?php
 
 /*
- * Ottengo elenco dei presidenti.
+ * Ottengo elenco dei delegati.
  */
 $delegati = Delegato::filtra([
     ['applicazione', APP_OBIETTIVO]
@@ -49,7 +50,7 @@ $delegati = Delegato::filtra([
 
 foreach ( $delegati as $delegato ) {
     
-    // Ignoro i presidenti non più attuali
+    // Ignoro i delegati non più attuali
     if ( !$delegato->attuale() ) { continue; }
     
     // Carico il volontario in memoria
@@ -59,11 +60,10 @@ foreach ( $delegati as $delegato ) {
 <tr>
     <td><strong><?php echo $_v->nome; ?></strong></td>
     <td><strong><?php echo $_v->cognome; ?></strong></td>
-    <td><?php echo $_v->codiceFiscale; ?></td>
-    <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
-    <td><?php echo $_v->comuneNascita; ?></td>
-    <td><strong><?php echo $delegato->comitato()->nomeCompleto(); ?></strong></td>
-
+    <td><?php echo $_v->cellulare; ?></td>
+    <td><?php echo $_v->email; ?></td> 
+    <td><?php echo $delegato->comitato()->nomeCompleto(); ?></td>
+    <td><?php echo (''.$delegato->dominio.' '.$conf['nomiobiettivi'][$delegato->dominio]); ?></td>
 </tr>
 <?php 
 

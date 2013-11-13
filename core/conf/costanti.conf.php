@@ -302,6 +302,15 @@ $conf['obiettivi'] = [
     OBIETTIVO_6 =>  "Obiettivo strategico 6"
 ];
 
+$conf['nomiobiettivi'] = [
+    OBIETTIVO_1 =>  "Salute",
+    OBIETTIVO_2 =>  "Sociale",
+    OBIETTIVO_3 =>  "Emergenze",
+    OBIETTIVO_4 =>  "Principi",
+    OBIETTIVO_5 =>  "Giovani",
+    OBIETTIVO_6 =>  "Sviluppo"
+];
+
 /*
  * ===================================
  * =========== TRAFERIMENTI ==========
