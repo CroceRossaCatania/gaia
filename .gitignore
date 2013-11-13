@@ -1,13 +1,12 @@
+# Font DOMPDF
 /core/inc/dompdf/lib/fonts/php_Times-Roman.afm
 /core/inc/dompdf/lib/fonts/php_Times-Bold.afm
+
 # Configurazione del database
 core/conf/database.conf.php
-
-# Configurazione SMTP
 core/conf/smtp.conf.php
-
-# Configurazione AUTOPULL
 core/conf/autopull.conf.php
+core/conf/recaptcha.conf.php
 
 # Vari log 
 upload/log/*
