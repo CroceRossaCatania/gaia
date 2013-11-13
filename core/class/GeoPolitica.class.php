@@ -10,6 +10,39 @@ abstract class GeoPolitica extends GeoEntita {
     abstract public function estensione();
     abstract public function figli();    
     
+    /**
+     * Rigenera l'albero e lo salva in JSON per utilizzi futuri
+     *
+     * @return bool Tutto fatto?
+     */
+    public static function rigeneraAlbero() {
+        $r = [];
+        foreach ( Nazionale::elenco() as $n ) {
+            $r[] = $n->toJSON();
+        }
+        $r = json_encode($r);
+        return file_put_contents('./upload/setup/albero.json', $r);
+    }
+
+    /**
+     * Ottiene l'ultima copia dell'albero.
+     * Se questa non esiste, viene ricreata
+     * @param bool $json Ritornare in JSON?
+     * @return array|string L'albero come stringa o JSON
+     */
+    public static function ottieniAlbero( $comeJSON = false ) {
+        $json = @file_get_contents('./upload/setup/albero.json');
+        if ( !$json ) {
+            static::rigeneraAlbero();
+            return static::ottieniAlbero($comeJSON);
+        }
+        if ( $comeJSON ) {
+            return $json;
+        }
+        return json_decode($json);
+        // @TODO: Ricorsivamente, ricreare gli oggetti
+    }
+
     /*
      * Ottiene il livello di estensione (costante EST_UNITA, EST_LOCALE, ecc)
      */

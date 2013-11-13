@@ -230,7 +230,8 @@ $(document).ready( function() {
                     </td>
                 </tr>
                 <?php } ?>
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 </div>

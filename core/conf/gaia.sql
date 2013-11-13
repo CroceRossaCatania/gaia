@@ -496,6 +496,17 @@ CREATE TABLE IF NOT EXISTS `turni` (
   KEY `fine` (`fine`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `validazioni` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `codice` varchar(127) DEFAULT NULL,
+  `stato` varchar(8) DEFAULT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `timestamp` varchar(64) DEFAULT NULL,
+  `note` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `codice` (`codice`,`stato`,`volontario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

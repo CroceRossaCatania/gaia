@@ -60,6 +60,15 @@ if ( isset($_GET['tipo'] ) ) {
             <p>Controlleremo se sei già inserito nella nostra banca dati.</p>
         </div>
         <?php } ?>
+
+
+        <?php if ( isset($_GET['captcha']) ) { ?>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-exclamation-sign"></i> Codice CAPTCHA non valido</h4>
+            <p>Il codice che hai inserito non corrisponde. Per favore, riprova.</p>
+        </div>
+        <?php } ?>
+
         <hr />
           <form class="form-horizontal" action="?p=riconoscimento.ok" method="POST">
 
@@ -67,6 +76,17 @@ if ( isset($_GET['tipo'] ) ) {
             <label class="control-label" for="inputCodiceFiscale">Cod. Fiscale</label>
             <div class="controls">
               <input autofocus class="input-large" type="text" id="inputCodiceFiscale" name="inputCodiceFiscale" placeholder="16 caratteri alfanumerici" required  pattern="[A-Za-z]{6}[0-9]{2}[A-Za-z][0-9]{2}[A-Za-z][0-9]{3}[A-Za-z]" />
+            </div>
+          </div>
+          
+          <div class="control-group">
+            <label class="control-label" for="inputCaptcha">Conferma</label>
+            <div class="controls">
+              <p class="text-info">
+                <i class="icon-info-sign"></i>
+                Per favore copia i caratteri delle foto nel campo di testo sottostante.
+              </p>
+              <?php captcha_mostra(); ?>
             </div>
           </div>
           

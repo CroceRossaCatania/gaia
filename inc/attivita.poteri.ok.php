@@ -27,7 +27,7 @@ if(!$gia){
     
     $d = new Delegato();
     $d->estensione      = $comitato->_estensione();
-    $d->comitato        = $comitato->id;
+    $d->comitato        = $comitato->oid();
     $d->applicazione    = $potere;
     $d->dominio         = null;
     $d->inizio          = $turno->inizio;
