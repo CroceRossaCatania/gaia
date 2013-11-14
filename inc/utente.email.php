@@ -24,26 +24,31 @@ if ($mailServizioSospesa) {
     <div class="span9">
         <h2><i class="icon-envelope muted"></i> Comunicazioni email</h3>
         <hr />
-        <?php if ( isset($_GET['ok']) ) { ?>
+        <?php if( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-save"></i> <strong>Richiesta salvata</strong>.
             Controlla casella di posta specificata e conferma il tuo nuovo indirizzo per completare la procedura.
         </div>
-        <?php } elseif ( isset($_GET['ep']) )  { ?>
+        <?php } elseif( isset($_GET['ep']) )  { ?>
         <div class="alert alert-block alert-error">
             <h4><i class="icon-exclamation-sign"></i> Email già in uso</h4>
             <p>L'email che hai inserito risulta già in uso.</p>
             <p>Ti preghiamo di inserire il tuo indirizzo email personale.</p>
         </div>
-        <?php } elseif ( isset($_GET['pass']) )  { ?>
+        <?php } elseif( isset($_GET['pass']) )  { ?>
         <div class="alert alert-block alert-error">
             <h4><i class="icon-exclamation-sign"></i> Password errata!</h4>
             <p>La password che hai inserito non risulta corretta</p>
         </div>
-        <?php }elseif($_GET['gia']) { ?>
+        <?php }elseif(isset($_GET['gia'])) { ?>
             <div class="alert alert-block alert-error">
                 <h4><i class="icon-exclamation-sign"></i> Richiesta già effettuata</h4>
                 <p>La richiesta di sostituzione della email è stata già effettuata controlla la tua email</p>
+            </div>
+        <?php } elseif(isset($_GET['serv'])) { ?>
+            <div class="alert alert-success">
+                <h4><i class="icon-save"></i> Email di servizio cancellata</h4>
+                <p>La richiesta di cancellazione dell'email di servizio è andata a buon fine</p>
             </div>
         <?php } 
         if($mailSospesa) { ?>
@@ -88,7 +93,12 @@ if ($mailServizioSospesa) {
                         <input id="disabledInput" type="text" placeholder="<?php echo $me->emailServizio; ?>" disabled>
                         <?php } else { ?>
                         <input type="email" autofocus name="inputemailServizio" id="inputemailServizio" value="<?php echo $me->emailServizio; ?>">
-                        <?php } ?>
+                        <?php if($me->emailServizio) { ?>
+                            <a class="btn btn-danger" href="?p=utente.emailservizio.cancella.ok">
+                                <i class="icon-remove"></i>
+                            </a>
+                        <?php }
+                        } ?>
                     </div>
                 </div>
                 <?php } ?>
