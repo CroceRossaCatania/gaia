@@ -1,3 +1,4 @@
+/core/conf/recaptcha.conf.php
 /core/inc/dompdf/lib/fonts/php_Times-Roman.afm
 /core/inc/dompdf/lib/fonts/php_Times-Bold.afm
 # Configurazione del database
