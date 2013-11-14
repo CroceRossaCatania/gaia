@@ -142,7 +142,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             <div class="control-group">
                <label class="control-label" for="inputEmail">Email</label>
                <div class="controls">
-                 <input value="<?php echo $v->email; ?>"  type="email" id="inputEmail" name="inputEmail" />
+                 <input value="<?php echo $v->email; ?>" <?php if(!$admin){?> readonly <?php } ?> type="email" id="inputEmail" name="inputEmail" />
                 </div>
              </div>
              <div class="control-group input-prepend">
