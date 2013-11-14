@@ -12,8 +12,8 @@ if(!$me->login($password)){
     redirect('utente.email&pass');
 }
 
-if($newemail) {
-    if ( $newemail != $me->email && Utente::by('email', $newemail) ) {
+if($newemail && $newemail != $me->email) {
+    if (Utente::by('email', $newemail) ) {
         redirect('utente.email&ep');
     }else{
         /* Genera codice di validazione */
@@ -40,8 +40,8 @@ if($newemail) {
     }
 }
 
-if($newemailservizio) {
-    if($newemailservizio != $me->emailservizio && Utente::by('email', $newemailservizio)){
+if($newemailservizio && $newemailservizio != $me->emailservizio) {
+    if(Utente::by('email', $newemailservizio)){
         redirect('utente.email&ep');
     }else{
         /* Genera codice di validazione */
@@ -67,3 +67,5 @@ if($newemailservizio) {
         redirect('utente.email&ok');
     }
 }
+
+redirect('utente.email&ep');
