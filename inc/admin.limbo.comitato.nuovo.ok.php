@@ -22,7 +22,7 @@ $v = new Volontario($v);
 $v->stato = VOLONTARIO;
 
 /* Genera e cambia la password casuale */
-$password = Validazione::generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
+$password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
 $v->cambiaPassword($password);
 
 $m = new Email('registrazioneFormatpass', 'Registrato su Gaia');
