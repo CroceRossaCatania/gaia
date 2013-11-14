@@ -23,6 +23,8 @@ $t=utente::by('id',$f);
         <?php }elseif (isset($_GET['unit'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&id=<?php echo $f; ?>&unit" method="POST">
         <?php }elseif (isset($_GET['comgio'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comgio" method="POST">
         <?php }elseif (isset($_GET['unitgio'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&id=<?php echo $f; ?>&unitgio" method="POST">
+        <?php }elseif (isset($_GET['comsen'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comsen" method="POST">
+        <?php }elseif (isset($_GET['unitsen'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&id=<?php echo $f; ?>&unitsen" method="POST">
         <?php }elseif (isset($_GET['comquoteno'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comquoteno" method="POST">
         <?php }elseif (isset($_GET['comquotesi'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comquotesi" method="POST">
         <?php }elseif (isset($_GET['unitquoteno'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitquoteno&id=<?php echo $f; ?>" method="POST">
@@ -37,7 +39,7 @@ $t=utente::by('id',$f);
         <?php }elseif (isset($_GET['zeroturniunit'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&zeroturniunit&id=<?php echo $_GET['id']; ?>&time=<?php echo $_GET['time']; ?>" method="POST">
         <?php }else{ ?> <form class="form-horizontal" action="?p=utente.mail.nuova.ok" method="POST"><?php } ?>
 
- <?php if (isset($_GET['mass']) || isset($_GET['com']) || isset($_GET['unit']) || isset($_GET['comgio']) || isset($_GET['unitgio'])|| isset($_GET['comquoteno'])|| isset($_GET['comquotesi'])|| isset($_GET['unitquoteno'])|| isset($_GET['unitquotesi'])||isset($_GET['comeleatt'])||isset($_GET['uniteleatt'])||isset($_GET['unitelepass'])||isset($_GET['gruppo'])||isset($_GET['estesi'])|| isset($_GET['riserva']) || isset($_GET['zeroturnicom']) || isset($_GET['zeroturniunit']) ) { ?>
+ <?php if (isset($_GET['mass']) || isset($_GET['com']) || isset($_GET['unit']) || isset($_GET['comgio']) || isset($_GET['unitgio']) || isset($_GET['comsen']) || isset($_GET['unitsen']) || isset($_GET['comquoteno'])|| isset($_GET['comquotesi'])|| isset($_GET['unitquoteno'])|| isset($_GET['unitquotesi'])||isset($_GET['comeleatt'])||isset($_GET['uniteleatt'])||isset($_GET['unitelepass'])||isset($_GET['gruppo'])||isset($_GET['estesi'])|| isset($_GET['riserva']) || isset($_GET['zeroturnicom']) || isset($_GET['zeroturniunit']) ) { ?>
             <div class="control-group">
               <label class="control-label" for="inputDestinatari">Destinatari</label>
               <div class="controls">
