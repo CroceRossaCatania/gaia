@@ -7,6 +7,10 @@
 paginaAnonimo();
 caricaSelettore();
 $a = Attivita::id($_GET['id']);
+$puoPartecipare = false;
+if ($a->puoPartecipare($me)) {
+    $puoPartecipare = true;
+}
 
 $geoComitato = GeoPolitica::daOid($a->comitato);
 $_titolo = $a->nome . ' - Attività CRI su Gaia';
@@ -92,7 +96,7 @@ $(document).ready( function() {
         <?php
         $ts = $a->turniScoperti();
         $tsn = count($ts);
-        if ( $ts ) { ?>
+        if ($puoPartecipare && $ts ) { ?>
         <div class="span12">
             <div class="alert alert-block alert-error allinea-centro">
                 <h4 class="text-error ">
@@ -115,7 +119,7 @@ $(document).ready( function() {
                     <?php echo $a->referente()->nome . ' ' . $a->referente()->cognome; ?>
                 </a>
                 <br />
-                <?php if ( ! ( $me instanceof Anonimo ) ) { ?>
+                <?php if ($puoPartecipare && !($me instanceof Anonimo)) { ?>
                 <span class="muted">+39</span> <?php echo $a->referente()->cellulare(); ?>
                 <?php } ?>
             </div>
@@ -148,6 +152,7 @@ $(document).ready( function() {
             </div>
         </div>
         <hr />
+        <?php if($puoPartecipare) { ?>
         <div class="row-fluid">
             <div class="span5" style="max-height: 500px; padding-right: 10px; overflow-y: auto;">
                 <h4>
@@ -199,7 +204,7 @@ $(document).ready( function() {
                 </form>
                 <?php } ?>
                 <div class="row-fluid" style="max-height: 450px; padding-right: 10px; overflow: auto;">
-                    <?php if($a->puoPartecipare($me)){ foreach ( $commenti as $c ) {
+                    <?php foreach ( $commenti as $c ) {
                         $autore = $c->autore();
                         ?>
                         <div class="row-fluid" id="commento">
@@ -227,7 +232,7 @@ $(document).ready( function() {
                                     <small><a href="?p=attivita.pagina&id=<?= $a->id; ?>#<?= $c->id; ?>"><i class="icon-comment"></i> <?php if (count($r)==0){ ?> Nessun comento<?php }elseif(Count($r)==1){ echo count($r); ?> Commento<?php }else{ echo count($r); ?> Commenti<?php } ?></a></small>
                                 </div>
                             </div>
-                            <?php }} ?>
+                            <?php } ?>
                             <?php if ( !$commenti ) { ?>
                             <div class="alert alert-info">
                                 Nessun commento. Sii il primo a scrivere!
@@ -238,6 +243,8 @@ $(document).ready( function() {
                     </div>
                 </div>
                 <hr />
+                <?php } ?>
+                
                 <div class="row-fluid">
                     <div class="span8">
                         <h2><i class="icon-time"></i> Elenco turni dell'Attività</h2>
@@ -251,6 +258,7 @@ $(document).ready( function() {
                     </div>
 
                 </div>
+                <?php if($puoPartecipare) { ?>
                 <div class="row-fluid">
                     <div class="alert alert-info">
                         <i class="icon-info-sign"></i> In caso di turni <strong>pieni</strong> puoi
@@ -258,6 +266,7 @@ $(document).ready( function() {
                         nel caso ci siano ulteriori posti a disposizione.
                     </div>
                 </div>
+                <?php } ?>
                 <div class="row-fluid">
                     <table class="table table-bordered table-striped" id="turniAttivita">
                         <thead>
@@ -441,7 +450,7 @@ $(document).ready( function() {
                         </td>
                     </tr>
                     <?php } 
-                    if($a->turni() != $a->turniFut()){ ?>
+                    if($puoPartecipare && $a->turni() != $a->turniFut()){ ?>
                     <tr>
                         <td colspan="4">
                             <a data-attendere="Attendere..." href="?p=attivita.turni.passati&id=<?= $a; ?>" class="btn btn-block">
