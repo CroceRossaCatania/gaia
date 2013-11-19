@@ -155,45 +155,31 @@ caricaSelettoreComitato();
         <div class="span4 centrato">
             <label class="control-label" for="inputEmail">Email</label>
         </div>
-        <div class="span8">
-            <input type="email" id="inputEmail" name="inputEmail"  />
+        <div class="span8 input-prepend">
+          <span class="add-on"><i class="icon-envelope"></i></span>
+          <input type="email" id="inputEmail" name="inputEmail"  />
         </div>
 </div>
          
          <div class="row-fluid">
-     <div class="span4 input-prepend centrato">
+     <div class="span4 centrato">
        <label class="control-label" for="inputCellulare">Cellulare</label>
      </div>
-       <div class="span8">
+       <div class="span8 input-prepend">
            <span class="add-on">+39</span>
          <input   type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" />
         </div>
 </div>
         
          <div class="row-fluid">
-    <div class="span4 input-prepend centrato">
+    <div class="span4 centrato">
        <label class="control-label" for="inputCellulareServizio">Cellulare Servizio</label>
     </div>
-       <div class="span8">
+       <div class="span8 input-prepend">
            <span class="add-on">+39</span>
          <input   type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" />
         </div>
-         </div>
-
-    <div class="row-fluid">            
-        <div class="span4 centrato">
-        <label class="control-label" for="inputgruppoSanguigno">Gruppo Sanguigno</label>
-    </div>
-    <div class="span8">
-        <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  required class="disabled">
-        <?php
-            foreach ( $conf['sangue_gruppo'] as $numero => $gruppo ) { ?>
-            <option value="<?php echo $numero; ?>"><?php echo $gruppo; ?></option>
-            <?php } ?>
-        </select>   
-    </div>
-    </div>
-        
+         </div>        
         <div class="row-fluid">
         <div class="span4 centrato">
             <label class="control-label" for="inputComitato">Comitato</label>
