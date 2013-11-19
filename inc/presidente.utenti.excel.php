@@ -249,7 +249,7 @@ $excel->download();
     $excel->intestazione([
         'Nome',
         'Cognome',
-        'C. Fiscale'
+        'C. Fiscale',
         'Data Nascita',
         'Luogo Nascita',
         'Provincia Nascita'
