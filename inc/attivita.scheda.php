@@ -199,7 +199,7 @@ $(document).ready( function() {
                 </form>
                 <?php } ?>
                 <div class="row-fluid" style="max-height: 450px; padding-right: 10px; overflow: auto;">
-                    <?php foreach ( $commenti as $c ) {
+                    <?php if($a->puoPartecipare($me)){ foreach ( $commenti as $c ) {
                         $autore = $c->autore();
                         ?>
                         <div class="row-fluid" id="commento">
@@ -227,7 +227,7 @@ $(document).ready( function() {
                                     <small><a href="?p=attivita.pagina&id=<?= $a->id; ?>#<?= $c->id; ?>"><i class="icon-comment"></i> <?php if (count($r)==0){ ?> Nessun comento<?php }elseif(Count($r)==1){ echo count($r); ?> Commento<?php }else{ echo count($r); ?> Commenti<?php } ?></a></small>
                                 </div>
                             </div>
-                            <?php } ?>
+                            <?php }} ?>
                             <?php if ( !$commenti ) { ?>
                             <div class="alert alert-info">
                                 Nessun commento. Sii il primo a scrivere!
