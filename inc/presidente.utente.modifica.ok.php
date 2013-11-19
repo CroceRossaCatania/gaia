@@ -22,7 +22,6 @@ $civico     = maiuscolo($_POST['inputCivico']);
 
 $cell       = normalizzaNome($_POST['inputCellulare']);
 $cells      = normalizzaNome(@$_POST['inputCellulareServizio']);
-$grsanguigno = $_POST['inputgruppoSanguigno'];
 
 if ($me->admin()) {
 	$nome       = normalizzaNome($_POST['inputNome']);
@@ -50,7 +49,6 @@ $p->indirizzo 		= $indirizzo;
 $p->civico   		= $civico;
 $p->cellulare           = $cell;
 $p->cellulareServizio   = $cells;
-$p->grsanguigno   		= $grsanguigno;
 $p->timestamp           = time();
 $p->stato               = VOLONTARIO;
 

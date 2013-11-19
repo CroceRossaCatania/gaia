@@ -19,7 +19,6 @@ $caresidenza= normalizzaNome($_POST['inputCAPResidenza']);
 $prresidenza= maiuscolo($_POST['inputProvinciaResidenza']);
 $indirizzo  = normalizzaNome($_POST['inputIndirizzo']);
 $civico     = maiuscolo($_POST['inputCivico']);
-$grsanguigno = maiuscolo($_POST['inputgruppoSanguigno']);
 $consenso = $_POST['inputConsenso'];
 /*
  * Controlla esistenza varia e ti porta dove dovrebbe 
@@ -43,7 +42,6 @@ $p->CAPResidenza        = $caresidenza;
 $p->provinciaResidenza  = $prresidenza;
 $p->indirizzo 		= $indirizzo;
 $p->civico   		= $civico;
-$p->grsanguigno   		= $grsanguigno;
 $p->timestamp           = time();
 $p->consenso = $consenso;
 
