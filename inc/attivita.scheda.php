@@ -11,6 +11,10 @@ $puoPartecipare = false;
 if ($a->puoPartecipare($me)) {
     $puoPartecipare = true;
 }
+$anonimo = false;
+if ($me instanceof Anonimo) {
+   $anonimo = true; 
+}
 
 $geoComitato = GeoPolitica::daOid($a->comitato);
 $_titolo = $a->nome . ' - Attività CRI su Gaia';
@@ -119,7 +123,7 @@ $(document).ready( function() {
                     <?php echo $a->referente()->nome . ' ' . $a->referente()->cognome; ?>
                 </a>
                 <br />
-                <?php if ($puoPartecipare && !($me instanceof Anonimo)) { ?>
+                <?php if ($puoPartecipare && !$anonimo) { ?>
                 <span class="muted">+39</span> <?php echo $a->referente()->cellulare(); ?>
                 <?php } ?>
             </div>
@@ -152,7 +156,7 @@ $(document).ready( function() {
             </div>
         </div>
         <hr />
-        <?php if($puoPartecipare) { ?>
+        <?php if($puoPartecipare && !$anonimo) { ?>
         <div class="row-fluid">
             <div class="span5" style="max-height: 500px; padding-right: 10px; overflow-y: auto;">
                 <h4>
@@ -279,15 +283,17 @@ $(document).ready( function() {
                         <tr<?php if ( $turno->scoperto() ) { ?> class="warning"<?php } ?> data-timestamp="<?php echo $turno->fine()->toJSON(); ?>">
 
                         <td>
-                            <a id="<?php echo $turno->id; ?>">
+                            <div id="<?php echo $turno->id; ?>">
                             <big><strong><?php echo $turno->nome; ?></strong></big>
-                            <br />
+                            </div>
                             <?php echo $turno->durata()->format('%H ore %i min'); ?>
                         </td>
                         <td>
                             <big><?php echo $turno->inizio()->inTesto(); ?></big><br />
                             <span class="muted">Fine: <strong><?php echo $turno->fine()->inTesto(); ?></strong></span>
+                            <?php if(!$anonimo) {?>
                             <span>Prenotarsi entro: <strong><?php echo $turno->prenotazione()->inTesto(); ?></strong></span>
+                            <?php } ?>
                         </td>
                         <td>
                             <?php if ( $turno->scoperto() ) { ?>
@@ -307,17 +313,23 @@ $(document).ready( function() {
                             ?>
                             <strong>Volontari: <?php echo count($accettate); ?></strong><br />
                             Min. <?php echo $turno->minimo; ?> &mdash; Max. <?php echo $turno->massimo; ?><br />
+                            <?php if(!$anonimo) {?>
                             <a data-toggle="modal" data-target="#turno_<?php echo $turno->id; ?>"><i class="icon-list"></i> Vedi tutti i volontari</a>
-                            <?php if ( $a->modificabileDa($me) ) { ?>
+                            <?php }
+                            if ( $a->modificabileDa($me) ) { ?>
                             (<a data-toggle="modal" data-target="#turno_<?php echo $turno->id; ?>"><i class="icon-plus"></i> Aggiungi</a>)
                             <?php } ?>
 
-                            <br />
-                            <?php foreach ( $accettate as $ppp ) { ?>
-                            <a href="?p=public.utente&id=<?php echo $ppp->id; ?>" target="_new" title="<?php echo $ppp->nomeCompleto(); ?>">
-                                <img width="30" height="30" src="<?php echo $ppp->avatar()->img(10); ?>" />
-                            </a>
-                            <?php } ?>
+                            
+                            <?php if ($puoPartecipare && !$anonimo) { ?>
+                                <br />
+                                <?php
+                                foreach ( $accettate as $ppp ) { ?>
+                                <a href="?p=public.utente&id=<?php echo $ppp->id; ?>" target="_new" title="<?php echo $ppp->nomeCompleto(); ?>">
+                                    <img width="30" height="30" src="<?php echo $ppp->avatar()->img(10); ?>" />
+                                </a>
+                            <?php }
+                            } ?>
                             <div id="turno_<?php echo $turno->id; ?>" class="modal hide fade">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -450,7 +462,7 @@ $(document).ready( function() {
                         </td>
                     </tr>
                     <?php } 
-                    if($puoPartecipare && $a->turni() != $a->turniFut()){ ?>
+                    if($puoPartecipare && !$anonimo && $a->turni() != $a->turniFut()){ ?>
                     <tr>
                         <td colspan="4">
                             <a data-attendere="Attendere..." href="?p=attivita.turni.passati&id=<?= $a; ?>" class="btn btn-block">
