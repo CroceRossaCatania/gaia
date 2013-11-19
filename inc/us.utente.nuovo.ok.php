@@ -101,7 +101,7 @@ $a->stato     = MEMBRO_VOLONTARIO;
 $a->conferma  = $me;
 
 /* Genera la password casuale */
-$password = Validazione::generaPassword();
+$password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
 
 /* Imposta la password */
 $p->cambiaPassword($password);

@@ -50,7 +50,7 @@ paginaAdmin();
             }
 
             /* Genera e cambia la password casuale */
-            $password = Validazione::generaPassword();
+            $password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
             $v->cambiaPassword($password);
             echo(' PASSWORD GENERATA');
 
@@ -90,7 +90,7 @@ paginaAdmin();
 
         if ($v && isset($_POST['resetPassword'])) {
             /* Genera e cambia la password casuale */
-            $password = Validazione::generaPassword();
+            $password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
             $v->cambiaPassword($password);
             echo(' PASSWORD RIGENERATA');
 
@@ -142,7 +142,7 @@ paginaAdmin();
         $p->timestamp = time(); /* format con pass e conferma*/
         
         /* Genera e cambia la password casuale */
-        $password = Validazione::generaPassword();
+        $password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
         $p->cambiaPassword($password);
         echo(' PASSWORD GENERATA');
         
