@@ -176,6 +176,23 @@ class APIServer {
             return $r;
         }
         
+        public function api_dettagliAttivita() {
+            $this->richiedi(['id']);
+            $this->richiediLogin();
+            $me = $this->sessione->utente();
+            $a = Attivita::id($this->par['id']);
+            $t = [];
+            foreach ( $a->turni() as $turno ) {
+                $t[] = $turno->toJSON($me)
+            }
+            array_merge($t, [
+                'luogo'     =>  $a->luogo,
+                'coordinate'=>  $a->coordinate(),
+                'puoPartecipare'=>  $a->puoPartecipare($me)
+            ]);
+            return $t;
+        }
+        
         public function api_geocoding() {
             $this->richiedi(['query']);
             $g = new Geocoder($this->par['query']);

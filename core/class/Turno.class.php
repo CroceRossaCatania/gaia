@@ -137,4 +137,19 @@ class Turno extends Entita {
             ['turno', $this->id] 
         ]);
     }
+
+    public function toJSON( $user ) {
+        return [
+            'id'            =>  $this->id,
+            'inizio'        =>  $this->inizio(),
+            'fine'          =>  $this->fine(),
+            'durata'        =>  $this->durata(),
+            'pieno'         =>  $this->pieno(),
+            'futuro'        =>  $this->futuro(),
+            'scoperto'      =>  $this->scoperto(),
+            'puoRichiedere' =>  $this->puoRichiederePartecipazione($user),
+            'partecipa'     =>  $this->partecipa($user),
+            'partecipazione'=>  $this->partecipazione($user)
+        ];
+    }
 }
