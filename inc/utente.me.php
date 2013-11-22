@@ -74,7 +74,7 @@ if ($rf) {
 }
 
 
-if(!$sessione->barcode) {?>
+if(false) {?>
 
 <div class="modal fade automodal">
   <div class="modal-header">

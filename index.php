@@ -298,6 +298,24 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <div id="caroselloHome" class="carousel slide">
       <div class="carousel-inner">
         <div class="item active">
+          <img src="./img/jump.png" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+                <br/><br/>
+              <p class="lead">
+                  <div class="btn-group">
+                      <a href="http://cri.it/bologna2013" class="btn btn-large btn-info">
+                          <i class="icon-info"></i> Maggiori informazioni
+                      </a>
+                      <a href="http://crocerossa.eventbrite.it/" class="btn btn-large btn-warning">
+                          <i class="icon-thumbs-up"></i> Iscriviti online
+                      </a>
+                  </div>
+                </p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
           <img src="./img/foto4.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
