@@ -43,7 +43,7 @@ paginaAdmin();
     </div>    
 </div>
 <hr />
-<a href="?p=admin.mail.nuova" class="btn btn-block btn-success">
+<a href="?p=admin.mail.nuova&pres" class="btn btn-block btn-success">
     <i class="icon-envelope"></i>
     <strong>Admin</strong> &mdash; Invia mail di massa a tutti i Presidenti.
 </a>

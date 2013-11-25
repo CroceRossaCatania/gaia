@@ -19,7 +19,9 @@ $excel->intestazione([
     'Nome',
     'Cognome',
     'C. Fiscale',
-    'EMail',
+    'Data Nascita',
+    'Luogo Nascita',
+    'eMail',
     'Cellulare',
     'Cell. Servizio'
 ]);
@@ -30,6 +32,8 @@ foreach ( $c->membriDimessi(MEMBRO_DIMESSO) as $v ) {
         $v->nome,
         $v->cognome,
         $v->codiceFiscale,
+        date('d/m/Y', $v->dataNascita),
+        $v->comuneNascita,
         $v->email,
         $v->cellulare,
         $v->cellulareServizio
@@ -48,7 +52,9 @@ $excel->intestazione([
     'Nome',
     'Cognome',
     'C. Fiscale',
-    'EMail',
+    'Data Nascita',
+    'Luogo Nascita',
+    'eMail',
     'Cellulare',
     'Cell. Servizio'
 ]);
@@ -58,6 +64,8 @@ foreach ( $c->membriGiovani as $v ) {
         $v->nome,
         $v->cognome,
         $v->codiceFiscale,
+        date('d/m/Y', $v->dataNascita),
+        $v->comuneNascita,
         $v->email,
         $v->cellulare,
         $v->cellulareServizio
@@ -77,10 +85,10 @@ $excel = new Excel();
 $excel->intestazione([
         'Nome',
         'Cognome',
+        'C. Fiscale',
         'Data Nascita',
         'Luogo Nascita',
         'Provincia Nascita',
-        'C. Fiscale',
         'Ingresso in CRI'
 ]);
 
@@ -89,10 +97,10 @@ foreach ( $c->elettoriAttivi($time) as $v ) {
     $excel->aggiungiRiga([
         $v->nome,
         $v->cognome,
+        $v->codiceFiscale,
         date('d/m/Y', $v->dataNascita),
         $v->comuneNascita,
         $v->provinciaNascita,
-        $v->codiceFiscale,
         $v->ingresso()->format("d/m/Y")
     ]);
     
@@ -110,10 +118,10 @@ $excel = new Excel();
 $excel->intestazione([
         'Nome',
         'Cognome',
+        'C. Fiscale',
         'Data Nascita',
         'Luogo Nascita',
         'Provincia Nascita',
-        'C. Fiscale',
         'Ingresso in CRI'
 ]);
 
@@ -122,10 +130,10 @@ foreach ( $c->elettoriPassivi($time) as $v ) {
     $excel->aggiungiRiga([
         $v->nome,
         $v->cognome,
+        $v->codiceFiscale,
         date('d/m/Y', $v->dataNascita),
         $v->comuneNascita,
         $v->provinciaNascita,
-        $v->codiceFiscale,
         $v->ingresso()->format("d/m/Y")
     ]);
     
@@ -141,10 +149,10 @@ $excel = new Excel();
 $excel->intestazione([
         'Nome',
         'Cognome',
+        'C. Fiscale',
         'Data Nascita',
         'Luogo Nascita',
         'Provincia Nascita',
-        'C. Fiscale',
         'Ingresso in CRI'
 ]);
 
@@ -153,10 +161,10 @@ foreach ( $c->quoteNo() as $v ) {
     $excel->aggiungiRiga([
         $v->nome,
         $v->cognome,
+        $v->codiceFiscale,
         date('d/m/Y', $v->dataNascita),
         $v->comuneNascita,
         $v->provinciaNascita,
-        $v->codiceFiscale,
         $v->ingresso()->format("d/m/Y")
     ]);
     
@@ -172,10 +180,10 @@ $excel = new Excel();
 $excel->intestazione([
         'Nome',
         'Cognome',
+        'C. Fiscale',
         'Data Nascita',
         'Luogo Nascita',
         'Provincia Nascita',
-        'C. Fiscale',
         'Ingresso in CRI'
 ]);
 
@@ -184,10 +192,10 @@ foreach ( $c->quoteSi() as $v ) {
     $excel->aggiungiRiga([
         $v->nome,
         $v->cognome,
+        $v->codiceFiscale,
         date('d/m/Y', $v->dataNascita),
         $v->comuneNascita,
         $v->provinciaNascita,
-        $v->codiceFiscale,
         $v->ingresso()->format("d/m/Y")
     ]);
     
@@ -241,10 +249,10 @@ $excel->download();
     $excel->intestazione([
         'Nome',
         'Cognome',
+        'C. Fiscale',
         'Data Nascita',
         'Luogo Nascita',
-        'Provincia Nascita',
-        'C. Fiscale'
+        'Provincia Nascita'
     ]);
         $estesi = array_diff( $c->membriAttuali(MEMBRO_ESTESO), $c->membriAttuali(MEMBRO_VOLONTARIO) );
         foreach ( $estesi as $v ) {
@@ -252,10 +260,10 @@ $excel->download();
         $excel->aggiungiRiga([
             $v->nome,
             $v->cognome,
+            $v->codiceFiscale,
             date('d/m/Y', $v->dataNascita),
             $v->comuneNascita,
-            $v->provinciaNascita,
-            $v->codiceFiscale
+            $v->provinciaNascita
         ]);
 
     }
@@ -270,7 +278,10 @@ $excel->intestazione([
     'Nome',
     'Cognome',
     'C. Fiscale',
-    'EMail',
+    'Data Nascita',
+    'Luogo Nascita',
+    'Provincia Nascita',
+    'eMail',
     'Cellulare',
     'Cell. Servizio'
 ]);
@@ -281,6 +292,9 @@ foreach ( $c->membriAttuali() as $v ) {
         $v->nome,
         $v->cognome,
         $v->codiceFiscale,
+        date('d/m/Y', $v->dataNascita),
+        $v->comuneNascita,
+        $v->provinciaNascita,
         $v->email,
         $v->cellulare,
         $v->cellulareServizio

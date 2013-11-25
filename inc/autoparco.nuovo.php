@@ -140,17 +140,6 @@ paginaPrivata();
                  &nbsp; <span class="muted">ad es.: CT</span>
                </div>
              </div>
-            <div class="control-group">
-            <label class="control-label" for="inputVeicolo">Gruppo Sanguigno</label>
-            <div class="controls">
-                <select class="input-small" id="inputVeicolo" name="inputVeicolo"  required <?php if($a==1){ ?>readonly<?php }?> >
-                <?php
-                    foreach ( $conf['sangue_gruppo'] as $numero => $gruppo ) { ?>
-                    <option value="<?php echo $numero; ?>" <?php if ( $numero == $me->grsanguigno ) { ?>selected<?php } ?>><?php echo $gruppo; ?></option>
-                    <?php } ?>
-                </select>   
-            </div>
-          </div>
             <div class="form-actions">
                 <button type="submit" class="btn btn-success btn-large">
                     <i class="icon-save"></i>

@@ -17,7 +17,11 @@ paginaAdmin();
             <h4><i class="icon-question-sign"></i> Pronto a mandare la mail ?</h4>
             <p>Modulo per l'invio mail di massa</p>
         </div>
-        <form class="form-horizontal" action="?p=admin.mail.nuova.ok" method="POST">
+        <?php if(isset($_GET['pres'])){ ?>
+          <form class="form-horizontal" action="?p=admin.mail.nuova.ok&pres" method="POST">
+        <?php }else{ ?>
+          <form class="form-horizontal" action="?p=admin.mail.nuova.ok" method="POST">
+        <?php } ?>
             <div class="control-group">
               <label class="control-label" for="inputDestinatari">Destinatari</label>
               <div class="controls">

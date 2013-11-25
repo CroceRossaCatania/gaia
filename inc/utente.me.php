@@ -26,45 +26,50 @@ if ($rf) {
     $attivita = $rf[0];
     ?>
 
-  <div class="modal fade automodal">
-    <div class="modal-header">
-      <h3 class="text-error"><i class="icon-warning-sign"></i> Attività da completare</h3>
-    </div>
-    <div class="modal-body">
-      <p><?php echo $me->nome; ?>, sei stato selezionato come referente per l'attività:</p>
-      <hr />
-      <p class="allinea-centro">
-        <strong><?php echo $attivita->nome; ?></strong>
-        <br />
-        <?php echo $attivita->area()->nomeCompleto(); ?><br />
-        <span class="muted">
-          <?php echo $attivita->comitato()->nomeCompleto(); ?>
-        </span>
-      </p>
-      <hr />
-      <h4>Completa i dettagli dell'attività</h4>
-      <p>Devi inserire le seguenti informazioni:</strong>
-        <ul>
-          <li><i class="icon-time"></i> Giorni e turni;</li>
-          <li><i class="icon-globe"></i> Locazione dell'attività;</li>
-          <li><i class="icon-pencil"></i> Informazioni per i volontari;</li>
-          <li><i class="icon-group"></i> A chi è aperta l'attività;</li>
-        </ul>
-        <br />
-      </p>
-      <p class="text-error">
-        <i class="icon-info-sign"></i> Non appena verranno inseriti tutti
-          i dettagli riguardanti l'attività, questa comparirà sul calendario dei volontari.
-          Potranno così richiedere di partecipare attraverso Gaia.
-      </p>
-    </div>
-    <div class="modal-footer">
-      <a href="?p=attivita.gestione" class="btn">Non ora</a>
-      <a href="?p=attivita.modifica&id=<?php echo $attivita->id; ?>" class="btn btn-primary">
-        <i class="icon-asterisk"></i> Vai all'attività
-      </a>
-    </div>
-  </div>
+<div class="modal fade automodal">
+        <div class="modal-header">
+          <h3 class="text-error"><i class="icon-warning-sign"></i> Attività da completare</h3>
+        </div>
+        <div class="modal-body">
+          <p><?php echo $me->nome; ?>, sei stato selezionato come referente per l'attività:</p>
+          <hr />
+          <p class="allinea-centro">
+              <strong><?php echo $attivita->nome; ?></strong>
+              <br />
+              <?php echo $attivita->area()->nomeCompleto(); ?><br />
+              <span class="muted">
+              <?php echo $attivita->comitato()->nomeCompleto(); ?>
+              </span>
+          </p>
+          <hr />
+          <h4>Completa i dettagli dell'attività</h4>
+          <p>Devi inserire le seguenti informazioni:</strong>
+                  <ul>
+                      <li><i class="icon-time"></i> Giorni e turni;</li>
+                      <li><i class="icon-globe"></i> Locazione dell'attività;</li>
+                      <li><i class="icon-pencil"></i> Informazioni per i volontari;</li>
+                      <li><i class="icon-group"></i> A chi è aperta l'attività;</li>
+                  </ul><br />
+           </p>
+          <p class="text-error">
+             <i class="icon-info-sign"></i> Non appena verranno inseriti tutti
+                  i dettagli riguardanti l'attività, questa comparirà sul calendario dei volontari.
+                  Potranno così richiedere di partecipare attraverso Gaia.
+          </p>
+              
+          </ul>
+          
+        </div>
+        <div class="modal-footer">
+          <a href="?p=attivita.gestione" class="btn">Non ora</a>
+          <a href="?p=attivita.modifica&id=<?php echo $attivita->id; ?>" class="btn btn-primary">
+              <i class="icon-asterisk"></i> Vai all'attività
+          </a>
+        </div>
+</div>
+    
+
+
 <?php
 }
 if ( !$me->appartenenze() && $me->stato==VOLONTARIO ) { ?>
@@ -85,65 +90,99 @@ if ( !$me->appartenenze() && $me->stato==VOLONTARIO ) { ?>
   </div>
 <?php } ?>
 
+if(false && !$sessione->barcode) {?>
+
+<div class="modal fade automodal">
+  <div class="modal-header">
+          <h3 class="text-error"><i class="icon-warning-sign"></i> Gaia ha bisogno di te!</h3>
+  </div>
+  <div class="modal-body">
+    <p>Ciao <?php echo $me->nome; ?>, abbiamo bisogno del tuo aiuto per migliorare la qualità del servizio
+    fornito da Gaia.</p>
+    <p>Stiamo effettuando uno studio sull'uso dei dispositivi mobili (smartphone e tablet) da parte 
+    dei Volontari che usano Gaia, con particolare riferimento all'uso della fotocamera 
+    per la scansione dei codici a barre.</p>
+    <p>Se hai una stampante ed uno smartphone o tablet, aiutaci nel nostro esperimento, 
+    completando il questionario!</p>
+
+    <p><i>Grazie della collaborazione</i><br />
+    <i>Lo staff di Gaia</i><p>
+
+    </div>
+  <div class="modal-footer">
+    <a class="btn btn-danger" href="?p=utente.barcode&no">
+      Non sono interessato
+    </a>
+    <a class="btn btn-success" href="?p=utente.barcode&ok">
+      Ok, ci sto!
+    </a>
+  </div>
+</div>
+
 <div class="row-fluid">
     
-  <div class="span3"><?php menuVolontario(); ?></div>
+    <div class="span3"><?php menuVolontario(); ?></div>
+
     <div class="span9">
-      <h2><span class="muted">Ciao, </span><?php if($me->presiede()){?><span class="muted">Presidente</span> <?php echo $me->nome;}else{echo $me->nome;} ?>.</h2>
-      <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
+        
+        <h2><span class="muted">Ciao, </span><?php if($me->presiede()){?><span class="muted">Presidente</span> <?php echo $me->nome;}else{echo $me->nome;} ?>.</h2>
+        
+        <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
         <div class="alert alert-success">
-          <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
-          <p>La tua richiesta di supporto è stata inviata con successo, a breve verrai contattato da un membro dello staff.</p>        
+            <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
+            <p>La tua richiesta di supporto è stata inviata con successo, a breve verrai contattato da un membro dello staff.</p>        
         </div> 
-      <?php } ?>
-      <?php if (isset($_GET['ok'])) { $attenzione = true;  ?>
+        <?php } ?>
+        <?php if (isset($_GET['ok'])) { $attenzione = true;  ?>
         <div class="alert alert-success">
-          <i class="icon-ok"></i> <strong>Mail inviata</strong>.
-          La tua mail è stata inviata con successo.
-      </div> 
-      <?php } ?>
-      <?php if (isset($_GET['mass'])) { $attenzione = true;  ?>
-        <div class="alert alert-success">
-          <i class="icon-ok"></i> <strong>Mail inviate</strong>.
-          Mail di massa inviata con successo.
+            <i class="icon-ok"></i> <strong>Mail inviata</strong>.
+            La tua mail è stata inviata con successo.
         </div> 
-      <?php } ?>
-      <?php if (!$me->wizard) { $attenzione = true;  ?>
+        <?php } ?>
+        <?php if (isset($_GET['mass'])) { $attenzione = true;  ?>
+        <div class="alert alert-success">
+            <i class="icon-ok"></i> <strong>Mail inviate</strong>.
+            Mail di massa inviata con successo.
+        </div> 
+        <?php } ?>
+        <?php if (!$me->wizard) { $attenzione = true;  ?>
         <div class="alert alert-block alert-error">
-          <h4><i class="icon-warning-sign"></i> Completa il tuo profilo</h4>
-          <p>Inserisci titoli, patenti, certificazioni e competenze dalla sezione curriculum.</p>        
-          <p><a href="?p=utente.titoli&t=0" class="btn btn-large"><i class="icon-ok"></i> Clicca qui per iniziare</a></p>
+            <h4><i class="icon-warning-sign"></i> Completa il tuo profilo</h4>
+            <p>Inserisci titoli, patenti, certificazioni e competenze dalla sezione curriculum.</p>        
+            <p><a href="?p=utente.titoli&t=0" class="btn btn-large"><i class="icon-ok"></i> Clicca qui per iniziare</a></p>
         </div> 
-      <?php } else { ?>
+        <?php } else { ?>
         <div class="alert alert-block alert-success">
-          <div class="row-fluid">
-            <span class="span7">
-              <h4><i class="icon-ok"></i> Grande, hai finito!</h4>
-              <p>Quando vorrai modificare qualcosa, clicca sul pulsante per ricominciare la procedura di Modifica curriculum.</p> 
-            </span>
-            <span class="span5">
-              <a href="?p=utente.titoli&t=0" class="btn btn-large">
-                <i class="icon-refresh"></i>
-                Ricominciamo
-              </a>
-            </span>
-          </div>
+            <div class="row-fluid">
+                <span class="span7">
+                    <h4><i class="icon-ok"></i> Grande, hai finito!</h4>
+                    <p>Quando vorrai modificare qualcosa, clicca sul pulsante per ricominciare la procedura di Modifica curriculum.</p> 
+                </span>
+                <span class="span5">
+                    <a href="?p=utente.titoli&t=0" class="btn btn-large">
+                        <i class="icon-refresh"></i>
+                        Ricominciamo
+                    </a>
+                </span>
+            </div>
         </div>
-    <?php } ?>
-    <?php foreach ( $me->appartenenzePendenti() as $app ) { $attenzione = true;  ?>
-      <div class="alert alert-block">
-        <h4><i class="icon-time"></i> In attesa di conferma</h4>
-        <p>La tua appartenenza a <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong> attende conferma.</p>
-        <p>Successivamente riceverai una email di notifica e potrai partecipare ai servizi del comitato.</p>
-      </div>
-    <?php } ?>
-    <?php 
-    $h=0;
-    foreach ( $patenti =  TitoloPersonale::scadenzame($me)  as $patente ) { 
-      if($h!=1){  ?>
+        <?php } ?>
+       
+        <?php foreach ( $me->appartenenzePendenti() as $app ) { $attenzione = true;  ?>
+        <div class="alert alert-block">
+            <h4><i class="icon-time"></i> In attesa di conferma</h4>
+            <p>La tua appartenenza a <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong> attende conferma.</p>
+            <p>Successivamente riceverai una email di notifica e potrai partecipare ai servizi del comitato.</p>
+            
+        </div>
+        <?php } ?>
+        <?php 
+            $h=0;
+            foreach ( $patenti =  TitoloPersonale::scadenzame($me)  as $patente ) { 
+                if($h!=1){  ?>
         <div class="alert alert-error">
-          <h4><i class="icon-warning-sign"></i> Patente in scadenza</h4>
-          <p>La tua <strong>PATENTE CRI</strong> scadrà il <strong><?php echo date('d-m-Y', $patente->fine); ?></strong></p>
+            <h4><i class="icon-warning-sign"></i> Patente in scadenza</h4>
+            <p>La tua <strong>PATENTE CRI</strong> scadrà il <strong><?php echo date('d-m-Y', $patente->fine); ?></strong></p>
         </div>
       <?php $h=1;
       }

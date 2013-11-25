@@ -27,7 +27,7 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
         'Nome',
         'Cognome',
         'Data Nascita',
-        'E-Mail',
+        'eMail',
         'Cellulare',
         'Cell. Servizio'
     ]);
@@ -50,7 +50,10 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
         'Nome',
         'Cognome',
         'C. Fiscale',
-        'EMail',
+        'Data Nascita',
+        'Luogo Nascita',
+        'Provincia Nascita',
+        'eMail',
         'Cellulare',
         'Cell. Servizio'
     ]);
@@ -194,6 +197,9 @@ if(isset($_GET['eleatt'])||isset($_GET['elepass'])||isset($_GET['quoteno'])||iss
             $v->nome,
             $v->cognome,
             $v->codiceFiscale,
+            date('d/m/Y', $v->dataNascita),
+            $v->comuneNascita,
+            $v->provinciaNascita,
             $v->email,
             $v->cellulare,
             $v->cellulareServizio
