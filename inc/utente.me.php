@@ -216,6 +216,16 @@ if(false && !$sessione->barcode) { ?>
        </div>
      </div>
    <?php }
+   if ($me->compleanno()){ ?>
+        <div class="alert alert-info">
+          <div class="row-fluid">
+           <span class="span12">
+            <h4><i class="icon-glass"></i> Auguri!</h4>
+            <p>Tantissimi auguri di un buon compleanno.</p>
+          </span>
+       </div>
+     </div>
+   <?php }
  } ?>
     <!-- Per ora mostra sempre... -->
     <div class="alert alert-block alert-info">

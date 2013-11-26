@@ -998,4 +998,15 @@ class Utente extends Persona {
         $ora = date('Y', time());
         return $ora-$anno;
     }
+
+    /*
+     * @return bool restituisce true se oggi è il compleanno dell'utente
+     */
+    public function compleanno(){
+        if( date('m', $this->dataNascita)==date('m', time()) && date('d', $this->dataNascita)==date('d', time())){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
