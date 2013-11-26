@@ -550,3 +550,10 @@ $conf['dizionario'] = [
     DIZIONARIO_BASE64       =>  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 ];
 
+/*
+ * ===================================
+ * =========== ETA ===================
+ * ===================================
+ */
+
+define('ETA_MINIMA',   14);

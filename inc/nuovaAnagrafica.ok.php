@@ -44,6 +44,14 @@ if(!DT::controlloData($_POST['inputDataNascita'])){
 }
 
 /*
+ * Verifica se ho più di 14 anni
+ */
+$anno = date('Y', $dnascita->getTimestamp());
+$ora = date('Y', time());
+if($ora-$anno<=ETA_MINIMA){
+	redirect('nuovaAnagrafica&eta');
+}
+/*
  * Controlla esistenza varia e ti porta dove dovrebbe 
  */
 $p = new Persona($id);

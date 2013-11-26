@@ -990,4 +990,12 @@ class Utente extends Persona {
         return $r;
     }
     
+    /*
+     * @return età utente
+     */
+    public function eta(){
+        $anno = date('Y', $this->dataNascita);
+        $ora = date('Y', time());
+        return $ora-$anno;
+    }
 }

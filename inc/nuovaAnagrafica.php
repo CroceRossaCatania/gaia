@@ -51,6 +51,12 @@ if ( ($p->password) ) {
             <p>Il formato corretto della data di nascita è gg/mm/aaaa.</p>
         </div>
       <?php } ?>
+      <?php if (isset($_GET['eta'])) { ?>
+        <div class="alert alert-block alert-error">
+            <h4>Ci dispiace molto!</h4>
+            <p>Sono necessari <?php echo ETA_MINIMA; ?> anni per essere volontari di Croce Rossa.</p>
+        </div>
+      <?php } ?>
           <form class="form-horizontal" action="?p=nuovaAnagrafica.ok" method="POST">
           <input type="hidden" name="id" value="<?php echo $p->id; ?>" />
           <div class="control-group">
