@@ -9,14 +9,6 @@ $(document).ready( function() {
        }
     });
 
-    $('#inputAnno').bind('change', function(event) {
-       $('#inputMese').show();
-       $('#mese').show();
-    });
+  $("#inputDataIngresso").datepicker({maxDate: new Date});
 
-	$('#inputMese').bind('change', function(event) {
-     $('#inputGiorno').show();
-     $('#giorno').show();
-	});
-  
 });

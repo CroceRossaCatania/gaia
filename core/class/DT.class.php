@@ -78,4 +78,25 @@ class DT extends DateTime {
         return $giorno;
         
     }
+
+    /**
+    * Controlla validità di una data in formato ed esistenza
+    * @param $data data in formato gg/mm/aaaa
+    * @return false se data errata, true se corretta
+    */
+    public static function controlloData($data){
+        if(!DT::createFromFormat('d/m/Y', $data)){
+            return false;
+        }else{
+            $arrayData = explode("/", $data);
+            $Giorno = $arrayData[0];
+            $Mese = $arrayData[1];
+            $Anno = $arrayData[2];
+            if(!checkdate($Mese, $Giorno, $Anno)){
+                return false;
+            }else{
+                return true;
+            }
+        }
+    }
 }

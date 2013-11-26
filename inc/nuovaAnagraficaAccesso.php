@@ -35,6 +35,13 @@ caricaSelettoreComitato();
             <p>Verrà chiesta conferma al Presidente del comitato.</p>
         </div>
     <?php } ?>
+    <?php if (isset($_GET['data'])) { ?>
+        <div class="alert alert-block alert-error">
+            <h4>Data di ingresso in Croce Rossa errata</h4>
+            <p>La data di inggresso in Croce Rossa che hai inserito non è corretta.</p>
+            <p>Il formato corretto della data di ingresso è gg/mm/aaaa.</p>
+        </div>
+      <?php } ?>
     <form id="moduloRegistrazione" class="form-horizontal" action="?p=nuovaAnagraficaAccesso.ok" method="POST">
         <div class="control-group">
             <label class="control-label" for="inputComitato">Comitato</label>
@@ -47,35 +54,9 @@ caricaSelettoreComitato();
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="inputAnno">Anno di ingresso</label>
+            <label class="control-label" for="inputDataIngresso">Data ingresso</label>
             <div class="controls">
-                <select id="inputAnno" required name="inputAnno" class="span5">
-                <?php for ( $i = date('Y'); $i >= 1900; $i-- ) { ?>
-                <option value="<?php echo $i; ?>" <?php if ( $i == 1 ) { ?>selected<?php } ?>><?php echo $i; ?></option>
-                <?php } ?>
-                </select>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" id="mese" for="inputMese" style="display: none">Mese di ingresso</label>
-            <div class="controls">
-              <select class="input-medium" id="inputMese" name="inputMese" style="display: none">
-                    <?php for ( $i = 1; $i <= 12; $i++ ) { ?>
-                        <option value="<?php echo $i ?>" <?php if ( $i == 1 ) { ?>selected<?php } ?>><?php echo $conf['mesi'][$i]; ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" id="giorno" for="inputGiorno" style="display: none">Giorno di ingresso</label>
-            <div class="controls">
-              <select class="input-small" id="inputGiorno" name="inputGiorno" style="display: none">
-                    <?php for ( $i = 1; $i <= 31; $i++ ) { ?>
-                        <option value="<?php echo $i ?>"><?php echo $i; ?></option>
-                    <?php } ?>
-                </select>
+              <input value="<?php echo $sessione->inizio; ?>" class="input-small" type="text" id="inputDataIngresso" name="inputDataIngresso" required />
             </div>
         </div>
 

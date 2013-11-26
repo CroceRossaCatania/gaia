@@ -88,9 +88,9 @@ if ( !$me->appartenenze() && $me->stato==VOLONTARIO ) { ?>
       </p>
     </div>
   </div>
-<?php } ?>
+<?php }
 
-if(false && !$sessione->barcode) {?>
+if(false && !$sessione->barcode) { ?>
 
 <div class="modal fade automodal">
   <div class="modal-header">
@@ -118,7 +118,7 @@ if(false && !$sessione->barcode) {?>
     </a>
   </div>
 </div>
-
+<?php } ?>
 <div class="row-fluid">
     
     <div class="span3"><?php menuVolontario(); ?></div>

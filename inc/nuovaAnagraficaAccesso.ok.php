@@ -12,13 +12,25 @@ if ( !$comitato ) {
 }
 $comitato     = new Comitato($comitato);
 
-$inizio   = mktime(0, 0, 0, $_POST['inputMese'], $_POST['inputGiorno'], $_POST['inputAnno']);
+$inizio   = DT::createFromFormat('d/m/Y', $_POST['inputDataIngresso']);
+
+/*
+ * Scrive i dati nella sessione 
+ */
+$sessione->inizio = $_POST['inputDataIngresso'];
+
+/*
+ * Esegue i check sui dati
+ */
+if(!DT::controlloData($_POST['inputDataIngresso'])){
+	redirect('nuovaAnagraficaAccesso&data');
+}
 
 /* Richiede appartenenza al gruppo */
 $a = new Appartenenza();
 $a->volontario  = $sessione->utente()->id;
 $a->comitato    = $comitato->id;
-$a->inizio      = $inizio;
+$a->inizio      = $inizio->getTimestamp();
 $a->fine        = PROSSIMA_SCADENZA;
 $a->richiedi();
 
