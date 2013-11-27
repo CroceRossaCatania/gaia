@@ -49,7 +49,7 @@
       <?php $i = 0; $elenco = Attivita::elencoMappa(); foreach ( $elenco as $a ) { 
         ?>
                     messaggio.push(new google.maps.InfoWindow({
-                        content: "<a href='https://www.gaiacri.it/?p=attivita.scheda&id=<?php echo $a->id; ?>'><?php echo htmlentities($a->nome); ?></a><br /><?php echo htmlentities($a->luogo); ?>"
+                        content: "<a href='http://gaia.cri.it/?p=attivita.scheda&id=<?php echo $a->id; ?>'><?php echo htmlentities($a->nome); ?></a><br /><?php echo htmlentities($a->luogo); ?>"
                     }));
                     marcatore.push(new google.maps.Marker({
                         position: new google.maps.LatLng(<?php echo $a->latlng(); ?>),

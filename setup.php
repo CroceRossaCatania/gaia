@@ -98,7 +98,7 @@ echo "\n
  [CRONJOB]
     Ricordarsi di puntare il un cronjob per eseguire
     ogni notte via HTTP il file cronjob.php.
-    Es.: wget https://www.gaiacri.it/cronjob.php";
+    Es.: wget http://gaia.cri.it/cronjob.php";
 
 /* Crea il file di lock, evita ultreriori installazioni */
 file_put_contents('upload/setup/lock', time() );

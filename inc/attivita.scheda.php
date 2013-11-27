@@ -73,7 +73,7 @@ $(document).ready( function() {
                         <i class="icon-group"></i> Crea gruppo
                     </a>
                 <?php }} ?>
-                <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://www.gaiacri.it/index.php?p=attivita.scheda&id={$a->id}"); ?>" target="_blank">
+                <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("http://gaia.cri.it/index.php?p=attivita.scheda&id={$a->id}"); ?>" target="_blank">
                     <i class="icon-facebook-sign"></i> Condividi
                 </a>
             </div>
