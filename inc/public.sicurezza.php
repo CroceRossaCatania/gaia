@@ -7,7 +7,7 @@
         <h3>Sicurezza del sistema</h3>
         <p>Prima di effettuare qualsiasi accesso a Gaia dovrai verificare di essere correttamente collegato al nostro sito web. </p>
         <p><strong>Come puoi fare questo?</strong></p>
-        <p>E' molto semplice, prendi visione dell'URL presente nella barra degli indirizzi del tuo browser, se quest'ultimo inizierà con http<strong>s</strong>:// potrai procedere senza problemi.  In caso contrario ti chiediamo di non effettuare il login e di segnalarcelo tramite email all'indirizzo <a href="mailto:supporto@gaiacri.it"><i class="icon-envelope-alt"></i> supporto@gaiacri.it</a></p> 
+        <p>E' molto semplice, prendi visione dell'URL presente nella barra degli indirizzi del tuo browser, se quest'ultimo inizierà con http<strong>s</strong>:// potrai procedere senza problemi.  In caso contrario ti chiediamo di non effettuare il login e di segnalarcelo tramite email all'indirizzo <a href="mailto:supporto@gaia.cri.it"><i class="icon-envelope-alt"></i> supporto@gaia.cri.it</a></p> 
     </div>
 </div>
 
