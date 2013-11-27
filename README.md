@@ -13,7 +13,7 @@ Leggi le **[Informazioni sul progetto Gaia](https://gaia.cri.it/?p=public.about)
 
 **Leggi: [Come partecipare al progetto](http://goo.gl/Jjiqo)**
 
-Alternativamente, contattaci a <info@gaiacri.it> per saperne di più.
+Alternativamente, contattaci a <info@gaia.cri.it> per saperne di più.
 
 
 # Progetti affini
