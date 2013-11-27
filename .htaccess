@@ -7,9 +7,19 @@ RewriteEngine On
 # 2.1. Redirige tutte le visite da HTTP a HTTPS
 RewriteCond %{HTTPS} off
 RewriteCond %{HTTP_HOST} gaiacri.it
-RewriteRule (.*) https://www.gaiacri.it/$1 [R=301,L]
+RewriteRule (.*) https://gaia.cri.it/$1 [R=301,L]
 
-# 2.2. Redirige tutte le visite da gaiacri.it a www.gaiacri.it
+# 2.2. Redirige tutte le visite da gaiacri.it a gaia.cri.it
 RewriteCond %{HTTP_HOST} !^www\.
 RewriteCond %{HTTP_HOST} gaiacri.it
-RewriteRule ^(.*)$ https://www.gaiacri.it/$1 [R=301,L]
+RewriteRule ^(.*)$ https://gaia.cri.it/$1 [R=301,L]
+
+# 2.3. Tutte le visite a www.gaiacri.it con 301 a gaia.cri.it
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} www.gaiacri.it
+RewriteRule (.*) https://gaia.cri.it/$1 [R=301,L]
+
+# 2.4. Tutte le visite a gaiacri.it con 301 a gaia.cri.it
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} gaiacri.it
+RewriteRule (.*) https://gaia.cri.it/$1 [R=301,L]
