@@ -1,6 +1,6 @@
 # Il progetto Gaia
 
-Leggi le **[Informazioni sul progetto Gaia](http://gaia.cri.it/?p=public.about)**
+Leggi le **[Informazioni sul progetto Gaia](https://gaia.cri.it/?p=public.about)**
 
 ### Link utili
 
