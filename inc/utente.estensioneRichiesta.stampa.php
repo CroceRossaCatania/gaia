@@ -7,7 +7,7 @@
 paginaPrivata();
 
 $f = $_GET['id'];
-$e = Estensione::by('id', $f);
+$e = Estensione::id($f);
 $cest = $e->comitato();
 
 $capp = $e->volontario()->unComitato();

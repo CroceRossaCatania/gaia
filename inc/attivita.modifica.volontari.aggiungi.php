@@ -6,7 +6,7 @@
 
 paginaPrivata();
 $a = $_GET['id'];
-$a = new Attivita($a);
+$a = Attivita::id($a);
 paginaAttivita($a);
 
 $turno = $_POST['turno'];

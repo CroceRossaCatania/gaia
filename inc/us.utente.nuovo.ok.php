@@ -10,7 +10,7 @@ $comitato = $_POST['inputComitato'];
 if ( !$comitato ) {
     redirect('us.utente.nuovo&c');
 }
-$comitato = new Comitato($comitato);
+$comitato = Comitato::id($comitato);
 if ( !in_array($comitato, $me->comitatiApp([APP_SOCI, APP_PRESIDENTE])) ) {
     redirect('us.utente.nuovo&c');
 }
@@ -21,7 +21,7 @@ $email      = minuscolo($_POST['inputEmail']);
 
 /* Controlli */
 /* Cerca anomalie nel formato del codice fiscale */
-if ( !preg_match("/^[A-Z]{6}[0-9]{2}[A-Z][A-Z0-9]{2}[A-Z][A-Z0-9]{3}[A-Z]$/", $codiceFiscale) ) {
+if ( !preg_match("/^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$/", $codiceFiscale) ) {
 	redirect('us.utente.nuovo&e');
 }
 
@@ -58,7 +58,6 @@ $caresidenza= normalizzaNome($_POST['inputCAPResidenza']);
 $prresidenza= maiuscolo($_POST['inputProvinciaResidenza']);
 $indirizzo  = normalizzaNome($_POST['inputIndirizzo']);
 $civico     = maiuscolo($_POST['inputCivico']);
-$grsanguigno = maiuscolo($_POST['inputgruppoSanguigno']);
 
 /*
  * Registrazione vera e propria...
@@ -74,7 +73,6 @@ $p->CAPResidenza        = $caresidenza;
 $p->provinciaResidenza  = $prresidenza;
 $p->indirizzo 		      = $indirizzo;
 $p->civico   		        = $civico;
-$p->grsanguigno   		  = $grsanguigno;
 $p->timestamp           = time();
 $p->stato               = VOLONTARIO;
 $p->consenso = true;
@@ -100,38 +98,8 @@ $a->timestamp = time();
 $a->stato     = MEMBRO_VOLONTARIO;
 $a->conferma  = $me;
 
-/* Crea la password casuale */
-$length = 6;
-
-// impostare password bianca
-$password = "";
-
-// caratteri possibili
-$possible = "2346789bcdfghjkmnpqrtvwxyzBCDFGHJKLMNPQRTVWXYZ";
-
- //massima lunghezza caratteri
- $maxlength = strlen($possible);
-  
- // se troppo lunga taglia la password
-if ($length > $maxlength) {
-      $length = $maxlength;
-}
-    
-$i = 0; 
-    
- // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
- while ($i < $length) { 
-
-    // prende un carattere casuale per creare la password
-   $char = substr($possible, mt_rand(0, $maxlength-1), 1);
-
-    // verifica se il carattere precedente è uguale al successivo
-   if (!strstr($password, $char)) { 
-        $password .= $char;
-        $i++;
-   }
-
-}
+/* Genera la password casuale */
+$password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
 
 /* Imposta la password */
 $p->cambiaPassword($password);

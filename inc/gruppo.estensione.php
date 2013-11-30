@@ -8,7 +8,7 @@ paginaPresidenziale();
 paginaModale();
 
 $gruppo = $_GET['id'];
-$gruppo = new Gruppo($gruppo);
+$gruppo = Gruppo::id($gruppo);
 
 ?>
 <form action="?p=gruppo.estensione.ok" method="POST">

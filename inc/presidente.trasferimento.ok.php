@@ -7,7 +7,7 @@
 paginaPresidenziale();
 
 $t     = $_GET['id'];
-$t = new Trasferimento($t);
+$t = Trasferimento::id($t);
 
 if (isset($_GET['si'])) {
     $t->trasferisci();    

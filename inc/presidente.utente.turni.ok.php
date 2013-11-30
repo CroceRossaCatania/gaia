@@ -7,7 +7,7 @@
 paginaPresidenziale();
 
 $id = $_GET['id'];
-$v = new Volontario($id);
+$v = Volontario::id($id);
 $anno = date('Y', time());
 $mese = date('m', time());
 $inizio = mktime(0, 0, 0, $mese, 1, $anno);

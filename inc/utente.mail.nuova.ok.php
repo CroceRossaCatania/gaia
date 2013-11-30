@@ -10,7 +10,7 @@ $testo = $_POST['inputTesto'];
 
 if (isset($_GET['unit'])) {
         $c = $_GET['id'];
-        $c = Comitato::by('id', $c);
+        $c = Comitato::id($c);
         $t = $c->membriAttuali(MEMBRO_VOLONTARIO);
         foreach($t as $_t){
             $m = new Email('mailTestolibero', ''.$oggetto);
@@ -34,7 +34,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
      }
 }elseif (isset($_GET['mass'])) {
 $f = $_GET['t'];
-$f= new Titolo($f);
+$f= Titolo::id($f);
 foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenco){
       $volontari =  $elenco->ricercaMembriTitoli([$f]);
             foreach($volontari as $volontario){
@@ -51,6 +51,38 @@ foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenc
     if (strlen($text) < 10) {
         redirect('utente.supporto&len');    
     }
+    //se ho un volontario per cui richiedere la cosa
+    if (isset($_POST['inputVolontario'])) {
+        //inserisco i dati del richiedente
+        $m = new Email('mailSupportoDaUfficio', 'Richiesta supporto: '.$oggetto);
+        $m->da = $me;
+        $m->_TESTO = $testo;
+        $m->_STATO = $conf['statoPersona'][$me->stato];
+        $m->_NOME = $me->nomeCompleto();
+        $m->_ID = $me->id;
+        $comitato = $me->unComitato();
+        if ($comitato) {
+            $comitato = $comitato->nomeCompleto();
+        } else {
+            $comitato = 'nessun comitato assegnato o volontario in attesa di conferma';
+        }
+        $m->_APP = $comitato;
+        //inserisco i dati del volontari per cui è richiesta assistenza
+        $u = Utente::id($_POST['inputVolontario']);
+        $m->_VSTATO = $conf['statoPersona'][$u->stato];
+        $m->_VNOME = $u->nomeCompleto();
+        $m->_VID = $u->id;
+        $comitato = $u->unComitato();
+        if ($comitato) {
+            $comitato = $comitato->nomeCompleto();
+        } else {
+            $comitato = 'nessun comitato assegnato o volontario in attesa di conferma';
+        }
+        $m->_VAPP = $comitato;
+        
+        $m->invia();
+        redirect('utente.me&suppok');
+    }
 
     $m = new Email('mailSupporto', 'Richiesta supporto: '.$oggetto);
     $m->da = $me;
@@ -58,18 +90,20 @@ foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenc
     $m->_STATO = $conf['statoPersona'][$me->stato];
     $m->_NOME = $me->nomeCompleto();
     $m->_ID = $me->id;
-    $comitato = $me->unComitato();
-    if ($comitato) {
-        $comitato = $comitato->nomeCompleto();
+    if ($comitato = $me->unComitato()) {
+        $comitato = ''.$comitato->nomeCompleto().' - membro volontario';
+    } else if($comitato = $me->unComitato(MEMBRO_PENDENTE)) {
+        $comitato = ''.$comitato->nomeCompleto().' - membro pendente';
     } else {
         $comitato = 'nessun comitato assegnato';
     }
     $m->_APP = $comitato;
+
     $m->invia();
     redirect('utente.me&suppok');    
 
 }elseif (isset($_GET['comgio'])) {
-$elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
+$elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]);
         foreach($elenco as $comitato) {
             $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
             foreach($t as $_t){
@@ -85,7 +119,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
      
 }elseif (isset($_GET['unitgio'])) {
         $c = $_GET['id'];
-        $c = Comitato::by('id', $c);
+        $c = Comitato::id($c);
         $t = $c->membriAttuali(MEMBRO_VOLONTARIO);
         foreach($t as $_t){
             if ($_t->giovane()){
@@ -123,7 +157,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
      }
 }elseif (isset($_GET['unitquoteno'])) {
         $c = $_GET['id'];
-        $c = Comitato::by('id', $c);
+        $c = Comitato::id($c);
         $t = $c->quoteNo();
         foreach($t as $_t){
             $m = new Email('mailTestolibero', ''.$oggetto);
@@ -135,7 +169,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
 
 }elseif (isset($_GET['unitquotesi'])) {
         $c = $_GET['id'];
-        $c = Comitato::by('id', $c);
+        $c = Comitato::id($c);
         $t = $c->quoteNo();
         foreach($t as $_t){
             $m = new Email('mailTestolibero', ''.$oggetto);
@@ -175,7 +209,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
      }
 }elseif (isset($_GET['uniteleatt'])) {
         $c = $_GET['id'];
-        $c = Comitato::by('id', $c);
+        $c = Comitato::id($c);
         $time = $_GET['time'];
         $time = DT::daTimestamp($time);
         $t = $c->elettoriAttivi($time);
@@ -189,7 +223,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
 
 }elseif (isset($_GET['unitelepass'])) {
         $c = $_GET['id'];
-        $c = Comitato::by('id', $c);
+        $c = Comitato::id($c);
         $time = $_GET['time'];
         $time = DT::daTimestamp($time);
         $t = $c->elettoriPassivi($time);
@@ -203,7 +237,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
 
 }elseif (isset($_GET['gruppo'])) {
         $g = $_GET['id'];
-        $g = Gruppo::by('id', $g);
+        $g = Gruppo::id($g);
         $v = $g->membri();
         foreach($v as $_v){
             $m = new Email('mailTestolibero', ''.$oggetto);
@@ -215,7 +249,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
 
 }elseif (isset($_GET['estesi'])) {
         $g = $_GET['id'];
-        $comitato = new comitato($g);
+        $comitato = Comitato::id($g);
         $estesi = array_diff( $comitato->membriAttuali(MEMBRO_ESTESO), $comitato->membriAttuali(MEMBRO_VOLONTARIO) );
         foreach($estesi as $_v){
             $m = new Email('mailTestolibero', ''.$oggetto);
@@ -227,7 +261,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
 
 }elseif (isset($_GET['riserva'])) {
         $g = $_GET['id'];
-        $comitato = new comitato($g);
+        $comitato = Comitato::id($g);
         $r = $comitato->membriRiserva();
         foreach($r as $_v){
             $m = new Email('mailTestolibero', ''.$oggetto);

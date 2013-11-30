@@ -10,7 +10,7 @@ $c = GeoPolitica::daOid($c);
 paginaApp([APP_PRESIDENTE]);
 
 $persona = $_POST['persona'];
-$persona = new Volontario($persona);
+$persona = Volontario::id($persona);
 
 $app        = (int) $_POST['applicazione'];
 $app_nome   = $conf['applicazioni'][$app];
@@ -20,7 +20,7 @@ $app_nome   = $conf['applicazioni'][$app];
  */
 $d = new Delegato();
 $d->estensione      = $c->_estensione();
-$d->comitato        = $c->id;
+$d->comitato        = $c->oid();
 $d->applicazione    = $app;
 $d->dominio         = null;
 $d->inizio          = time();

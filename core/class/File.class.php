@@ -11,7 +11,7 @@ class File extends Entita {
             $_dt    = null;
     
     public function autore() {
-        return new Utente($this->autore);
+        return Utente::id($this->autore);
     }
     
     public function __construct($id = null) {

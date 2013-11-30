@@ -90,14 +90,13 @@ $(document).ready(function() {
                     Obiettivi strategici
                 </a>
             </li>
-            
-            <?php if ( $c instanceOf Comitato ) { ?>
             <li>
                 <a data-toggle="tab" href="#aree">
                     <i class='icon-compass'></i>
                     Aree di intervento
                 </a>
             </li>
+            <?php if ( $c instanceOf Comitato ) { ?>
             <li>
                 <a data-toggle="tab" href="#referenti">
                     <i class='icon-group'></i>
@@ -305,7 +304,7 @@ $(document).ready(function() {
                                 </button>
                             
                             <?php 
-                                if ( !$attivita || $me->admin ) { ?>
+                                if ( $area->nome != 'Generale' && (!$attivita || $me->admin)  ) { ?>
 
                                 <button onClick="return confirm('Vuoi veramente rimuovere questo progetto? L\'operazione non è reversibile');" name="cancellaProgetto" 
                                 value="<?php echo $area->id; ?>" title="Cancella Progetto" class="btn btn-small btn-danger">

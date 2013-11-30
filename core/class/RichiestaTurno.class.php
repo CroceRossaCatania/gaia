@@ -16,7 +16,7 @@ class RichiestaTurno extends Entita {
     } 
     
     public function turno() {
-        return new Turno($this->turno);
+        return Turno::id($this->turno);
     }
         
         

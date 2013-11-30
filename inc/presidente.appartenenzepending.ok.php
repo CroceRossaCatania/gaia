@@ -7,7 +7,7 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $id     = $_GET['id'];
-$a      = new Appartenenza($id); /* Qui col by */
+$a      = Appartenenza::id($id);
 
 if ( isset($_GET['si']) ) {
     

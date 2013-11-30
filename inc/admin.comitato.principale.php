@@ -7,7 +7,7 @@
 paginaAdmin();
 
 $c = $_GET['id'];
-$c = new Comitato($c);
+$c = Comitato::id($c);
 
 $l = $c->locale();
 

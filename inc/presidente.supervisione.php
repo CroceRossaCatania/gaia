@@ -13,7 +13,7 @@ paginaPresidenziale();
             <div class="span12 centrato">
                 <h1><i class="icon-eye-close"></i> Supervisione</h1>
                 <div class="alert alert-block alert-danger">
-                    <p>Pagina dedicata ai Presidenti per la supervisione</p>
+                    <p>Pagina dedicata ai Presidenti per la supervisione, il modulo è in fase sperimentale</p>
                 </div>        
             </div>
             <hr/>

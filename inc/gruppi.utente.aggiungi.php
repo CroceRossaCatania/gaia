@@ -6,10 +6,10 @@
 
 paginaPrivata();
 $id = $_GET['id'];
-$g = new Gruppo ($id);
+$g = Gruppo::id($id);
 foreach ( $_POST['volontari'] as $v ) {
     
-    $v = new Volontario($v);
+    $v = Volontario::id($v);
     $gp = AppartenenzaGruppo::filtra([['volontario',$v],['gruppo',$g->id],['fine', NULL]]);
     if ( $gp ) { continue; }
     

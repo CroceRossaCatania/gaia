@@ -17,7 +17,7 @@ foreach ($f as $_f) {
 }
 
 
-$t = new Persona($v);
+$t = Persona::id($v);
 $t->cancella();
 redirect('admin.limbo&ok');
 

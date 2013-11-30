@@ -6,7 +6,7 @@
 
 $v = $_GET['v'];
 $turno = $_GET['turno'];
-$turno = new Turno($turno);
+$turno = Turno::id($turno);
 $d = $me->delegazioni();
 if( count($d) == 1 ){
     redirect("attivita.poteri.ok&v=$v&turno=$turno");

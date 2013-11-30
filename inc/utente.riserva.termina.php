@@ -7,7 +7,7 @@
 paginaPrivata();
 
 $id = $_GET['id'];
-$ris = new Riserva($id);
+$ris = Riserva::id($id);
 $ris->termina();
 
 $m = new Email('riservaTermina', 'Termine riserva: ' . $ris->comitato()->nomeCompleto());

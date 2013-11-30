@@ -30,7 +30,7 @@ richiediComitato();
             <div class="span7">
                 <h2>
                     <i class="icon-list muted"></i>
-                    Le mie attività
+                    I miei turni
                 </h2>
             </div>
             
@@ -69,7 +69,7 @@ richiediComitato();
                         <?php echo $part->turno()->nome;  ?><br />
                         <?php echo $part->turno()->inizio()->inTesto(); ?></p>
                         
-                        <a href="?p=attivita.scheda&id=<?php echo $part->attivita()->id; ?>">
+                        <a href="?p=attivita.scheda&id=<?php echo $part->attivita()->id.'#'.$part->turno()->id ; ?>">
                             <i class="icon-reply"></i> Vedi dettagli attività
                         </a>
                     </td>
@@ -135,8 +135,8 @@ richiediComitato();
                         <td colspan="4">
                             <a id="mostraTuttiTurni" class="btn btn-block">
                                 <i class="icon-info-sign"></i>
-                                Ci sono <span id="numTurniNascosti"></span> attività passate nascoste.
-                                <strong>Clicca per mostrare le attività nascoste.</strong>
+                                Ci sono <span id="numTurniNascosti"></span> turni passati nascoste.
+                                <strong>Clicca per mostrare i turni passati nascoste.</strong>
                             </a>
                         </td>
                     </tr>     
@@ -146,10 +146,10 @@ richiediComitato();
         <?php if (!$partecipazioni) { ?>
 
             <div class="alert alert-block alert-info">
-                <h4><i class="icon-info-sign"></i> Qui vedrai lo storico delle tue attività</h4>
-                <p>In questa pagina vedrai lo storico delle tue attività e lo stato delle autorizzazioni per parteciparvi.</p>
+                <h4><i class="icon-info-sign"></i> Qui vedrai lo storico dei tuoi turni</h4>
+                <p>In questa pagina vedrai lo storico dei tuoi turni e lo stato delle autorizzazioni per parteciparvi.</p>
                 <p><a class="btn btn-large btn-block" href="?p=attivita">
-                        <i class="icon-calendar"></i> Vai alla pagina delle Attività
+                        <i class="icon-calendar"></i> Vai al Calendario delle Attività
                     </a></p>
             </div>
         

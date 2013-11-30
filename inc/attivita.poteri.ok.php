@@ -6,7 +6,7 @@
 
 $v = $_GET['v'];
 $turno = $_GET['turno'];
-$turno = new Turno($turno);
+$turno = Turno::id($turno);
 
 $comitato = $turno->Attivita()->comitato();
 
@@ -27,7 +27,7 @@ if(!$gia){
     
     $d = new Delegato();
     $d->estensione      = $comitato->_estensione();
-    $d->comitato        = $comitato->id;
+    $d->comitato        = $comitato->oid();
     $d->applicazione    = $potere;
     $d->dominio         = null;
     $d->inizio          = $turno->inizio;

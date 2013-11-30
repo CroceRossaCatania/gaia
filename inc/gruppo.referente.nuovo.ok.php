@@ -7,9 +7,9 @@
 paginaPresidenziale();
 
 $g = $_POST['id'];
-$g = new Gruppo($g);
+$g = Gruppo::id($g);
 $referente = $_POST['inputReferente'];
-$referente = new Volontario($referente);
+$referente = Volontario::id($referente);
 $g->referente   =   $referente;
 
 redirect('gruppi.dash&newref');

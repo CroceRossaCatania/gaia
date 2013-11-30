@@ -15,11 +15,11 @@ class Dimissione extends Entita {
         }
 
         public function comitato() {
-            return new Comitato($this->comitato);
+            return Comitato::id($this->comitato);
         }
         
         public function volontario() {
-            return new Volontario($this->volontario);
+            return Volontario::id($this->volontario);
         }
      
 }

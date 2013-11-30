@@ -73,29 +73,25 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                 <th>Fine</th>
             </thead>
         <?php
-        $i = time()+10800;
         $f = time()-3600;
         $comitati = $me->comitatiApp ([ APP_CO, APP_PRESIDENTE ]);
-        $elenco = Attivita::elenco();
         foreach($comitati as $comitato){
-            foreach($elenco as $attivita) {
-                if($attivita->comitato == $comitato){
-                    $x=0;
-                    $turni = $attivita->turni();
+            $turni = $comitato->coTurni();
                     foreach($turni as $turno){
                         $z=0;
                         $partecipanti = $turno->partecipazioniStato(AUT_OK);
                         foreach ($partecipanti as $partecipante){ 
-                            $m= Coturno::filtra([['volontario', $partecipante->volontario()],['turno',$turno]]); 
-                            if (($turno->inizio <= $i  && $turno->fine >= $f) || ($m[0]->pMonta && !$m[0]->pSmonta)) {
-                                if($x==0){ ?> 
+                            $m = Coturno::filtra([['volontario', $partecipante->volontario()],['turno',$turno]]); 
+                            if ( $turno->fine >= $f || ($m[0]->pMonta && !$m[0]->pSmonta) ) {
+                                $attivita = $turno->attivita();
+                                if($x!=$attivita){ 
+                                    $x=$attivita; ?> 
                                     <tr class="primary">
                                         <td colspan="4" class="grassetto">
-                                        <?php echo $attivita->nome; ?>
+                                        <?php echo $attivita->nome ," - Referente: " , $attivita->referente()->nomeCompleto() , " Cell: ", $attivita->referente()->cellulare(); ?>
                                         </td>
                                     </tr>
                                     <?php 
-                                    $x++;
                                     } 
                                     if ( $z == 0){
                                     ?>
@@ -107,7 +103,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                                     <?php $z++;
                                     
                                     } ?>
-                                <tr class="<?php if(!$m[0]->pSmonta && !$m[0]->stato == CO_MONTA){echo "warning"; }elseif($m[0]->stato == CO_MONTA){ echo "success";}else{echo "error";}?>">
+                                <tr class="<?php if(!$m[0]->pSmonta && !$m[0]->stato == CO_MONTA){ ?> warning <?php }elseif($m[0]->stato == CO_MONTA){ ?> success <?php }else{ ?> error <?php } ?>">
                                    <td><?php echo $partecipante->volontario()->nomeCompleto(); ?></td>
                                    <td><?php echo $partecipante->volontario()->cellulare(); ?></td>
                                    <td>
@@ -136,7 +132,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                                        </div>
                                    </td>
                                 </tr>
-        <?php }}}}}}?>
+        <?php }}}}?>
         </table>
     </div>
 </div>

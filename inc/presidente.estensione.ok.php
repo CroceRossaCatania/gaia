@@ -7,14 +7,14 @@
     paginaPresidenziale();
 
     $e     = $_GET['id'];
-    $e = new Estensione($e);
+    $e = Estensione::id($e);
 
     if (isset($_GET['si'])) {
         $v = $e->volontario()->id;
         $e->concedi();
         $a = $e->appartenenza;
         
-        $a = new Appartenenza($a);
+        $a = Appartenenza::id($a);
 
         $m = new Email('richiestaEstensioneok', 'Richiesta estensione approvata: ' . $a->comitato()->nome);
         $m->da = $me; 
@@ -32,7 +32,7 @@
         $e->nega($_POST['motivo']);
         
         $a = $e->appartenenza;
-        $a = new Appartenenza($a);
+        $a = Appartenenza::id($a);
         $a->timestamp = time();
         $a->stato     = MEMBRO_EST_NEGATA;
         $a->conferma  = $me->id;    

@@ -38,10 +38,10 @@ foreach( $attivita as $a ){
 			echo  " - Presidente: ", $presidente->nomeCompleto();
 			$autorizzazioni = Autorizzazione::filtra(['volontario', $referente]);
 			foreach ( $autorizzazioni as $autorizzazione ){
-				$m = new Autorizzazione($autorizzazione);
+				$m = Autorizzazione::id($autorizzazione);
 				$m->volontario = $presidente;
 			}
-			$att = new Attivita($a);
+			$att = Attivita::id($a);
 			$att->referente = $presidente;
 			echo  " - Operazione completata! <br/>";
 			$eseguiti++;

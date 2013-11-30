@@ -7,11 +7,11 @@ class Area extends Entita {
         $_dt = null;
     
     public function comitato() {
-        return new Comitato($this->comitato);
+        return GeoPolitica::daOid($this->comitato);
     }
     
     public function responsabile() {
-        return new Volontario($this->responsabile);
+        return Volontario::id($this->responsabile);
     }
     
     public function attivita() {

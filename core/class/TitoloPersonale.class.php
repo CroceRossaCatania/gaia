@@ -16,15 +16,15 @@ class TitoloPersonale extends Entita {
     }
     
     public function titolo() {
-        return new Titolo($this->titolo);
+        return Titolo::id($this->titolo);
     }
     
     public function volontario() {
-        return new Volontario($this->volontario);
+        return Volontario::id($this->volontario);
     }
     
     public function pConferma() {
-        return new Volontario($this->pConferma);
+        return Volontario::id($this->pConferma);
     }
     
     
@@ -38,7 +38,7 @@ class TitoloPersonale extends Entita {
         $q->execute();
         $t = [];
         while ( $r = $q->fetch(PDO::FETCH_NUM) ) {
-            $t[] = new TitoloPersonale($r[0]);
+            $t[] = TitoloPersonale::id($r[0]);
         }
         return $t;
     }
@@ -66,7 +66,7 @@ class TitoloPersonale extends Entita {
         $q->execute();
         $r = [];
         while ( $x = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new TitoloPersonale($x[0]);
+            $r[] = TitoloPersonale::id($x[0]);
         }
         return $r;
         
@@ -100,7 +100,7 @@ class TitoloPersonale extends Entita {
         $q->execute();
         $t = [];
         while ( $r = $q->fetch(PDO::FETCH_NUM) ) {
-            $t[] = new TitoloPersonale($r[0]);
+            $t[] = TitoloPersonale::id($r[0]);
         }
         return $t;
     }

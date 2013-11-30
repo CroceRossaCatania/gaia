@@ -12,7 +12,7 @@ if (!isset($_GET['id'])) {
 }
 
 $pk = $_GET['id'];
-$pk = new Partecipazione($pk);
+$pk = Partecipazione::id($pk);
 
 
 ?>

@@ -4,5 +4,5 @@
  * ©2013 Croce Rossa Italiana
  */
 
-$v = new Volontario($_GET['id']);
+$v = Volontario::id($_GET['id']);
 $v->zipDocumenti()->download();
