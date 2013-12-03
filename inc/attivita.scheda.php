@@ -404,8 +404,8 @@ $(document).ready( function() {
                                                     <a href="?p=public.utente&id=<?php echo $v->id; ?>" target="_new">
                                                         <?php echo $v->nomeCompleto(); ?>
                                                     </a>
-                                                    <?php if( $a->modificabileDa($me) && $turno->fine >= time() && $turno->inizio >= time() ){ ?>
-                                                        <a class="btn btn-small btn-danger" href="?p=attivita.modifica.volontario.autorizza&v=<?= $v->id; ?>&turno=<?= $turno; ?>">
+                                                    <?php if( $turno->futuro() && $a->modificabileDa($me) ){ ?>
+                                                        <a class="btn btn-small btn-success" href="?p=attivita.modifica.volontario.autorizza&v=<?= $v->id; ?>&turno=<?= $turno; ?>">
                                                             <i class="icon-trash" ></i> Autorizza volontario
                                                         </a>
                                                     <?php } ?>
