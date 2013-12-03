@@ -78,13 +78,16 @@ if ( !$me->appartenenze() && $me->stato==VOLONTARIO ) { ?>
       <h4 class="text-error"><i class="icon-warning-sign"></i> Seleziona il tuo Comitato</h4>
     </div>
     <div class="modal-body">
-      <p>Ciao <?= $me->nome; ?>, ci risulta che non hai selezionato alcun Comitato di appartenenza.</p>
-      <p>Se pensi che ci sia un errore invia una mail a <i class="icon-envelope"></i><a href="mailto:supporto@gaiacri.it"> supporto@gaiacri.it</a></p>
+      <p>Ciao <?= $me->nome; ?>, ci risulta che non hai selezionato alcun Comitato di appartenenza.
+      Fino a che non avrai scelto il comitato di cui fai parte e non sarai stato approvato dal tuo presidente non potrai
+      utilizzare le funzionalità del portale Gaia.</p>
+      <p>Se pensi che ci sia un errore invia una mail a <i class="icon-envelope"></i><a href="mailto:supporto@gaia.cri.it"> supporto@gaia.cri.it</a></p>
       <hr />
       <p class="allinea-centro">
         <a href="?p=utente.comitato" class="btn btn-large"><i class="icon-sitemap"></i> 
           Seleziona il tuo comitato
         </a>
+        <a href="?p=logout" class="btn btn-large"><i class="icon-remove"></i> Esci</a>
       </p>
     </div>
   </div>

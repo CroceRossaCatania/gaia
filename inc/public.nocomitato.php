@@ -38,4 +38,9 @@ if($_GET['rege']){
 		<p>La richiesta deve essere fatta dal Presidente.</p>
     </div>
 </div>
+<div class="row-fluid">
+    <div class="span12">
+        <a href="index.php" class="btn"><i class="icon-home"></i>Accedi al portale</a>
+    </div>
+</div>
 
