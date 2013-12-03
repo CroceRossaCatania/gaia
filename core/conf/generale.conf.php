@@ -18,12 +18,6 @@ $conf['docs']		= 'No publicy available docs yet.';
 
 $conf['timezone']       = 'Europe/Rome';
 
-/* Invio email */
-$conf['smtp'] += [
-    'auth'      =>  true,
-    'host'      =>  'localhost',
-    'debug'     =>  false
-];
 
 /* Pagine nelle quali mostrare la slide */
 $conf['slide']          = ['home'];
