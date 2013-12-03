@@ -21,8 +21,8 @@ if ( !$me->consenso() ){ ?>
       </ul>
       <p>Ti raccomandiamo di leggere con attenzione il documento perché contiene importanti 
       informazioni su come i tuoi dati sono gestiti.</p>
-      <p>Se sei d'accordo con quanto riportato premi il pulsante "Ok, Accetto!". Verrai indirizzato ad una pagina
-      in cui potrai gestire le informazioni che ti riguardano.</p>
+      <p>Se hai letto premi il pulsante "Ho letto!". Verrai indirizzato ad una pagina
+      in cui potrai dare il consenso e gestire le informazioni che ti riguardano.</p>
       <p>Se non sei d'accordo premi il pulsante "Logout": non ti sarà possibile utilizzare i servizi offerti dal portale fino
       a che non accetterai le condizioni d'uso. </p>
       <p>Le condizioni d'uso resteranno valide fino all'entrata in vigore della versione aggiornata. Quando ciò
@@ -37,7 +37,7 @@ if ( !$me->consenso() ){ ?>
       </a>
       <a href="?p=utente.privacy&first" class="btn btn-success">
         <i class="icon-ok"></i>
-        Ok, Accetto!
+        Ho letto!
       </a>
     </div>
   </div>

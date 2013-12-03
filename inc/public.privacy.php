@@ -8,62 +8,127 @@
 
 <div class="row-fluid">
     <div class="span12">
-        <h2><i class="icon-shield"></i> Per favore, legga attentamente le condizioni d'uso di Gaia.</h2>
+        <h2><i class="icon-shield"></i> Per favore, leggi attentamente le condizioni d'uso di Gaia.</h2>
         <hr />
-        <h3>Trattamento dei dati</h3>
-        <p>I dati da Lei spontaneamente forniti o precaricati dagli uffici della Sua struttura CRI
-        di appartenenza verranno trattati, ai sensi della normativa sulla
-        privacy Decreto legislativo 30 giugno 2003, n. 196 e successive modificazioni, per le seguenti finalità: </p>
-        <p>
-        <ul>
-            <li>Gestione dell'archivio Soci</li>
-            <li>Gestione di quanto previsto dai regolamenti e dalle normative interne CRI in materia
-            di organizzazione del volontariato (es riserve, trasferimenti, estensioni)</li>
-            <li>Gestione di quanto previsto dai regolamenti e dalle normative interne CRI in materia
-            di formazione, attività, qualifiche e ulteriore procedure che possono essere informatizzate.</li>
-        </ul>
-        </p>
-        <p>Il trattamento sarà effettuato attraverso modalità cartacee e/o informatizzate.</p>
-        <p>Il conferimento dei dati relativi a nome, cognome, luogo di nascita, data di nascita,
-        codice fiscale, indirizzo di residenza ed indirizzo email è obbligatorio al fine di poterLe offrire il servizio del progetto Gaia e le prestazioni da Lei richieste e
-        l'eventuale rifiuto a fornire tali dati potrebbe comportare la mancata o parziale esecuzione 
-        del servizio fornito dal CRI.</p>
-        <p>Il conferimento dei dati relativi al recapito telefonico è facoltativo.</p>
-        <p>La informiamo che i dati personali idonei a rivelare l'origine razziale ed etnica, 
-        le convinzioni religiose, filosofiche o di altro genere, le opinioni politiche, l'adesione 
-        a partiti, sindacati, associazioni od organizzazioni a carattere religioso, filosofico, 
-        politico o sindacale, nonché i dati personali idonei a rivelare lo stato di salute e la vita 
-        sessuale, quelli attinenti alla salute, sono dati sensibili. Tali dati, insieme ai dati 
-        giudiziari, da lei spontaneamente conferiti, saranno oggetto di trattamento solo se Lei 
-        avrà espresso espresso consenso scritto. <p>
-        <?php //<problema per questi dati esempio gruppo sanguigno, malattie intolleranze ecc..> 
-        ?>
-        <p>Accedendo al servizio autorizza la comunicazione dei dati ad altri soggetti 
-        (enti o associazioni) solo per le finalità previste dallo Statuto dell'Associazione.</p>
-        <p>Il titolare del trattamento dei dati è Croce Rossa Italiana - Comitato Provinciale di Catania.</p>
-        <p>Il trattamento dei dati ha luogo presso la predetta sede nonchè presso strutture esterne 
-        all'interno delle quali il Portale è ospitato
-        in modalità VPS e sarà curato solo dal personale ad esso incaricato secondo la normativa 
-        attuale.</p>
-        <p>In ogni momento potrà esercitare i Suoi diritti nei confronti del titolare del trattamento, 
-        ai sensi dell'art. 7 del Codice della privacy (già art. 13 della legge n. 675/1996), 
-        in particolare Lei potrà chiedere:</p>
-        <p>
-        <ul>
-        <li> di conoscere l'esistenza di trattamenti di dati che possono 
-        riguardarla; </li>
-        <li>di ottenere senza ritardo la comunicazione in forma intellegibile dei medesimi 
-        dati e della loro origine, la cancellazione, la trasformazione in forma anonima o il blocco 
-        dei dati trattati in violazione di legge; </li>
-        <li>l'aggiornamento, la rettificazione ovvero l'integrazione dei dati; </li>
-        <li>l'attestazione che le operazioni predette sono state portate a conoscenza di coloro ai quali i dati sono stati comunicati, eccettuato il caso in cui tale 
-        adempimento si riveli impossibile o comporti un impiego di mezzi manifestamente sproporzionato 
-        rispetto al diritto tutelato; </li>
-        <li> di opporsi, in tutto o in parte, per motivi legittimi, al trattamento dei dati personali 
-        che la riguardano, ancorché pertinenti allo scopo della raccolta.</li>
-        </ul></p>
+        <h3>Informativa ex art. 13 D.Lgs. n. 196/2003 per il trattamento dei dati personali 
+        degli utenti che desiderano registrarsi sul portale Gaia</h3>
+        
+        <p>Gentile Volontario/a,
+        desideriamo informarti che il decreto legislativo del 30 giugno 2003 n. 196 "Codice in materia 
+        di protezione dei dati personali" prevede la tutela delle persone fisiche e giuridiche in relazione al 
+        trattamento dei dati personali, ed ai sensi del suo articolo 13 ti preghiamo di leggere attentamente come 
+        verranno trattati i tuoi dati personali una volta inseriti sul Portale a cui stai per registrarti.</p>
+        <p>La titolarità del trattamento dei dati personali che inserirai o che comunicherai al tuo Comitato di 
+        appartenenza sia quando ti iscrivi, sia al momento della registrazione al portale e durante il tuo volontariato 
+        in CRI, è della Croce Rossa Italiana e per ogni variazione, problema, richiesta di aggiornamento, dubbio, ecc. 
+        sul trattamento dei tuoi dati personali potrai rivolgerti al Presidente del tuo Comitato, personalmente, per 
+        corrispondenza anche via mail o, se hai un problema tecnico, potrai rivolgerti direttamente agli amministratori 
+        di sistema all’indirizzo email <a href='mailto:supporto@gaiacri.it'><i class="icon-envelope-alt"></i> supporto@gaiacri.it</a>.
+        Il Responsabile del trattamento dei dati personali è il Direttore Regionale CRI.</p>
 
-        </p>
+        <ul>
+        <li><h4>Finalità del trattamento dei dati</h4>
+        <p>I dati personali inseriti sul portale saranno trattati esclusivamente per 
+        le finalità istituzionali della Croce Rossa Italiana, nonché quelle amministrative ad esse strumentali, 
+        ed in particolare per la gestione del tuo rapporto di volontariato con la Croce Rossa Italiana, 
+        compresi il tuo aggiornamento e i tuoi servizi.</p></li>
+
+        <li><h4>Modalità di trattamento dei dati</h4>
+        <p>I dati personali da te forniti saranno trattati nel rispetto delle norme sulla protezione dei dati 
+        personali e, in particolare, delle misure di sicurezza previste nell’allegato B del Codice, del Regolamento 
+        sul trattamento dei dati sensibili e giudiziari della CRI e dei regolamenti che prevedono l’utilizzo dei 
+        dati personali dei volontari. </p>
+        <p>Inoltre, i dati personali saranno trattati in base ai principi di correttezza, liceità e 
+        trasparenza e di tutela della tua riservatezza e dei tuoi diritti.</p>
+        <p>Tu stesso potrai inserire, aggiornare, modificare i tuoi dati personali sul Portale 
+        o richiedere al Presidente del tuo Comitato che ciò venga fatto. E’ importante per noi 
+        che i tuoi dati siano sempre corretti e aggiornati.</p>
+        <p>Per inserire e modificare i tuoi dati sul Portale dovrai seguire le procedure 
+        che ti saranno indicare e attendere la relativa autenticazione e autorizzazione.</p></li>
+
+        <li><h4>Tipologie di dati personali</h4>
+        <p>I dati che ti verrà richiesto di inserire sul portale si distinguono in:</p>
+        <p><ol>
+        <li> dati che dovrai fornire necessariamente, in quanto indispensabili per 
+        gestire l’anagrafica dei soci attivi (nome, cognome, luogo, data di nascita, residenza, codice fiscale….);</li>
+        <li> dati personali che dovrai inserite nel caso di richiesta di autorizzazione a trasferimenti, 
+        inserimento nel ruolo di riserva o estensione e che saranno trattati dai responsabili dei vari 
+        settori, incaricati del trattamento;</li>
+        <li> informazioni personali relative alle tue presenze e/o assenze nei turni di servizi 
+        secondo le varie attività, finalizzate sia all’organizzazione dei turni stessi che alla 
+        redazione dei riepiloghi periodici delle attività e delle ore di servizio svolte e che saranno trattati 
+        dai responsabili dei servizi della tua sede; </li>
+        <li> dati che potrai fornire facoltativamente (patenti civili e/o di Croce Rossa, 
+        qualifiche personali e/o professionali) e i recapiti personali (telefono personale e/o indirizzo mail personale);
+        per questi ultimi dovrai fornire uno specifico consenso se permetterai il loro inserimento nella rubrica del Comitato</li>
+        </ol></p>
+        <p>I dati richiesti serviranno per autorizzare la tua presenza in corsi di aggiornamento specifici 
+        o attività per cui è necessaria una particolare qualifica.</p></li>
+
+        <li><h4>Dati sentibili e giudiziari</h4>
+        <p>Al momento non è previsto l’inserimento sul Portale di dati sensibili1 e giudiziari, 
+        e ti raccomandiamo di non comunicare tramite il portale eventuali malattie causa della tua assenza dai turni. </p>
+        <p>Ti raccomandiamo di non inserire sul portale dati personali che potrebbero inficiare la riservatezza 
+        tua o di altre persone. non inserire informazioni che, direttamente o indirettamente, possono 
+        evidenziare dati su etnia, razza, opinioni politiche, filosofiche, religiose, appartenenze sindacali, 
+        stato di salute o vita sessuale sia tuoi che di altri. ed inoltre, non inserire dati giudiziari.</p></li>
+
+        <li><h4>I tuoi diritti sui dati personali</h4>
+        <p>Potrai sempre rivolgerti senza particolari formalità, per far valere i tuoi diritti, così come previsto 
+        dall’articolo 7 del D.Lgs. n. 196/20033 all'Ufficio Soci o al Presidente del tuo Comitato di appartenenza.</p>
+        <p>In particolare il Codice ti dà il diritto di ottenere la conferma dell'esistenza o meno di dati personali 
+        che ti riguardano, ed inoltre potrai ottenerne l'aggiornamento, la rettifica, l'integrazione o la cancellazione. 
+        Potrai chiedere l’accesso ai tuoi dati o opporti al trattamento, con le conseguenze che ne possono derivare.</p></li>
+
+        <li><h4>Chi tratta i dati personali inseriti</h4>
+        <p>I dati che inserirai o chiederai di inserire sul portale saranno trattati da personale, 
+        volontario e/o dipendente, specificatamente incaricato, autorizzato e formato per un corretto 
+        trattamento e che adotterà tutte le cautele tecniche e di riservatezza per tutelare i tuoi dati personali; 
+        potranno accedere ai tuoi dati personali, inoltre, il Presidente del Comitato, i referenti per gli obiettivi 
+        strategici, i Delegati tecnici delle Aree di attività in cui hai chiesto o chiederai di svolgere 
+        la tua attività, e loro eventuali delegati, i referenti dell’Ufficio Soci del tuo Comitato; 
+        tutti saranno incaricati del trattamento e con livelli di accesso ai dati personali specifici per la 
+        funzione che svolgono.</p>
+        </li>
+        
+        <li><h4>Per la sicurezza dei tuoi dati personali</h4>
+        <p>Al fine di preservare l’integrità e la riservatezza dei tuoi dati, è necessario che tu:</p>
+        <p><ul>
+        <li>Segua attentamente le istruzioni che ti verranno date man mano che vorrai inserire o verificare 
+        i tuoi dati personali sul Portale;</li>
+        <li>Non inserisca dati personali che non vuoi che vengano conosciuti; in particolare ti raccomandiamo 
+        di non inserire dati riservati, quali malattie o assenze per malattie;</li>
+        <li>Tenga la tua userid e la tua password strettamente riservate; sono le tue credenziali per 
+        l’accesso ai tuoi dati e non devi assolutamente comunicarle ad alcuno o lasciarle incustodite se le scrivi.</li>
+        </ul></p>
+        <p>Al fine di garantire, così come richiesto dalla legge, una migliore sicurezza dei tuoi dati 
+        ti raccomandiamo inoltre di:</p>
+        <p><ul>
+        <li>non digitarle davanti ad altre persone; </li>
+        <li>cambiare la password volta che ti sarà richiesto dal sistema; </li>
+        <li>nella tua password non usare informazioni che sono a te riconducibili (nome, data di nascita, ecc.);</li>
+        <li>è preferibile che la tua password non abbia un significato compiuto, ma che alternassi numeri a lettere;</li>
+        <li>non lasciare il computer su cui stai digitando i tuoi dati personali con le credenziali di accesso attivate.</li>
+        </ul></p>
+        </li>
+
+        <li><h4>Comunicazione dei dati personali</h4>
+        <p>I tuoi dati comuni, assieme alla tua abilità relativa al servizio da espletare, potrebbero essere comunicati 
+        dalla Croce Rossa Italiana – in modo riservato - nel caso di operatività tramite gli enti vigilanti o le 
+        organizzazioni internazionali del Movimento di Croce Rossa.</p>
+        <p>Gli eventuali dati personali “sensibili” o “giudiziari” da te forniti alla Croce Rossa non saranno 
+        oggetto di diffusione; potranno tuttavia essere comunicati ad altri soggetti se ed in quanto ciò si renda 
+        necessario per lo svolgimento delle attività istituzionali previste dalle vigenti disposizioni in materia 
+        sanitaria o giudiziaria e per la gestione del rapporto di volontariato nella CRI, solo per quanto esplicitamente 
+        previsto nel Regolamento per il trattamento dei dati sensibili e giudiziari della CRI, approvato dall’Autorità 
+        Garante per la protezione dei dati personali e dal Ministero della Salute.</p>
+        <p>Ti informiamo, inoltre, che le informazioni e i dati personali da te inseriti saranno verificati come previsto 
+        dal D.P.R. n. 445/2000 in materia di autocertificazioni.</p></li>
+
+        <li><h4>Fotografia</h4>
+        <p>Se desideri, puoi inserire sul portale tua fotografia; se decidi di pubblicarla ti chiediamo di acconsentire 
+        al suo utilizzo, ai sensi della Legge n. 633/1941.</p>
+        
         <p>Per ulteriori chiarimenti in merito alle finalità perseguite da Croce Rossa Italiana e 
         per avere altre informazioni circa l'organizzazione dell'Associazione La invitiamo a visitare 
         il sito web <a href='http://www.cri.it'>www.cri.it</a>.</p>

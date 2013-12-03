@@ -5,10 +5,43 @@
  */
 
 paginaPrivata(false);
-if (isset($_GET['first'])){
-  $v = new Volontario($me);
-  $v->consenso = time();
-}
+if (isset($_GET['first']) && !$me->consenso()){ ?>
+  <div class="modal fade automodal">
+    <div class="modal-header">
+      <h3 class="text-success"><i class="icon-cog"></i> Consenso al trattamento dei dati</h3>
+    </div>
+    <div class="modal-body">
+      <p>Avendo letto l’informativa rilasciata dal Portale Gaia della Croce Rossa Italiana ai sensi dell’art. 13 
+        del Decreto legislativo n. 196/2003 "Codice in materia di protezione dei dati personali", </p>
+        <p><ul>
+        <li>autorizzo la Croce Rossa Italiana al trattamento dei miei dati personali per la gestione del mio rapporto 
+        di volontariato e per il loro inserimento sul Portale Gaia; </li>
+        <li>autorizzo inoltre l’uso del mio numero telefonico personale come sopra descritto; </li>
+        <li>autorizzo l’uso del mio indirizzo e-mail personale; </li>
+        <li>chiede di poter ricevere dalla Croce Rossa Italiana comunicazioni e corrispondenza relativa a iniziative, 
+        attività, congressi, corsi, manifestazioni, newsletter, rivista sociale, ecc. </li>
+        </ul></p>
+
+        <p>Accettando la presente informatica acconsenti all’inserimento e all’utilizzo, esclusivamente per le finalità della Croce Rossa Italiana, 
+        della mia foto. </p>
+
+        <p>Il sottoscritto si riserva la facoltà di richiedere alla CRI, in qualunque momento, con comunicazione successiva, 
+        di interrompere le comunicazioni richieste con la presente autorizzazione.</p>
+
+        <p>Se il Socio è un minore il consenso <strong>deve essere rilasciato</strong> da un genitore o dal tutore.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="?p=logout" class="btn">
+        <i class="icon-remove"></i>
+        Logout
+      </a>
+      <a href="?p=utente.privacy.concedi.ok" class="btn btn-success">
+        <i class="icon-ok"></i>
+        Ok, Accetto!
+      </a>
+    </div>
+  </div>
+<?php }
 
 ?>
 <div class="row-fluid">
