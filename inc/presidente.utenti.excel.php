@@ -249,7 +249,7 @@ $excel->download();
     $excel->intestazione([
         'Nome',
         'Cognome',
-        'C. Fiscale'
+        'C. Fiscale',
         'Data Nascita',
         'Luogo Nascita',
         'Provincia Nascita'
@@ -260,7 +260,7 @@ $excel->download();
         $excel->aggiungiRiga([
             $v->nome,
             $v->cognome,
-            $v->codiceFiscale
+            $v->codiceFiscale,
             date('d/m/Y', $v->dataNascita),
             $v->comuneNascita,
             $v->provinciaNascita
@@ -294,7 +294,7 @@ foreach ( $c->membriAttuali() as $v ) {
         $v->codiceFiscale,
         date('d/m/Y', $v->dataNascita),
         $v->comuneNascita,
-        $v->provinciaNascita
+        $v->provinciaNascita,
         $v->email,
         $v->cellulare,
         $v->cellulareServizio

@@ -296,6 +296,24 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <div id="caroselloHome" class="carousel slide">
       <div class="carousel-inner">
         <div class="item active">
+          <img src="./img/jump.png" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+                <br/><br/>
+              <p class="lead">
+                  <div class="btn-group">
+                      <a href="http://cri.it/bologna2013" class="btn btn-large btn-info">
+                          <i class="icon-info"></i> Maggiori informazioni
+                      </a>
+                      <a href="http://crocerossa.eventbrite.it/" class="btn btn-large btn-warning">
+                          <i class="icon-thumbs-up"></i> Iscriviti online
+                      </a>
+                  </div>
+                </p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
           <img src="./img/foto4.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
@@ -372,7 +390,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
 	        <a href="/">Torna alla home</a> &middot;
 	        <a href="?p=public.about">Informazioni su Gaia</a> &middot;
 	        <a href="docs/Guida.pdf?ref=footer"><strong>Guida in PDF</strong></a> &middot;
-	        <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaiacri.it"><?php } ?>Supporto</a><br />
+	        <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaia.cri.it"><?php } ?>Supporto</a><br />
 	        Croce Rossa. <strong>Persone in prima persona.</strong>
    		  </div>
       </div>

@@ -58,7 +58,6 @@ $caresidenza= normalizzaNome($_POST['inputCAPResidenza']);
 $prresidenza= maiuscolo($_POST['inputProvinciaResidenza']);
 $indirizzo  = normalizzaNome($_POST['inputIndirizzo']);
 $civico     = maiuscolo($_POST['inputCivico']);
-$grsanguigno = maiuscolo($_POST['inputgruppoSanguigno']);
 
 /*
  * Registrazione vera e propria...
@@ -74,7 +73,6 @@ $p->CAPResidenza        = $caresidenza;
 $p->provinciaResidenza  = $prresidenza;
 $p->indirizzo 		      = $indirizzo;
 $p->civico   		        = $civico;
-$p->grsanguigno   		  = $grsanguigno;
 $p->timestamp           = time();
 $p->stato               = VOLONTARIO;
 $p->consenso = true;
@@ -101,7 +99,7 @@ $a->stato     = MEMBRO_VOLONTARIO;
 $a->conferma  = $me;
 
 /* Genera la password casuale */
-$password = Validazione::generaPassword();
+$password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
 
 /* Imposta la password */
 $p->cambiaPassword($password);

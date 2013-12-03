@@ -140,7 +140,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
             <div class="control-group">
                <label class="control-label" for="inputEmail">Email</label>
                <div class="controls">
-                 <input value="<?php echo $u->email; ?>"  type="email" id="inputEmail" name="inputEmail" />
+                 <input value="<?php echo $u->email; ?>" <?php if(!$admin){?> readonly <?php } ?> type="email" id="inputEmail" name="inputEmail" />
                 </div>
              </div>
              <div class="control-group input-prepend">
@@ -157,17 +157,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
                  <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" />
                 </div>
              </div>
-            <div class="control-group">
-            <label class="control-label" for="inputgruppoSanguigno">Gruppo Sanguigno</label>
-            <div class="controls">
-                <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  <?php if(!$admin){?> required <?php } ?> class="disabled">
-                <?php
-                    foreach ( $conf['sangue_gruppo'] as $numero => $gruppo ) { ?>
-                    <option value="<?php echo $numero; ?>" <?php if ( $numero == $u->grsanguigno ) { ?>selected<?php } ?>><?php echo $gruppo; ?></option>
-                    <?php } ?>
-                </select>   
-            </div>
-          </div>
+
           <div class="control-group input-prepend">
             <label class="control-label" for="inputConsenso">Consenso dati personali</label>
             <div class="controls">

@@ -67,13 +67,11 @@ if ($rf) {
           </a>
         </div>
 </div>
-    
 
 
-<?php
-}
-?>
-<?php if ( !$me->consenso() ){ ?>
+<?php 
+} 
+if ( !$me->consenso() ){ ?>
   <div class="modal fade automodal">
     <div class="modal-header">
       <h3 class="text-success"><i class="icon-cog"></i> Aggiornamento condizioni d'uso di Gaia!</h3>
@@ -100,6 +98,37 @@ if ($rf) {
       </a>
     </div>
   </div>
+<?php } 
+
+if(false && !$sessione->barcode) {?>
+
+<div class="modal fade automodal">
+  <div class="modal-header">
+          <h3 class="text-error"><i class="icon-warning-sign"></i> Gaia ha bisogno di te!</h3>
+  </div>
+  <div class="modal-body">
+    <p>Ciao <?php echo $me->nome; ?>, abbiamo bisogno del tuo aiuto per migliorare la qualità del servizio
+    fornito da Gaia.</p>
+    <p>Stiamo effettuando uno studio sull'uso dei dispositivi mobili (smartphone e tablet) da parte 
+    dei Volontari che usano Gaia, con particolare riferimento all'uso della fotocamera 
+    per la scansione dei codici a barre.</p>
+    <p>Se hai una stampante ed uno smartphone o tablet, aiutaci nel nostro esperimento, 
+    completando il questionario!</p>
+
+    <p><i>Grazie della collaborazione</i><br />
+    <i>Lo staff di Gaia</i><p>
+
+    </div>
+  <div class="modal-footer">
+    <a class="btn btn-danger" href="?p=utente.barcode&no">
+      Non sono interessato
+    </a>
+    <a class="btn btn-success" href="?p=utente.barcode&ok">
+      Ok, ci sto!
+    </a>
+  </div>
+</div>
+
 <?php } ?>
 
 <div class="row-fluid">

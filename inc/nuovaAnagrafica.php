@@ -133,17 +133,6 @@ if ( ($p->password) ) {
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="inputgruppoSanguigno">Gruppo Sanguigno</label>
-            <div class="controls">
-                <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  required>
-                <?php
-                    foreach ( $conf['sangue_gruppo'] as $numero => $gruppo ) { ?>
-                    <option value="<?php echo $numero; ?>" <?php if ( $numero == $me->grsanguigno ) { ?>selected<?php } ?>><?php echo $gruppo; ?></option>
-                    <?php } ?>
-                </select>   
-            </div>
-          </div>
-          <div class="control-group">
                 <label class="checkbox" for="inputConsenso">
                     <input type="checkbox" id="inputConsenso" name="inputConsenso" required>Acconsento al trattamento sui dati personali nel rispetto delle attuali <a href="javascript:" onclick="window.open('/inc/public.disclaimer.php', 'disclaimer', 'width=600, height=500, resizable, status, scrollbars=1, location');"><i class="icon-link"></i>normative vigenti</a>.
                 </label>

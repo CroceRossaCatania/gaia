@@ -62,12 +62,12 @@ class Email {
                 $da = $this->da;
             }
         } else {
-            $da = 'Croce Rossa Italiana <supporto@gaiacri.it>';
+            $da = 'Croce Rossa Italiana <supporto@gaia.cri.it>';
         }
         
         $header =[
             'Subject'       =>  $oggetto,
-            'From'          =>  'Croce Rossa Italiana <noreply@gaiacri.it>',
+            'From'          =>  'Croce Rossa Italiana <noreply@gaia.cri.it>',
             'Reply-to'      =>  $da,
             'MIME-Version'  =>  '1.0',
             'To'            =>  $this->a->nome . ' <' . $email . '>'
