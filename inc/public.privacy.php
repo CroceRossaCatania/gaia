@@ -44,10 +44,10 @@
         o richiedere al Presidente del tuo Comitato che ciò venga fatto. E’ importante per noi 
         che i tuoi dati siano sempre corretti e aggiornati.</p>
         <p>Per inserire e modificare i tuoi dati sul Portale dovrai seguire le procedure 
-        che ti saranno indicare e attendere la relativa autenticazione e autorizzazione.</p></li>
+        che ti saranno indicate per poi attendere la relativa autenticazione e autorizzazione.</p></li>
 
         <li><h4>Tipologie di dati personali</h4>
-        <p>I dati che ti verrà richiesto di inserire sul portale si distinguono in:</p>
+        <p>I dati che ti verranno richiesti di inserire sul portale si distinguono in:</p>
         <p><ol>
         <li> dati che dovrai fornire necessariamente, in quanto indispensabili per 
         gestire l’anagrafica dei soci attivi (nome, cognome, luogo, data di nascita, residenza, codice fiscale….);</li>
