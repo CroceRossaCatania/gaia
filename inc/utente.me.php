@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -72,9 +72,28 @@ if ($rf) {
 
 <?php
 }
+if ( !$me->appartenenze() && $me->stato==VOLONTARIO ) { ?>
+  <div class="modal fade automodal">
+    <div class="modal-header">
+      <h4 class="text-error"><i class="icon-warning-sign"></i> Seleziona il tuo Comitato</h4>
+    </div>
+    <div class="modal-body">
+      <p>Ciao <?= $me->nome; ?>, ci risulta che non hai selezionato alcun Comitato di appartenenza.
+      Fino a che non avrai scelto il comitato di cui fai parte e non sarai stato approvato dal tuo presidente non potrai
+      utilizzare le funzionalità del portale Gaia.</p>
+      <p>Se pensi che ci sia un errore invia una mail a <i class="icon-envelope"></i><a href="mailto:supporto@gaia.cri.it"> supporto@gaia.cri.it</a></p>
+      <hr />
+      <p class="allinea-centro">
+        <a href="?p=utente.comitato" class="btn btn-large"><i class="icon-sitemap"></i> 
+          Seleziona il tuo comitato
+        </a>
+        <a href="?p=logout" class="btn btn-large"><i class="icon-remove"></i> Esci</a>
+      </p>
+    </div>
+  </div>
+<?php }
 
-
-if(false && !$sessione->barcode) {?>
+if(false && !$sessione->barcode) { ?>
 
 <div class="modal fade automodal">
   <div class="modal-header">
@@ -102,9 +121,7 @@ if(false && !$sessione->barcode) {?>
     </a>
   </div>
 </div>
-
 <?php } ?>
-
 <div class="row-fluid">
     
     <div class="span3"><?php menuVolontario(); ?></div>
@@ -170,53 +187,57 @@ if(false && !$sessione->barcode) {?>
             <h4><i class="icon-warning-sign"></i> Patente in scadenza</h4>
             <p>La tua <strong>PATENTE CRI</strong> scadrà il <strong><?php echo date('d-m-Y', $patente->fine); ?></strong></p>
         </div>
-        <?php $h=1;
-               }
-           } ?>
-        <?php 
-        
-        if($me->inRiserva()){
-          $r = Riserva::filtra([
-              ['volontario', $me->id],
-              ['stato', RISERVA_OK]
-            ]);
-          $r = $r[0];
-          ?>
-
-        <div class="alert alert-block">
-            <h4><i class="icon-pause"></i> In riserva</h4>
-            <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d/m/Y', $r->fine); ?></strong>.</p>
-        </div>
-        <?php } ?> 
-        <?php   if ( $me->storico() && !$me->appartenenzePendenti() && $me->unComitato()->gruppi() ) { 
-                        if (!$me->mieiGruppi()){ ?>
-                                <div class="alert alert-danger">
-                                    <div class="row-fluid">
-                                         <span class="span7">
-                                              <h4><i class="icon-group"></i> Non sei iscritto a nessun gruppo!</h4>
-                                                  <p>Il tuo Comitato ha attivato i gruppi di lavoro, sei pregato di regolarizzare l'iscrizione ad un gruppo.</p>
-                                         </span>
-                                         <span class="span5">
-                                             <a href="?p=utente.gruppo" class="btn btn-large">
-                                                 <i class="icon-group"></i>
-                                                     Iscriviti ora!
-                                             </a>
-                                         </span>
-                                     </div>
-                                </div>
-        <?php }
-                        } ?>
-            
-        <!-- Per ora mostra sempre... -->
-        <div class="alert alert-block alert-info">
-            <h4><i class="icon-folder-open"></i> Hai già caricato i tuoi documenti?</h4>
-            <p>Ricordati di caricare i tuoi documenti dalla sezione <strong>Documenti</strong>.</p>
-        </div>
+      <?php $h=1;
+      }
+    } 
+    if($me->inRiserva()){
+      $r = Riserva::filtra([
+        ['volontario', $me->id],
+        ['stato', RISERVA_OK]
+        ]);
+      $r = $r[0];
+      ?>
+      <div class="alert alert-block">
+        <h4><i class="icon-pause"></i> In riserva</h4>
+        <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d/m/Y', $r->fine); ?></strong>.</p>
+      </div>
+    <?php } ?> 
+    <?php   if ( $me->storico() && !$me->appartenenzePendenti() && $me->unComitato()->gruppi() ) { 
+      if (!$me->mieiGruppi()){ ?>
+        <div class="alert alert-danger">
+          <div class="row-fluid">
+           <span class="span7">
+            <h4><i class="icon-group"></i> Non sei iscritto a nessun gruppo!</h4>
+            <p>Il tuo Comitato ha attivato i gruppi di lavoro, sei pregato di regolarizzare l'iscrizione ad un gruppo.</p>
+          </span>
+          <span class="span5">
+           <a href="?p=utente.gruppo" class="btn btn-large">
+             <i class="icon-group"></i>
+             Iscriviti ora!
+           </a>
+         </span>
+       </div>
+     </div>
+   <?php }
+   if ($me->compleanno()){ ?>
+        <div class="alert alert-info">
+          <div class="row-fluid">
+           <span class="span12">
+            <h4><i class="icon-glass"></i> Auguri!</h4>
+            <p>Tantissimi auguri di un buon compleanno.</p>
+          </span>
+       </div>
+     </div>
+   <?php }
+ } ?>
+    <!-- Per ora mostra sempre... -->
+    <div class="alert alert-block alert-info">
+      <h4><i class="icon-folder-open"></i> Hai già caricato i tuoi documenti?</h4>
+      <p>Ricordati di caricare i tuoi documenti dalla sezione <strong>Documenti</strong>.</p>
     </div>
+  </div>
 </div>
-
 <?php
 if ( !$attenzione && $me->comitatiDiCompetenza() ) {
-    redirect('presidente.dash');
-}
-?>
+  redirect('presidente.dash');
+} ?>
