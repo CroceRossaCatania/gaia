@@ -23,7 +23,7 @@
         in CRI, è della Croce Rossa Italiana e per ogni variazione, problema, richiesta di aggiornamento, dubbio, ecc. 
         sul trattamento dei tuoi dati personali potrai rivolgerti al Presidente del tuo Comitato, personalmente, per 
         corrispondenza anche via mail o, se hai un problema tecnico, potrai rivolgerti direttamente agli amministratori 
-        di sistema all’indirizzo email <a href='mailto:supporto@gaiacri.it'><i class="icon-envelope-alt"></i> supporto@gaiacri.it</a>.
+        di sistema all’indirizzo email <a href='mailto:supporto@gaia.cri.it'><i class="icon-envelope-alt"></i> supporto@gaia.cri.it</a>.
         Il Responsabile del trattamento dei dati personali è il Direttore Regionale CRI.</p>
 
         <ul>
@@ -65,17 +65,17 @@
         <p>I dati richiesti serviranno per autorizzare la tua presenza in corsi di aggiornamento specifici 
         o attività per cui è necessaria una particolare qualifica.</p></li>
 
-        <li><h4>Dati sentibili e giudiziari</h4>
-        <p>Al momento non è previsto l’inserimento sul Portale di dati sensibili1 e giudiziari, 
+        <li><h4>Dati sensibili e giudiziari</h4>
+        <p>Al momento non è previsto l’inserimento sul Portale di dati sensibili e giudiziari, 
         e ti raccomandiamo di non comunicare tramite il portale eventuali malattie causa della tua assenza dai turni. </p>
         <p>Ti raccomandiamo di non inserire sul portale dati personali che potrebbero inficiare la riservatezza 
-        tua o di altre persone. non inserire informazioni che, direttamente o indirettamente, possono 
+        tua o di altre persone; non inserire informazioni che, direttamente o indirettamente, possono 
         evidenziare dati su etnia, razza, opinioni politiche, filosofiche, religiose, appartenenze sindacali, 
-        stato di salute o vita sessuale sia tuoi che di altri. ed inoltre, non inserire dati giudiziari.</p></li>
+        stato di salute o vita sessuale sia tuoi che di altri; ed inoltre, non inserire dati giudiziari.</p></li>
 
         <li><h4>I tuoi diritti sui dati personali</h4>
         <p>Potrai sempre rivolgerti senza particolari formalità, per far valere i tuoi diritti, così come previsto 
-        dall’articolo 7 del D.Lgs. n. 196/20033 all'Ufficio Soci o al Presidente del tuo Comitato di appartenenza.</p>
+        dall’articolo 7 del D.Lgs. n. 196/2003 all'Ufficio Soci o al Presidente del tuo Comitato di appartenenza.</p>
         <p>In particolare il Codice ti dà il diritto di ottenere la conferma dell'esistenza o meno di dati personali 
         che ti riguardano, ed inoltre potrai ottenerne l'aggiornamento, la rettifica, l'integrazione o la cancellazione. 
         Potrai chiedere l’accesso ai tuoi dati o opporti al trattamento, con le conseguenze che ne possono derivare.</p></li>
@@ -105,7 +105,7 @@
         ti raccomandiamo inoltre di:</p>
         <p><ul>
         <li>non digitarle davanti ad altre persone; </li>
-        <li>cambiare la password volta che ti sarà richiesto dal sistema; </li>
+        <li>cambiare la password ogni volta che ti sarà richiesto dal sistema; </li>
         <li>nella tua password non usare informazioni che sono a te riconducibili (nome, data di nascita, ecc.);</li>
         <li>è preferibile che la tua password non abbia un significato compiuto, ma che alternassi numeri a lettere;</li>
         <li>non lasciare il computer su cui stai digitando i tuoi dati personali con le credenziali di accesso attivate.</li>
