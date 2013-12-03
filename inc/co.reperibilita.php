@@ -66,7 +66,7 @@ foreach($comitati as $comitato){
         <td><?php echo $_v->cellulare; ?></td>
         <td>     
             <div class="btn-group">
-                <a class="btn" href="?p=public.utente&id=<?php echo $_v->id; ?>" target="_new">
+                <a class="btn" href="?p=profilo.controllo&id=<?php echo $_v->id; ?>" target="_new">
                         <i class="icon-eye-open"></i>
                             Visualizza
                 </a>

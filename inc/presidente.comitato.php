@@ -436,7 +436,7 @@ $(document).ready(function() {
                         <tr<?php if ($delegato->attuale()) { ?> class="success"<?php } ?>>
                             
                             <td>
-                                <strong><a href="?p=public.utente&id=<?php echo $delegato->volontario; ?>" target="_new">
+                                <strong><a href="?p=profilo.controllo&id=<?php echo $delegato->volontario; ?>" target="_new">
                                     <?php echo $delegato->volontario()->nomeCompleto(); ?>
                                 </a></strong>
                             </td>

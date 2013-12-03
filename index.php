@@ -124,10 +124,8 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                             <ul class="dropdown-menu">
                                 <?php if ( $me->stato == VOLONTARIO ) { ?>
                                   <li><a href="?p=utente.anagrafica"><i class="icon-edit"></i> Anagrafica</a></li>
+                                  <li><a href="?p=utente.privacy"><i class="icon-cog"></i> Privacy</a></li>
                                   <li class="divider"></li>
-
-
-
                                 <?php } ?>
 
                                   <li><a href="?p=logout"><i class="icon-remove"></i> Esci</a></li>
@@ -433,7 +431,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
           </ol>
           <p class="text-info">
             <i class="icon-time"></i>
-            Rimarri in modalità admin fino al Logout
+            Rimarrai in modalità admin fino al Logout
           </p>
 
         </div>

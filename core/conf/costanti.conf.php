@@ -487,7 +487,7 @@ define('PIVA', '01019341005');
 
 /*
  * ===================================
- * =========== APP_PATENTI==== ============
+ * =========== APP_PATENTI ===========
  * ===================================
  */
 
@@ -549,6 +549,18 @@ $conf['dizionario'] = [
     DIZIONARIO_ESADECIMALE  =>  '0123456789abcdef',
     DIZIONARIO_BASE64       =>  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 ];
+
+/*
+ * ===================================
+ * =========== PRVACY ================
+ * ===================================
+ */
+
+/* Tipologia di Privacy */
+define('PRIVACY_PRIVATA',   10);
+define('PRIVACY_COMITATO', 20);
+define('PRIVACY_VOLONTARI', 30);
+define('PRIVACY_PUBBLICA', 40);
 
 /*
  * ===================================

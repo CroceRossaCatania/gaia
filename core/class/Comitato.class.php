@@ -86,7 +86,7 @@ class Comitato extends GeoPolitica {
                  cognome ASC, nome ASC");
         $q->bindValue(':ora', time());
         $q->bindParam(':comitato', $this->id);
-        $q->bindParam(':stato',    $stato);
+        $q->bindParam(':stato',    $stato, PDO::PARAM_INT);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {

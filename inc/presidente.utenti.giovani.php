@@ -89,7 +89,7 @@ menuElenchiVolontari(
                     <td>
                         <div class="btn-group">
                             <?php if ( $me->delegazioni(APP_OBIETTIVO) ) { ?>
-                                <a class="btn btn-small" href="?p=public.utente&id=<?php echo $_v->id; ?>" title="Dettagli">
+                                <a class="btn btn-small" href="?p=profilo.controllo&id=<?php echo $_v->id; ?>" title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>
                             <?php }else{ ?>

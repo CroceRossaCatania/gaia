@@ -42,8 +42,11 @@ class Email {
             $this->a = new stdClass;
             $this->a->nome = $conf['default_email_nome'];
             $this->a->email = $conf['default_email_email'];
+            $email = $this->a->email;
+        }else{
+            $email = $this->a->email();
         }
-        $email      = $this->a->email;
+        
         $header     = file_get_contents('./core/conf/mail/header.html');
         $footer     = file_get_contents('./core/conf/mail/footer.html');
         $corpo      = file_get_contents('./core/conf/mail/modelli/' . $this->modello . '.html');
@@ -54,7 +57,7 @@ class Email {
 
         if ( $this->da ) {
             if ( $this->da instanceOf Persona ) {
-                $da = $this->da->nome . ' ' . $this->da->cognome . ' <' . $this->da->email . '>';
+                $da = $this->da->nome . ' ' . $this->da->cognome . ' <' . $this->da->email() . '>';
             } else {
                 $da = $this->da;
             }
