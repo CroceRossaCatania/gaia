@@ -26,4 +26,17 @@ class Area extends Entita {
         return $conf['obiettivi'][$obiettivo] . ': ' . $this->nome;
     }
     
+    /**
+     * In caso di cancellazione o rimozione referente d'area utente, 
+     * mette come responsabile d'area o il delegato di obiettivo o il presidente
+     * @param $c comitato dell'area cui si vuole dimettere il referente
+     */
+    public function dimettiReferente($c){
+        $nuovoRef = $c->obiettivi($this->obiettivo)[0];
+        if(!$nuovoRef) {
+            $nuovoRef = $c->primoPresidente();
+        }
+        $this->responsabile = $nuovoRef->id;
+        return;
+    }
 }

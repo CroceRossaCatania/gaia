@@ -12,30 +12,7 @@ if(isset($_POST['cancellaDelegato'])) {
     $back = 'obiettivi';
     $num = $_POST['cancellaDelegato'];
     $delega = $c->obiettivi_delegati($num)[0];
-    $delega->fine = time();
-
-    $area = Area::filtra([
-    ['comitato', $c->oid()],
-    ['nome', 'Generale'],
-    ['obiettivo', $num]
-    ]); 
-    
-    if ($area) {
-        $area = $area[0];
-        if($area->attivita()) {
-            $area->responsabile = $c->primoPresidente()->id;    
-        } else {
-            $area->cancella();
-        }
-        
-    } else {
-        /* Per compatibilità con le aree cancellate, se l'area non c'è più la ricreo*/
-        $a = new Area();
-        $a->comitato    = $c->oid();
-        $a->obiettivo   = $num;
-        $a->nome        = 'Generale';
-        $a->responsabile= $c->primoPresidente()->id;
-    } 
+    $delega->dimettiDelegatoObiettivo($num);
 }
 
 /* Salvataggio obiettivi */
@@ -135,11 +112,7 @@ if(isset($_POST['rimuoviReferente'])) {
     $back = 'aree';
     $a = $_POST['rimuoviReferente'];
     $area = Area::id($a);
-    $nuovoRef = $c->obiettivi($area->obiettivo)[0];
-    if(!$nuovoRef) {
-        $nuovoRef = $c->primoPresidente();
-    }
-    $area->responsabile = $nuovoRef->id;
+    $area->dimettiReferente($c);
 }
 
 /* Creazione nuova area */

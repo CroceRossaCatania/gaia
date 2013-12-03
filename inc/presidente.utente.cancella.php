@@ -7,7 +7,6 @@
 paginaAdmin();
 $t = $_GET['id'];
 $t = Utente::id($t);
-if($me->id !=$t){
 
 	$f = Annunci::filtra([
 	  ['autore', $t]
@@ -29,7 +28,8 @@ if($me->id !=$t){
 	  ['responsabile', $t]
 	]);
 	foreach($f as $_f){
-		$_f->responsabile = $c->unPresidente();
+		$_f->dimettiReferente($c);
+		$_f->cancella();
 	}
 
 	$f = Attivita::filtra([
@@ -174,8 +174,10 @@ if($me->id !=$t){
 
 	$t = Persona::id($t);
 	$t->cancella();
-	redirect('presidente.utenti&ok');
+
+if($me->id==$t){
+	$sessione->logout();
 }else{
-	redirect('presidente.utenti&e');    
+	redirect('presidente.utenti&ok');    
 }
 ?>
