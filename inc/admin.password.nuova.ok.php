@@ -6,7 +6,7 @@
 
 paginaAdmin();
 $v = $_GET['id'];
-$v = new Volontario($v);
+$v = Volontario::id($v);
 
 if ( strlen($_POST['inputPassword']) < 6 || strlen($_POST['inputPassword']) > 15 ) {
 	redirect('presidente.utenti&passe');

@@ -8,21 +8,20 @@ paginaAnonimo();
 
 ?>
 <div class="row-fluid">
-    
-    <div class="span3">
-        <?php menuVolontario(); ?>
-        <hr />
-        <h4>Legenda dei colori</h4>
-        <table class="table table-condensed table-striped">
-            <tr>
-                <td style="color: #<?php echo $conf['attivita']['colore_pubbliche']; ?>;">
-                    <i class="icon-sign-blank"></i>
-                </td>
-                <td>
-                    Tutti i comitati
-                </td>
-            </tr>
-            <?php if ( !$me instanceof Anonimo ) { ?>
+    <?php if ( !$me instanceof Anonimo ) { ?>
+        <div class="span3">
+            <?php menuVolontario(); ?>
+            <hr />
+            <h4>Legenda dei colori</h4>
+            <table class="table table-condensed table-striped">
+                <tr>
+                    <td style="color: #<?php echo $conf['attivita']['colore_pubbliche']; ?>;">
+                        <i class="icon-sign-blank"></i>
+                    </td>
+                    <td>
+                        Tutti i comitati
+                    </td>
+                </tr>
                 <tr>
                     <td style="color: #<?php echo $conf['attivita']['colore_mie']; ?>;">
                         <i class="icon-sign-blank"></i>
@@ -39,18 +38,13 @@ paginaAnonimo();
                         Turni scoperti
                     </td>
                 </tr>
-            <?php } ?>
-
-        </table>
-
-
-    </div>
-    
-
-
-    <div class="span9">
-        
-    <?php if ( $me instanceOf Anonimo ) { ?>
+            </table>
+        </div>
+        <div class="span9">
+    <?php } else { ?>
+        <div class="span12">
+    <?php } 
+     if ( $me instanceOf Anonimo ) { ?>
     
         <div class="alert alert-block alert-warning">
 
@@ -62,38 +56,14 @@ paginaAnonimo();
 
     <?php } ?>
         
-        <!--<div class="row-fluid">
+        <div class="row-fluid">
             <div class="span12">
-                <h2><span class="muted">Le </span>attività.</h2>
+                <h2><i class="icon-calendar muted"></i>
+                Calendario delle attività</h2>
+                <hr />
             </div>
-        </div>-->
-        
-            
-            <div class="row-fluid">
-                
-                <div class="span6 offset6">
-                    <div class="btn-group">
-                        <?php if ( $me->comitatiAreeDiCompetenza() ) { ?>
-
-                        <a href="?p=attivita.idea" class="btn btn-large btn-success">
-                            <i class="icon-plus-sign"></i>
-                                Crea attività
-                        </a>
-                        
-                        <?php } ?>
-                        
-                        <?php if ( $me->attivitaDiGestione() ) { ?>
-                        <a href="?p=attivita.gestione" class="btn btn-primary btn-large">
-                            <i class="icon-list"></i>
-                                Gestisci attività
-                        </a>
-                        
-                        <?php } ?>
-                    </div>
-                </div>
-                
-                 
-            </div><hr />
+            <hr />
+        </div>
 
         <div class="row-fluid">
             <div class="span12" id="calendario"></div>
@@ -109,6 +79,4 @@ paginaAnonimo();
         
     </div>
       
-    
 </div>
-

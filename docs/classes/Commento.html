@@ -138,10 +138,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-930500867"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1923327890"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-930500867" class="accordion-body collapse in">
+            <div id="namespace-1923327890" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -154,6 +154,7 @@
                                                     <li class="class"><a href="../classes/Appartenenza.html">Appartenenza</a></li>
                                                     <li class="class"><a href="../classes/Anonimo.html">Anonimo</a></li>
                                                     <li class="class"><a href="../classes/Documento.html">Documento</a></li>
+                                                    <li class="class"><a href="../classes/Mail.html">Mail</a></li>
                                                     <li class="class"><a href="../classes/Sessione.html">Sessione</a></li>
                                                     <li class="class"><a href="../classes/Entita.html">Entita</a></li>
                                                     <li class="class"><a href="../classes/Area.html">Area</a></li>
@@ -164,11 +165,13 @@
                                                     <li class="class"><a href="../classes/Reperibilita.html">Reperibilita</a></li>
                                                     <li class="class"><a href="../classes/GeocoderResult.html">GeocoderResult</a></li>
                                                     <li class="class"><a href="../classes/AppartenenzaGruppo.html">AppartenenzaGruppo</a></li>
+                                                    <li class="class"><a href="../classes/Ricerca.html">Ricerca</a></li>
                                                     <li class="class"><a href="../classes/APIServer.html">APIServer</a></li>
                                                     <li class="class"><a href="../classes/Volontario.html">Volontario</a></li>
                                                     <li class="class"><a href="../classes/Veicoli.html">Veicoli</a></li>
                                                     <li class="class"><a href="../classes/Regionale.html">Regionale</a></li>
                                                     <li class="class"><a href="../classes/ElementoRichiesta.html">ElementoRichiesta</a></li>
+                                                    <li class="class"><a href="../classes/ICalendar.html">ICalendar</a></li>
                                                     <li class="class"><a href="../classes/Errore.html">Errore</a></li>
                                                     <li class="class"><a href="../classes/File.html">File</a></li>
                                                     <li class="class"><a href="../classes/Quota.html">Quota</a></li>
@@ -181,6 +184,7 @@
                                                     <li class="class"><a href="../classes/Attivita.html">Attivita</a></li>
                                                     <li class="class"><a href="../classes/Provinciale.html">Provinciale</a></li>
                                                     <li class="class"><a href="../classes/PDF.html">PDF</a></li>
+                                                    <li class="class"><a href="../classes/Estensione.html">Estensione</a></li>
                                                     <li class="class"><a href="../classes/Autorizzazione.html">Autorizzazione</a></li>
                                                     <li class="class"><a href="../classes/Coturno.html">Coturno</a></li>
                                                     <li class="class"><a href="../classes/Nazionale.html">Nazionale</a></li>
@@ -214,7 +218,7 @@
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
                     <h1><small>\</small>Commento</h1>
-                    <p><em></em></p>
+                    <p><em>Rappresenta una Entita generica nel database</em></p>
                     
 
 
@@ -239,9 +243,8 @@
                                                                     <a href="../classes/Commento.html#method_risposte" class="">risposte()</a><br />
                                                                     <a href="../classes/Entita.html#method___construct" class="">__construct()</a><br />
                                                                     <a href="../classes/Entita.html#method_by" class="">by()</a><br />
-                                                                    <a href="../classes/Entita.html#method__elencoCacheQuery" class="">_elencoCacheQuery()</a><br />
-                                                                    <a href="../classes/Entita.html#method__aggiungiElencoCacheQuery" class="">_aggiungiElencoCacheQuery()</a><br />
                                                                     <a href="../classes/Entita.html#method__cacheQuery" class="">_cacheQuery()</a><br />
+                                                                    <a href="../classes/Entita.html#method__numQueryCache" class="">_numQueryCache()</a><br />
                                                                     <a href="../classes/Entita.html#method__ottieniQuery" class="">_ottieniQuery()</a><br />
                                                                     <a href="../classes/Entita.html#method_filtra" class="">filtra()</a><br />
                                                                     <a href="../classes/Entita.html#method_elenco" class="">elenco()</a><br />
@@ -263,10 +266,14 @@
                         </section>
                         <section class="row-fluid protected">
                             <section class="span4">
+                                                                    <a href="../classes/Entita.html#method__invalidaCacheQuery" class="">_invalidaCacheQuery()</a><br />
                                                                     <a href="../classes/Entita.html#method_generaId" class="">generaId()</a><br />
                                                                     <a href="../classes/Entita.html#method__crea" class="">_crea()</a><br />
+                                                                    <a href="../classes/Entita.html#method_cancellaDettagli" class="">cancellaDettagli()</a><br />
                                                             </section>
                             <section class="span4">
+                                                                    <a href="../classes/Entita.html#property__t" class="">$_t</a><br />
+                                                                    <a href="../classes/Entita.html#property__dt" class="">$_dt</a><br />
                                                                     <a href="../classes/Entita.html#property_db" class="">$db</a><br />
                                                                     <a href="../classes/Entita.html#property_cache" class="">$cache</a><br />
                                                                     <a href="../classes/Entita.html#property__v" class="">$_v</a><br />
@@ -278,12 +285,10 @@
                         </section>
                         <section class="row-fluid private">
                             <section class="span4">
-                                                                    <a href="../classes/Entita.html#method__invalidaCacheQuery" class="">_invalidaCacheQuery()</a><br />
-                                                                    <a href="../classes/Entita.html#method_cancellaDettagli" class="">cancellaDettagli()</a><br />
+                                                                    <em>No private methods found</em>
                                                             </section>
                             <section class="span4">
-                                                                    <a href="../classes/Entita.html#property__t" class="">$_t</a><br />
-                                                                    <a href="../classes/Entita.html#property__dt" class="">$_dt</a><br />
+                                                                    <em>No private properties found</em>
                                                             </section>
                             <section class="span4">
                                 <em>N/A</em>
@@ -298,7 +303,7 @@
                         <dt>File</dt>
                             <dd><a href="../files/core.class.Commento.class.php.html"><div class="path-wrapper">core/class/Commento.class.php</div></a></dd>
                                                 <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">\Default</div></dd>
+                            <dd><div class="namespace-wrapper">\Gaia</div></dd>
                                                 <dt>Class hierarchy</dt>
                             <dd class="hierarchy">
                                                                                                                                                                                                                                                                                                 
@@ -332,7 +337,7 @@
             <article class="property">
                 <h3 class="public ">$id</h3>
                 <pre class="signature">$id</pre>
-                <p><em></em></p>
+                <p><em>L&#039;ID dell&#039;oggetto caricato</em></p>
                 
 
 
@@ -352,6 +357,60 @@
     </div>
 
                                                     <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__t" name="property__t" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$_t</h3>
+                <pre class="signature">$_t</pre>
+                <p><em>Il nome della tabella in database</em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Entita.html"><div class="path-wrapper">\Entita</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__dt" name="property__dt" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$_dt</h3>
+                <pre class="signature">$_dt</pre>
+                <p><em>Il nome della tabella associata all&#039;entita&#039;.</em></p>
+                <p>Struttura:
+ id      int,
+ nome    varchar(64),
+ valore  text,
+PRIMARY KEY (id, nome)</p>
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Entita.html"><div class="path-wrapper">\Entita</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
         <div class="span8 content class">
             <a id="property_db" name="property_db" class="anchor"></a>
             <article class="property">
@@ -432,7 +491,7 @@
             <article class="property">
                 <h3 class="protected ">$_cacheable</h3>
                 <pre class="signature">$_cacheable</pre>
-                <p><em></em></p>
+                <p><em>L&#039;oggetto puo&#039; essere rappresentato in cache?</em></p>
                 
 
 
@@ -451,57 +510,7 @@
         </aside>
     </div>
 
-                                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property__t" name="property__t" class="anchor"></a>
-            <article class="property">
-                <h3 class="private ">$_t</h3>
-                <pre class="signature">$_t</pre>
-                <p><em></em></p>
-                
-
-
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/Entita.html"><div class="path-wrapper">\Entita</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property__dt" name="property__dt" class="anchor"></a>
-            <article class="property">
-                <h3 class="private ">$_dt</h3>
-                <pre class="signature">$_dt</pre>
-                <p><em></em></p>
-                
-
-
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/Entita.html"><div class="path-wrapper">\Entita</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                            
+                                            
                                     <a id="methods" name="methods"></a>
             <div class="row-fluid">
                 <div class="span8 content class"><h2>Methods</h2></div>
@@ -695,100 +704,66 @@
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method__elencoCacheQuery" name="method__elencoCacheQuery" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">_elencoCacheQuery()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_elencoCacheQuery()</pre>
-                <p><em></em></p>
-                
-
-
-                
-                
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                            <span class="label label-info">static</span>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/Entita.html"><div class="path-wrapper">\Entita</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method__aggiungiElencoCacheQuery" name="method__aggiungiElencoCacheQuery" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">_aggiungiElencoCacheQuery()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_aggiungiElencoCacheQuery( <span class="argument">$hash</span>)</pre>
-                <p><em></em></p>
-                
-
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td></td>
-                                <td>$hash</td>
-                                <td>
-</td>
-                            </tr>
-                                            </table>
-                
-                
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                            <span class="label label-info">static</span>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/Entita.html"><div class="path-wrapper">\Entita</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
             <a id="method__cacheQuery" name="method__cacheQuery" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">_cacheQuery()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_cacheQuery( <span class="argument">$hash</span>,  <span class="argument">$valori</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">_cacheQuery(string <span class="argument">$hash</span>, array <span class="argument">$valori</span>)</pre>
+                <p><em>Dato hash della query e array di oggetti, salva in cache</em></p>
                 
 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$hash</td>
-                                <td>
+                                <td><p>Hash md5 della query SQL</p>
 </td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>array</td>
                                 <td>$valori</td>
-                                <td>
+                                <td><p>Array di Entita da salvare come risultato query</p>
 </td>
                             </tr>
                                             </table>
                 
                 
                             </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Entita.html"><div class="path-wrapper">\Entita</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__numQueryCache" name="method__numQueryCache" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">_numQueryCache()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_numQueryCache() : int</pre>
+                <p><em>Numero di query in cache per un determinato oggetto</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    int
+                                            &mdash; <p>Il numero di query in cache</p>
+
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -810,17 +785,17 @@
             <article class="method">
                 <h3 class="public ">_ottieniQuery()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_ottieniQuery( <span class="argument">$hash</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">_ottieniQuery(string <span class="argument">$hash</span>)</pre>
+                <p><em>Dato un hash di query SQL ne ritorna il risultato o false se non in cache</em></p>
                 
 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$hash</td>
-                                <td>
+                                <td><p>Hash md5 della query SQL da recuperare</p>
 </td>
                             </tr>
                                             </table>
@@ -848,29 +823,33 @@
             <article class="method">
                 <h3 class="public ">filtra()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">filtra( <span class="argument">$_array</span>,  <span class="argument">$_order</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">filtra(array <span class="argument">$_array</span>, string <span class="argument">$_order</span>) : array</pre>
+                <p><em>Cerca oggetti con le corrispondenze specificate</em></p>
                 
 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>array</td>
                                 <td>$_array</td>
-                                <td>
+                                <td><p>La query associativa di ricerca</p>
 </td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$_order</td>
-                                <td>
+                                <td><p>Ordine espresso come SQL</p>
 </td>
                             </tr>
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Array di oggetti</p>
+
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -892,23 +871,27 @@
             <article class="method">
                 <h3 class="public ">elenco()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">elenco( <span class="argument">$ordine</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">elenco(string <span class="argument">$ordine</span>) : array</pre>
+                <p><em>Ritorna un elenco di tutti gli oggetti nel database</em></p>
                 
 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$ordine</td>
-                                <td>
+                                <td><p>Opzionale. Ordine in SQL</p>
 </td>
                             </tr>
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Array di oggetti</p>
+
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -930,35 +913,35 @@
             <article class="method">
                 <h3 class="public ">cercaFulltext()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">cercaFulltext( <span class="argument">$query</span>,  <span class="argument">$campi</span>,  <span class="argument">$limit</span>,  <span class="argument">$altroWhere</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">cercaFulltext(string <span class="argument">$query</span>, array <span class="argument">$campi</span>, int <span class="argument">$limit</span>, string <span class="argument">$altroWhere</span>)</pre>
+                <p><em>Effettua una ricerca MySQL FULLTEXT sui campi specificati</em></p>
                 
 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$query</td>
-                                <td>
+                                <td><p>La query di ricerca.</p>
 </td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>array</td>
                                 <td>$campi</td>
-                                <td>
+                                <td><p>Array contenente i campi sui quali effettuare la ricerca</p>
 </td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>int</td>
                                 <td>$limit</td>
-                                <td>
+                                <td><p>Opzionale. Default 20. Numero di risultati da ritornare.</p>
 </td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$altroWhere</td>
-                                <td>
+                                <td><p>Opzionale. Espressione SQL aggiuntiva nel WHERE. Deve iniziare con operatore logico.</p>
 </td>
                             </tr>
                                             </table>
@@ -1014,23 +997,27 @@
             <article class="method">
                 <h3 class="public ">_esiste()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_esiste( <span class="argument">$id</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">_esiste(mixed <span class="argument">$id</span>) : bool</pre>
+                <p><em>Controlla l&#039;esistenza dell&#039;oggetto con un dato ID</em></p>
                 
 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>mixed</td>
                                 <td>$id</td>
-                                <td>
+                                <td><p>L'ID dell'oggetto da verificare</p>
 </td>
                             </tr>
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    bool
+                                            &mdash; <p>Esistenza dell'oggetto</p>
+
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -1133,7 +1120,7 @@
                 <h3 class="public ">cancella()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">cancella()</pre>
-                <p><em></em></p>
+                <p><em>Cancella l&#039;oggetto ed eventuali dettagli</em></p>
                 
 
 
@@ -1160,14 +1147,18 @@
             <article class="method">
                 <h3 class="public ">oid()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">oid()</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">oid() : string</pre>
+                <p><em>Ottiene l&#039;OID dell&#039;oggetto come stringa. Es. &#039;Utente:15&#039;</em></p>
                 
 
 
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>OID dell'oggetto</p>
+
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -1188,8 +1179,8 @@
             <article class="method">
                 <h3 class="public ">daOid()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">daOid( <span class="argument">$oid</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">daOid( <span class="argument">$oid</span>) : static</pre>
+                <p><em>Ritorna un oggetto dall&#039;OID specificato</em></p>
                 
 
 
@@ -1202,6 +1193,39 @@
 </td>
                             </tr>
                                             </table>
+                
+                
+                                    <h4>Returns</h4>
+                    static
+                                            &mdash; <p>Oggetto</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Entita.html"><div class="path-wrapper">\Entita</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__invalidaCacheQuery" name="method__invalidaCacheQuery" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">_invalidaCacheQuery()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_invalidaCacheQuery()</pre>
+                <p><em>Invalida le query in cache per questo tipo di oggetto</em></p>
+                
+
+
                 
                 
                             </article>
@@ -1220,20 +1244,24 @@
         </aside>
     </div>
 
-                                                    <div class="row-fluid">
+                                    <div class="row-fluid">
         <div class="span8 content class">
             <a id="method_generaId" name="method_generaId" class="anchor"></a>
             <article class="method">
                 <h3 class="protected ">generaId()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">generaId()</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">generaId() : int</pre>
+                <p><em>Metodo di generazione dell&#039;ID per l&#039;oggetto. Sovrascrivibile.</em></p>
                 
 
 
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    int
+                                            &mdash; <p>ID numerico progressivo</p>
+
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -1255,7 +1283,7 @@
                 <h3 class="protected ">_crea()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">_crea()</pre>
-                <p><em></em></p>
+                <p><em>Inizializza un nuovo oggetto e ne aggiunga la riga al database</em></p>
                 
 
 
@@ -1265,35 +1293,6 @@
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/Entita.html"><div class="path-wrapper">\Entita</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method__invalidaCacheQuery" name="method__invalidaCacheQuery" class="anchor"></a>
-            <article class="method">
-                <h3 class="private ">_invalidaCacheQuery()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_invalidaCacheQuery()</pre>
-                <p><em></em></p>
-                
-
-
-                
-                
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                            <span class="label label-info">static</span>
                                                             <dl>
                                                     <dt>Inherited from</dt>
                     <dd><a href="../classes/Entita.html"><div class="path-wrapper">\Entita</div></a></dd>
@@ -1309,10 +1308,10 @@
         <div class="span8 content class">
             <a id="method_cancellaDettagli" name="method_cancellaDettagli" class="anchor"></a>
             <article class="method">
-                <h3 class="private ">cancellaDettagli()</h3>
+                <h3 class="protected ">cancellaDettagli()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">cancellaDettagli()</pre>
-                <p><em></em></p>
+                <p><em>Cancella i dettagli dell&#039;oggetto nella tabella associata</em></p>
                 
 
 
@@ -1333,7 +1332,7 @@
         </aside>
     </div>
 
-                                    </div>
+                                                    </div>
     </section>
 
     <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
@@ -1382,7 +1381,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on August 16th, 2013 at 15:53.
+                    on September 18th, 2013 at 18:37.
                 </section>
             </section>
         </section>

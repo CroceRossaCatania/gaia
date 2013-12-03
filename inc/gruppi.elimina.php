@@ -5,7 +5,7 @@
  */
 
 $id     =   $_GET['id'];
-$gruppo =   new Gruppo($id);
+$gruppo =   Gruppo::id($id);
 $gruppo->cancella();
 
 redirect('gruppi.dash&cancellato');

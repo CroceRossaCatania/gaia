@@ -26,14 +26,29 @@ class Locale extends GeoPolitica {
         return $this->comitati();
     }
 
+    public function superiore() {
+        return $this->provinciale();
+    }
+
     public function comitati() {
         return Comitato::filtra([
             ['locale',  $this->id]
-        ]);
+        ], 'nome ASC');
+    }    
+
+    public function aree($obiettivo = null, $espandiLocali = false ) {
+        if (!$espandiLocali) {
+            return parent::aree($obiettivo);
+        }
+        $r = parent::aree($obiettivo);
+        foreach ( $this->estensione() as $c ) {
+            $r = array_merge($r, $c->aree($obiettivo));
+        }
+        return array_unique($r);
     }
     
     public function provinciale() {
-        return new Provinciale($this->provinciale);
+        return Provinciale::id($this->provinciale);
     }
     
     public function regionale() {
@@ -46,12 +61,20 @@ class Locale extends GeoPolitica {
     
     public function toJSON() {
         $comitati = $this->comitati();
+        $principale = $this->principale();
         foreach ( $comitati as &$comitato ) {
             $comitato = $comitato->toJSON();
         }
+        
         return [
-            'nome'  =>  $this->nome,
-            'unita' =>  $comitati
+            'nome'      =>  $this->nome,
+            'indirizzo' =>  $this->formattato,
+            'coordinate'=>  $this->coordinate(),
+            'telefono'  =>  $principale->telefono,
+            'email'     =>  $principale->email,
+            'principale'=>  $principale->id,
+            'unita'     =>  $comitati,
+            'id'        =>  $this->id
         ];
     }
 
@@ -66,6 +89,24 @@ class Locale extends GeoPolitica {
         ]);
         if (!$p) { return false; }
         return $p[0];
+    }
+
+    public static function localiNull() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                locali
+            WHERE 
+                nome IS NULL
+            ");
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        return $r;
     }
     
 }

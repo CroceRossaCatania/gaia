@@ -1,6 +1,6 @@
 <?php
 
-$a = new Attivita($_POST['id']);
+$a = Attivita::id($_POST['id']);
 
 $a->stato = ATT_STATO_OK;
 

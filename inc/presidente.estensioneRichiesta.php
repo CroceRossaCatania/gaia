@@ -6,7 +6,7 @@
 
 paginaPresidenziale();
 $e = $_GET['id'];
-$e = new Estensione($e);
+$e = Estensione::id($e);
 $_v = $e->volontario();
 ?>
 

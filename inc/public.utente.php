@@ -6,145 +6,147 @@
 
 paginaPrivata();
 
-$f = $_GET['id']; 
-$t= Persona::filtra([
-  ['id', $f]
-]);
-$g= Volontario::by('id',$f);
-$a=TitoloPersonale::filtra([['volontario',$f]]);
+$id = $_GET['id']; 
+$u = Utente::id($id);
+$t = TitoloPersonale::filtra([['volontario', $u]]);
 ?>
 <!--Visualizzazione e modifica anagrafica utente-->
 <div class="row-fluid">
     <div class="span6">
   <!--Visualizzazione e modifica avatar utente-->
         <div class="span12">
-        <h2><i class="icon-edit muted"></i> Anagrafica</h2>
-            <div class="span12 allinea-centro">
-        <img src="<?php echo $g->avatar()->img(20); ?>" class="img-polaroid" />
-               <br/><br/></div>
-            </div>
-            
-<form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $f; ?>" method="POST">
-        <hr />
-        <div class="control-group">
-              <label class="control-label" for="inputNome">Nome</label>
-              <div class="controls">
-                <input readonly type="text" name="inputNome" id="inputNome"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->nome; ?>">
-              </div>
+            <h2><i class="icon-edit muted"></i> Anagrafica</h2>
+        </div>
+        <div class="span12 allinea-centro">
+            <img src="<?php echo $u->avatar()->img(20); ?>" class="img-polaroid" />
+            <br/><br/>
+        </div>
+        <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $id; ?>" method="POST">
+            <hr />
+            <div class="control-group">
+                <label class="control-label" for="inputNome">Nome</label>
+                <div class="controls">
+                    <input readonly type="text" name="inputNome" id="inputNome" value="<?php echo $u->nome; ?>">
+                </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="inputCognome">Cognome</label>
-              <div class="controls">
-                <input readonly type="text" name="inputCognome" id="inputCognome"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->cognome; ?>">
-                
-              </div>
+                <label class="control-label" for="inputCognome">Cognome</label>
+                <div class="controls">
+                    <input readonly type="text" name="inputCognome" id="inputCognome" value="<?php echo $u->cognome; ?>">
+                </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="inputDataNascita">Data di Nascita</label>
-              <div class="controls">
-                <input readonly type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo date('d/m/Y', $t[0]->dataNascita); ?>">
-              </div>
+                <label class="control-label" for="ingressoCRI">Data ingresso in CRI</label>
+                <div class="controls">
+                    <input readonly type="text" name="ingressoCRI" id="ingressoCRI" value="<?php echo date('d/m/Y', $u->primaAppartenenza()->inizio); ?>">
+                </div>
             </div>
-            <div class="control-group">
-              <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
-              <div class="controls">
-                <input readonly type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $t[0]->comuneNascita; ?>">
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="ingressoCRI">Data ingresso in CRI</label>
-              <div class="controls">
-                <input readonly type="text" name="ingressoCRI" id="ingressoCRI" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo date('d/m/Y', $g->primaAppartenenza()->inizio); ?>">
-              </div>
-            </div>
-          </form>    
+            <?php if($u->privacy()->contatti($me)){ ?>
+                <div class="control-group">
+                    <label class="control-label" for="inputEmail">Email</label>
+                    <div class="controls">
+                        <input value="<?php echo $u->email; ?>"  type="email" id="inputEmail" name="inputEmail" readonly/>
+                    </div>
+                </div>
+                <div class="control-group input-prepend">
+                    <label class="control-label" for="inputCellulare">Cellulare</label>
+                    <div class="controls">
+                      <span class="add-on">+39</span>
+                      <input value="<?php echo $u->cellulare(); ?>"  type="text" id="inputCellulare" name="inputCellulare" readonly />
+                    </div>
+                </div>
+            <?php } ?>
+        </form>    
     </div>
-    <!--Visualizzazione e modifica titoli utente-->
-    <?php $titoli = $conf['titoli']; ?>
-    <div class="span6">
-   <h3><i class="icon-list muted"></i> Curriculum </h3>
-        
-        <div id="step1">
-            <table class="table table-striped table-condensed table-bordered" id="risultatiRicerca" style="display: none;">
-                <thead>
-                    <th>Nome risultato</th>
-                    <th>Cerca</th>
-                </thead>
-                <tbody>
-                </tbody>
+    <?php if ( $u->storicoDelegazioni() && $u->privacy()->incarichi($me)) { ?>
+        <div class="span6">
+            <h2>
+                <i class="icon-briefcase muted"></i>
+                Incarichi
+            </h2> 
+        </div>
+        <div class="span6">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <th>Stato</th>
+                <th>Ruolo</th>
+                <th>Comitato</th>
+                <th>Inizio</th>
+                <th>Fine</th>
+              </thead>
+              <?php foreach ( $u->storicoDelegazioni() as $app ) { ?>
+                <tr<?php if ($app->fine >= time() || $app->fine == 0 ) { ?> class="success"<?php } ?>>
+                  <td>
+                    <?php if ($app->fine >= time() || $app->fine == 0 ) { ?>
+                      Attuale
+                    <?php } else { ?>
+                      Passato
+                    <?php } ?>
+                  </td>
+                  <td>
+                    <?php switch ( $app->applicazione ) { 
+                      case APP_PRESIDENTE:
+                        ?>
+                        <strong>Presidente</strong>
+                        <?php
+                        break;
+                      case APP_ATTIVITA:
+                        ?>
+                        <strong>Referente</strong>
+                        <?php echo $conf['app_attivita'][$app->dominio]; ?>
+                        <?php
+                        break;
+                      case APP_OBIETTIVO:
+                        ?>
+                        <strong>Delegato</strong>
+                        <?php echo $conf['obiettivi'][$app->dominio]; ?>
+                        <?php
+                        break;
+                      default:
+                        ?>
+                        <strong><?php echo $conf['applicazioni'][$app->applicazione]; ?></strong>
+                        <?php
+                        break;
+                    } ?>
+                  </td>
+                  <td>
+                    <?php echo $app->comitato()->nomeCompleto(); ?>
+                  </td>
+                  <td>
+                    <i class="icon-calendar muted"></i>
+                    <?php echo $app->inizio()->inTesto(false); ?>
+                  </td>
+                  <td>
+                    <?php if ($app->fine) { ?>
+                      <i class="icon-time muted"></i>
+                      <?php echo $app->fine()->inTesto(false); ?>
+                    <?php } else { ?>
+                      <i class="icon-question-sign muted"></i>
+                      Indeterminato
+                    <?php } ?>
+                  </td>
+                </tr>
+              <?php } ?>     
             </table>
-          </div>
-        
-        <div id="step2" style="display: none;">
-            <form action='?p=presidente.titolo.nuovo&id=<?php echo $t[0]->id; ?>' method="POST">
-            <input type="hidden" name="idTitolo" id="idTitolo" />
-            <div class="alert alert-block alert-success">
-                <div class="row-fluid">
-                    <h4><i class="icon-question-sign"></i> Quando hai ottenuto...</h4>
-                </div>
-                <hr />
-                <div class="row-fluid">
-                    <div class="span4 centrato">
-                        <label for="dataInizio"><i class="icon-calendar"></i> Ottenimento</label>
-                    </div>
-                    <div class="span8">
-                        <input id="dataInizio" class="span12" name="dataInizio" type="text" value="" />
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span4 centrato">
-                        <label for="dataFine"><i class="icon-time"></i> Scadenza</label>
-                    </div>
-                    <div class="span8">
-                        <input id="dataFine" class="span12" name="dataFine" type="text" value="" />
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span4 centrato">
-                        <label for="luogo"><i class="icon-road"></i> Luogo</label>
-                    </div>
-                    <div class="span8">
-                        <input id="luogo" class="span12" name="luogo" type="text" value="" />
-                    </div>
-                </div>
-                <div class="row-fluid">
-                <div class="span4 centrato">
-                        <label for="codice"><i class="icon-barcode"></i> Codice</label>
-                    </div>
-                    <div class="span8">
-                        <input id="codice" class="span12" name="codice" type="text" value="" />
-                    </div>
-                </div>
-                <div class="row-fluid">
-                <div class="span4 centrato">
-                        <label for="codice"><i class="icon-barcode"></i> N. Patente</label>
-                    </div>
-                    <div class="span8">
-                        <input id="codice" class="span12" name="codice" type="text" value="" />
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span4 offset8">
-                        <button type="submit" class="btn btn-success">
-                            <i class="icon-plus"></i>
-                                Aggiungi il titolo
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>   
-     <?php $ttt = $a; ?>
-                <table class="table table-striped">
-                    <?php foreach ( $ttt as $titolo ) { ?>
-                        <?php if ($titolo->tConferma) { ?>
-                            <tr>
-                                <td>
-                                    <strong><?php echo $titolo->titolo()->nome; ?></strong><br />
-                                    <small><?php echo $conf['titoli'][$titolo->titolo()->tipo][0]; ?></small>
-                                </td>
-                            </tr>
+        </div>
+<?php } ?>
+<!--Visualizzazione e modifica titoli utente-->
+<?php if($u->privacy()->curriculum($me)){
+        $titoli = $conf['titoli']; ?>
+        <div class="span6">
+            <h3><i class="icon-list muted"></i> Curriculum </h3>
+            <table class="table table-striped">
+                <?php foreach ( $t as $titolo ) { ?>
+                    <?php if ($titolo->tConferma) { ?>
+                        <tr>
+                            <td>
+                                <strong><?php echo $titolo->titolo()->nome; ?></strong><br />
+                                <small><?php echo $conf['titoli'][$titolo->titolo()->tipo][0]; ?></small>
+                            </td>
+                        </tr>
                     <?php   }
-                                } ?>
-                </table>
-    </div>
+                } ?>
+            </table>
+            </div>
+    <?php } ?>
 </div>

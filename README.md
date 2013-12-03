@@ -1,6 +1,6 @@
 # Il progetto Gaia
 
-Leggi le **[Informazioni sul progetto Gaia](http://www.gaiacri.it/?p=public.about)**
+Leggi le **[Informazioni sul progetto Gaia](https://gaia.cri.it/?p=public.about)**
 
 ### Link utili
 
@@ -13,7 +13,7 @@ Leggi le **[Informazioni sul progetto Gaia](http://www.gaiacri.it/?p=public.abou
 
 **Leggi: [Come partecipare al progetto](http://goo.gl/Jjiqo)**
 
-Alternativamente, contattaci a <info@gaiacri.it> per saperne di più.
+Alternativamente, contattaci a <info@gaia.cri.it> per saperne di più.
 
 
 # Progetti affini
@@ -34,9 +34,14 @@ Per motivi di sviluppo, è possibile installare Gaia seguendo una delle due vie.
 **Script di installazione**, basta aprire un terminale (col proprio utente) ed incollare:
 
 ```bash
-wget https://gist.github.com/AlfioEmanueleFresta/6264461/raw/db97582608ccd71b4434f510f2377fe0cdd988a4/gaia.sh
+wget https://gist.github.com/AlfioEmanueleFresta/6264461/raw/59887421d49daa3c18f2fe399584bf02a351c844/gaia.sh
 sh gaia.sh
 ```
+
+##### La via facile (Mint Linux Olivia+)
+
+1. Impostazioni > Sorgenti Software (Software Sources) > PPA > Aggiungi `ppa:ondrej/php5`
+2. Usare lo script di installazione per Ubuntu qua sopra.
 
 #### La via difficile
 

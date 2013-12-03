@@ -7,7 +7,7 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $numero = $_GET['inputNumero'];
-$q = Quota::by('id',$numero);
+$q = Quota::id($numero);
 
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>

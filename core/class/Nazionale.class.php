@@ -28,11 +28,15 @@ class Nazionale extends GeoPolitica {
     public function figli() {
         return $this->regionali();
     }
+
+    public function superiore() {
+        return false;
+    }
     
     public function regionali() {
         return Regionale::filtra([
             ['nazionale',  $this->id]
-        ]);
+        ], 'nome ASC');
     }
     
     public function toJSON() {
@@ -42,7 +46,8 @@ class Nazionale extends GeoPolitica {
         }
         return [
             'nome'          =>  $this->nome,
-            'regionali'     =>  $regionali
+            'regionali'     =>  $regionali,
+            'id'            =>  $this->id
         ];
     }
     

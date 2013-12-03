@@ -38,16 +38,16 @@ var origElem = '';
         $("#selettoreCerca").keyup( function() {
             var query = $("#selettoreCerca").val();
             if ( query.length < 1 ) { $("#selettoreRisultati").html(''); return; }
-            api('cercaVolontario', {query:query}, function( x ) {
+            api('volontari:cerca', {query: query, perPagina: 80, ordine: 'selettore'}, function( x ) {
                $("#selettoreRisultati").html('');
                if ( x.response.length < 1 ) {
                    $("#selettoreRisultati").html('<span class="text-warning"><i class="icon-warning-sign"></i> Nessun volontario trovato.</span>');
                }
-               for ( var i in x.response ) {
+               for ( var i in x.response.risultati ) {
                    var stringa = '';
-                   stringa += "<div data-id='" + x.response[i].id + "' data-nome='" + x.response[i].nome + "' class='collaMano'>";
-                   stringa += "<i class='icon-plus'></i> <span class='grassetto'>" + x.response[i].nome + "</span> (";
-                   stringa += "<span class='muted'>" + x.response[i].comitato.nome + "</span>)</div>";
+                   stringa += "<div data-id='" + x.response.risultati[i].id + "' data-nome='" + x.response.risultati[i].nome + "' class='collaMano'>";
+                   stringa += "<i class='icon-plus'></i> <span class='grassetto'>" + x.response.risultati[i].nome + " " + x.response.risultati[i].cognome + "</span> (";
+                   stringa += "<span class='muted'>" + x.response.risultati[i].comitato.nome + "</span>)</div>";
                    
                    $(stringa).appendTo("#selettoreRisultati").click(function() {
                        var _id, _nome;

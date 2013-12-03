@@ -11,11 +11,11 @@ class AppartenenzaGruppo extends Entita {
             $_dt = null;
 
         public function appartenenza() {
-        return new Appartenenza($this->appartenenza);
+        return Appartenenza::id($this->appartenenza);
     }
     
         public function volontario() {
-            return new Volontario($this->volontario);
+            return Volontario::id($this->volontario);
         }
         
         public function inizio() {
@@ -33,7 +33,7 @@ class AppartenenzaGruppo extends Entita {
         }
         
         public function gruppo() {
-            return new Gruppo($this->gruppo);
+            return Gruppo::id($this->gruppo);
         }
         
         public function comitato() {

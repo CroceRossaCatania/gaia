@@ -34,35 +34,35 @@ paginaPrivata();
               <label class="control-label" for="inputNome">Nome</label>
               <div class="controls">
                 <input type="text" name="inputNome" id="inputNome" readonly value="<?php echo $me->nome; ?>">
-                <acronym title="Per modificare, contatta supporto@gaiacri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
+                <acronym title="Per modificare, contatta supporto@gaia.cri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputCognome">Cognome</label>
               <div class="controls">
                 <input type="text" name="inputCognome" id="inputCognome" readonly value="<?php echo $me->cognome; ?>">
-                <acronym title="Per modificare, contatta supporto@gaiacri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
+                <acronym title="Per modificare, contatta supporto@gaia.cri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
               </div>
             </div>
             <div class="control-group">
             <label class="control-label" for="inputSesso">Sesso</label>
             <div class="controls">
               <input class="input-mini" type="text" name="inpuSesso" id="inpuSesso" readonly value="<?php echo $conf['sesso'][$me->sesso]; ?>"> 
-              <acronym title="Per modificare, contatta supporto@gaiacri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
+              <acronym title="Per modificare, contatta supporto@gaia.cri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
             </div>
           </div>
             <div class="control-group">
               <label class="control-label" for="inputCodiceFiscale">Codice Fiscale</label>
               <div class="controls">
                 <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale" readonly value="<?php echo $me->codiceFiscale; ?>">
-                <acronym title="Per modificare, contatta supporto@gaiacri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
+                <acronym title="Per modificare, contatta supporto@gaia.cri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputDataNascita">Data di Nascita</label>
               <div class="controls">
                 <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" readonly value="<?php echo date('d-m-Y', $me->dataNascita); ?>">
-                <acronym title="Per modificare, contatta supporto@gaiacri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
+                <acronym title="Per modificare, contatta supporto@gaia.cri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
 
               </div>
             </div>
@@ -70,14 +70,14 @@ paginaPrivata();
               <label class="control-label" for="inputProvinciaNascita">Provincia di Nascita</label>
               <div class="controls">
                 <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" readonly value="<?php echo $me->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
-                <acronym title="Per modificare, contatta supporto@gaiacri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
+                <acronym title="Per modificare, contatta supporto@gaia.cri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
               <div class="controls">
                 <input type="text" name="inputComuneNascita" id="inputComuneNascita" readonly value="<?php echo $me->comuneNascita; ?>">
-                <acronym title="Per modificare, contatta supporto@gaiacri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
+                <acronym title="Per modificare, contatta supporto@gaia.cri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
               </div>
             </div>
 
@@ -112,17 +112,6 @@ paginaPrivata();
                  &nbsp; <span class="muted">ad es.: CT</span>
                </div>
              </div>
-            <div class="control-group">
-            <label class="control-label" for="inputgruppoSanguigno">Gruppo Sanguigno</label>
-            <div class="controls">
-                <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  required <?php if($a==1){ ?>readonly<?php }?> >
-                <?php
-                    foreach ( $conf['sangue_gruppo'] as $numero => $gruppo ) { ?>
-                    <option value="<?php echo $numero; ?>" <?php if ( $numero == $me->grsanguigno ) { ?>selected<?php } ?>><?php echo $gruppo; ?></option>
-                    <?php } ?>
-                </select>   
-            </div>
-          </div>
             <div class="form-actions">
                 <?php if($a!=1){ ?>
                 <button type="submit" class="btn btn-success btn-large">

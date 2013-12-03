@@ -8,13 +8,12 @@ paginaPresidenziale();
 // caricaSelettore();
 
 
-$comitati = $me->comitatiDiCompetenza();
+$comitati = $me->unitaDiCompetenza();
 
 if ( $sessione->attenzione == false ){
     $sessione->attenzione = true;
     ?>
-
-<div class="modal fade automodal">
+    <div class="modal fade automodal">
         <div class="modal-header">
           <h3 class="text-success"><i class="icon-phone"></i> Gaia da oggi ti risponde!</h3>
         </div>
@@ -28,15 +27,22 @@ if ( $sessione->attenzione == false ){
             Ok, grazie
           </a>
         </div>
-</div>
-    
+    </div>
 <?php } ?>
+
 
 <div class="row-fluid">
     <div class="span3">
         <?php menuVolontario(); ?>
     </div>
     <div class="span9">
+
+        <?php if ( isset($_GET['resetOk']) ) { ?>
+            <div class="alert alert-success">
+                <i class="icon-fire"></i> <strong>Albero dei Comitati bruciato!</strong> &mdash;
+                Sta piano piano ricrescendo...
+            </div>
+        <?php } ?>
 
         
         <div class="row-fluid">

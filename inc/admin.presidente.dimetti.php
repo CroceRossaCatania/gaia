@@ -7,7 +7,7 @@
 paginaAdmin();
 
 $t = $_GET['id'];
-$t = new Delegato($t);
+$t = Delegato::id($t);
 $t->fine = time();
 
 

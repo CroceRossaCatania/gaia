@@ -30,11 +30,13 @@ $conf['statoPersona'] = [
     ASPIRANTE   =>  'Aspirante',
     VOLONTARIO  =>  'Volontario'
 ];
-/* Un anno */
+
+/* Un anno, un mese e un giorno */
 
 define('ANNO',      31536000);
 define('MESE',       2592000);
 define('MESEEMEZZO', 3888000);
+define('DUEGIORNI',   172800);
 
 /*
  * ===================================
@@ -99,13 +101,15 @@ define('ATTIVITA_PUBBLICA',		1);
  */
 
 define('AUT_PENDING',       10);
+define('AUT_NP',            15);
 define('AUT_NO',            20);
 define('AUT_OK',            30);
 
 $conf['autorizzazione'] = [
     AUT_PENDING         =>  'In attesa',
     AUT_OK              =>  'Concessa',
-    AUT_NO              =>  'Negata'
+    AUT_NO              =>  'Negata',
+    AUT_NP              =>  'Mancata partecipazione turno'
 ];
 
 
@@ -257,7 +261,7 @@ $conf['applicazioni'] = [
 define('ATT_VIS_UNITA',         10);
 define('ATT_VIS_LOCALE',        20);
 define('ATT_VIS_PROVINCIALE',   30);
-//...
+define('ATT_VIS_REGIONALE',     40);
 define('ATT_VIS_VOLONTARI',     80);
 define('ATT_VIS_PUBBLICA',      90);
 
@@ -265,7 +269,8 @@ $conf['att_vis'] = [
     ATT_VIS_UNITA           =>  'Unità territoriale',
     ATT_VIS_LOCALE          =>  'Comitato Locale',
     ATT_VIS_PROVINCIALE     =>  'Comitato Provinciale',
-    ATT_VIS_VOLONTARI       =>  'Tutti i volontari CRI',
+    ATT_VIS_REGIONALE       =>  'Comitato Regionale',
+    ATT_VIS_VOLONTARI       =>  'Tutti i Volontari della Croce Rossa Italiana',
     ATT_VIS_PUBBLICA        =>  'Pubblica: Volontari e civili'
 ];
 
@@ -297,6 +302,15 @@ $conf['obiettivi'] = [
     OBIETTIVO_4 =>  "Obiettivo strategico 4",
     OBIETTIVO_5 =>  "Obiettivo strategico 5",
     OBIETTIVO_6 =>  "Obiettivo strategico 6"
+];
+
+$conf['nomiobiettivi'] = [
+    OBIETTIVO_1 =>  "Salute",
+    OBIETTIVO_2 =>  "Sociale",
+    OBIETTIVO_3 =>  "Emergenze",
+    OBIETTIVO_4 =>  "Principi",
+    OBIETTIVO_5 =>  "Giovani",
+    OBIETTIVO_6 =>  "Sviluppo"
 ];
 
 /*
@@ -421,7 +435,7 @@ $conf['veicoli'] = [
 
 /*
  * ===================================
- * =========== ESTENSIONE ============
+ * ====== ESTENSIONE TERRITORIALE ====
  * ===================================
  */
 
@@ -473,7 +487,7 @@ define('PIVA', '01019341005');
 
 /*
  * ===================================
- * =========== APP_PATENTI==== ============
+ * =========== APP_PATENTI ===========
  * ===================================
  */
 
@@ -492,3 +506,66 @@ $conf['patente'] = [
     PATENTE_ATTESA_CONSEGNA => 'In attesa ritiro patente',
     PATENTE_CONSEGNATA => 'Patente consegnata'
 ];
+
+/*
+ * ===================================
+ * ======= ESTENSIONE GRUPPI =========
+ * ===================================
+ */
+
+define('EST_GRP_UNITA',         10);
+define('EST_GRP_LOCALE',        20);
+
+$conf['est_grp'] = [
+    EST_GRP_UNITA       =>  'Unità Territoriale',
+    EST_GRP_LOCALE      =>  'Comitato Locale'    
+];
+
+/*
+ * ===================================
+ * ======= VALIDAZIONI ===============
+ * ===================================
+ */
+
+define('VAL_CHIUSA',   10);
+define('VAL_PASS',     20);
+define('VAL_MAIL',     30);
+define('VAL_MAILS',    40);
+
+/*
+ * ===================================
+ * =========== DIZIONARI =============
+ * ===================================
+ */
+
+define('DIZIONARIO_ALFANUMERICO',   10);
+define('DIZIONARIO_NUMERICO',       20);
+define('DIZIONARIO_ESADECIMALE',    30);
+define('DIZIONARIO_BASE64',         40);
+
+$conf['dizionario'] = [
+    DIZIONARIO_ALFANUMERICO =>  '0123456789abcdefghijklmnopqrtsuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    DIZIONARIO_NUMERICO     =>  '0123456789',
+    DIZIONARIO_ESADECIMALE  =>  '0123456789abcdef',
+    DIZIONARIO_BASE64       =>  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+];
+
+/*
+ * ===================================
+ * =========== PRVACY ================
+ * ===================================
+ */
+
+/* Tipologia di Privacy */
+define('PRIVACY_PRIVATA',   10);
+define('PRIVACY_COMITATO', 20);
+define('PRIVACY_VOLONTARI', 30);
+define('PRIVACY_PUBBLICA', 40);
+
+/*
+ * ===================================
+ * =========== ETA ===================
+ * ===================================
+ */
+
+define('ETA_MINIMA',   14);

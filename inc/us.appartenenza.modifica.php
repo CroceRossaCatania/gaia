@@ -5,10 +5,10 @@
  */
 
 caricaSelettoreComitato();
-$a = $sessione->a ;
+$a = $_GET['a'];
 $sessione->a = NULL;
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
-$app = Appartenenza::by('id', $a);
+$app = Appartenenza::id($a);
 $v = $app->volontario;
 ?>
 <form action="?p=us.appartenenza.modifica.ok&a=<?php echo $a; ?>" method="POST">

@@ -11,11 +11,11 @@ class Estensione extends Entita {
         $_dt = null;
     
     public function volontario() {
-        return new Volontario($this->volontario);
+        return Volontario::id($this->volontario);
     }
     
     public function appartenenza() {
-        return new Appartenenza($this->appartenenza);
+        return Appartenenza::id($this->appartenenza);
     }
     
 
@@ -51,7 +51,7 @@ class Estensione extends Entita {
         else
             $this->rispondi(EST_AUTO, null, true);        
         $a = $this->appartenenza;
-        $a = new Appartenenza($a);
+        $a = Appartenenza::id($a);
         $a->timestamp = time();
         $a->conferma  = $me->id;    
         $a->stato = MEMBRO_ESTESO;
@@ -64,9 +64,9 @@ class Estensione extends Entita {
     public function auto() {
         $this->concedi(true);
         $a = $this->appartenenza;
-        $a = new Appartenenza($a);
+        $a = Appartenenza::id($a);
         $v = $a->volontario();
-        $destinatari = [$v, $app->comitato()->unPresidente(), $v->unComitato()->unPresidente()];
+        $destinatari = [$v, $a->comitato()->unPresidente(), $v->unComitato()->unPresidente()];
         foreach ($destinatari as $destinatario) {
             $m = new Email('richiestaEstensioneauto', 'Richiesta estensione approvata: ' . $a->comitato()->nome);
             $m->a = $destinatario;
@@ -81,11 +81,11 @@ class Estensione extends Entita {
         $ora = time();
         $this->timestamp = $ora;
         $this->stato = EST_CONCLUSA;
-        $app = new Appartenenza($this->appartenenza);
+        $app = Appartenenza::id($this->appartenenza);
         $app->stato = MEMBRO_EST_TERMINATA;
         $app->fine = time();
-        $c = new Comitato($app->comitato);
-        $v = new Volontario($this->volontario);
+        $c = Comitato::id($app->comitato);
+        $v = Volontario::id($this->volontario);
 
         // chiudo le deleghe su quel comitato
         $d = $v->delegazioni(null, $c->id);

@@ -51,7 +51,13 @@ $log = date('d-m-Y H:i:s') . " CRONJOB INIZIATO\n{$logS}";
 
 // =========== INIZIO CRONJOB GIORNALIERO
 function cronjobGiornaliero()  {
-    global $log, $db;
+    global $log, $db, $cache;
+
+    /* === 0. PERSISTE LA CACHE SU DISCO */
+    if ( $cache ) {
+        $cache->save();
+    }
+    $log .= "Persiste la cache di Redis sul disco\n";
 
     /* === 1. CANCELLA FILE SCADUTI DA DISCO E DATABASE */
     $n = 0;
@@ -107,6 +113,15 @@ function cronjobGiornaliero()  {
     $n = 0;
     $n = Attivita::pulizia();
     $log .= "Fix di $n attività\n";
+
+    /* === 9. RIGENERO L'ALBERO DEI COMITATI */
+    GeoPolitica::rigeneraAlbero();
+    $log .= "Rigenerato l'albero dei comitati\n";
+
+    /* === 10. CHIUDE LE VALIDAZIONI SCADUTE */
+    Validazione::chiudi();
+    $log .= "Chiuse le validazioni scadute\n";
+    
 };
 // =========== FINE CRONJOB GIORNALIERO
 
@@ -227,7 +242,7 @@ file_put_contents('upload/log/cronjob.txt', "\n" . $log, FILE_APPEND);
 $m = new Email('mailTestolibero', 'Report cronjob');
 $dest = new stdClass();
 $dest->nome     = 'Servizi';
-$dest->email    = 'supporto@gaiacri.it';
+$dest->email    = 'supporto@gaia.cri.it';
 $m->a = $dest;
 $m->_TESTO = nl2br($log);
 $m->invia();

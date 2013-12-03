@@ -40,7 +40,24 @@ class Utente extends Persona {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Utente($k[0]);
+            $r[] = Utente::id($k[0]);
+        }
+        return $r;
+    }
+
+    public static function senzaSesso() {
+        global $db;
+        $q = $db->prepare("
+            SELECT
+                id
+            FROM
+                anagrafica
+            WHERE
+                sesso IS NULL");
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
         }
         return $r;
     }
@@ -220,7 +237,7 @@ class Utente extends Persona {
         $q->execute();
         $r = [];
         while ( $x = $q->fetch(PDO::FETCH_NUM ) ) {
-            $r[] = new Appartenenza($x[0]);
+            $r[] = Appartenenza::id($x[0]);
         }
         return $r;
     }
@@ -301,7 +318,7 @@ class Utente extends Persona {
         return $this->comitatiDelegazioni(APP_PRESIDENTE);
     }
     
-    public function comitatiApp( $app ) {
+    public function comitatiApp( $app , $soloComitati = true) {
         if (!is_array($app)) {
             $app = [$app];
         }
@@ -310,7 +327,7 @@ class Utente extends Persona {
         }
         $r = [];
         foreach ( $app as $k ) {
-            $r = array_merge($r, $this->comitatiDelegazioni($k));
+            $r = array_merge($r, $this->comitatiDelegazioni($k, $soloComitati));
         }
         $r = array_unique($r);
         return $r;
@@ -323,18 +340,22 @@ class Utente extends Persona {
     
     public function numVolontariDiCompetenza() {
         $n = 0;
-        foreach ( $this->comitatiApp([ APP_SOCI, APP_PRESIDENTE, APP_CO, APP_OBIETTIVO ]) as $c ) {
-            $n += $c->numMembriAttuali(MEMBRO_VOLONTARIO);
+        $comitati = $this->comitatiApp([ APP_SOCI, APP_PRESIDENTE, APP_CO, APP_OBIETTIVO ]);
+        foreach($comitati as $_c) {
+                $n += $_c->numMembriAttuali(MEMBRO_VOLONTARIO);          
         }
         return $n;
     }
     
     public function presiede( $comitato = null ) {
         if ( $comitato ) {
-            return (bool) in_array($comitato, $this->comitatiApp([APP_PRESIDENTE]));
+            if($comitato->unPresidente() == $this->id) {
+                return true;
+            }
         } else {
-            return (bool) $this->comitatiApp([APP_PRESIDENTE]);
+            return (bool) $this->comitatiApp([APP_PRESIDENTE], false);
         }
+        return false;
     }
     
     /* Avatar */
@@ -356,15 +377,85 @@ class Utente extends Persona {
             return $this->comitatiPresidenzianti();
         }
     }
+
+    public function unitaDiCompetenza() {
+        $c = $this->comitatiDiCompetenza();
+        $r = [];
+        foreach($c as $_c) {
+            if($_c instanceof Comitato) {
+                $r[] = $_c;
+            }
+        }
+        return $r;
+    }
     
     public function miCompete(Comitato $c) {
         return (bool) in_array($c, $this->comitatiDiCompetenza());
     }
 
+    public function commenti ( $limita = null ) {
+        if ( $limita ) {
+            $limita = (int) $limita;
+            return Commento::filtra([
+                ['volontario', $this]
+            ], "tCommenta DESC LIMIT 0, {$limita}");
+        } else {
+            return Commento::filtra([
+                ['volontario', $this]
+            ], "tCommenta DESC");
+        }
+    }
+
     public function cancella() {
+        // 1. Cancella il mio avatar
         $this->avatar()->cancella();
+        // 2. Cancella le mie appartenenze ai gruppi
         foreach ( $this->appartenenze() as $a ) {
             $a->cancella();
+        }
+        // 3. Cancella le mie partecipazioni
+        foreach ( $this->partecipazioni() as $p ) {
+            $p->cancella();
+        }
+        // 4. Elimina le autorizzazioni che mi sono state chieste
+        foreach ( $this->autorizzazioniPendenti() as $a ) {
+            $a->cancella();
+        }
+        // 5. Elimina tutte le delegazioni che mi sono associate
+        foreach ( $this->storicoDelegazioni() as $d ) {
+            $d->cancella();
+        }
+        // 6. Riassegna le Aree al primo presidente a salire l'albero
+        foreach ( $this->areeDiResponsabilita() as $a ) {
+            $a->responsabile = $a->comitato()->primoPresidente();
+        }
+        // 7. Commenti lasciati in giro
+        foreach ( $this->commenti() as $c ) {
+            $c->cancella();
+        }
+        // 8. Gruppi di cui sono referente
+        foreach ( Gruppo::filtra([['referente',$this]]) as $g ) {
+            $g->cancella();
+        }
+        // 9. Mie estensioni
+        foreach ( Estensione::filtra([['volontario',$this]]) as $g ) {
+            $g->cancella();
+        }
+        // 10. Mie Riserve
+        foreach ( Riserva::filtra([['volontario',$this]]) as $g ) {
+            $g->cancella();
+        }
+        // 11. Mie reperibilita'
+        foreach ( Reperibilita::filtra([['volontario',$this]]) as $g ) {
+            $g->cancella();
+        }
+        // 12. Sessioni in corso
+        foreach ( Sessione::filtra([['utente',$this]]) as $g ) {
+            $g->cancella();
+        }
+        // 13. Titoli personali
+        foreach ( TitoloPersonale::filtra([['volontario',$this]]) as $g ) {
+            $g->cancella();
         }
         parent::cancella();
     }
@@ -548,12 +639,17 @@ class Utente extends Persona {
         return $r;
     }
     
-    public function comitatiDelegazioni($app = null) {
+    public function comitatiDelegazioni($app = null, $soloComitati = false) {
         $d = $this->delegazioni($app);
         $c = [];
-        foreach ( $d as $k ) {
-            // $c[] = $k->comitato();
-            $c = array_merge($k->estensione(), $c);
+        foreach ( $d as $_d ) {
+            $comitato = $_d->comitato();
+            if (!$soloComitati || $comitato instanceof Comitato) {
+                $c[] = $comitato;
+            }
+            if (!$comitato instanceof Comitato) {
+                $c = array_merge($comitato->estensione(), $c);
+            }
         }
         return array_unique($c);
     }
@@ -659,28 +755,44 @@ class Utente extends Persona {
     }
     
     public function contaGruppi() {
-        return AppartenenzaGruppo::filtra([
-            ['volontario',  $this->id],
-            ['fine',NULL]
-        ]);
-    }
-    
-     public function gruppiAttuali() {
         $q = $this->db->prepare("
             SELECT
-                volontario
+                COUNT(volontario)
             FROM
                 gruppiPersonali
             WHERE
                 ( fine >= :ora OR fine IS NULL OR fine = 0) 
+            AND
+                volontario = :volontario
             ORDER BY
                 inizio ASC");
         $q->bindValue(':ora', time());
+        $q->bindParam(':volontario', $this->id);
         $q->execute();
-        $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new AppartenenzaGruppo($k[0]);
-        }
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+    
+     public function gruppoAttuale($g) {
+        $q = $this->db->prepare("
+            SELECT
+                id
+            FROM
+                gruppiPersonali
+            WHERE
+                ( fine >= :ora OR fine IS NULL OR fine = 0)
+            AND
+                volontario = :volontario 
+            AND
+                gruppo = :gruppo
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':volontario', $this->id);
+        $q->bindParam(':gruppo', $g);
+        $q->execute();
+        $r = $q->fetch();
+        $r = new AppartenenzaGruppo($r[0]);
         return $r;
     }
     
@@ -696,14 +808,14 @@ class Utente extends Persona {
         ]);
     }
     
-    public function areeDiCompetenza( $c = null ) {
+    public function areeDiCompetenza( $c = null , $espandiLocale = false) {
         if ( $c ) {
             if ( $this->admin() || $this->presiede($c) ) {
                 return $c->aree();
-            } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $comitato) ) {
+            } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $c) ) {
                 $r = [];
                 foreach ( $o as $io ) {
-                    $r = array_merge($r, $c->aree($io->dominio));
+                    $r = array_merge($r, $c->aree($io->dominio, $espandiLocale));
                 }
                 $r = array_unique($r);
                 return $r;
@@ -718,10 +830,14 @@ class Utente extends Persona {
                 $r = array_merge($r, $c->aree());
             }
             foreach ( $this->delegazioni(APP_OBIETTIVO) as $d ) {
-                $r = array_merge(
-                        $r,
-                        $d->comitato()->aree($d->dominio)
-                );
+                $comitato = $d->comitato();
+                $r = array_merge($r, $comitato->aree($d->dominio));
+                if ($comitato instanceof Locale) {
+                    $comitati = $comitato->estensione();
+                    foreach ($comitati as $_c) {
+                        $r = array_merge($r, $_c->aree($d->dominio));
+                    } 
+                }
             }
             $r = array_merge($r, $this->areeDiResponsabilita());
             $r = array_unique($r);
@@ -731,10 +847,14 @@ class Utente extends Persona {
     }
     
     public function comitatiAreeDiCompetenza() {
-        $a = $this->areeDiCompetenza();
+        $a = $this->areeDiCompetenza(null, true);
         $r = [];
         foreach ($a as $ia) {
-            $r[] = $ia->comitato();
+            $comitato = $ia->comitato();
+            $r[] = $comitato;
+            if ($comitato instanceof Locale) {
+                $r = array_merge($r, $comitato->estensione());
+            }
         }
         $r = array_unique($r);
         return $r;
@@ -744,7 +864,7 @@ class Utente extends Persona {
     public function attivitaReferenziate() {
         return Attivita::filtra([
             ['referente',   $this->id]
-        ]);
+        ], 'nome ASC');
     }
             
     public function attivitaReferenziateDaCompletare() {
@@ -776,6 +896,14 @@ class Utente extends Persona {
             return $this->cellulareServizio;
             }else{
                 return $this->cellulare;
+            }
+    }
+
+    public function email() {
+        if($this->emailServizio){
+            return $this->emailServizio;
+            }else{
+                return $this->email;
             }
     }
     
@@ -868,5 +996,83 @@ class Utente extends Persona {
             $r[] = $k[0];
         }
         return $r;
+    }
+
+    public function privacy() {
+        $privacy = Privacy::by('volontario', $this);
+        if ( !$privacy ) {
+            $privacy = new Privacy;
+            $privacy->volontario = $this;
+            $privacy->contatti = PRIVACY_COMITATO;
+            $privacy->mess = PRIVACY_COMITATO;
+            $privacy->curriculum = PRIVACY_PRIVATA;
+            $privacy->incarichi = PRIVACY_PRIVATA;
+        }
+        return $privacy;
+    }
+
+    public function consenso() {
+        if(!$this->consenso) {
+            return false;
+        }
+        return true;
+    }
+
+    public function pri_delegato() {
+        if($this->presidenziante() || $this->attivitaReferenziate() || $this->delegazioni()){
+            return true;
+        }
+        return false;
+    }
+
+    public function pri_smistatore($altroutente){
+        if($this->presidenziante() || $this->delegazioni([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
+            $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO]);
+            foreach ($comitati as $comitato){
+                if($altroutente->in($comitato)){
+                    return PRIVACY_RISTRETTA;            
+                }
+            }
+            return PRIVACY_PUBBLICA;
+        }elseif($this->areeDiResponsabilita()){
+            $ar = $this->areeDiResponsabilita();
+            foreach( $ar as $_a ){
+                $c = $_a->comitato();
+                if($altroutente->in($c)){
+                    return PRIVACY_RISTRETTA;
+                }
+            }
+            redirect('public.utente&id=' . $id);
+        }elseif($this->attivitaReferenziate()){
+            $a = $this->attivitaReferenziate();
+            foreach( $a as $_a ){
+                $c = $_a->area()->comitato();
+                if($altroutente->in($c)){
+                    return PRIVACY_RISTRETTA;
+                }
+            }
+            return PRIVACY_PUBBLICA;
+        }
+        return PRIVACY_PUBBLICA;
+    }
+
+	/*
+     * @return età utente
+     */
+    public function eta(){
+        $anno = date('Y', $this->dataNascita);
+        $ora = date('Y', time());
+        return $ora-$anno;
+    }
+
+    /*
+     * @return bool restituisce true se oggi è il compleanno dell'utente
+     */
+    public function compleanno(){
+        if( date('m', $this->dataNascita)==date('m', time()) && date('d', $this->dataNascita)==date('d', time())){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

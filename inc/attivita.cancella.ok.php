@@ -3,15 +3,15 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
+if (isset($_GET['id'])) {
+	$a = Attivita::id($_GET['id']);
+	paginaAttivita($a);
 
-$a = new Attivita($_GET['id']);
-paginaAttivita($a);
-
-$g = Gruppo::by('attivita', $a);
-if($g){
-	$g = new Gruppo($g);
-	$g->cancella();
+	$g = Gruppo::by('attivita', $a);
+	if($g){
+		$g = Gruppo::id($g);
+		$g->cancella();
+	}
+	$a->cancella();
 }
-$a->cancella();
-
 redirect('attivita');

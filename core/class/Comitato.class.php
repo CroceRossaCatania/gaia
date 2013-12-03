@@ -25,6 +25,10 @@ class Comitato extends GeoPolitica {
         return parent::__get($_nome);
     }
 
+    public function superiore() {
+        return $this->locale();
+    }
+
     public function figli() {
         return [];
     }
@@ -38,6 +42,10 @@ class Comitato extends GeoPolitica {
     	return $c;
     }
 
+    public function unPresidente() {
+        return $this->locale()->unPresidente();
+    }
+
     private function generaColore() { 
     	$r = 100 + rand(0, 155);
     	$g = 100 + rand(0, 155);
@@ -46,12 +54,6 @@ class Comitato extends GeoPolitica {
     	$g = dechex($g);
     	$b = dechex($b);
     	$this->colore = $r . $g . $b;
-    }
-
-    public function calendarioAttivitaPrivate() {
-        return Attivita::filtra([
-            ['comitato',  $this->id]
-        ]);
     }
     
     public function haMembro ( Persona $tizio, $stato = MEMBRO_VOLONTARIO ) {
@@ -84,11 +86,11 @@ class Comitato extends GeoPolitica {
                  cognome ASC, nome ASC");
         $q->bindValue(':ora', time());
         $q->bindParam(':comitato', $this->id);
-        $q->bindParam(':stato',    $stato);
+        $q->bindParam(':stato',    $stato, PDO::PARAM_INT);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Volontario($k[0]);
+            $r[] = Volontario::id($k[0]);
         }
         return $r;
     }
@@ -126,7 +128,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Volontario($k[0]);
+            $r[] = Volontario::id($k[0]);
         }
         return $r;
     }
@@ -162,7 +164,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Volontario($k[0]);
+            $r[] = Volontario::id($k[0]);
         }
         return $r;
     }    
@@ -203,7 +205,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Volontario($k[0]);
+            $r[] = Volontario::id($k[0]);
         }
         return $r;
     }
@@ -246,12 +248,11 @@ class Comitato extends GeoPolitica {
                 inizio ASC");
         $q->bindValue(':ora', time());
         $q->bindParam(':comitato', $this->id);
-        $stato = MEMBRO_PENDENTE;
-        $q->bindValue(':stato',  $stato);
+        $q->bindValue(':stato',  MEMBRO_PENDENTE);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Appartenenza($k[0]);
+            $r[] = Appartenenza::id($k[0]);
         }
         return $r;
     }
@@ -277,7 +278,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new TitoloPersonale($k[0]);
+            $r[] = TitoloPersonale::id($k[0]);
         }
         return $r;
     }
@@ -303,7 +304,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Trasferimento($k[0]);
+            $r[] = Trasferimento::id($k[0]);
         }
         return $r;
     }
@@ -331,13 +332,13 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Riserva($k[0]);
+            $r[] = Riserva::id($k[0]);
         }
         return $r;
     }
     
     public function locale() {
-        return new Locale($this->locale);
+        return Locale::id($this->locale);
     }
     
     public function provinciale() {
@@ -360,26 +361,36 @@ class Comitato extends GeoPolitica {
         if ( $obiettivo ) {
             $obiettivo = (int) $obiettivo;
             return Area::filtra([
-                ['comitato',    $this->id],
+                ['comitato',    $this->oid()],
                 ['obiettivo',   $obiettivo]
             ], 'obiettivo ASC'); 
         } else {
             return Area::filtra([
-                ['comitato',    $this->id]
+                ['comitato',    $this->oid()]
             ], 'obiettivo ASC');
         }
     }
     
-    public function attivita() {
-        return Attivita::filtra([
-            ['comitato', $this->id]
-        ]);
-    }
+    
     
     public function gruppi() {
-        return Gruppo::filtra([
-            ['comitato',    $this->id]
+        $g = Gruppo::filtra([
+            ['comitato',    $this->oid()]
         ], 'nome ASC');
+        $c = $this->locale();
+        $g = array_merge($g, Gruppo::filtra([['comitato', $c->oid()],['estensione', EST_GRP_LOCALE]]));
+        $locali = $c->figli();
+
+        /*
+         * La parte qua sotto vuol dire che noi facciamo dei gruppo di attività di unità
+         * aperte al comitato..... Ora..... perchè non facciamo attività aperte al comitato?
+         */
+        
+        foreach ($locali as $loc){
+            $loc = $loc->oid();
+            $g = array_merge($g, Gruppo::filtra([['comitato', $loc],['estensione', EST_GRP_LOCALE]]));
+        }
+        return array_unique($g);
     }
     
 
@@ -418,7 +429,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Reperibilita($k[0]);
+            $r[] = Reperibilita::id($k[0]);
         }
         return $r;
     }
@@ -460,7 +471,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Volontario($k[0]);
+            $r[] = Volontario::id($k[0]);
         }
         return $r;
     }
@@ -504,7 +515,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Volontario($k[0]);
+            $r[] = Volontario::id($k[0]);
         }
         return $r;
     }
@@ -551,7 +562,7 @@ class Comitato extends GeoPolitica {
         var_dump($q->errorInfo());
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Volontario($k[0]);
+            $r[] = Volontario::id($k[0]);
         }
         return $r;
     }   
@@ -574,7 +585,7 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new PatentiRichieste($k[0]);
+            $r[] = PatentiRichieste::id($k[0]);
         }
         return $r;
     }
@@ -594,7 +605,7 @@ class Comitato extends GeoPolitica {
             AND 
                 anagrafica.id = appartenenza.volontario
             AND 
-                dettagliPersona.nome LIKE  'datanascita'
+                dettagliPersona.nome = 'dataNascita'
             AND
                 appartenenza.comitato = :comitato");
         $q->bindParam(':comitato', $this->id);
@@ -661,8 +672,56 @@ class Comitato extends GeoPolitica {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Reperibilita($k[0]);
+            $r[] = Reperibilita::id($k[0]);
         }
         return $r;
     }
+
+    public static function comitatiNull() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                comitati
+            WHERE 
+                nome IS NULL
+            ");
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        return $r;
+    }
+     
+    public function coTurni() {
+        global $db;
+        $q = $db->prepare("
+            SELECT
+                turni.id
+            FROM
+                attivita, turni
+            WHERE
+                attivita.stato = :stato
+            AND
+                attivita.comitato = :comitato
+            AND
+                turni.attivita = attivita.id
+            AND
+                turni.inizio <= :inizio
+            ORDER BY
+                turni.inizio ASC");
+        $inizio = time()+3600;
+        $q->bindValue(':inizio', $inizio);
+        $q->bindValue(':stato', ATT_STATO_OK);
+        $q->bindParam(':comitato', $this->oid());
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Turno::id($k[0]);
+        }
+            return $r;
+    }
+
 }

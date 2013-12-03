@@ -12,19 +12,19 @@ class Attivita extends GeoEntita {
 
     public function comitato() {
         if ( $this->comitato ) {
-            return new Comitato($this->comitato);
+            return GeoPolitica::daOid($this->comitato);
         } else {
             return false;
         }
     }
 
     public function area() {
-        return new Area($this->area);
+        return Area::id($this->area);
     }
     
     public function referente() {
         if ( $this->referente ) {
-            return new Volontario($this->referente);
+            return Volontario::id($this->referente);
         } else {
             return null;
         }
@@ -36,6 +36,29 @@ class Attivita extends GeoEntita {
         ], 'inizio ASC, nome ASC');
     }
     
+    public function turniFut(){
+        global $db;
+        $q = $db->prepare("
+            SELECT
+                id
+            FROM
+                turni
+            WHERE
+                attivita = :attivita
+            AND
+                fine > :ora
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':attivita', $this);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Turno::id($k[0]);
+        }
+        return $r;
+    }
+
     public function turniScoperti() {
         $t = [];
         foreach ( $this->turni() as $_t ) {
@@ -69,18 +92,36 @@ class Attivita extends GeoEntita {
     
     public function puoPartecipare($v) {
         if (!$v) { return true; }
-        if ( $this->referente == $v->id || $v->admin() || $v->presiede($this->comitato()) ) {
+
+        $geoComitato = GeoPolitica::daOid($this->comitato);
+        if ( $this->referente == $v->id || $v->admin() || $geoComitato->unPresidente()->id == $v->id ) {
             return true;
         }
         switch ( $this->visibilita ) {
             case ATT_VIS_UNITA:
-                return (bool) $this->comitato()->haMembro($v);
+                return (bool) $geoComitato->haMembro($v);
                 break;
+                
             case ATT_VIS_LOCALE:
-                return (bool) ($this->comitato()->locale == $v->unComitato()->locale);
+                while(intval($geoComitato->_estensione()) < EST_LOCALE) {
+                    $oid = $geoComitato->superiore()->oid();
+                    $geoComitato = GeoPolitica::daOid($oid);
+                }
+                return (bool) $geoComitato->contieneVolontario($v);
                 break;
             case ATT_VIS_PROVINCIALE:
-                return (bool) ($this->comitato()->locale()->provinciale == $v->unComitato()->locale()->provinciale);
+                while(intval($geoComitato->_estensione()) < EST_PROVINCIALE) {
+                    $oid = $geoComitato->superiore()->oid();
+                    $geoComitato = GeoPolitica::daOid($oid);
+                }
+                return (bool) $geoComitato->contieneVolontario($v);
+                break;
+            case ATT_VIS_REGIONALE:
+                while(intval($geoComitato->_estensione()) < EST_REGIONALE) {
+                    $oid = $geoComitato->superiore()->oid();
+                    $geoComitato = GeoPolitica::daOid($oid);
+                }
+                return (bool) $geoComitato->contieneVolontario($v);
                 break;
             case ATT_VIS_VOLONTARI:
                 return (bool) $v->unComitato();
@@ -151,7 +192,7 @@ class Attivita extends GeoEntita {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Attivita($k[0]);
+            $r[] = Attivita::id($k[0]);
         }
         return $r;
     }
@@ -175,10 +216,10 @@ class Attivita extends GeoEntita {
                     }
                     $autorizzazioni = Autorizzazione::filtra(['volontario', $referente]);
                     foreach ( $autorizzazioni as $autorizzazione ){
-                        $m = new Autorizzazione($autorizzazione);
+                        $m = Autorizzazione::id($autorizzazione);
                         $m->volontario = $presidente;
                     }
-                    $att = new Attivita($a);
+                    $att = Attivita::id($a);
                     $att->referente = $presidente;
                     $eseguiti++;
                     continue;
@@ -203,6 +244,22 @@ class Attivita extends GeoEntita {
         }
     $t = $eseguiti + $nAttivita;
     return $t;
+    }
+
+    public function visibilitaMinima(GeoPolitica $g) {
+        $livello = $g->_estensione();
+        switch ($livello) {
+            case EST_UNITA:         return ATT_VIS_UNITA;
+                                    break;
+            case EST_LOCALE:        return ATT_VIS_LOCALE;
+                                    break;
+            case EST_PROVINCIALE:   return ATT_VIS_PROVINCIALE;
+                                    break;
+            case EST_REGIONALE:     return ATT_VIS_REGIONALE;
+                                    break;
+            case EST_NAZIONALE:     return ATT_VIS_NAZIONALE;
+                                    break;
+        }
     }
     
 }

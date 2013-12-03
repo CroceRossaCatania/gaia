@@ -6,7 +6,7 @@
 
 paginaPresidenziale();
 $t = $_GET['id'];
-$t = new Trasferimento($t);
+$t = Trasferimento::id($t);
 $_v = $t->volontario();
 ?>
 

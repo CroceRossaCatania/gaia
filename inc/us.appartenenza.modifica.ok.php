@@ -7,10 +7,10 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $a = $_GET['a'];
-$app = Appartenenza::by('id', $a);
+$app = Appartenenza::id($a);
 $v = $app->volontario;
 
-$app = new Appartenenza($a);
+$app = Appartenenza::id($a);
 $app->volontario  = $v;
 
 if ( $_POST['dataInizio'] ) {
@@ -27,7 +27,7 @@ if ( $_POST['dataInizio'] ) {
 
 if ( $_POST['inputComitato'] ) {
     $comitato     = $_POST['inputComitato'];
-    $comitato     = new Comitato($comitato);
+    $comitato     = Comitato::id($comitato);
     $app->comitato = $comitato->id;
 }
 

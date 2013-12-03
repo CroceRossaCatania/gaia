@@ -8,7 +8,7 @@ paginaPrivata();
 paginaAttivita();
 caricaSelettore();
 
-$a = new Attivita(@$_GET['id']);
+$a = Attivita::id($_GET['id']);
 
 if (!$a->haPosizione()) {
     redirect('attivita.localita&id=' . $a->id);
@@ -17,6 +17,9 @@ if (!$a->haPosizione()) {
 $del        = $me->delegazioni(APP_ATTIVITA);
 $comitati   = $me->comitatiDelegazioni(APP_ATTIVITA);
 $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
+
+$g = GeoPolitica::daOid($a->comitato);
+$visMinima = $a->visibilitaMinima($g);
 
 ?>
 
@@ -33,18 +36,24 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
         <button type="submit" name="azione" value="salva" class="btn btn-success btn-large">
             <i class="icon-save"></i> Salva l'attività
         </button>
-        <a href="?p=attivita.turni&id=<?= $a ?>" class="btn btn-primary btn-large">
-            <i class="icon-pencil"></i> Modifica turni
-        </a>
     </div>
     
 </div>
     <hr />
 <div class="row-fluid">
-    <div class="span8">    
-
-
-
+    <div class="span8">
+    
+        <div class="alert alert-info">
+            <i class="icon-info-sign"></i>
+            Presta molta attenzione quando decidi <strong> quali volontari possono partecipare </strong>:</br>
+            <ul>
+            <li>Se selezioni <strong>Tutti i Volontari della Croce Rossa Italiana</strong> permetti a tutti gli
+            iscritti su Gaia di dare disponibilità per l'attività. </li>
+            <li>Se selezioni <strong>Pubblica</strong> permetti anche a chi <strong>non</strong> è Volontario
+            di partecipare. </li>
+            </ul>
+        </div>
+        
           <div class="form-horizontal">
           <div class="control-group">
             <label class="control-label" for="inputNome">Nome</label>
@@ -57,7 +66,8 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
             <label class="control-label" for="inputVisibilita">Quali volontari possono chiedere di partecipare?</label>
             <div class="controls">
                 <select class="input-xxlarge" name="inputVisibilita">
-                    <?php foreach ( $conf['att_vis'] as $num => $nom ) { ?>
+                    <?php foreach ( $conf['att_vis'] as $num => $nom ) { 
+                        if ($num < $visMinima) { continue; }?>
                         <option value="<?php echo $num; ?>"
                             <?php if ( $a->visibilita == $num ) { ?>
                                 selected="selected"
@@ -94,7 +104,9 @@ $domini     = $me->dominiDelegazioni(APP_ATTIVITA);
         
         <p>
             <strong>Organizzatore</strong><br />
-            <?php echo $a->comitato()->nomeCompleto(); ?>
+            <?php 
+            
+            echo $g->nomeCompleto(); ?>
         </p>
         
         <p>

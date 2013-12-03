@@ -11,25 +11,28 @@ class Turno extends Entita {
         $_dt = null;
     
     public function attivita() {
-        return new Attivita($this->attivita);
+        return Attivita::id($this->attivita);
     }
 
     public function inizio() {
-    	return DT::daTimestamp($this->inizio);
+        return DT::daTimestamp($this->inizio);
     }
 
     public function fine() {
-    	return DT::daTimestamp($this->fine);
+        return DT::daTimestamp($this->fine);
     }
     
+    public function prenotazione() {
+        return DT::daTimestamp($this->prenotazione);
+    }
+
     public function partecipazioni() {
         return Partecipazione::filtra([
-            ['turno',   $this->id],
-            ['stato', PART_OK]
+            ['turno',   $this->id]
         ]);
     }
     
-    public function volontari( $stato = AUT_OK ) {
+    public function volontari( $stato = PART_OK ) {
         $r = [];
         foreach ( $this->partecipazioniStato($stato) as $p ) {
             $r[] = $p->volontario();
@@ -38,7 +41,7 @@ class Turno extends Entita {
     }
     
     
-    public function partecipazioniStato($stato = AUT_OK) {
+    public function partecipazioniStato($stato = PART_OK) {
         return Partecipazione::filtra([
             ['turno',   $this->id],
             ['stato',   $stato]
@@ -98,7 +101,7 @@ class Turno extends Entita {
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Turno($k[0]);
+            $r[] = Turno::id($k[0]);
         }
         return $r;
     }
@@ -109,15 +112,15 @@ class Turno extends Entita {
     
     public function puoRichiederePartecipazione($v) {
         if ( $v === null || $v instanceof Anonimo ) { return true; }
-        return (( time() <= $this->inizio ) && $this->attivita()->puoPartecipare($v));
+        return (( time() <= $this->fine ) && ( time() <= $this->prenotazione ) && $this->attivita()->puoPartecipare($v));
     }
 
     public function scoperto() {
-        return (bool) ( count($this->partecipazioni()) < $this->minimo && $this->inizio()->getTimestamp() > time() );
+        return (bool) ( count($this->partecipazioniStato()) < $this->minimo && $this->inizio()->getTimestamp() > time() );
     }
     
     public function pieno() {
-        return (bool) ( count($this->partecipazioni()) >= $this->massimo );
+        return (bool) ( count($this->partecipazioniStato()) >= $this->massimo );
     }
     
     public function futuro() {

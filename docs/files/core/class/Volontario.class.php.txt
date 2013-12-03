@@ -5,5 +5,6 @@
  */
 
 class Volontario extends Utente {
-        
+
+
 }

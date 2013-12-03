@@ -6,13 +6,12 @@
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
-$f = $_GET['id']; 
-$t = new Volontario($f);
-$g = $v = $t;
+$id = $_GET['id']; 
+$u = Utente::id($id);
+$t = TitoloPersonale::filtra([['volontario',$u]]);
+$admin = $me->admin();
 
-proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
-
-$a=TitoloPersonale::filtra([['volontario',$f]]);
+proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 ?>
 <!--Visualizzazione e modifica anagrafica utente-->
 <div class="row-fluid">
@@ -39,7 +38,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
         <?php } else { ?>
             
         <?php } ?>
-        <img src="<?php echo $g->avatar()->img(20); ?>" class="img-polaroid" />
+        <img src="<?php echo $u->avatar()->img(20); ?>" class="img-polaroid" />
                <br/><br/></div>
             <div class="span5 allinea-sinistra"> 
                <br/>
@@ -55,28 +54,28 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             </div> 
             </div>
             
-<form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $f; ?>" method="POST">
+<form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $id; ?>" method="POST">
         <hr />
         <div class="control-group">
               <label class="control-label" for="inputNome">Nome</label>
               <div class="controls">
-                <input type="text" name="inputNome" id="inputNome" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->nome; ?>">
+                <input type="text" name="inputNome" id="inputNome" <?php if(!$admin){?> readonly <?php } ?> value="<?php echo $u->nome; ?>">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputCognome">Cognome</label>
               <div class="controls">
-                <input type="text" name="inputCognome" id="inputCognome" <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->cognome; ?>">
+                <input type="text" name="inputCognome" id="inputCognome" <?php if(!$admin){?> readonly <?php } ?> value="<?php echo $u->cognome; ?>">
               </div>
             </div>
             <div class="control-group">
             <label class="control-label" for="inputSesso">Sesso</label>
             <div class="controls">
-              <?php if(!$me->admin()){?> <input class="input-mini" type="text" name="inpuSesso" id="inpuSesso" readonly value="<?php echo $conf['sesso'][$v->sesso]; ?>"> <?php }else{ ?>
+              <?php if(!$admin){?> <input class="input-mini" type="text" name="inpuSesso" id="inpuSesso" readonly value="<?php echo $conf['sesso'][$u->sesso]; ?>"> <?php }else{ ?>
               <select class="input-small" id="inputSesso" name="inputSesso" required>
                 <?php
                     foreach ( $conf['sesso'] as $numero => $tipo ) { ?>
-                    <option value="<?php echo $numero; ?>" <?php if ( $numero == $v->sesso ) { ?>selected<?php } ?>><?php echo $tipo; ?></option>
+                    <option value="<?php echo $numero; ?>" <?php if ( $numero == $u->sesso ) { ?>selected<?php } ?>><?php echo $tipo; ?></option>
                     <?php } ?>
                 </select>  
               <?php } ?>
@@ -85,88 +84,84 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             <div class="control-group">
               <label class="control-label" for="inputCodiceFiscale">Codice Fiscale</label>
               <div class="controls">
-                <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale"  <?php if(!$me->admin()){?> readonly <?php } ?> value="<?php echo $v->codiceFiscale; ?>">
+                <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale"  <?php if(!$admin){?> readonly <?php } ?> value="<?php echo $u->codiceFiscale; ?>">
                 
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputDataNascita">Data di Nascita</label>
               <div class="controls">
-                <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" value="<?php echo date('d/m/Y', $v->dataNascita); ?>">
+                <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$admin){?> required <?php } ?> value="<?php echo date('d/m/Y', $u->dataNascita); ?>">
               </div>
             </div>
     <div class="control-group">
               <label class="control-label" for="inputProvinciaNascita">Provincia di Nascita</label>
               <div class="controls">
-                <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" value="<?php echo $v->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
+                <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" <?php if(!$admin){?> required <?php } ?> value="<?php echo $u->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
              </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
               <div class="controls">
-                <input type="text" name="inputComuneNascita" id="inputComuneNascita" value="<?php echo $v->comuneNascita; ?>">
+                <input type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$admin){?> required <?php } ?> value="<?php echo $u->comuneNascita; ?>">
               </div>
             </div>
 
             <div class="control-group">
                <label class="control-label" for="inputIndirizzo">Indirizzo</label>
                <div class="controls">
-                 <input value="<?php echo $v->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" required />
+                 <input value="<?php echo $u->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" <?php if(!$admin){?> required <?php } ?> />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputCivico">Civico</label>
                <div class="controls">
-                 <input value="<?php echo $v->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" required />
+                 <input value="<?php echo $u->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" <?php if(!$admin){?> required <?php } ?> />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputComuneResidenza">Comune di residenza</label>
                <div class="controls">
-                 <input value="<?php echo $v->comuneResidenza; ?>" type="text" id="inputComuneResidenza" name="inputComuneResidenza" required />
+                 <input value="<?php echo $u->comuneResidenza; ?>" type="text" id="inputComuneResidenza" name="inputComuneResidenza" <?php if(!$admin){?> required <?php } ?> />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputCAPResidenza">CAP di residenza</label>
                <div class="controls">
-                 <input value="<?php echo $v->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" required pattern="[0-9]{5}" />
+                 <input value="<?php echo $u->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[0-9]{5}" />
                </div>
              </div>
              <div class="control-group">
                <label class="control-label" for="inputProvinciaResidenza">Provincia di residenza</label>
                <div class="controls">
-                 <input value="<?php echo $v->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" required pattern="[A-Za-z]{2}" />
+                 <input value="<?php echo $u->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[A-Za-z]{2}" />
                 </div>
              </div>
             <div class="control-group">
                <label class="control-label" for="inputEmail">Email</label>
                <div class="controls">
-                 <input value="<?php echo $v->email; ?>"  type="email" id="inputEmail" name="inputEmail" />
+                 <input value="<?php echo $u->email; ?>" <?php if(!$admin){?> readonly <?php } ?> type="email" id="inputEmail" name="inputEmail" />
                 </div>
              </div>
              <div class="control-group input-prepend">
                <label class="control-label" for="inputCellulare">Cellulare</label>
                <div class="controls">
                    <span class="add-on">+39</span>
-                 <input value="<?php echo $v->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" />
+                 <input value="<?php echo $u->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" />
                 </div>
              </div>
             <div class="control-group input-prepend">
                <label class="control-label" for="inputCellulareServizio">Cellulare Servizio</label>
                <div class="controls">
                    <span class="add-on">+39</span>
-                 <input value="<?php echo $v->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" />
+                 <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" />
                 </div>
              </div>
-            <div class="control-group">
-            <label class="control-label" for="inputgruppoSanguigno">Gruppo Sanguigno</label>
+
+          <div class="control-group input-prepend">
+            <label class="control-label" for="inputConsenso">Consenso dati personali</label>
             <div class="controls">
-                <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  required class="disabled">
-                <?php
-                    foreach ( $conf['sangue_gruppo'] as $numero => $gruppo ) { ?>
-                    <option value="<?php echo $numero; ?>" <?php if ( $numero == $v->grsanguigno ) { ?>selected<?php } ?>><?php echo $gruppo; ?></option>
-                    <?php } ?>
-                </select>   
+             <input value="<?php if($u->consenso()){ echo "Acquisito";}else{ echo "Non Acquisito"; } ?>"  type="text" id="inputConsenso" name="inputConsenso" readonly/>
             </div>
           </div>
         <hr />
@@ -179,10 +174,13 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             </div>
           </form>    
     </div>
+    <!--Visualizzazione e modifica appartenenze utente -->
+    <div class="span6">
+
         <h4><i class="icon-folder-open"></i> Documenti volontario</h4>
         
-        <?php if ( $v->documenti() ) { ?>
-            <a href="?p=presidente.utente.documenti&id=<?php echo $v->id; ?>" data-attendere="Generazione in corso...">
+        <?php if ( $u->documenti() ) { ?>
+            <a href="?p=presidente.utente.documenti&id=<?php echo $u->id; ?>" data-attendere="Generazione in corso...">
                 <i class="icon-download-alt"></i>
                 Scarica documenti del volontario in ZIP
             </a>
@@ -193,12 +191,11 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             </span>
         <?php } ?>
         <hr />
-    <!--Visualizzazione e modifica appartenenze utente -->
-    <div class="span6">
+
         <div class="row-fluid">
             <h4>
                 <i class="icon-time muted"></i>
-                Appartenenze
+                Appartenenze attuali
             </h4>
             
         </div>
@@ -207,24 +204,14 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
             
             <table class="table table-bordered table-striped">
                 <thead>
-                    <th>Stato</th>
                     <th>Ruolo</th>
                     <th>Comitato</th>
                     <th>Inizio</th>
                     <th>Fine</th>
                     <th>Azioni</th>
                 </thead>
-                
-                <?php foreach ( $v->storico() as $app ) { ?>
-                    <tr<?php if ($app->attuale()) { ?> class="success"<?php } ?>>
-                        <td>
-                            <?php if ($app->attuale()) { ?>
-                                Attuale
-                            <?php } else { ?>
-                                Passato
-                            <?php } ?>
-                        </td>
-                        
+                <?php foreach ( $u->appartenenzeAttuali() as $app ) { ?>
+                    <tr class="success">
                         <td>
                             <strong><?php echo $conf['membro'][$app->stato]; ?></strong>
                         </td>
@@ -250,13 +237,10 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                         
                         <td>
                             <div class="btn-group">
-                            <?php if ($app->attuale()) { 
-                              $sessione->a= $app;?>
-                                <a href="?p=us.appartenenza.modifica" title="Modifica appartenenza" class="btn btn-small btn-info">
+                                <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
                                     <i class="icon-edit"></i>
                                 </a>
-                            <?php } 
-                              if($me->admin()){ ?>
+                            <?php if($me->admin()){ ?>
                                 <a onClick="return confirm('Vuoi veramente cancellare questa appartenenza ?');" href="?p=us.appartenenza.cancella&a=<?php echo $app; ?>" title="Cancella appartenenza" class="btn btn-small btn-danger">
                                     <i class="icon-trash"></i>
                                 </a>
@@ -268,6 +252,23 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                 <?php } ?>
             
             </table>
+        </div>
+        <div class="row-fluid">
+            <h4>
+                <i class="icon-ellipsis-horizontal muted"></i>
+                Storico
+            </h4>
+            
+        </div>
+        <div class="span12 allinea-centro">
+          
+            <a class="btn" target="_new" href="?p=presidente.riserva.storico&id=<?php echo $u->id; ?>">
+              <i class="icon-pause"></i> Storico riserve
+            </a>
+            <a class="btn" target="_new" href="?p=presidente.appartenenze.storico&id=<?php echo $u->id; ?>">
+              <i class="icon-time"></i> Storico appartenenze
+            </a>
+          
         </div>
         
     </div>
@@ -313,7 +314,7 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
           </div>
         
         <div id="step2" style="display: none;">
-            <form action='?p=presidente.titolo.nuovo&id=<?php echo $v->id; ?>' method="POST">
+            <form action='?p=presidente.titolo.nuovo&id=<?php echo $u->id; ?>' method="POST">
             <input type="hidden" name="idTitolo" id="idTitolo" />
             <div class="alert alert-block alert-success">
                 <div class="row-fluid">
@@ -371,65 +372,61 @@ $a=TitoloPersonale::filtra([['volontario',$f]]);
                 
             </div>
             
-        </div>    
-  
-     <?php $ttt = $a; ?>
-                <table class="table table-striped">
-                    <?php foreach ( $ttt as $titolo ) { ?>
-                    <tr <?php if (!$titolo->tConferma) { ?>class="warning"<?php } ?>>
-                        <td>
-                            <?php if ($titolo->tConferma) { ?>
-                                    <abbr title="Confermato: <?php echo date('d-m-Y H:i', $titolo->tConferma); ?>">
-                                        <i class="icon-ok"></i>
-                                    </abbr>
-                            <?php } else { ?>
-                                <abbr title="Pendente">
-                                    <i class="icon-time"></i>
-                                </abbr>
-                            <?php } ?> 
-                                
-                            <strong><?php echo $titolo->titolo()->nome; ?></strong><br />
-                            <small><?php echo $conf['titoli'][$titolo->titolo()->tipo][0]; ?></small>
-                        </td>
-
+        </div> 
+        <table class="table table-striped">
+            <?php foreach ( $t as $titolo ) { ?>
+            <tr <?php if (!$titolo->tConferma) { ?>class="warning"<?php } ?>>
+                <td>
+                    <?php if ($titolo->tConferma) { ?>
+                            <abbr title="Confermato: <?php echo date('d-m-Y H:i', $titolo->tConferma); ?>">
+                                <i class="icon-ok"></i>
+                            </abbr>
+                    <?php } else { ?>
+                        <abbr title="Pendente">
+                            <i class="icon-time"></i>
+                        </abbr>
+                    <?php } ?> 
                         
-                            <?php if ( $titolo->inizio ) { ?>
-                            <td><small>
-                                <i class="icon-calendar muted"></i>
-                                <?php echo date('d-m-Y', $titolo->inizio); ?>
-                                
-                                <?php if ( $titolo->fine ) { ?>
-                                    <br />
-                                    <i class="icon-time muted"></i>
-                                    <?php echo date('d-m-Y', $titolo->fine); ?>
-                                <?php } ?>
-                                <?php if ( $titolo->luogo ) { ?>
-                                    <br />
-                                    <i class="icon-road muted"></i>
-                                    <?php echo $titolo->luogo; ?>
-                                 <?php } ?>
-                                 <?php if ( $titolo->codice ) { ?>
-                                    <br />
-                                    <i class="icon-barcode muted"></i>
-                                    <?php echo $titolo->codice; ?>
-                                  <?php } ?>
-                            </small></td>
-                            <?php } else { ?>
-                            <td>&nbsp;</td>
-                            <?php } ?>
-                            
-                            <td>
-                                <div class="btn-group">
-                                    <a href="?p=presidente.titolo.modifica&t=<?php echo $titolo->id; ?>&v=<?php echo $v->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
-                                        <i class="icon-edit"></i>
-                                    </a>
-                                    <a onclick="return confirm('Cancellare il titolo utente?');" href="?p=utente.titolo.cancella&id=<?php echo $titolo->id; ?>&pre" title="Cancella il titolo" class="btn btn-small btn-danger">
-                                        <i class="icon-trash"></i>
-                                    </a>
-                                </div>
-                            </td>
-                    </tr>
-                    <?php } ?>
-                </table>
+                    <strong><?php echo $titolo->titolo()->nome; ?></strong><br />
+                    <small><?php echo $conf['titoli'][$titolo->titolo()->tipo][0]; ?></small>
+                </td>
+                <?php if ( $titolo->inizio ) { ?>
+                    <td><small>
+                      <i class="icon-calendar muted"></i>
+                      <?php echo date('d-m-Y', $titolo->inizio); ?>
+                      
+                      <?php if ( $titolo->fine ) { ?>
+                          <br />
+                          <i class="icon-time muted"></i>
+                          <?php echo date('d-m-Y', $titolo->fine); ?>
+                      <?php } ?>
+                      <?php if ( $titolo->luogo ) { ?>
+                          <br />
+                          <i class="icon-road muted"></i>
+                          <?php echo $titolo->luogo; ?>
+                       <?php } ?>
+                       <?php if ( $titolo->codice ) { ?>
+                          <br />
+                          <i class="icon-barcode muted"></i>
+                          <?php echo $titolo->codice; ?>
+                        <?php } ?>
+                  </small></td>
+                <?php } else { ?>
+                  <td>&nbsp;</td>
+                <?php } ?>
+                    
+                    <td>
+                        <div class="btn-group">
+                            <a href="?p=presidente.titolo.modifica&t=<?php echo $titolo->id; ?>&v=<?php echo $u->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
+                                <i class="icon-edit"></i>
+                            </a>
+                            <a onclick="return confirm('Cancellare il titolo utente?');" href="?p=utente.titolo.cancella&id=<?php echo $titolo->id; ?>&pre" title="Cancella il titolo" class="btn btn-small btn-danger">
+                                <i class="icon-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+            </tr>
+            <?php } ?>
+        </table>
     </div>
 </div>

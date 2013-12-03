@@ -7,7 +7,7 @@
 paginaAdmin();
 
 $t = $_GET['id'];
-$v = new Volontario($t);
+$v = Volontario::id($t);
 
 ?>
 

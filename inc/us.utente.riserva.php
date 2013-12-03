@@ -10,7 +10,6 @@ caricaSelettoreComitato();
 paginaModale();
 
 ?>
-<script type="text/javascript"><?php require './js/utente.riserva.js'; ?></script>
 <form action="?p=us.utente.riserva.ok" method="POST">
     <div class="modal fade automodal">
         <div class="modal-header">
@@ -25,8 +24,8 @@ paginaModale();
                   Seleziona un volontario... <i class="icon-pencil"></i>
                     </a><p></p>
                </li>
-               <li><input class="input-large allinea-sinistra" type="text" name="datainizio" id="datainizio" placeholder="Inserisci data di inizio riserva" required></li>
-               <li><input class="input-large allinea-sinistra" type="text" name="datafine" id="datafine" placeholder="Inserisci data di fine riserva" required></li>
+               <li><input class="input-large allinea-sinistra" type="text" name="datainizio" id="datainizio" placeholder="Inserisci data di inizio riserva" autocomplete="off" required></li>
+               <li><input class="input-large allinea-sinistra" type="text" name="datafine" id="datafine" placeholder="Inserisci data di fine riserva" autocomplete="off" required></li>
                <li><input class="span4 allinea-sinistra" type="text" name="inputMotivo" id="motivo" placeholder="Inserisci la motivazione" required></li>
                <li>Vai nella sezione riserve in attesa e completa la procedura.</li>
            </ol>

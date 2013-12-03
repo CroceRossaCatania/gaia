@@ -11,16 +11,45 @@ $id         = $_POST['id'];
 $nome       = normalizzaNome($_POST['inputNome']);
 $cognome    = normalizzaNome($_POST['inputCognome']);
 $sesso 		= $_POST['inputSesso'];
-$dnascita   = mktime(0, 0, 0, $_POST['inputMese'], $_POST['inputGiorno'], $_POST['inputAnno']);
-$prnascita= maiuscolo($_POST['inputProvinciaNascita']);
-$conascita = normalizzaNome($_POST['inputComuneNascita']);
+$dnascita   = DT::createFromFormat('d/m/Y', $_POST['inputDataNascita']);
+$prnascita 	= maiuscolo($_POST['inputProvinciaNascita']);
+$conascita 	= normalizzaNome($_POST['inputComuneNascita']);
 $coresidenza= normalizzaNome($_POST['inputComuneResidenza']);
 $caresidenza= normalizzaNome($_POST['inputCAPResidenza']);
 $prresidenza= maiuscolo($_POST['inputProvinciaResidenza']);
 $indirizzo  = normalizzaNome($_POST['inputIndirizzo']);
 $civico     = maiuscolo($_POST['inputCivico']);
-$grsanguigno = maiuscolo($_POST['inputgruppoSanguigno']);
-$consenso = $_POST['inputConsenso'];
+
+/*
+ * Scrive i dati nella sessione 
+ */
+$sessione->nome 		= $nome;
+$sessione->cognome 		= $cognome;
+$sessione->sesso 		= $sesso;
+$sessione->dnascita 	= $_POST['inputDataNascita'];
+$sessione->prnascita 	= $prnascita;
+$sessione->conascita 	= $conascita;
+$sessione->coresidenza  = $coresidenza;
+$sessione->caresidenza  = $caresidenza;
+$sessione->prresidenza  = $prresidenza;
+$sessione->indirizzo 	= $indirizzo;
+$sessione->civico 		= $civico;
+
+/*
+ * Esegue i check sui dati
+ */
+if(!DT::controlloData($_POST['inputDataNascita'])){
+	redirect('nuovaAnagrafica&data');
+}
+
+/*
+ * Verifica se ho più di 14 anni
+ */
+$anno = date('Y', $dnascita->getTimestamp());
+$ora = date('Y', time());
+if($ora-$anno<=ETA_MINIMA){
+	redirect('nuovaAnagrafica&eta');
+}
 /*
  * Controlla esistenza varia e ti porta dove dovrebbe 
  */
@@ -34,19 +63,25 @@ if ( ($p->password) ) {
  */
 $p->nome                = $nome;
 $p->cognome             = $cognome;
-$p->sesso 				= $sesso;
-$p->dataNascita         = $dnascita;
-$p->provinciaNascita =$prnascita;
-$p->comuneNascita = $conascita;
+$p->sesso 				= ($sesso) ? UOMO : DONNA;
+$p->dataNascita         = $dnascita->getTimestamp();;
+$p->provinciaNascita 	= $prnascita;
+$p->comuneNascita 		= $conascita;
 $p->comuneResidenza     = $coresidenza;
 $p->CAPResidenza        = $caresidenza;
 $p->provinciaResidenza  = $prresidenza;
-$p->indirizzo 		= $indirizzo;
-$p->civico   		= $civico;
-$p->grsanguigno   		= $grsanguigno;
+$p->indirizzo 			= $indirizzo;
+$p->civico   			= $civico;
 $p->timestamp           = time();
-$p->stato               = PERSONA;
-$p->consenso = $consenso;
+$p->consenso            = time();
+
+if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
+    $p->stato               = PERSONA;
+} else {
+    $p->stato               = ASPIRANTE;
+}
+
+
 
 /*
  * Associa la sessione all'utente...

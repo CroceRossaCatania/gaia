@@ -5,12 +5,51 @@
  */
 
 paginaPrivata();
-
 ?>
 
 
-<h2>Gestione delle attività</h2>
 
+
+<div class="row-fluid">
+    
+    <div class="span3">
+        <?php menuVolontario(); ?>
+    </div>
+
+        <div class="span9">
+
+        <div class="row-fluid">
+
+            <div class="span7">
+                <h2>
+                    <i class="icon-star muted"></i>
+                    Gestione delle attività
+                </h2>
+            </div>
+
+            
+                
+                <div class="span5">
+                    
+                        <?php if ( $me->comitatiAreeDiCompetenza() ) { ?>
+
+                        <a href="?p=attivita.idea" class="btn btn-large btn-block btn-success">
+                            <i class="icon-plus-sign"></i>
+                                Crea una nuova attività
+                        </a>
+                        
+                        <?php } ?>
+                        
+                    
+
+                </div>
+            </div>
+
+            <div class="row-fluid">
+
+
+
+<div class="span12">
 <table class="table table-striped table-bordered">
 
 <thead>
@@ -42,7 +81,7 @@ paginaPrivata();
         <br />
         <?php if ( $attivita->referente ) { ?>
             Referente: 
-                <a href="?p=public.utente&id=<?php echo $attivita->referente()->id; ?>" target="_new">
+                <a href="?p=profilo.controllo&id=<?php echo $attivita->referente()->id; ?>" target="_new">
                     <?php echo $attivita->referente()->nomeCompleto(); ?>
                 </a>
         <?php } else { ?>
@@ -60,8 +99,15 @@ paginaPrivata();
     
     
     <td style="width: 20%;">
+        <?php if ($me->presidenziante() || $me->admin()){ ?>
+            <a href="?p=attivita.referente.nuovo&id=<?= $attivita->id; ?>">
+                <i class="icon-pencil"></i> 
+                cambia referente
+            </a>
+            <br />
+        <?php } ?>
         <a href="?p=attivita.modifica&id=<?php echo $attivita->id; ?>">
-            <i class="icon-pencil"></i> modifica attività
+            <i class="icon-edit"></i> modifica attività
         </a>
         <br />
         <a href="?p=attivita.turni&id=<?php echo $attivita->id; ?>">
@@ -78,3 +124,7 @@ paginaPrivata();
 <?php } ?>
 
 </table>
+</div>
+</div>
+</div>
+</div>

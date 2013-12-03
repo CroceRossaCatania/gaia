@@ -8,7 +8,7 @@ paginaPrivata();
 
 $id = $_POST['idTitolo'];
 
-$t = new Titolo($id);
+$t = Titolo::id($id);
 
 if ($me->haTitolo($t)) { redirect('utente.titoli&gia&t=' . $t->tipo); }
 

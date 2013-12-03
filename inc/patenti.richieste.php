@@ -66,8 +66,8 @@ paginaApp([APP_PATENTI , APP_PRESIDENTE]);
             <?php
             foreach ( $t as $v ) {
                 $_v = $v->volontario();
-                $t = new TitoloPersonale($v->titolo);
-                $t = new Titolo ($t->titolo());
+                $t = TitoloPersonale::id($v->titolo);
+                $t = Titolo::id($t->titolo());
             ?>
                 <tr>
                     <td><?= $_v->cognome; ?></td>
