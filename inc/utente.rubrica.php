@@ -49,7 +49,7 @@ paginaPrivata();
                 <th>Foto</th>
                 <th>Nome</th>
                 <th>Cognome</th>
-                <th>Cellulare Servizio</th>
+                <th>Telefono</th>
                 <th>Comitato</th>
                 <th>Azione</th>
             </thead>

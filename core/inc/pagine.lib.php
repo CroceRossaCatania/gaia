@@ -6,12 +6,17 @@
 
 /*
  * Rende la corrente pagina privata (login necessario)
+ * e controlla il consenso alle condizioni d'uso
+ * @param $consenso = false solo per la pagina di consenso
  */
-function paginaPrivata() {
+function paginaPrivata($consenso = true) {
     global $sessione, $_GET;
     if ( !$sessione->utente() ) {
         $sessione->torna = base64_encode(serialize($_GET));
         redirect('login');
+    }
+    if ($consenso && !$sessione->utente()->consenso()) {
+        redirect('utente.me');
     }
 }
 

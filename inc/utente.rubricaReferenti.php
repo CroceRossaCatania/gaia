@@ -49,7 +49,7 @@ paginaPrivata();
                 <th>Foto</th>
                 <th>Nome</th>
                 <th>Cognome</th>
-                <th>Cellulare Servizio</th>
+                <th>Telefono</th>
                 <th>Comitato</th>
                 <th>Incarico</th>
                 <th>Azione</th>
@@ -57,9 +57,12 @@ paginaPrivata();
             <?php 
             $ccompetenza = $me->comitatiDiCompetenza();
             $comitati = $me->comitati();
+            $locale = $me->unComitato()->locale();
+            array_push($comitati, $locale);
             if ($ccompetenza)
                 $comitati = array_merge($comitati, $ccompetenza);
             $comitati = array_unique($comitati);
+
 
             foreach ( $comitati as $comitato ) {
                 foreach ( $comitato->volontariDelegati() as $delegato ) { 

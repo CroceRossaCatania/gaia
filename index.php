@@ -431,7 +431,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
           </ol>
           <p class="text-info">
             <i class="icon-time"></i>
-            Rimarri in modalità admin fino al Logout
+            Rimarrai in modalità admin fino al Logout
           </p>
 
         </div>

@@ -151,6 +151,7 @@ $t = TitoloPersonale::filtra([['volontario',$u]]);
         </table>
     </div>
     <?php }
+    if ($titolo) {
     $titoli = $conf['titoli'];?>
     <div class="span6">
         <h4><i class="icon-list muted"></i> Curriculum </h4>
@@ -197,4 +198,5 @@ $t = TitoloPersonale::filtra([['volontario',$u]]);
                     <?php } ?>
             </table>
     </div>
+    <?php } ?> 
 </div>

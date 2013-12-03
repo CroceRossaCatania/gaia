@@ -36,18 +36,6 @@ $t = TitoloPersonale::filtra([['volontario', $u]]);
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputDataNascita">Data di Nascita</label>
-                <div class="controls">
-                    <input readonly type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" value="<?php echo date('d/m/Y', $u->dataNascita); ?>">
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
-                <div class="controls">
-                    <input readonly type="text" name="inputComuneNascita" id="inputComuneNascita" value="<?php echo $u->comuneNascita; ?>">
-                </div>
-            </div>
-            <div class="control-group">
                 <label class="control-label" for="ingressoCRI">Data ingresso in CRI</label>
                 <div class="controls">
                     <input readonly type="text" name="ingressoCRI" id="ingressoCRI" value="<?php echo date('d/m/Y', $u->primaAppartenenza()->inizio); ?>">
@@ -64,14 +52,7 @@ $t = TitoloPersonale::filtra([['volontario', $u]]);
                     <label class="control-label" for="inputCellulare">Cellulare</label>
                     <div class="controls">
                       <span class="add-on">+39</span>
-                      <input value="<?php echo $u->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" readonly />
-                    </div>
-                </div>
-                <div class="control-group input-prepend">
-                    <label class="control-label" for="inputCellulareServizio">Cellulare Servizio</label>
-                    <div class="controls">
-                      <span class="add-on">+39</span>
-                      <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" name="inputCellulareServizio" readonly />
+                      <input value="<?php echo $u->cellulare(); ?>"  type="text" id="inputCellulare" name="inputCellulare" readonly />
                     </div>
                 </div>
             <?php } ?>

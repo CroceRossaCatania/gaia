@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPrivata();
+paginaPrivata(false);
 
 if ( !$me->consenso() ){ ?>
   <div class="modal fade automodal">
@@ -12,21 +12,29 @@ if ( !$me->consenso() ){ ?>
       <h3 class="text-success"><i class="icon-cog"></i> Aggiornamento condizioni d'uso di Gaia!</h3>
     </div>
     <div class="modal-body">
-      <p>Ciao <strong><?php echo $me->nome; ?></strong>,</p>
-      <p>Per migliorare il nostro servizio, apportiamo periodicamente dei cambiamenti alle condizioni d'uso.</p>
-      <p>Gli ultimi aggiornamenti sono già disponibili sul nostro sito. Puoi consultarli in due modi: </p>
+      <p>Ciao <strong><?php echo $me->nome; ?></strong>, Gaia ha aggiornato le sue condizioni d'uso.</p>
+      <p>È importante per noi che tu sia informato riguardo le finalità di questo portale e riguardo
+      a come vengono trattati i tuoi dati. Per fare ciò hai due possibilità: </p>
       <ul>
-        <li>Leggi la pagina delle <a href="?p=public.privacy" target="_new"> <i>condizioni d'uso</i>;</a></li>
+        <li>Leggi la pagina delle <a href="?p=public.privacy" target="_new"> <i>condizioni d'uso</i></a> ; </li>
         <li>Apri una nuova finestra del browser. Digita gaia.cri.it, clicca <i>informazioni</i> in fondo alla pagina e poi <i>condizioni d'uso</i>.</li>
       </ul>
-      <p><strong>Cosa fare</strong></p>
-      Ti consigliamo di leggere gli aggiornamenti alle condizioni d'uso perché contengono importanti informazioni.<br/>
-      Se sei d'accordo con quanto riportato premi il pulsante "Accetto le condizioni d'uso".<br/>
-      Le condizioni d'uso resteranno valide fino all'entrata in vigore della versione aggiornata.
+      <p>Ti raccomandiamo di leggere con attenzione il documento perché contiene importanti 
+      informazioni su come i tuoi dati sono gestiti.</p>
+      <p>Se sei d'accordo con quanto riportato premi il pulsante "Ok, Accetto!". Verrai indirizzato ad una pagina
+      in cui potrai gestire le informazioni che ti riguardano.</p>
+      <p>Se non sei d'accordo premi il pulsante "Logout": non ti sarà possibile utilizzare i servizi offerti dal portale fino
+      a che non accetterai le condizioni d'uso. </p>
+      <p>Le condizioni d'uso resteranno valide fino all'entrata in vigore della versione aggiornata. Quando ciò
+      accradrà verrai subito informato.</p>
       </p>Grazie per la fiducia,</br>
       Lo staff di Gaia</p>
     </div>
     <div class="modal-footer">
+      <a href="?p=logout" class="btn">
+        <i class="icon-remove"></i>
+        Logout
+      </a>
       <a href="?p=utente.privacy&first" class="btn btn-success">
         <i class="icon-ok"></i>
         Ok, Accetto!
@@ -261,16 +269,20 @@ if(false && !$sessione->barcode) { ?>
        </div>
      </div>
    <?php }
- } ?>
+ } 
+ if(false) {?>
     <!-- Per ora mostra sempre... -->
     <div class="alert alert-block alert-info">
       <h4><i class="icon-folder-open"></i> Hai già caricato i tuoi documenti?</h4>
       <p>Ricordati di caricare i tuoi documenti dalla sezione <strong>Documenti</strong>.</p>
     </div>
-  </div>
+
+<?php }
+if ( !$attenzione && $me->comitatiDiCompetenza() ) { ?>
+    <div class="alert alert-block alert-warning">
+      <h4><i class="icon-warning-sign"></i> Dov'è finito il pannello presidente?</h4>
+      <p>Nel menù di sinistra, alla voce <strong>Presidente</strong>.</p>
+    </div>
+<?php } ?>
 </div>
-<?php
-if ( !$attenzione && $me->comitatiDiCompetenza() ) {
-    redirect('presidente.dash');
-}
-?>
+</div>

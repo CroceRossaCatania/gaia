@@ -29,36 +29,6 @@ if ( $sessione->attenzione == false ){
         </div>
     </div>
 <?php } ?>
-<?php if ( !$me->consenso() ){ ?>
-  <div class="modal fade automodal">
-    <div class="modal-header">
-      <h3 class="text-success"><i class="icon-cog"></i> Aggiornamento condizioni d'uso di Gaia!</h3>
-    </div>
-    <div class="modal-body">
-      <p>Ciao <strong><?php echo $me->nome; ?></strong>,</p>
-      <p>Per migliorare il nostro servizio, apportiamo periodicamente dei cambiamenti alle condizioni d'uso.</p>
-      <p>Gli ultimi aggiornamenti sono già disponibili sul nostro sito. Puoi consultarli in due modi: </p>
-      <ul>
-        <li>Leggi la pagina delle <a href="?p=public.privacy" target="_new"> <i>condizioni d'uso</i>;</a></li>
-        <li>Apri una nuova finestra del browser. Digita www.gaiacri.it, clicca <i>informazioni</i> in fondo alla pagina e poi <i>condizioni d'uso</i>.</li>
-      </ul>
-      <p><strong>Cosa fare</strong></p>
-      Ti consigliamo di leggere gli aggiornamenti alle condizioni d'uso perché contengono importanti informazioni.<br/>
-      Se sei d'accordo con quanto riportato premi il pulsante "Accetto le condizioni d'uso".<br/>
-      Le condizioni d'uso resteranno valide fino all'entrata in vigore della versione aggiornata.
-      </p>Grazie per la fiducia,</br>
-      Lo staff di Gaia</p>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-danger" onclick="this.style.display='none';"> Rifiuto </button>
-          <a href="?p=utente.privacy&first" class="btn btn-success">
-            <i class="icon-ok"></i>
-            Accetto le condizioni d'uso
-          </a>
-    </div>
-  </div>
-<?php } ?>
-
 
 
 <div class="row-fluid">

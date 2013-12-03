@@ -95,7 +95,7 @@ $(document).ready( function() {
 
                             <br />
                             <?php foreach ( $accettate as $ppp ) { ?>
-                            <a href="?p=public.utente&id=<?php echo $ppp->id; ?>" target="_new" title="<?php echo $ppp->nomeCompleto(); ?>">
+                            <a href="?p=profilo.controllo&id=<?php echo $ppp->id; ?>" target="_new" title="<?php echo $ppp->nomeCompleto(); ?>">
                                 <img width="30" height="30" src="<?php echo $ppp->avatar()->img(10); ?>" />
                             </a>
                             <?php } ?>
