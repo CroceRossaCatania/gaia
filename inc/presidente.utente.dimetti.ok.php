@@ -10,8 +10,10 @@ $v     = $_GET['id'];
 $v = Volontario::id($v);
 
 foreach ( $conf['dimissioni'] as $numero => $dimissioni ) {
-    if ( $numero == $_POST['motivo']) { $motivo =  $dimissioni;} 
-                    }
+    if ( $numero == $_POST['motivo']) { 
+        $motivo =  $dimissioni;
+    } 
+}
 
 $m = new Email('dimissionevolontario', 'Dimissione Volontario: ' . $v->nomeCompleto());
 $m->da = $me;
@@ -27,6 +29,7 @@ $d->volontario = $v->id;
 $a = Appartenenza::filtra([['volontario', $v]]);
 $i = Delegato::filtra([['volontario',$v]]);
 $e = Estensione::filtra([['volontario', $v], ['stato', EST_OK]]);
+$r = Riserva::filtra([['volontario', $v],['stato', RISERVA_OK]]);
 
 foreach ($i as $_i){
     $b->fine = time();   
@@ -44,12 +47,12 @@ foreach ( $a as $_a){
         $d->info = $_POST['info'];
         $d->tConferma = time();
         $d->pConferma = $me;
-        $x = Appartenenza::id($_a);
-        $x->fine = time();
-        $x->stato = MEMBRO_DIMESSO;
+        $_a = Appartenenza::id($_a);
+        $_a->fine = time();
+        $_a->stato = MEMBRO_DIMESSO;
         $f = Persona::id($v);
         $f->stato = PERSONA;
-        $f->admin='';
+        $f->admin=null;
     }
 }
                     

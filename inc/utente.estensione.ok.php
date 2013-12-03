@@ -31,8 +31,6 @@ foreach ( $f as $app ) {
                                      
 /*Se non sono appartenente allora avvio la procedura*/
 
-
-        
 $a = new Appartenenza();
 $a->volontario  = $me->id;
 $a->comitato    = $c;
@@ -41,7 +39,7 @@ $a->timestamp = time();
 $a->inizio    = time();
 $a->fine      = time() + ANNO;
 
-        
+    
 $e = new Estensione();
 $e->stato = EST_INCORSO;
 $e->appartenenza = $a;
@@ -52,7 +50,3 @@ $e->cProvenienza = $me->unComitato()->id;
 
 $sessione->inGenerazioneEstensione = time();
 redirect('utente.estensioneRichiesta.stampa&id=' . $e->id);
-
-
-
-                               
