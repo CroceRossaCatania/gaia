@@ -94,11 +94,11 @@
         <li><h4>Per la sicurezza dei tuoi dati personali</h4>
         <p>Al fine di preservare l’integrità e la riservatezza dei tuoi dati, è necessario che tu:</p>
         <p><ul>
-        <li>Segua attentamente le istruzioni che ti verranno date man mano che vorrai inserire o verificare 
+        <li>segua attentamente le istruzioni che ti verranno date man mano che vorrai inserire o verificare 
         i tuoi dati personali sul Portale;</li>
-        <li>Non inserisca dati personali che non vuoi che vengano conosciuti; in particolare ti raccomandiamo 
+        <li>non inserisca dati personali che non vuoi che vengano conosciuti; in particolare ti raccomandiamo 
         di non inserire dati riservati, quali malattie o assenze per malattie;</li>
-        <li>Tenga la tua userid e la tua password strettamente riservate; sono le tue credenziali per 
+        <li>tenga la tua userid e la tua password strettamente riservate; sono le tue credenziali per 
         l’accesso ai tuoi dati e non devi assolutamente comunicarle ad alcuno o lasciarle incustodite se le scrivi.</li>
         </ul></p>
         <p>Al fine di garantire, così come richiesto dalla legge, una migliore sicurezza dei tuoi dati 
