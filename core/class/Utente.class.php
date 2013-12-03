@@ -1055,4 +1055,24 @@ class Utente extends Persona {
         }
         return PRIVACY_PUBBLICA;
     }
+
+	/*
+     * @return età utente
+     */
+    public function eta(){
+        $anno = date('Y', $this->dataNascita);
+        $ora = date('Y', time());
+        return $ora-$anno;
+    }
+
+    /*
+     * @return bool restituisce true se oggi è il compleanno dell'utente
+     */
+    public function compleanno(){
+        if( date('m', $this->dataNascita)==date('m', time()) && date('d', $this->dataNascita)==date('d', time())){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

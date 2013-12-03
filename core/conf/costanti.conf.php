@@ -562,3 +562,10 @@ define('PRIVACY_COMITATO', 20);
 define('PRIVACY_VOLONTARI', 30);
 define('PRIVACY_PUBBLICA', 40);
 
+/*
+ * ===================================
+ * =========== ETA ===================
+ * ===================================
+ */
+
+define('ETA_MINIMA',   14);
