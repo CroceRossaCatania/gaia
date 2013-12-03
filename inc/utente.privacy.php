@@ -22,8 +22,10 @@ if (isset($_GET['first']) && !$me->consenso()){ ?>
         attività, congressi, corsi, manifestazioni, newsletter, rivista sociale, ecc. </li>
         </ul></p>
 
-        <p>Accettando la presente informatica acconsenti all’inserimento e all’utilizzo, esclusivamente per le finalità della Croce Rossa Italiana, 
+        <p>Accettando la presente informativa acconsenti all’inserimento e all’utilizzo, esclusivamente per le finalità della Croce Rossa Italiana, 
         della mia foto. </p>
+
+        <p>Accettando la presente informativa accetti inoltre le Condizioni d'uso con cui viene fornito il portale Gaia.</p>
 
         <p>Il sottoscritto si riserva la facoltà di richiedere alla CRI, in qualunque momento, con comunicazione successiva, 
         di interrompere le comunicazioni richieste con la presente autorizzazione.</p>

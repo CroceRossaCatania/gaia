@@ -138,103 +138,71 @@
 
         <hr />
         <h3>Condizioni d'Uso</h3>
-        <p>Il presente portale Web (di seguito definito "Portale") è offerto da Croce Rossa Italiana -
-        Comitato Provinciale di Catania come implementazione del Progetto Gaia. Le seguenti Condizioni d'Uso disciplinano l'accesso al 
-        Portale e il suo utilizzo. Inoltre, condizioni d’uso particolari si applicheranno a specifici 
-        contenuti, dati, materiali o informazioni riportati Portale 
-        (di seguito definiti "Contenuti"), o a specifici contenuti, dati, materiali o informazioni 
-        che l’utente inserisce presenta e/o pubblica sul Portale (di seguito definiti "Contenuti - 
-        utente") o a transazioni concluse tramite il Portale . Tali condizioni d’uso particolari 
-        si aggiungeranno alle presenti Condizioni d'Uso o, solo se sia espressamente indicato, 
-        prevarranno su di esse.</p>
+        <p>Il presente portale Web (di seguito definito "Portale") è offerto da Croce Rossa Italiana 
+        come implementazione del Progetto Gaia. Le seguenti Condizioni d'Uso disciplinano l'accesso al Portale 
+        e il suo utilizzo. Inoltre, condizioni d’uso particolari si applicheranno a specifici contenuti, dati, 
+        materiali o informazioni riportati Portale (di seguito definiti "Contenuti"), o a specifici contenuti, dati, 
+        materiali o informazioni che l’utente inserisce presenta e/o pubblica sul Portale (di seguito definiti "Contenuti - 
+        utente") o a transazioni concluse tramite il Portale . Tali condizioni d’uso particolari si aggiungeranno 
+        alle presenti Condizioni d'Uso o, solo se sia espressamente indicato, prevarranno su di esse.</p>
 
         <ol>
             <h4><li>Accettazione delle Condizioni d'Uso</h4>
-            <p>Accedendo o utilizzando il presente Portale, l'utente accetta di essere vincolato dalle 
-            Condizioni d’Uso, da tutti i termini e le condizioni ivi contenute o citate o da termini o 
-            condizioni aggiuntive che siano previste nel presente Portale. In caso di mancata accettazione 
-            di tutte le suddette condizioni, l'utente NON è autorizzato ad accedere e a utilizzare il Sito 
-            Web.</p></li>
+            <p>Accedendo o utilizzando il presente Portale, l'utente accetta di essere vincolato dalle Condizioni d’Uso, 
+            da tutti i termini e le condizioni ivi contenute o citate o da termini o condizioni aggiuntive che siano previste 
+            nel presente Portale. In caso di mancata accettazione di tutte le suddette condizioni, l'utente NON è autorizzato 
+            ad accedere e a utilizzare il Portale.</p></li>
 
             <h4><li>Modifica delle condizioni d'uso</h4>
-            <p>Croce Rossa Italiana - Comitato Provinciale di Catania si riserva il diritto di modificare le presenti 
-            Condizioni d'Uso in qualsiasi momento: le Condizioni d’Uso così come modificate saranno 
-            applicabili dal momento della pubblicazione. Se l'utente continua ad accedere o a utilizzare 
-            il Portale dopo tale pubblicazione, si presume che l’utente abbia accettato tali modifiche. 
-            Si consiglia all’utente di verificare regolarmente le condizioni applicabili. È possibile che 
-            altri siti web Gestiti da Croce Rossa prevedano proprie condizioni d'uso, applicabili a 
-            detti siti web.</p>
-            <p>Croce Rossa Italiana - Comitato Provinciale di Catania si riserva il diritto di provvedere, 
-            in qualsiasi momento e senza necessità di preavviso, a eliminare o apportare modifiche o 
-            aggiornamenti al Portale e ai relativi Contenuti. GAIA si riserva il diritto, in qualsiasi 
-            momento, con effetti immediati, senza necessità di preavviso, a propria esclusiva discrezione 
-            e per qualunque motivo, di limitare, rifiutare o interrompere, del tutto o in parte, l'accesso 
-            al Portale, o a parte di esso, da parte di qualsiasi utente. Croce Rossa Italiana - Comitato Provinciale di Catania
-            si impegna in ogni caso ad informare l'utente al sopraggiungere di variazioni delle Condizioni d'Uso.</p></li>
+            <p>Croce Rossa Italiana si riserva il diritto di modificare le presenti Condizioni d'Uso in qualsiasi momento: 
+            le Condizioni d’Uso così come modificate saranno applicabili dal momento della pubblicazione. L'utente non 
+            potrà accedere o utilizzare il Portale dopo tale pubblicazione fino a che non avrà accettato le nuove condizioni 
+            d’uso. Si consiglia all’utente di verificare regolarmente le condizioni applicabili.</p>
+            <p>Croce Rossa Italiana si riserva il diritto di provvedere, in qualsiasi momento e senza necessità di preavviso, 
+            a eliminare o apportare modifiche o aggiornamenti al Portale e ai relativi Contenuti. GAIA si riserva il diritto, 
+            in qualsiasi momento, con effetti immediati, senza necessità di preavviso, a propria esclusiva discrezione e 
+            per qualunque motivo, di limitare, rifiutare o interrompere, del tutto o in parte, l'accesso al Portale, o a 
+            parte di esso, da parte di qualsiasi utente.</p></li>
             
-            <h4><li>Tutela della Privacy</h4>
-            <p>L'utilizzo dei dati personali forniti o raccolti mediante il presente Portale o in 
-            connessione con il medesimo avverrà esclusivamente nel rispetto della tutela della Privacy 
-            e le presenti Condizioni d’Uso sono soggette alla normativa in materia, l'utente è vincolato 
-            al rispetto della normativa sulla privacy e a segnalare tempesticamente qualsisi problematica 
-            al servizio di assistenza in modo confidenziale.</p></li>
-            
-            <h4><li>Responsabilità</h4>
-            <p>Tutte le informazioni (compresi, a titolo esemplificativo e non esaustivo, testi, 
-            immagini, elementi grafici, collegamenti e altri materiali) riportati nel presente Portale
-            sono forniti "così come sono" e "come disponibili". Croce Rossa Italiana - Comitato Provinciale di Catania, 
-            partener e fornitori
-            escludono espressamente qualsiasi dichiarazione o garanzia di ogni tipo, esplicita o implicita, 
-            comprese garanzie di idoneità a un particolare scopo, di non-violazione o 
-            simili, in relazione al funzionamento del presente portale e ai contenuti o contenuti - utente. 
-            Né Croce Rossa Italiana - Comitato Provinciale di Catania né altre strutture CRI o associazione affiliate, partner, concedenti licenze e fornitori 
-            assumono alcun impegno in merito a quanto segue:</p>
-            <p>
-            <ol>
-            <li>che il Portale corrisponda alle esigenze dell'utente,</li>
-            <li>che il Portale funzioni in modo continuo, tempestivo, sicuro e senza errori,</li>
-            <li>che i risultati che siano ottenuti mediante l’uso del Portale ( compresi le informazioni 
-            e i materiali nel presente Portale) siano corretti, completi, accurati e che corrispondano 
-            in altro modo alle esigenze dell'utente.</li>
-            </ol>
-            </p>
-            <p>Croce Rossa Italiana - Comitato Provinciale di Catania e i collaboratori del Progetto Gaia o altre personalità giuridiche 
-            affiliate, partner, licenzianti e fornitori non si assumono alcuna responsabilità in merito a
-            eventuali interruzioni od omissioni riguardanti i servizi Internet, di rete o di hosting e non 
-            garantiscono che il Portale, i servizi che ne determinano la disponibilità o l’invio 
-            delle comunicazioni elettroniche da parte di CRI siano esenti da virus o altri elementi dannosi.</p>
-            <p>Il download o le altre operazioni, effettuate mediante questo Portale, di qualsiasi materiale
-            avviene a discrezione e a rischio dell’utente. L’utente si assume l'esclusiva responsabilità 
-            di eventuali danni al suo sistema informatico o perdite di dati provocate dai contenuti 
-            scaricati.</p></li>
+             <h4><li>Responsabilità</h4>
+            <p>Tutte le informazioni (compresi, a titolo esemplificativo e non esaustivo, testi, immagini, elementi 
+            grafici, collegamenti e altri materiali) riportati nel presente Portale sono forniti "così come sono" e 
+            "come disponibili". Croce Rossa Italiana, esclude espressamente qualsiasi dichiarazione o garanzia di ogni 
+            tipo, esplicita o implicita, comprese garanzie di idoneità a un particolare scopo, di non-violazione o simili, 
+            in relazione al funzionamento del presente portale e ai contenuti o contenuti - utente. </p>
+            <p>Croce Rossa Italiana e i collaboratori del Progetto Gaia non si assumono alcuna responsabilità in 
+            merito a eventuali interruzioni od omissioni riguardanti i servizi Internet, di rete o di hosting e non 
+            garantiscono che il Portale, i servizi che ne determinano la disponibilità o l’invio delle comunicazioni 
+            elettroniche da parte di CRI siano esenti da virus o altri elementi dannosi.</p>
+            <p>Il download o le altre operazioni, effettuate mediante questo Portale, di qualsiasi materiale avviene 
+            a discrezione e a rischio dell’utente. L’utente si assume l'esclusiva responsabilità di eventuali danni al 
+            suo sistema informatico o perdite di dati provocate dai contenuti scaricati.</p></li>
             
             <h4><li>Registrazione</h4>
             <p>Al fine di consentire l’accesso a determinate aree del Portale e 
             utilizzare determinate funzioni o elementi del Portale, all'utente venga richiesto di 
             registrarsi in qualità di Volontario o Aspirante Volontario CRI: tale registrazione è gratuita.</p>
-            <p>All'atto della registrazione, l'utente dovrà inserire il proprio codice fiscale, una sola
-            password e fornire un solo indirizzo e-mail, valido, in uso e verificabile. Non è consentita 
-            la presenza di codici fiscali e indirizzi e-mail identici, se il nome o l’indirizzo inseriti 
-            dall’utente siano già stati utilizzati, l'utente verrà informato di ciò.</p>
-            <p>Il Portale invierà all'utente una e-mail di conferma con i dati di registrazione: in caso di 
-            mancato recapito, per qualsiasi motivo, di tale informazione, l'accesso o l'utilizzo di aree, 
-            funzioni o elementi, per cui sia necessaria detta registrazione, possono essere negati o 
-            interrotti. L'utente è tenuto ad aggiornare tempestivamente la registrazione, perché sia 
-            accurata e attuale. L’utente si assume inoltre l'esclusiva responsabilità di garantire 
-            la riservatezza della propria password. Gli amministratori del Portale si riservano il diritto, 
-            di eliminare dal Portale i contenuti prodotti da un utente o di rifiutarne o 
-            annullarne la registrazione nel caso questi indichi dei dati che a suo insindacabile giudizio 
-            siano osceno, indecente, volgare o altrimenti improprio. 
+            <p>All'atto della registrazione, l'utente dovrà inserire il proprio codice fiscale, una sola password e fornire 
+            un solo indirizzo e-mail, valido, in uso e verificabile. Non è consentita la presenza di codici fiscali e indirizzi
+            e-mail identici, se il nome o l’indirizzo inseriti dall’utente siano già stati utilizzati, l'utente verrà 
+            informato di ciò.</p>
+            <p>Il Portale invierà all'utente una e-mail di conferma con i dati di registrazione: in caso di mancato recapito, 
+            per qualsiasi motivo, di tale informazione, l'accesso o l'utilizzo di aree, funzioni o elementi, per cui sia 
+            necessaria detta registrazione, possono essere negati o interrotti. L'utente è tenuto ad aggiornare tempestivamente
+            la registrazione, perché sia accurata e attuale. L’utente si assume inoltre l'esclusiva responsabilità di 
+            garantire la riservatezza della propria password. Gli amministratori del Portale si riservano il diritto 
+            di eliminare dal Portale i contenuti prodotti da un utente o di rifiutarne o annullarne la registrazione nel 
+            caso questi indichi dei dati che a loro insindacabile giudizio siano osceno, indecente, volgare o altrimenti 
+            improprio.</p>
             <p>L'utente si assume inoltre l'esclusiva 
             responsabilità di limitare l'accesso al proprio o ai propri computer.</p>
             <p> L’utente si assume 
             l’esclusiva responsabilità in relazione a qualsiasi attività, riguardante il suo account, 
             nome utente e/o password, imputabile alla sua condotta, mancato intervento o negligenza. </p>
-            <p>Nel caso l’utente venga a conoscenza di comportamenti sospetti o non autorizzati concernenti 
-            i suoi account, nome utente e/o password, l'utente accetta di contattare immediatamente il supporto del Portale 
-            via e-mail. </p>
-            <p>Gli amministratori del Portale si riservano il diritto di precludere, a propria discrezione, la registrazione 
-            dell'utente a determinati servizi.</p></li>
+            <p>Nel caso l’utente venga a conoscenza di comportamenti sospetti o non autorizzati concernenti i suoi account, 
+            nome utente e/o password, l'utente è tenuto a contattare immediatamente il supporto del Portale via e-mail. </p>
+            <p>Gli amministratori del Portale si riservano il diritto di precludere, a propria discrezione, la registrazione dell'utente 
+            a determinati servizi.</p></li>
 
             <h4><li>Utente che inserisce Contenuti</h4>
             <p>Nell’inviare Contenuti – utente al Portale, l'utente garantisce che i materiali 
@@ -271,33 +239,30 @@
             altri Contenuti - utente inviati al Portale, che non siano soggetti ad alcun vincolo di 
             salvaguardia dei diritti di proprietà intellettuale, potranno essere utilizzati da qualsiasi 
             altro utente senza alcun compenso o riconoscimento.</p>
-            <p>L'utente concede a Croce Rossa Italiana - Comitato Provinciale di Catania e alle strutture affiliate e partner una licenza globale, 
-            irrevocabile, esente da royalty, non esclusiva, sub-licenziabile e/o trasferibile a usare, 
-            riprodurre, creare opere derivate, distribuire, utilizzare pubblicamente, esporre pubblicamente, 
-            trasmettere e pubblicare i Contenuti - utente da lui forniti nel presente Portale, in qualsiasi 
-            altro sito CRI o nei materiali di marketing o di pubbliche relazioni CRI , mediante qualsiasi 
-            strumento.</p>
-            <p>L'utente si assume l'esclusiva responsabilità dei Contenuti - utente e delle eventuali 
-            conseguenze determinate dal loro invio, trasmissione e/o pubblicazione. Croce Rossa Italiana - Comitato Provinciale di Catania si riserva il 
-            diritto, senza assumere alcun obbligo al riguardo, di esaminare e monitorare i Contenuti - 
-            utente prima e/o dopo la loro trasmissione. Ciononostante l'utente riconosce l'impossibilità 
-            per Croce Rossa Italiana - Comitato Provinciale di Catania di verificare e monitorare tutti i Contenuti – utente. Croce Rossa Italiana - Comitato Provinciale di Catania, 
-            partner, licenzianti e fornitori non si assumono in nessun caso alcuna responsabilità 
-            in merito alla accuratezza, completezza, qualità o validità dei Contenuti - utente, inviati da 
-            terzi al Portale.</p>
-            <p>Croce Rossa Italiana - Comitato Provinciale di Catania non avalla alcun Contenuto - utente o alcuna opinione, raccomandazione o 
-            consiglio ivi contenuti e non assume responsabilità di nessun tipo, in merito a detti 
-            Contenuti – utente.</p>
-            <p>Croce Rossa Italiana - Comitato Provinciale di Catania si riserva l'esclusivo diritto e facoltà di modificare e/o eliminare, per qualsiasi 
-            motivo, in qualunque momento, senza alcun preavviso o necessità di autorizzazione e a 
-            propria esclusiva discrezione, messaggi o qualsiasi altro Contenuto - utente discutibile, 
-            sconveniente o altrimenti contrario alle presenti Condizioni d'Uso. Gli utenti convinti del 
-            carattere discutibile e sconveniente di Contenuti – utente sono invitati a contattare 
-            immediatamente gli amministratori del Portale via e-mail.
-            Al ricevimento di tali comunicazioni, gli amministratori del Portale si sforzeranno, entro limiti ragionevoli, di prendere, 
-            in tempi ragionevolmente brevi, i provvedimenti reputati necessari: vista la natura non 
-            automatica di tale processo, l'utente è avvisato che l'immediata eliminazione o modifica 
-            dei Contenuti incriminati potrebbe non essere possibile.</p></li>
+            <p>L'utente concede a Croce Rossa Italiana una licenza globale, irrevocabile, esente da royalty, non esclusiva, 
+            sub-licenziabile e/o trasferibile a usare, riprodurre, creare opere derivate, distribuire, utilizzare pubblicamente, 
+            esporre pubblicamente, trasmettere e pubblicare i Contenuti - utente da lui inseriti nel presente Portale esclusi i 
+            dati personali relativi all’utente, in qualsiasi altro sito CRI o nei materiali di pubbliche relazioni CRI , mediante 
+            qualsiasi strumento.</p>
+            <p>L'utente si assume l'esclusiva responsabilità dei Contenuti - utente e delle eventuali conseguenze determinate 
+            dal loro invio, trasmissione e/o pubblicazione. Croce Rossa Italiana si riserva il diritto, senza assumere alcun 
+            obbligo al riguardo, di esaminare e monitorare i Contenuti - utente prima e/o dopo la loro trasmissione. 
+            Ciononostante l'utente riconosce l'impossibilità per Croce Rossa Italiana di verificare e monitorare tutti i 
+            Contenuti – utente. Croce Rossa Italiana non si assume in nessun caso alcuna responsabilità in merito alla 
+            accuratezza, completezza, qualità o validità dei Contenuti - utente, inviati da terzi al Portale.</p>
+            <p>Croce Rossa Italiana non avvalla alcun Contenuto - utente o alcuna opinione, raccomandazione o consiglio ivi contenuti e 
+            non assume responsabilità di nessun tipo, in merito a detti Contenuti – utente.</p>
+            <p>Croce Rossa Italiana si riserva l'esclusivo diritto e facoltà di modificare e/o eliminare, per qualsiasi 
+            motivo, in qualunque momento, senza alcun preavviso o necessità di autorizzazione e a propria esclusiva 
+            discrezione, messaggi o qualsiasi altro Contenuto - utente discutibile, sconveniente o altrimenti contrario 
+            alle presenti Condizioni d'Uso. Gli utenti convinti del carattere discutibile e sconveniente di Contenuti – 
+            utente sono invitati a contattare immediatamente gli amministratori del Portale via e-mail. Al ricevimento di 
+            tali comunicazioni, gli amministratori del Portale si sforzeranno, entro limiti ragionevoli, di prendere, in 
+            tempi ragionevolmente brevi, i provvedimenti reputati necessari: vista la natura non automatica di tale processo, 
+            l'utente è avvisato che l'immediata eliminazione o modifica dei Contenuti incriminati potrebbe non essere 
+            possibile.</p></li>
+
+            <!-- fino a qui -->
             
             <h4><li>Limitazione di responsabilità</h4>
             <p>Croce Rossa Italiana - Comitato Provinciale di Catania, partner, concedenti 
