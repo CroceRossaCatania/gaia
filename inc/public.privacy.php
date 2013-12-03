@@ -262,49 +262,33 @@
             l'utente è avvisato che l'immediata eliminazione o modifica dei Contenuti incriminati potrebbe non essere 
             possibile.</p></li>
 
-            <!-- fino a qui -->
-            
             <h4><li>Limitazione di responsabilità</h4>
-            <p>Croce Rossa Italiana - Comitato Provinciale di Catania, partner, concedenti 
-            licenze o fornitori non assumono in nessun caso alcuna responsabilità per danni 
-            diretti, indiretti, conseguenziali, punitivi, speciali, incidentali o di altro tipo 
-            risultanti da, provocati da o correlati all'accesso o utilizzo del presente Portale e 
-            dei relativi contenuti e contenuti - utente o all'impossibilità di accedere ai medesimi, 
-            anche nel caso in cui gli amministratori del Portale siano stati informata in merito alla possibilità di tali danni, 
-            fatti salvi i soli casi di dolo e/o colpa grave.</p>
-            <p>Qualora l'utente viva in un paese o stato in cui non sia lecito prevedere le precedenti 
-            limitazioni di responsabilità o le esclusione di cui al precedente Paragrafo 4 e al seguente 
-            Paragrafo 8, dette limitazioni ed esclusioni saranno applicabili solo nella misura in cui 
-            siano consentite. In tal caso, le limitazioni ed esclusioni in questione saranno tanto 
-            estese quanto sia consentito dalla legge applicabile.</p></li>
+            <p>Croce Rossa Italiana non si assume in nessun caso alcuna responsabilità per danni diretti, indiretti, 
+            conseguenziali, punitivi, speciali, incidentali o di altro tipo risultanti da, provocati da o correlati 
+            all'accesso o utilizzo del presente Portale e dei relativi contenuti e contenuti - utente o all'impossibilità 
+            di accedere ai medesimi, anche nel caso in cui gli amministratori del Portale siano stati informata in merito 
+            alla possibilità di tali danni, fatti salvi i soli casi di dolo e/o colpa grave.</p>
+            <p>Qualora l'utente viva in un paese o stato in cui non sia lecito prevedere le precedenti limitazioni 
+            di responsabilità o le esclusione di cui al precedente Paragrafo 4 e al seguente Paragrafo 8, dette limitazioni 
+            ed esclusioni saranno applicabili solo nella misura in cui siano consentite. In tal caso, le limitazioni 
+            ed esclusioni in questione saranno tanto estese quanto sia consentito dalla legge applicabile.</p></li>
             
             <h4><li>Contenuti/software di terzi</h4>
-            <p>Croce Rossa Italiana - Comitato Provinciale di Catania non assume alcuna responsabilità in merito ai contenuti di qualsiasi sito di 
-            proprietà di terzi eventualmente connesso al Portale mediante un collegamento ipertestuale, 
-            indipendentemente dal fatto che detto collegamento sia fornito dal Portale o da una terza 
-            parte in conformità alle Condizioni d'Uso. L'eventuale presenza sul Portale di collegamenti 
-            ad altri siti non comporta l'avallo dei medesimi, né un giudizio o garanzia in merito alla 
-            precisione, tempestività o idoneità del contenuto dei siti ai quali il Portale possa fare 
-            rinvio tramite un link e GAIA non assume alcuna responsabilità al riguardo.</p>
-            <p>Qualsiasi software scaricabile da o attraverso il presente Portale è concesso in licenza 
-            secondo le condizioni dei contratti di licenza applicabili. Fatto salvo quanto indicato nel 
-            contratto di licenza applicabile, l'utilizzo del software è consentito esclusivamente agli 
-            utenti finali ed eventuali ulteriori operazioni di duplicazione, riproduzione o ridistribuzione 
-            sono espressamente proibite.</p>
-            <p> Le eventuali garanzie relative a tale software saranno valide 
-            esclusivamente nei limiti di quanto espressamente indicato nel contratto di licenza applicabile. 
-            Croce Rossa Italiana - Comitato Provinciale di Catania nega espressamente qualsiasi ulteriore dichiarazione e garanzia di qualsiasi tipo, 
-            esplicita o implicita, comprese garanzie di commerciabilità, di idoneità a un particolare 
-            scopo o di non-violazione in relazione al software.</p></li>
+            <p>Croce Rossa Italiana non assume alcuna responsabilità in merito ai contenuti di qualsiasi sito di 
+            proprietà di terzi eventualmente connesso al Portale mediante un collegamento ipertestuale, indipendentemente 
+            dal fatto che detto collegamento sia fornito dal Portale o da una terza parte in conformità alle Condizioni d'Uso. 
+            L'eventuale presenza sul Portale di collegamenti ad altri siti non comporta l'avallo dei medesimi, né un giudizio 
+            o garanzia in merito alla precisione, tempestività o idoneità del contenuto dei siti ai quali il Portale possa 
+            fare rinvio tramite un link e gli amministratori del portale non assumono alcuna responsabilità al riguardo.</p>
+            <p>Qualsiasi software scaricabile da o attraverso il presente Portale è concesso in licenza secondo le condizioni 
+            dei contratti di licenza applicabili.</p>
+            <p> Croce Rossa Italiana nega espressamente qualsiasi ulteriore dichiarazione e garanzia di qualsiasi tipo, 
+            esplicita o implicita, comprese garanzie di commerciabilità, di idoneità a un particolare scopo o di non-violazione 
+            in relazione al software.</p></li>
             
             <h4><li>Diritti di proprietà sul Portale</h4>
-            <p>Questo Portale è pubblico e qualsiasi informazione inviata verrà considerata non 
-            riservata. L'utente riconosce che la presentazione di qualsiasi invenzione compresa nei 
-            Contenuti da lui inoltrati equivale alla "pubblicazione" della medesima, ai sensi delle 
-            leggi applicabili sui brevetti.</p>
-            <p>L'utente riconosce inoltre che i Contenuti - utente eventualmente presentati 
-            e/o discussi sul Portale potranno essere oggetto di elaborazione e sviluppo di parti
-            del Portale. </p>
+            <p>L'utente riconosce che i Contenuti - utente eventualmente presentati e/o discussi sul Portale potranno essere 
+            oggetto di elaborazione e sviluppo di parti del Portale. </p>
             <p>Se l’utente sa o ha il sospetto che i materiali presenti sul Portale siano stati utilizzati o copiati in modo tale da violare 
             il diritto di copyright, è pregato di inviare una comunicazione agli amministratori del Portale
             allegando:</p>
@@ -334,93 +318,68 @@
             <p>Tramite email al servizio di supporto del Portale:</p>
             <p>
             <ul>
-            <li><a href='mailto:supporto@gaiacri.it'><i class="icon-envelope-alt"></i> supporto@gaiacri.it</a></li>
-            <li><a href='mailto:info@gaiacri.it'><i class="icon-envelope-alt"></i> info@gaiacri.it</a></li>
+            <li><a href='mailto:supporto@gaia.cri.it'><i class="icon-envelope-alt"></i> supporto@gaia.cri.it</a></li>
+            <li><a href='mailto:info@gaia.cri.it'><i class="icon-envelope-alt"></i> info@gaia.cri.it</a></li>
             </ul>
             </p>
+            <!-- 
             <p>Tramite posta elettronica certificata:</p>
             <p>
             <ul>
-            <li><a href='mailto:cp.catania@cert.cri.it'><i class="icon-envelope-alt"></i> cp.catania@cert.cri.it</a></li>
+            <li><a href='mailto:gaia@cert.cri.it'><i class="icon-envelope-alt"></i> gaia@cert.cri.it</a></li>
             </ul>
-            </p></li>
+            </p>-->
+            </li>
             
             <h4><li>Indennità ed esclusione di responsabilità</h4>
-            <p>L'utente accetta di tenere indenni Croce Rossa Italiana - Comitato Provinciale di Catania, gli amministratori del Portale, partner, 
-            concedenti licenze e fornitori nonché i rispettivi funzionari, dirigenti, dipendenti, 
-            rappresentanti legali, agenti, successori e cessionari e a sollevarli da qualsiasi responsabilità 
-            per danni, oneri, costi e spese (compresi onorari legali e professionali ragionevoli e spese 
-            legali) derivati dalla pubblicazione, contenuto o trasmissione di qualsiasi messaggio, 
-            informazione, materiale o altri Contenuti - utente pubblicati sul Portale o da qualsiasi 
-            violazione delle presenti Condizioni d’Uso da parte dell'utente. Nell'eventualità di reclami 
-            o azioni legali dovuti a messaggi o Contenuti -utente inviati dall’utente, gli amministratori del Portale si riservano il 
-            diritto di rivelare l'identità del medesimo e qualsiasi altra informazione sul suo conto 
-            eventualmente in suo possesso.</p>
-            <p>In caso di controversie con altri utenti, l'utente solleva Croce Rossa Italiana - Comitato Provinciale di Catania, gli amministratori del Portale,
-            , affiliate, partner, licenzianti e fornitori, nonché i rispettivi funzionari, dirigenti, 
-            rappresentanti legali, successori e cessionari, da qualsiasi 
-            responsabilità per reclami, rivendicazioni e danni (effettivi e consequenziali) di qualsiasi 
+            <p>L'utente accetta di tenere indenni Croce Rossa Italiana e gli amministratori del Portale e a sollevarli 
+            da qualsiasi responsabilità per danni, oneri, costi e spese (compresi onorari legali e professionali ragionevoli 
+            e spese legali) derivati dalla pubblicazione, contenuto o trasmissione di qualsiasi messaggio, informazione, 
+            materiale o altri Contenuti - utente pubblicati sul Portale o da qualsiasi violazione delle presenti Condizioni 
+            d’Uso da parte dell'utente. Nell'eventualità di reclami o azioni legali dovuti a messaggi o Contenuti -utente 
+            inviati dall’utente, gli amministratori del Portale si riservano il diritto di rivelare l'identità del medesimo 
+            e qualsiasi altra informazione sul suo conto eventualmente in suo possesso.</p>
+            <p>In caso di controversie con altri utenti, l'utente solleva Croce Rossa Italiana e gli amministratori del 
+            Portale da qualsiasi responsabilità per reclami, rivendicazioni e danni (effettivi e consequenziali) di qualsiasi 
             tipo e natura, nota e ignota, derivanti da o in qualunque modo connessi a tali controversie.</p></li>
             
-            <h4><li>Chiusura del Portale</h4>
-            <p>Croce Rossa Italiana - Comitato Provinciale di Catania si riserva il diritto esclusivo di chiudere in tutto o in parte il Portale, 
-            in qualsiasi momento, per qualsiasi motivo e senza alcun preavviso o necessità di autorizzazione. 
-            Croce Rossa Italiana - Comitato Provinciale di Catania non assume alcuna responsabilità per la memorizzazione o eliminazione di qualsiasi 
-            Contenuto e/o Contenuto - utente pubblicato sul Portale.</p></li>
-            
             <h4><li>Servizi forniti dal Portale</h4>
-            <p>Il Portale può contenere riferimenti a specifici servizi che 
-            possono risultare non (immediatamente) disponibili. Tali riferimenti 
-            non implicano o garantiscono la disponibilità, in qualsiasi momento, di tali prodotti o 
+            <p>Il Portale può contenere riferimenti a specifici servizi che possono risultare non (immediatamente) disponibili. 
+            Tali riferimenti non implicano o garantiscono la disponibilità, in qualsiasi momento, di tali prodotti o 
             servizi.</p></li>
             
-            <h4><li>Risoluzione dei casi di contestazione</h4>
-            <p>Le presenti condizioni d'uso verranno disciplinate e interpretate ai sensi delle 
-            leggi italiane. L'utente accetta la giurisdizione del Foro di Catania nell'eventualità 
-            di contestazioni, rivendicazioni o procedimenti legali derivanti 
-            da o ascrivibili alle presenti Condizioni d’Uso o all'utilizzo del presente Portale da 
-            parte dell'utente, comprese, fra l'altro, eventuali contestazioni in merito all'esistenza 
-            o validità delle presenti Condizioni d’Uso.</p></li>
-            
             <h4><li>Clausole Invalide</h4>
-            <p>Nell'eventualità che una qualsiasi delle presenti Condizioni d'Uso venga dichiarata 
-            non valida o non applicabile, la suddetta verrà sostituita da una disposizione valida 
-            e applicabile tale da avvicinarsi il più possibile al contenuto di quella originaria, 
-            mentre le altre verranno regolarmente applicate.</p></li>
+            <p>Nell'eventualità che una qualsiasi delle presenti Condizioni d'Uso venga dichiarata non valida o non 
+            applicabile, la suddetta verrà sostituita da una disposizione valida e applicabile tale da avvicinarsi il più 
+            possibile al contenuto di quella originaria, mentre le altre verranno regolarmente applicate.</p></li>
             
-            <h4><li>Rinuncia</h4>
-            <p>Il mancato esercizio, da parte di Croce Rossa Italiana - Comitato Provinciale di Catania in relazione ad azioni passate o future 
-            da parte di altre persone, di qualsiasi diritto contenuto nelle presenti Condizioni 
-            d'Uso non comporterà alcuna rinuncia ad alcun diritto di Croce Rossa Italiana - Comitato Provinciale di Catania, ivi previsto. 
-            Solo una specifica rinuncia scritta, firmata da un rappresentante 
-            autorizzato di GAIA, avrà effetti giuridici.</p></li>
         </ol>
         <h3>Utenti responsabili del trattamento dei dati dei Soci e dei Procedimenti</h3>
         <p>Le categorie di utenti che hanno responsabilità sul trattamento dei dati degli utenti afferenti
-        ad un comitato, e che rivestono quindi il ruolo di  titolari dei procedimenti riguardo 
+        ad un comitato, e che rivestono quindi il ruolo di titolari dei procedimenti riguardo 
         dati dei soci, sono:</p>
         <p>
         <ul>
         <li> Presidente </li>
-        <li> Referenti Ufficio Soci (nominati dal presidente) </li>
-        <li> Referenti Centrale Operativa (nominati dal presidente) </li>
-        <li> Delegati di Area (nominati dal presidente) </li>
-        <li> Referenti di progetto (nominati dal presidente) </li>
-        <li> Responsabili di attività (nominati da presidente, delegato d'area o referente di progetto)</li>
+        <li> Referenti Ufficio Soci </li>
+        <li> Referenti Centrale Operativa </li>
+        <li> Delegati di Area</li>
+        <li> Referenti di progetto </li>
+        <li> Responsabili di attività</li>
         </ul>
         </p>
-        <p>Accettando le condizioni d'uso i titolari dei procedimenti riguardo dati dei soci:</p>
+        <p>Accettando le condizioni d'uso i titolari dei procedimenti riguardo i dati dei soci:</p>
         <p>
         <ul>
         <li>si impegnano a vigilare sull'operato degli addetti (es. referenti Ufficio soci o referenti di ogni altra struttura
         sotto il coordinamento del presidente) riguardo all'utilizzo del Portale.</li>
         <li> dichiarano di considerare valide le istanze e le dichiarazioni presentate per via 
-        telematica tramite il Portale GAIA e di di essere a conoscenza che il mancato avvio del procedimento 
+        telematica tramite il Portale Gaia e di di essere a conoscenza che il mancato avvio del procedimento 
         da parte del titolare dell'ufficio competente a seguito di istanza o dichiarazione inviate 
-        tramite GAIA comporta responsabilità dirigenziale e responsabilità disciplinare dello stesso.</li>
+        tramite Gaia comporta responsabilità dirigenziale e responsabilità disciplinare dello stesso.</li>
         </ul>
         </p>
-        <p>Grazie per avere visitato il Portale GAIA.</p>
+        <p>Grazie per aver prestato attenzione a queste informazioni.</p>
     </div>
 </div>
 
