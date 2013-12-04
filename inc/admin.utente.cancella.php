@@ -122,14 +122,14 @@ $t = Utente::id($t);
 	foreach ($f as $_f) {
 	    $_f->cancella();
 	}
-	/*
+	
 	$f = Privacy::filtra([
 	  ['volontario', $t]
 	]);
 	foreach ($f as $_f) {
 	    $_f->cancella();
 	}
-	*/
+	
 	$f = Quota::filtra([
 	  ['appartenenza', $a]
 	]);

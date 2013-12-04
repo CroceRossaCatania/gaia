@@ -87,7 +87,7 @@ $t = Persona::filtra([['stato',PERSONA],['password', NULL]]);
                             </a>
 
                             <?php if ($me->admin) { ?>
-                                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=presidente.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
+                                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
                                 <i class="icon-trash"></i> Cancella
                                 </a>
                             <?php } ?>

@@ -43,7 +43,7 @@ menuElenchiVolontari(
                 <i class="icon-envelope"></i>
             </a>
             <?php if ($me->admin) { ?>
-                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=presidente.utente.cancella&id={id}" title="Cancella Utente" class="btn btn-small btn-warning">
+                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id={id}" title="Cancella Utente" class="btn btn-small btn-warning">
                     <i class="icon-trash"></i> Cancella
                 </a>
                 <a class="btn btn-small btn-primary" href="?p=admin.beuser&id={id}" title="Log in">
