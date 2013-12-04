@@ -19,11 +19,6 @@ menuElenchiVolontari(
             <i class="icon-save"></i> <strong>Volontario eliminato</strong>.
             Il Volontario è stato eliminato con successo.
         </div>
-<?php } elseif ( isset($_GET['e']) )  { ?>
-        <div class="alert alert-block alert-error">
-            <h4><i class="icon-exclamation-sign"></i> Impossibile eliminare l'utente</h4>
-            <p>Contatta l'amministratore</p>
-        </div>
 <?php }elseif ( isset($_GET['dim']) )  { ?>
         <div class="alert alert-block alert-success">
             <h4><i class="icon-exclamation-sign"></i> Volontario dimesso</h4>
@@ -48,7 +43,7 @@ menuElenchiVolontari(
                 <i class="icon-envelope"></i>
             </a>
             <?php if ($me->admin) { ?>
-                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=presidente.utente.cancella&id={id}" title="Cancella Utente" class="btn btn-small btn-warning">
+                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id={id}" title="Cancella Utente" class="btn btn-small btn-warning">
                     <i class="icon-trash"></i> Cancella
                 </a>
                 <a class="btn btn-small btn-primary" href="?p=admin.beuser&id={id}" title="Log in">
