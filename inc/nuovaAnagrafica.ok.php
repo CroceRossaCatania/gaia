@@ -19,7 +19,6 @@ $caresidenza= normalizzaNome($_POST['inputCAPResidenza']);
 $prresidenza= maiuscolo($_POST['inputProvinciaResidenza']);
 $indirizzo  = normalizzaNome($_POST['inputIndirizzo']);
 $civico     = maiuscolo($_POST['inputCivico']);
-$consenso  	= $_POST['inputConsenso'];
 
 /*
  * Scrive i dati nella sessione 
@@ -74,7 +73,7 @@ $p->provinciaResidenza  = $prresidenza;
 $p->indirizzo 			= $indirizzo;
 $p->civico   			= $civico;
 $p->timestamp           = time();
-$p->consenso 			= $consenso;
+$p->consenso            = time();
 
 if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
     $p->stato               = PERSONA;

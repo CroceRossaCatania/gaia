@@ -213,14 +213,14 @@ $(document).ready( function() {
                         ?>
                         <div class="row-fluid" id="commento">
                             <div class="span2 allinea-destra">
-                                <a href="?p=public.utente&id=<?php echo $autore->id; ?>" target="_new">
+                                <a href="?p=profilo.controllo&id=<?php echo $autore->id; ?>" target="_new">
                                     <img src="<?php echo $autore->avatar()->img(10); ?>" width="50" height="50" class="img-circle" />
                                 </a>
                             </div>
                             <div class="span10">
                                 <small class="text-info">
                                     <strong>
-                                        <a href="?p=public.utente&id=<?php echo $autore->id; ?>" target="_new"><?php echo $autore->nomeCompleto(); ?></a></strong>,
+                                        <a href="?p=profilo.controllo&id=<?php echo $autore->id; ?>" target="_new"><?php echo $autore->nomeCompleto(); ?></a></strong>,
                                         <?php echo $c->quando()->inTesto(); ?>
                                     </small>
                                     <?php if ( $me->id == $autore->id || $a->modificabileDa($me) ) { ?>
@@ -325,7 +325,7 @@ $(document).ready( function() {
                                 <br />
                                 <?php
                                 foreach ( $accettate as $ppp ) { ?>
-                                <a href="?p=public.utente&id=<?php echo $ppp->id; ?>" target="_new" title="<?php echo $ppp->nomeCompleto(); ?>">
+                                <a href="?p=profilo.controllo&id=<?php echo $ppp->id; ?>" target="_new" title="<?php echo $ppp->nomeCompleto(); ?>">
                                     <img width="30" height="30" src="<?php echo $ppp->avatar()->img(10); ?>" />
                                 </a>
                             <?php }
@@ -345,7 +345,7 @@ $(document).ready( function() {
                                             <ul>
                                                 <?php foreach ( $accettate as $v ) { ?>
                                                 <li>
-                                                    <a href="?p=public.utente&id=<?php echo $v->id; ?>" target="_new">
+                                                    <a href="?p=profilo.controllo&id=<?php echo $v->id; ?>" target="_new">
                                                         <?php   $potere = true;
                                                                 $colore = "#222"; 
                                                                 if ($turno->partecipazione($v)->poteri()) { 
@@ -383,7 +383,7 @@ $(document).ready( function() {
                                             <ul>
                                                 <?php foreach ( $x as $v ) { ?>
                                                 <li>
-                                                    <a href="?p=public.utente&id=<?php echo $v->id; ?>" target="_new">
+                                                    <a href="?p=profilo.controllo&id=<?php echo $v->id; ?>" target="_new">
                                                         <?php echo $v->nomeCompleto(); ?>
                                                     </a>
                                                 </li>
@@ -401,7 +401,7 @@ $(document).ready( function() {
                                             <ul>
                                                 <?php foreach ( $x as $v ) { ?>
                                                 <li>
-                                                    <a href="?p=public.utente&id=<?php echo $v->id; ?>" target="_new">
+                                                    <a href="?p=profilo.controllo&id=<?php echo $v->id; ?>" target="_new">
                                                         <?php echo $v->nomeCompleto(); ?>
                                                     </a>
                                                     <?php if( $turno->futuro() && $a->modificabileDa($me) ){ ?>

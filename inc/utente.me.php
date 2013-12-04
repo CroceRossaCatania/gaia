@@ -4,7 +4,44 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPrivata();
+paginaPrivata(false);
+
+if ( !$me->consenso() ){ ?>
+  <div class="modal fade automodal">
+    <div class="modal-header">
+      <h3 class="text-success"><i class="icon-cog"></i> Aggiornamento condizioni d'uso di Gaia!</h3>
+    </div>
+    <div class="modal-body">
+      <p>Ciao <strong><?php echo $me->nome; ?></strong>, Gaia ha aggiornato le sue condizioni d'uso.</p>
+      <p>È importante per noi che tu sia informato riguardo le finalità di questo portale e riguardo
+      a come vengono trattati i tuoi dati. Per fare ciò hai due possibilità: </p>
+      <ul>
+        <li>Leggi la pagina delle <a href="?p=public.privacy" target="_new"> <i>condizioni d'uso</i></a> ; </li>
+        <li>Apri una nuova finestra del browser. Digita gaia.cri.it, clicca <i>informazioni</i> in fondo alla pagina e poi <i>condizioni d'uso</i>.</li>
+      </ul>
+      <p>Ti raccomandiamo di leggere con attenzione il documento perché contiene importanti 
+      informazioni su come i tuoi dati sono gestiti.</p>
+      <p>Se hai letto premi il pulsante "Ho letto!". Verrai indirizzato ad una pagina
+      in cui potrai dare il consenso e gestire le informazioni che ti riguardano.</p>
+      <p>Se non sei d'accordo premi il pulsante "Logout": non ti sarà possibile utilizzare i servizi offerti dal portale fino
+      a che non accetterai le condizioni d'uso. </p>
+      <p>Le condizioni d'uso resteranno valide fino all'entrata in vigore della versione aggiornata. Quando ciò
+      accradrà verrai subito informato.</p>
+      </p>Grazie per la fiducia,</br>
+      Lo staff di Gaia</p>
+    </div>
+    <div class="modal-footer">
+      <a href="?p=logout" class="btn">
+        <i class="icon-remove"></i>
+        Logout
+      </a>
+      <a href="?p=utente.privacy&first" class="btn btn-success">
+        <i class="icon-ok"></i>
+        Ho letto!
+      </a>
+    </div>
+  </div>
+<?php } 
 
 if ( !$me->email ) { redirect('nuovaAnagraficaContatti'); }
 if ( !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
@@ -67,11 +104,12 @@ if ($rf) {
           </a>
         </div>
 </div>
-    
 
 
-<?php
-}
+<?php 
+} 
+
+
 if ( !$me->appartenenze() && $me->stato==VOLONTARIO ) { ?>
   <div class="modal fade automodal">
     <div class="modal-header">
@@ -121,7 +159,9 @@ if(false && !$sessione->barcode) { ?>
     </a>
   </div>
 </div>
+
 <?php } ?>
+
 <div class="row-fluid">
     
     <div class="span3"><?php menuVolontario(); ?></div>
@@ -229,15 +269,20 @@ if(false && !$sessione->barcode) { ?>
        </div>
      </div>
    <?php }
- } ?>
+ } 
+ if(false) {?>
     <!-- Per ora mostra sempre... -->
     <div class="alert alert-block alert-info">
       <h4><i class="icon-folder-open"></i> Hai già caricato i tuoi documenti?</h4>
       <p>Ricordati di caricare i tuoi documenti dalla sezione <strong>Documenti</strong>.</p>
     </div>
-  </div>
+
+<?php }
+if ( !$attenzione && $me->comitatiDiCompetenza() ) { ?>
+    <div class="alert alert-block alert-warning">
+      <h4><i class="icon-warning-sign"></i> Dov'è finito il pannello presidente?</h4>
+      <p>Nel menù di sinistra, alla voce <strong>Presidente</strong>.</p>
+    </div>
+<?php } ?>
 </div>
-<?php
-if ( !$attenzione && $me->comitatiDiCompetenza() ) {
-  redirect('presidente.dash');
-} ?>
+</div>
