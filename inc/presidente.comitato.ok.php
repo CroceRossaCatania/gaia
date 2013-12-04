@@ -112,7 +112,7 @@ if(isset($_POST['rimuoviReferente'])) {
     $back = 'aree';
     $a = $_POST['rimuoviReferente'];
     $area = Area::id($a);
-    $area->dimettiReferente($c);
+    $area->dimettiReferente();
 }
 
 /* Creazione nuova area */

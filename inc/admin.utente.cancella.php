@@ -28,7 +28,7 @@ $t = Utente::id($t);
 	  ['responsabile', $t]
 	]);
 	foreach($f as $_f){
-		$_f->dimettiReferente($c);
+		$_f->dimettiReferente();
 		$_f->cancella();
 	}
 
