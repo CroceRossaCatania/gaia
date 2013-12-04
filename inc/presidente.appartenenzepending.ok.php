@@ -11,9 +11,8 @@ $a      = Appartenenza::id($id);
 
 if ( isset($_GET['si']) ) {
     
-    $a->timestamp = time();
-    $a->stato     = MEMBRO_VOLONTARIO;
-    $a->conferma  = $me->id;    
+    $a->conferma($me);   
+
     $m = new Email('appartenenzacomitato', 'Conferma appartenenza: ' . $a->comitato()->nome);
     $m->da = $me; 
     $m->a = $a->volontario();
@@ -31,7 +30,7 @@ if ( isset($_GET['si']) ) {
     $m->_COMITATO   = $a->comitato()->nomeCompleto();
     $m->invia();
     
-    $a->fine    = time();
+    $a->nega();
     
     redirect('presidente.appartenenzepending&neg');
 }

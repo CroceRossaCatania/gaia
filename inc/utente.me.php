@@ -110,7 +110,7 @@ if ($rf) {
 } 
 
 
-if ( !$me->appartenenze() && $me->stato==VOLONTARIO ) { ?>
+if ( $me->appartenenzaNonvalida() ) { ?>
   <div class="modal fade automodal">
     <div class="modal-header">
       <h4 class="text-error"><i class="icon-warning-sign"></i> Seleziona il tuo Comitato</h4>
@@ -242,7 +242,7 @@ if(false && !$sessione->barcode) { ?>
         <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d/m/Y', $r->fine); ?></strong>.</p>
       </div>
     <?php } ?> 
-    <?php   if ( $me->storico() && !$me->appartenenzePendenti() && $me->unComitato()->gruppi() ) { 
+    <?php   if ( $me->comitati() && $me->unComitato()->gruppi() ) { 
       if (!$me->mieiGruppi()){ ?>
         <div class="alert alert-danger">
           <div class="row-fluid">
