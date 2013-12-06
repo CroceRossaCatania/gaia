@@ -21,10 +21,15 @@ caricaSelettoreComitato();
     <div class="span4">
         <h2>
             <i class="icon-group"></i>
-            Comitato e password
+            <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
+                Comitato e 
+            <?php } ?>
+            Password
         </h2>
-        <p>Seleziona il comitato del quale fai parte.</p>
-        <p>La tua iscrizione verrà confermata da un vertice del tuo comitato.</p>
+        <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
+            <p>Seleziona il comitato del quale fai parte.</p>
+            <p>La tua iscrizione verrà confermata da un vertice del tuo comitato.</p>
+        <?php } ?>
         <p>
             <i class="icon-key"></i> Inserisci inoltre la password che userai per accedere.
         </p>
@@ -46,6 +51,7 @@ caricaSelettoreComitato();
         </div>
     <?php } ?>
     <form id="moduloRegistrazione" class="form-horizontal" action="?p=nuovaAnagraficaAccesso.ok" method="POST">
+        <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
         <div class="control-group">
             <label class="control-label" for="inputComitato">Comitato</label>
             <div class="controls">
@@ -67,6 +73,7 @@ caricaSelettoreComitato();
             </div>
         </div>
         <hr />
+        <?php } ?>
         <div class="control-group input-prepend">
             <label class="control-label" for="inputPassword">Password</label>
             <div class="controls ">

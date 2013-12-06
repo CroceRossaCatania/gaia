@@ -30,6 +30,29 @@ class Aspirante extends GeoCirco {
     	return DT::daTimestamp($this->data);
     }
 
+    /**
+     * Ottiene l'oggetto Aspirante relativo ad un volontario
+     * @param Volontario $volontario Il volontario
+     * @return Aspirante
+    */
+    public static function daVolontario($volontario) {
+        return static::by('utente', (string) $volontario);
+    }
 
+    public function comitati() {
+        return Comitato::contenutiIn($this);
+    }
+
+    public function numComitati() {
+        return count($this->comitati());
+    }
+
+    public function trovaRaggioMinimo() {
+        do {
+            $this->raggio = (int) $this->raggio + 2;
+        } while (
+            $this->numComitati() < ASPIRANTI_MINIMO_COMITATI
+        );
+    }
 
 }

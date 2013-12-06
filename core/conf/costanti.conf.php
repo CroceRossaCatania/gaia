@@ -550,3 +550,36 @@ $conf['dizionario'] = [
     DIZIONARIO_BASE64       =>  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 ];
 
+
+/*
+ * ===================================
+ * ============= CORSI ===============
+ * ===================================
+ */
+
+define('ASPIRANTI_MINIMO_COMITATI',     12);
+
+// Tipologia di corso. CORSO_T_<nometipo>
+// Ogni tipologia di corso deve avere il proprio template
+// richiesta di iscrizione in /core/conf/pdf/modelli/corso/{codice}.html
+
+define('CORSO_T_CORSOBASE',         10);
+
+$conf['corso_tipo'] = [
+    CORSO_T_CORSOBASE       =>  'Corso base'
+];
+
+
+// Tipologia di accesso ai corsi. CORSO_T_<nometipo>
+
+define('CORSO_A_POPOLAZIONE',         10);
+define('CORSO_A_LAICI',               20);
+define('CORSO_A_TUTTI',               30);
+define('CORSO_A_VOLONTARI',           40);
+
+$conf['corso_a'] = [
+    CORSO_A_POPOLAZIONE         =>  'Corso alla popolazione',
+    CORSO_A_VOLONTARI           =>  'Corso aperti ai volontari',
+    CORSO_A_LAICI               =>  'Corso aperti ai non volontari',
+    CORSO_A_TUTTI               =>  'Corso aperti ai volontari',
+];

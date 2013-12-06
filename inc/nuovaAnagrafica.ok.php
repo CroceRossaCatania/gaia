@@ -45,13 +45,7 @@ $p->civico   		= $civico;
 $p->timestamp           = time();
 $p->consenso = $consenso;
 
-if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
-    $p->stato               = PERSONA;
-} else {
-    $p->stato               = ASPIRANTE;
-}
-
-
+$p->stato               = PERSONA;
 
 /*
  * Associa la sessione all'utente...

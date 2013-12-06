@@ -40,7 +40,7 @@ abstract class GeoEntita extends Entita {
         if ( $coordinate[0] === false ) {
             return '0.0, 0.0';
         }
-        return $coordinate()[0].', '.$coordinate()[1];
+        return $coordinate[0].', '.$coordinate[1];
     }
     
     /**
@@ -102,11 +102,14 @@ abstract class GeoEntita extends Entita {
      * @param float $y Longitudine del punto     
      * @return string Stringa SQL
      */
-    public static function formulaDistanzaEuclidea($x, $y) {
+    public static function formulaDistanzaEuclidea($x, $y, $prefisso = '') {
         $x = (double) $x;
         $y = (double) $y;
+        if ( $prefisso ) {
+            $prefisso = "{$prefisso}.";
+        }
         $punto = "GeomFromText(\"POINT({$x} {$y})\")";
-        return " SQRT(POW(ABS(X(geo)-X({$punto})),2)+POW(ABS(Y(geo)-Y({$punto})),2)) ";
+        return " SQRT(POW(ABS(X({$prefisso}geo)-X({$punto})),2)+POW(ABS(Y({$prefisso}geo)-Y({$punto})),2)) ";
     }
 
     /**
@@ -114,9 +117,9 @@ abstract class GeoEntita extends Entita {
      * @param GeoEntita $punto Un punto in database
      * @return string Stringa SQL
      */
-    public static function formulaDistanzaEuclideaPunto(GeoEntita $punto) {
+    public static function formulaDistanzaEuclideaPunto(GeoEntita $punto, $prefisso = '') {
         $coordinate = $punto->coordinate();
-        return static::formulaDistanzaEuclidea($coordinate[0], $coordinate[1]);
+        return static::formulaDistanzaEuclidea($coordinate[0], $coordinate[1], $prefisso);
     }
 
     /**
@@ -155,5 +158,38 @@ abstract class GeoEntita extends Entita {
         static::_invalidaCacheQuery();
         return $r;
     }
+
+    /**
+     * Ottiene tutti gli oggetti all'interno di una data circonferenza
+     * @param GeoCirco      $circo          La circonferenza
+     * @param array         $_condizioni    Eventuali condizioni aggiuntive
+     * @param string        $_ordine        Ordine come query SQL
+     * @return array Un array di oggetti
+     */
+    public static function contenutiIn (
+        GeoCirco $circo,
+        $_condizioni = [],
+        $_ordine = 'distanza ASC'
+    ) {
+        global $db;
+        $query  = "SELECT " . static::$_t. ".id, ";
+        $query .= static::formulaDistanzaEuclideaPunto($circo, static::$_t) . 'as distanza ';
+        $query .= 'FROM '. static::$_t .', ' . $circo::$_t . ' WHERE ';
+        $query .= "ST_CONTAINS( ";
+        $query .=   "BUFFER(".$circo::$_t.".geo, {$circo->raggio}),";
+        $query .=   static::$_t . ".geo";
+        $query .= ") ";
+        $query .= " AND " . $circo::$_t . ".id = {$circo->id} ";
+        $query .= static::preparaCondizioni($_condizioni);
+        $query .= "ORDER BY {$_ordine}";
+        var_dump($query);
+        $query = $db->query($query);
+        $r = [];
+        while ( $k = $query->fetch(PDO::FETCH_NUM) ) {
+            $r[] = static::id($k[0]);
+        }
+        return $r;
+    }
+
     
 }

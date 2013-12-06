@@ -6,8 +6,15 @@
 
 paginaPrivata();
 
-if ( !$me->email ) { redirect('nuovaAnagraficaContatti'); }
-if ( !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
+if ( !$me->email )
+  redirect('nuovaAnagraficaContatti');
+
+if ( $me->stato == ASPIRANTE )
+  redirect('aspirante.home');
+
+if ( !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) 
+  redirect('nuovaAnagraficaAccesso');
+
 
 foreach ( $me->comitatiPresidenzianti() as $comitato ) {
     $p = $comitato->unPresidente();
@@ -15,8 +22,6 @@ foreach ( $me->comitatiPresidenzianti() as $comitato ) {
         redirect('presidente.wizard&forzato&oid=' . $comitato->oid());
     }
 }
-/* Noi siamo cattivi >:) */
-// redirect('curriculum');
 
 $attenzione = false;
 
