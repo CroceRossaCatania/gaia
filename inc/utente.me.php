@@ -5,8 +5,8 @@
  */
 
 paginaPrivata(false);
-
-if ( !$me->consenso() ){ ?>
+$consenso = $me->consenso();
+if ( !$consenso ){ ?>
   <div class="modal fade automodal">
     <div class="modal-header">
       <h3 class="text-success"><i class="icon-cog"></i> Aggiornamento condizioni d'uso di Gaia!</h3>
@@ -43,14 +43,16 @@ if ( !$me->consenso() ){ ?>
   </div>
 <?php } 
 
-if ( !$me->email ) { redirect('nuovaAnagraficaContatti'); }
-if ( !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
+if ($consenso && !$me->email ) { redirect('nuovaAnagraficaContatti'); }
+if ($consenso && !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
 
-foreach ( $me->comitatiPresidenzianti() as $comitato ) {
-    $p = $comitato->unPresidente();
-    if ( $p && $p == $me->id && !$comitato->haPosizione() && !$comitato->principale ) {
-        redirect('presidente.wizard&forzato&oid=' . $comitato->oid());
-    }
+if ($consenso) {
+  foreach ( $me->comitatiPresidenzianti() as $comitato ) {
+      $p = $comitato->unPresidente();
+      if ( $p && $p == $me->id && !$comitato->haPosizione() && !$comitato->principale ) {
+          redirect('presidente.wizard&forzato&oid=' . $comitato->oid());
+      }
+  }
 }
 /* Noi siamo cattivi >:) */
 // redirect('curriculum');
