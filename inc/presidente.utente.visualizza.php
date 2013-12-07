@@ -42,7 +42,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
                <br/><br/></div>
             <div class="span5 allinea-sinistra"> 
                <br/>
-        <form id="caricaFoto" action="?p=utente.avatar.ok&id=<?php echo $f; ?>&pre" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
+        <form id="caricaFoto" action="?p=utente.avatar.ok&id=<?php echo $u; ?>&pre" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
             <p>Per modificare la foto:</p>
           <p>1. <strong>Scegli</strong>: <input type="file" name="avatar" required /></p>
           <p>2. <strong>Clicca</strong>:<br />
