@@ -12,7 +12,7 @@ $attivita = Attivita::id($attivita);
 
 $g = new Gruppo();
 	$g->nome        =   $attivita->nome;
-	$g->comitato    =   $attivita->comitato()->id;
+	$g->comitato    =   $attivita->comitato()->oid();
 	$g->obiettivo   =   $attivita->area()->obiettivo;
 	$g->area        =   $attivita->area();
 	$g->referente   =   $attivita->referente();
