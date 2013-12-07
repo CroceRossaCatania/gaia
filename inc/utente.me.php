@@ -112,7 +112,7 @@ if ($consenso && $rf) {
 } 
 
 
-if ( !$me->appartenenze() && $me->stato==VOLONTARIO ) { ?>
+if ( $consenso && !$me->appartenenze() && $me->stato==VOLONTARIO ) { ?>
   <div class="modal fade automodal">
     <div class="modal-header">
       <h4 class="text-error"><i class="icon-warning-sign"></i> Seleziona il tuo Comitato</h4>
@@ -133,7 +133,7 @@ if ( !$me->appartenenze() && $me->stato==VOLONTARIO ) { ?>
   </div>
 <?php }
 
-if(false && !$sessione->barcode) { ?>
+if(false && $consenso && !$sessione->barcode) { ?>
 
 <div class="modal fade automodal">
   <div class="modal-header">
