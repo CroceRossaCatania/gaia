@@ -170,7 +170,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
 
     <div class="span9">
         
-        <h2><span class="muted">Ciao, </span><?php if($me->presiede()){?><span class="muted">Presidente</span> <?php echo $me->nome;}else{echo $me->nome;} ?>.</h2>
+        <h2><span class="muted">Ciao, </span><?php if($me->admin()){ ?> <span class="muted">Admin</span> <?php }elseif($me->presiede()){?><span class="muted">Presidente</span> <?php } echo $me->nome; ?>.</h2>
         
         <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
         <div class="alert alert-success">
