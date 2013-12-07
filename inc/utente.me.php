@@ -60,7 +60,7 @@ if ($consenso) {
 $attenzione = false;
 
 $rf = $me->attivitaReferenziateDaCompletare();
-if ($rf) {
+if ($consenso && $rf) {
     $attenzione = true;
     $attivita = $rf[0];
     ?>
