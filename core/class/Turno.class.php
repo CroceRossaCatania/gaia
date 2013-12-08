@@ -71,7 +71,7 @@ class Turno extends Entita {
         }
     }
     
-    public function partecipa(Volontario $v) {
+    public function partecipa(Utente $v) {
         return (bool) $this->partecipazione($v);
     }
         

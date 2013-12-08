@@ -167,6 +167,7 @@ class APIServer {
                 $r[] = [
                     'title'     =>  $attivita->nome. ', ' . $turno->nome,
                     'id'        =>  $turno->id,
+                    'attivita'  =>  $turno->attivita,
                     'start'     =>  $turno->inizio()->toJSON(),
                     'end'       =>  $turno->fine()->toJSON(),
                     'color'     =>  '#' . $colore,
@@ -183,14 +184,20 @@ class APIServer {
             $a = Attivita::id($this->par['id']);
             $t = [];
             foreach ( $a->turni() as $turno ) {
-                $t[] = $turno->toJSON($me)
+                $t[] = $turno->toJSON($me);
             }
             array_merge($t, [
                 'luogo'     =>  $a->luogo,
                 'coordinate'=>  $a->coordinate(),
                 'puoPartecipare'=>  $a->puoPartecipare($me)
             ]);
-            return $t;
+            return [
+                'nome'      =>  $a->nome,
+                'comitato'  =>  $a->comitato()->toJSON(),
+                'luogo'     =>  $a->luogo,
+                'coordinate'=>  $a->coordinate(),
+                'turni'     =>  $t
+            ];
         }
         
         public function api_geocoding() {
