@@ -23,7 +23,7 @@ function paginaPrivata($consenso = true) {
 function paginaApp($app, $comitati = []) {
     global $sessione;
     paginaPrivata();
-    if ( $sessione->utente()->admin ) {
+    if ( $sessione->utente()->admin() ) {
         return true;
     }
     if (!is_array($app)) {
