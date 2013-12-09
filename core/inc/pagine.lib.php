@@ -106,14 +106,18 @@ function paginaModale() {
     include('./inc/part/pagina.attendere.php');
 }
 
-function paginaPresidenziale( $comitato = null ) {
+function paginaPresidenziale( $comitato = null, $attivita = null) {
     global $sessione;
         paginaPrivata();
-    if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin ) {
+    if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin() ) {
         redirect('utente.me');
     }
     if ( $comitato && !in_array($comitato, $sessione->utente()->comitatiDiCompetenza() ) ) {
-        redirect('utente.me&ErroreSicurezza');
+        redirect('errore.permessi');
+    }
+
+    if ( $attivita && !in_array($attivita, $sessione->utente()->attivitaDiGestione())) {
+        redirect('errore.permessi');   
     }
 }
 
