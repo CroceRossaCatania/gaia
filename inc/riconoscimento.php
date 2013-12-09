@@ -4,6 +4,7 @@
  * ©2012 Croce Rossa Italiana
  */
 
+paginaPubblica();
 
 /* Registra sulla sessione il tipo della registrazione! */
 if ( isset($_GET['tipo'] ) ) {
