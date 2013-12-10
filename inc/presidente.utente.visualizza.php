@@ -65,7 +65,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
             <form class="form-horizontal" action="?p=presidente.attiva.volontario.ok" method="POST">
               <input type="hidden" name="vol" value="<?php echo $u->id; ?>" />
               <div class="control-group">
-                <label class="control-label" for="inputEmail">Email</label>
+                <label class="control-label" for="inputEmail">Inserisci email</label>
                 <div class="controls">
                   <input value="<?php echo $u->email; ?>" required autocomplete="off" type="email" id="inputEmail" name="inputEmail" />
                 </div>
@@ -78,7 +78,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
               </div>
               <div class="control-group">
                 <div class="controls">
-                  <button type="submit" class="btn">Attiva</button>
+                  <button type="submit" class="btn btn-success">Attiva account</button>
                 </div>
               </div>
             </form>
