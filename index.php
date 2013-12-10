@@ -295,7 +295,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <?php if ( in_array($p, $conf['slide'] ) ) { ?>
     <div id="caroselloHome" class="carousel slide">
       <div class="carousel-inner">
-        <div class="item active">
+        <!--<div class="item active">
           <img src="./img/jump.png" alt="">
           <div class="container">
             <div class="carousel-caption">
@@ -312,8 +312,8 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                 </p>
             </div>
           </div>
-        </div>
-        <div class="item">
+        </div>-->
+        <div class="item active">
           <img src="./img/foto4.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
