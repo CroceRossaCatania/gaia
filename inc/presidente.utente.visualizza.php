@@ -22,6 +22,46 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       Le modifiche richieste sono state memorizzate con successo.
     </div>
     <?php }  ?>
+
+    <!-- Attivazione account -->
+
+    <?php 
+      if (!$u->email) { ?>
+      
+      <div class="row-fluid">
+       <div class="span12">
+       <div class="alert alert-block alert-info">
+       <h3><i class="icon-user"></i> Attivazione account</h3>
+       <p>L'account di <?php echo $u->nome ?> su Gaia <strong>non è ancora attivo</strong> e quindi non può
+       ricevere informazioni e non può partecipare alle attività. Per attivare un account basta inserire l'indirizzo email
+       del volontario.</p>
+       <br>
+       <a class="btn btn-info btn-large" data-toggle="modal" data-target="#attiva_account"> Attiva account</a>
+      </div>
+    </div>
+    </div>
+
+    <!-- inizio modale -->
+
+    <div id="attiva_account" class="modal hide fade">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Attiva l'account di <?php echo $u->nome ?></h3>
+      </div>
+      <div class="modal-body">
+        <div class="row-fluid">
+          
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Chiudi</a>
+      </div>
+    </div>
+
+    <!-- fine modale -->
+
+    <?php } ?>
+
     <!--Visualizzazione e modifica avatar utente-->
     <div class="span12">
       <h3><i class="icon-edit muted"></i> Anagrafica</h3>
@@ -53,42 +93,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
           <br/>   
         </div> 
       </div>
-      <?php 
-      if (!$u->email) { ?>
-      
-      <div class="row-fluid">
-       <div class="span12">
-       <div class="alert alert-block alert-info">
-       <h3><i class="icon-user"></i> Attivazione account</h3>
-       <p>L'account di <?php echo $u->nomeCompleto() ?> su Gaia <strong>non è ancora attivo</strong> e quindi non può
-       ricevere informazioni e non può partecipare alle attività. Per attivare un account basta inserire l'indirizzo email
-       del volontario.</p>
-       <br>
-       <a class="btn btn-info btn-large" data-toggle="modal" data-target="#attiva_account"> Attiva account</a>
-      </div>
-    </div>
-    </div>
 
-    <!-- inizio modale -->
-
-    <div id="attiva_account" class="modal hide fade">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Attiva l'account di <?php echo $u->nomeCompleto() ?></h3>
-      </div>
-      <div class="modal-body">
-        <div class="row-fluid">
-          
-        </div>
-      </div>
-      <div class="modal-footer">
-        <a href="#" class="btn" data-dismiss="modal">Chiudi</a>
-      </div>
-    </div>
-
-    <!-- fine modale -->
-
-    <?php } ?>
 
     <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $id; ?>" method="POST">
       <hr />
