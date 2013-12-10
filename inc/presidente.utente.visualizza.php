@@ -21,7 +21,12 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <i class="icon-save"></i> <strong>Salvato</strong>.
       Le modifiche richieste sono state memorizzate con successo.
     </div>
-    <?php }  ?>
+    <?php } elseif(isset($_GET['att'])) {?>
+    <div class="alert alert-success">
+      <i class="icon-user"></i> <strong>Account attivato</strong>.
+      L'account dell'utente è stato attivato con successo.
+    </div>
+    <?php } ?>
 
     <!-- Attivazione account -->
 
@@ -46,11 +51,38 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
     <div id="attiva_account" class="modal hide fade">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Attiva l'account di <?php echo $u->nome ?></h3>
+        <h3><i class="icon-user"></i> Attiva l'account di <?php echo $u->nome ?></h3>
       </div>
       <div class="modal-body">
         <div class="row-fluid">
-          
+          <div class="span12">
+            <p>Con questa procedura è possibile attivare l'account di un volontario che ancora non può accedere a Gaia
+            in quanto non risulta avere un indirizzo email.</p>
+            <p>Per attivare l'account del volontario inserisci nei campi sottostanti l'indirizzo email del volontario. Verrà
+            generata dal sistema un'email contenente le credenziali di accesso a Gaia e tutte le informazioni necessarie.</p>
+            <p>Una volta inserita l'email non ti sarà possibile modificarla, in caso di errori rivolgiti a
+            <a href="mailto:supporto@gaia.cri.it"> supporto@gaia.cri.it</a></p>
+            <form class="form-horizontal" action="?p=presidente.attiva.volontario.ok" method="POST">
+              <input type="hidden" name="vol" value="<?php echo $u->id; ?>" />
+              <div class="control-group">
+                <label class="control-label" for="inputEmail">Email</label>
+                <div class="controls">
+                  <input value="<?php echo $u->email; ?>" required autocomplete="off" type="email" id="inputEmail" name="inputEmail" />
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="inputEmail2">Verifica email</label>
+                <div class="controls">
+                  <input value="<?php echo $u->email; ?>" required autocomplete="off" type="email" id="inputEmail2" name="inputEmail2" />
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <button type="submit" class="btn">Attiva</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
