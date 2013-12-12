@@ -1075,4 +1075,14 @@ class Utente extends Persona {
             return false;
         }
     }
+
+    /*
+     * @return true se si ha una appartenenza valida (pendente o attuale), false se si è volontario senza appartenenza
+     */
+    public function appartenenzaValida(){
+        if(($this->appartenenzeAttuali() || $this->appartenenzePendenti()) && $this->stato == VOLONTARIO){
+            return true;
+        }
+        return false;
+    }
 }
