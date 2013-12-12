@@ -65,7 +65,7 @@ paginaPrivata();
                         <td><?php echo $_v->nome; ?></td>
                         <td><?php echo $_v->cognome; ?></td>
                         <td><?php echo $_v->cellulare(); ?></td>
-                        <td><?php echo $comitato->nomeCompleto(); ?></td>
+                        <td><?php echo $_v->unComitato()->nomeCompleto(); ?></td>
                         <td>
                             <a class="btn btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>">
                                 <i class="icon-envelope"></i>

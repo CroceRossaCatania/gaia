@@ -4,11 +4,13 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+$attivita = $_GET['id'];
+
+paginaPresidenziale(null, $attivita);
 caricaSelettore();
 paginaModale();
 
-$attivita = $_GET['id'];
+
 
 ?>
 <form action="?p=attivita.referente.nuovo.ok" method="POST">
