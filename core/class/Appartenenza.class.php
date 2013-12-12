@@ -53,12 +53,13 @@ class Appartenenza extends Entita {
 
         /**
          * Nega l'appartenenza mettendo come stato appartenenza negata
-         * e impostando la fine dell'appartenenza a time()
+         * inserisce la fine dell'appartenenza a time() e mette chi ha negato
          *
          */
-        public function nega(){
+        public function nega($v){
             $this->stato   = MEMBRO_APP_NEGATA;
             $this->fine    = time();
+            $this->conferma  = $v->id; 
             return;
         }
 

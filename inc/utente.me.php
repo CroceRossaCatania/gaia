@@ -110,7 +110,7 @@ if ($rf) {
 } 
 
 
-if ( $me->appartenenzaNonvalida() ) { ?>
+if ( !$me->appartenenzaValida() ) { ?>
   <div class="modal fade automodal">
     <div class="modal-header">
       <h4 class="text-error"><i class="icon-warning-sign"></i> Seleziona il tuo Comitato</h4>
