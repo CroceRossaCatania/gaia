@@ -8,7 +8,7 @@
  * Elenco Applicazioni da gestire
  */
 $_daGestire = [
-    APP_CO, APP_SOCI
+    APP_CO, APP_SOCI, APP_FORMAZIONE
 ];
 
 $c = $_GET['oid'];

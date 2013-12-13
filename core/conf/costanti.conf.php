@@ -242,7 +242,8 @@ define('APP_PRESIDENTE',    30);
 define('APP_OBIETTIVO',     40);
 define('APP_CO',            50);
 define('APP_SOCI',          60);
-define('APP_PATENTI',     70);
+define('APP_PATENTI',       70);
+define('APP_FORMAZIONE',    80);
 
 $conf['applicazioni'] = [
     APP_ATTIVITA    =>  "Attività",
@@ -251,7 +252,8 @@ $conf['applicazioni'] = [
     APP_OBIETTIVO   =>  "Obiettivo strategico",
     APP_CO          =>  "Centrale Operativa",
     APP_SOCI        =>  "Ufficio Soci",
-    APP_PATENTI => "Ufficio Patenti"
+    APP_PATENTI     => "Ufficio Patenti",
+    APP_FORMAZIONE  => "Resp. Formazione"
 ];
 
 /*
