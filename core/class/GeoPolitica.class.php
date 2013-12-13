@@ -43,6 +43,27 @@ abstract class GeoPolitica extends GeoEntita {
         // @TODO: Ricorsivamente, ricreare gli oggetti
     }
 
+    /**
+     * Ottiene l'elenco dei corsi base organizzati da questo comitati
+     * @param bool $storico Opzionale. Ritornare anche i passati? Default true.
+     * @return array(CorsoBase) Lista di corsi base organizzati
+     */
+    public function corsiBase ( $storico = true ) {
+        $c = CorsoBase::filtra([
+            'organizzatore' =>  $this->oid()
+        ]);
+
+        if ( $storico )
+            return $c; 
+
+        $r = [];
+        foreach ( $c as $_c ) {
+            if ( $_c->futuro() )
+                $r[] = $_c;
+        }
+        return $r;
+    }
+    
     /*
      * Ottiene il livello di estensione (costante EST_UNITA, EST_LOCALE, ecc)
      */

@@ -98,6 +98,7 @@ $(document).ready(function() {
                     Aree di intervento
                 </a>
             </li>
+
             <?php if ( $c instanceOf Comitato ) { ?>
             <li>
                 <a data-toggle="tab" href="#referenti">
@@ -111,7 +112,16 @@ $(document).ready(function() {
                     Attività
                 </a>
             </li>
+            <?php } else { ?>
+
+            <li>
+                <a data-toggle="tab" href="#corsibase">
+                    <i class='icon-rocket'></i>
+                    Corsi base
+                </a>
+            </li>
             <?php } ?>
+
             
             <?php
                 foreach ( $_daGestire as $_gestione => $_estensioni ) {
@@ -397,6 +407,13 @@ $(document).ready(function() {
                 
                 <h4>Crea attività</h4>
                 <p>Per creare un'attività, vai alla pagina di <a href="?p=attivita.idea">Creazione attività</a>.</p>
+            </div>
+            
+            <!-- Tab: Corsi base -->
+            <div class="tab-pane"           id="corsibase">
+                <h4>Corsi base</h4>
+                <p>Per questo comitato, sono stati organizzati e pubblicati un totale di <strong><?php echo count($c->corsiBase(true)); ?> corsi base</strong>.</p>
+                <p>Per gestire i corsi base, vai alla pagina di <a href="?p=formazione.corsibase">Gestione dei corsi base</a>.</p>
             </div>
             
             <?php            

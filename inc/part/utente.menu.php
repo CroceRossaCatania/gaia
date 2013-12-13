@@ -27,6 +27,7 @@ if ( $me->comitatiDiCompetenza() ) {
 $_n     =   $_n_titoli = $_n_app = 0;
 $_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
 $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
+
 if ( $presidente || $me->delegazioni(APP_SOCI)) {
     $menu[''] += [
         'us.dash'   =>  '<span class="badge badge-success">'.$_n.'</span> Ufficio Soci'
@@ -36,6 +37,12 @@ if ( $presidente || $me->delegazioni(APP_SOCI)) {
 if ( $presidente || $me->delegazioni(APP_CO)) {
     $menu[''] += [
         'co.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Centrale Operativa'
+    ];
+}
+
+if ( $presidente || $me->delegazioni(APP_FORMAZIONE)) {
+    $menu[''] += [
+        'formazione.corsibase'   =>  '<span class="badge badge-success">&nbsp;</span> Corsi Base'
     ];
 }
 
