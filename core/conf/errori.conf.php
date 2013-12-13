@@ -14,6 +14,7 @@ $conf['errori'] = [
     1009    =>  'You cannot debug the application, unauthorized',
     1010    =>  'You need to login first',
     1011    =>  'Field missing',
-    1012    =>  'Mail template missing'
+    1012    =>  'Mail template missing',
+    1013	=>	'Tentato di instanziare un oggetto di tipo non ammesso'
     
 ];
