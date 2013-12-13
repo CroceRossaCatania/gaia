@@ -4,9 +4,9 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI,APP_PRESIDENTE]);
+paginaAdmin();
 
-$t = Persona::filtra([['stato',PERSONA],['password', NULL]]);
+$t = Persona::filtra([['stato',ASPIRANTE],['password', NULL]]);
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
