@@ -457,11 +457,10 @@ class Entita {
     public static function daOid($oid) {
         $obj = explode(':', $oid);
         $cl = $obj[0];
-
-        if ( !is_a($cl, get_called_class()) )
-            throw new Errore(1013):
-
-        return new $cl($obj[1]);
+        $obj = $cl::id($obj[1]);
+        if ( ! $obj instanceOf static )
+            throw new Errore(1013);
+        return $obj;
     }
 
 }
