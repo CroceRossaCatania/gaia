@@ -8,7 +8,9 @@
  * Elenco Applicazioni da gestire
  */
 $_daGestire = [
-    APP_CO, APP_SOCI, APP_FORMAZIONE
+    APP_CO          =>  [EST_UNITA, EST_LOCALE, EST_PROVINCIALE, EST_REGIONALE, EST_NAZIONALE],
+    APP_SOCI        =>  [EST_UNITA, EST_LOCALE, EST_PROVINCIALE, EST_REGIONALE, EST_NAZIONALE],
+    APP_FORMAZIONE  =>  [EST_LOCALE, EST_PROVINCIALE, EST_REGIONALE, EST_NAZIONALE]
 ];
 
 $c = $_GET['oid'];
@@ -112,7 +114,12 @@ $(document).ready(function() {
             <?php } ?>
             
             <?php
-                foreach ( $_daGestire as $_gestione ) {
+                foreach ( $_daGestire as $_gestione => $_estensioni ) {
+
+                    // Se questa applicazione non e' da gestire
+                    if ( !in_array( $c->_estensione(), $_estensioni) )
+                        continue;
+
                     $_nome = $conf['applicazioni'][$_gestione];
                     ?>
                 <li>
@@ -394,7 +401,12 @@ $(document).ready(function() {
             
             <?php            
             $i = 0;
-            foreach ( $_daGestire as $_gestione ) {
+            foreach ( $_daGestire as $_gestione => $_estensioni ) {
+
+                // Se questa applicazione non e' da gestire
+                if ( !in_array( $c->_estensione(), $_estensioni) )
+                    continue;
+
                 $_nome = $conf['applicazioni'][$_gestione];
                 $delegati = $c->delegati($_gestione, true);
                 ?>
