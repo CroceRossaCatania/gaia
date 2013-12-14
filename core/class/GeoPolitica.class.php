@@ -91,7 +91,35 @@ abstract class GeoPolitica extends GeoEntita {
         return $r;
     }
 
+    /**
+     * Ottiene il genitore nell'albero
+     * @return GeoPolitica
+     */
     abstract public function superiore();
+
+    /**
+     * Ritorna l'espansione della ricerca in basso nell'albero partendo da questo nodo
+     * @param int $estensione   Opzionale. Estensione da raggiungere nell'albero. Uno di EST_*
+     * @param int $ricerca      Opzionale. RAMI | SOLO_FOGLIE. Default RAMI.
+     * @return array(GeoPolitica)
+     */
+    public function esplora(
+        $estensione = EST_UNITA,
+        $ricerca    = RAMI
+    ) {
+        if ( $ricerca == SOLO_FOGLIE )
+            return $this->estensione();
+
+        if ( $this->_estensione() == $estensione ) {
+            return [$this];
+        } else {
+            $r = [$this];
+            foreach ( $this->figli() as $f ) {
+                $r = array_merge($r, $f->esplora($estensione, RAMI));
+            }
+            return $r;
+        }
+    }
 
     public function primoPresidente () {
         $comitato = $this;
