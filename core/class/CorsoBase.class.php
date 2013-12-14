@@ -4,12 +4,55 @@
  * ©2013 Croce Rossa Italiana
  */
 
-class CorsoBase extends Entita {
+/**
+ * Rappresenta un Corso Base.
+ */
+class CorsoBase extends GeoEntita {
 
     protected static
         $_t  = 'corsibase',
         $_dt = 'corsibase_dettagli';
 
+    /**
+     * Ritorna l'organizzatore del corso base
+     * @return GeoPolitica
+     */
+    public function organizzatore() {
+    	return GeoPolitica::daOid($this->organizzatore);
+    }
 
-    
+    /**
+     * Ritorna la data di inizio del corso base
+     * @return DT
+     */
+    public function inizio() {
+    	return DT::daTimestamp($this->inizio);
+    }
+
+    /**
+     * Controlla se il corso e' futuro (non iniziato)
+     * @return bool
+     */
+    public function futuro() {
+    	return $this->inizio() > new DT;
+    }
+
+    /**
+     * Controlla se il corso e' iniziato
+     * @return bool
+     */
+    public function iniziato() {
+    	return !$this->futuro();
+    }
+
+    /**
+     * Ottiene l'elenco di aspiranti nella zona
+     * (non deve essere visibile da nessuno!)
+     * @return array(Aspirante)
+     */
+    public function potenzialiAspiranti() {
+    	return Aspirante::chePassanoPer($this);
+    }
+
+
 }
