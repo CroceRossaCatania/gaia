@@ -199,8 +199,9 @@ $conf['docs_tipologie'] = [
  * ======== ESPLIRAZIONE =============
  * ===================================
  */
-define('RAMI',          true);
-define('SOLO_FOGLIE',   false);
+define('NON_ESPLORARE',         0);
+define('ESPLORA_RAMI',          1);
+define('ESPLORA_SOLO_FOGLIE',   2);
 
 /*
  * ===================================

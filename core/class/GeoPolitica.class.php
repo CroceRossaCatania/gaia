@@ -100,14 +100,14 @@ abstract class GeoPolitica extends GeoEntita {
     /**
      * Ritorna l'espansione della ricerca in basso nell'albero partendo da questo nodo
      * @param int $estensione   Opzionale. Estensione da raggiungere nell'albero. Uno di EST_*
-     * @param int $ricerca      Opzionale. RAMI | SOLO_FOGLIE. Default RAMI.
+     * @param int $ricerca      Opzionale. ESPLORA_RAMI | ESPLORA_SOLO_FOGLIE. Default ESPLORA_RAMI.
      * @return array(GeoPolitica)
      */
     public function esplora(
         $estensione = EST_UNITA,
-        $ricerca    = RAMI
+        $ricerca    = ESPLORA_RAMI
     ) {
-        if ( $ricerca == SOLO_FOGLIE )
+        if ( $ricerca == ESPLORA_SOLO_FOGLIE )
             return $this->estensione();
 
         if ( $this->_estensione() == $estensione ) {
@@ -115,7 +115,7 @@ abstract class GeoPolitica extends GeoEntita {
         } else {
             $r = [$this];
             foreach ( $this->figli() as $f ) {
-                $r = array_merge($r, $f->esplora($estensione, RAMI));
+                $r = array_merge($r, $f->esplora($estensione, ESPLORA_RAMI));
             }
             return $r;
         }
