@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaAPP([APP_SOCI,APP_PRESIDENTE]);
+paginaAdmin();
 
 $v = $_GET['id'];
 $c = $_POST['inputComitato'];
