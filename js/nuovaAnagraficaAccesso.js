@@ -8,4 +8,7 @@ $(document).ready( function() {
            return true;
        }
     });
+
+  $("#inputDataIngresso").datepicker({maxDate: new Date});
+
 });

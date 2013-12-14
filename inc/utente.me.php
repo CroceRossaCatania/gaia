@@ -4,29 +4,61 @@
  * ©2012 Croce Rossa Italiana
  */
 
-paginaPrivata();
+paginaPrivata(false);
+$consenso = $me->consenso();
+if ( !$consenso ){ ?>
+  <div class="modal fade automodal">
+    <div class="modal-header">
+      <h3 class="text-success"><i class="icon-cog"></i> Aggiornamento condizioni d'uso di Gaia!</h3>
+    </div>
+    <div class="modal-body">
+      <p>Ciao <strong><?php echo $me->nome; ?></strong>, Gaia ha aggiornato le sue condizioni d'uso.</p>
+      <p>È importante per noi che tu sia informato riguardo le finalità di questo portale e riguardo
+      a come vengono trattati i tuoi dati. Per fare ciò hai due possibilità: </p>
+      <ul>
+        <li>Leggi la pagina delle <a href="?p=public.privacy" target="_new"> <i>condizioni d'uso</i></a> ; </li>
+        <li>Apri una nuova finestra del browser. Digita gaia.cri.it, clicca <i>informazioni</i> in fondo alla pagina e poi <i>condizioni d'uso</i>.</li>
+      </ul>
+      <p>Ti raccomandiamo di leggere con attenzione il documento perché contiene importanti 
+      informazioni su come i tuoi dati sono gestiti.</p>
+      <p>Se hai letto premi il pulsante "Ho letto!". Verrai indirizzato ad una pagina
+      in cui potrai dare il consenso e gestire le informazioni che ti riguardano.</p>
+      <p>Se non sei d'accordo premi il pulsante "Logout": non ti sarà possibile utilizzare i servizi offerti dal portale fino
+      a che non accetterai le condizioni d'uso. </p>
+      <p>Le condizioni d'uso resteranno valide fino all'entrata in vigore della versione aggiornata. Quando ciò
+      accradrà verrai subito informato.</p>
+      </p>Grazie per la fiducia,</br>
+      Lo staff di Gaia</p>
+    </div>
+    <div class="modal-footer">
+      <a href="?p=logout" class="btn">
+        <i class="icon-remove"></i>
+        Logout
+      </a>
+      <a href="?p=utente.privacy&first" class="btn btn-success">
+        <i class="icon-ok"></i>
+        Ho letto!
+      </a>
+    </div>
+  </div>
+<?php } 
 
 if ( !$me->email )
   redirect('nuovaAnagraficaContatti');
 
-if ( $me->stato == ASPIRANTE )
-  redirect('aspirante.home');
-
-if ( !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) 
-  redirect('nuovaAnagraficaAccesso');
-
-
-foreach ( $me->comitatiPresidenzianti() as $comitato ) {
-    $p = $comitato->unPresidente();
-    if ( $p && $p == $me->id && !$comitato->haPosizione() && !$comitato->principale ) {
-        redirect('presidente.wizard&forzato&oid=' . $comitato->oid());
-    }
+if ($consenso) {
+  foreach ( $me->comitatiPresidenzianti() as $comitato ) {
+      $p = $comitato->unPresidente();
+      if ( $p && $p == $me->id && !$comitato->haPosizione() && !$comitato->principale ) {
+          redirect('presidente.wizard&forzato&oid=' . $comitato->oid());
+      }
+  }
 }
 
 $attenzione = false;
 
 $rf = $me->attivitaReferenziateDaCompletare();
-if ($rf) {
+if ($consenso && $rf) {
     $attenzione = true;
     $attivita = $rf[0];
     ?>
@@ -175,18 +207,55 @@ if(false && !$sessione->barcode) {?>
             <h4><i class="icon-warning-sign"></i> Patente in scadenza</h4>
             <p>La tua <strong>PATENTE CRI</strong> scadrà il <strong><?php echo date('d-m-Y', $patente->fine); ?></strong></p>
         </div>
-        <?php $h=1;
-               }
-           } ?>
-        <?php 
-        
-        if($me->inRiserva()){
-          $r = Riserva::filtra([
-              ['volontario', $me->id],
-              ['stato', RISERVA_OK]
-            ]);
-          $r = $r[0];
-          ?>
+      <?php $h=1;
+      }
+    } 
+    if($me->inRiserva()){
+      $r = Riserva::filtra([
+        ['volontario', $me->id],
+        ['stato', RISERVA_OK]
+        ]);
+      $r = $r[0];
+      ?>
+      <div class="alert alert-block">
+        <h4><i class="icon-pause"></i> In riserva</h4>
+        <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d/m/Y', $r->fine); ?></strong>.</p>
+      </div>
+    <?php } ?> 
+    <?php   if ( $me->comitati() && $me->unComitato()->gruppi() ) { 
+      if (!$me->mieiGruppi()){ ?>
+        <div class="alert alert-danger">
+          <div class="row-fluid">
+           <span class="span7">
+            <h4><i class="icon-group"></i> Non sei iscritto a nessun gruppo!</h4>
+            <p>Il tuo Comitato ha attivato i gruppi di lavoro, sei pregato di regolarizzare l'iscrizione ad un gruppo.</p>
+          </span>
+          <span class="span5">
+           <a href="?p=utente.gruppo" class="btn btn-large">
+             <i class="icon-group"></i>
+             Iscriviti ora!
+           </a>
+         </span>
+       </div>
+     </div>
+   <?php }
+   if ($me->compleanno()){ ?>
+        <div class="alert alert-info">
+          <div class="row-fluid">
+           <span class="span12">
+            <h4><i class="icon-glass"></i> Auguri!</h4>
+            <p>Tantissimi auguri di un buon compleanno.</p>
+          </span>
+       </div>
+     </div>
+   <?php }
+ } 
+ if(false) {?>
+    <!-- Per ora mostra sempre... -->
+    <div class="alert alert-block alert-info">
+      <h4><i class="icon-folder-open"></i> Hai già caricato i tuoi documenti?</h4>
+      <p>Ricordati di caricare i tuoi documenti dalla sezione <strong>Documenti</strong>.</p>
+    </div>
 
         <div class="alert alert-block">
             <h4><i class="icon-pause"></i> In riserva</h4>
@@ -220,8 +289,3 @@ if(false && !$sessione->barcode) {?>
     </div>
 </div>
 
-<?php
-if ( !$attenzione && $me->comitatiDiCompetenza() ) {
-    redirect('presidente.dash');
-}
-?>

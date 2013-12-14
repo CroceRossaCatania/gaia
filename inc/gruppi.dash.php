@@ -110,6 +110,10 @@ foreach ($gruppi as $gruppo){
                                     <i class="icon-trash"></i>
                                 </a>
                                 <a class="btn btn-small pull-right" href="?p=gruppo.referente.nuovo&id=<?= $gruppo->id; ?>">
+                                    <i class="icon-random"></i> 
+                                    <?php if($gruppo->referente()){ echo $gruppo->referente()->nomeCompleto(); }else{ ?> Seleziona un volontario <?php } ?>
+                                </a>
+                                <a class="btn btn-small pull-right" href="?p=gruppo.referente.nuovo&id=<?= $gruppo->id; ?>">
                                     <i class="icon-pencil"></i> 
                                     <?php if($gruppo->referente()){ echo $gruppo->referente()->nomeCompleto(); }else{ ?> Seleziona un volontario <?php } ?>
                                 </a>
@@ -142,7 +146,7 @@ foreach ($gruppi as $gruppo){
                         <td><?php echo date('d/m/Y', $volontario->gruppoAttuale($gruppo)->inizio); ?></td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-small" href="?p=public.utente&id=<?php echo $volontario->id; ?>" target="_new"  title="Dettagli">
+                                <a class="btn btn-small" href="?p=profilo.controllo&id=<?php echo $volontario->id; ?>" target="_new"  title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>
                                 <?php if ( $me->presidenziante() || $me->admin() || $me->gruppiDiCompetenza()){ ?>

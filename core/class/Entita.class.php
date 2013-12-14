@@ -463,15 +463,14 @@ abstract class Entita {
     
     /**
      * Ritorna un oggetto dall'OID specificato
-     * @throws Errore  Se l'oggetto non esiste, oppure non e' del tipo corretto 
+     *
      * @return static  Oggetto
      */
     public static function daOid($oid) {
         $obj = explode(':', $oid);
-        $classe = $obj[0];
-        $obj = $classe::id($obj[1]);
-        // Protezione oggetto figlio di questa classe
-        if ( !$obj instanceOf static ) {
+        $cl = $obj[0];
+        $obj = $cl::id($obj[1]);
+        if ( ! $obj instanceOf static ) {
             throw new Errore(1013);
         }
         return $obj;

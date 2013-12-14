@@ -13,8 +13,7 @@ $comitati = $me->unitaDiCompetenza();
 if ( $sessione->attenzione == false ){
     $sessione->attenzione = true;
     ?>
-
-<div class="modal fade automodal">
+    <div class="modal fade automodal">
         <div class="modal-header">
           <h3 class="text-success"><i class="icon-phone"></i> Gaia da oggi ti risponde!</h3>
         </div>
@@ -28,10 +27,8 @@ if ( $sessione->attenzione == false ){
             Ok, grazie
           </a>
         </div>
-</div>
-    
+    </div>
 <?php } ?>
-
 
 
 <div class="row-fluid">

@@ -14,27 +14,42 @@ paginaPrivata();
     </div>
     
     <div class="span9">
-        <div class="span8">
-            <h2>
-                <i class="icon-book muted"></i>
-                Rubrica Referenti
-            </h2>
-        </div>
-
-        <div class="span4 allinea-destra">
-            <div class="input-prepend">
-                <span class="add-on"><i class="icon-search"></i></span>
-                <input autofocus required id="cercaUtente" placeholder="Cerca Referente..." type="text">
+        <div class="row-fluid">
+            <div class="span4">
+                <h3>
+                    <i class="icon-book muted"></i>
+                    Rubrica Referenti
+                </h3>
             </div>
-        </div> 
 
+            <div class="span4 centrato">
+                    <div class="btn-group btn-group-vertical span12">
+                        <a href="?p=utente.rubricaReferenti" class="btn btn-info btn-block">
+                            <i class="icon-book"></i>
+                            Rubrica Referenti
+                        </a>
+                        <a href="?p=utente.rubrica" class="btn btn-primary btn-block">
+                            <i class="icon-book"></i>
+                            Rubrica Volontari
+                        </a>
+                    </div>
+                </div>
+
+            <div class="span4 allinea-destra">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-search"></i></span>
+                    <input autofocus required id="cercaUtente" placeholder="Cerca Referente..." type="text">
+                </div>
+            </div> 
+
+        </div>
         <hr />
         <table class="table table-striped table-bordered" id="tabellaUtenti">
             <thead>
                 <th>Foto</th>
                 <th>Nome</th>
                 <th>Cognome</th>
-                <th>Cellulare Servizio</th>
+                <th>Telefono</th>
                 <th>Comitato</th>
                 <th>Incarico</th>
                 <th>Azione</th>
@@ -42,9 +57,12 @@ paginaPrivata();
             <?php 
             $ccompetenza = $me->comitatiDiCompetenza();
             $comitati = $me->comitati();
+            $locale = $me->unComitato()->locale();
+            array_push($comitati, $locale);
             if ($ccompetenza)
                 $comitati = array_merge($comitati, $ccompetenza);
             $comitati = array_unique($comitati);
+
 
             foreach ( $comitati as $comitato ) {
                 foreach ( $comitato->volontariDelegati() as $delegato ) { 

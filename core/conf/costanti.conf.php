@@ -47,6 +47,7 @@ define('DUEGIORNI',   172800);
 /* Tipologia appartenenza gruppo */
 define('MEMBRO_DIMESSO',         0);
 define('MEMBRO_TRASFERITO',      1);
+define('MEMBRO_APP_NEGATA',      3);
 define('MEMBRO_EST_TERMINATA',   5);
 define('MEMBRO_TRASF_ANN',       9);
 define('MEMBRO_TRASF_NEGATO',   10);
@@ -240,7 +241,8 @@ define('APP_PRESIDENTE',    30);
 define('APP_OBIETTIVO',     40);
 define('APP_CO',            50);
 define('APP_SOCI',          60);
-define('APP_PATENTI',     70);
+define('APP_PATENTI',       70);
+define('APP_FORMAZIONE',    80);
 
 $conf['applicazioni'] = [
     APP_ATTIVITA    =>  "Attività",
@@ -249,7 +251,8 @@ $conf['applicazioni'] = [
     APP_OBIETTIVO   =>  "Obiettivo strategico",
     APP_CO          =>  "Centrale Operativa",
     APP_SOCI        =>  "Ufficio Soci",
-    APP_PATENTI => "Ufficio Patenti"
+    APP_PATENTI     => "Ufficio Patenti",
+    APP_FORMAZIONE  => "Resp. Formazione"
 ];
 
 /*
@@ -487,7 +490,7 @@ define('PIVA', '01019341005');
 
 /*
  * ===================================
- * =========== APP_PATENTI==== ============
+ * =========== APP_PATENTI ===========
  * ===================================
  */
 
@@ -549,6 +552,27 @@ $conf['dizionario'] = [
     DIZIONARIO_ESADECIMALE  =>  '0123456789abcdef',
     DIZIONARIO_BASE64       =>  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 ];
+
+
+/*
+ * ===================================
+ * =========== PRVACY ================
+ * ===================================
+ */
+
+/* Tipologia di Privacy */
+define('PRIVACY_PRIVATA',   10);
+define('PRIVACY_COMITATO', 20);
+define('PRIVACY_VOLONTARI', 30);
+define('PRIVACY_PUBBLICA', 40);
+
+/*
+ * ===================================
+ * =========== ETA ===================
+ * ===================================
+ */
+
+define('ETA_MINIMA',   14);
 
 
 /*

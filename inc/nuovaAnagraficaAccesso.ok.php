@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -11,9 +11,10 @@ if ( strlen($_POST['inputPassword']) < 6 || strlen($_POST['inputPassword']) > 15
 }
 
 $comitato     = $_POST['inputComitato'];
-if ( $sessione->tipoRegistrazione == VOLONTARIO && !$comitato ) {
+if ( !$comitato ) {
     redirect('nuovaAnagraficaAccesso&c');
 }
+$comitato     = new Comitato($comitato);
 
 // Volontario? => Appartenenza al gruppo
 if ( $sessione->tipoRegistrazione == VOLONTARIO ) {

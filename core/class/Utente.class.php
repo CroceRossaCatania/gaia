@@ -898,6 +898,14 @@ class Utente extends Persona {
                 return $this->cellulare;
             }
     }
+
+    public function email() {
+        if($this->emailServizio){
+            return $this->emailServizio;
+            }else{
+                return $this->email;
+            }
+    }
     
     public function giovane() {
         $u = time()-GIOVANI;
@@ -989,5 +997,92 @@ class Utente extends Persona {
         }
         return $r;
     }
-    
+
+    public function privacy() {
+        $privacy = Privacy::by('volontario', $this);
+        if ( !$privacy ) {
+            $privacy = new Privacy;
+            $privacy->volontario = $this;
+            $privacy->contatti = PRIVACY_COMITATO;
+            $privacy->mess = PRIVACY_COMITATO;
+            $privacy->curriculum = PRIVACY_PRIVATA;
+            $privacy->incarichi = PRIVACY_PRIVATA;
+        }
+        return $privacy;
+    }
+
+    public function consenso() {
+        if(!$this->consenso) {
+            return false;
+        }
+        return true;
+    }
+
+    public function pri_delegato() {
+        if($this->presidenziante() || $this->attivitaReferenziate() || $this->delegazioni()){
+            return true;
+        }
+        return false;
+    }
+
+    public function pri_smistatore($altroutente){
+        if($this->presidenziante() || $this->delegazioni([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
+            $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO]);
+            foreach ($comitati as $comitato){
+                if($altroutente->in($comitato)){
+                    return PRIVACY_RISTRETTA;            
+                }
+            }
+            return PRIVACY_PUBBLICA;
+        }elseif($this->areeDiResponsabilita()){
+            $ar = $this->areeDiResponsabilita();
+            foreach( $ar as $_a ){
+                $c = $_a->comitato();
+                if($altroutente->in($c)){
+                    return PRIVACY_RISTRETTA;
+                }
+            }
+            redirect('public.utente&id=' . $id);
+        }elseif($this->attivitaReferenziate()){
+            $a = $this->attivitaReferenziate();
+            foreach( $a as $_a ){
+                $c = $_a->area()->comitato();
+                if($altroutente->in($c)){
+                    return PRIVACY_RISTRETTA;
+                }
+            }
+            return PRIVACY_PUBBLICA;
+        }
+        return PRIVACY_PUBBLICA;
+    }
+
+	/*
+     * @return età utente
+     */
+    public function eta(){
+        $anno = date('Y', $this->dataNascita);
+        $ora = date('Y', time());
+        return $ora-$anno;
+    }
+
+    /*
+     * @return bool restituisce true se oggi è il compleanno dell'utente
+     */
+    public function compleanno(){
+        if( date('m', $this->dataNascita)==date('m', time()) && date('d', $this->dataNascita)==date('d', time())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /*
+     * @return true se si ha una appartenenza valida (pendente o attuale), false se si è volontario senza appartenenza
+     */
+    public function appartenenzaValida(){
+        if(($this->appartenenzeAttuali() || $this->appartenenzePendenti()) && $this->stato == VOLONTARIO){
+            return true;
+        }
+        return false;
+    }
 }

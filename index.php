@@ -124,10 +124,8 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                             <ul class="dropdown-menu">
                                 <?php if ( $me->stato == VOLONTARIO ) { ?>
                                   <li><a href="?p=utente.anagrafica"><i class="icon-edit"></i> Anagrafica</a></li>
+                                  <li><a href="?p=utente.privacy"><i class="icon-cog"></i> Privacy</a></li>
                                   <li class="divider"></li>
-
-
-
                                 <?php } ?>
 
                                   <li><a href="?p=logout"><i class="icon-remove"></i> Esci</a></li>
@@ -297,7 +295,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <?php if ( in_array($p, $conf['slide'] ) ) { ?>
     <div id="caroselloHome" class="carousel slide">
       <div class="carousel-inner">
-        <div class="item active">
+        <!--<div class="item active">
           <img src="./img/jump.png" alt="">
           <div class="container">
             <div class="carousel-caption">
@@ -314,8 +312,8 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                 </p>
             </div>
           </div>
-        </div>
-        <div class="item">
+        </div>-->
+        <div class="item active">
           <img src="./img/foto4.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
@@ -433,7 +431,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
           </ol>
           <p class="text-info">
             <i class="icon-time"></i>
-            Rimarri in modalità admin fino al Logout
+            Rimarrai in modalità admin fino al Logout
           </p>
 
         </div>

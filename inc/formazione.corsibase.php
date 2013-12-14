@@ -1,0 +1,3 @@
+<?php
+
+paginaApp([APP_FORMAZIONE, APP_PRESIDENTE]);
