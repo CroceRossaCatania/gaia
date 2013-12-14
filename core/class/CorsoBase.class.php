@@ -54,5 +54,13 @@ class CorsoBase extends GeoEntita {
     	return Aspirante::chePassanoPer($this);
     }
 
+    /**
+     * Localizza nella sede del comitato organizzatore
+     */
+    public function localizzaInSede() {
+    	$sede = $this->organizzatore()->coordinate();
+    	$this->localizzaCoordinate($sede[0], $sede[1]);
+    }
+
 
 }
