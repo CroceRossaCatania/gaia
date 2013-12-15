@@ -42,6 +42,12 @@ if ( ($p->password) ) {
         <p>
             Completa e conferma la registrazione inserendo i tuoi dettagli anagrafici.
         </p>
+
+        <div class="alert alert-block alert-info">
+            <h4>Attenzione!</h4>
+            <p>Sono necessari 14 anni per essere volontari di Croce Rossa e iscriversi a Gaia.</p>
+        </div>
+
     </div>
     <div class="span8">
       <?php if (isset($_GET['data'])) { ?>
@@ -54,7 +60,7 @@ if ( ($p->password) ) {
       <?php if (isset($_GET['eta'])) { ?>
         <div class="alert alert-block alert-error">
             <h4>Ci dispiace molto!</h4>
-            <p>Sono necessari <?php echo ETA_MINIMA; ?> anni per essere volontari di Croce Rossa.</p>
+            <p>Sono necessari 14 anni per essere volontari di Croce Rossa.</p>
         </div>
       <?php } ?>
           <form class="form-horizontal" action="?p=nuovaAnagrafica.ok" method="POST">

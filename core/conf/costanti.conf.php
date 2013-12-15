@@ -33,10 +33,12 @@ $conf['statoPersona'] = [
 
 /* Un anno, un mese e un giorno */
 
-define('ANNO',      31536000);
-define('MESE',       2592000);
-define('MESEEMEZZO', 3888000);
-define('DUEGIORNI',   172800);
+define('ANNO',       31536000);
+define('MESE',        2592000);
+define('MESEEMEZZO',  3888000);
+define('DUEGIORNI',    172800);
+define('ETAMINIMA', 441504000);
+
 
 /*
  * ===================================
@@ -563,11 +565,3 @@ define('PRIVACY_PRIVATA',   10);
 define('PRIVACY_COMITATO', 20);
 define('PRIVACY_VOLONTARI', 30);
 define('PRIVACY_PUBBLICA', 40);
-
-/*
- * ===================================
- * =========== ETA ===================
- * ===================================
- */
-
-define('ETA_MINIMA',   14);
