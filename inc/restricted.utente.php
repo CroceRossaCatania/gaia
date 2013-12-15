@@ -8,6 +8,13 @@ paginaPrivata();
 
 $id = $_GET['id']; 
 $u = Utente::by('id',$id);
+
+$r = $me->pri_smistatore($u);
+if($r == PRIVACY_PUBBLICA){
+    redirect('public.utente&id='.$v);
+}
+
+
 $t = TitoloPersonale::filtra([['volontario',$u]]);
 ?>
 <div class="row-fluid">
