@@ -74,7 +74,7 @@ $p->civico   			= $civico;
 $p->timestamp           = time();
 $p->consenso            = time();
 
-if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
+if ( (int) $sessione->tipoRegistrazione == VOLONTARIO ) {
     $p->stato               = PERSONA;
 } else {
     $p->stato               = ASPIRANTE;

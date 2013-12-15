@@ -35,10 +35,10 @@
         <p>
             Verrai informato sulle attività nel tuo territorio.
         </p>
+        <?php } ?>
         <p>
             <i class="icon-key"></i> Inserisci inoltre la password che userai per accedere.
         </p>
-        <?php } ?>
     </div>
     <div class="span8">
           <?php if ( isset($_GET['email'] ) ) { ?>
