@@ -8,18 +8,16 @@ paginaPubblica();
 
 /* Registra sulla sessione il tipo della registrazione! */
 if ( isset($_GET['tipo'] ) ) {
-    switch ( $_GET['tipo'] ) {
-        case 'volontario':
-            $sessione->tipoRegistrazione = VOLONTARIO;
-            break;
-        case 'aspirante':
-        default:
-            $sessione->tipoRegistrazione = ASPIRANTE;
-        break;
+    if ($_GET['tipo'] == 'volontario') {
+        $sessione->tipoRegistrazione = VOLONTARIO;
     }
-} elseif ( empty($sessione->tipoRegistrazione) ) {
+    elseif ($_GET['tipo'] == 'aspirante') {
+        $sessione->tipoRegistrazione = ASPIRANTE;
+    }
+} elseif ( !$sessione->tipoRegistrazione) {
     $sessione->tipoRegistrazione = VOLONTARIO;
 }
+
 ?>
 
 
