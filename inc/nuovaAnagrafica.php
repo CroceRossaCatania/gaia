@@ -54,7 +54,7 @@ if ( ($p->password) ) {
       <?php if (isset($_GET['eta'])) { ?>
         <div class="alert alert-block alert-error">
             <h4>Ci dispiace molto!</h4>
-            <p>Sono necessari <?php echo ETA_MINIMA; ?> anni per essere volontari di Croce Rossa.</p>
+            <p>Sono necessari 14 anni per essere volontari di Croce Rossa.</p>
         </div>
       <?php } ?>
           <form class="form-horizontal" action="?p=nuovaAnagrafica.ok" method="POST">
