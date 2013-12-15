@@ -52,6 +52,7 @@ $data   = DT::createFromFormat('d/m/Y', $_POST['inputDataTaglio']);
         {
             $totale++;
             echo('Anagrafica ID:['.$_v->id.'] '.$_v->codiceFiscale.' '.$_v->nome.' '.$_v->cognome.' '.$_v->timestamp.' -> nuovo stato: Aspirante<br>');
+            $_v->stato = ASPIRANTE;
         }
     }
 
