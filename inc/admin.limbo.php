@@ -38,19 +38,24 @@ $t = Volontario::elenco();
     </div> 
 
     <div class="row-fluid">
-        <div class="span4">
+        <div class="span3">
             <a  onClick="return confirm('Vuoi veramente cancellare tutte le persone senza dati? Solo se senza appartenenze');" href="?p=admin.limbo.pulizia&soft" title="Cancella chi non ha dati" class="btn btn-block btn-danger">
                 <i class="icon-trash"></i> Pulizia soft
             </a>
         </div>
-        <div class="span4">
+        <div class="span3">
             <a  onClick="return confirm('Vuoi veramente cancellare tutte le persone con codice fiscale orfano? Solo se senza appartenenze');" href="?p=admin.limbo.pulizia&hard" title="Cancella chi ha solo CF ma non appartenenze" class="btn btn-block btn-danger">
                 <i class="icon-trash"></i> Pulizia meno soft
             </a>
         </div>
-        <div class="span4">
+        <div class="span3">
             <a  onClick="return confirm('Vuoi veramente cancellare tutte le persone con anagrafica senza stato? Solo se senza appartenenze');" href="?p=admin.limbo.pulizia&extreme" title="Cancella chi ha anagrafica ma non stato" class="btn btn-block btn-danger">
                 <i class="icon-trash"></i> Pulizia ancora meno soft
+            </a>
+        </div>
+        <div class="span3">
+            <a  onClick="return confirm('Shhh... sto per cambiare stato a della gente...');" href="?p=admin.limbo.cambiastato" title="Sistema gli stati rotti" class="btn btn-block btn-danger">
+                <i class="icon-trash"></i> Fix aspiranti
             </a>
         </div>
     </div>
