@@ -638,8 +638,14 @@ class Utente extends Persona {
         }
         return $r;
     }
-    
-    public function comitatiDelegazioni($app = null, $soloComitati = false) {
+    /*
+     * Restituisce i comitati che mi competono per una determinata delega
+     * @return array di geopolitiche
+     * @param $app array di delegazioni
+     * @param $soloComitati per far restituire solo i comitati e non il resto
+     * @param $espandi default ritorna le geopolitiche e la loro espansione
+     */
+    public function comitatiDelegazioni($app = null, $soloComitati = false, $espandi = true) {
         $d = $this->delegazioni($app);
         $c = [];
         foreach ( $d as $_d ) {
@@ -647,7 +653,7 @@ class Utente extends Persona {
             if (!$soloComitati || $comitato instanceof Comitato) {
                 $c[] = $comitato;
             }
-            if (!$comitato instanceof Comitato) {
+            if ($espandi && !$comitato instanceof Comitato) {
                 $c = array_merge($comitato->estensione(), $c);
             }
         }
@@ -1089,6 +1095,27 @@ class Utente extends Persona {
             return true;
         } elseif (!$attuali && !$pendenti && $this->stato == ASPIRANTE) {
             return true;
+        }
+        return false;
+    }
+
+    /*
+     * Se ho permessi come ufficio soci mi da true altrimenti false
+     * @return bool modifico o non modifico
+     * @param utente
+     */
+    public function modificaDaUfficio($u) {
+        $comitatiGestiti = array_merge($this->comitatiDelegazioni(APP_PRESIDENTE, false, false), 
+                               $this->comitatiDelegazioni(APP_SOCI, false, false)
+                            );
+        array_unique($comitatiGestiti);
+        $u = Utente::id($u);
+        $c = $u->unComitato(MEMBRO_PENDENTE);
+        if($c) {
+            if(in_array($c->locale(), $comitatiGestiti) 
+            || in_array($c, $comitatiGestiti)) {
+            return true;
+            }
         }
         return false;
     }
