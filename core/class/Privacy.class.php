@@ -12,7 +12,7 @@ class Privacy extends Entita {
     
  	public function __call( $parametro, $altrui ) {
  
-		if ( !$altrui || ! $altrui[0] instanceOf Persona )
+		if ( !$altrui || ! $altrui[0] instanceOf Persona || !$this->{$parametro} || $this->volontario->stato < VOLONTARIO)
 			return false;
 		$altrui = $altrui[0];
 			return (bool) (
