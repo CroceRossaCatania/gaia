@@ -18,6 +18,19 @@ $app_nome   = $conf['applicazioni'][$app];
 /*
  * Crea il nuovo delegato...
  */
+
+$deleghe = Delegato::filtra([
+	['volontario', $persona->id],
+	['applicazione', $app],
+	['comitato', $c->oid()]
+	]);
+
+foreach($deleghe as $delega) {
+	if ($delega->attuale()) {
+		redirect("presidente.comitato&oid={$c->oid()}&double&back=app_{$app}");
+	}
+}
+
 $d = new Delegato();
 $d->estensione      = $c->_estensione();
 $d->comitato        = $c->oid();
