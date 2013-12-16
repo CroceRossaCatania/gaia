@@ -1086,7 +1086,7 @@ class Utente extends Persona {
         $inGenerale = $this->appartenenze();
         if(($attuali || $pendenti) && $this->stato == VOLONTARIO){
             return true;
-        } elseif($appartenenze && $this->stato == PERSONA) {
+        } elseif($inGenerale && $this->stato == PERSONA) {
             return true;
         } elseif (!$attuali && !$pendenti && $this->stato == ASPIRANTE) {
             return true;
