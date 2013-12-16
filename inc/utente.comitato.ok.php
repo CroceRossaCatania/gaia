@@ -10,7 +10,7 @@ $c = $_POST['inputComitato'];
 
 /* Verifico appartenenza */
 if($me->appartenenze()){
-	redirect('utente.me');
+	redirect('errore.pemessi');
 }
            
 /*Se non sono appartenente allora avvio la procedura*/

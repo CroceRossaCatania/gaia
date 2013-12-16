@@ -4,6 +4,10 @@
  * ©2013 Croce Rossa Italiana
  */
 
+if($me->appartenenze()) {
+  redirect('errore.permessi');
+}
+
 paginaPrivata();
 caricaSelettoreComitato();
 paginaModale();
