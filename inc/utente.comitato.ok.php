@@ -9,8 +9,8 @@ paginaPrivata();
 $c = $_POST['inputComitato'];
 
 /* Verifico appartenenza */
-if($me->appartenenze()){
-	redirect('errore.pemessi');
+if(!$me->appartenenzeValida()) {
+  redirect('errore.permessi');
 }
            
 /*Se non sono appartenente allora avvio la procedura*/
