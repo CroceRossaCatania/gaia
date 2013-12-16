@@ -9,7 +9,7 @@ paginaPrivata();
 $c = $_POST['inputComitato'];
 
 /* Verifico appartenenza */
-if(!$me->appartenenzeValida()) {
+if($me->appartenenzeValida()) {
   redirect('errore.permessi');
 }
            
