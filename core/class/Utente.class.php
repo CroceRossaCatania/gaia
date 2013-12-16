@@ -1083,9 +1083,10 @@ class Utente extends Persona {
     public function appartenenzaValida(){
         $attuali = $this->appartenenzeAttuali();
         $pendenti = $this->appartenenzePendenti();
-        if($attuali && $this->stato == VOLONTARIO){
+        $inGenerale = $this->appartenenze();
+        if(($attuali || $pendenti) && $this->stato == VOLONTARIO){
             return true;
-        } elseif($pendenti && $this->stato == PERSONA) {
+        } elseif($appartenenze && $this->stato == PERSONA) {
             return true;
         } elseif (!$attuali && !$pendenti && $this->stato == ASPIRANTE) {
             return true;

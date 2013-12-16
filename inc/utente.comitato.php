@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-if($me->appartenenze()) {
+if(!$me->appartenenzeValida()) {
   redirect('errore.permessi');
 }
 
