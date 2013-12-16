@@ -74,6 +74,13 @@ $(document).ready(function() {
     </div>
     <?php } ?>
 
+    <?php if ( isset($_GET['double']) ) { ?>
+    <div class="alert alert-error">
+        <i class="icon-warning-sign"></i> <strong>Modifiche non salvate</strong> &mdash;
+        Non è possibile delegare più volte la stessa persona.
+    </div>
+    <?php } ?>
+
         
 
     <div class="tabbable tabs-left">
