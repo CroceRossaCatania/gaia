@@ -5,6 +5,7 @@
  */
 
 paginaApp([APP_SOCI , APP_PRESIDENTE ]);
+$admin = $me->admin();
 
 menuElenchiVolontari(
     "Volontari attivi",
@@ -57,7 +58,7 @@ menuElenchiVolontari(
                 <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id={id}" title="Invia Mail">
                     <i class="icon-envelope"></i>
                 </a>
-                <?php if ($me->admin) { ?>
+                <?php if ($admin) { ?>
                 <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id={id}" title="Cancella Utente" class="btn btn-small btn-warning">
                     <i class="icon-trash"></i> Cancella
                 </a>
