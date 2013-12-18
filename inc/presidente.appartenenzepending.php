@@ -9,7 +9,7 @@ $comitatiGestiti = array_merge($me->comitatiDelegazioni(APP_PRESIDENTE, false, f
                                $me->comitatiDelegazioni(APP_SOCI, false, false)
                             );
 
-array_unique($comitatiGestiti);
+$comitatiGestiti = array_unique($comitatiGestiti);
 
 ?>
 
@@ -24,6 +24,12 @@ array_unique($comitatiGestiti);
         <div class="alert alert-danger">
             <i class="icon-warning-sign"></i> <strong>Appartenenza negata</strong>.
            L'appartenenza è stata negata.
+        </div>
+<?php } ?>
+<?php if ( isset($_GET['err']) ) { ?>
+        <div class="alert alert-danger">
+            <i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.
+           Qualcosa nella procedura di approvazione non ha funzionato, per favore, riprova.
         </div>
 <?php } ?>
 <br/>

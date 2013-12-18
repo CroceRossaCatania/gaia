@@ -1107,11 +1107,14 @@ class Utente extends Persona {
      * @return bool modifico o non modifico
      * @param utente
      */
-    public function modificaDaUfficio($u) {
+    public function sonoGestoreDi($u) {
+        if ($this->admin()) {
+            return true;
+        }
         $comitatiGestiti = array_merge($this->comitatiDelegazioni(APP_PRESIDENTE, false, false), 
                                $this->comitatiDelegazioni(APP_SOCI, false, false)
                             );
-        array_unique($comitatiGestiti);
+        $comitatoGestiti = array_unique($comitatiGestiti);
         $u = Utente::id($u);
         $c = $u->unComitato(MEMBRO_PENDENTE);
         if($c) {
