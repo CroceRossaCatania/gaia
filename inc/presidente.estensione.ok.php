@@ -9,8 +9,13 @@
     $e     = $_GET['id'];
     $e = Estensione::id($e);
 
+    
+
     if (isset($_GET['si'])) {
         $v = $e->volontario()->id;
+        if (!$e->volontario()->modificabileDa($me)) {
+            redirect('presidente.estensione&err');
+        }
         $e->concedi();
         $a = $e->appartenenza;
         
