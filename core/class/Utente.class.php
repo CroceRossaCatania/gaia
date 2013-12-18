@@ -229,7 +229,9 @@ class Utente extends Persona {
             AND
                 ( appartenenza.fine < 1
                  OR
-                appartenenza.fine > :ora )");
+                appartenenza.fine > :ora 
+                 OR
+                appartenenza.fine IS NULL)");
         $q->bindParam(':tipo', $tipo);
         $ora = time();
         $q->bindParam(':ora',  $ora);
