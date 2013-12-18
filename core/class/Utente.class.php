@@ -1103,20 +1103,21 @@ class Utente extends Persona {
     }
 
     /*
-     * Se ho permessi come ufficio soci mi da true altrimenti false
-     * @return bool modifico o non modifico
-     * @param utente
+     * Verifica se un altro utente ha permessi in scrittura su me
+     * @return bool modifica o non modifica
+     * @param $altroUtente il modificatore
      */
-    public function sonoGestoreDi($u) {
-        if ($this->admin()) {
+    public function modificabileDa($altroUtente) {
+        $altroUtente = Utente::id($altroUtente);
+        if ($altroUtente->admin()) {
             return true;
         }
-        $comitatiGestiti = array_merge($this->comitatiDelegazioni(APP_PRESIDENTE, false, false), 
-                               $this->comitatiDelegazioni(APP_SOCI, false, false)
+        $comitatiGestiti = array_merge($altroUtente->comitatiDelegazioni(APP_PRESIDENTE, false, false), 
+                               $altroUtente->comitatiDelegazioni(APP_SOCI, false, false)
                             );
-        $comitatoGestiti = array_unique($comitatiGestiti);
-        $u = Utente::id($u);
-        $c = $u->unComitato(MEMBRO_PENDENTE);
+        $comitatiGestiti = array_unique($comitatiGestiti);
+        
+        $c = $this->unComitato(MEMBRO_PENDENTE);
         if($c) {
             if(in_array($c->locale(), $comitatiGestiti) 
             || in_array($c, $comitatiGestiti)) {

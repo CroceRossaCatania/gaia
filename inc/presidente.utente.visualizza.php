@@ -8,7 +8,7 @@ paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 $id = $_GET['id']; 
 $u = Utente::id($id);
-$hoPotere = $me->sonoGestoreDi($u);
+$hoPotere = $u->modificabileDa($me);
 $t = TitoloPersonale::filtra([['volontario',$u]]);
 $admin = $me->admin();
 
