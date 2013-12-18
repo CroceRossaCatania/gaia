@@ -5,11 +5,6 @@
  */
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
-$comitatiGestiti = array_merge($me->comitatiDelegazioni(APP_PRESIDENTE, false, false), 
-                               $me->comitatiDelegazioni(APP_SOCI, false, false)
-                            );
-
-$comitatiGestiti = array_unique($comitatiGestiti);
 
 ?>
 
@@ -92,8 +87,7 @@ foreach($comitati as $comitato) {
                 <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" target="_new" title="Dettagli">
                     <i class="icon-eye-open"></i> Dettagli
                 </a>
-                <?php if(in_array($comitato->locale(), $comitatiGestiti) 
-                        || in_array($comitato, $comitatiGestiti)) {?>    
+                <?php if($_v->modificabileDa($me)) {?>    
                 <a class="btn btn-success btn-small" href="?p=presidente.appartenenzepending.ok&id=<?php echo $_t->id; ?>&si">
                     <i class="icon-ok"></i> Conferma
                 </a>
