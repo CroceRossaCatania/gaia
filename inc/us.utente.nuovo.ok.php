@@ -87,16 +87,23 @@ $p->email               = $email;
 $p->cellulare           = $cell;
 $p->cellulareServizio   = $cells;
 
-$a = new Appartenenza();
-$a->volontario  = $p->id;
-$a->comitato    = $comitato;
-$inizio = DT::createFromFormat('d/m/Y', $_POST['inputDataIngresso']);
-$inizio = $inizio->getTimestamp();
-$a->inizio      = $inizio;
-$a->fine        = PROSSIMA_SCADENZA;
-$a->timestamp = time();
-$a->stato     = MEMBRO_VOLONTARIO;
-$a->conferma  = $me;
+$gia = Appartenenza::filtra([
+	['volontario', $sessione->utente()->id],
+	['comitato', $comitato->id]
+]);
+
+if(!$gia){
+	$a = new Appartenenza();
+	$a->volontario  = $p->id;
+	$a->comitato    = $comitato;
+	$inizio = DT::createFromFormat('d/m/Y', $_POST['inputDataIngresso']);
+	$inizio = $inizio->getTimestamp();
+	$a->inizio      = $inizio;
+	$a->fine        = PROSSIMA_SCADENZA;
+	$a->timestamp = time();
+	$a->stato     = MEMBRO_VOLONTARIO;
+	$a->conferma  = $me;
+}
 
 /* Genera la password casuale */
 $password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
