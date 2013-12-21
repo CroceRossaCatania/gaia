@@ -6,8 +6,7 @@
 
 paginaAdmin();
 
-$t = $_GET['oid'];
-$t = GeoPolitica::daOid($t);
+$t = GeoPolitica::daOid($_GET['oid']);
 if($t->figli()){
 	redirect('admin.comitati&err');
 }
