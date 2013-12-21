@@ -7,7 +7,7 @@
 paginaPrivata();
 
 $id = $_GET['id'];
-$v = Utente::by('id', $id);
+$v = Utente::id($id);
 if ( !$v ) { die("Utente non esistente o nullo"); }
 $r = $me->pri_smistatore($v);
 

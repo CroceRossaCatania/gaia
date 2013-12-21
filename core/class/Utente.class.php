@@ -1039,17 +1039,19 @@ class Utente extends Persona {
         }elseif($this->areeDiResponsabilita()){
             $ar = $this->areeDiResponsabilita();
             foreach( $ar as $_a ){
-                $c = $_a->comitato();
-                if($altroutente->in($c)){
-                    return PRIVACY_RISTRETTA;
+                $c = $_a->comitato()->estensione();
+                foreach ($c as $_c) {
+                    if($altroutente->in($_c)){
+                        return PRIVACY_RISTRETTA;
+                    }
                 }
             }
             redirect('public.utente&id=' . $id);
         }elseif($this->attivitaReferenziate()){
             $a = $this->attivitaReferenziate();
-            foreach( $a as $_a ){
-                $c = $_a->area()->comitato();
-                if($altroutente->in($c)){
+            $partecipazioni = $this->partecipazioni(PART_OK);
+            foreach( $partecipazioni as $p ){
+                if (in_array($p->attivita(), $a)) {
                     return PRIVACY_RISTRETTA;
                 }
             }
