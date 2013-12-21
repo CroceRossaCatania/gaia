@@ -186,3 +186,10 @@ function impostaTitoloDescrizione( $contenuto ) {
     $contenuto = str_replace('{_descrizione}', $_descrizione, $contenuto);
     return $contenuto;
 }
+
+function controllaParametri($parametri = [], $redirect = 'utente.me&err') {
+    foreach ($parametri as $p) {
+        if (empty($_REQUEST[$p])) { redirect($redirect); }
+    }
+}
+

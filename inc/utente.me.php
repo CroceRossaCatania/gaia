@@ -190,6 +190,12 @@ if(false && $consenso && !$sessione->barcode) { ?>
             Mail di massa inviata con successo.
         </div> 
         <?php } ?>
+        <?php if (isset($_GET['err'])) { $attenzione = true;  ?>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+            <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+        </div> 
+        <?php } ?>
         <?php if (!$me->wizard) { $attenzione = true;  ?>
         <div class="alert alert-block alert-error">
             <h4><i class="icon-warning-sign"></i> Completa il tuo profilo</h4>
