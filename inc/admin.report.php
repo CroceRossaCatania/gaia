@@ -18,6 +18,12 @@ $t = array_unique($t);
 		<div class="span12">
 			<div class="row-fluid">
 				<h2><i class="icon-copy muted"></i> Genera report sull'utilizzo di gaia</h2>
+				<?php if (isset($_GET['err'])) { ?>
+                	<div class="alert alert-block alert-error">
+	                    <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+	                    <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+	                </div> 
+	            <?php } ?>
 				<div class="alert alert-block alert-info ">
 					<div class="row-fluid">
 						<span class="span12">

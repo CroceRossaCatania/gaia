@@ -5,7 +5,7 @@
  */
 
 paginaAdmin();
-
+controllaParametri(array('id'), 'admin.comitati&err');
 $c = $_GET['id'];
 
 if (isset($_GET['com'])){
@@ -68,3 +68,5 @@ if (isset($_GET['com'])){
     redirect('admin.comitati&new');
     
 }
+
+redirect('admin.comitati&err');

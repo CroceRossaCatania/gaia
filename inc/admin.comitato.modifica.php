@@ -6,6 +6,7 @@
 
 paginaAdmin();
 
+controllaParametri(array('oid'), 'admin.comitati&err');
 $c = $_GET['oid'];
 $c = GeoPolitica::daOid($c);
 ?>

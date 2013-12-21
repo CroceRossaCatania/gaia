@@ -6,6 +6,7 @@
 
 paginaAdmin();
 caricaSelettoreComitato();
+controllaParametri(array('id'), 'admin.limbo&err');
 $t = $_GET['id'];
 ?>
 <form class="form-horizontal" action="?p=admin.limbo.comitato.nuovo.ok&id=<?php echo $t; ?>" method="POST">

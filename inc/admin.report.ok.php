@@ -5,6 +5,7 @@
  */
 
 paginaAdmin();
+controllaParametri(array('oid'), 'admin.report&err');
 $oid = $_POST['oid'];
 $g = GeoPolitica::daOid($oid);
 $comitati = $me->comitatiDiCompetenza();

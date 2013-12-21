@@ -5,7 +5,7 @@
  */
 
 paginaAdmin();
-
+controllaParametri(array('id'), 'admin.titoli&err');
 $t = $_GET['id'];
 $f = Titolo::id($t);
 $tp = TitoloPersonale::filtra([['titolo', $f]]);

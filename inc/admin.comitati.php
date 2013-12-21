@@ -23,7 +23,7 @@ paginaAdmin();
             <i class="icon-warning-sign"></i> <strong>Comitato presente</strong>.
             Il Comitato è già presente in elenco.
         </div>
-<?php }elseif ( isset($_GET['err']) ) { ?>
+<?php }elseif ( isset($_GET['figli']) ) { ?>
         <div class="alert alert-error">
             <i class="icon-warning-sign"></i> <strong>Comitati correlati</strong>.
             Attenzione il Comitato che si vuole cancellare ha dei comitati sottostanti, rimuoverli e riprovare.
@@ -33,6 +33,12 @@ paginaAdmin();
             <i class="icon-warning-sign"></i> <strong>Volontari correlati</strong>.
             Attenzione il Comitato che si vuole cancellare ha dei Volontari iscritti, rimuoverli e riprovare.
         </div>
+<?php } ?>
+<?php if (isset($_GET['err'])) { ?>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+            <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+        </div> 
 <?php } ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
     <br/>

@@ -26,6 +26,12 @@ paginaAdmin();
             Il presidente è stato nominato con successo.
         </div>
 <?php } ?>
+<?php if (isset($_GET['err'])) { ?>
+    <div class="alert alert-block alert-error">
+        <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+        <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+    </div> 
+<?php } ?>
 <br/>
 <div class="row-fluid">
     <div class="span6 allinea-sinistra">

@@ -5,7 +5,7 @@
  */
 
 paginaAdmin();
-
+controllaParametri(array('id', 't'), 'admin.comitati&err');
 $c = $_GET['id'];
 $t = $_GET['t'];
 ?>

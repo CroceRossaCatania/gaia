@@ -5,6 +5,7 @@
  */
 
 paginaAdmin();
+controllaParametri(array('id'), 'presidente.utenti&err');
 $t = $_GET['id'];
 $t = Utente::id($t);
 

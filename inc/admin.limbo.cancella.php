@@ -5,7 +5,7 @@
  */
 
 paginaAdmin();
-
+controllaParametri(array('id'), 'admin.limbo&err');
 $v = $_GET['id'];
 
 $f = TitoloPersonale::filtra([

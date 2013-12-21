@@ -5,7 +5,7 @@
  */
 
 paginaAdmin();
-
+controllaParametri(array('id'), 'admin.titoli&err');
 $t = $_GET['id'];
 
 $t = Titolo::id($t);

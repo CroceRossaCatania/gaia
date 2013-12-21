@@ -5,7 +5,8 @@
  */
 
 paginaAdmin();
-
+$parametri = array('inputNome', 'inputTipo');
+controllaParametri($parametri, 'admin.titolo.nuovo&err');
 $x = Titolo::by('nome', $_POST['inputNome']);
 if (!$x){
 $t = new Titolo();
