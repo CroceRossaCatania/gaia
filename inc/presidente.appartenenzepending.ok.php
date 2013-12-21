@@ -6,6 +6,9 @@
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
+if(!isset($_GET['id'])) {
+    redirect('presidente.appartenenzepending&err');
+}
 $id     = $_GET['id'];
 $a      = Appartenenza::id($id);
 
@@ -34,4 +37,7 @@ if ( isset($_GET['si']) ) {
     $m->invia();
     
     redirect('presidente.appartenenzepending&neg');
-}
+} 
+redirect('presidente.appartenenzepending&err');
+
+?>

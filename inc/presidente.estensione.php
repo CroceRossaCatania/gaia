@@ -26,6 +26,12 @@ paginaPresidenziale();
             Richiesta di estensione protocollata con successo.
         </div>
 <?php } ?>
+<?php if ( isset($_GET['err']) ) { ?>
+        <div class="alert alert-danger">
+            <i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.
+           Qualcosa nella procedura di approvazione non ha funzionato, per favore, riprova.
+        </div>
+<?php } ?>
 <br/>
 <div class="row-fluid">
     <div class="span8">
@@ -58,6 +64,7 @@ $comitati= $me->comitatiDiCompetenza();
 $e = Estensione::filtra([['stato',EST_INCORSO]]);
 foreach ($e as $_e){
     $v =$_e->volontario();
+    $modificabile = $v->modificabileDa($me);
     foreach($comitati as $comitato){
         if ($v->unComitato()==$comitato){
  ?>
@@ -69,6 +76,7 @@ foreach ($e as $_e){
         <td><?php echo $_e->comitato()->nomeCompleto(); ?></td>
         <?php if($_e->protNumero){ ?>
         <td>
+            <?php if ($modificabile) { ?>
             <div class="btn-group">
                 <a class="btn btn-success" href="?p=presidente.estensione.ok&id=<?php echo $_e->id; ?>&si">
                     <i class="icon-ok"></i> Conferma
@@ -77,15 +85,18 @@ foreach ($e as $_e){
                     <i class="icon-ban-circle"></i> Nega
                 </a>
             </div>
+            <?php } ?>
         <?php }else{ ?>
         <td>   
             <div class="btn-group">
                 <a class="btn btn-info" href="?p=utente.estensioneRichiesta.stampa&id=<?php echo $_e->id; ?>">
                     <i class="icon-print"></i> Stampa richiesta
                 </a>
+                <?php if($modificabile) { ?>
                 <a class="btn btn-success" href="?p=presidente.estensioneRichiesta&id=<?php echo $_e->id; ?>">
                     <i class="icon-ok"></i> Protocolla richiesta
                 </a>
+                <?php } ?>
             </div>
         <?php } ?>    
         </td>

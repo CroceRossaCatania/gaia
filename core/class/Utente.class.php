@@ -640,8 +640,14 @@ class Utente extends Persona {
         }
         return $r;
     }
-    
-    public function comitatiDelegazioni($app = null, $soloComitati = false) {
+    /*
+     * Restituisce i comitati che mi competono per una determinata delega
+     * @return array di geopolitiche
+     * @param $app array di delegazioni
+     * @param $soloComitati per far restituire solo i comitati e non il resto
+     * @param $espandi default ritorna le geopolitiche e la loro espansione
+     */
+    public function comitatiDelegazioni($app = null, $soloComitati = false, $espandi = true) {
         $d = $this->delegazioni($app);
         $c = [];
         foreach ( $d as $_d ) {
@@ -649,7 +655,7 @@ class Utente extends Persona {
             if (!$soloComitati || $comitato instanceof Comitato) {
                 $c[] = $comitato;
             }
-            if (!$comitato instanceof Comitato) {
+            if ($espandi && !$comitato instanceof Comitato) {
                 $c = array_merge($comitato->estensione(), $c);
             }
         }
@@ -1092,6 +1098,30 @@ class Utente extends Persona {
             return true;
         } elseif (!$attuali && !$pendenti && $this->stato == ASPIRANTE) {
             return true;
+        }
+        return false;
+    }
+
+    /*
+     * Verifica se un altro utente ha permessi in scrittura su me
+     * @return bool modifica o non modifica
+     * @param $altroUtente il modificatore
+     */
+    public function modificabileDa(Utente $altroUtente) {
+        if ($altroUtente->admin()) {
+            return true;
+        }
+        $comitatiGestiti = array_merge($altroUtente->comitatiDelegazioni(APP_PRESIDENTE, false, false), 
+                               $altroUtente->comitatiDelegazioni(APP_SOCI, false, false)
+                            );
+        $comitatiGestiti = array_unique($comitatiGestiti);
+        
+        $c = $this->unComitato(MEMBRO_PENDENTE);
+        if($c) {
+            if(in_array($c->locale(), $comitatiGestiti) 
+            || in_array($c, $comitatiGestiti)) {
+            return true;
+            }
         }
         return false;
     }
