@@ -76,6 +76,12 @@ $t = TitoloPersonale::filtra([['volontario',$u]]);
                     <input value="<?php echo $u->email; ?>"  type="email" id="inputEmail" name="inputEmail" readonly/>
                 </div>
             </div>
+            <div class="control-group">
+                <label class="control-label" for="inputEmail">Email servizio</label>
+                <div class="controls">
+                    <input value="<?php echo $u->emailServizio; ?>"  type="email" id="inputEmailServizio" name="inputEmailServizio" readonly/>
+                </div>
+            </div>
             <div class="control-group input-prepend">
                 <label class="control-label" for="inputCellulare">Cellulare</label>
                 <div class="controls">
