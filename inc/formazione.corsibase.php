@@ -15,6 +15,7 @@ paginaApp([APP_FORMAZIONE, APP_PRESIDENTE]);
     </div>
     <div class="span9">
 
-
+    	<h3>Corsi base</h3>
+    	
     </div>
 </div>
