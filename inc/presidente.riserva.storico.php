@@ -5,8 +5,7 @@
  */
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
-$v = $_GET['id'];
-$v = Volontario::id($v);
+$v = Volontario::id($_GET['id']);
 proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
 ?>
 <div class="row-fluid">
@@ -34,7 +33,6 @@ proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
                 
                 <?php foreach ( $v->riserve() as $app ) { ?>
                     <tr<?php if ($app->attuale()) { ?> class="success"<?php } ?>>
-                        <td><?php echo $v->nomeCompleto(); ?></td>
                         <td>
                             <?php if ($app->attuale()) { ?>
                                 Attuale
