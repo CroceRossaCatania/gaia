@@ -5,6 +5,9 @@
  */
 
 paginaPresidenziale();
+
+controllaParametri(array('id'), 'presidente.riserva&err');
+
 $t = $_GET['id'];
 $t = Riserva::id($t);
 $_v = $t->volontario();

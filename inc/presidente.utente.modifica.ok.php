@@ -8,6 +8,11 @@
 /*
  * Normalizzazione dei dati
  */
+
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
+
+controllaParametri(array('t'), 'presidente.utenti&errGen');
+
 $id         = $_GET['t'];
 
 $dnascita = DT::createFromFormat('d/m/Y', $_POST['inputDataNascita']);

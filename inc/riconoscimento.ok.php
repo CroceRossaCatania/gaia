@@ -1,5 +1,7 @@
 <?php
 
+controllaParametri(array('inputCodiceFiscale'), 'recuperaPassword&e');
+
 $codiceFiscale = $_POST['inputCodiceFiscale'];
 $codiceFiscale = maiuscolo($codiceFiscale);
 $sessione->codiceFiscale = $codiceFiscale;

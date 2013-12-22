@@ -6,7 +6,7 @@
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
-
+controllaParametri(array('id'), 'presidente.titoli&err');
 
 $id     = $_GET['id'];
 $t      = TitoloPersonale::id($id);

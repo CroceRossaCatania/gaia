@@ -6,6 +6,10 @@
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
+$parametri = array('inputComitato', 'inputCodiceFiscale', 'inputNome',
+	'inputCognome', 'inputSesso', 'inputDataNascita', 'inputDataIngresso');
+controllaParametri($parametri, 'us.dash&err');
+
 $comitato = $_POST['inputComitato'];
 if ( !$comitato ) {
     redirect('us.utente.nuovo&c');

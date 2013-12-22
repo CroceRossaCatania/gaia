@@ -5,6 +5,9 @@
  */
 
 paginaPresidenziale();
+
+controllaParametri(array('id'));
+
 $e = $_GET['id'];
 $e = Estensione::id($e);
 $c=$e->comitato();

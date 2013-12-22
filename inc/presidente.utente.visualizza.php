@@ -6,6 +6,8 @@
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
+controllaParametri(array('id'), 'presidente.utenti&errGen');
+
 $id = $_GET['id']; 
 $u = Utente::id($id);
 $hoPotere = $u->modificabileDa($me);

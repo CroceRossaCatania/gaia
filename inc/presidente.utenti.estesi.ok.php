@@ -4,6 +4,8 @@
  * ©2013 Croce Rossa Italiana
  */
 
+controllaParametri(array('oid'), 'presidente.utenti&errGen');
+
 $oid = $_POST['oid'];
 $g = GeoPolitica::daOid($oid);
 $unita = $g->estensione();
