@@ -4,6 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
+controllaParametri(array('id'));
 $a = Attivita::id($_GET['id']);
 paginaAttivita($a);
 

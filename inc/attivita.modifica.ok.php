@@ -1,5 +1,6 @@
 <?php
 
+controllaParametri(array('id'), 'attivita.gestione&err');
 $id = $_POST['id'];
 $a = Attivita::id($id);
 

@@ -7,6 +7,9 @@
 paginaPrivata();
 paginaAttivita();
 
+$parametri = array('comitato', 'inputArea', 'inputNome');
+controllaParametri($parametri, 'attivita.gestione&err');
+
 $comitato = $_POST['comitato'];
 $comitato = GeoPolitica::daOid($comitato);
 

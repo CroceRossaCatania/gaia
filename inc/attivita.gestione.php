@@ -7,49 +7,35 @@
 paginaPrivata();
 ?>
 
-
-
-
 <div class="row-fluid">
-    
     <div class="span3">
         <?php menuVolontario(); ?>
     </div>
-
         <div class="span9">
-
         <div class="row-fluid">
-
             <div class="span7">
                 <h2>
                     <i class="icon-star muted"></i>
                     Gestione delle attività
                 </h2>
             </div>
-
-            
-                
-                <div class="span5">
-                    
+                <div class="span5">  
                         <?php if ( $me->comitatiAreeDiCompetenza() ) { ?>
-
                         <a href="?p=attivita.idea" class="btn btn-large btn-block btn-success">
                             <i class="icon-plus-sign"></i>
                                 Crea una nuova attività
-                        </a>
-                        
+                        </a>      
                         <?php } ?>
-                        
-                    
-
                 </div>
             </div>
-
             <div class="row-fluid">
-
-
-
 <div class="span12">
+            <?php if (isset($_GET['err'])) { ?>
+                <div class="alert alert-block alert-error">
+                    <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+                    <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+                </div> 
+            <?php } ?> 
 <table class="table table-striped table-bordered">
 
 <thead>
