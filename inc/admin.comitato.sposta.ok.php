@@ -55,6 +55,15 @@ if($estensione==EST_UNITA){
 	foreach( $riserve as $riserva ){
 		$riserva->nega($motivo);
 	}
+
+	$delegati = Delegato::filtra([
+		['comitato', $t],
+		['applicazione', APP_OBIETTIVO]
+	]);
+	foreach ($delegati as $delegato){
+		$delegato->fine = time();
+	}
+	
 	$t->locale = $c;
 }elseif($estensione==EST_LOCALE){
 	$t->provinciale = $c;
