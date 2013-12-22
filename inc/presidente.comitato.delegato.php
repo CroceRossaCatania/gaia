@@ -4,6 +4,9 @@
  * ©2013 Croce Rossa Italiana
  */
 
+$parametri = array('oid', 'persona', 'applicazione');
+controllaParametri($parametri);
+
 $c = $_POST['oid'];
 $c = GeoPolitica::daOid($c);
 

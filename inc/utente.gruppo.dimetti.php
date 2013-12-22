@@ -6,6 +6,8 @@
 
 paginaPrivata();
 
+controllaParametri(array('id'));
+
 $t = $_GET['id'];
 
 /* Cerco i gruppi a cui appartengo attualmente */

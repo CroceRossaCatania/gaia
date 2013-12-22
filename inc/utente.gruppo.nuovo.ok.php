@@ -6,26 +6,29 @@
 
 paginaPrivata();
 
+$parametri = array('id', 'inputGruppo');
+controllaParametri($parametri);
+
 $t = $_GET['id'];
 $g = $_POST['inputGruppo'];
 $g = Gruppo::id($g);
 /* Cerco se già iscritto a gruppo */
 $x = AppartenenzaGruppo::filtra([
-  ['volontario',    $t],
-  ['gruppo',    $g]
-]);
+	['volontario',    $t],
+	['gruppo',    $g]
+	]);
 
 /* Se sono già appartenente *ora*,
  * restituisco errore
  */
 
 foreach ( $x as $app ) {
-    if ($app->attuale()) { 
-        redirect('utente.gruppo&e'); 
-        break;
-    } 
+	if ($app->attuale()) { 
+		redirect('utente.gruppo&e'); 
+		break;
+	} 
 }
-                         
+
 /*Se non sono appartenente allora avvio la procedura*/
 
 $t = new AppartenenzaGruppo();

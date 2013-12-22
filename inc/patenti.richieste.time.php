@@ -6,6 +6,9 @@
 
 paginaApp([APP_PATENTI , APP_PRESIDENTE]);
 paginaModale();
+
+controllaParametri(array('id'), 'patenti.dash&err');
+
 $v = $_GET['id'];
 ?>
 <form action="?p=patenti.richieste.ok&id=<?= $v; ?><?php if ( isset($_GET['visita']) ){ ?>&visita<?php }elseif ( isset($_GET['stampa']) ){ ?>&stampa<?php }elseif ( isset($_GET['consegna']) ){ ?>&consegna<?php } ?>" method="POST">

@@ -5,16 +5,20 @@
  */
 
 paginaPrivata();
+
+$parametri = array('id', 'turno');
+controllaParametri($parametri, 'utente.me&err');
+
 $a = $_GET['id'];
 $a = Attivita::id($a);
 paginaAttivita($a);
 
 $turno = $_POST['turno'];
-$turno = new Turno($turno);
+$turno = Turno::id($turno);
 
 foreach ( $_POST['volontari'] as $v ) {
     
-    $v = new Volontario($v);
+    $v = Volontario::id($v);
     if ( $turno->partecipa($v) ) { continue; }
 
     $ora = time();

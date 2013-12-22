@@ -4,6 +4,8 @@
  * ©2013 Croce Rossa Italiana
  */
 
+paginaApp([ APP_OBIETTIVO , APP_PRESIDENTE , APP_SOCI ]);
+
 if (isset($_GET['t'])) {
     $t = (int) $_GET['t'];
 } else {
@@ -12,7 +14,7 @@ if (isset($_GET['t'])) {
 $titoli = $conf['titoli'][$t];
 
 paginaApp([ APP_PRESIDENTE , APP_SOCI , APP_OBIETTIVO ]);
- 
+
 ?>
 <div class="row-fluid">
     <div class="span12">
@@ -43,11 +45,11 @@ paginaApp([ APP_PRESIDENTE , APP_SOCI , APP_OBIETTIVO ]);
 
                 </tbody>
             </table>            
-          </div>
+        </div>
         
         <div id="step2" style="display: none;">
             <form action='?p=presidente.titoli.ricerca.ok' method="POST">
-            <input type="hidden" name="idTitolo" id="idTitolo" />
-        </div>    
+                <input type="hidden" name="idTitolo" id="idTitolo" />
+            </div>    
+        </div>
     </div>
-</div>

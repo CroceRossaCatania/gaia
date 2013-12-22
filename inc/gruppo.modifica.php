@@ -6,6 +6,8 @@
 
 paginaPresidenziale();
 
+controllaParametri(array('id'), 'gruppi.dash&err');
+
 $gruppo = $_GET['id'];
 $gruppo = Gruppo::id($gruppo);
 

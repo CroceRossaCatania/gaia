@@ -4,6 +4,11 @@
  * ©2013 Croce Rossa Italiana
  */
 
+paginaPresidenziale();
+
+$parametri = array('id', 'inputComitato', 'inputApplicazione', 'inputDominio');
+controllaParametri($parametri);
+
 $t = $_GET['id'];
 $c = $_POST['inputComitato'];
 $a = $_POST['inputApplicazione'];

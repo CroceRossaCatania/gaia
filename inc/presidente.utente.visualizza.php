@@ -6,8 +6,11 @@
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
+controllaParametri(array('id'), 'presidente.utenti&errGen');
+
 $id = $_GET['id']; 
 $u = Utente::id($id);
+$hoPotere = $u->modificabileDa($me);
 $t = TitoloPersonale::filtra([['volontario',$u]]);
 $admin = $me->admin();
 
@@ -31,7 +34,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
     <!-- Attivazione account -->
 
     <?php 
-      if (!$u->email) { ?>
+      if ($hoPotere && !$u->email) { ?>
       
       <div class="row-fluid">
        <div class="span12">
@@ -126,7 +129,6 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         </div> 
       </div>
 
-
     <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $id; ?>" method="POST">
       <hr />
       <div class="control-group">
@@ -164,50 +166,50 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <div class="control-group">
         <label class="control-label" for="inputDataNascita">Data di Nascita</label>
         <div class="controls">
-          <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$admin){?> required <?php } ?> value="<?php echo date('d/m/Y', $u->dataNascita); ?>">
+          <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$admin){?> required <?php } ?> <?php if(!$hoPotere){?> readonly <?php } ?> value="<?php echo date('d/m/Y', $u->dataNascita); ?>">
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputProvinciaNascita">Provincia di Nascita</label>
         <div class="controls">
-          <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" <?php if(!$admin){?> required <?php } ?> value="<?php echo $u->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
+          <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" <?php if(!$admin){?> required <?php } ?> <?php if(!$hoPotere){?> readonly <?php } ?> value="<?php echo $u->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
         <div class="controls">
-          <input type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$admin){?> required <?php } ?> value="<?php echo $u->comuneNascita; ?>">
+          <input type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$admin){?> required <?php } ?> <?php if(!$hoPotere){?> readonly <?php } ?> value="<?php echo $u->comuneNascita; ?>">
         </div>
       </div>
 
       <div class="control-group">
        <label class="control-label" for="inputIndirizzo">Indirizzo</label>
        <div class="controls">
-         <input value="<?php echo $u->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" <?php if(!$admin){?> required <?php } ?> />
+         <input value="<?php echo $u->indirizzo; ?>" type="text" id="inputIndirizzo" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputIndirizzo" <?php if(!$admin){?> required <?php } ?> />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputCivico">Civico</label>
        <div class="controls">
-         <input value="<?php echo $u->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" <?php if(!$admin){?> required <?php } ?> />
+         <input value="<?php echo $u->civico; ?>" type="text" id="inputCivico" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCivico" class="input-small" <?php if(!$admin){?> required <?php } ?> />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputComuneResidenza">Comune di residenza</label>
        <div class="controls">
-         <input value="<?php echo $u->comuneResidenza; ?>" type="text" id="inputComuneResidenza" name="inputComuneResidenza" <?php if(!$admin){?> required <?php } ?> />
+         <input value="<?php echo $u->comuneResidenza; ?>" type="text" id="inputComuneResidenza" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputComuneResidenza" <?php if(!$admin){?> required <?php } ?> />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputCAPResidenza">CAP di residenza</label>
        <div class="controls">
-         <input value="<?php echo $u->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[0-9]{5}" />
+         <input value="<?php echo $u->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCAPResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[0-9]{5}" />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputProvinciaResidenza">Provincia di residenza</label>
        <div class="controls">
-         <input value="<?php echo $u->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[A-Za-z]{2}" />
+         <input value="<?php echo $u->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputProvinciaResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[A-Za-z]{2}" />
        </div>
      </div>
      <div class="control-group">
@@ -220,14 +222,14 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
        <label class="control-label" for="inputCellulare">Cellulare</label>
        <div class="controls">
          <span class="add-on">+39</span>
-         <input value="<?php echo $u->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" />
+         <input value="<?php echo $u->cellulare; ?>"  type="text" id="inputCellulare" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCellulare" pattern="[0-9]{9,11}" />
        </div>
      </div>
      <div class="control-group input-prepend">
        <label class="control-label" for="inputCellulareServizio">Cellulare Servizio</label>
        <div class="controls">
          <span class="add-on">+39</span>
-         <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" />
+         <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCellulareServizio" pattern="[0-9]{9,11}" />
        </div>
      </div>
 
@@ -237,14 +239,17 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
        <input value="<?php if($u->consenso()){ echo "Acquisito";}else{ echo "Non Acquisito"; } ?>"  type="text" id="inputConsenso" name="inputConsenso" readonly/>
      </div>
    </div>
-   <hr />
+   
 
+   <?php if($hoPotere) { ?>
+   <hr />
    <div class="form-actions">
     <button type="submit" class="btn btn-success btn-large">
       <i class="icon-save"></i>
       Salva modifiche
     </button>
   </div>
+  <?php } ?>
 </form>    
 </div>
 <!--Visualizzazione e modifica appartenenze utente -->
@@ -309,11 +314,13 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         </td>
 
         <td>
+
           <div class="btn-group">
+            <?php if($hoPotere) { ?>
             <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
               <i class="icon-edit"></i>
             </a>
-            <?php if($me->admin()){ ?>
+            <?php } if($me->admin()){ ?>
             <a onClick="return confirm('Vuoi veramente cancellare questa appartenenza ?');" href="?p=us.appartenenza.cancella&a=<?php echo $app; ?>" title="Cancella appartenenza" class="btn btn-small btn-danger">
               <i class="icon-trash"></i>
             </a>
@@ -356,7 +363,9 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
   <?php } ?>
   <h4><i class="icon-list muted"></i> Curriculum </h4>
   <div id="step1">
+  <?php if($hoPotere) { ?>
     <div class="alert alert-block alert-success" <?php if ($titoli[2]) { ?>data-richiediDate<?php } ?>>
+      
       <div class="row-fluid">
         <span class="span3">
           <label for="cercaTitolo">
@@ -372,7 +381,9 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         </span>
       </div>
 
+
     </div>
+    <?php } ?>
 
     <table class="table table-striped table-condensed table-bordered" id="risultatiRicerca" style="display: none;">
       <thead>
@@ -489,6 +500,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <?php } ?>
 
         <td>
+          <?php if($hoPotere) { ?>
           <div class="btn-group">
             <a href="?p=presidente.titolo.modifica&t=<?php echo $titolo->id; ?>&v=<?php echo $u->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
               <i class="icon-edit"></i>
@@ -497,6 +509,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
               <i class="icon-trash"></i>
             </a>
           </div>
+          <?php } ?>
         </td>
       </tr>
       <?php } ?>

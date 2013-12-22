@@ -4,6 +4,8 @@
  * ©2013 Croce Rossa Italiana
  */
 
+controllaParametri(array('id'));
+
 ini_set('memory_limit', '512M');
 
 if(isset($_GET['pre'])){

@@ -5,6 +5,8 @@
  */
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
+controllaParametri(array('id'), 'us.dash&err');
+
 $q = $_GET['id'];
 $app = Quota::id($q);
 $p = new PDF('ricevutaquota', 'ricevuta.pdf');

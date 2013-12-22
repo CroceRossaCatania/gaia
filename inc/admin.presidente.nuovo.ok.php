@@ -5,7 +5,8 @@
  */
 
 paginaAdmin();
-
+$parametri = array('v', 'id');
+controllaParametri($parametri, 'admin.presidenti&err');
 $v = $_GET['v'];
 $c = $_GET['oid'];
 
@@ -37,3 +38,5 @@ $m->_COMITATO = $c->nomeCompleto();
 $m->invia();
 
 redirect('admin.presidenti&new');
+
+?>

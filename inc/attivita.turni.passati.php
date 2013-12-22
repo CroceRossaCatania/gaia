@@ -6,6 +6,9 @@
 
 paginaPrivata();
 caricaSelettore();
+
+controllaParametri(array('id'));
+
 $a = Attivita::id($_GET['id']);
 
 $geoComitato = GeoPolitica::daOid($a->comitato);
