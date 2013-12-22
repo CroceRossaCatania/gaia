@@ -23,7 +23,7 @@ echo $v;
                     <label class="control-label" for="inputPassword"><strong>Nuova</strong> Password </label>
                 </div>
                 <div class="span8">
-                  <input class="input-large" type="password" name="inputPassword" id="inputPassword" required pattern=".{6,15}" />
+                  <input class="input-large" type="password" name="inputPassword" id="inputPassword" required pattern=".{8,15}" />
                 </div>
         </div>
         <div class="row-fluid">
@@ -31,7 +31,7 @@ echo $v;
                     <label class="control-label" for="inputPassword2"><strong>Ripeti Nuova</strong> Password </label>
                 </div>
                 <div class="span8">
-                  <input class="input-large" type="password" name="inputPassword2" id="inputPassword2" required pattern=".{6,15}" />
+                  <input class="input-large" type="password" name="inputPassword2" id="inputPassword2" required pattern=".{8,15}" />
                 </div>
         </div>
     </div>
