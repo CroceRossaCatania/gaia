@@ -24,29 +24,29 @@ $t = Volontario::elenco();
             <input autofocus required id="cercaUtente" placeholder="Cerca Aspiranti..." type="text">
         </div>
     </div>
-    </div> 
-   <div class="row-fluid"> 
-<hr>
+</div> 
+<div class="row-fluid"> 
+    <hr>
 </div>
-    
+
 <div class="row-fluid">
-   <div class="span12">
-       <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
-            <thead>
-                <th>Nome</th>
-                <th>Cognome</th>
-                <th>Località</th>
-                <th>Codice Fiscale</th>
-                <th>Stato</th>
-                <th>Azioni</th>
-            </thead>
+ <div class="span12">
+     <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
+        <thead>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Località</th>
+            <th>Codice Fiscale</th>
+            <th>Stato</th>
+            <th>Azioni</th>
+        </thead>
         <?php
         $totale = 0;
         foreach($t as $_v) {
             $appartenenze = $_v->appartenenzeAttuali(MEMBRO_VOLONTARIO);
             if(count($appartenenze) >= 2){
                 $totale++;
-            ?>
+                ?>
                 <tr>
                     <td><?php echo $_v->nome; ?></td>
                     <td><?php echo $_v->cognome; ?></td>
@@ -71,33 +71,33 @@ $t = Volontario::elenco();
                                 <i class="icon-envelope"></i>
                             </a>
                             <a class="btn btn-small btn-info" href="?p=admin.limbo.comitato.nuovo&id=<?php echo $_v->id; ?>" title="Assegna a Comitato">
-                                    <i class="icon-arrow-right"></i> Assegna a Comitato
+                                <i class="icon-arrow-right"></i> Assegna a Comitato
                             </a>
                             <?php } ?>
                             
                             <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.limbo.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
-                            <i class="icon-trash"></i> Cancella
+                                <i class="icon-trash"></i> Cancella
                             </a>
                             
                         </div>
-                   </td>
+                    </td>
                 </tr>
                 
-               
-       
-        <?php }}
-        ?>
+                
+                
+                <?php }}
+                ?>
 
-        
-        </table>
+                
+            </table>
 
-    </div>
+        </div>
 
-    <div class="row-fluid">
-        <div class="span12">
-            <h2>
-                Abbiamo <?php echo $totale; ?> appartenenze double...                
-            </h2>
+        <div class="row-fluid">
+            <div class="span12">
+                <h2>
+                    Abbiamo <?php echo $totale; ?> appartenenze double...                
+                </h2>
+            </div>
         </div>
     </div>
-</div>

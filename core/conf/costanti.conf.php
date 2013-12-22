@@ -521,8 +521,8 @@ define('EST_GRP_UNITA',         10);
 define('EST_GRP_LOCALE',        20);
 
 $conf['est_grp'] = [
-    EST_GRP_UNITA       =>  'Unità Territoriale',
-    EST_GRP_LOCALE      =>  'Comitato Locale'    
+    EST_GRP_UNITA       =>  'Unità',
+    EST_GRP_LOCALE      =>  'Locale'    
 ];
 
 /*

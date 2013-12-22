@@ -6,6 +6,7 @@
 
 paginaPrivata();
 
+controllaParametri(array('id'));
 $a = $_GET['id'];
 $p = Attivita::id($a);
 $c = Commento::filtra([['attivita', $a],['upCommento', '0']], 'tCommenta DESC');

@@ -5,6 +5,7 @@
  */
 
 paginaAdmin();
+controllaParametri(array('id'), 'presidente.utenti&errGen');
 $v = $_GET['id'];
 $v = Volontario::id($v);
 
@@ -20,3 +21,5 @@ $password     = $_POST['inputPassword'];
 $v->cambiaPassword($password);
 
 redirect('presidente.utenti&passok');
+
+?>

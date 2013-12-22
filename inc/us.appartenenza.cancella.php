@@ -6,6 +6,8 @@
 
 paginaAdmin();
 
+controllaParametri(array('a'));
+
 $a = $_GET['a'];
 
 $app = Appartenenza::id($a);

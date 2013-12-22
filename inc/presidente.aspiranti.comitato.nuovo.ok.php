@@ -6,6 +6,9 @@
 
 paginaAdmin();
 
+$parametri = array('id', 'inputComitato', 'dataingresso');
+controllaParametri($parametri, 'presidente.aspiranti&err');
+
 $v = $_GET['id'];
 $c = $_POST['inputComitato'];
 $t = DT::createFromFormat('d/m/Y', $_POST['dataingresso']);

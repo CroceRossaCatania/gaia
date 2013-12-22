@@ -6,6 +6,7 @@
 
 paginaAdmin();
 paginaModale();
+controllaParametri(array('id'), 'presidente.utenti&errGen');
 $v = $_GET['id'];
 ?>
 

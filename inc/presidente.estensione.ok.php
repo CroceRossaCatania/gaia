@@ -6,6 +6,8 @@
 
     paginaPresidenziale();
 
+    controllaParametri(array('id'));
+
     $e     = $_GET['id'];
     $e = Estensione::id($e);
 
@@ -30,9 +32,7 @@
         $m->invia();
       
         redirect('presidente.estensione&ok');  
-    }
-
-    if (isset($_GET['no'])) {
+    } elseif (isset($_GET['no'])) {
         $v = $e->volontario()->id;
         $e->nega($_POST['motivo']);
         
@@ -55,4 +55,5 @@
 
         redirect('presidente.estensione&no');   
     }
+    redirect('utente.me&err');
 ?>

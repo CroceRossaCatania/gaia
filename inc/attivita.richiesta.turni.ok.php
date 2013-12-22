@@ -7,6 +7,9 @@
 paginaPrivata();
 paginaAttivita();
 
+$parametri = array('t', 'idTitolo');
+controllaParametri($parametri);
+
 $t = new Turno($_GET['t']);
 $id = $_POST['idTitolo'];
 $titolo = Titolo::by('id', $id);

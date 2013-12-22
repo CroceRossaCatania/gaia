@@ -9,6 +9,8 @@ paginaAttivita();
 caricaSelettore();
 paginaModale();
 
+controllaParametri(array('id'));
+
 $attivita = $_GET['id'];
 $attivita = Attivita::id($attivita);
 

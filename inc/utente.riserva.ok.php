@@ -6,6 +6,9 @@
 
 paginaPrivata();
 
+$parametri = array('id', 'inputMotivo', 'datainizio', 'datafine');
+controllaParametri($parametri);
+
 $t = $_GET['id'];
 $m = $_POST['inputMotivo'];
  foreach ( $me->storico() as $app ) { 

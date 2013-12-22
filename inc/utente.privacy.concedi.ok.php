@@ -11,3 +11,5 @@ if ( !$me->consenso() ) {
 }
 
 redirect('utente.privacy');
+
+?>

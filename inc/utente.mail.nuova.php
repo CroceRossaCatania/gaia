@@ -5,6 +5,7 @@
  */
 
 paginaPrivata();
+
 $f = $_GET['id'];
 $t=utente::by('id',$f);
 ?>

@@ -5,6 +5,10 @@
  */
 
 paginaPrivata();
+
+$parametri = array('turno', 'v');
+controllaParametri($parametri, 'utente.me&err');
+
 $turno = Turno::id($_GET['turno']);
 $attivita = $turno->attivita();
 paginaAttivita($attivita);
@@ -32,3 +36,5 @@ $m = new Email('autorizzazioneConcessa', "Autorizzazione CONCESSA: {$a->nome}, {
 	$m->invia();
 
 redirect("attivita.scheda&id={$a->id}&turno={$turno->id}&riapri={$turno->id}");
+
+?>

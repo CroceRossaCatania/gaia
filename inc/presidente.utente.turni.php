@@ -6,6 +6,8 @@
 
 paginaPresidenziale();
 
+controllaParametri(array('id'));
+
 $v = $_GET['id'];
 $v = Volontario::id($v);
 ?>

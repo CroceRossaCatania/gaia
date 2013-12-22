@@ -19,3 +19,5 @@ $p->incarichi   	= $_POST['incarichiradio'];
 $p->timestamp   	= time();
 
 redirect('utente.privacy&ok');
+
+?>

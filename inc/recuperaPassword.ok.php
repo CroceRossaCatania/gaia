@@ -4,6 +4,9 @@
  * ©2013 Croce Rossa Italiana
  */	
 
+$parametri = array('inputEmail', 'inputCodiceFiscale');
+controllaParametri($parametri, 'recuperaPassword&err');
+
 $codiceFiscale = $_POST['inputCodiceFiscale'];
 $codiceFiscale = maiuscolo($codiceFiscale);
 $email = $_POST['inputEmail'];

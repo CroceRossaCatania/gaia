@@ -40,6 +40,12 @@ caricaSelettore();
                 L'estensione del gruppo è stata modificata correttamente.
             </div>
         <?php } ?>
+        <?php if (isset($_GET['err'])) { ?>
+            <div class="alert alert-block alert-error">
+                <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+                <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+            </div> 
+        <?php } ?>
     </div>
 </div>
 <div class="row-fluid">
@@ -108,10 +114,6 @@ foreach ($gruppi as $gruppo){
                              if ( $me->presidenziante() || $me->admin() ){ ?>
                                 <a class="btn btn-small btn-danger pull-right" onclick="return confirm('Sei davvero sicuro di voler eliminare il gruppo?');" href="?p=gruppi.elimina&id=<?= $gruppo->id; ?>" title="Elimina gruppo">
                                     <i class="icon-trash"></i>
-                                </a>
-                                <a class="btn btn-small pull-right" href="?p=gruppo.referente.nuovo&id=<?= $gruppo->id; ?>">
-                                    <i class="icon-random"></i> 
-                                    <?php if($gruppo->referente()){ echo $gruppo->referente()->nomeCompleto(); }else{ ?> Seleziona un volontario <?php } ?>
                                 </a>
                                 <a class="btn btn-small pull-right" href="?p=gruppo.referente.nuovo&id=<?= $gruppo->id; ?>">
                                     <i class="icon-pencil"></i> 
