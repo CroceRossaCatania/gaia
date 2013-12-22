@@ -193,3 +193,10 @@ function controllaParametri($parametri = [], $redirect = 'utente.me&err') {
     }
 }
 
+function proteggiClasse(Entita $e, Utente $utente) {
+    if($e->modificabileDa($utente)) {
+        return true;
+    } 
+    redirect('errore.permessi');
+}
+
