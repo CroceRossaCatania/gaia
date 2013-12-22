@@ -7,10 +7,9 @@
 paginaAdmin();
 paginaModale();
 $v = $_GET['id'];
-echo $v;
 ?>
 
-<form action="?p=admin.password.nuova.ok&id=<?= $v; ?>" method="POST">
+<form action="?p=admin.password.nuova.ok&id=<?php echo $v; ?>" method="POST">
 <div class="modal fade automodal">
         <div class="modal-header">
           <h3><i class="icon-eraser"></i> Cambia Password</h3>
