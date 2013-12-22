@@ -33,6 +33,11 @@ paginaAdmin();
             <i class="icon-warning-sign"></i> <strong>Volontari correlati</strong>.
             Attenzione il Comitato che si vuole cancellare ha dei Volontari iscritti, rimuoverli e riprovare.
         </div>
+<?php }elseif ( isset($_GET['spostato']) ) { ?>
+        <div class="alert alert-success">
+            <i class="icon-save"></i> <strong>Comitato spostato con successo</strong>.
+            Il Comitato è stato spostato con successo, l'albero è stato bruciato
+        </div>
 <?php } ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
     <br/>
@@ -87,9 +92,6 @@ paginaAdmin();
                                 </a>    
                                 <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $regionale->oid(); ?>" title="Modifica">
                                     <i class="icon-edit"></i> Modifica
-                                </a>
-                                <a class="btn btn-small btn-warning" href="?p=admin.comitato.sposta&oid=<?php echo $regionale->oid(); ?>" title="Sposta">
-                                    <i class="icon-arrow-right"></i> Sposta
                                 </a>
                                 <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $regionale->id; ?>&t=pro" title="Nuovo">
                                     <i class="icon-plus"></i> Nuovo

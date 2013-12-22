@@ -55,12 +55,11 @@ paginaAdmin();
         <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
         <td><?php echo $_v->comuneNascita; ?></td>
         <td>
-                <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente revocare amministrazione a questo utente ?');" href="?p=admin.admin.dimetti&id=<?php echo $_v->id; ?>">
-                    <i class="icon-ban-circle"></i>
-                    Revoca
-                </a>
+            <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente revocare amministrazione a questo utente ?');" href="?p=admin.admin.dimetti&id=<?php echo $_v->id; ?>">
+                <i class="icon-ban-circle"></i>
+                Revoca
+            </a>
         </td>
-       
     </tr>
     <?php } ?>
  

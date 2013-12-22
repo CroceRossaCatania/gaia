@@ -7,7 +7,6 @@
 paginaAdmin();
 paginaModale();
 $v = $_GET['id'];
-echo $v;
 ?>
 
 <form action="?p=admin.password.nuova.ok&id=<?= $v; ?>" method="POST">
