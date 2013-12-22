@@ -6,6 +6,8 @@
 
 paginaPrivata();
 
+controllaParametri(array('idTitolo'));
+
 $id = $_POST['idTitolo'];
 
 $t = Titolo::id($id);

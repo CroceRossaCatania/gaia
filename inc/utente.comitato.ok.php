@@ -6,6 +6,9 @@
 
 paginaPrivata();
 
+$parametri = array('inputComitato', 'dataIngresso');
+controllaParametri($parametri);
+
 $c = $_POST['inputComitato'];
 
 /* Verifico appartenenza */

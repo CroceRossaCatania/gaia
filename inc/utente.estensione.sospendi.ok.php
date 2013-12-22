@@ -6,10 +6,8 @@
 
 paginaPrivata();
 
-if(!isset($_POST['elimina']))
-{
-    redirect('utente.riserva');
-}
+controllaParametri(array('elimina'), 'utente.riserva');
+
 
 $id = $_POST['elimina'];
 
