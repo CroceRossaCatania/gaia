@@ -37,7 +37,6 @@ proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
                 
                 <?php foreach ( $v->riserve() as $app ) { ?>
                     <tr<?php if ($app->attuale()) { ?> class="success"<?php } ?>>
-                        <td><?php echo $v->nomeCompleto(); ?></td>
                         <td>
                             <?php if ($app->attuale()) { ?>
                                 Attuale
