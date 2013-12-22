@@ -6,6 +6,8 @@
 
 paginaPresidenziale();
 
+controllaParametri(array('id'), 'gruppi.dash&err');
+
 $g = $_POST['id'];
 $g = Gruppo::id($g);
 $nome = $_POST['inputNome'];

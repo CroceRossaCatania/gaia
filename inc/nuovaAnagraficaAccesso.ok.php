@@ -6,6 +6,9 @@
 
 paginaPrivata();
 
+$parametri = array('inputDataIngresso');
+controllaParametri($parametri, 'nuovaAnagraficaAccesso&err');
+
 $comitato     = $_POST['inputComitato'];
 if ( !$comitato ) {
     redirect('nuovaAnagraficaAccesso&c');

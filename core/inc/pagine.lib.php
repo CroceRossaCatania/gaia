@@ -91,7 +91,7 @@ function paginaAttivita( $attivita = null ) {
          )
             or
          !(
-                (bool) $sessione->utente()->admin
+                (bool) $sessione->utente()->admin()
             or  (bool) $sessione->utente()->presiede()
             or  (bool) $sessione->utente()->delegazioni(APP_OBIETTIVO)
             or  (bool) $sessione->utente()->areeDiResponsabilita()

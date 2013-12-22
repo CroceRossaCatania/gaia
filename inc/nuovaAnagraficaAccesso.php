@@ -42,6 +42,12 @@ caricaSelettoreComitato();
             <p>Il formato corretto della data di ingresso è gg/mm/aaaa.</p>
         </div>
       <?php } ?>
+      <?php if (isset($_GET['err'])) { ?>
+          <div class="alert alert-block alert-error">
+              <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+              <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+          </div> 
+      <?php } ?>
     <form id="moduloRegistrazione" class="form-horizontal" action="?p=nuovaAnagraficaAccesso.ok" method="POST">
         <div class="control-group">
             <label class="control-label" for="inputComitato">Comitato</label>

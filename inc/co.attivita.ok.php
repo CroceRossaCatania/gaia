@@ -6,6 +6,9 @@
 
 paginaApp([APP_CO , APP_PRESIDENTE]);
 
+$parametri = array('v', 't');
+controllaParametri($parametri, 'co.attivita&err');
+
 $t = $_GET['t'];
 $v = $_GET['v'];
     
@@ -30,4 +33,7 @@ if (isset($_GET['smonta'])) {
     
 redirect('co.attivita&smonta');  
 }
+
+redirect('co.attivita&err');
+
 ?>
