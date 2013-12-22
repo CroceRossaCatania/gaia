@@ -88,7 +88,7 @@ $p->cellulare           = $cell;
 $p->cellulareServizio   = $cells;
 
 $gia = Appartenenza::filtra([
-	['volontario', $sessione->utente()->id],
+	['volontario', $p->id],
 	['comitato', $comitato->id]
 ]);
 
