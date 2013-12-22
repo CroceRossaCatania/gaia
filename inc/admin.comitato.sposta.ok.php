@@ -11,6 +11,14 @@ $c = GeoPolitica::daOid($_POST['inputComitato']);
 $estensione = $t->_estensione();
 $motivo = "Cambio Presidente dell'unità territoriale";
 
+$delegati = Delegato::filtra([
+	['comitato', $t],
+	['applicazione', APP_OBIETTIVO]
+]);
+foreach ($delegati as $delegato){
+	$delegato->fine = time();
+}
+	
 if($estensione==EST_UNITA){
 	/* Estensioni dal comitato */
 	$est = Estensione::filtra([
@@ -55,15 +63,8 @@ if($estensione==EST_UNITA){
 	foreach( $riserve as $riserva ){
 		$riserva->nega($motivo);
 	}
-
-	$delegati = Delegato::filtra([
-		['comitato', $t],
-		['applicazione', APP_OBIETTIVO]
-	]);
-	foreach ($delegati as $delegato){
-		$delegato->fine = time();
-	}
 	
+	$t->principale = 0;
 	$t->locale = $c;
 }elseif($estensione==EST_LOCALE){
 	$t->provinciale = $c;
