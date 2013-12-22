@@ -29,13 +29,20 @@ if(!DT::controlloData($_POST['inputDataIngresso'])){
 	redirect('nuovaAnagraficaAccesso&data');
 }
 
+$gia = Appartenenza::filtra([
+	['volontario', $sessione->utente()->id],
+	['comitato', $comitato->id]
+]);
+
 /* Richiede appartenenza al gruppo */
-$a = new Appartenenza();
-$a->volontario  = $sessione->utente()->id;
-$a->comitato    = $comitato->id;
-$a->inizio      = $inizio->getTimestamp();
-$a->fine        = PROSSIMA_SCADENZA;
-$a->richiedi();
+if(!$gia){
+	$a = new Appartenenza();
+	$a->volontario  = $sessione->utente()->id;
+	$a->comitato    = $comitato->id;
+	$a->inizio      = $inizio->getTimestamp();
+	$a->fine        = PROSSIMA_SCADENZA;
+	$a->richiedi();
+}
 
 /* Invia la mail */
 $m = new Email('registrazioneVolontario', 'Benvenuto su Gaia');
