@@ -32,3 +32,5 @@ if ( $_POST['inputGruppo'] ) {
 }else{
     redirect('attivita.referente&id=' . $attivita->id);
 }
+
+?>

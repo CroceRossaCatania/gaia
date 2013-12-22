@@ -10,3 +10,5 @@ $t=$_GET['id'];
 $f = Persona::id($t);
 $f->admin = '';
 redirect('admin.admin&ok');
+
+?>

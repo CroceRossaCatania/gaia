@@ -33,3 +33,5 @@ $m->_PASSWORD   = $password;
 $m->invia();
 
 redirect('admin.limbo&nasp');
+
+?>

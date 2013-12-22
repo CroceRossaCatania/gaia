@@ -11,8 +11,8 @@ paginaAttivita($a);
 
 $g = Gruppo::by('attivita', $a);
 if($g){
-	$g = Gruppo::id($g);
-	$g->cancella();
+    $g = Gruppo::id($g);
+    $g->cancella();
 }
 $a->cancella();
 

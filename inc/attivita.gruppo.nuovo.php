@@ -21,3 +21,5 @@ $g = new Gruppo();
 	$g->estensione	=	EST_GRP_UNITA;
 
 redirect('attivita.scheda&gok&id=' . $attivita->id);
+
+?>

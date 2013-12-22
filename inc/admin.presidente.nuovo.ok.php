@@ -38,3 +38,5 @@ $m->_COMITATO = $c->nomeCompleto();
 $m->invia();
 
 redirect('admin.presidenti&new');
+
+?>

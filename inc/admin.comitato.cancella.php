@@ -16,3 +16,5 @@ if(Appartenenza::filtra([['comitato', $t]])){
 }
 $t->cancella();
 redirect('admin.comitati&del');
+
+?>

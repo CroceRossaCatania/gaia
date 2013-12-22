@@ -21,3 +21,5 @@ $password     = $_POST['inputPassword'];
 $v->cambiaPassword($password);
 
 redirect('presidente.utenti&passok');
+
+?>

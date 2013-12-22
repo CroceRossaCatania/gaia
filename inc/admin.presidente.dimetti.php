@@ -12,3 +12,5 @@ $t->fine = time();
 
 
 redirect('admin.presidenti&ok');
+
+?>

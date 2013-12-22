@@ -23,15 +23,15 @@ set_time_limit(0);
 </div>
 
 <code><pre>Reset dei consensi: 
-<?php
-$utenti = Utente::elenco();
-$i=0;
-foreach ( $utenti as $utente ){
-    echo "[",$i,"]"," - ";
-    echo $utente->nomeCompleto(), " - ", date('d/m/Y', $utente->consenso),"<br/>";
-    $utente->consenso = null;
-    $i++;
-}
-?>
-Resettati: <strong><?php echo $i; ?></strong> consensi.
+    <?php
+    $utenti = Utente::elenco();
+    $i=0;
+    foreach ( $utenti as $utente ){
+        echo "[",$i,"]"," - ";
+        echo $utente->nomeCompleto(), " - ", date('d/m/Y', $utente->consenso),"<br/>";
+        $utente->consenso = null;
+        $i++;
+    }
+    ?>
+    Resettati: <strong><?php echo $i; ?></strong> consensi.
 </pre></code>

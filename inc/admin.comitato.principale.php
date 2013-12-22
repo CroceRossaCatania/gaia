@@ -18,3 +18,5 @@ if ( $x = $l->principale() ) {
 $c->principale = 1;
 
 redirect('admin.comitati');
+
+?>

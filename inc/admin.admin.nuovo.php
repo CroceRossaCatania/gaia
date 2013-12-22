@@ -11,3 +11,5 @@ $f = Persona::id($t);
 $f->admin = time();
 
 redirect('admin.admin&new');
+
+?>
