@@ -8,7 +8,7 @@
  * Elenco Applicazioni da gestire
  */
 
-controllaParametri(array('id'));
+controllaParametri(array('oid'));
 
 $_daGestire = [
     APP_CO, APP_SOCI

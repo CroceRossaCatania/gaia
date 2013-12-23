@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-controllaParametri(array('id'));
+paginaPrivata();
 
 ini_set('memory_limit', '512M');
 
