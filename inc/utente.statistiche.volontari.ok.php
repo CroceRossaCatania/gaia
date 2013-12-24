@@ -8,7 +8,7 @@
 
 
   controllaParametri(array('inputComitato'), 'utente.statistiche.volontari');
-  
+  $c = $_POST['inputComitato'];
   $comitato = Comitato::id($c);
   $info = $comitato->informazioniVolontariJSON();
   ?>

@@ -33,6 +33,11 @@ paginaAdmin();
     <i class="icon-warning-sign"></i> <strong>Volontari correlati</strong>.
     Attenzione il Comitato che si vuole cancellare ha dei Volontari iscritti, rimuoverli e riprovare.
 </div>
+<?php } elseif ( isset($_GET['spostato']) ) { ?>
+        <div class="alert alert-success">
+            <i class="icon-save"></i> <strong>Comitato spostato con successo</strong>.
+            Il Comitato è stato spostato con successo, l'albero è stato bruciato
+        </div>
 <?php } ?>
 <?php if (isset($_GET['err'])) { ?>
 <div class="alert alert-block alert-error">
@@ -97,7 +102,7 @@ paginaAdmin();
                         <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $regionale->id; ?>&t=pro" title="Nuovo">
                             <i class="icon-plus"></i> Nuovo
                         </a>
-                        <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $regionale->oid(); ?>" title="Cancella Regionale" class="btn btn-small btn-warning">
+                        <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $regionale->oid(); ?>" title="Cancella Regionale" class="btn btn-small btn-danger">
                             <i class="icon-trash"></i> Cancella
                         </a>
                     </div>
@@ -115,10 +120,13 @@ paginaAdmin();
                         <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $provinciale->oid(); ?>" title="Modifica">
                             <i class="icon-edit"></i> Modifica
                         </a>
+						<a class="btn btn-small btn-warning" href="?p=admin.comitato.sposta&oid=<?php echo $provinciale->oid(); ?>" title="Sposta">
+                            <i class="icon-arrow-right"></i> Sposta
+                        </a>
                         <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $provinciale->id; ?>&t=loc" title="Nuovo">
                             <i class="icon-plus"></i> Nuovo
                         </a> 
-                        <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $provinciale->oid(); ?>" title="Cancella Provinciale" class="btn btn-small btn-warning">
+                        <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $provinciale->oid(); ?>" title="Cancella Provinciale" class="btn btn-small btn-danger">
                             <i class="icon-trash"></i> Cancella
                         </a>
                     </div>
@@ -146,10 +154,13 @@ paginaAdmin();
                     <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $locale->oid(); ?>" title="Modifica">
                         <i class="icon-edit"></i> Modifica
                     </a>
+					<a class="btn btn-small btn-warning" href="?p=admin.comitato.sposta&oid=<?php echo $locale->oid(); ?>" title="Sposta">
+                        <i class="icon-arrow-right"></i> Sposta
+                    </a>
                     <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $locale->id; ?>&t=com" title="Nuovo">
                         <i class="icon-plus"></i> Nuovo
                     </a> 
-                    <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $locale->oid(); ?>" title="Cancella Locale" class="btn btn-small btn-warning">
+                    <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $locale->oid(); ?>" title="Cancella Locale" class="btn btn-small btn-danger">
                         <i class="icon-trash"></i> Cancella
                     </a>
                 </div>
@@ -178,8 +189,11 @@ paginaAdmin();
                     </a>      
                     <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $comitato->oid(); ?>" title="Modifica">
                         <i class="icon-edit"></i> Modifica
-                    </a> 
-                    <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $comitato->oid(); ?>" title="Cancella Comitato" class="btn btn-small btn-warning">
+                    </a>
+ 					<a class="btn btn-small btn-warning" href="?p=admin.comitato.sposta&oid=<?php echo $comitato->oid(); ?>" title="Sposta">
+                    	<i class="icon-arrow-right"></i> Sposta
+                    </a>
+                    <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $comitato->oid(); ?>" title="Cancella Comitato" class="btn btn-small btn-danger">
                         <i class="icon-trash"></i> Cancella
                     </a>
                 </div>

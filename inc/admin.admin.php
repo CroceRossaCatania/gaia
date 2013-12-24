@@ -60,8 +60,6 @@ paginaAdmin();
                 Revoca
             </a>
         </td>
-        
     </tr>
     <?php } ?>
-    
 </table>
