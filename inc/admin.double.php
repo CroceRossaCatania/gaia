@@ -47,7 +47,7 @@ $t = Volontario::elenco();
             $app = $_v->appartenenze();
             if (count($app)<=1){continue;}
             foreach($app as $_app){
-                if(!in_array($_v->id, $giaInsultati ) && count(Appartenenza::filtra([['volontario', $_v],['stato', $_app->stato],['comitato', $_app->comitato]]))>= 2){ 
+                if(!in_array($_v->id, $giaInsultati ) && count(Appartenenza::filtra([['volontario', $_v],['stato', $_app->stato],['comitato', $_app->comitato],['inizio',$_app->inizio]]))>= 2){ 
                     $totale++;
                     $giaInsultati[] = $_v->id;?>
                 <tr>
