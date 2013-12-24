@@ -7,7 +7,7 @@
 paginaPrivata();
 caricaSelettore();
 
-controllaParametri($parametri, 'attivita.gestione&err');
+controllaParametri(['id'], 'attivita.gestione&err');
 $a = Attivita::id($_GET['id']);
 paginaAttivita($a);
 
