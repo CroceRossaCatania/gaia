@@ -6,6 +6,9 @@
 
 paginaPrivata();
 
+$parametri = array('inputComitato', 'inputMotivo');
+controllaParametri($parametri);
+
 $c = $_POST['inputComitato'];
 if ( !$c ) { 
     redirect('utente.trasferimento');

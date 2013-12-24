@@ -53,15 +53,25 @@ if ( $nap ) {
 }
 
 
-
-$menu += [
-    'Attività'      =>  [
-        'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
-        'attivita.storico'  =>  '<i class="icon-list"></i> Mie attivita',
-        'utente.gruppo'  =>  '<i class="icon-group"></i> Gruppi',
-        'utente.reperibilita'  =>  '<i class="icon-thumbs-up"></i> Reperibilità'
-    ],
-    
+if ($me->attivitaDiGestione() || $me->comitatiAreeDiCompetenza() || $me->attivitaReferenziate()) {
+    $menu += [
+        'Attività'      =>  [
+            'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
+            'attivita.storico'  =>  '<i class="icon-list"></i> Miei turni',
+            'attivita.gestione'  =>  '<i class="icon-star"></i> Gestisci attività',
+            'utente.gruppo'  =>  '<i class="icon-group"></i> Gruppi',
+            'utente.reperibilita'  =>  '<i class="icon-thumbs-up"></i> Reperibilità'
+        ]];
+    } else {
+    $menu += [
+        'Attività'      =>  [
+            'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
+            'attivita.storico'  =>  '<i class="icon-list"></i> Miei turni',
+            'utente.gruppo'  =>  '<i class="icon-group"></i> Gruppi',
+            'utente.reperibilita'  =>  '<i class="icon-thumbs-up"></i> Reperibilità'
+        ]];
+    }
+$menu += [ 
     'Volontario'    =>  [
         'utente.anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
         'utente.storico'    =>  '<i class="icon-time"></i> Storico',

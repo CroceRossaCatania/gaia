@@ -5,7 +5,7 @@
  */
 
 paginaAdmin();
-
+controllaParametri(array('id'), 'admin.presidenti&err');
 $t = $_GET['id'];
 $v = Volontario::id($t);
 

@@ -5,6 +5,10 @@
  */
 
 paginaPrivata();
+
+$parametri = array('turno', 'v');
+controllaParametri($parametri, 'utente.me&err');
+
 $turno = $_GET['turno'];
 $turno = Turno::id($turno);
 $a = $turno->attivita();
@@ -31,3 +35,5 @@ $m->_CELLREFERENTE  = $a->referente()->cellulare();
 $m->invia();
 
 redirect("attivita.scheda&id={$a->id}&turno={$turno->id}&riapri={$turno->id}");
+
+?>

@@ -14,7 +14,10 @@
 /* Configurazione del server SMTP */
 $conf['smtp'] = [
  
+ 	'host'			=>	'localhost',
     'username'      =>  'SMTP_USERNAME',
-    'password'      =>  'SMTP_PASSWORD'
+    'password'      =>  'SMTP_PASSWORD',
+    'auth'			=>	true,
+    'debug'     	=>  false
  
 ];

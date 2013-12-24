@@ -4,6 +4,9 @@
  * ©2013 Croce Rossa Italiana
  */
 
+$parametri = array('t', 'inputGiorni');
+controllaParametri($parametri);
+
 $t = $_GET['t'];
 $x = Turno::id($t);
 $a = $x->attivita();

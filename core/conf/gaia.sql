@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `annunci` (
   `timestamp` varchar(64) DEFAULT NULL,
   `autore` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 CREATE TABLE IF NOT EXISTS `appartenenza` (
   `id` int(11) NOT NULL,
@@ -48,7 +48,9 @@ CREATE TABLE IF NOT EXISTS `appartenenza` (
   `conferma` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `volontario` (`volontario`),
-  KEY `comitato` (`comitato`)
+  KEY `comitato` (`comitato`),
+  KEY `stato` (`stato`),
+  KEY `inizio` (`inizio`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `aree` (
@@ -64,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `aree` (
 
 CREATE TABLE IF NOT EXISTS `attivita` (
   `id` int(11) NOT NULL DEFAULT '0',
-  `nome` varchar(255) NOT NULL DEFAULT '',
+  `nome` varchar(255) DEFAULT '',
   `luogo` varchar(255) DEFAULT NULL,
   `comitato` varchar(32) DEFAULT NULL,
   `visibilita` int(11) DEFAULT NULL,
@@ -72,8 +74,8 @@ CREATE TABLE IF NOT EXISTS `attivita` (
   `tipo` varchar(8) DEFAULT NULL,
   `geo` point NOT NULL,
   `descrizione` text,
-  `stato` int(11) NOT NULL,
-  `area` int(16) NOT NULL,
+  `stato` int(11) DEFAULT NULL,
+  `area` int(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `comitato` (`comitato`),
   KEY `referente` (`referente`),
@@ -89,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `autorizzazioni` (
   `pFirma` varchar(16) DEFAULT NULL,
   `tFirma` varchar(64) DEFAULT NULL,
   `note` text,
-  `stato` varchar(8) NOT NULL,
+  `stato` varchar(8) DEFAULT NULL,
   `motivo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `partecipazione` (`partecipazione`),
@@ -110,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `comitati` (
   `colore` varchar(8) DEFAULT NULL,
   `locale` int(11) DEFAULT NULL,
   `geo` point NOT NULL,
-  `principale` tinyint(1) NOT NULL,
+  `principale` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `locale` (`locale`),
   SPATIAL KEY `geo` (`geo`)
@@ -189,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `datiSessione` (
 CREATE TABLE IF NOT EXISTS `delegati` (
   `id` int(11) NOT NULL,
   `comitato` varchar(16) DEFAULT NULL,
-  `estensione` varchar(5) NOT NULL DEFAULT '0',
+  `estensione` varchar(5) DEFAULT '0',
   `volontario` varchar(16) DEFAULT NULL,
   `applicazione` varchar(16) DEFAULT NULL,
   `dominio` varchar(16) DEFAULT NULL,
@@ -281,9 +283,9 @@ CREATE TABLE IF NOT EXISTS `file` (
   `creazione` varchar(64) DEFAULT NULL,
   `autore` varchar(16) DEFAULT NULL,
   `scadenza` varchar(64) DEFAULT NULL,
-  `mime` varchar(64) NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `download` int(11) NOT NULL,
+  `mime` varchar(64) DEFAULT NULL,
+  `nome` varchar(255) DEFAULT NULL,
+  `download` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `scadenza` (`scadenza`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -353,13 +355,14 @@ CREATE TABLE IF NOT EXISTS `partecipazioni` (
 CREATE TABLE IF NOT EXISTS `privacy` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `volontario` varchar(16) DEFAULT NULL,
-  `mailphone` int(1) DEFAULT NULL,
+  `contatti` int(1) DEFAULT NULL,
   `mess` int(1) DEFAULT NULL,
   `curriculum` int(1) DEFAULT NULL,
   `incarichi` int(1) DEFAULT NULL,
   `timestamp` varchar(64) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id`),
+  KEY `volontario` (`volontario`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17420 ;
 
 CREATE TABLE IF NOT EXISTS `provinciali` (
   `id` int(11) NOT NULL,
@@ -381,7 +384,7 @@ CREATE TABLE IF NOT EXISTS `quote` (
   `causale` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `appartenenza` (`appartenenza`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3090 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7894 ;
 
 CREATE TABLE IF NOT EXISTS `regionali` (
   `id` int(11) NOT NULL,
@@ -409,8 +412,8 @@ CREATE TABLE IF NOT EXISTS `reperibilita` (
 
 CREATE TABLE IF NOT EXISTS `richiesteTurni` (
   `id` int(11) NOT NULL,
-  `turno` int(11) NOT NULL,
-  `timestamp` varchar(64) NOT NULL,
+  `turno` int(11) DEFAULT NULL,
+  `timestamp` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -488,15 +491,26 @@ CREATE TABLE IF NOT EXISTS `turni` (
   `inizio` varchar(64) DEFAULT NULL,
   `fine` varchar(64) DEFAULT NULL,
   `timestamp` varchar(64) DEFAULT NULL,
-  `minimo` varchar(8) NOT NULL,
-  `massimo` varchar(8) NOT NULL,
+  `minimo` varchar(8) DEFAULT NULL,
+  `massimo` varchar(8) DEFAULT NULL,
+  `prenotazione` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `attivita` (`attivita`),
   KEY `inizio` (`inizio`),
   KEY `fine` (`fine`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `validazioni` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `codice` varchar(127) DEFAULT NULL,
+  `stato` varchar(8) DEFAULT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `timestamp` varchar(64) DEFAULT NULL,
+  `note` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `codice` (`codice`,`stato`,`volontario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-         

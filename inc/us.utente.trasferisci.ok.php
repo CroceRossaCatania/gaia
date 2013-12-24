@@ -6,6 +6,9 @@
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
+$parametri = array('inputVolontario', 'inputComitato', 'inputMotivo');
+controllaParametri($parametri, 'us.dash&err');
+
 $t = $_POST['inputVolontario'];
 $t = Volontario::id($t);
 $c = $_POST['inputComitato'];

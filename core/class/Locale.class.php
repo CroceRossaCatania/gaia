@@ -33,7 +33,7 @@ class Locale extends GeoPolitica {
     public function comitati() {
         return Comitato::filtra([
             ['locale',  $this->id]
-        ]);
+        ], 'nome ASC');
     }    
 
     public function aree($obiettivo = null, $espandiLocali = false ) {
@@ -61,12 +61,20 @@ class Locale extends GeoPolitica {
     
     public function toJSON() {
         $comitati = $this->comitati();
+        $principale = $this->principale();
         foreach ( $comitati as &$comitato ) {
             $comitato = $comitato->toJSON();
         }
+        
         return [
-            'nome'  =>  $this->nome,
-            'unita' =>  $comitati
+            'nome'      =>  $this->nome,
+            'indirizzo' =>  $this->formattato,
+            'coordinate'=>  $this->coordinate(),
+            'telefono'  =>  $principale->telefono,
+            'email'     =>  $principale->email,
+            'principale'=>  $principale->id,
+            'unita'     =>  $comitati,
+            'id'        =>  $this->id
         ];
     }
 

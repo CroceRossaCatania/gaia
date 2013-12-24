@@ -47,7 +47,7 @@ class APIServer {
                 'time'     => ( microtime(true) - $start ),
                 'session'  => $this->sessione->toJSON(),
                 'response' => $r
-            ], JSON_PRETTY_PRINT);
+            ]);
     }
         
         private function richiediLogin() {
@@ -110,11 +110,7 @@ class APIServer {
                 ];
             }
         }
-        
-        public function api_ciao() {
-            $this->richiedi(['a', 'b']);
-            
-        }
+
         
         public function api_logout() {
             $this->richiediLogin();
@@ -140,8 +136,12 @@ class APIServer {
             $cA = Turno::neltempo($inizio, $fine);
             $searchPuoPart = [];
             $r = [];
-            $mioGeoComitatoOid = $this->sessione->utente()->unComitato()->oid();
-            $mioGeoComitato = GeoPolitica::daOid($mioGeoComitatoOid);
+            if (!$this->sessione->utente()){
+                $mioGeoComitato = null;
+            } else {
+                $mioGeoComitatoOid = $this->sessione->utente()->unComitato()->oid();
+                $mioGeoComitato = GeoPolitica::daOid($mioGeoComitatoOid);
+            }
             foreach  ( $cA as $turno ) {
                 $attivita = $turno->attivita();
                 $idAttivita = ''.$attivita->id;
@@ -167,6 +167,7 @@ class APIServer {
                 $r[] = [
                     'title'     =>  $attivita->nome. ', ' . $turno->nome,
                     'id'        =>  $turno->id,
+                    'attivita'  =>  $turno->attivita,
                     'start'     =>  $turno->inizio()->toJSON(),
                     'end'       =>  $turno->fine()->toJSON(),
                     'color'     =>  '#' . $colore,
@@ -174,6 +175,29 @@ class APIServer {
                 ];
             }
             return $r;
+        }
+        
+        public function api_dettagliAttivita() {
+            $this->richiedi(['id']);
+            $this->richiediLogin();
+            $me = $this->sessione->utente();
+            $a = Attivita::id($this->par['id']);
+            $t = [];
+            foreach ( $a->turni() as $turno ) {
+                $t[] = $turno->toJSON($me);
+            }
+            array_merge($t, [
+                'luogo'     =>  $a->luogo,
+                'coordinate'=>  $a->coordinate(),
+                'puoPartecipare'=>  $a->puoPartecipare($me)
+            ]);
+            return [
+                'nome'      =>  $a->nome,
+                'comitato'  =>  $a->comitato()->toJSON(),
+                'luogo'     =>  $a->luogo,
+                'coordinate'=>  $a->coordinate(),
+                'turni'     =>  $t
+            ];
         }
         
         public function api_geocoding() {
@@ -214,14 +238,9 @@ class APIServer {
         }
         
         public function api_comitati() {
-            $r = [];
-            foreach ( Nazionale::elenco() as $n ) {
-                $r[] = $n->toJSON();
-            }
-            return $r;
+            return GeoPolitica::ottieniAlbero();
         }
         
-
         public function api_autorizza() {
             $this->richiedi(['id']);
             $this->richiediLogin();

@@ -4,6 +4,8 @@
  * ©2013 Croce Rossa Italiana
  */
 
+paginaPrivata();
+
 $v = utente::by('email', $_POST['inputMail']);
 $oggetto= $_POST['inputOggetto']; 
 $testo = $_POST['inputTesto'];
@@ -51,6 +53,38 @@ foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenc
     if (strlen($text) < 10) {
         redirect('utente.supporto&len');    
     }
+    //se ho un volontario per cui richiedere la cosa
+    if (isset($_POST['inputVolontario'])) {
+        //inserisco i dati del richiedente
+        $m = new Email('mailSupportoDaUfficio', 'Richiesta supporto: '.$oggetto);
+        $m->da = $me;
+        $m->_TESTO = $testo;
+        $m->_STATO = $conf['statoPersona'][$me->stato];
+        $m->_NOME = $me->nomeCompleto();
+        $m->_ID = $me->id;
+        $comitato = $me->unComitato();
+        if ($comitato) {
+            $comitato = $comitato->nomeCompleto();
+        } else {
+            $comitato = 'nessun comitato assegnato o volontario in attesa di conferma';
+        }
+        $m->_APP = $comitato;
+        //inserisco i dati del volontari per cui è richiesta assistenza
+        $u = Utente::id($_POST['inputVolontario']);
+        $m->_VSTATO = $conf['statoPersona'][$u->stato];
+        $m->_VNOME = $u->nomeCompleto();
+        $m->_VID = $u->id;
+        $comitato = $u->unComitato();
+        if ($comitato) {
+            $comitato = $comitato->nomeCompleto();
+        } else {
+            $comitato = 'nessun comitato assegnato o volontario in attesa di conferma';
+        }
+        $m->_VAPP = $comitato;
+        
+        $m->invia();
+        redirect('utente.me&suppok');
+    }
 
     $m = new Email('mailSupporto', 'Richiesta supporto: '.$oggetto);
     $m->da = $me;
@@ -58,18 +92,20 @@ foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenc
     $m->_STATO = $conf['statoPersona'][$me->stato];
     $m->_NOME = $me->nomeCompleto();
     $m->_ID = $me->id;
-    $comitato = $me->unComitato();
-    if ($comitato) {
-        $comitato = $comitato->nomeCompleto();
+    if ($comitato = $me->unComitato()) {
+        $comitato = ''.$comitato->nomeCompleto().' - membro volontario';
+    } else if($comitato = $me->unComitato(MEMBRO_PENDENTE)) {
+        $comitato = ''.$comitato->nomeCompleto().' - membro pendente';
     } else {
         $comitato = 'nessun comitato assegnato';
     }
     $m->_APP = $comitato;
+
     $m->invia();
     redirect('utente.me&suppok');    
 
 }elseif (isset($_GET['comgio'])) {
-$elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
+$elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]);
         foreach($elenco as $comitato) {
             $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
             foreach($t as $_t){

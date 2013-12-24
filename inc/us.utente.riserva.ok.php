@@ -6,6 +6,9 @@
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
+$parametri('datainizio', 'datafine', 'inputVolontario', 'inputMotivo');
+controllaParametri($parametri, 'us.dash&err');
+
 $inizio = @DateTime::createFromFormat('d/m/Y', $_POST['datainizio']);
 $fine = @DateTime::createFromFormat('d/m/Y', $_POST['datafine']);
 

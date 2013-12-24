@@ -65,6 +65,24 @@ paginaAdmin();
                 <i class="icon-male"></i><i class="icon-female"></i>
                 Sesso
             </a>
+            <hr/>
+            <div class="alert alert-warning">
+                <strong>Script per reset dei consensi</strong>
+                <p>Questo script resetta tutti i consensi sulla privacy</p>
+            </div>
+            <a href="?p=admin.consensi" class="btn btn-large btn-warning">
+                <i class="icon-time"></i>
+                Reset Consensi
+            </a>
+            <hr/>
+            <div class="alert alert-info">
+                <strong>Script per fix appartenenze negate</strong>
+                <p>Questo script imposta lo stato appartenenza negata a tutte le appartenenze cons tato pendente e fine</p>
+            </div>
+            <a href="?p=admin.appartenenze" class="btn btn-large btn-info">
+                <i class="icon-group"></i>
+                Fix appartenenze
+            </a>
         </div>
     </div>
 </div>

@@ -71,7 +71,7 @@ class Turno extends Entita {
         }
     }
     
-    public function partecipa(Volontario $v) {
+    public function partecipa(Utente $v) {
         return (bool) $this->partecipazione($v);
     }
         
@@ -136,5 +136,20 @@ class Turno extends Entita {
         return RichiestaTurno::filtra ([
             ['turno', $this->id] 
         ]);
+    }
+
+    public function toJSON( $user ) {
+        return [
+            'id'            =>  $this->id,
+            'inizio'        =>  $this->inizio(),
+            'fine'          =>  $this->fine(),
+            'durata'        =>  $this->durata(),
+            'pieno'         =>  $this->pieno(),
+            'futuro'        =>  $this->futuro(),
+            'scoperto'      =>  $this->scoperto(),
+            'puoRichiedere' =>  $this->puoRichiederePartecipazione($user),
+            'partecipa'     =>  $this->partecipa($user),
+            'partecipazione'=>  $this->partecipazione($user)
+        ];
     }
 }

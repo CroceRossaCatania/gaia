@@ -27,3 +27,5 @@ foreach ( $elenco as $comitato ){
 }
 
 redirect('us.quoteNo');
+
+?>

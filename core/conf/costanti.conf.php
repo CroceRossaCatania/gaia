@@ -30,11 +30,15 @@ $conf['statoPersona'] = [
     ASPIRANTE   =>  'Aspirante',
     VOLONTARIO  =>  'Volontario'
 ];
-/* Un anno */
 
-define('ANNO',      31536000);
-define('MESE',       2592000);
-define('MESEEMEZZO', 3888000);
+/* Un anno, un mese e un giorno */
+
+define('ANNO',       31536000);
+define('MESE',        2592000);
+define('MESEEMEZZO',  3888000);
+define('DUEGIORNI',    172800);
+define('ETAMINIMA', 441504000);
+
 
 /*
  * ===================================
@@ -45,6 +49,7 @@ define('MESEEMEZZO', 3888000);
 /* Tipologia appartenenza gruppo */
 define('MEMBRO_DIMESSO',         0);
 define('MEMBRO_TRASFERITO',      1);
+define('MEMBRO_APP_NEGATA',      3);
 define('MEMBRO_EST_TERMINATA',   5);
 define('MEMBRO_TRASF_ANN',       9);
 define('MEMBRO_TRASF_NEGATO',   10);
@@ -78,7 +83,8 @@ $conf['membro'] = [
     MEMBRO_DIPENDENTE       =>  'Dipendente',
     MEMBRO_PRESIDENTE       =>  'Presidente',
     MEMBRO_DIMESSO          =>  'Dimesso',
-    MEMBRO_EST_TERMINATA    =>  'Estensione terminata'
+    MEMBRO_EST_TERMINATA    =>  'Estensione terminata',
+    MEMBRO_APP_NEGATA       =>  'Appartenenza negata'
 ];
 
 
@@ -302,6 +308,15 @@ $conf['obiettivi'] = [
     OBIETTIVO_6 =>  "Obiettivo strategico 6"
 ];
 
+$conf['nomiobiettivi'] = [
+    OBIETTIVO_1 =>  "Salute",
+    OBIETTIVO_2 =>  "Sociale",
+    OBIETTIVO_3 =>  "Emergenze",
+    OBIETTIVO_4 =>  "Principi",
+    OBIETTIVO_5 =>  "Giovani",
+    OBIETTIVO_6 =>  "Sviluppo"
+];
+
 /*
  * ===================================
  * =========== TRAFERIMENTI ==========
@@ -476,7 +491,7 @@ define('PIVA', '01019341005');
 
 /*
  * ===================================
- * =========== APP_PATENTI==== ============
+ * =========== APP_PATENTI ===========
  * ===================================
  */
 
@@ -506,6 +521,47 @@ define('EST_GRP_UNITA',         10);
 define('EST_GRP_LOCALE',        20);
 
 $conf['est_grp'] = [
-    EST_GRP_UNITA       =>  'Unità Territoriale',
-    EST_GRP_LOCALE      =>  'Comitato Locale'    
+    EST_GRP_UNITA       =>  'Unità',
+    EST_GRP_LOCALE      =>  'Locale'    
 ];
+
+/*
+ * ===================================
+ * ======= VALIDAZIONI ===============
+ * ===================================
+ */
+
+define('VAL_CHIUSA',   10);
+define('VAL_PASS',     20);
+define('VAL_MAIL',     30);
+define('VAL_MAILS',    40);
+
+/*
+ * ===================================
+ * =========== DIZIONARI =============
+ * ===================================
+ */
+
+define('DIZIONARIO_ALFANUMERICO',   10);
+define('DIZIONARIO_NUMERICO',       20);
+define('DIZIONARIO_ESADECIMALE',    30);
+define('DIZIONARIO_BASE64',         40);
+
+$conf['dizionario'] = [
+    DIZIONARIO_ALFANUMERICO =>  '0123456789abcdefghijklmnopqrtsuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    DIZIONARIO_NUMERICO     =>  '0123456789',
+    DIZIONARIO_ESADECIMALE  =>  '0123456789abcdef',
+    DIZIONARIO_BASE64       =>  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+];
+
+/*
+ * ===================================
+ * =========== PRVACY ================
+ * ===================================
+ */
+
+/* Tipologia di Privacy */
+define('PRIVACY_PRIVATA',   10);
+define('PRIVACY_COMITATO', 20);
+define('PRIVACY_VOLONTARI', 30);
+define('PRIVACY_PUBBLICA', 40);

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 if ( !($sessione->stoRegistrando) ) {
@@ -42,20 +42,45 @@ if ( ($p->password) ) {
         <p>
             Completa e conferma la registrazione inserendo i tuoi dettagli anagrafici.
         </p>
+
+        <div class="alert alert-block alert-info">
+            <h4>Attenzione!</h4>
+            <p>Sono necessari 14 anni per essere volontari di Croce Rossa e iscriversi a Gaia.</p>
+        </div>
+
     </div>
     <div class="span8">
+      <?php if (isset($_GET['data'])) { ?>
+        <div class="alert alert-block alert-error">
+            <h4>Data di nascita errata</h4>
+            <p>La data di nascita che hai inserito non è corretta.</p>
+            <p>Il formato corretto della data di nascita è gg/mm/aaaa.</p>
+        </div>
+      <?php } ?>
+      <?php if (isset($_GET['eta'])) { ?>
+        <div class="alert alert-block alert-error">
+            <h4>Ci dispiace molto!</h4>
+            <p>Sono necessari 14 anni per essere volontari di Croce Rossa.</p>
+        </div>
+      <?php } ?>
+      <?php if (isset($_GET['err'])) { ?>
+          <div class="alert alert-block alert-error">
+              <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+              <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+          </div> 
+      <?php } ?>
           <form class="form-horizontal" action="?p=nuovaAnagrafica.ok" method="POST">
           <input type="hidden" name="id" value="<?php echo $p->id; ?>" />
           <div class="control-group">
             <label class="control-label" for="inputNome">Nome</label>
             <div class="controls">
-              <input value="<?php echo $p->nome; ?>" type="text" id="inputNome" name="inputNome" placeholder="es.: Mario" required autofocus pattern=".{2,}" />
+              <input value="<?php echo $sessione->nome; ?>" type="text" id="inputNome" name="inputNome" placeholder="es.: Mario" required autofocus pattern=".{2,}" />
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="inputCognome">Cognome</label>
             <div class="controls">
-              <input value="<?php echo $p->cognome; ?>" type="text" id="inputCognome" name="inputCognome" placeholder="es.: Rossi" required pattern=".{2,}" />
+              <input value="<?php echo $sessione->cognome; ?>" type="text" id="inputCognome" name="inputCognome" placeholder="es.: Rossi" required pattern=".{2,}" />
             </div>
           </div>
           <div class="control-group">
@@ -76,71 +101,53 @@ if ( ($p->password) ) {
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label">Data di nascita</label>
-            <?php $dataNascita = date('d-m-Y', $p->dataNascita); $array=explode('-',$dataNascita);?>
-            <div class="controls ">
-                <input type="number" required min="1" max="31" class="input-mini" value="<?php if($array[0]!=''){ echo $array[0];}else{ ?> 1 <?php }?>" name="inputGiorno"/>
-                <select class="input-medium" name="inputMese">
-                    <?php for ( $i = 1; $i <= 12; $i++ ) { ?>
-                        <option value="<?php echo $i ?>" <?php if ( $i == $array[1] ) { ?>selected<?php } ?>><?php echo $conf['mesi'][$i]; ?></option>
-                    <?php } ?>
-                </select>
-              <input type="number" required min="1900" max="2006" require value="<?php if($array[2]!=''){ echo $array[2];}else{ ?> 1994 <?php }?>" class="input-mini" name="inputAnno"/>
+            <label class="control-label" for="inputDataNascita">Data di nascita</label>
+            <div class="controls">
+              <input value="<?php echo $sessione->dnascita; ?>" class="input-small" type="text" id="inputDataNascita" name="inputDataNascita" required />
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="inputProvinciaNascita">Provincia di Nascita</label>
             <div class="controls">
-              <input value="<?php echo $p->ProvinciaNascita; ?>" class="input-mini" type="text" id="inputProvinciaNascita" name="inputProvinciaNascita" required pattern="[A-Za-z]{2}" />
+              <input value="<?php echo $sessione->prnascita; ?>" class="input-mini" type="text" id="inputProvinciaNascita" name="inputProvinciaNascita" required pattern="[A-Za-z]{2}" />
               &nbsp; <span class="muted">ad es.: CT</span>
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
             <div class="controls">
-              <input value="<?php echo $p->ComuneNascita; ?>" type="text" id="inputComuneNascita" name="inputComuneNascita" required />
+              <input value="<?php echo $sessione->conascita; ?>" type="text" id="inputComuneNascita" name="inputComuneNascita" required />
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="inputIndirizzo">Indirizzo</label>
             <div class="controls">
-              <input value="<?php echo $p->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" required />
+              <input value="<?php echo $sessione->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" required />
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="inputCivico">Civico</label>
             <div class="controls">
-              <input value="<?php echo $p->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" required />
+              <input value="<?php echo $sessione->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" required />
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="inputComuneResidenza">Comune di residenza</label>
             <div class="controls">
-              <input value="<?php echo $p->comuneResidenza; ?>" type="text" id="inputComuneResidenza" name="inputComuneResidenza" required />
+              <input value="<?php echo $sessione->coresidenza; ?>" type="text" id="inputComuneResidenza" name="inputComuneResidenza" required />
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="inputCAPResidenza">CAP di residenza</label>
             <div class="controls">
-              <input value="<?php echo $p->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" required pattern="[0-9]{5}" />
+              <input value="<?php echo $sessione->caresidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" required pattern="[0-9]{5}" />
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="inputProvinciaResidenza">Provincia di residenza</label>
             <div class="controls">
-              <input value="<?php echo $p->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" required pattern="[A-Za-z]{2}" />
+              <input value="<?php echo $sessione->prresidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" required pattern="[A-Za-z]{2}" />
               &nbsp; <span class="muted">ad es.: CT</span>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="inputgruppoSanguigno">Gruppo Sanguigno</label>
-            <div class="controls">
-                <select class="input-small" id="inputgruppoSanguigno" name="inputgruppoSanguigno"  required>
-                <?php
-                    foreach ( $conf['sangue_gruppo'] as $numero => $gruppo ) { ?>
-                    <option value="<?php echo $numero; ?>" <?php if ( $numero == $me->grsanguigno ) { ?>selected<?php } ?>><?php echo $gruppo; ?></option>
-                    <?php } ?>
-                </select>   
             </div>
           </div>
           <div class="control-group">

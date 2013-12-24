@@ -11,3 +11,5 @@ if ( !$sessione->utente()->admin) {
 $sessione->adminMode = time();
 
 redirect();
+
+?>
