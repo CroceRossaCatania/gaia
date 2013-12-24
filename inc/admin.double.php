@@ -70,11 +70,7 @@ $t = Volontario::elenco();
                             <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                 <i class="icon-envelope"></i>
                             </a>
-                            <a class="btn btn-small btn-info" href="?p=admin.limbo.comitato.nuovo&id=<?php echo $_v->id; ?>" title="Assegna a Comitato">
-                                <i class="icon-arrow-right"></i> Assegna a Comitato
-                            </a>
                             <?php } ?>
-                            
                             <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.limbo.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
                                 <i class="icon-trash"></i> Cancella
                             </a>
