@@ -24,19 +24,19 @@ if($_GET['rege']){
         	<li>Comitato Regionale __________</li>
         	<ul>
         		<li>Comitato Provinciale __________</li>
-    			<ul>
-    				<li>Comitato Locale __________</li>
-    				<ul>
-    					<li>Unità Territoriale 1</li>
-    					<li>Unità Territoriale 2</li>
-    					<li>...</li>
-					</ul>
-				</ul>
-    		</ul>
-    	</ul>
-        <p>Basterà che il vostro Presidente si iscriva al portale e, non appena avvenuto, procederemo con l'attivazione dell'account “presidente” (che gli permetterà di usufruire di tutte le funzionalità di Gaia a nome del vostro Comitato).</p>
-		<p>La richiesta deve essere fatta dal Presidente.</p>
-    </div>
+             <ul>
+                <li>Comitato Locale __________</li>
+                <ul>
+                   <li>Unità Territoriale 1</li>
+                   <li>Unità Territoriale 2</li>
+                   <li>...</li>
+               </ul>
+           </ul>
+       </ul>
+   </ul>
+   <p>Basterà che il vostro Presidente si iscriva al portale e, non appena avvenuto, procederemo con l'attivazione dell'account “presidente” (che gli permetterà di usufruire di tutte le funzionalità di Gaia a nome del vostro Comitato).</p>
+   <p>La richiesta deve essere fatta dal Presidente.</p>
+</div>
 </div>
 <div class="row-fluid">
     <div class="span12">

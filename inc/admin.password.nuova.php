@@ -6,10 +6,11 @@
 
 paginaAdmin();
 paginaModale();
+controllaParametri(array('id'), 'presidente.utenti&errGen');
 $v = $_GET['id'];
 ?>
 
-<form action="?p=admin.password.nuova.ok&id=<?= $v; ?>" method="POST">
+<form action="?p=admin.password.nuova.ok&id=<?php echo $v; ?>" method="POST">
 <div class="modal fade automodal">
         <div class="modal-header">
           <h3><i class="icon-eraser"></i> Cambia Password</h3>
@@ -22,7 +23,7 @@ $v = $_GET['id'];
                     <label class="control-label" for="inputPassword"><strong>Nuova</strong> Password </label>
                 </div>
                 <div class="span8">
-                  <input class="input-large" type="password" name="inputPassword" id="inputPassword" required pattern=".{6,15}" />
+                  <input class="input-large" type="password" name="inputPassword" id="inputPassword" required pattern=".{8,15}" />
                 </div>
         </div>
         <div class="row-fluid">
@@ -30,7 +31,7 @@ $v = $_GET['id'];
                     <label class="control-label" for="inputPassword2"><strong>Ripeti Nuova</strong> Password </label>
                 </div>
                 <div class="span8">
-                  <input class="input-large" type="password" name="inputPassword2" id="inputPassword2" required pattern=".{6,15}" />
+                  <input class="input-large" type="password" name="inputPassword2" id="inputPassword2" required pattern=".{8,15}" />
                 </div>
         </div>
     </div>

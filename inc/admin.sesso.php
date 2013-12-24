@@ -31,3 +31,4 @@ foreach ($utenti  as $u) {
 	echo('<br>');
 }
 
+?>

@@ -9,19 +9,19 @@ paginaAdmin();
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
-        <div class="alert alert-success">
-            <i class="icon-save"></i> <strong>Amministrazione revocata</strong>.
-            L'utente ha perso l'amministrazione.
-        </div>
+<div class="alert alert-success">
+    <i class="icon-save"></i> <strong>Amministrazione revocata</strong>.
+    L'utente ha perso l'amministrazione.
+</div>
 <?php } ?>
 <?php if ( isset($_GET['new']) ) { ?>
-        <div class="alert alert-success">
-            <i class="icon-save"></i> <strong>Amministratore nominato</strong>.
-            L'amministratore è stato nominato con successo.
-        </div>
+<div class="alert alert-success">
+    <i class="icon-save"></i> <strong>Amministratore nominato</strong>.
+    L'amministratore è stato nominato con successo.
+</div>
 <?php } ?>
 <br/>
-    <div class="row-fluid">
+<div class="row-fluid">
     <div class="span6 allinea-sinistra">
         <h2>
             <i class="icon-star muted"></i>
@@ -46,8 +46,8 @@ paginaAdmin();
         <th>Luogo di Nascita</th>
         <th>Azione</th>
     </thead>
-<?php
-  foreach ( Utente::listaAdmin() as $_v ) {  ?>
+    <?php
+    foreach ( Utente::listaAdmin() as $_v ) {  ?>
     <tr>
         <td><?php echo $_v->nome; ?></td>
         <td><?php echo $_v->cognome; ?></td>
@@ -62,5 +62,4 @@ paginaAdmin();
         </td>
     </tr>
     <?php } ?>
- 
 </table>

@@ -5,7 +5,7 @@
  */
 
 paginaAdmin();
-
+controllaParametri(array('id'), 'admin.comitati&err');
 $c = $_GET['id'];
 $c = Comitato::id($c);
 
@@ -18,3 +18,5 @@ if ( $x = $l->principale() ) {
 $c->principale = 1;
 
 redirect('admin.comitati');
+
+?>

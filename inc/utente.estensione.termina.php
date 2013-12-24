@@ -7,6 +7,8 @@
 paginaPrivata();
 paginaModale();
 
+controllaParametri(array('id'));
+
 $id = $_GET['id'];
 $app = Appartenenza::id($id);
 $est = Estensione::by('appartenenza', $app);

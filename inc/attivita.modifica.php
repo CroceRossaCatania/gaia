@@ -8,6 +8,7 @@ paginaPrivata();
 paginaAttivita();
 caricaSelettore();
 
+controllaParametri($parametri, 'attivita.gestione&err');
 $a = Attivita::id($_GET['id']);
 
 if (!$a->haPosizione()) {

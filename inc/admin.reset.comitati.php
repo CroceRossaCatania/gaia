@@ -11,6 +11,3 @@ GeoPolitica::rigeneraAlbero();
 redirect('presidente.dash&resetOk');
 
 ?>
-
-
-

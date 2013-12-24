@@ -1,5 +1,9 @@
 <?php
 paginaAttivita();
+
+$parametri = array('turno', 'titolo', 'id');
+controllaParametri($parametri);
+
 $t = Turno::id($_POST['turno']);
 
 $titolo = Titolo::by('nome', $_POST['titolo']);

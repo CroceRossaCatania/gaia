@@ -6,6 +6,9 @@
 
 paginaApp([ APP_PRESIDENTE, APP_OBIETTIVO ]);
 
+$parametri = array('oid', 'datainizio', 'datafine');
+controllaParametri($parametri, 'obiettivo.dash&err');
+
 $oid = $_POST['oid'];
 $g = GeoPolitica::daOid($oid);
 $unita = $g->estensione();

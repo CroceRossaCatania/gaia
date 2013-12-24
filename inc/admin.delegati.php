@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 /*
  * ©2013 Croce Rossa Italiana

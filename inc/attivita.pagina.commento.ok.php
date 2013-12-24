@@ -6,6 +6,9 @@
 
 paginaPrivata();
 
+$parametri = array('id', 'h');
+controllaParametri($parametri);
+
 $a = $_GET['id'];
 $a = Attivita::id($a);
 

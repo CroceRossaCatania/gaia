@@ -6,6 +6,8 @@
 
 paginaApp([APP_PATENTI , APP_PRESIDENTE]);
 
+controllaParametri(array('id'), 'patenti.dash&err');
+
 $id = $_GET['id'];
 
 if (isset($_GET['presa'])) {
@@ -38,7 +40,9 @@ if (isset($_GET['presa'])) {
     $r->tConsegna = $time;
     $r->pConsegna = $me;
     
-}  
+} else {
+    redirect('patenti.dash&err');
+} 
 
 redirect('patenti.richieste');
 ?>

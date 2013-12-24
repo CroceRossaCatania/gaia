@@ -3,7 +3,8 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
-
+$parametri = array('inputTesto', 'inputOggetto');
+controllaParametri($parametri);
 $oggetto= $_POST['inputOggetto']; 
 $testo = $_POST['inputTesto'];
 
@@ -55,4 +56,5 @@ if(isset($_GET['pres'])){
 }
 
 redirect('utente.me&ok');
+
 ?>

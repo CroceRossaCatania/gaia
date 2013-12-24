@@ -5,7 +5,11 @@
  */
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
-$v = Volontario::id($_GET['id']);
+
+controllaParametri(array('id'), 'presidente.riserva&err');
+
+$v = $_GET['id'];
+$v = Volontario::id($v);
 proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
 ?>
 <div class="row-fluid">

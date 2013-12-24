@@ -5,6 +5,9 @@
  */
 
 paginaAdmin();
+
+controllaParametri(array('id'));
+
 $t = $_GET['id'];
 ?>
 <form class="form-horizontal" action="?p=presidente.aspiranti.comitato.nuovo.ok&id=<?php echo $t; ?>" method="POST">

@@ -5,6 +5,9 @@
  */
 
 paginaPresidenziale();
+
+controllaParametri(array('id'), 'presidente.trasferimento&err');
+
 $t = $_GET['id'];
 $t = Trasferimento::id($t);
 $_v = $t->volontario();

@@ -6,6 +6,8 @@
 
     paginaPresidenziale();
 
+    controllaParametri(array('id'));
+
     $e     = $_GET['id'];
     $e = Estensione::id($e);
 
@@ -26,13 +28,11 @@
         $m->a = $a->volontario();
         $m->_NOME       = $a->volontario()->nome;
         $m->_COMITATO   = $a->comitato()->nomeCompleto();
-        $m-> _TIME = date('d-m-Y', $e->protData);
+        $m-> _TIME = date('d-m-Y', $e->appartenenza()->timestamp);
         $m->invia();
       
         redirect('presidente.estensione&ok');  
-    }
-
-    if (isset($_GET['no'])) {
+    } elseif (isset($_GET['no'])) {
         $v = $e->volontario()->id;
         $e->nega($_POST['motivo']);
         
@@ -55,4 +55,5 @@
 
         redirect('presidente.estensione&no');   
     }
+    redirect('utente.me&err');
 ?>

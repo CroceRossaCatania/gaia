@@ -7,6 +7,8 @@
 paginaPrivata();
 paginaAttivita();
 
+controllaParametri(array('id'));
+
 $e = ElementoRichiesta::by('id', $_GET['id']);
 $r = $e->richiesta();
 $t = $r->turno();
@@ -17,3 +19,5 @@ if (!$r->elementi()){
 }
 
 redirect("attivita.richiesta.turni&del&id={$t}");
+
+?>

@@ -91,7 +91,7 @@ function paginaAttivita( $attivita = null ) {
          )
             or
          !(
-                (bool) $sessione->utente()->admin
+                (bool) $sessione->utente()->admin()
             or  (bool) $sessione->utente()->presiede()
             or  (bool) $sessione->utente()->delegazioni(APP_OBIETTIVO)
             or  (bool) $sessione->utente()->areeDiResponsabilita()
@@ -186,3 +186,10 @@ function impostaTitoloDescrizione( $contenuto ) {
     $contenuto = str_replace('{_descrizione}', $_descrizione, $contenuto);
     return $contenuto;
 }
+
+function controllaParametri($parametri = [], $redirect = 'utente.me&err') {
+    foreach ($parametri as $p) {
+        if (empty($_REQUEST[$p])) { redirect($redirect); }
+    }
+}
+
