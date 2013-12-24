@@ -5,6 +5,9 @@
  */
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
+
+controllaParametri(array('inputData'), 'presidente.utenti&err');
+
 $time = DT::createFromFormat('d/m/Y', $_GET['inputData']);
 $tstamp = $time->getTimestamp();
 ?>

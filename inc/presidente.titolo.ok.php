@@ -6,8 +6,14 @@
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
+controllaParametri(array('id'), 'presidente.titoli&err');
+
 $id     = $_GET['id'];
 $t      = TitoloPersonale::id($id);
+$v      = $t->volontario();
+if (!$v->modificabileDa($me)) {
+    redirect('presidente.titoli&err');
+}
 
 if (isset($_GET['si'])) {
     $t->tConferma   = time();

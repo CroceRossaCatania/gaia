@@ -4,6 +4,10 @@
  * ©2012 Croce Rossa Italiana
  */
 
+paginaPrivata();
+
+controllaParametri(array('id'), 'gruppi.dash&err');
+
 $id = $_GET['id'];
 $g = AppartenenzaGruppo::id($id);
 ?>

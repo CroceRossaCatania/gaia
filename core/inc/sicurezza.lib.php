@@ -23,6 +23,7 @@ function debugOnly() {
 function proteggiDatiSensibili( $volontario, $app = [APP_PRESIDENTE] ) {
     global $me;
     if ( $me->admin() ) { return true; }
+    if ( $volontario->modificabileDa($me) ) { return true; }
     $comitati = $me->comitatiApp($app);
     $comitatiVolontario = $volontario->comitati(SOGLIA_APPARTENENZE);
     if ($comitatiVolontario) {

@@ -99,7 +99,7 @@ class Attivita extends GeoEntita {
         }
         switch ( $this->visibilita ) {
             case ATT_VIS_UNITA:
-                return (bool) $geoComitato->haMembro($v);
+                return (bool) $geoComitato->contieneVolontario($v);
                 break;
                 
             case ATT_VIS_LOCALE:

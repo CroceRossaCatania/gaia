@@ -33,10 +33,12 @@ $conf['statoPersona'] = [
 
 /* Un anno, un mese e un giorno */
 
-define('ANNO',      31536000);
-define('MESE',       2592000);
-define('MESEEMEZZO', 3888000);
-define('DUEGIORNI',   172800);
+define('ANNO',       31536000);
+define('MESE',        2592000);
+define('MESEEMEZZO',  3888000);
+define('DUEGIORNI',    172800);
+define('ETAMINIMA', 441504000);
+
 
 /*
  * ===================================
@@ -47,6 +49,7 @@ define('DUEGIORNI',   172800);
 /* Tipologia appartenenza gruppo */
 define('MEMBRO_DIMESSO',         0);
 define('MEMBRO_TRASFERITO',      1);
+define('MEMBRO_APP_NEGATA',      3);
 define('MEMBRO_EST_TERMINATA',   5);
 define('MEMBRO_TRASF_ANN',       9);
 define('MEMBRO_TRASF_NEGATO',   10);
@@ -80,7 +83,8 @@ $conf['membro'] = [
     MEMBRO_DIPENDENTE       =>  'Dipendente',
     MEMBRO_PRESIDENTE       =>  'Presidente',
     MEMBRO_DIMESSO          =>  'Dimesso',
-    MEMBRO_EST_TERMINATA    =>  'Estensione terminata'
+    MEMBRO_EST_TERMINATA    =>  'Estensione terminata',
+    MEMBRO_APP_NEGATA       =>  'Appartenenza negata'
 ];
 
 
@@ -487,7 +491,7 @@ define('PIVA', '01019341005');
 
 /*
  * ===================================
- * =========== APP_PATENTI==== ============
+ * =========== APP_PATENTI ===========
  * ===================================
  */
 
@@ -517,8 +521,8 @@ define('EST_GRP_UNITA',         10);
 define('EST_GRP_LOCALE',        20);
 
 $conf['est_grp'] = [
-    EST_GRP_UNITA       =>  'Unità Territoriale',
-    EST_GRP_LOCALE      =>  'Comitato Locale'    
+    EST_GRP_UNITA       =>  'Unità',
+    EST_GRP_LOCALE      =>  'Locale'    
 ];
 
 /*
@@ -550,3 +554,14 @@ $conf['dizionario'] = [
     DIZIONARIO_BASE64       =>  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 ];
 
+/*
+ * ===================================
+ * =========== PRVACY ================
+ * ===================================
+ */
+
+/* Tipologia di Privacy */
+define('PRIVACY_PRIVATA',   10);
+define('PRIVACY_COMITATO', 20);
+define('PRIVACY_VOLONTARI', 30);
+define('PRIVACY_PUBBLICA', 40);

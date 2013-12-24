@@ -5,6 +5,9 @@
  */
 
 paginaPrivata();
+
+controllaParametri(array('id'), 'gruppi.dash&err');
+
 $id = $_GET['id'];
 $g = Gruppo::id($id);
 foreach ( $_POST['volontari'] as $v ) {

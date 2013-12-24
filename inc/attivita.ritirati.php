@@ -7,6 +7,8 @@
 paginaPrivata();
 paginaModale();
 
+controllaParametri(array('id'));
+
 if (!isset($_GET['id'])) {
     redirect('attivita');
 }

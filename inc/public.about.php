@@ -10,7 +10,7 @@
         <h3>L'obiettivo</h3>
         <p>Vogliamo ottenere un sistema informativo efficiente e di facile consultazione.</p>
         <p>&nbsp;</p>
-            
+        
         <h3>Punti chiave del progetto</h3>  
         <p>
             <ul>
@@ -31,77 +31,87 @@
                   ed identifica la web-application ideata dai volontari della Croce Rossa di
                   Catania per semplificare le quotidiane attività di gestione del personale e dei
                   mezzi dell'associazione.
-                </p>
-                <p>
+              </p>
+              <p>
                   Gaia è anche il nome di un pianeta immaginario, frutto della fantasia di Isaac Asimov, in
                   cui grazie alla perfetta integrazione di ognuna della sue parti l'intero sistema
                   si mantiene in un perfetto equilibrio con un costante flusso di comunicazione ed una
                   stretta interdipendenza.
-                </p>
-                  <small>cit. Alfio Musmarra</small>
-            </blockquote>
-         </p>
-        <p>&nbsp;</p>
-        
-         <h3>Le persone</h3>
+              </p>
+              <small>cit. Alfio Musmarra</small>
+          </blockquote>
+      </p>
+      <p>&nbsp;</p>
+      
+      <h3>Le persone</h3>
 
-        <p>Gaia è stato ideato all'interno dei Servizi Informatici del Comitato Provinciale di Catania.</p>
-        <p><strong>È un progetto aperto e collaborativo, ed è sviluppato da volontari CRI in tutta Italia.</strong></p>
-        <p>Per informazioni, puoi contattarci all'indirizzo email <code>info@gaia.cri.it</code>.</p>
-        <p><span class="text-success"><i class="icon-info-sign"></i> <strong>Vuoi collaborare?</strong>
-                Scopri come visitando <a href="https://github.com/CroceRossaCatania/gaia">la pagina del progetto</a>.
-            </span></p>
+      <p>Gaia è stato ideato all'interno dei Servizi Informatici del Comitato Provinciale di Catania.</p>
+      <p><strong>È un progetto aperto e collaborativo, ed è sviluppato da volontari CRI in tutta Italia.</strong></p>
+      <p>Per informazioni, puoi contattarci all'indirizzo email <code>info@gaia.cri.it</code>.</p>
+      <p><span class="text-success"><i class="icon-info-sign"></i> <strong>Vuoi collaborare?</strong>
+        Scopri come visitando <a href="https://github.com/CroceRossaCatania/gaia">la pagina del progetto</a>.
+    </span></p>
 
 
-    </div>
+</div>
+
+<div class="span4">
+    <h2><i class="icon-heart-empty"></i> Aiuto</h2>
     
-    <div class="span4">
-        <h2><i class="icon-heart-empty"></i> Aiuto</h2>
-        
-        <p><a href="docs/Guida.pdf?ref=info" class="btn btn-large btn-primary btn-block">
-            <i class="icon-download icon-large"></i>
-            Scarica la Guida in PDF di Gaia
-        </a></p>
-        
-        <p>Oppure contattaci per email a <a href="mailto:supporto@gaia.cri.it"><i class="icon-envelope-alt"></i> supporto@gaia.cri.it</a>.</p>
-        <p>&nbsp;</p>
-        
-        <hr />        
-        
-        <p>&nbsp;</p>
-        <h2><i class="icon-github icon-large"></i> Collabora</h2>
+    <p><a href="docs/Guida.pdf?ref=info" class="btn btn-large btn-primary btn-block">
+        <i class="icon-download icon-large"></i>
+        Scarica la Guida in PDF di Gaia
+    </a></p>
+    
+    <p>Oppure contattaci per email a <a href="mailto:supporto@gaia.cri.it"><i class="icon-envelope-alt"></i> supporto@gaia.cri.it</a>.</p>
+    <p>&nbsp;</p>
+    
+    <hr />        
+    
+    <p>&nbsp;</p>
+    <h2><i class="icon-github icon-large"></i> Collabora</h2>
 
-        <p>Gaia è un progetto open source sviluppato da volontari e rilasciato con <a href="LICENSE.txt" target="_new"><i class="icon-link"></i> licenza GPL v3</a>. Per informazioni sul come collaborare, visita la pagina del progetto:</p> 
-        
-        <a href="https://github.com/CroceRossaCatania/gaia" target="_new" class="btn btn-large btn-block">
-            Progetto su GitHub
-        </a>
-        <p>&nbsp;</p>
-        
-        <hr />
-        
-        <p>&nbsp;</p>
-        <h2><i class="icon-question-sign"></i> Usare Gaia</h2>
+    <p>Gaia è un progetto open source sviluppato da volontari e rilasciato con <a href="LICENSE.txt" target="_new"><i class="icon-link"></i> licenza GPL v3</a>. Per informazioni sul come collaborare, visita la pagina del progetto:</p> 
+    
+    <a href="https://github.com/CroceRossaCatania/gaia" target="_new" class="btn btn-large btn-block">
+        Progetto su GitHub
+    </a>
+    <p>&nbsp;</p>
+    
+    <hr />
+    
+    <p>&nbsp;</p>
+    <h2><i class="icon-question-sign"></i> Usare Gaia</h2>
 
-        <p>Per usare Gaia nel tuo Comitato, invia una mail a <a href="mailto:info@gaia.cri.it"><i class="icon-envelope-alt"></i> info@gaia.cri.it</a> includendo i tuoi recapiti. Ti risponderemo appena possibile con le istruzioni.</p>
+    <p>Per usare Gaia nel tuo Comitato, invia una mail a <a href="mailto:info@gaia.cri.it"><i class="icon-envelope-alt"></i> info@gaia.cri.it</a> includendo i tuoi recapiti. Ti risponderemo appena possibile con le istruzioni.</p>
 
-        <hr />
-        
-        <p>&nbsp;</p>
-        
-       
-        <h2><i class="icon-link"></i> Integrare Gaia</h2>
+    <hr />
+    
+    <p>&nbsp;</p>
+    
+    
+    <h2><i class="icon-link"></i> Integrare Gaia</h2>
 
-        <p>Puoi integrare Gaia con le tue applicazioni, usando le API. C'è addirittura una <a href="http://github.com/AlfioEmanueleFresta/gaia-api-php">libreria PHP</a> già pronta per l'uso. Per maggiori informazioni, <a href="mailto:supporto@gaia.cri.it">contattaci</a>.</p>
+    <p>Puoi integrare Gaia con le tue applicazioni, usando le API. C'è addirittura una <a href="http://github.com/AlfioEmanueleFresta/gaia-api-php">libreria PHP</a> già pronta per l'uso. Per maggiori informazioni, <a href="mailto:supporto@gaia.cri.it">contattaci</a>.</p>
 
-        <hr />
-        
-        <p>&nbsp;</p>
-        
-       
-        <h2><i class="icon-lock"></i> Sicurezza Gaia</h2>
+    <hr />
+    
+    <p>&nbsp;</p>
+    
+    
+    <h2><i class="icon-lock"></i> Sicurezza Gaia</h2>
 
-        <p>I tuoi dati personali sono veramente importanti per noi scopri come vengono <a href="?p=public.sicurezza">protetti</a> su Gaia.</p>
+    <p>I tuoi dati personali sono veramente importanti per noi scopri come vengono <a href="?p=public.sicurezza">protetti</a> su Gaia.</p>
+    
+    <hr />
+    
+    <p>&nbsp;</p>
+    
+    
+    <h2><i class="icon-shield"></i> Condizioni d'uso</h2>
+
+    <p>Leggi l'informativa sul trattamento dei dati e scopri le<a href="?p=public.privacy"> 
+        condizioni d'uso</a> di Gaia.</p>
         
         
     </div>

@@ -56,18 +56,6 @@ class Comitato extends GeoPolitica {
     	$this->colore = $r . $g . $b;
     }
     
-    public function haMembro ( Persona $tizio, $stato = MEMBRO_VOLONTARIO ) {
-        $membri = [];
-        foreach ( $this->membriAttuali($stato) as $m ) {
-            $membri[] = $m->id;
-        }
-        if ( in_array($tizio->id, $membri) ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
     public function membriAttuali($stato = MEMBRO_ESTESO) {
         $q = $this->db->prepare("
             SELECT
@@ -86,7 +74,7 @@ class Comitato extends GeoPolitica {
                  cognome ASC, nome ASC");
         $q->bindValue(':ora', time());
         $q->bindParam(':comitato', $this->id);
-        $q->bindParam(':stato',    $stato);
+        $q->bindParam(':stato',    $stato, PDO::PARAM_INT);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {

@@ -1,7 +1,10 @@
 <?php
 
+controllaParametri(array('inputCodiceFiscale'), 'recuperaPassword&e');
+
 $codiceFiscale = $_POST['inputCodiceFiscale'];
 $codiceFiscale = maiuscolo($codiceFiscale);
+$sessione->codiceFiscale = $codiceFiscale;
 
 if ( !preg_match("/^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$/", $codiceFiscale) )
 	redirect('riconoscimento&e');

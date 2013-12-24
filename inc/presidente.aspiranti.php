@@ -4,9 +4,9 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI,APP_PRESIDENTE]);
+paginaAdmin();
 
-$t = Persona::filtra([['stato',PERSONA],['password', NULL]]);
+$t = Persona::filtra([['stato',ASPIRANTE],['password', NULL]]);
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -23,6 +23,12 @@ $t = Persona::filtra([['stato',PERSONA],['password', NULL]]);
         <div class="alert alert-success">
             <h4><i class="icon-save"></i> Nuovo Volontario assegnato</h4>
         </div>
+<?php } ?>
+<?php if (isset($_GET['err'])) { ?>
+    <div class="alert alert-block alert-error">
+        <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+        <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+    </div> 
 <?php } ?>
     <br/>
 <div class="row-fluid">
@@ -87,7 +93,7 @@ $t = Persona::filtra([['stato',PERSONA],['password', NULL]]);
                             </a>
 
                             <?php if ($me->admin) { ?>
-                                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=presidente.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
+                                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
                                 <i class="icon-trash"></i> Cancella
                                 </a>
                             <?php } ?>

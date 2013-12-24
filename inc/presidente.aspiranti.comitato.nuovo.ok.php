@@ -4,7 +4,10 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaAPP([APP_SOCI,APP_PRESIDENTE]);
+paginaAdmin();
+
+$parametri = array('id', 'inputComitato', 'dataingresso');
+controllaParametri($parametri, 'presidente.aspiranti&err');
 
 $v = $_GET['id'];
 $c = $_POST['inputComitato'];

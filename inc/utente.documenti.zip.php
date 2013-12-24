@@ -6,3 +6,5 @@
 
 $z = $me->zipDocumenti();
 $z->download();
+
+?>

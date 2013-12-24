@@ -6,6 +6,8 @@
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
+controllaParametri(array('inputNumero'), 'us.dash&err');
+
 $numero = $_GET['inputNumero'];
 $q = Quota::id($numero);
 

@@ -7,6 +7,8 @@
 paginaPresidenziale();
 caricaSelettore();
 
+controllaParametri(array('id'));
+
 $id = $_GET['id'];
 $c = Comitato::id($id);
 

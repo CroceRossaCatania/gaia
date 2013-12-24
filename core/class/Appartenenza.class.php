@@ -50,4 +50,29 @@ class Appartenenza extends Entita {
         public function estensione(){
             return Estensione::by('appartenenza', $this);
         }
+
+        /**
+         * Nega l'appartenenza mettendo come stato appartenenza negata
+         * inserisce la fine dell'appartenenza a time() e mette chi ha negato
+         *
+         */
+        public function nega($v){
+            $this->stato   = MEMBRO_APP_NEGATA;
+            $this->fine    = time();
+            $this->conferma  = $v->id; 
+            return;
+        }
+
+        /**
+         * Conferma l'appartenenza mettendo come stato membro volonatrio
+         * e impostando il timestamp alla data e ora attuali
+         * @param $v id volontario che esegue la conferma
+         */
+        public function conferma($v){
+            $this->timestamp = time();
+            $this->stato     = MEMBRO_VOLONTARIO;
+            $this->conferma  = $v->id; 
+            return;
+        }
+
 }

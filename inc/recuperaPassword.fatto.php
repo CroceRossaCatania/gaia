@@ -4,6 +4,8 @@
  * ©2013 Croce Rossa Italiana
  */
 
+controllaParametri(array('c'), 'recuperaPassword&err');
+
 $codice = $_GET['c'];
 
 /* Cerca codice di validazione */
