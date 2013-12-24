@@ -1,7 +1,7 @@
 <?php
 
 paginaAdmin();
-
+set_time_limit(0);
 /*
  * ©2013 Croce Rossa Italiana
  */
@@ -42,11 +42,14 @@ $t = Volontario::elenco();
         </thead>
         <?php
         $totale = 0;
+        $giaInsultati = [];
         foreach($t as $_v) {
-            $appartenenze = $_v->appartenenzeAttuali(MEMBRO_VOLONTARIO);
-            if(count($appartenenze) >= 2){
-                $totale++;
-                ?>
+            $app = $_v->appartenenze();
+            if (count($app)<=1){continue;}
+            foreach($app as $_app){
+                if(!in_array($_v->id, $giaInsultati ) && count(Appartenenza::filtra([['volontario', $_v],['stato', $_app->stato],['comitato', $_app->comitato]]))>= 2){ 
+                    $totale++;
+                    $giaInsultati[] = $_v->id;?>
                 <tr>
                     <td><?php echo $_v->nome; ?></td>
                     <td><?php echo $_v->cognome; ?></td>
@@ -66,15 +69,11 @@ $t = Volontario::elenco();
                             <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
                                 <i class="icon-eye-open"></i> Dettagli
                             </a>
-                            <?php if ($_v->nome && $_v->cognome) {?>
+                            <?php if ($_v->email) {?>
                             <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                 <i class="icon-envelope"></i>
                             </a>
-                            <a class="btn btn-small btn-info" href="?p=admin.limbo.comitato.nuovo&id=<?php echo $_v->id; ?>" title="Assegna a Comitato">
-                                <i class="icon-arrow-right"></i> Assegna a Comitato
-                            </a>
                             <?php } ?>
-                            
                             <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.limbo.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
                                 <i class="icon-trash"></i> Cancella
                             </a>
@@ -85,7 +84,7 @@ $t = Volontario::elenco();
                 
                 
                 
-                <?php }}
+                <?php }}}
                 ?>
 
                 
