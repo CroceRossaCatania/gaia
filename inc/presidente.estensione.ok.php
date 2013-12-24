@@ -28,7 +28,7 @@
         $m->a = $a->volontario();
         $m->_NOME       = $a->volontario()->nome;
         $m->_COMITATO   = $a->comitato()->nomeCompleto();
-        $m-> _TIME = date('d-m-Y', $e->protData);
+        $m-> _TIME = date('d-m-Y', $e->appartenenza()->timestamp);
         $m->invia();
       
         redirect('presidente.estensione&ok');  
