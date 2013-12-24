@@ -10,6 +10,9 @@ controllaParametri(array('id'), 'gruppi.dash&err');
 
 $id = $_GET['id'];
 $g = Gruppo::id($id);
+
+proteggiClasse($g, $me);
+
 foreach ( $_POST['volontari'] as $v ) {
     
     $v = Volontario::id($v);

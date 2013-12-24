@@ -8,6 +8,8 @@ paginaPrivata();
 $a = $_GET['id'];
 $a = Attivita::id($a);
 
+paginaAttivita($a);
+
 ?>
 <form action="?p=attivita.obiettivo.ok" method="POST">
 

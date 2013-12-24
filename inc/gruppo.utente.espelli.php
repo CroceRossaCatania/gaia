@@ -10,6 +10,10 @@ controllaParametri(array('id'), 'gruppi.dash&err');
 
 $id = $_GET['id'];
 $g = AppartenenzaGruppo::id($id);
+
+$gruppo = $g->gruppo();
+proteggiClasse($gruppo, $me);
+
 ?>
 <div class="row-fluid">
     <div class="span12">
