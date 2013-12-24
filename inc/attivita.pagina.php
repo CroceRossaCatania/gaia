@@ -7,8 +7,7 @@
 paginaPrivata();
 
 controllaParametri(array('id'));
-$a = $_GET['id'];
-$p = Attivita::id($a);
+$p = Attivita::id($_GET['id']);
 $c = Commento::filtra([['attivita', $a],['upCommento', '0']], 'tCommenta DESC');
 ?>
 
@@ -20,13 +19,17 @@ $c = Commento::filtra([['attivita', $a],['upCommento', '0']], 'tCommenta DESC');
     <div class="span9">
         <div class="row-fluid">
             <div class="span3 allinea-sinistra">
-                <a href="?p=attivita.scheda&id=<?php echo $a ?>" class="btn btn-large">
+                <a href="?p=attivita.scheda&id=<?php echo $p->id; ?>" class="btn btn-large">
                     <i class="icon-reply"></i> Attività
                 </a>
             </div>
-            <div class="span9">
+            <div class="span6 allinea-centro">
                 <h3><?php echo $p->nome; ?></h3>
             </div>
+            <div class="span3">
+            </div>
+        </div>
+        <div class="row-fluid">
             <div class="span12 btn-group allinea-centro">
                 <a id="pulsanteScrivi" class="btn">
                     <i class="icon-comment"></i> Commenta
