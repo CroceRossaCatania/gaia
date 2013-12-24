@@ -6,6 +6,7 @@
 
 paginaPrivata();
 
+controllaParametri(array('turno'));
 $t = $_GET['turno'];
 $t = Turno::id($t);
 $a = $t->attivita();

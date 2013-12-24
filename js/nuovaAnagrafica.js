@@ -1,5 +1,7 @@
 $(document).ready( function() {
- 
-$("#inputDataNascita").datepicker({maxDate: new Date});
+
+	var dt = new Date;
+	dt.setYear(dt.getYear() - 14)
+	$( "#inputDataNascita" ).datepicker({ maxDate: dt });
  
 });

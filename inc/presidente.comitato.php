@@ -7,6 +7,9 @@
 /*
  * Elenco Applicazioni da gestire
  */
+
+controllaParametri(array('oid'));
+
 $_daGestire = [
     APP_CO, APP_SOCI
 ];
@@ -71,6 +74,13 @@ $(document).ready(function() {
     <div class="alert alert-error">
         <i class="icon-warning-sign"></i> <strong>Modifiche non salvate</strong> &mdash;
         Non è possibile chiamare un'area <strong>Generale</strong>.
+    </div>
+    <?php } ?>
+
+    <?php if ( isset($_GET['double']) ) { ?>
+    <div class="alert alert-error">
+        <i class="icon-warning-sign"></i> <strong>Modifiche non salvate</strong> &mdash;
+        Non è possibile delegare più volte la stessa persona.
     </div>
     <?php } ?>
 

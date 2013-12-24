@@ -29,6 +29,9 @@ Alternativamente, contattaci a <info@gaia.cri.it> per saperne di più.
 
 Per motivi di sviluppo, è possibile installare Gaia seguendo una delle due vie...
 
+**Nota bene**: Attualmente, per motivi di tempo, **non** offriamo supporto per l'installazione del software sul proprio server.
+Ogni richiesta al supporto a riguardo verra' ignorata. Se sei interessato a collaborare al Progetto Gaia, contattaci a info@gaia.cri.it.
+
 #### La via facile (Ubuntu 13.04+)
 
 **Script di installazione**, basta aprire un terminale (col proprio utente) ed incollare:

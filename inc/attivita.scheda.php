@@ -6,6 +6,10 @@
 
 paginaAnonimo();
 caricaSelettore();
+
+controllaParametri(array('id'));
+
+controllaParametri(array('id'));
 $a = Attivita::id($_GET['id']);
 $puoPartecipare = false;
 if ($a->puoPartecipare($me)) {

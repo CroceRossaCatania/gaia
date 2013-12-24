@@ -23,7 +23,7 @@ function paginaPrivata($consenso = true) {
 function paginaApp($app, $comitati = []) {
     global $sessione;
     paginaPrivata();
-    if ( $sessione->utente()->admin ) {
+    if ( $sessione->utente()->admin() ) {
         return true;
     }
     if (!is_array($app)) {
@@ -91,7 +91,7 @@ function paginaAttivita( $attivita = null ) {
          )
             or
          !(
-                (bool) $sessione->utente()->admin
+                (bool) $sessione->utente()->admin()
             or  (bool) $sessione->utente()->presiede()
             or  (bool) $sessione->utente()->delegazioni(APP_OBIETTIVO)
             or  (bool) $sessione->utente()->areeDiResponsabilita()
@@ -106,14 +106,18 @@ function paginaModale() {
     include('./inc/part/pagina.attendere.php');
 }
 
-function paginaPresidenziale( $comitato = null ) {
+function paginaPresidenziale( $comitato = null, $attivita = null) {
     global $sessione;
         paginaPrivata();
-    if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin ) {
+    if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin() ) {
         redirect('utente.me');
     }
     if ( $comitato && !in_array($comitato, $sessione->utente()->comitatiDiCompetenza() ) ) {
-        redirect('utente.me&ErroreSicurezza');
+        redirect('errore.permessi');
+    }
+
+    if ( $attivita && !in_array($attivita, $sessione->utente()->attivitaDiGestione())) {
+        redirect('errore.permessi');   
     }
 }
 
@@ -182,3 +186,10 @@ function impostaTitoloDescrizione( $contenuto ) {
     $contenuto = str_replace('{_descrizione}', $_descrizione, $contenuto);
     return $contenuto;
 }
+
+function controllaParametri($parametri = [], $redirect = 'utente.me&err') {
+    foreach ($parametri as $p) {
+        if (empty($_REQUEST[$p])) { redirect($redirect); }
+    }
+}
+

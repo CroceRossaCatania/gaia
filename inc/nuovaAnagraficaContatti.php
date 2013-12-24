@@ -35,10 +35,10 @@
         <p>
             Verrai informato sulle attività nel tuo territorio.
         </p>
+        <?php } ?>
         <p>
             <i class="icon-key"></i> Inserisci inoltre la password che userai per accedere.
         </p>
-        <?php } ?>
     </div>
     <div class="span8">
           <?php if ( isset($_GET['email'] ) ) { ?>
@@ -62,6 +62,12 @@
                   <p>Le due password che hai inserito non sono coincidenti.</p>
                   <p>Reinserici correttamente le password.</p>
               </div>
+          <?php } ?>
+          <?php if (isset($_GET['err'])) { ?>
+              <div class="alert alert-block alert-error">
+                  <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+                  <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+              </div> 
           <?php } ?>
         <form class="form-horizontal" action="?p=nuovaAnagraficaContatti.ok" method="POST">
           <div class="control-group input-prepend">

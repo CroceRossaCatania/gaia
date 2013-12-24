@@ -70,6 +70,15 @@ paginaAdmin();
                 <i class="icon-time"></i>
                 Reset Consensi
             </a>
+            <hr/>
+            <div class="alert alert-info">
+                <strong>Script per fix appartenenze negate</strong>
+                <p>Questo script imposta lo stato appartenenza negata a tutte le appartenenze cons tato pendente e fine</p>
+            </div>
+            <a href="?p=admin.appartenenze" class="btn btn-large btn-info">
+                <i class="icon-group"></i>
+                Fix appartenenze
+            </a>
         </div>
     </div>
 </div>

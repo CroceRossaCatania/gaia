@@ -258,6 +258,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                                     <li><a href="?p=admin.reset.comitati"><i class="icon-fire"></i> Reset Comitati</a></li> 
                                     <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
                                     <li><a href="?p=admin.limbo"><i class="icon-meh"></i> Limbo</a></li>
+                                    <li><a href="?p=admin.ricerca.cf"><i class="icon-search"></i> Cerca CF</a></li>  
                                     <li><a href="?p=admin.double"><i class="icon-superscript"></i> Double</a></li>
                                     <li><a href="?p=admin.script"><i class="icon-stackexchange"></i> Script</a></li>
                                     <li><a href="?p=admin.report"><i class="icon-copy"></i> Report</a></li>  
@@ -295,7 +296,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <?php if ( in_array($p, $conf['slide'] ) ) { ?>
     <div id="caroselloHome" class="carousel slide">
       <div class="carousel-inner">
-        <div class="item active">
+        <!--<div class="item active">
           <img src="./img/jump.png" alt="">
           <div class="container">
             <div class="carousel-caption">
@@ -312,8 +313,8 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                 </p>
             </div>
           </div>
-        </div>
-        <div class="item">
+        </div>-->
+        <div class="item active">
           <img src="./img/foto4.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">

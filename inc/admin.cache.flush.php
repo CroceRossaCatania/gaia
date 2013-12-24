@@ -13,3 +13,5 @@ if ( !$cache ) {
 $cache->flushAll();
 
 redirect('admin.cache&flush');
+
+?>

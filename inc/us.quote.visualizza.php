@@ -6,6 +6,8 @@
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
+controllaParametri(array('id'), 'us.dash&err');
+
 $v = $_GET['id'];
 $v = Volontario::id($v);
 $appartenenza = $v->storico();
