@@ -7,7 +7,7 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $parametri = array('inputComitato', 'inputCodiceFiscale', 'inputNome',
-	'inputCognome', 'inputSesso', 'inputDataNascita', 'inputDataIngresso');
+	'inputCognome', 'inputDataNascita', 'inputDataIngresso');
 controllaParametri($parametri, 'us.dash&err');
 
 $comitato = $_POST['inputComitato'];
