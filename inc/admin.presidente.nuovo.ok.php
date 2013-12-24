@@ -5,7 +5,7 @@
  */
 
 paginaAdmin();
-$parametri = array('v', 'id');
+$parametri = array('v', 'oid');
 controllaParametri($parametri, 'admin.presidenti&err');
 $v = $_GET['v'];
 $c = $_GET['oid'];
