@@ -8,7 +8,7 @@
  * Normalizzazione dei dati
  */
 
-$parametri = array('id', 'nome', 'inputNome', 'inputCognome', 'inputSesso', 'inputDataNascita', 
+$parametri = array('id', 'inputNome', 'inputCognome', 'inputDataNascita', 
 	'inputProvinciaNascita', 'inputComuneNascita', 'inputComuneResidenza', 'inputCAPResidenza',
 	'inputProvinciaResidenza', 'inputIndirizzo', 'inputCivico');
 controllaParametri($parametri, 'nuovaAnagrafica&err');
