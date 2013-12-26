@@ -14,6 +14,32 @@ if($t->figli()){
 if(Appartenenza::filtra([['comitato', $t]])){
 	redirect('admin.comitati&evol');
 }
+
+/* Cancello i delegati */
+$delegati = Delegato::filtra([
+	['comitato', $t]
+]);
+foreach( $delegati as $delegato ){
+	$delegato->cancella();
+}
+
+/* Cancello aree e responsabili */
+$aree = Area::filtra([
+  ['comitato', $t]
+]);
+foreach($aree as $area){
+    $area->cancella();
+}
+
+/* Cancello le attività */
+$attivita = Attivita::filtra([
+  ['comitato', $t]
+]);
+foreach($attivita as $att){
+    $att->cancella();
+}
+
+/* Ora posso cancellare il comitato */
 $t->cancella();
 redirect('admin.comitati&del');
 
