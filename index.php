@@ -61,7 +61,6 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
 
     <!-- CSS -->
     <link href="css/bootstrap.min.css"      rel="stylesheet" media="screen">
-    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css"   rel="stylesheet" media="screen">
     <link href="css/main.css"               rel="stylesheet" media="screen">
     <link href="css/fullcalendar.css"       rel="stylesheet" media="screen">
