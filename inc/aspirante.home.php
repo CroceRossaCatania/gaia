@@ -11,8 +11,21 @@ if ( !($a = Aspirante::daVolontario($me)) )
 $a->raggio = $a->trovaRaggioMinimo();
 ?>
 
-<h2>Ciao, <?php echo $me->nome; ?>.</h2>
-<p>Ci sono <?php echo $a->numComitati(); ?> nelle tue vicinanze, per ulteriori informazioni <a href="?p=public.comitati.mappa">consulta la mappa</a>.</p>
+
+<div class="row-fluid">
+    <div class="span3">
+        <?php menuAspirante(); ?>
+    </div>
+    <div class="span9">
+
+		<h2>Ciao, <?php echo $me->nome; ?>.</h2>
+
+		<p>Ci sono <?php echo $a->numComitati(); ?> nelle tue vicinanze, per ulteriori informazioni <a href="?p=public.comitati.mappa">consulta la mappa</a>.</p>
+		    	
+
+    </div>
+</div>
+
 
 
 <?php //yeah, funziona. var_dump($a->comitati(), $a->raggio);

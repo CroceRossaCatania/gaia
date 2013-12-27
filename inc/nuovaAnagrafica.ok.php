@@ -47,7 +47,7 @@ if(!DT::controlloData($_POST['inputDataNascita'])){
  */
 $anno = date('Y', $dnascita->getTimestamp());
 $ora = date('Y', time());
-if($ora-$anno<=ETA_MINIMA){
+if($ora-$anno <= ETA_MINIMA){
 	redirect('nuovaAnagrafica&eta');
 }
 /*
