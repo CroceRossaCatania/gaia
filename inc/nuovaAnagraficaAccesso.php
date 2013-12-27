@@ -1,7 +1,7 @@
 <?php
 
 /*
-* ©2012 Croce Rossa Italiana
+* ©2013 Croce Rossa Italiana
 */
 
 caricaSelettoreComitato();
@@ -21,22 +21,13 @@ caricaSelettoreComitato();
     <div class="span4">
         <h2>
             <i class="icon-group"></i>
-            <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
-                Comitato e 
-            <?php } ?>
-            Password
+            Comitato
         </h2>
-        <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
-            <p>Seleziona il comitato del quale fai parte.</p>
-            <p>La tua iscrizione verrà confermata da un vertice del tuo comitato.</p>
-        <?php } ?>
-        <p>
-            <i class="icon-key"></i> Inserisci inoltre la password che userai per accedere.
-        </p>
+        <p>Seleziona il comitato del quale fai parte.</p>
+        <p>Seleziona la data di ingresso. È necessario inserire almeno l'anno. </p>
+        <p>La tua iscrizione verrà confermata da un vertice del tuo comitato.</p>
     </div>
     <div class="span8">
-
-
     <?php if (isset($_GET['c'])) { ?>
         <div class="alert alert-block alert-error">
             <h4>Seleziona il tuo comitato di appartenenza</h4>
@@ -44,9 +35,20 @@ caricaSelettoreComitato();
             <p>Verrà chiesta conferma al Presidente del comitato.</p>
         </div>
     <?php } ?>
-    
+    <?php if (isset($_GET['data'])) { ?>
+        <div class="alert alert-block alert-error">
+            <h4>Data di ingresso in Croce Rossa errata</h4>
+            <p>La data di inggresso in Croce Rossa che hai inserito non è corretta.</p>
+            <p>Il formato corretto della data di ingresso è gg/mm/aaaa.</p>
+        </div>
+      <?php } ?>
+      <?php if (isset($_GET['err'])) { ?>
+          <div class="alert alert-block alert-error">
+              <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+              <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+          </div> 
+      <?php } ?>
     <form id="moduloRegistrazione" class="form-horizontal" action="?p=nuovaAnagraficaAccesso.ok" method="POST">
-        <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
         <div class="control-group">
             <label class="control-label" for="inputComitato">Comitato</label>
             <div class="controls">
@@ -58,17 +60,23 @@ caricaSelettoreComitato();
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="inputAnno">Anno di ingresso</label>
+            <label class="control-label" for="inputDataIngresso">Data ingresso</label>
             <div class="controls">
-                <select required name="inputAnno" class="span6">
-                <?php for ( $i = date('Y'); $i >= 1900; $i-- ) { ?>
-                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                <?php } ?>
-                </select>
+              <input value="<?php echo $sessione->inizio; ?>" class="input-small" type="text" id="inputDataIngresso" name="inputDataIngresso" required />
             </div>
         </div>
+
         <hr />
-        <?php } ?>
+        <div class="control-group btn-group">
+            <a href="?p=public.nocomitato&rege" class="btn btn-large btn-danger">
+                <i class="icon-remove"></i>
+                Il mio Comitato non è in lista
+            </a>
+            <button type="submit" class="btn btn-large btn-success">
+                <i class="icon-ok"></i>
+                Completa registrazione
+            </button>
+        </div>
     </form>
 
     </div>

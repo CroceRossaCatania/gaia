@@ -26,7 +26,7 @@ if ( $e and $e->password ) {
     redirect('nuovaAnagraficaContatti&email');
 }
 
-if ( strlen($_POST['inputPassword']) < 6 || strlen($_POST['inputPassword']) > 15 ) {
+if ( strlen($_POST['inputPassword']) < 8 || strlen($_POST['inputPassword']) > 15 ) {
 	redirect('nuovaAnagraficaContatti&e');
 }
 
@@ -44,4 +44,14 @@ $p->cellulareServizio   = $cells;
 $password     		= $_POST['inputPassword'];
 $sessione->utente()->cambiaPassword($password);
 
-redirect('nuovaAnagraficaAccesso');
+$sessione->utente()->stato = $sessione->tipoRegistrazione;
+
+if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
+    redirect('nuovaAnagraficaAccesso');
+} else {
+    $m = new Email('registrazioneAspirante', 'Grazie futuro volontario');
+    $m->a = $sessione->utente();
+    $m->_NOME = $sessione->utente()->nome;
+    $m->invia();
+    redirect('utente.me');
+}
