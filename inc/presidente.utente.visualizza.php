@@ -272,7 +272,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         Scarica documenti del volontario in ZIP
       </a>
       <span class="text-info">
-        Puoi caricare altri documenti o sostituirli usando i pulsanti qua sotto.
+        <p>Puoi caricare altri documenti o sostituirli usando i pulsanti qua sotto.</p>
       </span>
       <?php } else { ?>
       <span class="text-info">
@@ -315,10 +315,10 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
               <div class="span7">
                 <form class="modDocumento" action="?p=presidente.utente.documenti.ok&id=<?php echo $u->id; ?>" method="POST" enctype="multipart/form-data">
                   <input type="hidden" name="tipo" value="<?php echo $tipo; ?>" />
-                  <h2>
+                  <h4>
                     <i class="icon-edit"></i>
                     Modifica o carica nuovo documento
-                  </h2>
+                  </h4>
                   <p>Nel caso tu voglia aggiornare o modificare il documento,<br />
                     segui queste istruzioni:</p>
                     <ol>
