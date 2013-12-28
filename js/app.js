@@ -62,6 +62,24 @@ $(window).ready( function () {
 
 } );
 
+$(document).ready( function() { 
+ 
+  /* Affare che fa scomparire la roba */
+  
+   $("[data-nascondi]").each( function(i, e) {
+    var testo = $(e).html();
+    $(e).html("<i class='" + $(e).data('icona') + "'></i> " + $(e).data('nascondi'))
+      .addClass('btn')
+      .addClass('btn-info');
+    $(e).click( function() {
+      $(e).html(testo)
+        .removeClass('btn')
+        .removeClass('btn-info');
+    });
+  });
+ 
+});
+
 /* Test di funzionamento in HTML5 e caricamento dei polyfill */
 Modernizr.load([
   {

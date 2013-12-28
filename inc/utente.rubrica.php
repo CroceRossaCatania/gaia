@@ -60,7 +60,7 @@ paginaPrivata();
                 <th>Cognome</th>
                 <th>Unità</th>
                 <th>Telefono</th>
-                <th>Azione</th>
+                <th>Email</th>
             </thead>
             <?php 
             $comitato = $me->unComitato();
@@ -76,20 +76,10 @@ paginaPrivata();
                         <td><?php echo $_v->cognome; ?></td>
                         <td><?php echo $_v->unComitato()->nome; ?></td>
                         <td>
-                            <button onclick="$('#tb_<?php echo $id;?>').toggle(); $('#ta_<?php echo $id;?>').toggle();" id="tb_<?php echo $id;?>" class="btn btn-info">
-                                <i class="icon-phone"></i>
-                            </button>
-                            <div id="ta_<?php echo $id;?>" class="nascosto">
-                                <?php echo $_v->cellulare(); ?>
-                            </div>
+                            <span data-nascondi="" data-icona="icon-phone"><?php echo $_v->cellulare(); ?></span>
                         </td>
                         <td>
-                            <button onclick="$('#eb_<?php echo $id;?>').toggle(); $('#ea_<?php echo $id;?>').toggle();" id="eb_<?php echo $id;?>" class="btn btn-info">
-                                <i class="icon-envelope"></i>
-                            </button>
-                            <div id="ea_<?php echo $id;?>" class="nascosto">
-                                <?php echo $_v->email(); ?>
-                            </div>
+                            <span data-nascondi="" data-icona="icon-envelope"><?php echo $_v->email(); ?></span>
                         </td>
                     </tr>
                     <?php }

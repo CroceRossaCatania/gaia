@@ -49,9 +49,9 @@ paginaPrivata();
                 <th>Foto</th>
                 <th>Nome</th>
                 <th>Cognome</th>
-                <th>Telefono</th>
                 <th>Incarico</th>
-                <th>Azione</th>
+                <th>Telefono</th>
+                <th>Email</th>
             </thead>
             <?php 
             $ccompetenza = $me->comitatiDiCompetenza();
@@ -77,7 +77,6 @@ paginaPrivata();
                     <td><img src="<?php echo $_v->avatar()->img(10); ?>" class="img-polaroid" /></td>
                     <td><?php echo $_v->nome; ?></td>
                     <td><?php echo $_v->cognome; ?></td>
-                    <td><?php echo $_v->cellulare(); ?></td>
                     <td>
                         <?php 
                         $presidente = false;
@@ -126,11 +125,11 @@ paginaPrivata();
                         }} ?>
                     </td>
                     <td>
-                        <a class="btn btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>">
-                            <i class="icon-envelope"></i>
-                        </a>
+                        <span data-nascondi="" data-icona="icon-phone"><?php echo $_v->cellulare(); ?></span>
                     </td>
-
+                    <td>
+                        <span data-nascondi="" data-icona="icon-envelope"><?php echo $_v->email(); ?></span>
+                    </td>
                 </tr>
                 <?php 
 
