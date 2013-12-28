@@ -261,7 +261,8 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <div class="alert alert-error">
           <i class="icon-warning-sign"></i>
           <strong>Errore</strong> 
-          <p>File troppo grande o non valido. Si accettano file come <strong>JPG</strong>, <strong>PNG</strong>, ecc.</p>
+          <p>File troppo grande o non valido. Si accettano file come <strong>JPG</strong>, <strong>PNG</strong>, ecc.<br />
+          Al momento non sono ancora supportati i <strong>PDF</strong>.</p>
         </div>
       <?php 
       }
@@ -383,7 +384,6 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       </div>
     </div>
   </div>
-  <hr />
 
   <div class="row-fluid">
     <h4>
