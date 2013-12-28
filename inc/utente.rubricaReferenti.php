@@ -93,6 +93,7 @@ paginaPrivata();
                                 ?>
                                 <strong>Referente</strong>
                                 <?php echo $conf['app_attivita'][$_d->dominio]; ?>
+                                (<?php echo $_d->comitato()->nome; ?>)
                                 <br>
                                 <?php
                                 break;
@@ -100,18 +101,21 @@ paginaPrivata();
                                 ?>
                                 <strong>Delegato</strong>
                                 <?php echo $conf['obiettivi'][$_d->dominio]; ?>
+                                (<?php echo $_d->comitato()->nome; ?>)
                                 <br>
                                 <?php
                                 break;
                                 case APP_SOCI:
                                 ?>
                                 <strong>Delegato</strong> Ufficio Soci
+                                (<?php echo $_d->comitato()->nome; ?>)
                                 <br>
                                 <?php
                                 break;
                                 case APP_CO:
                                 ?>
                                 <strong>Delegato</strong> Centrale Operativa
+                                (<?php echo $_d->comitato()->nome; ?>)
                                 <br>
                                 <?php
                                 break;
