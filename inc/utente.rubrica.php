@@ -44,13 +44,22 @@ paginaPrivata();
             </div>
         </div>
         <hr />
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="alert alert-info">
+                Per visualizzare il numero telefonico dei Volontari in rubrica premi su <i class="icon-phone"></i> ,
+                mentre per visualizzare l'email dei Volontari premi su <i class="icon-envelope"></i> .
+                </div>
+            </div>
+        </div>
+
         <table class="table table-striped table-bordered" id="tabellaUtenti">
             <thead>
                 <th>Foto</th>
                 <th>Nome</th>
                 <th>Cognome</th>
+                <th>Unità</th>
                 <th>Telefono</th>
-                <th>Comitato</th>
                 <th>Azione</th>
             </thead>
             <?php 
@@ -59,17 +68,28 @@ paginaPrivata();
 
             foreach ( $volontari as $_v ) {
                     if($_v->privacy()->contatti($me)) {
+                        $id = $_v->id;
                     ?>
                     <tr>
                         <td><img src="<?php echo $_v->avatar()->img(10); ?>" class="img-polaroid" /></td>
                         <td><?php echo $_v->nome; ?></td>
                         <td><?php echo $_v->cognome; ?></td>
-                        <td><?php echo $_v->cellulare(); ?></td>
-                        <td><?php echo $_v->unComitato()->nomeCompleto(); ?></td>
+                        <td><?php echo $_v->unComitato()->nome; ?></td>
                         <td>
-                            <a class="btn btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>">
+                            <button onclick="$('#tb_<?php echo $id;?>').toggle(); $('#ta_<?php echo $id;?>').toggle();" id="tb_<?php echo $id;?>" class="btn btn-info">
+                                <i class="icon-phone"></i>
+                            </button>
+                            <div id="ta_<?php echo $id;?>" class="nascosto">
+                                <?php echo $_v->cellulare(); ?>
+                            </div>
+                        </td>
+                        <td>
+                            <button onclick="$('#eb_<?php echo $id;?>').toggle(); $('#ea_<?php echo $id;?>').toggle();" id="eb_<?php echo $id;?>" class="btn btn-info">
                                 <i class="icon-envelope"></i>
-                            </a>
+                            </button>
+                            <div id="ea_<?php echo $id;?>" class="nascosto">
+                                <?php echo $_v->email(); ?>
+                            </div>
                         </td>
                     </tr>
                     <?php }
