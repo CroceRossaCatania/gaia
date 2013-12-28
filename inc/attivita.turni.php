@@ -5,10 +5,13 @@
  */
 
 paginaPrivata();
-paginaAttivita();
 caricaSelettore();
 
+controllaParametri(array('id'));
+
 $a = Attivita::id($_GET['id']);
+
+paginaAttivita($a);
 
 if (!$a->haPosizione()) {
     redirect('attivita.localita&id=' . $a->id);

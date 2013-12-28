@@ -2,6 +2,8 @@
 
 paginaPresidenziale();
 
+controllaParametri(array('oid'));
+
 $c = $_POST['oid'];
 $c = GeoPolitica::daOid($c);
 

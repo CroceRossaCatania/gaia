@@ -7,6 +7,12 @@
 /*
  * Normalizzazione dei dati
  */
+
+$parametri = array('id', 'inputNome', 'inputCognome', 'inputDataNascita', 
+	'inputProvinciaNascita', 'inputComuneNascita', 'inputComuneResidenza', 'inputCAPResidenza',
+	'inputProvinciaResidenza', 'inputIndirizzo', 'inputCivico');
+controllaParametri($parametri, 'nuovaAnagrafica&err');
+
 $id         = $_POST['id'];
 $nome       = normalizzaNome($_POST['inputNome']);
 $cognome    = normalizzaNome($_POST['inputCognome']);

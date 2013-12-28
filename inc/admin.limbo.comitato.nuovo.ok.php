@@ -5,7 +5,8 @@
  */
 
 paginaAdmin();
-
+$parametri = array('id', 'inputComitato', 'dataingresso');
+controllaParametri($parametri, 'admin.limbo&err');
 $v = $_GET['id'];
 $c = $_POST['inputComitato'];
 $t = DT::createFromFormat('d/m/Y', $_POST['dataingresso']);
@@ -32,3 +33,5 @@ $m->_PASSWORD   = $password;
 $m->invia();
 
 redirect('admin.limbo&nasp');
+
+?>

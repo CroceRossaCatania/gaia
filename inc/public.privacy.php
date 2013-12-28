@@ -321,14 +321,13 @@
             <li><a href='mailto:supporto@gaia.cri.it'><i class="icon-envelope-alt"></i> supporto@gaia.cri.it</a></li>
             <li><a href='mailto:info@gaia.cri.it'><i class="icon-envelope-alt"></i> info@gaia.cri.it</a></li>
             </ul>
-            </p>
-            <!-- 
+            </p> 
             <p>Tramite posta elettronica certificata:</p>
             <p>
             <ul>
             <li><a href='mailto:gaia@cert.cri.it'><i class="icon-envelope-alt"></i> gaia@cert.cri.it</a></li>
             </ul>
-            </p>-->
+            </p>
             </li>
             
             <h4><li>Indennità ed esclusione di responsabilità</h4>

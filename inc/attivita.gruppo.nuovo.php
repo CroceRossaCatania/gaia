@@ -7,8 +7,11 @@
 paginaPrivata();
 paginaAttivita();
 
+controllaParametri(array('id'));
 $attivita = $_GET['id'];
 $attivita = Attivita::id($attivita);
+
+paginaAttivita($attivita);
 
 $g = new Gruppo();
 	$g->nome        =   $attivita->nome;
@@ -20,3 +23,5 @@ $g = new Gruppo();
 	$g->estensione	=	EST_GRP_UNITA;
 
 redirect('attivita.scheda&gok&id=' . $attivita->id);
+
+?>

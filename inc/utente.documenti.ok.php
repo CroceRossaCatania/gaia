@@ -6,6 +6,8 @@
 
 paginaPrivata();
 
+controllaParametri(array('tipo'));
+
 $t = $_POST['tipo'];
 $f = $_FILES['file'];
 

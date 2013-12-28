@@ -8,8 +8,12 @@ paginaPresidenziale();
 caricaSelettore();
 paginaModale();
 
+controllaParametri(array('id'), 'gruppi.dash&err');
+
 $gruppo = $_GET['id'];
 $gruppo = Gruppo::id($gruppo);
+
+proteggiClasse($gruppo, $me);
 
 ?>
 <form action="?p=gruppo.referente.nuovo.ok" method="POST">

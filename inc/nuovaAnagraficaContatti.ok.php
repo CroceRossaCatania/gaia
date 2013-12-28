@@ -1,13 +1,15 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 /*
  * Sessione utente necessaria
  */
+
 paginaPrivata();
+controllaParametri(array('inputEmail'), 'nuovaAnagraficaContatti&err');
 
 /*
  * Normalizzazione dei dati
@@ -48,7 +50,12 @@ if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
 
     redirect('nuovaAnagraficaAccesso');
 } else {
-    redirect('mailAspirante');
+    $m = new Email('registrazioneAspirante', 'Grazie futuro volontario');
+	$m->a     = $sessione->utente();
+	$m->_NOME = $sessione->utente()->nome;
+	$m->invia();
+	$sessione->utente = NULL;
+	redirect('grazieAspirante');
 }
 
 ?>

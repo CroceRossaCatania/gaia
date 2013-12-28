@@ -5,6 +5,7 @@
  */
 
 paginaApp([APP_SOCI , APP_PRESIDENTE ]);
+$admin = $me->admin();
 
 menuElenchiVolontari(
     "Volontari attivi",
@@ -40,6 +41,12 @@ menuElenchiVolontari(
         <p>L'utente chi hai cercato di attivare risulta già attivo su Gaia. Per maggiori informazioni contatta il supporto.</p>
     </div>
     <?php } ?>
+    <?php if (isset($_GET['errGen'])) { ?>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+            <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+        </div> 
+    <?php } ?>
     
     <div class="row-fluid">
 
@@ -57,7 +64,7 @@ menuElenchiVolontari(
                 <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id={id}" title="Invia Mail">
                     <i class="icon-envelope"></i>
                 </a>
-                <?php if ($me->admin) { ?>
+                <?php if ($admin) { ?>
                 <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id={id}" title="Cancella Utente" class="btn btn-small btn-warning">
                     <i class="icon-trash"></i> Cancella
                 </a>

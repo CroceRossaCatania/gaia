@@ -6,6 +6,8 @@
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
+controllaParametri(array('id'), 'presidente.utenti&errGen');
+
 $v     = $_GET['id'];
 $v = Volontario::id($v);
 

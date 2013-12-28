@@ -20,6 +20,12 @@ $t = Volontario::elenco();
             <h4><i class="icon-save"></i> Nuovo Volontario assegnato</h4>
         </div>
 <?php } ?>
+<?php if (isset($_GET['err'])) { ?>
+    <div class="alert alert-block alert-error">
+        <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+        <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+    </div> 
+<?php } ?>
     <br/>
 <div class="row-fluid">
     <div class="span8">
@@ -103,15 +109,17 @@ $t = Volontario::elenco();
                             <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
                                 <i class="icon-eye-open"></i> Dettagli
                             </a>
-                            <?php if ($_v->nome && $_v->cognome) {?>
+                            <?php if ($_v->email) {?>
                             <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                 <i class="icon-envelope"></i>
+                            </a>
+                            <?php } ?>
+                            <a class="btn btn-small btn-primary" href="?p=admin.stato.modifica&id=<?php echo $_v->id; ?>" title="Cambia stato">
+                                <i class="icon-random"></i> Cambia stato
                             </a>
                             <a class="btn btn-small btn-info" href="?p=admin.limbo.comitato.nuovo&id=<?php echo $_v->id; ?>" title="Assegna a Comitato">
                                     <i class="icon-arrow-right"></i> Assegna a Comitato
                             </a>
-                            <?php } ?>
-                            
                             <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.limbo.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
                             <i class="icon-trash"></i> Cancella
                             </a>

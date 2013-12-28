@@ -6,6 +6,8 @@
 
 paginaPrivata();
 
+controllaParametri(array('id'), 'presidente.trasferimento&err');
+
 $f = $_GET['id'];
 $t = Trasferimento::id($f);
 $cin = $t->comitato();

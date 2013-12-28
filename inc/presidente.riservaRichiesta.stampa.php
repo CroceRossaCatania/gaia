@@ -6,6 +6,8 @@
 
 paginaPrivata();
 
+controllaParametri(array('id'), 'presidente.riserva&err');
+
 $f = $_GET['id'];
 $t = Riserva::id($f);
 

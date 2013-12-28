@@ -1,5 +1,12 @@
 <?php
+
+paginaPrivata();
+
+controllaParametri(array('id'), 'attivita.gestione&err');
 $a = Attivita::id($_GET['id']);
+
+paginaAttivita($a);
+
 ?>
 
 <div class="row-fluid">
