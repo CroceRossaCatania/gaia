@@ -47,8 +47,8 @@ paginaPrivata();
         <div class="row-fluid">
             <div class="span12">
                 <div class="alert alert-info">
-                Per visualizzare il numero telefonico dei Volontari in rubrica premi su <i class="icon-phone"></i> ,
-                mentre per visualizzare l'email dei Volontari premi su <i class="icon-envelope"></i> .
+                Per visualizzare il numero di telefono dei Volontari in rubrica premi su <i class="icon-phone"></i> ,
+                mentre per visualizzare l'email premi su <i class="icon-envelope"></i> .
                 </div>
             </div>
         </div>

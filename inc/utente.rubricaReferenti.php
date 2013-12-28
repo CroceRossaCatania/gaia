@@ -44,6 +44,14 @@ paginaPrivata();
 
         </div>
         <hr />
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="alert alert-info">
+                Per visualizzare il numero di telefono dei Volontari in rubrica premi su <i class="icon-phone"></i> ,
+                mentre per visualizzare l'email premi su <i class="icon-envelope"></i> .
+                </div>
+            </div>
+        </div>
         <table class="table table-striped table-bordered" id="tabellaUtenti">
             <thead>
                 <th>Foto</th>
