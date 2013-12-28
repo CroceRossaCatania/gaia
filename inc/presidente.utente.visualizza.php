@@ -254,20 +254,131 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 </div>
 <!--Visualizzazione e modifica appartenenze utente -->
 <div class="span6">
+  <div class="row-fluid">
+    <div class="span112">
+      <h4><i class="icon-folder-open"></i> Documenti volontario</h4>
+      <?php if ( $u->documenti() ) { ?>
+      <a href="?p=presidente.utente.documenti&id=<?php echo $u->id; ?>" data-attendere="Generazione in corso...">
+        <i class="icon-download-alt"></i>
+        Scarica documenti del volontario in ZIP
+      </a>
+      <span class="text-info">
+        Puoi caricare altri documenti o sostituirli usando i pulsanti qua sotto.
+      </span>
+      <?php } else { ?>
+      <span class="text-info">
+        <i class="icon-warning-sign"></i>
+        Il volontario non ha caricato documenti. Puoi caricarli usando i pulsanti qua sotto.
+      </span>
+      <?php } ?>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span12 centrato">
+      <br />
+      <div class="tabbable">
+        <ul class="nav nav-tabs">
+          <?php foreach ( $conf['docs_tipologie'] as $tipo => $nome ) { ?>
+          <li><a href="#tab<?=$tipo?>" data-toggle="tab"><?=$nome?></a></li>
+          <?php } ?>
+        </ul>
+        <div class="tab-content">
+          <?php foreach ( $conf['docs_tipologie'] as $tipo => $nome ) { ?>
+          <div class="tab-pane" id="tab<?=$tipo?>">
+            <div class="row-fluid">
+            <!-- INIZIO BLOCCO DOCUMENTI-->
 
-  <h4><i class="icon-folder-open"></i> Documenti volontario</h4>
+            <?php if ( $d = $u->documento($tipo) ) { ?>
+            <div class="row-fluid">
+              <div class="span5 allinea-centro">
+                <div class="alert alert-info allinea-sinistra">
+                  <i class="icon-time"></i>
+                  Documento caricato il <strong><?php echo date('d-m-Y', $d->timestamp); ?></strong>.
+                </div> 
+                <p><img src="<?php echo $d->anteprima(); ?>" class="img-polaroid" /></p>
+                <p>
+                  <a href="<?php echo $d->originale(); ?>" class="btn btn-primary" target="_new">
+                    <i class="icon-download"></i>
+                    Scarica questo documento
+                  </a>
+                </p>
+              </div>
+              <div class="span7">
+                <?php if($a!=1){ ?>
+                <form class="modDocumento" action="?p=utente.documenti.ok" method="POST" enctype="multipart/form-data">
+                  <input type="hidden" name="tipo" value="<?php echo $tipo; ?>" />
+                  <h3>
+                    <i class="icon-edit"></i>
+                    Modifica o carica nuovo documento
+                  </h3>
+                  <p>Nel caso tu voglia aggiornare o modificare il documento,<br />
+                    segui queste istruzioni:</p>
+                    <ol>
+                      <li>
+                        <p>
+                          <strong>Seleziona il file</strong> dal tuo computer:<br />
+                          <input type="file" name="file" />
+                        </p>
+                      </li>
+                      <li><p>
+                        <strong>Clicca sul pulsante</strong>:<br />
+                        <button type="submit" class="btn btn-success">
+                          <i class="icon-save"></i> Carica documento
+                        </button>
+                      </p>
+                    </li>
+                  </ol>
+                </form>
+                <?php } ?>
+              </div>
+            </div>
+            <?php } else { ?>
+            <div class="row-fluid">
+              <div class="span5 allinea-centro">
+                <div class="alert alert-warning allinea-sinistra">
+                  <i class="icon-warning-sign"></i>
+                  Nessun documento caricato.
+                </div> 
+                <p>
+                </p>
+              </div>
+              <div class="span7">
+                <?php if($a!=1){ ?>
+                <form class="modDocumento" action="?p=utente.documenti.ok" method="POST" enctype="multipart/form-data">
+                  <input type="hidden" name="tipo" value="<?php echo $tipo; ?>" />
+                  <h4>
+                    <i class="icon-plus"></i>
+                    Aggiungi il documento
+                  </h4>
+                  <ol>
+                    <li>
+                      <p>
+                        <strong>Seleziona il file</strong> dal tuo computer:<br />
+                        <input type="file" name="file" />
+                      </p>
+                    </li>
+                    <li><p>
+                      <strong>Clicca sul pulsante</strong>:<br />
+                      <button type="submit" class="btn btn-success">
+                        <i class="icon-save"></i> Carica documento
+                      </button>
+                    </p>
+                  </li>
+                </ol>
+                <?php } ?>
+              </form>
+            </div>
+          </div>
+          <?php } ?>
 
-  <?php if ( $u->documenti() ) { ?>
-  <a href="?p=presidente.utente.documenti&id=<?php echo $u->id; ?>" data-attendere="Generazione in corso...">
-    <i class="icon-download-alt"></i>
-    Scarica documenti del volontario in ZIP
-  </a>
-  <?php } else { ?>
-  <span class="text-info">
-    <i class="icon-warning-sign"></i>
-    Il volontario non ha caricato documenti.
-  </span>
-  <?php } ?>
+            <!-- FINE BLOCCO DOCUMENTI-->
+            </div>
+          </div>
+          <?php } ?>
+        </div>
+      </div>
+    </div>
+  </div>
   <hr />
 
   <div class="row-fluid">
