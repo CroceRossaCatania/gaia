@@ -263,10 +263,10 @@ function _tabella (i, e) {
             '<span id="' + _tid + '_c">Z</span> risultati trovati' +
         '</div>' + 
         '<div class="span2 btn-group allinea-centro grassetto">' +
-            '<a id="' + _tid + '_indietro" class="btn">' +
+            '<a id="' + _tid + '_indietroU" class="btn">' +
                 '<i class="icon-chevron-left"></i>' +
             '</a>' +
-            '<a id="' + _tid + '_avanti" class="btn">' +
+            '<a id="' + _tid + '_avantiU" class="btn">' +
                 '<i class="icon-chevron-right"></i>' +
             '</a>' +
         '</div>' + 
@@ -279,6 +279,19 @@ function _tabella (i, e) {
         '</div>'
     );
     $(e).before(x);
+    var y = $(
+        '<div id="'+ _tid + '_ricerca" class="row-fluid ricerca-tabella">' +
+        '<div class="span2 offset5 btn-group allinea-centro grassetto">' +
+            '<a id="' + _tid + '_indietroD" class="btn">' +
+                '<i class="icon-chevron-left"></i>' +
+            '</a>' +
+            '<a id="' + _tid + '_avantiD" class="btn">' +
+                '<i class="icon-chevron-right"></i>' +
+            '</a>' +
+        '</div>' + 
+        '</div>'
+    );
+    $(e).after(y);
     $(e).data('tid', _tid);
     $('#' + _tid + '_ricerca').find('input').change( function(x, y) {
         _tabella_ricerca ( e, $(this).val(), $(this) );
@@ -306,11 +319,20 @@ function _tabella_ricerca ( e, query, input, pagina ) {
         _tabella_ridisegna(e, dati.response, input);
          /* Pulsante indietro... */
         if ( pagina == 1 ) {
-            $('#' + _tid + '_indietro')
+            $('#' + _tid + '_indietroU')
+                .unbind('click')
+                .addClass('disabled');
+            $('#' + _tid + '_indietroD')
                 .unbind('click')
                 .addClass('disabled');
         } else {
-            $('#' + _tid + '_indietro')
+            $('#' + _tid + '_indietroU')
+                .unbind('click')
+                .removeClass('disabled')
+                .click ( function () {
+                    _tabella_ricerca(e, query, input, pagina - 1);
+                });
+            $('#' + _tid + '_indietroD')
                 .unbind('click')
                 .removeClass('disabled')
                 .click ( function () {
@@ -319,11 +341,20 @@ function _tabella_ricerca ( e, query, input, pagina ) {
         }   
         /* Pulsante avanti... */
         if ( pagina == dati.response.pagine ) {
-            $('#' + _tid + '_avanti')
+            $('#' + _tid + '_avantiU')
+                .unbind('click')
+                .addClass('disabled');
+            $('#' + _tid + '_avantiD')
                 .unbind('click')
                 .addClass('disabled');
         } else {
-            $('#' + _tid + '_avanti')
+            $('#' + _tid + '_avantiU')
+                .unbind('click')
+                .removeClass('disabled')
+                .click ( function () {
+                    _tabella_ricerca(e, query, input, pagina + 1);
+                });
+            $('#' + _tid + '_avantiD')
                 .unbind('click')
                 .removeClass('disabled')
                 .click ( function () {
