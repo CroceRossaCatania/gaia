@@ -257,7 +257,15 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
   <div class="row-fluid">
     <div class="span112">
       <h4><i class="icon-folder-open"></i> Documenti volontario</h4>
-      <?php if ( $u->documenti() ) { ?>
+      <?php if(isset($_GET['errDoc'])){?>
+        <div class="alert alert-error">
+          <i class="icon-warning-sign"></i>
+          <strong>Errore</strong> 
+          <p>File troppo grande o non valido. Si accettano file come <strong>JPG</strong>, <strong>PNG</strong>, ecc.</p>
+        </div>
+      <?php 
+      }
+      if ( $u->documenti() ) { ?>
       <a href="?p=presidente.utente.documenti&id=<?php echo $u->id; ?>" data-attendere="Generazione in corso...">
         <i class="icon-download-alt"></i>
         Scarica documenti del volontario in ZIP
@@ -304,13 +312,12 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
                 </p>
               </div>
               <div class="span7">
-                <?php if($a!=1){ ?>
-                <form class="modDocumento" action="?p=utente.documenti.ok" method="POST" enctype="multipart/form-data">
+                <form class="modDocumento" action="?p=presidente.utente.documenti.ok&id=<?php echo $u->id; ?>" method="POST" enctype="multipart/form-data">
                   <input type="hidden" name="tipo" value="<?php echo $tipo; ?>" />
-                  <h3>
+                  <h2>
                     <i class="icon-edit"></i>
                     Modifica o carica nuovo documento
-                  </h3>
+                  </h2>
                   <p>Nel caso tu voglia aggiornare o modificare il documento,<br />
                     segui queste istruzioni:</p>
                     <ol>
@@ -329,7 +336,6 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
                     </li>
                   </ol>
                 </form>
-                <?php } ?>
               </div>
             </div>
             <?php } else { ?>
@@ -337,14 +343,13 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
               <div class="span5 allinea-centro">
                 <div class="alert alert-warning allinea-sinistra">
                   <i class="icon-warning-sign"></i>
-                  Nessun documento caricato.
+                  Non caricato.
                 </div> 
                 <p>
                 </p>
               </div>
               <div class="span7">
-                <?php if($a!=1){ ?>
-                <form class="modDocumento" action="?p=utente.documenti.ok" method="POST" enctype="multipart/form-data">
+                <form class="modDocumento" action="?p=presidente.utente.documenti.ok&id=<?php echo $u->id; ?>" method="POST" enctype="multipart/form-data">
                   <input type="hidden" name="tipo" value="<?php echo $tipo; ?>" />
                   <h4>
                     <i class="icon-plus"></i>
@@ -365,7 +370,6 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
                     </p>
                   </li>
                 </ol>
-                <?php } ?>
               </form>
             </div>
           </div>
