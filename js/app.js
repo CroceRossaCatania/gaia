@@ -263,10 +263,10 @@ function _tabella (i, e) {
             '<span id="' + _tid + '_c">Z</span> risultati trovati' +
         '</div>' + 
         '<div class="span2 btn-group allinea-centro grassetto">' +
-            '<a id="' + _tid + '_indietroU" class="btn">' +
+            '<a class="btn ' + _tid + '_indietro">' +
                 '<i class="icon-chevron-left"></i>' +
             '</a>' +
-            '<a id="' + _tid + '_avantiU" class="btn">' +
+            '<a class="btn ' + _tid + '_avanti">' +
                 '<i class="icon-chevron-right"></i>' +
             '</a>' +
         '</div>' + 
@@ -282,10 +282,10 @@ function _tabella (i, e) {
     var y = $(
         '<div id="'+ _tid + '_ricerca" class="row-fluid ricerca-tabella">' +
         '<div class="span2 offset5 btn-group allinea-centro grassetto">' +
-            '<a id="' + _tid + '_indietroD" class="btn">' +
+            '<a class="btn ' + _tid + '_indietro">' +
                 '<i class="icon-chevron-left"></i>' +
             '</a>' +
-            '<a id="' + _tid + '_avantiD" class="btn">' +
+            '<a class="btn ' + _tid + '_avanti">' +
                 '<i class="icon-chevron-right"></i>' +
             '</a>' +
         '</div>' + 
@@ -319,20 +319,11 @@ function _tabella_ricerca ( e, query, input, pagina ) {
         _tabella_ridisegna(e, dati.response, input);
          /* Pulsante indietro... */
         if ( pagina == 1 ) {
-            $('#' + _tid + '_indietroU')
-                .unbind('click')
-                .addClass('disabled');
-            $('#' + _tid + '_indietroD')
+            $('.' + _tid + '_indietro')
                 .unbind('click')
                 .addClass('disabled');
         } else {
-            $('#' + _tid + '_indietroU')
-                .unbind('click')
-                .removeClass('disabled')
-                .click ( function () {
-                    _tabella_ricerca(e, query, input, pagina - 1);
-                });
-            $('#' + _tid + '_indietroD')
+            $('.' + _tid + '_indietro')
                 .unbind('click')
                 .removeClass('disabled')
                 .click ( function () {
@@ -341,20 +332,11 @@ function _tabella_ricerca ( e, query, input, pagina ) {
         }   
         /* Pulsante avanti... */
         if ( pagina == dati.response.pagine ) {
-            $('#' + _tid + '_avantiU')
-                .unbind('click')
-                .addClass('disabled');
-            $('#' + _tid + '_avantiD')
+            $('.' + _tid + '_avanti')
                 .unbind('click')
                 .addClass('disabled');
         } else {
-            $('#' + _tid + '_avantiU')
-                .unbind('click')
-                .removeClass('disabled')
-                .click ( function () {
-                    _tabella_ricerca(e, query, input, pagina + 1);
-                });
-            $('#' + _tid + '_avantiD')
+            $('.' + _tid + '_avanti')
                 .unbind('click')
                 .removeClass('disabled')
                 .click ( function () {
