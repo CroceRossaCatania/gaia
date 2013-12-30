@@ -20,15 +20,20 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 <div class="row-fluid">
   <div class="span6">
     <?php if ( isset($_GET['ok']) ) { ?>
-    <div class="alert alert-success">
-      <i class="icon-save"></i> <strong>Salvato</strong>.
-      Le modifiche richieste sono state memorizzate con successo.
-    </div>
+      <div class="alert alert-success">
+        <i class="icon-save"></i> <strong>Salvato</strong>.
+        Le modifiche richieste sono state memorizzate con successo.
+      </div>
     <?php } elseif(isset($_GET['att'])) {?>
-    <div class="alert alert-success">
-      <i class="icon-user"></i> <strong>Account attivato</strong>.
-      L'account dell'utente è stato attivato con successo.
-    </div>
+      <div class="alert alert-success">
+        <i class="icon-user"></i> <strong>Account attivato</strong>.
+        L'account dell'utente è stato attivato con successo.
+      </div>
+    <?php } elseif(isset($_GET['email'])) {?>
+      <div class="alert alert-danger">
+        <i class="icon-warning-sign"></i> <strong>Email già presente</strong>.
+        L'email che si sta tentando di sostituire appartiene già ad un altro utente.
+      </div>
     <?php } ?>
 
     <!-- Attivazione account -->
