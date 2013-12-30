@@ -8,18 +8,18 @@ paginaAdmin();
 paginaModale();
 ?>
 
-<form class="form-horizontal" action="?p=admin.ricerca.cf.ok" method="POST">
+<form class="form-horizontal" action="?p=admin.ricerca.ok" method="POST">
   <div class="modal fade automodal">
     <div class="modal-header">
-      <h3><i class="icon-search"></i> Cerca Utente per CF</h3>
+      <h3><i class="icon-search"></i> Cerca Utente per CF o Id</h3>
     </div>
     <div class="modal-body">
       <div class="row-fluid">
         <div class="span4 centrato">
-          <label class="control-label" for="inputCF">Codice Fiscale</label>
+          <label class="control-label" for="input">CF/id</label>
         </div>
         <div class="span8">
-          <input class="input-medium" type="text" name="inputCF" id="inputCF" autofocus required>
+          <input class="input-medium" type="text" name="input" id="input" autofocus required>
         </div>
       </div>
     </div>

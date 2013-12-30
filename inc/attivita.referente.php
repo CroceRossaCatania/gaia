@@ -5,7 +5,6 @@
  */
 
 paginaPrivata();
-paginaAttivita();
 caricaSelettore();
 paginaModale();
 
@@ -13,6 +12,8 @@ controllaParametri(array('id'));
 
 $attivita = $_GET['id'];
 $attivita = Attivita::id($attivita);
+
+paginaAttivita($attivita);
 
 if(isset($_GET['g'])){ ?>
         <form action="?p=attivita.referente.ok&g" method="POST">

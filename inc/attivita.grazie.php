@@ -11,6 +11,8 @@ controllaParametri(array('id'));
 $attivita = $_GET['id'];
 $attivita = Attivita::id($attivita);
 
+paginaAttivita($attivita);
+
 ?>
 
 <div class="modal fade automodal">

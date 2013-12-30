@@ -7,9 +7,13 @@
 paginaPrivata();
 
 controllaParametri(array('id'));
-$a = $_GET['id'];
-$p = Attivita::id($a);
+$p = Attivita::id($_GET['id']);
 $c = Commento::filtra([['attivita', $a],['upCommento', '0']], 'tCommenta DESC');
+
+if (!$p->puoPartecipare($me)) {
+    redirect("attivita.scheda&id={$p->id}");
+}
+
 ?>
 
 <div class="row-fluid">
@@ -20,26 +24,24 @@ $c = Commento::filtra([['attivita', $a],['upCommento', '0']], 'tCommenta DESC');
     <div class="span9">
         <div class="row-fluid">
             <div class="span3 allinea-sinistra">
-                <a href="?p=attivita.scheda&id=<?php echo $a ?>" class="btn btn-large">
+                <a href="?p=attivita.scheda&id=<?php echo $p->id; ?>" class="btn btn-large">
                     <i class="icon-reply"></i> Attività
                 </a>
             </div>
-            <div class="span9">
+            <div class="span6 allinea-centro">
                 <h3><?php echo $p->nome; ?></h3>
             </div>
+            <div class="span3">
+            </div>
+        </div>
+        <div class="row-fluid">
             <div class="span12 btn-group allinea-centro">
                 <a id="pulsanteScrivi" class="btn">
                     <i class="icon-comment"></i> Commenta
                 </a>
-                <!--<a href="?p=attivita.pagina.foto&a=<?php echo $a; ?>" class="btn btn-info">
-                    <i class="icon-camera"></i> Foto
-                </a>
-                <a href="?p=attivita.pagina.verbale&a=<?php echo $a; ?>" class="btn btn-danger">
-                    <i class="icon-edit"></i> Verbale
-                </a>-->
             </div>     
         </div>
-        <hr /> 
+        <hr />
         <form id="boxScrivi" action="?p=attivita.pagina.commento.ok&id=<?php echo $p->id; ?>" method="POST" class="row-fluid <?php if ( $c ) { ?>nascosto<?php } ?>">
                     <div class="span9">
                         <textarea name="inputCommento" autofocus placeholder="Scrivi il tuo messaggio..." rows="3" class="span12"></textarea>
@@ -57,7 +59,7 @@ $c = Commento::filtra([['attivita', $a],['upCommento', '0']], 'tCommenta DESC');
                         </button>
                     </div>
                 </form>
-        <?php 
+        <?php
             if(!$c){ ?>
                 <div class="alert alert-info">
                     <h3><i class="icon-thumbs-down"></i> Nessuna discussione presente in questa pagina.</h3>
