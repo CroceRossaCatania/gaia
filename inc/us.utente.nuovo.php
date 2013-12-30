@@ -93,7 +93,7 @@ caricaSelettoreComitato();
             </div>
             <div class="row-fluid">            
                 <div class="span4 centrato">
-                    <label class="control-label" for="inputComuneNascita">Comune di nascita</label>
+                    <label class="control-label" for="inputComuneNascita">Comune di nascita * </label>
                 </div>
                 <div class="span8">
                     <input type="text" name="inputComuneNascita" id="inputComuneNascita" required />
@@ -101,7 +101,7 @@ caricaSelettoreComitato();
             </div>
             <div class="row-fluid">            
                 <div class="span4 centrato">
-                    <label class="control-label" for="inputProvinciaNascita">Provincia di nascita</label>
+                    <label class="control-label" for="inputProvinciaNascita">Provincia di nascita * </label>
                 </div>
                 <div class="span8">
                     <input type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" required />
@@ -112,7 +112,7 @@ caricaSelettoreComitato();
                     <label class="control-label" for="inputComuneResidenza">Comune di residenza</label>
                 </div>
                 <div class="span8">
-                    <input  type="text" id="inputComuneResidenza" name="inputComuneResidenza" required />
+                    <input  type="text" id="inputComuneResidenza" name="inputComuneResidenza" />
                 </div>
             </div>
             <div class="row-fluid">            
@@ -120,7 +120,7 @@ caricaSelettoreComitato();
                     <label class="control-label" for="inputProvinciaResidenza">Provincia di residenza</label>
                 </div>
                 <div class="span8">
-                    <input type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" required pattern="[A-Za-z]{2}" />
+                    <input type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" pattern="[A-Za-z]{2}" />
                 </div>
             </div>
             <div class="row-fluid">            
@@ -128,7 +128,7 @@ caricaSelettoreComitato();
                     <label class="control-label" for="inputCAPResidenza">CAP di residenza</label>
                 </div>
                 <div class="span8">
-                    <input type="text" id="inputCAPResidenza" name="inputCAPResidenza" required pattern="[0-9]{5}" />
+                    <input type="text" id="inputCAPResidenza" name="inputCAPResidenza" pattern="[0-9]{5}" />
                 </div>
             </div>
             <div class="row-fluid">            
@@ -136,7 +136,7 @@ caricaSelettoreComitato();
                     <label class="control-label" for="inputIndirizzo">Indirizzo di residenza</label>
                 </div>
                 <div class="span8">
-                    <input type="text" id="inputIndirizzo" name="inputIndirizzo" required />
+                    <input type="text" id="inputIndirizzo" name="inputIndirizzo" />
                 </div>
             </div>
             <div class="row-fluid">            
@@ -144,7 +144,7 @@ caricaSelettoreComitato();
                     <label class="control-label" for="inputCivico">Numero civico</label>
                 </div>
                 <div class="span8">
-                    <input type="text" id="inputCivico" name="inputCivico" required />
+                    <input type="text" id="inputCivico" name="inputCivico" />
                 </div>
             </div>
             <div class="row-fluid">            
