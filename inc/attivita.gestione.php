@@ -5,6 +5,9 @@
  */
 
 paginaPrivata();
+
+$mieAree = $me->areeDiCompetenza();
+
 ?>
 
 <div class="row-fluid">
@@ -85,7 +88,7 @@ paginaPrivata();
                         
                         
                         <td style="width: 20%;">
-                            <?php if ($me->presidenziante() || $me->admin()){ ?>
+                            <?php if (in_array($attivita->area(), $mieAree) || $me->admin()){ ?>
                             <a href="?p=attivita.referente.nuovo&id=<?= $attivita->id; ?>">
                                 <i class="icon-pencil"></i> 
                                 cambia referente

@@ -4,12 +4,12 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_PRESIDENTE], $c);
-
 controllaParametri(array('oid'));
 
 $c = $_GET['oid'];
 $c = GeoPolitica::daOid($c);
+
+paginaApp([APP_PRESIDENTE], $c);
 
 ?>
 
@@ -37,7 +37,8 @@ $c = GeoPolitica::daOid($c);
     <h4><i class="icon-info-sign"></i> Completa la scheda dell'Unità territoriale</h4>
     <p>Al fine di migliorare l'esperienza d'uso di Gaia da parte dei volontari, chiediamo ai presidenti di inserire
       alcune informazioni relative alle loro unità territoriali.</p>
-      <p>Per favore, completa immediatamente i dettagli per <strong><?php echo $c->nome; ?></strong>. <strong>Potrai modificarle in seguito.</strong></p>
+      <p>I dati contrassegnati da asterisco (*) sono obbligatori.</p>
+      <p>Per favore, completa immediatamente i dettagli per <strong><?php echo $c->nome; ?></strong>. <strong>Potrai modificarli in seguito.</strong></p>
       <p><i><i class="icon-warning-sign"></i> Non potrai usare altre funzioni di Gaia fino al completamento delle schede delle tue unità territoriali.</i></p>
     </div>
     <?php } ?>
@@ -85,25 +86,25 @@ $c = GeoPolitica::daOid($c);
       
       <div class="span5">
         
-        <h3>Località dell'unità</h3>
+        <h3>Localizza l'unità</h3>
         <div class="form-horizontal">
 
           <div class="control-group">
-            <label class="control-label" for="inputIndirizzo">Indirizzo</label>
+            <label class="control-label" for="inputIndirizzo">Indirizzo * </label>
             <div class="controls">
               <input type="text" name="inputIndirizzo" id="inputIndirizzo" required value="<?php echo $c->indirizzo; ?>" />
             </div>
           </div>
           
           <div class="control-group">
-            <label class="control-label" for="inputCivico">Civico</label>
+            <label class="control-label" for="inputCivico">Numero civico * </label>
             <div class="controls">
               <input type="text" class="input-mini" name="inputCivico" id="inputCivico" value="<?php echo $c->civico; ?>" />
             </div>
           </div>
           
           <div class="control-group">
-            <label class="control-label" for="inputCAP">CAP</label>
+            <label class="control-label" for="inputCAP">CAP * </label>
             <div class="controls">
               <input type="text" class="input-small" name="inputCAP" id="inputCAP" required value="<?php echo $c->cap; ?>" />
             </div>
@@ -111,7 +112,7 @@ $c = GeoPolitica::daOid($c);
           
           
           <div class="control-group">
-            <label class="control-label" for="inputComune">Comune</label>
+            <label class="control-label" for="inputComune">Comune * </label>
             <div class="controls">
               <input type="text" name="inputComune" id="inputComune" required value="<?php echo $c->comune; ?>" />
             </div>
@@ -119,7 +120,7 @@ $c = GeoPolitica::daOid($c);
           
           
           <div class="control-group">
-            <label class="control-label" for="inputProvincia">Provincia</label>
+            <label class="control-label" for="inputProvincia">Provincia * </label>
             <div class="controls">
               <input type="text" name="inputProvincia" id="inputProvincia" required value="<?php echo $c->provincia; ?>" />
             </div>
