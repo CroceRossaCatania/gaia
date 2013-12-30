@@ -49,8 +49,8 @@ if ( ($p->password) ) {
         </div>
         <div class="alert alert-info">
             <h4><i class="icon-pencil"></i> <strong>Alcuni campi sono obbligatori</strong>.</h4>
-            <p>I campi contrassegnati dall'asterisco (*) sono obbligatori. Potrai compilare
-                gli altri campi anche in un secondo momento dalla tua anagrafica.</p>
+            <p>I campi contrassegnati dall'asterisco (*) sono obbligatori. Potrai aggiornare
+                le informazioni sulla residenza anche in un secondo momento dalla tua anagrafica.</p>
         </div>
 
     </div>
@@ -112,52 +112,52 @@ if ( ($p->password) ) {
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputComuneNascita">Comune di nascita</label>
+                <label class="control-label" for="inputComuneNascita">Comune di nascita * </label>
                 <div class="controls">
                     <input value="<?php echo $sessione->conascita; ?>" type="text" id="inputComuneNascita" name="inputComuneNascita" required />
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputProvinciaNascita">Provincia di nascita</label>
+                <label class="control-label" for="inputProvinciaNascita">Provincia di nascita * </label>
                 <div class="controls">
                     <input value="<?php echo $sessione->prnascita; ?>" class="input-mini" type="text" id="inputProvinciaNascita" name="inputProvinciaNascita" required pattern="[A-Za-z]{2}" />
                     &nbsp; <span class="muted">ad es.: CT</span>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputComuneResidenza">Comune di residenza</label>
+                <label class="control-label" for="inputComuneResidenza">Comune di residenza * </label>
                 <div class="controls">
                     <input value="<?php echo $sessione->coresidenza; ?>" type="text" id="inputComuneResidenza" name="inputComuneResidenza" required />
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputProvinciaResidenza">Provincia di residenza</label>
+                <label class="control-label" for="inputProvinciaResidenza">Provincia di residenza * </label>
                 <div class="controls">
                     <input value="<?php echo $sessione->prresidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" required pattern="[A-Za-z]{2}" />
                     &nbsp; <span class="muted">ad es.: CT</span>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputCAPResidenza">CAP di residenza</label>
+                <label class="control-label" for="inputCAPResidenza">CAP di residenza * </label>
                 <div class="controls">
                     <input value="<?php echo $sessione->caresidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" required pattern="[0-9]{5}" />
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputIndirizzo">Indirizzo di residenza</label>
+                <label class="control-label" for="inputIndirizzo">Indirizzo di residenza * </label>
                 <div class="controls">
                     <input value="<?php echo $sessione->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" required />
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputCivico">Numero civico</label>
+                <label class="control-label" for="inputCivico">Numero civico * </label>
                 <div class="controls">
                     <input value="<?php echo $sessione->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" required />
                 </div>
             </div>
             <div class="control-group">
                 <label class="checkbox" for="inputConsenso">
-                    <input type="checkbox" id="inputConsenso" name="inputConsenso" required>Acconsento al trattamento sui dati personali nel rispetto delle attuali <a href="javascript:" onclick="window.open('/inc/public.disclaimer.php', 'disclaimer', 'width=600, height=500, resizable, status, scrollbars=1, location');"><i class="icon-link"></i>normative vigenti</a>.
+                    <input type="checkbox" id="inputConsenso" name="inputConsenso" required>Acconsento al trattamento sui dati personali nel rispetto delle attuali <a href="javascript:" onclick="window.open('/inc/public.privacy.php', 'disclaimer', 'width=600, height=500, resizable, status, scrollbars=1, location');"><i class="icon-link"></i>normative vigenti</a>.
                 </label>
             </div>
             <div class="control-group">
