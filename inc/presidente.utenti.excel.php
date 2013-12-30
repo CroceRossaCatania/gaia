@@ -9,7 +9,7 @@ controllaParametri(array('comitato'), 'presidente.utenti&errGen');
 
 $c = $_GET['comitato'];
 $c = Comitato::id($c);
-
+$i=0;
 paginaApp([APP_SOCI , APP_PRESIDENTE, APP_OBIETTIVO], [$c]);
 
 
@@ -270,6 +270,54 @@ if(isset($_GET['dimessi'])){
 
     }
     $excel->genera("Volontari estesi.xls");
+    $excel->download();
+    
+}elseif(isset($_GET['soci'])){
+    $excel = new Excel();
+    $excel->intestazione([
+            'N.',
+            'Nome',
+            'Cognome',
+            'Data Nascita',
+            'Luogo Nascita',
+            'Provincia Nascita',
+            'C. Fiscale',
+            'Indirizzo Res.',
+            'Civico',
+            'Comune Res.',
+            'Cap Res.',
+            'Provincia Res.',
+            'eMail',
+            'eMail Servizio',
+            'Cellulare',
+            'Cell. Servizio',
+            'Data ingresso CRI'
+            ]);
+    foreach ( $c->membriAttuali(MEMBRO_VOLONTARIO) as $v ) {
+
+        $i++; 
+        $excel->aggiungiRiga([
+            $i,
+            $v->nome,
+            $v->cognome,
+            date('d/m/Y', $v->dataNascita),
+            $v->comuneNascita,
+            $v->provinciaNascita,
+            $v->codiceFiscale,
+            $v->indirizzo,
+            $v->civico,
+            $v->comuneResidenza,
+            $v->CAPResidenza,
+            $v->provinciaResidenza,
+            $v->email,
+            $v->emailServizio,
+            $v->cellulare,
+            $v->cellulareServizio,
+            $v->ingresso()->format("d/m/Y")
+            ]);
+
+    }
+    $excel->genera("Elenco Soci.xls");
     $excel->download();
     
 }else{
