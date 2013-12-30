@@ -5,12 +5,14 @@
  */
 
 paginaPrivata();
-paginaAttivita();
 
 controllaParametri(array('t'));
 
 $t = $_GET['t'];
 $t = Turno::id($t);
+
+paginaAttivita($t->attivita());
+
 ?>
 <form action="?p=attivita.turni.ripeti.ok&t=<?= $t; ?>" method="POST">
 <div class="modal fade automodal">

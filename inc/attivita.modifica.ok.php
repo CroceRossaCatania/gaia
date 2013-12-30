@@ -1,8 +1,10 @@
 <?php
 
+paginaPrivata();
 controllaParametri(array('id'), 'attivita.gestione&err');
 $id = $_POST['id'];
 $a = Attivita::id($id);
+paginaAttivita($a);
 
 if ( isset($_POST['inputNome']) ) {
     $a->nome            = normalizzaTitolo($_POST['inputNome']);

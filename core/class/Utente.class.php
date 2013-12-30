@@ -902,17 +902,15 @@ class Utente extends Persona {
     public function cellulare() {
         if($this->cellulareServizio){
             return $this->cellulareServizio;
-            }else{
-                return $this->cellulare;
-            }
+        }
+        return $this->cellulare;
     }
 
     public function email() {
         if($this->emailServizio){
             return $this->emailServizio;
-            }else{
-                return $this->email;
-            }
+        }
+        return $this->email;
     }
     
     public function giovane() {
