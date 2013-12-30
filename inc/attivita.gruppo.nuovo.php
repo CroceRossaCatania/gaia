@@ -11,6 +11,8 @@ controllaParametri(array('id'));
 $attivita = $_GET['id'];
 $attivita = Attivita::id($attivita);
 
+paginaAttivita($attivita);
+
 $g = new Gruppo();
 	$g->nome        =   $attivita->nome;
 	$g->comitato    =   $attivita->comitato()->oid();

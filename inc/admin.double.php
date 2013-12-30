@@ -10,6 +10,12 @@ set_time_limit(0);
 $t = Volontario::elenco();
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<?php if ( isset($_GET['ok']) ) { ?>
+        <div class="alert alert-success">
+            <i class="icon-save"></i> <strong>Stato cambiato</strong>.
+            Stato variato con successo.
+        </div>
+<?php } ?>
 <div class="row-fluid">
     <div class="span8">
         <h2>
@@ -74,6 +80,9 @@ $t = Volontario::elenco();
                                 <i class="icon-envelope"></i>
                             </a>
                             <?php } ?>
+                            <a class="btn btn-small btn-primary" href="?p=admin.stato.modifica&id=<?php echo $_v->id; ?>" title="Cambia stato">
+                                <i class="icon-random"></i> Cambia stato
+                            </a>
                             <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.limbo.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
                                 <i class="icon-trash"></i> Cancella
                             </a>
