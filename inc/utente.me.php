@@ -5,6 +5,10 @@
  */
 
 paginaPrivata(false);
+
+if ( $me->stato == ASPIRANTE )
+  redirect('aspirante.home');
+  
 $consenso = $me->consenso();
 if ( !$consenso ){ ?>
   <div class="modal fade automodal">

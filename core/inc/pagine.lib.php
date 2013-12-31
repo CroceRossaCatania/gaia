@@ -122,6 +122,11 @@ function paginaPresidenziale( $comitato = null, $attivita = null) {
 }
 
 function menuVolontario() {
+    global $me;
+    if ( $me && $me->stato == ASPIRANTE ) {
+        menuAspirante();
+        return;
+    }
     include('./inc/part/utente.menu.php');
 }
 

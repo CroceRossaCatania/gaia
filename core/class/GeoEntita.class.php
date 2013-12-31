@@ -172,17 +172,17 @@ abstract class GeoEntita extends Entita {
         $_ordine = 'distanza ASC'
     ) {
         global $db;
+        $raggio = (int) $circo->raggio;
         $query  = "SELECT " . static::$_t. ".id, ";
         $query .= static::formulaDistanzaEuclideaPunto($circo, static::$_t) . 'as distanza ';
         $query .= 'FROM '. static::$_t .', ' . $circo::$_t . ' WHERE ';
         $query .= "ST_CONTAINS( ";
-        $query .=   "BUFFER(".$circo::$_t.".geo, {$circo->raggio}),";
+        $query .=   "BUFFER(".$circo::$_t.".geo, {$raggio}),";
         $query .=   static::$_t . ".geo";
         $query .= ") ";
         $query .= " AND " . $circo::$_t . ".id = {$circo->id} ";
         $query .= static::preparaCondizioni($_condizioni);
         $query .= "ORDER BY {$_ordine}";
-        var_dump($query);
         $query = $db->query($query);
         $r = [];
         while ( $k = $query->fetch(PDO::FETCH_NUM) ) {
