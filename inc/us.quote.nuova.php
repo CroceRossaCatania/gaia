@@ -9,7 +9,6 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 controllaParametri(array('id'), 'us.dash&err');
 
 $id = $_GET['id'];
-
 ?>
 <form action="?" method="GET">
   <input type="hidden" name="p" value="us.quote.nuova.ok">
@@ -39,9 +38,14 @@ $id = $_GET['id'];
         </div>
         
         <div class="control-group">
-          <label class="control-label" for="inputAnno">Anno versamento quota</label>
+          <label class="control-label" for="inputAnno">Anno versamento</label>
           <div class="controls">
-            <input class="input-medium" type="text" name="inputAnno" id="inputAnno" required pattern="[0-9]{4}">
+            <select class="input-large" id="inputAnno" name="inputAnno">
+              <?php
+              for ($i = date('Y'), $j = ($i - 1); $i >= $j; $i--) {
+              echo "<option>" . $i . "</option>";
+              } ?>
+            </select>   
           </div>
         </div>
 
