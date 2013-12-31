@@ -467,18 +467,16 @@ define('ANZIANITA', 2);
 
 /*
  * ===================================
- * =========== QUOTE======= ============
+ * =========== QUOTE IMPORTI =========
  * ===================================
  */
 
-define('QUOTA_PRIMO', 16);
-define('QUOTA_RINNOVO', 8);
-define('QUOTA_ALTRO', 0);
+define('QUOTA_ORDINARIO', 16);
+define('QUOTA_ATTIVO', 8);
 
 $conf['quote'] = [
-    QUOTA_PRIMO        =>  'Prima Quota 16€',
-    QUOTA_RINNOVO       =>  'Quota di rinnovo 8€',
-    QUOTA_ALTRO => 'Altro'
+    QUOTA_ORDINARIO        =>  'Quota Ordinario 16€',
+    QUOTA_ATTIVO       =>  'Quota Attivo 8€'
 ];
 
 /*
