@@ -1125,4 +1125,17 @@ class Utente extends Persona {
         }
         return false;
     }
+
+    /*
+     * Controlla la riammissibilità entro l'anno solare di un volontario
+     * @return true se volontario riammissible false se non riammissibile
+     */
+    public function riammissibile() {
+        $dimissione = $this->ultimaAppartenenza(MEMBRO_DIMESSO);
+        $ultimo = $dimissione->fine+ANNO;
+        if ($ultimo >= time()){
+            return true;
+        }
+        return false;
+    }
 }
