@@ -13,6 +13,7 @@ $password   = $_POST['inputPassword'];
 if ( $u = Utente::by('email', $email) ) {
     if ( $u->login($password) ) {
         $sessione->utente = $u->id;
+        $u->ultimoAccesso = time();
         if ( $_POST['torna'] ) {
             lowRedirect($_POST['torna']);
         } else {
