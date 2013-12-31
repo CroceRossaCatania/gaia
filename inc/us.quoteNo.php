@@ -18,7 +18,12 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <i class="icon-remove"></i> <strong>Quote annuali chiuse</strong>.
             Anno chiuso.
         </div>
-<?php } 
+<?php }elseif ( isset($_GET['gia']) ) { ?>
+        <div class="alert alert-danger">
+            <i class="icon-remove"></i> <strong>Quota già pagata</strong>.
+            La quota del volontario risulta già pagata.
+        </div>
+<?php }
     $questanno = $anno = date('Y', time());
     if (!isset($_POST['anno'])) {
         $anno = $questanno;

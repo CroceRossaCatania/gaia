@@ -8,8 +8,7 @@
 $parametri = ['id', 'inputImporto', 'inputData'];
 controllaParametri($parametri, 'us.dash&err');
 
-$id = $_GET['id'];
-$v = Volontario::id($id);
+$v = Volontario::id($_GET['id']);
 
 proteggiDatiSensibili($v, [APP_SOCI , APP_PRESIDENTE]);
 
@@ -19,11 +18,17 @@ if ($importo < QUOTA_ATTIVO) {
     redirect('us.quote.nuova&id='.$id.'&importo');
 }
 
-// manca un controllo per verificare se ha già pagato o no!
-
 $app = $v->appartenenzaAttuale();
 
 $anno = date('Y');
+
+/* Controllo se gà vi è una quota pagata per l'anno in corso */
+$gia = Quote::filtra([['appartenenza', $app],['anno', $anno]]);
+
+if($gia){
+	redirect('us.quoteNo&gia');
+}
+
 $time = DT::createFromFormat('d/m/Y', $_GET['inputData']);
 $causale = 'Rinnovo quota '.$anno;
 
