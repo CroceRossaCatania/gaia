@@ -5,6 +5,7 @@
  */
 
 paginaPrivata();
+richiediComitato();
 
 
 ?>
