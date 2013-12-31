@@ -8,8 +8,7 @@ paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 controllaParametri(array('id'), 'presidente.utenti&errGen');
 
-$v     = $_GET['id'];
-$v = Volontario::id($v);
+$v = Volontario::id($_GET['id']);
 
 foreach ( $conf['dimissioni'] as $numero => $dimissioni ) {
     if ( $numero == $_POST['motivo']) { 
@@ -18,15 +17,21 @@ foreach ( $conf['dimissioni'] as $numero => $dimissioni ) {
 }
 
 $m = new Email('dimissionevolontario', 'Dimissione Volontario: ' . $v->nomeCompleto());
-$m->da = $me;
-$m->a = $v->volontario();
-$m->_NOME       = $v->volontario()->nome;
-$m-> _MOTIVO = $motivo;
-$m-> _INFO = $_POST['info'];
+$m->da      = $me;
+$m->a       = $v->volontario();
+$m->_NOME   = $v->volontario()->nome;
+$m->_MOTIVO = $motivo;
+$m->_INFO   = $_POST['info'];
 $m->invia();
                 
 $d = new Dimissione();
-$d->volontario = $v->id;
+$d->volontario      = $v->id;
+$d->appartenenza    = $v->appartenenzaAttuale();
+$d->comitato        = $v->appartenenzaAttuale()->comitato;
+$d->motivo = $_POST['motivo'];
+$d->info = $_POST['info'];
+$d->tConferma = time();
+$d->pConferma = $me;
 
 $a = Appartenenza::filtra([['volontario', $v]]);
 $i = Delegato::filtra([['volontario',$v]]);
@@ -43,12 +48,6 @@ foreach ($e as $_e){
 
 foreach ( $a as $_a){
     if($_a->attuale()){
-        $d->appartenenza = $_a;
-        $d->comitato = $_a->comitato;
-        $d->motivo = $_POST['motivo'];
-        $d->info = $_POST['info'];
-        $d->tConferma = time();
-        $d->pConferma = $me;
         $_a = Appartenenza::id($_a);
         $_a->fine = time();
         $_a->stato = MEMBRO_DIMESSO;
