@@ -1125,4 +1125,19 @@ class Utente extends Persona {
         }
         return false;
     }
+
+    /*
+     * Visualizza ultimo accesso dell'utente
+     * @return recentemente<5gg, 5gg< ultimo mese <30gg, piu di un mese >30gg
+     */
+    public function ultimoAccesso() {
+        if(!$this->ultimoAccesso){
+            return "Mai";
+        }elseif($this->ultimoAccesso >= time()-CINQUEGIORNI){
+            return "Recentemente";
+        }elseif($this->ultimoAccesso <= time()-CINQUEGIORNI && $this->ultimoAccesso >= time()-MESE){
+            return "Nell'ultimo mese";
+        }
+        return "Più di un mese fà";
+    }
 }
