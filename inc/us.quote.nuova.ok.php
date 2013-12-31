@@ -22,6 +22,7 @@ foreach ( $id->storico() as $app ) {
     $t->timestamp = $time->getTimestamp();
     $t->tConferma = time();
     $t->pConferma = $me;
+    $t->anno = $_GET['inputAnno'];
     if($r==QUOTA_PRIMO){
         $t->quota = QUOTA_PRIMO;
         $s = QUOTA_PRIMO;

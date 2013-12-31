@@ -37,6 +37,13 @@ $id = $_GET['id'];
             </select>   
           </div>
         </div>
+        
+        <div class="control-group">
+          <label class="control-label" for="inputAnno">Anno versamento quota</label>
+          <div class="controls">
+            <input class="input-medium" type="text" name="inputAnno" id="inputAnno" required pattern="[0-9]{4}">
+          </div>
+        </div>
 
         <div class="control-group">
           <label class="control-label" id="causale" for="inputCausale" style="display: none">Causale</label>
