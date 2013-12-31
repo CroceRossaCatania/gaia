@@ -72,7 +72,7 @@ $quotaMin = $attivo ? QUOTA_ATTIVO : QUOTA_ORDINARIO;
           <label class="control-label" id="importo" for="inputImporto" >Importo in €</label>
           <div class="controls">
             <input class="input-medium" type="text" name="inputImporto" id="inputImporto" >
-            &nbsp; <span class="muted"> da <?php echo $quotaMin;?>.00€ in su</span>
+            &nbsp; <span class="muted"> da <?php echo $quotaMin;?>.00 € in su</span>
           </div>
         </div>
 

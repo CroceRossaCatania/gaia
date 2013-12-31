@@ -19,65 +19,49 @@ if ($importo < QUOTA_ATTIVO) {
     redirect('us.quote.nuova&id='.$id.'&importo');
 }
 
+// manca un controllo per verificare se ha già pagato o no!
+
 $app = $v->appartenenzaAttuale();
+
+$anno = date('Y');
+$time = DT::createFromFormat('d/m/Y', $_GET['inputData']);
+$causale = 'Rinnovo quota '.$anno;
 
 $q = new Quota();
 $q->appartenenza = $app;
-$time = DT::createFromFormat('d/m/Y', $_GET['inputData']);
 $q->timestamp = $time->getTimestamp();
 $q->tConferma = time();
 $q->pConferma = $me;
-$q->anno = date('Y');
+$q->anno = $anno;
+$q->quota = $importo;
+$q->causale = $causale;
 
-/* 
- * C'è molto lavoro da fare ancora
- *
-
-if($r==QUOTA_PRIMO){
-    $t->quota = QUOTA_PRIMO;
-    $s = QUOTA_PRIMO;
-    $i = "Versamento quota iscrizione";
-    $t->causale = $i;
-}elseif($r == QUOTA_RINNOVO){
-    $t->quota = QUOTA_RINNOVO;
-    $s = QUOTA_RINNOVO;
-    $i = "Versamento quota di rinnovo annuale";
-    $t->causale = $i;
-}elseif($r ==QUOTA_ALTRO){
-    $t->quota = $_GET['inputImporto'];
-    $t->causale = $_GET['inputCausale'];
-    
-    $i = $_GET['inputCausale'];
-
-}
 
 $p = new PDF('ricevutaquota', 'ricevuta.pdf');
 $p->_COMITATO = $app->comitato()->locale()->nomeCompleto();
 $p->_INDIRIZZO = $app->comitato()->locale()->formattato;
 $iva = PIVA;
 $p->_PIVA = $iva;
-$p->_ID = $t;
-$p->_NOME = $id->nome;
-$p->_COGNOME = $id->cognome;
-$p->_FISCALE = $id->codiceFiscale;
-$p->_NASCITA = date('d/m/Y', $id->dataNascita);
-$p->_LUOGO = $id->luogoNascita;
-$p->_QUOTA = $s;
-$p->_CAUSALE = $i;
+$p->_ID = $q;
+$p->_NOME = $v->nome;
+$p->_COGNOME = $v->cognome;
+$p->_FISCALE = $v->codiceFiscale;
+$p->_NASCITA = date('d/m/Y', $v->dataNascita);
+$p->_LUOGO = $v->luogoNascita;
+$p->_QUOTA = $importo;
+$p->_CAUSALE = $causale;
 $p->_LUOGO = $app->comitato()->locale()->comune;
 $p->_DATA = date('d-m-Y', time());
 $f = $p->salvaFile();                                
 
 /* Invio ricevuta all'utente */
 
-/*
 $m = new Email('ricevutaQuota', 'Ricevuta versamento Quota');
-$m->a = $id;
+$m->a = $v;
 $m->da = $me;
-$m->_NOME       = $id->nome;
+$m->_NOME       = $v->nome;
 $m->allega($f);
 $m->invia();
-*/
 
 redirect('us.quoteNo&ok');
     
