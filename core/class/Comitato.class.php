@@ -712,4 +712,12 @@ class Comitato extends GeoPolitica {
             return $r;
     }
 
+    public function piva() {
+        return $this->locale()->piva();
+    }
+
+    public function cf() {
+        return $this->locale()->cf();
+    }
+
 }

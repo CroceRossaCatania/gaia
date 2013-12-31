@@ -50,5 +50,13 @@ class Nazionale extends GeoPolitica {
             'id'            =>  $this->id
         ];
     }
+
+    public function piva() {
+        return PIVA;
+    }
+
+    public function cf() {
+        return CF;
+    }
     
 }

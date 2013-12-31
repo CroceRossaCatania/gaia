@@ -9,7 +9,9 @@ abstract class GeoPolitica extends GeoEntita {
     abstract public function nomeCompleto();
     abstract public function estensione();
     abstract public function figli();    
-    
+    abstract public function piva();
+    abstract public function cf();
+
     /**
      * Rigenera l'albero e lo salva in JSON per utilizzi futuri
      *
