@@ -181,7 +181,7 @@ $(document).ready(function() {
                     </div>
                     
                     <div class="span2">
-                        <?php if ( !$c->principale && $c->modificabileDa($me->id)) { ?>
+                        <?php if ( !$c->principale && $c->modificabileDa($me)) { ?>
                         <a class="btn btn-large btn-block btn-info" href="?p=presidente.wizard&oid=<?php echo $c->oid(); ?>">
                             <i class="icon-pencil icon-3x"></i><br />
                             Modifica
