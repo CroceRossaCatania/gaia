@@ -13,8 +13,7 @@ $(document).ready( function() {
     
     $("#_sel_regionale")        .change( _carica_provinciali );
     $("#_sel_provinciale")      .change( _carica_locali );
-    $("#_sel_locale")           .change( _carica_unita );
-    $("#_sel_unita")            .change( _seleziona_unita );
+    $("#_sel_locale")           .change( _seleziona_unita );
     
 });
 
@@ -24,6 +23,8 @@ var selezione_comitato = null;
 var superiore_comitato = null;
 var c_dataInput = '';
 var c_origElem = '';
+
+var nomePerOID = {};
 
 function _carica_regionali() {
     $("#_sel_regionale").html('<option disabled selected="selected">- Seleziona regione...</option>');
@@ -45,23 +46,16 @@ function _carica_locali() {
     var regione = $("#_sel_regionale").val();
     var provincia = $("#_sel_provinciale").val();
     $.each(comitati.regionali[regione].provinciali[provincia].comitati, function (i, v) {
-        $("#_sel_locale").append("<option value='" + i + "'>" + v.nome + "</option>");
-    });
-}
-
-function _carica_unita() {
-    $("#_sel_unita").html('<option disabled selected="selected">- Seleziona unità territoriale...</option>');
-    var regione = $("#_sel_regionale").val();
-    var provincia = $("#_sel_provinciale").val();
-    var comitato = $("#_sel_locale").val();
-    $.each(comitati.regionali[regione].provinciali[provincia].comitati[comitato].unita, function (i, v) {
-        $("#_sel_unita").append("<option value='" + i + "'>" + v.nome + "</option>");
+        $("#_sel_locale").append("<option value='" + v.oid + "'>" + v.nome + "</option>");
+        nomePerOID[v.oid] = {'nome': v.nome, 'oid': v.oid};
         $.each(
             v.unita,
             function(y, h) {
-                
+                $("#_sel_locale").append("<option value='" + h.oid + "'>- " + h.nome + "</option>");
+                nomePerOID[h.oid] = {'nome': h.nome, 'oid': h.oid};
             }
         );
+
     });
 }
 
@@ -69,13 +63,12 @@ function _seleziona_unita() {
     var regione     = $("#_sel_regionale").val();
     var provincia   = $("#_sel_provinciale").val();
     var comitato    = $("#_sel_locale").val();
-    var unita       = $("#_sel_unita").val();
-    selezione_comitato = comitati.regionali[regione].provinciali[provincia].comitati[comitato].unita[unita];
-    superiore_comitato = comitati.regionali[regione].provinciali[provincia].comitati[comitato];
+
+    selezione_comitato = nomePerOID[comitato];
+    superiore_comitato = comitati.regionali[regione].provinciali[provincia];
     
     /* Attiva il pulsante... */
     $("#selettoreSalvaComitato").removeAttr('disabled').removeClass('disabled');
-    
 }
 
     $(document).ready( function() {
@@ -106,7 +99,7 @@ function _seleziona_unita() {
             var stringa = '';
             stringa += '<input data-generato-comitato="true" type="hidden" ';
             stringa += 'name="' + c_dataInput + '" ';
-            stringa += 'value="' + selezione_comitato.id +'" />';
+            stringa += 'value="' + selezione_comitato.oid +'" />';
             $(stringa).insertAfter($(c_origElem));
                         
             $(c_origElem).html(selezione_comitato.nome + " (" + superiore_comitato.nome +') <i class="icon-pencil"></i>');
@@ -144,20 +137,12 @@ function _seleziona_unita() {
                   </td>
               </tr>              
               <tr>
-                  <td class="allinea-destra">Locale</td>
+                  <td class="allinea-destra">Unit&agrave;</td>
                   <td>
                       <select class="span12" id="_sel_locale">
                       </select>
                   </td>
-              </tr>              
-              <tr>
-                  <td class="allinea-destra">Unità territoriale</td>
-                  <td>
-                      <select class="span12" id="_sel_unita">
-                      </select>
-                  </td>
-              </tr>
-              
+              </tr>                          
           </table>
       </div>
   </div>
