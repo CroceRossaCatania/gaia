@@ -16,8 +16,10 @@ $c->nome        =   normalizzaNome($_POST['inputNome']);
 $c->telefono    =   maiuscolo($_POST['inputTelefono']);
 $c->email       =   minuscolo($_POST['inputEmail']);
 $c->fax         =   maiuscolo($_POST['inputFax']);
-$c->piva 		=   $_POST['inputPIVA'];
-$c->cf 		=   $_POST['inputCF'];
+if (!$c instanceof Comitato) {
+	$c->piva 		=   $_POST['inputPIVA'];
+	$c->cf 			=   $_POST['inputCF'];
+}
 
 $ricerca  = $_POST['inputIndirizzo'] . ', ';
 $ricerca .= $_POST['inputCivico'] . ' ';
