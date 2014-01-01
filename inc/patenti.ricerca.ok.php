@@ -6,6 +6,8 @@
 
 paginaApp([APP_PATENTI , APP_PRESIDENTE]);
 
+controllaParametri(array('inputRicerca'), 'patenti.dash&err');
+
 $ricerca = $_GET['inputRicerca'];
 
 ?>

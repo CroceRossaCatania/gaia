@@ -1,13 +1,19 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 /*
  * Sessione utente necessaria
  */
+
+if ($sessione->utente()->email) {
+  redirect('errore.permessi&cattivo');
+}
+
 paginaPrivata();
+controllaParametri(array('inputEmail'), 'nuovaAnagraficaContatti&err');
 
 /*
  * Normalizzazione dei dati
@@ -44,14 +50,16 @@ $p->cellulareServizio   = $cells;
 $password     		= $_POST['inputPassword'];
 $sessione->utente()->cambiaPassword($password);
 
-$sessione->utente()->stato = $sessione->tipoRegistrazione;
 
 if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
     redirect('nuovaAnagraficaAccesso');
 } else {
     $m = new Email('registrazioneAspirante', 'Grazie futuro volontario');
-    $m->a = $sessione->utente();
-    $m->_NOME = $sessione->utente()->nome;
-    $m->invia();
-    redirect('utente.me');
+	$m->a     = $sessione->utente();
+	$m->_NOME = $sessione->utente()->nome;
+	$m->invia();
+	$sessione->utente = NULL;
+	redirect('grazieAspirante');
 }
+
+?>

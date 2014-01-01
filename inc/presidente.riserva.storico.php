@@ -5,6 +5,9 @@
  */
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
+
+controllaParametri(array('id'), 'presidente.riserva&err');
+
 $v = $_GET['id'];
 $v = Volontario::id($v);
 proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
@@ -34,7 +37,6 @@ proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
                 
                 <?php foreach ( $v->riserve() as $app ) { ?>
                     <tr<?php if ($app->attuale()) { ?> class="success"<?php } ?>>
-                        <td><?php echo $v->nomeCompleto(); ?></td>
                         <td>
                             <?php if ($app->attuale()) { ?>
                                 Attuale

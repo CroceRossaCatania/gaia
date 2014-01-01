@@ -7,9 +7,9 @@ paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 $admin = $me->admin();
 
-if (!isset($_POST['inputEmail']) || !isset($_POST['inputEmail2']) || !isset($_POST['vol'])) {
-    redirect('presidente.utenti&err');
-}
+$parametri = array('inputEmail', 'inputEmail2', 'vol');
+controllaParametri($parametri, 'presidente.utenti&err');
+
 $vol = Utente::id($_POST['vol']);
 proteggiDatiSensibili($vol, [APP_SOCI, APP_PRESIDENTE]);
 

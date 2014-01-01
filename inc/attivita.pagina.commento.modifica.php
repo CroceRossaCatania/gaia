@@ -1,6 +1,8 @@
 <?php  
 
 paginaPrivata();
+
+controllaParametri(array('id'));
 $a = $_GET['id'];
 $c = Commento::id($a);
 ?>

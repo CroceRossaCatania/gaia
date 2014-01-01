@@ -84,15 +84,19 @@ $menu += [
         'utente.storico'    =>  '<i class="icon-time"></i> Storico',
         'utente.documenti'  =>  '<i class="icon-folder-open"></i> Documenti'
         
-    ],
-    'Segreteria'      =>  [
-        'utente.estensione'  =>  '<i class="icon-random"></i> Estensioni',
-        'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti',
-        'utente.riserva'  =>  '<i class="icon-pause"></i> Riserva',
-        'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica',
-       
-        
-    ],
+    ]];
+    if ($me->unComitato()) {
+    $menu += [
+        'Segreteria'      =>  [
+            'utente.estensione'  =>  '<i class="icon-random"></i> Estensioni',
+            'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti',
+            'utente.riserva'  =>  '<i class="icon-pause"></i> Riserva',
+            'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica'
+           
+            
+        ]];
+    }
+$menu += [
     'Curriculum'    =>  [
         'utente.titoli&t=0' =>  '<i class="icon-magic"></i> Competenze pers.',
         'utente.titoli&t=1' =>  '<i class="icon-fighter-jet"></i> Patenti Civili',

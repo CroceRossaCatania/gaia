@@ -6,6 +6,8 @@
 
 paginaPresidenziale();
 
+controllaParametri(array('id'), 'presidente.supervisione&err');
+
 $v = $_GET['id'];
 $v = Volontario::id($v);
 ?>
@@ -44,41 +46,41 @@ $v = Volontario::id($v);
             <th>Inizio</th>
             <th>Fine</th>
         </thead>
-                
+        
         <?php foreach ( $v->mieiGruppi() as $app ) { ?>
-            <tr<?php if ($app->attuale()) { ?> class="success"<?php } ?>>
-                <td>
-                    <?php if ($app->attuale()) { ?>
-                        Attuale
-                    <?php } else { ?>
-                        Passato
-                    <?php } ?>
-                </td>
-                
-                <td>
-                    <strong><?php echo $app->gruppo()->nome; ?></strong>
-                </td>
-                
-                <td>
-                    <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong>
-                </td>
-                
-                <td>
-                    <i class="icon-calendar muted"></i>
-                    <?php echo $app->inizio()->inTesto(false); ?>
-                </td>
-                
-                <td>
-                    <?php if ($app->fine) { ?>
-                        <i class="icon-time muted"></i>
-                        <?php echo $app->fine()->inTesto(false); ?>
-                    <?php } else { ?>
-                        <i class="icon-question-sign muted"></i>
-                        Indeterminato
-                    <?php } ?>
-                </td>                
-            </tr>
-                <?php } ?>
-            
-    </table>
+        <tr<?php if ($app->attuale()) { ?> class="success"<?php } ?>>
+        <td>
+            <?php if ($app->attuale()) { ?>
+            Attuale
+            <?php } else { ?>
+            Passato
+            <?php } ?>
+        </td>
+        
+        <td>
+            <strong><?php echo $app->gruppo()->nome; ?></strong>
+        </td>
+        
+        <td>
+            <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong>
+        </td>
+        
+        <td>
+            <i class="icon-calendar muted"></i>
+            <?php echo $app->inizio()->inTesto(false); ?>
+        </td>
+        
+        <td>
+            <?php if ($app->fine) { ?>
+            <i class="icon-time muted"></i>
+            <?php echo $app->fine()->inTesto(false); ?>
+            <?php } else { ?>
+            <i class="icon-question-sign muted"></i>
+            Indeterminato
+            <?php } ?>
+        </td>                
+    </tr>
+    <?php } ?>
+    
+</table>
 </div>

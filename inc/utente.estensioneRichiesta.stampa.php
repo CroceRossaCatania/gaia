@@ -6,6 +6,8 @@
 
 paginaPrivata();
 
+controllaParametri(array('id'));
+
 $f = $_GET['id'];
 $e = Estensione::id($f);
 $cest = $e->comitato();

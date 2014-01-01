@@ -7,6 +7,16 @@
 /*
  * Normalizzazione dei dati
  */
+
+if ($sessione->utente()) {
+    redirect('errore.permessi&cattivo');
+}
+
+$parametri = array('id', 'inputNome', 'inputCognome', 'inputDataNascita', 
+	'inputProvinciaNascita', 'inputComuneNascita', 'inputComuneResidenza', 'inputCAPResidenza',
+	'inputProvinciaResidenza', 'inputIndirizzo', 'inputCivico');
+controllaParametri($parametri, 'nuovaAnagrafica&err');
+
 $id         = $_POST['id'];
 $nome       = normalizzaNome($_POST['inputNome']);
 $cognome    = normalizzaNome($_POST['inputCognome']);
@@ -45,9 +55,8 @@ if(!DT::controlloData($_POST['inputDataNascita'])){
 /*
  * Verifica se ho più di 14 anni
  */
-$anno = date('Y', $dnascita->getTimestamp());
-$ora = date('Y', time());
-if($ora-$anno <= ETA_MINIMA){
+$quattordiciAnniFa = time() - ETAMINIMA;
+if($dnascita->getTimestamp() > $quattordiciAnniFa){
 	redirect('nuovaAnagrafica&eta');
 }
 /*
@@ -75,7 +84,13 @@ $p->civico   			= $civico;
 $p->timestamp           = time();
 $p->consenso            = time();
 
-$p->stato               = PERSONA;
+if ( (int) $sessione->tipoRegistrazione == VOLONTARIO ) {
+    $p->stato               = PERSONA;
+} else {
+    $p->stato               = ASPIRANTE;
+}
+
+
 
 /*
  * Associa la sessione all'utente...

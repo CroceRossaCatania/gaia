@@ -6,8 +6,17 @@
 
 paginaPrivata();
 
+controllaParametri(array('id'));
+
 $id = $_GET['id']; 
 $u = Utente::by('id',$id);
+
+$r = $me->pri_smistatore($u);
+if($r == PRIVACY_PUBBLICA){
+    redirect('public.utente&id='.$v);
+}
+
+
 $t = TitoloPersonale::filtra([['volontario',$u]]);
 ?>
 <div class="row-fluid">
@@ -19,7 +28,7 @@ $t = TitoloPersonale::filtra([['volontario',$u]]);
             <img src="<?php echo $u->avatar()->img(20); ?>" class="img-polaroid" />
             <br/><br/>
         </div>
-        <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $id; ?>" method="POST">
+        <div class="form-horizontal">
         <hr />
             <div class="control-group">
                 <label class="control-label" for="inputNome">Nome</label>
@@ -31,6 +40,12 @@ $t = TitoloPersonale::filtra([['volontario',$u]]);
                 <label class="control-label" for="inputCognome">Cognome</label>
                 <div class="controls">
                     <input type="text" name="inputCognome" id="inputCognome" readonly value="<?php echo $u->cognome; ?>">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputCodiceFiscale">Codice Fiscale</label>
+                <div class="controls">
+                    <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale"  readonly value="<?php echo $u->codiceFiscale; ?>">
                 </div>
             </div>
             <div class="control-group">
@@ -63,6 +78,12 @@ $t = TitoloPersonale::filtra([['volontario',$u]]);
                     <input value="<?php echo $u->email; ?>"  type="email" id="inputEmail" name="inputEmail" readonly/>
                 </div>
             </div>
+            <div class="control-group">
+                <label class="control-label" for="inputEmail">Email servizio</label>
+                <div class="controls">
+                    <input value="<?php echo $u->emailServizio; ?>"  type="email" id="inputEmailServizio" name="inputEmailServizio" readonly/>
+                </div>
+            </div>
             <div class="control-group input-prepend">
                 <label class="control-label" for="inputCellulare">Cellulare</label>
                 <div class="controls">
@@ -77,7 +98,7 @@ $t = TitoloPersonale::filtra([['volontario',$u]]);
                     <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" name="inputCellulareServizio" readonly />
                 </div>
             </div>
-        </form>    
+        </div>    
     </div>
     <?php if ( $u->storicoDelegazioni()) { ?>
     <div class="span6">

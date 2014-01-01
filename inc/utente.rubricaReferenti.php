@@ -5,6 +5,7 @@
  */
 
 paginaPrivata();
+richiediComitato();
 
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
@@ -44,15 +45,22 @@ paginaPrivata();
 
         </div>
         <hr />
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="alert alert-info">
+                Per visualizzare il numero di telefono dei Volontari in rubrica premi su <i class="icon-phone"></i> ,
+                mentre per visualizzare l'email premi su <i class="icon-envelope"></i> .
+                </div>
+            </div>
+        </div>
         <table class="table table-striped table-bordered" id="tabellaUtenti">
             <thead>
                 <th>Foto</th>
                 <th>Nome</th>
                 <th>Cognome</th>
-                <th>Telefono</th>
-                <th>Comitato</th>
                 <th>Incarico</th>
-                <th>Azione</th>
+                <th>Telefono</th>
+                <th>Email</th>
             </thead>
             <?php 
             $ccompetenza = $me->comitatiDiCompetenza();
@@ -63,74 +71,81 @@ paginaPrivata();
                 $comitati = array_merge($comitati, $ccompetenza);
             $comitati = array_unique($comitati);
 
+            $delegati = [];
 
             foreach ( $comitati as $comitato ) {
-                foreach ( $comitato->volontariDelegati() as $delegato ) { 
-
-                    $_v = Volontario::id($delegato);
-                    $d = $_v->delegazioni();
-                    ?>
-                    <tr>
-                        <td><img src="<?php echo $_v->avatar()->img(10); ?>" class="img-polaroid" /></td>
-                        <td><?php echo $_v->nome; ?></td>
-                        <td><?php echo $_v->cognome; ?></td>
-                        <td><?php echo $_v->cellulare(); ?></td>
-                        <td><?php echo $comitato->nome; ?></td>
-                        <td>
-                            <?php 
-                            $presidente = false;
-                            foreach ($d as $_d) {
-                            
-                            switch ( $_d->applicazione ) { 
-                                case APP_PRESIDENTE:
-                                if (!$presidente) {
-                                ?>
-                                <strong>Presidente</strong>
-                                <br>
-                                <?php $presidente = true;}
-                                break;
-                                case APP_ATTIVITA:
-                                ?>
-                                <strong>Referente</strong>
-                                <?php echo $conf['app_attivita'][$_d->dominio]; ?>
-                                <br>
-                                <?php
-                                break;
-                                case APP_OBIETTIVO:
-                                ?>
-                                <strong>Delegato</strong>
-                                <?php echo $conf['obiettivi'][$_d->dominio]; ?>
-                                <br>
-                                <?php
-                                break;
-                                case APP_SOCI:
-                                ?>
-                                <strong>Delegato</strong> Ufficio Soci
-                                <br>
-                                <?php
-                                break;
-                                case APP_CO:
-                                ?>
-                                <strong>Delegato</strong> Centrale Operativa
-                                <br>
-                                <?php
-                                break;
-
-                            }} ?>
-                        </td>
-                        <td>
-                            <a class="btn btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>">
-                                <i class="icon-envelope"></i>
-                            </a>
-                        </td>
-
-                    </tr>
-                    <?php 
-
-                    
-
-                }
+                $delegati = array_merge($delegati, $comitato->volontariDelegati());
             }
+            $delegati = array_unique($delegati);
+            foreach ( $delegati as $delegato ) { 
+
+                $_v = Volontario::id($delegato);
+                $d = $_v->delegazioni();
+                ?>
+                <tr>
+                    <td><img src="<?php echo $_v->avatar()->img(10); ?>" class="img-polaroid" /></td>
+                    <td><?php echo $_v->nome; ?></td>
+                    <td><?php echo $_v->cognome; ?></td>
+                    <td>
+                        <?php 
+                        $presidente = false;
+                        foreach ($d as $_d) {
+                        
+                        switch ( $_d->applicazione ) { 
+                            case APP_PRESIDENTE:
+                            if (!$presidente) {
+                            ?>
+                            <strong>Presidente</strong>
+                            (<?php echo $_d->comitato()->nomeCompleto(); ?>)
+                            <br>
+                            <?php $presidente = true;}
+                            break;
+                            case APP_ATTIVITA:
+                            ?>
+                            <strong>Referente</strong>
+                            <?php echo $conf['app_attivita'][$_d->dominio]; ?>
+                            (<?php echo $_d->comitato()->nomeCompleto(); ?>)
+                            <br>
+                            <?php
+                            break;
+                            case APP_OBIETTIVO:
+                            ?>
+                            <strong>Delegato</strong>
+                            <?php echo $conf['obiettivi'][$_d->dominio]; ?>
+                            (<?php echo $_d->comitato()->nomeCompleto(); ?>)
+                            <br>
+                            <?php
+                            break;
+                            case APP_SOCI:
+                            ?>
+                            <strong>Delegato</strong> Ufficio Soci
+                            (<?php echo $_d->comitato()->nomeCompleto(); ?>)
+                            <br>
+                            <?php
+                            break;
+                            case APP_CO:
+                            ?>
+                            <strong>Delegato</strong> Centrale Operativa
+                            (<?php echo $_d->comitato()->nomeCompleto(); ?>)
+                            <br>
+                            <?php
+                            break;
+
+                        }} ?>
+                    </td>
+                    <td>
+                        <span data-nascondi="" data-icona="icon-phone"><?php echo $_v->cellulare(); ?></span>
+                    </td>
+                    <td>
+                        <span data-nascondi="" data-icona="icon-envelope"><?php echo $_v->email(); ?></span>
+                    </td>
+                </tr>
+                <?php 
+
+                
+
+            }
+
             
 
 

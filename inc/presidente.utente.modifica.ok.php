@@ -8,6 +8,11 @@
 /*
  * Normalizzazione dei dati
  */
+
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
+
+controllaParametri(array('t'), 'presidente.utenti&errGen');
+
 $id         = $_GET['t'];
 
 $dnascita = DT::createFromFormat('d/m/Y', $_POST['inputDataNascita']);
@@ -19,17 +24,9 @@ $caresidenza= normalizzaNome($_POST['inputCAPResidenza']);
 $prresidenza= maiuscolo($_POST['inputProvinciaResidenza']);
 $indirizzo  = normalizzaNome($_POST['inputIndirizzo']);
 $civico     = maiuscolo($_POST['inputCivico']);
-
 $cell       = normalizzaNome($_POST['inputCellulare']);
 $cells      = normalizzaNome(@$_POST['inputCellulareServizio']);
 
-if ($me->admin()) {
-	$nome       = normalizzaNome($_POST['inputNome']);
-	$cognome    = normalizzaNome($_POST['inputCognome']);
-	$sesso 		= $_POST['inputSesso'];
-	$codiceFiscale = maiuscolo($_POST['inputCodiceFiscale']);
-	$email      = minuscolo($_POST['inputEmail']);
-}
 /*
  * Controlla esistenza varia e ti porta dove dovrebbe 
  */
@@ -53,10 +50,23 @@ $p->timestamp           = time();
 $p->stato               = VOLONTARIO;
 
 if ($me->admin()) {
+	$nome       = normalizzaNome($_POST['inputNome']);
+	$cognome    = normalizzaNome($_POST['inputCognome']);
+	$sesso 		= $_POST['inputSesso'];
+	$codiceFiscale = maiuscolo($_POST['inputCodiceFiscale']);
+	$email      = minuscolo($_POST['inputEmail']);
+	/*
+ 	 * Controlla se sto scrivendo una email in possesso ad altro utente
+ 	 */
+	$e = Utente::by('email', $email);
+	if($e!=$id){
+		redirect('presidente.utente.visualizza&email&id='.$_GET['t']);
+	}
 	$p->nome                = $nome;
 	$p->cognome             = $cognome;
 	$p->sesso 				= ($sesso) ? UOMO : DONNA;
 	$p->codiceFiscale = $codiceFiscale;
+
 	$p->email               = $email;
 }
 

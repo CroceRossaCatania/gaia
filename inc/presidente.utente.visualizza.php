@@ -6,8 +6,11 @@
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
+controllaParametri(array('id'), 'presidente.utenti&errGen');
+
 $id = $_GET['id']; 
 $u = Utente::id($id);
+$hoPotere = $u->modificabileDa($me);
 $t = TitoloPersonale::filtra([['volontario',$u]]);
 $admin = $me->admin();
 
@@ -17,21 +20,26 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 <div class="row-fluid">
   <div class="span6">
     <?php if ( isset($_GET['ok']) ) { ?>
-    <div class="alert alert-success">
-      <i class="icon-save"></i> <strong>Salvato</strong>.
-      Le modifiche richieste sono state memorizzate con successo.
-    </div>
+      <div class="alert alert-success">
+        <i class="icon-save"></i> <strong>Salvato</strong>.
+        Le modifiche richieste sono state memorizzate con successo.
+      </div>
     <?php } elseif(isset($_GET['att'])) {?>
-    <div class="alert alert-success">
-      <i class="icon-user"></i> <strong>Account attivato</strong>.
-      L'account dell'utente è stato attivato con successo.
-    </div>
+      <div class="alert alert-success">
+        <i class="icon-user"></i> <strong>Account attivato</strong>.
+        L'account dell'utente è stato attivato con successo.
+      </div>
+    <?php } elseif(isset($_GET['email'])) {?>
+      <div class="alert alert-danger">
+        <i class="icon-warning-sign"></i> <strong>Email già presente</strong>.
+        L'email che si sta tentando di sostituire appartiene già ad un altro utente.
+      </div>
     <?php } ?>
 
     <!-- Attivazione account -->
 
     <?php 
-      if (!$u->email) { ?>
+      if ($hoPotere && !$u->email) { ?>
       
       <div class="row-fluid">
        <div class="span12">
@@ -126,7 +134,6 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         </div> 
       </div>
 
-
     <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $id; ?>" method="POST">
       <hr />
       <div class="control-group">
@@ -164,50 +171,50 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <div class="control-group">
         <label class="control-label" for="inputDataNascita">Data di Nascita</label>
         <div class="controls">
-          <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$admin){?> required <?php } ?> value="<?php echo date('d/m/Y', $u->dataNascita); ?>">
+          <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$admin){?> required <?php } ?> <?php if(!$hoPotere){?> readonly <?php } ?> value="<?php echo date('d/m/Y', $u->dataNascita); ?>">
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputProvinciaNascita">Provincia di Nascita</label>
         <div class="controls">
-          <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" <?php if(!$admin){?> required <?php } ?> value="<?php echo $u->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
+          <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" <?php if(!$admin){?> required <?php } ?> <?php if(!$hoPotere){?> readonly <?php } ?> value="<?php echo $u->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
         <div class="controls">
-          <input type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$admin){?> required <?php } ?> value="<?php echo $u->comuneNascita; ?>">
+          <input type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$admin){?> required <?php } ?> <?php if(!$hoPotere){?> readonly <?php } ?> value="<?php echo $u->comuneNascita; ?>">
         </div>
       </div>
 
       <div class="control-group">
        <label class="control-label" for="inputIndirizzo">Indirizzo</label>
        <div class="controls">
-         <input value="<?php echo $u->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" <?php if(!$admin){?> required <?php } ?> />
+         <input value="<?php echo $u->indirizzo; ?>" type="text" id="inputIndirizzo" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputIndirizzo" <?php if(!$admin){?> required <?php } ?> />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputCivico">Civico</label>
        <div class="controls">
-         <input value="<?php echo $u->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" <?php if(!$admin){?> required <?php } ?> />
+         <input value="<?php echo $u->civico; ?>" type="text" id="inputCivico" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCivico" class="input-small" <?php if(!$admin){?> required <?php } ?> />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputComuneResidenza">Comune di residenza</label>
        <div class="controls">
-         <input value="<?php echo $u->comuneResidenza; ?>" type="text" id="inputComuneResidenza" name="inputComuneResidenza" <?php if(!$admin){?> required <?php } ?> />
+         <input value="<?php echo $u->comuneResidenza; ?>" type="text" id="inputComuneResidenza" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputComuneResidenza" <?php if(!$admin){?> required <?php } ?> />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputCAPResidenza">CAP di residenza</label>
        <div class="controls">
-         <input value="<?php echo $u->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[0-9]{5}" />
+         <input value="<?php echo $u->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCAPResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[0-9]{5}" />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputProvinciaResidenza">Provincia di residenza</label>
        <div class="controls">
-         <input value="<?php echo $u->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[A-Za-z]{2}" />
+         <input value="<?php echo $u->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputProvinciaResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[A-Za-z]{2}" />
        </div>
      </div>
      <div class="control-group">
@@ -220,50 +227,174 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
        <label class="control-label" for="inputCellulare">Cellulare</label>
        <div class="controls">
          <span class="add-on">+39</span>
-         <input value="<?php echo $u->cellulare; ?>"  type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" />
+         <input value="<?php echo $u->cellulare; ?>"  type="text" id="inputCellulare" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCellulare" pattern="[0-9]{9,11}" />
        </div>
      </div>
      <div class="control-group input-prepend">
        <label class="control-label" for="inputCellulareServizio">Cellulare Servizio</label>
        <div class="controls">
          <span class="add-on">+39</span>
-         <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" />
+         <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCellulareServizio" pattern="[0-9]{9,11}" />
        </div>
      </div>
 
-     <div class="control-group input-prepend">
+     <div class="control-group">
       <label class="control-label" for="inputConsenso">Consenso dati personali</label>
       <div class="controls">
        <input value="<?php if($u->consenso()){ echo "Acquisito";}else{ echo "Non Acquisito"; } ?>"  type="text" id="inputConsenso" name="inputConsenso" readonly/>
      </div>
    </div>
-   <hr />
 
+   <div class="control-group">
+      <label class="control-label" for="ultimoAccesso">Ultimo Accesso a Gaia</label>
+      <div class="controls">
+       <input value="<?php echo $u->ultimoAccesso(); ?>"  type="text" id="ultimoAccesso" name="ultimoAccesso" readonly/>
+     </div>
+   </div>
+
+   <?php if($hoPotere) { ?>
+   <hr />
    <div class="form-actions">
     <button type="submit" class="btn btn-success btn-large">
       <i class="icon-save"></i>
       Salva modifiche
     </button>
   </div>
+  <?php } ?>
 </form>    
 </div>
 <!--Visualizzazione e modifica appartenenze utente -->
 <div class="span6">
+  <div class="row-fluid">
+    <div class="span112">
+      <h4><i class="icon-folder-open"></i> Documenti volontario</h4>
+      <?php if(isset($_GET['errDoc'])){?>
+        <div class="alert alert-error">
+          <i class="icon-warning-sign"></i>
+          <strong>Errore</strong> 
+          <p>File troppo grande o non valido. Si accettano file come <strong>JPG</strong>, <strong>PNG</strong>, ecc.<br />
+          Al momento non sono ancora supportati i <strong>PDF</strong>.</p>
+        </div>
+      <?php 
+      }
+      if ( $u->documenti() ) { ?>
+      <a href="?p=presidente.utente.documenti&id=<?php echo $u->id; ?>" data-attendere="Generazione in corso...">
+        <i class="icon-download-alt"></i>
+        Scarica documenti del volontario in ZIP
+      </a>
+      <span class="text-info">
+        <p>Puoi caricare altri documenti o sostituirli usando i pulsanti qua sotto.</p>
+      </span>
+      <?php } else { ?>
+      <span class="text-info">
+        <i class="icon-warning-sign"></i>
+        Il volontario non ha caricato documenti. Puoi caricarli usando i pulsanti qua sotto.
+      </span>
+      <?php } ?>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span12 centrato">
+      <br />
+      <div class="tabbable">
+        <ul class="nav nav-tabs">
+          <?php foreach ( $conf['docs_tipologie'] as $tipo => $nome ) { ?>
+          <li><a href="#tab<?=$tipo?>" data-toggle="tab"><?=$nome?></a></li>
+          <?php } ?>
+        </ul>
+        <div class="tab-content">
+          <?php foreach ( $conf['docs_tipologie'] as $tipo => $nome ) { ?>
+          <div class="tab-pane" id="tab<?=$tipo?>">
+            <div class="row-fluid">
+            <!-- INIZIO BLOCCO DOCUMENTI-->
 
-  <h4><i class="icon-folder-open"></i> Documenti volontario</h4>
+            <?php if ( $d = $u->documento($tipo) ) { ?>
+            <div class="row-fluid">
+              <div class="span5 allinea-centro">
+                <div class="alert alert-info allinea-sinistra">
+                  <i class="icon-time"></i>
+                  Documento caricato il <strong><?php echo date('d-m-Y', $d->timestamp); ?></strong>.
+                </div> 
+                <p><img src="<?php echo $d->anteprima(); ?>" class="img-polaroid" /></p>
+                <p>
+                  <a href="<?php echo $d->originale(); ?>" class="btn btn-primary" target="_new">
+                    <i class="icon-download"></i>
+                    Scarica questo documento
+                  </a>
+                </p>
+              </div>
+              <div class="span7">
+                <form class="modDocumento" action="?p=presidente.utente.documenti.ok&id=<?php echo $u->id; ?>" method="POST" enctype="multipart/form-data">
+                  <input type="hidden" name="tipo" value="<?php echo $tipo; ?>" />
+                  <h4>
+                    <i class="icon-edit"></i>
+                    Modifica o carica nuovo documento
+                  </h4>
+                  <p>Nel caso tu voglia aggiornare o modificare il documento,<br />
+                    segui queste istruzioni:</p>
+                    <ol>
+                      <li>
+                        <p>
+                          <strong>Seleziona il file</strong> dal tuo computer:<br />
+                          <input type="file" name="file" />
+                        </p>
+                      </li>
+                      <li><p>
+                        <strong>Clicca sul pulsante</strong>:<br />
+                        <button type="submit" class="btn btn-success">
+                          <i class="icon-save"></i> Carica documento
+                        </button>
+                      </p>
+                    </li>
+                  </ol>
+                </form>
+              </div>
+            </div>
+            <?php } else { ?>
+            <div class="row-fluid">
+              <div class="span5 allinea-centro">
+                <div class="alert alert-warning allinea-sinistra">
+                  <i class="icon-warning-sign"></i>
+                  Non caricato.
+                </div> 
+                <p>
+                </p>
+              </div>
+              <div class="span7">
+                <form class="modDocumento" action="?p=presidente.utente.documenti.ok&id=<?php echo $u->id; ?>" method="POST" enctype="multipart/form-data">
+                  <input type="hidden" name="tipo" value="<?php echo $tipo; ?>" />
+                  <h4>
+                    <i class="icon-plus"></i>
+                    Aggiungi il documento
+                  </h4>
+                  <ol>
+                    <li>
+                      <p>
+                        <strong>Seleziona il file</strong> dal tuo computer:<br />
+                        <input type="file" name="file" />
+                      </p>
+                    </li>
+                    <li><p>
+                      <strong>Clicca sul pulsante</strong>:<br />
+                      <button type="submit" class="btn btn-success">
+                        <i class="icon-save"></i> Carica documento
+                      </button>
+                    </p>
+                  </li>
+                </ol>
+              </form>
+            </div>
+          </div>
+          <?php } ?>
 
-  <?php if ( $u->documenti() ) { ?>
-  <a href="?p=presidente.utente.documenti&id=<?php echo $u->id; ?>" data-attendere="Generazione in corso...">
-    <i class="icon-download-alt"></i>
-    Scarica documenti del volontario in ZIP
-  </a>
-  <?php } else { ?>
-  <span class="text-info">
-    <i class="icon-warning-sign"></i>
-    Il volontario non ha caricato documenti.
-  </span>
-  <?php } ?>
-  <hr />
+            <!-- FINE BLOCCO DOCUMENTI-->
+            </div>
+          </div>
+          <?php } ?>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="row-fluid">
     <h4>
@@ -309,11 +440,13 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         </td>
 
         <td>
+
           <div class="btn-group">
+            <?php if($hoPotere) { ?>
             <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
               <i class="icon-edit"></i>
             </a>
-            <?php if($me->admin()){ ?>
+            <?php } if($me->admin()){ ?>
             <a onClick="return confirm('Vuoi veramente cancellare questa appartenenza ?');" href="?p=us.appartenenza.cancella&a=<?php echo $app; ?>" title="Cancella appartenenza" class="btn btn-small btn-danger">
               <i class="icon-trash"></i>
             </a>
@@ -356,7 +489,9 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
   <?php } ?>
   <h4><i class="icon-list muted"></i> Curriculum </h4>
   <div id="step1">
+  <?php if($hoPotere) { ?>
     <div class="alert alert-block alert-success" <?php if ($titoli[2]) { ?>data-richiediDate<?php } ?>>
+      
       <div class="row-fluid">
         <span class="span3">
           <label for="cercaTitolo">
@@ -372,7 +507,9 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         </span>
       </div>
 
+
     </div>
+    <?php } ?>
 
     <table class="table table-striped table-condensed table-bordered" id="risultatiRicerca" style="display: none;">
       <thead>
@@ -489,6 +626,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <?php } ?>
 
         <td>
+          <?php if($hoPotere) { ?>
           <div class="btn-group">
             <a href="?p=presidente.titolo.modifica&t=<?php echo $titolo->id; ?>&v=<?php echo $u->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
               <i class="icon-edit"></i>
@@ -497,6 +635,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
               <i class="icon-trash"></i>
             </a>
           </div>
+          <?php } ?>
         </td>
       </tr>
       <?php } ?>

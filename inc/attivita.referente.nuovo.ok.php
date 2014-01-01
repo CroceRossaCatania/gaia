@@ -6,8 +6,13 @@
 
 paginaPresidenziale();
 
+$parametri = array('id', 'inputReferente');
+controllaParametri($parametri);
+
 $attivita = $_POST['id'];
 $attivita = Attivita::id($attivita);
+
+paginaAttivita($attivita);
 
 $referente = $_POST['inputReferente'];
 $referente = Volontario::id($referente);

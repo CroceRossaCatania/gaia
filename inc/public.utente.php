@@ -6,6 +6,8 @@
 
 paginaPrivata();
 
+controllaParametri(array('id'));
+
 $id = $_GET['id']; 
 $u = Utente::id($id);
 $t = TitoloPersonale::filtra([['volontario', $u]]);
@@ -35,13 +37,15 @@ $t = TitoloPersonale::filtra([['volontario', $u]]);
                     <input readonly type="text" name="inputCognome" id="inputCognome" value="<?php echo $u->cognome; ?>">
                 </div>
             </div>
+            <?php if ($u->stato == VOLONTARIO) { ?>
             <div class="control-group">
                 <label class="control-label" for="ingressoCRI">Data ingresso in CRI</label>
                 <div class="controls">
                     <input readonly type="text" name="ingressoCRI" id="ingressoCRI" value="<?php echo date('d/m/Y', $u->primaAppartenenza()->inizio); ?>">
                 </div>
             </div>
-            <?php if($u->privacy()->contatti($me)){ ?>
+            <?php }
+            if($u->privacy()->contatti($me)){ ?>
                 <div class="control-group">
                     <label class="control-label" for="inputEmail">Email</label>
                     <div class="controls">

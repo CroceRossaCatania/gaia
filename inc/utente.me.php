@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaPrivata(false);
@@ -47,8 +47,12 @@ if ( !$consenso ){ ?>
   </div>
 <?php } 
 
-if ( !$me->email )
-  redirect('nuovaAnagraficaContatti');
+if (isset($_GET['rimandaPrivatizzazione'])) {
+  $sessione->rimandaPrivatizzazione = true;
+}
+
+if ($consenso && !$me->email ) { redirect('nuovaAnagraficaContatti'); }
+if ($consenso && !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
 
 if ($consenso) {
   foreach ( $me->comitatiPresidenzianti() as $comitato ) {
@@ -58,6 +62,39 @@ if ($consenso) {
       }
   }
 }
+
+if (!$sessione->rimandaPrivatizzazione && $consenso) {
+  foreach($me->comitatiPresidenzianti() as $comitato) {
+    $p = $comitato->unPresidente();
+    if ( $p && $p == $me->id && (!$comitato->cf() || (!$comitato->piva()))) { ?>
+      <div class="modal fade automodal">
+        <div class="modal-header">
+          <h3 class="text-success"><i class="icon-cog"></i> Privatizzazione della CRI!</h3>
+        </div>
+        <div class="modal-body">
+          <p>Ciao <strong><?php echo $me->nome; ?></strong>, con il nuovo anno anche Gaia
+          si adegua alla privatizzazione della CRI.</p>
+          <p>Come prima passo ti chiediamo di inserire, se sono già in tuo possesso, le informazioni
+          su nuovo <strong>Codice Fiscale</strong> e nuova <strong>Partita IVA</strong> del comitato di cui sei il presidente.
+          <p>Dovrai completare questa procedura entro la fine del mese di Gennaio 2014, altrimenti
+          verrà bloccato l'utilizzo del portale a tutti gli appartenenti al comitato di cui sei Presidente.</p>
+          <p>La procedura può essere completata in ogni momento dal pannello <strong>Presidente</strong>.</p>
+          <p>Lo staff di Gaia</p>
+        </div>
+        <div class="modal-footer">
+          <a href="?p=utente.me&rimandaPrivatizzazione" class="btn">
+            <i class="icon-remove"></i> Rimanda
+          </a>
+          <a href="?p=presidente.wizard&oid=<?php echo($comitato->oid()); ?>" class="btn btn-success">
+            <i class="icon-ok"></i> Inserisci i dati!
+          </a>
+        </div>
+      </div>
+    <?php }
+  }
+}
+/* Noi siamo cattivi >:) */
+// redirect('curriculum');
 
 $attenzione = false;
 
@@ -108,14 +145,34 @@ if ($consenso && $rf) {
           </a>
         </div>
 </div>
-    
 
 
-<?php
-}
+<?php 
+} 
 
 
-if(false && !$sessione->barcode) {?>
+if ( $consenso && !$me->appartenenzaValida() ) { ?>
+  <div class="modal fade automodal">
+    <div class="modal-header">
+      <h4 class="text-error"><i class="icon-warning-sign"></i> Seleziona il tuo Comitato</h4>
+    </div>
+    <div class="modal-body">
+      <p>Ciao <?= $me->nome; ?>, ci risulta che non hai selezionato alcun Comitato di appartenenza.
+      Fino a che non avrai scelto il comitato di cui fai parte e non sarai stato approvato dal tuo presidente non potrai
+      utilizzare le funzionalità del portale Gaia.</p>
+      <p>Se pensi che ci sia un errore invia una mail a <i class="icon-envelope"></i><a href="mailto:supporto@gaia.cri.it"> supporto@gaia.cri.it</a></p>
+      <hr />
+      <p class="allinea-centro">
+        <a href="?p=utente.comitato" class="btn btn-large"><i class="icon-sitemap"></i> 
+          Seleziona il tuo comitato
+        </a>
+        <a href="?p=logout" class="btn btn-large"><i class="icon-remove"></i> Esci</a>
+      </p>
+    </div>
+  </div>
+<?php }
+
+if(false && $consenso && !$sessione->barcode) { ?>
 
 <div class="modal fade automodal">
   <div class="modal-header">
@@ -152,7 +209,7 @@ if(false && !$sessione->barcode) {?>
 
     <div class="span9">
         
-        <h2><span class="muted">Ciao, </span><?php if($me->presiede()){?><span class="muted">Presidente</span> <?php echo $me->nome;}else{echo $me->nome;} ?>.</h2>
+        <h2><span class="muted">Ciao, </span><?php if($me->admin()){ ?> <span class="muted">Admin</span> <?php }elseif($me->presiede()){?><span class="muted">Presidente</span> <?php } echo $me->nome; ?>.</h2>
         
         <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
         <div class="alert alert-success">
@@ -170,6 +227,12 @@ if(false && !$sessione->barcode) {?>
         <div class="alert alert-success">
             <i class="icon-ok"></i> <strong>Mail inviate</strong>.
             Mail di massa inviata con successo.
+        </div> 
+        <?php } ?>
+        <?php if (isset($_GET['err'])) { $attenzione = true;  ?>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+            <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
         </div> 
         <?php } ?>
         <?php if (!$me->wizard) { $attenzione = true;  ?>
@@ -261,35 +324,12 @@ if(false && !$sessione->barcode) {?>
       <p>Ricordati di caricare i tuoi documenti dalla sezione <strong>Documenti</strong>.</p>
     </div>
 
-        <div class="alert alert-block">
-            <h4><i class="icon-pause"></i> In riserva</h4>
-            <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d/m/Y', $r->fine); ?></strong>.</p>
-        </div>
-        <?php } ?> 
-        <?php   if ( $me->storico() && !$me->appartenenzePendenti() && $me->unComitato()->gruppi() ) { 
-                        if (!$me->mieiGruppi()){ ?>
-                                <div class="alert alert-danger">
-                                    <div class="row-fluid">
-                                         <span class="span7">
-                                              <h4><i class="icon-group"></i> Non sei iscritto a nessun gruppo!</h4>
-                                                  <p>Il tuo Comitato ha attivato i gruppi di lavoro, sei pregato di regolarizzare l'iscrizione ad un gruppo.</p>
-                                         </span>
-                                         <span class="span5">
-                                             <a href="?p=utente.gruppo" class="btn btn-large">
-                                                 <i class="icon-group"></i>
-                                                     Iscriviti ora!
-                                             </a>
-                                         </span>
-                                     </div>
-                                </div>
-        <?php }
-                        } ?>
-            
-        <!-- Per ora mostra sempre... -->
-        <div class="alert alert-block alert-info">
-            <h4><i class="icon-folder-open"></i> Hai già caricato i tuoi documenti?</h4>
-            <p>Ricordati di caricare i tuoi documenti dalla sezione <strong>Documenti</strong>.</p>
-        </div>
+<?php }
+if ( !$attenzione && $me->comitatiDiCompetenza() ) { ?>
+    <div class="alert alert-block alert-warning">
+      <h4><i class="icon-warning-sign"></i> Dov'è finito il pannello presidente?</h4>
+      <p>Nel menù di sinistra, alla voce <strong>Presidente</strong>.</p>
     </div>
+<?php } ?>
 </div>
-
+</div>

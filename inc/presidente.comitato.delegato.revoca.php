@@ -6,6 +6,9 @@
 
 paginaApp([APP_PRESIDENTE]);
 
+$parametri = array('oid', 'id');
+controllaParametri($parametri);
+
 $c = $_GET['oid'];
 $c = GeoPolitica::daOid($c);
 

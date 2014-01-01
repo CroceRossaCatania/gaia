@@ -12,6 +12,7 @@ class Utente extends Persona {
      */
     public function login($password) {
         if ( $this->password == criptaPassword($password) ) {
+            $this->ultimoAccesso = time();
             return true;
         } else {
             return false;
@@ -229,7 +230,9 @@ class Utente extends Persona {
             AND
                 ( appartenenza.fine < 1
                  OR
-                appartenenza.fine > :ora )");
+                appartenenza.fine > :ora 
+                 OR
+                appartenenza.fine IS NULL)");
         $q->bindParam(':tipo', $tipo);
         $ora = time();
         $q->bindParam(':ora',  $ora);
@@ -638,8 +641,14 @@ class Utente extends Persona {
         }
         return $r;
     }
-    
-    public function comitatiDelegazioni($app = null, $soloComitati = false) {
+    /*
+     * Restituisce i comitati che mi competono per una determinata delega
+     * @return array di geopolitiche
+     * @param $app array di delegazioni
+     * @param $soloComitati per far restituire solo i comitati e non il resto
+     * @param $espandi default ritorna le geopolitiche e la loro espansione
+     */
+    public function comitatiDelegazioni($app = null, $soloComitati = false, $espandi = true) {
         $d = $this->delegazioni($app);
         $c = [];
         foreach ( $d as $_d ) {
@@ -647,7 +656,7 @@ class Utente extends Persona {
             if (!$soloComitati || $comitato instanceof Comitato) {
                 $c[] = $comitato;
             }
-            if (!$comitato instanceof Comitato) {
+            if ($espandi && !$comitato instanceof Comitato) {
                 $c = array_merge($comitato->estensione(), $c);
             }
         }
@@ -894,17 +903,15 @@ class Utente extends Persona {
     public function cellulare() {
         if($this->cellulareServizio){
             return $this->cellulareServizio;
-            }else{
-                return $this->cellulare;
-            }
+        }
+        return $this->cellulare;
     }
 
     public function email() {
         if($this->emailServizio){
             return $this->emailServizio;
-            }else{
-                return $this->email;
-            }
+        }
+        return $this->email;
     }
     
     public function giovane() {
@@ -1037,17 +1044,19 @@ class Utente extends Persona {
         }elseif($this->areeDiResponsabilita()){
             $ar = $this->areeDiResponsabilita();
             foreach( $ar as $_a ){
-                $c = $_a->comitato();
-                if($altroutente->in($c)){
-                    return PRIVACY_RISTRETTA;
+                $c = $_a->comitato()->estensione();
+                foreach ($c as $_c) {
+                    if($altroutente->in($_c)){
+                        return PRIVACY_RISTRETTA;
+                    }
                 }
             }
             redirect('public.utente&id=' . $id);
         }elseif($this->attivitaReferenziate()){
             $a = $this->attivitaReferenziate();
-            foreach( $a as $_a ){
-                $c = $_a->area()->comitato();
-                if($altroutente->in($c)){
+            $partecipazioni = $this->partecipazioni(PART_OK);
+            foreach( $partecipazioni as $p ){
+                if (in_array($p->attivita(), $a)) {
                     return PRIVACY_RISTRETTA;
                 }
             }
@@ -1077,12 +1086,59 @@ class Utente extends Persona {
     }
 
     /*
-     * @return true se si ha una appartenenza valida (pendente o attuale), false se si è volontario senza appartenenza
+     * @return true se se si è in una situazione in cui le appartenenze assegnate hanno senso.
+     * Anche se la gestione del false non è fatta in maniera corretta nella pagina.
      */
     public function appartenenzaValida(){
-        if(($this->appartenenzeAttuali() || $this->appartenenzePendenti()) && $this->stato == VOLONTARIO){
+        $attuali = $this->appartenenzeAttuali();
+        $pendenti = $this->appartenenzePendenti();
+        $inGenerale = $this->appartenenze();
+        if(($attuali || $pendenti) && $this->stato == VOLONTARIO){
+            return true;
+        } elseif($inGenerale && $this->stato == PERSONA) {
+            return true;
+        } elseif (!$attuali && !$pendenti && $this->stato == ASPIRANTE) {
             return true;
         }
         return false;
+    }
+
+    /*
+     * Verifica se un altro utente ha permessi in scrittura su me
+     * @return bool modifica o non modifica
+     * @param $altroUtente il modificatore
+     */
+    public function modificabileDa(Utente $altroUtente) {
+        if ($altroUtente->admin()) {
+            return true;
+        }
+        $comitatiGestiti = array_merge($altroUtente->comitatiDelegazioni(APP_PRESIDENTE, false, false), 
+                               $altroUtente->comitatiDelegazioni(APP_SOCI, false, false)
+                            );
+        $comitatiGestiti = array_unique($comitatiGestiti);
+        
+        $c = $this->unComitato(MEMBRO_PENDENTE);
+        if($c) {
+            if(in_array($c->locale(), $comitatiGestiti) 
+            || in_array($c, $comitatiGestiti)) {
+            return true;
+            }
+        }
+        return false;
+    }
+
+    /*
+     * Visualizza ultimo accesso dell'utente
+     * @return recentemente<5gg, 5gg< ultimo mese <30gg, piu di un mese >30gg
+     */
+    public function ultimoAccesso() {
+        if(!$this->ultimoAccesso){
+            return "Mai";
+        } elseif ($this->ultimoAccesso >= time()-GIORNO*5) {
+            return "Recentemente";
+        } elseif ($this->ultimoAccesso >= time()-MESE) {
+            return "Nell'ultimo mese";
+        }
+        return "Più di un mese fà";
     }
 }

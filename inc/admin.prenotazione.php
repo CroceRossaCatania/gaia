@@ -17,3 +17,5 @@ foreach ($turni  as $turno) {
 }
 $time = time()-$inizio;
 echo "Finito! Ho sistemato: ", $i, " in: ", $time, " secondi";
+
+?>

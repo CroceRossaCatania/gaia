@@ -9,3 +9,5 @@ paginaAdmin();
 $id = $_GET['id'];
 $sessione->utente = $id;
 redirect('utente.me');
+
+?>

@@ -5,12 +5,14 @@
  */
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
+controllaParametri(array('id'), 'us.dash&err');
+
 $q = $_GET['id'];
 $app = Quota::id($q);
 $p = new PDF('ricevutaquota', 'ricevuta.pdf');
 $p->_COMITATO = $app->comitato()->locale()->nomeCompleto();
 $p->_INDIRIZZO = $app->comitato()->locale()->formattato;
-$iva = PIVA;
+$iva = $app->comitato()->locale()->piva();
 $p->_PIVA = $iva;
 $p->_ID = $app->id;
 $p->_NOME = $app->volontario()->nome;

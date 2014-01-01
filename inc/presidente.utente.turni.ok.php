@@ -6,6 +6,8 @@
 
 paginaPresidenziale();
 
+controllaParametri(array('id'));
+
 $id = $_GET['id'];
 $v = Volontario::id($id);
 $anno = date('Y', time());

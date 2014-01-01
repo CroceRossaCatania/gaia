@@ -44,14 +44,23 @@ paginaPrivata();
             </div>
         </div>
         <hr />
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="alert alert-info">
+                Per visualizzare il numero di telefono dei Volontari in rubrica premi su <i class="icon-phone"></i> ,
+                mentre per visualizzare l'email premi su <i class="icon-envelope"></i> .
+                </div>
+            </div>
+        </div>
+
         <table class="table table-striped table-bordered" id="tabellaUtenti">
             <thead>
                 <th>Foto</th>
                 <th>Nome</th>
                 <th>Cognome</th>
+                <th>Unità</th>
                 <th>Telefono</th>
-                <th>Comitato</th>
-                <th>Azione</th>
+                <th>Email</th>
             </thead>
             <?php 
             $comitato = $me->unComitato();
@@ -59,17 +68,18 @@ paginaPrivata();
 
             foreach ( $volontari as $_v ) {
                     if($_v->privacy()->contatti($me)) {
+                        $id = $_v->id;
                     ?>
                     <tr>
                         <td><img src="<?php echo $_v->avatar()->img(10); ?>" class="img-polaroid" /></td>
                         <td><?php echo $_v->nome; ?></td>
                         <td><?php echo $_v->cognome; ?></td>
-                        <td><?php echo $_v->cellulare(); ?></td>
-                        <td><?php echo $_v->unComitato()->nomeCompleto(); ?></td>
+                        <td><?php echo $_v->unComitato()->nome; ?></td>
                         <td>
-                            <a class="btn btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>">
-                                <i class="icon-envelope"></i>
-                            </a>
+                            <span data-nascondi="" data-icona="icon-phone"><?php echo $_v->cellulare(); ?></span>
+                        </td>
+                        <td>
+                            <span data-nascondi="" data-icona="icon-envelope"><?php echo $_v->email(); ?></span>
                         </td>
                     </tr>
                     <?php }

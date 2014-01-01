@@ -6,11 +6,14 @@
 
 paginaPrivata();
 
+$parametri = array('inputComitato', 'dataIngresso');
+controllaParametri($parametri);
+
 $c = $_POST['inputComitato'];
 
 /* Verifico appartenenza */
-if($me->appartenenze()){
-	redirect('utente.me');
+if($me->appartenenzaValida()) {
+  redirect('errore.permessi');
 }
            
 /*Se non sono appartenente allora avvio la procedura*/

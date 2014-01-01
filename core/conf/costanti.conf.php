@@ -33,10 +33,13 @@ $conf['statoPersona'] = [
 
 /* Un anno, un mese e un giorno */
 
-define('ANNO',      31536000);
-define('MESE',       2592000);
-define('MESEEMEZZO', 3888000);
-define('DUEGIORNI',   172800);
+define('ANNO',       31536000);
+define('MESE',        2592000);
+define('MESEEMEZZO',  3888000);
+define('GIORNO',        86400);
+define('DUEGIORNI',    172800);
+define('ETAMINIMA', 441504000);
+
 
 /*
  * ===================================
@@ -81,7 +84,8 @@ $conf['membro'] = [
     MEMBRO_DIPENDENTE       =>  'Dipendente',
     MEMBRO_PRESIDENTE       =>  'Presidente',
     MEMBRO_DIMESSO          =>  'Dimesso',
-    MEMBRO_EST_TERMINATA    =>  'Estensione terminata'
+    MEMBRO_EST_TERMINATA    =>  'Estensione terminata',
+    MEMBRO_APP_NEGATA       =>  'Appartenenza negata'
 ];
 
 
@@ -491,11 +495,12 @@ $conf['quote'] = [
 
 /*
  * ===================================
- * =========== PIVA======== ============
+ * =========== PIVA e CF =============
  * ===================================
  */
 
 define('PIVA', '01019341005');
+define('CF', '01906810583');
 
 /*
  * ===================================
@@ -529,8 +534,8 @@ define('EST_GRP_UNITA',         10);
 define('EST_GRP_LOCALE',        20);
 
 $conf['est_grp'] = [
-    EST_GRP_UNITA       =>  'Unità Territoriale',
-    EST_GRP_LOCALE      =>  'Comitato Locale'    
+    EST_GRP_UNITA       =>  'Unità',
+    EST_GRP_LOCALE      =>  'Locale'    
 ];
 
 /*
@@ -561,7 +566,6 @@ $conf['dizionario'] = [
     DIZIONARIO_ESADECIMALE  =>  '0123456789abcdef',
     DIZIONARIO_BASE64       =>  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 ];
-
 
 /*
  * ===================================

@@ -6,6 +6,8 @@
 
 paginaPrivata();
 
+controllaParametri(array('id'));
+
 $id = $_GET['id'];
 $ris = Riserva::id($id);
 $ris->termina();
