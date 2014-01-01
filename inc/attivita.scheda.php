@@ -71,7 +71,7 @@ $(document).ready( function() {
                 <a href="?p=attivita.cancella&id=<?= $a->id; ?>" class="btn btn-large btn-danger" title="Cancella attività e tutti i turni">
                     <i class="icon-trash"></i>
                 </a>
-                <?php if (!$g && $a->comitato()->_estensione() < EST_PROVINCIALE){ ?>
+                <?php if (!$g && $a->comitato()->_estensione() < EST_NAZIONALE){ ?>
                     <a class="btn btn-large btn-success" href="?p=attivita.gruppo.nuovo&id=<?php echo $a->id; ?>" itle="Crea nuovo gruppo di lavoro">
                         <i class="icon-group"></i> Crea gruppo
                     </a>

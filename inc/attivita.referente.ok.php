@@ -36,10 +36,14 @@ if(isset($_GET['g'])){
     $g->area        =   $attivita->area();
     $g->referente   =   $referente;
     $g->attivita 	=	$attivita;
-    if ($attivita->comitato()->_estensione() == EST_UNITA) {
-        $g->estensione  =   EST_GRP_UNITA;    
-    } else {
+    if ($attivita->comitato()->_estensione() == EST_REGIONALE) {
+        $g->estensione  =   EST_GRP_REGIONALE;    
+    } elseif ($attivita->comitato()->_estensione() == EST_PROVINCIALE) {
+        $g->estensione  =   EST_GRP_PROVINCIALE;
+    } elseif ($attivita->comitato()->_estensione() == EST_LOCALE) {
         $g->estensione  =   EST_GRP_LOCALE;
+    } else {
+        $g->estensione  =   EST_GRP_UNITA;
     }
     
 }
