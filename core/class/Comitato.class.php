@@ -391,7 +391,8 @@ class Comitato extends GeoPolitica {
             'coordinate'    =>  $this->coordinate(),
             'telefono'      =>  $this->telefono,
             'email'         =>  $this->email,
-            'volontari'     =>  count($this->membriAttuali())
+            'volontari'     =>  count($this->membriAttuali()),
+            'oid'           =>  $this->oid()
         ];
     }
 

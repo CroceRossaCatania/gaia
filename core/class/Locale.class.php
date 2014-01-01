@@ -74,7 +74,8 @@ class Locale extends GeoPolitica {
             'email'     =>  $principale->email,
             'principale'=>  $principale->id,
             'unita'     =>  $comitati,
-            'id'        =>  $this->id
+            'id'        =>  $this->id,
+            'oid'       =>  $this->oid()
         ];
     }
 

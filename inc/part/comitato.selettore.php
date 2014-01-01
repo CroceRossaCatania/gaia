@@ -56,6 +56,12 @@ function _carica_unita() {
     var comitato = $("#_sel_locale").val();
     $.each(comitati.regionali[regione].provinciali[provincia].comitati[comitato].unita, function (i, v) {
         $("#_sel_unita").append("<option value='" + i + "'>" + v.nome + "</option>");
+        $.each(
+            v.unita,
+            function(y, h) {
+                
+            }
+        );
     });
 }
 

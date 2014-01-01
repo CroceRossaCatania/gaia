@@ -47,7 +47,8 @@ class Nazionale extends GeoPolitica {
         return [
             'nome'          =>  $this->nome,
             'regionali'     =>  $regionali,
-            'id'            =>  $this->id
+            'id'            =>  $this->id,
+            'oid'           =>  $this->oid()
         ];
     }
     
