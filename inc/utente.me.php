@@ -43,6 +43,10 @@ if ( !$consenso ){ ?>
   </div>
 <?php } 
 
+if (isset($_GET['rimandaPrivatizzazione'])) {
+  $sessione->rimandaPrivatizzazione = true;
+}
+
 if ($consenso && !$me->email ) { redirect('nuovaAnagraficaContatti'); }
 if ($consenso && !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
 
@@ -52,6 +56,37 @@ if ($consenso) {
       if ( $p && $p == $me->id && !$comitato->haPosizione() && !$comitato->principale ) {
           redirect('presidente.wizard&forzato&oid=' . $comitato->oid());
       }
+  }
+}
+
+if (!$sessione->rimandaPrivatizzazione && $consenso) {
+  foreach($me->comitatiPresidenzianti() as $comitato) {
+    $p = $comitato->unPresidente();
+    if ( $p && $p == $me->id && (!$comitato->cf() || (!$comitato->piva()))) { ?>
+      <div class="modal fade automodal">
+        <div class="modal-header">
+          <h3 class="text-success"><i class="icon-cog"></i> Privatizzazione della CRI!</h3>
+        </div>
+        <div class="modal-body">
+          <p>Ciao <strong><?php echo $me->nome; ?></strong>, con il nuovo anno anche Gaia
+          si adegua alla privatizzazione della CRI.</p>
+          <p>Come prima passo ti chiediamo di inserire, se sono già in tuo possesso, le informazioni
+          su nuovo <strong>Codice Fiscale</strong> e nuova <strong>Partita IVA</strong> del comitato di cui sei il presidente.
+          <p>Dovrai completare questa procedura entro la fine del mese di Gennaio 2014, altrimenti
+          verrà bloccato l'utilizzo del portale a tutti gli appartenenti al comitato di cui sei Presidente.</p>
+          <p>La procedura può essere completata in ogni momento dal pannello <strong>Presidente</strong>.</p>
+          <p>Lo staff di Gaia</p>
+        </div>
+        <div class="modal-footer">
+          <a href="?p=utente.me&rimandaPrivatizzazione" class="btn">
+            <i class="icon-remove"></i> Rimanda
+          </a>
+          <a href="?p=presidente.wizard&oid=<?php echo($comitato->oid()); ?>" class="btn btn-success">
+            <i class="icon-ok"></i> Inserisci i dati!
+          </a>
+        </div>
+      </div>
+    <?php }
   }
 }
 /* Noi siamo cattivi >:) */

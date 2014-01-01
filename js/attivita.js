@@ -36,7 +36,7 @@ $(document).ready(function() {
 							    '': 'H(:mm)'            
 							},
 		axisFormat: 		'H:mm',
-
+		defaultView: 		'basicWeek',
 		allDaySlot:   		false, 
 
 		header:  			{

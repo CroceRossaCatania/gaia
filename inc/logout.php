@@ -8,6 +8,7 @@
 $sessione->attenzione = null;
 $sessione->adminMode  = null;
 $sessione->barcode	  = null;
+$sessione->rimandaPrivatizzazione = null;
 $sessione->logout();
 
 ?>

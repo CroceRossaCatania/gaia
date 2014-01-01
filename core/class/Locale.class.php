@@ -108,5 +108,26 @@ class Locale extends GeoPolitica {
         }
         return $r;
     }
+
+    public function piva() {
+        if ($this->nome == "Comitato Provinciale di Trento"
+            or $this->nome == "Comitato Provinciale di Bolzano")
+            return PIVA;
+        return $this->piva;
+    }
+
+    public function cf() {
+        if ($this->nome == "Comitato Provinciale di Trento"
+            or $this->nome == "Comitato Provinciale di Bolzano")
+            return CF;
+        return $this->cf;
+    }
+
+    public function privato() {
+        if ($this->nome == "Comitato Provinciale di Trento"
+            or $this->nome == "Comitato Provinciale di Bolzano")
+            return false;
+        return true;
+    }
     
 }
