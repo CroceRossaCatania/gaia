@@ -9,9 +9,9 @@ $a = new Aspirante;
 $a->utente 	= $me;
 $a->data 	= time();
 
-$a->localizzaStringa("{$me->indirizzo}, {$me->comuneResidenza}, {$me->CAPResidenza}");
+$a->luogo = "{$me->indirizzo}, {$me->comuneResidenza}, {$me->CAPResidenza}";
+$a->localizzaStringa($a->luogo);
 
 $a->raggio = $a->trovaRaggioMinimo();
 
-//redirect('aspirante.localita');
-redirect('aspirante.home');
+redirect('aspirante.localita');

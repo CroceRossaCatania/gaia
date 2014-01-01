@@ -75,7 +75,6 @@ if ( !($a = Aspirante::daVolontario($me)) )
         
         <hr />
         <form action="?p=aspirante.localita.ok" method="POST">
-            <input type="hidden" name="id" value="<?php echo $a->id; ?>" />
             <input type="hidden" id="formattato" name="formattato" value="<?php echo $a->luogo; ?>" />
             <button id="pulsanteOk" type="submit" class="btn btn-block btn-success btn-large disabled" disabled="disabled">
                 <i class="icon-ok"></i> Accetta questa posizione
