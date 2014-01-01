@@ -10,6 +10,7 @@ $c = $_GET['oid'];
 $c = GeoPolitica::daOid($c);
 
 paginaApp([APP_PRESIDENTE], $c);
+proteggiClasse($c, $me);
 
 ?>
 
@@ -32,6 +33,8 @@ paginaApp([APP_PRESIDENTE], $c);
     
   </div>
 
+  <hr />
+
   <?php if ( isset($_GET['forzato'] ) ) { ?>
   <div class="alert alert-block alert-info">
     <h4><i class="icon-info-sign"></i> Completa la scheda dell'Unità territoriale</h4>
@@ -42,8 +45,14 @@ paginaApp([APP_PRESIDENTE], $c);
       <p><i><i class="icon-warning-sign"></i> Non potrai usare altre funzioni di Gaia fino al completamento delle schede delle tue unità territoriali.</i></p>
     </div>
     <?php } ?>
+    <div class="alert alert-block alert-info">
+      <h4><i class="icon-warning-sign"></i> Codice Fiscale e Partita IVA</h4>
+      <p>Fai molta attenzione nell'inserire Codice Fiscale e Partita IVA in quanto una volta inseriti
+      non potrai modificarli manualmente. In caso di errore nell'inserimento manda una email a 
+      supporto@gaia.cri.it per richiederne la correzione.</p>
+    </div>
 
-    <hr />
+    
 
     <div class="row-fluid">
       
@@ -78,6 +87,20 @@ paginaApp([APP_PRESIDENTE], $c);
               <input type="email" required name="inputEmail" id="inputEmail" value="<?php echo $c->email; ?>" />
             </div>
           </div>
+          <?php if ($c->privato() && ! $c instanceof Comitato && $c->unPresidente()->id == $me->id) { ?>
+          <div class="control-group">
+            <label class="control-label" for="inputCFl">Codice Fiscale</label>
+            <div class="controls">
+              <input type="text" name="inputCF" id="inputCF" value="<?php echo $c->cf(); ?>" <?php if($c->cf() && !$me->admin()) echo("readonly") ?> <?php if (! $me->admin()) echo "required"; ?> />
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputPIVA">Partita IVA</label>
+            <div class="controls">
+              <input type="text" name="inputPIVA" id="inputPIVA" value="<?php echo $c->piva(); ?>" <?php if($c->piva() && !$me->admin()) echo("readonly") ?> <?php if (! $me->admin()) echo "required"; ?> />
+            </div>
+          </div>
+          <?php } ?>
           
         </div>
         
