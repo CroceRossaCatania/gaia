@@ -86,4 +86,8 @@ class Regionale extends GeoPolitica {
     public function cf() {
         return CF;
     }
+
+    public function privato() {
+        return false;
+    }
 }

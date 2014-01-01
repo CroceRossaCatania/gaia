@@ -122,5 +122,12 @@ class Locale extends GeoPolitica {
             return CF;
         return $this->cf;
     }
+
+    public function privato() {
+        if ($this->nome == "Comitato Provinciale di Trento"
+            or $this->nome == "Comitato Provinciale di Bolzano")
+            return false;
+        return true;
+    }
     
 }

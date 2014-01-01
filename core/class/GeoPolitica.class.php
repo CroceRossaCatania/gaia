@@ -11,6 +11,7 @@ abstract class GeoPolitica extends GeoEntita {
     abstract public function figli();    
     abstract public function piva();
     abstract public function cf();
+    abstract public function privato();
 
     /**
      * Rigenera l'albero e lo salva in JSON per utilizzi futuri
@@ -238,6 +239,13 @@ abstract class GeoPolitica extends GeoEntita {
         return Attivita::filtra([
             ['comitato',  $this->oid()]
         ]);
+    }
+
+    public function modificabileDa(Utente $altroUtente) {
+        if ($altroUtente->admin() || $this->unPresidente()->id == $altroUtente->id) {
+            return true;
+        }
+        return false;
     }
     
 }

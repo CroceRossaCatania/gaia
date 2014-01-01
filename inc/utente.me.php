@@ -43,6 +43,10 @@ if ( !$consenso ){ ?>
   </div>
 <?php } 
 
+if (isset($_GET['rimandaPrivatizzazione'])) {
+  $sessione->rimandaPrivatizzazione = true;
+}
+
 if ($consenso && !$me->email ) { redirect('nuovaAnagraficaContatti'); }
 if ($consenso && !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
 
@@ -55,7 +59,7 @@ if ($consenso) {
   }
 }
 
-if ($consenso) {
+if (!$sessione->rimandaPrivatizzazione && $consenso) {
   foreach($me->comitatiPresidenzianti() as $comitato) {
     $p = $comitato->unPresidente();
     if ( $p && $p == $me->id && (!$comitato->cf() || (!$comitato->piva()))) { ?>
@@ -74,10 +78,10 @@ if ($consenso) {
           <p>Lo staff di Gaia</p>
         </div>
         <div class="modal-footer">
-          <a href="?p=" class="btn">
+          <a href="?p=utente.me&rimandaPrivatizzazione" class="btn">
             <i class="icon-remove"></i> Rimanda
           </a>
-          <a href="?p=" class="btn btn-success">
+          <a href="?p=presidente.wizard&oid=<?php echo($comitato->oid()); ?>" class="btn btn-success">
             <i class="icon-ok"></i> Inserisci i dati!
           </a>
         </div>
