@@ -59,7 +59,7 @@ if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
 	$m->_NOME = $sessione->utente()->nome;
 	$m->invia();
 	$sessione->utente = NULL;
-	redirect('grazieAspirante');
+	redirect('utente.me');
 }
 
 ?>
