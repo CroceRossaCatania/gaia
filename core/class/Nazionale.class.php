@@ -50,5 +50,27 @@ class Nazionale extends GeoPolitica {
             'id'            =>  $this->id
         ];
     }
+
+    public function piva() {
+        return PIVA;
+    }
+
+    public function cf() {
+        return CF;
+    }
+
+    public function privato() {
+        return false;
+    }
+
+    public function modificabileDa(Utente $u) {
+        if ($altroUtente->admin()) {
+            return true;
+        }
+        if ($this->unPresidente()->id == $u->id) {
+            return true;
+        }
+        return false;
+    }
     
 }

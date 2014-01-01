@@ -8,6 +8,10 @@
  * Sessione utente necessaria
  */
 
+if ($sessione->utente()->email) {
+  redirect('errore.permessi&cattivo');
+}
+
 paginaPrivata();
 controllaParametri(array('inputEmail'), 'nuovaAnagraficaContatti&err');
 

@@ -4,6 +4,10 @@
  * ©2012 Croce Rossa Italiana
  */
 
+if ($sessione->utente()->email) {
+  redirect('errore.permessi&cattivo');
+}
+
 ?>
 
 <div class="row-fluid">

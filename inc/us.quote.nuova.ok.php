@@ -43,7 +43,7 @@ foreach ( $id->storico() as $app ) {
     $p = new PDF('ricevutaquota', 'ricevuta.pdf');
     $p->_COMITATO = $app->comitato()->locale()->nomeCompleto();
     $p->_INDIRIZZO = $app->comitato()->locale()->formattato;
-    $iva = PIVA;
+    $iva = $app->comitato()->locale()->piva();
     $p->_PIVA = $iva;
     $p->_ID = $t;
     $p->_NOME = $id->nome;
