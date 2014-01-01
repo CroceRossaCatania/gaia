@@ -238,13 +238,19 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
        </div>
      </div>
 
-     <div class="control-group input-prepend">
+     <div class="control-group">
       <label class="control-label" for="inputConsenso">Consenso dati personali</label>
       <div class="controls">
        <input value="<?php if($u->consenso()){ echo "Acquisito";}else{ echo "Non Acquisito"; } ?>"  type="text" id="inputConsenso" name="inputConsenso" readonly/>
      </div>
    </div>
-   
+
+   <div class="control-group">
+      <label class="control-label" for="ultimoAccesso">Ultimo Accesso a Gaia</label>
+      <div class="controls">
+       <input value="<?php echo $u->ultimoAccesso(); ?>"  type="text" id="ultimoAccesso" name="ultimoAccesso" readonly/>
+     </div>
+   </div>
 
    <?php if($hoPotere) { ?>
    <hr />
