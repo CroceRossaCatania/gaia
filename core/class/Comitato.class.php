@@ -721,4 +721,16 @@ class Comitato extends GeoPolitica {
             return $r;
     }
 
+    public function piva() {
+        return $this->superiore()->piva();
+    }
+
+    public function cf() {
+        return $this->superiore()->cf();
+    }
+
+    public function privato() {
+        return $this->superiore()->privato();
+    }
+
 }
