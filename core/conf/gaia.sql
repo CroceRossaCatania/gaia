@@ -64,6 +64,16 @@ CREATE TABLE IF NOT EXISTS `aree` (
   KEY `responsabile` (`responsabile`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `aspiranti` (
+  `id` int(11) NOT NULL,
+  `geo` point NOT NULL,
+  `raggio` float DEFAULT NULL,
+  `data` varchar(64) DEFAULT NULL,
+  `utente` int(11) DEFAULT NULL,
+  `luogo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `attivita` (
   `id` int(11) NOT NULL DEFAULT '0',
   `nome` varchar(255) DEFAULT '',
