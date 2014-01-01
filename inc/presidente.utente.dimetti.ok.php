@@ -11,7 +11,6 @@ controllaParametri(array('id','motivo','info'), 'presidente.utenti&errGen');
 $v = Volontario::id($_GET['id']);
 $attuale = $v->appartenenzaAttuale();
 $comitato = $attuale->comitato();
-$time = time();
 $motivo = "membro dimesso";
 
 /* Avviso il volontario */
@@ -30,7 +29,7 @@ $d->appartenenza    = $attuale;
 $d->comitato        = $comitato;
 $d->motivo = $_POST['motivo'];
 $d->info = $_POST['info'];
-$d->tConferma = $time;
+$d->tConferma = time();
 $d->pConferma = $me;
 
 /* Evitiamo di lasciare compiti a chi non è più in CRI */
@@ -73,14 +72,7 @@ $f = Reperibilita::filtra([
   ['volontario', $v]
   ]);
 foreach ($f as $_f) {
-    $_f->fine = $time;
-}
-
-$f = TitoloPersonale::filtra([
-  ['volontario', $t]
-  ]);
-foreach ($f as $_f) {
-    $_f->fine = $time;
+    $_f->fine = time();
 }
 
 $f = Estensione::filtra([
