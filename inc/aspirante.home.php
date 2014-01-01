@@ -9,9 +9,7 @@ if ( $me->stato != ASPIRANTE )
 if ( !($a = Aspirante::daVolontario($me)) )
 	redirect('aspirante.registra');
 
-
 $a->trovaRaggioMinimo();
-var_dump( $a->trovaRaggioMinimo() );
 ?>
 <div class="row-fluid">
     <div class="span3">
@@ -21,11 +19,45 @@ var_dump( $a->trovaRaggioMinimo() );
 
 		<h2>Ciao, <?php echo $me->nome; ?>.</h2>
 
-		<p class="text-info">
-			<i class="icon-globe"></i>
-			Ci sono <?php echo $a->numComitati(); ?> unit&agrave; CRI nelle tue vicinanze.
-		   	Per ulteriori informazioni <a href="?p=public.comitati.mappa">consulta la mappa</a>.
+		<p class="alert alert-block alert-info">
+			<i class="icon-info-sign"></i>
+			Riceverai notifica per email (<?php echo $me->email; ?>) quando verranno organizzati nuovi corsi.
 	    </p>
+
+	    <div class="row-fluid">
+
+	    	<div class="span4 offset2 allinea-centro">
+		    	<div class="well">
+		    		<i class="icon-map-marker"></i> Nella tua zona sono presenti<br />
+	    			<span class="aspiranti_contatore">
+	    				<?php echo $a->numComitati(); ?></span>
+	    			<br />
+	    			<span class="aspiranti_descrizione">Unit&agrave; CRI</span>
+	    			<hr />
+	    			<a class="btn btn-block btn-large" href="?p=public.comitati.mappa">
+	    				<i class="icon-globe"></i>
+	    				Mappa dei comitati
+    				</a>
+
+		    	</div>
+	    	</div>
+
+
+	    	<div class="span4 allinea-centro">
+		    	<div class="well">
+		    		<i class="icon-calendar-empty"></i> Attualmente organizzati<br />
+	    			<span class="aspiranti_contatore">
+	    				<?php echo rand(0,100); ?></span>
+	    			<br />
+	    			<span class="aspiranti_descrizione">Corsi base</span>
+	    			<hr />
+	    			<a class="btn btn-block btn-success btn-large">
+	    				<i class="icon-list"></i> Vedi tutti
+    				</a>
+		    	</div>
+	    	</div>
+
+	    </div>
 		    	
 
     </div>
