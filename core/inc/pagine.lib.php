@@ -18,6 +18,17 @@ function paginaPrivata($consenso = true) {
     if ($consenso && !$sessione->utente()->consenso()) {
         redirect('utente.me');
     }
+    controllaBrowser();
+}
+
+/**
+ * Controlla che il browser utilizzato sia non sia una vecchia versione di IE
+ * (ho escuso quelle precedenti alla 3 per evitare che la regex si mangi il 10)
+ */
+function controllaBrowser() {
+    if(preg_match('/(?i)msie [3-8]/',$_SERVER['HTTP_USER_AGENT'])) {
+        redirect('public.browser');
+    }
 }
 
 function paginaApp($app, $comitati = []) {
