@@ -10,7 +10,7 @@
     <div class="span12">
         <h2><i class="icon-warning-sign"></i> Spiacente, il tuo browser è obsoleto.</h2>
         <hr />
-        <p>Il Browser che stai utilizzando per visitare questo sito ha fatto numerosi problemi di compatibilità
+        <p>Il Browser che stai utilizzando per visitare questo sito ha numerosi problemi di compatibilità
         e sicurezza. </p>
         <p>Per poter utilizzare al meglio Gaia, ma anche per essere più sicuro durante la navigazione sul web
         ti invitiamo a sostituire il tuo browser con uno di quelli indicati qui sotto.
