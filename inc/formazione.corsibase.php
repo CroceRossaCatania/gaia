@@ -45,7 +45,7 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                 <table class="table table-striped table-bordered">
 
                     <thead>
-                        <th>
+                        <th> 
                             Organizzatore
                         </th>
                         <th>
@@ -74,6 +74,9 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                                 </a>
                             </strong><br />
                             <?php echo $corso->luogo; ?>
+                            <br />
+                            Data inizio:
+                            <?php echo $corso->inizio()->inTesto(false); ?>
                             <br />
                             <?php if ( $corso->direttore ) { ?>
                             Referente: 

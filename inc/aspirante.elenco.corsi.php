@@ -27,11 +27,76 @@ if ( !($a = Aspirante::daVolontario($me)) )
 
 
 	    <div class="row-fluid">
+			<div class="span12">
 
-	    	
+                <table class="table table-striped table-bordered">
 
-	    </div>
-		    	
+                    <thead>
+                        <th> 
+                            Organizzatore
+                        </th>
+                        <th>
+                            Data e luogo
+                        </th>
+                        <th>
+                            Stato
+                        </th>
 
+                        <th>
+                            Azione
+                        </th>
+                    </thead>
+
+                    <?php foreach ( $a->corsiBase() as $corso ) { ?>
+
+                    <tr>
+
+                    	<td style="width: 20%;">
+                            <?php echo $corso->organizzatore()->nomeCompleto(); ?>
+                        </td>
+                        <td style="width: 45%;">
+                            <strong>
+                                <a href="?p=formazione.corsibase.scheda&id=<?php echo $corso->id; ?>">
+                                    <?php echo $corso->nome(); ?>
+                                </a>
+                            </strong><br />
+                            Sede:
+                            <?php echo $corso->luogo; ?>
+                            <br />
+                            Data inizio:
+                            <?php echo $corso->inizio()->inTesto(false); ?>
+                            <br />
+                            <?php if ( $corso->direttore ) { ?>
+                            Direttore:
+                            <?php echo $corso->direttore()->nomeCompleto(); ?>
+                            <?php } else { ?>
+                            <i class="icon-warning-sign"></i> Nessun referente
+                            <?php } ?>
+                            <br />
+                            Codice corso: <?php echo($corso->progressivo());?>
+                        </td>
+                
+                        <td style="width: 15%;">
+                            <?php echo($conf['corso_stato'][$corso->stato]); ?>
+                            <?php if($corso->futuro()) echo("e non ancora iniziato"); ?>
+                        </td>
+                        
+                        <td style="width: 20%;">
+                            <a href="?p=formazione.corsibase.modifica&id=<?php echo $corso->id; ?>">
+                                <i class="icon-edit"></i> Manda email al referente
+                            </a>
+                            <br />
+                            <a href="?p=formazione.corsibase.lezioni&id=<?php echo $corso->id; ?>">
+                                <strong><i class="icon-plus"></i> Iscriviti</strong>
+                            </a>        
+                        </td>
+                        
+                    </tr>
+
+                    <?php } ?>
+
+                </table>
+            </div>
+        </div>
     </div>
 </div>
