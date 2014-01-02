@@ -594,7 +594,7 @@ define('ETA_MINIMA',   14);
  * ===================================
  */
 
-define('ASPIRANTI_MINIMO_COMITATI',     12);
+define('ASPIRANTI_MINIMO_COMITATI',     5);
 
 // Tipologia di corso. CORSO_T_<nometipo>
 // Ogni tipologia di corso deve avere il proprio template

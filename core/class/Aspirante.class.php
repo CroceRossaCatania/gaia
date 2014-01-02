@@ -50,7 +50,7 @@ class Aspirante extends GeoCirco {
     public function trovaRaggioMinimo() {
         $this->raggio = 0;
         do {
-            $this->raggio = ( (int) $this->raggio ) + 1;
+            $this->raggio = ( (float) $this->raggio ) + 0.2;
         } while (
             $this->numComitati() < ASPIRANTI_MINIMO_COMITATI
         );

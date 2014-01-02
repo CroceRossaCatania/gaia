@@ -172,7 +172,7 @@ abstract class GeoEntita extends Entita {
         $_ordine = 'distanza ASC'
     ) {
         global $db;
-        $raggio = (int) $circo->raggio;
+        $raggio = (float) $circo->raggio;
         $query  = "SELECT " . static::$_t. ".id, ";
         $query .= static::formulaDistanzaEuclideaPunto($circo, static::$_t) . 'as distanza ';
         $query .= 'FROM '. static::$_t .', ' . $circo::$_t . ' WHERE ';
