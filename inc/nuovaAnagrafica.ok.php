@@ -8,6 +8,8 @@
  * Normalizzazione dei dati
  */
 
+controllaBrowser();
+
 if ($sessione->utente()) {
     redirect('errore.permessi&cattivo');
 }
