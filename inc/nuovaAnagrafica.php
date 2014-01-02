@@ -4,6 +4,8 @@
 * ©2013 Croce Rossa Italiana
 */
 
+controllaBrowser();
+
 if ($sessione->utente()) {
     redirect('errore.permessi&cattivo');
 }
