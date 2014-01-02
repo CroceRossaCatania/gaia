@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-$paginaPrivata();
+paginaPrivata();
 
 $coresidenza= normalizzaNome($_POST['inputComuneResidenza']);
 $caresidenza= normalizzaNome($_POST['inputCAPResidenza']);

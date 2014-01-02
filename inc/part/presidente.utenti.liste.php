@@ -34,6 +34,10 @@
         <a href="?p=presidente.utenti.inestensione">
              in estensione
         </a><br />
+        <a href="?p=presidente.soci">
+            <i class="icon-list"></i>
+            Elenco Soci
+        </a>
 
     </div>     
 

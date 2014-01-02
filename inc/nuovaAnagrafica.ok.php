@@ -8,6 +8,12 @@
  * Normalizzazione dei dati
  */
 
+controllaBrowser();
+
+if ($sessione->utente()) {
+    redirect('errore.permessi&cattivo');
+}
+
 $parametri = array('id', 'inputNome', 'inputCognome', 'inputDataNascita', 
 	'inputProvinciaNascita', 'inputComuneNascita', 'inputComuneResidenza', 'inputCAPResidenza',
 	'inputProvinciaResidenza', 'inputIndirizzo', 'inputCivico');

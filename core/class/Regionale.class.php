@@ -78,4 +78,16 @@ class Regionale extends GeoPolitica {
         }
         return $r;
     }
+
+    public function piva() {
+        return PIVA;
+    }
+
+    public function cf() {
+        return CF;
+    }
+
+    public function privato() {
+        return false;
+    }
 }
