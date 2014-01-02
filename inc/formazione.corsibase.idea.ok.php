@@ -18,8 +18,9 @@ $corsoBase                   = new CorsoBase();
 $corsoBase->stato    		 = CORSO_S_ATTIVO;
 $corsoBase->organizzatore 	 = $comitato->oid();
 $data 						 = DT::createFromFormat('d/m/Y', $_POST['inputDataInizio']);
-$data 						 = $data->getTimestamp();
-$corsoBase->inizio    		 = $data;
+$data 						 = $data;
+$corsoBase->inizio    		 = $data->getTimestamp();
+$corsoBase->anno 			 = $data->format('Y');
 $corsoBase->assegnaProgressivo();
 
 redirect('formazione.corsibase.direttore&id=' . $corsoBase->id);
