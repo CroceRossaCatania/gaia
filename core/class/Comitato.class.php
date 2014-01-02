@@ -736,29 +736,4 @@ class Comitato extends GeoPolitica {
         return $this->superiore()->privato();
     }
 
-    /**
-     * Ritorna l'elenco di tutti i corsi base organizzati da un comitato
-     * @return CorsoBase    elenco dei corsi base
-     */
-    public function storicoCorsiBase() {
-        return CorsoBase::filtra([
-            ['organizzatore', $this->oid()]
-        ], 'INIZIO DESC');
-    }
-
-    /**
-     * Ritorna l'elenco dei corsi base attuali di un comitato
-     * @return CorsoBase    elenco dei corsi base attuli
-     */
-    public function CorsiBase() {
-        $corsi = $this->storicoCorsiBase();
-        $r = [];
-        foreach($corsi as $corso) {
-            if ($corso->attuale()) {
-                $r = array_merge($r, $corso);
-            }
-        }
-        return $r;
-    }
-
 }

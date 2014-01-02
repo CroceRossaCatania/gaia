@@ -102,6 +102,27 @@ function paginaAttivita( $attivita = null ) {
     }
 }
 
+function paginaCorsoBase( $corsoBase = null ) {
+    global $sessione;
+    richiediComitato();
+    if (
+         ( 
+            ( $corsoBase instanceof CorsoBase )
+            and
+            !$corsoBase->modificabileDa($sessione->utente())
+         )
+            or
+         !(
+                (bool) $sessione->utente()->admin()
+            or  (bool) $sessione->utente()->presiede()
+            or  (bool) $sessione->utente()->delegazioni(APP_FORMAZIONE)
+            or  (bool) $sessione->utente()->corsiBaseDiGestione()
+        )
+    ) {
+        redirect('errore.permessi');
+    }
+}
+
 function paginaModale() {
     include('./inc/part/pagina.attendere.php');
 }

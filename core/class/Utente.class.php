@@ -899,6 +899,28 @@ class Utente extends Persona {
         }
         return array_unique($a);
     }
+
+    /**
+     * Restituisce l'elenco dei corsi base che gestisco
+     * @return CorsoBase    elenco dei corsi gestiti 
+     */
+    public function corsiBaseDiGestione() {
+        $a = $this->corsiBaseDiretti();
+        foreach ( $this->comitatiApp([APP_PRESIDENTE], false) as $c ) {
+            $a = array_merge($a, $c->CorsiBase());
+        }
+        return array_unique($a);
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi base di cui sono direttore
+     * @return CorsoBase    elenco dei corsi diretti 
+     */
+    public function corsiBaseDiretti() {
+        return CorsoBase::filtra([
+            ['direttore', $this->id]
+            ]);
+    }
     
     public function cellulare() {
         if($this->cellulareServizio){

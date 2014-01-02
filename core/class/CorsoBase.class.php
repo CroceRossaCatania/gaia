@@ -18,11 +18,11 @@ class CorsoBase extends GeoEntita {
      *
      * @return int|bool(false) $progressivo     Il codice progressivo, false altrimenti 
      */
-    public function assegnaProgessivo() {
+    public function assegnaProgressivo() {
         if ($this->progressivo) {
             return false;
         }
-        $anno = $this->inizio('Y');
+        $anno = $this->inizio()->format('Y');
         $progressivo = $this->generaProgressivo('progressivo', ['anno'=>$inizio]);
         $this->progressivo = $progressivo;
         return $progressivo;
@@ -82,7 +82,7 @@ class CorsoBase extends GeoEntita {
      * @return string     il nome del corso
      */
     public function nome() {
-        return "Corso Base per Volontari di ".$this->organizzatore()->nomeCompleto();
+        return "Corso Base per Volontari del ".$this->organizzatore()->nomeCompleto();
     }
 
     /**
@@ -93,6 +93,27 @@ class CorsoBase extends GeoEntita {
         if($this->stato > CORSO_S_CONCLUSO)
             return true;
         return false;
+    }
+
+    public function modificabileDa(Utente $u) {
+        return (bool) (
+                $u->id == $this->direttore
+            ||  in_array($this, $u->corsiBaseDiGestione())
+        );
+    }
+
+    public function direttore() {
+        if ($this->direttore) {
+            return Volontario::id($this->direttore);    
+        }
+        return null;
+    }
+
+    public function progressivo() {
+        if($this->progressivo) {
+            return 'BASE-'.$this->inizio()->format('Y').'/'.$this->progressivo;
+        }
+        return null;
     }
 
 }

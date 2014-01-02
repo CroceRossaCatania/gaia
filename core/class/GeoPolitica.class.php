@@ -53,7 +53,7 @@ abstract class GeoPolitica extends GeoEntita {
      */
     public function corsiBase ( $storico = true ) {
         $c = CorsoBase::filtra([
-            'organizzatore' =>  $this->oid()
+            ['organizzatore',  $this->oid()]
         ]);
 
         if ( $storico )
