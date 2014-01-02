@@ -43,9 +43,9 @@ $a->trovaRaggioMinimo();
 	    			<br />
 	    			<span class="aspiranti_descrizione">Unit&agrave; CRI</span>
 	    			<hr />
-	    			<a class="btn btn-block btn-large" href="?p=public.comitati.mappa">
+	    			<a class="btn btn-block btn-large" href="?p=aspirante.elenco.comitati">
 	    				<i class="icon-globe"></i>
-	    				Mappa dei comitati
+	    				Scopri quali sono
     				</a>
 
 		    	</div>
@@ -60,7 +60,7 @@ $a->trovaRaggioMinimo();
 	    			<br />
 	    			<span class="aspiranti_descrizione">Corsi base</span>
 	    			<hr />
-	    			<a class="btn btn-block btn-success btn-large" href="?p=aspirante.elenco">
+	    			<a class="btn btn-block btn-success btn-large" href="?p=aspirante.elenco.corsi">
 	    				<i class="icon-list"></i> Vedi tutti
     				</a>
 		    	</div>
