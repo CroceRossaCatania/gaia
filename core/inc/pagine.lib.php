@@ -18,6 +18,9 @@ function paginaPrivata($consenso = true) {
     if ($consenso && !$sessione->utente()->consenso()) {
         redirect('utente.me');
     }
+    if(preg_match('/(?i)msie [4-8]/',$_SERVER['HTTP_USER_AGENT'])) {
+        redirect('public.browser');
+    }
 }
 
 function paginaApp($app, $comitati = []) {
