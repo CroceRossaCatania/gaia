@@ -319,6 +319,23 @@ abstract class Entita {
         if (!$r) { $r[0] = 0; }
         return (int) $r[0] + 1;
     }
+
+    /**
+     * Metodo di generazione di un progressivo
+     * @param string $progressivo   il valore che si vuole incrementare
+     * @param array $_condizioni    WHERE a=b AND c=d" per array(a=>b, c=>d)    
+     * @return int valore numerico progressivo
+     */
+    protected function generaProgressivo($progressivo, $_condizioni = []) {
+        $condizioni = static::preparaCondizioni($_condizioni, 'WHERE');
+        $q = $this->db->prepare("
+            SELECT MAX({$progressivo}) 
+            FROM ". static::$_t ."{$condizioni}");
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        if (!$r) { $r[0] = 0; }
+        return (int) $r[0] + 1;
+    }
     
     /**
      * Inizializza un nuovo oggetto e ne aggiunga la riga al database

@@ -56,11 +56,11 @@ $a->trovaRaggioMinimo();
 		    	<div class="well">
 		    		<i class="icon-calendar-empty"></i> Attualmente organizzati<br />
 	    			<span class="aspiranti_contatore">
-	    				<?php echo rand(0,100); ?></span>
+	    				<?php echo $a->numCorsiBase(); ?></span>
 	    			<br />
 	    			<span class="aspiranti_descrizione">Corsi base</span>
 	    			<hr />
-	    			<a class="btn btn-block btn-success btn-large">
+	    			<a class="btn btn-block btn-success btn-large" href="?p=aspirante.elenco">
 	    				<i class="icon-list"></i> Vedi tutti
     				</a>
 		    	</div>

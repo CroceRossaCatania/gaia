@@ -620,3 +620,13 @@ $conf['corso_a'] = [
     CORSO_A_LAICI               =>  'Corso aperti ai non volontari',
     CORSO_A_TUTTI               =>  'Corso aperti ai volontari',
 ];
+
+// Stati dei corsi. CORSO_S_<stato>
+
+define('CORSO_S_CONCLUSO',          0);
+define('CORSO_S_ATTIVO',           10);
+
+$conf['corso_stato'] = [
+    CORSO_S_CONCLUSO         =>  'Corso concluso',
+    CORSO_S_ATTIVO           =>  'Corso attivo',
+];

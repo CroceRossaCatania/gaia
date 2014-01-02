@@ -140,6 +140,22 @@ CREATE TABLE IF NOT EXISTS `commenti` (
   KEY `attivita` (`attivita`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `corsibase` (
+  `id` int(11) NOT NULL,
+  `luogo` varchar(255) DEFAULT NULL,
+  `organizzatore` varchar(32) DEFAULT NULL,
+  `direttore` varchar(32) DEFAULT NULL,
+  `inizio` varchar(8) DEFAULT NULL,
+  `progressivo` varchar(8) DEFAULT NULL,
+  `geo` point NOT NULL,
+  `descrizione` text,
+  `stato` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `organizzatore` (`organizzatore`),
+  KEY `direttore` (`direttore`),
+  SPATIAL KEY `geo` (`geo`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `coturni` (
   `id` int(11) NOT NULL,
   `volontario` varchar(16) DEFAULT NULL,

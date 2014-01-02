@@ -11,7 +11,22 @@ class CorsoBase extends GeoEntita {
 
     protected static
         $_t  = 'corsibase',
-        $_dt = 'corsibase_dettagli';
+        $_dt = null;
+
+    /**
+     * Genera il codice numerico progressivo del corso sulla base dell'anno attuale
+     *
+     * @return int|bool(false) $progressivo     Il codice progressivo, false altrimenti 
+     */
+    public function assegnaProgessivo() {
+        if ($this->progressivo) {
+            return false;
+        }
+        $anno = $this->inizio('Y');
+        $progressivo = $this->generaProgressivo('progressivo', ['anno'=>$inizio]);
+        $this->progressivo = $progressivo;
+        return $progressivo;
+    }
 
     /**
      * Ritorna l'organizzatore del corso base
@@ -61,6 +76,23 @@ class CorsoBase extends GeoEntita {
     	$sede = $this->organizzatore()->coordinate();
     	$this->localizzaCoordinate($sede[0], $sede[1]);
     }
+    
+    /**
+     * Restituisce il nome del corso
+     * @return string     il nome del corso
+     */
+    public function nome() {
+        return "Corso Base per Volontari di ".$this->organizzatore()->nomeCompleto();
+    }
 
+    /**
+     * Informa se un corso è non concluso
+     * @return bool     false se concluso, true altrimenti
+     */
+    public function attuale() {
+        if($this->stato > CORSO_S_CONCLUSO)
+            return true;
+        return false;
+    }
 
 }

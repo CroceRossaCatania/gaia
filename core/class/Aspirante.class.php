@@ -39,10 +39,18 @@ class Aspirante extends GeoCirco {
         return static::by('utente', (string) $volontario);
     }
 
+    /**
+     * Ottiene i comitati nelle vicinanze
+     * @return Comitato     array di comitati
+    */
     public function comitati() {
         return Comitato::contenutiIn($this);
     }
 
+    /**
+     * Ottiene il numero dei comitati nelle vicinanze
+     * @return int     numero di comitati
+    */
     public function numComitati() {
         return count($this->comitati());
     }
@@ -55,6 +63,27 @@ class Aspirante extends GeoCirco {
             $this->numComitati() < ASPIRANTI_MINIMO_COMITATI
         );
         return $this->raggio;
+    }
+
+    /**
+     * Ottiene i corsi base nelle vicinanze
+     * @return CorsoBase     array di corsi base
+    */
+    public function corsiBase() {
+        $corsiBase = [];
+        foreach($this->comitati() as $c) {
+            if ($corsi = $c->corsiBase())
+                $corsiBase = array_merge($corsiBase, $corsi);
+        }
+        return $corsiBase;
+    }
+
+    /**
+     * Ottiene il numero dei corsi base nelle vicinanze
+     * @return int     numero di comitati
+    */
+    public function numCorsiBase() {
+        return count($this->corsiBase());
     }
 
 }
