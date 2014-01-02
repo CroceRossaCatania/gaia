@@ -44,15 +44,15 @@
 </div>
 <div class="row-fluid">
     <div class="span4 centrato">
-        <p>Un browser web veloce, semplice e sicuro ideato per il Web moderno.</p>
+        <p>Chrome è un browser web veloce, semplice e sicuro ideato per il Web moderno.</p>
     </div>
 
     <div class="span4 centrato">
-        <p>Firefox: il tuo web, nella maniera che più ti piace.</p>
+        <p>Firefox è browser semplice, sicuro e sempre all'avanguardia.</p>
     </div>
 
     <div class="span4 centrato">
-        <p>Opera: ottieni di più dal tuo browser.</p>  
+        <p>Opera: ottieni di più dal tuo browser..</p>  
     </div>
 
 </div>
