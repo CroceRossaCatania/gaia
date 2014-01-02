@@ -23,7 +23,7 @@ class CorsoBase extends GeoEntita {
             return false;
         }
         $anno = $this->inizio()->format('Y');
-        $progressivo = $this->generaProgressivo('progressivo', ['anno'=>$anno]);
+        $progressivo = $this->generaProgressivo('progressivo', ["anno" => $anno]);
         $this->progressivo = $progressivo;
         return $progressivo;
     }
@@ -111,7 +111,7 @@ class CorsoBase extends GeoEntita {
 
     public function progressivo() {
         if($this->progressivo) {
-            return 'BASE-'.$this->inizio()->format('Y').'/'.$this->progressivo;
+            return 'BASE-'.$this->anno.'/'.$this->progressivo;
         }
         return null;
     }
