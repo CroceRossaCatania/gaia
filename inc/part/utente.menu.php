@@ -24,12 +24,17 @@ if ( $me->comitatiDiCompetenza() ) {
     ];
 }
 
+if (!$me->admin() && $me->delegazioni(APP_SOCI)) {
 $_n     =   $_n_titoli = $_n_app = 0;
 $_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
 $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
-if ( $presidente || $me->delegazioni(APP_SOCI)) {
+
     $menu[''] += [
         'us.dash'   =>  '<span class="badge badge-success">'.$_n.'</span> Ufficio Soci'
+    ];
+} elseif ($presidente) {
+    $menu[''] += [
+        'us.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Ufficio Soci'
     ];
 }
 
