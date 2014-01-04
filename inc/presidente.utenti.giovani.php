@@ -12,48 +12,41 @@ menuElenchiVolontari(
 
 ?>
 <?php if ( isset($_GET['ok']) ) { ?>
-        <div class="alert alert-success">
-            <i class="icon-save"></i> <strong>Volontario eliminato</strong>.
-            Il Volontario è stato eliminato con successo.
-        </div>
+    <div class="alert alert-success">
+        <i class="icon-save"></i> <strong>Volontario eliminato</strong>.
+        Il Volontario è stato eliminato con successo.
+    </div>
 <?php } elseif ( isset($_GET['e']) )  { ?>
-        <div class="alert alert-block alert-error">
-            <h4><i class="icon-exclamation-sign"></i> Impossibile eliminare l'utente</h4>
-            <p>Contatta l'amministratore</p>
-        </div>
+    <div class="alert alert-block alert-error">
+        <h4><i class="icon-exclamation-sign"></i> Impossibile eliminare l'utente</h4>
+        <p>Contatta l'amministratore</p>
+    </div>
 <?php }elseif ( isset($_GET['dim']) )  { ?>
-        <div class="alert alert-block alert-success">
-            <h4><i class="icon-exclamation-sign"></i> Volontario dimesso</h4>
-            <p>Il Volontario è stato dimesso con successo.</p>
-        </div>
+    <div class="alert alert-block alert-success">
+        <h4><i class="icon-exclamation-sign"></i> Volontario dimesso</h4>
+        <p>Il Volontario è stato dimesso con successo.</p>
+    </div>
 <?php } ?>
     
 <div class="row-fluid">
-   <div class="span12">
-            
-       <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
+   <div class="span12">  
+        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
                 <th>Nome</th>
                 <th>Cognome</th>
-                <th>Località</th>
-                <th>Cellulare</th>
+                <th>Codice Fiscale</th> 
                 <th>Azioni</th>
             </thead>
-        <?php
-        $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]);
-        foreach($elenco as $comitato) {
-            $k =0;
-            $t = $comitato->membriAttuali();
-            $j = $t;
-            foreach ( $j as $_j ) {
-                if ($_j->giovane()){ $k++; }}
-                ?>
-            
+            <?php
+            $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]);
+            foreach($elenco as $comitato) {
+                $t = $comitato->membriGiovani();
+            ?>
             <tr class="success">
-                <td colspan="7" class="grassetto">
+                <td colspan="4" class="grassetto">
                     <?php echo $comitato->nomeCompleto(); ?>
                     <span class="label label-warning">
-                        <?php echo $k; ?>
+                        <?php echo count($t); ?>
                     </span>
                     <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unitgio">
                            <i class="icon-envelope"></i> Invia mail
@@ -65,27 +58,13 @@ menuElenchiVolontari(
                     </a>
                 </td>
             </tr>
-            
             <?php
             foreach ( $t as $_v ) {
-                if ($_v->giovane()){
             ?>
                 <tr>
                     <td><?php echo $_v->cognome; ?></td>
                     <td><?php echo $_v->nome; ?></td>
-                    <td>
-                        <span class="muted">
-                            <?php echo $_v->CAPResidenza; ?>
-                        </span>
-                        <?php echo $_v->comuneResidenza; ?>,
-                        <?php echo $_v->provinciaResidenza; ?>
-                    </td>
-                    
-                    <td>
-                        <span class="muted">+39</span>
-                            <?php echo $_v->cellulare; ?>
-                    </td>
-
+                    <td><?php echo $_v->codiceFiscale; ?></td>
                     <td>
                         <div class="btn-group">
                             <?php if ( $me->delegazioni(APP_OBIETTIVO) ) { ?>
@@ -122,16 +101,10 @@ menuElenchiVolontari(
                         </div>
                    </td>
                 </tr>
-                
-               
-       
-        <?php }
-        }
+        <?php 
+            }
         }
         ?>
-
         </table>
-       
     </div>
-    
 </div>
