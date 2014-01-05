@@ -24,12 +24,17 @@ if ( $me->comitatiDiCompetenza() ) {
     ];
 }
 
+if (!$me->admin() && $me->delegazioni(APP_SOCI)) {
 $_n     =   $_n_titoli = $_n_app = 0;
 $_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
 $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
-if ( $presidente || $me->delegazioni(APP_SOCI)) {
+
     $menu[''] += [
         'us.dash'   =>  '<span class="badge badge-success">'.$_n.'</span> Ufficio Soci'
+    ];
+} elseif ($presidente) {
+    $menu[''] += [
+        'us.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Ufficio Soci'
     ];
 }
 
@@ -77,15 +82,19 @@ $menu += [
         'utente.storico'    =>  '<i class="icon-time"></i> Storico',
         'utente.documenti'  =>  '<i class="icon-folder-open"></i> Documenti'
         
-    ],
-    'Segreteria'      =>  [
-        'utente.estensione'  =>  '<i class="icon-random"></i> Estensioni',
-        'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti',
-        'utente.riserva'  =>  '<i class="icon-pause"></i> Riserva',
-        'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica',
-       
-        
-    ],
+    ]];
+    if ($me->unComitato()) {
+    $menu += [
+        'Segreteria'      =>  [
+            'utente.estensione'  =>  '<i class="icon-random"></i> Estensioni',
+            'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti',
+            'utente.riserva'  =>  '<i class="icon-pause"></i> Riserva',
+            'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica'
+           
+            
+        ]];
+    }
+$menu += [
     'Curriculum'    =>  [
         'utente.titoli&t=0' =>  '<i class="icon-magic"></i> Competenze pers.',
         'utente.titoli&t=1' =>  '<i class="icon-fighter-jet"></i> Patenti Civili',

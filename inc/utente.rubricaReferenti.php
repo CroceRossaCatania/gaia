@@ -5,6 +5,7 @@
  */
 
 paginaPrivata();
+richiediComitato();
 
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>

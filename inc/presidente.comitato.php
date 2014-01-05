@@ -180,15 +180,25 @@ $(document).ready(function() {
                         <p><code><?php echo $c->email; ?></code></p>
                     </div>
                     
-                    <?php if ( !$c->principale ) { ?>
                     <div class="span2">
+                        <?php if ( !$c->principale && $c->modificabileDa($me)) { ?>
                         <a class="btn btn-large btn-block btn-info" href="?p=presidente.wizard&oid=<?php echo $c->oid(); ?>">
                             <i class="icon-pencil icon-3x"></i><br />
                             Modifica
                         </a>
+                        <?php } ?>
                     </div>
-                    <?php } ?>
-                
+                    
+                </div>
+                <div class="row-fluid">
+                    <div class="span4">
+                        <h4>Partita IVA</h4>
+                        <p><?php echo $c->piva(); ?></p>
+                    </div>
+                    <div class="span8">
+                        <h4>Codice Fiscale</h4>
+                        <p><?php echo $c->cf(); ?></p>
+                    </div>
                 </div>
                 
             </div>

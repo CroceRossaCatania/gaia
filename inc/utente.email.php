@@ -70,7 +70,7 @@ if ($mailServizioSospesa) {
                     <p><h4><i class="icon-warning-sign"></i> Nota bene</h4></p>
                     <p>L'<strong>Email Principale</strong> è quella che <strong>usi per accedere</strong> ed è 
                        dove ti invieremo tutte le comunicazioni importanti.</p>
-                    <p>L'<strong>Email di Servizio</strong> è quella da partiranno le comunicazioni che spedisci
+                    <p>L'<strong>Email di Servizio</strong> è quella dalla quale partiranno le comunicazioni che spedisci
                     nel caso tu abbia qualche incarico in un Comitato CRI.</p>
                     <p>Se <strong>non sei in possesso</strong> di una email di servizio 
                     lascia il campo vuoto</p>

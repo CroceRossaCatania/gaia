@@ -5,6 +5,7 @@
  */
 
 paginaPrivata();
+richiediComitato();
 
 $parametri = array('id', 'inputComitato', 'inputMotivo');
 controllaParametri($parametri);

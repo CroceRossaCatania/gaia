@@ -5,6 +5,7 @@
  */
 
 paginaPrivata();
+richiediComitato();
 
 ?>
 <div class="row-fluid">
