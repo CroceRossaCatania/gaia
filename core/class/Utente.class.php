@@ -482,6 +482,25 @@ class Utente extends Persona {
         return (int) $r[0];
     }
     
+    public function numPatentiPending( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma( $app );
+        $q = $this->db->prepare("
+            SELECT  COUNT(patenti.id)
+            FROM    patenti, appartenenza
+            WHERE   ( patenti.tConferma < 1 OR patenti.tConferma IS NULL )
+            AND     patenti.volontario = appartenenza.volontario
+            AND     ( appartenenza.fine < 1 
+                    OR
+                    appartenenza.fine > :ora )
+            AND     appartenenza.comitato  IN
+                ( {$comitati} )");
+        $ora = time();
+        $q->bindParam(':ora', $ora);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+
     public function numAppPending( $app = [ APP_PRESIDENTE ] ) {
         $comitati = $this->comitatiAppComma( $app );
         $q = $this->db->prepare("

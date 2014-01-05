@@ -137,8 +137,9 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                             <div class="btn-group">
                                 <?php
                                     /* Conto le notifiche */
-                                    $_n     =   $_n_titoli = $_n_app = $_n_trasf = $_n_ris = $_n_est = 0;
+                                    $_n     =   $_n_titoli = $_n_app = $_n_trasf = $_n_ris = $_n_est = $_n_pat = 0;
                                     $_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
+                                    $_n     +=  $_n_pat    = $me->numPatentiPending ([APP_PRESIDENTE, APP_SOCI, APP_PATENTI]);
                                     $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                                     $_n     +=  $_n_trasf  = $me->numTrasfPending   ([APP_PRESIDENTE]);
                                     $_n     +=  $_n_ris    = $me->numRisPending     ([APP_PRESIDENTE, APP_SOCI]);
@@ -170,6 +171,18 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                                         </a>
                                     </li>
                                     
+                                    <li>
+                                        <a href="?p=patenti.pending">
+                                            <i class="icon-truck"></i>
+                                            Patenti in attesa
+                                            <?php if ( $_n_pat ) { ?>
+                                                <span class="badge badge-warning">
+                                                    <?php echo $_n_pat; ?>
+                                                </span>
+                                            <?php } ?>
+                                        </a>
+                                    </li>
+
                                     <li>
                                         <a href="?p=presidente.appartenenzepending">
                                             <i class="icon-group"></i>

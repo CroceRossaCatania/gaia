@@ -5,10 +5,7 @@
  */
 
 paginaApp([APP_PATENTI , APP_PRESIDENTE]);
-$elenco = $me->comitatiApp ([ APP_PATENTI, APP_PRESIDENTE ]);
-        foreach($elenco as $comitato) {
-            $t = $comitato->pratichePatenti();
-        }
+$_n     +=  $_n_pat    = $me->numPatentiPending([APP_PRESIDENTE, APP_PATENTI]);
 ?>
 
 <div class="row-fluid">
@@ -40,7 +37,7 @@ $elenco = $me->comitatiApp ([ APP_PATENTI, APP_PRESIDENTE ]);
             <div class="span3">
                 <table class="table table-striped table-condensed">
                 
-                    <tr><td>Num. Richieste</td><td><?= count($t); ?></td></tr>
+                    <tr><td>Patenti in attesa</td><td><?= $_n_pat; ?></td></tr>
                     
                 </table>
             </div>
@@ -50,18 +47,18 @@ $elenco = $me->comitatiApp ([ APP_PATENTI, APP_PRESIDENTE ]);
         <div class="span12">
             <div class="span6">
                 <div class="btn-group btn-group-vertical span12">
+                    <a href="?p=patenti.pending" class="btn btn-block">
+                        <i class="icon-truck"></i>
+                        Patenti in attesa <span class="badge badge-important"><?= $_n_pat; ?></span>
+                    </a>
                     <a href="?p=patenti.richieste" class="btn btn-primary btn-block">
                         <i class="icon-list"></i>
-                        Richieste Rinnovo
+                        Richieste Rinnovo <span class="badge badge-important"><?= $_n_ric; ?></span>
                     </a>
                 </div>
             </div>
             <div class="span6">
                 <div class="btn-group btn-group-vertical span12">
-                    <a href="?p=patenti.pending" class="btn btn-block btn-success">
-                        <i class="icon-truck"></i>
-                        Patenti in attesa
-                    </a>
                     <a href="?p=patenti.ricerca" class="btn btn-block">
                         <i class="icon-search"></i>
                         Ricerca patenti

@@ -5,8 +5,9 @@
  */
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
-$_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
-$_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
+$_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
+$_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
+$_n_pat    = $me->numPatentiPending ([APP_PRESIDENTE, APP_SOCI]);
 ?>
 
 <div class="row-fluid">
@@ -123,6 +124,10 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                 <a href="?p=presidente.titoli" class="btn btn-block">
                     <i class="icon-star"></i>
                     Titoli in attesa <span class="badge badge-important"><?= $_n_titoli; ?></span>
+                </a>
+                <a href="?p=patenti.pending" class="btn btn-block">
+                    <i class="icon-truck"></i>
+                    Patenti in attesa <span class="badge badge-important"><?= $_n_pat; ?></span>
                 </a>
             </div>
         </div>
