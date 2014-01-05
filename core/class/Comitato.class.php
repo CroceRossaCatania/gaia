@@ -169,6 +169,7 @@ class Comitato extends GeoPolitica {
               appartenenza.volontario IN (
                 SELECT volontario FROM appartenenza
                 WHERE comitato = :comitato AND
+                stato = :stato AND
                 fine = 0 OR fine > :elezioni
               )
             ORDER BY
