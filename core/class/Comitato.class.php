@@ -122,6 +122,35 @@ class Comitato extends GeoPolitica {
     }
     
     /*
+     * Membri in estensione
+     * @return estensioni dal comitato $this
+     */
+    public function membriInEstensione() {
+        $q = $this->db->prepare("
+            SELECT 
+                estensioni.id
+            FROM
+                anagrafica, estensioni
+            WHERE
+                estensioni.cProvenienza = :comitato
+            AND
+                estensioni.volontario = anagrafica.id
+            AND
+                estensioni.stato >= :stato
+            ORDER BY
+                anagrafica.cognome ASC,
+                anagrafica.nome ASC");
+        $q->bindValue(':stato', EST_OK);
+        $q->bindParam(':comitato', $this->id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Estensione::id($k[0]);
+        }
+        return $r;
+    }
+
+    /*
      * Volontari che alla data $elezioni hanno certa $anzianita
      */
     public function elettoriAttivi(DateTime $elezioni, $anzianita = ANZIANITA) {
@@ -130,6 +159,8 @@ class Comitato extends GeoPolitica {
             FROM    appartenenza, anagrafica
             WHERE   
               appartenenza.comitato     = :comitato
+            AND
+              appartenenza.stato        = :stato
             AND
               appartenenza.volontario   = anagrafica.id 
             AND
@@ -147,6 +178,7 @@ class Comitato extends GeoPolitica {
         $anzianita = (int) $anzianita;
         $minimo->modify("-{$anzianita} years");
         $q->bindValue(':comitato',  $this->id);
+        $q->bindValue(':stato',  MEMBRO_VOLONTARIO);
         $q->bindParam(':elezioni',  $elezioni->getTimestamp(), PDO::PARAM_INT);
         $q->bindParam(':minimo',    $minimo->getTimestamp(), PDO::PARAM_INT);
         $q->execute();
