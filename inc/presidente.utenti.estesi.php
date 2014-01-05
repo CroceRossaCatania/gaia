@@ -51,7 +51,6 @@ menuElenchiVolontari(
             
             <?php         
             foreach ( $a as $_a ) {
-                
                 $v = $_a->volontario();
             ?>
                 <tr>
@@ -72,16 +71,10 @@ menuElenchiVolontari(
                         </div>
                    </td>
                 </tr>
-                
-               
-       
-        <?php 
-        }
+            <?php 
+            }
         }
         ?>
-
         </table>
-       
     </div>
-    
 </div>
