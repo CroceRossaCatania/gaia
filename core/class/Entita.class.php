@@ -323,7 +323,7 @@ abstract class Entita {
     /**
      * Metodo di generazione di un progressivo
      * @param string $progressivo   il valore che si vuole incrementare
-     * @param array $_condizioni    WHERE a=b AND c=d" per array(a=>b, c=>d)    
+     * @param array $_condizioni    WHERE a=b AND c=d" per array[[a, b], [c, d], ...]
      * @return int valore numerico progressivo
      */
     protected function generaProgressivo($progressivo, $_condizioni = []) {
