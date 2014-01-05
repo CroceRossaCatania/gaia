@@ -220,6 +220,12 @@ CREATE TABLE IF NOT EXISTS `dettagliComitato` (
   PRIMARY KEY (`id`,`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `dettagliPatenti` (
+  `id` varchar(128) NOT NULL,
+  `nome` varchar(32) NOT NULL,
+  `valore` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `dettagliPersona` (
   `id` varchar(128) NOT NULL DEFAULT '',
   `nome` varchar(32) NOT NULL DEFAULT '',
@@ -351,6 +357,16 @@ CREATE TABLE IF NOT EXISTS `partecipazioni` (
   KEY `turno` (`turno`),
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `patenti` (
+  `id` int(11) NOT NULL,
+  `tipo` varchar(16) DEFAULT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `codice` varchar(64) DEFAULT NULL,
+  `tConferma` varchar(64) DEFAULT NULL,
+  `pConferma` varchar(16) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `privacy` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

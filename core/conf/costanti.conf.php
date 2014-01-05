@@ -222,7 +222,19 @@ $conf['titoli'] = [
 	TITOLO_CRI       	=>	['Titolo di Croce Rossa',	true,	true,	false]
 ];
 
+/*
+ * ===================================
+ * =========== PATENTI ===============
+ * ===================================
+ */
 
+define('PATENTE_CIVILE', 0);
+define('PATENTE_CRI',   10);
+
+$conf['patenti'] = [
+    PATENTE_CIVILE   =>  "Patente Civile",
+    PATENTE_CRI      =>  "Patente CRI"
+];
 
 /*
  * ===================================

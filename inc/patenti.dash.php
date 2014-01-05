@@ -58,6 +58,10 @@ $elenco = $me->comitatiApp ([ APP_PATENTI, APP_PRESIDENTE ]);
             </div>
             <div class="span6">
                 <div class="btn-group btn-group-vertical span12">
+                    <a href="?p=patenti.pending" class="btn btn-block btn-success">
+                        <i class="icon-truck"></i>
+                        Patenti in attesa
+                    </a>
                     <a href="?p=patenti.ricerca" class="btn btn-block">
                         <i class="icon-search"></i>
                         Ricerca patenti

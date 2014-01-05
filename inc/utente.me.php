@@ -267,8 +267,18 @@ if(false && $consenso && !$sessione->barcode) { ?>
             foreach ( $patenti =  TitoloPersonale::scadenzame($me)  as $patente ) { 
                 if($h!=1){  ?>
         <div class="alert alert-error">
-            <h4><i class="icon-warning-sign"></i> Patente in scadenza</h4>
-            <p>La tua <strong>PATENTE CRI</strong> scadrà il <strong><?php echo date('d-m-Y', $patente->fine); ?></strong></p>
+          <div class="row-fluid">
+            <span class="span7">
+              <h4><i class="icon-warning-sign"></i> Patente in scadenza</h4>
+              <p>La tua <strong>PATENTE CRI</strong> scadrà il <strong><?php echo date('d-m-Y', $patente->fine); ?></strong></p>
+            </span>
+            <span class="span5">
+              <a href="?p=utente.patente.rinnova" class="btn btn-large">
+                <i class="icon-truck"></i>
+                  Avvia rinnovo!
+              </a>
+            </span>
+          </div>
         </div>
       <?php $h=1;
       }

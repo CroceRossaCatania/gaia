@@ -304,7 +304,6 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
-    
     public function trasferimenti($stato = null) {
         $stato = (int) $stato;
         $q = "
@@ -755,6 +754,36 @@ class Comitato extends GeoPolitica {
 
     public function privato() {
         return $this->superiore()->privato();
+    }
+
+    /*
+     * Patenti pendenti nel comitato
+     * @return array di patenti in attesa di approvazione per comitato selezionato
+     */
+    public function patentiPendenti() {
+        $q = $this->db->prepare("
+            SELECT 
+                patenti.id
+            FROM
+                patenti, appartenenza
+            WHERE
+                patenti.volontario = appartenenza.volontario
+            AND
+                patenti.pConferma IS NULL
+            AND
+                appartenenza.comitato = :comitato
+            AND
+                (appartenenza.fine >= :ora
+                 OR appartenenza.fine is NULL
+                 OR appartenenza.fine = 0)");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':comitato', $this->id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Patente::id($k[0]);
+        }
+        return $r;
     }
 
 }
