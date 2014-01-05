@@ -1138,6 +1138,7 @@ class Utente extends Persona {
             return true;
         }
         return false;
+    }
 
     /*
      * Visualizza ultimo accesso dell'utente
