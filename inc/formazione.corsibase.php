@@ -4,7 +4,8 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_FORMAZIONE, APP_PRESIDENTE]);
+paginaPrivata();
+
 $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
 
 ?>
@@ -73,6 +74,7 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                                     <?php echo $corso->nome(); ?>
                                 </a>
                             </strong><br />
+                            Luogo:
                             <?php echo $corso->luogo; ?>
                             <br />
                             Data inizio:

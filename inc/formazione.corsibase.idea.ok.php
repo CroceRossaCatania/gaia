@@ -15,7 +15,7 @@ $comitato = GeoPolitica::daOid($comitato);
 proteggiClasse($comitato, $me);
 
 $corsoBase                   = new CorsoBase();
-$corsoBase->stato    		 = CORSO_S_ATTIVO;
+$corsoBase->stato    		 = CORSO_S_DACOMPLETARE;
 $corsoBase->organizzatore 	 = $comitato->oid();
 $data 						 = DT::createFromFormat('d/m/Y', $_POST['inputDataInizio']);
 $data 						 = $data;

@@ -623,10 +623,14 @@ $conf['corso_a'] = [
 
 // Stati dei corsi. CORSO_S_<stato>
 
-define('CORSO_S_CONCLUSO',          0);
-define('CORSO_S_ATTIVO',           10);
+define('CORSO_S_ANNULLATO',          0);
+define('CORSO_S_DACOMPLETARE',      10);
+define('CORSO_S_CONCLUSO',          20);
+define('CORSO_S_ATTIVO',            30);
 
 $conf['corso_stato'] = [
-    CORSO_S_CONCLUSO         =>  'Corso concluso',
-    CORSO_S_ATTIVO           =>  'Corso attivo',
+    CORSO_S_ANNULLATO         =>  'Corso annullato',
+    CORSO_S_DACOMPLETARE      =>  'Da completare',
+    CORSO_S_CONCLUSO          =>  'Corso concluso',
+    CORSO_S_ATTIVO            =>  'Corso attivo',
 ];

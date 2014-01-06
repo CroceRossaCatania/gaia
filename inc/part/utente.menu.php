@@ -40,7 +40,7 @@ if ( $presidente || $me->delegazioni(APP_CO)) {
     ];
 }
 
-if ( $presidente || $me->delegazioni(APP_FORMAZIONE)) {
+if ( $presidente || $me->delegazioni(APP_FORMAZIONE) || $me->corsiBaseDiGestione()) {
     $menu[''] += [
         'formazione.corsibase'   =>  '<span class="badge badge-success">&nbsp;</span> Corsi Base'
     ];

@@ -882,6 +882,7 @@ class Utente extends Persona {
             ['stato',       ATT_STATO_BOZZA]
         ]);
     }
+
     
     public function attivitaAreeDiCompetenza() {
         $r = [];
@@ -906,7 +907,7 @@ class Utente extends Persona {
      */
     public function corsiBaseDiGestione() {
         $a = $this->corsiBaseDiretti();
-        foreach ( $this->comitatiApp([APP_PRESIDENTE], false) as $c ) {
+        foreach ( $this->comitatiApp([APP_PRESIDENTE, APP_FORMAZIONE], false) as $c ) {
             $a = array_merge($a, $c->CorsiBase());
         }
         return array_unique($a);
@@ -920,6 +921,17 @@ class Utente extends Persona {
         return CorsoBase::filtra([
             ['direttore', $this->id]
             ]);
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi base di cui sono direttore e devo completare
+     * @return CorsoBase    elenco dei corsi diretti da completare
+     */
+    public function corsiBaseDirettiDaCompletare() {
+        return CorsoBase::filtra([
+            ['direttore',   $this->id],
+            ['stato',       CORSO_S_DACOMPLETARE]
+        ]);
     }
     
     public function cellulare() {

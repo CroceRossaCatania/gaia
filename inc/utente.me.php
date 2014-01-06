@@ -147,8 +147,59 @@ if ($consenso && $rf) {
 </div>
 
 
-<?php 
-} 
+<?php } 
+
+/* Blocco per direttori di corso */
+
+$cb = $me->corsiBaseDirettiDaCompletare();
+if ($consenso && $cb && !$rf) {
+    $attenzione = true;
+    $corsoBase = $cb[0];
+    ?>
+
+<div class="modal fade automodal">
+        <div class="modal-header">
+          <h3 class="text-error"><i class="icon-warning-sign"></i> Corso Base da Completare</h3>
+        </div>
+        <div class="modal-body">
+          <p><?php echo $me->nome; ?>, sei stato selezionato come direttore per un corso base:</p>
+          <hr />
+          <p class="allinea-centro">
+              <strong><?php echo $corsoBase->nome(); ?></strong>
+              <br />
+              <span class="muted">
+              Organizzatore: <?php echo $corsoBase->organizzatore()->nomeCompleto(); ?>
+              </span>
+          </p>
+          <hr />
+          <h4>Completa i dettagli del corso</h4>
+          <p>Devi inserire le seguenti informazioni:</strong>
+                  <ul>
+                      <li><i class="icon-time"></i> Lezioni;</li>
+                      <li><i class="icon-globe"></i> Luogo di svolgimento del corso;</li>
+                      <li><i class="icon-pencil"></i> Informazioni per gli aspiranti volontari.</li>
+                  </ul><br />
+           </p>
+          <p class="text-error">
+             <i class="icon-info-sign"></i> Non appena verranno inseriti tutti
+                  i dettagli riguardanti il corso verranno informati tutti gli aspiranti volontari
+                  presenti in zona.
+                  Potranno così richiedere di partecipare attraverso Gaia.
+          </p>
+              
+          </ul>
+          
+        </div>
+        <div class="modal-footer">
+          <a href="?p=formazione.corsibase" class="btn">Non ora</a>
+          <a href="?p=attivita.modifica&id=<?php echo $attivita->id; ?>" class="btn btn-primary">
+              <i class="icon-asterisk"></i> Vai all'attività
+          </a>
+        </div>
+</div>
+
+
+<?php } 
 
 
 if ( $consenso && !$me->appartenenzaValida() ) { ?>
