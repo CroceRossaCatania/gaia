@@ -128,4 +128,51 @@ class CorsoBase extends GeoEntita {
         return [];
     }
 
+    /**
+     * True se il corso è attivo e non iniziato
+     * @return bool     stato del cors
+     */
+    public function accettaIscrizioni() {
+        return (bool) ($this->futuro()
+            and $this->stato == CORSO_S_ATTIVO);
+    }
+
+    public function iscritto(Utente $u) {
+        $p = PartecipazioneBase::filtra([
+            ['volontario', $u->id],
+            ['corsoBase', $this->id]
+            ]);
+        foreach($p as $_p) {
+            if($_p->attiva()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Elenco degli iscritti ad un corso base
+     * @return Utente elenco degli iscritti 
+     */
+    public function iscritti() {
+        $p = PartecipazioneBase::filtra([
+            ['corsoBase', $this->id]
+            ]);
+        $iscritti = [];
+        foreach($p as $_p) {
+            if($_p->attiva()) {
+                $iscritti[] = $_p->utente();
+            }
+        }
+        return $iscritti;
+    }
+
+    /**
+     * Numero degli iscritti ad un corso base
+     * @return int numero degli iscritti 
+     */
+    public function numIscritti() {
+        return count($this->iscritti());
+    }
+
 }

@@ -634,3 +634,25 @@ $conf['corso_stato'] = [
     CORSO_S_CONCLUSO          =>  'Corso concluso',
     CORSO_S_ATTIVO            =>  'Corso attivo',
 ];
+
+/*
+ * ===================================
+ * ===== PARTECIPAZIONI BASE =========
+ * ===================================
+ */
+
+define('ISCR_ANNULLATA',       0);
+define('ISCR_ABBANDONO',      10);
+define('ISCR_RICHIESTA',      20);
+define('ISCR_CONFERMATA',     30);
+define('ISCR_SUPERATO',       40);
+define('ISCR_BOCCIATO',       50);
+
+$conf['partecipazioneBase'] = [
+    ISCR_ANNULLATA      =>  'Annullata', 
+    ISCR_ABBANDONO      =>  'Abbandonato', 
+    ISCR_RICHIESTA      =>  'Preiscritto', 
+    ISCR_CONFERMATA     =>  'Iscritto',
+    ISCR_SUPERATO       =>  'Superato',  
+    ISCR_BOCCIATO       =>  'Non superato',
+];  

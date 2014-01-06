@@ -72,8 +72,10 @@ class Aspirante extends GeoCirco {
     public function corsiBase() {
         $corsiBase = [];
         foreach($this->comitati() as $c) {
-            if ($corsi = $c->corsiBase())
-                $corsiBase = array_merge($corsiBase, $corsi);
+            foreach($c->corsiBase() as $corso) {
+                if ($corso->stato == CORSO_S_ATTIVO)
+                    $corsiBase[] = $corso;
+            }
         }
         return $corsiBase;
     }

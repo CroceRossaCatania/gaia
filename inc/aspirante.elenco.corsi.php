@@ -72,8 +72,6 @@ if ( !($a = Aspirante::daVolontario($me)) )
                             <?php } else { ?>
                             <i class="icon-warning-sign"></i> Nessun referente
                             <?php } ?>
-                            <br />
-                            Codice corso: <?php echo($corso->progressivo());?>
                         </td>
                 
                         <td style="width: 15%;">
@@ -82,12 +80,14 @@ if ( !($a = Aspirante::daVolontario($me)) )
                         </td>
                         
                         <td style="width: 20%;">
-                            <a href="?p=formazione.corsibase.modifica&id=<?php echo $corso->id; ?>">
+                            <?php // da sistemare
+                            ?>
+                            <a href="?p=utente.email.nuova&id=<?php echo $corso->id; ?>">
                                 <i class="icon-edit"></i> Manda email al referente
                             </a>
                             <br />
-                            <a href="?p=formazione.corsibase.lezioni&id=<?php echo $corso->id; ?>">
-                                <strong><i class="icon-plus"></i> Iscriviti</strong>
+                            <a href="?p=formazione.corsibase.scheda&id=<?php echo $corso->id; ?>">
+                                <strong><i class="icon-plus"></i> Maggiori info e preiscrizione</strong>
                             </a>        
                         </td>
                         

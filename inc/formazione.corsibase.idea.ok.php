@@ -21,6 +21,7 @@ $data 						 = DT::createFromFormat('d/m/Y', $_POST['inputDataInizio']);
 $data 						 = $data;
 $corsoBase->inizio    		 = $data->getTimestamp();
 $corsoBase->anno 			 = $data->format('Y');
+$corsoBase->aggiornamento	 = time();
 $corsoBase->assegnaProgressivo();
 
 redirect('formazione.corsibase.direttore&id=' . $corsoBase->id);
