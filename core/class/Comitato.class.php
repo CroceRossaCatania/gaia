@@ -563,26 +563,32 @@ class Comitato extends GeoPolitica {
         return $daFiltrare;
     }
     
-    public function ricercaPatente($ricerca) {
+    public function ricercaPatente($stato=PATENTE_CRI,$ricerca) {
         $q = $this->db->prepare("
-            SELECT DISTINCT (anagrafica.id)
-            FROM 
-                titoli, titoliPersonali, anagrafica, appartenenza
-            WHERE 
-                anagrafica.id = titoliPersonali.volontario
-            AND 
-                titoli.id = titoliPersonali.titolo
-            AND 
-                titoli.nome LIKE :ricerca
-            ORDER BY 
-                anagrafica.cognome, 
-                anagrafica.nome");
-        $q->bindValue ( ":ricerca", $ricerca );
+            SELECT 
+                patenti.id
+            FROM
+                patenti, appartenenza
+            WHERE
+                patenti.volontario = appartenenza.volontario
+            AND
+                patenti.stato = :stato
+            AND
+                patenti.codice LIKE :codice
+            AND
+                appartenenza.comitato = :comitato
+            AND
+                (appartenenza.fine >= :ora
+                 OR appartenenza.fine is NULL
+                 OR appartenenza.fine = 0)");
+        $q->bindValue ( ':ricerca', $ricerca );
+        $q->bindValue(':comitato',  $this->id);
+        $q->bindValue(':stato', $stato);
         $q->execute();
         var_dump($q->errorInfo());
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = Volontario::id($k[0]);
+            $r[] = Patente::id($k[0]);
         }
         return $r;
     }   

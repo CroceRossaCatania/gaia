@@ -9,7 +9,7 @@ class Patente extends Entita {
     
     public static
         $_t     = 'patenti',
-        $_dt    = 'dettagliPatenti';
+        $_dt    = 'dettagliPatente';
     
     public function confermato() {
         return (bool) $this->tConferma;
@@ -113,4 +113,29 @@ class Patente extends Entita {
         return $t;
     }
     
+    /*
+     * Trova le patenti CRI da convertire
+     * @return patenti da convertire
+     */
+    public static function patentiTitoli() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM 
+                titoliPersonali
+            WHERE
+                titolo BETWEEN :min AND :max");
+        $pat1 = 2700;
+        $pat2 = 2709;
+        $q->bindParam(':min', $pat1, PDO::PARAM_INT);
+        $q->bindParam(':max', $pat2, PDO::PARAM_INT);
+        $q->execute();
+        $t = [];
+        while ( $r = $q->fetch(PDO::FETCH_NUM) ) {
+            $t[] = TitoloPersonale::id($r[0]);
+        }
+        return $t;
+    }
+
 }

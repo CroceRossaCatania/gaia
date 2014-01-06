@@ -13,15 +13,15 @@ $_n     +=  $_n_pat    = $me->numPatentiPending([APP_PRESIDENTE, APP_PATENTI]);
         <?php menuVolontario(); ?>
     </div>
     <div class="span9">
+        <?php if (isset($_GET['err'])) { ?>
+            <div class="alert alert-block alert-error">
+                <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+                <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+            </div> 
+        <?php } ?>
         <div class="row-fluid">
             <div class="span12">
                 <h3>Ufficio Patenti</h3>
-                <?php if (isset($_GET['err'])) { ?>
-                    <div class="alert alert-block alert-error">
-                        <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
-                        <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
-                    </div> 
-                <?php } ?>
             </div>
         </div>
                     
@@ -36,14 +36,14 @@ $_n     +=  $_n_pat    = $me->numPatentiPending([APP_PRESIDENTE, APP_PATENTI]);
 
             <div class="span3">
                 <table class="table table-striped table-condensed">
-                
-                    <tr><td>Patenti in attesa</td><td><?= $_n_pat; ?></td></tr>
-                    
+                    <tr>
+                        <td>Patenti in attesa</td>
+                        <td><?= $_n_pat; ?></td>
+                    </tr>
                 </table>
             </div>
         </div>
         <hr />
-        
         <div class="span12">
             <div class="span6">
                 <div class="btn-group btn-group-vertical span12">
