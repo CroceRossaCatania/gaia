@@ -102,6 +102,10 @@ class CorsoBase extends GeoEntita {
         );
     }
 
+    public function cancellabileDa(Utente $u) {
+        return (bool) in_array($this, $u->corsiBaseDiGestione());
+    }
+
     public function direttore() {
         if ($this->direttore) {
             return Volontario::id($this->direttore);    

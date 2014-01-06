@@ -191,5 +191,12 @@ abstract class GeoEntita extends Entita {
         return $r;
     }
 
+    public function linkMappa() {
+        $n = urlencode($this->luogo);
+        $c = $this->coordinate();
+        $c = $c[0] . ',' . $c[1];
+        return "http://maps.google.com/?q={$n}@{$c}";
+    }
+
     
 }
