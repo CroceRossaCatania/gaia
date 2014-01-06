@@ -192,8 +192,8 @@ if ($consenso && $cb && !$rf) {
         </div>
         <div class="modal-footer">
           <a href="?p=formazione.corsibase" class="btn">Non ora</a>
-          <a href="?p=attivita.modifica&id=<?php echo $attivita->id; ?>" class="btn btn-primary">
-              <i class="icon-asterisk"></i> Vai all'attività
+          <a href="?p=formazione.corsibase.modifica&id=<?php echo $corsoBase->id; ?>" class="btn btn-primary">
+              <i class="icon-asterisk"></i> Vai al corso
           </a>
         </div>
 </div>
