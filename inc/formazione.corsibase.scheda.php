@@ -143,14 +143,13 @@ $(document).ready( function() {
                 <div class="row-fluid">
                     <table class="table table-bordered table-striped" id="turniAttivita">
                         <thead>
-                            <th style="width: 25%;">Nome</th>
+                            <th style="width: 25%;">Titolo</th>
                             <th style="width: 25%;">Data ed ora</th>
-                            <th style="width: 35%;">Volontari</th>
-                            <th style="width: 15%;">Partecipa</th>
+                            <th style="width: 35%;">Dettagli</th>
+                            <th style="width: 15%;">Informazioni</th>
                         </thead>
-                        <?php foreach ( $corso->turniFut() as $turno ) { ?>
-                        <tr<?php if ( $turno->scoperto() ) { ?> class="warning"<?php } ?> data-timestamp="<?php echo $turno->fine()->toJSON(); ?>">
-
+                        <?php foreach ( $corso->lezioni() as $lezione ) { ?>
+                        <tr>
                         <td>
                             <div id="<?php echo $turno->id; ?>">
                             <big><strong><?php echo $turno->nome; ?></strong></big>
@@ -350,5 +349,6 @@ $(document).ready( function() {
                 </table>
             </div>
         </div>
+    </div>
     </div>
     

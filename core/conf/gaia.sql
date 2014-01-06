@@ -379,6 +379,21 @@ CREATE TABLE IF NOT EXISTS `partecipazioni` (
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `partecipazioniBase` (
+  `id` int(11) NOT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `corsoBase` varchar(16) DEFAULT NULL,
+  `stato` varchar(8) DEFAULT NULL,
+  `timestamp` varchar(64) DEFAULT NULL,
+  `tConferma` varchar(64) DEFAULT NULL,
+  `pConferma` varchar(16) DEFAULT NULL,
+  `tAttestato` varchar(8) DEFAULT NULL,
+  `cAttestato` varchar(8) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `corsoBase` (`corsoBase`),
+  KEY `volontario` (`volontario`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `privacy` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `volontario` varchar(16) DEFAULT NULL,

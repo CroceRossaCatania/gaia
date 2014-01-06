@@ -120,4 +120,12 @@ class CorsoBase extends GeoEntita {
         return null;
     }
 
+    /**
+     * Elenco delle lezioni di un corso base
+     * @return Lezioni array di lezioni
+     */
+    public function lezioni() {
+        return [];
+    }
+
 }
