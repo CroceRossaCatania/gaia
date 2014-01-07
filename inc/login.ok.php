@@ -4,8 +4,10 @@
  * ©2012 Croce Rossa Italiana
  */
 
-if ( !captcha_controlla() )
+if ( !captcha_controlla() ) {
+    $sessione->torna = $_POST['torna'];
     redirect('login&captcha');
+}
 
 $parametri = array('inputEmail', 'inputPassword');
 controllaParametri($parametri, 'login');
