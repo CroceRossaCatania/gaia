@@ -11,10 +11,10 @@ $(document).ready( function() {
                query:   query
            }, function(x) {
                $("#risultatiRicerca tbody").html('');
-               for (i in x.response) {
-                     $("#risultatiRicerca tbody").append('<tr><td><strong>' + x.response[i][1] + '</strong></td><td class="span2"><a class="btn btn-success span12" href="javascript:cercaTitolo(' + x.response[i][0] + ')"><i class="icon-search"></i> Cerca</a></td></tr>');
+               for (i in x.risposta) {
+                     $("#risultatiRicerca tbody").append('<tr><td><strong>' + x.risposta[i][1] + '</strong></td><td class="span2"><a class="btn btn-success span12" href="javascript:cercaTitolo(' + x.risposta[i][0] + ')"><i class="icon-search"></i> Cerca</a></td></tr>');
           }
-               if ( x.response.length == 0 ) {
+               if ( x.risposta.length == 0 ) {
                     $("#risultatiRicerca tbody").html('<tr class="warning"><td colspan="2" class="cp"><i class="icon-warning-sign"></i> Nessun titolo corrispondente alla ricerca.</td></tr>');
                }
            });
