@@ -169,13 +169,19 @@ class APIServer {
                 $colore = $conf['attivita']['colore_pubbliche'];
             }
             $r[] = [
-                'title'     =>  $attivita->nome. ', ' . $turno->nome,
-                'id'        =>  $turno->id,
-                'attivita'  =>  $turno->attivita,
-                'start'     =>  $turno->inizio()->toJSON(),
-                'end'       =>  $turno->fine()->toJSON(),
-                'color'     =>  '#' . $colore,
-                'url'       =>  '?p=attivita.scheda&id=' . $attivita->id . '#'. $turno->id
+                'turno'         =>  [
+                    'id'        =>  $turno->id,
+                    'nome'      =>  $turno->nome
+                ],
+                'attivita'      =>  [
+                    'id'        =>  $turno->attivita,
+                    'nome'      =>  $attivita->nome
+                ],  
+                'inizio'        =>  $turno->inizio()->toJSON(),
+                'fine'          =>  $turno->fine()->toJSON(),
+                'organizzatore' =>  $geoAttivita->toJSON(),
+                'colore'        =>  '#' . $colore,
+                'url'           =>  'https://gaia.cri.it/?p=attivita.scheda&id=' . $attivita->id . '#'. $turno->id
             ];
         }
         return $r;

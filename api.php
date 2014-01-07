@@ -42,7 +42,7 @@ if ( empty($corpo->metodo) ) {
 $api = new APIServer($sid);
 
 // Carica i parametri
-$api->par = $corpo;
+$api->par = (array) $corpo;
 
 // Esegui il metodo richiesto
 echo $api->esegui($metodo);
