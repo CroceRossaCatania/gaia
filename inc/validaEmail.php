@@ -13,7 +13,7 @@ if($validazione == false){
 }
 
 $stato = $validazione->stato;
-$volontario = $validazione->volontario();
+$volontario = $validazione->utente();
 
 if($validazione->stato==VAL_MAIL){
 	$volontario->email = $validazione->note;
