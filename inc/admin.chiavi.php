@@ -102,4 +102,14 @@ $chiavi = APIKey::elenco();
 		<?php } ?>
 		</tbody>
 	</table>
+
+
 </form>
+<hr />
+
+<p>
+	<ul>
+		<li><strong>Limite</strong>: 0 significa richieste illimitate.</li>
+		<li><strong>Attiva</strong>: 1 chiave attiva, 0 chiave disattiva.</li>
+	</ul>
+</p>
