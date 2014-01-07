@@ -58,8 +58,15 @@ $(document).ready(function() {
                 fine:   sfine
             },
             function (risposta) {
-            	//risposta = risposta.risposta
-                callback(risposta.risposta);
+            	risposta = risposta.risposta;
+            	for ( var y in risposta ) {
+            		risposta[y].id		= risposta[y].turno.id;
+            		risposta[y].title	= risposta[y].turno.nome + ", " + risposta[y].attivita.nome;
+            		risposta[y].start	= risposta[y].inizio;
+            		risposta[y].end		= risposta[y].fine;
+            		risposta[y].color   = risposta[y].colore;
+            	}
+                callback(risposta);
             });
         }
 
