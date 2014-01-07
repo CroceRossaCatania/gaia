@@ -87,7 +87,7 @@ proteggiClasse($c, $me);
               <input type="email" required name="inputEmail" id="inputEmail" value="<?php echo $c->email; ?>" />
             </div>
           </div>
-          <?php if ($c->privato() && ! $c instanceof Comitato && $c->unPresidente()->id == $me->id) { ?>
+          <?php if ($c->privato() && ! $c instanceof Comitato && $c->modificabileDa($me)) { ?>
           <div class="control-group">
             <label class="control-label" for="inputCFl">Codice Fiscale</label>
             <div class="controls">

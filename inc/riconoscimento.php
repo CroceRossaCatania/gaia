@@ -5,6 +5,7 @@
  */
 
 paginaPubblica();
+controllaBrowser();
 
 /* Registra sulla sessione il tipo della registrazione! */
 if ( isset($_GET['tipo'] ) ) {
