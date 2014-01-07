@@ -20,6 +20,8 @@ if ( $u = Utente::by('email', $email) ) {
         $sessione->utente = $u->id;
         if ( $_POST['torna'] ) {
             lowRedirect($_POST['torna']);
+            $sessione->app_id = null;
+            $sessione->app_ip = null;
         } else {
             redirect('utente.me');
         }

@@ -20,8 +20,11 @@ if ( isset($_GET['token']) ) {
   $sid    = $token->sid;
   $chiave = APIKey::id($token->app);
   $ip     = $token->ip;
+  $nuovas = Sessione::id($sid);
+  $nuovas->app_id = $chiave;
+  $nuovas->app_ip = $ip;
   setcookie('sessione', $sid, time() + $conf['sessioni']['durata']);
-  redirect("login&app={$chiave}&ip={$ip}&back=utente.applicazione");
+  redirect("login&back=utente.applicazione");
 }
 
 ?>
@@ -34,10 +37,10 @@ if ( isset($_GET['token']) ) {
     </div>
 </div>
 
-<?php if (isset($_GET['app'])) { 
+<?php if ($sessione->app_id) { 
   /* ACCESSO TRAMITE API (APPLICAZIONE) */
-  $app = APIKey::id($_GET['app']);
-  $ip  = htmlentities($_GET['ip']);
+  $app = APIKey::id($sessione->app_id);
+  $ip  = $sessione->app_ip;
   ?>
   <div class="alert alert-block alert-info">
     <h4>
@@ -123,11 +126,14 @@ if ( isset($_GET['token']) ) {
         <p>
             Inserisci la tua email e la password che hai fornito alla registrazione.
         </p>
-        <hr />
-        <p><strong>Sei un volontario non ancora registrato?</strong></p>
-        <a href="?p=riconoscimento&tipo=volontario" class="btn btn-success btn-large">
-            Registrati ora
-        </a>
+
+        <?php if (!isset($_GET['app'])) { ?>
+          <hr />
+          <p><strong>Sei un volontario non ancora registrato?</strong></p>
+          <a href="?p=riconoscimento&tipo=volontario" class="btn btn-success btn-large">
+              Registrati ora
+          </a>
+        <?php } ?>
         <hr />
         <p>Se non ricordi la tua password, puoi richiederne una nuova.</p>
         <p><a href="?p=recuperaPassword" class="btn">Recupera password</a></p>
