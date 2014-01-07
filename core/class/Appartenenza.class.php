@@ -75,4 +75,16 @@ class Appartenenza extends Entita {
             return;
         }
 
+        /**
+         * Le appartenenze valide per anzianità sono quelle dei 
+         * membri trasferiti o quelle dei membri volontari
+         * @return bool True se valida, False altrimenti
+         */
+        public function validaPerAnzianita() {
+            if($this->stato == MEMBRO_VOLONTARIO || $this->statp == MEMBRO_TRASFERITO) {
+                return true;
+            }
+            return false;
+        }
+
 }
