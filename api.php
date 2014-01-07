@@ -12,7 +12,37 @@ ob_start('ob_gzhandler');
 // Imposta la risposta in JSON
 header('Content-type: application/json');
 
+
+// Ottiene il corpo della richiesta
+$corpo = file_get_contents('php://input');
+
+// JSON-decode del corpo della richiesta
+$corpo = json_decode($corpo);
+
+// Controlla che il corpo sia ben formato
+if ( !is_array($corpo) ) {
+	$corpo = ['raw' => $corpo];
+}
+
+// Ottiene il SID, se presente
+if ( empty($corpo['sid']) ) {
+	$sid = null;
+} else {
+	$sid = (string) $corpo['sid'];
+}
+
+// Ottiene il metodo, se presente
+if ( empty($corpo['metodo']) ) {
+	$metodo = null;
+} else {
+	$metodo = (string) $corpo['metodo'];
+}
+
 // Crea la sessione API
-$api = new APIServer( @$_REQUEST['sid'] );
-$api->par = array_merge($_POST);
-echo $api->esegui($_GET['a']);
+$api = new APIServer($sid);
+
+// Carica i parametri
+$api->par = $corpo;
+
+// Esegui il metodo richiesto
+echo $api->esegui($metodo);
