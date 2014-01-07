@@ -9,7 +9,7 @@ if ( !captcha_controlla() ) {
     redirect('login&captcha');
 }
 
-$parametri = array('inputEmail', 'inputPassword');
+$parametri = ['inputEmail', 'inputPassword'];
 controllaParametri($parametri, 'login');
 
 $email      = minuscolo($_POST['inputEmail']);

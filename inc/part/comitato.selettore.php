@@ -7,7 +7,7 @@ $(document).ready( function() {
 
     /* Scarico elenco comitati... */
     api('comitati', {}, function( x ) {
-       comitati = x.response[0];
+       comitati = x.risposta[0];
        _carica_regionali();
     });
     
