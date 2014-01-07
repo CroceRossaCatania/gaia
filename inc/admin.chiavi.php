@@ -9,10 +9,11 @@ paginaAdmin();
 $chiavi = APIKey::elenco();
 
 ?>
-<form action="?p=admin.chiavi.ok.php" method="POST">
+<form action="?p=admin.chiavi.ok" method="POST">
 
 	<div class="pull-right btn-group">
-		<a href="?p=admin.chiavi.genera.php" class="btn btn-large btn-warning">
+		<a href="?p=admin.chiavi.genera" class="btn btn-large btn-warning"
+			data-conferma="Generare davvero una nuova chiave?">
 			<i class="icon-plus"></i>
 			Genera nuova chiave
 		</a>
@@ -75,6 +76,11 @@ $chiavi = APIKey::elenco();
 							type="text" class="input-medium" readonly="readonly"
 							value="<?php echo $chiave->chiave; ?>" 
 						/>
+						<a href="?p=admin.chiavi.rigenera&chiave=<?php echo $chiave->id; ?>"
+							data-conferma="Rigenerare la chiave <?php echo $chiave->id; ?>?"
+						>
+							<i class="icon-refresh"></i> Rig.
+						</a>
 				</td>
 				<td>
 					<input 

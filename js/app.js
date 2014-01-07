@@ -10,7 +10,7 @@ var
     
 var conf = {
     api:    'api.php',
-    key:    '123123123'
+    key:    'bb2c08ff4da11f0b590a7ae884412e2bfd8ac28a'
 };
 
 $(window).ready( function () { 
