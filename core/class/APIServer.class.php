@@ -124,7 +124,7 @@ class APIServer {
         ];
     }
     
-    public function api_cercaTitolo() {
+    public function api_titoli_cerca() {
         $t = [];
         if (!isset($this->par['t'])) { $this->par['t'] = -1; }
         foreach ( Titolo::cerca($this->par['query'], $this->par['t']) as $titolo ) {
@@ -187,7 +187,7 @@ class APIServer {
         return $r;
     }
     
-    public function api_dettagliAttivita() {
+    public function api_attivita_dettagli() {
         $this->richiedi(['id']);
         $this->richiediLogin();
         $me = $this->sessione->utente();
@@ -216,7 +216,7 @@ class APIServer {
         return $g->risultati;
     }
     
-    public function api_me() {
+    public function api_io() {
         $this->richiediLogin();
         $me = $this->sessione->utente();
         $r = [];
