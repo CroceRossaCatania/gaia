@@ -43,14 +43,14 @@ class APIServer {
             $r = $e->toJSON();
         } 
         return json_encode([
-            'request'  => [
-                'action'        =>  $azione,
-                'parameters'    =>  $this->par,
-                'time'          =>  new DateTime()
+            'richiesta'  => [
+                'metodo'        =>  $azione,
+                'parametri'     =>  $this->par,
+                'data'          =>  (new DT())->toJSON()
             ],
-            'time'     => ( microtime(true) - $start ),
-            'session'  => $this->sessione->toJSON(),
-            'response' => $r
+            'tempo'    => round(( microtime(true) - $start ), 6),
+            'sessione' => $this->sessione->toJSON(),
+            'risposta' => $r
         ]);
     }
         
