@@ -73,16 +73,16 @@ class APIServer {
     private function api_ciao() {
         global $conf;
         return [
-            'version'   =>  $conf['version'],
-            'name'      =>  $conf['name'],
-            'vendor'    =>  $conf['vendor'],
-            'copyright' =>  $conf['copyright'],
-            'status'    =>  $conf['status'],
-            'docs'      =>  $conf['docs']
+            'versione'                  =>  $conf['versione'],
+            'nome'                      =>  $conf['nome'],
+            'organizzazione'            =>  $conf['organizzazione'],
+            'copyright'                 =>  $conf['copyright'],
+            'stato'                     =>  $conf['stato'],
+            'documentazione'            =>  $conf['documentazione']
         ];
     }
         
-    public function api_user() {
+    public function api_utente() {
         $this->richiedi(['id']);
         $u = Utente::id($this->par['id']);
         return $u->toJSON();
