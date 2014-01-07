@@ -9,10 +9,14 @@ paginaApp([APP_SOCI, APP_PRESIDENTE]);
 $parametri = array('datainizio', 'datafine', 'inputVolontario', 'inputMotivo');
 controllaParametri($parametri, 'us.dash&err');
 
-$inizio = @DateTime::createFromFormat('d/m/Y', $_POST['datainizio']);
-$fine = @DateTime::createFromFormat('d/m/Y', $_POST['datafine']);
+$inizio = DT::daFormato($_POST['datainizio']);
+$fine = DT::daFormato($_POST['datafine']);
 
-if (@$fine->getTimestamp() < time() || (@$fine->getTimestamp() - @$inizio->getTimestamp()) > ANNO) {
+if (!$inizio || !$fine) {
+    redirect('us.dash&riserrdate');
+}
+
+if ($fine->getTimestamp() < time() || ($fine->getTimestamp() - $inizio->getTimestamp()) > ANNO) {
     redirect('us.dash&riserrdate');
 }
 
@@ -30,23 +34,8 @@ $r->appartenenza = $app->id;
 $r->volontario = $v->id;
 $r->motivo = $m;
 $r->timestamp = time();                
-if ( $_POST['datainizio'] ) {
-    if ( $inizio ) {
-        $inizio = @$inizio->getTimestamp();
-        $r->inizio = $inizio;
-    } else {
-        $r->inizio = 0;
-    }
-}
-
-if ( $_POST['datafine'] ) {
-    if ( $fine ) {
-        $fine = @$fine->getTimestamp();
-        $r->fine = $fine;
-    } else {
-        $r->fine = 0;
-    }
-}
+$r->inizio = $inizio->getTimestamp();
+$r->fine = $fine->getTimestamp();
 
 redirect('us.dash&risok');
 

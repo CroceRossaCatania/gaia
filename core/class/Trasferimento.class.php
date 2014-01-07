@@ -51,7 +51,7 @@ class Trasferimento extends Entita {
         $m->a = $a->volontario();
         $m->_NOME       = $v->nome;
         $m->_COMITATO   = $a->comitato()->nomeCompleto();
-        $m-> _TIME = date('d-m-Y', $a->timestamp);
+        $m-> _TIME = date('d/m/Y', $a->timestamp);
         $m-> _MOTIVO = $this->motivo;
         $m->invia();
     }
@@ -66,7 +66,7 @@ class Trasferimento extends Entita {
             $m->a = $destinatario;
             $m->_NOME       = $v->nome;
             $m->_COMITATO   = $v->unComitato()->nomeCompleto();
-            $m-> _TIME = date('d-m-Y', $t->protData);
+            $m-> _TIME = date('d/m/Y', $t->timestamp);
             $m->invia();
         }
     }
