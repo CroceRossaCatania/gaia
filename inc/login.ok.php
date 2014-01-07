@@ -4,6 +4,9 @@
  * ©2012 Croce Rossa Italiana
  */
 
+if ( !captcha_controlla() )
+    redirect('login&captcha');
+
 $parametri = array('inputEmail', 'inputPassword');
 controllaParametri($parametri, 'login');
 

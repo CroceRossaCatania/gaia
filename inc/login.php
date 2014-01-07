@@ -40,6 +40,11 @@ $sessione->torna = null;
                   <strong>Password non corretta</strong>.<br />
                   Controlla che il tasto BLOC MAIUSC non sia inserito.
               </div>
+          <?php } elseif ( isset($_GET['captcha']) ) { ?>
+              <div class="alert alert-error">
+                  <strong>Codice di verifica non corretto</strong>.<br />
+                  Per favore inserisci attentamente il codice di verifica.
+              </div>
           <?php } else { ?>
               <p>&nbsp;</p>
           <?php } ?>
@@ -53,6 +58,15 @@ $sessione->torna = null;
             <label class="control-label" for="inputPassword">Password</label>
             <div class="controls">
               <input type="password" id="inputPassword" name="inputPassword" required pattern=".{3,15}" />
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputValida">
+              
+            </label>
+            <div class="controls">
+              <i class="icon-lock"></i> Per favore inserisci i caratteri nel campo sottostante:<br />
+              <?php captcha_mostra(); ?>
             </div>
           </div>
               
