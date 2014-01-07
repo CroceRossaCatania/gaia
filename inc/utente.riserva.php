@@ -24,7 +24,13 @@ richiediComitato();
       <i class="icon-save"></i> <strong>Richiesta annullata</strong>.
       La richiesta di riserva è stata annullata con successo.
     </div>
-    <?php } 
+    <?php }
+    if ( isset($_GET['err']) ) { ?>
+    <div class="alert alert-danger">
+      <i class="icon-warning-sign"></i> <strong>Date non corrette</strong>.
+      La date che hai inserito sono incorrette.
+    </div>
+    <?php }  
     $i=0;
     foreach ( $me->storico() as $app ) { 
      if ($app->attuale()) 

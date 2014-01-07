@@ -99,7 +99,7 @@ class DT extends DateTime {
      * @return false se la creazione non funziona, DT altrimenti
      */
     public static function daFormato($data, $formato = 'd/m/Y') {
-        if ($date = DateTime::createFromFormat($formato, $data)) {
+        if (!$date = DateTime::createFromFormat($formato, $data)) {
             return false;
         }
         if(DateTime::getLastErrors()['warning_count'] > 0){
