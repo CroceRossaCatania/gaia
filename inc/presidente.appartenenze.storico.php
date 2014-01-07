@@ -73,7 +73,7 @@ proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
                                         <i class="icon-paperclip"></i> Richiesta trasferimento
                                     </a>
                                 <?php }elseif($app->estensione()){ ?>
-                                    <a class="btn btn-small btn-info" href="?p=presidente.estensioneRichiesta.stampa&id=<?php echo $app->estensione(); ?>" title="Visualizza ricevuta" data-attendere="Attendere...">
+                                    <a class="btn btn-small btn-info" href="?p=utente.estensioneRichiesta.stampa&id=<?php echo $app->estensione(); ?>" title="Visualizza ricevuta" data-attendere="Attendere...">
                                         <i class="icon-paperclip"></i> Richiesta estensione
                                     </a>
                                 <?php } ?>
