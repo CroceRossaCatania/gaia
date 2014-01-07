@@ -28,12 +28,11 @@ $(window).ready( function () {
     /* Carica eventuali impostazioni */
     sid = $.cookie('sessione');
     _sincronizza();
-    api('welcome', {}, _aggiorna_chiSono());
+    api('ciao', {}, _aggiorna_chiSono());
     
     /* Bind */
     $("#_logout").click( _logout );
     $("#_login").click( _login );
-    $("#barraRicerca").keyup( _barraRicerca );
     
     $("[data-attendere]")       .each( _attendere );
     $("[data-suggerimento]")    .each( _suggerimento );
@@ -134,24 +133,6 @@ function _logout () {
 
 function _login () {
    
-}
-
-function _barraRicerca () {
-    var q = $("#barraRicerca").val();
-    if ( q.length < 1 ) {
-        $("#laRicerca").hide(1000);
-    } else {
-        $("#laRicerca").show(1000);
-    }
-    $("#barraRicerca").addClass('inRicerca');
-    api('ricercaSalone', {query: q}, _mostraRisultati);
-}
-
-function _mostraRisultati () {
-    setTimeout(
-    function() {$("#barraRicerca").removeClass('inRicerca');},
-    1000);
-    
 }
 
 function _abilita_filtraggio (idInput, idTabella) {
