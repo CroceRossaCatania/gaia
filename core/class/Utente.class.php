@@ -286,9 +286,15 @@ class Utente extends Persona {
     public function primaAppartenenza() {
         $p = Appartenenza::filtra([
             ['volontario',  $this->id]
-        ], 'inizio ASC LIMIT 0, 1');
+        ], 'inizio ASC');
         if ( !$p ) { return false; }
-        return $p[0];
+        $r = [];
+        foreach ($p as $_p){
+            if($_p->validaPerAnzianita()) {
+                $r[] = $_p;
+            }
+        }
+        return $r[0];
     }
 
     public function ultimaAppartenenza($stato = MEMBRO_VOLONTARIO) {

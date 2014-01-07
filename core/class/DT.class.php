@@ -91,4 +91,20 @@ class DT extends DateTime {
             return false;
         }
     }
+    /**
+     * Tenta di istanziare un oggetto DateTime e controlla che non ci siano
+     * errori sotto al tappeto
+     * @param $data data nel formato selezionato
+     * @param $formato string struttura della data (es 'd/m/Y')
+     * @return false se la creazione non funziona, DT altrimenti
+     */
+    public static function daFormato($data, $formato = 'd/m/Y') {
+        if (!$date = DateTime::createFromFormat($formato, $data)) {
+            return false;
+        }
+        if(DateTime::getLastErrors()['warning_count'] > 0){
+            return false;
+        }
+        return DT::daNativo($date);
+    }
 }

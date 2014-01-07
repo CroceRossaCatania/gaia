@@ -6,7 +6,12 @@
 
 paginaPrivata();
 
-$parametri = array('id', 'h');
+$parametri = array('id', 'inputCommento');
+
+if ( isset($_GET['h']) ){
+    $parametri = array_merge( $parametri, $_GET['h']);
+}
+
 controllaParametri($parametri);
 
 $a = $_GET['id'];
@@ -23,7 +28,6 @@ $c->attivita = $a;
 $c->commento = $_POST['inputCommento']; 
 
 if($h != 0){
-    $h = $_GET['h'];
     $c->upCommento = $h;
 }else{
     $c->upCommento = 0;

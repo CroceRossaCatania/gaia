@@ -28,7 +28,7 @@ if($newemail && $newemail != $me->email) {
 
         $e = new Email('validazioneMail', 'Richiesta sostituzione indirizzo email');
         $e->a       = $me;
-        $e->_NOME   = $p->nome;
+        $e->_NOME   = $me->nome;
         $e->_DATA   = date('d-m-Y H:i');
         $e->_TIPO   = 'personale';
         $e->_NUOVA  = $newemail;
@@ -56,7 +56,7 @@ if($newemailservizio && $newemailservizio != $me->emailservizio) {
 
         $e = new Email('validazioneMail', 'Richiesta sostituzione indirizzo email');
         $e->a       = $me;
-        $e->_NOME   = $p->nome;
+        $e->_NOME   = $me->nome;
         $e->_DATA   = date('d-m-Y H:i');
         $e->_TIPO   = 'di servizio';
         $e->_NUOVA  = $newemailservizio;
