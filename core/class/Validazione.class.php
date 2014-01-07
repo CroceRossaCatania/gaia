@@ -63,7 +63,7 @@ class Validazione extends Entita {
      */
     public static function cercaValidazione($codice) {
         $v = Validazione::by('codice', $codice);
-        if ($v && (int) $v->stato >= VAL_CHIUSA) {
+        if ($v && (int) $v->stato > VAL_CHIUSA) {
             return $v;
         }
         return false;
