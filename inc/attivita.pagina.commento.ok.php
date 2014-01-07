@@ -6,7 +6,7 @@
 
 paginaPrivata();
 
-$parametri = array('id', 'h');
+$parametri = array('id', 'inputCommento');
 controllaParametri($parametri);
 
 $a = $_GET['id'];
