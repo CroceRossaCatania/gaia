@@ -23,7 +23,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE , APP_PATENTI ]);
 <div class="row-fluid">
     <div class="span8">
         <h2>
-            <i class="icon-star muted"></i>
+            <i class="icon-truck muted"></i>
             Patenti in attesa
         </h2>
     </div>

@@ -9,7 +9,7 @@ paginaApp([APP_PATENTI , APP_PRESIDENTE]);
 controllaParametri(array('inputRicerca'), 'patenti.dash&err');
 
 $ricerca = $_GET['inputRicerca'];
-
+echo $ricerca;
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
@@ -60,11 +60,11 @@ $ricerca = $_GET['inputRicerca'];
         <?php
         $elenco = $me->comitatiApp ([ APP_PATENTI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato){
-            $comitato->ricercaPatente($ricerca);
+            $patenti = $comitato->ricercaPatente($ricerca);
             foreach($patenti as $patente){
                 ?>
                 <tr>
-                    <td><?= $numero; ?></td>
+                    <td><?= $ricerca; ?></td>
                     <td><?= $patente->volontario()->nome; ?></td>
                     <td><?= $patente->volontario()->cognome; ?></td>
                     <td><?= $patente->volontario()->unComitato()->nomeCompleto(); ?></td>
