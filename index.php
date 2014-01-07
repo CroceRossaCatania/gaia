@@ -20,7 +20,14 @@ ob_start('ob_gzhandler');
 ob_start('impostaTitoloDescrizione');
 
 /* Sessione utente via cookie */
-$sessione = new Sessione(@$_COOKIE['sessione']);
+if ( !empty($_GET['sid']) ) {
+    $sid = (string) $_GET['sid'];
+} elseif ( isset($_COOKIE['sessione']) ) {
+    $sid = $_COOKIE['sessione'];
+} else {
+    $sid = null;
+}
+$sessione = new Sessione($sid);
 @setcookie('sessione', $sessione->id, time() + $conf['sessioni']['durata']);
  
 /* Crea eventuale oggetto $me */

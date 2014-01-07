@@ -12,12 +12,13 @@ class APIServer {
     
     private
         $db         = null,
-        $sessione   = null;
+        $sessione   = null,
+        $chiave     = null;
     
     public
         $par        = [];
     
-    public function __construct( $sid = null ) {
+    public function __construct( $chiave, $sid = null ) {
         global $db, $sessione;
         $this->db = $db;
         $this->sessione = new Sessione($sid);
@@ -27,6 +28,8 @@ class APIServer {
          * Utente->admin() e tutte quelle che fanno
          * affidamento allo stato in sessione */
         $sessione = $this->sessione;
+
+        $this->chiave = APIKey::by('chiave', $chiave);
     }
     
     public function esegui( $azione = 'ciao' ) {
@@ -34,6 +37,9 @@ class APIServer {
         if (empty($azione)) { $azione = 'ciao'; }
         $azione = str_replace(':', '_', $azione);
         try {
+            if ( !$this->chiave || !$this->chiave->usabile() ) {
+                throw new Errore(1013);
+            }
             if ( method_exists( $this, 'api_' . $azione ) ) {
                 $r = call_user_func( [$this, 'api_' . $azione] );
             } else {

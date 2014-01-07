@@ -31,6 +31,13 @@ if ( empty($corpo->sid) ) {
 	$sid = (string) $corpo->sid;
 }
 
+// Ottiene API KEY, se presente
+if ( empty($corpo->key) ) {
+	$key = false;
+} else {
+	$key = (string) $corpo->key;
+}
+
 // Ottiene il metodo, se presente
 if ( empty($corpo->metodo) ) {
 	$metodo = null;
@@ -39,7 +46,7 @@ if ( empty($corpo->metodo) ) {
 }
 
 // Crea la sessione API
-$api = new APIServer($sid);
+$api = new APIServer($key, $sid);
 
 // Carica i parametri
 $api->par = (array) $corpo;
