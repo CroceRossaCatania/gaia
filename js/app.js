@@ -9,7 +9,8 @@ var
     uob = null;
     
 var conf = {
-    api:    'api.php?a='
+    api:    'api.php',
+    key:    '123123123'
 };
 
 $(window).ready( function () { 
@@ -22,7 +23,8 @@ $(window).ready( function () {
        type:        "POST",
        dataType:    "json",
        error:       _rete_errore,
-       success:    _rete_ok
+       contentType: "application/json; charset=UTF-8",
+       success:     _rete_ok
     });
       
     /* Carica eventuali impostazioni */
@@ -99,8 +101,8 @@ function _rete_errore(a, b, c) {
 }
 
 function _rete_ok(a, b, c) {
-    sid = a.session.id;
-    uob = a.session.user;
+    sid = a.sessione.id;
+    uob = a.sessione.utente;
     if ( uob ) {
         uid = uob.id;
     }
@@ -108,11 +110,6 @@ function _rete_ok(a, b, c) {
 }
 
 function _sincronizza() {
-    $.ajaxSetup({
-        data: {
-            sid:    sid
-        }
-    });
     $.cookie('sessione', sid);
     _aggiorna_chiSono();
 }
@@ -120,8 +117,18 @@ function _sincronizza() {
 function _aggiorna_chiSono() {
 }
   
-function api(operazione, dati, callback) {
-    $.post(conf.api + operazione, dati, [_rete_ok, callback]);
+function api(metodo, dati, callback) {
+    $.post(
+        conf.api,
+        JSON.stringify($.extend(
+            dati,
+            { 
+                metodo: metodo,
+                sid:    sid,
+                key:    conf.key
+            })),
+        [_rete_ok, callback]
+    );
 }
 
 function _dump( x ) {
@@ -297,7 +304,7 @@ function _tabella_ricerca ( e, query, input, pagina ) {
         'pagina':       pagina,
         'perPagina':    perPagina
     }, function (dati) {
-        _tabella_ridisegna(e, dati.response, input);
+        _tabella_ridisegna(e, dati.risposta, input);
          /* Pulsante indietro... */
         if ( pagina == 1 ) {
             $('.' + _tid + '_indietro')
@@ -312,7 +319,7 @@ function _tabella_ricerca ( e, query, input, pagina ) {
                 });
         }   
         /* Pulsante avanti... */
-        if ( pagina == dati.response.pagine ) {
+        if ( pagina == dati.risposta.pagine ) {
             $('.' + _tid + '_avanti')
                 .unbind('click')
                 .addClass('disabled');

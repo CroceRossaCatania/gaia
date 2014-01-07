@@ -20,22 +20,22 @@ $corpo = file_get_contents('php://input');
 $corpo = json_decode($corpo);
 
 // Controlla che il corpo sia ben formato
-if ( !is_array($corpo) ) {
+if ( !$corpo ) {
 	$corpo = ['raw' => $corpo];
 }
 
 // Ottiene il SID, se presente
-if ( empty($corpo['sid']) ) {
+if ( empty($corpo->sid) ) {
 	$sid = null;
 } else {
-	$sid = (string) $corpo['sid'];
+	$sid = (string) $corpo->sid;
 }
 
 // Ottiene il metodo, se presente
-if ( empty($corpo['metodo']) ) {
+if ( empty($corpo->metodo) ) {
 	$metodo = null;
 } else {
-	$metodo = (string) $corpo['metodo'];
+	$metodo = (string) $corpo->metodo;
 }
 
 // Crea la sessione API
