@@ -12,6 +12,17 @@ if ( isset($_GET['back']) ) {
 }
 $sessione->torna = null;
 
+if ( isset($_GET['token']) ) {
+  // PROCEDURA DI PREACCESSO DA API
+  $token = Validazione::cercaValidazione($_GET['token']);
+  $token->stato = VAL_CHIUSA;
+  $token = json_decode($token->note);
+  $sid    = $token->sid;
+  $chiave = APIKey::id($token->app);
+  $ip     = $token->ip;
+  redirect("login&app={$chiave}&ip={$ip}&sid={$sid}");
+}
+
 ?>
 
 
@@ -22,6 +33,24 @@ $sessione->torna = null;
     </div>
 </div>
 
+<?php if (isset($_GET['app'])) { 
+  /* ACCESSO TRAMITE API (APPLICAZIONE) */
+  $app = APIKey::id($_GET['app']);
+  $ip  = htmlentities($_GET['ip']);
+  ?>
+  <div class="alert alert-block alert-info">
+    <h4>
+      <i class="icon-warning-sign"></i>
+      Stai entrando su Gaia tramite <?php echo $app->nome; ?>
+    </h4>
+    <p>
+      Tieni presente che <?php echo $app->nome; ?> (IP: <?php echo $ip; ?>) potr&agrave; accedere ai tuoi dati
+      personali presenti su Gaia. Se non sei d'accordo, non continuare.
+    </p>
+  </div>
+  
+
+<?php } ?>
 
 
 <div class="row-fluid">

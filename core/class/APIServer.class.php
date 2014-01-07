@@ -95,32 +95,26 @@ class APIServer {
     }
 
     public function api_login() {
-        $this->richiedi(['email', 'password']);
         $this->sessione->logout();
-        $u = Utente::by('email', $this->par['email']);
-        if (!$u) { 
-            return [
-                'email'     =>  false,
-                'password'  =>  false,
-                'login'     =>  false
-            ];
-        }
-        if ( $u->login($this->par['password'] ) ) {
-            $this->sessione->utente = $u->id;
-            return  [
-                'email'     =>  true,
-                'password'  =>  true,
-                'login'     =>  true
-            ];
-        } else {
-            return [
-                'email'     =>  true,
-                'password'  =>  false,
-                'login'     =>  false
-            ];
-        }
-    }
+        $sid = $this->sessione->id;
 
+        $val    = new Validazione;
+        $token  = $val->generaValidazione(
+            null,
+            VAL_ATTESA,
+            json_encode([
+                'app'   =>  $this->chiave->id,
+                'ip'    =>  $_SERVER['REMOTE_ADDR'],
+                'sid'   =>  $sid
+            ])
+        );
+
+        $url = "https://gaia.cri.it/?p=login&token={$token}";
+        return [
+            'url'       =>  $url,
+            'token'     =>  $token
+        ];
+    }
     
     public function api_logout() {
         $this->richiediLogin();
