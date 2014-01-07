@@ -114,6 +114,7 @@ if ( isset($_GET['token']) ) {
     </div>
        
     <div class="span6 centrato">
+        <hr class="display-phone" />
         <h2>
             <i class="icon-key"></i>
             Accedi
