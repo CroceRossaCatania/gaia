@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `api_chiavi` (
   `limite` int(11) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `nome` varchar(255) DEFAULT NULL,
+  `attiva` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `chiave` (`chiave`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

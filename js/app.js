@@ -39,6 +39,7 @@ $(window).ready( function () {
     $("[data-attendere]")       .each( _attendere );
     $("[data-suggerimento]")    .each( _suggerimento );
     $("[data-volontari]")       .each( _tabella );
+    $("[data-conferma]")        .each( _conferma );
 
     $('.automodal').modal({ keyboard: false, backdrop: 'static' });
     $('.alCambioSalva').change( function () {
@@ -112,6 +113,12 @@ function _rete_ok(a, b, c) {
 function _sincronizza() {
     $.cookie('sessione', sid);
     _aggiorna_chiSono();
+}
+
+function _conferma(i, e) {
+    $(e).click( function() {
+        return confirm($(e).data('conferma'));
+    });
 }
 
 function _aggiorna_chiSono() {

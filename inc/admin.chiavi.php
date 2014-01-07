@@ -11,10 +11,16 @@ $chiavi = APIKey::elenco();
 ?>
 <form action="?p=admin.chiavi.ok.php" method="POST">
 
-	<button type="submit" class="btn btn-large btn-success pull-right">
-		<i class="icon-save"></i>
-		Salva modifiche
-	</button>
+	<div class="pull-right btn-group">
+		<a href="?p=admin.chiavi.genera.php" class="btn btn-large btn-warning">
+			<i class="icon-plus"></i>
+			Genera nuova chiave
+		</a>
+		<button type="submit" class="btn btn-large btn-success">
+			<i class="icon-save"></i>
+			Salva modifiche
+		</button>
+	</div>
 
 	<h2>Chiavi API riconosciute</h2>
 
