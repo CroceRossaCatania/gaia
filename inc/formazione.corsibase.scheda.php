@@ -426,11 +426,13 @@ $(document).ready( function() {
                     <th>Nominativo</th>
                     <th>Telefono</th>
                     <th>Email</th>
+                    <th>Azione</th>
                 </thead>
                 <?php 
-                $iscritti = $corso->iscritti();
+                $part = $corso->partecipazioni();
 
-                foreach ( $iscritti as $iscritto ) { ?>
+                foreach ( $part as $p ) { 
+                    $iscritto = $p->utente(); ?>
                     <tr>
                         <td><img src="<?php echo $iscritto->avatar()->img(10); ?>" class="img-polaroid" /></td>
                         <td><?php echo $iscritto->nomeCompleto(); ?></td>
@@ -439,6 +441,16 @@ $(document).ready( function() {
                         </td>
                         <td>
                             <span data-nascondi="" data-icona="icon-envelope"><?php echo $iscritto->email(); ?></span>
+                        </td>
+                        <td width="15%">
+                            <div class="btn-group btn-group-vertical">
+                                <a data-iscrizione="<?php echo $p->id; ?>" data-accetta="1" class="btn btn-success">
+                                    <i class="icon-ok"></i> Accetta
+                                </a>
+                                <a data-iscrizione="<?php echo $p->id; ?>" data-accetta="0" class="btn btn-danger">
+                                    <i class="icon-remove"></i> Rifiuta
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 <?php } ?>

@@ -151,6 +151,23 @@ class CorsoBase extends GeoEntita {
     }
 
     /**
+     * Elenco delle partecipazioni degli iscritti
+     * @return PartecipazioneBase elenco delle partecipazioni degli iscritti 
+     */
+    public function partecipazioni() {
+        $p = PartecipazioneBase::filtra([
+            ['corsoBase', $this->id]
+            ]);
+        $part = [];
+        foreach($p as $_p) {
+            if($_p->attiva()) {
+                $part[] = $_p;
+            }
+        }
+        return $part;
+    }
+
+    /**
      * Elenco degli iscritti ad un corso base
      * @return Utente elenco degli iscritti 
      */

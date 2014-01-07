@@ -289,6 +289,57 @@ class APIServer {
             }
             return $aut;
         }
+
+        public function api_iscriviBase() {
+            $this->richiedi(['id']);
+            $this->richiediLogin();
+            $part = PartecipazioneBase::id($this->par['id']);
+            /*
+            if ( $aut->stato == AUT_PENDING ) {
+                
+                $turno = $aut->partecipazione()->turno();
+                $attivita = $turno->attivita();
+                
+                if ( $this->par['aut'] ) {
+                    $aut->concedi();
+
+                    $cal = new ICalendar();
+                    $cal->genera($attivita->id, $turno->id);
+                    
+                    
+                    $m = new Email('autorizzazioneConcessa', "Autorizzazione CONCESSA: {$attivita->nome}, {$turno->nome}" );
+                    $m->a = $aut->partecipazione()->volontario();
+                    $m->da = $attivita->referente();
+                    $m->_NOME       = $aut->partecipazione()->volontario()->nome;
+                    $m->_ATTIVITA   = $attivita->nome;
+                    $m->_TURNO      = $turno->nome;
+                    $m->_DATA      = $turno->inizio()->format('d-m-Y H:i');
+                    $m->_LUOGO     = $attivita->luogo;
+                    $m->_REFERENTE   = $attivita->referente()->nomeCompleto();
+                    $m->_CELLREFERENTE = $attivita->referente()->cellulare();
+                    $m->allega($cal);
+                    $m->invia(true);
+                    
+                    
+                } else {
+                    $aut->nega();
+                                        
+                    $m = new Email('autorizzazioneNegata', "Autorizzazione NEGATA: {$attivita->nome}, {$turno->nome}" );
+                    $m->a = $aut->partecipazione()->volontario();
+                    $m->da = $attivita->referente();
+                    $m->_NOME       = $aut->partecipazione()->volontario()->nome;
+                    $m->_ATTIVITA   = $attivita->nome;
+                    $m->_TURNO      = $turno->nome;
+                    $m->_DATA       = $turno->inizio()->format('d-m-Y H:i');
+                    $m->_LUOGO      = $attivita->luogo;
+                    $m->_MOTIVO     = $this->par['motivo'];
+                    $m->invia();
+                    
+                }
+            }
+            */
+            return $part;
+        }
         
         public function api_scansione() {
             $this->richiediLogin();
