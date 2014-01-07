@@ -20,7 +20,7 @@ if ( isset($_GET['token']) ) {
   $sid    = $token->sid;
   $chiave = APIKey::id($token->app);
   $ip     = $token->ip;
-  @setcookie('sessione', $sid, time() + $conf['sessioni']['durata']);
+  setcookie('sessione', $sid, time() + $conf['sessioni']['durata']);
   redirect("login&app={$chiave}&ip={$ip}&back=utente.applicazione");
 }
 
