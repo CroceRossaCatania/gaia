@@ -38,6 +38,7 @@ class Validazione extends Entita {
          * Issue #847: se trovo validazione aperta la chiudo e ne faccio una nuova
          */
         if($validazione){
+            $validazione = $validazione[0];
             $validazione->stato = VAL_ANNULLATA;
             $validazione->timestamp = time();
         }
