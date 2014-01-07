@@ -5,6 +5,10 @@
  */
 
 paginaPrivata();
+richiediComitato();
+
+$parametri = array('id', 'inputMotivo', 'datainizio', 'datafine');
+controllaParametri($parametri);
 
 $t = $_GET['id'];
 $m = $_POST['inputMotivo'];

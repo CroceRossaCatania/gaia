@@ -24,12 +24,17 @@ if ( $me->comitatiDiCompetenza() ) {
     ];
 }
 
+if (!$me->admin() && $me->delegazioni(APP_SOCI)) {
 $_n     =   $_n_titoli = $_n_app = 0;
 $_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
 $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
-if ( $presidente || $me->delegazioni(APP_SOCI)) {
+
     $menu[''] += [
         'us.dash'   =>  '<span class="badge badge-success">'.$_n.'</span> Ufficio Soci'
+    ];
+} elseif ($presidente) {
+    $menu[''] += [
+        'us.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Ufficio Soci'
     ];
 }
 
@@ -53,29 +58,43 @@ if ( $nap ) {
 }
 
 
-
-$menu += [
-    'Attività'      =>  [
-        'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
-        'attivita.storico'  =>  '<i class="icon-list"></i> Mie attivita',
-        'utente.gruppo'  =>  '<i class="icon-group"></i> Gruppi',
-        'utente.reperibilita'  =>  '<i class="icon-thumbs-up"></i> Reperibilità'
-    ],
-    
+if ($me->attivitaDiGestione() || $me->comitatiAreeDiCompetenza() || $me->attivitaReferenziate()) {
+    $menu += [
+        'Attività'      =>  [
+            'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
+            'attivita.storico'  =>  '<i class="icon-list"></i> Miei turni',
+            'attivita.gestione'  =>  '<i class="icon-star"></i> Gestisci attività',
+            'utente.gruppo'  =>  '<i class="icon-group"></i> Gruppi',
+            'utente.reperibilita'  =>  '<i class="icon-thumbs-up"></i> Reperibilità'
+        ]];
+    } else {
+    $menu += [
+        'Attività'      =>  [
+            'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
+            'attivita.storico'  =>  '<i class="icon-list"></i> Miei turni',
+            'utente.gruppo'  =>  '<i class="icon-group"></i> Gruppi',
+            'utente.reperibilita'  =>  '<i class="icon-thumbs-up"></i> Reperibilità'
+        ]];
+    }
+$menu += [ 
     'Volontario'    =>  [
         'utente.anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
         'utente.storico'    =>  '<i class="icon-time"></i> Storico',
         'utente.documenti'  =>  '<i class="icon-folder-open"></i> Documenti'
         
-    ],
-    'Segreteria'      =>  [
-        'utente.estensione'  =>  '<i class="icon-random"></i> Estensioni',
-        'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti',
-        'utente.riserva'  =>  '<i class="icon-pause"></i> Riserva',
-        'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica',
-       
-        
-    ],
+    ]];
+    if ($me->unComitato()) {
+    $menu += [
+        'Segreteria'      =>  [
+            'utente.estensione'  =>  '<i class="icon-random"></i> Estensioni',
+            'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti',
+            'utente.riserva'  =>  '<i class="icon-pause"></i> Riserva',
+            'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica'
+           
+            
+        ]];
+    }
+$menu += [
     'Curriculum'    =>  [
         'utente.titoli&t=0' =>  '<i class="icon-magic"></i> Competenze pers.',
         'utente.titoli&t=1' =>  '<i class="icon-fighter-jet"></i> Patenti Civili',

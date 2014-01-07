@@ -12,6 +12,7 @@ class Utente extends Persona {
      */
     public function login($password) {
         if ( $this->password == criptaPassword($password) ) {
+            $this->ultimoAccesso = time();
             return true;
         } else {
             return false;
@@ -229,7 +230,9 @@ class Utente extends Persona {
             AND
                 ( appartenenza.fine < 1
                  OR
-                appartenenza.fine > :ora )");
+                appartenenza.fine > :ora 
+                 OR
+                appartenenza.fine IS NULL)");
         $q->bindParam(':tipo', $tipo);
         $ora = time();
         $q->bindParam(':ora',  $ora);
@@ -318,7 +321,7 @@ class Utente extends Persona {
         return $this->comitatiDelegazioni(APP_PRESIDENTE);
     }
     
-    public function comitatiApp( $app ) {
+    public function comitatiApp( $app , $soloComitati = true) {
         if (!is_array($app)) {
             $app = [$app];
         }
@@ -327,7 +330,7 @@ class Utente extends Persona {
         }
         $r = [];
         foreach ( $app as $k ) {
-            $r = array_merge($r, $this->comitatiDelegazioni($k));
+            $r = array_merge($r, $this->comitatiDelegazioni($k, $soloComitati));
         }
         $r = array_unique($r);
         return $r;
@@ -340,18 +343,22 @@ class Utente extends Persona {
     
     public function numVolontariDiCompetenza() {
         $n = 0;
-        foreach ( $this->comitatiApp([ APP_SOCI, APP_PRESIDENTE, APP_CO, APP_OBIETTIVO ]) as $c ) {
-            $n += $c->numMembriAttuali(MEMBRO_VOLONTARIO);
+        $comitati = $this->comitatiApp([ APP_SOCI, APP_PRESIDENTE, APP_CO, APP_OBIETTIVO ]);
+        foreach($comitati as $_c) {
+                $n += $_c->numMembriAttuali(MEMBRO_VOLONTARIO);          
         }
         return $n;
     }
     
     public function presiede( $comitato = null ) {
         if ( $comitato ) {
-            return (bool) in_array($comitato, $this->comitatiApp([APP_PRESIDENTE]));
+            if($comitato->unPresidente() == $this->id) {
+                return true;
+            }
         } else {
-            return (bool) $this->comitatiApp([APP_PRESIDENTE]);
+            return (bool) $this->comitatiApp([APP_PRESIDENTE], false);
         }
+        return false;
     }
     
     /* Avatar */
@@ -372,6 +379,17 @@ class Utente extends Persona {
         } else {
             return $this->comitatiPresidenzianti();
         }
+    }
+
+    public function unitaDiCompetenza() {
+        $c = $this->comitatiDiCompetenza();
+        $r = [];
+        foreach($c as $_c) {
+            if($_c instanceof Comitato) {
+                $r[] = $_c;
+            }
+        }
+        return $r;
     }
     
     public function miCompete(Comitato $c) {
@@ -623,13 +641,24 @@ class Utente extends Persona {
         }
         return $r;
     }
-    
-    public function comitatiDelegazioni($app = null) {
+    /*
+     * Restituisce i comitati che mi competono per una determinata delega
+     * @return array di geopolitiche
+     * @param $app array di delegazioni
+     * @param $soloComitati per far restituire solo i comitati e non il resto
+     * @param $espandi default ritorna le geopolitiche e la loro espansione
+     */
+    public function comitatiDelegazioni($app = null, $soloComitati = false, $espandi = true) {
         $d = $this->delegazioni($app);
         $c = [];
-        foreach ( $d as $k ) {
-            // $c[] = $k->comitato();
-            $c = array_merge($k->estensione(), $c);
+        foreach ( $d as $_d ) {
+            $comitato = $_d->comitato();
+            if (!$soloComitati || $comitato instanceof Comitato) {
+                $c[] = $comitato;
+            }
+            if ($espandi && !$comitato instanceof Comitato) {
+                $c = array_merge($comitato->estensione(), $c);
+            }
         }
         return array_unique($c);
     }
@@ -792,7 +821,7 @@ class Utente extends Persona {
         if ( $c ) {
             if ( $this->admin() || $this->presiede($c) ) {
                 return $c->aree();
-            } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $comitato) ) {
+            } elseif ( $o = $this->delegazioni(APP_OBIETTIVO, $c) ) {
                 $r = [];
                 foreach ( $o as $io ) {
                     $r = array_merge($r, $c->aree($io->dominio, $espandiLocale));
@@ -810,10 +839,14 @@ class Utente extends Persona {
                 $r = array_merge($r, $c->aree());
             }
             foreach ( $this->delegazioni(APP_OBIETTIVO) as $d ) {
-                $r = array_merge(
-                        $r,
-                        $d->comitato()->aree($d->dominio)
-                );
+                $comitato = $d->comitato();
+                $r = array_merge($r, $comitato->aree($d->dominio));
+                if ($comitato instanceof Locale) {
+                    $comitati = $comitato->estensione();
+                    foreach ($comitati as $_c) {
+                        $r = array_merge($r, $_c->aree($d->dominio));
+                    } 
+                }
             }
             $r = array_merge($r, $this->areeDiResponsabilita());
             $r = array_unique($r);
@@ -826,7 +859,11 @@ class Utente extends Persona {
         $a = $this->areeDiCompetenza(null, true);
         $r = [];
         foreach ($a as $ia) {
-            $r[] = $ia->comitato();
+            $comitato = $ia->comitato();
+            $r[] = $comitato;
+            if ($comitato instanceof Locale) {
+                $r = array_merge($r, $comitato->estensione());
+            }
         }
         $r = array_unique($r);
         return $r;
@@ -866,9 +903,15 @@ class Utente extends Persona {
     public function cellulare() {
         if($this->cellulareServizio){
             return $this->cellulareServizio;
-            }else{
-                return $this->cellulare;
-            }
+        }
+        return $this->cellulare;
+    }
+
+    public function email() {
+        if($this->emailServizio){
+            return $this->emailServizio;
+        }
+        return $this->email;
     }
     
     public function giovane() {
@@ -961,5 +1004,141 @@ class Utente extends Persona {
         }
         return $r;
     }
-    
+
+    public function privacy() {
+        $privacy = Privacy::by('volontario', $this);
+        if ( !$privacy ) {
+            $privacy = new Privacy;
+            $privacy->volontario = $this;
+            $privacy->contatti = PRIVACY_COMITATO;
+            $privacy->mess = PRIVACY_COMITATO;
+            $privacy->curriculum = PRIVACY_PRIVATA;
+            $privacy->incarichi = PRIVACY_PRIVATA;
+        }
+        return $privacy;
+    }
+
+    public function consenso() {
+        if(!$this->consenso) {
+            return false;
+        }
+        return true;
+    }
+
+    public function pri_delegato() {
+        if($this->presidenziante() || $this->attivitaReferenziate() || $this->delegazioni()){
+            return true;
+        }
+        return false;
+    }
+
+    public function pri_smistatore($altroutente){
+        if($this->presidenziante() || $this->delegazioni([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
+            $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO]);
+            foreach ($comitati as $comitato){
+                if($altroutente->in($comitato)){
+                    return PRIVACY_RISTRETTA;            
+                }
+            }
+            return PRIVACY_PUBBLICA;
+        }elseif($this->areeDiResponsabilita()){
+            $ar = $this->areeDiResponsabilita();
+            foreach( $ar as $_a ){
+                $c = $_a->comitato()->estensione();
+                foreach ($c as $_c) {
+                    if($altroutente->in($_c)){
+                        return PRIVACY_RISTRETTA;
+                    }
+                }
+            }
+            redirect('public.utente&id=' . $id);
+        }elseif($this->attivitaReferenziate()){
+            $a = $this->attivitaReferenziate();
+            $partecipazioni = $this->partecipazioni(PART_OK);
+            foreach( $partecipazioni as $p ){
+                if (in_array($p->attivita(), $a)) {
+                    return PRIVACY_RISTRETTA;
+                }
+            }
+            return PRIVACY_PUBBLICA;
+        }
+        return PRIVACY_PUBBLICA;
+    }
+
+	/*
+     * @return età utente
+     */
+    public function eta(){
+        $anno = date('Y', $this->dataNascita);
+        $ora = date('Y', time());
+        return $ora-$anno;
+    }
+
+    /*
+     * @return bool restituisce true se oggi è il compleanno dell'utente
+     */
+    public function compleanno(){
+        if( date('m', $this->dataNascita)==date('m', time()) && date('d', $this->dataNascita)==date('d', time())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /*
+     * @return true se se si è in una situazione in cui le appartenenze assegnate hanno senso.
+     * Anche se la gestione del false non è fatta in maniera corretta nella pagina.
+     */
+    public function appartenenzaValida(){
+        $attuali = $this->appartenenzeAttuali();
+        $pendenti = $this->appartenenzePendenti();
+        $inGenerale = $this->appartenenze();
+        if(($attuali || $pendenti) && $this->stato == VOLONTARIO){
+            return true;
+        } elseif($inGenerale && $this->stato == PERSONA) {
+            return true;
+        } elseif (!$attuali && !$pendenti && $this->stato == ASPIRANTE) {
+            return true;
+        }
+        return false;
+    }
+
+    /*
+     * Verifica se un altro utente ha permessi in scrittura su me
+     * @return bool modifica o non modifica
+     * @param $altroUtente il modificatore
+     */
+    public function modificabileDa(Utente $altroUtente) {
+        if ($altroUtente->admin()) {
+            return true;
+        }
+        $comitatiGestiti = array_merge($altroUtente->comitatiDelegazioni(APP_PRESIDENTE, false, false), 
+                               $altroUtente->comitatiDelegazioni(APP_SOCI, false, false)
+                            );
+        $comitatiGestiti = array_unique($comitatiGestiti);
+        
+        $c = $this->unComitato(MEMBRO_PENDENTE);
+        if($c) {
+            if(in_array($c->locale(), $comitatiGestiti) 
+            || in_array($c, $comitatiGestiti)) {
+            return true;
+            }
+        }
+        return false;
+    }
+
+    /*
+     * Visualizza ultimo accesso dell'utente
+     * @return recentemente<5gg, 5gg< ultimo mese <30gg, piu di un mese >30gg
+     */
+    public function ultimoAccesso() {
+        if(!$this->ultimoAccesso){
+            return "Mai";
+        } elseif ($this->ultimoAccesso >= time()-GIORNO*5) {
+            return "Recentemente";
+        } elseif ($this->ultimoAccesso >= time()-MESE) {
+            return "Nell'ultimo mese";
+        }
+        return "Più di un mese fà";
+    }
 }

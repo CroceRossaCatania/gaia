@@ -36,7 +36,7 @@ class Nazionale extends GeoPolitica {
     public function regionali() {
         return Regionale::filtra([
             ['nazionale',  $this->id]
-        ]);
+        ], 'nome ASC');
     }
     
     public function toJSON() {
@@ -46,8 +46,31 @@ class Nazionale extends GeoPolitica {
         }
         return [
             'nome'          =>  $this->nome,
-            'regionali'     =>  $regionali
+            'regionali'     =>  $regionali,
+            'id'            =>  $this->id
         ];
+    }
+
+    public function piva() {
+        return PIVA;
+    }
+
+    public function cf() {
+        return CF;
+    }
+
+    public function privato() {
+        return false;
+    }
+
+    public function modificabileDa(Utente $u) {
+        if ($altroUtente->admin()) {
+            return true;
+        }
+        if ($this->unPresidente()->id == $u->id) {
+            return true;
+        }
+        return false;
     }
     
 }

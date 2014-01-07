@@ -87,6 +87,7 @@ class Attivita extends GeoEntita {
         return (bool) (
                 $u->id == $this->referente
             ||  in_array($this->area, $u->areeDiCompetenza())
+            ||  in_array($this, $u->attivitaDiGestione())
         );
     }
     
@@ -99,7 +100,7 @@ class Attivita extends GeoEntita {
         }
         switch ( $this->visibilita ) {
             case ATT_VIS_UNITA:
-                return (bool) $geoComitato->haMembro($v);
+                return (bool) $geoComitato->contieneVolontario($v);
                 break;
                 
             case ATT_VIS_LOCALE:

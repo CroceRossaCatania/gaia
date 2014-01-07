@@ -37,7 +37,7 @@ class Regionale extends GeoPolitica {
     public function provinciali() {
         return Provinciale::filtra([
             ['regionale',  $this->id]
-        ]);
+        ], 'nome ASC');
     }
     
     public function nazionale() {
@@ -52,7 +52,12 @@ class Regionale extends GeoPolitica {
         }
         return [
             'nome'          =>  $this->nome,
-            'provinciali'   =>  $provinciali
+            'indirizzo'     =>  $this->formattato,
+            'telefono'      =>  $this->telefono,
+            'email'         =>  $this->email,
+            'coordinate'    =>  $this->coordinate(),
+            'provinciali'   =>  $provinciali,
+            'id'            =>  $this->id
         ];
     }
     
@@ -72,5 +77,17 @@ class Regionale extends GeoPolitica {
             $r[] = $k[0];
         }
         return $r;
+    }
+
+    public function piva() {
+        return PIVA;
+    }
+
+    public function cf() {
+        return CF;
+    }
+
+    public function privato() {
+        return false;
     }
 }

@@ -6,19 +6,35 @@
 
 /*
  * Rende la corrente pagina privata (login necessario)
+ * e controlla il consenso alle condizioni d'uso
+ * @param $consenso = false solo per la pagina di consenso
  */
-function paginaPrivata() {
+function paginaPrivata($consenso = true) {
     global $sessione, $_GET;
     if ( !$sessione->utente() ) {
         $sessione->torna = base64_encode(serialize($_GET));
         redirect('login');
+    }
+    if ($consenso && !$sessione->utente()->consenso()) {
+        redirect('utente.me');
+    }
+    controllaBrowser();
+}
+
+/**
+ * Controlla che il browser utilizzato sia non sia una vecchia versione di IE
+ * (ho escuso quelle precedenti alla 3 per evitare che la regex si mangi il 10)
+ */
+function controllaBrowser() {
+    if(preg_match('/(?i)msie [3-8]/',$_SERVER['HTTP_USER_AGENT'])) {
+        redirect('public.browser');
     }
 }
 
 function paginaApp($app, $comitati = []) {
     global $sessione;
     paginaPrivata();
-    if ( $sessione->utente()->admin ) {
+    if ( $sessione->utente()->admin() ) {
         return true;
     }
     if (!is_array($app)) {
@@ -86,7 +102,7 @@ function paginaAttivita( $attivita = null ) {
          )
             or
          !(
-                (bool) $sessione->utente()->admin
+                (bool) $sessione->utente()->admin()
             or  (bool) $sessione->utente()->presiede()
             or  (bool) $sessione->utente()->delegazioni(APP_OBIETTIVO)
             or  (bool) $sessione->utente()->areeDiResponsabilita()
@@ -101,14 +117,18 @@ function paginaModale() {
     include('./inc/part/pagina.attendere.php');
 }
 
-function paginaPresidenziale( $comitato = null ) {
+function paginaPresidenziale( $comitato = null, $attivita = null) {
     global $sessione;
         paginaPrivata();
-    if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin ) {
+    if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin() ) {
         redirect('utente.me');
     }
     if ( $comitato && !in_array($comitato, $sessione->utente()->comitatiDiCompetenza() ) ) {
-        redirect('utente.me&ErroreSicurezza');
+        redirect('errore.permessi');
+    }
+
+    if ( $attivita && !in_array($attivita, $sessione->utente()->attivitaDiGestione())) {
+        redirect('errore.permessi');   
     }
 }
 
@@ -177,3 +197,17 @@ function impostaTitoloDescrizione( $contenuto ) {
     $contenuto = str_replace('{_descrizione}', $_descrizione, $contenuto);
     return $contenuto;
 }
+
+function controllaParametri($parametri = [], $redirect = 'utente.me&err') {
+    foreach ($parametri as $p) {
+        if (empty($_REQUEST[$p])) { redirect($redirect); }
+    }
+}
+
+function proteggiClasse(Entita $e, Utente $utente) {
+    if($e->modificabileDa($utente)) {
+        return true;
+    } 
+    redirect('errore.permessi');
+}
+

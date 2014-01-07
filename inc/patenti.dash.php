@@ -19,6 +19,12 @@ $elenco = $me->comitatiApp ([ APP_PATENTI, APP_PRESIDENTE ]);
         <div class="row-fluid">
             <div class="span12">
                 <h3>Ufficio Patenti</h3>
+                <?php if (isset($_GET['err'])) { ?>
+                    <div class="alert alert-block alert-error">
+                        <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+                        <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+                    </div> 
+                <?php } ?>
             </div>
         </div>
                     

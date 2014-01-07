@@ -22,14 +22,24 @@ function debugOnly() {
  */
 function proteggiDatiSensibili( $volontario, $app = [APP_PRESIDENTE] ) {
     global $me;
-    if ( $me->admin ) { return true; }
+    if ( $me->admin() ) { return true; }
+    if ( $volontario->modificabileDa($me) ) { return true; }
     $comitati = $me->comitatiApp($app);
-    $comitatiVolontario = $volontario->comitati();
-    if ( !$comitatiVolontario ) { return true; }
-    foreach ( $comitatiVolontario as $comitato ) {
-        if (in_array($comitato, $comitati)) {
+    $comitatiVolontario = $volontario->comitati(SOGLIA_APPARTENENZE);
+    if ($comitatiVolontario) {
+        foreach ( $comitatiVolontario as $comitato ) {
+            if (in_array($comitato, $comitati)) {
+                return true;
+            }
+        }
+    }
+    $ultimoComitato = $volontario->ultimaAppartenenza(MEMBRO_DIMESSO);
+    if ($ultimoComitato) {
+        $ultimoComitato = $ultimoComitato->comitato();
+        if (in_array($ultimoComitato, $comitati)) {
             return true;
         }
     }
+
     redirect('errore.permessi&cattivo');
 }

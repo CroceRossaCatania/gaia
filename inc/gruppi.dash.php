@@ -40,6 +40,12 @@ caricaSelettore();
                 L'estensione del gruppo è stata modificata correttamente.
             </div>
         <?php } ?>
+        <?php if (isset($_GET['err'])) { ?>
+            <div class="alert alert-block alert-error">
+                <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+                <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+            </div> 
+        <?php } ?>
     </div>
 </div>
 <div class="row-fluid">
@@ -142,7 +148,7 @@ foreach ($gruppi as $gruppo){
                         <td><?php echo date('d/m/Y', $volontario->gruppoAttuale($gruppo)->inizio); ?></td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-small" href="?p=public.utente&id=<?php echo $volontario->id; ?>" target="_new"  title="Dettagli">
+                                <a class="btn btn-small" href="?p=profilo.controllo&id=<?php echo $volontario->id; ?>" target="_new"  title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>
                                 <?php if ( $me->presidenziante() || $me->admin() || $me->gruppiDiCompetenza()){ ?>

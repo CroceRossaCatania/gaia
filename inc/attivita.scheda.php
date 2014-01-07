@@ -6,7 +6,18 @@
 
 paginaAnonimo();
 caricaSelettore();
+
+controllaParametri(array('id'));
+
 $a = Attivita::id($_GET['id']);
+$puoPartecipare = false;
+if ($a->puoPartecipare($me)) {
+    $puoPartecipare = true;
+}
+$anonimo = false;
+if ($me instanceof Anonimo) {
+   $anonimo = true; 
+}
 
 $geoComitato = GeoPolitica::daOid($a->comitato);
 $_titolo = $a->nome . ' - Attività CRI su Gaia';
@@ -65,7 +76,7 @@ $(document).ready( function() {
                         <i class="icon-group"></i> Crea gruppo
                     </a>
                 <?php }} ?>
-                <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://www.gaiacri.it/index.php?p=attivita.scheda&id={$a->id}"); ?>" target="_blank">
+                <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://gaia.cri.it/index.php?p=attivita.scheda&id={$a->id}"); ?>" target="_blank">
                     <i class="icon-facebook-sign"></i> Condividi
                 </a>
             </div>
@@ -92,7 +103,7 @@ $(document).ready( function() {
         <?php
         $ts = $a->turniScoperti();
         $tsn = count($ts);
-        if ( $ts ) { ?>
+        if ($puoPartecipare && $ts ) { ?>
         <div class="span12">
             <div class="alert alert-block alert-error allinea-centro">
                 <h4 class="text-error ">
@@ -115,7 +126,7 @@ $(document).ready( function() {
                     <?php echo $a->referente()->nome . ' ' . $a->referente()->cognome; ?>
                 </a>
                 <br />
-                <?php if ( ! ( $me instanceof Anonimo ) ) { ?>
+                <?php if ($puoPartecipare && !$anonimo) { ?>
                 <span class="muted">+39</span> <?php echo $a->referente()->cellulare(); ?>
                 <?php } ?>
             </div>
@@ -148,6 +159,7 @@ $(document).ready( function() {
             </div>
         </div>
         <hr />
+        <?php if($puoPartecipare && !$anonimo) { ?>
         <div class="row-fluid">
             <div class="span5" style="max-height: 500px; padding-right: 10px; overflow-y: auto;">
                 <h4>
@@ -204,14 +216,14 @@ $(document).ready( function() {
                         ?>
                         <div class="row-fluid" id="commento">
                             <div class="span2 allinea-destra">
-                                <a href="?p=public.utente&id=<?php echo $autore->id; ?>" target="_new">
+                                <a href="?p=profilo.controllo&id=<?php echo $autore->id; ?>" target="_new">
                                     <img src="<?php echo $autore->avatar()->img(10); ?>" width="50" height="50" class="img-circle" />
                                 </a>
                             </div>
                             <div class="span10">
                                 <small class="text-info">
                                     <strong>
-                                        <a href="?p=public.utente&id=<?php echo $autore->id; ?>" target="_new"><?php echo $autore->nomeCompleto(); ?></a></strong>,
+                                        <a href="?p=profilo.controllo&id=<?php echo $autore->id; ?>" target="_new"><?php echo $autore->nomeCompleto(); ?></a></strong>,
                                         <?php echo $c->quando()->inTesto(); ?>
                                     </small>
                                     <?php if ( $me->id == $autore->id || $a->modificabileDa($me) ) { ?>
@@ -238,6 +250,8 @@ $(document).ready( function() {
                     </div>
                 </div>
                 <hr />
+                <?php } ?>
+                
                 <div class="row-fluid">
                     <div class="span8">
                         <h2><i class="icon-time"></i> Elenco turni dell'Attività</h2>
@@ -251,6 +265,7 @@ $(document).ready( function() {
                     </div>
 
                 </div>
+                <?php if($puoPartecipare) { ?>
                 <div class="row-fluid">
                     <div class="alert alert-info">
                         <i class="icon-info-sign"></i> In caso di turni <strong>pieni</strong> puoi
@@ -258,6 +273,7 @@ $(document).ready( function() {
                         nel caso ci siano ulteriori posti a disposizione.
                     </div>
                 </div>
+                <?php } ?>
                 <div class="row-fluid">
                     <table class="table table-bordered table-striped" id="turniAttivita">
                         <thead>
@@ -266,19 +282,21 @@ $(document).ready( function() {
                             <th style="width: 35%;">Volontari</th>
                             <th style="width: 15%;">Partecipa</th>
                         </thead>
-                        <?php foreach ( $a->turni() as $turno ) { ?>
+                        <?php foreach ( $a->turniFut() as $turno ) { ?>
                         <tr<?php if ( $turno->scoperto() ) { ?> class="warning"<?php } ?> data-timestamp="<?php echo $turno->fine()->toJSON(); ?>">
 
                         <td>
-                            <a id="<?php echo $turno->id; ?>">
+                            <div id="<?php echo $turno->id; ?>">
                             <big><strong><?php echo $turno->nome; ?></strong></big>
-                            <br />
+                            </div>
                             <?php echo $turno->durata()->format('%H ore %i min'); ?>
                         </td>
                         <td>
                             <big><?php echo $turno->inizio()->inTesto(); ?></big><br />
                             <span class="muted">Fine: <strong><?php echo $turno->fine()->inTesto(); ?></strong></span>
+                            <?php if(!$anonimo) {?>
                             <span>Prenotarsi entro: <strong><?php echo $turno->prenotazione()->inTesto(); ?></strong></span>
+                            <?php } ?>
                         </td>
                         <td>
                             <?php if ( $turno->scoperto() ) { ?>
@@ -298,17 +316,23 @@ $(document).ready( function() {
                             ?>
                             <strong>Volontari: <?php echo count($accettate); ?></strong><br />
                             Min. <?php echo $turno->minimo; ?> &mdash; Max. <?php echo $turno->massimo; ?><br />
+                            <?php if(!$anonimo) {?>
                             <a data-toggle="modal" data-target="#turno_<?php echo $turno->id; ?>"><i class="icon-list"></i> Vedi tutti i volontari</a>
-                            <?php if ( $a->modificabileDa($me) ) { ?>
+                            <?php }
+                            if ( $a->modificabileDa($me) ) { ?>
                             (<a data-toggle="modal" data-target="#turno_<?php echo $turno->id; ?>"><i class="icon-plus"></i> Aggiungi</a>)
                             <?php } ?>
 
-                            <br />
-                            <?php foreach ( $accettate as $ppp ) { ?>
-                            <a href="?p=public.utente&id=<?php echo $ppp->id; ?>" target="_new" title="<?php echo $ppp->nomeCompleto(); ?>">
-                                <img width="30" height="30" src="<?php echo $ppp->avatar()->img(10); ?>" />
-                            </a>
-                            <?php } ?>
+                            
+                            <?php if ($puoPartecipare && !$anonimo) { ?>
+                                <br />
+                                <?php
+                                foreach ( $accettate as $ppp ) { ?>
+                                <a href="?p=profilo.controllo&id=<?php echo $ppp->id; ?>" target="_new" title="<?php echo $ppp->nomeCompleto(); ?>">
+                                    <img width="30" height="30" src="<?php echo $ppp->avatar()->img(10); ?>" />
+                                </a>
+                            <?php }
+                            } ?>
                             <div id="turno_<?php echo $turno->id; ?>" class="modal hide fade">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -324,7 +348,7 @@ $(document).ready( function() {
                                             <ul>
                                                 <?php foreach ( $accettate as $v ) { ?>
                                                 <li>
-                                                    <a href="?p=public.utente&id=<?php echo $v->id; ?>" target="_new">
+                                                    <a href="?p=profilo.controllo&id=<?php echo $v->id; ?>" target="_new">
                                                         <?php   $potere = true;
                                                                 $colore = "#222"; 
                                                                 if ($turno->partecipazione($v)->poteri()) { 
@@ -362,7 +386,7 @@ $(document).ready( function() {
                                             <ul>
                                                 <?php foreach ( $x as $v ) { ?>
                                                 <li>
-                                                    <a href="?p=public.utente&id=<?php echo $v->id; ?>" target="_new">
+                                                    <a href="?p=profilo.controllo&id=<?php echo $v->id; ?>" target="_new">
                                                         <?php echo $v->nomeCompleto(); ?>
                                                     </a>
                                                 </li>
@@ -380,9 +404,14 @@ $(document).ready( function() {
                                             <ul>
                                                 <?php foreach ( $x as $v ) { ?>
                                                 <li>
-                                                    <a href="?p=public.utente&id=<?php echo $v->id; ?>" target="_new">
+                                                    <a href="?p=profilo.controllo&id=<?php echo $v->id; ?>" target="_new">
                                                         <?php echo $v->nomeCompleto(); ?>
                                                     </a>
+                                                    <?php if( $turno->futuro() && $a->modificabileDa($me) ){ ?>
+                                                        <a class="btn btn-small btn-success" href="?p=attivita.modifica.volontario.autorizza&v=<?= $v->id; ?>&turno=<?= $turno; ?>">
+                                                            <i class="icon-trash" ></i> Autorizza volontario
+                                                        </a>
+                                                    <?php } ?>
                                                 </li>
                                                 <?php } ?>
                                             </ul>
@@ -440,16 +469,18 @@ $(document).ready( function() {
                             <?php } ?>
                         </td>
                     </tr>
-                    <?php } ?>
-                    <tr class="nascosto" id="rigaMostraTuttiTurni">
+                    <?php } 
+                    if($puoPartecipare && !$anonimo && $a->turni() != $a->turniFut()){ ?>
+                    <tr>
                         <td colspan="4">
-                            <a id="mostraTuttiTurni" class="btn btn-block">
+                            <a data-attendere="Attendere..." href="?p=attivita.turni.passati&id=<?= $a; ?>" class="btn btn-block">
                                 <i class="icon-info-sign"></i>
                                 Ci sono <span id="numTurniNascosti"></span> turni passati nascosti.
-                                <strong>Clicca per mostrare i turni nascosti.</strong>
+                                <strong>Clicca per mostrare tutti i turni.</strong>
                             </a>
                         </td>
                     </tr>
+                    <?php } ?>
                 </table>
             </div>
         </div>

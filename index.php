@@ -124,10 +124,8 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                             <ul class="dropdown-menu">
                                 <?php if ( $me->stato == VOLONTARIO ) { ?>
                                   <li><a href="?p=utente.anagrafica"><i class="icon-edit"></i> Anagrafica</a></li>
+                                  <li><a href="?p=utente.privacy"><i class="icon-cog"></i> Privacy</a></li>
                                   <li class="divider"></li>
-
-
-
                                 <?php } ?>
 
                                   <li><a href="?p=logout"><i class="icon-remove"></i> Esci</a></li>
@@ -254,10 +252,13 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a href="?p=admin.presidenti"><i class="icon-list"></i> Presidenti</a></li>
+                                    <li><a href="?p=admin.delegati"><i class="icon-list"></i> Delegati</a></li>
                                     <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
-                                    <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li> 
+                                    <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li>
+                                    <li><a href="?p=admin.reset.comitati"><i class="icon-fire"></i> Reset Comitati</a></li> 
                                     <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
-                                    <li><a href="?p=admin.limbo"><i class="icon-meh"></i> Limbo</a></li>
+                                    <li><a href="?p=admin.ricerca"><i class="icon-search"></i> Cerca Utente</a></li> 
+                                    <li><a href="?p=admin.limbo"><i class="icon-meh"></i> Limbo</a></li> 
                                     <li><a href="?p=admin.double"><i class="icon-superscript"></i> Double</a></li>
                                     <li><a href="?p=admin.script"><i class="icon-stackexchange"></i> Script</a></li>
                                     <li><a href="?p=admin.report"><i class="icon-copy"></i> Report</a></li>  
@@ -295,6 +296,24 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
     <?php if ( in_array($p, $conf['slide'] ) ) { ?>
     <div id="caroselloHome" class="carousel slide">
       <div class="carousel-inner">
+        <!--<div class="item active">
+          <img src="./img/jump.png" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+                <br/><br/>
+              <p class="lead">
+                  <div class="btn-group">
+                      <a href="http://cri.it/bologna2013" class="btn btn-large btn-info">
+                          <i class="icon-info"></i> Maggiori informazioni
+                      </a>
+                      <a href="http://crocerossa.eventbrite.it/" class="btn btn-large btn-warning">
+                          <i class="icon-thumbs-up"></i> Iscriviti online
+                      </a>
+                  </div>
+                </p>
+            </div>
+          </div>
+        </div>-->
         <div class="item active">
           <img src="./img/foto4.jpg" alt="">
           <div class="container">
@@ -372,7 +391,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
 	        <a href="/">Torna alla home</a> &middot;
 	        <a href="?p=public.about">Informazioni su Gaia</a> &middot;
 	        <a href="docs/Guida.pdf?ref=footer"><strong>Guida in PDF</strong></a> &middot;
-	        <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaiacri.it"><?php } ?>Supporto</a><br />
+	        <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaia.cri.it"><?php } ?>Supporto</a><br />
 	        Croce Rossa. <strong>Persone in prima persona.</strong>
    		  </div>
       </div>
@@ -413,7 +432,7 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
           </ol>
           <p class="text-info">
             <i class="icon-time"></i>
-            Rimarri in modalità admin fino al Logout
+            Rimarrai in modalità admin fino al Logout
           </p>
 
         </div>

@@ -63,9 +63,15 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
         </div>
     </div>    
 </div>
-<hr />
 <div class="row-fluid">
    <div class="span12">
+        <?php if (isset($_GET['err'])) { ?>
+            <div class="alert alert-block alert-error">
+                <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+                <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+            </div> 
+        <?php } ?>
+        <hr />
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
                 <th>Turno</th>
@@ -73,28 +79,25 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                 <th>Fine</th>
             </thead>
         <?php
-        $i = time()+10800;
         $f = time()-3600;
         $comitati = $me->comitatiApp ([ APP_CO, APP_PRESIDENTE ]);
         foreach($comitati as $comitato){
-            $elenco = Attivita::filtra([['comitato', $comitato->oid()]]);
-            foreach($elenco as $attivita) {
-                    $x=0;
-                    $turni = $attivita->turni();
+            $turni = $comitato->coTurni();
                     foreach($turni as $turno){
                         $z=0;
                         $partecipanti = $turno->partecipazioniStato(AUT_OK);
                         foreach ($partecipanti as $partecipante){ 
                             $m = Coturno::filtra([['volontario', $partecipante->volontario()],['turno',$turno]]); 
-                            if (($turno->inizio <= $i  && $turno->fine >= $f) || ($m[0]->pMonta && !$m[0]->pSmonta)) {
-                                if($x==0){ ?> 
+                            if ( $turno->fine >= $f || ($m[0]->pMonta && !$m[0]->pSmonta) ) {
+                                $attivita = $turno->attivita();
+                                if($x!=$attivita){ 
+                                    $x=$attivita; ?> 
                                     <tr class="primary">
                                         <td colspan="4" class="grassetto">
                                         <?php echo $attivita->nome ," - Referente: " , $attivita->referente()->nomeCompleto() , " Cell: ", $attivita->referente()->cellulare(); ?>
                                         </td>
                                     </tr>
                                     <?php 
-                                    $x++;
                                     } 
                                     if ( $z == 0){
                                     ?>
@@ -112,7 +115,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                                    <td>
                                        <div class="btn-group">
                                            <?php if($m[0]->stato == '' || !$m[0]->stato == CO_MONTA || $m[0]->stato == CO_MONTA){ ?>
-                                            <a class="visualizza btn btn-small btn nascosto" target="_new" href="?p=public.utente&id=<?php echo $partecipante->volontario(); ?>" title="Visualizza">
+                                            <a class="visualizza btn btn-small btn nascosto" target="_new" href="?p=profilo.controllo&id=<?php echo $partecipante->volontario(); ?>" title="Visualizza">
                                                 <i class="icon-eye-open"></i> Visualizza
                                             </a>
                                            <?php } ?>
@@ -135,7 +138,7 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                                        </div>
                                    </td>
                                 </tr>
-        <?php }}}}}?>
+        <?php }}}}?>
         </table>
     </div>
 </div>

@@ -66,7 +66,7 @@ class Estensione extends Entita {
         $a = $this->appartenenza;
         $a = Appartenenza::id($a);
         $v = $a->volontario();
-        $destinatari = [$v, $app->comitato()->unPresidente(), $v->unComitato()->unPresidente()];
+        $destinatari = [$v, $a->comitato()->unPresidente(), $v->unComitato()->unPresidente()];
         foreach ($destinatari as $destinatario) {
             $m = new Email('richiestaEstensioneauto', 'Richiesta estensione approvata: ' . $a->comitato()->nome);
             $m->a = $destinatario;

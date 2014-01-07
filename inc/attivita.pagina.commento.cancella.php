@@ -6,6 +6,7 @@
 
 paginaPrivata();
 
+controllaParametri(array('id'));
 $a = $_GET['id'];
 
 $n = Commento::filtra([['upCommento', $a]]);
@@ -19,3 +20,5 @@ $a = $f->attivita;
 $f->cancella();
 
 redirect('attivita.scheda&id=' . $a);
+
+?>

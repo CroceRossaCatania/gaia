@@ -6,6 +6,8 @@
 
 paginaPrivata();
 
+controllaParametri(array('id'), 'gruppi.dash&err');
+
 $id = $_GET['id'];
 $v = Volontario::id($id);
 $inizio = DT::createFromFormat('d/m/Y', $_POST['datainizio']);

@@ -6,6 +6,8 @@
 
 paginaPrivata();
 
+controllaParametri(array('id'));
+
 $t = $_GET['id'];
 $t = TitoloPersonale::id($t);
 $v = $t->volontario();

@@ -9,7 +9,43 @@ abstract class GeoPolitica extends GeoEntita {
     abstract public function nomeCompleto();
     abstract public function estensione();
     abstract public function figli();    
-    
+    abstract public function piva();
+    abstract public function cf();
+    abstract public function privato();
+
+    /**
+     * Rigenera l'albero e lo salva in JSON per utilizzi futuri
+     *
+     * @return bool Tutto fatto?
+     */
+    public static function rigeneraAlbero() {
+        $r = [];
+        foreach ( Nazionale::elenco() as $n ) {
+            $r[] = $n->toJSON();
+        }
+        $r = json_encode($r);
+        return file_put_contents('./upload/setup/albero.json', $r);
+    }
+
+    /**
+     * Ottiene l'ultima copia dell'albero.
+     * Se questa non esiste, viene ricreata
+     * @param bool $json Ritornare in JSON?
+     * @return array|string L'albero come stringa o JSON
+     */
+    public static function ottieniAlbero( $comeJSON = false ) {
+        $json = @file_get_contents('./upload/setup/albero.json');
+        if ( !$json ) {
+            static::rigeneraAlbero();
+            return static::ottieniAlbero($comeJSON);
+        }
+        if ( $comeJSON ) {
+            return $json;
+        }
+        return json_decode($json);
+        // @TODO: Ricorsivamente, ricreare gli oggetti
+    }
+
     /*
      * Ottiene il livello di estensione (costante EST_UNITA, EST_LOCALE, ecc)
      */
@@ -97,14 +133,12 @@ abstract class GeoPolitica extends GeoEntita {
         if ( $app ) {
             $app = (int) $app;
             $k = Delegato::filtra([
-                ['comitato',        $this->id],
-                ['estensione',      $this->_estensione()],
+                ['comitato',        $this->oid()],
                 ['applicazione',    $app]
             ], 'inizio DESC');
         } else {
             $k = Delegato::filtra([
-                ['comitato',    $this->id],
-                ['estensione',  $this->_estensione()]
+                ['comitato',    $this->oid()]
             ], 'inizio DESC');
         }
         if ( $storico ) { return $k; }
@@ -121,14 +155,12 @@ abstract class GeoPolitica extends GeoEntita {
         if ( $app ) {
             $app = (int) $app;
             $k = Delegato::filtra([
-                ['comitato',        $this->id],
-                ['estensione',      $this->_estensione()],
+                ['comitato',        $this->oid()],
                 ['applicazione',    $app]
             ], 'inizio DESC');
         } else {
             $k = Delegato::filtra([
-                ['comitato',    $this->id],
-                ['estensione',  $this->_estensione()]
+                ['comitato',    $this->oid()]
             ], 'inizio DESC');
         }
         $r = [];
@@ -141,9 +173,9 @@ abstract class GeoPolitica extends GeoEntita {
     }
 
 
-    public function obiettivi_delegati($ob = OBIETTIVO_1) {
+    public function obiettivi_delegati($ob = OBIETTIVO_1, $storico = false) {
         $r = [];
-        foreach ( $this->delegati(APP_OBIETTIVO) as $d ) {
+        foreach ( $this->delegati(APP_OBIETTIVO, $storico) as $d ) {
             if ( $d->dominio == $ob ) {
                 $r[] = $d;
             }
@@ -151,9 +183,9 @@ abstract class GeoPolitica extends GeoEntita {
         return $r;
     }
     
-    public function obiettivi($ob = OBIETTIVO_1) {
+    public function obiettivi($ob = OBIETTIVO_1, $storico = false) {
         $r = [];
-        foreach ( $this->obiettivi_delegati($ob) as $d ) {
+        foreach ( $this->obiettivi_delegati($ob, $storico) as $d ) {
             $r[] = $d->volontario();
         }
         return $r;
@@ -195,6 +227,25 @@ abstract class GeoPolitica extends GeoEntita {
                     AND    inizio < {$ora} AND stato = {$stato}
                     AND    comitato IN ({$est})
                 )");
+    }
+
+    public function attivita() {
+        return Attivita::filtra([
+            ['comitato', $this->oid()]
+        ],'nome ASC');
+    }
+
+    public function calendarioAttivitaPrivate() {
+        return Attivita::filtra([
+            ['comitato',  $this->oid()]
+        ]);
+    }
+
+    public function modificabileDa(Utente $altroUtente) {
+        if ($altroUtente->admin() || $this->unPresidente()->id == $altroUtente->id) {
+            return true;
+        }
+        return false;
     }
     
 }

@@ -1,5 +1,10 @@
+# Recaptcha
+/core/conf/recaptcha.conf.php
+
+# Font DOMPDF
 /core/inc/dompdf/lib/fonts/php_Times-Roman.afm
 /core/inc/dompdf/lib/fonts/php_Times-Bold.afm
+
 # Configurazione del database
 core/conf/database.conf.php
 
@@ -23,6 +28,9 @@ upload/get/
 
 # Lock file
 upload/setup/lock
+
+# Albero dei comitati
+upload/setup/albero.json
 
 # Autopull
 upload/setup/autopull

@@ -5,9 +5,15 @@
  */
 
 paginaPresidenziale();
+
+controllaParametri(array('id'), 'presidente.estensione&err');
+
 $e = $_GET['id'];
 $e = Estensione::id($e);
 $_v = $e->volontario();
+if (!$_v->modificabileDa($me)) {
+  redirect('presidente.estensione&err');
+}
 ?>
 
 <div class="row-fluid">

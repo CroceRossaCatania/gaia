@@ -7,6 +7,8 @@
 /* Svuota eventuali variabili di sessioni */
 $sessione->attenzione = null;
 $sessione->adminMode  = null;
+$sessione->barcode	  = null;
+$sessione->rimandaPrivatizzazione = null;
 $sessione->logout();
 
 ?>
@@ -19,5 +21,5 @@ $sessione->logout();
 <a href='?p=home'>Torna alla home</a>.
 
 <?php 
-    header("Refresh: 2; URL=https://www.gaiacri.it");
+    header("Refresh: 2; URL=https://gaia.cri.it");
 ?>

@@ -4,6 +4,9 @@
  * ©2012 Croce Rossa Italiana
  */
 
+$parametri = array('inputEmail', 'inputPassword');
+controllaParametri($parametri, 'login');
+
 $email      = minuscolo($_POST['inputEmail']);
 $password   = $_POST['inputPassword'];
 

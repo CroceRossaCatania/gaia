@@ -5,6 +5,9 @@
  */
 
 caricaSelettoreComitato();
+
+controllaParametri(array('a'));
+
 $a = $_GET['a'];
 $sessione->a = NULL;
 paginaApp([APP_SOCI , APP_PRESIDENTE]);

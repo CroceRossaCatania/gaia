@@ -1,43 +1,56 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2013 Croce Rossa Italiana
  */
 
 paginaPrivata();
-
-if ( strlen($_POST['inputPassword']) < 6 || strlen($_POST['inputPassword']) > 15 ) {
-	redirect('nuovaAnagraficaAccesso&e');
+if ($sessione->utente()->unComitato(SOGLIA_APPARTENENZE)) {
+    redirect('errore.permessi&cattivo');
 }
+
+$parametri = array('inputDataIngresso');
+controllaParametri($parametri, 'nuovaAnagraficaAccesso&err');
 
 $comitato     = $_POST['inputComitato'];
 if ( !$comitato ) {
     redirect('nuovaAnagraficaAccesso&c');
 }
-$comitato     = new Comitato($comitato);
+$comitato = Comitato::id($comitato);
 
-$anno = $_POST['inputAnno'];
+$inizio = DT::createFromFormat('d/m/Y', $_POST['inputDataIngresso']);
+
+/*
+ * Scrive i dati nella sessione 
+ */
+$sessione->inizio = $_POST['inputDataIngresso'];
+
+/*
+ * Esegue i check sui dati
+ */
+if(!DT::controlloData($_POST['inputDataIngresso'])){
+	redirect('nuovaAnagraficaAccesso&data');
+}
+
+$gia = Appartenenza::filtra([
+	['volontario', $sessione->utente()->id],
+	['comitato', $comitato->id]
+]);
 
 /* Richiede appartenenza al gruppo */
-$a = new Appartenenza();
-$a->volontario  = $sessione->utente()->id;
-$a->comitato    = $comitato->id;
-$a->inizio      = mktime(1, 0, 0, 1, 1, $anno);
-$a->fine        = PROSSIMA_SCADENZA;
-$a->richiedi();
-
-/* Imposta la password */
-$password     = $_POST['inputPassword'];
-$sessione->utente()->cambiaPassword($password);
-
-/* Abilita il volontario */
-$sessione->utente()->stato    = VOLONTARIO;
+if(!$gia){
+	$a = new Appartenenza();
+	$a->volontario  = $sessione->utente()->id;
+	$a->comitato    = $comitato->id;
+	$a->inizio      = $inizio->getTimestamp();
+	$a->fine        = PROSSIMA_SCADENZA;
+	$a->richiedi();
+}
 
 /* Invia la mail */
 $m = new Email('registrazioneVolontario', 'Benvenuto su Gaia');
 $m->a = $sessione->utente();
 $m->_NOME       = $sessione->utente()->nome;
-$m->_PASSWORD   = $password;
 $m->invia();
 
 /* Installazione: Se sono il primo utente... */

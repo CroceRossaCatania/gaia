@@ -7,6 +7,9 @@
 /*
  * Elenco Applicazioni da gestire
  */
+
+controllaParametri(array('oid'));
+
 $_daGestire = [
     APP_CO, APP_SOCI
 ];
@@ -71,6 +74,13 @@ $(document).ready(function() {
     <div class="alert alert-error">
         <i class="icon-warning-sign"></i> <strong>Modifiche non salvate</strong> &mdash;
         Non è possibile chiamare un'area <strong>Generale</strong>.
+    </div>
+    <?php } ?>
+
+    <?php if ( isset($_GET['double']) ) { ?>
+    <div class="alert alert-error">
+        <i class="icon-warning-sign"></i> <strong>Modifiche non salvate</strong> &mdash;
+        Non è possibile delegare più volte la stessa persona.
     </div>
     <?php } ?>
 
@@ -170,15 +180,25 @@ $(document).ready(function() {
                         <p><code><?php echo $c->email; ?></code></p>
                     </div>
                     
-                    <?php if ( !$c->principale ) { ?>
                     <div class="span2">
+                        <?php if ( !$c->principale && $c->modificabileDa($me)) { ?>
                         <a class="btn btn-large btn-block btn-info" href="?p=presidente.wizard&oid=<?php echo $c->oid(); ?>">
                             <i class="icon-pencil icon-3x"></i><br />
                             Modifica
                         </a>
+                        <?php } ?>
                     </div>
-                    <?php } ?>
-                
+                    
+                </div>
+                <div class="row-fluid">
+                    <div class="span4">
+                        <h4>Partita IVA</h4>
+                        <p><?php echo $c->piva(); ?></p>
+                    </div>
+                    <div class="span8">
+                        <h4>Codice Fiscale</h4>
+                        <p><?php echo $c->cf(); ?></p>
+                    </div>
                 </div>
                 
             </div>
@@ -304,7 +324,7 @@ $(document).ready(function() {
                                 </button>
                             
                             <?php 
-                                if ( !$attivita || $me->admin ) { ?>
+                                if ( $area->nome != 'Generale' && (!$attivita || $me->admin)  ) { ?>
 
                                 <button onClick="return confirm('Vuoi veramente rimuovere questo progetto? L\'operazione non è reversibile');" name="cancellaProgetto" 
                                 value="<?php echo $area->id; ?>" title="Cancella Progetto" class="btn btn-small btn-danger">
@@ -436,7 +456,7 @@ $(document).ready(function() {
                         <tr<?php if ($delegato->attuale()) { ?> class="success"<?php } ?>>
                             
                             <td>
-                                <strong><a href="?p=public.utente&id=<?php echo $delegato->volontario; ?>" target="_new">
+                                <strong><a href="?p=profilo.controllo&id=<?php echo $delegato->volontario; ?>" target="_new">
                                     <?php echo $delegato->volontario()->nomeCompleto(); ?>
                                 </a></strong>
                             </td>

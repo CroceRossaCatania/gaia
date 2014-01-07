@@ -6,6 +6,9 @@
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
+$parametri = array('t', 'v');
+controllaParametri($parametri, 'presidente.titoli&err');
+
 $t = $_GET['t'];
 $id = $_GET['v']; 
 $v= Volontario::id($id);
@@ -44,7 +47,7 @@ if ( $_POST['codice'] ) {
     $p->codice = normalizzaNome($_POST['codice']);
 }
 
-    $p->tConferma = time();
-    $p->pConferma = $me->id;
+$p->tConferma = time();
+$p->pConferma = $me->id;
 
 redirect('presidente.utente.visualizza&id=' . $v->id);

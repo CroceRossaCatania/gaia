@@ -1,6 +1,6 @@
 # Il progetto Gaia
 
-Leggi le **[Informazioni sul progetto Gaia](http://www.gaiacri.it/?p=public.about)**
+Leggi le **[Informazioni sul progetto Gaia](https://gaia.cri.it/?p=public.about)**
 
 ### Link utili
 
@@ -13,7 +13,7 @@ Leggi le **[Informazioni sul progetto Gaia](http://www.gaiacri.it/?p=public.abou
 
 **Leggi: [Come partecipare al progetto](http://goo.gl/Jjiqo)**
 
-Alternativamente, contattaci a <info@gaiacri.it> per saperne di più.
+Alternativamente, contattaci a <info@gaia.cri.it> per saperne di più.
 
 
 # Progetti affini
@@ -28,6 +28,9 @@ Alternativamente, contattaci a <info@gaiacri.it> per saperne di più.
 ### Installazione
 
 Per motivi di sviluppo, è possibile installare Gaia seguendo una delle due vie...
+
+**Nota bene**: Attualmente, per motivi di tempo, **non** offriamo supporto per l'installazione del software sul proprio server.
+Ogni richiesta al supporto a riguardo verra' ignorata. Se sei interessato a collaborare al Progetto Gaia, contattaci a info@gaia.cri.it.
 
 #### La via facile (Ubuntu 13.04+)
 

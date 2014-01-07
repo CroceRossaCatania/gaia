@@ -5,6 +5,9 @@
  */
 
 paginaPresidenziale();
+controllaParametri(array('id'), 'presidente.riserva&err');
+
+
 
 $t     = $_GET['id'];
 $t = Riserva::id($t);
@@ -24,9 +27,7 @@ if (isset($_GET['si'])) {
     
 redirect('presidente.riserva&ok');  
 
-}
-
-if (isset($_GET['no'])) {
+} elseif (isset($_GET['no'])) {
     $v = $t->volontario()->id;
     $t->nega($_POST['motivo']);
     $m = new Email('richiestaRiservaNegata', 'Richiesta riserva negata');
@@ -39,4 +40,6 @@ if (isset($_GET['no'])) {
     
 redirect('presidente.riserva&no');   
 }
+
+redirect('presidente.riserva&err');
 ?>

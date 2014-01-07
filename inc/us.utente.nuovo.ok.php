@@ -6,6 +6,12 @@
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
+$parametri = array('inputComitato', 'inputCodiceFiscale', 'inputNome',
+	'inputCognome', 'inputDataNascita', 'inputDataIngresso', 'inputProvinciaNascita',
+	'inputComuneNascita');
+
+controllaParametri($parametri, 'us.dash&err');
+
 $comitato = $_POST['inputComitato'];
 if ( !$comitato ) {
     redirect('us.utente.nuovo&c');
@@ -58,7 +64,6 @@ $caresidenza= normalizzaNome($_POST['inputCAPResidenza']);
 $prresidenza= maiuscolo($_POST['inputProvinciaResidenza']);
 $indirizzo  = normalizzaNome($_POST['inputIndirizzo']);
 $civico     = maiuscolo($_POST['inputCivico']);
-$grsanguigno = maiuscolo($_POST['inputgruppoSanguigno']);
 
 /*
  * Registrazione vera e propria...
@@ -74,7 +79,6 @@ $p->CAPResidenza        = $caresidenza;
 $p->provinciaResidenza  = $prresidenza;
 $p->indirizzo 		      = $indirizzo;
 $p->civico   		        = $civico;
-$p->grsanguigno   		  = $grsanguigno;
 $p->timestamp           = time();
 $p->stato               = VOLONTARIO;
 $p->consenso = true;
@@ -89,49 +93,26 @@ $p->email               = $email;
 $p->cellulare           = $cell;
 $p->cellulareServizio   = $cells;
 
-$a = new Appartenenza();
-$a->volontario  = $p->id;
-$a->comitato    = $comitato;
-$inizio = DT::createFromFormat('d/m/Y', $_POST['inputDataIngresso']);
-$inizio = $inizio->getTimestamp();
-$a->inizio      = $inizio;
-$a->fine        = PROSSIMA_SCADENZA;
-$a->timestamp = time();
-$a->stato     = MEMBRO_VOLONTARIO;
-$a->conferma  = $me;
+$gia = Appartenenza::filtra([
+	['volontario', $p->id],
+	['comitato', $comitato->id]
+]);
 
-/* Crea la password casuale */
-$length = 6;
-
-// impostare password bianca
-$password = "";
-
-// caratteri possibili
-$possible = "2346789bcdfghjkmnpqrtvwxyzBCDFGHJKLMNPQRTVWXYZ";
-
- //massima lunghezza caratteri
- $maxlength = strlen($possible);
-  
- // se troppo lunga taglia la password
-if ($length > $maxlength) {
-      $length = $maxlength;
+if(!$gia){
+	$a = new Appartenenza();
+	$a->volontario  = $p->id;
+	$a->comitato    = $comitato;
+	$inizio = DT::createFromFormat('d/m/Y', $_POST['inputDataIngresso']);
+	$inizio = $inizio->getTimestamp();
+	$a->inizio      = $inizio;
+	$a->fine        = PROSSIMA_SCADENZA;
+	$a->timestamp = time();
+	$a->stato     = MEMBRO_VOLONTARIO;
+	$a->conferma  = $me;
 }
-    
-$i = 0; 
-    
- // aggiunge carattere casuale finchè non raggiunge lunghezza corretta
- while ($i < $length) { 
 
-    // prende un carattere casuale per creare la password
-   $char = substr($possible, mt_rand(0, $maxlength-1), 1);
-
-    // verifica se il carattere precedente è uguale al successivo
-   if (!strstr($password, $char)) { 
-        $password .= $char;
-        $i++;
-   }
-
-}
+/* Genera la password casuale */
+$password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
 
 /* Imposta la password */
 $p->cambiaPassword($password);

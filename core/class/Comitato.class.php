@@ -42,6 +42,10 @@ class Comitato extends GeoPolitica {
     	return $c;
     }
 
+    public function unPresidente() {
+        return $this->locale()->unPresidente();
+    }
+
     private function generaColore() { 
     	$r = 100 + rand(0, 155);
     	$g = 100 + rand(0, 155);
@@ -50,24 +54,6 @@ class Comitato extends GeoPolitica {
     	$g = dechex($g);
     	$b = dechex($b);
     	$this->colore = $r . $g . $b;
-    }
-
-    public function calendarioAttivitaPrivate() {
-        return Attivita::filtra([
-            ['comitato',  $this->id]
-        ]);
-    }
-    
-    public function haMembro ( Persona $tizio, $stato = MEMBRO_VOLONTARIO ) {
-        $membri = [];
-        foreach ( $this->membriAttuali($stato) as $m ) {
-            $membri[] = $m->id;
-        }
-        if ( in_array($tizio->id, $membri) ) {
-            return true;
-        } else {
-            return false;
-        }
     }
     
     public function membriAttuali($stato = MEMBRO_ESTESO) {
@@ -88,7 +74,7 @@ class Comitato extends GeoPolitica {
                  cognome ASC, nome ASC");
         $q->bindValue(':ora', time());
         $q->bindParam(':comitato', $this->id);
-        $q->bindParam(':stato',    $stato);
+        $q->bindParam(':stato',    $stato, PDO::PARAM_INT);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
@@ -373,11 +359,7 @@ class Comitato extends GeoPolitica {
         }
     }
     
-    public function attivita() {
-        return Attivita::filtra([
-            ['comitato', $this->id]
-        ],'nome ASC');
-    }
+    
     
     public function gruppi() {
         $g = Gruppo::filtra([
@@ -700,4 +682,46 @@ class Comitato extends GeoPolitica {
         }
         return $r;
     }
+     
+    public function coTurni() {
+        global $db;
+        $q = $db->prepare("
+            SELECT
+                turni.id
+            FROM
+                attivita, turni
+            WHERE
+                attivita.stato = :stato
+            AND
+                attivita.comitato = :comitato
+            AND
+                turni.attivita = attivita.id
+            AND
+                turni.inizio <= :inizio
+            ORDER BY
+                turni.inizio ASC");
+        $inizio = time()+3600;
+        $q->bindValue(':inizio', $inizio);
+        $q->bindValue(':stato', ATT_STATO_OK);
+        $q->bindParam(':comitato', $this->oid());
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Turno::id($k[0]);
+        }
+            return $r;
+    }
+
+    public function piva() {
+        return $this->superiore()->piva();
+    }
+
+    public function cf() {
+        return $this->superiore()->cf();
+    }
+
+    public function privato() {
+        return $this->superiore()->privato();
+    }
+
 }

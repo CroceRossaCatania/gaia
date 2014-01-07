@@ -10,14 +10,17 @@ paginaPresidenziale();
 <div class="row-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <div class="span12 centrato">
-                <h1><i class="icon-eye-close"></i> Supervisione</h1>
-                <div class="alert alert-block alert-danger">
-                    <p>Pagina dedicata ai Presidenti per la supervisione, il modulo è in fase sperimentale</p>
-                </div>        
-            </div>
-            <hr/>
+            <?php if (isset($_GET['err'])) { ?>
+                <div class="alert alert-block alert-error">
+                    <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+                    <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+                </div> 
+            <?php } ?>
+            <h1><i class="icon-eye-close"></i> Supervisione</h1>
+            <p>Pagina dedicata ai Presidenti per la supervisione, il modulo è in fase sperimentale</p>
+            <hr />
         </div>
+        <hr/>
     </div>
 
     <div class="row-fluid">
@@ -36,11 +39,11 @@ paginaPresidenziale();
                 }
             }
             if ($nogruppi) { ?>
-                <span class="text-error">
-                    <i class="icon-warning-sign"></i>
-                    Spiacente Presidente <br />
-                    Attualmente nel suo Comitato non esistono gruppi di lavoro.
-                </span>
+            <span class="text-error">
+                <i class="icon-warning-sign"></i>
+                Spiacente Presidente <br />
+                Attualmente nel suo Comitato non esistono gruppi di lavoro.
+            </span>
             <?php } else { ?>
             <a href="?p=presidente.supervisione.nogruppo" class="btn btn-large btn-info">
                 <i class="icon-group"></i>
