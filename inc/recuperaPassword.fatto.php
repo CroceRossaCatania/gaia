@@ -9,12 +9,12 @@ controllaParametri(array('c'), 'recuperaPassword&err');
 $codice = $_GET['c'];
 
 /* Cerca codice di validazione */
-$validazione = Validazione::cercaValidazione($codice, VAL_PASS);
+$validazione = Validazione::cercaValidazione($codice);
 if(!$validazione){
 	redirect('recuperaPassword&sca');
 }
 
-$p = $validazione->volontario();
+$p = $validazione->utente();
 
 /* Genera la password casuale */
 $password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);

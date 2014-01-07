@@ -63,7 +63,7 @@ class Validazione extends Entita {
      */
     public static function cercaValidazione($codice) {
         $v = Validazione::by('codice', $codice);
-        if ($v && $v->stato != VAL_CHIUSA && $v->stato != VAL_ANNULLATA) {
+        if ($v && (int) $v->stato > VAL_CHIUSA) {
             return $v;
         }
         return false;
@@ -73,8 +73,8 @@ class Validazione extends Entita {
      * Restituisce il volontario di una validazione
      * @return volontario
      */
-    public function volontario() {
-        return Volontario::id($this->volontario);
+    public function utente() {
+        return Utente::id($this->volontario);
     }
 
     public static function chiudi() {
