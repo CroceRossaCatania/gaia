@@ -32,8 +32,15 @@ class Validazione extends Entita {
     public static function generaValidazione($v, $stato, $note = null) {
 
         $validazione = Validazione::filtra([['volontario', $v],['stato', $stato]]);
+
+
+        /* 
+         * Issue #847: se trovo validazione aperta la chiudo e ne faccio una nuova
+         */
         if($validazione){
-            return false;
+            $validazione = $validazione[0];
+            $validazione->stato = VAL_ANNULLATA;
+            $validazione->timestamp = time();
         }
 
         /*Inserire qui la genereazione della stringa casuale */
@@ -57,7 +64,7 @@ class Validazione extends Entita {
      */
     public static function cercaValidazione($codice) {
         $v = Validazione::by('codice', $codice);
-        if ($v && $v->stato !=VAL_CHIUSA) {
+        if ($v && (int) $v->stato > VAL_CHIUSA) {
             return $v;
         }
         return false;
@@ -67,8 +74,8 @@ class Validazione extends Entita {
      * Restituisce il volontario di una validazione
      * @return volontario
      */
-    public function volontario() {
-        return Volontario::id($this->volontario);
+    public function utente() {
+        return Utente::id($this->volontario);
     }
 
     public static function chiudi() {

@@ -7,11 +7,11 @@
 paginaPrivata();
 
 controllaParametri(array('id'));
-$p = Attivita::id($_GET['id']);
+$a = Attivita::id($_GET['id']);
 $c = Commento::filtra([['attivita', $a],['upCommento', '0']], 'tCommenta DESC');
 
-if (!$p->puoPartecipare($me)) {
-    redirect("attivita.scheda&id={$p->id}");
+if (!$a->puoPartecipare($me)) {
+    redirect("attivita.scheda&id={$a->id}");
 }
 
 ?>
@@ -24,12 +24,12 @@ if (!$p->puoPartecipare($me)) {
     <div class="span9">
         <div class="row-fluid">
             <div class="span3 allinea-sinistra">
-                <a href="?p=attivita.scheda&id=<?php echo $p->id; ?>" class="btn btn-large">
+                <a href="?p=attivita.scheda&id=<?php echo $a->id; ?>" class="btn btn-large">
                     <i class="icon-reply"></i> Attività
                 </a>
             </div>
             <div class="span6 allinea-centro">
-                <h3><?php echo $p->nome; ?></h3>
+                <h3><?php echo $a->nome; ?></h3>
             </div>
             <div class="span3">
             </div>
@@ -42,7 +42,7 @@ if (!$p->puoPartecipare($me)) {
             </div>     
         </div>
         <hr />
-        <form id="boxScrivi" action="?p=attivita.pagina.commento.ok&id=<?php echo $p->id; ?>" method="POST" class="row-fluid <?php if ( $c ) { ?>nascosto<?php } ?>">
+        <form id="boxScrivi" action="?p=attivita.pagina.commento.ok&id=<?php echo $a->id; ?>" method="POST" class="row-fluid <?php if ( $c ) { ?>nascosto<?php } ?>">
                     <div class="span9">
                         <textarea name="inputCommento" autofocus placeholder="Scrivi il tuo messaggio..." rows="3" class="span12"></textarea>
                       <label>
@@ -78,12 +78,12 @@ if (!$p->puoPartecipare($me)) {
                     <p class="text-info"><?php echo $g->nomeCompleto(); ?> <?php echo $_c->quando()->inTesto(); ?></p>
                     <p class="text"><blockquote><?php echo $_c->commento; ?></blockquote></p>
                 </div>
-                <div class="span2 allinea-destra btn-group">
+                <div class="span2 allinea-destra">
                  <?php if($_c->volontario == $me || $me->admin()){?>
-                    <a name="<?= $_c->id; ?>" title="Cancella" href="?p=attivita.pagina.commento.cancella&id=<?php echo $_c; ?>" class="btn">
+                    <a name="<?= $_c->id; ?>" title="Cancella" href="?p=attivita.pagina.commento.cancella&id=<?php echo $_c; ?>">
                         <i class="icon-remove"></i>
                     </a>
-                    <a title="Modifica" href="?p=attivita.pagina.commento.modifica&id=<?php echo $_c; ?>" class="btn">
+                    <a title="Modifica" href="?p=attivita.pagina.commento.modifica&id=<?php echo $_c; ?>">
                         <i class="icon-edit"></i>
                     </a>
                     
@@ -118,7 +118,7 @@ if (!$p->puoPartecipare($me)) {
         </div>
         <?php } ?>
         <div class="row-fluid">
-            <form action="?p=attivita.pagina.commento.ok&id=<?php echo $a; ?>&h=<?php echo $_c->id; ?>" method="POST">
+            <form action="?p=attivita.pagina.commento.ok&h=<?php echo $_c->id; ?>&id=<?php echo $a; ?>" method="POST">
             <div class="span11 subcommento">
                 <div class="span2 allinea-destra">
                     <img src="<?php echo $me->avatar()->img(10); ?>" class="img-polaroid" />

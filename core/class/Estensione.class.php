@@ -53,7 +53,10 @@ class Estensione extends Entita {
         $a = $this->appartenenza;
         $a = Appartenenza::id($a);
         $a->timestamp = time();
-        $a->conferma  = $me->id;    
+        if ($auto) {
+            global $sessione;
+            $a->conferma  = $sessione->utente()->id;
+        }
         $a->stato = MEMBRO_ESTESO;
     }
     
@@ -72,7 +75,7 @@ class Estensione extends Entita {
             $m->a = $destinatario;
             $m->_NOME       = $a->volontario()->nomeCompleto();
             $m->_COMITATO   = $a->comitato()->nomeCompleto();
-            $m-> _TIME = date('d-m-Y', $this->protData);
+            $m-> _TIME = date('d/m/Y', $this->timestamp);
             $m->invia();
         }
     }
