@@ -20,9 +20,7 @@ ob_start('ob_gzhandler');
 ob_start('impostaTitoloDescrizione');
 
 /* Sessione utente via cookie */
-if ( !empty($_GET['sid']) ) {
-    $sid = (string) $_GET['sid'];
-} elseif ( isset($_COOKIE['sessione']) ) {
+if ( isset($_COOKIE['sessione']) ) {
     $sid = $_COOKIE['sessione'];
 } else {
     $sid = null;
