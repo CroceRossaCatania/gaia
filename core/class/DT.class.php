@@ -12,7 +12,8 @@ class DT extends DateTime {
     }
 
     public function toJSON () {
-    	return $this->format('r');
+        /* ISO 8601 is the way */
+    	return $this->format('c');
     }
     
     public static function daTimestamp($timestamp) {
