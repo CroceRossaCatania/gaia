@@ -33,5 +33,9 @@ class APIKey extends Entita {
 		return true;
     }
 
+    public function generaChiave() {
+    	$this->chiave = sha1(microtime(true).rand(10000,99999));
+    }
+
 
 }

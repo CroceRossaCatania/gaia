@@ -18,7 +18,7 @@ if ( !APIKey::elenco() ) {
 }
 
 $k = new APIKey;
-$k->chiave = sha1(microtime(true).rand(10000,99999));
+$k->generaChiave();
 $k->nome   = '';
 $k->attiva = 0;
 $k->giorno = 0;

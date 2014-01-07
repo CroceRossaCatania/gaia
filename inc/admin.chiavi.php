@@ -76,7 +76,7 @@ $chiavi = APIKey::elenco();
 							type="text" class="input-medium" readonly="readonly"
 							value="<?php echo $chiave->chiave; ?>" 
 						/>
-						<a href="?p=admin.chiavi.rigenera&chiave=<?php echo $chiave->id; ?>"
+						<a href="?p=admin.chiavi.rigenera&id=<?php echo $chiave->id; ?>"
 							data-conferma="Rigenerare la chiave <?php echo $chiave->id; ?>?"
 						>
 							<i class="icon-refresh"></i> Rig.
