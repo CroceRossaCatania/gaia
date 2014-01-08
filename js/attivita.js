@@ -45,19 +45,30 @@ $(document).ready(function() {
 							    right:  'month,basicWeek today prev,next'
 							}, 
 
-                events: function ( inizio, fine, callback ) {
-                    inizio = new Date(inizio);
-                    fine   = new Date(fine);
-                    var sinizio = inizio.toISOString();
-                    var sfine   = fine.toISOString();
-                    api('attivita', {
-                        inizio: sinizio,
-                        fine:   sfine
-                    },
-                    function (risposta) {
-                        callback(risposta.response);
-                    });
-                }
+		/*
+		 * Funzione adattatore che comunica con le API
+		 */
+        events: function ( inizio, fine, callback ) {
+            inizio = new Date(inizio);
+            fine   = new Date(fine);
+            var sinizio = inizio.toISOString();
+            var sfine   = fine.toISOString();
+            api('attivita', {
+                inizio: sinizio,
+                fine:   sfine
+            },
+            function (risposta) {
+            	risposta = risposta.risposta;
+            	for ( var y in risposta ) {
+            		risposta[y].id		= risposta[y].turno.id;
+            		risposta[y].title	= risposta[y].turno.nome + ", " + risposta[y].attivita.nome;
+            		risposta[y].start	= risposta[y].inizio;
+            		risposta[y].end		= risposta[y].fine;
+            		risposta[y].color   = risposta[y].colore;
+            	}
+                callback(risposta);
+            });
+        }
 
 
 
