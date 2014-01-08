@@ -270,6 +270,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     <li><a href="?p=admin.format"><i class="icon-upload"></i> Carica format</a></li>                                    
                                     <li><a href="?p=admin.cache"><i class="icon-cloud"></i> Cache</a></li>  
                                     <li><a href="?p=admin.chiavi"><i class="icon-code"></i> API Keys</a></li>  
+                                    <li><a href="?p=admin.buttafuori" data-conferma="Resettare tutte le sessioni?"><i class="icon-signout"></i> Butta fuori</a></li>  
                                 </ul>
                             </div>
                             <?php } ?>
