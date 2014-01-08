@@ -96,6 +96,12 @@ $chiavi = APIKey::elenco();
 							required
 							value="<?php echo (int) $chiave->limite; ?>" 
 						/>
+					<a href="?p=admin.chiavi.cancella&id=<?php echo $chiave->id; ?>"
+							data-conferma="CANCELLARE DEFINITIVAMENTE <?php echo $chiave->id; ?>?"
+						>
+							<i class="icon-trash"></i>
+						</a>
+
 				</td>
 			</tr>
 
