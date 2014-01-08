@@ -4,39 +4,38 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI, APP_PRESIDENTE]);
+paginaPrivata();
+richiediComitato();
 
-$parametri = array('datainizio', 'datafine', 'inputVolontario', 'inputMotivo');
-controllaParametri($parametri, 'us.dash&err');
+$parametri = array('id', 'inputMotivo', 'datainizio', 'datafine');
+controllaParametri($parametri);
+
+$t = $_GET['id'];
+$m = $_POST['inputMotivo'];
+ foreach ( $me->storico() as $app ) { 
+    if ($app->attuale()) {
+        $c = $app;
+    }
+} 
 
 $inizio = DT::daFormato($_POST['datainizio']);
 $fine = DT::daFormato($_POST['datafine']);
 
 if (!$inizio || !$fine) {
-    redirect('us.dash&riserrdate');
+    redirect('utente.riserva&err');
 }
-
-if ($fine->getTimestamp() < time() || ($fine->getTimestamp() - $inizio->getTimestamp()) > ANNO) {
-    redirect('us.dash&riserrdate');
-}
-
-$t = $_POST['inputVolontario'];
-$v = Volontario::id($t);
-$m = $_POST['inputMotivo'];
-
-$app = $v->appartenenzeAttuali(MEMBRO_VOLONTARIO)[0];
 
 /*Avvio la procedura*/
 
-$r = new Riserva();
-$r->stato = RISERVA_INCORSO;
-$r->appartenenza = $app->id;
-$r->volontario = $v->id;
-$r->motivo = $m;
-$r->timestamp = time();                
-$r->inizio = $inizio->getTimestamp();
-$r->fine = $fine->getTimestamp();
+$t = new Riserva();
+$t->stato = RISERVA_INCORSO;
+$t->appartenenza = $c;
+$t->volontario = $me->id;
+$t->motivo = $m;
+$t->timestamp = time();                
+$t->inizio = $inizio->getTimestamp();
+$t->fine = $fine->getTimestamp();
 
-redirect('us.dash&risok');
+$sessione->inGenerazioneRiserva = time();
 
-?>
+redirect('presidente.riservaRichiesta.stampa&id=' . $t);
