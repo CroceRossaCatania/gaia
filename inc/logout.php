@@ -21,5 +21,5 @@ $sessione->logout();
 <a href='?p=home'>Torna alla home</a>.
 
 <?php 
-    header("Refresh: 2; URL=https://gaia.cri.it");
+    header("Refresh: 2; URL=/");
 ?>

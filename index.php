@@ -20,7 +20,12 @@ ob_start('ob_gzhandler');
 ob_start('impostaTitoloDescrizione');
 
 /* Sessione utente via cookie */
-$sessione = new Sessione(@$_COOKIE['sessione']);
+if ( isset($_COOKIE['sessione']) ) {
+    $sid = $_COOKIE['sessione'];
+} else {
+    $sid = null;
+}
+$sessione = new Sessione($sid);
 @setcookie('sessione', $sessione->id, time() + $conf['sessioni']['durata']);
  
 /* Crea eventuale oggetto $me */
@@ -45,8 +50,8 @@ if ( !file_exists($_f) ) {
 /*
  * Titolo e descrizione se non ridefiniti
  */
-$_titolo = 'Progetto Gaia - Croce Rossa Italiana';
-$_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocemente, più trasparente ed aperta a tutti';
+$_titolo        = 'Progetto Gaia - Croce Rossa Italiana';
+$_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocemente, più trasparente ed aperta a tutti';
 
 ?><!DOCTYPE html>
 <html>
@@ -264,6 +269,8 @@ $_descrizione = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocement
                                     <li><a href="?p=admin.report"><i class="icon-copy"></i> Report</a></li>  
                                     <li><a href="?p=admin.format"><i class="icon-upload"></i> Carica format</a></li>                                    
                                     <li><a href="?p=admin.cache"><i class="icon-cloud"></i> Cache</a></li>  
+                                    <li><a href="?p=admin.chiavi"><i class="icon-code"></i> API Keys</a></li>  
+                                    <li><a href="?p=admin.buttafuori" data-conferma="Resettare tutte le sessioni?"><i class="icon-signout"></i> Butta fuori</a></li>  
                                 </ul>
                             </div>
                             <?php } ?>

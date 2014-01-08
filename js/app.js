@@ -9,7 +9,8 @@ var
     uob = null;
     
 var conf = {
-    api:    'api.php?a='
+    api:    'api.php',
+    key:    'bb2c08ff4da11f0b590a7ae884412e2bfd8ac28a'
 };
 
 $(window).ready( function () { 
@@ -22,22 +23,23 @@ $(window).ready( function () {
        type:        "POST",
        dataType:    "json",
        error:       _rete_errore,
-       success:    _rete_ok
+       contentType: "application/json; charset=UTF-8",
+       success:     _rete_ok
     });
       
     /* Carica eventuali impostazioni */
     sid = $.cookie('sessione');
     _sincronizza();
-    api('welcome', {}, _aggiorna_chiSono());
+    api('ciao', {}, _aggiorna_chiSono());
     
     /* Bind */
     $("#_logout").click( _logout );
     $("#_login").click( _login );
-    $("#barraRicerca").keyup( _barraRicerca );
     
     $("[data-attendere]")       .each( _attendere );
     $("[data-suggerimento]")    .each( _suggerimento );
     $("[data-volontari]")       .each( _tabella );
+    $("[data-conferma]")        .each( _conferma );
 
     $('.automodal').modal({ keyboard: false, backdrop: 'static' });
     $('.alCambioSalva').change( function () {
@@ -100,8 +102,8 @@ function _rete_errore(a, b, c) {
 }
 
 function _rete_ok(a, b, c) {
-    sid = a.session.id;
-    uob = a.session.user;
+    sid = a.sessione.id;
+    uob = a.sessione.utente;
     if ( uob ) {
         uid = uob.id;
     }
@@ -109,20 +111,31 @@ function _rete_ok(a, b, c) {
 }
 
 function _sincronizza() {
-    $.ajaxSetup({
-        data: {
-            sid:    sid
-        }
-    });
     $.cookie('sessione', sid);
     _aggiorna_chiSono();
+}
+
+function _conferma(i, e) {
+    $(e).click( function() {
+        return confirm($(e).data('conferma'));
+    });
 }
 
 function _aggiorna_chiSono() {
 }
   
-function api(operazione, dati, callback) {
-    $.post(conf.api + operazione, dati, [_rete_ok, callback]);
+function api(metodo, dati, callback) {
+    $.post(
+        conf.api,
+        JSON.stringify($.extend(
+            dati,
+            { 
+                metodo: metodo,
+                sid:    sid,
+                key:    conf.key
+            })),
+        [_rete_ok, callback]
+    );
 }
 
 function _dump( x ) {
@@ -134,24 +147,6 @@ function _logout () {
 
 function _login () {
    
-}
-
-function _barraRicerca () {
-    var q = $("#barraRicerca").val();
-    if ( q.length < 1 ) {
-        $("#laRicerca").hide(1000);
-    } else {
-        $("#laRicerca").show(1000);
-    }
-    $("#barraRicerca").addClass('inRicerca');
-    api('ricercaSalone', {query: q}, _mostraRisultati);
-}
-
-function _mostraRisultati () {
-    setTimeout(
-    function() {$("#barraRicerca").removeClass('inRicerca');},
-    1000);
-    
 }
 
 function _abilita_filtraggio (idInput, idTabella) {
@@ -316,7 +311,7 @@ function _tabella_ricerca ( e, query, input, pagina ) {
         'pagina':       pagina,
         'perPagina':    perPagina
     }, function (dati) {
-        _tabella_ridisegna(e, dati.response, input);
+        _tabella_ridisegna(e, dati.risposta, input);
          /* Pulsante indietro... */
         if ( pagina == 1 ) {
             $('.' + _tid + '_indietro')
@@ -331,7 +326,7 @@ function _tabella_ricerca ( e, query, input, pagina ) {
                 });
         }   
         /* Pulsante avanti... */
-        if ( pagina == dati.response.pagine ) {
+        if ( pagina == dati.risposta.pagine ) {
             $('.' + _tid + '_avanti')
                 .unbind('click')
                 .addClass('disabled');

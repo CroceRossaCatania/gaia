@@ -121,6 +121,14 @@ function cronjobGiornaliero()  {
     /* === 10. CHIUDE LE VALIDAZIONI SCADUTE */
     Validazione::chiudi();
     $log .= "Chiuse le validazioni scadute\n";
+
+    /* === 11. RESETTA CONTATORI PER API KEYS */
+    $n = 0;
+    foreach ( APIKey::elenco() as $c ) {
+        $n++;
+        $c->oggi = 0;
+    }
+    $log .= "Resettati limiti giornalieri di {$n} chiavi API\n";
     
 };
 // =========== FINE CRONJOB GIORNALIERO

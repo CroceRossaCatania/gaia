@@ -63,18 +63,16 @@ class Sessione extends Entita {
     public function toJSON () {
         if ( $this->utente ) {
             $u = $this->utente()->toJSON();
-            $s = 'logged';
         } else {
             $u = false;
-            $s = 'anonymous';
         }
         return [
-            'id'        =>  $this->id,
-            'status'    =>  $s,
-            'user'      =>  $u,
-            'expires'   =>  DT::daTimestamp(                
-                        $this->azione + $conf['sessioni']['durata'] 
-            )
+            'id'            =>  $this->id,
+            'identificato'  =>  (bool) $u,
+            'utente'        =>  $u,
+            'scadenza'       =>  DT::daTimestamp(                
+                $this->azione + $conf['sessioni']['durata'] 
+            )->toJSON()
         ];
     }
     
