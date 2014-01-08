@@ -25,6 +25,11 @@ menuElenchiVolontari(
         <h4><i class="icon-exclamation-sign"></i> Volontario dimesso</h4>
         <p>Il Volontario è stato dimesso con successo.</p>
     </div>
+    <?php } elseif ( isset($_GET['reset']) )  { ?>
+    <div class="alert alert-block alert-success">
+        <h4><i class="icon-exclamation-sign"></i> Reset effettuato con successo</h4>
+        <p>È stata spedita un'email all'utente con le istruzioni per il reset della password.</p>
+    </div>
     <?php } elseif(isset($_GET['err'])) { ?>
     <div class="alert alert-block alert-error">
         <h4><i class="icon-exclamation-sign"></i> Si è verificato un problema</h4>
@@ -74,6 +79,9 @@ menuElenchiVolontari(
                 <a class="btn btn-small btn-primary" href="?p=admin.password.nuova&id={id}" title="Cambia password">
                     <i class="icon-eraser"></i>
                 </a>
+                <a class="btn btn-small btn-primary" href="?p=admin.password.reset&id={id}" title="Esegui reset password">
+                    <i class="icon-flag-checkered"></i>
+                </a>                
                 <a class="btn btn-small btn-primary" href="?p=admin.presidente.nuovo&id={id}" title="Nomina Presidente">
                     <i class="icon-star"></i>
                 </a> 
