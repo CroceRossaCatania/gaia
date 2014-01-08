@@ -37,14 +37,21 @@ class APIServer {
         if (empty($azione)) { $azione = 'ciao'; }
         $azione = str_replace(':', '_', $azione);
         try {
+            // Controlla la validita' della chiave API usata
             if ( !$this->chiave || !$this->chiave->usabile() ) {
                 throw new Errore(1013);
             }
+
+            // Contatore delle richieste
+            $this->chiave->aggiorna();
+
+            // Chiama il metodo richiesto
             if ( method_exists( $this, 'api_' . $azione ) ) {
                 $r = call_user_func( [$this, 'api_' . $azione] );
             } else {
                 throw new Errore(1004);
             }
+            
         } catch (Errore $e) {
             $r = $e->toJSON();
         } 

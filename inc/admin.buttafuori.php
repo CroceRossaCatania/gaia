@@ -14,9 +14,13 @@ foreach ( Sessione::elenco() as $s ) {
 	$n++;
 }
 
+if ( $cache )
+	$cache->flushAll();
+
+
 ?>
 
 <h2><?php echo $n; ?> sessioni cancellate.</h2>
-<p>Tutti sono stati buttati fuori.</p>
+<p>Tutti sono stati buttati fuori e la cache flushata.</p>
 
 <p>... pure tu. <a href="?p=login">Spiacente</a>.</p>
