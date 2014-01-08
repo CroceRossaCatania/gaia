@@ -30,12 +30,12 @@ class Errore extends Exception {
 	
 	public function toJSON() {
 		return [
-			'error' => [
-				'code'		=>	$this->codice,
-				'message'	=>	$this->messaggio,
+			'errore' => [
+				'codice'	=>	$this->codice,
+				'messaggio'	=>	$this->messaggio,
 				'timestamp'	=>	$this->timestamp,
 				'log'		=>	$this->__toString(),
-                                'extra'         =>      $this->extra
+                'info'      =>  $this->extra
 			]
 		];
 	}

@@ -4,7 +4,12 @@
  * ©2012 Croce Rossa Italiana
  */
 
-$parametri = array('inputEmail', 'inputPassword');
+if ( !captcha_controlla() ) {
+    $sessione->torna = $_POST['torna'];
+    redirect('login&captcha');
+}
+
+$parametri = ['inputEmail', 'inputPassword'];
 controllaParametri($parametri, 'login');
 
 $email      = minuscolo($_POST['inputEmail']);
@@ -15,6 +20,8 @@ if ( $u = Utente::by('email', $email) ) {
         $sessione->utente = $u->id;
         if ( $_POST['torna'] ) {
             lowRedirect($_POST['torna']);
+            $sessione->app_id = null;
+            $sessione->app_ip = null;
         } else {
             redirect('utente.me');
         }
