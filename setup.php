@@ -29,41 +29,10 @@ echo "Creazione directory upload/log...\n";
 
 
 echo "Prova di scrittura sul database...\n";
-
 try {
     $c = new Comitato; $c->cancella();
 } catch ( Exception $e ) {
     die("Errore: Impossibile scrivere sul database. È stato caricato il file /core/conf/gaia.sql?");
-}
-
-echo "Caricamento dei titoli sul database...\n";
-
-if (($handle = fopen("upload/setup/titoli.txt", "r")) !== FALSE) {
-    while (($data = fgetcsv($handle, 0, ";")) !== FALSE) {
-        $num = count($data);
-        $t = new Titolo();
-        switch ( $data[2] ) {
-        	case "competenza":
-        		$t->tipo = TITOLO_PERSONALE;
-        	break;
-        	case "titolo cri":
-        		$t->tipo = TITOLO_CRI;
-        	break;
-        	case "titolo di studio":
-        		$t->tipo = TITOLO_STUDIO;
-        	break;
-        	case "patente civile":
-                        $t->tipo = TITOLO_PATENTE_CIVILE;
-                break;
-                default:
-        		$t->tipo = TITOLO_PATENTE_CRI;
-        	break;
-        }
-        $t->nome = maiuscolo($data[1]);
-        // echo "{$data[1]}\n";
-        // ob_flush();
-    }
-    fclose($handle);
 }
 
 echo "Creazione delle cartelle per gli avatar...\n";
@@ -85,6 +54,16 @@ $strc = "";
 foreach ( $cnf as $cnfs ) {
     $strc .= "- core/conf/{$cnfs}.conf.php\n";
 }
+
+echo "Creazione della prima API KEY...\n";
+$k = new APIKey;
+$k->chiave = 'bb2c08ff4da11f0b590a7ae884412e2bfd8ac28a';
+$k->email  = 'noreply@gaia.cri.it';
+$k->nome   = 'Client JS integrato';
+$k->attiva = 1;
+$k->giorno = 0;
+$k->limite = 0;
+
 
 echo "\n
         ================================================       

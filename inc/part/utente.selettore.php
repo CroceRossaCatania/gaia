@@ -40,14 +40,14 @@ var origElem = '';
             if ( query.length < 1 ) { $("#selettoreRisultati").html(''); return; }
             api('volontari:cerca', {query: query, perPagina: 80, ordine: 'selettore'}, function( x ) {
                $("#selettoreRisultati").html('');
-               if ( x.response.length < 1 ) {
+               if ( x.risposta.length < 1 ) {
                    $("#selettoreRisultati").html('<span class="text-warning"><i class="icon-warning-sign"></i> Nessun volontario trovato.</span>');
                }
-               for ( var i in x.response.risultati ) {
+               for ( var i in x.risposta.risultati ) {
                    var stringa = '';
-                   stringa += "<div data-id='" + x.response.risultati[i].id + "' data-nome='" + x.response.risultati[i].nome + "' class='collaMano'>";
-                   stringa += "<i class='icon-plus'></i> <span class='grassetto'>" + x.response.risultati[i].nome + " " + x.response.risultati[i].cognome + "</span> (";
-                   stringa += "<span class='muted'>" + x.response.risultati[i].comitato.nome + "</span>)</div>";
+                   stringa += "<div data-id='" + x.risposta.risultati[i].id + "' data-nome='" + x.risposta.risultati[i].nome + "' class='collaMano'>";
+                   stringa += "<i class='icon-plus'></i> <span class='grassetto'>" + x.risposta.risultati[i].nome + " " + x.risposta.risultati[i].cognome + "</span> (";
+                   stringa += "<span class='muted'>" + x.risposta.risultati[i].comitato.nome + "</span>)</div>";
                    
                    $(stringa).appendTo("#selettoreRisultati").click(function() {
                        var _id, _nome;

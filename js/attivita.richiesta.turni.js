@@ -9,7 +9,7 @@ $("#inputDataNascita").datepicker();
            $("#risultatiRicerca").show('fade', 500);
            $("#risultatiRicerca tbody").html('<tr class="info"><td colspan="2" class="cp"><i class="icon-spinner icon-spin"></i> Ricerca in corso...</td></tr>');
 
-           api('cercaTitolo', {
+           api('titoli:cerca', {
                query:   query
            }, function(x) {
                $("#risultatiRicerca tbody").html('');

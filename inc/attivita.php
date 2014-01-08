@@ -58,7 +58,7 @@ paginaAnonimo();
         
         <div class="row-fluid">
             <div class="span12">
-                <h2><i class="icon-calendar muted"></i>
+                <h2><i class="icon-calendar muted" id="icona-caricamento"></i>
                 Calendario delle attività</h2>
                 <hr />
             </div>

@@ -7,23 +7,29 @@
 /* Modalità debug */
 $conf['debug']  =   true;
 
-$conf['version']	= 1.1;
-$conf['name']		= 'Gaia';
-$conf['vendor']		= 'Croce Rossa Italiana';
-$conf['copyright']	= '©2013 Croce Rossa Italiana';
-$conf['default_email_nome']	= 'Supporto GAIA';
-$conf['default_email_email']	= 'supporto@gaia.cri.it';
-$conf['status']		= 'Online and working';
-$conf['docs']		= 'No publicy available docs yet.';
+$conf['versione']			= 1.1;
+$conf['nome']				= 'Gaia';
+$conf['organizzazione']		= 'Croce Rossa Italiana';
+$conf['copyright']			= '©2011 Croce Rossa Italiana';
+$conf['stato']				= 'Ok';
+$conf['documentazione']		= 'https://github.com/CroceRossaCatania/gaia/wiki/API';
 
+/* Timezone */
 $conf['timezone']       = 'Europe/Rome';
 
+/* Email */
+$conf['default_email_nome']		= 'Supporto GAIA';
+$conf['default_email_email']	= 'supporto@gaia.cri.it';
 
-/* Pagine nelle quali mostrare la slide */
-$conf['slide']          = ['home'];
 
-$conf['mesi']           = [null, 'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+/* UI: Pagine nelle quali mostrare la slide */
+$conf['slide'] = ['home'];
 
-$conf['attivita']['colore_pubbliche'] 	= '3135B0';
+/* Mesi in Italiano */
+$conf['mesi'] = [null, 'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+
+/* Attivita, colori */
+$conf['attivita']['colore_pubbliche'] 	= '7E7AED';
 $conf['attivita']['colore_mie']			= '14CC00';
 $conf['attivita']['colore_scoperto'] 	= 'B20000';
+$conf['attivita']['colore_anonimi'] 	= '3135B0';
