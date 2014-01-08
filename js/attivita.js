@@ -49,6 +49,11 @@ $(document).ready(function() {
 		 * Funzione adattatore che comunica con le API
 		 */
         events: function ( inizio, fine, callback ) {
+
+        	$("#icona-caricamento")
+        		.removeClass('icon-calendar')
+        		.addClass('icon-spinner').addClass('icon-spin');
+
             inizio = new Date(inizio);
             fine   = new Date(fine);
             var sinizio = inizio.toISOString();
@@ -58,6 +63,8 @@ $(document).ready(function() {
                 fine:   sfine
             },
             function (risposta) {
+
+
             	risposta = risposta.risposta;
             	for ( var y in risposta ) {
             		risposta[y].id		= risposta[y].turno.id;
@@ -66,6 +73,11 @@ $(document).ready(function() {
             		risposta[y].end		= risposta[y].fine;
             		risposta[y].color   = risposta[y].colore;
             	}
+
+	        	$("#icona-caricamento")
+	        		.addClass('icon-calendar')
+	        		.removeClass('icon-spinner').removeClass('icon-spin');
+
                 callback(risposta);
             });
         }
