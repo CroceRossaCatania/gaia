@@ -15,6 +15,7 @@ if ( !APIKey::elenco() ) {
 	$k->attiva = 1;
 	$k->giorno = 0;
 	$k->limite = 0;
+	redirect('admin.chiavi');
 }
 
 $k = new APIKey;

@@ -9,6 +9,15 @@ paginaAdmin();
 $chiavi = APIKey::elenco();
 
 ?>
+
+<?php if ( !$chiavi ) { ?>
+<div class="alert alert-block alert-error">
+	<h4><i class="icon-warning-sign"></i> Chiave web non presente</h4>
+	<p>Non &egrave; presente la chiave web. Non funzioneranno le API JS da browser.</p>
+	<p>Per rimediare, cliccare su "Genera nuova chiave". Gaia generera' una chiave JS automaticamente.</p>
+</div>
+<?php } ?>
+
 <form action="?p=admin.chiavi.ok" method="POST">
 
 	<div class="pull-right btn-group">
