@@ -166,14 +166,14 @@ class APIServer {
                 $geoAttivita = GeoPolitica::daOid($attivita->comitato);
                 if ( $geoAttivita->contiene($mioGeoComitato) ) {
                     $colore = $conf['attivita']['colore_mie'];
+                    if ( $turno->scoperto() ) {
+                        $colore = $conf['attivita']['colore_scoperto'];
+                    }
                 } else {
                     $colore = $conf['attivita']['colore_pubbliche'];
                 }
-                if ( $turno->scoperto() ) {
-                    $colore = $conf['attivita']['colore_scoperto'];
-                }
             } else {
-                $colore = $conf['attivita']['colore_pubbliche'];
+                $colore = $conf['attivita']['colore_anonimi'];
             }
             $r[] = [
                 'turno'         =>  [
