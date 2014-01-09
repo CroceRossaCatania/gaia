@@ -141,6 +141,7 @@ class Turno extends Entita {
     public function toJSON( $user ) {
         return [
             'id'            =>  $this->id,
+            'nome'          =>  $this->nome,
             'inizio'        =>  $this->inizio(),
             'fine'          =>  $this->fine(),
             'durata'        =>  $this->durata(),
