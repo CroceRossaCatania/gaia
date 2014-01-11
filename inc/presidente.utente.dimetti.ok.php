@@ -11,14 +11,14 @@ controllaParametri(array('id','motivo','info'), 'presidente.utenti&errGen');
 $v = Volontario::id($_GET['id']);
 $attuale = $v->appartenenzaAttuale();
 $comitato = $attuale->comitato();
-$motivo = "membro dimesso";
+$motivo = $conf['dimissioni'][$_POST['motivo']];
 
 /* Avviso il volontario */
 $m = new Email('dimissionevolontario', 'Dimissione Volontario: ' . $v->nomeCompleto());
 $m->da      = $me;
 $m->a       = $v;
 $m->_NOME   = $v->nome;
-$m->_MOTIVO = $conf['dimissioni'][$_POST['motivo']];
+$m->_MOTIVO = $motivo;
 $m->_INFO   = $_POST['info'];
 $m->invia();
 

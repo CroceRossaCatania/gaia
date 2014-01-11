@@ -85,7 +85,7 @@ menuElenchiVolontari(
                                     <i class="icon-tag"></i> Riammetti
                                 </a>
                             <?php } ?>-->
-                            <?php if ($me->admin) { ?>
+                            <?php if ($me->admin()) { ?>
                                 <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
                                 <i class="icon-trash"></i> Cancella
                                 </a>
