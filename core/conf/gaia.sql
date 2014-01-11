@@ -64,6 +64,16 @@ CREATE TABLE IF NOT EXISTS `aree` (
   KEY `responsabile` (`responsabile`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `aspiranti` (
+  `id` int(11) NOT NULL,
+  `geo` point NOT NULL,
+  `raggio` float DEFAULT NULL,
+  `data` varchar(64) DEFAULT NULL,
+  `utente` int(11) DEFAULT NULL,
+  `luogo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `attivita` (
   `id` int(11) NOT NULL DEFAULT '0',
   `nome` varchar(255) DEFAULT '',
@@ -129,6 +139,23 @@ CREATE TABLE IF NOT EXISTS `commenti` (
   KEY `volontario` (`volontario`),
   KEY `attivita` (`attivita`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `corsibase` (
+  `id` int(11) NOT NULL,
+  `luogo` varchar(255) DEFAULT NULL,
+  `organizzatore` varchar(32) DEFAULT NULL,
+  `direttore` varchar(32) DEFAULT NULL,
+  `inizio` varchar(64) DEFAULT NULL,
+  `progressivo` varchar(64) DEFAULT NULL,
+  `anno` VARCHAR(8) NULL DEFAULT NULL,
+  `geo` point NOT NULL,
+  `descrizione` text,
+  `stato` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `organizzatore` (`organizzatore`),
+  KEY `direttore` (`direttore`),
+  SPATIAL KEY `geo` (`geo`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `coturni` (
   `id` int(11) NOT NULL,
@@ -349,6 +376,21 @@ CREATE TABLE IF NOT EXISTS `partecipazioni` (
   `pConferma` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `turno` (`turno`),
+  KEY `volontario` (`volontario`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `partecipazioniBase` (
+  `id` int(11) NOT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `corsoBase` varchar(16) DEFAULT NULL,
+  `stato` varchar(8) DEFAULT NULL,
+  `timestamp` varchar(64) DEFAULT NULL,
+  `tConferma` varchar(64) DEFAULT NULL,
+  `pConferma` varchar(16) DEFAULT NULL,
+  `tAttestato` varchar(8) DEFAULT NULL,
+  `cAttestato` varchar(8) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `corsoBase` (`corsoBase`),
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

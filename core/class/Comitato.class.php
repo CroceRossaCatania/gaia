@@ -705,14 +705,26 @@ class Comitato extends GeoPolitica {
             return $r;
     }
 
+    /**
+     * Partita iva del locale di riferimento
+     * @return string   Partita iva
+     */
     public function piva() {
         return $this->superiore()->piva();
     }
 
+    /**
+     * Codice fiscale del locale di riferimento
+     * @return string   CF
+     */
     public function cf() {
         return $this->superiore()->cf();
     }
 
+    /**
+     * Ritorna lo stato del comitato
+     * @return bool  True se privato
+     */
     public function privato() {
         return $this->superiore()->privato();
     }

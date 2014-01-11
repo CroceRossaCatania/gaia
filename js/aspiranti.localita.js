@@ -26,7 +26,7 @@ $(document).ready( function() {
    
    caricaMapsApi('avviaMappa');
    $("#ricercaLuogo").keyup();
-   
+
 });
 
 

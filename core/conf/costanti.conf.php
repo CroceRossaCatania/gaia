@@ -36,6 +36,7 @@ $conf['statoPersona'] = [
 define('ANNO',       31536000);
 define('MESE',        2592000);
 define('MESEEMEZZO',  3888000);
+define('GIORNO',        86400);
 define('DUEGIORNI',    172800);
 define('ETAMINIMA', 441504000);
 
@@ -199,6 +200,15 @@ $conf['docs_tipologie'] = [
 
 /*
  * ===================================
+ * ======== ESPLIRAZIONE =============
+ * ===================================
+ */
+define('NON_ESPLORARE',         0);
+define('ESPLORA_RAMI',          1);
+define('ESPLORA_SOLO_FOGLIE',   2);
+
+/*
+ * ===================================
  * =========== TITOLI ================
  * ===================================
  */
@@ -244,7 +254,8 @@ define('APP_PRESIDENTE',    30);
 define('APP_OBIETTIVO',     40);
 define('APP_CO',            50);
 define('APP_SOCI',          60);
-define('APP_PATENTI',     70);
+define('APP_PATENTI',       70);
+define('APP_FORMAZIONE',    80);
 
 $conf['applicazioni'] = [
     APP_ATTIVITA    =>  "Attività",
@@ -253,7 +264,8 @@ $conf['applicazioni'] = [
     APP_OBIETTIVO   =>  "Obiettivo strategico",
     APP_CO          =>  "Centrale Operativa",
     APP_SOCI        =>  "Ufficio Soci",
-    APP_PATENTI => "Ufficio Patenti"
+    APP_PATENTI     => "Ufficio Patenti",
+    APP_FORMAZIONE  => "Resp. Formazione"
 ];
 
 /*
@@ -564,3 +576,81 @@ define('PRIVACY_PRIVATA',   10);
 define('PRIVACY_COMITATO', 20);
 define('PRIVACY_VOLONTARI', 30);
 define('PRIVACY_PUBBLICA', 40);
+
+/*
+ * ===================================
+ * =========== ETA ===================
+ * ===================================
+ */
+
+define('ETA_MINIMA',   14);
+
+
+/*
+ * ===================================
+ * ============= CORSI ===============
+ * ===================================
+ */
+
+define('ASPIRANTI_MINIMO_COMITATI',     5);
+
+// Tipologia di corso. CORSO_T_<nometipo>
+// Ogni tipologia di corso deve avere il proprio template
+// richiesta di iscrizione in /core/conf/pdf/modelli/corso/{codice}.html
+
+define('CORSO_T_CORSOBASE',         10);
+
+$conf['corso_tipo'] = [
+    CORSO_T_CORSOBASE       =>  'Corso base'
+];
+
+
+// Tipologia di accesso ai corsi. CORSO_T_<nometipo>
+
+define('CORSO_A_POPOLAZIONE',         10);
+define('CORSO_A_LAICI',               20);
+define('CORSO_A_TUTTI',               30);
+define('CORSO_A_VOLONTARI',           40);
+
+$conf['corso_a'] = [
+    CORSO_A_POPOLAZIONE         =>  'Corso alla popolazione',
+    CORSO_A_VOLONTARI           =>  'Corso aperti ai volontari',
+    CORSO_A_LAICI               =>  'Corso aperti ai non volontari',
+    CORSO_A_TUTTI               =>  'Corso aperti ai volontari',
+];
+
+// Stati dei corsi. CORSO_S_<stato>
+
+define('CORSO_S_ANNULLATO',          0);
+define('CORSO_S_DACOMPLETARE',      10);
+define('CORSO_S_CONCLUSO',          20);
+define('CORSO_S_ATTIVO',            30);
+
+$conf['corso_stato'] = [
+    CORSO_S_ANNULLATO         =>  'Corso annullato',
+    CORSO_S_DACOMPLETARE      =>  'Da completare',
+    CORSO_S_CONCLUSO          =>  'Corso concluso',
+    CORSO_S_ATTIVO            =>  'Corso attivo',
+];
+
+/*
+ * ===================================
+ * ===== PARTECIPAZIONI BASE =========
+ * ===================================
+ */
+
+define('ISCR_ANNULLATA',       0);
+define('ISCR_ABBANDONO',      10);
+define('ISCR_RICHIESTA',      20);
+define('ISCR_CONFERMATA',     30);
+define('ISCR_SUPERATO',       40);
+define('ISCR_BOCCIATO',       50);
+
+$conf['partecipazioneBase'] = [
+    ISCR_ANNULLATA      =>  'Annullata', 
+    ISCR_ABBANDONO      =>  'Abbandonato', 
+    ISCR_RICHIESTA      =>  'Preiscritto', 
+    ISCR_CONFERMATA     =>  'Iscritto',
+    ISCR_SUPERATO       =>  'Superato',  
+    ISCR_BOCCIATO       =>  'Non superato',
+];  

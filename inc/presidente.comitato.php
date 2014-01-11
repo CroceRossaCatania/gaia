@@ -11,7 +11,9 @@
 controllaParametri(array('oid'));
 
 $_daGestire = [
-    APP_CO, APP_SOCI
+    APP_CO          =>  [EST_UNITA, EST_LOCALE, EST_PROVINCIALE, EST_REGIONALE, EST_NAZIONALE],
+    APP_SOCI        =>  [EST_UNITA, EST_LOCALE, EST_PROVINCIALE, EST_REGIONALE, EST_NAZIONALE],
+    APP_FORMAZIONE  =>  [EST_LOCALE, EST_PROVINCIALE, EST_REGIONALE, EST_NAZIONALE]
 ];
 
 $c = $_GET['oid'];
@@ -106,6 +108,7 @@ $(document).ready(function() {
                     Aree di intervento
                 </a>
             </li>
+
             <?php if ( $c instanceOf Comitato ) { ?>
             <li>
                 <a data-toggle="tab" href="#referenti">
@@ -119,10 +122,24 @@ $(document).ready(function() {
                     Attività
                 </a>
             </li>
+            <?php } else { ?>
+
+            <li>
+                <a data-toggle="tab" href="#corsibase">
+                    <i class='icon-rocket'></i>
+                    Corsi base
+                </a>
+            </li>
             <?php } ?>
+
             
             <?php
-                foreach ( $_daGestire as $_gestione ) {
+                foreach ( $_daGestire as $_gestione => $_estensioni ) {
+
+                    // Se questa applicazione non e' da gestire
+                    if ( !in_array( $c->_estensione(), $_estensioni) )
+                        continue;
+
                     $_nome = $conf['applicazioni'][$_gestione];
                     ?>
                 <li>
@@ -412,9 +429,21 @@ $(document).ready(function() {
                 <p>Per creare un'attività, vai alla pagina di <a href="?p=attivita.idea">Creazione attività</a>.</p>
             </div>
             
+            <!-- Tab: Corsi base -->
+            <div class="tab-pane"           id="corsibase">
+                <h4>Corsi base</h4>
+                <p>Per questo comitato, sono stati organizzati e pubblicati un totale di <strong><?php echo count($c->corsiBase(true)); ?> corsi base</strong>.</p>
+                <p>Per gestire i corsi base, vai alla pagina di <a href="?p=formazione.corsibase">Gestione dei corsi base</a>.</p>
+            </div>
+            
             <?php            
             $i = 0;
-            foreach ( $_daGestire as $_gestione ) {
+            foreach ( $_daGestire as $_gestione => $_estensioni ) {
+
+                // Se questa applicazione non e' da gestire
+                if ( !in_array( $c->_estensione(), $_estensioni) )
+                    continue;
+
                 $_nome = $conf['applicazioni'][$_gestione];
                 $delegati = $c->delegati($_gestione, true);
                 ?>

@@ -7,7 +7,7 @@
 /**
  * Rappresenta una Entita generica nel database
  */
-class Entita {
+abstract class Entita {
     
     protected
             $db         = null,
@@ -172,26 +172,13 @@ class Entita {
     public static function filtra($_array, $_order = null) {
         global $db, $conf, $cache;
         $entita = get_called_class();
-        $_condizioni = [];
-        foreach ( $_array as $_elem ) {
-            if ( $_elem[1] === null ) {
-                $_condizioni[] = "{$_elem[0]} IS NULL OR {$_elem[0]} = 0";
-            } else {
-                if ( is_int($_elem[1]) ) {
-                    $_condizioni[] = "{$_elem[0]} = {$_elem[1]}";
-                } else {
-                    $_condizioni[] = "{$_elem[0]} = '{$_elem[1]}'";
-                }
-            }
-        }
-        $stringa = implode(' AND ', $_condizioni);
+
         if ( $_order ) {
             $_order = 'ORDER BY ' . $_order;
         }
-        $where = ''; // Permette query senza condizioni
-        if ( $_condizioni ) {
-            $where = 'WHERE';
-        }
+
+        $where = static::preparaCondizioni($_array, 'WHERE');
+
         $query = "
             SELECT id FROM ". static::$_t . " $where $stringa $_order";
         
@@ -222,6 +209,31 @@ class Entita {
         return $t;
     }
     
+    /**
+     * Ritora espressioni SQL (per WHERE clause) da un array associativo
+     * @param array $_array Array associativo
+     * @param string $prefisso Opzionale. Se c'e' almeno una condizione, premetti questa stringa
+     * @return string Stringa SQL
+     */
+    public static function preparaCondizioni($_array, $prefisso = 'AND') {
+        if (!$_array) { return ' '; }
+        $_condizioni = [];
+        foreach ( $_array as $_elem ) {
+            if ( $_elem[1] === null ) {
+                $_condizioni[] = "{$_elem[0]} IS NULL OR {$_elem[0]} = 0";
+            } else {
+                if ( is_int($_elem[1]) ) {
+                    $_condizioni[] = "{$_elem[0]} = {$_elem[1]}";
+                } else {
+                    $_condizioni[] = "{$_elem[0]} = '{$_elem[1]}'";
+                }
+            }
+        }
+        $stringa = implode(' AND ', $_condizioni);
+        $stringa = " {$prefisso} {$stringa} ";
+        return $stringa;
+    }
+
     /**
      * Ritorna un elenco di tutti gli oggetti nel database
      *
@@ -302,6 +314,23 @@ class Entita {
     protected function generaId() {
         $q = $this->db->prepare("
             SELECT MAX(id) FROM ". static::$_t );
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        if (!$r) { $r[0] = 0; }
+        return (int) $r[0] + 1;
+    }
+
+    /**
+     * Metodo di generazione di un progressivo
+     * @param string $progressivo   il valore che si vuole incrementare
+     * @param array $_condizioni    WHERE a=b AND c=d" per array[[a, b], [c, d], ...]
+     * @return int valore numerico progressivo
+     */
+    protected function generaProgressivo($progressivo, $_condizioni = []) {
+        $condizioni = static::preparaCondizioni($_condizioni, 'WHERE');
+        $q = $this->db->prepare("
+            SELECT MAX({$progressivo}) 
+            FROM ". static::$_t ."{$condizioni}");
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         if (!$r) { $r[0] = 0; }
@@ -457,7 +486,11 @@ class Entita {
     public static function daOid($oid) {
         $obj = explode(':', $oid);
         $cl = $obj[0];
-        return new $cl($obj[1]);
+        $obj = $cl::id($obj[1]);
+        if ( ! $obj instanceOf static ) {
+            throw new Errore(1013);
+        }
+        return $obj;
     }
 
 }

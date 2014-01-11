@@ -12,6 +12,7 @@ class Utente extends Persona {
      */
     public function login($password) {
         if ( $this->password == criptaPassword($password) ) {
+            $this->ultimoAccesso = time();
             return true;
         } else {
             return false;
@@ -881,6 +882,7 @@ class Utente extends Persona {
             ['stato',       ATT_STATO_BOZZA]
         ]);
     }
+
     
     public function attivitaAreeDiCompetenza() {
         $r = [];
@@ -897,6 +899,39 @@ class Utente extends Persona {
             $a = array_merge($a, $c->attivita());
         }
         return array_unique($a);
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi base che gestisco
+     * @return CorsoBase    elenco dei corsi gestiti 
+     */
+    public function corsiBaseDiGestione() {
+        $a = $this->corsiBaseDiretti();
+        foreach ( $this->comitatiApp([APP_PRESIDENTE, APP_FORMAZIONE], false) as $c ) {
+            $a = array_merge($a, $c->CorsiBase());
+        }
+        return array_unique($a);
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi base di cui sono direttore
+     * @return CorsoBase    elenco dei corsi diretti 
+     */
+    public function corsiBaseDiretti() {
+        return CorsoBase::filtra([
+            ['direttore', $this->id]
+            ]);
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi base di cui sono direttore e devo completare
+     * @return CorsoBase    elenco dei corsi diretti da completare
+     */
+    public function corsiBaseDirettiDaCompletare() {
+        return CorsoBase::filtra([
+            ['direttore',   $this->id],
+            ['stato',       CORSO_S_DACOMPLETARE]
+        ]);
     }
     
     public function cellulare() {
@@ -1124,5 +1159,20 @@ class Utente extends Persona {
             }
         }
         return false;
+    }
+
+    /*
+     * Visualizza ultimo accesso dell'utente
+     * @return recentemente<5gg, 5gg< ultimo mese <30gg, piu di un mese >30gg
+     */
+    public function ultimoAccesso() {
+        if(!$this->ultimoAccesso){
+            return "Mai";
+        } elseif ($this->ultimoAccesso >= time()-GIORNO*5) {
+            return "Recentemente";
+        } elseif ($this->ultimoAccesso >= time()-MESE) {
+            return "Nell'ultimo mese";
+        }
+        return "Più di un mese fà";
     }
 }

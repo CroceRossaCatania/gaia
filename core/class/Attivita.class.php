@@ -76,13 +76,6 @@ class Attivita extends GeoEntita {
         parent::cancella();
     }
     
-    public function linkMappa() {
-        $n = urlencode($this->luogo);
-        $c = $this->coordinate();
-        $c = $c[0] . ',' . $c[1];
-        return "http://maps.google.com/?q={$n}@{$c}";
-    }
-    
     public function modificabileDa(Utente $u) {
         return (bool) (
                 $u->id == $this->referente

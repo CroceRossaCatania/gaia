@@ -363,3 +363,14 @@ body {
     font-weight: bold;
     margin: auto;
 }
+
+.aspiranti_contatore {
+    font-size: 8.5em; 
+    line-height: 1em;
+    text-shadow: 3px 3px 0px white;
+}
+
+.aspiranti_descrizione {
+    font-size: 2em;
+    text-transform: uppercase;
+}
