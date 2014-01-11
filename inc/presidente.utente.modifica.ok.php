@@ -55,7 +55,7 @@ if ($me->admin()) {
     /*
      * Controlla se sto scrivendo una email in possesso ad altro utente
      */
-    if(Utente::by('email', $email)){
+    if($email != $p->email && Utente::by('email', $email)){
         redirect('presidente.utente.visualizza&email&id='.$_GET['t']);
     }
 
