@@ -16,7 +16,7 @@ paginaApp([APP_PATENTI , APP_PRESIDENTE]);
     <div class="modal-body">
           <div class="row-fluid">
               <div class="span4 centrato">
-                    <label class="control-label" for="inputRicerca"> Per numero</label>
+                    <label class="control-label" for="inputRicerca"> Per numero/Volontario</label>
                 </div>
                 <div class="span8">
                   <input class="input-medium" type="text" name="inputRicerca" id="inputRicerca" required />

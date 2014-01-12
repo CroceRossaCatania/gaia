@@ -42,7 +42,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE , APP_PATENTI ]);
 <table class="table table-striped table-bordered" id="tabellaUtenti">
     <thead>
         <th>Volontario</th>
-        <th>Patente</th>
+        <th>Categorie</th>
         <th>Dettagli</th>
         <th>Azione</th>
     </thead>
@@ -59,7 +59,7 @@ foreach($comitati as $comitato){
                     <?php echo $v->nomeCompleto(); ?>
                 </a>
             </td>
-            <td><strong><?php echo $conf['patenti'][$p->patente()]; ?></strong></td>
+            <td><strong><?php echo "categorie"; ?></strong></td>
             <td>
                 <small>
                     <i class="icon-calendar muted"></i>

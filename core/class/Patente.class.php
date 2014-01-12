@@ -15,7 +15,7 @@ class Patente extends Entita {
         return (bool) $this->tConferma;
     }
     
-    public function patente() {
+    public function patenteId() {
         return Titolo::id($this->titolo);
     }
     
@@ -30,6 +30,10 @@ class Patente extends Entita {
     
     public function tConferma() {
         return DT::daTimestamp($this->tConferma);
+    }
+
+    public function codice() {
+        return $this->codice;
     }
     
     /*
