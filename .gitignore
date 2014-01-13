@@ -1,3 +1,5 @@
+/core/conf/captcha.conf.php.sample
+/core/conf/sweetcaptcha.conf.php
 # Recaptcha
 /core/conf/recaptcha.conf.php
 
