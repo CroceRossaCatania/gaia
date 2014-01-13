@@ -7,7 +7,7 @@
 /* Carico la configurazione */
 $_conf = [
     'database', 'smtp', 'costanti', 'sessioni',
-    'generale', 'errori', 'autopull', 'recaptcha'
+    'generale', 'errori', 'autopull', 'captcha'
 ];
 
 foreach ( $_conf as $_load ) {
