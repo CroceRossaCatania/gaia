@@ -50,6 +50,15 @@ paginaAdmin();
                 <i class="icon-bookmark"></i>
                 Fix Comitati
             </a>
+            <hr/>
+            <div class="alert alert-warning">
+                <strong>Script per fix estensioni gruppi </strong>
+                <p>Questo script pone l'estensione dei gruppi di lavoro pari al livello della attività</p>
+            </div>
+            <a href="?p=admin.fix.gruppi" class="btn btn-large btn-success">
+                <i class="icon-group"></i>
+                Fix Gruppi
+            </a>
         </div>
         
         <div class="span6 centrato">
@@ -71,12 +80,12 @@ paginaAdmin();
                 Reset Consensi
             </a>
             <hr/>
-            <div class="alert alert-info">
+            <div class="alert alert-success">
                 <strong>Script per fix appartenenze negate</strong>
                 <p>Questo script imposta lo stato appartenenza negata a tutte le appartenenze cons tato pendente e fine</p>
             </div>
             <a href="?p=admin.appartenenze" class="btn btn-large btn-info">
-                <i class="icon-group"></i>
+                <i class="icon-user"></i>
                 Fix appartenenze
             </a>
         </div>

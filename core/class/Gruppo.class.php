@@ -62,4 +62,7 @@ class Gruppo extends Entita {
             ); 
     }
     
+    public function attivita() {
+        return Attivita::id($this->attivita);
+    }
 }
