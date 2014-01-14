@@ -21,5 +21,12 @@ class Dimissione extends Entita {
         public function volontario() {
             return Volontario::id($this->volontario);
         }
+
+        public function appartenenza() {
+            return Appartenenza::id($this->appartenenza);
+        }
      
+        public function dimettente() {
+            return Volontario::id($this->pConferma);
+        }
 }

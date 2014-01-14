@@ -68,15 +68,19 @@ proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
                         </td>
                         <td>
                             <div class="btn-group">
-                                <?php if ($app->trasferimento()){ ?>
+                                <?php if ($app->trasferimento()) { ?>
                                     <a class="btn btn-small btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $app->trasferimento(); ?>" title="Visualizza ricevuta" data-attendere="Attendere..." >
                                         <i class="icon-paperclip"></i> Richiesta trasferimento
                                     </a>
-                                <?php }elseif($app->estensione()){ ?>
+                                <?php } elseif($app->estensione()) { ?>
                                     <a class="btn btn-small btn-info" href="?p=utente.estensioneRichiesta.stampa&id=<?php echo $app->estensione(); ?>" title="Visualizza ricevuta" data-attendere="Attendere...">
                                         <i class="icon-paperclip"></i> Richiesta estensione
                                     </a>
-                                <?php } ?>
+                                <?php } elseif($app->dimissione()) { ?>
+                                    <a class="btn btn-small btn-info" href="?p=presidente.utente.dimissione.dettagli&id=<?php echo $app->dimissione(); ?>" title="Visualizza dettagli dimissione">
+                                        <i class="icon-paperclip"></i> Dettagli dimissione
+                                    </a>
+                                <?php } ?> ?>
                                 <?php if ($me->admin()){ ?>
                                     <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
                                         <i class="icon-edit"></i>

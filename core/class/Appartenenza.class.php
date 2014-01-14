@@ -51,6 +51,10 @@ class Appartenenza extends Entita {
             return Estensione::by('appartenenza', $this);
         }
 
+        public function dimissione(){
+            return Dimissione::by('appartenenza', $this);
+        }
+
         /**
          * Nega l'appartenenza mettendo come stato appartenenza negata
          * inserisce la fine dell'appartenenza a time() e mette chi ha negato

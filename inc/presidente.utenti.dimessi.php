@@ -23,6 +23,16 @@ menuElenchiVolontari(
             <h4><i class="icon-exclamation-sign"></i> Impossibile eliminare l'utente</h4>
             <p>Contatta l'amministratore</p>
         </div>
+<?php }elseif ( isset($_GET['err']) )  { ?>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-exclamation-sign"></i> Impossibile completare l'operazione</h4>
+            <p>L'utente non è riammissibile o non hai i permessi per riammetterlo.</p>
+        </div>
+<?php }elseif (isset($_GET['errGen'])) { ?>
+    <div class="alert alert-block alert-error">
+        <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+        <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+    </div> 
 <?php } ?>
   
 <div class="row-fluid">
@@ -70,7 +80,12 @@ menuElenchiVolontari(
                             <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                 <i class="icon-envelope"></i>
                             </a>
-                            <?php if ($me->admin) { ?>
+                            <!--<?php if ($_v->riammissibile()) { ?>
+                                <a class="btn btn-small btn-info" href="?p=us.utente.riammetti&id=<?php echo $_v->id; ?>" title="Riammetti socio">
+                                    <i class="icon-tag"></i> Riammetti
+                                </a>
+                            <?php } ?>-->
+                            <?php if ($me->admin()) { ?>
                                 <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
                                 <i class="icon-trash"></i> Cancella
                                 </a>

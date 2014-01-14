@@ -4,7 +4,7 @@
  * ©2012 Croce Rossa Italiana
  */
 
-if ( !captcha_controlla() ) {
+if ( !captcha_controlla($_POST['sckey'], $_POST['scvalue']) ) {
     $sessione->torna = $_POST['torna'];
     redirect('login&captcha');
 }
