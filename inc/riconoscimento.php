@@ -82,11 +82,8 @@ if ( isset($_GET['tipo'] ) ) {
           <div class="control-group">
             <label class="control-label" for="inputCaptcha">Conferma</label>
             <div class="controls">
-              <p class="text-info">
-                <i class="icon-info-sign"></i>
-                Per favore copia i caratteri delle foto nel campo di testo sottostante.
-              </p>
-              <?php captcha_mostra(); ?>
+                <i class="icon-lock"></i> Per favore completa l'indovinello:<br /><br />
+                <?php captcha_mostra(); ?>
             </div>
           </div>
           

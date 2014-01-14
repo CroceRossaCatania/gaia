@@ -18,7 +18,6 @@ $v = Volontario::id($v);
             <div class="alert alert-error">
                 <div class="row-fluid">
                     <span class="span12">
-                        <p><strong><?php if($me->presiede()){?><span class="muted">Presidente,</span><?php } ?></strong></p>
                         <p>Stai dimettendo il volontario <strong><?php echo $v->nomeCompleto();?></strong>.</p>
                         <p>Specifica il motivo di tale decisione</p>
                     </span>

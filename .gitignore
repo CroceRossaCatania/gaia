@@ -1,5 +1,7 @@
-# Recaptcha
-/core/conf/recaptcha.conf.php
+
+
+# Captcha
+/core/conf/captcha.conf.php
 
 # Font DOMPDF
 /core/inc/dompdf/lib/fonts/php_Times-Roman.afm
