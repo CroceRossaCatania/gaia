@@ -54,7 +54,6 @@ menuElenchiVolontari(
     <?php } ?>
     
     <div class="row-fluid">
-
         <div class="nascosto" id="azioniElenco">
             <div class="btn-group">
                 <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" target="_new" title="Dettagli">

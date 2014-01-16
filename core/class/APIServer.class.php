@@ -347,14 +347,17 @@ class APIServer {
         }
 
         $me = $this->sessione->utente();
-        $r->comitati = array_merge(
+        $com = array_merge(
             // Dominio di ricerca
             $me->comitatiApp([
                 APP_PRESIDENTE,
                 APP_SOCI,
                 APP_OBIETTIVO
-            ])
+            ]),
+            $me->comitatiAttivitaReferenziate(),
+            $me->comitatiAreeDiCompetenza(true)
         );
+        $r->comitati = array_unique($com);
 
         if ( $this->par['query'] ) {
             $r->query = $this->par['query'];

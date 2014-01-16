@@ -861,13 +861,15 @@ class Utente extends Persona {
         }
     }
     
-    public function comitatiAreeDiCompetenza() {
+    public function comitatiAreeDiCompetenza($soloLocali = false) {
         $a = $this->areeDiCompetenza(null, true);
         $r = [];
-        foreach ($a as $ia) {
-            $comitato = $ia->comitato();
-            $r[] = $comitato;
-            if ($comitato instanceof Locale) {
+        foreach ($a as $_a) {
+            $comitato = $_a->comitato();
+            if(!$soloLocali || $comitato instanceof Comitato) {
+                $r[] = $comitato;
+            }
+            if (!$comitato instanceof Comitato) {
                 $r = array_merge($r, $comitato->estensione());
             }
         }
@@ -887,6 +889,15 @@ class Utente extends Persona {
             ['referente',   $this->id],
             ['stato',       ATT_STATO_BOZZA]
         ]);
+    }
+
+    public function comitatiAttivitaReferenziate() {
+        $a = $this->attivitaReferenziate();
+        $r = [];
+        foreach($a as $_a) {
+            $r = array_merge($r, $_a->comitato()->estensione());
+        }
+        return array_unique($r);
     }
     
     public function attivitaAreeDiCompetenza() {
