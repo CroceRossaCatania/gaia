@@ -224,7 +224,6 @@ if(isset($_GET['dimessi'])){
         ]);
     
     foreach ( $c->membriRiserva() as $r ) {
-        $r = Riserva::id($r);
         $v = $r->volontario();
         
         $excel->aggiungiRiga([
