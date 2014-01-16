@@ -11,7 +11,7 @@
 core/conf/database.conf.php
 
 # Configurazione SMTP
-core/conf/smtp.conf.php
+# core/conf/smtp.conf.php
 
 # Configurazione AUTOPULL
 core/conf/autopull.conf.php
