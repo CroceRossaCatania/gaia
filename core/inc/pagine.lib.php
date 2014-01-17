@@ -147,12 +147,19 @@ function menuVolontario() {
     if ( $me && $me->stato == ASPIRANTE ) {
         menuAspirante();
         return;
+    }elseif($me && $me->ordinario()){
+        menuOrdinario();
+        return;
     }
     include('./inc/part/utente.menu.php');
 }
 
 function menuAspirante() {
     include('./inc/part/aspirante.menu.php');
+}
+
+function menuOrdinario() {
+    include('./inc/part/ordinario.menu.php');
 }
 
 $_lista_attiva = $_link_excel = $_link_email = null;

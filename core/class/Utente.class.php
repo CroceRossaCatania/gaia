@@ -350,6 +350,15 @@ class Utente extends Persona {
         return $n;
     }
     
+    public function numOrdinariDiCompetenza() {
+        $n = 0;
+        $comitati = $this->comitatiApp([ APP_SOCI, APP_PRESIDENTE, APP_CO, APP_OBIETTIVO ]);
+        foreach($comitati as $_c) {
+                $n += $_c->numMembriOrdinari();          
+        }
+        return $n;
+    }
+
     public function presiede( $comitato = null ) {
         if ( $comitato ) {
             if($comitato->unPresidente() == $this->id) {
@@ -1124,7 +1133,7 @@ class Utente extends Persona {
      * Anche se la gestione del false non è fatta in maniera corretta nella pagina.
      */
     public function appartenenzaValida(){
-        $attuali = $this->appartenenzeAttuali();
+        $attuali  = $this->appartenenzeAttuali();
         $pendenti = $this->appartenenzePendenti();
         $inGenerale = $this->appartenenze();
         if(($attuali || $pendenti) && $this->stato == VOLONTARIO){
@@ -1174,5 +1183,17 @@ class Utente extends Persona {
             return "Nell'ultimo mese";
         }
         return "Più di un mese fà";
+    }
+
+    public function ordinario() {
+        $r = [];
+        foreach ( Appartenenza::filtra([
+            ['volontario',  $this->id],
+            ['stato',       MEMBRO_ORDINARIO]
+        ]) as $a ) {
+            if ( !$a->attuale() ) { continue; }
+            $r[] = $a;
+        }
+        return $r;
     }
 }

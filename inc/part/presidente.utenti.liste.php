@@ -37,7 +37,14 @@
         <a href="?p=presidente.soci">
             <i class="icon-list"></i>
             Elenco Soci
-        </a>
+        </a><br />
+        <a href="?p=presidente.soci.ordinari">
+            <i class="icon-list"></i>
+            Soci Ordinari
+        </a> /
+        <a href="?p=presidente.soci.ordinari.dimessi">
+             dimessi
+        </a><br />
 
     </div>     
 

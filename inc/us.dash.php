@@ -64,6 +64,7 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                 <table class="table table-striped table-condensed">
                     
                     <tr><td>Num. Volontari</td><td><?php echo $me->numVolontariDiCompetenza(); ?></td></tr>
+                    <tr><td>Num. Soci Ordinari</td><td><?php echo $me->numOrdinariDiCompetenza(); ?></td></tr>
                     
                 </table>
             </div>
@@ -102,6 +103,15 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                         <a href="?p=us.utente.riserva" class="btn btn-block btn-warning">
                             <i class="icon-pause"></i>
                             Metti in riserva volontario
+                        </a>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row-fluid">
+                    <div class="btn-group btn-group-vertical span12">
+                        <a href="?p=us.ordinario.nuovo" class="btn btn-block btn-success">
+                            <i class="icon-plus"></i>
+                            Aggiungi Socio Ordinario
                         </a>
                     </div>
                 </div>
