@@ -26,8 +26,12 @@ class PDF {
         $this->sostituzioni[$nome] = $valore;
     }
     
-    public function salvaFile() {
+    public function salvaFile($comitato=null) {
         global $conf, $sessione;
+        if($comitato){
+            $this->_INDIRIZZO  = $comitato->locale()->formattato;
+            $this->_PIVA       = $comitato->locale()->piva();
+        }
         $header     = file_get_contents('./core/conf/pdf/header.html');
         $footer     = file_get_contents('./core/conf/pdf/footer.html');
         $corpo      = file_get_contents('./core/conf/pdf/modelli/' . $this->modello . '.html');
