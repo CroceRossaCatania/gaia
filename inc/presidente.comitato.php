@@ -6,6 +6,7 @@
 
 /*
  * Elenco Applicazioni da gestire
+ * !!!! commentato APP_FORMAZIONE per fare merge di quote!!!
  */
 
 controllaParametri(array('oid'));
@@ -13,7 +14,7 @@ controllaParametri(array('oid'));
 $_daGestire = [
     APP_CO          =>  [EST_UNITA, EST_LOCALE, EST_PROVINCIALE, EST_REGIONALE, EST_NAZIONALE],
     APP_SOCI        =>  [EST_UNITA, EST_LOCALE, EST_PROVINCIALE, EST_REGIONALE, EST_NAZIONALE],
-    APP_FORMAZIONE  =>  [EST_LOCALE, EST_PROVINCIALE, EST_REGIONALE, EST_NAZIONALE]
+    //APP_FORMAZIONE  =>  [EST_LOCALE, EST_PROVINCIALE, EST_REGIONALE, EST_NAZIONALE]
 ];
 
 $c = $_GET['oid'];
@@ -198,7 +199,7 @@ $(document).ready(function() {
                     </div>
                     
                     <div class="span2">
-                        <?php if ( !$c->principale && $c->modificabileDa($me->id)) { ?>
+                        <?php if ( !$c->principale && $c->modificabileDa($me)) { ?>
                         <a class="btn btn-large btn-block btn-info" href="?p=presidente.wizard&oid=<?php echo $c->oid(); ?>">
                             <i class="icon-pencil icon-3x"></i><br />
                             Modifica
