@@ -356,6 +356,31 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE,APP_CO, APP_OBIETTIVO ]) 
 
         }
         $excel->genera("Elenco Soci {$c->nome}.xls");
+    }elseif(isset($_GET['ordinari'])){
+        foreach ( $c->membriOrdinari() as $v ) {
+            $i++;    
+            $excel->aggiungiRiga([
+                $i,
+                $v->nome,
+                $v->cognome,
+                date('d/m/Y', $v->dataNascita),
+                $v->comuneNascita,
+                $v->provinciaNascita,
+                $v->codiceFiscale,
+                $v->indirizzo,
+                $v->civico,
+                $v->comuneResidenza,
+                $v->CAPResidenza,
+                $v->provinciaResidenza,
+                $v->email,
+                $v->emailServizio,
+                $v->cellulare,
+                $v->cellulareServizio,
+                $v->ingresso()->format("d/m/Y")
+                ]);
+
+        }
+        $excel->genera("Elenco Soci Ordinari {$c->nome}.xls");
     }else{
         foreach ( $c->membriAttuali() as $v ) {
             $i++;    
@@ -409,6 +434,8 @@ if(isset($_GET['dimessi'])){
  $zip->comprimi("Volontari in estensione.zip"); 
 }elseif(isset($_GET['soci'])){
  $zip->comprimi("Elenco soci.zip"); 
+}elseif(isset($_GET['ordinari'])){
+ $zip->comprimi("Elenco soci ordinari.zip"); 
 }else{
     $zip->comprimi("Anagrafica_volontari.zip");
 }

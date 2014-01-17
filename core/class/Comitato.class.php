@@ -198,6 +198,52 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
+    public function membriOrdinari() {
+        $q = $this->db->prepare("
+            SELECT
+                anagrafica.id
+            FROM
+                appartenenza, anagrafica
+            WHERE
+                anagrafica.id = appartenenza.volontario
+            AND
+                comitato = :comitato
+            AND
+                appartenenza.stato = :stato
+            ORDER BY
+                cognome ASC, nome ASC");
+        $q->bindParam(':comitato', $this->id);
+        $q->bindValue(':stato', MEMBRO_ORDINARIO);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Volontario::id($k[0]);
+        }
+        return $r;
+    }
+
+    public function numMembriOrdinari() {
+        $q = $this->db->prepare("
+            SELECT
+                COUNT(volontario)
+            FROM
+                appartenenza
+            WHERE
+                ( fine >= :ora OR fine IS NULL OR fine = 0) 
+            AND
+                comitato = :comitato
+            AND
+                stato    = :stato
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':comitato', $this->id);
+        $q->bindValue(':stato',    MEMBRO_ORDINARIO);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+
     public function numMembriAttuali($stato = MEMBRO_ESTESO) {
         $q = $this->db->prepare("
             SELECT

@@ -48,44 +48,48 @@ define('ETAMINIMA', 441504000);
  */
 
 /* Tipologia appartenenza gruppo */
-define('MEMBRO_DIMESSO',         0);
-define('MEMBRO_TRASFERITO',      1);
-define('MEMBRO_APP_NEGATA',      3);
-define('MEMBRO_EST_TERMINATA',   5);
-define('MEMBRO_TRASF_ANN',       9);
-define('MEMBRO_TRASF_NEGATO',   10);
-define('MEMBRO_EST_ANN',        14);
-define('MEMBRO_EST_NEGATA',     15);
-define('SOGLIA_APPARTENENZE',   19);
-define('MEMBRO_TRASF_IN_CORSO', 20);
-define('MEMBRO_EST_PENDENTE',   25);
-define('MEMBRO_PENDENTE',       30);
-define('MEMBRO_ESTESO',         35);
-define('MEMBRO_VOLONTARIO',     40);
-define('MEMBRO_MODERATORE',     50);
-define('MEMBRO_DIPENDENTE',     60);
-define('MEMBRO_PRESIDENTE',     70);
+define('MEMBRO_DIMESSO',            0);
+define('MEMBRO_TRASFERITO',         1);
+define('MEMBRO_ORDINARIO_DIMESSSO', 2);
+define('MEMBRO_APP_NEGATA',         3);
+define('MEMBRO_EST_TERMINATA',      5);
+define('MEMBRO_TRASF_ANN',          9);
+define('MEMBRO_TRASF_NEGATO',      10);
+define('MEMBRO_EST_ANN',           14);
+define('MEMBRO_EST_NEGATA',        15);
+define('MEMBRO_ORDINARIO',         16);
+define('SOGLIA_APPARTENENZE',      19);
+define('MEMBRO_TRASF_IN_CORSO',    20);
+define('MEMBRO_EST_PENDENTE',      25);
+define('MEMBRO_PENDENTE',          30);
+define('MEMBRO_ESTESO',            35);
+define('MEMBRO_VOLONTARIO',        40);
+define('MEMBRO_MODERATORE',        50);
+define('MEMBRO_DIPENDENTE',        60);
+define('MEMBRO_PRESIDENTE',        70);
 
 
 
 /* Definizioni in stringa */
 $conf['membro'] = [
-    MEMBRO_TRASF_NEGATO     =>  'Trasferimento negato',
-    MEMBRO_TRASF_ANN        =>  'Richiesta trasferimento annullata',
-    MEMBRO_TRASFERITO       =>  'Membro Trasferito',
-    MEMBRO_EST_ANN          =>  'Richiesta estensione annullata',
-    MEMBRO_EST_NEGATA       =>  'Estensione negata',
-    MEMBRO_TRASF_IN_CORSO   =>  'Trasferimento in corso',
-    MEMBRO_PENDENTE         =>  'Pendente',
-    MEMBRO_EST_PENDENTE     =>  'Estensione richiesta',
-    MEMBRO_VOLONTARIO       =>  'Volontario',
-    MEMBRO_ESTESO           =>  'Volontario in estensione',
-    MEMBRO_MODERATORE       =>  'Moderatore',
-    MEMBRO_DIPENDENTE       =>  'Dipendente',
-    MEMBRO_PRESIDENTE       =>  'Presidente',
-    MEMBRO_DIMESSO          =>  'Dimesso',
-    MEMBRO_EST_TERMINATA    =>  'Estensione terminata',
-    MEMBRO_APP_NEGATA       =>  'Appartenenza negata'
+    MEMBRO_TRASF_NEGATO         =>  'Trasferimento negato',
+    MEMBRO_TRASF_ANN            =>  'Richiesta trasferimento annullata',
+    MEMBRO_TRASFERITO           =>  'Membro Trasferito',
+    MEMBRO_ORDINARIO_DIMESSSO   =>  'Membro Ordinario Dimesso',
+    MEMBRO_EST_ANN              =>  'Richiesta estensione annullata',
+    MEMBRO_EST_NEGATA           =>  'Estensione negata',
+    MEMBRO_ORDINARIO            =>  'Membro Ordinario',
+    MEMBRO_TRASF_IN_CORSO       =>  'Trasferimento in corso',
+    MEMBRO_PENDENTE             =>  'Pendente',
+    MEMBRO_EST_PENDENTE         =>  'Estensione richiesta',
+    MEMBRO_VOLONTARIO           =>  'Volontario',
+    MEMBRO_ESTESO               =>  'Volontario in estensione',
+    MEMBRO_MODERATORE           =>  'Moderatore',
+    MEMBRO_DIPENDENTE           =>  'Dipendente',
+    MEMBRO_PRESIDENTE           =>  'Presidente',
+    MEMBRO_DIMESSO              =>  'Dimesso',
+    MEMBRO_EST_TERMINATA        =>  'Estensione terminata',
+    MEMBRO_APP_NEGATA           =>  'Appartenenza negata'
 ];
 
 
@@ -476,6 +480,7 @@ $conf['est_obj'] = [
  */
 
 define('ANZIANITA', 2);
+
 
 /*
  * ===================================
