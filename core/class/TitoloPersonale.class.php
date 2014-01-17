@@ -31,6 +31,14 @@ class TitoloPersonale extends Entita {
     public function tConferma() {
         return DT::daTimestamp($this->tConferma);
     }
+
+    public function inizio() {
+            return DT::daTimestamp($this->inizio);
+    }
+
+    public function fine() {
+            return DT::daTimestamp($this->fine);
+    }
     
     public static function pendenti() {
         global $db;
