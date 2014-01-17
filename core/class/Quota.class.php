@@ -48,7 +48,7 @@ class Quota extends Entita {
      */
     public function progressivo() {
         if($this->progressivo) {
-            return 'QUOTA-'.$this->anno.'/'.$this->progressivo;
+            return $this->anno.'/'.$this->progressivo;
         }
         return null;
     }

@@ -179,19 +179,19 @@ caricaSelettoreComitato();
             <br/>
             <div class="row-fluid">            
                 <div class="span4 centrato">
-                    <label class="control-label" for="inputDataIngresso" >Importo quota * </label>
+                    <label class="control-label" for="inputQuota" >Importo quota * </label>
                 </div>
                 <div class="span8 input-prepend">
                     <span class="add-on">€</span>
-                    <input type="text" name="inputDataIngresso" id="inputDataIngresso" required />
+                    <input type="text" name="inputQuota" id="inputQuota" required />
                 </div>
             </div>
             <div class="row-fluid">            
                 <div class="span4 centrato">
-                    <label class="control-label" for="inputDataIngresso" >Data versamento quota * </label>
+                    <label class="control-label" for="inputDataQuota" >Data versamento quota * </label>
                 </div>
                 <div class="span8">
-                    <input type="text" name="inputDataIngresso" id="inputDataIngresso" required />
+                    <input type="text" name="inputDataQuota" id="inputDataQuota" required />
                 </div>
             </div>          
             <hr />

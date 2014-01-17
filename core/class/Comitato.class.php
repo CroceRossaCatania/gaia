@@ -518,7 +518,7 @@ class Comitato extends GeoPolitica {
         return [$this];
     }
     
-    public function quoteSi($anno) {
+    public function quoteSi($anno , $stato=MEMBRO_VOLONTARIO) {
         $q = $this->db->prepare("
             SELECT  anagrafica.id
             FROM    appartenenza, anagrafica, quote
@@ -542,9 +542,8 @@ class Comitato extends GeoPolitica {
               anagrafica.cognome     ASC,
               anagrafica.nome  ASC");
         $q->bindParam(':comitato',  $this->id);
-        $q->bindValue(':stato',  MEMBRO_VOLONTARIO);
-        $q->bindValue(':ora',  time());
-        //$anno = date ('Y', time());
+        $q->bindValue(':stato',  $stato);
+        $q->bindParam(':ora',  time());
         $q->bindValue(':anno',    $anno);
         $q->execute();
         $r = [];

@@ -28,8 +28,6 @@ class PDF {
     
     public function salvaFile() {
         global $conf, $sessione;
-        $this->_MARCA_TEMPORALE = date('d-m-Y H:i');
-        $this->_VERSIONE_GAIA   = $conf['version'];
         $header     = file_get_contents('./core/conf/pdf/header.html');
         $footer     = file_get_contents('./core/conf/pdf/footer.html');
         $corpo      = file_get_contents('./core/conf/pdf/modelli/' . $this->modello . '.html');

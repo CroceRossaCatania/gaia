@@ -146,9 +146,6 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                         </div>
                    </td>
                 </tr>
-                
-               
-       
         <?php }
         }
         ?>
