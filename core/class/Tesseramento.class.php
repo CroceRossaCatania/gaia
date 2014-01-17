@@ -43,7 +43,7 @@ class Tesseramento extends Entita {
      * posso iniziare a scacciare i non paganti
      * @return bool True se accetta, false altrimenti
      */
-    public function siPuoDimettere() {
+    public function siPuoDimettereTutti() {
         if($this->aperto && $this->fine() < date()) {
             return true;
         }

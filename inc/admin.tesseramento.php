@@ -20,6 +20,11 @@ if ( isset($_GET['anno']) ) { ?>
     <i class="icon-warning-sign"></i> <strong>Tesseramento con quote pagate</strong>.<br />
     Non è possibile cancellare un tesseramento con quote pagate.
 </div>
+<?php } elseif ( isset($_GET['ok']) ) { ?>
+<div class="alert alert-success">
+    <i class="icon-check"></i> <strong>Modifiche effettuate con successo</strong>.<br />
+    Le modifiche che hai richiesto sono state correttamente apportate.
+</div>
 <?php } ?>
 
 <form action="?p=admin.tesseramento.ok" method="POST">
@@ -52,11 +57,13 @@ if ( isset($_GET['anno']) ) { ?>
                 </thead>
 
                 <tbody>
-                <?php foreach ( $tesseramenti as $t ) { ?>
+                <?php foreach ( $tesseramenti as $t ) { 
+                        $aperto = $t->aperto();
+                        ?>
 
                         <tr>
                                 <td>
-                                        <input type="hidden" name="tesseramento[]" value="<?php echo $t->id; ?>" />
+                                        <input type="hidden" name="tesseramenti[]" value="<?php echo $t->id; ?>" />
                                         <?php echo $t->anno; ?>
                                 </td>
                                 <td>
@@ -77,23 +84,26 @@ if ( isset($_GET['anno']) ) { ?>
                                         <select class="input-small" name="<?php echo $t->id; ?>_stato" required>
                                         <?php
                                         foreach ( $conf['tesseramento'] as $numero => $stato ) { ?>
-                                                <option value="<?php echo $numero; ?>" <?php if ( $numero == $t->stato ) { ?>selected<?php } ?>><?php echo $stato; ?></option>
+                                                <option value="<?php echo $numero; ?>" <?php if ( $numero == $t->stato ) { ?>selected<?php } ?>> <?php echo $stato; ?></option>
                                         <?php } ?>
                                         </select>  
                                 </td>
                                 <td>
                                         € <input class="input-mini" type="text" 
                                         name="<?php echo $t->id; ?>_attivo"
+                                        value="<?php echo number_format((float)$t->attivo, 2, '.', ''); ?>"
                                         />
                                 </td>
                                 <td>
                                         € <input class="input-mini" type="text" 
                                         name="<?php echo $t->id; ?>_ordinario"
+                                        value="<?php echo number_format((float)$t->ordinario, 2, '.', ''); ?>"
                                         />
                                 </td>
                                 <td>
                                         € <input class="input-mini" type="text" 
                                         name="<?php echo $t->id; ?>_benemerito"
+                                        value="<?php echo number_format((float)$t->benemerito, 2, '.', ''); ?>"
                                         />
                                 </td>
                                 <td>

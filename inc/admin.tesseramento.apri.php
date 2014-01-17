@@ -14,7 +14,7 @@ if(Tesseramento::by('anno', $anno)) {
 
 $t = new Tesseramento();
 $t->anno = $anno;
-$t->stato = TESSERAMENTO_CHIUSO;
+$t->stato = TESSERAMENTO_APERTO;
 
 redirect('admin.tesseramento');
 
