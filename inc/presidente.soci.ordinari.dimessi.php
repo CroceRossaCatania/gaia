@@ -6,7 +6,7 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE ]);
 menuElenchiVolontari(
     "Soci Ordinari Dimessi",
-    false,
+    "?p=admin.utenti.excel&ordinaridimessi",
     false
 );
 
@@ -20,11 +20,6 @@ menuElenchiVolontari(
         <div class="alert alert-block alert-error">
             <h4><i class="icon-exclamation-sign"></i> Impossibile eliminare l'utente</h4>
             <p>Contatta l'amministratore</p>
-        </div>
-<?php }elseif ( isset($_GET['dim']) )  { ?>
-        <div class="alert alert-block alert-success">
-            <h4><i class="icon-exclamation-sign"></i> Socio Ordinario dimesso</h4>
-            <p>Il Socio Ordinario è stato dimesso con successo.</p>
         </div>
 <?php } ?>
     
@@ -110,11 +105,8 @@ menuElenchiVolontari(
                         </div>
                    </td>
                 </tr>
-                
-               
-       
         <?php 
-        }
+            }
         }
         ?>
 
