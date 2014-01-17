@@ -50,7 +50,7 @@ define('ETAMINIMA', 441504000);
 /* Tipologia appartenenza gruppo */
 define('MEMBRO_DIMESSO',            0);
 define('MEMBRO_TRASFERITO',         1);
-define('MEMBRO_ORDINARIO_DIMESSSO', 2);
+define('MEMBRO_ORDINARIO_DIMESSO',  2);
 define('MEMBRO_APP_NEGATA',         3);
 define('MEMBRO_EST_TERMINATA',      5);
 define('MEMBRO_TRASF_ANN',          9);
