@@ -24,7 +24,9 @@ $p->_LUOGO 		= $v->luogoNascita;
 $p->_QUOTA 		= $quota->quota;
 $p->_CAUSALE 	= $quota->causale;
 $p->_LUOGO 		= $quota->comitato()->locale()->comune;
-$p->_DATA 		= date('d-m-Y', time());
+$p->_DATA 		= date('d-m-Y', $quota->tConferma);
+$p->_CHINOME	= $quota->conferma()->nomeCompleto();
+$p->_CHICF		= $quota->conferma()->codiceFiscale;
 $f = $p->salvaFile();  
 $f->download();
 

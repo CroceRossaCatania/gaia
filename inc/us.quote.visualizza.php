@@ -66,7 +66,7 @@ $q = Quota::filtra([['appartenenza', $app]], 'timestamp DESC');
                     <td><?= $_q->volontario()->nome; ?></td>
                     <td><?= $_q->volontario()->cognome; ?></td>
                     <td><?= $_q->comitato()->nomeCompleto(); ?></td>
-                    <td><?= date('d/m/Y', $_q->timestamp); ?></td>
+                    <td><?= date('d/m/Y', $_q->tConferma); ?></td>
                     <td><?= $_q->quota ,"€"; ?></td>
                     <td><?= $_q->conferma()->nomeCompleto(); ?></td>
                     <td>
