@@ -7,7 +7,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE ]);
 menuElenchiVolontari(
     "Soci Ordinari",
     "?p=admin.utenti.excel&ordinari",
-    false
+    "?p=utente.mail.nuova&ordinaricom"
 );
 
 ?>
@@ -54,9 +54,9 @@ menuElenchiVolontari(
                     <span class="label label-warning">
                         <?php echo $comitato->numMembriOrdinari(); ?>
                     </span>
-                    <!--<a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unitgio">
+                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&ordinariunit&id=<?php echo $comitato->id; ?>">
                            <i class="icon-envelope"></i> Invia mail
-                    </a>-->
+                    </a>
                     <a class="btn btn-small pull-right" 
                        href="?p=presidente.utenti.excel&ordinari&comitato=<?php echo $comitato->id; ?>"
                        data-attendere="Generazione...">
@@ -102,6 +102,11 @@ menuElenchiVolontari(
                             <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                 <i class="icon-envelope"></i>
                             </a>
+                            <?php if($me->admin()){ ?>
+                                <a class="btn btn-small btn-primary" href="?p=admin.beuser&id={id}" title="Log in">
+                                    <i class="icon-key"></i>
+                                </a>
+                            <?php } ?>
                         </div>
                    </td>
                 </tr>
