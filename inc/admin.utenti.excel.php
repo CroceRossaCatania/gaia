@@ -434,6 +434,8 @@ if(isset($_GET['dimessi'])){
  $zip->comprimi("Volontari in estensione.zip"); 
 }elseif(isset($_GET['soci'])){
  $zip->comprimi("Elenco soci.zip"); 
+}elseif(isset($_GET['ordinari'])){
+ $zip->comprimi("Elenco soci ordinari.zip"); 
 }else{
     $zip->comprimi("Anagrafica_volontari.zip");
 }
