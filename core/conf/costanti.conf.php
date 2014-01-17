@@ -471,7 +471,7 @@ $conf['est_obj'] = [
 
 /*
  * ===================================
- * =========== ELEZIONI====== ============
+ * =========== ELEZIONI ==============
  * ===================================
  */
 
@@ -479,16 +479,16 @@ define('ANZIANITA', 2);
 
 /*
  * ===================================
- * =========== QUOTE IMPORTI =========
+ * =========== TESSERAMENTO ==========
  * ===================================
  */
 
-define('QUOTA_ORDINARIO', 16);
-define('QUOTA_ATTIVO', 8);
+define('TESSERAMENTO_CHIUSO', 0);
+define('TESSERAMENTO_APERTO', 10);
 
-$conf['quote'] = [
-    QUOTA_ORDINARIO        =>  'Quota Ordinario 16€',
-    QUOTA_ATTIVO       =>  'Quota Attivo 8€'
+$conf['tesseramento'] = [
+    TESSERAMENTO_CHIUSO     =>  'Chiuso',
+    TESSERAMENTO_APERTO     =>  'Aperto'
 ];
 
 /*
