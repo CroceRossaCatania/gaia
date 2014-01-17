@@ -147,7 +147,7 @@ function menuVolontario() {
     if ( $me && $me->stato == ASPIRANTE ) {
         menuAspirante();
         return;
-    }elseif($me && $me->ordinario()){
+    }elseif($me && ($me->ordinario() || $me->ordinariodimesso())){
         menuOrdinario();
         return;
     }

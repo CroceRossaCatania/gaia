@@ -1196,4 +1196,17 @@ class Utente extends Persona {
         }
         return $r;
     }
+
+    public function ordinarioDimesso() {
+        $r = [];
+        foreach ( Appartenenza::filtra([
+            ['volontario',  $this->id],
+            ['stato',       MEMBRO_ORDINARIO_DIMESSO]
+        ]) as $a ) {
+            if ( !$a->attuale() ) { continue; }
+            $r[] = $a;
+        }
+        return $r;
+    }
+
 }
