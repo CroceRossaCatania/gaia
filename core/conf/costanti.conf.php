@@ -475,12 +475,26 @@ $conf['est_obj'] = [
 
 /*
  * ===================================
- * =========== ELEZIONI====== ============
+ * =========== ELEZIONI ==============
  * ===================================
  */
 
 define('ANZIANITA', 2);
 
+
+/*
+ * ===================================
+ * =========== TESSERAMENTO ==========
+ * ===================================
+ */
+
+define('TESSERAMENTO_CHIUSO', 0);
+define('TESSERAMENTO_APERTO', 10);
+
+$conf['tesseramento'] = [
+    TESSERAMENTO_CHIUSO     =>  'Chiuso',
+    TESSERAMENTO_APERTO     =>  'Aperto'
+];
 
 /*
  * ===================================

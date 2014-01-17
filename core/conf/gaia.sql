@@ -488,6 +488,18 @@ CREATE TABLE IF NOT EXISTS `sessioni` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+CREATE TABLE IF NOT EXISTS `tesseramenti` (
+  `id` int(11) NOT NULL,
+  `stato` int(11) DEFAULT NULL,
+  `inizio` varchar(64) DEFAULT NULL,
+  `fine` varchar(64) DEFAULT NULL,
+  `anno` varchar(16) DEFAULT NULL,
+  `attivo` varchar(10) DEFAULT NULL,
+  `ordinario` varchar(10) DEFAULT NULL,
+  `benemerito` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `titoli` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
