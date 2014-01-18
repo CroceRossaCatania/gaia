@@ -40,12 +40,14 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     } 
     if ($anno == $questanno) {
         $registraOk = true;
+    }
+    
 
     $t = Tesseramento::by('anno', $anno);
     $accettaPagamenti = false;
     if ($t)
         $accettaPagamenti = $t->accettaPagamenti();
-    }?>
+    ?>
     <br/>
 <div class="row-fluid">
     <div class="span5 allinea-sinistra">
@@ -89,6 +91,15 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 </div>
     
 <hr />
+
+<div class="row-fluid">
+    <div class="alert alert-info">
+    <p><i class="icon-warning-sign"></i> È possibile registrare i pagamenti solo se 
+    il <strong>Codice Fiscale</strong> e la <strong>Partita Iva</strong> sono stati inseriti.<br />
+    L'inserimento deve essere effettuato dal presidente del comitato nella scermata di inserimento
+    dei dati del comitato.</p>
+    </div>
+</div>
     
 <div class="row-fluid">
    <div class="span12">
@@ -121,6 +132,10 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
             $t = $comitato->quoteNo($anno);
+            $fiscali = true;
+            if (!$comitato->cf() || !$comitato->piva()) {
+                $fiscali = false;
+            }
                 ?>
             
             <tr class="success">
@@ -161,7 +176,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
                     <td>
                         <div class="btn-group">
-                            <?php if($registraOk && $accettaPagamenti) { ?>
+                            <?php if($registraOk && $accettaPagamenti && $fiscali) { ?>
                             <a class="btn btn-small btn-info" href="?p=us.quote.nuova&id=<?php echo $_v->id; ?>" title="Paga quota">
                                 <i class="icon-certificate"></i> Registra
                             </a>

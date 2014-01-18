@@ -7,7 +7,7 @@
 controllaParametri(array('id'), 'us.dash&err');
 $id = $_GET['id'];
 
-$v = Volontario::id($id);
+$v = Utente::id($id);
 
 proteggiDatiSensibili($v, [APP_SOCI , APP_PRESIDENTE]);
 
@@ -28,6 +28,7 @@ $quotaMin = $attivo ? $t->attivo : $t->ordinario;
 
 ?>
 <form action="?p=us.quote.nuova.ok" method="POST">
+  <input type="hidden" name="vol" value="<?php echo $id; ?>" />
   <div class="modal fade automodal">
     <div class="modal-header">
       <h3><i class="icon-certificate"></i> Pagamento quota <?php echo($attivo ? 'socio attivo' : 'socio ordinario') ?></h3>
@@ -80,9 +81,6 @@ $quotaMin = $attivo ? $t->attivo : $t->ordinario;
             &nbsp; <span class="muted"> da <?php echo $quotaMin;?>.00 € in su</span>
           </div>
         </div>
-
-
-        <input type="hidden" name="id" value="<?php echo $id; ?>">
       </div>
     </div>
     <div class="modal-footer">

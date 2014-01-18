@@ -5,10 +5,11 @@
  */
 
 
-$parametri = ['id', 'inputImporto', 'inputData'];
+$parametri = ['vol', 'inputImporto', 'inputData'];
 controllaParametri($parametri, 'us.dash&err');
 
-$v = Utente::id($_POST['id']);
+
+$v = Utente::id($_POST['vol']);
 
 proteggiDatiSensibili($v, [APP_SOCI , APP_PRESIDENTE]);
 
@@ -18,6 +19,11 @@ if (!$t = Tesseramento::attivo()) {
 
 $importo = (float) $_POST['inputImporto'];
 $importo = round($importo, 2);
+$attivo = false;
+
+if($v->stato == VOLONTARIO) {
+	$attivo = true;
+}
 $quotaMin = $attivo ? $t->attivo : $t->ordinario;
 
 if ($importo < $quotaMin) {
@@ -40,8 +46,7 @@ if($gia){
 $time = DT::createFromFormat('d/m/Y', $_POST['inputData']);
 $causale = 'Rinnovo quota '.$anno;
 if ($importo > $quotaBen) {
-	$causale = $causale . " Promozione a socio benemerito per il versamento di una quota superiore a " . $quotaBen . "€";
-	$v->benemerito = time();
+	$causale = $causale . ". Promozione a socio benemerito per l'anno " . $anno . " per il versamento di una quota superiore a " . $quotaBen . " euro.";
 }
 
 $q = new Quota();
@@ -58,8 +63,7 @@ $q->assegnaProgressivo();
 $p = new PDF('ricevutaquota', 'ricevuta.pdf');
 $p->_COMITATO 	= $app->comitato()->locale()->nomeCompleto();
 $p->_INDIRIZZO 	= $app->comitato()->locale()->formattato;
-$iva 			= $app->comitato()->locale()->piva();
-$p->_PIVA 		= $iva;
+$p->_PIVA 		= $app->comitato()->piva();
 $p->_ID 		= $q->progressivo();
 $p->_NOME 		= $v->nome;
 $p->_COGNOME 	= $v->cognome;
@@ -70,7 +74,10 @@ $p->_QUOTA 		= $importo;
 $p->_CAUSALE 	= $causale;
 $p->_LUOGO 		= $app->comitato()->locale()->comune;
 $p->_DATA 		= date('d-m-Y', time());
+$p->_CHINOME	= $me->nomeCompleto();
+$p->_CHICF		= $me->codiceFiscale;
 $f = $p->salvaFile();                                
+
 
 /* Invio ricevuta all'utente */
 
@@ -82,4 +89,3 @@ $m->allega($f);
 $m->invia();
 
 redirect('us.quoteNo&ok');
-    
