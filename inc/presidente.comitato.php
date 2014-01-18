@@ -265,7 +265,8 @@ $(document).ready(function() {
                             <td> €
                                 <?php if ($t->stato == TESSERAMENTO_APERTO
                                         && $c->quotaBenemeriti() == $t->benemerito) { ?>
-                                <input class="input-mini" type="text"
+                                <input class="input-mini" type="number"
+                                step="0.1" min="<?php echo $t->benemerito; ?>"
                                 name="<?php echo $t->anno; ?>_benemerito" 
                                 value="<?php echo number_format((float) $c->quotaBenemeriti($t->anno), 2, '.', ''); ?>"
                                 />  

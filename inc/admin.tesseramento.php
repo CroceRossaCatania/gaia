@@ -89,19 +89,19 @@ if ( isset($_GET['anno']) ) { ?>
                     </select>  
                 </td>
                 <td>
-                    € <input class="input-mini" type="text" 
+                    € <input class="input-mini" type="number" step="0.1"
                     name="<?php echo $t->id; ?>_attivo"
                     value="<?php echo number_format((float)$t->attivo, 2, '.', ''); ?>"
                     />
                 </td>
                 <td>
-                    € <input class="input-mini" type="text" 
+                    € <input class="input-mini" type="number" step="0.1"
                     name="<?php echo $t->id; ?>_ordinario"
                     value="<?php echo number_format((float)$t->ordinario, 2, '.', ''); ?>"
                     />
                 </td>
                 <td>
-                    € <input class="input-mini" type="text" 
+                    € <input class="input-mini" type="number" step="0.1"
                     name="<?php echo $t->id; ?>_benemerito"
                     value="<?php echo number_format((float)$t->benemerito, 2, '.', ''); ?>"
                     />
