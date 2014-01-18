@@ -52,4 +52,13 @@ class Quota extends Entita {
         }
         return null;
     }
+
+    public function benemerita() {
+        return (bool) $this->benemerito == BENEMERITO_SI;
+    }
+
+    public function data() {
+        return DT::daTimestamp($this->timestamp);
+    }
+
 }

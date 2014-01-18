@@ -44,10 +44,6 @@ if($gia){
 }
 
 $time = DT::createFromFormat('d/m/Y', $_POST['inputData']);
-$causale = 'Rinnovo quota '.$anno;
-if ($importo > $quotaBen) {
-	$causale = $causale . ". Promozione a socio benemerito per l'anno " . $anno . " per il versamento di una quota superiore a " . $quotaBen . " euro.";
-}
 
 $q = new Quota();
 $q->appartenenza 	= $app;
@@ -56,6 +52,13 @@ $q->tConferma 		= time();
 $q->pConferma 		= $me;
 $q->anno 			= $anno;
 $q->quota 			= $importo;
+
+$causale = 'Rinnovo quota '.$anno;
+if ($importo > $quotaBen) {
+	$q->benemerito = BENEMERITO_SI;
+	$causale = $causale . ". Promozione a socio benemerito per l'anno " . $anno . " per il versamento di una quota superiore a " . $quotaBen . " euro.";
+}
+
 $q->causale 		= $causale;
 $q->assegnaProgressivo();
 
