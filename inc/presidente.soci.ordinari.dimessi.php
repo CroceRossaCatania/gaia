@@ -7,7 +7,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE ]);
 menuElenchiVolontari(
     "Soci Ordinari Dimessi",
     "?p=admin.utenti.excel&ordinaridimessi",
-    false
+    "?p=utente.mail.nuova&ordinaridimessicom"
 );
 
 ?>
@@ -49,11 +49,11 @@ menuElenchiVolontari(
                     <span class="label label-warning">
                         <?php echo $comitato->numMembriOrdinariDimessi(); ?>
                     </span>
-                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&ordinariunit&id=<?php echo $comitato->id; ?>">
+                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&ordinaridimessiunit&id=<?php echo $comitato->id; ?>">
                            <i class="icon-envelope"></i> Invia mail
                     </a>
                     <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&ordinari&comitato=<?php echo $comitato->id; ?>"
+                       href="?p=presidente.utenti.excel&ordinaridimessi&comitato=<?php echo $comitato->id; ?>"
                        data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                     </a>

@@ -553,7 +553,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
-     public function quoteNo($anno) {
+     public function quoteNo($anno , $stato=MEMBRO_VOLONTARIO) {
         $q = $this->db->prepare("
             SELECT 
                 anagrafica.id 
@@ -583,7 +583,7 @@ class Comitato extends GeoPolitica {
         $q->bindParam(':comitato',  $this->id);
         $q->bindParam(':ora',  time());
         $q->bindParam(':anno', $anno);
-        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
+        $q->bindParam(':stato', $stato);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {

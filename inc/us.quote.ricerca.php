@@ -17,7 +17,7 @@ paginaModale();
     <div class="modal-body">
       <div class="row-fluid">
         <div class="span4 centrato">
-          <label class="control-label" for="inputNumero"> Per numero</label>
+          <label class="control-label" for="inputNumero"> Numero</label>
         </div>
         <div class="span8">
           <input class="input-medium" type="text" name="inputNumero" id="inputNumero" required />
@@ -29,7 +29,7 @@ paginaModale();
         </div>
         <div class="span8 input-prepend">
           <span class="add-on"><i class="icon-calendar"></i></span>
-          <input class="input-medium" type="text" name="inputAnno" id="inputAnno" required autocomplete="off"/>
+          <input class="input-medium" type="text" name="inputAnno" id="inputAnno" value="<?= date('Y', time()); ?>" required autocomplete="off"/>
         </div>
       </div>
     </div>

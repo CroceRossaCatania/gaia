@@ -31,9 +31,13 @@ class PDF {
         if($comitato){
             $this->_INDIRIZZO  = $comitato->locale()->formattato;
             $this->_PIVA       = $comitato->locale()->piva();
+            $footer     = file_get_contents('./core/conf/pdf/footerComitato.html');
+        }else{
+            $this->_MARCA_TEMPORALE = date('d-m-Y H:i');
+            $this->_VERSIONE_GAIA = $conf['version'];
+            $footer     = file_get_contents('./core/conf/pdf/footer.html');
         }
         $header     = file_get_contents('./core/conf/pdf/header.html');
-        $footer     = file_get_contents('./core/conf/pdf/footer.html');
         $corpo      = file_get_contents('./core/conf/pdf/modelli/' . $this->modello . '.html');
         $corpo  = $header . $corpo . $footer;
         foreach ( $this->sostituzioni as $nome => $valore ) {
