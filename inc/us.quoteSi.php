@@ -73,7 +73,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 <div ng-app>
 <div class="row-fluid">
-    <div class="span4 allinea-centro">
+    <div class="span3 allinea-centro">
 
         <div class="well">
             <i class="icon-certificate"></i> Ad oggi sono state pagate<br />
@@ -84,7 +84,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     </div>
 
 
-    <div class="span4 allinea-centro">
+    <div class="span6 allinea-centro">
         <div class="well">
             <i class="icon-money"></i> Attualmente sono stati raccolti<br />
             <span class="quote_contatore"> {{incasso}} €</span>
@@ -93,12 +93,12 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         </div>
     </div>
 
-    <div class="span4 allinea-centro">
+    <div class="span3 allinea-centro">
         <div class="well">
             <i class="icon-thumbs-up-alt"></i> Attualmente sono presenti<br />
             <span class="quote_contatore"> {{benemeriti}}</span>
             <br />
-            <span class="aspiranti_descrizione">SOCI BENEMERITI</span>
+            <span class="aspiranti_descrizione">BENEMERITI</span>
         </div>
     </div>
 </div>
@@ -128,9 +128,6 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     <span class="label label-warning">
                         <?php echo count($t); ?>
                     </span>
-                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unitquotesi">
-                           <i class="icon-envelope"></i> Invia mail
-                    </a>
                     <a class="btn btn-small pull-right" 
                        href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&quotesi"
                        data-attendere="Generazione...">
@@ -152,7 +149,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     <td><?php echo $_v->codiceFiscale; ?></td>
                     
                     <td>
-                        <?php $q = $_v->quota();
+                        <?php $q = $_v->quota($anno);
                             $totale += (float) $q->quota;
                             if ($q->benemerita()) { 
                                 $ben++;
@@ -162,16 +159,18 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                                 echo('€ ' . round((float) $q->quota, 2));
                              }?>
                     </td>
-                    <td><?php echo $q->data()->inTesto(); ?></td>
+                    <td><?php echo $q->data()->inTesto(false); ?></td>
 
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
-                                <i class="icon-envelope"></i>
-                            </a>
+                        <a class="btn btn-small btn-info" href="?p=us.quote.visualizza&id=<?php echo $_v->id; ?>" title="Visualizza ricevute">
+                            <i class="icon-paperclip"></i> Ricevute
+                        </a>
+                        <?php if ($me->admin()) {?>
                             <a class="btn btn-small btn-info" href="?p=us.quote.visualizza&id=<?php echo $_v->id; ?>" title="Visualizza ricevute">
                                 <i class="icon-paperclip"></i> Ricevute
                             </a>
+                        <?php } ?>
                         </div>
                    </td>
                 </tr>
