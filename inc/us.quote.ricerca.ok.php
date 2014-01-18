@@ -11,7 +11,7 @@ controllaParametri(array('inputNumero','inputAnno'), 'us.dash&err');
 $numero = $_GET['inputNumero'];
 $anno   = $_GET['inputAnno'];
 $q = Quota::filtra([['anno', $anno],['progressivo', $numero]]);
-
+$q = $q[0];
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
@@ -53,6 +53,7 @@ $q = Quota::filtra([['anno', $anno],['progressivo', $numero]]);
                 <th>Comitato</th>
                 <th>Data versamento</th>
                 <th>Quota</th>
+                <th>Azioni</th>
             </thead>
         <?php
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
@@ -64,6 +65,11 @@ $q = Quota::filtra([['anno', $anno],['progressivo', $numero]]);
                     <td><?php echo $q->comitato()->nomeCompleto(); ?></td>
                     <td><?php echo date('d/m/Y', $q->timestamp); ?></td>
                     <td><?php echo $q->quota ,"€"; ?></td>
+                    <td>
+                        <a class="btn btn-small btn-info" href="?p=us.quote.visualizza&id=<?php echo $q->volontario()->id; ?>" title="Visualizza ricevute">
+                            <i class="icon-paperclip"></i> Ricevute
+                        </a>
+                    </td>
                 </tr>
                 
         </table>
