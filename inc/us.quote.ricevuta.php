@@ -26,7 +26,7 @@ $p->_LUOGO 		= $quota->comitato()->locale()->comune;
 $p->_DATA 		= date('d/m/Y', $quota->tConferma);
 $p->_CHINOME	= $quota->conferma()->nomeCompleto();
 $p->_CHICF		= $quota->conferma()->codiceFiscale;
-$f = $p->salvaFile();  
+$f = $p->salvaFile($quota->comitato());  
 $f->download();
 
 ?>

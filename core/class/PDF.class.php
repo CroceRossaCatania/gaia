@@ -31,6 +31,7 @@ class PDF {
         if($comitato){
             $this->_INDIRIZZO  = $comitato->locale()->formattato;
             $this->_PIVA       = $comitato->locale()->piva();
+            $this->_CF         = $comitato->locale()->cf();
             $footer     = file_get_contents('./core/conf/pdf/footerComitato.html');
         }else{
             $this->_MARCA_TEMPORALE = date('d-m-Y H:i');
