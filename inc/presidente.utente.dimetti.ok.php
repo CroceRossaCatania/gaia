@@ -11,6 +11,8 @@ controllaParametri(array('id'), 'presidente.utenti&errGen');
 $v     = $_GET['id'];
 $v = Volontario::id($v);
 
+proteggiDatiSensibili($v, [APP_SOCI , APP_PRESIDENTE]);
+
 foreach ( $conf['dimissioni'] as $numero => $dimissioni ) {
     if ( $numero == $_POST['motivo']) { $motivo =  $dimissioni;} 
                     }
