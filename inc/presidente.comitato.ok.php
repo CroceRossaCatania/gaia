@@ -10,6 +10,18 @@ $c = GeoPolitica::daOid($c);
 /* A che scheda tornare? Indice 0-based */ 
 $back = null;
 
+if(isset($_POST[date('Y') . '_benemerito'])) {
+    $anno = date('Y');
+    $t = Tesseramento::by('anno', $anno);
+    $nuova = (float) $_POST[date('Y') . '_benemerito'];
+    if($t->stato == TESSERAMENTO_APERTO 
+        and (float) $c->quotaBenemeriti() == (float) $t->benemerito
+        and $nuova > (float) $t->benemerito) {
+        $c->quota_{$anno} = $nuova;
+    }
+    $back = 'benemeriti';
+}
+
 if(isset($_POST['cancellaDelegato'])) {
     $back = 'obiettivi';
     $num = $_POST['cancellaDelegato'];

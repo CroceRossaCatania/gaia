@@ -296,5 +296,17 @@ abstract class GeoPolitica extends GeoEntita {
         }
         return false;
     }
+
+    public function quotaBenemeriti($anno = null) {
+        if (!$anno)
+            $anno = date('Y');
+        if ($t = Tesseramento::by('anno', $anno)) {
+            if ( $r = $this->quota_{$anno} ) {
+                return $r;
+            }
+            return $t->benemerito;
+        } 
+        return null;
+    }
     
 }
