@@ -1028,6 +1028,17 @@ class Utente extends Persona {
         return $q;
     }
 
+    public function quota($anno = null) {
+        if (!$anno)
+            $anno = date('Y');
+        $q = $this->quote();
+        foreach ($q as $_q) {
+            if ($_q->anno == $anno)
+                return $_q;
+        }
+        return false;
+    } 
+
     public static function elencoId() {
          global $db;
         $q = $db->prepare("
@@ -1207,6 +1218,27 @@ class Utente extends Persona {
             $r[] = $a;
         }
         return $r;
+    }
+
+    /**
+     * Dice se un socio è benemerito per un dato anno
+     * @param $anno int     Anno su cui voglio fare il controllo
+     * @return Quota|bool   Quota se benemerito, false altrimenti
+     */
+    public function benemerito($anno = null) {
+        if (!$anno)
+            $anno = date('Y');
+        $q = Quota::filtra([
+            ['anno', $anno],
+            ['benemerito', BENEMERITO_SI]
+            ]);
+
+        foreach ($q as $_q) {
+            if ($_q->volontario()->id == $this->id)
+                return $_q;
+        }
+        return false;
+
     }
 
 }

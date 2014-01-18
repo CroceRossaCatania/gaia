@@ -374,3 +374,9 @@ body {
     font-size: 2em;
     text-transform: uppercase;
 }
+
+.quote_contatore {
+    font-size: 6.5em; 
+    line-height: 1em;
+    text-shadow: 3px 3px 0px white;
+}
