@@ -28,15 +28,17 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
     <br/>
 <div class="row-fluid">
-    <div class="span5 allinea-sinistra">
+    <div class="span4 allinea-sinistra">
         <h2>
             <i class="icon-group muted"></i>
             Quote Pagate
         </h2>
     </div>
-            
-    <div class="span3">
-        <div class="btn-group btn-group-vertical span12">
+
+    <div class="span4">
+        <div class="span6">
+            Volontari
+            <div class="btn-group btn-group-vertical span12">
                 <a href="?p=us.quoteSi" class="btn btn-block btn-success">
                     <i class="icon-ok"></i>
                     Quote Pagate
@@ -45,13 +47,23 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     <i class="icon-remove"></i>
                     Quote non pagate
                 </a>
-                <a href="?p=us.dash" class="btn btn-block">
-                    <i class="icon-reply"></i>
-                    Torna alla dash
+            </div>
+        </div>
+        <div class="span6">
+            Soci Ordinari
+            <div class="btn-group btn-group-vertical span12">
+                <a href="?p=us.quoteSi" class="btn btn-block btn-success">
+                    <i class="icon-ok"></i>
+                    Quote Pagate
                 </a>
+                <a href="?p=us.quoteNo" class="btn btn-block btn-danger">
+                    <i class="icon-remove"></i>
+                    Quote non pagate
+                </a>
+            </div>
         </div>
     </div>
-    
+
     <div class="span4 allinea-destra">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>
@@ -96,7 +108,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         <?php
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
-            $t = $comitato->quoteSi($anno);
+            $t = $comitato->quoteSi($anno,MEMBRO_ORDINARIO);
                 ?>
             
             <tr class="success">
