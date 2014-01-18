@@ -11,15 +11,19 @@ $c = GeoPolitica::daOid($c);
 $back = null;
 
 if(isset($_POST[date('Y') . '_benemerito'])) {
+    $back = 'benemeriti';
+    $oid = $c->oid();
     $anno = date('Y');
+    $property = 'quota_' . $anno;
     $t = Tesseramento::by('anno', $anno);
     $nuova = (float) $_POST[date('Y') . '_benemerito'];
     if($t->stato == TESSERAMENTO_APERTO 
         and (float) $c->quotaBenemeriti() == (float) $t->benemerito
         and $nuova > (float) $t->benemerito) {
-        $c->quota_{$anno} = $nuova;
+        $c->$property = $nuova;
+    } else {
+        redirect("presidente.comitato&errquota&oid={$oid}&back={$back}");
     }
-    $back = 'benemeriti';
 }
 
 if(isset($_POST['cancellaDelegato'])) {

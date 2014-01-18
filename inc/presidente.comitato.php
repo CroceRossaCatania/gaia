@@ -80,6 +80,13 @@ $(document).ready(function() {
     </div>
     <?php } ?>
 
+    <?php if ( isset($_GET['errquota']) ) { ?>
+    <div class="alert alert-error">
+        <i class="icon-warning-sign"></i> <strong>Modifiche non salvate</strong> &mdash;
+        Non è possibile inserire un valore inferiore a quello stabilito a livello Nazionale.
+    </div>
+    <?php } ?>
+
     <?php if ( isset($_GET['double']) ) { ?>
     <div class="alert alert-error">
         <i class="icon-warning-sign"></i> <strong>Modifiche non salvate</strong> &mdash;
@@ -256,10 +263,15 @@ $(document).ready(function() {
                             <td><?php echo $t->anno; ?></td>
                             <td><?php echo $conf['tesseramento'][$t->stato]; ?></td>
                             <td> €
-                                <input class="input-mini" type="text" 
+                                <?php if ($t->stato == TESSERAMENTO_APERTO
+                                        && $c->quotaBenemeriti() == $t->benemerito) { ?>
+                                <input class="input-mini" type="text"
                                 name="<?php echo $t->anno; ?>_benemerito" 
                                 value="<?php echo number_format((float) $c->quotaBenemeriti($t->anno), 2, '.', ''); ?>"
-                                />                           
+                                />  
+                                <?php } else { 
+                                    echo number_format((float) $c->quotaBenemeriti($t->anno), 2, '.', '');
+                                 } ?>                         
                             </td>
                             <td>
                                 <?php if($t->stato == TESSERAMENTO_APERTO

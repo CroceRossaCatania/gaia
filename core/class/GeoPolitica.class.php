@@ -300,8 +300,9 @@ abstract class GeoPolitica extends GeoEntita {
     public function quotaBenemeriti($anno = null) {
         if (!$anno)
             $anno = date('Y');
+        $property = 'quota_' . $anno;
         if ($t = Tesseramento::by('anno', $anno)) {
-            if ( $r = $this->quota_{$anno} ) {
+            if ( $r = $this->$property ) {
                 return $r;
             }
             return $t->benemerito;
