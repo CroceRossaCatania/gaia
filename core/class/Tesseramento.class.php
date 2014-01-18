@@ -32,7 +32,7 @@ class Tesseramento extends Entita {
      * @return bool True se accetta, false altrimenti
      */
     public function accettaPagamenti() {
-        if($this->aperto && $this->inizio() < date()) {
+        if($this->aperto() && $this->inizio() < DT::daTimestamp(time())) {
             return true;
         }
         return false;
@@ -44,7 +44,7 @@ class Tesseramento extends Entita {
      * @return bool True se accetta, false altrimenti
      */
     public function siPuoDimettereTutti() {
-        if($this->aperto && $this->fine() < date()) {
+        if($this->aperto() && $this->fine() < DT::daTimestamp(time())) {
             return true;
         }
         return false;

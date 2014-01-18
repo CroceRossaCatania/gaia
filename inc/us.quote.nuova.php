@@ -19,7 +19,12 @@ $attivo = false;
 if ($v->stato == VOLONTARIO) {
   $attivo = true;
 }
-$quotaMin = $attivo ? QUOTA_ATTIVO : QUOTA_ORDINARIO;
+
+if (!$t = Tesseramento::attivo()) {
+  redirect('us.quoteNo&err');
+}
+
+$quotaMin = $attivo ? $t->attivo : $t->ordinario;
 
 ?>
 <form action="?" method="GET">
@@ -39,10 +44,8 @@ $quotaMin = $attivo ? QUOTA_ATTIVO : QUOTA_ORDINARIO;
           <?php } ?>
           <div class="alert alert-info">
             <h4>Rinnovo per <?php echo($v->nomeCompleto()); ?></h4>
-            <p>Indica la data di registrazione della ricevuta e l'importo, che deve essere superiore a
+            <p>Indica la data di registrazione della ricevuta e l'importo, uguale o superiore a
             <?php echo $quotaMin;?>.00 €.</p>
-            <p>L'importo deve essere espresso in cifre, utilizzando il punto come separatore decimale e senza inserire il simbolo dell'Euro (€).
-            Ad esempio <?php echo $quotaMin;?>, <?php echo $quotaMin;?>.00 o 19.32 sono importi accettati mentre <?php echo $quotaMin;?>,0 e 19,32 <strong>non</strong> sono importi accettati.</p>
           </div>
         </div>
       </div>
@@ -50,7 +53,10 @@ $quotaMin = $attivo ? QUOTA_ATTIVO : QUOTA_ORDINARIO;
         <div class="control-group">
           <label class="control-label" for="inputData">Data versamento quota</label>
           <div class="controls">
-            <input class="input-medium" type="text" name="inputData" id="inputData" required pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}">
+            <input class="input-medium" type="text" name="inputData" 
+            id="inputData" required pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" 
+            data-inizio="<?php echo $t->inizio()->format('d/m/Y'); ?>" data-fine="<?php echo $t->fine()->format('d/m/Y'); ?>"
+            />
           </div>
         </div>
         
@@ -71,7 +77,7 @@ $quotaMin = $attivo ? QUOTA_ATTIVO : QUOTA_ORDINARIO;
         <div class="control-group">
           <label class="control-label" id="importo" for="inputImporto" >Importo in €</label>
           <div class="controls">
-            <input class="input-medium" type="text" name="inputImporto" id="inputImporto" >
+            <input class="input-medium" type="number" min="<?php echo $quotaMin ?>" value="<?php echo $quotaMin ?>" step="0.01" name="inputImporto" id="inputImporto" >
             &nbsp; <span class="muted"> da <?php echo $quotaMin;?>.00 € in su</span>
           </div>
         </div>

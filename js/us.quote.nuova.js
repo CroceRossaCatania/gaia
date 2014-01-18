@@ -1,5 +1,8 @@
 $(document).ready( function() {
- 
-    $("#inputData").datepicker();
-    
+ 	var min = $("#inputData").attr('data-inizio');
+    var max = $("#inputData").attr('data-fine');
+    $("#inputData").datepicker({
+    	minDate: min,
+    	maxDate: max
+    });
 });

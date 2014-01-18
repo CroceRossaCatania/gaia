@@ -23,6 +23,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <i class="icon-remove"></i> <strong>Quota già pagata</strong>.
             La quota del volontario risulta già pagata.
         </div>
+<?php }elseif ( isset($_GET['err']) ) { ?>
+        <div class="alert alert-danger">
+            <i class="icon-remove"></i> <strong>Tesseramento non attivo</strong>.
+            Al momento non è possibile registrare altre quote.
+        </div>
 <?php }
     $questanno = $anno = date('Y', time());
     if (!isset($_POST['anno'])) {
@@ -35,6 +40,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     } 
     if ($anno == $questanno) {
         $registraOk = true;
+
+    $t = Tesseramento::by('anno', $anno);
+    $accettaPagamenti = false;
+    if ($t)
+        $accettaPagamenti = $t->accettaPagamenti();
     }?>
     <br/>
 <div class="row-fluid">
@@ -70,7 +80,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
        <form action="?p=us.quoteNo" method="POST">
         <div class="form-search">
             <span class="add-on"><i class="icon-calendar"></i></span>
-            <input class="input-medium" autocomplete="off" name="anno" type="number" min="2005" max="2013" step="1" value="<?php echo $anno; ?>">
+            <input class="input-medium" autocomplete="off" name="anno" type="number" min="2005" max="<?php echo date('Y'); ?>" step="1" value="<?php echo $anno; ?>">
             <button class="btn btn-info" type="submit" ><i class="icon-search"></i>
             </button>
         </div>
@@ -151,7 +161,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
                     <td>
                         <div class="btn-group">
-                            <?php if($registraOk) { ?>
+                            <?php if($registraOk && $accettaPagamenti) { ?>
                             <a class="btn btn-small btn-info" href="?p=us.quote.nuova&id=<?php echo $_v->id; ?>" title="Paga quota">
                                 <i class="icon-certificate"></i> Registra
                             </a>
