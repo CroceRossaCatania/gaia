@@ -53,7 +53,7 @@ menuElenchiVolontari(
                            <i class="icon-envelope"></i> Invia mail
                     </a>
                     <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&ordinari&comitato=<?php echo $comitato->id; ?>"
+                       href="?p=presidente.utenti.excel&ordinaridimessi&comitato=<?php echo $comitato->id; ?>"
                        data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                     </a>
