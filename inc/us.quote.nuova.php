@@ -27,8 +27,7 @@ if (!$t = Tesseramento::attivo()) {
 $quotaMin = $attivo ? $t->attivo : $t->ordinario;
 
 ?>
-<form action="?" method="GET">
-  <input type="hidden" name="p" value="us.quote.nuova.ok">
+<form action="?p=us.quote.nuova.ok" method="POST">
   <div class="modal fade automodal">
     <div class="modal-header">
       <h3><i class="icon-certificate"></i> Pagamento quota <?php echo($attivo ? 'socio attivo' : 'socio ordinario') ?></h3>
@@ -54,7 +53,7 @@ $quotaMin = $attivo ? $t->attivo : $t->ordinario;
           <label class="control-label" for="inputData">Data versamento quota</label>
           <div class="controls">
             <input class="input-medium" type="text" name="inputData" 
-            id="inputData" required pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" 
+            id="inputData" required pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" autocomplete="off"
             data-inizio="<?php echo $t->inizio()->format('d/m/Y'); ?>" data-fine="<?php echo $t->fine()->format('d/m/Y'); ?>"
             />
           </div>

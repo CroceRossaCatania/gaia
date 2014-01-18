@@ -8,17 +8,25 @@
 $parametri = ['id', 'inputImporto', 'inputData'];
 controllaParametri($parametri, 'us.dash&err');
 
-$v = Volontario::id($_GET['id']);
+$v = Utente::id($_POST['id']);
 
 proteggiDatiSensibili($v, [APP_SOCI , APP_PRESIDENTE]);
 
-$importo = (float) $_GET['inputImporto'];
+if (!$t = Tesseramento::attivo()) {
+  redirect('us.quoteNo&err');
+}
+
+$importo = (float) $_POST['inputImporto'];
 $importo = round($importo, 2);
-if ($importo < QUOTA_ATTIVO) {
+$quotaMin = $attivo ? $t->attivo : $t->ordinario;
+
+if ($importo < $quotaMin) {
     redirect('us.quote.nuova&id='.$id.'&importo');
 }
 
 $app = $v->appartenenzaAttuale();
+
+$quotaBen = $quotaMin + (float) $app->comitato()->quotaBenemeriti();
 
 $anno = date('Y');
 
@@ -29,8 +37,12 @@ if($gia){
 	redirect('us.quoteNo&gia');
 }
 
-$time = DT::createFromFormat('d/m/Y', $_GET['inputData']);
+$time = DT::createFromFormat('d/m/Y', $_POST['inputData']);
 $causale = 'Rinnovo quota '.$anno;
+if ($importo > $quotaBen) {
+	$causale = $causale . " Promozione a socio benemerito per il versamento di una quota superiore a " . $quotaBen . "€";
+	$v->benemerito = time();
+}
 
 $q = new Quota();
 $q->appartenenza 	= $app;
