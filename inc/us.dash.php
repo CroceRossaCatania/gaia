@@ -33,6 +33,12 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                 La richiesta di riserva è stata inoltrata con successo.
             </div>
             <?php } ?>
+            <?php if ( isset($_GET['canc']) ) { ?>
+            <div class="alert alert-success">
+                <i class="icon-ok"></i> <strong>Quota cancellata</strong>.
+                La quota è stata rimossa in maniera corretta.
+            </div>
+            <?php } ?>
             <?php if ( isset($_GET['riserrdate']) ) { ?>
             <div class="alert alert-error">
                 <i class="icon-warning-sign"></i> <strong>Richiesta di riserva non inserita</strong>.

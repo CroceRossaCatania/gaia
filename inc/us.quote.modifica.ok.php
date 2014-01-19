@@ -6,29 +6,45 @@
 
 paginaAdmin();
 
+$parametri = ['id', 'inputImporto', 'inputData'];
+controllaParametri($parametri, 'us.dash&err');
+
 $id = $_POST['id'];
 $q = Quota::by('id', $id);
-$r = $_POST['inputQuota'];
 
-$time = DT::createFromFormat('d/m/Y', $_POST['inputData']);
-$q->timestamp = $time->getTimestamp();
-$q->tConferma = time();
-$q->pConferma = $me;
-if($r==QUOTA_PRIMO){
-    $q->quota = QUOTA_PRIMO;
-    $s = QUOTA_PRIMO;
-    $i = "Versamento quota iscrizione";
-    $q->causale = $i;
-}elseif($r == QUOTA_RINNOVO){
-    $q->quota = QUOTA_RINNOVO;
-    $s = QUOTA_RINNOVO;
-    $i = "Versamento quota di rinnovo annuale";
-    $q->causale = $i;
-}elseif($r ==QUOTA_ALTRO){
-    $q->quota = $_POST['inputImporto'];
-    $q->causale = $_POST['inputCausale'];
-    $s = $_POST['inputImporto'];
-    $i = $_POST['inputCausale'];
+$u = $q->volontario();
+$attivo = false;
+if ($u->stato == VOLONTARIO) {
+  $attivo = true;
+}
+if (!$t = Tesseramento::by('anno', $q->anno)) {
+  $t = new StdClass();
+  $t->attivo = 8;
+  $t->ordinario = 16;
 }
 
-redirect('us.quoteNo&ok');
+$importo = (float) $_POST['inputImporto'];
+$importo = round($importo, 2);
+
+$quotaMin = $attivo ? $t->attivo : $t->ordinario;
+
+if ($importo < $quotaMin) {
+    redirect('us.quote.modifica&id='.$id.'&importo');
+}
+
+$app = $q->appartenenza();
+$quotaBen = $quotaMin + (float) $app->comitato()->quotaBenemeriti();
+$anno = date('Y');
+
+$time = DT::createFromFormat('d/m/Y', $_POST['inputData']);
+
+
+$q->tConferma = $time->getTimestamp();
+$q->quota = $importo;
+if ($importo > $quotaBen) {
+    $q->benemerito = BENEMERITO_SI;
+} else {
+    $q->benemerito = BENEMERITO_NO;
+}
+
+redirect('us.quote.visualizza&id='.$u->id);
