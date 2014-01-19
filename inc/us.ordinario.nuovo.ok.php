@@ -133,7 +133,7 @@ $q->anno 			= $anno;
 $q->quota 			= $importo;
 
 $quotaBen = $t->ordinario + (float) $a->comitato()->quotaBenemeriti();
-$causale = 'Rinnovo quota '.$anno;
+$causale = 'Iscrizione socio ordinario anno '.$anno;
 if ($importo > $quotaBen) {
 	$q->benemerito = BENEMERITO_SI;
 	$causale = $causale . ". Promozione a socio benemerito per l'anno " . $anno . " per il versamento di una quota superiore a " . $quotaBen . " euro.";

@@ -123,10 +123,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
    <div class="span12">
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
+                <th>Quota</th>
                 <th>Cognome</th>
                 <th>Nome</th>
                 <th>Codice Fiscale</th>
-                <th>Quota</th>
+                <th>Importo</th>
                 <th>Data Pagamento</th>
                 <th>Azioni</th>
             </thead>
@@ -137,7 +138,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 ?>
             
             <tr class="success">
-                <td colspan="6" class="grassetto">
+                <td colspan="7" class="grassetto">
                     <?php echo $comitato->nomeCompleto(); ?>
                     <span class="label label-warning">
                         <?php echo count($t); ?>
@@ -158,12 +159,17 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 $n++;
             ?>
                 <tr>
+                    <td><?php
+                            $q = $_v->quota($anno);
+                            echo $q->progressivo();
+                        ?>
+                    </td>
                     <td><?php echo $_v->cognome; ?></td>
                     <td><?php echo $_v->nome; ?></td>
                     <td><?php echo $_v->codiceFiscale; ?></td>
                     
                     <td>
-                        <?php $q = $_v->quota($anno);
+                        <?php 
                             $totale += (float) $q->quota;
                             if ($q->benemerita()) { 
                                 $ben++;
