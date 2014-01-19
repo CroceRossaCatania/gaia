@@ -13,6 +13,10 @@ $u = Utente::id($id);
 $hoPotere = $u->modificabileDa($me);
 $t = TitoloPersonale::filtra([['volontario',$u]]);
 $admin = $me->admin();
+$attivo = true;
+if ($u->stato == PERSONA) {
+  $attivo = false;
+}
 
 proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 ?>
@@ -100,7 +104,9 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
     <!-- fine modale -->
 
-    <?php } ?>
+    <?php } 
+
+    if ($attivo) { ?>
 
     <!--Visualizzazione e modifica avatar utente-->
     <div class="span12">
@@ -133,6 +139,8 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
           <br/>   
         </div> 
       </div>
+
+      <?php } ?>
 
     <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $id; ?>" method="POST">
       <hr />
@@ -230,6 +238,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
          <input value="<?php echo $u->cellulare; ?>"  type="text" id="inputCellulare" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCellulare" pattern="[0-9]{9,11}" />
        </div>
      </div>
+     <?php if($attivo) { ?>
      <div class="control-group input-prepend">
        <label class="control-label" for="inputCellulareServizio">Cellulare Servizio</label>
        <div class="controls">
@@ -237,7 +246,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
          <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCellulareServizio" pattern="[0-9]{9,11}" />
        </div>
      </div>
-
+     <?php } ?>
      <div class="control-group">
       <label class="control-label" for="inputConsenso">Consenso dati personali</label>
       <div class="controls">
@@ -264,6 +273,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 </form>    
 </div>
 <!--Visualizzazione e modifica appartenenze utente -->
+<?php if($attivo) { ?>
 <div class="span6">
   <div class="row-fluid">
     <div class="span112">
@@ -641,4 +651,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <?php } ?>
     </table>
   </div>
+  <?php } ?>
 </div>
+
+

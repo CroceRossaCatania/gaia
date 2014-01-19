@@ -6,9 +6,9 @@
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 caricaSelettoreComitato();
-
+$t = Tesseramento::by('anno', date('Y'));
 ?>
-<form action="?p=us.utente.nuovo.ok" method="POST">
+<form action="?p=us.ordinario.nuovo.ok" method="POST">
     <div class="modal fade automodal">
 
         <div class="modal-header">
@@ -26,6 +26,16 @@ caricaSelettoreComitato();
                 <div class="alert alert-danger">
                     <i class="icon-ban-circle"></i> <strong>Scegli un comitato valido</strong>.
                     Seleziona un comitato di appartenenza che rientra nel tuo ruolo di presidente/ufficio soci.
+                </div>
+                <?php }elseif ( isset($_GET['q']) ) { ?>
+                <div class="alert alert-danger">
+                    <i class="icon-ban-circle"></i> <strong>La registrazione deve avvenire nell'anno in corso</strong>.
+                    Non puoi registrare soci in anni passati o nel futuro.
+                </div>
+                <?php }elseif ( isset($_GET['i']) ) { ?>
+                <div class="alert alert-danger">
+                    <i class="icon-ban-circle"></i> <strong>Importo inserito errato</strong>.
+                    Devi inserire un importo uguale o superiore a quello previsto dal regolamento.
                 </div>
                 <?php }elseif ( isset($_GET['gia']) ) { ?>
                 <div class="alert alert-danger">
@@ -183,7 +193,9 @@ caricaSelettoreComitato();
                 </div>
                 <div class="span8 input-prepend">
                     <span class="add-on">€</span>
-                    <input type="text" name="inputQuota" id="inputQuota" required />
+                    <input type="number" name="inputQuota" 
+                    id="inputQuota" step="0.01" min="<?php echo $t->ordinario ?>" 
+                    value="<?php echo $t->ordinario ?>" required />
                 </div>
             </div>
             <div class="row-fluid">            

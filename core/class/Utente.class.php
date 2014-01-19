@@ -1171,7 +1171,12 @@ class Utente extends Persona {
                             );
         $comitatiGestiti = array_unique($comitatiGestiti);
         
-        $c = $this->unComitato(MEMBRO_PENDENTE);
+        if ($this->stato == PERSONA) {
+            $c = $this->unComitato(MEMBRO_ORDINARIO);
+        } else {
+            $c = $this->unComitato(MEMBRO_PENDENTE);
+        }
+        
         if($c) {
             if(in_array($c->locale(), $comitatiGestiti) 
             || in_array($c, $comitatiGestiti)) {
