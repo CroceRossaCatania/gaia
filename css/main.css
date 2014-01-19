@@ -221,8 +221,9 @@ body {
 	/* CELL */
     @media (max-width: 767px) {
 
-      .navbar-inner {
-        margin: -20px;
+      .navbar {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
       }
 
       .carousel {
