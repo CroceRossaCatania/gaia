@@ -14,6 +14,6 @@ $conf['errori'] = [
     1010    =>  'Autenticazione necessaria',
     1011    =>  'Almeno un parametro richiesto non e\' stato specificato',
     1012    =>  'Template della mail non presente',
-    1013	=>	'Oggetto di tipo non autorizzato'
+    1013	=>	'Oggetto di tipo non autorizzato',
 	1014	=>	'API KEY non valida, disattiva, oppure limite richieste giornaliero superato'
 ];
