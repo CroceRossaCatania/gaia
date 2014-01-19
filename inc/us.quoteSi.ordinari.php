@@ -36,31 +36,33 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     </div>
 
     <div class="span4">
-        <div class="span6">
-            Volontari
-            <div class="btn-group btn-group-vertical span12">
-                <a href="?p=us.quoteSi" class="btn btn-block btn-success">
+        <div class="btn-group btn-group-vertical">
+            <div class="btn-group">
+                <a href="#" class="btn btn-success btn-group">
                     <i class="icon-ok"></i>
                     Quote Pagate
                 </a>
-                <a href="?p=us.quoteNo" class="btn btn-block btn-danger">
-                    <i class="icon-remove"></i>
-                    Quote non pagate
-                </a>
+                <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="?p=us.quoteSi"><i class="icon-ok"></i> Volontari</a></li>
+                    <li><a href="?p=us.quoteSi.ordinari"><i class="icon-ok"></i> Soci Ordinari</a></li>
+                </ul>
             </div>
-        </div>
-        <div class="span6">
-            Soci Ordinari
-            <div class="btn-group btn-group-vertical span12">
-                <a href="?p=us.quoteSi" class="btn btn-block btn-success">
+            <div class="btn-group">
+                <a href="#" class="btn btn-danger btn-group">
                     <i class="icon-ok"></i>
-                    Quote Pagate
-                </a>
-                <a href="?p=us.quoteNo" class="btn btn-block btn-danger">
-                    <i class="icon-remove"></i>
                     Quote non pagate
                 </a>
+                <a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="?p=us.quoteNo"><i class="icon-ok"></i> Volontari</a></li>
+                    <li><a href="?p=us.quoteNo.ordinari"><i class="icon-ok"></i> Soci Ordinari</a></li>
+                </ul>
             </div>
+            <a href="?p=us.dash" class="btn btn-block">
+                <i class="icon-reply"></i>
+                Torna alla dash
+            </a>
         </div>
     </div>
 
