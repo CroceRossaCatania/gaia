@@ -74,8 +74,13 @@ $p->_COGNOME 	= $v->cognome;
 $p->_FISCALE 	= $v->codiceFiscale;
 $p->_NASCITA 	= date('d/m/Y', $v->dataNascita);
 $p->_LUOGO 		= $v->luogoNascita;
-$p->_QUOTA 		= $importo;
-$p->_CAUSALE 	= $causale;
+$p->_IMPORTO    = soldi($q->quota - ($q->quota - $quotaMin));
+$p->_QUOTA      = $q->causale;
+if ($q->quota - $quotaMin > 0) {
+    $p->_OFFERTA    = 'Offerta';
+    $p->_OFFERIMPORTO = solfi($q->quota - $quotaMin) . "  &#0128; ";
+}
+$p->_TOTALE     = soldi($q->quota);
 $p->_LUOGO 		= $app->comitato()->locale()->comune;
 $p->_DATA 		= date('d-m-Y', time());
 $p->_CHINOME	= $me->nomeCompleto();

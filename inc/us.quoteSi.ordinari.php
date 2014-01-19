@@ -173,10 +173,10 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                             $totale += (float) $q->quota;
                             if ($q->benemerita()) { 
                                 $ben++;
-                                echo('€ ' . round((float) $q->quota, 2) . ' '); ?>
+                                echo('€ ' . soldi($q->quota)); ?>
                                 <i class="icon-thumbs-up-alt"></i> Benemerito
                             <?php    } else { 
-                                echo('€ ' . round((float) $q->quota, 2));
+                                echo('€ ' . soldi($q->quota));
                              }?>
                     </td>
                     <td><?php echo $q->data()->inTesto(false); ?></td>
@@ -205,7 +205,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         </table>
         <input type="hidden" ng-model="quote" ng-init="quote= '<?php echo $n; ?>'">
         <input type="hidden" ng-model="benemeriti" ng-init="benemeriti= '<?php echo $ben; ?>'">
-        <input type="hidden" ng-model="incasso" ng-init="incasso= '<?php echo $totale; ?>'">
+        <input type="hidden" ng-model="incasso" ng-init="incasso= '<?php echo soldi($totale); ?>'">
     </div>
     
 </div>

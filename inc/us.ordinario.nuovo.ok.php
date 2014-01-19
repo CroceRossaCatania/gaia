@@ -153,8 +153,13 @@ $l->_COGNOME 	= $p->cognome;
 $l->_FISCALE 	= $p->codiceFiscale;
 $l->_NASCITA 	= date('d/m/Y', $p->dataNascita);
 $l->_LUOGO 		= $p->luogoNascita;
-$l->_QUOTA 		= $importo;
-$l->_CAUSALE 	= $causale;
+$l->_IMPORTO	= soldi($q->quota - ($q->quota - $quotaMin));
+$l->_QUOTA  	= $q->causale;
+if ($q->q - $quotaMin > 0) {
+	$l->_OFFERTA	= 'Offerta';
+	$l->_OFFERIMPORTO = soldi($q->quota - $quotaMin) . "  &#0128; ";
+}
+$l->_TOTALE		= soldi($quota->quota);
 $l->_LUOGO 		= $a->comitato()->locale()->comune;
 $l->_DATA 		= date('d-m-Y', time());
 $l->_CHINOME	= $me->nomeCompleto();
