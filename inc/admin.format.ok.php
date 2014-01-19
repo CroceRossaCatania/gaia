@@ -5,15 +5,16 @@
  */
 
 paginaAdmin();
-
+$ordinario = false;
+if(isset($_POST['ordinario'])){
+    $ordinario = true;
+}
 ?>
 
 <h3><i class="icon-bolt muted"></i> Procedura di importazione automatica dal format CSV</h3>
 
 <pre><code>
     <?php
-
-    
 
     $file = $_FILES['inputCSV']['tmp_name'];
     if ($file == '') {
@@ -39,54 +40,6 @@ paginaAdmin();
         /* Controlla se esiste già! */
 
         $v = Volontario::by('codiceFiscale', $codiceFiscale);
-
-        if ($v && isset($_POST['fixproblem'])) {
-            
-            echo(' - '.$v->id.' - ');
-
-            if ($v->numeroAppartenenzeAttuali() > 0) {
-                echo(' appartiene a '.$v->unComitato()->nomeCompleto().'<br>');
-                continue;
-            }
-
-            /* Genera e cambia la password casuale */
-            $password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
-            $v->cambiaPassword($password);
-            echo(' PASSWORD GENERATA');
-
-            $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[14]);
-            $dingresso   = $dingresso->getTimestamp();
-
-            /* format con pass e conferma*/
-            $app = new Appartenenza();
-            $comitato = Comitato::by('nome', $riga[15]);
-            $pres = $comitato->unPresidente();
-            $app->comitato = $comitato->id;
-            $app->volontario = $v->id;
-            $app->inizio = $dingresso;
-            $app->fine = PROSSIMA_SCADENZA;
-            $app->timestamp   = time();
-            $app->stato     = MEMBRO_VOLONTARIO;
-            $app->conferma  = $pres;
-
-            $haemail = true;
-            if ($v->email == '') {
-                $haemail = false;
-            }
-
-            if ($haemail) {
-                $m = new Email('registrazioneFormatpass', 'Registrato su Gaia');
-                $m->a = $v;
-                $m->_NOME       = $v->nome;
-                $m->_PASSWORD   = $password;
-                $m->invia();
-                echo(' INVIATA EMAIL');
-            }
-            echo(' APPARTENENZA GENERATA su '.$comitato->nomeCompleto().'<br>');
-            continue;
-
-            
-        }
 
         if ($v && isset($_POST['resetPassword'])) {
             /* Genera e cambia la password casuale */
@@ -135,8 +88,20 @@ paginaAdmin();
                 $p->sesso = DONNA;
             }
 
-
-            $p->stato = VOLONTARIO; /* format con pass e conferma*/
+            if($ordinario){
+                $p->stato = PERSONA; /* format con pass e conferma*/ 
+                $cell = maiuscolo($riga[11]);
+            }else{
+                $p->stato = VOLONTARIO; /* format con pass e conferma*/ 
+                $cell = maiuscolo($riga[12]);
+                $p->emailServizio       = minuscolo($riga[11]);
+                $cells = maiuscolo($riga[13]);
+                $cells = str_replace(', ', ' / ', $cells);
+                $cells = str_replace('', ' ', $cells);
+                $cells = str_replace('-', '', $cells);
+                $p->cellulareServizio = $cells;
+            }
+            
             $p->timestamp = time(); /* format con pass e conferma*/
             
             /* Genera e cambia la password casuale */
@@ -158,36 +123,35 @@ paginaAdmin();
                 $p->provinciaResidenza  = maiuscolo($riga[8]);
                 $p->CAPResidenza        = maiuscolo($riga[9]);
                 $p->email               = minuscolo($riga[10]);
-                $p->emailServizio       = minuscolo($riga[11]);
                 if ($p->email == '') {
                     $haemail = true;
                 } else {
                     $haemail = flase;
                 }
                 
-                $cell = maiuscolo($riga[12]);
                 $cell = str_replace(', ', ' / ', $cell);
                 $cell = str_replace('', ' ', $cell);
                 $cell = str_replace('-', '', $cell);
                 $p->cellulare = $cell;
 
-                $cells = maiuscolo($riga[13]);
-                $cells = str_replace(', ', ' / ', $cells);
-                $cells = str_replace('', ' ', $cells);
-                $cells = str_replace('-', '', $cells);
-                $p->cellulareServizio = $cells;
-                
-                /* Imposta la data di ingresso in CRI */
-                $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[14]);
-                $dingresso   = $dingresso->getTimestamp();
-
                 $app = null;
                 $pres = null;
 
-
                 /* format con pass e conferma*/
                 $app = new Appartenenza();
-                $comitato = Comitato::by('nome', $riga[15]);
+                if($ordinario){
+                    /* Imposta la data di ingresso in CRI */
+                    $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[12]);
+                    $dingresso   = $dingresso->getTimestamp();
+                    $app->stato     = MEMBRO_ORDINARIO;
+                    $comitato = Comitato::by('nome', $riga[13]);
+                }else{
+                    /* Imposta la data di ingresso in CRI */
+                    $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[14]);
+                    $dingresso   = $dingresso->getTimestamp();
+                    $app->stato     = MEMBRO_VOLONTARIO;
+                    $comitato = Comitato::by('nome', $riga[15]);
+                }
                 $pres = $comitato->unPresidente();
                 $comitato = $comitato->id;
                 $app->comitato = $comitato;
@@ -195,7 +159,6 @@ paginaAdmin();
                 $app->inizio = $dingresso;
                 $app->fine = PROSSIMA_SCADENZA;
                 $app->timestamp   = time();
-                $app->stato     = MEMBRO_VOLONTARIO;
                 $app->conferma  = $pres;
                 if ($haemail) {
                     $m = new Email('registrazioneFormatpass', 'Registrato su Gaia');
@@ -207,28 +170,13 @@ paginaAdmin();
                 }
                 echo(' APPARTENENZA GENERATA');
 
-                
-                if ( isset($_POST['inputQuote']) ){
-                    $t = new Quota();
-                    $t->appartenenza = $app->id;
-                    $time = date('Y', time());
-                    $time = mktime(0,0,0,1,1,$time);
-                    $t->timestamp = $time;
-                    $t->tConferma = time();
-                    $t->pConferma = $pres;
-                    $t->quota = QUOTA_RINNOVO;
-                    $t->causale = "Versamento quota di rinnovo annuale";
-                    echo(' INSERITA QUOTA');
-                }
-
                 if ($riga[16] == '') {
                     $riserva = false;    
                 } else {
                     $riserva = true;    
                 }
                 
-
-                if ($riserva){
+                if ($riserva && !$ordinario){
                     $r = new Riserva();
                     $r->stato = RISERVA_OK;
                     $r->appartenenza = $app->id;
@@ -250,13 +198,6 @@ paginaAdmin();
                     echo(' INSERITA RISERVA');
                 }
 
-                if ($haemail) {
-                    $m = new Email('registrazioneFormat', 'Registrati su Gaia');
-                    $m->a = $p;
-                    $m->_NOME       = $p->nome;
-                    $m->invia();
-                    echo(' ALTRA EMAIL');   
-                }
                 echo(' fine inserimento :)<br>');
             }
 
