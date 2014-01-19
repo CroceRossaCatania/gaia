@@ -570,29 +570,17 @@ class Comitato extends GeoPolitica {
             AND 
                 ( appartenenza.fine < 1 OR appartenenza.fine > :ora OR appartenenza.fine IS NULL)
             AND 
-                (
-                    ( appartenenza.id NOT IN 
-                        ( SELECT 
-                                appartenenza 
-                            FROM 
-                                quote 
-                            WHERE 
-                                anno = :anno
-                        )
-                    ) 
-                    OR 
-                    ( appartenenza.id IN
-                        ( SELECT 
+                ( appartenenza.id NOT IN 
+                    ( SELECT 
                             appartenenza 
                         FROM 
                             quote 
                         WHERE 
-                            anno = :anno                   
+                            anno = :anno
                         AND
-                            pAnnullata IS NOT NULL
-                        )
+                            pAnnullata IS NULL
                     )
-                )
+                ) 
                 
             ORDER BY
                 anagrafica.cognome     ASC,
