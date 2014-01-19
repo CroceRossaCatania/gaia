@@ -107,25 +107,36 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                 </div>
             </div>
             <div class="span6">
-                <div class="btn-group btn-group-vertical span12">
-                  <a href="?p=us.quoteNo" class="btn btn-block">
-                    <i class="icon-certificate"></i>
-                    Gestione quote associative
-                </a>
-                <a href="?p=us.quote.ricerca" class="btn btn-block">
-                    <i class="icon-search"></i>
-                    Ricerca quota associativa
-                </a>
-                <a href="?p=presidente.appartenenzepending" class="btn btn-block">
-                    <i class="icon-group"></i>
-                    Appartenenze in attesa <span class="badge badge-important"><?= $_n_app; ?></span>
-                </a>
-                <a href="?p=presidente.titoli" class="btn btn-block">
-                    <i class="icon-star"></i>
-                    Titoli in attesa <span class="badge badge-important"><?= $_n_titoli; ?></span>
-                </a>
+                <div class="row-fluid">
+                    <div class="btn-group btn-group-vertical span12">
+                        <a href="?p=us.quoteNo" class="btn btn-block">
+                            <i class="icon-certificate"></i>
+                            Gestione quote associative
+                        </a>
+                        <a href="?p=us.quote.ricerca" class="btn btn-block">
+                            <i class="icon-search"></i>
+                            Ricerca quota associativa
+                        </a>
+                        <a href="?p=presidente.appartenenzepending" class="btn btn-block">
+                            <i class="icon-group"></i>
+                            Appartenenze in attesa <span class="badge badge-important"><?= $_n_app; ?></span>
+                        </a>
+                        <a href="?p=presidente.titoli" class="btn btn-block">
+                            <i class="icon-star"></i>
+                            Titoli in attesa <span class="badge badge-important"><?= $_n_titoli; ?></span>
+                        </a>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row-fluid">
+                    <div class="btn-group btn-group-vertical span12">
+                        <a href="?p=presidente.titoli.ricerca" class="btn btn-block">
+                            <i class="icon-search"></i>
+                            Ricerca per titoli
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
