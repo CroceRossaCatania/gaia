@@ -7,6 +7,17 @@
 paginaAdmin();
 $id = $_GET['id'];
 $q = Quota::by('id', $id);
+$u = $q->volontario();
+$attivo = false;
+if ($u->stato == VOLONTARIO) {
+  $attivo = true;
+}
+if (!$t = Tesseramento::by('anno', $q->anno)) {
+  $t = new StdClass();
+  $t->attivo = 8;
+  $t->ordinario = 16;
+}
+$quotaMin = $attivo ? $t->attivo : $t->ordinario;
 ?>
 <script type="text/javascript"><?php require './js/us.quote.nuova.js'; ?></script>
 <form action="?p=us.quote.modifica.ok" method="POST">
@@ -17,6 +28,12 @@ $q = Quota::by('id', $id);
     </div>
     <div class="modal-body">
       <div class="row-fluid form-horizontal">
+          <?php if(isset($_GET['importo'])) { ?>
+            <div class="alert alert-error">
+              <h4><i class="icon-warning-sign"></i> Qualcosa non ha funzionato</h4>
+              <p>Sembra che tu abbia inserito un importo inferiore a <?php echo $quotaMin;?>.00 €.</p>
+            </div>
+          <?php } ?>
         <div class="control-group">
           <label class="control-label" for="inputData">Data versamento quota</label>
           <div class="controls">
@@ -24,37 +41,18 @@ $q = Quota::by('id', $id);
           </div>
         </div> 
         <div class="control-group">
-            <label class="control-label" for="inputQuota">Quota</label>
+            <label class="control-label" id="importo" for="inputImporto" >Importo</label>
             <div class="controls">
-                <select class="input-large" id="inputQuota" name="inputQuota">
-            <?php
-                    foreach ( $conf['quote'] as $numero => $quota ) { ?>
-                        <option value="<?php echo $numero; ?>" <?php if ( $numero == $q->quota ) { ?>selected<?php } ?>><?php echo $quota; ?></option>
-                <?php } ?>
-            </select>   
+              <input class="input-medium" type="number" min="<?php echo $quotaMin ?>" 
+              value="<?php echo $q->quota; ?>" step="0.01" name="inputImporto" id="inputImporto" >
+              &nbsp; <span class="muted"> da <?php echo $quotaMin;?>.00 € in su</span>
+            </div>
         </div>
-      </div>
-
-            <div class="control-group">
-                <label class="control-label" id="causale" for="inputCausale" style="display: none" value="<?php echo $q->causale; ?>">Causale</label>
-                <div class="controls">
-                  <input class="input-large" type="text" name="inputCausale" id="inputCausale" style="display: none">
-                </div>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label" id="importo" for="inputImporto" style="display: none" value="<?php echo $q->quota; ?>">Importo</label>
-                <div class="controls">
-                  <input class="input-medium" type="text" name="inputImporto" id="inputImporto" style="display: none">
-                </div>
-            </div>
-
-
            <input type="hidden" name="id" value="<?php echo $id; ?>">
         </div>
     </div>
         <div class="modal-footer">
-          <a href="?p=us.quoteNo" class="btn">Annulla</a>
+          <a href="?p=presidente.utente.visualizza&id=<?php echo $u->id; ?>" class="btn">Annulla</a>
           <button type="submit" class="btn btn-primary">
               <i class="icon-list"></i> Registra quota
           </button>

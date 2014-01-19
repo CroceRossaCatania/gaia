@@ -66,7 +66,7 @@ $q = Quota::filtra([['appartenenza', $app]], 'timestamp DESC');
                     <td><?= $_q->volontario()->nome; ?></td>
                     <td><?= $_q->volontario()->cognome; ?></td>
                     <td><?= $_q->comitato()->nomeCompleto(); ?></td>
-                    <td><?= date('d/m/Y', $_q->tConferma); ?></td>
+                    <td><?= date('d/m/Y', $_q->timestamp); ?></td>
                     <td><?= $_q->quota ,"€"; ?></td>
                     <td><?= $_q->conferma()->nomeCompleto(); ?></td>
                     <td>
@@ -77,6 +77,9 @@ $q = Quota::filtra([['appartenenza', $app]], 'timestamp DESC');
                             <?php if( $me->admin()){ ?>
                                 <a class="btn btn-small btn-info" href="?p=us.quote.modifica&id=<?= $_q->id; ?>" title="Modifica quota">
                                     <i class="icon-edit"></i>
+                                </a>
+                                <a  onClick="return confirm('Vuoi veramente cancellare questa quota ?');" href="?p=admin.quota.cancella&id=<?php echo $_q->id; ?>" title="Cancella Quota" class="btn btn-small btn-danger">
+                                    <i class="icon-trash"></i>
                                 </a>
                             <?php } ?>
                         </div>

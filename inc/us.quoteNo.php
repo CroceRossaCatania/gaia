@@ -29,7 +29,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             Al momento non è possibile registrare altre quote.
         </div>
 <?php }
-    $questanno = $anno = date('Y', time());
+    $questanno = $anno = date('Y');
     if (!isset($_POST['anno'])) {
         $anno = $questanno;
     } else {
