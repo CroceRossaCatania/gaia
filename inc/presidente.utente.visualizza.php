@@ -469,6 +469,8 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
     </table>
   </div>
+
+  <!-- Blocco storico -->
   <div class="row-fluid">
     <h4>
       <i class="icon-ellipsis-horizontal muted"></i>
@@ -484,10 +486,15 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
     <a class="btn" target="_new" href="?p=presidente.appartenenze.storico&id=<?php echo $u->id; ?>">
       <i class="icon-time"></i> Storico appartenenze
     </a>
+    <a class="btn" target="_new" href="?p=us.quote.visualizza&id=<?php echo $u->id; ?>">
+      <i class="icon-money"></i> Storico quote
+    </a>
 
   </div>
-
 </div>
+
+
+
 <!--Visualizzazione e modifica titoli utente-->
 <?php $titoli = $conf['titoli']; ?>
 <div class="span6">

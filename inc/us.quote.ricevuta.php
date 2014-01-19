@@ -10,6 +10,9 @@ controllaParametri(array('id'), 'us.dash&err');
 $id = $_GET['id'];
 $quota = Quota::id($id);
 $v = $quota->volontario();
+
+proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
+
 $p = new PDF('ricevutaquota', 'ricevuta.pdf');
 $p->_COMITATO 	= $quota->comitato()->locale()->nomeCompleto();
 $p->_INDIRIZZO 	= $quota->comitato()->locale()->formattato;
