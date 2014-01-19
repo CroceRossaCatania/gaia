@@ -12,7 +12,13 @@ controllaParametri($parametri, 'us.dash&err');
 $id = $_POST['id'];
 $q = Quota::by('id', $id);
 
+
 $u = $q->volontario();
+
+if($q->annullata()) {
+    redirect('us.quote.visualizza&annullata&id='.$u->id);
+}
+
 $attivo = false;
 if ($u->stato == VOLONTARIO) {
   $attivo = true;

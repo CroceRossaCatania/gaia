@@ -39,8 +39,9 @@ $anno = date('Y');
 /* Controllo se gà vi è una quota pagata per l'anno in corso */
 $gia = Quota::filtra([['appartenenza', $app],['anno', $anno]]);
 
-if($gia){
-	redirect('us.quoteNo&gia');
+foreach ($gia as $_g) {
+	if (!$_g->annullata())
+		redirect('us.quoteNo&gia');
 }
 
 $time = DT::createFromFormat('d/m/Y', $_POST['inputData']);

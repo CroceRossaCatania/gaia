@@ -61,4 +61,19 @@ class Quota extends Entita {
         return DT::daTimestamp($this->timestamp);
     }
 
+    public function annullata() {
+        if ($this->pAnnullata && $this->tAnnullata) {
+            return true;
+        }
+        return false;
+    }
+
+    public function annullatore() {
+        return Utente::id($this->pAnnullata);
+    }
+
+    public function dataAnnullo() {
+        return DT::daTimestamp($this->tAnnullata);
+    }
+
 }

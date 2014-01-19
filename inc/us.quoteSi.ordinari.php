@@ -186,6 +186,10 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                         <a class="btn btn-small btn-info" href="?p=us.quote.visualizza&id=<?php echo $_v->id; ?>" title="Visualizza ricevute">
                             <i class="icon-paperclip"></i> Ricevute
                         </a>
+                        <a class="btn btn-small btn-warning" onClick="return confirm('Vuoi veramente annullare questa quota ?');" 
+                            href="?p=us.quote.annulla.ok&id=<?php echo $q->id; ?>" title="Annulla quota">
+                            <i class="icon-remove"></i> Annulla
+                        </a>
                         <?php if ($me->admin()) {?>
                             <a  onClick="return confirm('Vuoi veramente cancellare questa quota ?');" href="?p=admin.quota.cancella&id=<?php echo $q->id; ?>" title="Cancella Quota" class="btn btn-small btn-danger">
                                 <i class="icon-trash"></i>
