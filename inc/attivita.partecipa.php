@@ -7,8 +7,7 @@
 paginaPrivata();
 
 controllaParametri(['turno']);
-$t = $_GET['turno'];
-$t = Turno::id($t);
+$t = Turno::id($_GET['turno']);
 $a = $t->attivita();
 
 /* Se non posso partecipare torna alla scheda... */
