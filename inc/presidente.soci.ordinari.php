@@ -98,6 +98,9 @@ menuElenchiVolontari(
                         <div class="btn-group">
                             <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
                                 <i class="icon-eye-open"></i> Dettagli
+                            </a>                            
+                            <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&ordinario&id=<?= $_v->id; ?>" title="Dimetti Volontario">
+                                <i class="icon-ban-circle"></i> Dimetti
                             </a>
                             <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                 <i class="icon-envelope"></i>
