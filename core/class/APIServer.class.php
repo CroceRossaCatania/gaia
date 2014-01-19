@@ -39,7 +39,7 @@ class APIServer {
         try {
             // Controlla la validita' della chiave API usata
             if ( !$this->chiave || !$this->chiave->usabile() ) {
-                throw new Errore(1013);
+                throw new Errore(1014);
             }
 
             // Contatore delle richieste
