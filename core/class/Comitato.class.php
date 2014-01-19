@@ -538,6 +538,8 @@ class Comitato extends GeoPolitica {
                 quote.appartenenza = appartenenza.id
             AND
                 quote.anno = :anno
+            AND
+                quote.pAnnullata IS NULL
             ORDER BY
               anagrafica.cognome     ASC,
               anagrafica.nome  ASC");
@@ -567,6 +569,8 @@ class Comitato extends GeoPolitica {
                 appartenenza.stato = :stato
             AND 
                 ( appartenenza.fine < 1 OR appartenenza.fine > :ora OR appartenenza.fine IS NULL)
+            AND
+                quote.pAnnullata IS NOT NULL
             AND 
             appartenenza.id 
             NOT IN 
