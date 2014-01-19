@@ -23,8 +23,6 @@ menuElenchiVolontari(
                 <th>Nome</th>
                 <th>Nascita</th>
                 <th>C. Fiscale</th>
-                <th>Residenza</th>
-                <th>Cellulare</th>
                 <th>Data Ingresso</th>
                 <th>Azioni</th>
             </thead>
@@ -36,7 +34,7 @@ menuElenchiVolontari(
                 ?>
 
             <tr class="success">
-                <td colspan="8" class="grassetto">
+                <td colspan="6" class="grassetto">
                     <?php echo $comitato->nomeCompleto(); ?>
                     <span class="label label-warning">
                         <?php echo count($t); ?>
@@ -63,18 +61,6 @@ menuElenchiVolontari(
                     </td>
                     <td><?php echo $_v->codiceFiscale; ?></td>
                     <td>
-                        <span class="muted">
-                            <?php echo $_v->CAPResidenza; ?>
-                        </span>
-                        <?php echo $_v->comuneResidenza; ?>,
-                        <?php echo $_v->provinciaResidenza; ?>
-                    </td>
-                    
-                    <td>
-                        <span class="muted">+39</span>
-                            <?php echo $_v->cellulare; ?>
-                    </td>
-                    <td>
                         <?php echo $_v->ingresso()->format("d/m/Y"); ?>
                     </td>
                     <td>
@@ -88,14 +74,9 @@ menuElenchiVolontari(
                         </div>
                    </td>
                 </tr>
-                
-               
-       
         <?php }
         }
         ?>
-
-        
         </table>
 
     </div>

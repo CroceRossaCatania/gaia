@@ -37,6 +37,18 @@ CREATE TABLE IF NOT EXISTS `annunci` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
+CREATE TABLE IF NOT EXISTS `api_chiavi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `chiave` varchar(255) DEFAULT NULL,
+  `oggi` int(11) DEFAULT NULL,
+  `limite` int(11) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `nome` varchar(255) DEFAULT NULL,
+  `attiva` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `chiave` (`chiave`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `appartenenza` (
   `id` int(11) NOT NULL,
   `volontario` varchar(16) DEFAULT NULL,

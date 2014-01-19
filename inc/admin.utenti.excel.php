@@ -33,6 +33,26 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
             'Data Protocollo',
             'Motivazione'
             ]);
+    }elseif(isset($_GET['mass'])){
+        $excel->intestazione([
+            'N.',
+            'Nome',
+            'Cognome',
+            'Data Nascita',
+            'Luogo Nascita',
+            'Provincia Nascita',
+            'C. Fiscale',
+            'eMail',
+            'eMail Servizio',
+            'Cellulare',
+            'Cell. Servizio',
+            'Titolo',
+            'Conseguimento',
+            'Luogo',
+            'Scadenza',
+            'Codice',
+            'Data ingresso CRI'
+            ]);
     }else{
         $excel->intestazione([
             'N.',
@@ -218,6 +238,8 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
         $f= new Titolo($f);
         $volontari =  $c->ricercaMembriTitoli([$f]);
         foreach($volontari as $v){
+            $titolo = TitoloPersonale::filtra([['volontario', $v],['titolo', $f]]);
+            $titolo = $titolo[0];
             $i++; 
             $excel->aggiungiRiga([
                 $i,
@@ -227,15 +249,15 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->comuneNascita,
                 $v->provinciaNascita,
                 $v->codiceFiscale,
-                $v->indirizzo,
-                $v->civico,
-                $v->comuneResidenza,
-                $v->CAPResidenza,
-                $v->provinciaResidenza,
                 $v->email,
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
+                $f->nome,
+                $titolo->inizio()->format("d/m/Y"),
+                $titolo->luogo,
+                $titolo->fine()->format("d/m/Y"),
+                $titolo->codice,
                 $v->ingresso()->format("d/m/Y")
                 ]);
         }

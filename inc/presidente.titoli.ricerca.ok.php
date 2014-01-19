@@ -63,6 +63,7 @@ $f= Titolo::id($_POST['idTitolo']);
         <th>Nome</th>
         <th>Cognome</th>
         <th>Data di Nascita</th>
+        <th>Titolo</th>
         <th>Cellulare</th>
         <th>Azioni</th>
     </thead>
@@ -71,7 +72,7 @@ $f= Titolo::id($_POST['idTitolo']);
       $volontari =  $elenco->ricercaMembriTitoli([$f]);  
       ?>
       <tr class="success">
-        <td colspan="5" class="grassetto">
+        <td colspan="6" class="grassetto">
             <?= $elenco->nomeCompleto(); ?>
             <span class="label label-warning">
               <?= count($volontari); ?>
@@ -79,11 +80,38 @@ $f= Titolo::id($_POST['idTitolo']);
       </td>
   </tr>
   <?php 
-  foreach($volontari as $volontario){?> 
+  foreach($volontari as $volontario){ 
+    $titolo = TitoloPersonale::filtra([['volontario', $volontario],['titolo', $f]]);
+    $titolo = $titolo[0];
+    ?> 
   <tr>
     <td><?= $volontario->nome; ?></td>
     <td><?= $volontario->cognome; ?></td>
     <td><?= date('d-m-Y', $volontario->dataNascita); ?></td>
+    <td>
+        <small>
+            <?php if ( $titolo->inizio ) { ?>
+                <i class="icon-calendar muted"></i>
+                <?php echo date('d-m-Y', $titolo->inizio); ?>
+                <br />
+            <?php } ?>
+            <?php if ( $titolo->fine ) { ?>
+                <i class="icon-time muted"></i>
+                <?php echo date('d-m-Y', $titolo->fine); ?>
+                <br />
+            <?php } ?>
+            <?php if ( $titolo->luogo ) { ?>
+                <i class="icon-road muted"></i>
+                <?php echo $titolo->luogo; ?>
+                <br />
+            <?php } ?>
+            <?php if ( $titolo->codice ) { ?>
+                <i class="icon-barcode muted"></i>
+                <?php echo $titolo->codice; ?>
+                <br />
+            <?php } ?>
+        </small>
+    </td>
     <td><?= $volontario->cellulare(); ?></td>
     <td>    
         <div class="btn-group">

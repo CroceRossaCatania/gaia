@@ -403,15 +403,15 @@ $conf['riserve'] = [
  * =========== DIMISSIONI ====== ==========
  * ===================================
  */
-define('DIM_VOLONTARIE',    10);
-define('DIM_TURNO',         20);
-define('DIM_QUOTA',         30);
-define('DIM_RADIAZIONE',    40);
+define('DIM_VOLONTARIE', 10);
+define('DIM_TURNO',      20);
+define('DIM_QUOTA',      30);
+define('DIM_RADIAZIONE', 40);
 
 $conf['dimissioni'] = [
     DIM_VOLONTARIE  =>  'Dimissioni Volontarie',
+    DIM_TURNO       =>  'Mancato svolgimento turno',
     DIM_QUOTA       =>  'Mancato versamente quota annuale',
-    DIM_TURNO       =>  'Mancato svolgimento turno mensile',
     DIM_RADIAZIONE  =>  'Radiazione da Croce Rossa Italiana'
 ];
 
@@ -480,7 +480,6 @@ $conf['est_obj'] = [
  */
 
 define('ANZIANITA', 2);
-
 
 /*
  * ===================================
@@ -557,7 +556,9 @@ $conf['est_grp'] = [
  * ===================================
  */
 
+define('VAL_ANNULLATA', 0);
 define('VAL_CHIUSA',   10);
+define('VAL_ATTESA',   15);
 define('VAL_PASS',     20);
 define('VAL_MAIL',     30);
 define('VAL_MAILS',    40);

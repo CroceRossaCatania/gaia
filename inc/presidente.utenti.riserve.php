@@ -15,15 +15,6 @@ menuElenchiVolontari(
     
 <div class="row-fluid">
     <div class="span12">
-        <div class="btn-group btn-group-vertical span12">
-            <?php if ( count($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ])) > 1 ) { ?>
-                <a href="?p=admin.utenti.excel&riserva" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
-                    <i class="icon-download"></i>
-                    <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari in riserva in un archivio zip.
-                </a>
-            <?php } ?>
-        </div>
-        <hr />
         <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
                 <th>Nome</th>

@@ -121,6 +121,14 @@ function cronjobGiornaliero()  {
     /* === 10. CHIUDE LE VALIDAZIONI SCADUTE */
     Validazione::chiudi();
     $log .= "Chiuse le validazioni scadute\n";
+
+    /* === 11. RESETTA CONTATORI PER API KEYS */
+    $n = 0;
+    foreach ( APIKey::elenco() as $c ) {
+        $n++;
+        $c->oggi = 0;
+    }
+    $log .= "Resettati limiti giornalieri di {$n} chiavi API\n";
     
 };
 // =========== FINE CRONJOB GIORNALIERO
@@ -240,9 +248,5 @@ file_put_contents('upload/log/cronjob.txt', "\n" . $log, FILE_APPEND);
 
 /* Invia per email il log */
 $m = new Email('mailTestolibero', 'Report cronjob');
-$dest = new stdClass();
-$dest->nome     = 'Servizi';
-$dest->email    = 'supporto@gaia.cri.it';
-$m->a = $dest;
 $m->_TESTO = nl2br($log);
 $m->invia();

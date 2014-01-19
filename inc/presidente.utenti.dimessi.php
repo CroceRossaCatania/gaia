@@ -23,6 +23,16 @@ menuElenchiVolontari(
             <h4><i class="icon-exclamation-sign"></i> Impossibile eliminare l'utente</h4>
             <p>Contatta l'amministratore</p>
         </div>
+<?php }elseif ( isset($_GET['err']) )  { ?>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-exclamation-sign"></i> Impossibile completare l'operazione</h4>
+            <p>L'utente non è riammissibile o non hai i permessi per riammetterlo.</p>
+        </div>
+<?php }elseif (isset($_GET['errGen'])) { ?>
+    <div class="alert alert-block alert-error">
+        <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+        <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+    </div> 
 <?php } ?>
   
 <div class="row-fluid">
@@ -32,8 +42,7 @@ menuElenchiVolontari(
             <thead>
                 <th>Cognome</th>
                 <th>Nome</th>
-                <th>Località</th>
-                <th>Cellulare</th>
+                <th>Codice Fiscale</th>
                 <th>Azioni</th>
             </thead>
         <?php
@@ -43,7 +52,7 @@ menuElenchiVolontari(
                 ?>
             
             <tr class="success">
-                <td colspan="7" class="grassetto">
+                <td colspan="4" class="grassetto">
                     <?php echo $comitato->nomeCompleto(); ?>
                     <span class="label label-warning">
                         <?php echo count($t); ?>
@@ -62,19 +71,7 @@ menuElenchiVolontari(
                 <tr>
                     <td><?php echo $_v->cognome; ?></td>
                     <td><?php echo $_v->nome; ?></td>
-                    <td>
-                        <span class="muted">
-                            <?php echo $_v->CAPResidenza; ?>
-                        </span>
-                        <?php echo $_v->comuneResidenza; ?>,
-                        <?php echo $_v->provinciaResidenza; ?>
-                    </td>
-                    
-                    <td>
-                        <span class="muted">+39</span>
-                            <?php echo $_v->cellulare; ?>
-                    </td>
-
+                    <td><?php echo $_v->codiceFiscale; ?></td>
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
@@ -83,7 +80,12 @@ menuElenchiVolontari(
                             <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                 <i class="icon-envelope"></i>
                             </a>
-                            <?php if ($me->admin) { ?>
+                            <!--<?php if ($_v->riammissibile()) { ?>
+                                <a class="btn btn-small btn-info" href="?p=us.utente.riammetti&id=<?php echo $_v->id; ?>" title="Riammetti socio">
+                                    <i class="icon-tag"></i> Riammetti
+                                </a>
+                            <?php } ?>-->
+                            <?php if ($me->admin()) { ?>
                                 <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
                                 <i class="icon-trash"></i> Cancella
                                 </a>

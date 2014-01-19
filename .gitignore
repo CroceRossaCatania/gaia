@@ -1,4 +1,8 @@
+
+
+# Captcha
 /core/conf/captcha.conf.php
+
 # Recaptcha
 /core/conf/recaptcha.conf.php
 
