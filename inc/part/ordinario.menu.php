@@ -18,9 +18,7 @@ $menu += [
 $menu += [ 
     'Socio'    =>  [
         'utente.anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
-        'utente.storico'    =>  '<i class="icon-time"></i> Storico',
-        'utente.documenti'  =>  '<i class="icon-folder-open"></i> Documenti'
-        
+        'utente.storico'    =>  '<i class="icon-time"></i> Storico'        
     ]];
 $menu += [
     'Comunicazioni' =>  [

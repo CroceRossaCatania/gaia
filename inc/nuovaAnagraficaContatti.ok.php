@@ -10,6 +10,8 @@
 
 if ($sessione->utente()->email) {
   redirect('errore.permessi&cattivo');
+} elseif($sessione->utente()->ordinario()) {
+  redirect('utente.me');
 }
 
 paginaPrivata();

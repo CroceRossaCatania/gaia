@@ -44,6 +44,7 @@ menuElenchiVolontari(
             </thead>
         <?php
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
+        $admin = $me->admin();
         foreach($elenco as $comitato) {
             $t = $comitato->membriOrdinari();
             ?>
@@ -67,6 +68,7 @@ menuElenchiVolontari(
             
             <?php
             foreach ( $t as $_v ) {
+                $id = $_v->id;
             ?>
                 <tr>
                     <td><?php echo $_v->cognome; ?></td>
@@ -96,19 +98,25 @@ menuElenchiVolontari(
                     </td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
+                            <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $id; ?>" title="Dettagli">
                                 <i class="icon-eye-open"></i> Dettagli
                             </a>                            
-                            <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&ordinario&id=<?= $_v->id; ?>" title="Dimetti Volontario">
+                            <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&ordinario&id=<?php echo $id; ?>" title="Dimetti Volontario">
                                 <i class="icon-ban-circle"></i> Dimetti
                             </a>
-                            <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
+                            <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $id; ?>" title="Invia Mail">
                                 <i class="icon-envelope"></i>
                             </a>
-                            <?php if($me->admin()){ ?>
-                                <a class="btn btn-small btn-primary" href="?p=admin.beuser&id={id}" title="Log in">
-                                    <i class="icon-key"></i>
-                                </a>
+                            <?php if ($admin) { ?>
+                            <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id=<?php echo $id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
+                                <i class="icon-trash"></i> Cancella
+                            </a>
+                            <a class="btn btn-small btn-primary" href="?p=admin.beuser&id=<?php echo $id; ?>" title="Log in">
+                                <i class="icon-key"></i>
+                            </a> 
+                            <a class="btn btn-small btn-primary" href="?p=admin.password.nuova&id=<?php echo $id; ?>" title="Cambia password">
+                                <i class="icon-eraser"></i>
+                            </a>
                             <?php } ?>
                         </div>
                    </td>
