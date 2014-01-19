@@ -53,7 +53,7 @@ class Estensione extends Entita {
         $a = $this->appartenenza;
         $a = Appartenenza::id($a);
         $a->timestamp = time();
-        if ($auto) {
+        if (!$auto) {
             global $sessione;
             $a->conferma  = $sessione->utente()->id;
         }

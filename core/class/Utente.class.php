@@ -861,13 +861,15 @@ class Utente extends Persona {
         }
     }
     
-    public function comitatiAreeDiCompetenza() {
+    public function comitatiAreeDiCompetenza($soloLocali = false) {
         $a = $this->areeDiCompetenza(null, true);
         $r = [];
-        foreach ($a as $ia) {
-            $comitato = $ia->comitato();
-            $r[] = $comitato;
-            if ($comitato instanceof Locale) {
+        foreach ($a as $_a) {
+            $comitato = $_a->comitato();
+            if(!$soloLocali || $comitato instanceof Comitato) {
+                $r[] = $comitato;
+            }
+            if (!$comitato instanceof Comitato) {
                 $r = array_merge($r, $comitato->estensione());
             }
         }
@@ -887,6 +889,15 @@ class Utente extends Persona {
             ['referente',   $this->id],
             ['stato',       ATT_STATO_BOZZA]
         ]);
+    }
+
+    public function comitatiAttivitaReferenziate() {
+        $a = $this->attivitaReferenziate();
+        $r = [];
+        foreach($a as $_a) {
+            $r = array_merge($r, $_a->comitato()->estensione());
+        }
+        return array_unique($r);
     }
     
     public function attivitaAreeDiCompetenza() {
@@ -1129,6 +1140,19 @@ class Utente extends Persona {
             || in_array($c, $comitatiGestiti)) {
             return true;
             }
+        }
+        return false;
+    }
+
+    /*
+     * Controlla la riammissibilità entro l'anno solare di un volontario
+     * @return true se volontario riammissible false se non riammissibile
+     */
+    public function riammissibile() {
+        $dimissione = $this->ultimaAppartenenza(MEMBRO_DIMESSO);
+        $ultimo = $dimissione->fine+ANNO;
+        if ($ultimo >= time()){
+            return true;
         }
         return false;
     }

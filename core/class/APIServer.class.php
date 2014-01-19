@@ -166,14 +166,14 @@ class APIServer {
                 $geoAttivita = GeoPolitica::daOid($attivita->comitato);
                 if ( $geoAttivita->contiene($mioGeoComitato) ) {
                     $colore = $conf['attivita']['colore_mie'];
+                    if ( $turno->scoperto() ) {
+                        $colore = $conf['attivita']['colore_scoperto'];
+                    }
                 } else {
                     $colore = $conf['attivita']['colore_pubbliche'];
                 }
-                if ( $turno->scoperto() ) {
-                    $colore = $conf['attivita']['colore_scoperto'];
-                }
             } else {
-                $colore = $conf['attivita']['colore_pubbliche'];
+                $colore = $conf['attivita']['colore_anonimi'];
             }
             $r[] = [
                 'turno'         =>  [
@@ -347,14 +347,17 @@ class APIServer {
         }
 
         $me = $this->sessione->utente();
-        $r->comitati = array_merge(
+        $com = array_merge(
             // Dominio di ricerca
             $me->comitatiApp([
                 APP_PRESIDENTE,
                 APP_SOCI,
                 APP_OBIETTIVO
-            ])
+            ]),
+            $me->comitatiAttivitaReferenziate(),
+            $me->comitatiAreeDiCompetenza(true)
         );
+        $r->comitati = array_unique($com);
 
         if ( $this->par['query'] ) {
             $r->query = $this->par['query'];

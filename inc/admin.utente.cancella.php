@@ -30,7 +30,6 @@ $f = Area::filtra([
   ]);
 foreach($f as $_f){
     $_f->dimettiReferente();
-    $_f->cancella();
 }
 
 $f = Attivita::filtra([

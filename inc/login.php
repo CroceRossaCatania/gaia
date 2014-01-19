@@ -98,7 +98,7 @@ if ( isset($_GET['token']) ) {
               
             </label>
             <div class="controls">
-              <i class="icon-lock"></i> Per favore inserisci i caratteri nel campo sottostante:<br />
+              <i class="icon-lock"></i> Per favore completa l'indovinello:<br /><br />
               <?php captcha_mostra(); ?>
             </div>
           </div>

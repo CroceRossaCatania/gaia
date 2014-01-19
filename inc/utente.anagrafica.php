@@ -1,11 +1,10 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 paginaPrivata();
-richiediComitato();
 
 
 ?>

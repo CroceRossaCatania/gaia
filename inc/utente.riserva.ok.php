@@ -12,11 +12,7 @@ controllaParametri($parametri);
 
 $t = $_GET['id'];
 $m = $_POST['inputMotivo'];
- foreach ( $me->storico() as $app ) { 
-    if ($app->attuale()) {
-        $c = $app;
-    }
-} 
+$c = $me->appartenenzaAttuale();
 
 $inizio = DT::daFormato($_POST['datainizio']);
 $fine = DT::daFormato($_POST['datafine']);
@@ -39,4 +35,3 @@ $t->fine = $fine->getTimestamp();
 $sessione->inGenerazioneRiserva = time();
 
 redirect('presidente.riservaRichiesta.stampa&id=' . $t);
-
