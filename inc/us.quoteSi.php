@@ -136,6 +136,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         $totale = 0;
         $n = 0;
         $ben = 0;
+        $t = Tesseramento::by('anno', $anno);
+        $aperto = false;
+        if ($t && $t->aperto()) {
+            $aperto = true;
+        }
         foreach($elenco as $comitato) {
             $t = $comitato->quoteSi($anno);
                 ?>
@@ -186,11 +191,12 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                         <a class="btn btn-small btn-info" href="?p=us.quote.visualizza&id=<?php echo $_v->id; ?>" title="Visualizza ricevute">
                             <i class="icon-paperclip"></i> Ricevute
                         </a>
+                        <?php if ($aperto || $me->admin()) {?>
                         <a class="btn btn-small btn-warning" onClick="return confirm('Vuoi veramente annullare questa quota ?');" 
                             href="?p=us.quote.annulla.ok&id=<?php echo $q->id; ?>" title="Annulla quota">
                             <i class="icon-remove"></i> Annulla
                         </a>
-                        <?php if ($me->admin()) {?>
+                        <?php } if ($me->admin()) {?>
                             <a  onClick="return confirm('Vuoi veramente cancellare questa quota ?');" href="?p=admin.quota.cancella&id=<?php echo $q->id; ?>" title="Cancella Quota" class="btn btn-small btn-danger">
                                 <i class="icon-trash"></i>
                             </a>

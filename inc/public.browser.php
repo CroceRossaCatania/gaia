@@ -73,7 +73,7 @@
         nella schermata successiva.
         <h3>Sono troppo affezionato al caro <del>vecchio</del> Internet Explorer, come faccio?</h3>
         <p>Tranquillo nostalgico amico, Gaia ha una soluzione anche per te che non riesci a separarti
-        da uno dei peggiori browser disponibili. Se hai una versione di Internet Explorer compresa tra 
+        da uno dei browser più diffusi. Se hai una versione di Internet Explorer compresa tra 
         la <strong>6</strong> e la <strong>9</strong> e sei su piattaforma <strong>Windows 7/Vista/XP SP2 o versioni successive</strong> puoi utilizzare
         <a href="http://www.google.com/chromeframe">Google Chrome Frame</a> che ti permette di avere Google
         Chrome all'interno del tuo browser.
