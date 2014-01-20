@@ -45,8 +45,8 @@ $p->_COGNOME    = $v->cognome;
 $p->_FISCALE    = $v->codiceFiscale;
 $p->_IMPORTO    = soldi($quota->quota - ($quota->quota - $quotaMin));
 $p->_QUOTA      = $quota->causale;
-if ($quota->quota - $quotaMin > 0) {
-    $p->_OFFERTA    = 'Offerta';
+if (($quota->quota - $quotaMin) > 0) {
+	$p->_OFFERTA = $quota->offerta;
     $p->_OFFERIMPORTO = soldi($quota->quota - $quotaMin) . "  &#0128; ";
 } else {
 	$p->_OFFERTA    = '';

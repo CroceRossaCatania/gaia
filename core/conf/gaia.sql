@@ -435,6 +435,7 @@ CREATE TABLE IF NOT EXISTS `quote` (
   `tConferma` varchar(64) DEFAULT NULL,
   `pConferma` varchar(16) DEFAULT NULL,
   `quota` varchar(255) DEFAULT NULL,
+  `offerta` varchar(255) DEFAULT NULL,
   `causale` varchar(255) DEFAULT NULL,
   `anno` varchar(4) DEFAULT NULL,
   PRIMARY KEY (`id`),

@@ -130,17 +130,15 @@ $q->timestamp 		= time();
 $q->tConferma 		= time();
 $q->pConferma 		= $me;
 $q->anno 			= $anno;
+$q->assegnaProgressivo();
 $q->quota 			= $importo;
 
 $quotaBen = $t->ordinario + (float) $a->comitato()->quotaBenemeriti();
-$causale = 'Iscrizione socio ordinario anno '.$anno;
+$q->causale 		= "Iscrizione socio ordinario CRI anno {$anno}"; 
 if ($importo > $quotaBen) {
 	$q->benemerito = BENEMERITO_SI;
-	$causale = $causale . ". Promozione a socio benemerito per l'anno " . $anno . " per il versamento di una quota superiore a " . soldi($quotaBen) . " &#0128;.";
+	$q->offerta = "Promozione a socio benemerito per l'anno {$anno} per il versamento di una quota superiore a " . soldi($quotaBen) . " &#0128;.";
 }
-
-$q->causale 		= $causale;
-$q->assegnaProgressivo();
 
 /* Crea la ricevuta del pagamento della quota */
 $l = new PDF('ricevutaquota', 'ricevuta.pdf');
@@ -156,7 +154,7 @@ $l->_LUOGO 		= $p->luogoNascita;
 $l->_IMPORTO	= soldi($q->quota - ($q->quota - $quotaMin));
 $l->_QUOTA  	= $q->causale;
 if ($q->q - $quotaMin > 0) {
-	$l->_OFFERTA	= 'Offerta';
+	$l->_OFFERTA	= $q->offeta;
 	$l->_OFFERIMPORTO = soldi($q->quota - $quotaMin) . "  &#0128; ";
 } else {
 	$l->_OFFERTA	= '';
