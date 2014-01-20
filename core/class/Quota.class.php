@@ -76,4 +76,15 @@ class Quota extends Entita {
         return DT::daTimestamp($this->tAnnullata);
     }
 
+    /**
+     * Data una quota ne ritorna, se esiste il tesseramento a cui appartiene
+     * @return Tesseramento     tesseramento sulla base dell'anno della quota
+     */
+    public function tesseramento() {
+        if ($t = Tesseramento::by('anno', $this->anno)) {
+            return $t;
+        }
+        return null;
+    }
+
 }
