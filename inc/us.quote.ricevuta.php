@@ -48,6 +48,9 @@ $p->_QUOTA      = $quota->causale;
 if ($quota->quota - $quotaMin > 0) {
     $p->_OFFERTA    = 'Offerta';
     $p->_OFFERIMPORTO = soldi($quota->quota - $quotaMin) . "  &#0128; ";
+} else {
+	$p->_OFFERTA    = '';
+    $p->_OFFERIMPORTO = '';
 }
 $p->_TOTALE     = soldi($quota->quota);
 $p->_LUOGO      = $quota->comitato()->locale()->comune;

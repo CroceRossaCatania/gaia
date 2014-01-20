@@ -57,7 +57,7 @@ $q->quota 			= $importo;
 $causale = 'Rinnovo quota '.$anno;
 if ($importo > $quotaBen) {
 	$q->benemerito = BENEMERITO_SI;
-	$causale = $causale . ". Promozione a socio benemerito per l'anno " . $anno . " per il versamento di una quota superiore a " . $quotaBen . " euro.";
+	$causale = $causale . ". Promozione a socio benemerito per l'anno " . $anno . " per il versamento di una quota superiore a " . soldi($quotaBen) . " &#0128;.";
 }
 
 $q->causale 		= $causale;
@@ -79,6 +79,9 @@ $p->_QUOTA      = $q->causale;
 if ($q->quota - $quotaMin > 0) {
     $p->_OFFERTA    = 'Offerta';
     $p->_OFFERIMPORTO = solfi($q->quota - $quotaMin) . "  &#0128; ";
+} else {
+	$p->_OFFERTA    = '';
+    $p->_OFFERIMPORTO = '';
 }
 $p->_TOTALE     = soldi($q->quota);
 $p->_LUOGO 		= $app->comitato()->locale()->comune;

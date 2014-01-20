@@ -136,7 +136,7 @@ $quotaBen = $t->ordinario + (float) $a->comitato()->quotaBenemeriti();
 $causale = 'Iscrizione socio ordinario anno '.$anno;
 if ($importo > $quotaBen) {
 	$q->benemerito = BENEMERITO_SI;
-	$causale = $causale . ". Promozione a socio benemerito per l'anno " . $anno . " per il versamento di una quota superiore a " . $quotaBen . " euro.";
+	$causale = $causale . ". Promozione a socio benemerito per l'anno " . $anno . " per il versamento di una quota superiore a " . soldi($quotaBen) . " &#0128;.";
 }
 
 $q->causale 		= $causale;
@@ -158,6 +158,9 @@ $l->_QUOTA  	= $q->causale;
 if ($q->q - $quotaMin > 0) {
 	$l->_OFFERTA	= 'Offerta';
 	$l->_OFFERIMPORTO = soldi($q->quota - $quotaMin) . "  &#0128; ";
+} else {
+	$l->_OFFERTA	= '';
+	$l->_OFFERIMPORTO = '';
 }
 $l->_TOTALE		= soldi($quota->quota);
 $l->_LUOGO 		= $a->comitato()->locale()->comune;
