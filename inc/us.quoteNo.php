@@ -18,42 +18,102 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <i class="icon-remove"></i> <strong>Quote annuali chiuse</strong>.
             Anno chiuso.
         </div>
-<?php } ?>
+<?php }elseif ( isset($_GET['gia']) ) { ?>
+        <div class="alert alert-danger">
+            <i class="icon-remove"></i> <strong>Quota già pagata</strong>.
+            La quota del volontario risulta già pagata.
+        </div>
+<?php }elseif ( isset($_GET['err']) ) { ?>
+        <div class="alert alert-danger">
+            <i class="icon-remove"></i> <strong>Tesseramento non attivo</strong>.
+            Al momento non è possibile registrare altre quote.
+        </div>
+<?php }
+    $questanno = $anno = date('Y');
+    if (!isset($_POST['anno'])) {
+        $anno = $questanno;
+    } else {
+        $anno = $_POST['anno'];
+        if ($anno < 2005 || $anno > (int) $questanno) {
+            redirect('us.quoteNo');
+        }
+    } 
+    if ($anno == $questanno) {
+        $registraOk = true;
+    }
+    
+
+    $t = Tesseramento::by('anno', $anno);
+    $accettaPagamenti = false;
+    if ($t)
+        $accettaPagamenti = $t->accettaPagamenti();
+    ?>
     <br/>
 <div class="row-fluid">
-    <div class="span5 allinea-sinistra">
+    <div class="span4 allinea-sinistra">
         <h2>
             <i class="icon-group muted"></i>
             Quote non pagate
         </h2>
     </div>
             
-            <div class="span3">
-                <div class="btn-group btn-group-vertical span12">
-                        <a href="?p=us.quoteSi" class="btn btn-block btn-success">
-                            <i class="icon-ok"></i>
-                            Quote Pagate
-                        </a>
-                        <a href="?p=us.quoteNo" class="btn btn-block btn-danger">
-                            <i class="icon-remove"></i>
-                            Quote non pagate
-                        </a>
-                        <a href="?p=us.dash" class="btn btn-block">
-                            <i class="icon-reply"></i>
-                            Torna alla dash
-                        </a>
-                </div>
+     <div class="span4">
+        <div class="btn-group btn-group-vertical">
+            <div class="btn-group">
+                <a href="#" class="btn btn-success btn-group">
+                    <i class="icon-ok"></i>
+                    Quote Pagate
+                </a>
+                <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="?p=us.quoteSi"><i class="icon-ok"></i> Volontari</a></li>
+                    <li><a href="?p=us.quoteSi.ordinari"><i class="icon-ok"></i> Soci Ordinari</a></li>
+                </ul>
             </div>
+            <div class="btn-group">
+                <a href="#" class="btn btn-danger btn-group">
+                    <i class="icon-ok"></i>
+                    Quote non pagate
+                </a>
+                <a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="?p=us.quoteNo"><i class="icon-ok"></i> Volontari</a></li>
+                    <li><a href="?p=us.quoteNo.ordinari"><i class="icon-ok"></i> Soci Ordinari</a></li>
+                </ul>
+            </div>
+            <a href="?p=us.dash" class="btn btn-block">
+                <i class="icon-reply"></i>
+                Torna alla dash
+            </a>
+        </div>
+    </div>
     
     <div class="span4 allinea-destra">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>
             <input autofocus required id="cercaUtente" placeholder="Cerca Volontario..." type="text">
         </div>
+       <form action="?p=us.quoteNo" method="POST">
+        <div class="form-search">
+            <span class="add-on"><i class="icon-calendar"></i></span>
+            <input class="input-medium" autocomplete="off" name="anno" type="number" min="2005" max="<?php echo date('Y'); ?>" step="1" value="<?php echo $anno; ?>">
+            <button class="btn btn-info" type="submit" ><i class="icon-search"></i>
+            </button>
+        </div>
+        </form>
     </div>    
 </div>
     
 <hr />
+
+<div class="row-fluid">
+    <div class="alert alert-info">
+    <p><i class="icon-warning-sign"></i> È possibile registrare i pagamenti solo se 
+    il <strong>Codice Fiscale</strong> e la <strong>Partita Iva</strong> sono stati inseriti.<br />
+    L'inserimento deve essere effettuato dal presidente del comitato nella scermata di inserimento
+    dei dati del comitato.</p>
+    </div>
+</div>
     
 <div class="row-fluid">
    <div class="span12">
@@ -68,10 +128,13 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
            <i class="icon-envelope"></i>
             <strong>Ufficio Soci</strong> &mdash; Invia mail di massa a tutti i Volontari.
        </a>
+       <?php if ($t->siPuoDimettereTutti()) { ?>
        <a onClick="return confirm('Vuoi veramente chiudere le quote per anno corrente? questa operazione non è reversibile !');" href="?p=us.quote.chiudi" class="btn btn-block btn-danger">
            <i class="icon-off"></i>
             <strong>Ufficio Soci</strong> &mdash; Chiudi le quote per l'anno corrente
-       </a><hr />
+       </a>
+       <?php } ?>
+       <hr />
        </div>
        
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
@@ -85,7 +148,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         <?php
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
-            $t = $comitato->quoteNo();
+            $t = $comitato->quoteNo($anno);
+            $fiscali = true;
+            if (!$comitato->cf() || !$comitato->piva()) {
+                $fiscali = false;
+            }
                 ?>
             
             <tr class="success">
@@ -126,9 +193,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
                     <td>
                         <div class="btn-group">
+                            <?php if($registraOk && $accettaPagamenti && $fiscali) { ?>
                             <a class="btn btn-small btn-info" href="?p=us.quote.nuova&id=<?php echo $_v->id; ?>" title="Paga quota">
                                 <i class="icon-certificate"></i> Registra
                             </a>
+                            <?php } ?>
                             <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                 <i class="icon-envelope"></i>
                             </a>

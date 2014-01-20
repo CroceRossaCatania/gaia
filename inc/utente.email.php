@@ -70,10 +70,12 @@ if ($mailServizioSospesa) {
                     <p><h4><i class="icon-warning-sign"></i> Nota bene</h4></p>
                     <p>L'<strong>Email Principale</strong> è quella che <strong>usi per accedere</strong> ed è 
                        dove ti invieremo tutte le comunicazioni importanti.</p>
-                    <p>L'<strong>Email di Servizio</strong> è quella dalla quale partiranno le comunicazioni che spedisci
+                    <?php if ($me->stato == VOLONTARIO) { ?>
+                    <p>L'<strong>Email di Servizio</strong> è quella da partiranno le comunicazioni che spedisci
                     nel caso tu abbia qualche incarico in un Comitato CRI.</p>
                     <p>Se <strong>non sei in possesso</strong> di una email di servizio 
                     lascia il campo vuoto</p>
+                    <?php } ?>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="inputEmail">Email principale</label>
@@ -85,7 +87,7 @@ if ($mailServizioSospesa) {
                         <?php } ?>
                     </div>
                 </div>
-                <?php if ($me->volontario()){ ?>
+                <?php if ($me->stato == VOLONTARIO){ ?>
                 <div class="control-group">
                     <label class="control-label" for="inputemailServizio">Email di servizio</label>
                     <div class="controls">

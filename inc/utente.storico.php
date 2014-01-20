@@ -23,6 +23,12 @@ paginaPrivata();
             La tua riserva è stata terminata con successo.
         </div>
         <?php } ?>
+        <?php if ( isset($_GET['err']) ) { ?>
+        <div class="alert alert-danger">
+            <i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.<br />
+            L'operazione che hai tentato di eseguire non è andata a buon fine, per favore riprova.
+        </div>
+        <?php } ?>
         <div class="row-fluid">
             <h2>
                 <i class="icon-time muted"></i>
@@ -114,7 +120,7 @@ paginaPrivata();
                 <td><?= date('d/m/Y', $_q->timestamp); ?></td>
                 <td><?= $_q->quota ,"€"; ?></td>
                 <td>
-                    <a class="btn btn-small btn-info" href="?p=us.quote.ricevuta&id=<?= $_q->id; ?>" title="Visualizza ricevuta">
+                    <a class="btn btn-small btn-info" href="?p=utente.quote.ricevuta&id=<?= $_q->id; ?>" title="Visualizza ricevuta">
                         <i class="icon-paperclip"></i> Ricevuta
                     </a>
                 </td>

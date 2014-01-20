@@ -46,6 +46,27 @@ abstract class GeoPolitica extends GeoEntita {
         // @TODO: Ricorsivamente, ricreare gli oggetti
     }
 
+    /**
+     * Ottiene l'elenco dei corsi base organizzati da questo comitati
+     * @param bool $storico Opzionale. Ritornare anche i passati? Default true.
+     * @return array(CorsoBase) Lista di corsi base organizzati
+     */
+    public function corsiBase ( $storico = true ) {
+        $c = CorsoBase::filtra([
+            ['organizzatore',  $this->oid()]
+        ]);
+
+        if ( $storico )
+            return $c; 
+
+        $r = [];
+        foreach ( $c as $_c ) {
+            if ( $_c->futuro() )
+                $r[] = $_c;
+        }
+        return $r;
+    }
+    
     /*
      * Ottiene il livello di estensione (costante EST_UNITA, EST_LOCALE, ecc)
      */
@@ -73,7 +94,35 @@ abstract class GeoPolitica extends GeoEntita {
         return $r;
     }
 
+    /**
+     * Ottiene il genitore nell'albero
+     * @return GeoPolitica
+     */
     abstract public function superiore();
+
+    /**
+     * Ritorna l'espansione della ricerca in basso nell'albero partendo da questo nodo
+     * @param int $estensione   Opzionale. Estensione da raggiungere nell'albero. Uno di EST_*
+     * @param int $ricerca      Opzionale. ESPLORA_RAMI | ESPLORA_SOLO_FOGLIE. Default ESPLORA_RAMI.
+     * @return array(GeoPolitica)
+     */
+    public function esplora(
+        $estensione = EST_UNITA,
+        $ricerca    = ESPLORA_RAMI
+    ) {
+        if ( $ricerca == ESPLORA_SOLO_FOGLIE )
+            return $this->estensione();
+
+        if ( $this->_estensione() == $estensione ) {
+            return [$this];
+        } else {
+            $r = [$this];
+            foreach ( $this->figli() as $f ) {
+                $r = array_merge($r, $f->esplora($estensione, ESPLORA_RAMI));
+            }
+            return $r;
+        }
+    }
 
     public function primoPresidente () {
         $comitato = $this;
@@ -246,6 +295,19 @@ abstract class GeoPolitica extends GeoEntita {
             return true;
         }
         return false;
+    }
+
+    public function quotaBenemeriti($anno = null) {
+        if (!$anno)
+            $anno = date('Y');
+        $property = 'quota_' . $anno;
+        if ($t = Tesseramento::by('anno', $anno)) {
+            if ( $r = $this->$property ) {
+                return $r;
+            }
+            return $t->benemerito;
+        } 
+        return null;
     }
     
 }

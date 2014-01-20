@@ -153,7 +153,7 @@ define("DOMPDF_DEFAULT_PAPER_SIZE", "a4");
  * Used if no suitable fonts can be found
  * @var string
  */
-define("DOMPDF_DEFAULT_FONT", "serif");
+define("DOMPDF_DEFAULT_FONT", "helvetica");
 
 /**
  * Image DPI setting

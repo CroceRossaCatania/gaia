@@ -40,7 +40,10 @@ if($newemail && $newemail != $me->email) {
     }
 }
 
-if($newemailservizio && $newemailservizio != $me->emailservizio) {
+if($me->stato == VOLONTARIO 
+    && $newemailservizio 
+    && $newemailservizio != $me->emailservizio) {
+    
     if(Utente::by('email', $newemailservizio)){
         redirect('utente.email&ep');
     }else{

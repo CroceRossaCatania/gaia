@@ -113,6 +113,27 @@ function paginaAttivita( $attivita = null ) {
     }
 }
 
+function paginaCorsoBase( $corsoBase = null ) {
+    global $sessione;
+    richiediComitato();
+    if (
+         ( 
+            ( $corsoBase instanceof CorsoBase )
+            and
+            !$corsoBase->modificabileDa($sessione->utente())
+         )
+            or
+         !(
+                (bool) $sessione->utente()->admin()
+            or  (bool) $sessione->utente()->presiede()
+            or  (bool) $sessione->utente()->delegazioni(APP_FORMAZIONE)
+            or  (bool) $sessione->utente()->corsiBaseDiGestione()
+        )
+    ) {
+        redirect('errore.permessi');
+    }
+}
+
 function paginaModale() {
     include('./inc/part/pagina.attendere.php');
 }
@@ -133,7 +154,23 @@ function paginaPresidenziale( $comitato = null, $attivita = null) {
 }
 
 function menuVolontario() {
+    global $me;
+    if ( $me && $me->stato == ASPIRANTE ) {
+        menuAspirante();
+        return;
+    }elseif($me && ($me->ordinario() || $me->ordinariodimesso())){
+        menuOrdinario();
+        return;
+    }
     include('./inc/part/utente.menu.php');
+}
+
+function menuAspirante() {
+    include('./inc/part/aspirante.menu.php');
+}
+
+function menuOrdinario() {
+    include('./inc/part/ordinario.menu.php');
 }
 
 $_lista_attiva = $_link_excel = $_link_email = null;

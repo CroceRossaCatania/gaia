@@ -48,44 +48,48 @@ define('ETAMINIMA', 441504000);
  */
 
 /* Tipologia appartenenza gruppo */
-define('MEMBRO_DIMESSO',         0);
-define('MEMBRO_TRASFERITO',      1);
-define('MEMBRO_APP_NEGATA',      3);
-define('MEMBRO_EST_TERMINATA',   5);
-define('MEMBRO_TRASF_ANN',       9);
-define('MEMBRO_TRASF_NEGATO',   10);
-define('MEMBRO_EST_ANN',        14);
-define('MEMBRO_EST_NEGATA',     15);
-define('SOGLIA_APPARTENENZE',   19);
-define('MEMBRO_TRASF_IN_CORSO', 20);
-define('MEMBRO_EST_PENDENTE',   25);
-define('MEMBRO_PENDENTE',       30);
-define('MEMBRO_ESTESO',         35);
-define('MEMBRO_VOLONTARIO',     40);
-define('MEMBRO_MODERATORE',     50);
-define('MEMBRO_DIPENDENTE',     60);
-define('MEMBRO_PRESIDENTE',     70);
+define('MEMBRO_DIMESSO',            0);
+define('MEMBRO_TRASFERITO',         1);
+define('MEMBRO_ORDINARIO_DIMESSO',  2);
+define('MEMBRO_APP_NEGATA',         3);
+define('MEMBRO_EST_TERMINATA',      5);
+define('MEMBRO_TRASF_ANN',          9);
+define('MEMBRO_TRASF_NEGATO',      10);
+define('MEMBRO_EST_ANN',           14);
+define('MEMBRO_EST_NEGATA',        15);
+define('MEMBRO_ORDINARIO',         16);
+define('SOGLIA_APPARTENENZE',      19);
+define('MEMBRO_TRASF_IN_CORSO',    20);
+define('MEMBRO_EST_PENDENTE',      25);
+define('MEMBRO_PENDENTE',          30);
+define('MEMBRO_ESTESO',            35);
+define('MEMBRO_VOLONTARIO',        40);
+define('MEMBRO_MODERATORE',        50);
+define('MEMBRO_DIPENDENTE',        60);
+define('MEMBRO_PRESIDENTE',        70);
 
 
 
 /* Definizioni in stringa */
 $conf['membro'] = [
-    MEMBRO_TRASF_NEGATO     =>  'Trasferimento negato',
-    MEMBRO_TRASF_ANN        =>  'Richiesta trasferimento annullata',
-    MEMBRO_TRASFERITO       =>  'Membro Trasferito',
-    MEMBRO_EST_ANN          =>  'Richiesta estensione annullata',
-    MEMBRO_EST_NEGATA       =>  'Estensione negata',
-    MEMBRO_TRASF_IN_CORSO   =>  'Trasferimento in corso',
-    MEMBRO_PENDENTE         =>  'Pendente',
-    MEMBRO_EST_PENDENTE     =>  'Estensione richiesta',
-    MEMBRO_VOLONTARIO       =>  'Volontario',
-    MEMBRO_ESTESO           =>  'Volontario in estensione',
-    MEMBRO_MODERATORE       =>  'Moderatore',
-    MEMBRO_DIPENDENTE       =>  'Dipendente',
-    MEMBRO_PRESIDENTE       =>  'Presidente',
-    MEMBRO_DIMESSO          =>  'Dimesso',
-    MEMBRO_EST_TERMINATA    =>  'Estensione terminata',
-    MEMBRO_APP_NEGATA       =>  'Appartenenza negata'
+    MEMBRO_TRASF_NEGATO         =>  'Trasferimento negato',
+    MEMBRO_TRASF_ANN            =>  'Richiesta trasferimento annullata',
+    MEMBRO_TRASFERITO           =>  'Membro Trasferito',
+    MEMBRO_ORDINARIO_DIMESSO    =>  'Membro Ordinario Dimesso',
+    MEMBRO_EST_ANN              =>  'Richiesta estensione annullata',
+    MEMBRO_EST_NEGATA           =>  'Estensione negata',
+    MEMBRO_ORDINARIO            =>  'Membro Ordinario',
+    MEMBRO_TRASF_IN_CORSO       =>  'Trasferimento in corso',
+    MEMBRO_PENDENTE             =>  'Pendente',
+    MEMBRO_EST_PENDENTE         =>  'Estensione richiesta',
+    MEMBRO_VOLONTARIO           =>  'Volontario',
+    MEMBRO_ESTESO               =>  'Volontario in estensione',
+    MEMBRO_MODERATORE           =>  'Moderatore',
+    MEMBRO_DIPENDENTE           =>  'Dipendente',
+    MEMBRO_PRESIDENTE           =>  'Presidente',
+    MEMBRO_DIMESSO              =>  'Dimesso',
+    MEMBRO_EST_TERMINATA        =>  'Estensione terminata',
+    MEMBRO_APP_NEGATA           =>  'Appartenenza negata'
 ];
 
 
@@ -200,6 +204,15 @@ $conf['docs_tipologie'] = [
 
 /*
  * ===================================
+ * ======== ESPLIRAZIONE =============
+ * ===================================
+ */
+define('NON_ESPLORARE',         0);
+define('ESPLORA_RAMI',          1);
+define('ESPLORA_SOLO_FOGLIE',   2);
+
+/*
+ * ===================================
  * =========== TITOLI ================
  * ===================================
  */
@@ -245,7 +258,8 @@ define('APP_PRESIDENTE',    30);
 define('APP_OBIETTIVO',     40);
 define('APP_CO',            50);
 define('APP_SOCI',          60);
-define('APP_PATENTI',     70);
+define('APP_PATENTI',       70);
+define('APP_FORMAZIONE',    80);
 
 $conf['applicazioni'] = [
     APP_ATTIVITA    =>  "Attività",
@@ -254,7 +268,8 @@ $conf['applicazioni'] = [
     APP_OBIETTIVO   =>  "Obiettivo strategico",
     APP_CO          =>  "Centrale Operativa",
     APP_SOCI        =>  "Ufficio Soci",
-    APP_PATENTI => "Ufficio Patenti"
+    APP_PATENTI     => "Ufficio Patenti",
+    APP_FORMAZIONE  => "Resp. Formazione"
 ];
 
 /*
@@ -460,7 +475,7 @@ $conf['est_obj'] = [
 
 /*
  * ===================================
- * =========== ELEZIONI====== ============
+ * =========== ELEZIONI ==============
  * ===================================
  */
 
@@ -468,19 +483,27 @@ define('ANZIANITA', 2);
 
 /*
  * ===================================
- * =========== QUOTE======= ============
+ * =========== TESSERAMENTO ==========
  * ===================================
  */
 
-define('QUOTA_PRIMO', 16);
-define('QUOTA_RINNOVO', 8);
-define('QUOTA_ALTRO', 0);
+define('TESSERAMENTO_CHIUSO', 0);
+define('TESSERAMENTO_APERTO', 10);
 
-$conf['quote'] = [
-    QUOTA_PRIMO        =>  'Prima Quota 16€',
-    QUOTA_RINNOVO       =>  'Quota di rinnovo 8€',
-    QUOTA_ALTRO => 'Altro'
+$conf['tesseramento'] = [
+    TESSERAMENTO_CHIUSO     =>  'Chiuso',
+    TESSERAMENTO_APERTO     =>  'Aperto'
 ];
+
+/*
+ * ===================================
+ * ======== BENEMERITAZIONE ==========
+ * ===================================
+ */
+
+define('BENEMERITO_NO', 0);
+define('BENEMERITO_SI', 10);
+
 
 /*
  * ===================================
@@ -569,3 +592,81 @@ define('PRIVACY_PRIVATA',   10);
 define('PRIVACY_COMITATO', 20);
 define('PRIVACY_VOLONTARI', 30);
 define('PRIVACY_PUBBLICA', 40);
+
+/*
+ * ===================================
+ * =========== ETA ===================
+ * ===================================
+ */
+
+define('ETA_MINIMA',   14);
+
+
+/*
+ * ===================================
+ * ============= CORSI ===============
+ * ===================================
+ */
+
+define('ASPIRANTI_MINIMO_COMITATI',     5);
+
+// Tipologia di corso. CORSO_T_<nometipo>
+// Ogni tipologia di corso deve avere il proprio template
+// richiesta di iscrizione in /core/conf/pdf/modelli/corso/{codice}.html
+
+define('CORSO_T_CORSOBASE',         10);
+
+$conf['corso_tipo'] = [
+    CORSO_T_CORSOBASE       =>  'Corso base'
+];
+
+
+// Tipologia di accesso ai corsi. CORSO_T_<nometipo>
+
+define('CORSO_A_POPOLAZIONE',         10);
+define('CORSO_A_LAICI',               20);
+define('CORSO_A_TUTTI',               30);
+define('CORSO_A_VOLONTARI',           40);
+
+$conf['corso_a'] = [
+    CORSO_A_POPOLAZIONE         =>  'Corso alla popolazione',
+    CORSO_A_VOLONTARI           =>  'Corso aperti ai volontari',
+    CORSO_A_LAICI               =>  'Corso aperti ai non volontari',
+    CORSO_A_TUTTI               =>  'Corso aperti ai volontari',
+];
+
+// Stati dei corsi. CORSO_S_<stato>
+
+define('CORSO_S_ANNULLATO',          0);
+define('CORSO_S_DACOMPLETARE',      10);
+define('CORSO_S_CONCLUSO',          20);
+define('CORSO_S_ATTIVO',            30);
+
+$conf['corso_stato'] = [
+    CORSO_S_ANNULLATO         =>  'Corso annullato',
+    CORSO_S_DACOMPLETARE      =>  'Da completare',
+    CORSO_S_CONCLUSO          =>  'Corso concluso',
+    CORSO_S_ATTIVO            =>  'Corso attivo',
+];
+
+/*
+ * ===================================
+ * ===== PARTECIPAZIONI BASE =========
+ * ===================================
+ */
+
+define('ISCR_ANNULLATA',       0);
+define('ISCR_ABBANDONO',      10);
+define('ISCR_RICHIESTA',      20);
+define('ISCR_CONFERMATA',     30);
+define('ISCR_SUPERATO',       40);
+define('ISCR_BOCCIATO',       50);
+
+$conf['partecipazioneBase'] = [
+    ISCR_ANNULLATA      =>  'Annullata', 
+    ISCR_ABBANDONO      =>  'Abbandonato', 
+    ISCR_RICHIESTA      =>  'Preiscritto', 
+    ISCR_CONFERMATA     =>  'Iscritto',
+    ISCR_SUPERATO       =>  'Superato',  
+    ISCR_BOCCIATO       =>  'Non superato',
+];  

@@ -26,13 +26,17 @@ paginaAdmin();
         <div class="span6 centrato">
             <div class='alert alert-info'>
                 <strong>Script per il pagamento delle quote associative</strong>
-                <p>Questo script paga tutte le quote associative dell'anno corrente</p>
+                <p>Questo script paga tutte le quote associative dell'anno corrente e assegno l'anno della quota sulla base della data di pagamento</p>
             </div>
             <a href="?p=admin.quotepaga" class="btn btn-large btn-info">
                 <i class="icon-money"></i>
                 Paga quote associative
             </a>
-            <hr/>
+            <a href="?p=admin.quoteassegna" class="btn btn-large btn-info">
+                <i class="icon-money"></i>
+                Assegna anno alla quota
+            </a>
+            <hr />
             <div class="alert alert-danger">
                 <strong>Script per manutenzione delle attività</strong>
                 <p>Questo script elimina le attività con dati mancanti e fixa quelle senza referente</p>

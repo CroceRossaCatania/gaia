@@ -10,6 +10,8 @@
 
 if ($sessione->utente()->email) {
   redirect('errore.permessi&cattivo');
+} elseif($sessione->utente()->ordinario()) {
+  redirect('utente.me');
 }
 
 paginaPrivata();
@@ -32,7 +34,7 @@ if ( $e and $e->password ) {
     redirect('nuovaAnagraficaContatti&email');
 }
 
-if ( strlen($_POST['inputPassword']) < 6 || strlen($_POST['inputPassword']) > 15 ) {
+if ( strlen($_POST['inputPassword']) < 8 || strlen($_POST['inputPassword']) > 15 ) {
 	redirect('nuovaAnagraficaContatti&e');
 }
 
@@ -50,8 +52,8 @@ $p->cellulareServizio   = $cells;
 $password     		= $_POST['inputPassword'];
 $sessione->utente()->cambiaPassword($password);
 
-if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
 
+if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
     redirect('nuovaAnagraficaAccesso');
 } else {
     $m = new Email('registrazioneAspirante', 'Grazie futuro volontario');
@@ -59,7 +61,7 @@ if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
 	$m->_NOME = $sessione->utente()->nome;
 	$m->invia();
 	$sessione->utente = NULL;
-	redirect('grazieAspirante');
+	redirect('utente.me');
 }
 
 ?>

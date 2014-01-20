@@ -33,6 +33,18 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                 La richiesta di riserva è stata inoltrata con successo.
             </div>
             <?php } ?>
+            <?php if ( isset($_GET['canc']) ) { ?>
+            <div class="alert alert-success">
+                <i class="icon-ok"></i> <strong>Quota cancellata</strong>.
+                La quota è stata rimossa in maniera corretta.
+            </div>
+            <?php } ?>
+            <?php if ( isset($_GET['annullata']) ) { ?>
+            <div class="alert alert-success">
+                <i class="icon-ok"></i> <strong>Quota annullata</strong>.
+                La quota è stata annullata in maniera corretta. Rimarrà registrata nello storico quote dell'utente.
+            </div>
+            <?php } ?>            
             <?php if ( isset($_GET['riserrdate']) ) { ?>
             <div class="alert alert-error">
                 <i class="icon-warning-sign"></i> <strong>Richiesta di riserva non inserita</strong>.
@@ -46,6 +58,12 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                 <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
             </div> 
             <?php } ?>
+            <?php if (isset($_GET['giaAnn'])) { ?>
+            <div class="alert alert-block alert-error">
+                <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+                <p>La quota che hai tentato di annullare risultava già annullata.</p>
+            </div> 
+            <?php } ?>            
             <div class="span12">
                 <h3>Ufficio Soci</h3>
             </div>
@@ -64,6 +82,7 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                 <table class="table table-striped table-condensed">
                     
                     <tr><td>Num. Volontari</td><td><?php echo $me->numVolontariDiCompetenza(); ?></td></tr>
+                    <tr><td>Num. Soci Ordinari</td><td><?php echo $me->numOrdinariDiCompetenza(); ?></td></tr>
                     
                 </table>
             </div>
@@ -102,6 +121,15 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                         <a href="?p=us.utente.riserva" class="btn btn-block btn-warning">
                             <i class="icon-pause"></i>
                             Metti in riserva volontario
+                        </a>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row-fluid">
+                    <div class="btn-group btn-group-vertical span12">
+                        <a href="?p=us.ordinario.nuovo" class="btn btn-block btn-success">
+                            <i class="icon-plus"></i>
+                            Aggiungi Socio Ordinario
                         </a>
                     </div>
                 </div>

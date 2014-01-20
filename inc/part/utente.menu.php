@@ -44,6 +44,14 @@ if ( $presidente || $me->delegazioni(APP_CO)) {
     ];
 }
 
+/*
+ * blocco commentato per permettere merge!!!
+if ( $presidente || $me->delegazioni(APP_FORMAZIONE) || $me->corsiBaseDiGestione()) {
+    $menu[''] += [
+        'formazione.corsibase'   =>  '<span class="badge badge-success">&nbsp;</span> Corsi Base'
+    ];
+}
+*/
 if ( $presidente || $me->delegazioni(APP_OBIETTIVO)) {
     $menu[''] += [
         'obiettivo.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Delegato d\'Area'

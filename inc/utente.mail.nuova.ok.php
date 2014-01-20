@@ -349,13 +349,63 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         }
     }
 
+}elseif (isset($_GET['ordinaricom'])) {
+    $comitati = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
+    foreach($comitati as $comitato){
+        $volontari = $comitato->membriOrdinari();
+        foreach($volontari as $v){
+                $m = new Email('mailTestolibero', ''.$oggetto);
+                $m->da = $me; 
+                $m->a = $v;
+                $m->_TESTO = $testo;
+                $m->invia();
+        }
+    }
+
+}elseif (isset($_GET['ordinariunit'])) {
+    $c = $_GET['id'];
+    $c = Comitato::id($c);
+    $volontari = $c->membriOrdinari();
+    foreach($volontari as $v){
+            $m = new Email('mailTestolibero', ''.$oggetto);
+            $m->da = $me; 
+            $m->a = $v;
+            $m->_TESTO = $testo;
+            $m->invia();
+    }
+
+}elseif (isset($_GET['ordinaridimessiunit'])) {
+    $c = $_GET['id'];
+    $c = Comitato::id($c);
+    $volontari = $c->membriOrdinariDimessi();
+    foreach($volontari as $v){
+            $m = new Email('mailTestolibero', ''.$oggetto);
+            $m->da = $me; 
+            $m->a = $v;
+            $m->_TESTO = $testo;
+            $m->invia();
+    }
+
+}elseif (isset($_GET['ordinaridimessicom'])) {
+    $comitati = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
+    foreach($comitati as $comitato){
+        $volontari = $comitato->membriOrdinariDimessi();
+        foreach($volontari as $v){
+                $m = new Email('mailTestolibero', ''.$oggetto);
+                $m->da = $me; 
+                $m->a = $v;
+                $m->_TESTO = $testo;
+                $m->invia();
+        }
+    }
+
 }else{
 
-$m = new Email('mailTestolibero', ''.$oggetto);
-$m->da = $me; 
-$m->a = $v;
-$m->_TESTO = $testo;
-$m->invia();    
+    $m = new Email('mailTestolibero', ''.$oggetto);
+    $m->da = $me; 
+    $m->a = $v;
+    $m->_TESTO = $testo;
+    $m->invia();    
 
 }  
 

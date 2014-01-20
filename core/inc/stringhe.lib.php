@@ -104,3 +104,7 @@ function generaStringaCasuale(  $caratteri = 10,
 
     return $codice;
 }
+
+function soldi($cifra) {
+    return number_format($cifra, 2, ',', '.');
+}

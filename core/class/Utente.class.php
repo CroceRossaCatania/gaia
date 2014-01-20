@@ -356,6 +356,15 @@ class Utente extends Persona {
         return $n;
     }
     
+    public function numOrdinariDiCompetenza() {
+        $n = 0;
+        $comitati = $this->comitatiApp([ APP_SOCI, APP_PRESIDENTE, APP_CO, APP_OBIETTIVO ]);
+        foreach($comitati as $_c) {
+                $n += $_c->numMembriOrdinari();          
+        }
+        return $n;
+    }
+
     public function presiede( $comitato = null ) {
         if ( $comitato ) {
             if($comitato->unPresidente() == $this->id) {
@@ -916,6 +925,39 @@ class Utente extends Persona {
         }
         return array_unique($a);
     }
+
+    /**
+     * Restituisce l'elenco dei corsi base che gestisco
+     * @return CorsoBase    elenco dei corsi gestiti 
+     */
+    public function corsiBaseDiGestione() {
+        $a = $this->corsiBaseDiretti();
+        foreach ( $this->comitatiApp([APP_PRESIDENTE, APP_FORMAZIONE], false) as $c ) {
+            $a = array_merge($a, $c->CorsiBase());
+        }
+        return array_unique($a);
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi base di cui sono direttore
+     * @return CorsoBase    elenco dei corsi diretti 
+     */
+    public function corsiBaseDiretti() {
+        return CorsoBase::filtra([
+            ['direttore', $this->id]
+            ]);
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi base di cui sono direttore e devo completare
+     * @return CorsoBase    elenco dei corsi diretti da completare
+     */
+    public function corsiBaseDirettiDaCompletare() {
+        return CorsoBase::filtra([
+            ['direttore',   $this->id],
+            ['stato',       CORSO_S_DACOMPLETARE]
+        ]);
+    }
     
     public function cellulare() {
         if($this->cellulareServizio){
@@ -1001,6 +1043,17 @@ class Utente extends Persona {
         }
         return $q;
     }
+
+    public function quota($anno = null) {
+        if (!$anno)
+            $anno = date('Y');
+        $q = $this->quote();
+        foreach ($q as $_q) {
+            if ($_q->anno == $anno)
+                return $_q;
+        }
+        return false;
+    } 
 
     public static function elencoId() {
          global $db;
@@ -1134,7 +1187,12 @@ class Utente extends Persona {
                             );
         $comitatiGestiti = array_unique($comitatiGestiti);
         
-        $c = $this->unComitato(MEMBRO_PENDENTE);
+        if ($this->stato == PERSONA) {
+            $c = $this->unComitato(MEMBRO_ORDINARIO);
+        } else {
+            $c = $this->unComitato(MEMBRO_PENDENTE);
+        }
+        
         if($c) {
             if(in_array($c->locale(), $comitatiGestiti) 
             || in_array($c, $comitatiGestiti)) {
@@ -1171,4 +1229,50 @@ class Utente extends Persona {
         }
         return "Più di un mese fà";
     }
+
+    public function ordinario() {
+        $r = [];
+        foreach ( Appartenenza::filtra([
+            ['volontario',  $this->id],
+            ['stato',       MEMBRO_ORDINARIO]
+        ]) as $a ) {
+            if ( !$a->attuale() ) { continue; }
+            $r[] = $a;
+        }
+        return $r;
+    }
+
+    public function ordinarioDimesso() {
+        $r = [];
+        foreach ( Appartenenza::filtra([
+            ['volontario',  $this->id],
+            ['stato',       MEMBRO_ORDINARIO_DIMESSO]
+        ]) as $a ) {
+            if ( !$a->attuale() ) { continue; }
+            $r[] = $a;
+        }
+        return $r;
+    }
+
+    /**
+     * Dice se un socio è benemerito per un dato anno
+     * @param $anno int     Anno su cui voglio fare il controllo
+     * @return Quota|bool   Quota se benemerito, false altrimenti
+     */
+    public function benemerito($anno = null) {
+        if (!$anno)
+            $anno = date('Y');
+        $q = Quota::filtra([
+            ['anno', $anno],
+            ['benemerito', BENEMERITO_SI]
+            ]);
+
+        foreach ($q as $_q) {
+            if ($_q->volontario()->id == $this->id)
+                return $_q;
+        }
+        return false;
+
+    }
+
 }

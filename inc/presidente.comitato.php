@@ -6,12 +6,15 @@
 
 /*
  * Elenco Applicazioni da gestire
+ * !!!! commentato APP_FORMAZIONE per fare merge di quote!!!
  */
 
 controllaParametri(array('oid'));
 
 $_daGestire = [
-    APP_CO, APP_SOCI
+    APP_CO          =>  [EST_UNITA, EST_LOCALE, EST_PROVINCIALE, EST_REGIONALE, EST_NAZIONALE],
+    APP_SOCI        =>  [EST_UNITA, EST_LOCALE, EST_PROVINCIALE, EST_REGIONALE, EST_NAZIONALE],
+    //APP_FORMAZIONE  =>  [EST_LOCALE, EST_PROVINCIALE, EST_REGIONALE, EST_NAZIONALE]
 ];
 
 $c = $_GET['oid'];
@@ -77,6 +80,13 @@ $(document).ready(function() {
     </div>
     <?php } ?>
 
+    <?php if ( isset($_GET['errquota']) ) { ?>
+    <div class="alert alert-error">
+        <i class="icon-warning-sign"></i> <strong>Modifiche non salvate</strong> &mdash;
+        Non è possibile inserire un valore inferiore a quello stabilito a livello Nazionale.
+    </div>
+    <?php } ?>
+
     <?php if ( isset($_GET['double']) ) { ?>
     <div class="alert alert-error">
         <i class="icon-warning-sign"></i> <strong>Modifiche non salvate</strong> &mdash;
@@ -94,6 +104,14 @@ $(document).ready(function() {
                     Dettagli comitato
                 </a>
             </li>
+            <?php if ( $c instanceOf Locale ) { ?>
+            <li>
+                <a data-toggle="tab" href="#benemeriti">
+                    <i class='icon-money'></i>
+                    Soci Benemeriti
+                </a>
+            </li>
+            <?php } ?>
             <li>
                 <a data-toggle="tab" href="#obiettivi">
                     <i class='icon-flag-alt'></i>
@@ -106,6 +124,7 @@ $(document).ready(function() {
                     Aree di intervento
                 </a>
             </li>
+
             <?php if ( $c instanceOf Comitato ) { ?>
             <li>
                 <a data-toggle="tab" href="#referenti">
@@ -119,10 +138,24 @@ $(document).ready(function() {
                     Attività
                 </a>
             </li>
+            <?php } else { ?>
+
+            <li>
+                <a data-toggle="tab" href="#corsibase">
+                    <i class='icon-rocket'></i>
+                    Corsi base
+                </a>
+            </li>
             <?php } ?>
+
             
             <?php
-                foreach ( $_daGestire as $_gestione ) {
+                foreach ( $_daGestire as $_gestione => $_estensioni ) {
+
+                    // Se questa applicazione non e' da gestire
+                    if ( !in_array( $c->_estensione(), $_estensioni) )
+                        continue;
+
                     $_nome = $conf['applicazioni'][$_gestione];
                     ?>
                 <li>
@@ -202,6 +235,57 @@ $(document).ready(function() {
                 </div>
                 
             </div>
+
+            <!-- Tab: Soci Benemeriti -->
+            <?php if($c instanceOf Locale) { ?>
+            <div class="tab-pane"    id="benemeriti">
+                <h4>Tesseramenti e importi della quota socio benemerito</h4>
+                <form action="?p=presidente.comitato.ok" method="POST">
+
+                    <div class="alert alert-info">
+                        <i class="icon-info-sign"></i> Modifiche non reversibili. <br />
+                        Una volta modificato l'importo della quota integrativa per i soci Benemeriti
+                        l'operazione non può essere annullata. <br />Per problemi contattare il supporto.
+                    </div>
+                    <input type="hidden" name="oid" value="<?php echo $c->oid(); ?>" />
+
+                    <table class="table table-striped table-bordered">
+
+                        <thead>
+                            <th>Anno</th>
+                            <th>Stato</th>
+                            <th>Importo per soci benemeriti</th>
+                            <th>Azione</th>
+                        </thead>
+
+                    <?php foreach (Tesseramento::elenco() as $t) { ?>
+                        <tr>
+                            <td><?php echo $t->anno; ?></td>
+                            <td><?php echo $conf['tesseramento'][$t->stato]; ?></td>
+                            <td> €
+                                <?php if ($t->stato == TESSERAMENTO_APERTO
+                                        && $c->quotaBenemeriti() == $t->benemerito) { ?>
+                                <input class="input-mini" type="number"
+                                step="0.1" min="<?php echo $t->benemerito; ?>"
+                                name="<?php echo $t->anno; ?>_benemerito" 
+                                value="<?php echo number_format((float) $c->quotaBenemeriti($t->anno), 2, '.', ''); ?>"
+                                />  
+                                <?php } else { 
+                                    echo number_format((float) $c->quotaBenemeriti($t->anno), 2, '.', '');
+                                 } ?>                         
+                            </td>
+                            <td>
+                                <?php if($t->stato == TESSERAMENTO_APERTO
+                                        && $c->quotaBenemeriti() == $t->benemerito) { ?>
+                                    <input class="btn btn-success" type="submit" value="Varia">
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    </table>
+                </form>
+            </div>
+            <?php } ?>
             
             <!-- Tab: Obiettivi -->
             <div class="tab-pane"           id="obiettivi">
@@ -412,9 +496,21 @@ $(document).ready(function() {
                 <p>Per creare un'attività, vai alla pagina di <a href="?p=attivita.idea">Creazione attività</a>.</p>
             </div>
             
+            <!-- Tab: Corsi base -->
+            <div class="tab-pane"           id="corsibase">
+                <h4>Corsi base</h4>
+                <p>Per questo comitato, sono stati organizzati e pubblicati un totale di <strong><?php echo count($c->corsiBase(true)); ?> corsi base</strong>.</p>
+                <p>Per gestire i corsi base, vai alla pagina di <a href="?p=formazione.corsibase">Gestione dei corsi base</a>.</p>
+            </div>
+            
             <?php            
             $i = 0;
-            foreach ( $_daGestire as $_gestione ) {
+            foreach ( $_daGestire as $_gestione => $_estensioni ) {
+
+                // Se questa applicazione non e' da gestire
+                if ( !in_array( $c->_estensione(), $_estensioni) )
+                    continue;
+
                 $_nome = $conf['applicazioni'][$_gestione];
                 $delegati = $c->delegati($_gestione, true);
                 ?>

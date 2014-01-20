@@ -16,7 +16,9 @@ if ( Utente::by('cellulare', $cellulare) ) {
     redirect('utente.cellulare&e');
 }
 
-$me->cellulare               = $cell;
-$me->cellulareServizio   = $cells;
+$me->cellulare           = $cell;
+if($me->stato == VOLONTARIO) {
+	$me->cellulareServizio   = $cells;
+}
 
 redirect('utente.cellulare&ok');

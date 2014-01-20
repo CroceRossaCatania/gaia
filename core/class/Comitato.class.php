@@ -231,6 +231,98 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
+    public function membriOrdinari() {
+        $q = $this->db->prepare("
+            SELECT
+                anagrafica.id
+            FROM
+                appartenenza, anagrafica
+            WHERE
+                anagrafica.id = appartenenza.volontario
+            AND
+                comitato = :comitato
+            AND
+                appartenenza.stato = :stato
+            ORDER BY
+                cognome ASC, nome ASC");
+        $q->bindParam(':comitato', $this->id);
+        $q->bindValue(':stato', MEMBRO_ORDINARIO);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Volontario::id($k[0]);
+        }
+        return $r;
+    }
+
+    public function membriOrdinariDimessi() {
+        $q = $this->db->prepare("
+            SELECT
+                anagrafica.id
+            FROM
+                appartenenza, anagrafica
+            WHERE
+                anagrafica.id = appartenenza.volontario
+            AND
+                comitato = :comitato
+            AND
+                appartenenza.stato = :stato
+            ORDER BY
+                cognome ASC, nome ASC");
+        $q->bindParam(':comitato', $this->id);
+        $q->bindValue(':stato', MEMBRO_ORDINARIO_DIMESSO);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Volontario::id($k[0]);
+        }
+        return $r;
+    }
+
+    public function numMembriOrdinariDimessi() {
+        $q = $this->db->prepare("
+            SELECT
+                COUNT(volontario)
+            FROM
+                appartenenza
+            WHERE
+                ( fine >= :ora OR fine IS NULL OR fine = 0) 
+            AND
+                comitato = :comitato
+            AND
+                stato    = :stato
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':comitato', $this->id);
+        $q->bindValue(':stato',    MEMBRO_ORDINARIO_DIMESSO);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+
+    public function numMembriOrdinari() {
+        $q = $this->db->prepare("
+            SELECT
+                COUNT(volontario)
+            FROM
+                appartenenza
+            WHERE
+                ( fine >= :ora OR fine IS NULL OR fine = 0) 
+            AND
+                comitato = :comitato
+            AND
+                stato    = :stato
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':comitato', $this->id);
+        $q->bindValue(':stato',    MEMBRO_ORDINARIO);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+
     public function numMembriAttuali($stato = MEMBRO_ESTESO) {
         $q = $this->db->prepare("
             SELECT
@@ -459,7 +551,7 @@ class Comitato extends GeoPolitica {
         return [$this];
     }
     
-    public function quoteSi() {
+    public function quoteSi($anno , $stato=MEMBRO_VOLONTARIO) {
         $q = $this->db->prepare("
             SELECT  anagrafica.id
             FROM    appartenenza, anagrafica, quote
@@ -478,16 +570,15 @@ class Comitato extends GeoPolitica {
             AND
                 quote.appartenenza = appartenenza.id
             AND
-                quote.timestamp BETWEEN :anno AND :ora
+                quote.anno = :anno
+            AND
+                quote.pAnnullata IS NULL
             ORDER BY
               anagrafica.cognome     ASC,
               anagrafica.nome  ASC");
-        $q->bindValue(':comitato',  $this->id);
-        $stato = MEMBRO_VOLONTARIO;
+        $q->bindParam(':comitato',  $this->id);
         $q->bindValue(':stato',  $stato);
-        $q->bindValue(':ora',  time());
-        $anno = date ('Y', time());
-        $anno = mktime(0, 0, 0, 1, 1, $anno);
+        $q->bindParam(':ora',  time());
         $q->bindValue(':anno',    $anno);
         $q->execute();
         $r = [];
@@ -497,42 +588,40 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
-     public function quoteNo() {
+     public function quoteNo($anno , $stato=MEMBRO_VOLONTARIO) {
         $q = $this->db->prepare("
-           SELECT 
+            SELECT 
                 anagrafica.id 
-           FROM 
+            FROM    
                 anagrafica, appartenenza 
-          WHERE         
+            WHERE         
                 anagrafica.id = appartenenza.volontario 
-          AND
+            AND
                 appartenenza.comitato = :comitato
-          AND
+            AND
                 appartenenza.stato = :stato
-          AND 
-                ( fine < 1 OR fine > :ora 
-                OR 
-                fine IS NULL ) 
-         AND 
-                appartenenza.id 
-         NOT IN 
-                ( 
-                SELECT 
-                    appartenenza 
-                FROM 
-                    quote 
-                WHERE 
-                timestamp BETWEEN :anno AND :ora )
-        ORDER BY
-              anagrafica.cognome     ASC,
-              anagrafica.nome  ASC");
-        $q->bindValue(':comitato',  $this->id);
-        $q->bindValue(':ora',  time());
-        $anno = date ('Y', time());
-        $anno = mktime(0, 0, 0, 1, 1, $anno);
-        $q->bindValue(':anno',    $anno);
-        $stato = MEMBRO_VOLONTARIO;
-        $q->bindValue(':stato', $stato);
+            AND 
+                ( appartenenza.fine < 1 OR appartenenza.fine > :ora OR appartenenza.fine IS NULL)
+            AND 
+                ( appartenenza.id NOT IN 
+                    ( SELECT 
+                            appartenenza 
+                        FROM 
+                            quote 
+                        WHERE 
+                            anno = :anno
+                        AND
+                            pAnnullata IS NULL
+                    )
+                ) 
+                
+            ORDER BY
+                anagrafica.cognome     ASC,
+                anagrafica.nome  ASC");
+        $q->bindParam(':comitato',  $this->id);
+        $q->bindParam(':ora',  time());
+        $q->bindParam(':anno', $anno);
+        $q->bindParam(':stato', $stato);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
@@ -745,14 +834,26 @@ class Comitato extends GeoPolitica {
             return $r;
     }
 
+    /**
+     * Partita iva del locale di riferimento
+     * @return string   Partita iva
+     */
     public function piva() {
         return $this->superiore()->piva();
     }
 
+    /**
+     * Codice fiscale del locale di riferimento
+     * @return string   CF
+     */
     public function cf() {
         return $this->superiore()->cf();
     }
 
+    /**
+     * Ritorna lo stato del comitato
+     * @return bool  True se privato
+     */
     public function privato() {
         return $this->superiore()->privato();
     }

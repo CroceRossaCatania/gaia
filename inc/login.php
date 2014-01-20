@@ -75,8 +75,8 @@ if ( isset($_GET['token']) ) {
               </div>
           <?php } elseif ( isset($_GET['captcha']) ) { ?>
               <div class="alert alert-error">
-                  <strong>Codice di verifica non corretto</strong>.<br />
-                  Per favore inserisci attentamente il codice di verifica.
+                  <strong>Indovinello non completato</strong>.<br />
+                  Per favore risolvi l'indovinello che trovi qui sotto per accedere.
               </div>
           <?php } else { ?>
               <p>&nbsp;</p>
@@ -97,8 +97,10 @@ if ( isset($_GET['token']) ) {
             <label class="control-label" for="inputValida">
               
             </label>
-            <div class="controls">
+            <div class="controls <?php if (isset($_GET['captcha'])) { ?>alert alert-error <?php } ?>">
               <i class="icon-lock"></i> Per favore completa l'indovinello:<br /><br />
+              <p class="hidden-desktop"><i class="icon-tablet"></i> Stai usando un tablet o uno smartphone e non riesci a trascinare? 
+              Clicca sulla casella contenente la risposta corretta!</p>
               <?php captcha_mostra(); ?>
             </div>
           </div>

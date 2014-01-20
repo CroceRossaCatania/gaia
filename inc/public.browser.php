@@ -66,6 +66,19 @@
         <p>Purtroppo il browser che utilizzi è stato progettato molti anni fa, quando queste tecnologie
         non erano ancora diffuse e potresti quindi incorrere in errori durante la navigazione, per
         questo non possiamo permetterci che tu acceda a Gaia con il browser che stai utilizzando. 
+        <h3>Non ho un account di Amministratore sul PC, come posso installare?</h3>
+        <p>Niente paura, per installare <a href="http://chrome.google.com/">Google Chrome </a> non
+        serve un account da amministratore. Al momento di inserire la password dell'amministratore 
+        premi il pulsante <strong>annulla</strong> e poi il pulsante <strong>continua</strong> presente
+        nella schermata successiva.
+        <h3>Sono troppo affezionato al caro <del>vecchio</del> Internet Explorer, come faccio?</h3>
+        <p>Tranquillo nostalgico amico, Gaia ha una soluzione anche per te che non riesci a separarti
+        da uno dei browser più diffusi. Se hai una versione di Internet Explorer compresa tra 
+        la <strong>6</strong> e la <strong>9</strong> e sei su piattaforma <strong>Windows 7/Vista/XP SP2 o versioni successive</strong> puoi utilizzare
+        <a href="http://www.google.com/chromeframe">Google Chrome Frame</a> che ti permette di avere Google
+        Chrome all'interno del tuo browser.
+        <h3>Non ci sto. Voglio comunque usare una versione obsoleta di Internet Explorer, posso?</h3>
+        <p>No, non puoi.</p>
     </div>
 </div>
 

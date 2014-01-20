@@ -12,7 +12,7 @@ paginaPrivata();
         <?php        menuVolontario(); ?>
     </div>
     <div class="span9">
-        <h2><i class="icon-phone muted"></i> Comunicazioni telefoniche</h3>
+        <h2><i class="icon-phone muted"></i> Comunicazioni telefoniche</h2>
         
         <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
@@ -34,7 +34,9 @@ paginaPrivata();
                 <div class="alert alert-warning alert-block">
                     <h4><i class="icon-warning-sign"></i> Nota bene</h4>
                     <p>Questi sono i numeri di telefono dove ti contatteremo per <strong>tutte le comunicazioni importanti</strong>.</p>
+                    <?php if($me->stato == VOLONTARIO) { ?>
                     <p>Se <strong>non sei in possesso</strong> di un cellulare di servizio lascia il campo vuoto</p>
+                    <?php } ?>
                 </div>
                 <div class="control-group input-prepend">
                     <label class="control-label" for="inputCellulare">Cellulare</label>
@@ -43,13 +45,15 @@ paginaPrivata();
                         <input type="text" id="inputCellulare" autofucus name="inputCellulare" required pattern="[0-9]{9,11}" required value="<?php echo $me->cellulare; ?>"/>
                     </div>
                 </div>
-              <div class="control-group input-prepend">
-                <label class="control-label" for="inputCellulareServizio">Cell. servizio</label>
-                <div class="controls">
-                    <span class="add-on">+39</span>
-                    <input type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" value="<?php echo $me->cellulareServizio; ?>"/>
+                <?php if($me->stato == VOLONTARIO) { ?>
+                <div class="control-group input-prepend">
+                    <label class="control-label" for="inputCellulareServizio">Cell. servizio</label>
+                    <div class="controls">
+                        <span class="add-on">+39</span>
+                        <input type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" value="<?php echo $me->cellulareServizio; ?>"/>
+                    </div>
                 </div>
-            </div>
+                <?php } ?>
                   
           
             <div class="form-actions">
@@ -58,10 +62,7 @@ paginaPrivata();
                     Cambia numeri
                 </button>
             </div>
+            </div>
           </form>
-
     </div>
-
 </div>
-</div>
-

@@ -44,6 +44,12 @@ $appartenenza = $v->storico();
     
 <div class="row-fluid">
    <div class="span12">
+        <?php if(isset($_GET['annullata'])) { ?>
+            <div class="alert alert-error">
+              <h4><i class="icon-warning-sign"></i> Qualcosa non ha funzionato</h4>
+              <p>Sembra che tu sia cercando di modificare una quota precedentemente annullata.</p>
+            </div>
+        <?php } ?>
        
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
@@ -53,7 +59,7 @@ $appartenenza = $v->storico();
                 <th>Comitato</th>
                 <th>Data versamento</th>
                 <th>Quota</th>
-                <th>Registrata da</th>
+                <th>Stato</th>
                 <th>Azioni</th>
             </thead>
         <?php
@@ -62,17 +68,38 @@ $q = Quota::filtra([['appartenenza', $app]], 'timestamp DESC');
     foreach ( $q as $_q ){   
                 ?>
                 <tr>
-                    <td><?= $_q->id; ?></td>
+                    <td><?= $_q->progressivo(); ?></td>
                     <td><?= $_q->volontario()->nome; ?></td>
                     <td><?= $_q->volontario()->cognome; ?></td>
                     <td><?= $_q->comitato()->nomeCompleto(); ?></td>
                     <td><?= date('d/m/Y', $_q->timestamp); ?></td>
-                    <td><?= $_q->quota ,"€"; ?></td>
-                    <td><?= $_q->conferma()->nomeCompleto(); ?></td>
+                    <td>€ <?php echo soldi($_q->quota);  ?></td>
                     <td>
-                        <a class="btn btn-small btn-info" href="?p=us.quote.ricevuta&id=<?= $_q->id; ?>" title="Visualizza ricevuta">
-                            <i class="icon-paperclip"></i> Ricevuta
-                        </a>
+                        <?php if($ann = $_q->annullata()) { ?>
+                            Annullata da <?= $_q->annullatore()->nomeCompleto(); ?>
+                            il <?= $_q->dataAnnullo()->format('d/m/Y'); ?>
+                        <?php } else { ?>
+                            Regolare
+                        <?php } ?>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <?php if(!$ann) { ?>
+                            <a class="btn btn-small btn-info" href="?p=us.quote.ricevuta&id=<?= $_q->id; ?>" title="Visualizza ricevuta">
+                                <i class="icon-paperclip"></i> Ricevuta
+                            </a>
+                            <?php } 
+                                if( $me->admin()){ ?>
+                                <?php if(!$ann) { ?>
+                                <a class="btn btn-small btn-info" href="?p=us.quote.modifica&id=<?= $_q->id; ?>" title="Modifica quota">
+                                    <i class="icon-edit"></i>
+                                </a>
+                                <?php } ?>
+                                <a  onClick="return confirm('Vuoi veramente cancellare questa quota ?');" href="?p=admin.quota.cancella&id=<?php echo $_q->id; ?>" title="Cancella Quota" class="btn btn-small btn-danger">
+                                    <i class="icon-trash"></i>
+                                </a>
+                            <?php } ?>
+                        </div>
                     </td>
                 </tr>
                 <?php 

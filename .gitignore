@@ -3,6 +3,9 @@
 # Captcha
 /core/conf/captcha.conf.php
 
+# Recaptcha
+/core/conf/recaptcha.conf.php
+
 # Font DOMPDF
 /core/inc/dompdf/lib/fonts/php_Times-Roman.afm
 /core/inc/dompdf/lib/fonts/php_Times-Bold.afm

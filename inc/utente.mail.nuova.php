@@ -7,7 +7,7 @@
 paginaPrivata();
 
 $f = $_GET['id'];
-$t=utente::by('id',$f);
+$t = Utente::by('id',$f);
 ?>
 <div class="row-fluid">
     <div class="span3">
@@ -36,6 +36,10 @@ $t=utente::by('id',$f);
         <?php }elseif (isset($_GET['riserva'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&riserva&id=<?php echo $f; ?>" method="POST">
         <?php }elseif (isset($_GET['zeroturnicom'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&zeroturnicom&time=<?php echo $_GET['time']; ?>" method="POST">
         <?php }elseif (isset($_GET['zeroturniunit'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&zeroturniunit&id=<?php echo $_GET['id']; ?>&time=<?php echo $_GET['time']; ?>" method="POST">
+        <?php }elseif (isset($_GET['ordinariunit'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&ordinariunit&id=<?php echo $f; ?>" method="POST">
+        <?php }elseif (isset($_GET['ordinaricom'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&ordinaricom" method="POST">
+        <?php }elseif (isset($_GET['ordinaridimessiunit'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&ordinaridimessiunit&id=<?php echo $f; ?>" method="POST">
+        <?php }elseif (isset($_GET['ordinaridimessicom'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&ordinaridimessicom" method="POST">
         <?php }else{ ?> <form class="form-horizontal" action="?p=utente.mail.nuova.ok" method="POST"><?php } ?>
 
  <?php if (isset($_GET['mass']) || isset($_GET['com']) || isset($_GET['unit']) || isset($_GET['comgio']) || isset($_GET['unitgio'])|| isset($_GET['comquoteno'])|| isset($_GET['comquotesi'])|| isset($_GET['unitquoteno'])|| isset($_GET['unitquotesi'])||isset($_GET['comeleatt'])||isset($_GET['uniteleatt'])||isset($_GET['unitelepass'])||isset($_GET['gruppo'])||isset($_GET['estesi'])|| isset($_GET['riserva']) || isset($_GET['zeroturnicom']) || isset($_GET['zeroturniunit']) ) { ?>
