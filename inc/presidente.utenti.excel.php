@@ -177,6 +177,16 @@ if(isset($_GET['dimessi'])){
 
 }elseif(isset($_GET['quotesi'])){
     
+    $questanno = $anno = date('Y');
+        if (!isset($_GET['anno'])) {
+            $anno = $questanno;
+        } else {
+            $anno = $_GET['anno'];
+            if ($anno > (int) $questanno) {
+                redirect('us.quoteSi');
+            }
+        }
+
     $excel = new Excel();
 
     $excel->intestazione([
@@ -189,7 +199,7 @@ if(isset($_GET['dimessi'])){
         'Ingresso in CRI'
         ]);
 
-    foreach ( $c->quoteSi() as $v ) {
+    foreach ( $c->quoteSi($anno) as $v ) {
         
         $excel->aggiungiRiga([
             $v->nome,

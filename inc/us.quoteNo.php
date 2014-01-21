@@ -119,7 +119,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
    <div class="span12">
        <div class="btn-group btn-group-vertical span12">
        <?php if ( count($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ])) > 1 ) { ?>
-       <a href="?p=admin.utenti.excel&quoteno" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
+       <a href="?p=admin.utenti.excel&quoteno&anno=<?= $anno; ?>" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
            <i class="icon-download"></i>
             <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari che non hanno versato la quota in un archivio zip.
        </a>

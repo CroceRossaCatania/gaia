@@ -184,7 +184,16 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
         }
         $excel->genera("Elettorato passivo {$c->nome}.xls");
     }elseif(isset($_GET['quoteno'])){
-        foreach ( $c->quoteNo() as $v ) {
+        $questanno = $anno = date('Y');
+        if (!isset($_GET['anno'])) {
+            $anno = $questanno;
+        } else {
+            $anno = $_GET['anno'];
+            if ($anno < 2005 || $anno > (int) $questanno) {
+                redirect('us.quoteNo');
+            }
+        }
+        foreach ( $c->quoteNo($anno) as $v ) {
             $i++; 
             $excel->aggiungiRiga([
                 $i,
@@ -209,7 +218,16 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
         }
         $excel->genera("Volontari mancato pagamento quota {$c->nome}.xls");
     }elseif(isset($_GET['quotesi'])){
-        foreach ( $c->quoteSi() as $v ) {
+        $questanno = $anno = date('Y');
+        if (!isset($_GET['anno'])) {
+            $anno = $questanno;
+        } else {
+            $anno = $_GET['anno'];
+            if ($anno > (int) $questanno) {
+                redirect('us.quoteSi');
+            }
+        }
+        foreach ( $c->quoteSi($anno) as $v ) {
             $i++; 
             $excel->aggiungiRiga([
                 $i,
