@@ -76,6 +76,7 @@ class Appartenenza extends Entita {
             $this->timestamp = time();
             $this->stato     = MEMBRO_VOLONTARIO;
             $this->conferma  = $v->id; 
+            $this->volontario()->stato = VOLONTARIO;
             return;
         }
 
