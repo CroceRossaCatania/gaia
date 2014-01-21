@@ -51,6 +51,7 @@ if ($me->admin()) {
     $sesso              = $_POST['inputSesso'];
     $codiceFiscale      = maiuscolo($_POST['inputCodiceFiscale']);
     $email              = minuscolo($_POST['inputEmail']);
+    $stato              = $_POST['inputStato'];
 
     /*
      * Controlla se sto scrivendo una email in possesso ad altro utente
@@ -64,6 +65,7 @@ if ($me->admin()) {
     $p->sesso           = ($sesso) ? UOMO : DONNA;
     $p->codiceFiscale   = $codiceFiscale;
     $p->email           = $email;
+    $p->stato           = $stato;
 }
 
 redirect('presidente.utente.visualizza&ok&id='.$_GET['t']);
