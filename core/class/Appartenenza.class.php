@@ -84,9 +84,9 @@ class Appartenenza extends Entita {
          * membri trasferiti o quelle dei membri volontari
          * @return bool True se valida, False altrimenti
          */
-        public function validaPerAnzianita($tato = VOLONTARIO) {
+        public function validaPerAnzianita($stato = VOLONTARIO) {
             if ($stato == VOLONTARIO) {
-                if($this->stato == MEMBRO_VOLONTARIO || $this->statp == MEMBRO_TRASFERITO) {
+                if($this->stato == MEMBRO_VOLONTARIO || $this->stato == MEMBRO_TRASFERITO) {
                     return true;
                 }
             } elseif ($tato == PERSONA) {

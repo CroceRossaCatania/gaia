@@ -288,19 +288,18 @@ class Utente extends Persona {
             ['volontario',  $this->id]
         ], 'inizio ASC');
         if ( !$p ) { return false; }
-        $r = [];
         foreach ($p as $_p){
             if ($this->stato == VOLONTARIO) {
                 if($_p->validaPerAnzianita()) {
-                    $r[] = $_p;
+                    return $_p;
                 }
             } elseif ($this->stato == PERSONA) {
                 if($_p->validaPerAnzianita(PERSONA)) {
-                    $r[] = $_p;
+                    return $_p;
                 }
             }
         }
-        return $r[0];
+        return null;
     }
 
     public function ultimaAppartenenza($stato = MEMBRO_VOLONTARIO) {
