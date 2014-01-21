@@ -94,7 +94,6 @@ $p->indirizzo 		    = $indirizzo;
 $p->civico   		    = $civico;
 $p->timestamp           = time();
 $p->stato               = PERSONA;
-$p->consenso 			= true;
 
 /*
  * Normalizzazione dei dati
