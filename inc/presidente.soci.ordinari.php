@@ -39,7 +39,7 @@ menuElenchiVolontari(
                 <th>C. Fiscale</th>
                 <th>Residenza</th>
                 <th>Cellulare</th>
-                <th>Data Versamento</th>
+                <th>Data Ingresso</th>
                 <th>Azioni</th>
             </thead>
         <?php

@@ -290,8 +290,14 @@ class Utente extends Persona {
         if ( !$p ) { return false; }
         $r = [];
         foreach ($p as $_p){
-            if($_p->validaPerAnzianita()) {
-                $r[] = $_p;
+            if ($this->stato == VOLONTARIO) {
+                if($_p->validaPerAnzianita()) {
+                    $r[] = $_p;
+                }
+            } elseif ($this->stato == PERSONA) {
+                if($_p->validaPerAnzianita(PERSONA)) {
+                    $r[] = $_p;
+                }
             }
         }
         return $r[0];

@@ -38,6 +38,11 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <i class="icon-warning-sign"></i> <strong>Email già presente</strong>.
         L'email che si sta tentando di sostituire appartiene già ad un altro utente.
       </div>
+    <?php } elseif(isset($_GET['roba'])) {?>
+      <div class="alert alert-danger">
+        <i class="icon-warning-sign"></i> <strong>Non posso ordinarizzare</strong>.
+        L'utente ha roba in sospeso (deleghe, nomine, attività referenziate, ecc).
+      </div>
     <?php } ?>
 
     <!-- Attivazione account -->
@@ -264,12 +269,19 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
    <?php if($hoPotere) { ?>
    <hr />
    <div class="form-actions">
-    <button type="submit" class="btn btn-success btn-large">
-      <i class="icon-save"></i>
-      Salva modifiche
-    </button>
+     <div class="btn-group">
+      <button type="submit" class="btn btn-success btn-large">
+        <i class="icon-save"></i>
+        Salva modifiche
+      </button>
+      <?php } if ($admin) { ?>
+      <a onClick="return confirm('Vuoi veramente far diventare un ordinario questo utente?');" 
+        href="?p=admin.ordinarizza&id=<?php echo $id; ?>" class="btn btn-warning btn-large">
+        <i class="icon-hand-down"></i> Ordinarizza
+      </a>
+      <?php }?>
+    </div>
   </div>
-  <?php } ?>
 </form>    
 </div>
 <!--Visualizzazione e modifica appartenenze utente -->
