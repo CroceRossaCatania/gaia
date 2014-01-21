@@ -266,6 +266,22 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
      </div>
    </div>
 
+   <?php if($admin) { ?>
+   <div class="control-group">
+        <label class="control-label" for="inputStato">Stato</label>
+        <div class="controls">
+          <select class="input-medium" id="inputStato" name="inputStato" required>
+            <?php
+            foreach ( $conf['statoPersona'] as $numero => $tipo ) { 
+              if($tipo != 'Nessuno') {?>
+            <option value="<?php echo $numero; ?>" <?php if ( $numero == $u->stato ) { ?>selected<?php } ?>><?php echo $tipo; ?></option>
+            <?php }
+            } ?>
+          </select>  
+        </div>
+      </div>
+   <?php } ?>
+
    <?php if($hoPotere) { ?>
    <hr />
    <div class="form-actions">
