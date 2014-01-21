@@ -86,7 +86,10 @@ menuElenchiVolontari(
                                 </a>
                             <?php } ?>-->
                             <?php if ($me->admin()) { ?>
-                                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
+                                <a  onClick="return confirm('Vuoi veramente resuscitare questo utente ?');" href="?p=admin.utente.resuscita&id=<?php echo $_v->id; ?>" title="Resuscita Utente" class="btn btn-small btn-warning">
+                                <i class="icon-cloud-upload"></i> Resuscita
+                                </a>
+                                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-danger">
                                 <i class="icon-trash"></i> Cancella
                                 </a>
                                 <a class="btn btn-small btn-primary" href="?p=admin.beuser&id=<?php echo $_v->id; ?>" title="Log in">
