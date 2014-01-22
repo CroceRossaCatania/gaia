@@ -90,7 +90,7 @@ class Appartenenza extends Entita {
                 if($this->stato == MEMBRO_VOLONTARIO || $this->stato == MEMBRO_TRASFERITO) {
                     return true;
                 }
-            } elseif ($tato == PERSONA) {
+            } elseif ($stato == PERSONA) {
                 if($this->stato == MEMBRO_ORDINARIO) {
                     return true;
                 } 
