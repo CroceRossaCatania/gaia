@@ -138,7 +138,8 @@ $(document).ready(function() {
                     Attività
                 </a>
             </li>
-            <?php } else { ?>
+            <?php } /*else { ?>
+
 
             <li>
                 <a data-toggle="tab" href="#corsibase">
@@ -146,7 +147,7 @@ $(document).ready(function() {
                     Corsi base
                 </a>
             </li>
-            <?php } ?>
+            <?php } */?>
 
             
             <?php
@@ -497,11 +498,13 @@ $(document).ready(function() {
             </div>
             
             <!-- Tab: Corsi base -->
+            <?php /*
             <div class="tab-pane"           id="corsibase">
                 <h4>Corsi base</h4>
                 <p>Per questo comitato, sono stati organizzati e pubblicati un totale di <strong><?php echo count($c->corsiBase(true)); ?> corsi base</strong>.</p>
                 <p>Per gestire i corsi base, vai alla pagina di <a href="?p=formazione.corsibase">Gestione dei corsi base</a>.</p>
             </div>
+            */ ?>
             
             <?php            
             $i = 0;
