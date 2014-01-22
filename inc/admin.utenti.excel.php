@@ -251,6 +251,74 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
 
         }
         $excel->genera("Volontari quota pagata {$c->nome}.xls");
+    }elseif(isset($_GET['quotesiordinari'])){
+        $questanno = $anno = date('Y');
+        if (!isset($_GET['anno'])) {
+            $anno = $questanno;
+        } else {
+            $anno = $_GET['anno'];
+            if ($anno > (int) $questanno) {
+                redirect('us.quoteSi.ordinarii');
+            }
+        }
+        foreach ( $c->quoteSi($anno, MEMBRO_ORDINARIO) as $v ) {
+            $i++; 
+            $excel->aggiungiRiga([
+                $i,
+                $v->nome,
+                $v->cognome,
+                date('d/m/Y', $v->dataNascita),
+                $v->comuneNascita,
+                $v->provinciaNascita,
+                $v->codiceFiscale,
+                $v->indirizzo,
+                $v->civico,
+                $v->comuneResidenza,
+                $v->CAPResidenza,
+                $v->provinciaResidenza,
+                $v->email,
+                $v->emailServizio,
+                $v->cellulare,
+                $v->cellulareServizio,
+                $v->ingresso()->format("d/m/Y")
+                ]);
+
+        }
+        $excel->genera("Ordinari quota pagata {$c->nome}.xls");
+    }elseif(isset($_GET['quotenoordinari'])){
+        $questanno = $anno = date('Y');
+        if (!isset($_GET['anno'])) {
+            $anno = $questanno;
+        } else {
+            $anno = $_GET['anno'];
+            if ($anno > (int) $questanno) {
+                redirect('us.quoteNo.ordinarii');
+            }
+        }
+        foreach ( $c->quoteNo($anno, MEMBRO_ORDINARIO) as $v ) {
+            $i++; 
+            $excel->aggiungiRiga([
+                $i,
+                $v->nome,
+                $v->cognome,
+                date('d/m/Y', $v->dataNascita),
+                $v->comuneNascita,
+                $v->provinciaNascita,
+                $v->codiceFiscale,
+                $v->indirizzo,
+                $v->civico,
+                $v->comuneResidenza,
+                $v->CAPResidenza,
+                $v->provinciaResidenza,
+                $v->email,
+                $v->emailServizio,
+                $v->cellulare,
+                $v->cellulareServizio,
+                $v->ingresso()->format("d/m/Y")
+                ]);
+
+        }
+        $excel->genera("Ordinari quota non pagata {$c->nome}.xls");
     }elseif(isset($_GET['mass'])){
         $f = $_GET['t'];
         $f= new Titolo($f);
@@ -489,6 +557,8 @@ if(isset($_GET['dimessi'])){
  $zip->comprimi("volontari quota non versata.zip"); 
 }elseif(isset($_GET['quotesi'])){
  $zip->comprimi("Volontari quota versata.zip"); 
+}elseif(isset($_GET['quotesiordinari'])){
+ $zip->comprimi("Ordinari quota versata.zip"); 
 }elseif(isset($_GET['mass'])){
  $zip->comprimi("Volontari con titolo {$f->nome}.zip"); 
 }elseif(isset($_GET['riserva'])){
@@ -504,7 +574,7 @@ if(isset($_GET['dimessi'])){
 }elseif(isset($_GET['ordinaridimessi'])){
  $zip->comprimi("Elenco soci ordinari dimessi.zip"); 
 }else{
-    $zip->comprimi("Anagrafica_volontari.zip");
+ $zip->comprimi("Anagrafica_volontari.zip");
 }
 $zip->download();
 

@@ -119,12 +119,12 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
    <div class="span12">
        <div class="btn-group btn-group-vertical span12">
        <?php if ( count($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ])) > 1 ) { ?>
-       <a href="?p=admin.utenti.excel&quoteno" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
+       <a href="?p=admin.utenti.excel&quotenoordinari&anno=<?= $anno; ?>" class="btn btn-block btn-inverse" data-attendere="Generazione e compressione in corso...">
            <i class="icon-download"></i>
             <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari che non hanno versato la quota in un archivio zip.
        </a>
        <?php } ?>
-       <a href="?p=utente.mail.nuova&comquoteno" class="btn btn-block btn-success">
+       <a href="?p=utente.mail.nuova&comquotenoordinari&anno=<?= $anno; ?>" class="btn btn-block btn-success">
            <i class="icon-envelope"></i>
             <strong>Ufficio Soci</strong> &mdash; Invia mail di massa a tutti i Volontari.
        </a>
@@ -161,11 +161,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     <span class="label label-warning">
                         <?php echo count($t); ?>
                     </span>
-                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unitquoteno">
+                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unitquotenoordinari&anno=<?= $anno; ?>">
                            <i class="icon-envelope"></i> Invia mail
                     </a>
                     <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&quoteno&comitato=<?php echo $comitato->id; ?>"
+                       href="?p=presidente.utenti.excel&quotenoordinari&comitato=<?php echo $comitato->id; ?>&anno=<?= $anno; ?>"
                        data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                     </a>

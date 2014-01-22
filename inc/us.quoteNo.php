@@ -72,13 +72,13 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             </div>
             <div class="btn-group">
                 <a href="#" class="btn btn-danger btn-group">
-                    <i class="icon-ok"></i>
+                    <i class="icon-remove"></i>
                     Quote non pagate
                 </a>
                 <a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="?p=us.quoteNo"><i class="icon-ok"></i> Volontari</a></li>
-                    <li><a href="?p=us.quoteNo.ordinari"><i class="icon-ok"></i> Soci Ordinari</a></li>
+                    <li><a href="?p=us.quoteNo"><i class="icon-remove"></i> Volontari</a></li>
+                    <li><a href="?p=us.quoteNo.ordinari"><i class="icon-remove"></i> Soci Ordinari</a></li>
                 </ul>
             </div>
             <a href="?p=us.dash" class="btn btn-block">
@@ -124,7 +124,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari che non hanno versato la quota in un archivio zip.
        </a>
        <?php } ?>
-       <a href="?p=utente.mail.nuova&comquoteno" class="btn btn-block btn-success">
+       <a href="?p=utente.mail.nuova&comquoteno&anno=<?= $anno; ?>" class="btn btn-block btn-success">
            <i class="icon-envelope"></i>
             <strong>Ufficio Soci</strong> &mdash; Invia mail di massa a tutti i Volontari.
        </a>
@@ -161,11 +161,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     <span class="label label-warning">
                         <?php echo count($t); ?>
                     </span>
-                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unitquoteno">
+                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unitquoteno&<?= $anno; ?>">
                            <i class="icon-envelope"></i> Invia mail
                     </a>
                     <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&quoteno&comitato=<?php echo $comitato->id; ?>"
+                       href="?p=presidente.utenti.excel&quoteno&comitato=<?php echo $comitato->id; ?>&anno=<?= $anno; ?>"
                        data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                     </a>

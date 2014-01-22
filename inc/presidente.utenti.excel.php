@@ -145,10 +145,21 @@ if(isset($_GET['dimessi'])){
     $excel->download();
 
 }elseif(isset($_GET['quoteno'])){
-    
+
+    $questanno = $anno = date('Y');
+    if (!isset($_GET['anno'])) {
+        $anno = $questanno;
+    } else {
+        $anno = $_GET['anno'];
+        if ($anno > (int) $questanno) {
+            redirect('us.quoteNo');
+        }
+    }
+
     $excel = new Excel();
 
     $excel->intestazione([
+        'N.',
         'Nome',
         'Cognome',
         'C. Fiscale',
@@ -158,9 +169,10 @@ if(isset($_GET['dimessi'])){
         'Ingresso in CRI'
         ]);
 
-    foreach ( $c->quoteNo() as $v ) {
-        
+    foreach ( $c->quoteNo($anno) as $v ) {
+        $i++;
         $excel->aggiungiRiga([
+            $i,
             $v->nome,
             $v->cognome,
             $v->codiceFiscale,
@@ -172,7 +184,93 @@ if(isset($_GET['dimessi'])){
         
     }
 
-    $excel->genera('Volontari_quoteNo.xls');
+    $excel->genera('Volontari quote non pagate.xls');
+    $excel->download();
+
+}elseif(isset($_GET['quotenoordinari'])){
+    
+    $questanno = $anno = date('Y');
+    if (!isset($_GET['anno'])) {
+        $anno = $questanno;
+    } else {
+        $anno = $_GET['anno'];
+        if ($anno > (int) $questanno) {
+            redirect('us.quoteNo.ordinari');
+        }
+    }
+
+    $excel = new Excel();
+
+    $excel->intestazione([
+        'N.',
+        'Nome',
+        'Cognome',
+        'C. Fiscale',
+        'Data Nascita',
+        'Luogo Nascita',
+        'Provincia Nascita',
+        'Ingresso in CRI'
+        ]);
+
+    foreach ( $c->quoteNo($anno, MEMBRO_ORDINARIO) as $v ) {
+        $i++;
+        $excel->aggiungiRiga([
+            $i,
+            $v->nome,
+            $v->cognome,
+            $v->codiceFiscale,
+            date('d/m/Y', $v->dataNascita),
+            $v->comuneNascita,
+            $v->provinciaNascita,
+            $v->ingresso()->format("d/m/Y")
+            ]);
+        
+    }
+
+    $excel->genera('Ordinari quote non pagate.xls');
+    $excel->download();
+
+}elseif(isset($_GET['quotesiordinari'])){
+    
+    $questanno = $anno = date('Y');
+    if (!isset($_GET['anno'])) {
+        $anno = $questanno;
+    } else {
+        $anno = $_GET['anno'];
+        if ($anno > (int) $questanno) {
+            redirect('us.quoteSi.ordinari');
+        }
+    }
+
+    $excel = new Excel();
+
+    $excel->intestazione([
+        'N.',
+        'Nome',
+        'Cognome',
+        'C. Fiscale',
+        'Data Nascita',
+        'Luogo Nascita',
+        'Provincia Nascita',
+        'Ingresso in CRI'
+        ]);
+
+    foreach ( $c->quoteSi($anno, MEMBRO_ORDINARIO) as $v ) {
+        $i++;
+        $excel->aggiungiRiga([
+            $i,
+            $v->nome,
+            $v->cognome,
+            $v->codiceFiscale,
+            date('d/m/Y', $v->dataNascita),
+            $v->comuneNascita,
+            $v->provinciaNascita,
+            $v->ingresso()->format("d/m/Y")
+            ]);
+        
+    }
+
+    $excel->genera('Ordinari quote pagate.xls');
     $excel->download();
 
 }elseif(isset($_GET['quotesi'])){
@@ -190,6 +288,7 @@ if(isset($_GET['dimessi'])){
     $excel = new Excel();
 
     $excel->intestazione([
+        'N.',
         'Nome',
         'Cognome',
         'C. Fiscale',
@@ -200,8 +299,9 @@ if(isset($_GET['dimessi'])){
         ]);
 
     foreach ( $c->quoteSi($anno) as $v ) {
-        
+        $i++;
         $excel->aggiungiRiga([
+            $i,
             $v->nome,
             $v->cognome,
             $v->codiceFiscale,
@@ -213,7 +313,7 @@ if(isset($_GET['dimessi'])){
         
     }
 
-    $excel->genera('Volontari_quoteSi.xls');
+    $excel->genera('Volontari quote pagate.xls');
     $excel->download();
 
 }elseif(isset($_GET['riserva'])){

@@ -161,7 +161,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                         <?php echo count($t); ?>
                     </span>
                     <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&quotesi"
+                       href="?p=presidente.utenti.excel&anno=<?= $anno; ?>&comitato=<?php echo $comitato->id; ?>&quotesiordinari"
                        data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                     </a>
