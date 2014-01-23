@@ -290,7 +290,7 @@ abstract class Entita {
     public static function _esiste ( $id = null ) {
         if (!$id) { return false; }
         global $db, $cache, $conf;
-        if ($cache) {
+        if ($cache && static::$_cacheable) {
             if ( $cache->get($conf['db_hash'] . static::$_t . ':' . $id) ) {
                 return true;
             }
@@ -300,7 +300,7 @@ abstract class Entita {
         $q->bindParam(':id', $id);
         $q->execute();
         $y = (bool) $q->fetch(PDO::FETCH_NUM);
-        if ($y && $cache) {
+        if ($y && static::$_cacheable && $cache) {
             $cache->set($conf['db_hash'] . static::$_t . ':' . $id, 'true');
         }
         return $y;
