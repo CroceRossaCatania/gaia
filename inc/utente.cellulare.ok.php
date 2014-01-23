@@ -6,7 +6,7 @@
 
 paginaPrivata();
 
-$parametri = array('inputCellulare', 'inputCellulareServizio');
+$parametri = ['inputCellulare'];
 controllaParametri($parametri);
 
 $cell       = normalizzaNome($_POST['inputCellulare']);
