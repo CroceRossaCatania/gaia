@@ -216,6 +216,16 @@ class APIServer {
             'turni'     =>  $t
         ];
     }
+
+    public function api_turno_partecipa() {
+        $this->richiedi(['id']);
+        $this->richiediLogin();
+        $me = $this->sessione->utente();
+        $t = Turno::id($this->par['id']);
+        return [
+            'ok' => $t->chiediPartecipazione($me)
+        ];
+    }
     
     public function api_geocoding() {
         $this->richiedi(['query']);
@@ -250,7 +260,6 @@ class APIServer {
                 'attuale'   =>  $app->attuale()
             ];
         }
-            
         return $r;
     }
         
