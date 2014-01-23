@@ -74,11 +74,11 @@ var origElem = '';
 var _ultimaRicerca = null;
 function keyupRicerca() {
     window.clearTimeout(_ultimaRicerca);
-    $(".icona-ricerca").addClass("icon-time").removeClass("icon-search").removeClass("icon-spin").removeClass("icon-spinner");
+    $(".icona-ricerca").removeClass().addClass("icon-time");
     var query = $("#selettoreCerca").val();
     if ( query.length < 1 ) { $("#selettoreRisultati").html(''); return; }
     _ultimaRicerca = setTimeout( function() {
-    $(".icona-ricerca").removeClass("icon-time").removeClass("icon-search").addClass("icon-spin").addClass("icon-spinner");
+    $(".icona-ricerca").removeClass().addClass("icon-spin").addClass("icon-spinner");
     api('volontari:cerca', {query: query, perPagina: 80, ordine: 'selettore'}, function( x ) {
         if ( $("#selettoreCerca").val() != x.richiesta.parametri.query ) {
           return false;
@@ -128,7 +128,7 @@ function keyupRicerca() {
              });
          }
 
-         $(".icona-ricerca").removeClass("icon-time").removeClass("icon-spinner").removeClass("icon-spin").addClass("icon-search");
+         $(".icona-ricerca").removeClass().addClass("icon-search");
          return true;
 
       });
