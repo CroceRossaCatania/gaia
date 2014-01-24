@@ -86,7 +86,7 @@ class Provinciale extends GeoPolitica {
         if ($this->nome == "Comitato Provinciale di Trento"
             or $this->nome == "Comitato Provinciale di Bolzano")
             $piva = PIVA;
-        if ($inTesto) {
+        if ($inTesto && $piva) {
             return "P.IVA: {$piva}";
         }
         return $piva;
@@ -97,7 +97,7 @@ class Provinciale extends GeoPolitica {
         if ($this->nome == "Comitato Provinciale di Trento"
             or $this->nome == "Comitato Provinciale di Bolzano")
             $cf = CF;
-        if ($inTesto) {
+        if ($inTesto && $cf) {
             return "P.IVA: {$cf}";
         }
         return $cf;
