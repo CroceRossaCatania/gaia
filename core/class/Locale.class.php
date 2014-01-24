@@ -109,18 +109,26 @@ class Locale extends GeoPolitica {
         return $r;
     }
 
-    public function piva() {
+    public function piva($inTesto = false) {
+        $piva = $this->piva;
         if ($this->nome == "Comitato Provinciale di Trento"
             or $this->nome == "Comitato Provinciale di Bolzano")
-            return PIVA;
-        return $this->piva;
+            $piva = PIVA;
+        if ($inTesto) {
+            return "P.IVA: {$piva}";
+        }
+        return $piva;
     }
 
-    public function cf() {
+    public function cf($inTesto = false) {
+        $cf = $this->cf;
         if ($this->nome == "Comitato Provinciale di Trento"
             or $this->nome == "Comitato Provinciale di Bolzano")
-            return CF;
-        return $this->cf;
+            $cf = CF;
+        if ($inTesto) {
+            return "P.IVA: {$cf}";
+        }
+        return $cf;
     }
 
     public function privato() {

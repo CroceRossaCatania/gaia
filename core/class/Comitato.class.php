@@ -838,16 +838,16 @@ class Comitato extends GeoPolitica {
      * Partita iva del locale di riferimento
      * @return string   Partita iva
      */
-    public function piva() {
-        return $this->superiore()->piva();
+    public function piva($inTesto = false) {
+        return $this->superiore()->piva($inTesto);
     }
 
     /**
      * Codice fiscale del locale di riferimento
      * @return string   CF
      */
-    public function cf() {
-        return $this->superiore()->cf();
+    public function cf($inTesto = false) {
+        return $this->superiore()->cf($inTesto);
     }
 
     /**
