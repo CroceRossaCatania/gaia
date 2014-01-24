@@ -112,7 +112,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <i class="icon-thumbs-up-alt"></i> Attualmente sono presenti<br />
             <span class="quote_contatore"> {{benemeriti}}</span>
             <br />
-            <span class="aspiranti_descrizione">BENEMERITI</span>
+            <span class="aspiranti_descrizione">SOSTENITORI</span>
         </div>
     </div>
 </div>
@@ -188,7 +188,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                             if ($q->benemerita()) { 
                                 $ben++;
                                 echo('€ ' . soldi($q->quota)); ?>
-                                <i class="icon-thumbs-up-alt"></i> Benemerito
+                                <i class="icon-thumbs-up-alt"></i> Sostenitore
                             <?php    } else { 
                                 echo('€ ' . soldi($q->quota));
                              }?>

@@ -136,7 +136,7 @@ $quotaBen = $t->ordinario + (float) $a->comitato()->quotaBenemeriti();
 $q->causale 		= "Iscrizione socio ordinario CRI anno {$anno}"; 
 if ($importo > $quotaBen) {
 	$q->benemerito = BENEMERITO_SI;
-	$q->offerta = "Promozione a socio benemerito per l'anno {$anno} per il versamento di una quota superiore a " . soldi($quotaBen) . " &#0128;.";
+	$q->offerta = "Promozione a socio sostenitore per l'anno {$anno} per il versamento di una quota superiore a " . soldi($quotaBen) . " &#0128;.";
 }
 
 /* Crea la ricevuta del pagamento della quota */
