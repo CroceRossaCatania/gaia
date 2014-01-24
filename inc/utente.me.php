@@ -66,7 +66,7 @@ if ($consenso) {
 if (!$sessione->rimandaPrivatizzazione && $consenso) {
   foreach($me->comitatiPresidenzianti() as $comitato) {
     $p = $comitato->unPresidente();
-    if ( $p && $p == $me->id && (!$comitato->cf() || (!$comitato->piva()))) { ?>
+    if ( $p && $p == $me->id && !$comitato->cf()) { ?>
       <div class="modal fade automodal">
         <div class="modal-header">
           <h3 class="text-success"><i class="icon-cog"></i> Privatizzazione della CRI!</h3>
