@@ -150,7 +150,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         foreach($elenco as $comitato) {
             $t = $comitato->quoteNo($anno , MEMBRO_ORDINARIO);
             $fiscali = true;
-            if (!$comitato->cf() || !$comitato->piva()) {
+            if (!$comitato->cf()) {
                 $fiscali = false;
             }
                 ?>
