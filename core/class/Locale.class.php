@@ -126,7 +126,7 @@ class Locale extends GeoPolitica {
             or $this->nome == "Comitato Provinciale di Bolzano")
             $cf = CF;
         if ($inTesto) {
-            return "P.IVA: {$cf}";
+            return "C.F.: {$cf}";
         }
         return $cf;
     }
