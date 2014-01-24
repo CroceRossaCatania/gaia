@@ -113,7 +113,7 @@ paginaPrivata();
             </thead>
             <?php foreach ( $me->quote() as $_q ){ ?>
             <tr>
-                <td><?= $_q->id; ?></td>
+                <td><?= $_q->progressivo(); ?></td>
                 <td><?= $_q->volontario()->nome; ?></td>
                 <td><?= $_q->volontario()->cognome; ?></td>
                 <td><?= $_q->comitato()->nomeCompleto(); ?></td>

@@ -10,6 +10,9 @@
 /core/inc/dompdf/lib/fonts/php_Times-Roman.afm
 /core/inc/dompdf/lib/fonts/php_Times-Bold.afm
 
+# Log DOMPDF
+/core/inc/dompdf/lib/fonts/log.htm
+
 # Configurazione del database
 core/conf/database.conf.php
 
