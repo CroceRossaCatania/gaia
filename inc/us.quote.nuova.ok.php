@@ -56,7 +56,7 @@ $q->assegnaProgressivo();
 $q->quota 			= $importo;
 if ($importo > $quotaBen) {
 	$q->benemerito = BENEMERITO_SI;
-	$q->offerta = "Promozione a socio benemerito per l'anno " . $anno . " per il versamento di una quota superiore a " . soldi($quotaBen) . " &#0128;.";
+	$q->offerta = "Promozione a socio sostenitore per l'anno " . $anno . " per il versamento di una quota superiore a " . soldi($quotaBen) . " &#0128;.";
 } elseif ($importo > $quotaMin) {
 	$q->offerta = 'Offerta';
 }
@@ -70,7 +70,6 @@ if ($attivo) {
 $p = new PDF('ricevutaquota', 'ricevuta.pdf');
 $p->_COMITATO 	= $app->comitato()->locale()->nomeCompleto();
 $p->_INDIRIZZO 	= $app->comitato()->locale()->formattato;
-$p->_PIVA 		= $app->comitato()->piva();
 $p->_ID 		= $q->progressivo();
 $p->_NOME 		= $v->nome;
 $p->_COGNOME 	= $v->cognome;

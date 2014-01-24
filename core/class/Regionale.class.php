@@ -79,15 +79,23 @@ class Regionale extends GeoPolitica {
         return $r;
     }
 
-    public function piva() {
-        return PIVA;
-    }
-
-    public function cf() {
-        return CF;
-    }
-
     public function privato() {
         return false;
+    }
+
+    public function cf($inTesto = false) {
+        $cf = CF;
+        if ($inTesto) {
+            return "C.F.: {$cf}";
+        }
+        return $cf;
+    }
+
+    public function piva($inTesto = false) {
+        $piva = PIVA;
+        if ($inTesto) {
+            return "P.IVA: {$piva}";
+        }
+        return $piva;
     }
 }

@@ -136,14 +136,13 @@ $quotaBen = $t->ordinario + (float) $a->comitato()->quotaBenemeriti();
 $q->causale 		= "Iscrizione socio ordinario CRI anno {$anno}"; 
 if ($importo > $quotaBen) {
 	$q->benemerito = BENEMERITO_SI;
-	$q->offerta = "Promozione a socio benemerito per l'anno {$anno} per il versamento di una quota superiore a " . soldi($quotaBen) . " &#0128;.";
+	$q->offerta = "Promozione a socio sostenitore per l'anno {$anno} per il versamento di una quota superiore a " . soldi($quotaBen) . " &#0128;.";
 }
 
 /* Crea la ricevuta del pagamento della quota */
 $l = new PDF('ricevutaquota', 'ricevuta.pdf');
 $l->_COMITATO 	= $a->comitato()->locale()->nomeCompleto();
 $l->_INDIRIZZO 	= $a->comitato()->locale()->formattato;
-$l->_PIVA 		= $a->comitato()->piva();
 $l->_ID 		= $q->progressivo();
 $l->_NOME 		= $p->nome;
 $l->_COGNOME 	= $p->cognome;
