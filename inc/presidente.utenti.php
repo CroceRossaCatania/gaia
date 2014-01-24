@@ -59,9 +59,9 @@ menuElenchiVolontari(
                 <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" target="_new" title="Dettagli">
                     <i class="icon-eye-open"></i> Dettagli
                 </a>
-                <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id={id}" title="Stampa tesserino">
+                <!--<a class="btn btn-small btn-info" href="?p=us.tesserini.p&id={id}" title="Stampa tesserino">
                     <i class="icon-barcode"></i> Tesserino
-                </a>
+                </a>-->
                 <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&id={id}" title="Dimetti Volontario">
                     <i class="icon-ban-circle"></i> Dimetti
                 </a>
