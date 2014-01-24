@@ -24,10 +24,10 @@ $t = Utente::by('id',$f);
         <?php }elseif (isset($_GET['unit'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&id=<?php echo $f; ?>&unit" method="POST">
         <?php }elseif (isset($_GET['comgio'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comgio" method="POST">
         <?php }elseif (isset($_GET['unitgio'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&id=<?php echo $f; ?>&unitgio" method="POST">
-        <?php }elseif (isset($_GET['comquoteno'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comquoteno" method="POST">
-        <?php }elseif (isset($_GET['comquotesi'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comquotesi" method="POST">
-        <?php }elseif (isset($_GET['unitquoteno'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitquoteno&id=<?php echo $f; ?>" method="POST">
-        <?php }elseif (isset($_GET['unitquotesi'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitquotesi&id=<?php echo $f; ?>" method="POST">
+        <?php }elseif (isset($_GET['comquoteno'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comquoteno&anno=<?= $_GET['anno']; ?>" method="POST">
+        <?php }elseif (isset($_GET['comquotenoordinari'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comquotenoordinari&anno=<?= $_GET['anno']; ?>" method="POST">
+        <?php }elseif (isset($_GET['unitquoteno'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitquoteno&id=<?php echo $f; ?>&anno=<?= $_GET['anno']; ?>" method="POST">
+        <?php }elseif (isset($_GET['unitquotenoordinari'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitquotenoordinari&id=<?php echo $f; ?>&anno=<?= $_GET['anno']; ?>" method="POST">
         <?php }elseif (isset($_GET['comeleatt'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comeleatt&time=<?php echo $_GET['time']; ?>" method="POST">   
         <?php }elseif (isset($_GET['uniteleatt'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&uniteleatt&time=<?php echo $_GET['time']; ?>&id=<?php echo $f; ?>" method="POST">
         <?php }elseif (isset($_GET['unitelepass'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitelepass&time=<?php echo $_GET['time']; ?>&id=<?php echo $f; ?>" method="POST">
