@@ -162,6 +162,12 @@ function menuVolontario() {
         menuOrdinario();
         return;
     }
+    $d = Delegato::filtra([
+        ['volontario', $me->id]
+        ]);
+    if ($d && count($d) > 1) {
+        scegliRuolo();
+    }
     include('./inc/part/utente.menu.php');
 }
 
@@ -171,6 +177,10 @@ function menuAspirante() {
 
 function menuOrdinario() {
     include('./inc/part/ordinario.menu.php');
+}
+
+function scegliRuolo() {
+    include('./inc/part/scegliRuolo.menu.php');
 }
 
 $_lista_attiva = $_link_excel = $_link_email = null;
