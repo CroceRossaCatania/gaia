@@ -12,10 +12,26 @@ $d = Delegato::filtra([
         ['volontario', $me->id]
         ]);
 
+$r = $sessione->applicazione;
+$ruolo = "Seleziona ruolo";
+if($r) {
+    $attuale = Delegato::id($r);
+    $g = GeoPolitica::daOid($attuale->comitato);
+    if ($attuale->applicazione == APP_OBIETTIVO) {
+        $ruolo = "Delegato {$conf['nomiobiettivi'][$attuale->dominio]}:{$g->nome}";   
+    } else {
+        $ruolo = "{$conf['applicazioni'][$attuale->applicazione]}:{$g->nome}";    
+    }
+    if (strlen($ruolo) > 30) {
+        $ruolo = substr($ruolo, 0, 15) . '...';
+    }
+}
+    
+
 ?>
 
 <div class="btn-group">
-  <button class="btn">Action</button>
+  <button class="btn"><?php echo($ruolo); ?></button>
   <button class="btn dropdown-toggle" data-toggle="dropdown">
     <span class="caret"></span>
   </button>
@@ -23,7 +39,11 @@ $d = Delegato::filtra([
     <?php foreach($d as $_d) {
         if ($_d->attuale()) {
             $g = GeoPolitica::daOid($_d->comitato);
-            $s = "{$conf['applicazioni'][$_d->applicazione]}:{$g->nome}";
+            if ($_d->applicazione == APP_OBIETTIVO) {
+                $s = "<a href='?p=utente.caricaRuolo.ok&ruolo={$_d->id}'>Delegato {$conf['nomiobiettivi'][$_d->dominio]}:{$g->nome}";
+            } else {
+                $s = "<a href='?p=utente.caricaRuolo.ok&ruolo={$_d->id}'>{$conf['applicazioni'][$_d->applicazione]}:{$g->nome}";
+            }
             echo("<li>{$s}</li>");
         }
     } ?>
