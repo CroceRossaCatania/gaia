@@ -49,15 +49,14 @@ function paginaApp($app, $comitati = []) {
         //if ( $d = $sessione->utente()->delegazioni($k) ) {
         
         // Variazione per issue #867
-        if ( $d = $sessione->utente()->delegazioneAttuale()->applicazione == $k ) {
+        $d = $sessione->utente()->delegazioneAttuale();
+        if ( $d && $d->applicazione == $k ) {
             // Se è attivo il filtraggio per comitato
             if ( $comitati ) {
                 // Ritorna vero solo se il comitato è contenuto
                 foreach ( $comitati as $comitato ) {
                     if (!$comitato instanceof GeoPolitica) { continue; }
-                    foreach ( $d as $delegazione ) { 
-                        if ( $delegazione->comitato()->contiene($comitato) ) { return true; } 
-                    }
+                        if ( $d->comitato()->contiene($comitato) ) { return true; } 
                 }
             } else {
                 

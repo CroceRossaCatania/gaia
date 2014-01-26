@@ -55,10 +55,11 @@ if ($consenso && !$me->email ) { redirect('nuovaAnagraficaContatti'); }
 if ($consenso && !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
 
 if ($consenso) {
-  foreach ( $me->comitatiPresidenzianti() as $comitato ) {
-      $p = $comitato->unPresidente();
-      if ( $p && $p == $me->id && !$comitato->haPosizione() && !$comitato->principale ) {
-          redirect('presidente.wizard&forzato&oid=' . $comitato->oid());
+  $d = $me->delegazioneAttuale();
+  if ($d && $d->applicazione == APP_PRESIDENTE) {
+      $p = $d->comitato()->unPresidente();
+      if ( $p && $p == $me->id && !$d->comitato()->haPosizione() && !$d->comitato()->principale ) {
+          redirect('presidente.wizard&forzato&oid=' . $d->comitato()->oid());
       }
   }
 }

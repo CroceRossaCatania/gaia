@@ -20,7 +20,7 @@ $_daGestire = [
 $c = $_GET['oid'];
 $c = GeoPolitica::daOid($c);
 
-paginaApp([APP_PRESIDENTE], [$c]);
+paginaApp(APP_PRESIDENTE, [$c]);
 
 caricaSelettore();
 

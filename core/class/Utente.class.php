@@ -693,10 +693,12 @@ class Utente extends Persona {
             return Nazionale::elenco('nome ASC');
         }
         
-        $d = $this->delegazioni($app);
+        //$d = $this->delegazioni($app);
+        $d = $this->delegazioneAttuale();
         $c = [];
-        foreach ( $d as $k ) {
-            $c[] = $k->comitato();
+        //foreach ( $d as $k ) {
+        if(!$app || $d->applicazione == $app) {
+            $c[] = $d->comitato();
         }
         return array_unique($c);
     }
