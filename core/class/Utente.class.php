@@ -1280,4 +1280,19 @@ class Utente extends Persona {
 
     }
 
+    /**
+     * Restituscie l'ultima delegazione selezionata dall'utente
+     * @return Delegato     Ritorna un delegato se delegazione selezionata, errore altrimenti
+     */
+    public function delegazioneAttuale() {
+        global $sessione;
+        if($r = $sessione->ambito) {
+            $d = Delegato::id($r);
+            if($d && $d->attuale() && $d->volontario == $this->id) {
+                return $d;
+            }
+        }
+        throw new Errore(1015);
+    }
+
 }

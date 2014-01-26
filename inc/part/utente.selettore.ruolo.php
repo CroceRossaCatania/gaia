@@ -12,7 +12,7 @@ $d = Delegato::filtra([
         ['volontario', $me->id]
         ]);
 
-$r = $sessione->applicazione;
+$r = $sessione->ambito;
 $ruolo = "Seleziona ruolo";
 if($r) {
     $attuale = Delegato::id($r);
@@ -36,7 +36,7 @@ if($r) {
   </button>
   <ul class="dropdown-menu">
     <?php foreach($d as $_d) {
-        if ($_d->attuale()) {
+        if ($_d->attuale() && $_d->id != $sessione->ambito) {
             $g = GeoPolitica::daOid($_d->comitato);
             if ($_d->applicazione == APP_OBIETTIVO) {
                 $s = "<a href='?p=utente.caricaRuolo.ok&ruolo={$_d->id}'>Delegato {$conf['nomiobiettivi'][$_d->dominio]}:{$g->nome}";
