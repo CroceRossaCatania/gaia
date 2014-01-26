@@ -45,9 +45,11 @@ function paginaApp($app, $comitati = []) {
     }
     foreach ( $app as $k ) {
         
-        // Per ogni delegazione dell'utente
-        if ( $d = $sessione->utente()->delegazioni($k) ) {
-            
+        // Per ogni delegazione dell'utente (vecchia versione)
+        //if ( $d = $sessione->utente()->delegazioni($k) ) {
+        
+        // Variazione per issue #867
+        if ( $d = $sessione->utente()->delegazioneAttuale()->applicazione == $k ) {
             // Se è attivo il filtraggio per comitato
             if ( $comitati ) {
                 // Ritorna vero solo se il comitato è contenuto
