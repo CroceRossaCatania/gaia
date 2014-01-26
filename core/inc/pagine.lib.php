@@ -166,7 +166,7 @@ function menuVolontario() {
     $d = Delegato::filtra([
         ['volontario', $me->id]
         ]);
-    if ($d && count($d) > 1) {
+    if ($d) {
         scegliRuolo();
     }
     include('./inc/part/utente.menu.php');

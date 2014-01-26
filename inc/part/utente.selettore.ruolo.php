@@ -8,9 +8,25 @@ global $me;
 global $sessione;
 global $conf;
 
-$d = Delegato::filtra([
+$deleghe = Delegato::filtra([
         ['volontario', $me->id]
         ]);
+
+$d = [];
+foreach ($deleghe as $_d) {
+    if($_d->attuale()) {
+        $d[] = $_d;
+    }
+}
+
+if (count($d) == 0) {
+    return;
+} elseif(count($d) == 1) {
+    if(!$sessione->ambito) {
+        $sessione->ambito = $d[0]->id;
+    }
+    return;
+}
 
 $r = $sessione->ambito;
 $ruolo = "Seleziona ruolo";
@@ -40,7 +56,7 @@ if($r) {
   </button>
   <ul class="dropdown-menu">
     <?php foreach($d as $_d) {
-        if ($_d->attuale() && $_d->id != $sessione->ambito) {
+        if ($_d->id != $sessione->ambito) {
             $g = GeoPolitica::daOid($_d->comitato);
             $nome = "{$g->nome}";
             if ($g->_estensione() == EST_UNITA) {
