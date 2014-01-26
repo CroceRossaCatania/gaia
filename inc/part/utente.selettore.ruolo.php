@@ -17,13 +17,17 @@ $ruolo = "Seleziona ruolo";
 if($r) {
     $attuale = Delegato::id($r);
     $g = GeoPolitica::daOid($attuale->comitato);
+    $nome = "{$g->nome}";
+    if ($g->_estensione() == EST_UNITA) {
+        $nome = "Unità {$g->nome}";
+    }
     if ($attuale->applicazione == APP_OBIETTIVO) {
-        $ruolo = "Delegato {$conf['nomiobiettivi'][$attuale->dominio]}:{$g->nome}";   
+        $ruolo = "Delegato {$conf['nomiobiettivi'][$attuale->dominio]}: {$nome}";   
     } else {
-        $ruolo = "{$conf['applicazioni'][$attuale->applicazione]}:{$g->nome}";    
+        $ruolo = "{$conf['applicazioni'][$attuale->applicazione]}: {$nome}";    
     }
     if (strlen($ruolo) > 30) {
-        $ruolo = substr($ruolo, 0, 15) . '...';
+        $ruolo = substr($ruolo, 0, 30) . '...';
     }
 }
     
@@ -38,10 +42,14 @@ if($r) {
     <?php foreach($d as $_d) {
         if ($_d->attuale() && $_d->id != $sessione->ambito) {
             $g = GeoPolitica::daOid($_d->comitato);
+            $nome = "{$g->nome}";
+            if ($g->_estensione() == EST_UNITA) {
+                $nome = "Unità {$g->nome}";
+            }
             if ($_d->applicazione == APP_OBIETTIVO) {
-                $s = "<a href='?p=utente.caricaRuolo.ok&ruolo={$_d->id}'>Delegato {$conf['nomiobiettivi'][$_d->dominio]}:{$g->nome}";
+                $s = "<a href='?p=utente.caricaRuolo.ok&ruolo={$_d->id}'>Delegato {$conf['nomiobiettivi'][$_d->dominio]}: {$nome}";
             } else {
-                $s = "<a href='?p=utente.caricaRuolo.ok&ruolo={$_d->id}'>{$conf['applicazioni'][$_d->applicazione]}:{$g->nome}";
+                $s = "<a href='?p=utente.caricaRuolo.ok&ruolo={$_d->id}'>{$conf['applicazioni'][$_d->applicazione]}: {$nome}";
             }
             echo("<li>{$s}</li>");
         }

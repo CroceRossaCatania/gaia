@@ -669,10 +669,12 @@ class Utente extends Persona {
      * @param $espandi default ritorna le geopolitiche e la loro espansione
      */
     public function comitatiDelegazioni($app = null, $soloComitati = false, $espandi = true) {
-        $d = $this->delegazioni($app);
+        //$d = $this->delegazioni($app);
+        $d = $this->delegazioneAttuale();
         $c = [];
-        foreach ( $d as $_d ) {
-            $comitato = $_d->comitato();
+        //if ( $d as $_d ) {
+        if (!$app || $d->applicazione == $app) {            
+            $comitato = $d->comitato();
             if (!$soloComitati || $comitato instanceof Comitato) {
                 $c[] = $comitato;
             }
@@ -1286,13 +1288,15 @@ class Utente extends Persona {
      */
     public function delegazioneAttuale() {
         global $sessione;
-        if($r = $sessione->ambito) {
+        $r = $sessione->ambito;
+        if($r) {
             $d = Delegato::id($r);
             if($d && $d->attuale() && $d->volontario == $this->id) {
                 return $d;
             }
+            throw new Errore(1015);
         }
-        throw new Errore(1015);
+        return null;        
     }
 
 }

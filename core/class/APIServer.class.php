@@ -356,7 +356,10 @@ class APIServer {
         }
 
         $me = $this->sessione->utente();
-        $com = array_merge(
+
+        // versione originale commentata per #867
+        // rimane problema su ricerche troppo permissive!
+        /*$com = array_merge(
             // Dominio di ricerca
             $me->comitatiApp([
                 APP_PRESIDENTE,
@@ -365,7 +368,17 @@ class APIServer {
             ]),
             $me->comitatiAttivitaReferenziate(),
             $me->comitatiAreeDiCompetenza(true)
+        );*/
+
+        $com = array_merge(
+            // Dominio di ricerca
+            $me->comitatiApp([
+                APP_PRESIDENTE,
+                APP_SOCI,
+                APP_OBIETTIVO
+            ])
         );
+
         $r->comitati = array_unique($com);
 
         if ( $this->par['query'] ) {

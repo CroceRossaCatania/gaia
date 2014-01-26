@@ -17,7 +17,7 @@ $menu += [
 
 $presidente = false;
 
-if ( $me->delegazioneAttuale()->applicazione == APP_PRESIDENTE ) {
+if ( $me->admin() || $me->delegazioneAttuale()->applicazione == APP_PRESIDENTE ) {
     $presidente = true;
     $menu[''] += [
         'presidente.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Presidente'
