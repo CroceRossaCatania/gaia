@@ -29,10 +29,9 @@ if($r) {
     
 
 ?>
-
-<div class="btn-group">
-  <button class="btn"><?php echo($ruolo); ?></button>
-  <button class="btn dropdown-toggle" data-toggle="dropdown">
+<div class="btn-group" style="width:100%;">
+  <button class="btn" style="width:90%;"><?php echo($ruolo); ?></button>
+  <button class="btn dropdown-toggle" data-toggle="dropdown" style="width:10%;">
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">

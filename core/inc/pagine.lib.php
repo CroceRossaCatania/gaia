@@ -180,7 +180,7 @@ function menuOrdinario() {
 }
 
 function scegliRuolo() {
-    include('./inc/part/scegliRuolo.menu.php');
+    include('./inc/part/utente.selettore.ruolo.php');
 }
 
 $_lista_attiva = $_link_excel = $_link_email = null;
