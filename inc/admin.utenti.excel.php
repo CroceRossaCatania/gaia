@@ -258,7 +258,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
         } else {
             $anno = $_GET['anno'];
             if ($anno > (int) $questanno) {
-                redirect('us.quoteSi.ordinarii');
+                redirect('us.quoteSi.ordinari');
             }
         }
         foreach ( $c->quoteSi($anno, MEMBRO_ORDINARIO) as $v ) {
