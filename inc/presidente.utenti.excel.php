@@ -381,7 +381,41 @@ if(isset($_GET['dimessi'])){
     $excel->genera("Volontari estesi.xls");
     $excel->download();
     
-}elseif(isset($_GET['soci'])){
+}elseif(isset($_GET['trasferiti'])){
+    $excel = new Excel();
+    
+    $excel->intestazione([
+        'N.',
+        'Nome',
+        'Cognome',
+        'C. Fiscale',
+        'Socio dal',
+        'Socio fino',
+        'Trasferito presso'
+        ]);
+
+        $t = $c->membriTrasferiti();
+        foreach ( $t as $_t ) {
+            $v = $_t->volontario();
+            $a = Appartenenza::filtra([
+                    ['comitato', $_t->provenienza()],
+                    ['stato', MEMBRO_TRASFERITO]
+                ]); 
+            $i++; 
+            $excel->aggiungiRiga([
+                $i,
+                $v->nome,
+                $v->cognome,
+                $v->codiceFiscale,
+                date('d/m/Y', $a->inizio),
+                date('d/m/Y', $_t->appartenenza()->inizio),
+                $_t->comitato()->nomeCompleto()
+                ]);
+
+        }
+        $excel->genera("Volontari trasferiti.xls");
+        $excel->download();
+    }elseif(isset($_GET['soci'])){
     $excel = new Excel();
     $excel->intestazione([
             'N.',

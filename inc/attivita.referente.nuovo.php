@@ -6,9 +6,10 @@
 
 controllaParametri(array('id'));
 
-$attivita = $_GET['id'];
+$attivita = Attivita::id($_GET['id']);
 
-paginaPresidenziale(null, $attivita);
+paginaPrivata();
+paginaAttivita($attivita);
 caricaSelettore();
 paginaModale();
 
