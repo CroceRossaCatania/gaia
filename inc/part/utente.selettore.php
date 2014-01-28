@@ -79,7 +79,7 @@ function keyupRicerca() {
     if ( query.length < 1 ) { $("#selettoreRisultati").html(''); return; }
     _ultimaRicerca = setTimeout( function() {
     $(".icona-ricerca").removeClass().addClass("icon-spin").addClass("icon-spinner");
-    api('volontari:cerca', {query: query, perPagina: 80, ordine: 'selettore'}, function( x ) {
+    api('volontari:cerca', {query: query, perPagina: 80, ordine: 'selettore', volontariextra: true}, function( x ) {
         if ( $("#selettoreCerca").val() != x.richiesta.parametri.query ) {
           return false;
         }

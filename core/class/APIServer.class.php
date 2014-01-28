@@ -358,26 +358,27 @@ class APIServer {
         $me = $this->sessione->utente();
 
         // versione originale commentata per #867
-        // rimane problema su ricerche troppo permissive!
-        /*$com = array_merge(
-            // Dominio di ricerca
-            $me->comitatiApp([
-                APP_PRESIDENTE,
-                APP_SOCI,
-                APP_OBIETTIVO
-            ]),
-            $me->comitatiAttivitaReferenziate(),
-            $me->comitatiAreeDiCompetenza(true)
-        );*/
-
-        $com = array_merge(
-            // Dominio di ricerca
-            $me->comitatiApp([
-                APP_PRESIDENTE,
-                APP_SOCI,
-                APP_OBIETTIVO
-            ])
-        );
+        if($this->par['volontariextra']) {
+            $com = array_merge(
+                // Dominio di ricerca
+                $me->comitatiApp([
+                    APP_PRESIDENTE,
+                    APP_SOCI,
+                    APP_OBIETTIVO
+                ]),
+                $me->comitatiAttivitaReferenziate(),
+                $me->comitatiAreeDiCompetenza(true)
+            );
+        } else {
+            $com = array_merge(
+                // Dominio di ricerca
+                $me->comitatiApp([
+                    APP_PRESIDENTE,
+                    APP_SOCI,
+                    APP_OBIETTIVO
+                ])
+            );
+        }
 
         $r->comitati = array_unique($com);
 
