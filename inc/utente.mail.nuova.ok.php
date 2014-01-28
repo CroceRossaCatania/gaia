@@ -68,8 +68,24 @@ foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenc
         } else {
             $comitato = 'nessun comitato assegnato o volontario in attesa di conferma';
         }
-        $m->_BROSWER = $_SERVER['HTTP_USER_AGENT'] . "\n\n";
         $m->_APP = $comitato;
+        $d = $me->delegazioneAttuale();
+        if($d) {
+            $g = GeoPolitica::daOid($d->comitato);
+            $nome = "{$g->nome}";
+            if ($g->_estensione() == EST_UNITA) {
+                $nome = "Unità {$g->nome}";
+            }
+            if ($d->applicazione == APP_OBIETTIVO) {
+                $ruolo = "Delegato {$conf['nomiobiettivi'][$d->dominio]}: {$nome}";   
+            } else {
+                $ruolo = "{$conf['applicazioni'][$d->applicazione]}: {$nome}";    
+            }
+            $m->_DELEGA = $ruolo;
+        } else {
+            $m->_DELEGA = "Il volontario non ha deleghe o non ne sta usando nessuna";
+        }
+        $m->_BROSWER = $_SERVER['HTTP_USER_AGENT'] . "\n\n";
         //inserisco i dati del volontari per cui è richiesta assistenza
         $u = Utente::id($_POST['inputVolontario']);
         $m->_VSTATO = $conf['statoPersona'][$u->stato];
@@ -101,6 +117,22 @@ foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenc
         $comitato = 'nessun comitato assegnato';
     }
     $m->_APP = $comitato;
+    $d = $me->delegazioneAttuale();
+    if($d) {
+        $g = GeoPolitica::daOid($d->comitato);
+        $nome = "{$g->nome}";
+        if ($g->_estensione() == EST_UNITA) {
+            $nome = "Unità {$g->nome}";
+        }
+        if ($d->applicazione == APP_OBIETTIVO) {
+            $ruolo = "Delegato {$conf['nomiobiettivi'][$d->dominio]}: {$nome}";   
+        } else {
+            $ruolo = "{$conf['applicazioni'][$d->applicazione]}: {$nome}";    
+        }
+        $m->_DELEGA = $ruolo;
+    } else {
+        $m->_DELEGA = "Il volontario non ha deleghe o non ne sta usando nessuna";
+    }
     $m->_BROSWER = $_SERVER['HTTP_USER_AGENT'] . "\n\n";
     $m->invia();
     redirect('utente.me&suppok');    
