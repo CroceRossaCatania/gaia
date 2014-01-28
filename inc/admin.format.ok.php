@@ -122,11 +122,15 @@ if(isset($_POST['ordinario'])){
                 $p->comuneResidenza     = normalizzaNome($riga[7]);
                 $p->provinciaResidenza  = maiuscolo($riga[8]);
                 $p->CAPResidenza        = maiuscolo($riga[9]);
-                $p->email               = minuscolo($riga[10]);
+                $giaemail = Persona::filtra([['email',minuscolo($riga[10])]]);
+                if (!$giaemail){
+                   $p->email = minuscolo($riga[10]); 
+                }
+                
                 if ($p->email == '') {
                     $haemail = true;
                 } else {
-                    $haemail = flase;
+                    $haemail = false;
                 }
                 
                 $cell = str_replace(', ', ' / ', $cell);
