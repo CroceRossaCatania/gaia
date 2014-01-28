@@ -231,6 +231,31 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
+    public function membriTrasferiti() {
+        $q = $this->db->prepare("
+            SELECT 
+                trasferimenti.id
+            FROM
+                anagrafica, trasferimenti
+            WHERE
+                trasferimenti.cProvenienza = :comitato
+            AND
+                trasferimenti.volontario = anagrafica.id
+            AND
+                trasferimenti.stato >= :stato
+            ORDER BY
+                anagrafica.cognome ASC,
+                anagrafica.nome ASC");
+        $q->bindValue(':stato', TRASF_OK);
+        $q->bindParam(':comitato', $this->id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Trasferimento::id($k[0]);
+        }
+        return $r;
+    }
+
     public function membriOrdinari() {
         $q = $this->db->prepare("
             SELECT

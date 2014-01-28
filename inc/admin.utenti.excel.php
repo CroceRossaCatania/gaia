@@ -53,6 +53,16 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
             'Codice',
             'Data ingresso CRI'
             ]);
+    }elseif(isset($_GET['trasferiti'])){
+        $excel->intestazione([
+            'N.',
+            'Nome',
+            'Cognome',
+            'C. Fiscale',
+            'Socio dal',
+            'Socio fino',
+            'Trasferito presso'
+            ]);
     }else{
         $excel->intestazione([
             'N.',
@@ -439,6 +449,27 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
 
         }
         $excel->genera("Volontari in estensione {$c->nome}.xls");
+    }elseif(isset($_GET['trasferiti'])){
+        $t = $c->membriTrasferiti();
+        foreach ( $t as $_t ) {
+            $v = $_t->volontario();
+            $a = Appartenenza::filtra([
+                    ['comitato', $_t->provenienza()],
+                    ['stato', MEMBRO_TRASFERITO]
+                ]); 
+            $i++; 
+            $excel->aggiungiRiga([
+                $i,
+                $v->nome,
+                $v->cognome,
+                $v->codiceFiscale,
+                date('d/m/Y', $a->inizio),
+                date('d/m/Y', $_t->appartenenza()->inizio),
+                $_t->comitato()->nomeCompleto()
+                ]);
+
+        }
+        $excel->genera("Volontari trasferiti {$c->nome}.xls");
     }elseif(isset($_GET['soci'])){
         foreach ( $c->membriAttuali(MEMBRO_VOLONTARIO) as $v ) {
             $i++;    
@@ -567,6 +598,8 @@ if(isset($_GET['dimessi'])){
  $zip->comprimi("Volontari estesi.zip"); 
 }elseif(isset($_GET['inestensione'])){
  $zip->comprimi("Volontari in estensione.zip"); 
+}elseif(isset($_GET['trasferiti'])){
+ $zip->comprimi("Volontari trasferiti.zip"); 
 }elseif(isset($_GET['soci'])){
  $zip->comprimi("Elenco soci.zip"); 
 }elseif(isset($_GET['ordinari'])){
