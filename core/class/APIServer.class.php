@@ -358,15 +358,19 @@ class APIServer {
         $me = $this->sessione->utente();
 
         // versione modificata per #867
-        if($this->par['comitati']) {
+        if ($this->par['comitati']) {
             $g = GeoPolitica::daOid($this->par['comitati']);
+            // bisogna avere permessi di lettura sul ramo
+            if ( !$me->puoLeggereDati($g) )
+                throw new Errore(1016);
+            
             $com = $g->estensione();
         } else {
             $com = $me->comitatiApp([
                     APP_PRESIDENTE,
                     APP_SOCI,
                     APP_OBIETTIVO
-                ]);
+            ]);
         }
 
         if ( $this->par['query'] ) {
