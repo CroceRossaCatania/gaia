@@ -357,27 +357,16 @@ class APIServer {
 
         $me = $this->sessione->utente();
 
-        // versione originale commentata per #867
-        if($this->par['volontariextra']) {
-            $com = array_merge(
-                // Dominio di ricerca
-                $me->comitatiApp([
-                    APP_PRESIDENTE,
-                    APP_SOCI,
-                    APP_OBIETTIVO
-                ]),
-                $me->comitatiAttivitaReferenziate(),
-                $me->comitatiAreeDiCompetenza(true)
-            );
+        // versione modificata per #867
+        if($this->par['comitati']) {
+            $g = GeoPolitica::daOid($this->par['comitati']);
+            $com = $g->estensione();
         } else {
-            $com = array_merge(
-                // Dominio di ricerca
-                $me->comitatiApp([
+            $com = $me->comitatiApp([
                     APP_PRESIDENTE,
                     APP_SOCI,
                     APP_OBIETTIVO
-                ])
-            );
+                ]);
         }
 
         $r->comitati = array_unique($com);
