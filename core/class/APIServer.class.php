@@ -369,8 +369,6 @@ class APIServer {
                 ]);
         }
 
-        $r->comitati = array_unique($com);
-
         if ( $this->par['query'] ) {
             $r->query = $this->par['query'];
         }
