@@ -15,6 +15,9 @@
         </a> /
         <a href="?p=presidente.utenti.dimessi">
              dimessi
+        </a> /
+        <a href="?p=presidente.utenti.trasferiti">
+             trasferiti
         </a><br />
         <a href="?p=presidente.utenti.riserve"
             data-attendere="Generazione lista...">

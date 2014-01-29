@@ -162,8 +162,8 @@ class APIServer {
             if ( !$searchPuoPart[$idAttivita] ) {
                 continue;
             }
+            $geoAttivita = GeoPolitica::daOid($attivita->comitato);
             if ( $this->sessione->utente ) {
-                $geoAttivita = GeoPolitica::daOid($attivita->comitato);
                 if ( $geoAttivita->contiene($mioGeoComitato) ) {
                     $colore = $conf['attivita']['colore_mie'];
                     if ( $turno->scoperto() ) {

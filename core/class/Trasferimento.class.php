@@ -22,6 +22,13 @@ class Trasferimento extends Entita {
         return $this->appartenenza()->comitato();
     }
     
+    /*  Restituisce il comitato di provenienza
+     *  @return comitato di provenienza
+     */
+    public function provenienza(){
+        return Comitato::id($this->cProvenienza);
+    }
+
     public function presaInCarico() {
         if ( $this->protNumero && $this->protData ) {
             return true;
