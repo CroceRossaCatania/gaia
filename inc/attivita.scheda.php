@@ -421,7 +421,12 @@ $(document).ready( function() {
                                             <?php if ( $a->modificabileDa($me) ) { ?>
                                             <form action="?p=attivita.modifica.volontari.aggiungi&id=<?php echo $a->id; ?>" method="POST">
                                                 <input type="hidden" name="turno" value="<?php echo $turno->id; ?>" />
-                                                <a data-selettore="true" data-input="volontari" data-autosubmit="true" data-multi="true" class="btn btn-block btn-primary btn-large btn-success">
+                                                <a data-selettore="true" 
+                                                   data-input="volontari" 
+                                                   data-autosubmit="true" 
+                                                   data-multi="true" 
+                                                   data-comitati="<?php echo $a->comitato; ?>"
+                                                   class="btn btn-block btn-primary btn-large btn-success">
                                                     <i class="icon-plus"></i>
                                                     Aggiungi volontari
                                                 </a>
