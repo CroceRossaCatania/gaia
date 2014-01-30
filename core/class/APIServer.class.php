@@ -372,6 +372,7 @@ class APIServer {
                     APP_OBIETTIVO
             ]);
         }
+        $r->comitati = $com;
 
         if ( $this->par['query'] ) {
             $r->query = $this->par['query'];
