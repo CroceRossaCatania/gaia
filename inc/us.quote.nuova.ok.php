@@ -90,7 +90,7 @@ $p->_LUOGO 		= $app->comitato()->locale()->comune;
 $p->_DATA 		= date('d-m-Y', time());
 $p->_CHINOME	= $me->nomeCompleto();
 $p->_CHICF		= $me->codiceFiscale;
-$f = $p->salvaFile();                                
+$f = $p->salvaFile($app->comitato());                                
 
 
 /* Invio ricevuta all'utente */
