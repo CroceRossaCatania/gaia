@@ -64,7 +64,7 @@ class Email {
         } else {
             $da = 'Croce Rossa Italiana <supporto@gaia.cri.it>';
         }
-        $toHash = $corpo . $email;
+        $toHash = $corpo . $email . time();
         $hash = hash('md5', $toHash);
         $header =[
             'Subject'       =>  $oggetto,
