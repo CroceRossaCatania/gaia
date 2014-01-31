@@ -70,6 +70,7 @@ class Email {
             'From'          =>  'Croce Rossa Italiana <noreply@gaia.cri.it>',
             'Reply-to'      =>  $da,
             'MIME-Version'  =>  '1.0',
+            'Date'          =>  date('r', time()),
             'To'            =>  $this->a->nome . ' <' . $email . '>'
         ];
         require_once './core/class/Mail/mime.php';
