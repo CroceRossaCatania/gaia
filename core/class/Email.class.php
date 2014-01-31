@@ -42,10 +42,8 @@ class Email {
             $this->a = new stdClass;
             $this->a->nome = $conf['default_email_nome'];
             $this->a->email = $conf['default_email_email'];
-            $email = $this->a->email;
-        }else{
-            $email = $this->a->email;
         }
+        $email = $this->a->email;
         
         $header     = file_get_contents('./core/conf/mail/header.html');
         $footer     = file_get_contents('./core/conf/mail/footer.html');
@@ -53,7 +51,7 @@ class Email {
         foreach ( $this->sostituzioni as $nome => $valore ) {
             $corpo = str_replace($nome, $valore, $corpo);
         }
-        $corpo  = $header . $corpo . $footer . "\n";
+        $corpo  = "<html>" . $header . $corpo . $footer . "</html>" . "\n";
 
         if ( $this->da ) {
             if ( $this->da instanceOf Persona ) {
