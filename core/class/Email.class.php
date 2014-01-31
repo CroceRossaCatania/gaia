@@ -64,13 +64,15 @@ class Email {
         } else {
             $da = 'Croce Rossa Italiana <supporto@gaia.cri.it>';
         }
-        
+        $toHash = $corpo . $email;
+        $hash = hash('md5', $toHash);
         $header =[
             'Subject'       =>  $oggetto,
             'From'          =>  'Croce Rossa Italiana <noreply@gaia.cri.it>',
             'Reply-to'      =>  $da,
             'MIME-Version'  =>  '1.0',
             'Date'          =>  date('r', time()),
+            'Message-ID'    => '<' . $hash . '@gaia.cri.it>',
             'To'            =>  $this->a->nome . ' <' . $email . '>'
         ];
         require_once './core/class/Mail/mime.php';
