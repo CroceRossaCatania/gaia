@@ -45,17 +45,18 @@ function paginaApp($app, $comitati = []) {
     }
     foreach ( $app as $k ) {
         
-        // Per ogni delegazione dell'utente
-        if ( $d = $sessione->utente()->delegazioni($k) ) {
-            
+        // Per ogni delegazione dell'utente (vecchia versione)
+        //if ( $d = $sessione->utente()->delegazioni($k) ) {
+        
+        // Variazione per issue #867
+        $d = $sessione->utente()->delegazioneAttuale();
+        if ( $d && $d->applicazione == $k ) {
             // Se è attivo il filtraggio per comitato
             if ( $comitati ) {
                 // Ritorna vero solo se il comitato è contenuto
                 foreach ( $comitati as $comitato ) {
                     if (!$comitato instanceof GeoPolitica) { continue; }
-                    foreach ( $d as $delegazione ) { 
-                        if ( $delegazione->comitato()->contiene($comitato) ) { return true; } 
-                    }
+                        if ( $d->comitato()->contiene($comitato) ) { return true; } 
                 }
             } else {
                 
@@ -162,6 +163,12 @@ function menuVolontario() {
         menuOrdinario();
         return;
     }
+    $d = Delegato::filtra([
+        ['volontario', $me->id]
+        ]);
+    if ($d) {
+        scegliRuolo();
+    }
     include('./inc/part/utente.menu.php');
 }
 
@@ -171,6 +178,10 @@ function menuAspirante() {
 
 function menuOrdinario() {
     include('./inc/part/ordinario.menu.php');
+}
+
+function scegliRuolo() {
+    include('./inc/part/utente.selettore.ruolo.php');
 }
 
 $_lista_attiva = $_link_excel = $_link_email = null;

@@ -13,6 +13,8 @@ paginaAttivita($attivita);
 caricaSelettore();
 paginaModale();
 
+$a = Attivita::id($attivita);
+
 
 
 ?>
@@ -38,7 +40,10 @@ paginaModale();
                 al referente l'inserimento di tutti i dettagli dell'attività, compresi giorni e turni.</p>
            <p>&nbsp;</p>
           <p>
-              <a data-selettore="true" data-input="inputReferente" data-autosubmit="true" 
+              <a data-selettore="true" 
+                 data-input="inputReferente" 
+                 data-autosubmit="true" 
+                 data-comitati="<?php echo $a->comitato; ?>"
                  class="btn btn-inverse btn-block btn-large">
                   Seleziona un volontario... <i class="icon-pencil"></i>
               </a>
