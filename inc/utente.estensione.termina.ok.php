@@ -13,7 +13,7 @@ $est = Estensione::id($id);
 $est->termina();
 
 $m = new Email('estensioneTermina', 'Termine estensione: ' . $est->comitato()->nomeCompleto());
-    $m->a = $ris->comitato()->unPresidente();
+    $m->a 			= $est->comitato()->unPresidente();
     $m->_NOME       = $est->volontario()->nomeCompleto();
     $m->_COMITATO   = $est->provenienza()->nomeCompleto();
     $m->invia();
