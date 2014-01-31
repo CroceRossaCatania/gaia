@@ -15,5 +15,7 @@ $conf['errori'] = [
     1011    =>  'Almeno un parametro richiesto non e\' stato specificato',
     1012    =>  'Template della mail non presente',
     1013	=>	'Oggetto di tipo non autorizzato',
-	1014	=>	'API KEY non valida, disattiva, oppure limite richieste giornaliero superato'
+	1014	=>	'API KEY non valida, disattiva, oppure limite richieste giornaliero superato',
+    1015    =>  'Nessuna delegazione selezionata o delegazione non valida',
+    1016    =>  'Accesso negato: Nessun permesso di accesso al ramo specificato'
 ];

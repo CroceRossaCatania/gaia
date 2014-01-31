@@ -82,6 +82,7 @@ class Turno extends Entita {
         $p->turno       = $this;
         $p->volontario  = $v;
         $p->generaAutorizzazioni();
+        return true;
     }
         
     public static function neltempo(DT $inizio, DT $fine) {

@@ -661,7 +661,7 @@ class Utente extends Persona {
         }
         return $r;
     }
-    /*
+    /**
      * Restituisce i comitati che mi competono per una determinata delega
      * @return array di geopolitiche
      * @param $app array di delegazioni
@@ -669,10 +669,12 @@ class Utente extends Persona {
      * @param $espandi default ritorna le geopolitiche e la loro espansione
      */
     public function comitatiDelegazioni($app = null, $soloComitati = false, $espandi = true) {
-        $d = $this->delegazioni($app);
+        //$d = $this->delegazioni($app);
+        $d = $this->delegazioneAttuale();
         $c = [];
-        foreach ( $d as $_d ) {
-            $comitato = $_d->comitato();
+        //if ( $d as $_d ) {
+        if (!$app || $d->applicazione == $app) {            
+            $comitato = $d->comitato();
             if (!$soloComitati || $comitato instanceof Comitato) {
                 $c[] = $comitato;
             }
@@ -683,6 +685,30 @@ class Utente extends Persona {
         return array_unique($c);
     }
 
+    /**
+     * Controlla se l'utente ha i permessi di lettura dei dati dei volontari
+     * @param GeoPolitica $g la geopolitica contenente i volontari
+     * @return bool
+     */
+    public function puoLeggereDati(GeoPolitica $g) {
+        if ( $this->admin ) { // ->admin e non ->admin() di proposito
+                              // in quanto questa roba viene usata in API
+            return true;
+        }
+        return (bool) in_array(
+            $g,
+            array_merge(
+                $this->comitatiApp([
+                    APP_PRESIDENTE,
+                    APP_SOCI,
+                    APP_OBIETTIVO
+                ]),
+                $this->comitatiAppReferenziate(),
+                $this->comitatiAreeDiCompetenza(true)
+            )
+        );
+    } 
+
     public function entitaDelegazioni($app = null) {
         /* Qualora fossi admin, ho tutto il nazionale... */
         if (
@@ -691,10 +717,12 @@ class Utente extends Persona {
             return Nazionale::elenco('nome ASC');
         }
         
-        $d = $this->delegazioni($app);
+        //$d = $this->delegazioni($app);
+        $d = $this->delegazioneAttuale();
         $c = [];
-        foreach ( $d as $k ) {
-            $c[] = $k->comitato();
+        //foreach ( $d as $k ) {
+        if(!$app || $d->applicazione == $app) {
+            $c[] = $d->comitato();
         }
         return array_unique($c);
     }
@@ -1278,6 +1306,23 @@ class Utente extends Persona {
         }
         return false;
 
+    }
+
+    /**
+     * Restituscie l'ultima delegazione selezionata dall'utente
+     * @return Delegato     Ritorna un delegato se delegazione selezionata, errore altrimenti
+     */
+    public function delegazioneAttuale() {
+        global $sessione;
+        $r = $sessione->ambito;
+        if($r) {
+            $d = Delegato::id($r);
+            if($d && $d->attuale() && $d->volontario == $this->id) {
+                return $d;
+            }
+            throw new Errore(1015);
+        }
+        return null;        
     }
 
 }

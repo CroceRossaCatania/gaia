@@ -12,6 +12,9 @@ $v = $_GET['id'];
 $v = Volontario::id($v);
 
 proteggiDatiSensibili($v, [APP_SOCI , APP_PRESIDENTE]);
+if (!$v->modificabileDa($me)) {
+  redirect('presidente.utenti&nonpuoi');
+}
 
 ?>
 <div class="row-fluid">

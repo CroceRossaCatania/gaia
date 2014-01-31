@@ -9,6 +9,7 @@ if ( !$sessione->utente()->admin) {
 
 /* Entra nella magica admin mode... */
 $sessione->adminMode = time();
+$sessione->ambito = null;
 
 redirect();
 

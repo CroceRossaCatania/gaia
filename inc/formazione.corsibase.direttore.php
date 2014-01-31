@@ -39,7 +39,10 @@ paginaCorsoBase($corsoBase);
                 al direttore l'inserimento di tutti i dettagli del corso, comprese informazioni e lezioni.</p>
            <p>&nbsp;</p>
           <p>
-              <a data-selettore="true" data-input="inputDirettore" data-autosubmit="true" 
+              <a data-selettore="true" 
+                 data-input="inputDirettore" 
+                 data-autosubmit="true" 
+                 data-comitati="<?php echo $corsoBase->organizzatore; ?>"
                  class="btn btn-inverse btn-block btn-large">
                   Seleziona un volontario... <i class="icon-pencil"></i>
               </a>
