@@ -44,7 +44,7 @@ class Email {
             $this->a->email = $conf['default_email_email'];
             $email = $this->a->email;
         }else{
-            $email = $this->a->email();
+            $email = $this->a->email;
         }
         
         $header     = file_get_contents('./core/conf/mail/header.html');
