@@ -356,17 +356,23 @@ class APIServer {
         }
 
         $me = $this->sessione->utente();
-        $com = array_merge(
-            // Dominio di ricerca
-            $me->comitatiApp([
-                APP_PRESIDENTE,
-                APP_SOCI,
-                APP_OBIETTIVO
-            ]),
-            $me->comitatiAttivitaReferenziate(),
-            $me->comitatiAreeDiCompetenza(true)
-        );
-        $r->comitati = array_unique($com);
+
+        // versione modificata per #867
+        if ($this->par['comitati']) {
+            $g = GeoPolitica::daOid($this->par['comitati']);
+            // bisogna avere permessi di lettura sul ramo
+            if ( !$me->puoLeggereDati($g) )
+                throw new Errore(1016);
+            
+            $com = $g->estensione();
+        } else {
+            $com = $me->comitatiApp([
+                    APP_PRESIDENTE,
+                    APP_SOCI,
+                    APP_OBIETTIVO
+            ]);
+        }
+        $r->comitati = $com;
 
         if ( $this->par['query'] ) {
             $r->query = $this->par['query'];

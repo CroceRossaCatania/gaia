@@ -19,8 +19,12 @@ $_daGestire = [
 
 $c = $_GET['oid'];
 $c = GeoPolitica::daOid($c);
+$modifica = false;
+if ($c->modificabileDa($me)) {
+    $modifica = true;
+}
 
-paginaApp([APP_PRESIDENTE], [$c]);
+paginaApp(APP_PRESIDENTE, [$c]);
 
 caricaSelettore();
 
@@ -215,7 +219,7 @@ $(document).ready(function() {
                     </div>
                     
                     <div class="span2">
-                        <?php if ( !$c->principale && $c->modificabileDa($me)) { ?>
+                        <?php if ( !$c->principale && $modifica) { ?>
                         <a class="btn btn-large btn-block btn-info" href="?p=presidente.wizard&oid=<?php echo $c->oid(); ?>">
                             <i class="icon-pencil icon-3x"></i><br />
                             Modifica
@@ -264,7 +268,7 @@ $(document).ready(function() {
                             <td><?php echo $t->anno; ?></td>
                             <td><?php echo $conf['tesseramento'][$t->stato]; ?></td>
                             <td> €
-                                <?php if ($t->stato == TESSERAMENTO_APERTO
+                                <?php if ($modifica && $t->stato == TESSERAMENTO_APERTO
                                         && $c->quotaBenemeriti() == $t->benemerito) { ?>
                                 <input class="input-mini" type="number"
                                 step="0.1" min="<?php echo $t->benemerito; ?>"
@@ -276,7 +280,7 @@ $(document).ready(function() {
                                  } ?>                         
                             </td>
                             <td>
-                                <?php if($t->stato == TESSERAMENTO_APERTO
+                                <?php if($modifica && $t->stato == TESSERAMENTO_APERTO
                                         && $c->quotaBenemeriti() == $t->benemerito) { ?>
                                     <input class="btn btn-success" type="submit" value="Varia">
                                 <?php } ?>
@@ -326,6 +330,7 @@ $(document).ready(function() {
                         $nOb += count($o);
                         if ($o) {
                             $o = $o[0];
+                            if ($modifica) {
                         ?>
                         <div class="btn-group btn-group-vertical">
                             <a data-autosubmit="true" data-selettore="true" data-input="<?php echo $num; ?>" class="btn btn-small">
@@ -336,11 +341,19 @@ $(document).ready(function() {
                                 <i class="icon-remove"></i> Rimuovi delegato
                             </button>
                         </div>
-                        <?php } else { ?>
-                        <a data-autosubmit="true" data-selettore="true" data-input="<?php echo $num; ?>" class="btn btn-small">
-                            Scegli volontario <i class="icon-pencil"></i>
-                        </a>
-                        <?php } ?>
+                        <?php } else {
+                            echo $o->nomeCompleto();
+                            }
+                        } else { 
+                            if ($modifica) { ?>
+                            <a data-autosubmit="true" data-selettore="true" data-input="<?php echo $num; ?>" class="btn btn-small">
+                                Scegli volontario <i class="icon-pencil"></i>
+                            </a>
+                            <?php }
+                            else { ?>
+                                Nessun delegato selezionato
+                            <?php }
+                        } ?>
                     </div>
 
                     <?php if ($acapo == 3) { ?>
@@ -409,7 +422,7 @@ $(document).ready(function() {
                                 </button>
                             
                             <?php 
-                                if ( $area->nome != 'Generale' && (!$attivita || $me->admin)  ) { ?>
+                                if ( $modifica && $area->nome != 'Generale' && (!$attivita || $me->admin)  ) { ?>
 
                                 <button onClick="return confirm('Vuoi veramente rimuovere questo progetto? L\'operazione non è reversibile');" name="cancellaProgetto" 
                                 value="<?php echo $area->id; ?>" title="Cancella Progetto" class="btn btn-small btn-danger">
@@ -422,7 +435,9 @@ $(document).ready(function() {
 
                     </tr>
 
-                    <?php } ?>
+                    <?php } 
+
+                    if ($modifica) { ?>
 
                     <tr>
                         <td colspan="5">
@@ -432,6 +447,8 @@ $(document).ready(function() {
                             </a>
                         </td>
                     </tr>
+
+                    <?php } ?>
                     
                 </table>
                 
@@ -541,7 +558,7 @@ $(document).ready(function() {
                             <th>Delegato da</th>
                             <th>Fine delegazione</th>
                         </thead>
-                        
+                        <?php if ($modifica) { ?>
                         <tr>
                             <td colspan="4">
                                 <a data-autosubmit="true" data-selettore="true" data-input="persona" class="btn btn-block btn-primary">
@@ -551,7 +568,8 @@ $(document).ready(function() {
                             </td>
                         </tr>
                         
-                        <?php foreach ( $delegati as $delegato ) { ?>
+                        <?php } 
+                        foreach ( $delegati as $delegato ) { ?>
                         <tr<?php if ($delegato->attuale()) { ?> class="success"<?php } ?>>
                             
                             <td>
@@ -574,11 +592,13 @@ $(document).ready(function() {
                                 <?php if ( $delegato->attuale() ) { ?>
                                     <i class="icon-time"></i>
                                     <strong>Attualmente in carica</strong><br />
+                                    <?php if($modifica) { ?>
                                     <a href="?p=presidente.comitato.delegato.revoca&id=<?php echo $delegato->id; ?>&oid=<?php echo $c->oid(); ?>"
                                        onclick="return confirm('Sei sicuro di voler terminare i poteri per il volontario?');">
                                         <i class="icon-remove"></i> termina delegazione
                                     </a>
-                                <?php } else { ?>
+                                <?php }
+                                    } else { ?>
                                     <?php echo $delegato->fine()->inTesto(); ?>
                                 <?php } ?>
                                 

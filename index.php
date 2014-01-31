@@ -392,7 +392,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
       <div class="footer row-fluid">
                     <div class="span6">
                         <p><span class="muted">Progetto Gaia</span> <br />
-                            &copy;2013 <strong>Croce Rossa Italiana</strong>
+                            &copy;2014 <strong>Croce Rossa Italiana</strong>
                         </p>
                     </div>
       	<div class="span6 allinea-destra">

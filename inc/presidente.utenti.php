@@ -35,6 +35,11 @@ menuElenchiVolontari(
         <h4><i class="icon-exclamation-sign"></i> Si è verificato un problema</h4>
         <p>La richiesta di attivazione dell'account non è andata a buon fine.</p>
     </div>
+    <?php } elseif(isset($_GET['nonpuoi'])) { ?>
+    <div class="alert alert-block alert-error">
+        <h4><i class="icon-exclamation-sign"></i> Si è verificato un problema</h4>
+        <p>Non puoi dimettere un volontario di cui non sei direttamente il presidente.</p>
+    </div>
     <?php } elseif(isset($_GET['emailDiff'])) { ?>
     <div class="alert alert-block alert-error">
         <h4><i class="icon-exclamation-sign"></i> Inserite email differenti</h4>

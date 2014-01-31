@@ -17,14 +17,14 @@ $menu += [
 
 $presidente = false;
 
-if ( $me->comitatiDiCompetenza() ) {
+if ( $me->admin() || $me->delegazioneAttuale()->applicazione == APP_PRESIDENTE ) {
     $presidente = true;
     $menu[''] += [
         'presidente.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Presidente'
     ];
 }
 
-if (!$me->admin() && $me->delegazioni(APP_SOCI)) {
+if (!$me->admin() && $me->delegazioneAttuale()->applicazione == APP_SOCI) {
 $_n     =   $_n_titoli = $_n_app = 0;
 $_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
 $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
@@ -38,7 +38,7 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
     ];
 }
 
-if ( $presidente || $me->delegazioni(APP_CO)) {
+if ( $presidente || $me->delegazioneAttuale()->applicazione == APP_CO) {
     $menu[''] += [
         'co.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Centrale Operativa'
     ];
@@ -52,7 +52,7 @@ if ( $presidente || $me->delegazioni(APP_FORMAZIONE) || $me->corsiBaseDiGestione
     ];
 }
 */
-if ( $presidente || $me->delegazioni(APP_OBIETTIVO)) {
+if ( $presidente || $me->delegazioneAttuale()->applicazione == APP_OBIETTIVO) {
     $menu[''] += [
         'obiettivo.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Delegato d\'Area'
     ];
