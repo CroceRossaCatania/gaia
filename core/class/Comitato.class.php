@@ -83,7 +83,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
 
-    public function membriData($stato = MEMBRO_ESTESO, $data) {
+    public function membriData($data) {
         $q = $this->db->prepare("
             SELECT
                 anagrafica.id
@@ -98,12 +98,15 @@ class Comitato extends GeoPolitica {
             AND
                 comitato = :comitato
             AND
-                appartenenza.stato    >= :stato
+                ( appartenenza.stato    = :volontario OR
+                  appartenenza.stato    = :trasferito )
+
             ORDER BY
                  cognome ASC, nome ASC");
         $q->bindParam(':data', $data);
         $q->bindParam(':comitato', $this->id);
-        $q->bindParam(':stato',    $stato, PDO::PARAM_INT);
+        $q->bindValue(':volontario',    MEMBRO_VOLONTARIO);
+        $q->bindValue(':trasferito',    MEMBRO_TRASFERITO);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {

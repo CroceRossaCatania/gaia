@@ -34,7 +34,7 @@ $data = $data->getTimestamp();
         <?php
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
-            $t = $comitato->membriData(MEMBRO_VOLONTARIO , $data);
+            $t = $comitato->membriData($data);
                 ?>
 
             <tr class="success">
