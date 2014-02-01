@@ -1,8 +1,18 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
+
+/** 
+ * CONFIGURAZIONE ERRORI AMICHEVOLI
+ */
+
+// 1. Ignora errori che ricadono sotto...
+define('ERRORIAMICHEVOLI_MINIMO', E_USER_NOTICE); 
+
+// 2. Database SQLite3 degli errori - DEVE essere scrivibile
+define('ERRORIAMICHEVOLI_DATABASE', './upload/log/errori.db3'); 
 
 $conf['errori'] = [
     1000    =>  'Errore non documentato - fare riferimento al supporto tecnico',
