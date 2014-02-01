@@ -703,7 +703,7 @@ class Utente extends Persona {
                     APP_SOCI,
                     APP_OBIETTIVO
                 ]),
-                $this->comitatiAppReferenziate(),
+                $this->comitatiAttivitaReferenziate(),
                 $this->comitatiAreeDiCompetenza(true)
             )
         );
