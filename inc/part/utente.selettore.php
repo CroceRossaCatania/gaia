@@ -5,13 +5,15 @@ var s_autosubmit = false;
 var selezione = [];
 var dataInput = '';
 var origElem = '';
-var comitati = '';
+var geoPolitica = '';
 
     $(document).ready( function() {
         $("[data-selettore]").each( function( i, e ) {
-            if ( $(e).data('comitati') ) {
-                    comitati = $(e).data('comitati');
-            }
+            if ( typeof $(e).data('comitati') == 'undefined') {
+              geoPolitica = false;
+            } else {
+              geoPolitica = $(e).data('comitati');
+            } 
 
             $(e).click( function() {
                 
@@ -84,7 +86,7 @@ function keyupRicerca() {
     if ( query.length < 1 ) { $("#selettoreRisultati").html(''); return; }
     _ultimaRicerca = setTimeout( function() {
     $(".icona-ricerca").removeClass().addClass("icon-spin").addClass("icon-spinner");
-    api('volontari:cerca', {query: query, perPagina: 80, ordine: 'selettore', comitati: comitati}, function( x ) {
+    api('volontari:cerca', {query: query, perPagina: 80, ordine: 'selettore', comitati: geoPolitica}, function( x ) {
         if ( $("#selettoreCerca").val() != x.richiesta.parametri.query ) {
           return false;
         }
