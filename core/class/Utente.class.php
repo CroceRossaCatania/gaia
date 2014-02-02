@@ -1248,6 +1248,19 @@ class Utente extends Persona {
             return true;
             }
         }
+        /* Il foreach seguente serve per risolvere 
+         * temporaneamente i problemi di permessi
+         * fino alla corretta implementazione di copernico
+         * #970
+         */
+        foreach ($comitatiGestiti as $com) {
+            if ($c->locale()->nome == $com->nome) {
+                return true;
+            }
+            if ($c->nome == $com->nome) {
+                return true;
+            }
+        }
         return false;
     }
 
