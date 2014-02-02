@@ -87,8 +87,23 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                 </table>
             </div>
         </div>
-        <hr />
-        
+        <div class="row-fluid">
+            <hr />
+            <div class="alert alert-block alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <i class="icon-user"></i> <strong>Alcune indicazioni utili</strong><br />
+                Se provi ad inserire un volontario o un socio ordinario ma non riesci a completare l'operazione 
+                può essere che la persona abbia provato a registrarsi autonomamente e che l'operazione non sia andata a
+                buon fine. <a href="?p=utente.supporto"><i class="icon-envelope"></i> Contatta il supporto</a> e spiega il 
+                problema così che sia possibile risolvere la situazione.
+                <br />
+                Per caricare i volontari o i soci ordinari del tuo comitato in blocco sono disponibili dei format
+                in excel da compilare e spedire al supporto che provvederà all'importazione. Non caricare i volontari
+                uno ad uno: <a href="?p=utente.supporto"><i class="icon-envelope"></i> contatta il supporto</a> e ti 
+                forniranno tutte le indicazioni per caricare in massa volontari e soci ordinari.
+            </div>
+        </div>
+        <div class="row-fluid">
         <div class="span12">
             <div class="span6">
                 <div class="row-fluid">
@@ -165,6 +180,7 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </div>
