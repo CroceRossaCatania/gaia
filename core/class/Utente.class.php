@@ -1243,7 +1243,7 @@ class Utente extends Persona {
         }
         
         if($c) {
-            if(in_array($c->locale(), $comitatiGestiti) 
+            if(($c instanceof Comitato && in_array($c->locale(), $comitatiGestiti) )
             || in_array($c, $comitatiGestiti)) {
             return true;
             }
@@ -1254,7 +1254,7 @@ class Utente extends Persona {
          * #970
          */
         foreach ($comitatiGestiti as $com) {
-            if ($c->locale()->nome == $com->nome) {
+            if ($c instanceof Comitato && $c->locale()->nome == $com->nome) {
                 return true;
             }
             if ($c->nome == $com->nome) {
