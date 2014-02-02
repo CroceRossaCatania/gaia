@@ -704,6 +704,7 @@ class Utente extends Persona {
                     APP_OBIETTIVO
                 ]),
                 $this->comitatiAttivitaReferenziate(),
+                $this->comitatiGruppiReferenziati(),
                 $this->comitatiAreeDiCompetenza(true)
             )
         );
@@ -925,6 +926,12 @@ class Utente extends Persona {
             ['referente',   $this->id]
         ], 'nome ASC');
     }
+
+    public function gruppiReferenziati() {
+        return Gruppo::filtra([
+            ['referente',   $this->id]
+        ], 'nome ASC');
+    }
             
     public function attivitaReferenziateDaCompletare() {
         return Attivita::filtra([
@@ -938,6 +945,15 @@ class Utente extends Persona {
         $r = [];
         foreach($a as $_a) {
             $r = array_merge($r, $_a->comitato()->estensione());
+        }
+        return array_unique($r);
+    }
+
+    public function comitatiGruppiReferenziati() {
+        $g = $this->gruppiReferenziati();
+        $r = [];
+        foreach($g as $_g) {
+            $r = array_merge($r, $_g->comitato()->estensione());
         }
         return array_unique($r);
     }
