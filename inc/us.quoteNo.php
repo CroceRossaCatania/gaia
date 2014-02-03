@@ -149,9 +149,9 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
             $t = $comitato->quoteNo($anno);
-            $fiscali = true;
-            if (!$comitato->cf()) {
-                $fiscali = false;
+            $fiscali = false;
+            if ($comitato->cf()) {
+                $fiscali = true;
             }
                 ?>
             
@@ -161,6 +161,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     <span class="label label-warning">
                         <?php echo count($t); ?>
                     </span>
+                    <?php if(!$fiscali) { ?>
+                    <span class="label label-important">
+                        <?php echo "Codice fiscale non inserito!"; ?>
+                    </span>
+                    <?php } ?>
                     <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unitquoteno&<?= $anno; ?>">
                            <i class="icon-envelope"></i> Invia mail
                     </a>
