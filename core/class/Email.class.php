@@ -42,10 +42,8 @@ class Email {
             $this->a = new stdClass;
             $this->a->nome = $conf['default_email_nome'];
             $this->a->email = $conf['default_email_email'];
-            $email = $this->a->email;
-        }else{
-            $email = $this->a->email();
         }
+        $email = $this->a->email;
         
         $header     = file_get_contents('./core/conf/mail/header.html');
         $footer     = file_get_contents('./core/conf/mail/footer.html');
@@ -53,7 +51,7 @@ class Email {
         foreach ( $this->sostituzioni as $nome => $valore ) {
             $corpo = str_replace($nome, $valore, $corpo);
         }
-        $corpo  = $header . $corpo . $footer . "\n";
+        $corpo  = "<html>" . $header . $corpo . $footer . "</html>" . "\n";
 
         if ( $this->da ) {
             if ( $this->da instanceOf Persona ) {
@@ -64,12 +62,15 @@ class Email {
         } else {
             $da = 'Croce Rossa Italiana <supporto@gaia.cri.it>';
         }
-        
+        $toHash = $corpo . $email . time();
+        $hash = hash('md5', $toHash);
         $header =[
             'Subject'       =>  $oggetto,
             'From'          =>  'Croce Rossa Italiana <noreply@gaia.cri.it>',
             'Reply-to'      =>  $da,
             'MIME-Version'  =>  '1.0',
+            'Date'          =>  date('r', time()),
+            'Message-ID'    => '<' . $hash . '@gaia.cri.it>',
             'To'            =>  $this->a->nome . ' <' . $email . '>'
         ];
         require_once './core/class/Mail/mime.php';

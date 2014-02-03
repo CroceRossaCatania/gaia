@@ -81,14 +81,13 @@ class Estensione extends Entita {
     }
 
     public function termina() {
-        $ora = time();
-        $this->timestamp = $ora;
+        $this->timestamp = time();
         $this->stato = EST_CONCLUSA;
-        $app = Appartenenza::id($this->appartenenza);
+        $app = $this->appartenenza();
         $app->stato = MEMBRO_EST_TERMINATA;
         $app->fine = time();
-        $c = Comitato::id($app->comitato);
-        $v = Volontario::id($this->volontario);
+        $c = $app->comitato();
+        $v = $this->volontario();
 
         // chiudo le deleghe su quel comitato
         $d = $v->delegazioni(null, $c->id);

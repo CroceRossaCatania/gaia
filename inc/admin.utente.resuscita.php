@@ -22,7 +22,7 @@ if ($u->stato == PERSONA
     $a->stato = MEMBRO_VOLONTARIO;
     $a->fine = 0;
 
-    $d = Dimissioni::by('appartenenza', $a->id);
+    $d = Dimissione::by('appartenenza', $a->id);
     $d->cancella();
 
 }
