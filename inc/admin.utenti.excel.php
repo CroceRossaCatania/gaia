@@ -63,6 +63,28 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
             'Socio fino',
             'Trasferito presso'
             ]);
+    }elseif(isset($_GET['soci'])){
+        $excel->intestazione([
+            'N.',
+            'Nome',
+            'Cognome',
+            'Data Nascita',
+            'Eta',
+            'Luogo Nascita',
+            'Provincia Nascita',
+            'C. Fiscale',
+            'Sesso',
+            'Indirizzo Res.',
+            'Civico',
+            'Comune Res.',
+            'Cap Res.',
+            'Provincia Res.',
+            'eMail',
+            'eMail Servizio',
+            'Cellulare',
+            'Cell. Servizio',
+            'Data ingresso CRI'
+            ]);
     }else{
         $excel->intestazione([
             'N.',
@@ -471,16 +493,19 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
         }
         $excel->genera("Volontari trasferiti {$c->nome}.xls");
     }elseif(isset($_GET['soci'])){
-        foreach ( $c->membriAttuali(MEMBRO_VOLONTARIO) as $v ) {
+        $data = $sessione->data;
+        foreach ( $c->membriData($data) as $v ) {
             $i++;    
             $excel->aggiungiRiga([
                 $i,
                 $v->nome,
                 $v->cognome,
                 date('d/m/Y', $v->dataNascita),
+                intval((time()- $v->dataNascita)/31104000),
                 $v->comuneNascita,
                 $v->provinciaNascita,
                 $v->codiceFiscale,
+                $conf['sesso'][$v->sesso],
                 $v->indirizzo,
                 $v->civico,
                 $v->comuneResidenza,

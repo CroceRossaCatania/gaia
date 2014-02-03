@@ -6,15 +6,16 @@
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
-
 menuElenchiVolontari(
-    "Elenco Soci",                // Nome elenco
-    "?p=admin.utenti.excel&soci",    // Link scarica elenco
-    false                               // Link email elenco
+    "Elenco Soci",                  // Nome elenco
+    "?p=admin.utenti.excel&soci",   // Link scarica elenco
+    false                           // Link email elenco
 );
 
 $data = DateTime::createFromFormat('d/m/Y', $_GET['inputData']);
 $data = $data->getTimestamp();
+$sessione->data = $data; // solo perchè in menù volontari non ho come mettere variabile
+
 ?>
   
 <div class="row-fluid">
@@ -44,7 +45,7 @@ $data = $data->getTimestamp();
                         <?php echo count($t); ?>
                     </span>
                     <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&soci"
+                       href="?p=presidente.utenti.excel&comitato=<?= $comitato->id; ?>&soci&data=<?= $data; ?>"
                        data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                     </a>
