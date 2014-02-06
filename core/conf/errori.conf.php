@@ -12,7 +12,7 @@
 define('ERRORIAMICHEVOLI_MINIMO', E_USER_NOTICE); 
 
 // 2. Database SQLite3 degli errori - DEVE essere scrivibile
-define('ERRORIAMICHEVOLI_DATABASE', './upload/log/errori.db3'); 
+define('ERRORIAMICHEVOLI_DATABASE', '/tmp/errori.db3'); 
 
 $conf['errori'] = [
     1000    =>  'Errore non documentato - fare riferimento al supporto tecnico',

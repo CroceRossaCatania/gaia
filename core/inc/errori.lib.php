@@ -14,7 +14,7 @@ $_id_richiesta = false;
  * Gestore amichevole degli errori
  * @see http://www.php.net/manual/en/function.set-error-handler.php
  */
-function gestiore_errori( 
+function gestore_errori( 
 	$livello,
 	$messaggio,
 	$file     = 'Nessun file specificato',
@@ -40,7 +40,7 @@ function gestiore_errori(
 	$dbe->exec("
 		CREATE TABLE IF NOT EXISTS 
 			errori (
-				codice, richiesta, server, get, post, sessione, utente
+				codice, richiesta, timestamp, livello, messaggio, file, linea, server, get, post, sessione, utente
 			)
 	");
 
@@ -73,7 +73,7 @@ function gestiore_errori(
 		gestione_errori_fallback($livello, $messaggio, $file, $linea, $contesto);
 
 	// Eventualmente redirige alla pagina errore fatale
-	if ( $livello == E_USER_ERROR )
+	if ( $livello == E_ERROR || $livello == E_USER_ERROR )
 		redirect("errore.fatale&errore={$codice}");
 
 	return true;
@@ -126,4 +126,22 @@ STRINGA;
 function gestore_errori_dump($variabile) {
 	$variabile = json_encode($variabile, JSON_PRETTY_PRINT);
 	return $variabile;
+}
+
+register_shutdown_function('gestore_errori_fatali');
+
+function gestore_errori_fatali() {
+	$error = error_get_last();
+	if ( !$error )
+		return true;
+	$errno   = $error["type"];
+	$errfile = $error["file"];
+	$errline = $error["line"];
+	$errstr  = $error["message"];
+	gestore_errori($errno, $errstr, $errfile, $errline);
+	return true;
+}
+
+function gestore_errori_registra() {
+	
 }
