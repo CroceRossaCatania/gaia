@@ -4,25 +4,26 @@
  * ©2012 Croce Rossa Italiana
  */
 
-/* Carico la configurazione */
-$_conf = [
-    'database', 'smtp', 'costanti', 'sessioni',
-    'generale', 'errori', 'autopull', 'captcha'
-];
-
-foreach ( $_conf as $_load ) {
-    require('./core/conf/' . $_load . '.conf.php');
+/*
+ * Carica tutta la configurazione e le librerie
+ */
+$_load = ['conf', 'lib'];
+foreach ( $_load as $_directory ) {
+    $_dir   = "core/{$_directory}/";
+    $_files = scandir($_dir);
+    $_files = array_diff($_files, ['.', '..']);
+    foreach ( $_files as $_file ) {
+        $_file = $_dir . $_file;
+        if ( is_dir($_file) ) { continue; }
+        require $_file;
+    }
 }
+
+if ( empty($conf) )
+    die("ERRORE: La configurazione di Gaia non e\' stata caricata.\n");
 
 /* Creo hash database */
 $conf['db_hash'] = substr( md5($conf['database']['dns']), 2, 8) . ':';
-
-/* Carico le librerie */
-$_lib = ['errori', 'sicurezza', 'stringhe', 'pagine', 'http', 'captcha'];
-foreach ( $_lib as $_load ) {
-    require('./core/inc/'. $_load .'.lib.php');
-}
-
 
 /* Imposto l'autoloader della classe */
 spl_autoload_register(function($_class) { 
@@ -41,11 +42,10 @@ error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
 /* Imposta il timezone */
 date_default_timezone_set($conf['timezone']);
 
-/* Connetto alla cache */
-if (class_exists('Redis') ) {
+
     $cache = new Redis();
     $cache->pconnect('127.0.0.1');
-}
+
 
 try {
     /* Connetto al database */
