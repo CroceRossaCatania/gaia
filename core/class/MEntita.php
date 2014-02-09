@@ -30,9 +30,9 @@ abstract class MEntita {
 		$collection 	= null;
 
 	public static function _collection() {
-		global $db;
+		global $mdb;
 		$name = strtolower( get_called_class() );
-		return $db->{$name};
+		return $mdb->{$name};
 	}
 
 	public function __construct( $id = null ) {

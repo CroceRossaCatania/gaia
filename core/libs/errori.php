@@ -24,53 +24,35 @@ function gestore_errori(
 	global $_id_richiesta, $me, $sessione;
 
 	// Ignora gli errori poco importanti
-	if ( $livello < ERRORIAMICHEVOLI_MINIMO )
+	if ( $livello <= ERRORIAMICHEVOLI_MINIMO )
 		return true;
 
 	try {
-		// Prova a connettersi al database degli errori
-		$dbe = new SQLite3(ERRORIAMICHEVOLI_DATABASE);
+		$e = new MErrore;
 	} catch ( Exception $e ) {
 		// Non riuscito, fallback alla modalita' classica...
 		gestione_errori_fallback($livello, $messaggio, $file, $linea, $contesto);
 		return true;
 	}
 
-	// Crea la tabella se non esiste
-	$dbe->exec("
-		CREATE TABLE IF NOT EXISTS 
-			errori (
-				codice, richiesta, timestamp, livello, messaggio, file, linea, server, get, post, sessione, utente
-			)
-	");
-
 	// Genera ID richiesta
 	if (!$_id_richiesta)
 		$_id_richiesta = md5(microtime() . rand(500, 999));
 	$codice = sha1(microtime() . rand(10000, 99999));
 
-	$q = $dbe->prepare("
-		INSERT INTO errori 
-			(codice, richiesta, timestamp, livello, messaggio, file, linea, server, get, post, sessione, utente)
-		VALUES
-			(:codice, :richiesta, :timestamp, :livello, :messaggio, :file, :linea, :server, :get, :post, :sessione, :utente)");
-	$q->bindValue(':codice', 	$codice);
-	$q->bindValue(':richiesta',	$_id_richiesta);
-	$q->bindValue(':timestamp',	time());
-	$q->bindValue(':livello',	$livello);
-	$q->bindValue(':messaggio',	$messaggio);
-	$q->bindValue(':file',		$file);
-	$q->bindValue(':linea',		$linea);
-	$q->bindValue(':server',	gestore_errori_dump($_SERVER));
-	$q->bindValue(':get',		gestore_errori_dump($_GET));
-	$q->bindValue(':post',		gestore_errori_dump($_POST));
-	$q->bindValue(':sessione',	$sessione->id);
-	$q->bindValue(':me',		$me);
-	$r = $q->execute();
-
-	// Fallback se mancata esecuzione
-	if ( !$r )
-		gestione_errori_fallback($livello, $messaggio, $file, $linea, $contesto);
+	$e->codice 		= $codice;
+	$e->richiesta 	= $_id_richiesta;
+	$e->livello		= $livello;
+	$e->messaggio 	= $messaggio;
+	$e->file 		= $file;
+	$e->linea 		= (int) $linea;
+	$e->ambiente 	= [
+		'server'		=>	$_SERVER,
+		'get'			=>	$_GET,
+		'post'			=>	$_POST
+	];
+	$e->sessione 	= $sessione->id;
+	$e->utente 		= $me->id;
 
 	// Eventualmente redirige alla pagina errore fatale
 	if ( $livello == E_ERROR || $livello == E_USER_ERROR )

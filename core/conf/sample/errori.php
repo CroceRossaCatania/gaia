@@ -7,13 +7,13 @@
 /** 
  * CONFIGURAZIONE ERRORI AMICHEVOLI
  */
-
-// 1. Ignora errori che ricadono sotto...
+// Ignora errori che ricadono sotto...
 define('ERRORIAMICHEVOLI_MINIMO', E_USER_NOTICE); 
 
-// 2. Database SQLite3 degli errori - DEVE essere scrivibile
-define('ERRORIAMICHEVOLI_DATABASE', '/tmp/errori.db3'); 
 
+/**
+ * MESSAGGI DI ERRORE 
+ */
 $conf['errori'] = [
     1000    =>  'Errore non documentato - fare riferimento al supporto tecnico',
     1001    =>  'Errore nello stabilire una connessione al database',
