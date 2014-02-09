@@ -16,13 +16,11 @@ class Avatar extends Entita {
 
     
     public function caricaFile ( $file ) {
-    	/* Carica la libreria Imagine */
-    	require_once 'phar://./core/phar/imagine.phar';
     	global $conf;
 
     	$this->timestamp = time();
 
-	$iniziale = new Imagine\Gd\Imagine();
+	   $iniziale = new Imagine\Gd\Imagine();
     	$iniziale = $iniziale->open($file['tmp_name']);
     	$mode    = Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND;
 
@@ -44,7 +42,7 @@ class Avatar extends Entita {
 			    ->save($dest);
     	}
         
-	return true;
+	   return true;
     }
 
     public function file( $dimensione = null ) {

@@ -1,9 +1,19 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
+/** 
+ * CONFIGURAZIONE ERRORI AMICHEVOLI
+ */
+// Ignora errori che ricadono sotto...
+define('ERRORIAMICHEVOLI_MINIMO', E_PARSE); 
+
+
+/**
+ * MESSAGGI DI ERRORE 
+ */
 $conf['errori'] = [
     1000    =>  'Errore non documentato - fare riferimento al supporto tecnico',
     1001    =>  'Errore nello stabilire una connessione al database',

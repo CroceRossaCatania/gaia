@@ -61,6 +61,7 @@ class Sessione extends Entita {
     }
     
     public function toJSON () {
+        global $conf;
         if ( $this->utente ) {
             $u = $this->utente()->toJSON();
         } else {

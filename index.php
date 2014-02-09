@@ -15,6 +15,9 @@ $_stopwatch = microtime(true);
 
 require('./core.inc.php');
     
+/* Attiva la gestione degli errori */
+set_error_handler('gestore_errori');
+
 /* Attiva il caching */
 ob_start('ob_gzhandler');
 ob_start('impostaTitoloDescrizione');

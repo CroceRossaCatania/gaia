@@ -57,12 +57,12 @@ function recaptcha_controlla() {
 
 
 function captcha_mostra() {
-    require_once('sweetcaptcha.lib.php');
+    global $sweetcaptcha;
     echo $sweetcaptcha->get_html() ;
 }
 
 function captcha_controlla($sckey, $scvalue) {
-    require_once('sweetcaptcha.lib.php');
+    global $sweetcaptcha;
     if (isset($sckey) 
         and isset($scvalue) 
         and $sweetcaptcha->check(array('sckey' => $sckey, 'scvalue' => $scvalue)) == "true") {
