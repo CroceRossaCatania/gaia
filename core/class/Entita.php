@@ -41,7 +41,7 @@ abstract class Entita {
     public          $id;
     
     public function __construct ( $id = null ) {
-        global $db, $cache;
+        global $db, $cache, $conf;
         $this->db = $db;
         if ( static::$_cacheable ) {
             $this->cache = $cache;
@@ -180,7 +180,7 @@ abstract class Entita {
         $where = static::preparaCondizioni($_array, 'WHERE');
 
         $query = "
-            SELECT id FROM ". static::$_t . " $where $stringa $_order";
+            SELECT id FROM ". static::$_t . " $where $_order";
         
         /*
          * Controlla se la query è già in cache

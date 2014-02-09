@@ -495,7 +495,7 @@ class Comitato extends GeoPolitica {
         return $this->locale()->nome . ': ' . $this->nome;
     }
     
-    public function aree( $obiettivo = null ) {
+    public function aree( $obiettivo = null, $espandiLocali = false ) {
         if ( $obiettivo ) {
             $obiettivo = (int) $obiettivo;
             return Area::filtra([

@@ -24,7 +24,7 @@ function gestore_errori(
 	global $_id_richiesta, $me, $sessione;
 
 	// Ignora gli errori poco importanti
-	if ( $livello <= ERRORIAMICHEVOLI_MINIMO )
+	if ( $livello > ERRORIAMICHEVOLI_MINIMO )
 		return true;
 
 	try {
