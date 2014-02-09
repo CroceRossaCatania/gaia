@@ -38,6 +38,7 @@ cp -f core/conf/sample/* core/conf/*
 sed -i 's/DATABASE_NAME/gaia/g' core/conf/database.php
 sed -i 's/DATABASE_USER/gaia/g' core/conf/database.php
 sed -i "s/DATABASE_PASSWORD/$pmysql/g" core/conf/database.php
+sed -i "s/DBNAME/gaia/g" core/conf/mongodb.php
 
 clear
 echo " "
