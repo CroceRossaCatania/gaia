@@ -35,6 +35,6 @@ $m = new Email('autorizzazioneConcessa', "Autorizzazione CONCESSA: {$a->nome}, {
 	$m->allega($cal);
 	$m->invia();
 
-redirect("attivita.scheda&id={$a->id}&turno={$turno->id}&riapri={$turno->id}");
+redirect("attivita.scheda&id={$attivita->id}&turno={$turno->id}&riapri={$turno->id}");
 
 ?>
