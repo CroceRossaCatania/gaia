@@ -54,7 +54,7 @@ $q->pConferma 		= $me;
 $q->anno 			= $anno;
 $q->assegnaProgressivo();
 $q->quota 			= $importo;
-if ($importo > $quotaBen) {
+if ($importo >= $quotaBen) {
 	$q->benemerito = BENEMERITO_SI;
 	$q->offerta = "Promozione a socio sostenitore per l'anno " . $anno . " per il versamento di una quota superiore a " . soldi($quotaBen) . " &#0128;.";
 } elseif ($importo > $quotaMin) {

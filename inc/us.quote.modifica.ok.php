@@ -47,7 +47,7 @@ $time = DT::createFromFormat('d/m/Y', $_POST['inputData']);
 
 $q->tConferma = $time->getTimestamp();
 $q->quota = $importo;
-if ($importo > $quotaBen) {
+if ($importo >= $quotaBen) {
     $q->benemerito = BENEMERITO_SI;
 } else {
     $q->benemerito = BENEMERITO_NO;
