@@ -7,7 +7,7 @@
 /*
  * Carica tutta la configurazione e le librerie
  */
-$_load = ['conf', 'lib'];
+$_load = ['conf', 'libs'];
 foreach ( $_load as $_directory ) {
     $_dir   = "core/{$_directory}/";
     $_files = scandir($_dir);
@@ -43,8 +43,6 @@ error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
 date_default_timezone_set($conf['timezone']);
 
 
-    $cache = new Redis();
-    $cache->pconnect('127.0.0.1');
 
 
 try {
