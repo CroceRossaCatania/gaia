@@ -27,8 +27,6 @@ Alternativamente, contattaci a <info@gaia.cri.it> per saperne di più.
 
 ### Installazione
 
-Per motivi di sviluppo, è possibile installare Gaia seguendo una delle due vie...
-
 **Nota bene**: Attualmente, per motivi di tempo, **non** offriamo supporto per l'installazione del software sul proprio server.
 Ogni richiesta al supporto a riguardo verra' ignorata. Se sei interessato a collaborare al Progetto Gaia, contattaci a info@gaia.cri.it.
 
@@ -37,33 +35,20 @@ Ogni richiesta al supporto a riguardo verra' ignorata. Se sei interessato a coll
 **Script di installazione**, basta aprire un terminale (col proprio utente) ed incollare:
 
 ```bash
-wget https://gist.github.com/AlfioEmanueleFresta/6264461/raw/59887421d49daa3c18f2fe399584bf02a351c844/gaia.sh
-sh gaia.sh
+cd ~
+git clone https://github.com/CroceRossaCatania/gaia.git
+cd gaia
+sh scripts/installa-dipendenze.sh
+sh scripts/scorciatoie.sh.sh
+sh scripts/configurazione-base.sh
 ```
 
-##### La via facile (Mint Linux Olivia+)
-
-1. Impostazioni > Sorgenti Software (Software Sources) > PPA > Aggiungi `ppa:ondrej/php5`
-2. Usare lo script di installazione per Ubuntu qua sopra.
-
-#### La via difficile
-
-1. Importare il file `/core/conf/gaia.sql` nel proprio database tramite phpMyAdmin
-2. Copiare il file `/core/conf/database.conf.php.sample` in `/core/conf/database.conf.php`
-3. Copiare il file `/core/conf/smtp.conf.php.sample` in `/core/conf/smtp.conf.php`
-4. Copiare il file `/core/conf/autopull.conf.php.sample` in `/core/conf/autopull.conf.php`
-4. Modificare, nei primi due file, i parametri di accesso a MySQL ed al server SMTP.
-5. Permettere la scrittura alla directory `/upload` ed alle sue sottodirectory.
-6. Permettere la scrittura alla directory `/core/inc/dompdf` ed alle sue sottodirectory.
-7. Da browser, puntare alla pagina: `setup.php`.
-8. Registrare il primo volontario, che sarà automaticamente un amministratore.
-9. (Opzionale) Impostare cron per richiedere ogni nottevia HTTP il file `cronjob.php`
+(Necessario GIT installato sul sistema)
 
 ### Eseguire Gaia
 
 È possibile avviare Gaia nel server di sviluppo di PHP 5.5+ come segue:
 ```bash
-cd /percorso/per/gaia
-php -S localhost:8888 index.php
+gaia
 ```
 Basterà dirigersi su (http://localhost:8888/) per accedere alla propria installazione.
