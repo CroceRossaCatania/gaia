@@ -4,6 +4,8 @@
  * ©2014 Croce Rossa Italiana
  */
 
+registra_gestione_errori();
+
 /**
  * ID univoco della richiesta
  * @var $_id_richiesta Contiene l'ID della richiesta attuale
@@ -110,13 +112,12 @@ function gestore_errori_dump($variabile) {
 	return $variabile;
 }
 
-register_shutdown_function('gestore_errori_fatali');
 
 function gestore_errori_fatali() {
 	$error = error_get_last();
-	if ( !$error )
+	if ( !$error || $type !== E_ERROR )
 		return true;
-	$errno   = $error["type"];
+	$errno   = E_ERROR;
 	$errfile = $error["file"];
 	$errline = $error["line"];
 	$errstr  = $error["message"];
@@ -124,6 +125,9 @@ function gestore_errori_fatali() {
 	return true;
 }
 
-function gestore_errori_registra() {
-	
+function registra_gestione_errori() {
+	// Cattura errori fatali allo shutdown
+	register_shutdown_function('gestore_errori_fatali');
+	// Tutti gli altri errori...
+	set_error_handler('gestione_errori');
 }

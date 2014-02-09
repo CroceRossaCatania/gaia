@@ -8,7 +8,7 @@
  * CONFIGURAZIONE ERRORI AMICHEVOLI
  */
 // Ignora errori che ricadono sotto...
-define('ERRORIAMICHEVOLI_MINIMO', E_USER_NOTICE); 
+define('ERRORIAMICHEVOLI_MINIMO', E_PARSE); 
 
 
 /**
