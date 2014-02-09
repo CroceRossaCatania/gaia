@@ -39,7 +39,7 @@ cd ~
 git clone https://github.com/CroceRossaCatania/gaia.git
 cd gaia
 sh scripts/installa-dipendenze.sh
-sh scripts/scorciatoie.sh.sh
+sh scripts/scorciatoie.sh
 sh scripts/configurazione-base.sh
 ```
 
