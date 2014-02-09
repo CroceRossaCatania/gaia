@@ -31,6 +31,16 @@ class Turno extends Entita {
             ['turno',   $this->id]
         ]);
     }
+
+    public function haRichiestoPartecipazione(Utente $v) {
+        $r = $this->partecipazioni();
+        foreach ($r as $_r) {
+            if ($_r->volontario()->id == $v->id) {
+                return true;
+            }
+        }
+        return false;
+    }
     
     public function volontari( $stato = PART_OK ) {
         $r = [];
@@ -122,7 +132,10 @@ class Turno extends Entita {
     
     public function puoRichiederePartecipazione($v) {
         if ( $v === null || $v instanceof Anonimo ) { return true; }
-        return (( time() <= $this->fine ) && ( time() <= $this->prenotazione ) && $this->attivita()->puoPartecipare($v));
+        return (( time() <= $this->fine ) 
+                && ( time() <= $this->prenotazione ) 
+                && $this->attivita()->puoPartecipare($v)
+                && !$this->haRichiestoPartecipazione($v));
     }
 
     public function scoperto() {
