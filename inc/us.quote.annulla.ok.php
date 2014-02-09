@@ -26,6 +26,18 @@ if ($q->annullata()) {
 $q->pAnnullata = $me;
 $q->tAnnullata = time();
 
+/* Invio email annullamento quota */
+
+$m = new Email('annullaQuota', 'Annullamento pregistrazione agamento quota');
+$m->a 		 = $v;
+$m->da 		 = $me;
+$m->_NUMERO	 = $q->progressivo();
+$m->_NOME 	 = $v->nomeCompleto();
+$m->_ANNULLATORE = $me->nomeCompleto();
+$m->_IMPORTO = soldi($q->quota);
+$m->_DATA	 = $q->data()->format('d/m/Y');
+$m->invia();
+
 redirect('us.dash&annullata');
 
 ?>
