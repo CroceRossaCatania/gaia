@@ -416,15 +416,18 @@ if(isset($_GET['dimessi'])){
         $excel->genera("Volontari trasferiti.xls");
         $excel->download();
     }elseif(isset($_GET['soci'])){
-    $excel = new Excel();
-    $excel->intestazione([
+        $data = $_GET['data'];
+        $excel = new Excel();
+        $excel->intestazione([
             'N.',
             'Nome',
             'Cognome',
             'Data Nascita',
+            'Eta',
             'Luogo Nascita',
             'Provincia Nascita',
             'C. Fiscale',
+            'Sesso',
             'Indirizzo Res.',
             'Civico',
             'Comune Res.',
@@ -435,18 +438,19 @@ if(isset($_GET['dimessi'])){
             'Cellulare',
             'Cell. Servizio',
             'Data ingresso CRI'
-            ]);
-    foreach ( $c->membriAttuali(MEMBRO_VOLONTARIO) as $v ) {
-
+        ]);
+    foreach ( $c->membriData($data) as $v ) {
         $i++; 
         $excel->aggiungiRiga([
             $i,
             $v->nome,
             $v->cognome,
             date('d/m/Y', $v->dataNascita),
+            intval((time()- $v->dataNascita)/31104000),
             $v->comuneNascita,
             $v->provinciaNascita,
             $v->codiceFiscale,
+            $conf['sesso'][$v->sesso],
             $v->indirizzo,
             $v->civico,
             $v->comuneResidenza,

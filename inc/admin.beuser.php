@@ -8,6 +8,7 @@ paginaAdmin();
 
 $id = $_GET['id'];
 $sessione->utente = $id;
+$sessione->ambito = null;
 redirect('utente.me');
 
 ?>

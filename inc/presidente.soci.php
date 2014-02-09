@@ -1,84 +1,36 @@
-<?php
+<?php  
 
 /*
  * ©2013 Croce Rossa Italiana
  */
+
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
+paginaModale();
 
-
-menuElenchiVolontari(
-    "Elenco Soci",                // Nome elenco
-    "?p=admin.utenti.excel&soci",    // Link scarica elenco
-    false                               // Link email elenco
-);
 ?>
-  
-<div class="row-fluid">
-   <div class="span12">
-
-       <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
-
-            <thead>
-                <th>Cognome</th>
-                <th>Nome</th>
-                <th>Nascita</th>
-                <th>C. Fiscale</th>
-                <th>Data Ingresso</th>
-                <th>Azioni</th>
-            </thead>
-
-        <?php
-        $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
-        foreach($elenco as $comitato) {
-            $t = $comitato->membriAttuali(MEMBRO_VOLONTARIO);
-                ?>
-
-            <tr class="success">
-                <td colspan="6" class="grassetto">
-                    <?php echo $comitato->nomeCompleto(); ?>
-                    <span class="label label-warning">
-                        <?php echo count($t); ?>
-                    </span>
-                    <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&soci"
-                       data-attendere="Generazione...">
-                            <i class="icon-download"></i> scarica come foglio excel
-                    </a>
-                </td>
-            </tr>
-            <?php
-            foreach ( $t as $_v ) {
-            ?>
-                <tr>
-                    <td><?php echo $_v->cognome; ?></td>
-                    <td><?php echo $_v->nome; ?></td>
-                    <td>
-                        <?php echo date('d/m/Y', $_v->dataNascita); ?>, 
-                        <?php echo $_v->comuneNascita; ?>
-                        <span class="muted">
-                            <?php echo $_v->provinciaNascita; ?>
-                        </span>
-                    </td>
-                    <td><?php echo $_v->codiceFiscale; ?></td>
-                    <td>
-                        <?php echo $_v->ingresso()->format("d/m/Y"); ?>
-                    </td>
-                    <td>
-                        <div class="btn-group">
-                            <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
-                                <i class="icon-eye-open"></i> Dettagli
-                            </a>
-                            <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
-                                <i class="icon-envelope"></i>
-                            </a>
-                        </div>
-                   </td>
-                </tr>
-        <?php }
-        }
-        ?>
-        </table>
-
+<form action="?" method="GET">
+  <input type="hidden" name="p" value="presidente.soci.ok">
+  <div class="modal fade automodal">
+    <div class="modal-header">
+      <h3><i class="icon-time"></i> Elenco Soci</h3>
     </div>
-    
-</div>
+    <div class="modal-body">
+      <p>Con questo strumento è possibile generare l'elenco soci ad una determinata data.</p>
+      <hr />
+      <div class="row-fluid">
+        <div class="span4 centrato">
+            <label class="control-label" for="inputData">Data </label>
+        </div>
+        <div class="span8">
+          <input class="input-large" type="text" name="inputData" id="inputData" required pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value='<?php echo date('d/m/Y'); ?>' placeholder='dd/mm/YYYY' />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="?p=presidente.utenti" class="btn">Annulla</a>
+        <button type="submit" class="btn btn-primary" data-attendere="Attendere, generazione in corso...">
+          <i class="icon-list"></i> Genera elenco soci
+        </button>
+    </div>
+  </div> 
+</form>
