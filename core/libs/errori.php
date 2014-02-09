@@ -58,7 +58,7 @@ function gestore_errori(
 
 	// Eventualmente redirige alla pagina errore fatale
 	if ( $livello == E_ERROR || $livello == E_USER_ERROR )
-		redirect("errore.fatale&errore={$codice}");
+		redirect("errore.fatale&errore={$e}");
 
 	return true;
 
@@ -115,7 +115,7 @@ function gestore_errori_dump($variabile) {
 
 function gestore_errori_fatali() {
 	$error = error_get_last();
-	if ( !$error || $type !== E_ERROR )
+	if ( !$error || $error["type"] !== E_ERROR )
 		return true;
 	$errno   = E_ERROR;
 	$errfile = $error["file"];
@@ -130,4 +130,53 @@ function registra_gestione_errori() {
 	register_shutdown_function('gestore_errori_fatali');
 	// Tutti gli altri errori...
 	set_error_handler('gestione_errori');
+}
+
+function errore_ottieni_testo( $num ) {
+	switch ( $num ) {
+		case E_ERROR:
+			return 'Fatal';
+		case E_WARNING:
+			return 'Warning';
+		case E_NOTICE:
+			return 'Notice';
+		case E_STRICT:
+			return 'Strict';
+		default:
+			return 'Other';
+			break;
+	}
+}
+
+function errore_ottieni_classe( $num ) {
+	switch ( $num ) {
+		case E_ERROR:
+			return 'error';
+		case E_WARNING:
+			return 'warning';
+		case E_NOTICE:
+			return 'notice';
+		case E_STRICT:
+			return 'strict';
+		default:
+			return ' ';
+			break;
+	}
+}
+
+
+function errore_ottieni_icona( $num ) {
+	switch ( $num ) {
+		case E_ERROR:
+			return 'icon-exclamation-sign';
+		case E_WARNING:
+			return 'icon-warning-sign';
+		case E_NOTICE:
+			return 'icon-info-sign';
+		case E_STRICT:
+			return 'icon-ok-sign';
+		default:
+			return ' ';
+			break;
+	}
 }
