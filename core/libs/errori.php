@@ -58,7 +58,7 @@ function gestore_errori(
 
 	// Eventualmente redirige alla pagina errore fatale
 	if ( $livello == E_ERROR || $livello == E_USER_ERROR )
-		redirect("errore.fatale&errore={$e}");
+		redirect("errore.fatale&errore={$codice}");
 
 	return true;
 
@@ -115,7 +115,7 @@ function gestore_errori_dump($variabile) {
 
 function gestore_errori_fatali() {
 	$error = error_get_last();
-	if ( !$error || $error["type"] !== E_ERROR )
+	if ( !$error || $error['type'] !== E_ERROR )
 		return true;
 	$errno   = E_ERROR;
 	$errfile = $error["file"];
@@ -129,13 +129,13 @@ function registra_gestione_errori() {
 	// Cattura errori fatali allo shutdown
 	register_shutdown_function('gestore_errori_fatali');
 	// Tutti gli altri errori...
-	set_error_handler('gestione_errori');
+	set_error_handler('gestore_errori');
 }
 
 function errore_ottieni_testo( $num ) {
 	switch ( $num ) {
 		case E_ERROR:
-			return 'Fatal';
+			return 'Fatal error';
 		case E_WARNING:
 			return 'Warning';
 		case E_NOTICE:
