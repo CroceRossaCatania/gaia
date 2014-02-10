@@ -304,36 +304,15 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     </div>
     </div>
 
-    <?php if ( in_array($p, $conf['slide'] ) ) { ?>
+    <?php if ( $p == 'home' ) { ?>
     <div id="caroselloHome" class="carousel slide">
       <div class="carousel-inner">
-        <!--<div class="item active">
-          <img src="./img/jump.png" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-                <br/><br/>
-              <p class="lead">
-                  <div class="btn-group">
-                      <a href="http://cri.it/bologna2013" class="btn btn-large btn-info">
-                          <i class="icon-info"></i> Maggiori informazioni
-                      </a>
-                      <a href="http://crocerossa.eventbrite.it/" class="btn btn-large btn-warning">
-                          <i class="icon-thumbs-up"></i> Iscriviti online
-                      </a>
-                  </div>
-                </p>
-            </div>
-          </div>
-        </div>-->
         <div class="item active">
           <img src="./img/foto4.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
               <h1>Reinventiamo Croce Rossa</h1>
               <p class="lead">Facciamola nuova, più efficiente e trasparente</p>
-              <!--<p class="lead">
-		    	     <i class="icon-lightbulb icon-large"></i> Prendi posto
-			        </p>-->
             </div>
           </div>
         </div>
