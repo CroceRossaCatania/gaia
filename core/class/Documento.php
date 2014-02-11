@@ -23,7 +23,7 @@ class Documento extends Entita {
     
     public function caricaFile ( $file ) {
     	/* Carica la libreria Imagine */
-    	require_once 'phar://./core/phar/imagine.phar';
+    	require_once 'phar://./core/libs/imagine.phar';
     	global $conf;
 
     	$this->timestamp = time();
