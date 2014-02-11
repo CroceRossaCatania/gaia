@@ -20,7 +20,7 @@ class Avatar extends Entita {
 
     	$this->timestamp = time();
 
-	   $iniziale = new Imagine\Gd\Imagine();
+        $iniziale = new Imagine\Gd\Imagine();
     	$iniziale = $iniziale->open($file['tmp_name']);
     	$mode    = Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND;
 
