@@ -207,7 +207,7 @@ function caricaSelettoreComitato() {
  * Redirige ad una pagina
  * @param $pagina la pagina richiesta
  */
-function redirect($pagina) {
+function redirect($pagina = 'utente.me') {
     header('Location: ?p=' . $pagina);
     exit(0);
 }
