@@ -8,6 +8,7 @@
 
 # Log DOMPDF
 /core/inc/dompdf/lib/fonts/log.htm
+/core/libs/dompdf/lib/fonts/log.htm
 
 # Configurazioni
 /core/conf/*
