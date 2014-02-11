@@ -21,7 +21,7 @@ $attivo = false;
 if ($v->stato == VOLONTARIO) {
   $attivo = true;
 }
-if (!$t = Tesseramento::by('anno', $q->anno)) {
+if (!$t = Tesseramento::by('anno', $quota->anno)) {
   $t = new StdClass();
   $t->attivo = 8;
   $t->ordinario = 16;
