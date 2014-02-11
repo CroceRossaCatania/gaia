@@ -27,9 +27,6 @@ if (!$t = Tesseramento::by('anno', $q->anno)) {
   $t->ordinario = 16;
 }
 
-$importo = (float) $_POST['inputImporto'];
-$importo = round($importo, 2);
-
 $quotaMin = $attivo ? $t->attivo : $t->ordinario;
 
 
