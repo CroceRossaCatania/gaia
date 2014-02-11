@@ -16,6 +16,10 @@ if($v->id != $me->id) {
 	redirect('errore.permessi&cattivo');
 }
 
+if($quota->annullata()) {
+    redirect('utente.storico&quotaAnn');
+}
+
 $attivo = false;
 if ($v->stato == VOLONTARIO) {
   $attivo = true;
