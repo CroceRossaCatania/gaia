@@ -52,6 +52,9 @@ function gestore_errori(
 ) {
 	global $_id_richiesta, $me, $sessione;
 
+	// Carica MErrore anche se l'autoloading e' stato disabilitato
+	_gaia_autoloader('MErrore');
+	
 	// Ignora gli errori poco importanti
 	if ( $livello > ERRORIAMICHEVOLI_MINIMO )
 		return true;
