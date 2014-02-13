@@ -4,21 +4,14 @@
  * ©2012 Croce Rossa Italiana
  */
 
-
-/* Imposto l'autoloader della classe */
-spl_autoload_register(function($_class) { 
-    if ( is_readable ( './core/class/' . $_class . '.php' ) ) {
-        require('./core/class/' . $_class . '.php');
-        return true;
-    } else {
-        return false;
-    }
-});
-
-
 /*
  * Carica tutta la configurazione e le librerie
  */
+
+/* Imposto l'autoloader delle classi */
+require_once 'core/libs/autoloader.php';
+spl_autoload_register('_gaia_autoloader');
+
 $_load = ['conf', 'libs'];
 foreach ( $_load as $_directory ) {
     $_dir   = "core/{$_directory}/";
@@ -27,9 +20,10 @@ foreach ( $_load as $_directory ) {
     foreach ( $_files as $_file ) {
         $_file = $_dir . $_file;
         if ( is_dir($_file) ) { continue; }
-        require $_file;
+        require_once $_file;
     }
 }
+
 
 if ( empty($conf) )
     die("ERRORE: La configurazione di Gaia non e\' stata caricata.\n");
