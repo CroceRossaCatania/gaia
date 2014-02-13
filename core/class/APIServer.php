@@ -366,11 +366,16 @@ class APIServer {
             
             $com = $g->estensione();
         } else {
-            $com = $me->comitatiApp([
+            $com = array_merge(
+                // Dominio di ricerca
+                $me->comitatiApp([
                     APP_PRESIDENTE,
                     APP_SOCI,
                     APP_OBIETTIVO
-            ]);
+                ]),
+                $me->comitatiAttivitaReferenziate(),
+                $me->comitatiAreeDiCompetenza(true)
+            );
         }
         $r->comitati = $com;
 
