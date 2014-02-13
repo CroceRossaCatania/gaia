@@ -31,7 +31,8 @@ class Area extends Entita {
      * mette come responsabile d'area o il delegato di obiettivo o il presidente
      */
     public function dimettiReferente(){
-        $nuovoRef = $this->comitato()->obiettivi($this->obiettivo)[0];
+        $c = $this->comitato();
+        $nuovoRef = $c->obiettivi($this->obiettivo)[0];
         if(!$nuovoRef) {
             $nuovoRef = $c->primoPresidente();
         }

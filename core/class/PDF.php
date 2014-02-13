@@ -44,7 +44,7 @@ class PDF {
         foreach ( $this->sostituzioni as $nome => $valore ) {
             $corpo = str_replace($nome, $valore, $corpo);
         }
-        require_once './core/inc/dompdf/dompdf_config.inc.php';
+        require_once './core/libs/dompdf/dompdf_config.inc.php';
         $files = glob("./pdf/include/*.php");
         foreach($files as $file) include_once($file);
         

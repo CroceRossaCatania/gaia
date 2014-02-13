@@ -17,7 +17,7 @@ PHP_VERSION >= 5.0 or die("DOMPDF requires PHP 5.0+");
 /**
  * The root of your DOMPDF installation
  */
-define("DOMPDF_DIR", "./core/inc/dompdf");
+define("DOMPDF_DIR", "./core/libs/dompdf");
 
 /**
  * The location of the DOMPDF include directory

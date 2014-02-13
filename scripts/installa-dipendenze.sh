@@ -18,6 +18,7 @@ clear
 echo "Aggiunta dei repository in corso..."
 # Repository: ondrej's php5
 sudo add-apt-repository --yes ppa:ondrej/php5
+sudo add-apt-repository --yes ppa:ondrej/mysql-5.6
 # Repository: mongodb
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
 echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
