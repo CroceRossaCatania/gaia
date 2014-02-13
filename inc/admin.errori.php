@@ -6,7 +6,18 @@
 
 paginaAdmin();
 
-$errori = MErrore::find()->sort(['_id' => -1])->limit(500);
+$minimo  = ( !empty($_GET['minimo']) ? (int) $_GET['minimo'] : 1 );
+$massimo = ( !empty($_GET['massimo']) ? (int) $_GET['massimo'] : ERRORIAMICHEVOLI_MINIMO );
+$limite  = ( !empty($_GET['limite']) ? (int) $_GET['limite'] : 500 );
+
+$errori = MErrore::find([
+	'livello'=> [
+		'$gte' => $minimo,
+		'$lte' => $massimo,
+	]
+])->sort([
+	'_id' => -1
+])->limit($limite);
 
 ?>
 
@@ -28,6 +39,33 @@ $errori = MErrore::find()->sort(['_id' => -1])->limit(500);
 
 	</div>
 </div>
+
+<hr />
+
+<div class="row-fluid">
+	<div class="span3">
+		<h4><i class="icon-search"></i> Filtra errori</h4>
+	</div>
+	<div class="span9">
+		<form action="/" method="GET">
+			<input type="hidden" name="p" value="admin.errori" />
+				Per pagina:
+				<input type="number" min="20" max="50000" name="limite" required value="<?= $limite; ?>" />
+				<br />
+				Minimo livello (<a href="http://www.php.net/manual/en/errorfunc.constants.php" target="_new">ref.</a>):
+				<input type="number" min="1" max="4096" name="minimo" required value="<?= $minimo; ?>" />
+				&mdash; Massimo livello (<a href="http://www.php.net/manual/en/errorfunc.constants.php" target="_new">ref.</a>):
+				<input type="number" min="1" max="4096" name="massimo" required value="<?= $massimo; ?>" />
+				<br />
+				<button type="submit" class="btn btn-primary">
+					<i class="icon-ok"></i>
+					Ok
+				</button>
+		</form>
+	</div>
+</div>
+
+
 
 <table class="table table-condensed table-striped">
 	<thead>

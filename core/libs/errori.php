@@ -72,6 +72,7 @@ function gestore_errori(
 	$e->codice 		= $codice;
 	$e->richiesta 	= $_id_richiesta;
 	$e->livello		= $livello;
+	$e->timestamp	= (int) time();
 	$e->messaggio 	= $messaggio;
 	$e->file 		= $file;
 	$e->linea 		= (int) $linea;
