@@ -7,24 +7,25 @@
 class Email {
     
     private
-            $db = null,
-            $sostituzioni = [],
-            $allegati = [],
-            $modello = '';
+            $sostituzioni   = [],
+            $allegati       = [],
+            $modello        = '';
     
     public
-            $a = null,
-            $oggetto = '',
-            $da = null;
+            $a          = null,
+            $oggetto    = '',
+            $da         = null;
     
     public function __construct ( $modello, $oggetto ) {
-        global $db;
-        $this->db = $db;
-        if ( !file_exists('./core/conf/mail/modelli/' . $modello .'.html') ) {
+        if ( !file_exists(static::_file_modello($modello)) ) {
             throw new Errore(1012);
         }
         $this->oggetto = $oggetto;
         $this->modello = $modello;
+    }
+
+    protected static function _file_modello($modello) {
+        return "./core/conf/mail/modelli/{$modello}.html";
     }
     
     public function __set($nome, $valore) {
@@ -34,8 +35,46 @@ class Email {
     public function allega(File $f) {
         $this->allegati[] = $f;
     }
-    
-    public function invia($quoted = null) {
+
+    /**
+     * Costruisce il corpo, effettua sostituzioni e ritorna
+     * @return string Corpo del messaggio in HTML
+     */
+    protected function _costruisci_corpo() {
+        $header     = file_get_contents('./core/conf/mail/header.html');
+        $footer     = file_get_contents('./core/conf/mail/footer.html');
+        $corpo      = file_get_contents(static::_file_modello($this->modello));
+        foreach ( $this->sostituzioni as $nome => $valore ) {
+            $corpo = str_replace($nome, $valore, $corpo);
+        }
+        $corpo  = 
+            "<html>
+                {$header}
+                {$corpo}
+                {$footer}
+            </html>\n";
+        return $corpo;
+    }
+
+    /** 
+     * Costruisce il destinatario (come oggetto) e ritorna
+     * @return Object Oggetto del destinatario
+     */
+    protected function _costruisci_destinatari() {
+        if ( is_array($this->a) ) {
+            // DESTINATARI MULTIPLI
+
+        } else {
+            // SINGOLO DESTINATARIO?
+            $this->a = [$this->a];
+            return $this->_costruisci_destinatari();
+        }
+    }
+
+    public function invia() {
+        return $this->accoda()->invia();
+
+
         global $conf; 
         $oggetto    = $this->oggetto;
         if ( !$this->a ) {
@@ -44,14 +83,7 @@ class Email {
             $this->a->email = $conf['default_email_email'];
         }
         $email = $this->a->email;
-        
-        $header     = file_get_contents('./core/conf/mail/header.html');
-        $footer     = file_get_contents('./core/conf/mail/footer.html');
-        $corpo      = file_get_contents('./core/conf/mail/modelli/' . $this->modello . '.html');
-        foreach ( $this->sostituzioni as $nome => $valore ) {
-            $corpo = str_replace($nome, $valore, $corpo);
-        }
-        $corpo  = "<html>" . $header . $corpo . $footer . "</html>" . "\n";
+        $corpo = $this->_costruisci_corpo();        
 
         if ( $this->da ) {
             if ( $this->da instanceOf Persona ) {
@@ -90,6 +122,14 @@ class Email {
         return $mailer->send($email, $header, $corpo);
         
     }
-    
+
+    /**
+     * Salva questa Email sul database (relativa MEntita)
+     * @return MEmail creata
+     */
+    public function accoda() {
+
+    }
+
      
 }
