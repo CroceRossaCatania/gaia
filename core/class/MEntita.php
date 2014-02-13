@@ -101,7 +101,7 @@ abstract class MEntita {
 	 * @return bool 		ok?
 	 */
 	public static function remove( $query = [], $options = [] ) {
-		return static::_collection()->findOne($query, $options);
+		return static::_collection()->remove($query, $options);
 	}
 
 	public function __get( $_name ) {

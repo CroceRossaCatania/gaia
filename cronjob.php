@@ -129,6 +129,10 @@ function cronjobGiornaliero()  {
         $c->oggi = 0;
     }
     $log .= "Resettati limiti giornalieri di {$n} chiavi API\n";
+
+    /* === 12. RIMUOVE ERRORI VECCHI DI UNA SETTIMANA */
+    $n = MErrore::pulisci();
+    $log .= "Cancellati log di {$n} errori in database\n";
     
 };
 // =========== FINE CRONJOB GIORNALIERO
