@@ -28,7 +28,8 @@ class File extends Entita {
         do {
             $n = sha1( microtime() . rand(100, 999) ) . rand(100, 999);
         } while (self::_esiste($n));
-        @mkdir('./upload/get');
+        if ( !is_dir('./upload/get') )
+            mkdir('./upload/get');
         return $n;
     }
     
