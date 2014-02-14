@@ -111,8 +111,7 @@ $menu += [
         'utente.titoli&t=4' =>  '<i class="icon-plus-sign-alt"></i> Titoli CRI'
     ],
     'Comunicazioni' =>  [
-        'utente.email'     =>   '<i class="icon-envelope-alt"></i> Email',
-        'utente.cellulare' =>   '<i class="icon-phone"></i> Cellulare'
+        'utente.posta'     =>   '<i class="icon-envelope-alt"></i> Posta'
     ],
     'Impostazioni' =>  [
         'utente.password'     =>   '<i class="icon-key"></i> Password'

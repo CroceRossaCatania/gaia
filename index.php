@@ -133,6 +133,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                 <?php if ( $me->stato == VOLONTARIO ) { ?>
                                   <li><a href="?p=utente.anagrafica"><i class="icon-edit"></i> Anagrafica</a></li>
                                   <li><a href="?p=utente.privacy"><i class="icon-cog"></i> Privacy</a></li>
+                                  <li><a href="?p=utente.contatti"><i class="icon-phone"></i> Modifica contatti</a></li>
                                   <li class="divider"></li>
                                 <?php } ?>
 
