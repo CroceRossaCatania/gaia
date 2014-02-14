@@ -27,7 +27,8 @@ $conf['errori'] = [
     1013	=>	'Oggetto di tipo non autorizzato',
 	1014	=>	'API KEY non valida, disattiva, oppure limite richieste giornaliero superato',
     1015    =>  'Nessuna delegazione selezionata o delegazione non valida',
-    1016    =>  'Accesso negato: Nessun permesso di accesso al ramo specificato'
+    1016    =>  'Accesso negato: Nessun permesso di accesso al ramo specificato',
+    1017    =>  'Errore di connessione al sistema di distribuzione email desiderato'
 ];
 
 
@@ -54,7 +55,7 @@ function gestore_errori(
 
 	// Carica MErrore anche se l'autoloading e' stato disabilitato
 	_gaia_autoloader('MErrore');
-	
+
 	// Ignora gli errori poco importanti
 	if ( $livello > ERRORIAMICHEVOLI_MINIMO )
 		return true;
