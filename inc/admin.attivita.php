@@ -10,8 +10,8 @@ paginaAdmin();
 set_time_limit(0);
 ?>
 <h3><i class="icon-wrench muted"></i> Manutenzione attività</h3>
-
-<code><pre>Rimozione attività con dati incompleti:
+<pre>
+<code>Rimozione attività con dati incompleti:
     <?php
     $attivita = Attivita::elenco();
     $eseguiti=0;
@@ -21,40 +21,39 @@ set_time_limit(0);
     $nAttivita = 0;
     echo "Start manutenzione attività:<br/>";
     foreach( $attivita as $a ){
+        echo("Controllo attività {$a->id} <br />");
         $comitato = $a->comitato();
         if( $comitato ){
-            try {
-                $referente = $a->referente();
-            } catch (Exception $e) {
+            if(!$a->referente()) {
                 echo "Attività rotta: ", $a->nome;
-                $referente = $a->referente;
                 $comitato = $a->comitato();
-                echo " - ", $comitato->nomeCompleto();
-                $presidente = $comitato->unPresidente();
-                if ( !$presidente ) { 
-                    $locale = $comitato->locale();
-                    $presidente = $locale->unPresidente();
+                echo " - ", $comitato->nomeCompleto(), " ID:",$comitato->oid();
+                $presidente = $comitato->primoPresidente();
+                echo  " - Presidente: ", $presidente->nomeCompleto();            
+                $a->referente = $presidente;
+                $turni = Turno::filtra([['attivita', $a]]);
+                foreach( $turni as $_t ){
+                    $part = Partecipazione::filtra([['turno', $_t]]);
+                    foreach( $part as $_p ){
+                        $aut = Autorizzazione::filtra([['partecipazione', $_p]]);
+                        foreach( $aut as $_a ){
+                            $_a->volontario = $presidente;
+                            echo("<br />Correggo autorizzazione! <br>");
+                        }
+                    }
                 }
-                echo  " - Presidente: ", $presidente->nomeCompleto();
-                $autorizzazioni = Autorizzazione::filtra(['volontario', $referente]);
-                foreach ( $autorizzazioni as $autorizzazione ){
-                    $m = Autorizzazione::id($autorizzazione);
-                    $m->volontario = $presidente;
-                }
-                $att = Attivita::id($a);
-                $att->referente = $presidente;
-                echo  " - Operazione completata! <br/>";
+                echo  " - Operazione completata! <br/><br />";
                 $eseguiti++;
                 continue;
             }
             continue;
-        }else{
+        } else{
             echo "Inizio rimozione attività con dati incompleti: ID: ", $a->id, $a->nome;
             $turni = Turno::filtra([['attivita', $a]]);
             foreach( $turni as $turno ){
                 $partecipazioni = Partecipazione::filtra([['turno', $turno]]);
                 foreach( $partecipazioni as $partecipazione ){
-                    $autorizzazioni = Autorizzazione::filtra(['partecipazione', $partecipazione]);
+                    $autorizzazioni = Autorizzazione::filtra([['partecipazione', $partecipazione]]);
                     foreach( $autorizzazioni as $autorizzazione ){
                         $autorizzazione->cancella();
                         $nAutorizzazioni++;
@@ -72,4 +71,5 @@ set_time_limit(0);
     }
     ?>
     Ho rimosso <strong><?= $nAutorizzazioni; ?></strong> turni, <strong><?= $nPartecipazioni; ?></strong> partecipazioni, <strong><?= $nTurni; ?></strong> turni, <strong><?= $nAttivita; ?></strong> attivita.
-    Eseguite <strong><?= $eseguiti; ?></strong> riparazioni.</pre></code>
+    Eseguite <strong><?= $eseguiti; ?></strong> riparazioni.</code>
+    </pre>
