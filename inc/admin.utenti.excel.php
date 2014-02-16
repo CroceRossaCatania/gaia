@@ -381,8 +381,8 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
         }
         $excel->genera("Risultati in {$c->nomeCompleto()}.xls");
     }elseif(isset($_GET['riserva'])){
-        foreach ( $c->membriRiserva() as $v ) {
-            $r = $v->unaRiserva();
+        foreach ( $c->riserve() as $r ) {
+            if ( $r->attuale() ){
             $i++; 
             $excel->aggiungiRiga([
                 $i,
@@ -403,7 +403,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 date('d/m/Y',$r->protData),
                 $r->motivo
                 ]);
-
+            }
         }
         $excel->genera("Volontari riserva {$c->nome}.xls");
     }elseif(isset($_GET['estesi'])){

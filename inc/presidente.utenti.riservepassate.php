@@ -7,7 +7,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 menuElenchiVolontari(
     "Volontari in riserva",                // Nome elenco
-    "?p=admin.utenti.excel&riserva",    // Link scarica elenco
+    false,                              // Link scarica elenco
     false                               // Link email elenco
     );
     ?>
@@ -43,7 +43,7 @@ menuElenchiVolontari(
                 </tr>
             <?php
                 foreach( $r as $riserva ){
-                    if($riserva->attuale()){
+                    if(!$riserva->attuale()){
                         $_v = $riserva->volontario();
                     ?>
                         <tr>
