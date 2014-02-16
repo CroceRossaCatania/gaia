@@ -129,7 +129,7 @@ abstract class GeoPolitica extends GeoEntita {
         do {
             $presidente = $comitato->unPresidente();
             if ( $presidente ) { break; }
-        } while ( $comitato = $this->superiore() );
+        } while ( $comitato = $comitato->superiore() );
         return $presidente;
     }
 
@@ -174,8 +174,12 @@ abstract class GeoPolitica extends GeoEntita {
     public function unPresidente() {
         $p = $this->presidenti();
         if ( !$p ) { return false; }
-        shuffle($p);
-        return $p[0]->volontario();
+        foreach ($p as $_p) {
+            if ($_p->attuale()) {
+                return $_p->volontario();
+            }
+        }
+        return false;
     }
     
     public function delegati($app = null, $storico = false) {

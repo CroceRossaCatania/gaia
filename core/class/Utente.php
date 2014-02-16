@@ -256,7 +256,6 @@ class Utente extends Persona {
     public function unComitato($tipo = MEMBRO_VOLONTARIO) {
         $c = $this->comitati($tipo);
         if (!$c) { return false; }
-        shuffle($c);
         return $c[0];
     }
     
