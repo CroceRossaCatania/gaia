@@ -479,6 +479,10 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
+    /*
+     * Riserve del comitato in oggetto
+     * @return array riserve per dato comitato
+     */
     public function riserve() {
         $stato = (int) $stato;
         $q = "

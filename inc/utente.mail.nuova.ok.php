@@ -331,10 +331,10 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
          }
 
 }elseif (isset($_GET['riserva'])) {
-        $g = $_GET['id'];
-        $comitato = Comitato::id($g);
-        $r = $comitato->membriRiserva();
-        foreach($r as $_v){
+        $comitato = Comitato::id($_GET['id']);
+        $r = $comitato->riserve();
+        foreach($r as $riserva){
+            $_v = $riserva->volontario();
             $m = new Email('mailTestolibero', ''.$oggetto);
             $m->da = $me; 
             $m->a = $_v;

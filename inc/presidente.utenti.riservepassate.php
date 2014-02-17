@@ -7,8 +7,8 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 menuElenchiVolontari(
     "Volontari in riserva",                // Nome elenco
-    false,                              // Link scarica elenco
-    false                               // Link email elenco
+    "?p=admin.utenti.excel&riserveold",   // Link scarica elenco
+    false                                // Link email elenco
     );
     ?>
 
@@ -31,11 +31,8 @@ menuElenchiVolontari(
                 <tr class="success">
                     <td colspan="7" class="grassetto">
                         <?php echo $comitato->nomeCompleto(); ?>
-                        <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&riserva">
-                            <i class="icon-envelope"></i> Invia mail
-                        </a>
                         <a class="btn btn-small pull-right" 
-                            href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&riserva"
+                            href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&riserveold"
                             data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                         </a>
