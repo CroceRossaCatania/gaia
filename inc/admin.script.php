@@ -54,6 +54,14 @@ paginaAdmin();
                 <i class="icon-bookmark"></i>
                 Fix Comitati
             </a>
+            <div class="alert alert-warning">
+                <strong>Script per cancellazione comitati </strong>
+                <p>Questo script elimina i titoli doppioni correggendo anche i titoli personali</p>
+            </div>
+            <a href="?p=admin.fix.titoli" class="btn btn-large btn-warning">
+                <i class="icon-bookmark"></i>
+                Fix Titoli
+            </a>
         </div>
         
         <div class="span6 centrato">
