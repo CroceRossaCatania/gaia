@@ -11,6 +11,8 @@
     $e     = $_GET['id'];
     $e = Estensione::id($e);
 
+    proteggiDatiSensibili($e->volontario(), [APP_PRESIDENTE]);
+
     
 
     if (isset($_GET['si'])) {

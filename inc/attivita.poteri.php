@@ -4,6 +4,8 @@
  * ©2013 Croce Rossa Italiana
  */
 
+paginaPrivata();
+
 $parametri = array('v', 'turno');
 controllaParametri($parametri);
 

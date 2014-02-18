@@ -4,12 +4,17 @@
  * ©2013 Croce Rossa Italiana
  */
 
+paginaPrivata();
+
 $parametri = array('t', 'inputGiorni');
 controllaParametri($parametri);
 
 $t = $_GET['t'];
 $x = Turno::id($t);
 $a = $x->attivita();
+
+paginaAttivita($a);
+
 $volte = $_POST['inputGiorni'];
 
 if ($volte>=16){

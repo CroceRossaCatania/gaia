@@ -1,11 +1,11 @@
 <?php
 
-paginaPresidenziale();
-
 controllaParametri(array('oid'));
 
 $c = $_POST['oid'];
 $c = GeoPolitica::daOid($c);
+
+paginaApp(APP_PRESIDENTE, [$c]);
 
 /* A che scheda tornare? Indice 0-based */ 
 $back = null;

@@ -19,12 +19,13 @@ $_daGestire = [
 
 $c = $_GET['oid'];
 $c = GeoPolitica::daOid($c);
+paginaApp(APP_PRESIDENTE, [$c]);
+
 $modifica = false;
 if ($c->modificabileDa($me)) {
     $modifica = true;
 }
 
-paginaApp(APP_PRESIDENTE, [$c]);
 
 caricaSelettore();
 
