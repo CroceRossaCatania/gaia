@@ -128,7 +128,7 @@ class Comitato extends GeoPolitica {
     
     public function membriRiserva() {
         $q = $this->db->prepare("
-            SELECT DISTINCT
+            SELECT
                 riserve.volontario
             FROM
                 appartenenza, riserve
@@ -479,7 +479,11 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
-    public function riserve($stato = null) {
+    /*
+     * Riserve del comitato in oggetto
+     * @return array riserve per dato comitato
+     */
+    public function riserve() {
         $stato = (int) $stato;
         $q = "
             SELECT
@@ -491,11 +495,9 @@ class Comitato extends GeoPolitica {
             AND
                 appartenenza.stato = :stato
             AND
-                appartenenza.comitato = :id";
-        if ( $stato ) {
-            $q .= " AND riserve.stato = $stato";
-        }
-        $q .= " ORDER BY riserve.timestamp DESC";
+                appartenenza.comitato = :id
+            ORDER BY 
+                riserve.timestamp DESC";
         $q = $this->db->prepare($q);
         $q->bindParam(':id', $this->id);
         $q->bindValue('stato', MEMBRO_VOLONTARIO);

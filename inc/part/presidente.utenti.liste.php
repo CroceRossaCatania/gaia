@@ -23,6 +23,9 @@
             data-attendere="Generazione lista...">
             <i class="icon-list"></i>
             Volontari in riserva
+        </a> /
+        <a href="?p=presidente.utenti.riservepassate">
+             riserve passate
         </a><br />
         <a href="?p=presidente.utenti.giovani"
             data-attendere="Generazione lista...">
