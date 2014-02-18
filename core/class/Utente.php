@@ -311,7 +311,12 @@ class Utente extends Persona {
     }
 
     public function appartenenzaAttuale() {
-        return $this->ultimaAppartenenza(MEMBRO_VOLONTARIO);
+        if($this->stato == VOLONTARIO && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO)->attuale()) {
+            return $this->ultimaAppartenenza(MEMBRO_VOLONTARIO);
+        } elseif ($this->stato == PERSONA && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)->attuale()) {
+            return $this->ultimaAppartenenza(MEMBRO_ORDINARIO);
+        }
+        return null;
     }
     
     public function ingresso() {

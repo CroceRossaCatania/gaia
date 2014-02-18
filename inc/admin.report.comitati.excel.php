@@ -48,7 +48,7 @@ foreach ( Nazionale::elenco() as $naz ) {
     }
 
     foreach ( Provinciale::elenco() as $pro ) {
-        if ( Regionale::by('nome', $pro->nome)) { continue; }
+        if ($pro->nome == $pro->superiore()->nome) { continue; }
         $i++;
         $excel->aggiungiRiga([
             $i,
@@ -63,7 +63,7 @@ foreach ( Nazionale::elenco() as $naz ) {
     }
 
     foreach ( Locale::elenco() as $com ) {
-        if ( Provinciale::by('nome', $com->nome)) { continue; }
+        if ($com->nome == $com->superiore()->nome) { continue; }
         $i++;
         $excel->aggiungiRiga([
             $i,
