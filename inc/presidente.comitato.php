@@ -244,7 +244,7 @@ $(document).ready(function() {
             <!-- Tab: Soci Sostenitori -->
             <?php if($c instanceOf Locale) { ?>
             <div class="tab-pane"    id="benemeriti">
-                <h4>Tesseramenti e importi della quota socio benemerito</h4>
+                <h4>Tesseramenti e importi della quota socio sostenitore</h4>
                 <form action="?p=presidente.comitato.ok" method="POST">
 
                     <div class="alert alert-info">
