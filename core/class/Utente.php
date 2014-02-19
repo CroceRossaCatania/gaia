@@ -699,7 +699,7 @@ class Utente extends Persona {
                               // in quanto questa roba viene usata in API
             return true;
         }
-        
+
         return (bool) in_array(
             $g,
             array_merge(
@@ -709,8 +709,8 @@ class Utente extends Persona {
                     APP_OBIETTIVO
                 ]),
                 $this->geopoliticheAttivitaReferenziate(),
-                $this->comitatiGruppiReferenziati(),
-                $this->comitatiAreeDiCompetenza(true)
+                $this->geopoliticheGruppiReferenziati  (),
+                $this->comitatiAreeDiCompetenza        ()
             )
         );
     } 
@@ -973,11 +973,21 @@ class Utente extends Persona {
         return array_unique($r);
     }
 
-    public function comitatiGruppiReferenziati() {
+
+    public function geopoliticheGruppiReferenziati() {
         $g = $this->gruppiReferenziati();
         $r = [];
         foreach($g as $_g) {
-            $r = array_merge($r, $_g->comitato()->estensione());
+            $r[] = $_g->comitato();
+        }
+        return array_unique($r);
+    }
+
+    public function comitatiGruppiReferenziati() {
+        $g = $this->geopoliticheGruppiReferenziati();
+        $r = [];
+        foreach($g as $_g) {
+            $r = array_merge($r, $_g->estensione());
         }
         return array_unique($r);
     }
