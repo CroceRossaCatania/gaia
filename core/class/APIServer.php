@@ -373,7 +373,7 @@ class APIServer {
                     APP_SOCI,
                     APP_OBIETTIVO
                 ]),
-                $me->comitatiAttivitaReferenziate(),
+                $me->geopoliticheAttivitaReferenziate(),
                 $me->comitatiAreeDiCompetenza(true)
             );
         }
