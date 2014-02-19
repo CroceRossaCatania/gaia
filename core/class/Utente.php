@@ -699,6 +699,7 @@ class Utente extends Persona {
                               // in quanto questa roba viene usata in API
             return true;
         }
+        
         return (bool) in_array(
             $g,
             array_merge(
@@ -707,7 +708,7 @@ class Utente extends Persona {
                     APP_SOCI,
                     APP_OBIETTIVO
                 ]),
-                $this->comitatiAttivitaReferenziate(),
+                $this->geopoliticheAttivitaReferenziate(),
                 $this->comitatiGruppiReferenziati(),
                 $this->comitatiAreeDiCompetenza(true)
             )
@@ -944,11 +945,30 @@ class Utente extends Persona {
         ]);
     }
 
-    public function comitatiAttivitaReferenziate() {
+    /**
+     * Ottiene le GeoPolitiche delle Attivita referenziate dall'utente
+     * @return array(GeoPolitica*)
+     */
+    public function geopoliticheAttivitaReferenziate() {
         $a = $this->attivitaReferenziate();
         $r = [];
         foreach($a as $_a) {
-            $r = array_merge($r, $_a->comitato()->estensione());
+            $r[] = $_a->comitato();
+        }
+        return array_unique($r);
+    }
+
+    /**
+     * Ottiene i Comitati delle Attivita referenziate dall'utente
+     * Equivale ad estendere tutte le GeoPolitiche di 
+     *   Utente->geopoliticheAttivitaReferenziate()
+     * @return array(Comitato) 
+     */
+    public function comitatiAttivitaReferenziate() {
+        $a = $this->geopoliticheAttivitaReferenziate();
+        $r = [];
+        foreach($a as $_a) {
+            $r = array_merge($r, $_a->estensione());
         }
         return array_unique($r);
     }
