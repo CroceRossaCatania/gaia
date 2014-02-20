@@ -121,7 +121,7 @@ paginaPrivata();
             <tr>
                 <td><?= $_q->progressivo(); ?></td>
                 <td><?= $_q->comitato()->locale()->nomeCompleto(); ?></td>
-                <td><?= date('d/m/Y', $_q->timestamp); ?></td>
+                <td><?= $_q->dataPagamento()->inTesto(false); ?></td>
                 <td>
                     <?php if ($_q->benemerita()) { 
                         echo('€ ' . soldi($_q->quota)); 
