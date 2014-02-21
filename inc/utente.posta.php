@@ -48,6 +48,7 @@ $in = [$m1, $m2, $m3];
                     </ul>
                 </div>
                 <div class="tab-content">
+                    <!-- POSTA IN-->
                     <div class="tab-pane active" id="tab_in">
                         <div class="btn-group">
                             <!-- i pulsanti dovrebbero essere centrati o blocl -->
@@ -65,7 +66,14 @@ $in = [$m1, $m2, $m3];
                             <?php } ?>
                         </table>
                     </div>
+
+                    <!-- POSTA OUT-->
                     <div class="tab-pane" id="tab_out">
+                        <div
+                            data-email="mittente"
+                            data-perpagina="10"
+                        >
+                        </div>
                     </div>
                 </div>
             </div>

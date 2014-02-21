@@ -409,5 +409,40 @@ class APIServer {
         return $risposta;
 
     }
+
+    public function api_email_cerca() {
+        $this->richiediLogin();
+        $me = $this->sessione->utente()->id;
+
+        $r = new ERicerca();
+
+        if ( $this->par['mittente'] ) {
+            $r->mittente = $me;
+        } elseif ( $this->par['destinatario'] ) {
+            $r->destinatario = $me;
+        }
+
+        if ( $this->par['pagina'] ) {
+            $r->pagina = (int) $this->par['pagina'];
+        }
+
+        if ( $this->par['perPagina'] ) {
+            $r->perPagina = (int) $this->par['perPagina'];
+        }
+        
+        $r->esegui();
+        
+        $risposta = [
+            'tempo'     =>  $r->tempo,
+            'totale'    =>  $r->totale,
+            'pagina'    =>  $r->pagina,
+            'pagine'    =>  $r->pagine,
+            'perPagina' =>  $r->perPagina,
+            'risultati' =>  $r->$risultati
+        ];
+
+        return $risposta;
+
+    }
         
 }

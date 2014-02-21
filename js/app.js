@@ -41,6 +41,9 @@ $(window).ready( function () {
     $("[data-volontari]")       .each( _tabella );
     $("[data-conferma]")        .each( _conferma );
 
+    /* Roba di test per le email*/
+    $("[data-email]")           .each( _email );
+
     $('.automodal').modal({ keyboard: false, backdrop: 'static' });
     $('.alCambioSalva').change( function () {
         $(this).parents('form').submit();
@@ -427,4 +430,142 @@ function _tabella_caricamento (e) {
             '<strong>Caricamento in corso...</strong>' +
         '</h3></td></tr>'
     );
+}
+
+
+/*
+ * Roba fuffa che sto facendo per email
+ */
+ function _email (i, e) {
+    var _eid = 'email_' + Math.floor( Math.random() * 100 );
+    $(e)
+        .addClass('table')
+
+    // Crea l'input
+    var x = $(
+        '<div>' +
+            'Pagina <span id="' + _eid + '_a">X</span> di ' +
+            '<span id="' + _eid + '_b">Y</span>  ' +
+            '<span id="'+ _eid + 'class="btn-group">' +
+                '<a class="btn ' + _eid + '_indietro">' +
+                    '<i class="icon-chevron-left"></i> ' +
+                '</a>' +
+                '<a class="btn ' + _eid + '_avanti">' +
+                    '<i class="icon-chevron-right"></i>' +
+                '</a>' +
+            '</span>' +
+        '</div>'
+    );
+    $(e).before(x);
+
+    $(e).data('eid', _eid);
+    $('#' + _eid + '_ricerca').find('input').change( function(x, y) {
+        //_email_ricerca ( e, $(this).val(), $(this) );
+        _email_ricerca ( e, $(this) );
+    });
+    // Avvia senza ricerca...
+    //_email_ricerca(e, null, $('#' + _eid + '_ricerca').find('input').first());
+    _email_ricerca(e, $('#' + _eid + '_ricerca').find('input').first());
+}
+
+function _email_ricerca ( e, input, pagina ) {
+    _tabella_caricamento(e);
+    _tabella_blocca_input(input);
+    if ( !pagina || pagina < 0 ) {
+        pagina = 1;
+    }
+    var perPagina = $(e).data('perpagina');
+    var _eid      = $(e).data('eid');
+    var tipo      = $(e).data('email');
+    if (!perPagina) {
+        perPagina = 10;
+    }
+    if(tipo == 'mittente') {
+        var mittente     = true;
+        var destinatario = false;
+    }
+    if(tipo == 'destinatario') {
+        var mittente     = false;
+        var destinatario = true;
+    }
+    api('email:cerca', {
+        'mittente':     mittente,
+        'destinatario': destinatario,
+        'pagina':       pagina,
+        'perPagina':    perPagina
+    }, function (dati) {
+        _tabella_email_ridisegna(e, dati.risposta, input);
+         /* Pulsante indietro... */
+        if ( pagina == 1 ) {
+            $('.' + _eid + '_indietro')
+                .unbind('click')
+                .addClass('disabled');
+        } else {
+            $('.' + _eid + '_indietro')
+                .unbind('click')
+                .removeClass('disabled')
+                .click ( function () {
+                    _email_ricerca(e, input, pagina - 1);
+                });
+        }   
+        /* Pulsante avanti... */
+        if ( pagina == dati.risposta.pagine ) {
+            $('.' + _eid + '_avanti')
+                .unbind('click')
+                .addClass('disabled');
+        } else {
+            $('.' + _eid + '_avanti')
+                .unbind('click')
+                .removeClass('disabled')
+                .click ( function () {
+                    _email_ricerca(e, input, pagina + 1);
+                });
+        }
+
+    });
+
+}
+
+function _tabella_email_ridisegna( e, dati, input ) {
+    var _eid = $(e).data('eid');
+
+    /* Eventuale testo */
+    var _rid = $(e).data('azioni');
+    if ( _rid ) {
+        var _testo = $(_rid).html();
+    } else {
+        var _testo = '(nessuna azione)';
+    }
+    /* Aggiorna i totali (pagina x di y, tot risultati) */
+    $('#' + _eid + '_a').text( dati.pagina );
+    $('#' + _eid + '_b').text( dati.pagine );
+
+    var tbody = $(e).find('tbody');
+    $.each( dati.risultati, function (i, email) {
+        var nt = _email_sostituzioni(_testo, email);
+        $(tbody).append(
+            '<tr>' +
+                '<td>' + email.nome + '</td>' +
+                '<td><strong>' + email.oggetto + '</strong</td>' +
+            '</tr>'
+        );
+    });
+    if ( dati.risultati.length == 0 ) {
+        $(tbody).append(
+            '<tr class="error">' +
+                '<td colspan="2" class="allinea-centro">' +
+                    '<h3><i class="icon-frown"></i> Nessuna comunicazione</h3>' +
+                '</td>' +
+            '</tr>'
+        );
+    }
+    _tabella_sblocca_input(input);
+}
+
+function _email_sostituzioni (testo, email) {
+    testo = testo.replace(/{id}/g,       email.id);
+    testo = testo.replace(/{nome}/g,     email.nome);
+    testo = testo.replace(/{cognome}/g,  email.cognome);
+    testo = testo.replace(/{oggetto}/g,  email.oggetto);
+    return testo;
 }
