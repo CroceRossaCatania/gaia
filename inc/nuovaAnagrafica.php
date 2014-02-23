@@ -85,13 +85,13 @@ if ( ($p->password) ) {
             <div class="control-group">
                 <label class="control-label" for="inputNome">Nome * </label>
                 <div class="controls">
-                    <input value="<?php echo $sessione->nome; ?>" type="text" id="inputNome" name="inputNome" placeholder="es.: Mario" required autofocus pattern=".{2,}" />
+                    <input value="<?php echo $sessione->nome; ?>" type="text" id="inputNome" name="inputNome" placeholder="es.: Mario" required autofocus pattern=".{2,}" autocomplete="off"/>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputCognome">Cognome * </label>
                 <div class="controls">
-                    <input value="<?php echo $sessione->cognome; ?>" type="text" id="inputCognome" name="inputCognome" placeholder="es.: Rossi" required pattern=".{2,}" />
+                    <input value="<?php echo $sessione->cognome; ?>" type="text" id="inputCognome" name="inputCognome" placeholder="es.: Rossi" required pattern=".{2,}" autocomplete="off"/>
                 </div>
             </div>
             <div class="control-group">
@@ -114,19 +114,19 @@ if ( ($p->password) ) {
             <div class="control-group">
                 <label class="control-label" for="inputDataNascita">Data di nascita * </label>
                 <div class="controls">
-                    <input value="<?php echo $sessione->dnascita; ?>" class="input-small" type="text" id="inputDataNascita" name="inputDataNascita" required />
+                    <input value="<?php echo $sessione->dnascita; ?>" class="input-small" type="text" id="inputDataNascita" name="inputDataNascita" required autocomplete="off"/>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputComuneNascita">Comune di nascita * </label>
                 <div class="controls">
-                    <input value="<?php echo $sessione->conascita; ?>" type="text" id="inputComuneNascita" name="inputComuneNascita" required />
+                    <input value="<?php echo $sessione->conascita; ?>" type="text" id="inputComuneNascita" name="inputComuneNascita" required autocomplete="off"/>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputProvinciaNascita">Provincia di nascita * </label>
                 <div class="controls">
-                    <input value="<?php echo $sessione->prnascita; ?>" class="input-mini" type="text" id="inputProvinciaNascita" name="inputProvinciaNascita" required pattern="[A-Za-z]{2}" />
+                    <input value="<?php echo $sessione->prnascita; ?>" class="input-mini" type="text" id="inputProvinciaNascita" name="inputProvinciaNascita" required pattern="[A-Za-z]{2}" autocomplete="off"/>
                     &nbsp; <span class="muted">ad es.: CT</span>
                 </div>
             </div>
@@ -139,26 +139,26 @@ if ( ($p->password) ) {
             <div class="control-group">
                 <label class="control-label" for="inputProvinciaResidenza">Provincia di residenza * </label>
                 <div class="controls">
-                    <input value="<?php echo $sessione->prresidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" required pattern="[A-Za-z]{2}" />
+                    <input value="<?php echo $sessione->prresidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" name="inputProvinciaResidenza" required pattern="[A-Za-z]{2}" autocomplete="off"/>
                     &nbsp; <span class="muted">ad es.: CT</span>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputCAPResidenza">CAP di residenza * </label>
                 <div class="controls">
-                    <input value="<?php echo $sessione->caresidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" required pattern="[0-9]{5}" />
+                    <input value="<?php echo $sessione->caresidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" name="inputCAPResidenza" required pattern="[0-9]{5}" autocomplete="off"/>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputIndirizzo">Indirizzo di residenza * </label>
                 <div class="controls">
-                    <input value="<?php echo $sessione->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" required />
+                    <input value="<?php echo $sessione->indirizzo; ?>" type="text" id="inputIndirizzo" name="inputIndirizzo" required autocomplete="off"/>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputCivico">Numero civico * </label>
                 <div class="controls">
-                    <input value="<?php echo $sessione->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" required />
+                    <input value="<?php echo $sessione->civico; ?>" type="text" id="inputCivico" name="inputCivico" class="input-small" required autocomplete="off"/>
                 </div>
             </div>
             <div class="control-group">
