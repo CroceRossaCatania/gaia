@@ -693,7 +693,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
             '<tr class="error">' +
                 '<td colspan="2" class="allinea-centro">' +
                     '<h4><i class="icon-frown"></i> Nessuna comunicazione</h4>' +
-                    '<p>Nessuna paura. Qui verranno salvate tutte le comunicazioni future inviate o ricevute tramite Gaia.</p>' +
+                    '<p>Niente paura! Qui verranno salvate tutte le comunicazioni future inviate o ricevute tramite Gaia.</p>' +
                 '</td>' +
             '</tr>'
         );
