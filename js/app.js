@@ -127,19 +127,37 @@ function _conferma(i, e) {
 
 function _aggiorna_chiSono() {
 }
-  
-function api(metodo, dati, callback) {
-    $.post(
-        conf.api,
-        JSON.stringify($.extend(
-            dati,
-            { 
-                metodo: metodo,
-                sid:    sid,
-                key:    conf.key
-            })),
-        [_rete_ok, callback]
-    );
+ 
+var _cache = {}; 
+function api(metodo, dati, callback, cache) {
+    if ( cache === undefined ) {
+        // Standard, non cache
+        $.post(
+            conf.api,
+            JSON.stringify($.extend(
+                dati,
+                { 
+                    metodo: metodo,
+                    sid:    sid,
+                    key:    conf.key
+                })),
+            [_rete_ok, callback]
+        );
+    } else {
+
+        // Cache!
+        var chiave = metodo + ':' + JSON.stringify(dati);
+        if (_cache.hasOwnProperty(chiave)) {
+            callback(_cache[chiave]);
+        } else {
+            api(metodo, dati, function(x) {
+                _cache[chiave] = x;
+                if ( callback !== undefined )
+                    callback(x);
+            });
+        }
+
+    }
 }
 
 function _dump( x ) {
@@ -720,7 +738,7 @@ function _carica_dati_utente(i, e) {
     $(e).attr('data-contenuto', $(e).html()); // Salva contenuto...
     //$(e).html('<i class="icon-spin icon-spinner"></i> Carico...');
     var id = $(e).data('utente');
-    api('utente', { id: id }, function(x) { _render_utente(e, x.risposta); } );
+    api('utente', { id: id }, function(x) { _render_utente(e, x.risposta); } , 'CACHE!');
 }
 
 function _render_utente(elemento, dati) {
