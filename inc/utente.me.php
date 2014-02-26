@@ -400,57 +400,14 @@ if(false && $consenso && !$sessione->barcode) { ?>
 
             <!-- PANNELLO ULTIME EMAIL -->
             <div class="span4">
-                <h4>Ultime comunicazioni </h4>
-
-                <?php
-
-                /* Roba che server solo per fare un po' di prove */
-
-                $m1 = new stdClass;
-                $m1->mittente = 1;
-                $m1->destinatario = $me->id;
-                $m1->oggetto = "Messaggio stupendiglioso";
-                $m1->testo = "Email veramente bella bla bla bla";
-                $m1->date = time();
-
-                $m2 = new stdClass;
-                $m2->mittente = 2;
-                $m2->destinatario = $me->id;
-                $m2->oggetto = "Messaggio di interesse molto alto perchè bello 2";
-                $m2->testo = "Email veramente bella bla bla bla";
-                $m2->date = time();
-
-                $m3 = new stdClass;
-                $m3->mittente = 1;
-                $m3->destinatario = $me->id;
-                $m3->oggetto = "Messaggio stupendiglioso 3";
-                $m3->testo = "Email veramente bella bla bla bla";
-                $m3->date = time();
-
-                $in = [$m1, $m2, $m3];
-
-                if(!$in) { ?>
-
-                    <div class="alert alert-info">
-                        Non hai comunicazioni recenti.
-                    </div>
-
-                <?php } else {
-                    foreach($in as $_in) {
-                        $v = Utente::id($_in->mittente) ?>
-                        <div class="alert alert-info alert-block">
-                            <p>
-                                <div class="clearfix content-heading">
-                                    <img src="<?php echo $v->avatar()->img(10); ?>" class="img-circle pull-left" />
-                                    <strong><?= $_in->oggetto ?></strong>
-                                    <br />
-                                    <small><?= $v->nomeCompleto() ?></small>
-                                </div>
-                            </p>
-                        </div>
-                    <?php }
-                } ?>
-
+                <h4><i class="icon-time"></i> Ultime comunicazioni</h4>
+                
+                <div
+                    data-posta      ="true"
+                    data-direzione  ="ingresso"
+                    data-perPagina  ="5"
+                    data-mini       ="true"
+                ></div>
             </div>
         </div>
     </div>

@@ -43,6 +43,7 @@ $(window).ready( function () {
     $("[data-conferma]")        .each( _conferma );
 
     _render_utenti();
+    _render_modali();
 
     $('.automodal').modal({ keyboard: false, backdrop: 'static' });
     $('.alCambioSalva').change( function () {
@@ -441,26 +442,29 @@ function _tabella_caricamento (e) {
     $(e)
         .addClass('table')
 
-    // Crea l'input
-    var x = $(
-        '<div class="row-fluid">' +
-            '<div class="span8 allinea-sinistra">' +
-                'Pagina <span id="' + _eid + '_a">X</span> di ' +
-                '<span id="' + _eid + '_b">Y</span>  ' +
-            '</div>' +
-            '<div class="span4 allinea-destra">' +
-                '<div class="btn-group" id="'+ _eid + '">' +
-                    '<a class="btn ' + _eid + '_indietro">' +
-                        '<i class="icon-chevron-left"></i> ' +
-                    '</a>' +
-                    '<a class="btn ' + _eid + '_avanti">' +
-                        '<i class="icon-chevron-right"></i>' +
-                    '</a>' +
+    // Crea i tasti avanti ed indietro, se non "mini"
+    if ( !$(e).data('mini') ) {
+        var x = $(
+            '<div class="row-fluid">' +
+                '<div class="span8 allinea-sinistra">' +
+                    'Pagina <span id="' + _eid + '_a">X</span> di ' +
+                    '<span id="' + _eid + '_b">Y</span>  ' +
                 '</div>' +
-            '</div>' +
-        '</div>'
-    );
-    $(e).before(x);
+                '<div class="span4 allinea-destra">' +
+                    '<div class="btn-group" id="'+ _eid + '">' +
+                        '<a class="btn ' + _eid + '_indietro">' +
+                            '<i class="icon-chevron-left"></i> ' +
+                        '</a>' +
+                        '<a class="btn ' + _eid + '_avanti">' +
+                            '<i class="icon-chevron-right"></i>' +
+                        '</a>' +
+                    '</div>' +
+                '</div>' +
+            '</div>'
+        );
+        $(e).before(x); 
+    }
+    
     $(e).data('eid', _eid);
     // Avvia senza ricerca...
     //_email_ricerca(e, null, $('#' + _eid + '_ricerca').find('input').first());
@@ -517,8 +521,10 @@ function _posta_ricerca ( e, pagina ) {
 }
 
 function _tabella_posta_ridisegna( e, dati, input ) {
-    var _eid        = $(e).data('eid');
-    var direzione   = $(e).data('direzione');  
+    var _eid         = $(e).data('eid');
+    var direzione    = $(e).data('direzione');  
+    var persona      = '';
+    var destinatario = '';
 
     /* Aggiorna i totali (pagina x di y, tot risultati) */
     $('#' + _eid + '_a').text( dati.pagina );
@@ -536,12 +542,11 @@ function _tabella_posta_ridisegna( e, dati, input ) {
     );
     var tbody = $(e).find('tbody');
     $.each( dati.risultati, function (i, email) {
-        if ( direzione == 'ingresso' ) {
-            // INGRESO
 
-            if ( email.mittente ) {
-                // MITTENTE CONOSCIUTO
-                //
+        if ( email.mittente ) {
+            // MITTENTE CONOSCIUTO
+            //
+            if ( direzione == 'ingresso' ) {
                 $(tbody).append(
                     '<tr data-utente="' + email.mittente.id + '">' +
                         '<td>' +
@@ -550,9 +555,12 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td><strong>' + email.oggetto + '</strong><br />{nomeCompleto}</td>' +
                     '</tr>'
                 );
-                var persona = '<i class="icon-user"></i> Da <span data-utente="' + email.mittente.id + '">{nomeCompleto}</span>';
-            } else {
-                // DA GAIA
+                persona  = '<i class="icon-user"></i> Da <span data-utente="' + email.mittente.id + '">{nomeCompleto}</span>';
+            }
+            mittente = '<i class="icon-user"></i> <span data-utente="' + email.mittente.id + '">{nomeCompleto}</span>';
+        } else {
+            // DA GAIA
+            if ( direzione == 'ingresso' ) {
                 $(tbody).append(
                     '<tr>' +
                         '<td>' +
@@ -561,15 +569,16 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td><strong>' + email.oggetto + '</strong><br />Notifica da Gaia</td>' +
                     '</tr>'
                 );
-                var persona = '<i class="icon-info-sign"></i> <span>Notifica Gaia</span>';
+                persona  = '<i class="icon-info-sign"></i> <span>Notifica Gaia</span>';
             }
-            
-        } else {
-            // USCITA
+            mittente = '<i class="icon-info-sign"></i> Notifica di sistema Gaia';
+        }
+        
 
-            if ( email.destinatari.length > 1 ) {
-                // DESTINATARI MULTIPLI
-                var num = email.destinatari.length;
+        if ( email.destinatari.length > 1 ) {
+            // DESTINATARI MULTIPLI
+            var num = email.destinatari.length;
+            if ( direzione == 'uscita' ) {
                 $(tbody).append(
                     '<tr>' +
                         '<td>' +
@@ -578,11 +587,25 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td><strong>' + email.oggetto + '</strong><br />Destinatari multipli (' + num + ')</td>' +
                     '</tr>'
                 );
-                var persona = '<i class="icon-group"></i> A <span>Destinatari multipli (' + num + ')</span>';
+                persona      = '<i class="icon-group"></i> A <span>Destinatari multipli (' + num + ')</span>';
+            }
+
+            destinatario = '<ul>';
+            $.each(email.destinatari, function(y, q) {
+                destinatario += '<li data-utente="' + q.id + '">{nomeCompleto}';
+                if ( q.inviato ) {
+                    destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + new Date(q.inviato * 1000).toLocaleString() + ')';
+                } else {
+                    destinatario += ' (<i class="icon-time text-warning"></i> in coda di invio)';
+                }
+                destinatario += '</li>';
+            });
+            destinatario += '</ul>';
 
 
-            } else if ( email.destinatari.length > 0 ) {
-                // DESTINATARIO SINGOLO
+        } else if ( email.destinatari.length > 0 ) {
+            // DESTINATARIO SINGOLO
+            if ( direzione == 'uscita' ) {
                 $(tbody).append(
                     '<tr data-utente="' + email.destinatari[0].id + '">' +
                         '<td>' +
@@ -591,11 +614,15 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td><strong>' + email.oggetto + '</strong><br />{nomeCompleto}</td>' +
                     '</tr>'
                 );
-                var persona = '<i class="icon-ambulance"></i> Squadra di Supporto</span>';
+                persona      = '<i class="icon-ambulance"></i> Squadra di Supporto</span>';
+            }
+
+            destinatario = '<i class="icon-user"></i> <span data-utente="' + email.mittente.id + '">{nomeCompleto}</span>';
 
 
-            } else {
-                // AL SUPPORTO
+        } else {
+            // AL SUPPORTO
+            if ( direzione == 'uscita' ) {
                 $(tbody).append(
                     '<tr>' +
                         '<td>' +
@@ -604,10 +631,20 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td><strong>' + email.oggetto + '</strong><br />Squadra di Supporto Gaia</td>' +
                     '</tr>'
                 );
+                persona      = '<i class="icon-ambulance"></i> Squadra di Supporto</span>';
             }
 
+            destinatario = '<i class="icon-ambulance"></i> Squadra di Supporto di Gaia</span>';
+            if ( email.invio.terminato ) {
+                destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + new Date(email.invio.terminato * 1000).toLocaleString() + ')';
+            } else {
+                destinatario += ' (<i class="icon-time text-warning"></i> in coda di invio)';
+            }
 
         }
+
+
+        
        
         $(tbody).find('tr:last').data('codice', email.id).addClass('riga-cliccabile').click( function() {
 
@@ -618,8 +655,14 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                 $(output).html(
                     '<h4><i class="icon-comments"></i> ' + email.oggetto + '</h4>' +
                     '<div class="row-fluid" style="font-size: smaller;">' + 
-                        '<span class="span6"><strong>' + persona + '</strong></span>' +
-                        '<span class="span3"><i class="icon-calendar"></i> ' + new Date(email.timestamp*1000).toLocaleDateString() + '</span>' +
+                        '<span class="span6"><strong>' + persona + '</strong> <a data-modale="(mostra dettagli)" data-titolo="Dettagli messaggio">' +
+                            '<ul><li><strong>Mittente:</strong> ' + mittente +
+                            '</li><li><strong>Destinatario:</strong> ' + destinatario +
+                            '</li><li><strong>Creato:</strong> <i class="icon-time"></i> ' + new Date(email.timestamp*1000).toLocaleDateString() +
+                            '</li><li><strong>Oggetto:</strong> ' + email.oggetto +
+                            '</li></ul></a>'+ 
+                        '</span>' +
+                        '<span class="span3"><i class="icon-calendar"></i> ' + new Date(email.timestamp*1000).toLocaleString() + '</span>' +
                         '<span class="span3"><i class="icon-time"></i> ' + new Date(email.timestamp*1000).toLocaleTimeString() + '</span>' +
 
                     '</div>' +
@@ -631,6 +674,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
 
                 );
                 _render_utenti();
+                _render_modali();
             } else {
                 window.location = 'https://gaia.cri.it/?p=utente.posta&id=' + email.id;
             }
@@ -678,12 +722,46 @@ function _carica_dati_utente(i, e) {
 }
 
 function _render_utente(elemento, dati) {
-   
-    var testo = $(elemento).data('contenuto');
+    var testo = '' + $(elemento).data('contenuto');
     testo = testo.replace(/{id}/gi,              dati.id);
     testo = testo.replace(/{nome}/gi,            dati.nome);
     testo = testo.replace(/{cognome}/gi,         dati.cognome);
     testo = testo.replace(/{nomeCompleto}/gi,    dati.nomeCompleto);
     testo = testo.replace(/{avatar}/gi,          dati.avatar["20"]);
     $(elemento).html(testo);
+}
+
+/**
+ * Modale inlinea 
+ */
+
+function _render_modali() {
+    $("[data-modale]").each( _modale_inline );
+}
+
+function _modale_inline(i, e) {
+    $(e).attr('role', 'button').data('toggle', 'modal');
+    var contenuto = $(e).html();
+    $(e).html($(e).data('modale'));
+    $(e).removeData('modale');
+    var _mid = 'modale_' + Math.floor( Math.random() * 10000 );
+    $(e).attr('href', '#' + _mid);
+    $("body").append(
+        '<div id="' + _mid + '" class="modal hide fade" role="dialog">' +
+            '<div class="modal-header">' +
+                '<button type="button" class="close" data-dismiss="modal"><i class="icon-remove"></i></button>' +
+                '<h3>' + $(e).data('titolo') + '</h3>' +
+            '</div><div class="modal-body">' +
+                contenuto +
+            '</div><div class="modal-footer">' +
+                '<button class="btn" data-dismiss="modal"><i class="icon-remove"></i> Okay</button>' +
+            '</div>' +
+        '</div>'
+    );
+    $(e).click( function() {
+        $('#' + _mid).modal('show');
+        _render_utenti();
+        return false;
+    });
+
 }
