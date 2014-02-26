@@ -71,6 +71,7 @@ class APIServer {
         if ( !$this->sessione->utente ) {
             throw new Errore(1010);
         }
+        return $this->sessione->utente();
     }
 
     private function richiedi ( $campi ) {
@@ -196,8 +197,7 @@ class APIServer {
     
     public function api_attivita_dettagli() {
         $this->richiedi(['id']);
-        $this->richiediLogin();
-        $me = $this->sessione->utente();
+        $me = $this->richiediLogin();
         $a = Attivita::id($this->par['id']);
         $t = [];
         foreach ( $a->turni() as $turno ) {
@@ -219,8 +219,7 @@ class APIServer {
 
     public function api_turno_partecipa() {
         $this->richiedi(['id']);
-        $this->richiediLogin();
-        $me = $this->sessione->utente();
+        $me = $this->richiediLogin();
         $t = Turno::id($this->par['id']);
         return [
             'ok' => $t->chiediPartecipazione($me)
@@ -234,8 +233,7 @@ class APIServer {
     }
     
     public function api_io() {
-        $this->richiediLogin();
-        $me = $this->sessione->utente();
+        $me = $this->richiediLogin();
         $r = [];
         $r['anagrafica'] = [
             'nome'          =>  $me->nome,
@@ -339,7 +337,7 @@ class APIServer {
     }
 
     public function api_volontari_cerca() {
-        $this->richiediLogin();
+        $me = $this->richiediLogin();
         $r = new Ricerca();
 
         /* Ordini personalizzati per vari usi */
@@ -354,8 +352,6 @@ class APIServer {
             ) {
             $r->ordine = $ordini[$this->par['ordine']];
         }
-
-        $me = $this->sessione->utente();
 
         // versione modificata per #867
         if ($this->par['comitati']) {
@@ -411,8 +407,7 @@ class APIServer {
     }
 
     public function api_posta_cerca() {
-        $this->richiediLogin();
-        $me = $this->sessione->utente()->id;
+        $me = $this->richiediLogin();
 
         $r = new ERicerca();
 
@@ -423,7 +418,7 @@ class APIServer {
         }
 
         // Posso guardare solamente la mia posta, perche' si'
-        $r->casella             = $me;
+        $r->casella             = $me->id;
 
         if ( $this->par['pagina'] ) {
             $r->pagina = (int) $this->par['pagina'];
@@ -441,7 +436,7 @@ class APIServer {
             'pagina'    =>  $r->pagina,
             'pagine'    =>  $r->pagine,
             'perPagina' =>  $r->perPagina,
-            'risultati' =>  $r->$risultati
+            'risultati' =>  $r->risultati
         ];
 
         return $risposta;

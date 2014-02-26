@@ -32,9 +32,11 @@ class ERicerca {
         $inizio = microtime(true);
         $query = $this->generaQuery();
         $qRisultati = MEmail::find($query);
-        $this->totale = MEmail::count($query);
+        $qRisultati = $this->ordinaLimitaQuery($qRisultati);
+        $this->risultati = mongo2array($qRisultati);
+        $this->totale = (int) $qRisultati->count();
         $this->pagine = ceil( $this->totale / $this->perPagina );
-        $this->risultati = $this->ordinaLimitaQuery($qRisultati);
+
         $fine = microtime(true);
         $this->tempo = round($fine - $inizio, 6);
         return true;
@@ -47,13 +49,13 @@ class ERicerca {
             return [];
 
         // POSTA IN INGRESSO
-        if ($this->direzione == POSTA_INGRESSO)
-            return ['mittente' => $this->casella];
+        if ($this->direzione == POSTA_USCITA)
+            return ['mittente' => (int) $this->casella];
 
         // POSTA IN USCITA
         else
             return ['destinatari' => [ 
-                    '$elemMatch' => ['id' => $destinatario]
+                    '$elemMatch' => ['id' => (int) $this->casella]
                 ]
             ];
     
