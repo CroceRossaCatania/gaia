@@ -443,17 +443,21 @@ function _tabella_caricamento (e) {
 
     // Crea l'input
     var x = $(
-        '<div>' +
-            'Pagina <span id="' + _eid + '_a">X</span> di ' +
-            '<span id="' + _eid + '_b">Y</span>  ' +
-            '<span id="'+ _eid + 'class="btn-group">' +
-                '<a class="btn ' + _eid + '_indietro">' +
-                    '<i class="icon-chevron-left"></i> ' +
-                '</a>' +
-                '<a class="btn ' + _eid + '_avanti">' +
-                    '<i class="icon-chevron-right"></i>' +
-                '</a>' +
-            '</span>' +
+        '<div class="row-fluid">' +
+            '<div class="span8 allinea-sinistra">' +
+                'Pagina <span id="' + _eid + '_a">X</span> di ' +
+                '<span id="' + _eid + '_b">Y</span>  ' +
+            '</div>' +
+            '<div class="span4 allinea-destra">' +
+                '<div class="btn-group" id="'+ _eid + '">' +
+                    '<a class="btn ' + _eid + '_indietro">' +
+                        '<i class="icon-chevron-left"></i> ' +
+                    '</a>' +
+                    '<a class="btn ' + _eid + '_avanti">' +
+                        '<i class="icon-chevron-right"></i>' +
+                    '</a>' +
+                '</div>' +
+            '</div>' +
         '</div>'
     );
     $(e).before(x);
@@ -513,47 +517,137 @@ function _posta_ricerca ( e, pagina ) {
 }
 
 function _tabella_posta_ridisegna( e, dati, input ) {
-    var _eid = $(e).data('eid');
-
-    /* Eventuale testo */
-    var _rid = $(e).data('azioni');
-    if ( _rid ) {
-        var _testo = $(_rid).html();
-    } else {
-        var _testo = '(nessuna azione)';
-    }
+    var _eid        = $(e).data('eid');
+    var direzione   = $(e).data('direzione');  
 
     /* Aggiorna i totali (pagina x di y, tot risultati) */
     $('#' + _eid + '_a').text( dati.pagina );
     $('#' + _eid + '_b').text( dati.pagine );
 
     $(e).html(
-        '<thead class="allinea-centro">' +
-            '<th>Avatar</th>' +
-            '<th>Messaggio</th>' +
-            '<th>Az.</th>' +
-        '</thead>' +
-        '<tbody>' +
-        '</tbody>'
+        '<table class="table table-condensed">' +
+            '<thead class="allinea-centro">' +
+                '<th class="allinea-centro"><i class="icon-user"></i></th>' +
+                '<th class="allinea-centro">Messaggio</th>' +
+            '</thead>' +
+            '<tbody>' +
+            '</tbody>' +
+        '</table>'
     );
     var tbody = $(e).find('tbody');
     $.each( dati.risultati, function (i, email) {
-        var nt = _email_sostituzioni(_testo, email);
-        $(tbody).append(
-            '<tr data-utente="' + email.mittente.id + '">' +
-                '<td>' +
-                    '<img width="50" height="50" src="{avatar}" title="{nomeCompleto}" alt="{nomeCompleto}" />' +
-                '</td>' +
-                '<td><strong>' + email.oggetto + '</strong><br />{nomeCompleto}</td>' +
-                '<td>' + nt + '</td>' +
-            '</tr>'
-        );
+        if ( direzione == 'ingresso' ) {
+            // INGRESO
+
+            if ( email.mittente ) {
+                // MITTENTE CONOSCIUTO
+                //
+                $(tbody).append(
+                    '<tr data-utente="' + email.mittente.id + '">' +
+                        '<td>' +
+                            '<img width="50" height="50" class="img-circle" src="{avatar}" title="{nomeCompleto}" alt="{nomeCompleto}" />' +
+                        '</td>' +
+                        '<td><strong>' + email.oggetto + '</strong><br />{nomeCompleto}</td>' +
+                    '</tr>'
+                );
+                var persona = '<i class="icon-user"></i> Da <span data-utente="' + email.mittente.id + '">{nomeCompleto}</span>';
+            } else {
+                // DA GAIA
+                $(tbody).append(
+                    '<tr>' +
+                        '<td>' +
+                            '<img width="50" height="50" class="img-circle" src="https://gaia.cri.it/upload/avatar/placeholder/20.jpg" />' +
+                        '</td>' +
+                        '<td><strong>' + email.oggetto + '</strong><br />Notifica da Gaia</td>' +
+                    '</tr>'
+                );
+                var persona = '<i class="icon-info-sign"></i> <span>Notifica Gaia</span>';
+            }
+            
+        } else {
+            // USCITA
+
+            if ( email.destinatari.length > 1 ) {
+                // DESTINATARI MULTIPLI
+                var num = email.destinatari.length;
+                $(tbody).append(
+                    '<tr>' +
+                        '<td>' +
+                            '<img width="50" height="50" class="img-circle" src="https://gaia.cri.it/upload/avatar/placeholder/20.jpg" />' +
+                        '</td>' +
+                        '<td><strong>' + email.oggetto + '</strong><br />Destinatari multipli (' + num + ')</td>' +
+                    '</tr>'
+                );
+                var persona = '<i class="icon-group"></i> A <span>Destinatari multipli (' + num + ')</span>';
+
+
+            } else if ( email.destinatari.length > 0 ) {
+                // DESTINATARIO SINGOLO
+                $(tbody).append(
+                    '<tr data-utente="' + email.destinatari[0].id + '">' +
+                        '<td>' +
+                            '<img width="50" height="50" class="img-circle" src="{avatar}" title="{nomeCompleto}" alt="{nomeCompleto}" />' +
+                        '</td>' +
+                        '<td><strong>' + email.oggetto + '</strong><br />{nomeCompleto}</td>' +
+                    '</tr>'
+                );
+                var persona = '<i class="icon-ambulance"></i> Squadra di Supporto</span>';
+
+
+            } else {
+                // AL SUPPORTO
+                $(tbody).append(
+                    '<tr>' +
+                        '<td>' +
+                            '<img width="50" height="50" class="img-circle" src="https://gaia.cri.it/upload/avatar/placeholder/20.jpg" />' +
+                        '</td>' +
+                        '<td><strong>' + email.oggetto + '</strong><br />Squadra di Supporto Gaia</td>' +
+                    '</tr>'
+                );
+            }
+
+
+        }
+       
+        $(tbody).find('tr:last').data('codice', email.id).addClass('riga-cliccabile').click( function() {
+
+            $(tbody).find('tr').removeClass("success");
+            $(this).addClass("success");
+            if ( $(e).data('messaggio') ) {
+                var output = $(e).data('messaggio');
+                $(output).html(
+                    '<h4><i class="icon-comments"></i> ' + email.oggetto + '</h4>' +
+                    '<div class="row-fluid" style="font-size: smaller;">' + 
+                        '<span class="span6"><strong>' + persona + '</strong></span>' +
+                        '<span class="span3"><i class="icon-calendar"></i> ' + new Date(email.timestamp*1000).toLocaleDateString() + '</span>' +
+                        '<span class="span3"><i class="icon-time"></i> ' + new Date(email.timestamp*1000).toLocaleTimeString() + '</span>' +
+
+                    '</div>' +
+                    '<hr />' +
+                    '<blockquote style="font-size: 12px !important;">' +
+                      email.corpo +
+                    '</blockquote>'
+
+
+                );
+                _render_utenti();
+            } else {
+                window.location = 'https://gaia.cri.it/?p=utente.posta&id=' + email.id;
+            }
+
+        });
     });
+
+    if ( $(e).data('contatore') ) {
+        $($(e).data('contatore')).text(dati.totale);
+    }
+
     if ( dati.risultati.length == 0 ) {
         $(tbody).append(
             '<tr class="error">' +
                 '<td colspan="2" class="allinea-centro">' +
-                    '<h3><i class="icon-frown"></i> Nessuna comunicazione</h3>' +
+                    '<h4><i class="icon-frown"></i> Nessuna comunicazione</h4>' +
+                    '<p>Nessuna paura. Qui verranno salvate tutte le comunicazioni future inviate o ricevute tramite Gaia.</p>' +
                 '</td>' +
             '</tr>'
         );
@@ -578,13 +672,13 @@ function _render_utenti() {
 
 function _carica_dati_utente(i, e) {
     $(e).data('contenuto', $(e).html()); // Salva contenuto...
-    $(e).html('<i class="icon-spin icon-spinner"></i> Carico...');
+    //$(e).html('<i class="icon-spin icon-spinner"></i> Carico...');
     var id = $(e).data('utente');
     api('utente', { id: id }, function(x) { _render_utente(e, x.risposta); } );
 }
 
 function _render_utente(elemento, dati) {
-    console.log(dati);
+   
     var testo = $(elemento).data('contenuto');
     testo = testo.replace(/{id}/gi,              dati.id);
     testo = testo.replace(/{nome}/gi,            dati.nome);
