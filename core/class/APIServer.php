@@ -410,17 +410,20 @@ class APIServer {
 
     }
 
-    public function api_email_cerca() {
+    public function api_posta_cerca() {
         $this->richiediLogin();
         $me = $this->sessione->utente()->id;
 
         $r = new ERicerca();
 
-        if ( $this->par['mittente'] ) {
-            $r->mittente = $me;
-        } elseif ( $this->par['destinatario'] ) {
-            $r->destinatario = $me;
+        if ( $this->par['direzione'] == 'ingresso' ) {
+            $r->direzione       = POSTA_INGRESSO;
+        } else {
+            $r->direzione       = POSTA_USCITA;
         }
+
+        // Posso guardare solamente la mia posta, perche' si'
+        $r->casella             = $me;
 
         if ( $this->par['pagina'] ) {
             $r->pagina = (int) $this->par['pagina'];
