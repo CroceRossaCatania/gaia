@@ -48,7 +48,7 @@ $in = [$m1, $m2, $m3];
                  data-azioni    ="#azioni_posta"
             ></div>
             <div id="azioni_posta" class="nascosto">
-             [AZIONI]
+                <i class="icon-info"></i>
             </div>
         <hr />
 

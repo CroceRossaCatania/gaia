@@ -540,13 +540,14 @@ function _tabella_posta_ridisegna( e, dati, input ) {
     $.each( dati.risultati, function (i, email) {
         var nt = _email_sostituzioni(_testo, email);
         $(tbody).append(
-            '<tr>' +
-                '<td>' + email.nome + '</td>' +
-                '<td><strong>' + email.oggetto + '</strong</td>' +
+            '<tr data-utente="' + email.mittente.id + '">' +
+                '<td>' +
+                    '<img width="50" height="50" src="{avatar}" title="{nomeCompleto}" alt="{nomeCompleto}" />' +
+                '</td>' +
+                '<td><strong>' + email.oggetto + '</strong><br />{nomeCompleto}</td>' +
                 '<td>' + nt + '</td>' +
             '</tr>'
         );
-        console.log("Aggiunta riga");
     });
     if ( dati.risultati.length == 0 ) {
         $(tbody).append(
@@ -557,6 +558,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
             '</tr>'
         );
     }
+    _render_utenti(); // Render mittenti e destinatari
     //_tabella_sblocca_input(input);
 }
 
@@ -575,12 +577,15 @@ function _render_utenti() {
 }
 
 function _carica_dati_utente(i, e) {
+    $(e).data('contenuto', $(e).html()); // Salva contenuto...
+    $(e).html('<i class="icon-spin icon-spinner"></i> Carico...');
     var id = $(e).data('utente');
     api('utente', { id: id }, function(x) { _render_utente(e, x.risposta); } );
 }
 
 function _render_utente(elemento, dati) {
-    var testo = $(elemento).html();
+    console.log(dati);
+    var testo = $(elemento).data('contenuto');
     testo = testo.replace(/{id}/gi,              dati.id);
     testo = testo.replace(/{nome}/gi,            dati.nome);
     testo = testo.replace(/{cognome}/gi,         dati.cognome);
