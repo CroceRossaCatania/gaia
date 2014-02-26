@@ -50,7 +50,7 @@ class ERicerca {
 
         // POSTA IN INGRESSO
         if ($this->direzione == POSTA_USCITA)
-            return ['mittente' => (int) $this->casella];
+            return ['mittente.id' => (int) $this->casella];
 
         // POSTA IN USCITA
         else

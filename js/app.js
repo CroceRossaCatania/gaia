@@ -542,8 +542,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
     );
     var tbody = $(e).find('tbody');
     $.each( dati.risultati, function (i, email) {
-
-        if ( email.mittente ) {
+        if ( email.mittente !== false  ) {
             // MITTENTE CONOSCIUTO
             //
             if ( direzione == 'ingresso' ) {
@@ -574,20 +573,19 @@ function _tabella_posta_ridisegna( e, dati, input ) {
             mittente = '<i class="icon-info-sign"></i> Notifica di sistema Gaia';
         }
         
-
         if ( email.destinatari.length > 1 ) {
+
             // DESTINATARI MULTIPLI
-            var num = email.destinatari.length;
             if ( direzione == 'uscita' ) {
                 $(tbody).append(
                     '<tr>' +
                         '<td>' +
                             '<img width="50" height="50" class="img-circle" src="https://gaia.cri.it/upload/avatar/placeholder/20.jpg" />' +
                         '</td>' +
-                        '<td><strong>' + email.oggetto + '</strong><br />Destinatari multipli (' + num + ')</td>' +
+                        '<td><strong>' + email.oggetto + '</strong><br />Destinatari multipli (' + email.destinatari.length + ')</td>' +
                     '</tr>'
                 );
-                persona      = '<i class="icon-group"></i> A <span>Destinatari multipli (' + num + ')</span>';
+                persona      = '<i class="icon-group"></i> A <span>Destinatari multipli (' + email.destinatari.length + ')</span>';
             }
 
             destinatario = '<ul>';
@@ -604,6 +602,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
 
 
         } else if ( email.destinatari.length > 0 ) {
+
             // DESTINATARIO SINGOLO
             if ( direzione == 'uscita' ) {
                 $(tbody).append(
@@ -614,11 +613,10 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td><strong>' + email.oggetto + '</strong><br />{nomeCompleto}</td>' +
                     '</tr>'
                 );
-                persona      = '<i class="icon-ambulance"></i> Squadra di Supporto</span>';
+                persona      = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '">{nomeCompleto}</span>';
             }
 
-            destinatario = '<i class="icon-user"></i> <span data-utente="' + email.mittente.id + '">{nomeCompleto}</span>';
-
+            destinatario = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '">{nomeCompleto}</span>';
 
         } else {
             // AL SUPPORTO
@@ -641,24 +639,28 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                 destinatario += ' (<i class="icon-time text-warning"></i> in coda di invio)';
             }
 
-        }
-
-
+        }      
         
-       
-        $(tbody).find('tr:last').data('codice', email.id).addClass('riga-cliccabile').click( function() {
+        $(tbody).find('tr:last')
+            .data('persona',        persona)
+            .data('destinatario',   destinatario)
+            .data('mittente',       mittente)
+            .data('codice',         email.id)
+            .addClass('riga-cliccabile')
+            .click(
+                function() {
 
-            $(tbody).find('tr').removeClass("success");
+            $('tr').removeClass("success");
             $(this).addClass("success");
             if ( $(e).data('messaggio') ) {
                 var output = $(e).data('messaggio');
                 $(output).html(
                     '<h4><i class="icon-comments"></i> ' + email.oggetto + '</h4>' +
                     '<div class="row-fluid" style="font-size: smaller;">' + 
-                        '<span class="span6"><strong>' + persona + '</strong> <a data-modale="(mostra dettagli)" data-titolo="Dettagli messaggio">' +
-                            '<ul><li><strong>Mittente:</strong> ' + mittente +
-                            '</li><li><strong>Destinatario:</strong> ' + destinatario +
-                            '</li><li><strong>Creato:</strong> <i class="icon-time"></i> ' + new Date(email.timestamp*1000).toLocaleDateString() +
+                        '<span class="span6"><strong>' + $(this).data('persona') + '</strong> <a data-modale="(mostra dettagli)" data-titolo="Dettagli messaggio">' +
+                            '<ul><li><strong>Mittente:</strong> ' + $(this).data('mittente') +
+                            '</li><li><strong>Destinatario:</strong> ' + $(this).data('destinatario') +
+                            '</li><li><strong>Creato:</strong> <i class="icon-time"></i> ' + new Date(email.timestamp*1000).toLocaleString() +
                             '</li><li><strong>Oggetto:</strong> ' + email.oggetto +
                             '</li></ul></a>'+ 
                         '</span>' +
