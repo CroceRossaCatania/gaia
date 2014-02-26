@@ -717,19 +717,20 @@ function _render_utenti() {
 }
 
 function _carica_dati_utente(i, e) {
-    $(e).data('contenuto', $(e).html()); // Salva contenuto...
+    $(e).attr('data-contenuto', $(e).html()); // Salva contenuto...
     //$(e).html('<i class="icon-spin icon-spinner"></i> Carico...');
     var id = $(e).data('utente');
     api('utente', { id: id }, function(x) { _render_utente(e, x.risposta); } );
 }
 
 function _render_utente(elemento, dati) {
-    var testo = '' + $(elemento).data('contenuto');
+    var testo = '' + $(elemento).attr('data-contenuto');
     testo = testo.replace(/{id}/gi,              dati.id);
     testo = testo.replace(/{nome}/gi,            dati.nome);
     testo = testo.replace(/{cognome}/gi,         dati.cognome);
     testo = testo.replace(/{nomeCompleto}/gi,    dati.nomeCompleto);
     testo = testo.replace(/{avatar}/gi,          dati.avatar["20"]);
+    $(elemento).removeAttr('data-utente');
     $(elemento).html(testo);
 }
 
@@ -745,7 +746,7 @@ function _modale_inline(i, e) {
     $(e).attr('role', 'button').data('toggle', 'modal');
     var contenuto = $(e).html();
     $(e).html($(e).data('modale'));
-    $(e).removeData('modale');
+    $(e).removeAttr('data-modale');
     var _mid = 'modale_' + Math.floor( Math.random() * 10000 );
     $(e).attr('href', '#' + _mid);
     $("body").append(
