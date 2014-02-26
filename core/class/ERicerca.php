@@ -35,8 +35,11 @@ class ERicerca {
         $qRisultati = $this->ordinaLimitaQuery($qRisultati);
         $this->risultati = mongo2array($qRisultati);
         $this->totale = (int) $qRisultati->count();
-        $this->pagine = ceil( $this->totale / $this->perPagina );
-
+        $pagine = ceil( $this->totale / $this->perPagina );
+        if($pagine == 0) {
+            $pagine = 1;
+        } 
+        $this->pagine = $pagine;
         $fine = microtime(true);
         $this->tempo = round($fine - $inizio, 6);
         return true;
