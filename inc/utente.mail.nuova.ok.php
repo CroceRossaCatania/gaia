@@ -19,7 +19,7 @@ if (isset($_GET['unit'])) {
             $m->da = $me; 
             $m->a = $_t;
             $m->_TESTO = $testo;
-            $m->invia();
+            $m->accoda();
          }
 
 }elseif (isset($_GET['com'])) {
@@ -31,7 +31,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
                 $m->da = $me; 
                 $m->a = $_t;
                 $m->_TESTO = $testo;
-                $m->invia();
+                $m->accoda();
          }
      }
 }elseif (isset($_GET['mass'])) {
@@ -44,7 +44,7 @@ foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenc
                 $m->a= $volontario;
                 $m->da = $me;
                 $m->_TESTO = $testo;
-                $m->invia();
+                $m->accoda();
             }
     }
     redirect('utente.me&mass');   
@@ -99,7 +99,7 @@ foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenc
         }
         $m->_VAPP = $comitato;
         
-        $m->invia();
+        $m->accoda();
         redirect('utente.me&suppok');
     }
 
@@ -134,7 +134,7 @@ foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $elenc
         $m->_DELEGA = "Il volontario non ha deleghe o non ne sta usando nessuna";
     }
     $m->_BROSWER = $_SERVER['HTTP_USER_AGENT'] . "\n\n";
-    $m->invia();
+    $m->accoda();
     redirect('utente.me&suppok');    
 
 }elseif (isset($_GET['comgio'])) {
@@ -147,7 +147,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]);
                 $m->da = $me; 
                 $m->a = $_t;
                 $m->_TESTO = $testo;
-                $m->invia();
+                $m->accoda();
                 }
          }
      }
@@ -162,7 +162,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]);
             $m->da = $me; 
             $m->a = $_t;
             $m->_TESTO = $testo;
-            $m->invia();
+            $m->accoda();
             }
          }
 
@@ -184,7 +184,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
                 $m->da = $me; 
                 $m->a = $_t;
                 $m->_TESTO = $testo;
-                $m->invia();
+                $m->accoda();
          }
      }
 }elseif (isset($_GET['comquotenoordinari'])) {
@@ -205,7 +205,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
                 $m->da = $me; 
                 $m->a = $_t;
                 $m->_TESTO = $testo;
-                $m->invia();
+                $m->accoda();
          }
      }
 }elseif (isset($_GET['unitquoteno'])) {
@@ -226,7 +226,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         $m->da = $me; 
         $m->a = $_t;
         $m->_TESTO = $testo;
-        $m->invia();
+        $m->accoda();
      }
 
 }elseif (isset($_GET['unitquotenoordinari'])) {
@@ -247,7 +247,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         $m->da = $me; 
         $m->a = $_t;
         $m->_TESTO = $testo;
-        $m->invia();
+        $m->accoda();
      }
 
 }elseif (isset($_GET['comeleatt'])) {
@@ -261,7 +261,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
             $m->da = $me; 
             $m->a = $_t;
             $m->_TESTO = $testo;
-            $m->invia();
+            $m->accoda();
         }
     }
 }elseif (isset($_GET['comelepass'])) {
@@ -275,7 +275,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
                 $m->da = $me; 
                 $m->a = $_t;
                 $m->_TESTO = $testo;
-                $m->invia();
+                $m->accoda();
          }
      }
 }elseif (isset($_GET['uniteleatt'])) {
@@ -289,7 +289,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
             $m->da = $me; 
             $m->a = $_t;
             $m->_TESTO = $testo;
-            $m->invia();
+            $m->accoda();
          }
 
 }elseif (isset($_GET['unitelepass'])) {
@@ -303,7 +303,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
             $m->da = $me; 
             $m->a = $_t;
             $m->_TESTO = $testo;
-            $m->invia();
+            $m->accoda();
          }
 
 }elseif (isset($_GET['gruppo'])) {
@@ -315,7 +315,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
             $m->da = $me; 
             $m->a = $_v;
             $m->_TESTO = $testo;
-            $m->invia();
+            $m->accoda();
          }
 
 }elseif (isset($_GET['estesi'])) {
@@ -327,7 +327,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
             $m->da = $me; 
             $m->a = $_v;
             $m->_TESTO = $testo;
-            $m->invia();
+            $m->accoda();
          }
 
 }elseif (isset($_GET['riserva'])) {
@@ -339,7 +339,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
             $m->da = $me; 
             $m->a = $_v;
             $m->_TESTO = $testo;
-            $m->invia();
+            $m->accoda();
          }
 
 }elseif (isset($_GET['zeroturnicom'])) {
@@ -375,7 +375,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
                 $m->da = $me; 
                 $m->a = $v;
                 $m->_TESTO = $testo;
-                $m->invia();
+                $m->accoda();
             }
         }
     }
@@ -413,7 +413,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
             $m->da = $me; 
             $m->a = $v;
             $m->_TESTO = $testo;
-            $m->invia();
+            $m->accoda();
         }
     }
 
@@ -426,7 +426,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
                 $m->da = $me; 
                 $m->a = $v;
                 $m->_TESTO = $testo;
-                $m->invia();
+                $m->accoda();
         }
     }
 
@@ -439,7 +439,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
             $m->da = $me; 
             $m->a = $v;
             $m->_TESTO = $testo;
-            $m->invia();
+            $m->accoda();
     }
 
 }elseif (isset($_GET['ordinaridimessiunit'])) {
@@ -451,7 +451,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
             $m->da = $me; 
             $m->a = $v;
             $m->_TESTO = $testo;
-            $m->invia();
+            $m->accoda();
     }
 
 }elseif (isset($_GET['ordinaridimessicom'])) {
@@ -463,7 +463,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
                 $m->da = $me; 
                 $m->a = $v;
                 $m->_TESTO = $testo;
-                $m->invia();
+                $m->accoda();
         }
     }
 
@@ -473,7 +473,7 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
     $m->da = $me; 
     $m->a = $v;
     $m->_TESTO = $testo;
-    $m->invia();    
+    $m->accoda();    
 
 }  
 
