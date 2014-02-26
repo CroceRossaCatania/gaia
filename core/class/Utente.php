@@ -179,9 +179,11 @@ class Utente extends Persona {
     
     public function toJSON() {
         return [
-            'id'        =>  $this->id,
-            'nome'      =>  $this->nome,
-            'cognome'   =>  $this->cognome
+            'id'            =>  $this->id,
+            'nome'          =>  $this->nome,
+            'cognome'       =>  $this->cognome,
+            'nomeCompleto'  =>  $this->nomeCompleto(),
+            'avatar'        =>  $this->avatar()->URL()
         ];
     }
 

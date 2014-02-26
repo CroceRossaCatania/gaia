@@ -239,7 +239,8 @@ class APIServer {
             'nome'          =>  $me->nome,
             'cognome'       =>  $me->cognome,
             'codiceFiscale' =>  $me->codiceFiscale,
-            'email'         =>  $me->email
+            'email'         =>  $me->email,
+            'avatar'        =>  $me->avatar()->URL()
         ];
         $r['appartenenze'] = [];
         foreach ( $me->appartenenze() as $app ) {

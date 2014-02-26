@@ -38,7 +38,24 @@ $in = [$m1, $m2, $m3];
     </div>
     <div class="span9">
         <h2><i class="icon-envelope-alt muted"></i> Comunicazioni inviate e ricevute</h2>
+        <hr />  
+        <div class="row-fluid">
+            <div class="span12"
+                 data-posta     ="true"
+                 data-perpagina ="20"
+                 data-completo  ="true"
+                 data-direzione ="ingresso"
+                 data-azioni    ="#azioni_posta"
+            ></div>
+            <div id="azioni_posta" class="nascosto">
+             [AZIONI]
+            </div>
         <hr />
+
+        <div data-utente="218">
+            {nome}, {cognome}, {nomeCompleto}, <img src="{avatar}" />
+        </div>
+
         <div class="row-fluid">
             <div class="span4">
                 <div class="tabbable">

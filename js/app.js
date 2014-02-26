@@ -39,10 +39,10 @@ $(window).ready( function () {
     $("[data-attendere]")       .each( _attendere );
     $("[data-suggerimento]")    .each( _suggerimento );
     $("[data-volontari]")       .each( _tabella );
+    $("[data-posta]")           .each( _posta );
     $("[data-conferma]")        .each( _conferma );
 
-    /* Roba di test per le email*/
-    $("[data-email]")           .each( _email );
+    _render_utenti();
 
     $('.automodal').modal({ keyboard: false, backdrop: 'static' });
     $('.alCambioSalva').change( function () {
@@ -434,10 +434,10 @@ function _tabella_caricamento (e) {
 
 
 /*
- * Roba fuffa che sto facendo per email
+ * Sistema di gestione della posta
  */
- function _email (i, e) {
-    var _eid = 'email_' + Math.floor( Math.random() * 100 );
+ function _posta (i, e) {
+    var _eid = 'posta_' + Math.floor( Math.random() * 100 );
     $(e)
         .addClass('table')
 
@@ -457,44 +457,30 @@ function _tabella_caricamento (e) {
         '</div>'
     );
     $(e).before(x);
-
     $(e).data('eid', _eid);
-    $('#' + _eid + '_ricerca').find('input').change( function(x, y) {
-        //_email_ricerca ( e, $(this).val(), $(this) );
-        _email_ricerca ( e, $(this) );
-    });
     // Avvia senza ricerca...
     //_email_ricerca(e, null, $('#' + _eid + '_ricerca').find('input').first());
-    _email_ricerca(e, $('#' + _eid + '_ricerca').find('input').first());
+    _posta_ricerca(e);
 }
 
-function _email_ricerca ( e, input, pagina ) {
+function _posta_ricerca ( e, pagina ) {
     _tabella_caricamento(e);
-    _tabella_blocca_input(input);
+    //_tabella_blocca_input(input);
     if ( !pagina || pagina < 0 ) {
         pagina = 1;
     }
     var perPagina = $(e).data('perpagina');
     var _eid      = $(e).data('eid');
-    var tipo      = $(e).data('email');
     if (!perPagina) {
         perPagina = 10;
     }
-    if(tipo == 'mittente') {
-        var mittente     = true;
-        var destinatario = false;
-    }
-    if(tipo == 'destinatario') {
-        var mittente     = false;
-        var destinatario = true;
-    }
-    api('email:cerca', {
-        'mittente':     mittente,
-        'destinatario': destinatario,
+    
+    api('posta:cerca', {
+        'direzione':    $(e).data('direzione'),
         'pagina':       pagina,
         'perPagina':    perPagina
     }, function (dati) {
-        _tabella_email_ridisegna(e, dati.risposta, input);
+        _tabella_posta_ridisegna(e, dati.risposta);
          /* Pulsante indietro... */
         if ( pagina == 1 ) {
             $('.' + _eid + '_indietro')
@@ -505,7 +491,7 @@ function _email_ricerca ( e, input, pagina ) {
                 .unbind('click')
                 .removeClass('disabled')
                 .click ( function () {
-                    _email_ricerca(e, input, pagina - 1);
+                    _posta_ricerca(e, pagina - 1);
                 });
         }   
         /* Pulsante avanti... */
@@ -518,7 +504,7 @@ function _email_ricerca ( e, input, pagina ) {
                 .unbind('click')
                 .removeClass('disabled')
                 .click ( function () {
-                    _email_ricerca(e, input, pagina + 1);
+                    _posta_ricerca(e, pagina + 1);
                 });
         }
 
@@ -526,7 +512,7 @@ function _email_ricerca ( e, input, pagina ) {
 
 }
 
-function _tabella_email_ridisegna( e, dati, input ) {
+function _tabella_posta_ridisegna( e, dati, input ) {
     var _eid = $(e).data('eid');
 
     /* Eventuale testo */
@@ -536,10 +522,20 @@ function _tabella_email_ridisegna( e, dati, input ) {
     } else {
         var _testo = '(nessuna azione)';
     }
+
     /* Aggiorna i totali (pagina x di y, tot risultati) */
     $('#' + _eid + '_a').text( dati.pagina );
     $('#' + _eid + '_b').text( dati.pagine );
 
+    $(e).html(
+        '<thead class="allinea-centro">' +
+            '<th>Avatar</th>' +
+            '<th>Messaggio</th>' +
+            '<th>Az.</th>' +
+        '</thead>' +
+        '<tbody>' +
+        '</tbody>'
+    );
     var tbody = $(e).find('tbody');
     $.each( dati.risultati, function (i, email) {
         var nt = _email_sostituzioni(_testo, email);
@@ -547,8 +543,10 @@ function _tabella_email_ridisegna( e, dati, input ) {
             '<tr>' +
                 '<td>' + email.nome + '</td>' +
                 '<td><strong>' + email.oggetto + '</strong</td>' +
+                '<td>' + nt + '</td>' +
             '</tr>'
         );
+        console.log("Aggiunta riga");
     });
     if ( dati.risultati.length == 0 ) {
         $(tbody).append(
@@ -559,13 +557,34 @@ function _tabella_email_ridisegna( e, dati, input ) {
             '</tr>'
         );
     }
-    _tabella_sblocca_input(input);
+    //_tabella_sblocca_input(input);
 }
 
 function _email_sostituzioni (testo, email) {
     testo = testo.replace(/{id}/g,       email.id);
-    testo = testo.replace(/{nome}/g,     email.nome);
-    testo = testo.replace(/{cognome}/g,  email.cognome);
     testo = testo.replace(/{oggetto}/g,  email.oggetto);
     return testo;
+}
+
+
+/**
+ * Rendering utenti 
+ */
+function _render_utenti() {
+    $("[data-utente]").each( _carica_dati_utente );
+}
+
+function _carica_dati_utente(i, e) {
+    var id = $(e).data('utente');
+    api('utente', { id: id }, function(x) { _render_utente(e, x.risposta); } );
+}
+
+function _render_utente(elemento, dati) {
+    var testo = $(elemento).html();
+    testo = testo.replace(/{id}/gi,              dati.id);
+    testo = testo.replace(/{nome}/gi,            dati.nome);
+    testo = testo.replace(/{cognome}/gi,         dati.cognome);
+    testo = testo.replace(/{nomeCompleto}/gi,    dati.nomeCompleto);
+    testo = testo.replace(/{avatar}/gi,          dati.avatar["20"]);
+    $(elemento).html(testo);
 }
