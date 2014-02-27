@@ -15,8 +15,22 @@
 //  b) Non ritorna nessun output se tutto va bene!
 //  c) Non devono esserci piu' istanze in parallelo (controllo interno)
 
+// Controllo di sicurezza
+if ( PHP_SAPI !== 'cli' )
+	die('Non puoi invocare il mailer via webserver.');
+
+// Ottieni un timestamp e codice task per eventuali errori
+$task = rand(10000, 99999);
+$time = date('d-m-Y H:i:s');
+
 // Carica configurazione
 require 'core.inc.php';
+
+// Controlla che il server di cache sia vivo
+if ( !$cache ) {
+	echo "#{$task}, {$time}: Server di cache morto!\n";
+	exit(1);
+}
 
 // Controlla se ci sono sessioni avviate
 // e termina ritornando stato 0 (OK)
@@ -30,10 +44,6 @@ $cache->setTimeout ('gaia:mailer:lock', 120);
 
 // Ottieni cursore alle prossime email da inviare
 $coda = MEmail::inCoda()->limit($conf['batch_size']);
-
-// Ottieni un timestamp e codice task per eventuali errori
-$task = rand(10000, 99999);
-$time = date('d-m-Y H:i:s');
 
 $ok = true;
 
