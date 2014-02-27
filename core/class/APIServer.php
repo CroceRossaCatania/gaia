@@ -116,19 +116,19 @@ class APIServer {
         $this->richiedi(['richieste']);
 
         if ( !is_array($this->par['richieste']) )
-            return [];
+            return ['risultato' => []];
 
         $iniziali = $this->par;
         $r = [];
         foreach ($this->par['richieste'] as $richiesta) {
             $metodo    = $richiesta->metodo;
-            $this->par = $richiesta->parametri;
+            $this->par = (array) $richiesta->parametri;
             $risultato = $this->_esegui($metodo);
             unset($risultato['sessione']);
             $r[]       = $risultato;
         }
         $this->par = $iniziali;
-        return $r;
+        return ['risultato' => $r];
     }
         
     /**

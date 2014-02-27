@@ -737,14 +737,23 @@ function _email_sostituzioni (testo, email) {
  * Rendering utenti 
  */
 function _render_utenti() {
-    $("[data-utente]").each( _carica_dati_utente );
-}
+    var riassunto = [];
+    var richieste = [];
+    $("[data-utente]").each( function(i, e) {
+        var id = $(e).data('utente')
+        $(e).attr('data-contenuto', $(e).html());
+        riassunto.push({elemento: e, id: id});
+        richieste.push({
+            metodo      : 'utente',
+            parametri   : {id: id}
+        });
+    });
 
-function _carica_dati_utente(i, e) {
-    $(e).attr('data-contenuto', $(e).html()); // Salva contenuto...
-    //$(e).html('<i class="icon-spin icon-spinner"></i> Carico...');
-    var id = $(e).data('utente');
-    api('utente', { id: id }, function(x) { _render_utente(e, x.risposta); } , 'CACHE!');
+    api('multi', {richieste: richieste}, function(x) {
+        $(x.risposta.risultato).each( function(i, r) {
+            _render_utente(riassunto[i].elemento, r.risposta);
+        });
+    });
 }
 
 function _render_utente(elemento, dati) {
