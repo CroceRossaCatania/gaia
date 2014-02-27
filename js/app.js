@@ -635,6 +635,12 @@ function _tabella_posta_ridisegna( e, dati, input ) {
             }
 
             destinatario = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '">{nomeCompleto}</span>';
+            if ( email.invio.terminato ) {
+                destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + new Date(email.invio.terminato * 1000).toLocaleString() + ')';
+            } else {
+                destinatario += ' (<i class="icon-time text-warning"></i> in coda di invio)';
+            }
+
 
         } else {
             // AL SUPPORTO
