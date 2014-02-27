@@ -31,8 +31,19 @@ class APIServer {
 
         $this->chiave = APIKey::by('chiave', $chiave);
     }
-    
+
+    /**
+     * Esegue l'azione e torna il JSON
+     */    
     public function esegui( $azione = 'ciao' ) {
+        $output = $this->_esegui($azione);
+        return json_encode($output);
+    }
+
+    /**
+     * Esegue l'azione con i parametri specificati
+     */
+    private function _esegui ( $azione ) {
         $start = microtime(true);
         if (empty($azione)) { $azione = 'ciao'; }
         $azione = str_replace(':', '_', $azione);
@@ -67,7 +78,7 @@ class APIServer {
             'risposta' => $r
         ];
         $this->encoding($output); // UTF-8 safe
-        return json_encode($output);
+        return $output;
     }
 
     /**
@@ -96,6 +107,28 @@ class APIServer {
                 throw $e;
             }
         }
+    }
+
+    /**
+     * Esegui piu' chiamate e ritorna il risultato...
+     */
+    private function api_multi() {
+        $this->richiedi(['richieste']);
+
+        if ( !is_array($this->par['richieste']) )
+            return [];
+
+        $iniziali = $this->par;
+        $r = [];
+        foreach ($this->par['richieste'] as $richiesta) {
+            $metodo    = $richiesta->metodo;
+            $this->par = $richiesta->parametri;
+            $risultato = $this->_esegui($metodo);
+            unset($risultato['sessione']);
+            $r[]       = $risultato;
+        }
+        $this->par = $iniziali;
+        return $r;
     }
         
     /**
