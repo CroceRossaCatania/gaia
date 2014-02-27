@@ -15,11 +15,17 @@
         </a> /
         <a href="?p=presidente.utenti.dimessi">
              dimessi
+        </a> /
+        <a href="?p=presidente.utenti.trasferiti">
+             trasferiti
         </a><br />
         <a href="?p=presidente.utenti.riserve"
             data-attendere="Generazione lista...">
             <i class="icon-list"></i>
             Volontari in riserva
+        </a> /
+        <a href="?p=presidente.utenti.riservepassate">
+             riserve passate
         </a><br />
         <a href="?p=presidente.utenti.giovani"
             data-attendere="Generazione lista...">
@@ -37,7 +43,14 @@
         <a href="?p=presidente.soci">
             <i class="icon-list"></i>
             Elenco Soci
-        </a>
+        </a><br />
+        <a href="?p=presidente.soci.ordinari">
+            <i class="icon-list"></i>
+            Soci Ordinari
+        </a> /
+        <a href="?p=presidente.soci.ordinari.dimessi">
+             dimessi
+        </a><br />
 
     </div>     
 

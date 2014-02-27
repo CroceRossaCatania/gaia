@@ -13,6 +13,10 @@ $u = Utente::id($id);
 $hoPotere = $u->modificabileDa($me);
 $t = TitoloPersonale::filtra([['volontario',$u]]);
 $admin = $me->admin();
+$attivo = true;
+if ($u->stato == PERSONA) {
+  $attivo = false;
+}
 
 proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 ?>
@@ -33,6 +37,11 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <div class="alert alert-danger">
         <i class="icon-warning-sign"></i> <strong>Email già presente</strong>.
         L'email che si sta tentando di sostituire appartiene già ad un altro utente.
+      </div>
+    <?php } elseif(isset($_GET['roba'])) {?>
+      <div class="alert alert-danger">
+        <i class="icon-warning-sign"></i> <strong>Non posso ordinarizzare</strong>.
+        L'utente ha roba in sospeso (deleghe, nomine, attività referenziate, ecc).
       </div>
     <?php } ?>
 
@@ -100,7 +109,9 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
     <!-- fine modale -->
 
-    <?php } ?>
+    <?php } 
+
+    if ($attivo) { ?>
 
     <!--Visualizzazione e modifica avatar utente-->
     <div class="span12">
@@ -133,6 +144,8 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
           <br/>   
         </div> 
       </div>
+
+      <?php } ?>
 
     <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $id; ?>" method="POST">
       <hr />
@@ -230,6 +243,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
          <input value="<?php echo $u->cellulare; ?>"  type="text" id="inputCellulare" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCellulare" pattern="[0-9]{9,11}" />
        </div>
      </div>
+     <?php if($attivo) { ?>
      <div class="control-group input-prepend">
        <label class="control-label" for="inputCellulareServizio">Cellulare Servizio</label>
        <div class="controls">
@@ -237,7 +251,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
          <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCellulareServizio" pattern="[0-9]{9,11}" />
        </div>
      </div>
-
+     <?php } ?>
      <div class="control-group">
       <label class="control-label" for="inputConsenso">Consenso dati personali</label>
       <div class="controls">
@@ -252,18 +266,43 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
      </div>
    </div>
 
+   <?php if($admin) { ?>
+   <div class="control-group">
+        <label class="control-label" for="inputStato">Stato</label>
+        <div class="controls">
+          <select class="input-medium" id="inputStato" name="inputStato" required>
+            <?php
+            foreach ( $conf['statoPersona'] as $numero => $tipo ) { 
+              if($tipo != 'Nessuno') {?>
+            <option value="<?php echo $numero; ?>" <?php if ( $numero == $u->stato ) { ?>selected<?php } ?>><?php echo $tipo; ?></option>
+            <?php }
+            } ?>
+          </select>  
+        </div>
+      </div>
+   <?php } ?>
+
    <?php if($hoPotere) { ?>
    <hr />
    <div class="form-actions">
-    <button type="submit" class="btn btn-success btn-large">
-      <i class="icon-save"></i>
-      Salva modifiche
-    </button>
+     <div class="btn-group">
+      <button type="submit" class="btn btn-success btn-large">
+        <i class="icon-save"></i>
+        Salva modifiche
+      </button>
+      <?php if ($admin) { ?>
+      <a onClick="return confirm('Vuoi veramente far diventare un ordinario questo utente?');" 
+        href="?p=admin.ordinarizza&id=<?php echo $id; ?>" class="btn btn-warning btn-large">
+        <i class="icon-hand-down"></i> Ordinarizza
+      </a>
+      <?php }?>
+    </div>
   </div>
   <?php } ?>
 </form>    
 </div>
 <!--Visualizzazione e modifica appartenenze utente -->
+<?php if($attivo) { ?>
 <div class="span6">
   <div class="row-fluid">
     <div class="span112">
@@ -459,6 +498,8 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
     </table>
   </div>
+
+  <!-- Blocco storico -->
   <div class="row-fluid">
     <h4>
       <i class="icon-ellipsis-horizontal muted"></i>
@@ -474,10 +515,15 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
     <a class="btn" target="_new" href="?p=presidente.appartenenze.storico&id=<?php echo $u->id; ?>">
       <i class="icon-time"></i> Storico appartenenze
     </a>
+    <a class="btn" target="_new" href="?p=us.quote.visualizza&id=<?php echo $u->id; ?>">
+      <i class="icon-money"></i> Storico quote
+    </a>
 
   </div>
-
 </div>
+
+
+
 <!--Visualizzazione e modifica titoli utente-->
 <?php $titoli = $conf['titoli']; ?>
 <div class="span6">
@@ -641,4 +687,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <?php } ?>
     </table>
   </div>
+  <?php } ?>
 </div>
+
+

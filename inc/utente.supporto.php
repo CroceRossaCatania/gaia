@@ -4,6 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
+paginaPrivata();
 caricaSelettore();
 
 ?>
@@ -64,7 +65,11 @@ caricaSelettore();
     <div class="control-group">
       <label class="control-label" for="inputTesto">Testo</label>
       <div class="controls">
-        <textarea rows="8" class="input-xlarge conEditor" type="text" id="inputTesto" name="inputTesto" placeholder="Descrivi il tuo problema. Sii descrittivo!"><?php echo $a->descrizione; ?></textarea>
+        <textarea rows="8" class="input-xlarge conEditor" type="text" id="inputTesto" name="inputTesto" placeholder="Descrivi il tuo problema. Sii descrittivo!"><?php
+        if ( isset($_GET['errore']) ) {
+          echo "(Descrivi qui il problema. Per favore sii descrittivo.)<br/><br/>Rif. errore codice {$_GET['errore']}.";
+        }
+        ?></textarea>
       </div>
     </div>
     <div class="form-actions">

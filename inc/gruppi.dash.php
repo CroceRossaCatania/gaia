@@ -129,7 +129,12 @@ foreach ($gruppi as $gruppo){
                                 </a>
                         <?php } ?>
                         <form class="pull-right" action="?p=gruppi.utente.aggiungi&id=<?php echo $gruppo->id; ?>" method="POST" style="margin-bottom: 0px;">
-                            <a data-selettore="true" data-input="volontari" data-autosubmit="true" data-multi="true" class="btn btn-small btn-success">
+                            <a data-selettore="true" 
+                               data-input="volontari" 
+                               data-autosubmit="true" 
+                               data-multi="true" 
+                               data-comitati="<?php echo $g->comitato; ?>"
+                               class="btn btn-small btn-success">
                                 <i class="icon-plus"></i>
                                 Aggiungi volontari
                             </a>

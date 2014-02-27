@@ -1,15 +1,14 @@
 <?php  
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 $parametri = array('v', 'turno');
 controllaParametri($parametri);
 
 $v = $_GET['v'];
-$turno = $_GET['turno'];
-$turno = Turno::id($turno);
+$turno = Turno::id($_GET['turno']);
 
 $comitato = $turno->Attivita()->comitato();
 

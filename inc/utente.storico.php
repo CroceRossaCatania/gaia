@@ -23,6 +23,18 @@ paginaPrivata();
             La tua riserva è stata terminata con successo.
         </div>
         <?php } ?>
+        <?php if ( isset($_GET['err']) ) { ?>
+        <div class="alert alert-danger">
+            <i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.<br />
+            L'operazione che hai tentato di eseguire non è andata a buon fine, per favore riprova.
+        </div>
+        <?php } ?>
+                <?php if ( isset($_GET['quotaAnn']) ) { ?>
+        <div class="alert alert-danger">
+            <i class="icon-warning-sign"></i> <strong>Quota annullata</strong>.<br />
+            Stai cercando di visualizzare una quota che è stata in precedenza annullata.
+        </div>
+        <?php } ?>
         <div class="row-fluid">
             <h2>
                 <i class="icon-time muted"></i>
@@ -85,6 +97,8 @@ paginaPrivata();
         </table>
     </div>
 
+    <!-- VISUALIZZAZIONE DELLE QUOTE -->
+
     <?php if ( $me->quote() ){ ?>
     <div class="row-fluid">
         <h2>
@@ -98,8 +112,6 @@ paginaPrivata();
         <table class="table table-bordered table-striped">
             <thead>
                 <th>N.</th>
-                <th>Nome</th>
-                <th>Cognome</th>
                 <th>Comitato</th>
                 <th>Data versamento</th>
                 <th>Quota</th>
@@ -107,16 +119,27 @@ paginaPrivata();
             </thead>
             <?php foreach ( $me->quote() as $_q ){ ?>
             <tr>
-                <td><?= $_q->id; ?></td>
-                <td><?= $_q->volontario()->nome; ?></td>
-                <td><?= $_q->volontario()->cognome; ?></td>
-                <td><?= $_q->comitato()->nomeCompleto(); ?></td>
-                <td><?= date('d/m/Y', $_q->timestamp); ?></td>
-                <td><?= $_q->quota ,"€"; ?></td>
+                <td><?= $_q->progressivo(); ?></td>
+                <td><?= $_q->comitato()->locale()->nomeCompleto(); ?></td>
+                <td><?= $_q->dataPagamento()->inTesto(false); ?></td>
                 <td>
-                    <a class="btn btn-small btn-info" href="?p=us.quote.ricevuta&id=<?= $_q->id; ?>" title="Visualizza ricevuta">
+                    <?php if ($_q->benemerita()) { 
+                        echo('€ ' . soldi($_q->quota)); 
+                        ?>
+                        <i class="icon-thumbs-up-alt"></i> Sostenitore
+                    <?php } else { 
+                        echo('€ ' . soldi($_q->quota));
+                    } ?>
+                </td>
+                <td>
+                    <?php if(!$_q->annullata()) { ?>
+                    <a class="btn btn-small btn-info" href="?p=utente.quote.ricevuta&id=<?= $_q->id; ?>" title="Visualizza ricevuta">
                         <i class="icon-paperclip"></i> Ricevuta
                     </a>
+                    <?php } else { ?>
+                        Annullata da <?= $_q->annullatore()->nomeCompleto(); ?>
+                        il giorno <?= $_q->dataAnnullo()->format('d/m/Y'); ?>
+                    <?php }?>
                 </td>
             </tr>
             <?php } ?>

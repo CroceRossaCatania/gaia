@@ -5,10 +5,11 @@
  */
 
 /* Svuota eventuali variabili di sessioni */
-$sessione->attenzione = null;
-$sessione->adminMode  = null;
-$sessione->barcode	  = null;
-$sessione->rimandaPrivatizzazione = null;
+$sessione->attenzione 				= null;
+$sessione->adminMode  				= null;
+$sessione->barcode	  				= null;
+$sessione->ambito		  			= null;
+$sessione->rimandaPrivatizzazione 	= null;
 $sessione->logout();
 
 ?>

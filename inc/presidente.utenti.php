@@ -35,6 +35,11 @@ menuElenchiVolontari(
         <h4><i class="icon-exclamation-sign"></i> Si è verificato un problema</h4>
         <p>La richiesta di attivazione dell'account non è andata a buon fine.</p>
     </div>
+    <?php } elseif(isset($_GET['nonpuoi'])) { ?>
+    <div class="alert alert-block alert-error">
+        <h4><i class="icon-exclamation-sign"></i> Si è verificato un problema</h4>
+        <p>Non puoi dimettere un volontario di cui non sei direttamente il presidente.</p>
+    </div>
     <?php } elseif(isset($_GET['emailDiff'])) { ?>
     <div class="alert alert-block alert-error">
         <h4><i class="icon-exclamation-sign"></i> Inserite email differenti</h4>
@@ -59,9 +64,9 @@ menuElenchiVolontari(
                 <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" target="_new" title="Dettagli">
                     <i class="icon-eye-open"></i> Dettagli
                 </a>
-                <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id={id}" title="Stampa tesserino">
+                <!--<a class="btn btn-small btn-info" href="?p=us.tesserini.p&id={id}" title="Stampa tesserino">
                     <i class="icon-barcode"></i> Tesserino
-                </a>
+                </a>-->
                 <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&id={id}" title="Dimetti Volontario">
                     <i class="icon-ban-circle"></i> Dimetti
                 </a>

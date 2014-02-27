@@ -5,9 +5,16 @@ var s_autosubmit = false;
 var selezione = [];
 var dataInput = '';
 var origElem = '';
+var geoPolitica = '';
 
     $(document).ready( function() {
         $("[data-selettore]").each( function( i, e ) {
+            if ( typeof $(e).data('comitati') == 'undefined') {
+              geoPolitica = false;
+            } else {
+              geoPolitica = $(e).data('comitati');
+            } 
+
             $(e).click( function() {
                 
                 s_multi = false;
@@ -35,55 +42,7 @@ var origElem = '';
             });
         });
         
-        $("#selettoreCerca").keyup( function() {
-            var query = $("#selettoreCerca").val();
-            if ( query.length < 1 ) { $("#selettoreRisultati").html(''); return; }
-            api('volontari:cerca', {query: query, perPagina: 80, ordine: 'selettore'}, function( x ) {
-               $("#selettoreRisultati").html('');
-               if ( x.risposta.length < 1 ) {
-                   $("#selettoreRisultati").html('<span class="text-warning"><i class="icon-warning-sign"></i> Nessun volontario trovato.</span>');
-               }
-               for ( var i in x.risposta.risultati ) {
-                   var stringa = '';
-                   stringa += "<div data-id='" + x.risposta.risultati[i].id + "' data-nome='" + x.risposta.risultati[i].nome + "' class='collaMano'>";
-                   stringa += "<i class='icon-plus'></i> <span class='grassetto'>" + x.risposta.risultati[i].nome + " " + x.risposta.risultati[i].cognome + "</span> (";
-                   stringa += "<span class='muted'>" + x.risposta.risultati[i].comitato.nome + "</span>)</div>";
-                   
-                   $(stringa).appendTo("#selettoreRisultati").click(function() {
-                       var _id, _nome;
-                       _id = $(this).data('id');
-                       _nome = $(this).data('nome');
-                       if (jQuery.inArray(_id, selezione) != -1 ) { return; } // Gia presente
-                       
-                       if ( !s_multi && selezione.length == 1 ) {
-                           alert('Non puoi scegliere più di un volontario.');
-                           return;
-                       }
-                       
-                       selezione.push(_id);
-                       
-                       $("#nvs").hide();
-                       $("#uvs").show();
-                       
-                        var stringa = '';
-                        stringa += "<div data-id='" + _id + "' data-sel='true' data-nome='" + _nome + "' class='collaMano ctr'>";
-                        stringa += "<i class='icon-remove'></i> <span class='grassetto'>" + _nome + "</span>";
-                        stringa += "</div>";
-                   
-                       $(stringa).appendTo("#selettoreSelezione").click( function() {
-                           selezione.splice( $.inArray(_id, selezione), 1 ); // Rimuove
-                           $(this).remove();
-                           if ( selezione.length == 0 ) {
-                               $("#nvs").show();
-                               $("#uvs").hide();
-                           }
-                       });
-                       
-                       
-                   });
-               } 
-            });
-        });
+        $("#selettoreCerca").keyup(keyupRicerca);
         
         $("#selettoreSalva").click( function() {
             // Rimuove già esistenti.
@@ -118,6 +77,73 @@ var origElem = '';
             }
         });
     });
+
+var _ultimaRicerca = null;
+function keyupRicerca() {
+    window.clearTimeout(_ultimaRicerca);
+    $(".icona-ricerca").removeClass().addClass("icon-time");
+    var query = $("#selettoreCerca").val();
+    if ( query.length < 1 ) { $("#selettoreRisultati").html(''); return; }
+    _ultimaRicerca = setTimeout( function() {
+    $(".icona-ricerca").removeClass().addClass("icon-spin").addClass("icon-spinner");
+    api('volontari:cerca', {query: query, perPagina: 80, ordine: 'selettore', comitati: geoPolitica}, function( x ) {
+        if ( $("#selettoreCerca").val() != x.richiesta.parametri.query ) {
+          return false;
+        }
+          
+         $("#selettoreRisultati").html('');
+         if ( x.risposta.length < 1 ) {
+             $("#selettoreRisultati").html('<span class="text-warning"><i class="icon-warning-sign"></i> Nessun volontario trovato.</span>');
+         }
+         for ( var i in x.risposta.risultati ) {
+             var stringa = '';
+             stringa += "<div data-id='" + x.risposta.risultati[i].id + "' data-nome='" + x.risposta.risultati[i].nome + "' class='collaMano'>";
+             stringa += "<i class='icon-plus'></i> <span class='grassetto'>" + x.risposta.risultati[i].nome + " " + x.risposta.risultati[i].cognome + "</span> (";
+             stringa += "<span class='muted'>" + x.risposta.risultati[i].comitato.nome + "</span>)</div>";
+             
+             $(stringa).appendTo("#selettoreRisultati").click(function() {
+                 var _id, _nome;
+                 _id = $(this).data('id');
+                 _nome = $(this).data('nome');
+                 if (jQuery.inArray(_id, selezione) != -1 ) { return; } // Gia presente
+                 
+                 if ( !s_multi && selezione.length == 1 ) {
+                     alert('Non puoi scegliere più di un volontario.');
+                     return;
+                 }
+                 
+                 selezione.push(_id);
+                 
+                 $("#nvs").hide();
+                 $("#uvs").show();
+                 
+                  var stringa = '';
+                  stringa += "<div data-id='" + _id + "' data-sel='true' data-nome='" + _nome + "' class='collaMano ctr'>";
+                  stringa += "<i class='icon-remove'></i> <span class='grassetto'>" + _nome + "</span>";
+                  stringa += "</div>";
+             
+                 $(stringa).appendTo("#selettoreSelezione").click( function() {
+                     selezione.splice( $.inArray(_id, selezione), 1 ); // Rimuove
+                     $(this).remove();
+                     if ( selezione.length == 0 ) {
+                         $("#nvs").show();
+                         $("#uvs").hide();
+                     }
+                 });
+                 
+                 
+             });
+         }
+
+         $(".icona-ricerca").removeClass().addClass("icon-search");
+         return true;
+
+      });
+
+  // setTimeout
+  }, 600);
+
+}
 </script>
     
 <div id="selettoreVolontari" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="selettoreVolontari" aria-hidden="true">
@@ -132,7 +158,7 @@ var origElem = '';
              
               <div class="input-prepend">
                   <span class="add-on">
-                      <i class="icon-search"></i>
+                      <i class="icon-search icona-ricerca"></i>
                   </span>
                   <input class="span9 allinea-centro" id="selettoreCerca" placeholder="Cerca per nome, cognome..." />
               </div>

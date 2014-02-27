@@ -82,6 +82,14 @@ body {
 	border-radius: 5px;
 }
 
+.riga-cliccabile {
+  cursor: pointer;
+}
+
+.riga-cliccabile:hover {
+  background-color: #eee !important;
+}
+
 
 .container-narrow {
 	margin: 0 auto;
@@ -221,8 +229,9 @@ body {
 	/* CELL */
     @media (max-width: 767px) {
 
-      .navbar-inner {
-        margin: -20px;
+      .navbar {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
       }
 
       .carousel {
@@ -362,4 +371,21 @@ body {
 #navigatoreMobileSelect {
     font-weight: bold;
     margin: auto;
+}
+
+.aspiranti_contatore {
+    font-size: 8.5em; 
+    line-height: 1em;
+    text-shadow: 3px 3px 0px white;
+}
+
+.aspiranti_descrizione {
+    font-size: 2em;
+    text-transform: uppercase;
+}
+
+.quote_contatore {
+    font-size: 6.5em; 
+    line-height: 1em;
+    text-shadow: 3px 3px 0px white;
 }

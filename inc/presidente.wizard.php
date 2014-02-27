@@ -50,6 +50,8 @@ proteggiClasse($c, $me);
       <p>Fai molta attenzione nell'inserire Codice Fiscale e Partita IVA in quanto una volta inseriti
       non potrai modificarli manualmente. In caso di errore nell'inserimento manda una email a 
       supporto@gaia.cri.it per richiederne la correzione.</p>
+      <p>Se il tuo Comitato ha il solo Codice Fiscale e non la  Partita IVA inserisci solamente il Codice Fiscale, 
+      non inserire dati errati nel campo della Partita IVA.
     </div>
 
     
@@ -91,13 +93,13 @@ proteggiClasse($c, $me);
           <div class="control-group">
             <label class="control-label" for="inputCFl">Codice Fiscale</label>
             <div class="controls">
-              <input type="text" name="inputCF" id="inputCF" value="<?php echo $c->cf(); ?>" <?php if($c->cf() && !$me->admin()) echo("readonly") ?> <?php if (! $me->admin()) echo "required"; ?> />
+              <input type="text" name="inputCF" id="inputCF" value="<?php echo $c->cf(); ?>" <?php if($c->cf() && !$me->admin()) echo("readonly") ?> <?php if (! $me->admin()) echo "required"; ?> pattern="[0-9]{11}" />
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="inputPIVA">Partita IVA</label>
             <div class="controls">
-              <input type="text" name="inputPIVA" id="inputPIVA" value="<?php echo $c->piva(); ?>" <?php if($c->piva() && !$me->admin()) echo("readonly") ?> <?php if (! $me->admin()) echo "required"; ?> />
+              <input type="text" name="inputPIVA" id="inputPIVA" value="<?php echo $c->piva(); ?>" <?php if($c->piva() && !$me->admin()) echo("readonly") ?>  pattern="[0-9]{11}" />
             </div>
           </div>
           <?php } ?>

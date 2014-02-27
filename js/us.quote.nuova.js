@@ -1,23 +1,13 @@
 $(document).ready( function() {
- 
-$("#inputData").datepicker();
-
-$('#inputQuota').bind('change', function(event) {
-
-           var i= $('#inputQuota').val();
-
-            if(i==0)
-             {
-                 $('#inputCausale').show();
-                 $('#causale').show();
-                 $('#inputImporto').show();
-                 $('#importo').show();
-             }else{
-                 $('#inputCausale').hide();
-                 $('#causale').hide();
-                 $('#inputImporto').hide();
-                 $('#importo').hide();
-             }
-});
-    
+ 	var min = $("#inputData").attr('data-inizio');
+    var max = $("#inputData").attr('data-fine');
+    var x = max.split('/');
+    var date = new Date(x[2], x[0], x[1]);
+    if (date > new Date()) {
+    	max = new Date();
+    }
+    $("#inputData").datepicker({
+    	minDate: min,
+    	maxDate: max
+    });
 });
