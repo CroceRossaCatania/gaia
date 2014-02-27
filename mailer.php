@@ -11,7 +11,7 @@
 //
 // Giusto un paio di regole:
 //  a) Deve essere avviato DA CRONJOB, con:
-//     * * * * * php {...}/mailer.php >> {...}/mailer.log
+//     * * * * * php {...}/mailer.php | tee -a {...}/mailer.log
 //  b) Non ritorna nessun output se tutto va bene!
 //  c) Non devono esserci piu' istanze in parallelo (controllo interno)
 
