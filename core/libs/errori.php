@@ -28,7 +28,8 @@ $conf['errori'] = [
 	1014	=>	'API KEY non valida, disattiva, oppure limite richieste giornaliero superato',
     1015    =>  'Nessuna delegazione selezionata o delegazione non valida',
     1016    =>  'Accesso negato: Nessun permesso di accesso al ramo specificato',
-    1017    =>  'Errore di connessione al sistema di distribuzione email desiderato'
+    1017    =>  'Errore di connessione al sistema di distribuzione email desiderato',
+    1018    =>  'Email impossibile da inviare: nessun destinatario con indirizzo email'
 ];
 
 
