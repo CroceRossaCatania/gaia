@@ -15,10 +15,6 @@
 //  b) Non ritorna nessun output se tutto va bene!
 //  c) Non devono esserci piu' istanze in parallelo (controllo interno)
 
-// Controllo di sicurezza
-if ( php_sapi_name() !== 'cli' )
-	die('Non puoi invocare il mailer via webserver.');
-
 // Ottieni un timestamp e codice task per eventuali errori
 $task = rand(10000, 99999);
 $time = date('d-m-Y H:i:s');
