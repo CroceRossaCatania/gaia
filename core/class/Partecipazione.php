@@ -37,6 +37,24 @@ class Partecipazione extends Entita {
         return (bool) $this->stato == AUT_OK;
     }
 
+    public function toJSON() {
+        global $conf;
+        $a = [];
+        foreach ( $autorizzazioni as $_a) {
+            $a[] = $_a->toJSON();
+        }
+        return [
+            'id'        =>  $this->id,
+            'turno'     =>  $this->turno()->toJSON(),
+            'attivita'  =>  $this->turno()->attivita,
+            'stato'     =>  [
+                'id'        =>  (int) $this->stato,
+                'nome'      =>  $conf['partecipazione'][$this->stato]
+            ],
+            'autorizzazioni'    =>  $a
+        ];
+    }
+
     public function aggiornaStato() {
         $stato = AUT_OK;
         foreach ( $this->autorizzazioni() as $a ) {
