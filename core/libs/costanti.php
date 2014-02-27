@@ -670,3 +670,12 @@ $conf['partecipazioneBase'] = [
     ISCR_SUPERATO       =>  'Superato',  
     ISCR_BOCCIATO       =>  'Non superato',
 ];  
+
+/*
+ * ===================================
+ * ============ POSTA ================
+ * ===================================
+ */
+
+define('POSTA_INGRESSO',        0);
+define('POSTA_USCITA',          1);

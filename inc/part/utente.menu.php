@@ -88,7 +88,9 @@ $menu += [
     'Volontario'    =>  [
         'utente.anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
         'utente.storico'    =>  '<i class="icon-time"></i> Storico',
-        'utente.documenti'  =>  '<i class="icon-folder-open"></i> Documenti'
+        'utente.documenti'  =>  '<i class="icon-folder-open"></i> Documenti',
+        'utente.posta'     =>   '<i class="icon-envelope-alt"></i> Posta'
+
         
     ]];
     if ($me->unComitato()) {
@@ -109,10 +111,6 @@ $menu += [
         'utente.titoli&t=2' =>  '<i class="icon-ambulance"></i> Patenti CRI',
         'utente.titoli&t=3' =>  '<i class="icon-beaker"></i> Titoli di studio',
         'utente.titoli&t=4' =>  '<i class="icon-plus-sign-alt"></i> Titoli CRI'
-    ],
-    'Comunicazioni' =>  [
-        'utente.email'     =>   '<i class="icon-envelope-alt"></i> Email',
-        'utente.cellulare' =>   '<i class="icon-phone"></i> Cellulare'
     ],
     'Impostazioni' =>  [
         'utente.password'     =>   '<i class="icon-key"></i> Password'

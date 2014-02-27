@@ -116,11 +116,10 @@ class Comitato extends GeoPolitica {
     }
 
     public function membriGiovani() {
-        $t = time()-GIOVANI;
         $v = $this->membriAttuali();
         $r = [];
         foreach ($v as $_v) {
-            if ($t <= $_v->dataNascita)
+            if ($_v->giovane())
                 $r[] = $_v;
         }
         return $r;

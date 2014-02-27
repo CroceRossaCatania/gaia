@@ -28,7 +28,7 @@ $sessione->emailServizio = minuscolo($_POST['inputemailServizio']);
             </div>
         </div>
         <div class="modal-footer">
-          <a href="?p=utente.email" class="btn">Annulla</a>
+          <a href="?p=utente.contatti" class="btn">Annulla</a>
          <button type="submit" class="btn btn-success">
               <i class="icon-save"></i> Salva cambiamenti
           </button>

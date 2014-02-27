@@ -58,12 +58,28 @@ class Avatar extends Entita {
     	}
     }
 
+    /**
+     * Ritorna sempre una immagine all'avatar o placeholder
+     */
     public function img( $dimensione ) {
         if ( is_readable( $this->file($dimensione) ) ) {
             return $this->file($dimensione);
         } else {
             return "./upload/avatar/placeholder/$dimensione.jpg";
         }
+    }
+
+    /**
+     * Ritorna una array associativo di URL assoluti per avatar
+     */
+    public function URL() {
+        global $conf;
+        $r = [];
+        foreach ( $conf['avatar'] as $dv => $dim ) {
+            $p      = $this->img($dv);
+            $r[$dv] = "https://gaia.cri.it/{$p}";
+        }
+        return $r;
     }
     
     public function cancella () {

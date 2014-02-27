@@ -7,24 +7,25 @@
 class Email {
     
     private
-            $db = null,
-            $sostituzioni = [],
-            $allegati = [],
-            $modello = '';
+            $sostituzioni   = [],
+            $allegati       = [],
+            $modello        = '';
     
     public
-            $a = null,
-            $oggetto = '',
-            $da = null;
+            $a          = null,
+            $oggetto    = '',
+            $da         = null;
     
     public function __construct ( $modello, $oggetto ) {
-        global $db;
-        $this->db = $db;
-        if ( !file_exists('./core/conf/mail/modelli/' . $modello .'.html') ) {
+        if ( !file_exists(static::_file_modello($modello)) ) {
             throw new Errore(1012);
         }
         $this->oggetto = $oggetto;
         $this->modello = $modello;
+    }
+
+    protected static function _file_modello($modello) {
+        return "./core/conf/mail/modelli/{$modello}.html";
     }
     
     public function __set($nome, $valore) {
@@ -34,62 +35,117 @@ class Email {
     public function allega(File $f) {
         $this->allegati[] = $f;
     }
-    
-    public function invia($quoted = null) {
-        global $conf; 
-        $oggetto    = $this->oggetto;
-        if ( !$this->a ) {
-            $this->a = new stdClass;
-            $this->a->nome = $conf['default_email_nome'];
-            $this->a->email = $conf['default_email_email'];
-        }
-        $email = $this->a->email;
-        
+
+    /**
+     * Costruisce il corpo, effettua sostituzioni e ritorna
+     * @return string Corpo del messaggio in HTML
+     */
+    protected function _costruisci_corpo() {
         $header     = file_get_contents('./core/conf/mail/header.html');
         $footer     = file_get_contents('./core/conf/mail/footer.html');
-        $corpo      = file_get_contents('./core/conf/mail/modelli/' . $this->modello . '.html');
+        $corpo      = file_get_contents(static::_file_modello($this->modello));
         foreach ( $this->sostituzioni as $nome => $valore ) {
             $corpo = str_replace($nome, $valore, $corpo);
         }
-        $corpo  = "<html>" . $header . $corpo . $footer . "</html>" . "\n";
-
-        if ( $this->da ) {
-            if ( $this->da instanceOf Persona ) {
-                $da = $this->da->nome . ' ' . $this->da->cognome . ' <' . $this->da->email() . '>';
-            } else {
-                $da = $this->da;
-            }
-        } else {
-            $da = 'Croce Rossa Italiana <supporto@gaia.cri.it>';
-        }
-        $toHash = $corpo . $email . time();
-        $hash = hash('md5', $toHash);
-        $header =[
-            'Subject'       =>  $oggetto,
-            'From'          =>  'Croce Rossa Italiana <noreply@gaia.cri.it>',
-            'Reply-to'      =>  $da,
-            'MIME-Version'  =>  '1.0',
-            'Date'          =>  date('r', time()),
-            'Message-ID'    => '<' . $hash . '@gaia.cri.it>',
-            'To'            =>  $this->a->nome . ' <' . $email . '>'
-        ];
-        require_once './core/class/Mail/mime.php';
-        require_once './core/class/Mail/mimePart.php';
-        $mailer = Mail::factory('smtp', $conf['smtp']);
-        $mime = new Mail_mime("\n");
-        $mime->setHTMLBody($corpo);
-        foreach ( $this->allegati as $allegato ) {
-            if (!$quoted) {
-                $mime->addAttachment($allegato->percorso(), $allegato->mime, $allegato->nome);
-            } else {
-                $mime->addAttachment($allegato->percorso(), $allegato->mime, $allegato->nome, true, 'quoted-printable');
-            }
-        }
-        $corpo = $mime->get();
-        $header = $mime->headers($header);
-        return $mailer->send($email, $header, $corpo);
-        
+        $corpo  = 
+            "<html>
+                {$header}
+                {$corpo}
+                {$footer}
+            </html>\n";
+        return $corpo;
     }
-    
+
+    /** 
+     * Costruisce il destinatario (come oggetto) e ritorna
+     * @return Oggetto del destinatario
+     */
+    protected function _costruisci_destinatari() {
+        if ( $this->a === null ) {
+            // NESSSUN DESTINATARIO
+            return true;    // TRUE = SUPPORTO
+
+        } elseif ( is_array($this->a) ) {
+            // DESTINATARI MULTIPLI
+            $d = [];
+            foreach ( $this->a as $k ) {
+                $d[] = [
+                    'id'        =>  (int) $k->id,
+                    'inviato'   =>  false
+                ];
+            }
+            return $d;
+
+        } else {
+            // SINGOLO DESTINATARIO?
+            $this->a = [$this->a];
+            return $this->_costruisci_destinatari();
+        }
+    }
+
+    /**
+     * Costruisce il mittente (come oggetto oppure null) e ritorna
+     * @return Oggetto del mittente 
+     */
+    protected function _costruisci_mittente() {
+        if ( $this->da ) {
+            return [
+                'id'    =>  (int) $this->da->id
+            ];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Costruisce gli allegati (come array) e ritorna
+     * @return Array Gli allegati
+     */
+    protected function _costruisci_allegati() {
+        if ( $this->allegati ) {
+            $r = [];
+            foreach ( $this->allegati as $a ) {
+                $r[] = [
+                    'id'    =>  $a->id,
+                    'nome'  =>  $a->nome
+                ];
+            }
+            return $r;
+
+        } else {
+            return [];
+        }
+    }
+
+    /**
+     * Accoda ed invia rapidamente l'email desiderata
+     * @return bool Operazione riuscita?
+     */
+    public function invia() {
+        return $this->accoda()->invia();
+
+    }
+
+    /**
+     * Salva questa Email sul database (relativa MEntita)
+     * @return MEmail creata
+     */
+    public function accoda() {
+
+        $x = new MEmail;
+        $x->timestamp   = (int) time();
+        $x->oggetto     = $this->oggetto;
+        $x->corpo       = $this->_costruisci_corpo();
+        $x->mittente    = $this->_costruisci_mittente();
+        $x->allegati    = $this->_costruisci_allegati();
+        $x->destinatari = $this->_costruisci_destinatari();
+        $x->invio       = [
+            'iniziato'  =>  false,
+            'terminato' =>  false
+        ];
+        return $x;
+
+    }
+
      
 }

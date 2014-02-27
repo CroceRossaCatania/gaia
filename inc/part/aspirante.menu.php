@@ -14,7 +14,9 @@ $menu += [
     ],
     'Aspirante'    =>  [
         'utente.anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
-        'aspirante.localita' => '<i class="icon-map-marker"></i> Dove ti trovi?'       
+        'aspirante.localita' => '<i class="icon-map-marker"></i> Dove ti trovi?',
+        'utente.posta'     =>   '<i class="icon-envelope-alt"></i> Posta'
+    
     ],
     'Comunicazioni' =>  [
         'utente.email'     =>   '<i class="icon-envelope-alt"></i> Email',

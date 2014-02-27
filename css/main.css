@@ -82,6 +82,14 @@ body {
 	border-radius: 5px;
 }
 
+.riga-cliccabile {
+  cursor: pointer;
+}
+
+.riga-cliccabile:hover {
+  background-color: #eee !important;
+}
+
 
 .container-narrow {
 	margin: 0 auto;

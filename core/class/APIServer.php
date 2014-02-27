@@ -55,7 +55,8 @@ class APIServer {
         } catch (Errore $e) {
             $r = $e->toJSON();
         } 
-        return json_encode([
+
+        $output = [
             'richiesta'  => [
                 'metodo'        =>  $azione,
                 'parametri'     =>  $this->par,
@@ -64,13 +65,27 @@ class APIServer {
             'tempo'    => round(( microtime(true) - $start ), 6),
             'sessione' => $this->sessione->toJSON(),
             'risposta' => $r
-        ]);
+        ];
+        $this->encoding($output); // UTF-8 safe
+        return json_encode($output);
+    }
+
+    /**
+     * Effettua dovuti controlli di encoding sull'output
+     */
+    private function encoding(&$output) {
+        array_walk_recursive ($output, function (&$a) {
+            if (is_string ($a)) {
+                $a = utf8_encode ($a);
+            }
+        });
     }
         
     private function richiediLogin() {
         if ( !$this->sessione->utente ) {
             throw new Errore(1010);
         }
+        return $this->sessione->utente();
     }
 
     private function richiedi ( $campi ) {
@@ -196,8 +211,7 @@ class APIServer {
     
     public function api_attivita_dettagli() {
         $this->richiedi(['id']);
-        $this->richiediLogin();
-        $me = $this->sessione->utente();
+        $me = $this->richiediLogin();
         $a = Attivita::id($this->par['id']);
         $t = [];
         foreach ( $a->turni() as $turno ) {
@@ -219,8 +233,7 @@ class APIServer {
 
     public function api_turno_partecipa() {
         $this->richiedi(['id']);
-        $this->richiediLogin();
-        $me = $this->sessione->utente();
+        $me = $this->richiediLogin();
         $t = Turno::id($this->par['id']);
         return [
             'ok' => $t->chiediPartecipazione($me)
@@ -234,14 +247,14 @@ class APIServer {
     }
     
     public function api_io() {
-        $this->richiediLogin();
-        $me = $this->sessione->utente();
+        $me = $this->richiediLogin();
         $r = [];
         $r['anagrafica'] = [
             'nome'          =>  $me->nome,
             'cognome'       =>  $me->cognome,
             'codiceFiscale' =>  $me->codiceFiscale,
-            'email'         =>  $me->email
+            'email'         =>  $me->email,
+            'avatar'        =>  $me->avatar()->URL()
         ];
         $r['appartenenze'] = [];
         foreach ( $me->appartenenze() as $app ) {
@@ -339,7 +352,7 @@ class APIServer {
     }
 
     public function api_volontari_cerca() {
-        $this->richiediLogin();
+        $me = $this->richiediLogin();
         $r = new Ricerca();
 
         /* Ordini personalizzati per vari usi */
@@ -354,8 +367,6 @@ class APIServer {
             ) {
             $r->ordine = $ordini[$this->par['ordine']];
         }
-
-        $me = $this->sessione->utente();
 
         // versione modificata per #867
         if ($this->par['comitati']) {
@@ -406,6 +417,43 @@ class APIServer {
             'perPagina' =>  $r->perPagina,
             'risultati' =>  $risultati
         ];
+        return $risposta;
+
+    }
+
+    public function api_posta_cerca() {
+        $me = $this->richiediLogin();
+
+        $r = new ERicerca();
+
+        if ( $this->par['direzione'] == 'ingresso' ) {
+            $r->direzione       = POSTA_INGRESSO;
+        } else {
+            $r->direzione       = POSTA_USCITA;
+        }
+
+        // Posso guardare solamente la mia posta, perche' si'
+        $r->casella             = $me->id;
+
+        if ( $this->par['pagina'] ) {
+            $r->pagina = (int) $this->par['pagina'];
+        }
+
+        if ( $this->par['perPagina'] ) {
+            $r->perPagina = (int) $this->par['perPagina'];
+        }
+        
+        $r->esegui();
+        
+        $risposta = [
+            'tempo'     =>  $r->tempo,
+            'totale'    =>  $r->totale,
+            'pagina'    =>  $r->pagina,
+            'pagine'    =>  $r->pagine,
+            'perPagina' =>  $r->perPagina,
+            'risultati' =>  $r->risultati
+        ];
+
         return $risposta;
 
     }

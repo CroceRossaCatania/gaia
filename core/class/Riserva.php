@@ -52,14 +52,12 @@ class Riserva extends Entita {
         $this->rispondi(RISERVA_AUTO, null, true);
         $v = $this->volontario();
         $destinatari = [$v, $v->unComitato()->unPresidente];
-        foreach ($destinatari as $destinatario) {
-            $m = new Email('richiestaRiservaAuto', 'Approvata richiesta riserva');          
-            $m->a = $destinatario;
-            $m->_NOME       = $v->nome;
-            $m->_INIZIO = date('d/m/Y', $this->inizio);
-            $m->_FINE = date('d/m/Y', $this->fine);
-            $m->invia();
-        }
+        $m = new Email('richiestaRiservaAuto', 'Approvata richiesta riserva');          
+        $m->a = $destinatari;
+        $m->_NOME       = $v->nome;
+        $m->_INIZIO = date('d/m/Y', $this->inizio);
+        $m->_FINE = date('d/m/Y', $this->fine);
+        $m->accoda();
     }
     
     /* Riserva è ancora attuale? */
@@ -117,15 +115,12 @@ class Riserva extends Entita {
         $destinatari = [$v, $v->unComitato()->unPresidente];
         $this->fine = time();
         $this->stato = RISERVA_ANN;
-        foreach ($destinatari as $destinatario) {
-            $m = new Email('richiestaRiservaAnnullamento', 'Annullata richiesta riserva');          
-            $m->a = $destinatario;
-            $m->_NOME = $v->nomeCompleto();
-            $m->_INIZIO = date('d/m/Y', $r->inizio);
-            $m->_FINE = date('d/m/Y', $r->fine);
-            $m->invia();
-        }
-
+        $m = new Email('richiestaRiservaAnnullamento', 'Annullata richiesta riserva');          
+        $m->a = $destinatari;
+        $m->_NOME = $v->nomeCompleto();
+        $m->_INIZIO = date('d/m/Y', $r->inizio);
+        $m->_FINE = date('d/m/Y', $r->fine);
+        $m->accoda();
     }
 }
 ?>

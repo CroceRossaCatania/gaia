@@ -70,14 +70,12 @@ class Estensione extends Entita {
         $a = Appartenenza::id($a);
         $v = $a->volontario();
         $destinatari = [$v, $a->comitato()->unPresidente(), $v->unComitato()->unPresidente()];
-        foreach ($destinatari as $destinatario) {
-            $m = new Email('richiestaEstensioneauto', 'Richiesta estensione approvata: ' . $a->comitato()->nome);
-            $m->a = $destinatario;
-            $m->_NOME       = $a->volontario()->nomeCompleto();
-            $m->_COMITATO   = $a->comitato()->nomeCompleto();
-            $m-> _TIME = date('d/m/Y', $this->timestamp);
-            $m->invia();
-        }
+        $m = new Email('richiestaEstensioneauto', 'Richiesta estensione approvata: ' . $a->comitato()->nome);
+        $m->a = $destinatari;
+        $m->_NOME       = $v->nomeCompleto();
+        $m->_COMITATO   = $a->comitato()->nomeCompleto();
+        $m-> _TIME = date('d/m/Y', $this->timestamp);
+        $m->accoda();
     }
 
     public function termina() {
@@ -145,13 +143,11 @@ class Estensione extends Entita {
 
         // mando email per avvisare dello spiacevole evento :o(
         $destinatari = [$v, $app->comitato()->unPresidente(), $v->unComitato()->unPresidente()];
-        foreach ($destinatari as $destinatario) {
-            $m = new Email('richiestaEstensioneConclusa', 'Termine estensione: ' . $app->comitato()->nome);
-            $m->a = $destinatario;
-            $m->_NOME       = $app->volontario()->nomeCompleto();
-            $m->_COMITATO   = $app->comitato()->nomeCompleto();
-            $m->invia();
-        }
+        $m = new Email('richiestaEstensioneConclusa', 'Termine estensione: ' . $app->comitato()->nome);
+        $m->a = $destinatari;
+        $m->_NOME       = $app->volontario()->nomeCompleto();
+        $m->_COMITATO   = $app->comitato()->nomeCompleto();
+        $m->accoda();
     }
 
     public static function daAutorizzare() {
@@ -214,13 +210,12 @@ class Estensione extends Entita {
         $v = $this->volontario();
 
         $destinatari = [$v, $this->comitato()->unPresidente(), $v->unComitato()->unPresidente()];
-        foreach ($destinatari as $destinatario) {
-            $m = new Email('richiestaEstensioneAnnullamento', 'Annullata richiesta estensione');          
-            $m->a = $destinatario;
-            $m->_NOME = $v->nomeCompleto();
-            $m->_COMITATO = $this->comitato()->nomeCompleto();
-            $m->invia();
-        }
+
+        $m = new Email('richiestaEstensioneAnnullamento', 'Annullata richiesta estensione');          
+        $m->a = $destinatari;
+        $m->_NOME = $v->nomeCompleto();
+        $m->_COMITATO = $this->comitato()->nomeCompleto();
+        $m->invia();
     }
         
 }

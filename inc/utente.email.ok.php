@@ -9,17 +9,17 @@ $newemailservizio = $sessione->emailServizio;
 $password = $_POST['inputPassword'];
 
 if(!$me->login($password)){
-    redirect('utente.email&pass');
+    redirect('utente.contatti&emailpass');
 }
 
 if($newemail && $newemail != $me->email) {
     if (Utente::by('email', $newemail) ) {
-        redirect('utente.email&ep');
+        redirect('utente.contatti&emailep');
     }else{
         /* Genera codice di validazione */
         $codice = Validazione::generaValidazione($me, VAL_MAIL, $newemail);
         if(!$codice){
-            redirect('utente.email&gia');
+            redirect('utente.contatti&emailgia');
         }
 
         /* Stratagemma per mandare la mail al nuovo indirizzo e validarlo */
@@ -36,7 +36,7 @@ if($newemail && $newemail != $me->email) {
         $e->invia();
 
         $me->email = $email;
-        redirect('utente.email&ok');
+        redirect('utente.contatti&emailok');
     }
 }
 
@@ -45,12 +45,12 @@ if($me->stato == VOLONTARIO
     && $newemailservizio != $me->emailservizio) {
     
     if(Utente::by('email', $newemailservizio)){
-        redirect('utente.email&ep');
+        redirect('utente.contatti&emailep');
     }else{
         /* Genera codice di validazione */
         $codice = Validazione::generaValidazione($me, VAL_MAILS, $newemailservizio);
         if(!$codice){
-            redirect('utente.email&gia');
+            redirect('utente.contatti&emailgia');
         }
 
         /* Stratagemma per mandare la mail al nuovo indirizzo e validarlo */
@@ -67,8 +67,8 @@ if($me->stato == VOLONTARIO
         $e->invia();
 
         $me->email = $email;
-        redirect('utente.email&ok');
+        redirect('utente.contatti&emailok');
     }
 }
 
-redirect('utente.email&ep');
+redirect('utente.contatti&emailep');
