@@ -16,7 +16,7 @@
 //  c) Non devono esserci piu' istanze in parallelo (controllo interno)
 
 // Controllo di sicurezza
-if ( PHP_SAPI !== 'cli' )
+if ( php_sapi_name() !== 'cli' )
 	die('Non puoi invocare il mailer via webserver.');
 
 // Ottieni un timestamp e codice task per eventuali errori
