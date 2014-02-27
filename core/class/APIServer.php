@@ -63,6 +63,7 @@ class APIServer {
                 'data'          =>  (new DT())->toJSON()
             ],
             'tempo'    => round(( microtime(true) - $start ), 6),
+            'query'    => (int) $this->db->numQuery,
             'sessione' => $this->sessione->toJSON(),
             'risposta' => $r
         ];

@@ -27,11 +27,12 @@ abstract class REntita {
 
     public function __construct ( $id = null ) {
         global $cache, $conf;
+        $this->cache = $cache;
         /* Check esistenza */
         if ( self::_esiste($id) ) {
             // Esiste, tutto ok
             $this->id = $id;
-            
+
         } elseif ( $id === null ) {
             /* Creazione nuovo */
             $this->_crea();
@@ -39,9 +40,22 @@ abstract class REntita {
         } else {
             /* Errore non esistente! */
             $e = new Errore(1003);
-            $e->extra = static::$_t. ':' . $id;
+            $e->extra = static::_prefisso(). ':' . $id;
             throw $e;
         }
+    }
+
+    /**
+     * Imposta scadenza all'entita' in secondi
+     */
+    public function impostaScadenza($secondi) {
+        $secondi = (int) $secondi;
+        $chiavi = $this->cache->keys("{$this->_prefisso()}:{$this->id}:*");
+        foreach ( $chiavi as $chiave ) {
+            $this->cache->setTimeout($chiave, $secondi);
+        }
+        $this->cache->setTimeout("{$this->_prefisso()}:{$this->id}", $secondi);
+        return true;
     }
 
     /**
@@ -65,8 +79,10 @@ abstract class REntita {
      * @return array            Array di oggetti
      */
     public static function elenco($ordine = '') {
+        global $cache;
         $r = [];
-        $chiavi = $this->cache->keys("{$this->_prefisso()}:*");
+        $prefisso = static::_prefisso();
+        $chiavi = $cache->keys("{$prefisso}:*");
         foreach ( $chiavi as $chiave ) {
             $id = explode(':', $chiave);
             $r[] = static::id($id[1]);
@@ -108,7 +124,6 @@ abstract class REntita {
      */
     protected function _crea () { 
         global $me;
-
         $this->id = $this->generaId();
         return $this->cache->set(
             "{$this->_prefisso()}:{$this->id}",
@@ -118,7 +133,7 @@ abstract class REntita {
     
     public function __get ( $_nome ) {
         return $this->cache->get(
-            "{$this->_prefisso()}:{$this->id}:{$_nome}",
+            "{$this->_prefisso()}:{$this->id}:{$_nome}"
         );
         return $r;
     }
@@ -126,8 +141,8 @@ abstract class REntita {
 
     public function __set ( $_nome, $_valore ) {
         if ( $_valore === null ) {
-            $this->delete(
-                "{$this->_prefisso()}:{$this->id}:{$_nome}",
+            $this->cache->delete(
+                "{$this->_prefisso()}:{$this->id}:{$_nome}"
             );
         } else {
             $this->cache->set(

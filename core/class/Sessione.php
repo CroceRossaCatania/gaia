@@ -4,12 +4,8 @@
  * ©2012 Croce Rossa Italiana
  */
 
-class Sessione extends Entita {
+class Sessione extends REntita {
     
-    protected static
-            $_t  = 'sessioni',
-            $_dt = 'datiSessione',
-            $_cacheable = false;        // Non memorizzare in cache!
     
     public function __construct ( $id = null ) {
         try {
@@ -39,25 +35,16 @@ class Sessione extends Entita {
         $this->utente = null;
     }
     
-    protected function generaId() {
-        do {
-            $n = sha1( microtime() . rand(100, 999) ) . rand(100, 999);
-        } while (self::_esiste($n));
-        return $n;
-    }
-    
     public function touch() {
+        global $conf;
         $this->azione = time();
+        $this->impostaScadenza($conf['sessioni']['durata']);
     }
     
     public function valida() {
-        global $conf;
-        if ( $this->azione + $conf['sessioni']['durata'] < time() ) {
-            /* $this->cancella(); */
-            return false;
-        } else {
-            return true;
-        }
+        // Mantenuto per retrocompatibilita'.
+        // Se esiste, infatti, la sessione e' valida.
+        return true;
     }
     
     public function toJSON () {
@@ -75,20 +62,6 @@ class Sessione extends Entita {
                 $this->azione + $conf['sessioni']['durata'] 
             )->toJSON()
         ];
-    }
-    
-    
-    public static function scadute() {
-        global $db, $conf;
-        $q = $db->prepare("
-            SELECT id FROM sessioni WHERE azione <= :massimo ");
-        $q->bindValue(':massimo', time() - $conf['sessioni']['durata']);
-        $q->execute();
-        $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = new Sessione($k[0]);
-        }
-        return $r;
     }
     
 }

@@ -68,12 +68,7 @@ function cronjobGiornaliero()  {
 
 
     /* === 2. CANCELLA SESSIONI SCADUTE DA DATABASE */
-    $n = 0;
-    foreach ( Sessione::scadute() as $s ) {
-        $s->cancella(); $n++;
-    }
-    $log .= "Cancellate $n sessioni scadute\n";
-
+    // Rimosso, ora sessioni sta in redis...
 
     /* === 3. AUTORIZZO ESTENSIONI DOPO 30 GG E NOTIFICO AL VOLONTARIO*/
     $n = 0;
