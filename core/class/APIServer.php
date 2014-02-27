@@ -55,7 +55,8 @@ class APIServer {
         } catch (Errore $e) {
             $r = $e->toJSON();
         } 
-        return json_encode([
+
+        $output = [
             'richiesta'  => [
                 'metodo'        =>  $azione,
                 'parametri'     =>  $this->par,
@@ -64,7 +65,20 @@ class APIServer {
             'tempo'    => round(( microtime(true) - $start ), 6),
             'sessione' => $this->sessione->toJSON(),
             'risposta' => $r
-        ]);
+        ];
+        $this->encoding($output); // UTF-8 safe
+        return json_encode($output);
+    }
+
+    /**
+     * Effettua dovuti controlli di encoding sull'output
+     */
+    private function encoding(&$output) {
+        array_walk_recursive ($output, function (&$a) {
+            if (is_string ($a)) {
+                $a = utf8_encode ($a);
+            }
+        });
     }
         
     private function richiediLogin() {
