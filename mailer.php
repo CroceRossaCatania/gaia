@@ -52,7 +52,7 @@ foreach ( $coda as $_comunicazione ) {
 	// Tenta l'invio della comunicazione
 	if ( !$stato = (int) $_comunicazione->invia() )
 		echo "#{$task}, {$time}: Invio non riuscito," .
-		     " comunicazione {$comunicazione}" .
+		     " comunicazione {$_comunicazione}" .
 			 " (stato {$stato})\n";
 
 	$ok &= (bool) $stato;
