@@ -6,7 +6,7 @@
 
 require 'core.inc.php';
 
-if ( PHP_SAPI !== 'cli' )
+if ( php_sapi_name() !== 'cli' )
 	die('Non puoi invocare lo stress test via webserver.');
 
 if ( $argc < 3 )
