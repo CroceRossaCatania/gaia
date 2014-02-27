@@ -68,12 +68,7 @@ function cronjobGiornaliero()  {
 
 
     /* === 2. CANCELLA SESSIONI SCADUTE DA DATABASE */
-    $n = 0;
-    foreach ( Sessione::scadute() as $s ) {
-        $s->cancella(); $n++;
-    }
-    $log .= "Cancellate $n sessioni scadute\n";
-
+    // Rimosso, ora sessioni sta in redis...
 
     /* === 3. AUTORIZZO ESTENSIONI DOPO 30 GG E NOTIFICO AL VOLONTARIO*/
     $n = 0;
@@ -122,15 +117,7 @@ function cronjobGiornaliero()  {
     Validazione::chiudi();
     $log .= "Chiuse le validazioni scadute\n";
 
-    /* === 11. RESETTA CONTATORI PER API KEYS */
-    $n = 0;
-    foreach ( APIKey::elenco() as $c ) {
-        $n++;
-        $c->oggi = 0;
-    }
-    $log .= "Resettati limiti giornalieri di {$n} chiavi API\n";
-
-    /* === 12. RIMUOVE ERRORI VECCHI DI UNA SETTIMANA */
+    /* === 11. RIMUOVE ERRORI VECCHI DI UNA SETTIMANA */
     $n = MErrore::pulisci();
     $log .= "Cancellati log di {$n} errori in database\n";
     

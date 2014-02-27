@@ -69,18 +69,30 @@ class Email {
             // DESTINATARI MULTIPLI
             $d = [];
             foreach ( $this->a as $k ) {
+
+                // Destinatario senza email?
+                if ( !$k->email )
+                    continue;
+
                 $d[] = [
                     'id'        =>  (int) $k->id,
                     'inviato'   =>  false
                 ];
             }
+
+            if ( empty($d) ) 
+                throw new Errore(1018);
+            
             return $d;
 
-        } else {
+        } elseif ( $this->a->email ) {
             // SINGOLO DESTINATARIO?
             $this->a = [$this->a];
             return $this->_costruisci_destinatari();
+        } else {
+            throw new Errore(1018);
         }
+
     }
 
     /**

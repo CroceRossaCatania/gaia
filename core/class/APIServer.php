@@ -31,8 +31,19 @@ class APIServer {
 
         $this->chiave = APIKey::by('chiave', $chiave);
     }
-    
+
+    /**
+     * Esegue l'azione e torna il JSON
+     */    
     public function esegui( $azione = 'ciao' ) {
+        $output = $this->_esegui($azione);
+        return json_encode($output);
+    }
+
+    /**
+     * Esegue l'azione con i parametri specificati
+     */
+    private function _esegui ( $azione ) {
         $start = microtime(true);
         if (empty($azione)) { $azione = 'ciao'; }
         $azione = str_replace(':', '_', $azione);
@@ -67,7 +78,7 @@ class APIServer {
             'risposta' => $r
         ];
         $this->encoding($output); // UTF-8 safe
-        return json_encode($output);
+        return $output;
     }
 
     /**
@@ -75,7 +86,7 @@ class APIServer {
      */
     private function encoding(&$output) {
         array_walk_recursive ($output, function (&$a) {
-            if (is_string ($a)) {
+            if (is_string($a) && !mb_check_encoding($a, 'UTF-8')) {
                 $a = utf8_encode ($a);
             }
         });
@@ -97,7 +108,32 @@ class APIServer {
             }
         }
     }
+
+    /**
+     * Esegui piu' chiamate e ritorna il risultato...
+     */
+    private function api_multi() {
+        $this->richiedi(['richieste']);
+
+        if ( !is_array($this->par['richieste']) )
+            return [];
+
+        $iniziali = $this->par;
+        $r = [];
+        foreach ($this->par['richieste'] as $richiesta) {
+            $metodo    = $richiesta->metodo;
+            $this->par = $richiesta->parametri;
+            $risultato = $this->_esegui($metodo);
+            unset($risultato['sessione']);
+            $r[]       = $risultato;
+        }
+        $this->par = $iniziali;
+        return $r;
+    }
         
+    /**
+     * Richiesta di ping
+     */
     private function api_ciao() {
         global $conf;
         return [
@@ -109,14 +145,20 @@ class APIServer {
             'documentazione'            =>  $conf['documentazione']
         ];
     }
-        
-    public function api_utente() {
+    
+    /**
+     * Dettagli utente attuale
+     */
+    private function api_utente() {
         $this->richiedi(['id']);
         $u = Utente::id($this->par['id']);
         return $u->toJSON();
     }
 
-    public function api_login() {
+    /**
+     * Ritorna un url di login
+     */
+    private function api_login() {
         $this->sessione->logout();
         $sid = $this->sessione->id;
 
@@ -138,15 +180,21 @@ class APIServer {
         ];
     }
     
-    public function api_logout() {
+    /**
+     * Effettua il logout
+     */
+    private function api_logout() {
         $this->richiediLogin();
         $this->sessione->logout();
         return [
             'ok' =>  true
         ];
     }
-    
-    public function api_titoli_cerca() {
+
+    /**
+     * Ricerca titoli per nome
+     */    
+    private function api_titoli_cerca() {
         $t = [];
         if (!isset($this->par['t'])) { $this->par['t'] = -1; }
         foreach ( Titolo::cerca($this->par['query'], $this->par['t']) as $titolo ) {
@@ -155,7 +203,10 @@ class APIServer {
         return $t;
     }
 
-    public function api_attivita() {
+    /**
+     * Elenco turni nel tempo
+     */
+    private function api_attivita() {
         global $conf;
         $inizio = DT::daISO($this->par['inizio']);
         $fine   = DT::daISO($this->par['fine']);
@@ -206,10 +257,12 @@ class APIServer {
                 'url'           =>  'https://gaia.cri.it/?p=attivita.scheda&id=' . $attivita->id . '#'. $turno->id
             ];
         }
-        return $r;
+        return [
+            'turni'  => $r
+        ];
     }
     
-    public function api_attivita_dettagli() {
+    private function api_attivita_dettagli() {
         $this->richiedi(['id']);
         $me = $this->richiediLogin();
         $a = Attivita::id($this->par['id']);
@@ -231,7 +284,7 @@ class APIServer {
         ];
     }
 
-    public function api_turno_partecipa() {
+    private function api_turno_partecipa() {
         $this->richiedi(['id']);
         $me = $this->richiediLogin();
         $t = Turno::id($this->par['id']);
@@ -239,25 +292,55 @@ class APIServer {
             'ok' => $t->chiediPartecipazione($me)
         ];
     }
-    
-    public function api_geocoding() {
+
+    private function api_partecipazioni() {
+        $me = $this->richiediLogin();
+        $r = [];
+        foreach ( $me->partecipazioni() as $p ) {
+            $r[] = $p->toJSON();
+        }
+        return $r;
+    }
+
+    private function api_partecipazione_ritirati() {
+        $me = $this->richiediLogin();
+        $this->richiedi(['id']);
+        $t = Partecipazione::id($this->par['id']);
+        if ( $t->volontario() == $me ) {
+            $ok = true;
+            $t->ritira();
+        } else {
+            $ok = false;
+        }
+        return [
+            'ok'    =>  $ok
+        ];
+    }
+
+    private function api_geocoding() {
         $this->richiedi(['query']);
         $g = new Geocoder($this->par['query']);
         return $g->risultati;
     }
     
-    public function api_io() {
+    private function api_io() {
+        global $conf;
         $me = $this->richiediLogin();
         $r = [];
         $r['anagrafica'] = [
-            'nome'          =>  $me->nome,
-            'cognome'       =>  $me->cognome,
-            'codiceFiscale' =>  $me->codiceFiscale,
-            'email'         =>  $me->email,
-            'avatar'        =>  $me->avatar()->URL()
+            'nome'              =>  $me->nome,
+            'cognome'           =>  $me->cognome,
+            'sesso'             =>  $conf['sesso'][$me->sesso],
+            'codiceFiscale'     =>  $me->codiceFiscale,
+            'email'             =>  $me->email,
+            'emailServizio'     =>  $me->emailServizio,
+            'dataNascita'       =>  date('d/m/Y', $me->dataNascita),
+            'cellulare'         =>  $me->cellulare,
+            'cellulareServizio' =>  $me->cellulareServizio,
+            'avatar'            =>  $me->avatar()->URL()
         ];
         $r['appartenenze'] = [];
-        foreach ( $me->appartenenze() as $app ) {
+        foreach ( $me->appartenenzeAttuali() as $app ) {
             $r['appartenenze'][] = [
                 'id'        =>  $app->id,
                 'comitato'  =>  [
@@ -265,22 +348,33 @@ class APIServer {
                     'nome'  =>  $app->comitato()->nome
                 ],
                 'inizio'    =>  $app->inizio()->toJSON(),
-                'fine'      =>  $app->fine()->toJSON(),
                 'stato'     =>  [
-                    'id'    =>  $app->stato,
+                    'id'    =>  (int) $app->stato,
                     'nome'  =>  $conf['membro'][$app->stato]
-                ],
-                'attuale'   =>  $app->attuale()
+                ]
+            ];
+        }       
+        $r['delegazioni'] = [];
+        foreach ( $me->delegazioni() as $d ) {
+            $r['delegazioni'][] = [
+                'id'        =>  $d->id,
+                'comitato'  =>  $d->comitato()->oid(),
+                'inizio'    =>  $d->inizio()->toJSON(),
+                'app'       =>  [
+                    'id'        =>  (int) $d->applicazione,
+                    'dominio'   =>  (int) $d->dominio,
+                    'nome'      =>  $conf['applicazioni'][$d->applicazione]
+                ]
             ];
         }
         return $r;
     }
         
-    public function api_comitati() {
+    private function api_comitati() {
         return GeoPolitica::ottieniAlbero();
     }
     
-    public function api_autorizza() {
+    private function api_autorizza() {
         $this->richiedi(['id']);
         $this->richiediLogin();
         $aut = Autorizzazione::id($this->par['id']);
@@ -329,7 +423,7 @@ class APIServer {
         return $aut;
     }
     
-    public function api_scansione() {
+    private function api_scansione() {
         $this->richiediLogin();
         $this->richiedi(['code']);
         $a = Volontario::by('codiceFiscale', $this->par['code']);
@@ -340,7 +434,7 @@ class APIServer {
         ];
     }
 
-    public function api_area_cancella() {
+    private function api_area_cancella() {
         $this->richiediLogin();
         $this->richiedi(['id']);
         $area = Area::id($this->par['id']);
@@ -351,7 +445,7 @@ class APIServer {
         return true;
     }
 
-    public function api_volontari_cerca() {
+    private function api_volontari_cerca() {
         $me = $this->richiediLogin();
         $r = new Ricerca();
 
@@ -421,7 +515,7 @@ class APIServer {
 
     }
 
-    public function api_posta_cerca() {
+    private function api_posta_cerca() {
         $me = $this->richiediLogin();
 
         $r = new ERicerca();

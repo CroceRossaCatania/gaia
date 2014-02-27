@@ -37,6 +37,24 @@ class Partecipazione extends Entita {
         return (bool) $this->stato == AUT_OK;
     }
 
+    public function toJSON() {
+        global $conf;
+        $a = [];
+        foreach ( $autorizzazioni as $_a) {
+            $a[] = $_a->toJSON();
+        }
+        return [
+            'id'        =>  $this->id,
+            'turno'     =>  $this->turno()->toJSON(),
+            'attivita'  =>  $this->turno()->attivita,
+            'stato'     =>  [
+                'id'        =>  (int) $this->stato,
+                'nome'      =>  $conf['partecipazione'][$this->stato]
+            ],
+            'autorizzazioni'    =>  $a
+        ];
+    }
+
     public function aggiornaStato() {
         $stato = AUT_OK;
         foreach ( $this->autorizzazioni() as $a ) {
@@ -139,6 +157,21 @@ class Partecipazione extends Entita {
                 ['volontario', $this->volontario()]
                 ]);
 
+    }
+
+    public function ritira() {
+        $v = $this->volontario();
+        $m = new Email('volontarioRitirato', 'Un volontario si è ritirato');
+        $m->a = $this->attivita()->referente();
+        $m->_NOME           = $this->attivita()->referente()->nome;
+        $m->_VOLONTARIO     = $v->nomeCompleto();
+        $m->_ATTIVITA       = $this->attivita()->nome;
+        $m->_TURNO          = $this->turno()->nome;
+        $m->_DATA           = $this->turno()->inizio()->inTesto();
+        $m->invia();
+        $v->numRitirati = ( (int) $v->numRitirati ) + 1;
+        $this->cancella();
+        return true;
     }
 
 }

@@ -13,19 +13,7 @@ if (!isset($_POST['partecipazione'])) {
 
 $pk = $_POST['partecipazione'];
 $pk = Partecipazione::id($pk);
-
-$m = new Email('volontarioRitirato', 'Un volontario si è ritirato');
-$m->a = $pk->attivita()->referente();
-$m->_NOME           = $pk->attivita()->referente()->nome;
-$m->_VOLONTARIO     = $me->nomeCompleto();
-$m->_ATTIVITA       = $pk->attivita()->nome;
-$m->_TURNO          = $pk->turno()->nome;
-$m->_DATA           = $pk->turno()->inizio()->inTesto();
-$m->invia();
-
-$me->numRitirati = ( (int) $me->numRitirati ) + 1;
-$pk->cancella();
-
+$pk->ritira();
 
 ?>
 

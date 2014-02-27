@@ -95,7 +95,7 @@ $chiavi = APIKey::elenco();
 					<input 
 							type="number" class="input-mini"
 							readonly="readonly"
-							value="<?php echo (int) $chiave->oggi; ?>" 
+							value="<?php echo (int) $chiave->oggi(); ?>" 
 						/>
 					/
 					<input 

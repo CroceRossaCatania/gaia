@@ -34,6 +34,18 @@ class Autorizzazione extends Entita {
             return false;
         }
     }
+
+    public function toJSON() {
+        global $conf;
+        return [
+            'id'        =>  $this->id,
+            'stato'     =>  [
+                'id'        =>  (int) $this->stato,
+                'nome'      =>  $conf['autorizzazione'][$this->stato]
+            ],
+            'volontario'=>  $this->volontario()->toJSON()
+        ];
+    }
     
     public function concedi() {
         return $this->aggiorna(AUT_OK);

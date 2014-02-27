@@ -11,7 +11,13 @@ class APIKey extends Entita {
         $_dt = null;
 
     public function aggiorna() {
-    	$this->oggi = (int) $this->oggi + 1;
+    	global $cache;
+        $cache->incr("apikey:{$this->id}:hits");
+    }
+
+    public function oggi() {
+        global $cache;
+        return (int) $cache->get("apikey:{$this->id}:hits");
     }
 
     public function limite() {
@@ -28,7 +34,7 @@ class APIKey extends Entita {
     public function usabile() {
     	if ( !$this->attiva() )		// Chiave attiva?
 			return false;
-		if ( $this->limite() && $this->oggi > $this->limite() )	// Limite superato?
+		if ( $this->limite() && $this->oggi() > $this->limite() )	// Limite superato?
 			return false;
 		return true;
     }
