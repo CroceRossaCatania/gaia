@@ -75,7 +75,7 @@ class APIServer {
      */
     private function encoding(&$output) {
         array_walk_recursive ($output, function (&$a) {
-            if (is_string ($a)) {
+            if (is_string($a) && !mb_check_encoding($a, 'UTF-8')) {
                 $a = utf8_encode ($a);
             }
         });
