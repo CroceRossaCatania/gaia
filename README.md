@@ -52,3 +52,14 @@ sh scripts/configurazione-base.sh
 gaia
 ```
 Basterà dirigersi su (http://localhost:8888/) per accedere alla propria installazione.
+
+#### Crontab
+
+Per il corretto funzionamento dell'applicazione e del sistema di posta, modificare il proprio crontab (es.: con `crontab -e`), come segue:
+```bash
+# Cronjob notturno (manutenzione e azioni automatiche)
+0 1 * * * cd ~/gaia && php cronjob.php > /dev/null
+
+# Ogni 1-5 minuti (smaltimento coda di invio)
+* * * * * cd ~/gaia && php mailer.php | tee -a upload/log/mailer.log
+```
