@@ -50,13 +50,16 @@ $ok = true;
 // Per ogni comunicazione in copia
 foreach ( $coda as $_comunicazione ) {
 
+	// Instanzia oggetto
+	$_comunicazione = MEmail::object($_comunicazione);
+
 	// Tenta l'invio della comunicazione
-	if ( !$stato = $comunicazione->invia() )
+	if ( !$stato = (int) $_comunicazione->invia() )
 		echo "#{$task}, {$time}: Invio non riuscito," .
 		     " comunicazione {$comunicazione}" .
 			 " (stato {$stato})\n";
 
-	$ok &= $stato;
+	$ok &= (bool) $stato;
 
 	// Evita il timeout per altri 5 secondi
 	$cache->setTimeout('gaia:mailer:lock', 5);

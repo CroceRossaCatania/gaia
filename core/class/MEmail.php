@@ -173,7 +173,7 @@ class MEmail extends MEntita {
 		foreach ( $this->destinatari as $dest ) {
 
 			// Salta se gia' inviato!
-			if ( $dest['inviato'] )
+			if ( $dest['inviato'] && $dest['ok'] )
 				continue;
 
 			$utente = Utente::id($dest['id']);
