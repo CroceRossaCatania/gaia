@@ -111,6 +111,9 @@ class Locale extends GeoPolitica {
 
     public function piva($inTesto = false) {
         $piva = $this->piva;
+        if (!$piva && $this->nome == $this->superiore()->nome) {
+            $piva = $this->superiore()->piva();
+        }
         if ($this->nome == "Comitato Provinciale di Trento"
             or $this->nome == "Comitato Provinciale di Bolzano")
             $piva = PIVA;
@@ -122,6 +125,9 @@ class Locale extends GeoPolitica {
 
     public function cf($inTesto = false) {
         $cf = $this->cf;
+        if (!$cf && $this->nome == $this->superiore()->nome) {
+            $cf = $this->superiore()->cf();
+        }
         if ($this->nome == "Comitato Provinciale di Trento"
             or $this->nome == "Comitato Provinciale di Bolzano")
             $cf = CF;

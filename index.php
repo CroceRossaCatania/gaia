@@ -276,7 +276,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     <li><a href="?p=admin.cache"><i class="icon-cloud"></i> Cache</a></li>  
                                     <li><a href="?p=admin.chiavi"><i class="icon-code"></i> API Keys</a></li>
                                     <li><a href="?p=admin.errori"><i class="icon-bug"></i> Bugs</a></li>  
-                                    <li><a href="?p=admin.buttafuori" data-conferma="Resettare tutte le sessioni?"><i class="icon-signout"></i> Butta fuori</a></li>   
+                                    <li><a href="?p=admin.buttafuori" data-conferma="Resettare tutte le sessioni?"><i class="icon-signout"></i> Butta fuori</a></li>  
+                                    <li><a href="?p=admin.errori"><i class="icon-warning-sign"></i> Gestore errori</a></li>  
                                 </ul>
                             </div>
                             <?php } ?>

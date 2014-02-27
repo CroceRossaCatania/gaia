@@ -258,7 +258,6 @@ class Utente extends Persona {
     public function unComitato($tipo = MEMBRO_VOLONTARIO) {
         $c = $this->comitati($tipo);
         if (!$c) { return false; }
-        shuffle($c);
         return $c[0];
     }
     
@@ -314,7 +313,12 @@ class Utente extends Persona {
     }
 
     public function appartenenzaAttuale() {
-        return $this->ultimaAppartenenza(MEMBRO_VOLONTARIO);
+        if($this->stato == VOLONTARIO && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO)->attuale()) {
+            return $this->ultimaAppartenenza(MEMBRO_VOLONTARIO);
+        } elseif ($this->stato == PERSONA && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)->attuale()) {
+            return $this->ultimaAppartenenza(MEMBRO_ORDINARIO);
+        }
+        return null;
     }
     
     public function ingresso() {
@@ -697,6 +701,7 @@ class Utente extends Persona {
                               // in quanto questa roba viene usata in API
             return true;
         }
+
         return (bool) in_array(
             $g,
             array_merge(
@@ -705,9 +710,9 @@ class Utente extends Persona {
                     APP_SOCI,
                     APP_OBIETTIVO
                 ]),
-                $this->comitatiAttivitaReferenziate(),
-                $this->comitatiGruppiReferenziati(),
-                $this->comitatiAreeDiCompetenza(true)
+                $this->geopoliticheAttivitaReferenziate(),
+                $this->geopoliticheGruppiReferenziati  (),
+                $this->comitatiAreeDiCompetenza        ()
             )
         );
     } 
@@ -942,20 +947,49 @@ class Utente extends Persona {
         ]);
     }
 
-    public function comitatiAttivitaReferenziate() {
+    /**
+     * Ottiene le GeoPolitiche delle Attivita referenziate dall'utente
+     * @return array(GeoPolitica*)
+     */
+    public function geopoliticheAttivitaReferenziate() {
         $a = $this->attivitaReferenziate();
         $r = [];
         foreach($a as $_a) {
-            $r = array_merge($r, $_a->comitato()->estensione());
+            $r[] = $_a->comitato();
+        }
+        return array_unique($r);
+    }
+
+    /**
+     * Ottiene i Comitati delle Attivita referenziate dall'utente
+     * Equivale ad estendere tutte le GeoPolitiche di 
+     *   Utente->geopoliticheAttivitaReferenziate()
+     * @return array(Comitato) 
+     */
+    public function comitatiAttivitaReferenziate() {
+        $a = $this->geopoliticheAttivitaReferenziate();
+        $r = [];
+        foreach($a as $_a) {
+            $r = array_merge($r, $_a->estensione());
+        }
+        return array_unique($r);
+    }
+
+
+    public function geopoliticheGruppiReferenziati() {
+        $g = $this->gruppiReferenziati();
+        $r = [];
+        foreach($g as $_g) {
+            $r[] = $_g->comitato();
         }
         return array_unique($r);
     }
 
     public function comitatiGruppiReferenziati() {
-        $g = $this->gruppiReferenziati();
+        $g = $this->geopoliticheGruppiReferenziati();
         $r = [];
         foreach($g as $_g) {
-            $r = array_merge($r, $_g->comitato()->estensione());
+            $r = array_merge($r, $_g->estensione());
         }
         return array_unique($r);
     }

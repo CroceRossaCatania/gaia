@@ -290,7 +290,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <i class="icon-save"></i>
         Salva modifiche
       </button>
-      <?php } if ($admin) { ?>
+      <?php if ($admin) { ?>
       <a onClick="return confirm('Vuoi veramente far diventare un ordinario questo utente?');" 
         href="?p=admin.ordinarizza&id=<?php echo $id; ?>" class="btn btn-warning btn-large">
         <i class="icon-hand-down"></i> Ordinarizza
@@ -298,6 +298,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <?php }?>
     </div>
   </div>
+  <?php } ?>
 </form>    
 </div>
 <!--Visualizzazione e modifica appartenenze utente -->

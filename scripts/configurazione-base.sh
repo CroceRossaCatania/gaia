@@ -34,7 +34,7 @@ cat upload/setup/gaia.sql | mysql -u gaia --password=$pmysql --database=gaia
 
 echo " "
 echo " ===== PREPARAZIONE CONFIGURAZIONE DI BASE ======"
-cp -f core/conf/sample/* core/conf/*
+cp -f core/conf/sample/* core/conf/
 sed -i 's/DATABASE_NAME/gaia/g' core/conf/database.php
 sed -i 's/DATABASE_USER/gaia/g' core/conf/database.php
 sed -i "s/DATABASE_PASSWORD/$pmysql/g" core/conf/database.php

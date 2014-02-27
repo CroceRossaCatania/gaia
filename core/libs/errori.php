@@ -51,7 +51,7 @@ function gestore_errori(
 	$linea    = 0,
 	$contesto = []
 ) {
-	global $_id_richiesta, $me, $sessione;
+	global $_id_richiesta, $me, $sessione, $conf;
 
 	// Carica MErrore anche se l'autoloading e' stato disabilitato
 	_gaia_autoloader('MErrore');
@@ -87,6 +87,10 @@ function gestore_errori(
 	];
 	$e->sessione 	= $sessione->id;
 	$e->utente 		= $me->id;
+
+	// Salta redirect nel caso di modalita' debug
+	if ( $conf['debug'] )
+		return false;
 
 	// Eventualmente redirige alla pagina errore fatale
 	if ( $livello == E_ERROR || $livello == E_USER_ERROR )

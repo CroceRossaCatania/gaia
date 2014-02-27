@@ -193,7 +193,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                                 echo('€ ' . soldi($q->quota));
                              }?>
                     </td>
-                    <td><?php echo $q->data()->inTesto(false); ?></td>
+                    <td><?php echo $q->dataPagamento()->inTesto(false); ?></td>
 
                     <td>
                         <div class="btn-group">

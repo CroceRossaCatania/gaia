@@ -192,52 +192,52 @@ class Attivita extends GeoEntita {
     }
 
     public static function pulizia() {
+        $attivita = Attivita::elenco();
         $eseguiti=0;
         $nAttivita = 0;
-        $attivita = Attivita::elenco();
         foreach( $attivita as $a ){
             $comitato = $a->comitato();
             if( $comitato ){
-                try {
-                    $referente = $a->referente();
-                } catch (Exception $e) {
-                    $referente = $a->referente;
+                if(!$a->referente()) {
                     $comitato = $a->comitato();
-                    $presidente = $comitato->unPresidente();
-                    if ( !$presidente ) { 
-                        $locale = $comitato->locale();
-                        $presidente = $locale->unPresidente();
+                    $presidente = $comitato->primoPresidente();      
+                    $a->referente = $presidente;
+                    $turni = Turno::filtra([['attivita', $a]]);
+                    foreach( $turni as $_t ){
+                        $part = Partecipazione::filtra([['turno', $_t]]);
+                        foreach( $part as $_p ){
+                            $aut = Autorizzazione::filtra([['partecipazione', $_p]]);
+                            foreach( $aut as $_a ){
+                                $_a->volontario = $presidente;
+                            }
+                        }
                     }
-                    $autorizzazioni = Autorizzazione::filtra(['volontario', $referente]);
-                    foreach ( $autorizzazioni as $autorizzazione ){
-                        $m = Autorizzazione::id($autorizzazione);
-                        $m->volontario = $presidente;
-                    }
-                    $att = Attivita::id($a);
-                    $att->referente = $presidente;
                     $eseguiti++;
                     continue;
                 }
                 continue;
-            }else{
+            } else{
                 $turni = Turno::filtra([['attivita', $a]]);
                 foreach( $turni as $turno ){
                     $partecipazioni = Partecipazione::filtra([['turno', $turno]]);
                     foreach( $partecipazioni as $partecipazione ){
-                        $autorizzazioni = Autorizzazione::filtra(['partecipazione', $partecipazione]);
+                        $autorizzazioni = Autorizzazione::filtra([['partecipazione', $partecipazione]]);
                         foreach( $autorizzazioni as $autorizzazione ){
                             $autorizzazione->cancella();
+
                         }
                         $partecipazione->cancella();
+
                     }
-                    $turno->cancella();
+                    $turno->cancella();     
+
                 }
                 $a->cancella();
                 $nAttivita++;
             }
         }
-    $t = $eseguiti + $nAttivita;
-    return $t;
+        $t = $eseguiti + $nAttivita;
+        return $t;
     }
 
     public function visibilitaMinima(GeoPolitica $g) {

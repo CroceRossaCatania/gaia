@@ -333,25 +333,65 @@ if(isset($_GET['dimessi'])){
         'Motivazione'
         ]);
     
-    foreach ( $c->membriRiserva() as $r ) {
-        $v = $r->volontario();
-        
-        $excel->aggiungiRiga([
-            $v->nome,
-            $v->cognome,
-            date('d/m/Y', $v->dataNascita),
-            $v->comuneNascita,
-            $v->provinciaNascita,
-            $v->codiceFiscale,
-            date('d/m/Y',$r->inizio),
-            date('d/m/Y',$r->fine),
-            $r->protNumero,
-            date('d/m/Y',$r->protData),
-            $r->motivo
-            ]);
-
+    foreach ( $c->riserve() as $r ) {
+        if ( $r->attuale() ){
+            $v = $r->volontario();
+            
+            $excel->aggiungiRiga([
+                $v->nome,
+                $v->cognome,
+                date('d/m/Y', $v->dataNascita),
+                $v->comuneNascita,
+                $v->provinciaNascita,
+                $v->codiceFiscale,
+                date('d/m/Y',$r->inizio),
+                date('d/m/Y',$r->fine),
+                $r->protNumero,
+                date('d/m/Y',$r->protData),
+                $r->motivo
+                ]);
+        }
     }
     $excel->genera("Volontari riserva.xls");
+    $excel->download();
+    
+}elseif(isset($_GET['riserveold'])){
+    $excel = new Excel();
+    
+    $excel->intestazione([
+        'Nome',
+        'Cognome',
+        'Data Nascita',
+        'Luogo Nascita',
+        'Provincia Nascita',
+        'C. Fiscale',
+        'Inizio Riserva',
+        'Fine Riserva',
+        'Numero Protocollo',
+        'Data Protocollo',
+        'Motivazione'
+        ]);
+    
+    foreach ( $c->riserve() as $r ) {
+        if ( !$r->attuale() ){
+            $v = $r->volontario();
+            
+            $excel->aggiungiRiga([
+                $v->nome,
+                $v->cognome,
+                date('d/m/Y', $v->dataNascita),
+                $v->comuneNascita,
+                $v->provinciaNascita,
+                $v->codiceFiscale,
+                date('d/m/Y',$r->inizio),
+                date('d/m/Y',$r->fine),
+                $r->protNumero,
+                date('d/m/Y',$r->protData),
+                $r->motivo
+                ]);
+        }
+    }
+    $excel->genera("Volontari riserve passate.xls");
     $excel->download();
     
 }elseif(isset($_GET['estesi'])){
