@@ -117,15 +117,7 @@ function cronjobGiornaliero()  {
     Validazione::chiudi();
     $log .= "Chiuse le validazioni scadute\n";
 
-    /* === 11. RESETTA CONTATORI PER API KEYS */
-    $n = 0;
-    foreach ( APIKey::elenco() as $c ) {
-        $n++;
-        $c->oggi = 0;
-    }
-    $log .= "Resettati limiti giornalieri di {$n} chiavi API\n";
-
-    /* === 12. RIMUOVE ERRORI VECCHI DI UNA SETTIMANA */
+    /* === 11. RIMUOVE ERRORI VECCHI DI UNA SETTIMANA */
     $n = MErrore::pulisci();
     $log .= "Cancellati log di {$n} errori in database\n";
     
