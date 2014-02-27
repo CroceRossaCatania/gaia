@@ -192,4 +192,19 @@ class CorsoBase extends GeoEntita {
         return count($this->iscritti());
     }
 
+    /**
+     * Cancella il corso base e tutto ciò che c'è di associato
+     */
+    public function cancella() {
+        $p = PartecipazioneBase::filtra([
+            ['corsoBase', $this->id]
+            ]);
+        foreach($p as $_p) {
+            $_p->cancella();
+        }
+
+        parent::cancella();
+
+    }
+
 }

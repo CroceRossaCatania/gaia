@@ -38,9 +38,15 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
 		<div class="row-fluid">
             <div class="span12">
                 <?php if (isset($_GET['err'])) { ?>
-                <div class="alert alert-block alert-error">
-                    <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+                <div class="alert alert-block alert-success">
+                    <h4><i class="icon-warning-sign"></i> <strong>Corso base eliminato</strong>.</h4>
                     <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+                </div> 
+                <?php } ?> 
+                <?php if (isset($_GET['cancellato'])) { ?>
+                <div class="alert alert-block alert-success">
+                    <h4><i class="icon-save"></i> <strong>Corso base cancellato</strong>.</h4>
+                    <p>L'operazione hai eseguito è andata a buon fine.</p>
                 </div> 
                 <?php } ?> 
                 <table class="table table-striped table-bordered">
@@ -107,10 +113,21 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                             <a href="?p=formazione.corsibase.modifica&id=<?php echo $corso->id; ?>">
                                 <i class="icon-edit"></i> modifica corso
                             </a>
+                            <?php /*  
+
+                            NIENTE LEZIONI AL MOMENTO!
+
                             <br />
                             <a href="?p=formazione.corsibase.lezioni&id=<?php echo $corso->id; ?>">
-                                <strong><i class="icon-plus"></i> lezioni</strong>
-                            </a>        
+                                <i class="icon-plus"></i> lezioni
+                            </a>
+                            <?php */ if ((in_array($corso->organizzatore(), $mieiComitati) && $corso->stato == CORSO_S_DACOMPLETARE)
+                                        or $me->admin()){ ?>
+                            <br />
+                            <a href="?p=formazione.corsibase.cancella.ok&id=<?php echo $corso->id; ?>">
+                                <i class="icon-remove"></i> cancella
+                            </a>
+                            <?php } ?>
                         </td>
                         
                     </tr>
