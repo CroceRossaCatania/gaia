@@ -7,6 +7,6 @@ paginaPrivata();
 
 $me->emailServizio = '';
 
-redirect('utente.email&serv');
+redirect('utente.contatti&emailserv');
 
 ?>
