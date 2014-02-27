@@ -98,6 +98,9 @@ class APIServer {
         }
     }
         
+    /**
+     * Richiesta di ping
+     */
     private function api_ciao() {
         global $conf;
         return [
@@ -109,13 +112,19 @@ class APIServer {
             'documentazione'            =>  $conf['documentazione']
         ];
     }
-        
+    
+    /**
+     * Dettagli utente attuale
+     */
     public function api_utente() {
         $this->richiedi(['id']);
         $u = Utente::id($this->par['id']);
         return $u->toJSON();
     }
 
+    /**
+     * Ritorna un url di login
+     */
     public function api_login() {
         $this->sessione->logout();
         $sid = $this->sessione->id;
@@ -138,6 +147,9 @@ class APIServer {
         ];
     }
     
+    /**
+     * Effettua il logout
+     */
     public function api_logout() {
         $this->richiediLogin();
         $this->sessione->logout();
@@ -145,7 +157,10 @@ class APIServer {
             'ok' =>  true
         ];
     }
-    
+
+    /**
+     * Ricerca titoli per nome
+     */    
     public function api_titoli_cerca() {
         $t = [];
         if (!isset($this->par['t'])) { $this->par['t'] = -1; }
@@ -155,6 +170,9 @@ class APIServer {
         return $t;
     }
 
+    /**
+     * Elenco turni nel tempo
+     */
     public function api_attivita() {
         global $conf;
         $inizio = DT::daISO($this->par['inizio']);
@@ -247,17 +265,23 @@ class APIServer {
     }
     
     public function api_io() {
+        global $conf;
         $me = $this->richiediLogin();
         $r = [];
         $r['anagrafica'] = [
-            'nome'          =>  $me->nome,
-            'cognome'       =>  $me->cognome,
-            'codiceFiscale' =>  $me->codiceFiscale,
-            'email'         =>  $me->email,
-            'avatar'        =>  $me->avatar()->URL()
+            'nome'              =>  $me->nome,
+            'cognome'           =>  $me->cognome,
+            'sesso'             =>  $conf['sesso'][$me->sesso],
+            'codiceFiscale'     =>  $me->codiceFiscale,
+            'email'             =>  $me->email,
+            'emailServizio'     =>  $me->emailServizio,
+            'dataNascita'       =>  date('d/m/Y', $me->dataNascita),
+            'cellulare'         =>  $me->cellulare,
+            'cellulareServizio' =>  $me->cellulareServizio,
+            'avatar'            =>  $me->avatar()->URL()
         ];
         $r['appartenenze'] = [];
-        foreach ( $me->appartenenze() as $app ) {
+        foreach ( $me->appartenenzeAttuali() as $app ) {
             $r['appartenenze'][] = [
                 'id'        =>  $app->id,
                 'comitato'  =>  [
@@ -265,12 +289,23 @@ class APIServer {
                     'nome'  =>  $app->comitato()->nome
                 ],
                 'inizio'    =>  $app->inizio()->toJSON(),
-                'fine'      =>  $app->fine()->toJSON(),
                 'stato'     =>  [
-                    'id'    =>  $app->stato,
+                    'id'    =>  (int) $app->stato,
                     'nome'  =>  $conf['membro'][$app->stato]
-                ],
-                'attuale'   =>  $app->attuale()
+                ]
+            ];
+        }       
+        $r['delegazioni'] = [];
+        foreach ( $me->delegazioni() as $d ) {
+            $r['delegazioni'][] = [
+                'id'        =>  $d->id,
+                'comitato'  =>  $d->comitato()->oid(),
+                'inizio'    =>  $d->inizio()->toJSON(),
+                'app'       =>  [
+                    'id'        =>  (int) $d->applicazione,
+                    'dominio'   =>  (int) $d->dominio,
+                    'nome'      =>  $conf['applicazioni'][$d->applicazione]
+                ]
             ];
         }
         return $r;
