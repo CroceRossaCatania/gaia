@@ -257,7 +257,9 @@ class APIServer {
                 'url'           =>  'https://gaia.cri.it/?p=attivita.scheda&id=' . $attivita->id . '#'. $turno->id
             ];
         }
-        return $r;
+        return [
+            'turni'  => $r
+        ];
     }
     
     private function api_attivita_dettagli() {
