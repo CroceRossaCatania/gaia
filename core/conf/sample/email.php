@@ -17,6 +17,10 @@ $conf['email'] = [
 	// false => php funzione mail()
  	'smtp'			=>	false,
 
+ 	// Dimensione del batch di invio, numero max. di
+ 	// comunicazioni (non email) inviate per minuto
+ 	'batch_size'	=>	20,
+
  	// Configurazione SMTP
  	'host'			=>	'localhost',
     'username'      =>  'SMTP_USERNAME',
