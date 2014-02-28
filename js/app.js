@@ -690,12 +690,12 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<span class="span6"><strong>' + $(this).data('persona') + '</strong> <a data-modale="(mostra dettagli)" data-titolo="Dettagli messaggio">' +
                             '<ul><li><strong>Mittente:</strong> ' + $(this).data('mittente') +
                             '</li><li><strong>Destinatario:</strong> ' + $(this).data('destinatario') +
-                            '</li><li><strong>Creato:</strong> <i class="icon-time"></i> ' + new Date(email.timestamp*1000).toLocaleString() +
+                            '</li><li><strong>Creato:</strong> <i class="icon-time"></i> ' + stampaDataOra(new Date(email.timestamp*1000)) +
                             '</li><li><strong>Oggetto:</strong> ' + email.oggetto +
                             '</li></ul></a>'+ 
                         '</span>' +
-                        '<span class="span3"><i class="icon-calendar"></i> ' + new Date(email.timestamp*1000).toLocaleDateString("it-IT", {day:"2-digit", month: "2-digit", year:"numeric"}) + '</span>' +
-                        '<span class="span3"><i class="icon-time"></i> ' + new Date(email.timestamp*1000).toLocaleTimeString("it-IT") + '</span>' +
+                        '<span class="span3"><i class="icon-calendar"></i> ' + stampaData(new Date(email.timestamp*1000)) + '</span>' +
+                        '<span class="span3"><i class="icon-time"></i> ' + stampaOra(new Date(email.timestamp*1000)) + '</span>' +
 
                     '</div>' +
                     '<hr />' +
@@ -806,4 +806,29 @@ function _modale_inline(i, e) {
         return false;
     });
 
+}
+
+/**
+ * Stampa la data in modalita it-IT con extra 0 
+ */
+function stampaData(data) {
+    var d = ("0" + data.getUTCDate()).slice(-2) + '/' + 
+            ("0" + (data.getUTCMonth()+1)).slice(-2) + '/' + 
+            data.getUTCFullYear();
+    return d;
+}
+/**
+ * Stampa l'ora in modalita it-IT con extra 0 
+ */
+function stampaOra(data) {
+    var d = ("0" + data.getUTCHours()).slice(-2) + ':' +  
+            ("0" + data.getUTCMinutes()).slice(-2);
+    return d;
+}
+
+/**
+ * Bhe... non ci vuole un genio per capire cosa fa questa
+ */
+function stampaDataOra(data) {
+    return stampaData(data) + ' ' + stampaOra(data);
 }
