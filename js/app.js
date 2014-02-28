@@ -616,7 +616,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
             $.each(email.destinatari, function(y, q) {
                 destinatario += '<li data-utente="' + q.id + '">{nomeCompleto}';
                 if ( q.inviato ) {
-                    destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + new Date(q.inviato * 1000).toLocaleString() + ')';
+                    destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + stampaDataOra(new Date(q.inviato * 1000)) + ')';
                 } else {
                     destinatario += ' (<i class="icon-time text-warning"></i> in coda di invio)';
                 }
@@ -642,7 +642,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
 
             destinatario = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '">{nomeCompleto}</span>';
             if ( email.invio.terminato ) {
-                destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + new Date(email.invio.terminato * 1000).toLocaleString() + ')';
+                destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + stampaDataOra(new Date(email.invio.terminato * 1000)) + ')';
             } else {
                 destinatario += ' (<i class="icon-time text-warning"></i> in coda di invio)';
             }
@@ -664,7 +664,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
 
             destinatario = '<i class="icon-ambulance"></i> Squadra di Supporto di Gaia</span>';
             if ( email.invio.terminato ) {
-                destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + new Date(email.invio.terminato * 1000).toLocaleString() + ')';
+                destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + stampaDataOra(new Date(email.invio.terminato * 1000)) + ')';
             } else {
                 destinatario += ' (<i class="icon-time text-warning"></i> in coda di invio)';
             }
@@ -822,7 +822,8 @@ function stampaData(data) {
  */
 function stampaOra(data) {
     var d = ("0" + data.getUTCHours()).slice(-2) + ':' +  
-            ("0" + data.getUTCMinutes()).slice(-2);
+            ("0" + data.getUTCMinutes()).slice(-2) + ':' +
+            ("0" + data.getUTCSeconds()).slice(-2);
     return d;
 }
 
