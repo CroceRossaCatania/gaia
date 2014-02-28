@@ -606,7 +606,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td>' +
                             '<img width="50" height="50" class="img-circle" src="https://gaia.cri.it/upload/avatar/placeholder/20.jpg" />' +
                         '</td>' +
-                        '<td><strong>' +  + '</strong><br />Destinatari multipli (' + email.destinatari.length + ')</td>' +
+                        '<td><strong>' + ogg + '</strong><br />Destinatari multipli (' + email.destinatari.length + ')</td>' +
                     '</tr>'
                 );
                 persona      = '<i class="icon-group"></i> A <span>Destinatari multipli (' + email.destinatari.length + ')</span>';
