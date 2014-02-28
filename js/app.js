@@ -812,18 +812,18 @@ function _modale_inline(i, e) {
  * Stampa la data in modalita it-IT con extra 0 
  */
 function stampaData(data) {
-    var d = ("0" + data.getUTCDate()).slice(-2) + '/' + 
-            ("0" + (data.getUTCMonth()+1)).slice(-2) + '/' + 
-            data.getUTCFullYear();
+    var d = ("0" + data.getDate()).slice(-2) + '/' + 
+            ("0" + (data.getMonth()+1)).slice(-2) + '/' + 
+            data.getFullYear();
     return d;
 }
 /**
  * Stampa l'ora in modalita it-IT con extra 0 
  */
 function stampaOra(data) {
-    var d = ("0" + data.getUTCHours()).slice(-2) + ':' +  
-            ("0" + data.getUTCMinutes()).slice(-2) + ':' +
-            ("0" + data.getUTCSeconds()).slice(-2);
+    var d = ("0" + data.getHours()).slice(-2) + ':' +  
+            ("0" + data.getMinutes()).slice(-2) + ':' +
+            ("0" + data.getSeconds()).slice(-2);
     return d;
 }
 
