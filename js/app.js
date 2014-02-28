@@ -560,6 +560,12 @@ function _tabella_posta_ridisegna( e, dati, input ) {
     );
     var tbody = $(e).find('tbody');
     $.each( dati.risultati, function (i, email) {
+        var ogg = '';
+        if (email.oggetto.length > 35) {
+            ogg = email.oggetto.substring(0, 35) + '...'
+        } else {
+            ogg = email.oggetto;
+        }
         if ( email.mittente !== false  ) {
             // MITTENTE CONOSCIUTO
             //
@@ -569,7 +575,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td>' +
                             '<img width="50" height="50" class="img-circle" src="{avatar}" title="{nomeCompleto}" alt="{nomeCompleto}" />' +
                         '</td>' +
-                        '<td><strong>' + email.oggetto + '</strong><br />{nomeCompleto}</td>' +
+                        '<td><strong>' + ogg + '</strong><br />{nomeCompleto}</td>' +
                     '</tr>'
                 );
                 persona  = '<i class="icon-user"></i> Da <span data-utente="' + email.mittente.id + '">{nomeCompleto}</span>';
@@ -583,7 +589,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td>' +
                             '<img width="50" height="50" class="img-circle" src="https://gaia.cri.it/upload/avatar/placeholder/20.jpg" />' +
                         '</td>' +
-                        '<td><strong>' + email.oggetto + '</strong><br />Notifica da Gaia</td>' +
+                        '<td><strong>' + ogg + '</strong><br />Notifica da Gaia</td>' +
                     '</tr>'
                 );
                 persona  = '<i class="icon-info-sign"></i> <span>Notifica Gaia</span>';
@@ -600,7 +606,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td>' +
                             '<img width="50" height="50" class="img-circle" src="https://gaia.cri.it/upload/avatar/placeholder/20.jpg" />' +
                         '</td>' +
-                        '<td><strong>' + email.oggetto + '</strong><br />Destinatari multipli (' + email.destinatari.length + ')</td>' +
+                        '<td><strong>' + ogg + '</strong><br />Destinatari multipli (' + email.destinatari.length + ')</td>' +
                     '</tr>'
                 );
                 persona      = '<i class="icon-group"></i> A <span>Destinatari multipli (' + email.destinatari.length + ')</span>';
@@ -610,7 +616,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
             $.each(email.destinatari, function(y, q) {
                 destinatario += '<li data-utente="' + q.id + '">{nomeCompleto}';
                 if ( q.inviato ) {
-                    destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + new Date(q.inviato * 1000).toLocaleString() + ')';
+                    destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + stampaDataOra(new Date(q.inviato * 1000)) + ')';
                 } else {
                     destinatario += ' (<i class="icon-time text-warning"></i> in coda di invio)';
                 }
@@ -628,7 +634,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td>' +
                             '<img width="50" height="50" class="img-circle" src="{avatar}" title="{nomeCompleto}" alt="{nomeCompleto}" />' +
                         '</td>' +
-                        '<td><strong>' + email.oggetto + '</strong><br />{nomeCompleto}</td>' +
+                        '<td><strong>' + ogg + '</strong><br />{nomeCompleto}</td>' +
                     '</tr>'
                 );
                 persona      = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '">{nomeCompleto}</span>';
@@ -636,7 +642,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
 
             destinatario = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '">{nomeCompleto}</span>';
             if ( email.invio.terminato ) {
-                destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + new Date(email.invio.terminato * 1000).toLocaleString() + ')';
+                destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + stampaDataOra(new Date(email.invio.terminato * 1000)) + ')';
             } else {
                 destinatario += ' (<i class="icon-time text-warning"></i> in coda di invio)';
             }
@@ -650,7 +656,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td>' +
                             '<img width="50" height="50" class="img-circle" src="https://gaia.cri.it/upload/avatar/placeholder/20.jpg" />' +
                         '</td>' +
-                        '<td><strong>' + email.oggetto + '</strong><br />Squadra di Supporto Gaia</td>' +
+                        '<td><strong>' + ogg + '</strong><br />Squadra di Supporto Gaia</td>' +
                     '</tr>'
                 );
                 persona      = '<i class="icon-ambulance"></i> Squadra di Supporto</span>';
@@ -658,7 +664,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
 
             destinatario = '<i class="icon-ambulance"></i> Squadra di Supporto di Gaia</span>';
             if ( email.invio.terminato ) {
-                destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + new Date(email.invio.terminato * 1000).toLocaleString() + ')';
+                destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + stampaDataOra(new Date(email.invio.terminato * 1000)) + ')';
             } else {
                 destinatario += ' (<i class="icon-time text-warning"></i> in coda di invio)';
             }
@@ -684,12 +690,12 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<span class="span6"><strong>' + $(this).data('persona') + '</strong> <a data-modale="(mostra dettagli)" data-titolo="Dettagli messaggio">' +
                             '<ul><li><strong>Mittente:</strong> ' + $(this).data('mittente') +
                             '</li><li><strong>Destinatario:</strong> ' + $(this).data('destinatario') +
-                            '</li><li><strong>Creato:</strong> <i class="icon-time"></i> ' + new Date(email.timestamp*1000).toLocaleString() +
+                            '</li><li><strong>Creato:</strong> <i class="icon-time"></i> ' + stampaDataOra(new Date(email.timestamp*1000)) +
                             '</li><li><strong>Oggetto:</strong> ' + email.oggetto +
                             '</li></ul></a>'+ 
                         '</span>' +
-                        '<span class="span3"><i class="icon-calendar"></i> ' + new Date(email.timestamp*1000).toLocaleString() + '</span>' +
-                        '<span class="span3"><i class="icon-time"></i> ' + new Date(email.timestamp*1000).toLocaleTimeString() + '</span>' +
+                        '<span class="span3"><i class="icon-calendar"></i> ' + stampaData(new Date(email.timestamp*1000)) + '</span>' +
+                        '<span class="span3"><i class="icon-time"></i> ' + stampaOra(new Date(email.timestamp*1000)) + '</span>' +
 
                     '</div>' +
                     '<hr />' +
@@ -800,4 +806,30 @@ function _modale_inline(i, e) {
         return false;
     });
 
+}
+
+/**
+ * Stampa la data in modalita it-IT con extra 0 
+ */
+function stampaData(data) {
+    var d = ("0" + data.getDate()).slice(-2) + '/' + 
+            ("0" + (data.getMonth()+1)).slice(-2) + '/' + 
+            data.getFullYear();
+    return d;
+}
+/**
+ * Stampa l'ora in modalita it-IT con extra 0 
+ */
+function stampaOra(data) {
+    var d = ("0" + data.getHours()).slice(-2) + ':' +  
+            ("0" + data.getMinutes()).slice(-2) + ':' +
+            ("0" + data.getSeconds()).slice(-2);
+    return d;
+}
+
+/**
+ * Bhe... non ci vuole un genio per capire cosa fa questa
+ */
+function stampaDataOra(data) {
+    return stampaData(data) + ' ' + stampaOra(data);
 }
