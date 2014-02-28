@@ -343,7 +343,7 @@ class Utente extends Persona {
             $app = [$app];
         }
         if ( $this->admin() ) {
-            return $this->comitatiDiCompetenza();
+            return $this->comitatiDiCompetenza($soloComitati);
         }
         $r = [];
         foreach ( $app as $k ) {
@@ -399,9 +399,13 @@ class Utente extends Persona {
         }
     }
     
-    public function comitatiDiCompetenza() {
+    public function comitatiDiCompetenza($soloComitati = false) {
         if ( $this->admin() ) {
-            return Comitato::elenco('locale ASC');
+            $n = Nazionale::id(1);
+            if($soloComitati) {
+                return Comitato::elenco('locale ASC');    
+            }
+            return $n->estensione($soloComitati);
         } else {
             return $this->comitatiPresidenzianti();
         }

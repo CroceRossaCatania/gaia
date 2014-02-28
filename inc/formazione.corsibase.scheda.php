@@ -90,7 +90,7 @@ $(document).ready( function() {
                 <p>La preiscrizione al corso è stata cancellata con successo.</p>
             </div> 
         <?php } ?>
-        <?php if (!$corso->accettaIscrizioni()) { ?>
+        <?php if (!$corso->accettaIscrizioni() && $puoPartecipare) { ?>
             <div class="alert alert-block alert-error">
                 <h4><i class="icon-warning-sign"></i> <strong>Le iscrizioni sono chiuse</strong>.</h4>
                 <p>Non puoi più effettuare tramite il portale la preiscrizione al corso, contatta il referente

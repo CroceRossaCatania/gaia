@@ -25,7 +25,7 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                 </h2>
             </div>
             <div class="span5">  
-                <?php if ( $me->presidenziante() ) { ?>
+                <?php if ( $me->presidenziante() || $me->admin()) { ?>
                 <a href="?p=formazione.corsibase.idea" class="btn btn-large btn-block btn-success">
                     <i class="icon-plus-sign"></i>
                     Attiva nuovo Corso Base
