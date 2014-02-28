@@ -560,6 +560,12 @@ function _tabella_posta_ridisegna( e, dati, input ) {
     );
     var tbody = $(e).find('tbody');
     $.each( dati.risultati, function (i, email) {
+        var ogg = '';
+        if (email.oggetto.length > 35) {
+            ogg = email.oggetto.substring(0, 35) + '...'
+        } else {
+            ogg = email.oggetto;
+        }
         if ( email.mittente !== false  ) {
             // MITTENTE CONOSCIUTO
             //
@@ -569,7 +575,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td>' +
                             '<img width="50" height="50" class="img-circle" src="{avatar}" title="{nomeCompleto}" alt="{nomeCompleto}" />' +
                         '</td>' +
-                        '<td><strong>' + email.oggetto + '</strong><br />{nomeCompleto}</td>' +
+                        '<td><strong>' + ogg + '</strong><br />{nomeCompleto}</td>' +
                     '</tr>'
                 );
                 persona  = '<i class="icon-user"></i> Da <span data-utente="' + email.mittente.id + '">{nomeCompleto}</span>';
@@ -583,7 +589,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td>' +
                             '<img width="50" height="50" class="img-circle" src="https://gaia.cri.it/upload/avatar/placeholder/20.jpg" />' +
                         '</td>' +
-                        '<td><strong>' + email.oggetto + '</strong><br />Notifica da Gaia</td>' +
+                        '<td><strong>' + ogg + '</strong><br />Notifica da Gaia</td>' +
                     '</tr>'
                 );
                 persona  = '<i class="icon-info-sign"></i> <span>Notifica Gaia</span>';
@@ -600,7 +606,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td>' +
                             '<img width="50" height="50" class="img-circle" src="https://gaia.cri.it/upload/avatar/placeholder/20.jpg" />' +
                         '</td>' +
-                        '<td><strong>' + email.oggetto + '</strong><br />Destinatari multipli (' + email.destinatari.length + ')</td>' +
+                        '<td><strong>' +  + '</strong><br />Destinatari multipli (' + email.destinatari.length + ')</td>' +
                     '</tr>'
                 );
                 persona      = '<i class="icon-group"></i> A <span>Destinatari multipli (' + email.destinatari.length + ')</span>';
@@ -628,7 +634,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td>' +
                             '<img width="50" height="50" class="img-circle" src="{avatar}" title="{nomeCompleto}" alt="{nomeCompleto}" />' +
                         '</td>' +
-                        '<td><strong>' + email.oggetto + '</strong><br />{nomeCompleto}</td>' +
+                        '<td><strong>' + ogg + '</strong><br />{nomeCompleto}</td>' +
                     '</tr>'
                 );
                 persona      = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '">{nomeCompleto}</span>';
@@ -650,7 +656,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td>' +
                             '<img width="50" height="50" class="img-circle" src="https://gaia.cri.it/upload/avatar/placeholder/20.jpg" />' +
                         '</td>' +
-                        '<td><strong>' + email.oggetto + '</strong><br />Squadra di Supporto Gaia</td>' +
+                        '<td><strong>' + ogg + '</strong><br />Squadra di Supporto Gaia</td>' +
                     '</tr>'
                 );
                 persona      = '<i class="icon-ambulance"></i> Squadra di Supporto</span>';
@@ -688,8 +694,8 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                             '</li><li><strong>Oggetto:</strong> ' + email.oggetto +
                             '</li></ul></a>'+ 
                         '</span>' +
-                        '<span class="span3"><i class="icon-calendar"></i> ' + new Date(email.timestamp*1000).toLocaleString() + '</span>' +
-                        '<span class="span3"><i class="icon-time"></i> ' + new Date(email.timestamp*1000).toLocaleTimeString() + '</span>' +
+                        '<span class="span3"><i class="icon-calendar"></i> ' + new Date(email.timestamp*1000).toLocaleDateString("it-IT", {day:"2-digit", month: "2-digit", year:"numeric"}) + '</span>' +
+                        '<span class="span3"><i class="icon-time"></i> ' + new Date(email.timestamp*1000).toLocaleTimeString("it-IT") + '</span>' +
 
                     '</div>' +
                     '<hr />' +
