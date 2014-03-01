@@ -44,7 +44,10 @@ class Aspirante extends GeoCirco {
      * @return Comitato     array di comitati
     */
     public function comitati() {
-        return Comitato::contenutiIn($this);
+        return array_merge(Comitato::contenutiIn($this),
+                           Locale::contenutiIn($this),
+                           Provinciale::contenutiIn($this)
+                           );
     }
 
     /**

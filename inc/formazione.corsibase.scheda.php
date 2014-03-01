@@ -54,10 +54,14 @@ $(document).ready( function() {
                     <i class="icon-edit"></i>
                     Modifica
                 </a>
-                <?php } ?>
+                <?php } 
+
+                /*  NIENTE LEZIONI PER ORA
                 <a href="?p=formazione.corsibase.lezioni&id=<?= $corso ?>" class="btn btn-primary btn-large">
                     <i class="icon-calendar"></i> Lezioni
                 </a>
+                */
+                ?>
                 <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://gaia.cri.it/index.php?p=formazione.corsibase.scheda&id={$corso->id}"); ?>" target="_blank">
                     <i class="icon-facebook-sign"></i> Condividi
                 </a>
@@ -428,7 +432,7 @@ $(document).ready( function() {
 
         ?>
 
-        
+
         <?php if ( $corso->modificabileDa($me) ) { ?>
         <div class="row-fluid">
             <div class="span12">
