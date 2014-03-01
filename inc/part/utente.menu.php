@@ -112,9 +112,6 @@ $menu += [
         'utente.titoli&t=3' =>  '<i class="icon-beaker"></i> Titoli di studio',
         'utente.titoli&t=4' =>  '<i class="icon-plus-sign-alt"></i> Titoli CRI'
     ],
-    'Impostazioni' =>  [
-        'utente.password'     =>   '<i class="icon-key"></i> Password'
-    ],
     'Statistiche' =>  [
         'utente.statistiche.volontari'     =>   '<i class="icon-puzzle-piece"></i> Volontari'
 //        'utente.statistiche.attivita'     =>   '<i class="icon-weibo"></i> Attività'

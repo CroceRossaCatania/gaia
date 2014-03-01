@@ -38,4 +38,20 @@ class PartecipazioneBase extends Entita {
         return false;
     }
 
+    public function concedi() {
+        return $this->aggiorna(ISCR_CONFERMATA);
+    }
+    
+    public function nega() {
+        return $this->aggiorna(ISCR_NEGATA);
+    }
+
+    public function aggiorna( $s = ISCR_CONFERMATA ) {
+        global $sessione;
+        $u = $sessione->utente;
+        $this->stato = (int) $s;
+        $this->pConferma = $u;
+        $this->tConferma = time();
+    }
+
 }

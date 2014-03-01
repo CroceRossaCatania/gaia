@@ -131,12 +131,12 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             </button>
                             <ul class="dropdown-menu">
                                 <?php if ( $me->stato == VOLONTARIO ) { ?>
-                                  <li><a href="?p=utente.anagrafica"><i class="icon-edit"></i> Anagrafica</a></li>
                                   <li><a href="?p=utente.privacy"><i class="icon-cog"></i> Privacy</a></li>
-                                  <li><a href="?p=utente.contatti"><i class="icon-phone"></i> Modifica contatti</a></li>
-                                  <li class="divider"></li>
                                 <?php } ?>
 
+                                  <li><a href="?p=utente.contatti"><i class="icon-phone"></i> Modifica contatti</a></li>
+                                  <li><a href="?p=utente.password"><i class="icon-key"></i> Modifica password</a></li>
+                                  <li class="divider"></li>
                                   <li><a href="?p=logout"><i class="icon-remove"></i> Esci</a></li>
                             </ul>
                           </div>

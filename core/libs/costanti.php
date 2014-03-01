@@ -656,6 +656,7 @@ $conf['corso_stato'] = [
  */
 
 define('ISCR_ANNULLATA',       0);
+define('ISCR_NEGATA',          5);
 define('ISCR_ABBANDONO',      10);
 define('ISCR_RICHIESTA',      20);
 define('ISCR_CONFERMATA',     30);
@@ -664,6 +665,7 @@ define('ISCR_BOCCIATO',       50);
 
 $conf['partecipazioneBase'] = [
     ISCR_ANNULLATA      =>  'Annullata', 
+    ISCR_NEGATA         =>  'Negata',
     ISCR_ABBANDONO      =>  'Abbandonato', 
     ISCR_RICHIESTA      =>  'Preiscritto', 
     ISCR_CONFERMATA     =>  'Iscritto',

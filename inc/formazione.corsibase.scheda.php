@@ -20,6 +20,17 @@ if ($me->stato == ASPIRANTE) {
     $puoPartecipare = true;
 }
 
+$p = PartecipazioneBase::filtra([
+    ['volontario', $me->id],
+    ['corsoBase', $corso->id],
+    ['stato', ISCR_CONFERMATA]
+    ]);
+
+$iscritto = false;
+if($p) {
+    $iscritto = true;
+}
+
 if(!$corso->direttore()) {
     redirect("formazione.corsibase.direttore&id={$corso->id}");
 }
@@ -173,17 +184,7 @@ $(document).ready( function() {
         </div>
         <hr />
 
-        <div class="row-fluid">
-            <div class="span12" style="max-height: 500px; padding-right: 10px; overflow-y: auto;">
-                <h3>
-                    <i class="icon-info-sign"></i>
-                    Ulteriori informazioni
-                </h3>
-                <?php echo nl2br($corso->descrizione); ?>
-            </div>
-        </div>
-        <hr />
-        <?php if($puoPartecipare) { ?>
+        <?php if($puoPartecipare && !$iscritto) { ?>
         <div class="row-fluid">
             <?php if ($corso->accettaIscrizioni() && !$corso->iscritto($me)) { ?>
             <div clas="span12">
@@ -198,7 +199,26 @@ $(document).ready( function() {
             </div>
             <?php } ?>
         <div>
+        <?php } elseif($iscritto) { ?>
+        <div class="row-fluid">
+            <div class="hero-unit" >
+                <h1><i class="icon-flag"></i> Complimenti, sei iscritto a questo corso! </h1>
+                <p>Ora non ti resta che presentarti presso il luogo indicato per lo svolgimento
+                delle lezioni. Se hai bisogno di maggiori informazioni contatta il direttore del corso.</p>
+            </div>
+        </div>
         <?php } ?>
+
+        <div class="row-fluid">
+            <div class="span12" style="max-height: 500px; padding-right: 10px; overflow-y: auto;">
+                <h3>
+                    <i class="icon-info-sign"></i>
+                    Ulteriori informazioni
+                </h3>
+                <?php echo nl2br($corso->descrizione); ?>
+            </div>
+        </div>
+        <hr />
 
         <?php 
 
@@ -446,6 +466,7 @@ $(document).ready( function() {
                     <th>Nominativo</th>
                     <th>Telefono</th>
                     <th>Email</th>
+                    <th>Stato</th>
                     <th>Azione</th>
                 </thead>
                 <?php 
@@ -462,7 +483,11 @@ $(document).ready( function() {
                         <td>
                             <span data-nascondi="" data-icona="icon-envelope"><?php echo $iscritto->email(); ?></span>
                         </td>
+                        <td>
+                            <?= $conf['partecipazioneBase'][$p->stato]; ?>
+                        </td>
                         <td width="15%">
+                            <?php if($p->stato == ISCR_RICHIESTA) { ?>
                             <div class="btn-group btn-group-vertical">
                                 <a data-iscrizione="<?php echo $p->id; ?>" data-accetta="1" class="btn btn-success">
                                     <i class="icon-ok"></i> Accetta
@@ -471,6 +496,7 @@ $(document).ready( function() {
                                     <i class="icon-remove"></i> Rifiuta
                                 </a>
                             </div>
+                            <?php } ?>
                         </td>
                     </tr>
                 <?php } ?>

@@ -14,7 +14,7 @@ $(document).ready( function() {
            } else {
               $(e).parents('tr').addClass('success');
            }
-           api('iscriviBase', {
+           api('corsobase:accetta', {
                id:      a1,
                iscr:    a2,
                motivo:  motivo
