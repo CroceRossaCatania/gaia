@@ -20,6 +20,10 @@ if ($me->stato == ASPIRANTE) {
     $puoPartecipare = true;
 }
 
+if(!$corso->direttore()) {
+    redirect("formazione.corsibase.direttore&id={$corso->id}");
+}
+
 
 $_titolo = $corso->nome . ' - Corso Base CRI su Gaia';
 $_descrizione = $corso->luogo
@@ -191,6 +195,12 @@ $(document).ready( function() {
             <?php } ?>
         <div>
         <?php } ?>
+
+        <?php 
+
+        /*  Per ora nascondiamo le lezioni 
+
+
         <div class="row-fluid">
             <div class="span12">
                 <h3><i class="icon-time"></i> Elenco delle lezioni</h3>
@@ -413,6 +423,12 @@ $(document).ready( function() {
                 <?php } ?>
             </table>
         </div>
+
+        */ 
+
+        ?>
+
+        
         <?php if ( $corso->modificabileDa($me) ) { ?>
         <div class="row-fluid">
             <div class="span12">

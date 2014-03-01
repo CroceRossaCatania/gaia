@@ -47,7 +47,8 @@ if (!$corso->haPosizione()) {
                 <li>Queste informazioni saranno rese pubbliche ed accessibili a chiunque: <strong>evita</strong>
                 di inserire dati personali, numeri di telefono privati o informazioni che vorresti fossero divulgate;</li>
                 <li>Agli aspiranti volontari che si registrano verranno fornite in le informazioni per 
-                contattare il direttore del corso in caso necessità.</li>
+                contattare il direttore del corso in caso necessità;</li>
+                <li>Non è possibile modificare la data di inizio di corsi già considerati iniziati.</li>
             </ul>
 
         </div>
@@ -90,6 +91,15 @@ if (!$corso->haPosizione()) {
                 <i class='icon-pencil'></i>
                 modifica la località
             </a>
+        </p>
+
+        <p>
+            <strong>Data inizio</strong><br />
+                <?php if(!$corso->iniziato() || $me->admin()) { ?>
+                <input type="text" name="inputDataInizio" id="inputDataInizio" value="<?php echo $corso->inizio()->format('d/m/Y')?>" required />
+                <?php } else {
+                    echo($corso->inizio()-format('d/m/Y'));
+                } ?> 
         </p>
         
         

@@ -10,6 +10,14 @@ if ( isset($_POST['inputDescrizione']) ) {
     $corso->aggiornamento   = time();
 }
 
+if ( isset($_POST['inputDataInizio']) && (!$corso->iniziato() || $me->admin())) {
+    $data = DT::daFormato($_POST['inputDataInizio']);
+    if($data) {
+        $corso->inizio     = $data->getTimestamp();
+        $corso->aggiornamento   = time();
+    }
+}
+
 /*
 
 $turni = $a->turni();

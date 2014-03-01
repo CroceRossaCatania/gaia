@@ -38,8 +38,8 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
 		<div class="row-fluid">
             <div class="span12">
                 <?php if (isset($_GET['err'])) { ?>
-                <div class="alert alert-block alert-success">
-                    <h4><i class="icon-warning-sign"></i> <strong>Corso base eliminato</strong>.</h4>
+                <div class="alert alert-block alert-danger">
+                    <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
                     <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
                 </div> 
                 <?php } ?> 
@@ -106,7 +106,7 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                             <?php if (in_array($corso->organizzatore(), $mieiComitati) || $me->admin()){ ?>
                             <a href="?p=formazione.corsibase.direttore.nuovo&id=<?= $corso->id; ?>">
                                 <i class="icon-pencil"></i> 
-                                cambia referente
+                                cambia direttore
                             </a>
                             <br />
                             <?php } ?>
@@ -121,7 +121,9 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                             <a href="?p=formazione.corsibase.lezioni&id=<?php echo $corso->id; ?>">
                                 <i class="icon-plus"></i> lezioni
                             </a>
-                            <?php */ if ((in_array($corso->organizzatore(), $mieiComitati) && $corso->stato == CORSO_S_DACOMPLETARE)
+                            <?php */ 
+
+                            if ((in_array($corso->organizzatore(), $mieiComitati) && $corso->stato == CORSO_S_DACOMPLETARE)
                                         or $me->admin()){ ?>
                             <br />
                             <a href="?p=formazione.corsibase.cancella.ok&id=<?php echo $corso->id; ?>">

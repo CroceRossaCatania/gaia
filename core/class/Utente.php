@@ -713,7 +713,7 @@ class Utente extends Persona {
                     APP_PRESIDENTE,
                     APP_SOCI,
                     APP_OBIETTIVO
-                ]),
+                ], false),
                 $this->geopoliticheAttivitaReferenziate(),
                 $this->geopoliticheGruppiReferenziati  (),
                 $this->comitatiAreeDiCompetenza        ()

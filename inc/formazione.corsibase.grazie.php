@@ -28,14 +28,14 @@ paginaCorsoBase($corsoBase);
         che ora è il direttore del corso base;</li><br />
         <li><strong>Non appena il direttore entrerà su Gaia, gli verrà chiesto di inserire ulteriori dettagli, come:</strong>
           <ul>
-            <li><i class="icon-time"></i> Lezioni;</li>
+            <!-- <li><i class="icon-time"></i> Lezioni;</li> -->
             <li><i class="icon-globe"></i> Luogo di svolgimento del corso;</li>
             <li><i class="icon-pencil"></i> Informazioni per gli aspiranti volontari.</li>
           </ul><br />
           
         </li>
         
-        <li>Se preferisci, puoi <a href="?p=formazione.corsibase.modifica&id=<?php echo $attivita->id; ?>">
+        <li>Se preferisci, puoi <a href="?p=formazione.corsibase.modifica&id=<?php echo $corsoBase->id; ?>">
           inserire tu stesso i dettagli mancanti</a> del corso.</li>
         </ul>
         
