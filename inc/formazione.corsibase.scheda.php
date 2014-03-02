@@ -130,7 +130,7 @@ $(document).ready( function() {
         <hr />
 
         <div class="row-fluid allinea-centro">
-            <div class="span3">
+            <div class="span2">
                 <span>
                     <i class="icon-user"></i>
                     Direttore
@@ -165,6 +165,15 @@ $(document).ready( function() {
             </div>
             <div class="span2">
                 <span>
+                    <i class="icon-calendar"></i>
+                    Data esame
+                </span><br />
+                <span class="text-info">
+                    <strong><?php echo $corso->fine()->inTesto(false); ?></strong>
+                </span>
+            </div>
+            <div class="span2">
+                <span>
                     <i class="icon-group"></i>
                     Numero iscritti
                 </span><br />
@@ -172,7 +181,7 @@ $(document).ready( function() {
                     <strong><?php echo $corso->numIscritti(); ?></strong>
                 </span>
             </div>
-            <div class="span3">
+            <div class="span2">
                 <span>
                     <i class="icon-home"></i>
                     Organizzato da

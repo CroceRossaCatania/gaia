@@ -11,9 +11,17 @@ if ( isset($_POST['inputDescrizione']) ) {
 }
 
 if ( isset($_POST['inputDataInizio']) && (!$corso->iniziato() || $me->admin())) {
-    $data = DT::daFormato($_POST['inputDataInizio']);
-    if($data) {
+    $data = DT::daFormato($_POST['inputDataInizio'], 'd/m/Y H:i');
+    if($data && $data < $corso->fine()) {
         $corso->inizio     = $data->getTimestamp();
+        $corso->aggiornamento   = time();
+    }
+}
+
+if ( isset($_POST['inputDataEsame']) && (!$corso->finito() || $me->admin())) {
+    $data = DT::daFormato($_POST['inputDataEsame'], 'd/m/Y H:i');
+    if($data && $data > $corso->inizio()) {
+        $corso->tEsame     = $data->getTimestamp();
         $corso->aggiornamento   = time();
     }
 }

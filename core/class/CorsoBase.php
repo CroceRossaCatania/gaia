@@ -45,6 +45,14 @@ class CorsoBase extends GeoEntita {
     }
 
     /**
+     * Ritorna la data dell'esame
+     * @return DT
+     */
+    public function fine() {
+        return DT::daTimestamp($this->tEsame);
+    }
+
+    /**
      * Controlla se il corso e' futuro (non iniziato)
      * @return bool
      */
@@ -58,6 +66,22 @@ class CorsoBase extends GeoEntita {
      */
     public function iniziato() {
     	return !$this->futuro();
+    }
+
+    /**
+     * Controlla se il corso e' finito
+     * @return bool
+     */
+    public function finito() {
+        return $this->fine() < new DT; 
+    }
+
+    /**
+     * Controlla se il corso e' concluso (finito e fatto esame)
+     * @return bool
+     */
+    public function concluso() {
+        return $this->finito && $this->stato == CORSO_S_CONCLUSO; 
     }
 
     /**

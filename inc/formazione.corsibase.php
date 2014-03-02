@@ -86,6 +86,9 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                             Data inizio:
                             <?php echo $corso->inizio()->inTesto(false); ?>
                             <br />
+                            Data esame:
+                            <?php echo $corso->fine()->inTesto(false); ?>
+                            <br />
                             <?php if ( $corso->direttore ) { ?>
                             Referente: 
                             <a href="?p=profilo.controllo&id=<?php echo $corso->direttore()->id; ?>" target="_new">
