@@ -99,6 +99,7 @@ menuElenchiVolontari(
         data-volontari="elenco"
         data-perpagina="30"
         data-azioni="#azioniElenco"
+        data-comitati="<?= $me->delegazioneAttuale()->comitato()->oid(); ?>"
         >
     </table>
 

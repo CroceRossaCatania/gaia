@@ -325,13 +325,21 @@ function _tabella_ricerca ( e, query, input, pagina ) {
     }
     var perPagina = $(e).data('perpagina');
     var _tid      = $(e).data('tid');
+    var geoPolitica = '';
+    if ( typeof $(e).data('comitati') == 'undefined') {
+        geoPolitica = false;
+    } else {
+        geoPolitica = $(e).data('comitati');
+    }
+
     if (!perPagina) {
         perPagina = 30;
     }
     api('volontari:cerca', {
         'query':        query,
         'pagina':       pagina,
-        'perPagina':    perPagina
+        'perPagina':    perPagina,
+        'comitati':     geoPolitica
     }, function (dati) {
         _tabella_ridisegna(e, dati.risposta, input);
          /* Pulsante indietro... */
