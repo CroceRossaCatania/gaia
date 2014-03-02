@@ -94,6 +94,10 @@ class Appartenenza extends Entita {
                 if($this->stato == MEMBRO_ORDINARIO) {
                     return true;
                 } 
+            } elseif ($stato == ASPIRANTE) {
+                if($this->stato == MEMBRO_ORDINARIO) {
+                    return true;
+                }
             }
             return false;
         }

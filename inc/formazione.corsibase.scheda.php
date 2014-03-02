@@ -454,11 +454,15 @@ $(document).ready( function() {
 
 
         <?php if ( $corso->modificabileDa($me) ) { ?>
+
+        <!-- ISCRITTI -->
+
         <div class="row-fluid">
             <div class="span12">
                 <h3><i class="icon-group"></i> Elenco degli iscritti</h3>
             </div>
         </div>
+
         <div class="row-fluid">
             <table class="table table-striped table-bordered" id="tabellaUtenti">
                 <thead>
@@ -470,12 +474,12 @@ $(document).ready( function() {
                     <th>Azione</th>
                 </thead>
                 <?php 
-                $part = $corso->partecipazioni();
+                $part = $corso->partecipazioni(ISCR_CONFERMATA);
 
                 foreach ( $part as $p ) { 
                     $iscritto = $p->utente(); ?>
                     <tr>
-                        <td><img src="<?php echo $iscritto->avatar()->img(10); ?>" class="img-polaroid" /></td>
+                        <td><img width="50" height="50" src="<?php echo $iscritto->avatar()->img(10); ?>" class="img-polaroid" /></td>
                         <td><?php echo $iscritto->nomeCompleto(); ?></td>
                         <td>
                             <span data-nascondi="" data-icona="icon-phone"><?php echo $iscritto->cellulare(); ?></span>
@@ -487,21 +491,65 @@ $(document).ready( function() {
                             <?= $conf['partecipazioneBase'][$p->stato]; ?>
                         </td>
                         <td width="15%">
-                            <?php if($p->stato == ISCR_RICHIESTA) { ?>
+                            <a href="<?= "?p=profilo.controllo&id={$iscritto->id}" ?>" class="btn" target="_new" title="Dettagli">
+                                <i class="icon-eye-open"></i> Dettagli
+                            </a>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </table>
+        </div>
+
+        <!-- PREISCRIZIONI -->
+        
+        <div class="row-fluid">
+            <div class="span12">
+                <h3><i class="icon-group"></i> Elenco delle preiscrizioni</h3>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <table class="table table-striped table-bordered" id="tabellaUtenti">
+                <thead>
+                    <th>Foto</th>
+                    <th>Nominativo</th>
+                    <th>Telefono</th>
+                    <th>Email</th>
+                    <th>Stato</th>
+                    <th>Azione</th>
+                </thead>
+                <?php 
+                $part = $corso->partecipazioni(ISCR_RICHIESTA);
+
+                foreach ( $part as $p ) { 
+                    $iscritto = $p->utente(); ?>
+                    <tr>
+                        <td><img width="50" height="50" src="<?php echo $iscritto->avatar()->img(10); ?>" class="img-polaroid" /></td>
+                        <td><?php echo $iscritto->nomeCompleto(); ?></td>
+                        <td>
+                            <span data-nascondi="" data-icona="icon-phone"><?php echo $iscritto->cellulare(); ?></span>
+                        </td>
+                        <td>
+                            <span data-nascondi="" data-icona="icon-envelope"><?php echo $iscritto->email(); ?></span>
+                        </td>
+                        <td>
+                            <?= $conf['partecipazioneBase'][$p->stato]; ?>
+                        </td>
+                        <td width="15%">
                             <div class="btn-group btn-group-vertical">
-                                <a href="<?= "?p=formazione.corsibase.assegna.comitato&id={$corso->id}&asp={$iscritto->id}" ?>" class="btn btn-success">
+                                <a href="<?= "?p=formazione.corsibase.assegna.comitato&id={$p->id}&asp={$iscritto->id}" ?>" class="btn btn-success">
                                     <i class="icon-ok"></i> Accetta
                                 </a>
                                 <a data-iscrizione="<?php echo $p->id; ?>" data-accetta="0" class="btn btn-danger">
                                     <i class="icon-remove"></i> Rifiuta
                                 </a>
                             </div>
-                            <?php } ?>
                         </td>
                     </tr>
                 <?php } ?>
             </table>
         </div>
+
         <?php } ?>
     </div>
 </div>

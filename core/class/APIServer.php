@@ -614,7 +614,7 @@ class APIServer {
 
             }
         }
-        return ['id' => $part];
+        return ['id' => $corsoBase->id];
     }
         
 }

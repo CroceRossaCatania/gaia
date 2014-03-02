@@ -40,17 +40,16 @@ class PartecipazioneBase extends Entita {
 
     public function concedi($com) {
         global $sessione;
-        $omitato = Comitato::id($com);
         if($this->aggiorna(ISCR_CONFERMATA)) {
             $gia = Appartenenza::filtra([
-                ['volontario', $p->id],
-                ['comitato', $comitato->id]
+                ['volontario', $this->volontario],
+                ['comitato', $com]
             ]);
 
             if(!$gia){
                 $a = new Appartenenza();
                 $a->volontario  = $this->volontario;
-                $a->comitato    = $comitato->id;
+                $a->comitato    = $com;
                 $a->inizio      = time();
                 $a->fine        = PROSSIMA_SCADENZA;
                 $a->timestamp   = time();

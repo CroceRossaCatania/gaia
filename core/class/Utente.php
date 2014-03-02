@@ -298,6 +298,10 @@ class Utente extends Persona {
                 if($_p->validaPerAnzianita(PERSONA)) {
                     return $_p;
                 }
+            } elseif ($this->stato == ASPIRANTE) {
+                if($_p->validaPerAnzianita(ASPIRANTE)) {
+                    return $_p;
+                }
             }
         }
         return null;
@@ -760,6 +764,19 @@ class Utente extends Persona {
             ], 'timestamp DESC');
         }
     }
+
+    public function partecipazioniBase( $stato = false ) {
+        if ( $stato ) {
+            return PartecipazioneBase::filtra([
+                ['volontario',  $this->id],
+                ['stato',       $stato]
+            ], 'timestamp DESC');
+        } else {
+            return PartecipazioneBase::filtra([
+                ['volontario',  $this->id]
+            ], 'timestamp DESC');
+        }
+    }
     
     
     public function trasferimenti($stato = null) {
@@ -1192,15 +1209,16 @@ class Utente extends Persona {
     }
 
     public function pri_smistatore($altroutente){
-        if($this->presidenziante() || $this->delegazioni([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
-            $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO]);
+        if($this->admin()) {
+            return PRIVACY_RISTRETTA;
+        } elseif($this->presidenziante() || $this->delegazioni([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO, APP_FORMAZIONE])){
+            $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO, APP_FORMAZIONE]);
             foreach ($comitati as $comitato){
                 if($altroutente->in($comitato)){
                     return PRIVACY_RISTRETTA;            
                 }
             }
-            return PRIVACY_PUBBLICA;
-        }elseif($this->areeDiResponsabilita()){
+        } elseif($this->areeDiResponsabilita()) {
             $ar = $this->areeDiResponsabilita();
             foreach( $ar as $_a ){
                 $c = $_a->comitato()->estensione();
@@ -1210,16 +1228,23 @@ class Utente extends Persona {
                     }
                 }
             }
-            redirect('public.utente&id=' . $id);
-        }elseif($this->attivitaReferenziate()){
+        } elseif($this->attivitaReferenziate()) {
             $a = $this->attivitaReferenziate();
-            $partecipazioni = $this->partecipazioni(PART_OK);
+            $partecipazioni = $altroutente->partecipazioni(PART_OK);
             foreach( $partecipazioni as $p ){
                 if (in_array($p->attivita(), $a)) {
                     return PRIVACY_RISTRETTA;
                 }
             }
-            return PRIVACY_PUBBLICA;
+        } elseif($this->corsiBaseDiretti()) {
+            $c = $this->corsiBaseDiretti();
+            $partecipazioni = $altroutente->partecipazioniBase();
+            foreach ($partecipazioni as $p) {
+                if(in_array($p->corsoBase(), $c)) {
+                    return PRIVACY_RISTRETTA;
+                }
+            }
+
         }
         return PRIVACY_PUBBLICA;
     }

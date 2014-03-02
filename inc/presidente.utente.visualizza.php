@@ -453,7 +453,14 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <th>Fine</th>
         <th>Azioni</th>
       </thead>
-      <?php foreach ( $u->appartenenzeAttuali() as $app ) { ?>
+      <?php 
+      if($u->stato == VOLONTARIO) {
+        $appartenenze = $u->appartenenzeAttuali();
+      } else {
+        $appartenenze = $u->appartenenzeAttuali(MEMBRO_ORDINARIO);
+      }
+
+      foreach ( $appartenenze as $app ) { ?>
       <tr class="success">
         <td>
           <strong><?php echo $conf['membro'][$app->stato]; ?></strong>

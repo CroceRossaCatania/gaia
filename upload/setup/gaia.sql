@@ -399,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `partecipazioniBase` (
   `timestamp` varchar(64) DEFAULT NULL,
   `tConferma` varchar(64) DEFAULT NULL,
   `pConferma` varchar(16) DEFAULT NULL,
-  `tAttestato` varchar(8) DEFAULT NULL,
+  `tAttestato` varchar(64) DEFAULT NULL,
   `cAttestato` varchar(8) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `corsoBase` (`corsoBase`),
