@@ -92,21 +92,26 @@ class Comitato extends GeoPolitica {
             WHERE
                 anagrafica.id = appartenenza.volontario
             AND
-                ( fine >= :data OR fine IS NULL OR fine = 0) 
+                (   appartenenza.fine >= :data OR 
+                    appartenenza.fine IS NULL OR 
+                    appartenenza.fine = 0) 
             AND
-                inizio <= :data 
+                appartenenza.inizio <= :data 
             AND
-                comitato = :comitato
-            AND
-                ( appartenenza.stato    = :volontario OR
-                  appartenenza.stato    = :trasferito )
+                appartenenza.comitato = :comitato
+            AND 
+                (   appartenenza.stato <= :passati OR 
+                    appartenenza.stato = :ordinario OR
+                    appartenenza.stato = :volontario)
 
             ORDER BY
-                 cognome ASC, nome ASC");
-        $q->bindParam(':data', $data);
+                 cognome ASC, nome ASC            
+        ");
+        $q->bindParam(':data', $data, PDO::PARAM_INT);
         $q->bindParam(':comitato', $this->id);
-        $q->bindValue(':volontario',    MEMBRO_VOLONTARIO);
-        $q->bindValue(':trasferito',    MEMBRO_TRASFERITO);
+        $q->bindValue(':passati',    MEMBRO_ORDINARIO_DIMESSO);
+        $q->bindValue(':ordinario',  MEMBRO_ORDINARIO);
+        $q->bindValue(':volontario', MEMBRO_VOLONTARIO);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
