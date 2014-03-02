@@ -38,15 +38,12 @@ class PartecipazioneBase extends Entita {
         return false;
     }
 
-    public function concedi($com) {
+    public function concedi($com = null) {
         global $sessione;
         if($this->aggiorna(ISCR_CONFERMATA)) {
-            $gia = Appartenenza::filtra([
-                ['volontario', $this->volontario],
-                ['comitato', $com]
-            ]);
+            $u = $this->utente();
 
-            if(!$gia){
+            if($com && !$u->appartenenzaAttuali(MEMBRO_ORDINARIO)){
                 $a = new Appartenenza();
                 $a->volontario  = $this->volontario;
                 $a->comitato    = $com;
@@ -55,8 +52,8 @@ class PartecipazioneBase extends Entita {
                 $a->timestamp   = time();
                 $a->stato       = MEMBRO_ORDINARIO;
                 $a->conferma    = $essione->utente()->id();
-                return true;
             }
+            return true;
         }
         return false;
     }

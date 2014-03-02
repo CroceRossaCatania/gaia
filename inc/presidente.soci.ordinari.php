@@ -26,6 +26,21 @@ menuElenchiVolontari(
             <h4><i class="icon-exclamation-sign"></i> Socio Ordinario dimesso</h4>
             <p>Il Socio Ordinario è stato dimesso con successo.</p>
         </div>
+<?php }elseif ( isset($_GET['iscritto']) )  { ?>
+        <div class="alert alert-block alert-success">
+            <h4><i class="icon-exclamation-sign"></i> Socio Ordinario iscritto al corso base</h4>
+            <p>Il Socio Ordinario è iscritto con successo al corso base.</p>
+        </div>
+<?php }elseif ( isset($_GET['err']) )  { ?>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-warning-sign"></i> Qualcosa non ha funzionato</h4>
+            <p>L'operazione che hai tentato di eseguire non è andata a buon fine, riprova per favore.</p>
+        </div>
+<?php }elseif ( isset($_GET['gia']) )  { ?>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-warning-sign"></i> Il volonario risulta già iscritto</h4>
+            <p>Il volontario che hai selezionato risulta già iscritto ad un corso base.</p>
+        </div>
 <?php } ?>
     
 <div class="row-fluid">
@@ -35,7 +50,6 @@ menuElenchiVolontari(
             <thead>
                 <th>Cognome</th>
                 <th>Nome</th>
-                <th>Nascita</th>
                 <th>C. Fiscale</th>
                 <th>Residenza</th>
                 <th>Cellulare</th>
@@ -45,8 +59,27 @@ menuElenchiVolontari(
         <?php
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         $admin = $me->admin();
+
         foreach($elenco as $comitato) {
             $t = $comitato->membriOrdinari();
+        
+            /* Prendo un comitato da cui partire
+            a cercare per vedere se ci sono corsi base 
+            e faccio un po' di merda visto che copernico non c'è */
+
+            $start = $comitato->superiore();
+            if($start->nomeCompleto() == $start->superiore()->nomeCompleto()) {
+                $start = $start->superiore();
+            }
+
+            $ramo = new RamoGeoPolitico($start);
+            $iscriviBase = false;
+            foreach($ramo as $c) {
+                if($c->corsiBase(false)) {
+                    $iscriviBase = true;
+                    break;
+                }
+            }
             ?>
             
             <tr class="success">
@@ -69,17 +102,14 @@ menuElenchiVolontari(
             <?php
             foreach ( $t as $_v ) {
                 $id = $_v->id;
+                $iscritto = false;
+                if ($_v->partecipazioniBase(ISCR_CONFERMATA)) {
+                    $iscritto = true;
+                }
             ?>
                 <tr>
                     <td><?php echo $_v->cognome; ?></td>
                     <td><?php echo $_v->nome; ?></td>
-                    <td>
-                        <?php echo date('d/m/Y', $_v->dataNascita); ?>, 
-                        <?php echo $_v->comuneNascita; ?>
-                        <span class="muted">
-                            <?php echo $_v->provinciaNascita; ?>
-                        </span>
-                    </td>
                     <td><?php echo $_v->codiceFiscale; ?></td>
                     <td>
                         <span class="muted">
@@ -100,7 +130,12 @@ menuElenchiVolontari(
                         <div class="btn-group">
                             <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $id; ?>" title="Dettagli">
                                 <i class="icon-eye-open"></i> Dettagli
-                            </a>                            
+                            </a> 
+                            <?php if($iscriviBase && !$iscritto) { ?>
+                                <a class="btn btn-small btn-info" href="?p=formazione.corsibase.iscrizione.ordinario&id=<?= $id; ?>&com=<?= $comitato; ?>" title="Iscrivi a corso base">
+                                    <i class="icon-flag"></i> Iscrivi a corso
+                                </a>
+                            <?php } ?>                           
                             <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&ordinario&id=<?php echo $id; ?>" title="Dimetti Volontario">
                                 <i class="icon-ban-circle"></i> Dimetti
                             </a>

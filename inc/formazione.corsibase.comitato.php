@@ -16,7 +16,7 @@ if ( count($comitati) == 1 ) {
 
 ?>
 
-  <form action="?p=attivita.idea" method="GET">
+  <form action="?p=formazione.corsibase.idea" method="GET">
 
     <input type="hidden" name="p" value="formazione.corsibase.idea" />
     <div class="modal fade automodal">

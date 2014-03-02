@@ -30,7 +30,6 @@ menuElenchiVolontari(
             <thead>
                 <th>Cognome</th>
                 <th>Nome</th>
-                <th>Nascita</th>
                 <th>C. Fiscale</th>
                 <th>Residenza</th>
                 <th>Cellulare</th>
@@ -66,13 +65,6 @@ menuElenchiVolontari(
                 <tr>
                     <td><?php echo $_v->cognome; ?></td>
                     <td><?php echo $_v->nome; ?></td>
-                    <td>
-                        <?php echo date('d/m/Y', $_v->dataNascita); ?>, 
-                        <?php echo $_v->comuneNascita; ?>
-                        <span class="muted">
-                            <?php echo $_v->provinciaNascita; ?>
-                        </span>
-                    </td>
                     <td><?php echo $_v->codiceFiscale; ?></td>
                     <td>
                         <span class="muted">
