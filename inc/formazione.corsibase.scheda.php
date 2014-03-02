@@ -489,7 +489,7 @@ $(document).ready( function() {
                         <td width="15%">
                             <?php if($p->stato == ISCR_RICHIESTA) { ?>
                             <div class="btn-group btn-group-vertical">
-                                <a data-iscrizione="<?php echo $p->id; ?>" data-accetta="1" class="btn btn-success">
+                                <a href="<?= "?p=formazione.corsibase.assegna.comitato&id={$corso->id}&asp={$iscritto->id}" ?>" class="btn btn-success">
                                     <i class="icon-ok"></i> Accetta
                                 </a>
                                 <a data-iscrizione="<?php echo $p->id; ?>" data-accetta="0" class="btn btn-danger">

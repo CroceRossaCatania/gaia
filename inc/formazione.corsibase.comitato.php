@@ -11,7 +11,7 @@ $comitati = $me->comitatiDiCompetenza();
 
 if ( count($comitati) == 1 ) {
   $comitato = $comitati[0];
-  redirect('attivita.idea&c=' . $comitato->oid());
+  redirect('formazione.corsibase.idea&c=' . $comitato->oid());
 }
 
 ?>

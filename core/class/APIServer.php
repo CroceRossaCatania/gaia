@@ -557,12 +557,18 @@ class APIServer {
 
     private function api_corsobase_accetta() {
         $this->richiedi(['id']);
-        $this->richiediLogin();
+        $me = $this->richiediLogin();
         $part = PartecipazioneBase::id($this->par['id']);
+        $corsoBase = $part->corsoBase();
+        if (!$corsoBase->modificabileDa($me)) {
+            return [
+                'ok' => false
+            ];
+        }
         if ( $part->stato == ISCR_RICHIESTA ) {
             
             if ( $this->par['iscr'] ) {
-                $part->concedi();
+                $part->concedi($this->par['com']);
 
                 /* 
 
@@ -608,7 +614,7 @@ class APIServer {
 
             }
         }
-        return $part;
+        return ['id' => $part];
     }
         
 }
