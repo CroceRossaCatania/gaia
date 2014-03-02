@@ -26,6 +26,7 @@ menuElenchiVolontari(
             </thead>
         <?php
         foreach($me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]) as $comitato) { 
+            $estesi = $comitato->membriInEstensione();
             ?>
             <tr class="success">
                 <td colspan="7" class="grassetto">
@@ -44,7 +45,7 @@ menuElenchiVolontari(
                 </td>
             </tr>
             <?php            
-            foreach ( $comitato->membriInEstensione() as $e ) {
+            foreach ( $estesi as $e ) {
                 $v = $e->volontario();
             ?>
                 <tr>
