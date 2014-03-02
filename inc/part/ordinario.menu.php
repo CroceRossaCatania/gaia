@@ -21,13 +21,6 @@ $menu += [
         'utente.storico'    =>  '<i class="icon-time"></i> Storico'        
     ]];
 $menu += [
-    'Comunicazioni' =>  [
-        'utente.email'     =>   '<i class="icon-envelope-alt"></i> Email',
-        'utente.cellulare' =>   '<i class="icon-phone"></i> Cellulare'
-    ],
-    'Impostazioni' =>  [
-        'utente.password'     =>   '<i class="icon-key"></i> Password'
-    ],
     'Statistiche' =>  [
         'utente.statistiche.volontari'     =>   '<i class="icon-puzzle-piece"></i> Volontari'
 //        'utente.statistiche.attivita'     =>   '<i class="icon-weibo"></i> Attività'
