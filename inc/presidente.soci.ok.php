@@ -16,7 +16,6 @@ $data = DateTime::createFromFormat('d/m/Y', $_GET['inputData']);
 $data = $data->getTimestamp();
 $sessione->data = $data; // solo perchè in menù volontari non ho come mettere variabile
 
-echo($data);
 
 ?>
   
