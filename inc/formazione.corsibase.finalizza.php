@@ -27,12 +27,12 @@ $part = $corso->partecipazioni(ISCR_CONFERMATA);
             Compilazione verbale Corso Base
         </h2>
         <div class="row-fluid">
-            <form method="POST" action="?p=formazione.corsibase.finalizza.ok">
+            <form method="POST" action="?p=formazione.corsibase.finalizza.ok" class="form-horizontal">
             <table class="table">
                 <?php 
                 foreach($part as $p) { ?>
-                    <tr>
-                        <td><?= $p->utente()->nomeCompleto(); ?></td>
+                    <tr class="compila-prima-riga" id="riga_<?= $p->id; ?>">
+                        <td><strong><?= $p->utente()->nomeCompleto(); ?></strong></td>
                         <td>
                             <label class="radio">
                             <input type="radio" name="ammissione_<?= $p->id; ?>" 
@@ -55,11 +55,70 @@ $part = $corso->partecipazioni(ISCR_CONFERMATA);
                             </label>
                         </td>
                     </tr>
-                    <tr class="nascosto" id="opt_ammesso_<?= $p->id; ?>">
-                    <td>asd</td><td>asd</td><td>asd</td><td>asd</td>
+                    <tr class="nascosto" id="opt_p1_<?= $p->id; ?>">
+                        <td colspan="2">
+                           Parte 1: La croce rossa 
+                        </td>
+                        <td>
+                            <label class="radio">
+                                <input type="radio" name="p1_<?= $p->id; ?>" 
+                                value="1" >
+                                Positivo
+                            </label>
+                        </td>
+                        <td>
+                            <label class="radio">
+                                <input type="radio" name="p1_<?= $p->id; ?>" 
+                                value="0" >
+                                Negativo
+                            </label>
+                        </td>
                     </tr>
-                    <tr class="nascosto" id="opt_non_<?= $p->id; ?>">
-                    <td>axd</td><td>axd</td><td>axd</td><td>axd</td>
+                    <tr class="nascosto" id="opt_p2_<?= $p->id; ?>">
+                        <td colspan="2">
+                           Parte 2: Gesti e manovre salvavita 
+                        </td>
+                        <td>
+                            <label class="radio">
+                                <input class="p2_<?= $p->id; ?>" type="radio" name="p2_<?= $p->id; ?>" 
+                                value="1" >
+                                Positivo
+                            </label>
+                        </td>
+                        <td>
+                            <label class="radio">
+                                <input class="p2_<?= $p->id; ?>" type="radio" name="p2_<?= $p->id; ?>" 
+                                value="0" >
+                                Negativo
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="nascosto" id="opt_p3_<?= $p->id; ?>">
+                        <td colspan="2">
+                           <label class="checkbox inline">
+                                <input type="checkbox" id="extra_1_<?= $p->id; ?>" 
+                                 name="extra_1_<?= $p->id; ?>" value="1"> 
+                                 Prova pratica su Parte 2 sostituita da colloquio
+                            </label>
+                        </td>
+                        <td colspan="2">
+                            <label class="checkbox inline">
+                                <input type="checkbox" data-extra2="<?= $p->id; ?>" 
+                                 name="extra_2_<?= $p->id; ?>" value="1"> 
+                                 Verifica effettuata solo sulla Parte 1 del programma del corso
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="nascosto error" id="opt_non_<?= $p->id; ?>">
+                        <td colspan="4">
+                            <div class="control-group">
+                                <label class="control-label" for="inputMotivo_<?= $p->id; ?>">Motivo</label>
+                                <div class="controls">
+                                    <input type="text" class="input-block-level" id="inputMotivo_<?= $p->id; ?>" 
+                                     placeholder="es: numero di assenze superiore al previsto">
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 <?php } ?>
             </table>

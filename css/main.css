@@ -389,3 +389,7 @@ body {
     line-height: 1em;
     text-shadow: 3px 3px 0px white;
 }
+
+.compila-prima-riga td {
+    border-top: 2px dashed #888 !important;
+}
