@@ -36,7 +36,7 @@ if(!$corso->direttore()) {
 }
 
 
-$_titolo = $corso->nome . ' - Corso Base CRI su Gaia';
+$_titolo = $corso->nome . 'Corso Base CRI su Gaia';
 $_descrizione = $corso->luogo
 ." || Organizzato da " . $corso->organizzatore()->nomeCompleto();
 
@@ -192,6 +192,14 @@ $(document).ready( function() {
             </div>
         </div>
         <hr />
+        <?php if($corso->modificabileDa($me) && $corso->finito()) { ?>
+        <div class="row-fluid">
+            <a href="?p=formazione.corsibase.finalizza&id=<?= $corso->id ?>" class="btn btn-block btn-success btn-large">
+                <i class="icon-flag-checkered"></i> Genera verbale e chiudi corso
+            </a>
+        </div>
+        <hr />
+        <?php } ?>
 
         <?php if($puoPartecipare && !$iscritto) { ?>
         <div class="row-fluid">
