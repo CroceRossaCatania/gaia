@@ -84,7 +84,7 @@ class Trasferimento extends Entita {
         } else {
             global $sessione;    
             $this->stato = TRASF_OK;
-            $this->pConferma = $sessione->utente()->id;
+            $this->pConferma = $sessione->utente();
         }
         
         $v = $this->volontario();
@@ -195,7 +195,7 @@ class Trasferimento extends Entita {
             $m = new Email('richiestaTrasferimentook', 'Approvata richiesta trasferimento verso: ' . $nuovaApp->comitato()->nome);
             if (!auto)
             {
-                $m->da = $sessione->utente()->id; 
+                $m->da = $this->pConferma; 
             }            
             $m->a = $destinatari;
             $m->_NOME       = $nuovaApp->volontario()->nomeCompleto();
