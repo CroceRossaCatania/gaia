@@ -55,6 +55,13 @@ if ($sessione->utente()->email) {
                      comunicazioni personali ed al momento dell'accesso.</p>
               </div>
           <?php } ?>
+          <?php if ( isset($_GET['emailnon'] ) ) { ?>
+              <div class="alert alert-block alert-error">
+                  <h4>Email non valida</h4>
+                  <p>Devi avere un indirizzo email valido in quanto questo viene usato per 
+                     comunicazioni personali ed al momento dell'accesso.</p>
+              </div>
+          <?php } ?>
           <?php if (isset($_GET['e'])) { ?>
               <div class="alert alert-block alert-error">
                   <h4>Inserisci una password complessa</h4>

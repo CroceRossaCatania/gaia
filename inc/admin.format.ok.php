@@ -47,12 +47,7 @@ if(isset($_POST['ordinario'])){
             $v->cambiaPassword($password);
             echo(' PASSWORD RIGENERATA');
 
-            $haemail = true;
-            if ($v->email == '') {
-                $haemail = false;
-            }
-
-            if ($haemail) {
+            if ($v->email) {
                 $m = new Email('registrazioneFormatpass', 'Registrato su Gaia');
                 $m->a = $v;
                 $m->_NOME       = $v->nome;
@@ -122,15 +117,11 @@ if(isset($_POST['ordinario'])){
                 $p->comuneResidenza     = normalizzaNome($riga[7]);
                 $p->provinciaResidenza  = maiuscolo($riga[8]);
                 $p->CAPResidenza        = maiuscolo($riga[9]);
-                $giaemail = Persona::filtra([['email',minuscolo($riga[10])]]);
-                if (!$giaemail){
-                   $p->email = minuscolo($riga[10]); 
-                }
                 
-                if ($p->email == '') {
-                    $haemail = true;
-                } else {
-                    $haemail = false;
+                $email = minuscolo($riga[10]);
+                if(filter_var($email, FILTER_VALIDATE_EMAIL) 
+                    && !Persona::by('email', $email)) {
+                   $p->email = $email; 
                 }
                 
                 $cell = str_replace(', ', ' / ', $cell);
@@ -164,7 +155,7 @@ if(isset($_POST['ordinario'])){
                 $app->fine = PROSSIMA_SCADENZA;
                 $app->timestamp   = time();
                 $app->conferma  = $pres;
-                if ($haemail) {
+                if ($p->email) {
                     $m = new Email('registrazioneFormatpass', 'Registrato su Gaia');
                     $m->a = $p;
                     $m->_NOME       = $p->nome;
