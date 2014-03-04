@@ -70,9 +70,10 @@ class Email {
             $d = [];
             foreach ( $this->a as $k ) {
 
-                // Destinatario senza email?
-                if ( !$k->email )
+                // Destinatario senza email o email non valida?
+                if ( !$k->email || !filter_var($k->email, FILTER_VALIDATE_EMAIL)) {
                     continue;
+                }
 
                 $d[] = [
                     'id'        =>  (int) $k->id,
@@ -102,7 +103,7 @@ class Email {
     protected function _costruisci_mittente() {
         if ( $this->da ) {
             return [
-                'id'    =>  (int) $this->da->id
+                'id'    =>  (int)  ( (string) $this->da )
             ];
         } else {
             return false;

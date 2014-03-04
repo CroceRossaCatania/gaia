@@ -42,7 +42,7 @@ class Trasferimento extends Entita {
         $v = $this->volontario();
 
         $this->tCOnferma = time();
-        $this->pConferma = $sessione->utente()->id;
+        $this->pConferma = $sessione->utente();
         $this->negazione = $motivo;
 
         /* rimetto a posto l'appartenenza attuale */
@@ -50,16 +50,16 @@ class Trasferimento extends Entita {
         $a = Appartenenza::id($this->appartenenza);
         $a->timestamp = time();
         $a->stato     = TRASF_NEGATO;
-        $a->conferma  = $sessione->utente()->id;    
+        $a->conferma  = $this->pConferma;    
         $a->inizio = time();
         $a->fine = time();
         $m = new Email('richiestaTrasferimentono', 'Richiesta trasferimento negata: ' . $a->comitato()->nome);
-        $m->da = $sessione->utente()->id;   
+        $m->da = $this->pConferma;   
         $m->a = $a->volontario();
         $m->_NOME       = $v->nome;
         $m->_COMITATO   = $a->comitato()->nomeCompleto();
-        $m-> _TIME = date('d/m/Y', $a->timestamp);
-        $m-> _MOTIVO = $this->motivo;
+        $m->_TIME = date('d/m/Y', $a->timestamp);
+        $m->_MOTIVO = $motivo;
         $m->invia();
     }
     
@@ -72,7 +72,7 @@ class Trasferimento extends Entita {
         $m->a = $destinatari;
         $m->_NOME       = $v->nome;
         $m->_COMITATO   = $v->unComitato()->nomeCompleto();
-        $m-> _TIME = date('d/m/Y', $t->timestamp);
+        $m->_TIME = date('d/m/Y', $t->timestamp);
         $m->accoda();
     }
 
@@ -84,7 +84,7 @@ class Trasferimento extends Entita {
         } else {
             global $sessione;    
             $this->stato = TRASF_OK;
-            $this->pConferma = $sessione->utente()->id;
+            $this->pConferma = $sessione->utente();
         }
         
         $v = $this->volontario();
@@ -195,7 +195,7 @@ class Trasferimento extends Entita {
             $m = new Email('richiestaTrasferimentook', 'Approvata richiesta trasferimento verso: ' . $nuovaApp->comitato()->nome);
             if (!auto)
             {
-                $m->da = $sessione->utente()->id; 
+                $m->da = $this->pConferma; 
             }            
             $m->a = $destinatari;
             $m->_NOME       = $nuovaApp->volontario()->nomeCompleto();
