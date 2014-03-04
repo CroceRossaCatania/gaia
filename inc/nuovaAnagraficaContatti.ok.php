@@ -34,6 +34,10 @@ if ( $e and $e->password ) {
     redirect('nuovaAnagraficaContatti&email');
 }
 
+if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+	redirect('nuovaAnagraficaContatti&emailnon');
+}
+
 if ( strlen($_POST['inputPassword']) < 8 || strlen($_POST['inputPassword']) > 15 ) {
 	redirect('nuovaAnagraficaContatti&e');
 }
