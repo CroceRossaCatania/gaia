@@ -103,7 +103,7 @@ class Email {
     protected function _costruisci_mittente() {
         if ( $this->da ) {
             return [
-                'id'    =>  (int) $this->da->id
+                'id'    =>  (int)  ( (string) $this->da )
             ];
         } else {
             return false;
