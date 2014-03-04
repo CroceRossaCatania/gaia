@@ -61,14 +61,14 @@ $part = $corso->partecipazioni(ISCR_CONFERMATA);
                         </td>
                         <td>
                             <label class="radio">
-                                <input type="radio" name="p1_<?= $p->id; ?>" 
+                                <input type="radio" name="p1_<?= $p->id; ?>"  id="ct1_<?= $p->id; ?>"
                                 value="1" >
                                 Positivo
                             </label>
                         </td>
                         <td>
                             <label class="radio">
-                                <input type="radio" name="p1_<?= $p->id; ?>" 
+                                <input type="radio" name="p1_<?= $p->id; ?>" id="cf1_<?= $p->id; ?>"
                                 value="0" >
                                 Negativo
                             </label>
@@ -80,30 +80,30 @@ $part = $corso->partecipazioni(ISCR_CONFERMATA);
                         </td>
                         <td>
                             <label class="radio">
-                                <input class="p2_<?= $p->id; ?>" type="radio" name="p2_<?= $p->id; ?>" 
+                                <input class="p2_<?= $p->id; ?>" type="radio" name="p2_<?= $p->id; ?>" id="ct2_<?= $p->id; ?>"
                                 value="1" >
                                 Positivo
                             </label>
                         </td>
                         <td>
                             <label class="radio">
-                                <input class="p2_<?= $p->id; ?>" type="radio" name="p2_<?= $p->id; ?>" 
+                                <input class="p2_<?= $p->id; ?>" type="radio" name="p2_<?= $p->id; ?>" id="cf2_<?= $p->id; ?>"
                                 value="0" >
                                 Negativo
                             </label>
                         </td>
                     </tr>
                     <tr class="nascosto" id="opt_p3_<?= $p->id; ?>">
-                        <td colspan="2">
+                        <td colspan="2" id="tdex1_<?= $p->id; ?>">
                            <label class="checkbox inline">
-                                <input type="checkbox" id="extra_1_<?= $p->id; ?>" 
+                                <input type="checkbox" id="extra_1_<?= $p->id; ?>"
                                  name="extra_1_<?= $p->id; ?>" value="1"> 
                                  Prova pratica su Parte 2 sostituita da colloquio
                             </label>
                         </td>
                         <td colspan="2">
                             <label class="checkbox inline">
-                                <input type="checkbox" data-extra2="<?= $p->id; ?>" 
+                                <input type="checkbox" data-extra2="<?= $p->id; ?>" id="ex2_<?= $p->id; ?>"
                                  name="extra_2_<?= $p->id; ?>" value="1"> 
                                  Verifica effettuata solo sulla Parte 1 del programma del corso
                             </label>
