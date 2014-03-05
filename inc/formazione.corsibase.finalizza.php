@@ -31,7 +31,7 @@ $part = $corso->partecipazioni(ISCR_CONFERMATA);
             <table class="table">
                 <?php 
                 foreach($part as $p) { ?>
-                    <tr class="compila-prima-riga" id="riga_<?= $p->id; ?>">
+                    <tr data-riga="<?= $p->id; ?>" class="compila-prima-riga" id="riga_<?= $p->id; ?>">
                         <td><strong><?= $p->utente()->nomeCompleto(); ?></strong></td>
                         <td>
                             <label class="radio">
@@ -122,7 +122,7 @@ $part = $corso->partecipazioni(ISCR_CONFERMATA);
                     </tr>
                 <?php } ?>
             </table>
-            <button type="submit" class="btn btn-success btn-block">
+            <button type="submit" class="btn btn-success btn-block nascosto" id="pulsantone">
                 <i class="icon-check"></i> Salva verbale
             </button>
             </form>
