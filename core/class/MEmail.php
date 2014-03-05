@@ -110,8 +110,9 @@ class MEmail extends MEntita {
 
 	/**
 	 * Invia l'email usando configurazione attuale
+	 * @param callback|null $callback Eventuale callback da chiamare dopo ogni invio
 	 */
-	public function invia() {
+	public function invia( $callback = null ) {
 		global $conf;
 
 		// Ottiene un mailer
@@ -192,7 +193,7 @@ class MEmail extends MEntita {
 			$stato = $y->send();
 
 			$this->_stato_invio(
-				$dest['id'], 
+				$dest['id'],
 				$stato,
 				$y->ErrorInfo
 			);
@@ -200,6 +201,9 @@ class MEmail extends MEntita {
 			$riuscito = $riuscito && $stato;
 
 			$y->ClearAllRecipients();
+
+			if ( is_callable($callable) )
+				call_user_func($callable);
 
 		}
 
