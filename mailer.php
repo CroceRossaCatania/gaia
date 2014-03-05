@@ -58,7 +58,7 @@ foreach ( $coda as $_comunicazione ) {
 		// Tenta l'invio della comunicazione
 		if ( !$stato = (int) $_comunicazione->invia( function() use ($cache) {
 			// Evita il timeout per altri 5 secondi
-			$cache->setTimeout('gaia:mailer:lock', 5);
+			$cache->setTimeout('gaia:mailer:lock', 15);
 
 		}) ) {
 			echo "#{$task}, {$time}: Invio non riuscito," .
