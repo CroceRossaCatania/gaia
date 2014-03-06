@@ -35,7 +35,7 @@ foreach($part as $p) {
                 if(isset($_POST["extra_1_{$p->id}"])) {
                     $p->e1 = $_POST["extra_1_{$p->id}"];
                 }
-                $p->utente()->stato = VOLONTARIO;
+                $p->utente()->trasformaInVolontario($me);
 
                 // mandare email superamento
             } elseif($_POST["p1_{$p->id}"] && $_POST["extra_2_{$p->id}"]) {
@@ -46,7 +46,7 @@ foreach($part as $p) {
                 $p->cAttestato = $me;
                 $p->p1 = $_POST["p1_{$p->id}"];
                 $p->e2 = $_POST["extra_2_{$p->id}"];
-                $p->utente()->stato = VOLONTARIO;
+                $p->utente()->trasformaInVolontario($me);
 
                 // mandare email superamento
             } else {

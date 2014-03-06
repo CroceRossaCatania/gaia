@@ -319,7 +319,7 @@ class Utente extends Persona {
     public function appartenenzaAttuale() {
         if($this->stato == VOLONTARIO && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO)->attuale()) {
             return $this->ultimaAppartenenza(MEMBRO_VOLONTARIO);
-        } elseif ($this->stato == PERSONA && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)->attuale()) {
+        } elseif (($this->stato == PERSONA || $this->stato == ASPIRANTE) && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)->attuale()) {
             return $this->ultimaAppartenenza(MEMBRO_ORDINARIO);
         }
         return null;
@@ -1417,6 +1417,25 @@ class Utente extends Persona {
             throw new Errore(1015);
         }
         return null;        
+    }
+
+    public function trasformaInVolontario(Utente $trasformatore) {
+        if(!$this->stato == ASPIRANTE) {
+            return false;
+        }
+        $app = $this->appartenenzaAttuale();
+        $ora = time();
+        $comitato = $app->comitato;
+        $app->fine = $time;
+        $this->stato = VOLONTARIO;
+        $nuovaApp = new Appartenenza();
+        $nuovaApp->volontario = $this;
+        $nuovaApp->comitato = $comitato;
+        $nuovaApp->stato = MEMBRO_VOLONTARIO;
+        $nuovaApp->inizio = $ora;
+        $nuovaApp->timestamp = time();
+        $nuovaApp->comferma = $trasformatore;
+        return true;
     }
 
 }

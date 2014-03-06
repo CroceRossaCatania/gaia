@@ -597,13 +597,16 @@ $(document).ready( function() {
                     <th>Telefono</th>
                     <th>Email</th>
                     <th>Stato</th>
+                    <th>Azione</th>
                 </thead>
                 <?php 
                 $part = $corso->partecipazioni();
 
                 foreach ( $part as $p ) { 
                     if(!$p->haConclusoCorso()) {continue; }
-                    $iscritto = $p->utente(); ?>
+                    $iscritto = $p->utente(); 
+
+                    ?>
                     <tr>
                         <td><img width="50" height="50" src="<?php echo $iscritto->avatar()->img(10); ?>" class="img-polaroid" /></td>
                         <td><?php echo $iscritto->nomeCompleto(); ?></td>
@@ -615,6 +618,11 @@ $(document).ready( function() {
                         </td>
                         <td>
                             <?= $conf['partecipazioneBase'][$p->stato]; ?>
+                        </td>
+                        <td width="15%">
+                            <a href="<?= "?p=profilo.controllo&id={$iscritto->id}" ?>" class="btn" target="_new" title="Dettagli">
+                                <i class="icon-eye-open"></i> Dettagli
+                            </a>
                         </td>
                     </tr>
                 <?php } ?>
