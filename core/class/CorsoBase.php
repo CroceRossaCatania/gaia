@@ -81,7 +81,7 @@ class CorsoBase extends GeoEntita {
      * @return bool
      */
     public function concluso() {
-        return $this->finito && $this->stato == CORSO_S_CONCLUSO; 
+        return $this->finito() && $this->stato == CORSO_S_CONCLUSO; 
     }
 
     /**

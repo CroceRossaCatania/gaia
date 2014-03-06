@@ -60,7 +60,7 @@ $(document).ready( function() {
         <div class="row-fluid">
 
             <div class="span8 btn-group">
-                <?php if ( $corso->modificabileDa($me) ) { ?>
+                <?php if ( $corso->modificabileDa($me) && !$corso->concluso()) { ?>
                 <a href="?p=formazione.corsibase.modifica&id=<?php echo $corso->id; ?>" class="btn btn-large btn-info">
                     <i class="icon-edit"></i>
                     Modifica
@@ -91,6 +91,12 @@ $(document).ready( function() {
                 <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
             </div> 
         <?php } ?>
+        <?php if (isset($_GET['verberr'])) { ?>
+            <div class="alert alert-block alert-error">
+                <h4><i class="icon-warning-sign"></i> <strong>Problemi sulla compilazione del verbale</strong>.</h4>
+                <p>Ci sono stai dei problemi sulla compilazione del verbale. Per favore riprova.</p>
+            </div> 
+        <?php } ?>
         <?php if (isset($_GET['gia'])) { ?>
             <div class="alert alert-block alert-error">
                 <h4><i class="icon-warning-sign"></i> <strong>Sei già iscritto</strong>.</h4>
@@ -101,6 +107,12 @@ $(document).ready( function() {
             <div class="alert alert-block alert-success">
                 <h4><i class="icon-ok"></i> <strong>Operazione andata a buon fine</strong>.</h4>
                 <p>La preiscrizione al corso è stata effettuata con successo.</p>
+            </div> 
+        <?php } ?>
+        <?php if (isset($_GET['verbok'])) { ?>
+            <div class="alert alert-block alert-success">
+                <h4><i class="icon-ok"></i> <strong>Verbale compilato correttamente</strong>.</h4>
+                <p>Le informazioni sull'esito dell'esame sono state correttamente inserite.</p>
             </div> 
         <?php } ?>
         <?php if (isset($_GET['cancellato'])) { ?>
@@ -192,7 +204,7 @@ $(document).ready( function() {
             </div>
         </div>
         <hr />
-        <?php if($corso->modificabileDa($me) && $corso->finito()) { ?>
+        <?php if($corso->modificabileDa($me) && $corso->finito() && !$corso->concluso()) { ?>
         <div class="row-fluid">
             <a href="?p=formazione.corsibase.finalizza&id=<?= $corso->id ?>" class="btn btn-block btn-success btn-large">
                 <i class="icon-flag-checkered"></i> Genera verbale e chiudi corso
@@ -470,7 +482,7 @@ $(document).ready( function() {
         ?>
 
 
-        <?php if ( $corso->modificabileDa($me) ) { ?>
+        <?php if ( !$corso->concluso() && $corso->modificabileDa($me) ) { ?>
 
         <!-- ISCRITTI -->
 
@@ -561,6 +573,48 @@ $(document).ready( function() {
                                     <i class="icon-remove"></i> Rifiuta
                                 </a>
                             </div>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </table>
+        </div>
+
+        <?php } elseif($corso->concluso() && $corso->modificabileDa($me)) { ?>
+
+        <!-- ELENCHI FINE CORSO -->
+        
+        <div class="row-fluid">
+            <div class="span12">
+                <h3><i class="icon-group"></i> Esiti corso</h3>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <table class="table table-striped table-bordered" id="tabellaUtenti">
+                <thead>
+                    <th>Foto</th>
+                    <th>Nominativo</th>
+                    <th>Telefono</th>
+                    <th>Email</th>
+                    <th>Stato</th>
+                </thead>
+                <?php 
+                $part = $corso->partecipazioni();
+
+                foreach ( $part as $p ) { 
+                    if(!$p->haConclusoCorso()) {continue; }
+                    $iscritto = $p->utente(); ?>
+                    <tr>
+                        <td><img width="50" height="50" src="<?php echo $iscritto->avatar()->img(10); ?>" class="img-polaroid" /></td>
+                        <td><?php echo $iscritto->nomeCompleto(); ?></td>
+                        <td>
+                            <span data-nascondi="" data-icona="icon-phone"><?php echo $iscritto->cellulare(); ?></span>
+                        </td>
+                        <td>
+                            <span data-nascondi="" data-icona="icon-envelope"><?php echo $iscritto->email(); ?></span>
+                        </td>
+                        <td>
+                            <?= $conf['partecipazioneBase'][$p->stato]; ?>
                         </td>
                     </tr>
                 <?php } ?>

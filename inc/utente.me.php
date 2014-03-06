@@ -271,7 +271,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
         </h2>
 
         <div class="row-fluid">
-            <div class="span8">
+            <div class="span7">
                 <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
                 <div class="alert alert-success">
                     <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
@@ -399,15 +399,21 @@ if(false && $consenso && !$sessione->barcode) { ?>
             </div>
 
             <!-- PANNELLO ULTIME EMAIL -->
-            <div class="span4">
-                <h4><i class="icon-time"></i> Ultime comunicazioni</h4>
-                
-                <div
-                    data-posta      ="true"
-                    data-direzione  ="ingresso"
-                    data-perPagina  ="5"
-                    data-mini       ="true"
-                ></div>
+            <div class="span5">
+                <div class="row-fluid">
+                    <h4><i class="icon-time"></i> Ultime comunicazioni</h4>
+                    
+                    <div
+                        data-posta      ="true"
+                        data-direzione  ="ingresso"
+                        data-perPagina  ="5"
+                        data-mini       ="true"
+                    ></div>
+                </div>
+                <div class="row-fluid">
+                    <a class="twitter-timeline" href="https://twitter.com/progettogaiacri/gaia-update" data-widget-id="441278779487305729">Tweets from https://twitter.com/progettogaiacri/gaia-update</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                </div>
             </div>
         </div>
     </div>

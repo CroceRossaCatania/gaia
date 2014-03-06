@@ -192,6 +192,13 @@ CREATE TABLE IF NOT EXISTS `datiComitati` (
   PRIMARY KEY (`id`,`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `datiPartecipazioniBase` (
+  `id` varchar(128) NOT NULL DEFAULT '',
+  `nome` varchar(32) NOT NULL DEFAULT '',
+  `valore` text,
+  PRIMARY KEY (`id`,`nome`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `datiLocali` (
   `id` varchar(128) NOT NULL DEFAULT '',
   `nome` varchar(32) NOT NULL DEFAULT '',

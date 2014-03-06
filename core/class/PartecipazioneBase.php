@@ -8,7 +8,7 @@ class PartecipazioneBase extends Entita {
 
     protected static
         $_t  = 'partecipazioniBase',
-        $_dt = null;
+        $_dt = 'datiPartecipazioniBase';
 
     public function utente() {
         return Utente::id($this->volontario);
@@ -74,4 +74,15 @@ class PartecipazioneBase extends Entita {
         return false;
     }
 
+    public function haConclusoCorso() {
+        return $this->promosso() || $this->bocciato();
+    }
+
+    public function promosso() {
+        return $this->stato == ISCR_SUPERATO;
+    }
+
+    public function bocciato() {
+        return $this->stato == ISCR_BOCCIATO;
+    }
 }

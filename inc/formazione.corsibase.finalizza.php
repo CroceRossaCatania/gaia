@@ -10,6 +10,10 @@ controllaParametri(array('id'));
 $corso = CorsoBase::id($_GET['id']);
 paginaCorsoBase($corso);
 
+if($corso->stato == CORSO_S_CONCLUSO) {
+    redirect("formazione.corsibase.scheda&id={$corso->id}&err");
+}
+
 $part = $corso->partecipazioni(ISCR_CONFERMATA);
 
 ?>
@@ -28,6 +32,7 @@ $part = $corso->partecipazioni(ISCR_CONFERMATA);
         </h2>
         <div class="row-fluid">
             <form method="POST" action="?p=formazione.corsibase.finalizza.ok" class="form-horizontal">
+            <input type="hidden" name="id" value="<?php echo $corso->id; ?>" />
             <table class="table">
                 <?php 
                 foreach($part as $p) { ?>
@@ -36,21 +41,21 @@ $part = $corso->partecipazioni(ISCR_CONFERMATA);
                         <td>
                             <label class="radio">
                             <input type="radio" name="ammissione_<?= $p->id; ?>" 
-                             data-ammesso="<?= $p->id; ?>" value="ammesso_<?= $p->id; ?>" >
+                             data-ammesso="<?= $p->id; ?>" value="1" >
                             Ammesso
                             </label>
                         </td>
                         <td>
                             <label class="radio">
                             <input type="radio" name="ammissione_<?= $p->id; ?>" 
-                             data-non="<?= $p->id; ?>" value="non_<?= $p->id; ?>" >
+                             data-non="<?= $p->id; ?>" value="2" >
                             Non Ammesso
                             </label>
                         </td>
                         <td>
                             <label class="radio">
                             <input type="radio" name="ammissione_<?= $p->id; ?>" 
-                             data-assente="<?= $p->id; ?>" value="assente_<?= $p->id; ?>" >
+                             data-assente="<?= $p->id; ?>" value="3" >
                             Assente
                             </label>
                         </td>
@@ -114,7 +119,7 @@ $part = $corso->partecipazioni(ISCR_CONFERMATA);
                             <div class="control-group">
                                 <label class="control-label" for="inputMotivo_<?= $p->id; ?>">Motivo</label>
                                 <div class="controls">
-                                    <input type="text" class="input-block-level" id="inputMotivo_<?= $p->id; ?>" 
+                                    <input type="text" class="input-block-level" id="inputMotivo_<?= $p->id; ?>" name="inputMotivo_<?= $p->id; ?>"
                                      placeholder="es: numero di assenze superiore al previsto">
                                 </div>
                             </div>
