@@ -260,24 +260,27 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
+                                    <li class="nav-header">Elenchi</li>
+                                    <li><a href="?p=admin.ricerca"><i class="icon-search"></i> Cerca Utente</a></li> 
                                     <li><a href="?p=admin.presidenti"><i class="icon-list"></i> Presidenti</a></li>
                                     <li><a href="?p=admin.delegati"><i class="icon-list"></i> Delegati</a></li>
                                     <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
-                                    <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li>
-                                    <li><a href="?p=admin.reset.comitati"><i class="icon-fire"></i> Reset Comitati</a></li> 
-                                    <li><a href="?p=admin.tesseramento"><i class="icon-eur"></i> Tesseramento</a></li>
+                                    <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li> 
                                     <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
-                                    <li><a href="?p=admin.ricerca"><i class="icon-search"></i> Cerca Utente</a></li> 
                                     <li><a href="?p=admin.limbo"><i class="icon-meh"></i> Limbo</a></li> 
                                     <li><a href="?p=admin.double"><i class="icon-superscript"></i> Double</a></li>
-                                    <li><a href="?p=admin.script"><i class="icon-stackexchange"></i> Script</a></li>
+                                    <li><a href="?p=admin.tesseramento"><i class="icon-eur"></i> Tesseramento</a></li>
+                                    <li class="nav-header">Report & Co</li>
                                     <li><a href="?p=admin.report"><i class="icon-copy"></i> Report</a></li>  
-                                    <li><a href="?p=admin.format"><i class="icon-upload"></i> Carica format</a></li>                                    
-                                    <li><a href="?p=admin.cache"><i class="icon-cloud"></i> Cache</a></li>  
+                                    <li><a href="?p=admin.report.comitati.excel"><i class="icon-building"></i> Excel Comitati</a></li>  
+                                    <li><a href="?p=admin.format"><i class="icon-upload"></i> Carica format</a></li> 
+                                    <li class="nav-header">Avanzate</li>
+                                    <li><a href="?p=admin.script"><i class="icon-stackexchange"></i> Script</a></li> 
+                                    <li><a href="?p=admin.reset.comitati"><i class="icon-fire"></i> Reset Comitati</a></li>
+                                    <li><a href="?p=admin.cache"><i class="icon-cloud"></i> Cache</a></li>
+                                    <li><a href="?p=admin.mongodb"><i class="icon-heart"></i> Mongo</a></li>  
                                     <li><a href="?p=admin.chiavi"><i class="icon-code"></i> API Keys</a></li>
-                                    <li><a href="?p=admin.errori"><i class="icon-bug"></i> Bugs</a></li>  
-                                    <li><a href="?p=admin.buttafuori" data-conferma="Resettare tutte le sessioni?"><i class="icon-signout"></i> Butta fuori</a></li>  
-                                    <li><a href="?p=admin.errori"><i class="icon-warning-sign"></i> Gestore errori</a></li>  
+                                    <li><a href="?p=admin.errori"><i class="icon-bug"></i> Bugs</a></li>    
                                 </ul>
                             </div>
                             <?php } ?>

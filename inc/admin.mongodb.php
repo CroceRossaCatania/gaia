@@ -10,7 +10,7 @@ $dbs = $mdb->command(['dbStats' => 1]);
 
 ?>
 
-<h2>Statistiche database Mongo</h2>
+<h2><i class="icon-heart muted"></i> Statistiche database Mongo</h2>
 
 <div class="row-fluid">
 
