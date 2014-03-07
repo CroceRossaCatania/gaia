@@ -271,7 +271,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
         </h2>
 
         <div class="row-fluid">
-            <div class="span7">
+            <div class="span8">
                 <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
                 <div class="alert alert-success">
                     <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
@@ -399,7 +399,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
             </div>
 
             <!-- PANNELLO ULTIME EMAIL -->
-            <div class="span5">
+            <div class="span4">
                 <div class="row-fluid">
                     <h4><i class="icon-time"></i> Ultime comunicazioni</h4>
                     
