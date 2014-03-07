@@ -570,29 +570,18 @@ class APIServer {
             if ( $this->par['iscr'] ) {
                 $part->concedi($this->par['com']);
 
-                /* 
-
-                da fare email e calendar 
-
                 $cal = new ICalendar();
-                $cal->genera($attivita->id, $turno->id);
-                
-                
-                $m = new Email('autorizzazioneConcessa', "Autorizzazione CONCESSA: {$attivita->nome}, {$turno->nome}" );
-                $m->a = $aut->partecipazione()->volontario();
-                $m->da = $attivita->referente();
-                $m->_NOME       = $aut->partecipazione()->volontario()->nome;
-                $m->_ATTIVITA   = $attivita->nome;
-                $m->_TURNO      = $turno->nome;
-                $m->_DATA      = $turno->inizio()->format('d-m-Y H:i');
-                $m->_LUOGO     = $attivita->luogo;
-                $m->_REFERENTE   = $attivita->referente()->nomeCompleto();
-                $m->_CELLREFERENTE = $attivita->referente()->cellulare();
+                $cal->generaCorsoBase($corsoBase);
+                             
+                $m = new Email('corsoBaseAmmesso', "Ammesso al {$corsoBase->nome()}" );
+                $m->a               = $part->utente();
+                $m->da              = $corsoBase->direttore();
+                $m->_NOME           = $part->utente()->nome;
+                $m->_CORSO          = $corso->nome();
+                $m->_DIRETTORE      = $part->utente()->nomeCompleto();
+                $m->_CELLDIRETTORE  = $part->utente()->cellulare();
                 $m->allega($cal);
-                $m->invia(true);
-
-                */
-                
+                $m->invia(true);               
                 
             } else {
                 $part->nega();
