@@ -50,8 +50,9 @@ $p->timestamp           = time();
  */
 
 if ( !(isset($_POST['inputIV']) && isset($_POST['inputCM']))) {
-
-    $p->iv = $_POST['inputIV'];
+    if( $p->sesso == DONNA){
+        $p->iv = $_POST['inputIV'];
+    }
     $p->cm = $_POST['inputCM'];
 
 }
