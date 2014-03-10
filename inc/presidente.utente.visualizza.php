@@ -281,7 +281,18 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         </div>
       </div>
    <?php } ?>
-
+      <div class="control-group">
+        <label class="control-label">Infermiera Volontaria</label>
+        <div class="controls">
+          <input type="checkbox" <?php if($u->iv){ ?> checked <?php } ?> id="inputIV" name="inputIV" <?php if(!$hoPotere){?> readonly <?php } ?>>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Corpo Militare</label>
+        <div class="controls">
+          <input type="checkbox" <?php if($u->cm){ ?> checked <?php } ?> id="inputCM" name="inputCM" <?php if(!$hoPotere){?> readonly <?php } ?>>
+        </div>
+      </div>
    <?php if($hoPotere) { ?>
    <hr />
    <div class="form-actions">
