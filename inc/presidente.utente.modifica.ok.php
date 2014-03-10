@@ -49,7 +49,7 @@ $p->timestamp           = time();
  * Non si può far parte di IV e CM contemporaneamente
  */
 
-if ( !(isset($_POST['inputIV']) && isset($_POST['inputIV']))) {
+if ( !(isset($_POST['inputIV']) && isset($_POST['inputCM']))) {
 
     $p->iv = $_POST['inputIV'];
     $p->cm = $_POST['inputCM'];

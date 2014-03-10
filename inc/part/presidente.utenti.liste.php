@@ -40,6 +40,13 @@
         <a href="?p=presidente.utenti.inestensione">
              in estensione
         </a><br />
+        <a href="?p=presidente.iv">
+            <i class="icon-list"></i>
+            FFAA IV
+        </a> /
+        <a href="?p=presidente.cm">
+             CM
+        </a><br />
         <a href="?p=presidente.soci">
             <i class="icon-list"></i>
             Elenco Soci
