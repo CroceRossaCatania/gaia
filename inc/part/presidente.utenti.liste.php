@@ -45,7 +45,7 @@
             FFAA IV
         </a> /
         <a href="?p=presidente.cm">
-             CM
+             CMV
         </a><br />
         <a href="?p=presidente.soci">
             <i class="icon-list"></i>
