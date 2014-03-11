@@ -39,7 +39,6 @@ paginaPrivata();
             <div class="row-fluid">
                 <h2>
                     <i class="icon-asterisk muted"></i>
-                    FF. AA.
                     <?php if ( $me->iv() ) { ?>
                         Infermiera volontaria
                     <?php }elseif ( $me->cm() ) { ?>

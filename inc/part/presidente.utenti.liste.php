@@ -42,10 +42,10 @@
         </a><br />
         <a href="?p=presidente.iv">
             <i class="icon-list"></i>
-            FFAA IV
+            Infermiere V.
         </a> /
         <a href="?p=presidente.cm">
-             CMV
+             Corpo Militare V.
         </a><br />
         <a href="?p=presidente.soci">
             <i class="icon-list"></i>
