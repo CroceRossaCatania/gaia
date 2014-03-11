@@ -603,6 +603,102 @@ if(isset($_GET['dimessi'])){
     $excel->genera("Elenco Soci Ordinari Dimessi.xls");
     $excel->download();
     
+}elseif(isset($_GET['cm'])){
+    $excel = new Excel();
+    $excel->intestazione([
+            'N.',
+            'Nome',
+            'Cognome',
+            'Data Nascita',
+            'Luogo Nascita',
+            'Provincia Nascita',
+            'C. Fiscale',
+            'Indirizzo Res.',
+            'Civico',
+            'Comune Res.',
+            'Cap Res.',
+            'Provincia Res.',
+            'eMail',
+            'eMail Servizio',
+            'Cellulare',
+            'Cell. Servizio',
+            'Data ingresso CRI'
+            ]);
+    foreach ( $c->membriCm() as $v ) {
+
+        $i++; 
+        $excel->aggiungiRiga([
+            $i,
+            $v->nome,
+            $v->cognome,
+            date('d/m/Y', $v->dataNascita),
+            $v->comuneNascita,
+            $v->provinciaNascita,
+            $v->codiceFiscale,
+            $v->indirizzo,
+            $v->civico,
+            $v->comuneResidenza,
+            $v->CAPResidenza,
+            $v->provinciaResidenza,
+            $v->email,
+            $v->emailServizio,
+            $v->cellulare,
+            $v->cellulareServizio,
+            $v->ingresso()->format("d/m/Y")
+            ]);
+
+    }
+    $excel->genera("Elenco Soci Corpo Militare Volontario.xls");
+    $excel->download();
+    
+}elseif(isset($_GET['iv'])){
+    $excel = new Excel();
+    $excel->intestazione([
+            'N.',
+            'Nome',
+            'Cognome',
+            'Data Nascita',
+            'Luogo Nascita',
+            'Provincia Nascita',
+            'C. Fiscale',
+            'Indirizzo Res.',
+            'Civico',
+            'Comune Res.',
+            'Cap Res.',
+            'Provincia Res.',
+            'eMail',
+            'eMail Servizio',
+            'Cellulare',
+            'Cell. Servizio',
+            'Data ingresso CRI'
+            ]);
+    foreach ( $c->membriIv() as $v ) {
+
+        $i++; 
+        $excel->aggiungiRiga([
+            $i,
+            $v->nome,
+            $v->cognome,
+            date('d/m/Y', $v->dataNascita),
+            $v->comuneNascita,
+            $v->provinciaNascita,
+            $v->codiceFiscale,
+            $v->indirizzo,
+            $v->civico,
+            $v->comuneResidenza,
+            $v->CAPResidenza,
+            $v->provinciaResidenza,
+            $v->email,
+            $v->emailServizio,
+            $v->cellulare,
+            $v->cellulareServizio,
+            $v->ingresso()->format("d/m/Y")
+            ]);
+
+    }
+    $excel->genera("Elenco Soci Infermiere Volontarie.xls");
+    $excel->download();
+    
 }else{
     
     $excel = new Excel();
