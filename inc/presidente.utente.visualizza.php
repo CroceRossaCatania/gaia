@@ -288,7 +288,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         </div>
       </div>
       <div class="control-group">
-        <label class="control-label">Corpo Militare</label>
+        <label class="control-label">Corpo Militare volontario</label>
         <div class="controls">
           <input type="checkbox" <?php if($u->cm){ ?> checked <?php } ?> id="inputCM" name="inputCM" <?php if(!$me->admin() && $u->iv || $u->cm && !$hoPotere){?> readonly <?php } ?>>
         </div>
