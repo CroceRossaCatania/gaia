@@ -306,7 +306,7 @@ class APIServer {
         $me = $this->richiediLogin();
         $this->richiedi(['id']);
         $t = Partecipazione::id($this->par['id']);
-        if ( $t->volontario() == $me ) {
+        if ( $t->volontario()->id == $me->id ) {
             $ok = true;
             $t->ritira();
         } else {
