@@ -21,11 +21,13 @@ if ( isset($_GET['token']) ) {
   $chiave = APIKey::id($token->app);
   $ip     = $token->ip;
   $nuovas = Sessione::id($sid);
-  $nuovas->app_id = $chiave;
+  $nuovas->app_id = $chiave->id;
   $nuovas->app_ip = $ip;
   setcookie('sessione', $sid, time() + $conf['sessioni']['durata']);
   redirect("login&back=utente.applicazione");
 }
+
+paginaPubblica();
 
 ?>
 
