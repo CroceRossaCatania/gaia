@@ -157,10 +157,10 @@ class MEmail extends MEntita {
 		// Imposta invio inizio...
 		$this->_inizia_invio();
 
-		$riuscito = true;
+		$riuscito = false;
 
 		// Se non ci sono destinatari...
-		if ( !$this->destinatari ) {
+		if ( !(bool)$this->destinatari ) {
 			$y->AddAddress(
 				'supporto@gaia.cri.it',
 				'Supporto Gaia'
@@ -168,6 +168,8 @@ class MEmail extends MEntita {
 			$riuscito = (bool) $y->send();
 
 		} else {
+			
+			$riuscito = true;
 
 			// Per ogni destinatario...
 			foreach ( $this->destinatari as $dest ) {
