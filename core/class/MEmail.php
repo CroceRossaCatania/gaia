@@ -165,45 +165,47 @@ class MEmail extends MEntita {
 				'supporto@gaia.cri.it',
 				'Supporto Gaia'
 			);
-			$riuscito = $y->send();
-			$this->_termina_invio();
-			return true;
-		}
-
-		// Per ogni destinatario...
-		foreach ( $this->destinatari as $dest ) {
-
-			// Salta se gia' inviato!
-			if ( $dest['inviato'] && $dest['ok'] )
-				continue;
-
-			$utente = Utente::id($dest['id']);
-			// Destinatario non esistente
-			if ( !$utente ) {
-				$this->_errore_invio($dest['id']);
-				continue;
-			}
-
-			// Invia l'email in questione
-			$y->AddAddress(
-				$utente->email,
-				$utente->nomeCompleto()
-			);
-			
 			$stato = $y->send();
-
-			$this->_stato_invio(
-				$dest['id'],
-				$stato,
-				$y->ErrorInfo
-			);
-
 			$riuscito = $riuscito && $stato;
 
-			$y->ClearAllRecipients();
+		} else {
 
-			if ( is_callable($callable) )
-				call_user_func($callable);
+			// Per ogni destinatario...
+			foreach ( $this->destinatari as $dest ) {
+
+				// Salta se gia' inviato!
+				if ( $dest['inviato'] && $dest['ok'] )
+					continue;
+
+				$utente = Utente::id($dest['id']);
+				// Destinatario non esistente
+				if ( !$utente ) {
+					$this->_errore_invio($dest['id']);
+					continue;
+				}
+
+				// Invia l'email in questione
+				$y->AddAddress(
+					$utente->email,
+					$utente->nomeCompleto()
+				);
+				
+				$stato = $y->send();
+
+				$this->_stato_invio(
+					$dest['id'],
+					$stato,
+					$y->ErrorInfo
+				);
+
+				$riuscito = $riuscito && $stato;
+
+				$y->ClearAllRecipients();
+
+				if ( is_callable($callable) )
+					call_user_func($callable);
+
+			}
 
 		}
 

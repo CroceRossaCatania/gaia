@@ -44,24 +44,19 @@ $t = Utente::by('id',$f);
 
  <?php if (isset($_GET['mass']) || isset($_GET['com']) || isset($_GET['unit']) || isset($_GET['comgio']) || isset($_GET['unitgio'])|| isset($_GET['comquoteno'])|| isset($_GET['comquotesi'])|| isset($_GET['unitquoteno'])|| isset($_GET['unitquotesi'])||isset($_GET['comeleatt'])||isset($_GET['uniteleatt'])||isset($_GET['unitelepass'])||isset($_GET['gruppo'])||isset($_GET['estesi'])|| isset($_GET['riserva']) || isset($_GET['zeroturnicom']) || isset($_GET['zeroturniunit']) ) { ?>
             <div class="control-group">
-              <label class="control-label" for="inputDestinatari">Destinatari</label>
+              <label class="control-label" for="inputV">Destinatari</label>
               <div class="controls">
-                <input type="text" class="span5" name="inputDestinatari" id="inputDestinatari" readonly value="Destinatari Multipli">
+                <input type="text" class="span5" name="inputV" id="inputV" readonly value="Destinatari Multipli">
               </div>
             </div>
            <?php }else{ ?>     
             <div class="control-group">
-              <label class="control-label" for="inputDestinatario">Destinatario</label>
+              <label class="control-label" for="inputV">Destinatario</label>
               <div class="controls">
-                <input type="text" class="span5" name="inputDestinatario" id="inputDestinatario" readonly value="<?php echo $t->nome, " "; echo $t->cognome; ?>">
+                <input type="text" class="span5" name="inputV" id="inputV" readonly value="<?php echo $t->nome, " "; echo $t->cognome; ?>">
               </div>
             </div>
-            <div class="control-group">
-              <label class="control-label" for="inputMail">Mail</label>
-              <div class="controls">
-                <input type="text" class="span5" name="inputMail" id="inputMail" readonly value="<?php echo $t->email; ?>">
-              </div>
-            </div>
+            <input type="hidden" name="inputDestinatario" id="inputDestinatario" value="<?php echo $t->id; ?>">
           <?php } ?>      
             <div class="control-group">
               <label class="control-label" for="inputOggetto">Oggetto</label>

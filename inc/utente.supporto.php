@@ -30,7 +30,8 @@ caricaSelettore();
     <p>Siamo qui per aiutare. Con questo modulo puoi richiedere supporto per Gaia.</p>
     <?php } ?>
   </div>
-  <?php if($me->delegazioni(APP_SOCI) || $me->delegazioni(APP_PRESIDENTE) || $me->admin()) { 
+  <?php if($me->delegazioneAttuale()->applicazione == APP_SOCI
+          or $me->delegazioneAttuale()->applicazione == APP_PRESIDENTE) { 
     $assistiAltroVolontario = true; ?>
     <div class="alert alert-block alert-info">
       <h4><i class="icon-user"></i> Sei un Presidente o un responsabile Ufficio Soci?</h4>
@@ -39,12 +40,6 @@ caricaSelettore();
     </div>
     <?php } ?>
     <form class="form-horizontal" action="?p=utente.mail.nuova.ok&supp" method="POST">
-      <div class="control-group">
-        <label class="control-label" for="inputDestinatario">Destinatario</label>
-        <div class="controls">
-          <input type="text" class="input-xxlarge" name="inputDestinatario" id="inputDestinatario" readonly value="Supporto GAIA <supporto@gaia.cri.it>">
-        </div>
-      </div>    
       <div class="control-group">
         <label class="control-label" for="inputOggetto">Oggetto</label>
         <div class="controls">
