@@ -165,8 +165,7 @@ class MEmail extends MEntita {
 				'supporto@gaia.cri.it',
 				'Supporto Gaia'
 			);
-			$stato = $y->send();
-			$riuscito = $riuscito && $stato;
+			$riuscito = (bool) $y->send();
 
 		} else {
 
