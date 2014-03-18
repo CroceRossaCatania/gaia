@@ -5,8 +5,11 @@
 */
 
 paginaPrivata();
+if (isset($_POST['inputDestinatario'])) {
+    $id = $_POST['inputDestinatario'];
+    $v = utente::id($id);
+}
 
-$v = utente::by('email', $_POST['inputMail']);
 $oggetto= $_POST['inputOggetto']; 
 $testo = $_POST['inputTesto'];
 
@@ -95,7 +98,7 @@ if (isset($_GET['unit'])) {
         }
         $m->_VAPP = $comitato;
 
-        $m->accoda();
+        $m->invia();
         redirect('utente.me&suppok');
     }
 
@@ -130,7 +133,7 @@ if (isset($_GET['unit'])) {
         $m->_DELEGA = "Il volontario non ha deleghe o non ne sta usando nessuna";
     }
     $m->_BROSWER = $_SERVER['HTTP_USER_AGENT'] . "\n\n";
-    $m->accoda();
+    $m->invia();
     redirect('utente.me&suppok');    
 
 }elseif (isset($_GET['comgio'])) {
