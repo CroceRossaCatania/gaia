@@ -12,9 +12,9 @@
 function normalizzaNome( $stringa ) {
     $stringa = trim($stringa);
     $stringa = strtolower($stringa);
-    str_replace("'","' ",$stringa);
+    $stringa = str_replace("'","' ",$stringa);
     $stringa = ucwords($stringa);
-    str_replace("' ","'",$stringa);
+    $stringa = str_replace("' ","'",$stringa); 
     return $stringa;
 }
 
