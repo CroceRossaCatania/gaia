@@ -157,53 +157,56 @@ class MEmail extends MEntita {
 		// Imposta invio inizio...
 		$this->_inizia_invio();
 
-		$riuscito = true;
+		$riuscito = false;
 
 		// Se non ci sono destinatari...
-		if ( !$this->destinatari ) {
+		if ( !(bool)$this->destinatari ) {
 			$y->AddAddress(
 				'supporto@gaia.cri.it',
 				'Supporto Gaia'
 			);
-			$riuscito = $y->send();
-			$this->_termina_invio();
-			return true;
-		}
+			$riuscito = (bool) $y->send();
 
-		// Per ogni destinatario...
-		foreach ( $this->destinatari as $dest ) {
-
-			// Salta se gia' inviato!
-			if ( $dest['inviato'] && $dest['ok'] )
-				continue;
-
-			$utente = Utente::id($dest['id']);
-			// Destinatario non esistente
-			if ( !$utente ) {
-				$this->_errore_invio($dest['id']);
-				continue;
-			}
-
-			// Invia l'email in questione
-			$y->AddAddress(
-				$utente->email,
-				$utente->nomeCompleto()
-			);
+		} else {
 			
-			$stato = $y->send();
+			$riuscito = true;
 
-			$this->_stato_invio(
-				$dest['id'],
-				$stato,
-				$y->ErrorInfo
-			);
+			// Per ogni destinatario...
+			foreach ( $this->destinatari as $dest ) {
 
-			$riuscito = $riuscito && $stato;
+				// Salta se gia' inviato!
+				if ( $dest['inviato'] && $dest['ok'] )
+					continue;
 
-			$y->ClearAllRecipients();
+				$utente = Utente::id($dest['id']);
+				// Destinatario non esistente
+				if ( !$utente ) {
+					$this->_errore_invio($dest['id']);
+					continue;
+				}
 
-			if ( is_callable($callable) )
-				call_user_func($callable);
+				// Invia l'email in questione
+				$y->AddAddress(
+					$utente->email,
+					$utente->nomeCompleto()
+				);
+				
+				$stato = $y->send();
+
+				$this->_stato_invio(
+					$dest['id'],
+					$stato,
+					$y->ErrorInfo
+				);
+
+				$riuscito = $riuscito && $stato;
+
+				$y->ClearAllRecipients();
+
+				if ( is_callable($callable) )
+					call_user_func($callable);
+
+			}
 
 		}
 

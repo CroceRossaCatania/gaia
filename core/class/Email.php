@@ -63,7 +63,7 @@ class Email {
     protected function _costruisci_destinatari() {
         if ( $this->a === null ) {
             // NESSSUN DESTINATARIO
-            return true;    // TRUE = SUPPORTO
+            return false;    // FALSE = SUPPORTO
 
         } elseif ( is_array($this->a) ) {
             // DESTINATARI MULTIPLI
