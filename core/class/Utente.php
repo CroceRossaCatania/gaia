@@ -1390,4 +1390,25 @@ class Utente extends Persona {
         return null;        
     }
 
+    /* Se volontario è IV
+     * @return true se iv
+     */
+    public function iv() {
+        if($this->iv){
+            return true;
+            }else{
+                return false;
+            }
+    }
+
+    /* Se volontario è CM
+     * @return true se CM
+     */
+    public function cm() {
+        if($this->cm){
+            return true;
+            }else{
+                return false;
+            }
+    }
 }
