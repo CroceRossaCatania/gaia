@@ -157,8 +157,8 @@ abstract class Entita {
         if ( !$cache ) { return false; }
         $cache->setOption(Redis::OPT_SCAN, Redis::SCAN_RETRY);
         $it = null;
-        while($malloppo = $redis->scan($it, $conf['db_hash'] . static::$_t . ':query:*')) {
-            foreach($malloppo as $chiave) {
+        while ($malloppo = $cache->scan($it, $conf['db_hash'] . static::$_t . ':query:*')) {
+            foreach ($malloppo as $chiave) {
                 $cache->delete($chiave);
             }
         }
