@@ -155,8 +155,12 @@ abstract class Entita {
     protected static function _invalidaCacheQuery() {
         global $cache, $conf;
         if ( !$cache ) { return false; }
-        foreach ( $cache->keys($conf['db_hash'] . static::$_t . ':query:*') as $chiave ) {
-            $cache->delete($chiave);
+        $cache->setOption(Redis::OPT_SCAN, Redis::SCAN_RETRY);
+        $it = null;
+        while($malloppo = $redis->scan($it, $conf['db_hash'] . static::$_t . ':query:*')) {
+            foreach($malloppo as $chiave) {
+                $cache->delete($chiave);
+            }
         }
         $cache->delete($conf['db_hash'] . static::$_t . ':num_query');
         return true;
