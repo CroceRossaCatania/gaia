@@ -25,10 +25,11 @@ $conf['recaptcha'] = [
  * 3. Enjoy!
  */
 
-
-define('SWEETCAPTCHA_APP_ID', 500000); // your application id (change me)
-define('SWEETCAPTCHA_KEY', 'changeme'); // your application key (change me)
-define('SWEETCAPTCHA_SECRET', 'changeme'); // your application secret (change me)
-define('SWEETCAPTCHA_PUBLIC_URL', 'sweetcaptcha.php'); // public http url to this file
+$conf['sweetcaptcha'] = [
+	'SWEETCAPTCHA_APP_ID' 		=> 12345, // your application id (change me)
+	'SWEETCAPTCHA_KEY' 			=> 'asd', // your application key (change me)
+	'SWEETCAPTCHA_SECRET'		=> 'asd', // your application secret (change me)
+	'SWEETCAPTCHA_PUBLIC_URL'	=> 'core/libs/sweetcaptcha.php' // public http url to this file
+];
 
 ?>
