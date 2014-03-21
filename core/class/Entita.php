@@ -127,7 +127,7 @@ abstract class Entita {
      * @return int Il numero di query in cache
      */
     public static function _numQueryCache() {
-        global $cache;
+        global $cache, $conf;
         return (int) $cache->get($conf['db_hash'] . static::$_t . ':num_query');
     }
     
@@ -158,13 +158,15 @@ abstract class Entita {
         /*
         $cache->setOption(Redis::OPT_SCAN, Redis::SCAN_RETRY);
         $it = null;
-        while ($malloppo = $cache->scan($it, $conf['db_hash'] . static::$_t . ':query:*')) {
+        $match = "{$conf['db_hash']}{static::$_t}:query:*";
+
+        while ($malloppo = $cache->scan($it,  $match)) {
             foreach ($malloppo as $chiave) {
                 $cache->delete($chiave);
             }
         }
         */
-
+        
         foreach ( $cache->keys($conf['db_hash'] . static::$_t . ':query:*') as $chiave ) {
             $cache->delete($chiave);
         }
