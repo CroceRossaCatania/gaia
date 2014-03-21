@@ -9,6 +9,12 @@ paginaApp([APP_SOCI, APP_PRESIDENTE]);
 controllaParametri(array('id','motivo','info'), 'presidente.utenti&errGen');
 
 $v = Volontario::id($_GET['id']);
+
+proteggiDatiSensibili($v, [APP_SOCI , APP_PRESIDENTE]);
+if (!$v->modificabileDa($me)) {
+  redirect('presidente.utenti&nonpuoi');
+}
+
 $attuale = $v->appartenenzaAttuale();
 $comitato = $attuale->comitato();
 $motivo = $conf['dimissioni'][$_POST['motivo']];

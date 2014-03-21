@@ -14,22 +14,28 @@ richiediComitato();
   </div>
   <div class="span9">
     <?php if ( isset($_GET['ok']) ) { ?>
-    <div class="alert alert-success">
-      <i class="icon-save"></i> <strong>Richiesta inviata</strong>.
-      La richiesta è stata inviata con successo.
-    </div>
+      <div class="alert alert-success">
+        <i class="icon-save"></i> <strong>Richiesta inviata</strong>.
+        La richiesta è stata inviata con successo.
+      </div>
     <?php } 
     if ( isset($_GET['ann']) ) { ?>
-    <div class="alert alert-success">
-      <i class="icon-save"></i> <strong>Richiesta annullata</strong>.
-      La richiesta di riserva è stata annullata con successo.
-    </div>
+      <div class="alert alert-success">
+        <i class="icon-save"></i> <strong>Richiesta annullata</strong>.
+        La richiesta di riserva è stata annullata con successo.
+      </div>
+    <?php }
+    if ( isset($_GET['gia']) ) { ?>
+      <div class="alert alert-danger">
+        <i class="icon-save"></i> <strong>Richiesta già presente</strong>.
+        E' già presente una richiesta di riserva.
+      </div>
     <?php }
     if ( isset($_GET['err']) ) { ?>
-    <div class="alert alert-danger">
-      <i class="icon-warning-sign"></i> <strong>Date non corrette</strong>.
-      La date che hai inserito sono incorrette.
-    </div>
+      <div class="alert alert-danger">
+        <i class="icon-warning-sign"></i> <strong>Date non corrette</strong>.
+        La date che hai inserito sono incorrette.
+      </div>
     <?php }  
     $i=0;
     foreach ( $me->storico() as $app ) { 

@@ -61,12 +61,11 @@ paginaPresidenziale();
     </thead>
 <?php
 $comitati= $me->comitatiDiCompetenza();
-$e = Estensione::filtra([['stato',EST_INCORSO]]);
-foreach ($e as $_e){
-    $v =$_e->volontario();
-    $modificabile = $v->modificabileDa($me);
-    foreach($comitati as $comitato){
-        if ($v->unComitato()==$comitato){
+foreach($comitati as $comitato){
+    $e = Estensione::filtra([['stato',EST_INCORSO],['cProvenienza', $comitato]]);
+    foreach ($e as $_e){
+        $v = $_e->volontario();
+        $modificabile = $v->modificabileDa($me);
  ?>
     <tr>
         <td><?php echo $v->nome; ?></td>
@@ -102,6 +101,6 @@ foreach ($e as $_e){
         </td>
        
     </tr>
-    <?php }}
+    <?php }
     } ?>
 </table>

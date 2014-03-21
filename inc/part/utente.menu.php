@@ -17,14 +17,14 @@ $menu += [
 
 $presidente = false;
 
-if ( $me->comitatiDiCompetenza() ) {
+if ( $me->admin() || $me->delegazioneAttuale()->applicazione == APP_PRESIDENTE ) {
     $presidente = true;
     $menu[''] += [
         'presidente.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Presidente'
     ];
 }
 
-if (!$me->admin() && $me->delegazioni(APP_SOCI)) {
+if (!$me->admin() && $me->delegazioneAttuale()->applicazione == APP_SOCI) {
 $_n     =   $_n_titoli = $_n_app = 0;
 $_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
 $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
@@ -38,13 +38,21 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
     ];
 }
 
-if ( $presidente || $me->delegazioni(APP_CO)) {
+if ( $presidente || $me->delegazioneAttuale()->applicazione == APP_CO) {
     $menu[''] += [
         'co.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Centrale Operativa'
     ];
 }
 
-if ( $presidente || $me->delegazioni(APP_OBIETTIVO)) {
+/*
+ * blocco commentato per permettere merge!!!
+if ( $presidente || $me->delegazioni(APP_FORMAZIONE) || $me->corsiBaseDiGestione()) {
+    $menu[''] += [
+        'formazione.corsibase'   =>  '<span class="badge badge-success">&nbsp;</span> Corsi Base'
+    ];
+}
+*/
+if ( $presidente || $me->delegazioneAttuale()->applicazione == APP_OBIETTIVO) {
     $menu[''] += [
         'obiettivo.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Delegato d\'Area'
     ];
@@ -80,7 +88,9 @@ $menu += [
     'Volontario'    =>  [
         'utente.anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
         'utente.storico'    =>  '<i class="icon-time"></i> Storico',
-        'utente.documenti'  =>  '<i class="icon-folder-open"></i> Documenti'
+        'utente.documenti'  =>  '<i class="icon-folder-open"></i> Documenti',
+        'utente.posta'     =>   '<i class="icon-envelope-alt"></i> Posta'
+
         
     ]];
     if ($me->unComitato()) {
@@ -101,10 +111,6 @@ $menu += [
         'utente.titoli&t=2' =>  '<i class="icon-ambulance"></i> Patenti CRI',
         'utente.titoli&t=3' =>  '<i class="icon-beaker"></i> Titoli di studio',
         'utente.titoli&t=4' =>  '<i class="icon-plus-sign-alt"></i> Titoli CRI'
-    ],
-    'Comunicazioni' =>  [
-        'utente.email'     =>   '<i class="icon-envelope-alt"></i> Email',
-        'utente.cellulare' =>   '<i class="icon-phone"></i> Cellulare'
     ],
     'Impostazioni' =>  [
         'utente.password'     =>   '<i class="icon-key"></i> Password'

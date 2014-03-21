@@ -34,7 +34,7 @@ $chiavi = APIKey::elenco();
 
 	<h2>Chiavi API riconosciute</h2>
 
-	<table class="table table-bordered">
+	<table class="table table-condensed">
 
 		<thead>
 			<th>ID</th>
@@ -95,7 +95,7 @@ $chiavi = APIKey::elenco();
 					<input 
 							type="number" class="input-mini"
 							readonly="readonly"
-							value="<?php echo (int) $chiave->oggi; ?>" 
+							value="<?php echo (int) $chiave->oggi(); ?>" 
 						/>
 					/
 					<input 

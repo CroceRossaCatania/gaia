@@ -6,6 +6,8 @@
 
 if ($sessione->utente()->email) {
   redirect('errore.permessi&cattivo');
+} elseif($sessione->utente()->ordinario()) {
+  redirect('utente.me');
 }
 
 ?>
@@ -50,6 +52,13 @@ if ($sessione->utente()->email) {
                   <h4>Email già in uso</h4>
                   <p>Questa email è già usata da un altro utente.</p>
                   <p>Devi avere un indirizzo email univoco in quanto questo viene usato per 
+                     comunicazioni personali ed al momento dell'accesso.</p>
+              </div>
+          <?php } ?>
+          <?php if ( isset($_GET['emailnon'] ) ) { ?>
+              <div class="alert alert-block alert-error">
+                  <h4>Email non valida</h4>
+                  <p>Devi avere un indirizzo email valido in quanto questo viene usato per 
                      comunicazioni personali ed al momento dell'accesso.</p>
               </div>
           <?php } ?>

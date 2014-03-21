@@ -25,6 +25,7 @@ $(document).ready( function() {
    });
    
    caricaMapsApi('avviaMappa');
+   $("#ricercaLuogo").keyup();
    
 });
 
@@ -61,7 +62,6 @@ function avviaMappa() {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     mappa = new google.maps.Map(document.getElementById("mappaGeografica"), opzioni);
-    console.log('mappaAvviata');
     //var coordInfoWindow = new google.maps.InfoWindow();
     //coordInfoWindow.setContent('<?php echo $s->nome; ?>' + "<?php $s->ottieniStelle(); ?>");
     //coordInfoWindow.setPosition(myLatlng);

@@ -21,4 +21,9 @@ $me->provinciaResidenza  = $prresidenza;
 $me->indirizzo 			 = $indirizzo;
 $me->civico   			 = $civico;
 
+if ($me->stato == ASPIRANTE && $a = Aspirante::daVolontario($me)) {
+	$a->localizzaStringa("{$me->indirizzo}, {$me->comuneResidenza}, {$me->CAPResidenza}");
+	$a->raggio = $a->trovaRaggioMinimo();
+}
+
 redirect('utente.anagrafica&ok');

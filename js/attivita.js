@@ -1,7 +1,9 @@
+/**
+ * (c)2014 Croce Rossa Italiana
+ */
+
 $(document).ready(function() {
-
     $('#calendario').fullCalendar({
-
     	/* Localizzazione in italiano */
     	monthNames: 		['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio',
     							'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
@@ -49,11 +51,9 @@ $(document).ready(function() {
 		 * Funzione adattatore che comunica con le API
 		 */
         events: function ( inizio, fine, callback ) {
-
         	$("#icona-caricamento")
         		.removeClass('icon-calendar')
         		.addClass('icon-spinner').addClass('icon-spin');
-
             inizio = new Date(inizio);
             fine   = new Date(fine);
             var sinizio = inizio.toISOString();
@@ -63,9 +63,7 @@ $(document).ready(function() {
                 fine:   sfine
             },
             function (risposta) {
-
-
-            	risposta = risposta.risposta;
+            	risposta = risposta.risposta.turni;
             	for ( var y in risposta ) {
             		risposta[y].id		= risposta[y].turno.id;
             		risposta[y].title	= risposta[y].turno.nome + ", " + risposta[y].attivita.nome;
@@ -73,7 +71,6 @@ $(document).ready(function() {
             		risposta[y].end		= risposta[y].fine;
             		risposta[y].color   = risposta[y].colore;
             	}
-
 	        	$("#icona-caricamento")
 	        		.addClass('icon-calendar')
 	        		.removeClass('icon-spinner').removeClass('icon-spin');
@@ -81,9 +78,5 @@ $(document).ready(function() {
                 callback(risposta);
             });
         }
-
-
-
     });
-
 });

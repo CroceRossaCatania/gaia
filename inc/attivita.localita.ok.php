@@ -1,6 +1,6 @@
 <?php
 
-controllaParametri(array('id'), 'attivita.gestione&err');
+controllaParametri(['id', 'formattato'], 'attivita.gestione&err');
 $a = Attivita::id($_POST['id']);
 
 paginaAttivita($a);

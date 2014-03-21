@@ -91,6 +91,7 @@ if ( $sessione->attenzione == false ){
                 
                     <tr><td>Num. unità</td><td><?php echo count($comitati); ?></td></tr>
                     <tr><td>Num. volontari</td><td><?php echo $me->numVolontariDiCompetenza(); ?></td></tr>
+                    <tr><td>Num. Soci Ordinari</td><td><?php echo $me->numOrdinariDiCompetenza(); ?></td></tr>
                     
                 </table>
                 

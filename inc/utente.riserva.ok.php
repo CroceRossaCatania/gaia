@@ -14,6 +14,11 @@ $t = $_GET['id'];
 $m = $_POST['inputMotivo'];
 $c = $me->appartenenzaAttuale();
 
+/* Evita richieste doppie se già riserva in sospeso o autorizzata */
+if ($me->unaRiservaInSospeso() || $me->inRiserva()){
+	redirect('utente.riserva&gia');
+}
+
 $inizio = DT::daFormato($_POST['datainizio']);
 $fine = DT::daFormato($_POST['datafine']);
 
@@ -22,7 +27,6 @@ if (!$inizio || !$fine) {
 }
 
 /*Avvio la procedura*/
-
 $t = new Riserva();
 $t->stato = RISERVA_INCORSO;
 $t->appartenenza = $c;
