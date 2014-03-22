@@ -116,8 +116,9 @@ abstract class Entita {
             $r[] = $valore->oid();
         }
         $r = json_encode($r);
-        $cache->set($conf['db_hash'] . static::$_t . ':query:' . $hash, $r);
-        $cache->incr($conf['db_hash'] . static::$_t . ':num_query');
+        $cache->set  ($conf['db_hash'] . static::$_t . ':query:' . $hash, $r);
+        $cache->rPush($conf['db_hash'] . static::$_t . ':lista_query', $hash);
+        $cache->incr ($conf['db_hash'] . static::$_t . ':num_query');
         return true;
     }
 
@@ -156,22 +157,11 @@ abstract class Entita {
         global $cache, $conf;
         if ( !$cache ) { return false; }
         
-        $cache->setOption(Redis::OPT_SCAN, Redis::SCAN_RETRY);
-        $it = null;
-        $match = $conf['db_hash'] . static::$_t . ':query:*';
-
-        while ($malloppo = $cache->scan($it, $match)) {
-            foreach ($malloppo as $chiave) {
-                $cache->delete($chiave);
-            }
+        // Popping senza pieta' (ed in tempo O(1)...)
+        while ($hash = $cache->rPop($conf['db_hash'] . static::$_t . ':lista_query')) {
+            $cache->delete($conf['db_hash'] . static::$_t . ':query:' . $hash);
         }
         
-        /*
-        foreach ( $cache->keys($conf['db_hash'] . static::$_t . ':query:*') as $chiave ) {
-            $cache->delete($chiave);
-        }
-        */
-
         $cache->delete($conf['db_hash'] . static::$_t . ':num_query');
         return true;
     }
