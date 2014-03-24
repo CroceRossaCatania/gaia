@@ -313,10 +313,10 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 </form>    
 </div>
 <!--Visualizzazione e modifica appartenenze utente -->
-<?php if($attivo) { ?>
 <div class="span6">
+<?php if($attivo) { ?>
   <div class="row-fluid">
-    <div class="span112">
+    <div class="span12">
       <h4><i class="icon-folder-open"></i> Documenti volontario</h4>
       <?php if(isset($_GET['errDoc'])){?>
         <div class="alert alert-error">
@@ -445,6 +445,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       </div>
     </div>
   </div>
+  <?php } ?>
 
   <div class="row-fluid">
     <h4>
@@ -698,7 +699,6 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <?php } ?>
     </table>
   </div>
-  <?php } ?>
 </div>
 
 
