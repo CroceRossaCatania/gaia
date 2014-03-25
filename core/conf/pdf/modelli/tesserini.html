@@ -16,12 +16,42 @@
 			position: relative;
 		}		
 
+		.fronte img, .retro img {
+			/* Dimensioni standard ISO/IEC 7810 */
+			width: 8.560cm;
+			height: 5.398cm;
+			position: absolute;
+			top: 0cm;
+			left: 0cm;
+		}
+
 		.fronte {
 			text-align: left;
 		}
 
 		.retro {
 			text-align: right;
+		}
+
+		.testo-nome,
+		.testo-cognome,
+		.testo-dnascita
+			{
+			float: left;
+			position: absolute;	
+			text-transform: uppercase;
+			font-family: "Arial";
+			font-size: 0.4cm;	
+		}
+
+		.testo-nome {
+			top:  1.60cm;
+			left: 0.40cm;
+		}
+
+		.testo-cognome {
+			top:  1.95cm;
+			left: 0.40cm;
 		}
 
 

@@ -54,6 +54,11 @@ class File extends Entita {
         exit(0);
     }
     
+    public function anteprima() {
+        header('Location: ./download.php?anteprima&id=' . $this->id );
+        exit(0);
+    }
+    
     public static function scaduti() {
         global $db;
         $q = $db->prepare("

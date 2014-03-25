@@ -1418,8 +1418,14 @@ class Utente extends Persona {
      */
     public function tesserino() {
 
+        // DEBUG
+        return $this->generaTesserino();
+        
         // Controlla l'esistenza dell'ultimo tesserino
         try {
+            if ( !$this->ultimoTesserino )
+                throw new Errore;
+
             $t = new File($this->ultimoTesserino);
 
         } catch (Errore $e) {
@@ -1437,7 +1443,13 @@ class Utente extends Persona {
      * @return File     Il tesserino del volontario
      */
     protected function generaTesserino() {
-        
+        $codice = rand(100000000, 9999999999);
+        $f = new PDF('tesserini', "Tesserino{$codice}.pdf");
+        $f->_NOME       = $this->nome;
+        $f->_COGNOME    = $this->cognome;
+        $f->_DNASCITA   = date('d/m/Y', $this->dataNascita);
+        $f->_CODICE     = $codice;
+        return $f->salvaFile();
     }
 
 

@@ -9,5 +9,5 @@ controllaParametri(['id'], 'us.dash&err');
 
 $f = $_GET['id'];
 $t = Volontario::id($f);
-$t->tesserino()->download();
+$t->tesserino()->anteprima();
 
