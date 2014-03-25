@@ -135,7 +135,11 @@ class Email {
      * @return bool Operazione riuscita?
      */
     public function invia() {
-        return $this->accoda()->invia();
+        $m = $this->accoda();
+        if($m) {
+            $m->invia();
+        }
+        return false;            
 
     }
 
@@ -144,6 +148,13 @@ class Email {
      * @return MEmail creata
      */
     public function accoda() {
+
+        if($this->a && !is_array($this->a) ) {
+            $u = Utente::id($this->a);
+            if ( !$u->email || !filter_var($u->email, FILTER_VALIDATE_EMAIL)) {
+                return null;
+            }
+        }
 
         $x = new MEmail;
         $x->timestamp   = (int) time();
