@@ -1411,4 +1411,34 @@ class Utente extends Persona {
                 return false;
             }
     }
+
+    /*
+     * Ritorna il File del Tesserino del Volontario
+     * @return File     Il tesserino del volontario
+     */
+    public function tesserino() {
+
+        // Controlla l'esistenza dell'ultimo tesserino
+        try {
+            $t = new File($this->ultimoTesserino);
+
+        } catch (Errore $e) {
+            // Non piu' esistente, rigenera
+            $t = $this->generaTesserino();
+            $this->ultimoTesserino = $t->id;
+        }
+
+        return $t;
+
+    }
+
+    /*
+     * Genera il tesserino del Volontario
+     * @return File     Il tesserino del volontario
+     */
+    protected function generaTesserino() {
+        
+    }
+
+
 }
