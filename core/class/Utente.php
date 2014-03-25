@@ -1188,14 +1188,16 @@ class Utente extends Persona {
     }
 
     public function pri_smistatore($altroutente){
-        if($this->presidenziante() || $this->delegazioni([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
+        if($this->admin()) {
+            return PRIVACY_RISTRETTA;
+        }
+        if($this->presidenziante() || in_array($this->delegazioneAttuale()->applicazione, [APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
             $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO]);
             foreach ($comitati as $comitato){
                 if($altroutente->in($comitato)){
-                    return PRIVACY_RISTRETTA;            
+                    return PRIVACY_RISTRETTA;
                 }
             }
-            return PRIVACY_PUBBLICA;
         }elseif($this->areeDiResponsabilita()){
             $ar = $this->areeDiResponsabilita();
             foreach( $ar as $_a ){
@@ -1206,7 +1208,6 @@ class Utente extends Persona {
                     }
                 }
             }
-            redirect('public.utente&id=' . $id);
         }elseif($this->attivitaReferenziate()){
             $a = $this->attivitaReferenziate();
             $partecipazioni = $this->partecipazioni(PART_OK);
@@ -1215,7 +1216,6 @@ class Utente extends Persona {
                     return PRIVACY_RISTRETTA;
                 }
             }
-            return PRIVACY_PUBBLICA;
         }
         return PRIVACY_PUBBLICA;
     }

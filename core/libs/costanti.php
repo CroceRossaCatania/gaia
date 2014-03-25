@@ -468,7 +468,7 @@ define('EST_REGIONALE',     30);
 define('EST_NAZIONALE',     40);
 
 $conf['est_obj'] = [
-    EST_UNITA       =>  'Comitato',
+    EST_UNITA       =>  'Unità',
     EST_LOCALE      =>  'Locale',
     EST_PROVINCIALE =>  'Provinciale',
     EST_REGIONALE   =>  'Regionale',
@@ -594,6 +594,7 @@ define('PRIVACY_PRIVATA',   10);
 define('PRIVACY_COMITATO', 20);
 define('PRIVACY_VOLONTARI', 30);
 define('PRIVACY_PUBBLICA', 40);
+define('PRIVACY_RISTRETTA', 50);
 
 /*
  * ===================================
