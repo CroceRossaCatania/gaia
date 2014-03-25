@@ -3,23 +3,49 @@
 <HEAD>
 	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
 	<TITLE></TITLE>
-	<META NAME="GENERATOR" CONTENT="LibreOffice 3.6  (Linux)">
-	<META NAME="AUTHOR" CONTENT="Federico ">
-	<META NAME="CREATED" CONTENT="20130620;23484600">
-	<META NAME="CHANGEDBY" CONTENT="Federico ">
-	<META NAME="CHANGED" CONTENT="20130620;23534800">
 	<STYLE TYPE="text/css">
-	
-		body { padding-left: 1cm; padding-right: 1cm; padding-top: 1.4cm; padding-bottom: 1cm; background-size: 100% 100%; }
-		P { margin-bottom: 0.21cm; direction: ltr; color: #000000; widows: 2; orphans: 2 }
-                                .fronte {
-                                            width: 8.4cm;
-                                            }           
+		
+		body {
+			padding: 6cm 5cm 6cm 5cm;
+		}
+
+		.fronte, .retro {
+			padding: 0cm 0cm 0cm 0cm;
+			margin: auto;
+			width: 100%;
+			position: relative;
+		}		
+
+		.fronte {
+			text-align: left;
+		}
+
+		.retro {
+			text-align: right;
+		}
+
+
+
 	</STYLE>
 </HEAD>
 <BODY LANG="it-IT">
+
+	<!-- Fronte -->
     <div class="fronte">
-        <img src="./img/tesserino_fronte.jpg" alt="">
+        <img src="./img/tesserino_fronte.jpg" alt="FRONTE">
+        <span class="testo-nome"		>_NOME</span>
+        <span class="testo-cognome"		>_COGNOME</span>
+        <span class="testo-dnascita"	>_DNASCITA</span>
     </div>
+
+    <!-- Interruzione di pagina -->
+    <div style="page-break-before: always;"></div>
+
+    <!-- Retro  -->
+    <div class="retro">
+        <img src="./img/tesserino_retro.jpg" alt="RETRO">
+    </div>
+
+
 </BODY>
 </HTML>
