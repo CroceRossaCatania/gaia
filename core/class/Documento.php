@@ -58,8 +58,12 @@ class Documento extends Entita {
     }
     
     public function cancella () {
-    	@unlink($this->anteprima());
-        @unlink($this->originale());
+        if(is_file($this->anteprima())) {
+    	   unlink(realpath($this->anteprima()));
+        }
+        if(is_file($this->originale())) {
+            unlink(realpath($this->originale()));
+        }
     	parent::cancella();
     }
     

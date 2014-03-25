@@ -84,7 +84,9 @@ class Avatar extends Entita {
     
     public function cancella () {
     	foreach ( $this->file() as $file ) {
-    		@unlink($file);
+            if (is_file($file)) {
+        		unlink(realpath($file));
+            }
     	}
     	parent::cancella();
     }
