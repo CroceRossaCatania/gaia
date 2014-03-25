@@ -35,10 +35,10 @@
   *  density:        22 bars/inch    = 8.66 bars/cm
   */
 
-require_once 'Image/Barcode2/Driver.php';
-require_once 'Image/Barcode2/Common.php';
-require_once 'Image/Barcode2/DualHeight.php';
-require_once 'Image/Barcode2/Exception.php';
+require_once 'core/libs/barcode/Driver.php';
+require_once 'core/libs/barcode/Common.php';
+require_once 'core/libs/barcode/DualHeight.php';
+require_once 'core/libs/barcode/Exception.php';
 
 /**
  * PostNet

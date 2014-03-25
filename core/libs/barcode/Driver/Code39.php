@@ -23,10 +23,10 @@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 
-require_once 'Image/Barcode2/Driver.php';
-require_once 'Image/Barcode2/Common.php';
-require_once 'Image/Barcode2/DualWidth.php';
-require_once 'Image/Barcode2/Exception.php';
+require_once 'core/libs/barcode/Driver.php';
+require_once 'core/libs/barcode/Common.php';
+require_once 'core/libs/barcode/DualWidth.php';
+require_once 'core/libs/barcode/Exception.php';
 
 /**
  * Code 3 of 9
