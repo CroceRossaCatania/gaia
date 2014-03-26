@@ -16,6 +16,9 @@ if ($numero == 0) {
 
 $anno   = $_GET['inputAnno'];
 $q = Quota::filtra([['anno', $anno],['progressivo', $numero]]);
+if (!$q) {
+    redirect('us.dash&err');
+}
 $q = $q[0];
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
