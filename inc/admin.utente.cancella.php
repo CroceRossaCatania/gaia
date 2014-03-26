@@ -150,13 +150,14 @@ $f = Riserva::filtra([
 foreach ($f as $_f) {
     $_f->cancella();
 }
-
+/*
 $f = Sessione::filtra([
   ['utente', $t]
   ]);
 foreach ($f as $_f) {
     $_f->cancella();
 }
+*/
 
 $f = TitoloPersonale::filtra([
   ['volontario', $t]
