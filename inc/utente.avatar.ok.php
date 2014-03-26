@@ -14,6 +14,10 @@ if(isset($_GET['pre'])){
     $v = Volontario::id($a);
     $v = $v->avatar();
 
+    if(!isset($_FILES['avatar'])) {
+        redirect('presidente.utente.visualizza&aerr&id=' . $a);
+    }
+
     try {
         $v->caricaFile($_FILES['avatar']);
     } catch (Exception $e) {
@@ -26,6 +30,10 @@ if(isset($_GET['pre'])){
 }else{
     
     $a = $me->avatar();
+
+    if(!isset($_FILES['avatar'])) {
+        redirect('utente.anagrafica&aerr');
+    }
 
     try {
         $a->caricaFile($_FILES['avatar']);
