@@ -17,14 +17,14 @@ $menu += [
 
 $presidente = false;
 
-if ( $me->admin() || $me->delegazioneAttuale()->applicazione == APP_PRESIDENTE ) {
+if ( $me && ($me->admin() || $me->delegazioneAttuale()->applicazione == APP_PRESIDENTE )) {
     $presidente = true;
     $menu[''] += [
         'presidente.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Presidente'
     ];
 }
 
-if (!$me->admin() && $me->delegazioneAttuale()->applicazione == APP_SOCI) {
+if ($me && (!$me->admin() && $me->delegazioneAttuale()->applicazione == APP_SOCI)) {
 $_n     =   $_n_titoli = $_n_app = 0;
 $_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
 $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
@@ -38,7 +38,7 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
     ];
 }
 
-if ( $presidente || $me->delegazioneAttuale()->applicazione == APP_CO) {
+if ( $presidente || ($me && $me->delegazioneAttuale()->applicazione == APP_CO)) {
     $menu[''] += [
         'co.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Centrale Operativa'
     ];
@@ -52,7 +52,7 @@ if ( $presidente || $me->delegazioni(APP_FORMAZIONE) || $me->corsiBaseDiGestione
     ];
 }
 */
-if ( $presidente || $me->delegazioneAttuale()->applicazione == APP_OBIETTIVO) {
+if ( $presidente || ($me && $me->delegazioneAttuale()->applicazione == APP_OBIETTIVO)) {
     $menu[''] += [
         'obiettivo.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Delegato d\'Area'
     ];
@@ -66,7 +66,7 @@ if ( $nap ) {
 }
 
 
-if ($me->attivitaDiGestione() || $me->comitatiAreeDiCompetenza() || $me->attivitaReferenziate()) {
+if ($me && ($me->attivitaDiGestione() || $me->comitatiAreeDiCompetenza() || $me->attivitaReferenziate())) {
     $menu += [
         'Attività'      =>  [
             'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
@@ -75,7 +75,7 @@ if ($me->attivitaDiGestione() || $me->comitatiAreeDiCompetenza() || $me->attivit
             'utente.gruppo'  =>  '<i class="icon-group"></i> Gruppi',
             'utente.reperibilita'  =>  '<i class="icon-thumbs-up"></i> Reperibilità'
         ]];
-    } else {
+} else {
     $menu += [
         'Attività'      =>  [
             'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
@@ -83,27 +83,23 @@ if ($me->attivitaDiGestione() || $me->comitatiAreeDiCompetenza() || $me->attivit
             'utente.gruppo'  =>  '<i class="icon-group"></i> Gruppi',
             'utente.reperibilita'  =>  '<i class="icon-thumbs-up"></i> Reperibilità'
         ]];
-    }
+}
 $menu += [ 
     'Volontario'    =>  [
         'utente.anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
         'utente.storico'    =>  '<i class="icon-time"></i> Storico',
         'utente.documenti'  =>  '<i class="icon-folder-open"></i> Documenti',
-        'utente.posta'     =>   '<i class="icon-envelope-alt"></i> Posta'
-
-        
+        'utente.posta'     =>   '<i class="icon-envelope-alt"></i> Posta'           
     ]];
-    if ($me->unComitato()) {
+if ($me && $me->unComitato()) {
     $menu += [
         'Segreteria'      =>  [
             'utente.estensione'  =>  '<i class="icon-random"></i> Estensioni',
             'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti',
             'utente.riserva'  =>  '<i class="icon-pause"></i> Riserva',
-            'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica'
-           
-            
+            'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica'  
         ]];
-    }
+}
 $menu += [
     'Curriculum'    =>  [
         'utente.titoli&t=0' =>  '<i class="icon-magic"></i> Competenze pers.',

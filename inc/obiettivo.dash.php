@@ -5,31 +5,16 @@
  */
 
 paginaApp([APP_OBIETTIVO , APP_PRESIDENTE]);
-$d = $me->dominiDelegazioni(APP_OBIETTIVO);
 
-foreach ( $d as $_d ){
-    if ( $_d == 1 ){
-        $uno = true;
-    }
-    if ( $_d == 2 ){
-        $due = true;
-    }
-    if ( $_d == 3 ){
-        $tre = true;
-    }
-    if ( $_d == 4 ){
-        $quattro = true;
-    }
-    if ( $_d == 5 ){
-        $cinque = true;
-    }
-    if ( $_d == 6 ){
-        $sei = true;
-    }
+$d = $me->delegazioneAttuale();
+
+$tutto = false;
+if($me->admin() || $me->presidenziante()) {
+    $tutto = true;
+} else {
+    $area = $d->dominio;
 }
-if ( $me->admin() || $me->presidenziante() ){
-        $uno=$due=$tre=$quattro=$cinque=$sei=true;
- }
+
 ?>
 
 <div class="row-fluid">
@@ -44,6 +29,12 @@ if ( $me->admin() || $me->presidenziante() ){
                     <div class="alert alert-block alert-error">
                         <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
                         <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+                    </div> 
+                <?php } ?>
+                <?php if (isset($_GET['email'])) { ?>
+                    <div class="alert alert-block alert-success">
+                        <h4><i class="icon-ok"></i> <strong>Email inviata con successo</strong>.</h4>
+                        <p>L'email che hai inviato è stata inserita in coda di invio e al più presto sarà recapitata.</p>
                     </div> 
                 <?php } ?>
             </div>
@@ -65,7 +56,7 @@ if ( $me->admin() || $me->presidenziante() ){
         </div>
         <hr />
         
-        <div class="span12">
+        <div class="row-fluid">
             <div class="span6">
                 <div class="btn-group btn-group-vertical span12">
                     <a href="?p=presidente.titoli.ricerca" class="btn btn-block">
@@ -76,22 +67,37 @@ if ( $me->admin() || $me->presidenziante() ){
             </div>
             <div class="span6">
                 <div class="btn-group btn-group-vertical span12">
-            <?php if ( $cinque == true ){ ?>
+                    <?php if ($tutto || $area == 5 ){ ?>
                     <a href="?p=presidente.utenti.giovani" class="btn btn-block btn-info">
                         <i class="icon-list"></i>
                         Volontari giovani
                     </a>
-            <?php } ?>
-            <?php if ( $tre == true ){ ?>
+                    <?php } if ( $$tutto || $area == 3 ){ ?>
                     <a href="?p=co.reperibilita" class="btn btn-block">
                         <i class="icon-thumbs-up"></i>
                         Volontari reperibili
                     </a>
-                    <<a href="?p=obiettivo.report.reperibilita" class="btn btn-block">
+                    <a href="?p=obiettivo.report.reperibilita" class="btn btn-block">
                         <i class="icon-time"></i>
                         Report reperibilità
                     </a>
-            <?php } ?>
+                    <?php } ?>
+                </div>
+                <hr />
+                <div class="btn-group btn-group-vertical span12">
+                    <?php if ($tutto) {
+                            foreach([1, 2, 3, 4, 5, 6] as $a) { ?>
+                                <a href="?p=obiettivo.delegati&area=<?= $a ?>" class="btn btn-block">
+                                    <i class="icon-book"></i>
+                                    Delegati area <?= $a ?>
+                                </a>
+                           <?php }
+                        } else if($me->delegazioneAttuale()->estensione > EST_UNITA) { ?>
+                        <a href="?p=obiettivo.delegati&area=<?= $area ?>" class="btn btn-block">
+                            <i class="icon-book"></i>
+                            Delegati area <?= $area ?>
+                        </a>
+                    <?php } ?>
                 </div>
             </div>
         </div>
