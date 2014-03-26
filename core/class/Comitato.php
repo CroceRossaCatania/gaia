@@ -921,4 +921,31 @@ class Comitato extends GeoPolitica {
         return $this->superiore()->privato();
     }
 
+    /**
+     * Infermiere Volontarie in comitato
+     * @return array   Anagrafica id IV
+     */
+    public function membriIv() {
+        $v = $this->membriAttuali();
+        $r = [];
+        foreach ($v as $_v) {
+            if ($_v->iv())
+                $r[] = $_v;
+        }
+        return $r;
+    }
+
+    /**
+     * Corpo Militare in comitato
+     * @return array   Anagrafica id CM
+     */
+    public function membriCm() {
+        $v = $this->membriAttuali();
+        $r = [];
+        foreach ($v as $_v) {
+            if ($_v->cm())
+                $r[] = $_v;
+        }
+        return $r;
+    }
 }

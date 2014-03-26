@@ -402,7 +402,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
         include './inc/part/comitato.selettore.php';
     } ?>
 
-    <?php if ( $me->admin && !$me->admin() ) { ?>
+    <?php if ( $me && $me->admin && !$me->admin() ) { ?>
     <!-- ADMIN MODE NON ATTIVATA -->
       <div id="adminMode" class="modal hide fade" role="dialog">
         <div class="modal-header">

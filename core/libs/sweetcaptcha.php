@@ -1,5 +1,7 @@
 <?php
 
+global $conf;
+
 /*
  * (c)2014 Croce Rossa Italiana
  */
@@ -19,10 +21,10 @@
  */
 
 $sweetcaptcha = new Sweetcaptcha(
-  SWEETCAPTCHA_APP_ID, 
-  SWEETCAPTCHA_KEY, 
-  SWEETCAPTCHA_SECRET, 
-  SWEETCAPTCHA_PUBLIC_URL
+  $conf['sweetcaptcha']['SWEETCAPTCHA_APP_ID'], 
+  $conf['sweetcaptcha']['SWEETCAPTCHA_KEY'], 
+  $conf['sweetcaptcha']['SWEETCAPTCHA_SECRET'], 
+  $conf['sweetcaptcha']['SWEETCAPTCHA_PUBLIC_URL']
 );
 
 if (isset($_POST['ajax']) and $method = $_POST['ajax']) {

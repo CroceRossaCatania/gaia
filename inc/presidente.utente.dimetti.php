@@ -51,6 +51,12 @@ if (!$v->modificabileDa($me)) {
                         <input class="span8" type="text" name="info" id="info" placeholder="es.: Provvedimento di radiazione n. 134 del 12/12/2013" >
                     </div>
                 </div>
+                <div class="control-group" id='blocco'>
+                    <label class="control-label" for="ordinario">Passa a Socio Ordinario </label>
+                    <div class="controls">
+                        <input type="checkbox" name="ordinario" id="ordinario" >
+                    </div>
+                </div>
                 <div class="control-group">
                     <div class="controls">
                       <button type="submit" class="btn btn-large btn-danger">

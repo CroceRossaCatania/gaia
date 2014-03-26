@@ -49,8 +49,13 @@ $q->tConferma = $time->getTimestamp();
 $q->quota = $importo;
 if ($importo >= $quotaBen) {
     $q->benemerito = BENEMERITO_SI;
-} else {
+    $q->offerta = "Promozione a socio sostenitore per l'anno " . $anno . " per il versamento di una quota superiore a " . soldi($quotaBen) . " &#0128;.";
+} else if ($importo > $quotaMin) {
     $q->benemerito = BENEMERITO_NO;
+	$q->offerta = 'Offerta';
+} else {
+	$q->benemerito = BENEMERITO_NO;
+	$q->offerta = '';
 }
 
 redirect('us.quote.visualizza&id='.$u->id);

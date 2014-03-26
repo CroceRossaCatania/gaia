@@ -26,6 +26,16 @@ menuElenchiVolontari(
             <h4><i class="icon-exclamation-sign"></i> Socio Ordinario dimesso</h4>
             <p>Il Socio Ordinario è stato dimesso con successo.</p>
         </div>
+<?php } elseif ( isset($_GET['err']) )  { ?>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-exclamation-sign"></i> Qualcosa non ha funzionato</h4>
+            <p>L'operazione che hai tentato di eseguire non è andata a buon fine. Per favore riprova.</p>
+        </div>
+<?php } elseif ( isset($_GET['attivo']) )  { ?>
+        <div class="alert alert-block alert-success">
+            <h4><i class="icon-exclamation-sign"></i> Socio Ordinario attivato</h4>
+            <p>Il Socio Ordinario è passato a Socio Attivo con successo.</p>
+        </div>
 <?php } ?>
     
 <div class="row-fluid">
@@ -37,8 +47,6 @@ menuElenchiVolontari(
                 <th>Nome</th>
                 <th>Nascita</th>
                 <th>C. Fiscale</th>
-                <th>Residenza</th>
-                <th>Cellulare</th>
                 <th>Data Ingresso</th>
                 <th>Azioni</th>
             </thead>
@@ -82,25 +90,16 @@ menuElenchiVolontari(
                     </td>
                     <td><?php echo $_v->codiceFiscale; ?></td>
                     <td>
-                        <span class="muted">
-                            <?php echo $_v->CAPResidenza; ?>
-                        </span>
-                        <?php echo $_v->comuneResidenza; ?>,
-                        <?php echo $_v->provinciaResidenza; ?>
-                    </td>
-                    
-                    <td>
-                        <span class="muted">+39</span>
-                            <?php echo $_v->cellulare; ?>
-                    </td>
-                    <td>
                         <?php echo $_v->ingresso()->format("d/m/Y"); ?>
                     </td>
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $id; ?>" title="Dettagli">
                                 <i class="icon-eye-open"></i> Dettagli
-                            </a>                            
+                            </a>
+                            <a class="btn btn-small btn-info" href="?p=presidente.soci.ordinari.attiva&id=<?php echo $id; ?>" title="Attiva">
+                                <i class="icon-star"></i> Attiva
+                            </a>                          
                             <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&ordinario&id=<?php echo $id; ?>" title="Dimetti Volontario">
                                 <i class="icon-ban-circle"></i> Dimetti
                             </a>

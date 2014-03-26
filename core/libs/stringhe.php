@@ -75,14 +75,11 @@ function generaStringaCasuale(  $caratteri = 10,
             $i = 0; 
             while ($i < $caratteri) { 
 
-                // prende un carattere casuale per creare il codice
+                // prende un carattere casuale per creare il codice e lo accoda
                 $char = substr($dizionario, mt_rand(0, $maxlength-1), 1);
+                $codice .= $char;
+                $i++;
 
-                // verifica se il carattere precedente è uguale al successivo
-                if (!strstr($codice, $char)) { 
-                    $codice .= $char;
-                    $i++;
-                }
             }
         /* controllo: $controllo_esistenza[0]::$controllo_esistenza[1]($codice)
          * se TRUE allora rigenera
