@@ -56,7 +56,7 @@ if($me->admin() || $me->presidenziante()) {
         </div>
         <hr />
         
-        <div class="span12">
+        <div class="row-fluid">
             <div class="span6">
                 <div class="btn-group btn-group-vertical span12">
                     <a href="?p=presidente.titoli.ricerca" class="btn btn-block">
@@ -81,15 +81,19 @@ if($me->admin() || $me->presidenziante()) {
                         <i class="icon-time"></i>
                         Report reperibilità
                     </a>
-                    <?php } if ($tutto) {
+                    <?php } ?>
+                </div>
+                <hr />
+                <div class="btn-group btn-group-vertical span12">
+                    <?php if ($tutto) {
                             foreach([1, 2, 3, 4, 5, 6] as $a) { ?>
-                                <a href="?p=obiettivo.delegati&area=<?= $a ?>" class="btn btn-block btn-info">
+                                <a href="?p=obiettivo.delegati&area=<?= $a ?>" class="btn btn-block">
                                     <i class="icon-book"></i>
                                     Delegati area <?= $a ?>
                                 </a>
                            <?php }
                         } else if($me->delegazioneAttuale()->estensione > EST_UNITA) { ?>
-                        <a href="?p=obiettivo.delegati&area=<?= $area ?>" class="btn btn-block btn-info">
+                        <a href="?p=obiettivo.delegati&area=<?= $area ?>" class="btn btn-block">
                             <i class="icon-book"></i>
                             Delegati area <?= $area ?>
                         </a>
