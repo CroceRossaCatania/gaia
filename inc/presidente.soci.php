@@ -8,8 +8,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 paginaModale();
 
 ?>
-<form action="?" method="GET">
-  <input type="hidden" name="p" value="presidente.soci.ok">
+<form action="?p=presidente.soci.ok" method="POST">
   <div class="modal fade automodal">
     <div class="modal-header">
       <h3><i class="icon-time"></i> Elenco Soci</h3>
@@ -22,7 +21,7 @@ paginaModale();
             <label class="control-label" for="inputData">Data </label>
         </div>
         <div class="span8">
-          <input class="input-large" type="text" name="inputData" id="inputData" required pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value='<?php echo date('d/m/Y'); ?>' placeholder='dd/mm/YYYY' />
+          <input class="input-large" type="text" name="inputData" id="inputData" required pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value='<?= date('d/m/Y'); ?>' placeholder='dd/mm/YYYY' />
         </div>
       </div>
     </div>
