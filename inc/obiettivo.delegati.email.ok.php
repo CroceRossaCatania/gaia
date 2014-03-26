@@ -9,7 +9,7 @@ controllaParametri(['area', 'inputTesto', 'inputOggetto'], 'obiettivo.dash&err')
 paginaApp([APP_OBIETTIVO , APP_PRESIDENTE]);
 $d = $me->delegazioneAttuale();
 
-if ($d->estensione == EST_UNITA) {
+if (!$me->admin && $d->estensione == EST_UNITA) {
     redirect('errore.permessi&cattivo');
 }
 
@@ -29,7 +29,11 @@ if(isset($_POST['inputLivello'])) {
 
 $oggetto= $_POST['inputOggetto']; 
 $testo = $_POST['inputTesto'];
-$comitato = $d->comitato();
+if($me->admin()) {
+    $comitato = Nazionale::elenco()[0];
+} else {
+    $comitato = $d->comitato();
+}
 
 $ramo = new RamoGeoPolitico($comitato, ESPLORA_RAMI, $livello);
 

@@ -9,11 +9,13 @@ controllaParametri(['area'], 'obiettivo.dash&err');
 paginaApp([APP_OBIETTIVO , APP_PRESIDENTE]);
 $d = $me->delegazioneAttuale();
 
-if ($d->estensione == EST_UNITA) {
+$admin = (bool) $me->admin();
+
+if (!$admin && $d->estensione == EST_UNITA) {
     redirect('errore.permessi&cattivo');
 }
 
-if($me->admin() || $me->presidenziante()) {
+if($admin || $me->presidenziante()) {
     $area = $_GET['area'];
 } else {
     $area = $d->dominio;
@@ -21,8 +23,11 @@ if($me->admin() || $me->presidenziante()) {
         redirect('errore.permessi&cattivo');
     }
 }
-
-$comitato = $d->comitato();
+if ($admin) {
+    $comitato = Nazionale::elenco()[0];
+} else {
+    $comitato = $d->comitato();
+}
 $ramo = new RamoGeoPolitico($comitato);
 
 ?>

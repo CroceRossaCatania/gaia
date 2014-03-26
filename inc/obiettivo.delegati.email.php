@@ -9,7 +9,7 @@ controllaParametri(['area'], 'obiettivo.dash&err');
 paginaApp([APP_OBIETTIVO , APP_PRESIDENTE]);
 $d = $me->delegazioneAttuale();
 
-if ($d->estensione == EST_UNITA) {
+if (!$me->admin() && $d->estensione == EST_UNITA) {
     redirect('errore.permessi&cattivo');
 }
 
@@ -22,8 +22,11 @@ if($me->admin() || $me->presidenziante()) {
     }
 }
 
-
-$livello = $d->estensione;
+if($me->admin()) {
+    $livello = EST_NAZIONALE;
+} else {
+    $livello = $d->estensione;
+}
 $l = [];
 for($i = $livello; $i >= 0; $i -= 10) {
     $l[] = $i;
