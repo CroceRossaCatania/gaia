@@ -50,7 +50,7 @@ paginaPrivata();
                 <?php } elseif ( isset($_GET['err']) ) { ?>
                     <div class="alert alert-error">
                         <i class="icon-warning-sign"></i>
-                        <strong>Errore</strong> &mdash; File troppo grande o non valido. Si accettano file come <strong>JPG</strong>, <strong>PNG</strong>, ecc.
+                        <strong>Errore</strong> &mdash; File non selezionato, troppo grande o non valido. Si accettano file come <strong>JPG</strong>, <strong>PNG</strong>, ecc.
                     </div>
                     <hr />
                 <?php }?>
