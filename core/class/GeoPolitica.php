@@ -295,6 +295,10 @@ abstract class GeoPolitica extends GeoEntita {
     }
 
     public function modificabileDa(Utente $altroUtente) {
+        if(!$altroUtente) {
+            return false;
+        }
+
         if ($altroUtente->admin() || $this->unPresidente()->id == $altroUtente->id) {
             return true;
         }

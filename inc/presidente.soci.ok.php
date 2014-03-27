@@ -12,7 +12,7 @@ menuElenchiVolontari(
     false                           // Link email elenco
 );
 
-$data = DateTime::createFromFormat('d/m/Y', $_GET['inputData']);
+$data = DateTime::createFromFormat('d/m/Y', $_POST['inputData']);
 $data = $data->getTimestamp();
 $sessione->data = $data; // solo perchè in menù volontari non ho come mettere variabile
 

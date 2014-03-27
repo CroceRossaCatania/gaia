@@ -137,7 +137,7 @@ class Email {
     public function invia() {
         $m = $this->accoda();
         if($m) {
-            $m->invia();
+            return $m->invia();
         }
         return false;            
 
@@ -149,10 +149,14 @@ class Email {
      */
     public function accoda() {
 
-        if($this->a && !is_array($this->a) ) {
-            $u = Utente::id($this->a);
-            if ( !$u->email || !filter_var($u->email, FILTER_VALIDATE_EMAIL)) {
-                return null;
+        if($this->a) {
+            if(!is_array($this->a)) {
+                $u = Utente::id($this->a);
+            } elseif (count($this->a) == 1) {
+                $u = Utente::id($this->a[0]);
+            }
+            if ($u && ( !$u->email || !filter_var($u->email, FILTER_VALIDATE_EMAIL))) {
+                return false;
             }
         }
 

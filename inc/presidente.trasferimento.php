@@ -66,7 +66,7 @@ paginaPresidenziale();
         $v =$_t->volontario();
         $a = Appartenenza::filtra([['volontario',$v],['stato', MEMBRO_VOLONTARIO]]);
         foreach($comitati as $comitato){
-            if ($a[0]->comitato()==$comitato){
+            if ($a && $a[0]->comitato()==$comitato){
                 $b = Trasferimento::filtra([['volontario',$v],['stato', TRASF_INCORSO]]);
                 ?>
                 <tr>
