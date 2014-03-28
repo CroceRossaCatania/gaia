@@ -1447,7 +1447,18 @@ class Utente extends Persona {
         $f = new PDF('tesserini', "Tesserino{$codice}.pdf");
         $f->_NOME       = $this->nome;
         $f->_COGNOME    = $this->cognome;
-        $f->_DNASCITA   = date('d/m/Y', $this->dataNascita);
+        $f->_NASCITA    = date('d/m/y', $this->dataNascita) .
+                          ", {$this->comuneNascita}";
+
+        $int = "Croce Rossa Italiana<br />{$this->unComitato()->locale()->nome}<br />";
+        if ( $this->sesso == UOMO )
+            $int .= 'Volontario';
+        else
+            $int .= 'Volontaria';
+        $f->_INTESTAZIONE = $int;
+
+        $f->_AVATAR     = $this->avatar()->file(20);
+        $f->_INGRESSO   = $this->ingresso()->format('d/m/y');
         $f->_CODICE     = $codice;
         return $f->salvaFile();
     }
