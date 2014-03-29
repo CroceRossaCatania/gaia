@@ -46,7 +46,10 @@ class Partecipazione extends Entita {
         return [
             'id'        =>  $this->id,
             'turno'     =>  $this->turno()->toJSON(),
-            'attivita'  =>  $this->turno()->attivita,
+            'attivita'  =>  [
+                'id'        =>  $this->turno()->attivita,
+                'nome'      =>  $this->turno()->attivita()->nome,
+            ],
             'stato'     =>  [
                 'id'        =>  (int) $this->stato,
                 'nome'      =>  $conf['partecipazione'][$this->stato]
