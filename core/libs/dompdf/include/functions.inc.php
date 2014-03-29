@@ -670,7 +670,6 @@ function dompdf_getimagesize($filename) {
   }
   
   list($width, $height, $type) = getimagesize($filename);
-  
   if ( $width == null || $height == null ) {
     $data = file_get_contents($filename, null, null, 0, 26);
     

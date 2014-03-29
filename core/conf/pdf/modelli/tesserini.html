@@ -37,16 +37,10 @@
 		.testo-nome,
 		.testo-cognome,
 		.testo-nascita,
-		.testo-ingresso {
-			text-transform: uppercase;
-		}
-
-		.testo-nome,
-		.testo-cognome,
-		.testo-nascita,
 		.testo-intestazione,
 		.testo-ingresso,
-		.avatar
+		.avatar,
+		#barcode
 			{
 			display: block;
 			float: left;
@@ -91,6 +85,19 @@
 			border: 1px solid black;
 		}
 
+		#barcode {
+			left: .7cm;
+			top : 2.85cm;
+			width:  4.70cm;
+			height: 1.7cm;
+			position: absolute;
+		}
+
+		#barcode img {
+			width:  4.70cm;
+			height: 1.7cm;
+		}
+
 
 	</STYLE>
 </HEAD>
@@ -98,7 +105,7 @@
 
 	<!-- Fronte -->
     <div class="fronte">
-        <img id="fronte_img" src="./img/tesserino/fronte.png" alt="FRONTE">
+        <img id="fronte_img" src="./img/tesserino/fronte.png" alt="FRONTE" />
         <span class="testo-nome"		>_NOME</span>
         <span class="testo-cognome"		>_COGNOME</span>
         <span class="testo-nascita"		>_NASCITA</span>
@@ -112,9 +119,14 @@
 
     <!-- Retro  -->
     <div class="retro">
-        <img id="retro_img" src="./img/tesserino/retro.png" alt="RETRO">
+        <img id="retro_img" src="./img/tesserino/retro.png" alt="RETRO" />
+        <div id="barcode" alt="barcode">
+        	<img src="_BARCODE" />
+        </div>
+
     </div>
 
-
+    <!-- Interruzione di pagina -->
+    <div style="page-break-before: always;"></div>
 </BODY>
 </HTML>

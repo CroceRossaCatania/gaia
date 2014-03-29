@@ -53,6 +53,10 @@ class File extends Entita {
         header('Location: ./download.php?id=' . $this->id );
         exit(0);
     }
+
+    public function url() {
+        return './download.php?anteprima&id=' . $this->id;
+    }
     
     public function anteprima() {
         header('Location: ./download.php?anteprima&id=' . $this->id );

@@ -1460,7 +1460,29 @@ class Utente extends Persona {
         $f->_AVATAR     = $this->avatar()->file(20);
         $f->_INGRESSO   = $this->ingresso()->format('d/m/y');
         $f->_CODICE     = $codice;
+
+        $barcode = new Barcode;
+        $barcode->genera($this->codicePubblico());
+
+        $f->_BARCODE    = $barcode->percorso();
+
         return $f->salvaFile();
+    }
+
+    /*
+     * Genera codice tesserino volontario (codicePubblico) DAMIGLIORARE
+     * @todo Da migliorare, controllo esistenza
+     * @return string Codice
+     */
+    public function codicePubblico() {
+        if ( $this->codicePubblico )
+            return $this->codicePubblico;
+
+        
+        // Generazione codice
+        $this->codicePubblico = '80142' . rand(1000000, 9999999);
+        $this->codicePubblico = $this->codicePubblico . ean_checkdigit($this->codicePubblico);
+        return $this->codicePubblico;
     }
 
 
