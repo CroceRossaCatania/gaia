@@ -1413,4 +1413,31 @@ class Utente extends Persona {
                 return false;
             }
     }
+
+    public static function limbo() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                anagrafica.id 
+            FROM    
+                anagrafica
+            WHERE
+                ( anagrafica.id NOT IN 
+                    ( SELECT 
+                            volontario 
+                        FROM 
+                            appartenenza 
+                    )
+                )     
+            ORDER BY
+                anagrafica.cognome     ASC,
+                anagrafica.nome  ASC");
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Utente::id($k[0]);
+        }
+        return $r;
+
+    }
 }

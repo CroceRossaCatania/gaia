@@ -7,7 +7,7 @@ paginaAdmin();
  */
 
 
-$t = Volontario::elenco();
+$t = Volontario::limbo();
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -86,8 +86,6 @@ $t = Volontario::elenco();
         <?php
         $totale = 0;
         foreach($t as $_v) {
-            $appartenenze = $_v->numAppartenenzeTotali();
-            if($appartenenze == 0){
                 $totale++;
             ?>
                 <tr>
@@ -130,7 +128,7 @@ $t = Volontario::elenco();
                 
                
        
-        <?php }}
+        <?php }
         ?>
 
         
