@@ -303,7 +303,9 @@ class APIServer {
         foreach ( $me->partecipazioni() as $p ) {
             $r[] = $p->toJSON();
         }
-        return $r;
+        return [
+	    'risultati' => $r
+	];
     }
 
     private function api_partecipazione_ritirati() {
