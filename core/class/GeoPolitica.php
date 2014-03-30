@@ -302,6 +302,11 @@ abstract class GeoPolitica extends GeoEntita {
         if ($altroUtente->admin() || $this->unPresidente()->id == $altroUtente->id) {
             return true;
         }
+
+        if ($this instanceof Comitato
+            and $this->superiore()->modificabileDa($altroUtente)) {
+            return true;
+        }
         
         if ($this instanceof Locale
             and $this->nome == $this->superiore()->nome
