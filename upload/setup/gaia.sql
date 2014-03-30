@@ -336,6 +336,14 @@ CREATE TABLE IF NOT EXISTS `file` (
   KEY `scadenza` (`scadenza`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `fototessera` (
+  `id` int(11) NOT NULL,
+  `utente` varchar(64) DEFAULT NULL,
+  `timestamp` varchar(8) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `utente` (`utente`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
 CREATE TABLE IF NOT EXISTS `gruppi` (
   `id` int(11) NOT NULL,
   `comitato` varchar(16) DEFAULT NULL,

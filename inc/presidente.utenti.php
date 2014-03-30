@@ -7,6 +7,8 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE ]);
 $admin = $me->admin();
 
+$tesseratore = ($admin || $me->delegazioneAttuale()->estensione > EST_PROVINCIALE) ? true : false;
+
 menuElenchiVolontari(
     "Volontari attivi",
     "?p=admin.utenti.excel",
@@ -45,7 +47,12 @@ menuElenchiVolontari(
         <h4><i class="icon-exclamation-sign"></i> Inserite email differenti</h4>
         <p>Probabilmente hai sbagliato a digitare l'email dell'utente. L'attivazione dell'account non è andata a buon fine.</p>
     </div>
-    <?php } elseif(isset($_GET['emailGia'])) { ?>
+    <?php } elseif(isset($_GET['nofoto'])) { ?>
+    <div class="alert alert-block alert-error">
+        <h4><i class="icon-exclamation-sign"></i> Impossibile generare il tesserino</h4>
+        <p>Per poter generare il tesserino è necessario che l'utente abbia una fototessera caricata.</p>
+    </div>
+    <?php }elseif(isset($_GET['emailGia'])) { ?>
     <div class="alert alert-block alert-error">
         <h4><i class="icon-exclamation-sign"></i> L'utente è già attivo.</h4>
         <p>L'utente chi hai cercato di attivare risulta già attivo su Gaia. Per maggiori informazioni contatta il supporto.</p>
@@ -73,7 +80,12 @@ menuElenchiVolontari(
                 <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id={id}" title="Invia Mail">
                     <i class="icon-envelope"></i>
                 </a>
-                <?php if ($admin) { ?>
+                <?php if($tesseratore) { ?>
+                <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id={id}" title="Tesserino">
+                    <i class="icon-barcode"></i> Tesserino
+                </a>
+                <?php } 
+                if ($admin) { ?>
                 <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id={id}" title="Cancella Utente" class="btn btn-small btn-warning">
                     <i class="icon-trash"></i> Cancella
                 </a>

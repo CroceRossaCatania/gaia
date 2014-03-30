@@ -406,6 +406,15 @@ class Utente extends Persona {
             return $a;
         }
     }
+
+    /* Fototessera */
+    public function fototessera() {
+        $a = Fototessera::by('utente', $this->id);
+        if ( $a ) {
+            return $a;
+        }
+        return false;
+    }
     
     public function comitatiDiCompetenza($soloComitati = false) {
         if ( $this->admin() ) {
@@ -1527,6 +1536,9 @@ class Utente extends Persona {
      * @return File     Il tesserino del volontario
      */
     protected function generaTesserino() {
+        if(!$this->fototessera()) {
+            return false;
+        }
         $codice = rand(100000000, 9999999999);
         $f = new PDF('tesserini', "Tesserino{$codice}.pdf");
         $f->_NOME       = $this->nome;
@@ -1541,8 +1553,8 @@ class Utente extends Persona {
             $int .= 'Volontaria';
         $f->_INTESTAZIONE = $int;
 
-        $f->_AVATAR     = $this->avatar()->file(20);
-        $f->_INGRESSO   = $this->ingresso()->format('d/m/y');
+        $f->_AVATAR     = $this->fototessera()->file(20);
+        $f->_INGRESSO   = $this->ingresso()->format('d/m/Y');
         $f->_CODICE     = $codice;
 
         $barcode = new Barcode;

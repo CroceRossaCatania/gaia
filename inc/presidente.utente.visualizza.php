@@ -109,43 +109,101 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
     <!-- fine modale -->
 
-    <?php } 
+    <?php } ?>
 
-    if ($attivo) { ?>
-
-    <!--Visualizzazione e modifica avatar utente-->
     <div class="span12">
       <h3><i class="icon-edit muted"></i> Anagrafica</h3>
-      <div class="span6 allinea-centro">
-        <?php if ( isset($_GET['aok']) ) { ?>
-        <div class="alert alert-success">
-          <i class="icon-ok"></i> Fotografia modificata!
-        </div>
-        <?php } elseif ( isset($_GET['aerr']) ) { ?>
-        <div class="alert alert-error">
-          <i class="icon-warning-sign"></i>
-          <strong>Errore</strong> &mdash; File troppo grande o non valido.
-        </div>
-        <?php } else { ?>
 
-        <?php } ?>
-        <img src="<?php echo $u->avatar()->img(20); ?>" class="img-polaroid" />
-        <br/><br/></div>
-        <div class="span5 allinea-sinistra"> 
-         <br/>
-         <form id="caricaFoto" action="?p=utente.avatar.ok&id=<?php echo $u; ?>&pre" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
-          <p>Per modificare la foto:</p>
-          <p>1. <strong>Scegli</strong>: <input type="file" name="avatar" required /></p>
-          <p>2. <strong>Clicca</strong>:<br />
-            <button type="submit" class="btn btn-block btn-success">
-              <i class="icon-save"></i> Salva la foto
-            </button></p>
-          </form>
-          <br/>   
-        </div> 
+      <?php 
+      $ctess = false;
+      if(isset($_GET['tessok']) || isset($_GET['tesserr'])) {
+        $ctess = true;
+      } 
+      ?>
+
+      <!--Visualizzazione e modifica avatar utente e tesserino -->
+      <?php if ($attivo) { ?>
+      <div class="tabbable">
+        <ul class="nav nav-tabs">
+          <li <?php if(!$ctess) echo "class=\"active\" " ; ?> ><a href="#tab_avatar" data-toggle="tab">Avatar</a></li>
+          <li <?php if($ctess) echo "class=\"active\" " ; ?>><a href="#tab_tesserino" data-toggle="tab">Tesserino</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane <?php if(!$ctess) echo "active" ; ?>" id="tab_avatar">
+
+            <div class="row-fluid">
+              <div class="span6 allinea-centro">
+                <?php if ( isset($_GET['aok']) ) { ?>
+                <div class="alert alert-success">
+                  <i class="icon-ok"></i> Fotografia modificata!
+                </div>
+                <?php } elseif ( isset($_GET['aerr']) ) { ?>
+                <div class="alert alert-error">
+                  <i class="icon-warning-sign"></i>
+                  <strong>Errore</strong> &mdash; File non selezionato, troppo grande o non valido.
+                </div>
+                <?php } ?>
+                <img src="<?php echo $u->avatar()->img(20); ?>" class="img-polaroid" />
+                <br/><br/>
+              </div>
+              <div class="span5 allinea-sinistra"> 
+                <br/>
+                <form id="caricaFoto" action="?p=utente.avatar.ok&id=<?php echo $u; ?>&pre" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
+                  <p>Per modificare l'avatar:</p>
+                  <p>1. <strong>Scegli</strong>: <input type="file" name="avatar" required /></p>
+                  <p>2. <strong>Clicca</strong>:<br />
+                  <button type="submit" class="btn btn-block btn-success">
+                    <i class="icon-save"></i> Salva la foto
+                  </button></p>
+                </form>
+                <br/>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane <?php if($ctess) echo "active" ; ?>" id="tab_tesserino">
+
+            <div class="row-fluid">
+              <div class="span6 allinea-centro">
+                <?php if ( isset($_GET['tessok']) ) { ?>
+                <div class="alert alert-success">
+                  <i class="icon-ok"></i> Fototessera modificata!
+                </div>
+                <?php } elseif ( isset($_GET['tesserr']) ) { ?>
+                <div class="alert alert-error">
+                  <i class="icon-warning-sign"></i>
+                  <strong>Errore</strong> &mdash; File non selezionato, troppo grande o non valido.
+                </div>
+                <?php } 
+                if ($u->fototessera()) { ?>
+                  <img src="<?php echo $u->fototessera()->img(20); ?>" class="img-polaroid" />
+                <?php } else { ?>
+                  <p><br />Fototessera non caricata</p>
+                <?php } ?>
+                <br/><br/>
+              </div>
+              <div class="span5 allinea-sinistra"> 
+                <br/>
+                <form id="caricaFoto" action="?p=presidente.utente.fototessera.ok&id=<?php echo $u; ?>" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
+                  <p>Per modificare la foto del tesserino:</p>
+                  <p>1. <strong>Scegli</strong>: <input type="file" name="fototessera" required /></p>
+                  <p>2. <strong>Clicca</strong>:<br />
+                  <button type="submit" class="btn btn-block btn-success">
+                    <i class="icon-save"></i> Salva la fototessera
+                  </button></p>
+                </form>
+                <br/>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div> 
+      <?php } ?>
+      <!-- Fine visualizzazione e modifica avatar utente e tesserino -->
+
       </div>
 
-      <?php } ?>
 
     <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $id; ?>" method="POST">
       <hr />

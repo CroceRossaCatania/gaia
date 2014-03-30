@@ -38,8 +38,14 @@ foreach ( $conf['avatar'] as $x => $y ) {
     @mkdir('upload/avatar/' . $x);
 }
 
+echo "Creazione delle cartelle per le fototessere...\n";
+/* Crea le cartelle per gli fototessere */
+foreach ( $conf['fototessera'] as $x => $y ) {
+    @mkdir('upload/fototessere/' . $x);
+}
+
 echo "Creazione delle cartelle per i documenti...\n";
-/* Crea le cartelle per gli avatar */
+/* Crea le cartelle per i documenti */
 @mkdir('upload/get');
 @mkdir('upload/docs');
 @mkdir('upload/docs/o');

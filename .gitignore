@@ -20,6 +20,9 @@ upload/log/*
 # Avatar utenti
 upload/avatar/*/*
 
+# Fototessere utenti
+upload/fototessere/*/*
+
 # Documenti utenti
 upload/docs/
 
