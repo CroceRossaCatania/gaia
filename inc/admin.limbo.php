@@ -6,8 +6,10 @@ paginaAdmin();
  * ©2013 Croce Rossa Italiana
  */
 
+ini_set("memory_limit","200M");
 
-$t = Volontario::limbo();
+
+$t = Volontario::elenco();
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -78,7 +80,6 @@ $t = Volontario::limbo();
             <thead>
                 <th>Nome</th>
                 <th>Cognome</th>
-                <th>Località</th>
                 <th>Codice Fiscale</th>
                 <th>Stato</th>
                 <th>Azioni</th>
@@ -86,22 +87,15 @@ $t = Volontario::limbo();
         <?php
         $totale = 0;
         foreach($t as $_v) {
-                $totale++;
+            $appartenenze = $_v->numAppartenenzeTotali();
+            if($appartenenze == 0 || $_v->appartenenzaAttuale()->stato == MEMBRO_APP_NEGATA){
+            $totale++;
             ?>
                 <tr>
                     <td><?php echo $_v->nome; ?></td>
-                    <td><?php echo $_v->cognome; ?></td>
-                    <td>
-                        <span class="muted">
-                            <?php echo $_v->CAPResidenza; ?>
-                        </span>
-                        <?php echo $_v->comuneResidenza; ?>,
-                        <?php echo $_v->provinciaResidenza; ?>
-                    </td>
-                    
+                    <td><?php echo $_v->cognome; ?></td>                 
                     <td><?php echo $_v->codiceFiscale; ?></td>
                     <td><?php echo $conf['statoPersona'][$_v->stato]; ?></td>
-
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
@@ -128,7 +122,7 @@ $t = Volontario::limbo();
                 
                
        
-        <?php }
+        <?php }}
         ?>
 
         

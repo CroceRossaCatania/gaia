@@ -313,9 +313,13 @@ class Utente extends Persona {
     }
 
     public function appartenenzaAttuale() {
-        if($this->stato == VOLONTARIO && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO)->attuale()) {
+        if($this->stato == VOLONTARIO 
+            && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO) 
+            && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO)->attuale()) {
             return $this->ultimaAppartenenza(MEMBRO_VOLONTARIO);
-        } elseif ($this->stato == PERSONA && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)->attuale()) {
+        } elseif ($this->stato == PERSONA 
+            && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)
+            && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)->attuale()) {
             return $this->ultimaAppartenenza(MEMBRO_ORDINARIO);
         }
         return null;
@@ -1413,7 +1417,9 @@ class Utente extends Persona {
                 return false;
             }
     }
-
+    /*
+     * Funzione che non funziona correttamente
+     */
     public static function limbo() {
         global $db;
         $q = $db->prepare("
