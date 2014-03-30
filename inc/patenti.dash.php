@@ -4,6 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
+paginaPrivata();
 paginaApp([APP_PATENTI , APP_PRESIDENTE]);
 $elenco = $me->comitatiApp ([ APP_PATENTI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {

@@ -62,7 +62,7 @@ class Quota extends Entita {
     }
 
     public function dataPagamento() {
-        return DT::daTimestamp($this->tConferma);
+        return DT::daTimestamp($this->timestamp);
     }
 
     public function annullata() {

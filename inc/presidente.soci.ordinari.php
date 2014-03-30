@@ -51,15 +51,12 @@ menuElenchiVolontari(
                 <th>Cognome</th>
                 <th>Nome</th>
                 <th>C. Fiscale</th>
-                <th>Residenza</th>
-                <th>Cellulare</th>
                 <th>Data Ingresso</th>
                 <th>Azioni</th>
             </thead>
         <?php
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         $admin = $me->admin();
-
         foreach($elenco as $comitato) {
             $t = $comitato->membriOrdinari();
         
@@ -111,18 +108,6 @@ menuElenchiVolontari(
                     <td><?php echo $_v->cognome; ?></td>
                     <td><?php echo $_v->nome; ?></td>
                     <td><?php echo $_v->codiceFiscale; ?></td>
-                    <td>
-                        <span class="muted">
-                            <?php echo $_v->CAPResidenza; ?>
-                        </span>
-                        <?php echo $_v->comuneResidenza; ?>,
-                        <?php echo $_v->provinciaResidenza; ?>
-                    </td>
-                    
-                    <td>
-                        <span class="muted">+39</span>
-                            <?php echo $_v->cellulare; ?>
-                    </td>
                     <td>
                         <?php echo $_v->ingresso()->format("d/m/Y"); ?>
                     </td>

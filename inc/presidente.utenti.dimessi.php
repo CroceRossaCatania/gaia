@@ -43,6 +43,7 @@ menuElenchiVolontari(
                 <th>Cognome</th>
                 <th>Nome</th>
                 <th>Codice Fiscale</th>
+                <th>Note</th>
                 <th>Azioni</th>
             </thead>
         <?php
@@ -52,7 +53,7 @@ menuElenchiVolontari(
                 ?>
             
             <tr class="success">
-                <td colspan="4" class="grassetto">
+                <td colspan="5" class="grassetto">
                     <?php echo $comitato->nomeCompleto(); ?>
                     <span class="label label-warning">
                         <?php echo count($t); ?>
@@ -72,6 +73,7 @@ menuElenchiVolontari(
                     <td><?php echo $_v->cognome; ?></td>
                     <td><?php echo $_v->nome; ?></td>
                     <td><?php echo $_v->codiceFiscale; ?></td>
+                    <td><?php if($_v->ordinario()) { echo('<i class="icon-heart-empty"></i> Socio Ordinario'); } ?></td>
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">

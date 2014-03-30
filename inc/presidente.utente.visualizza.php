@@ -281,7 +281,18 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         </div>
       </div>
    <?php } ?>
-
+      <div class="control-group">
+        <label class="control-label">Infermiera Volontaria</label>
+        <div class="controls">
+          <input type="checkbox" <?php if($u->iv){ ?> checked <?php } ?> id="inputIV" name="inputIV" <?php if(!$me->admin() && $u->iv || $u->cm && !$hoPotere){?> readonly <?php } ?>>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Corpo Militare volontario</label>
+        <div class="controls">
+          <input type="checkbox" <?php if($u->cm){ ?> checked <?php } ?> id="inputCM" name="inputCM" <?php if(!$me->admin() && $u->iv || $u->cm && !$hoPotere){?> readonly <?php } ?>>
+        </div>
+      </div>
    <?php if($hoPotere) { ?>
    <hr />
    <div class="form-actions">
@@ -302,10 +313,10 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 </form>    
 </div>
 <!--Visualizzazione e modifica appartenenze utente -->
-<?php if($attivo) { ?>
 <div class="span6">
+<?php if($attivo) { ?>
   <div class="row-fluid">
-    <div class="span112">
+    <div class="span12">
       <h4><i class="icon-folder-open"></i> Documenti volontario</h4>
       <?php if(isset($_GET['errDoc'])){?>
         <div class="alert alert-error">
@@ -434,6 +445,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       </div>
     </div>
   </div>
+  <?php } ?>
 
   <div class="row-fluid">
     <h4>
@@ -694,7 +706,6 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <?php } ?>
     </table>
   </div>
-  <?php } ?>
 </div>
 
 

@@ -8,9 +8,17 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 controllaParametri(array('inputNumero','inputAnno'), 'us.dash&err');
 
-$numero = $_GET['inputNumero'];
+$numero = (int) $_GET['inputNumero'];
+
+if ($numero == 0) {
+    redirect('us.dash&err');
+}
+
 $anno   = $_GET['inputAnno'];
 $q = Quota::filtra([['anno', $anno],['progressivo', $numero]]);
+if (!$q) {
+    redirect('us.dash&err');
+}
 $q = $q[0];
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>

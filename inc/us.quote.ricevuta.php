@@ -50,7 +50,7 @@ if (($quota->quota - $quotaMin) > 0) {
 }
 $p->_TOTALE     = soldi($quota->quota);
 $p->_LUOGO      = $quota->comitato()->locale()->comune;
-$p->_DATA       = date('d/m/Y', $quota->tConferma);
+$p->_DATA       = $quota->dataPagamento()->format('d/m/Y');
 $p->_CHINOME    = $quota->conferma()->nomeCompleto();
 $p->_CHICF      = $quota->conferma()->codiceFiscale;
 $f = $p->salvaFile($quota->comitato());  

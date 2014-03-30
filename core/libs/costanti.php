@@ -52,6 +52,7 @@ define('MEMBRO_DIMESSO',            0);
 define('MEMBRO_TRASFERITO',         1);
 define('MEMBRO_ORDINARIO_DIMESSO',  2);
 define('MEMBRO_APP_NEGATA',         3);
+define('MEMBRO_ORDINARIO_PROMOSSO', 4);
 define('MEMBRO_EST_TERMINATA',      5);
 define('MEMBRO_TRASF_ANN',          9);
 define('MEMBRO_TRASF_NEGATO',      10);
@@ -75,6 +76,7 @@ $conf['membro'] = [
     MEMBRO_TRASF_NEGATO         =>  'Trasferimento negato',
     MEMBRO_TRASF_ANN            =>  'Richiesta trasferimento annullata',
     MEMBRO_TRASFERITO           =>  'Membro Trasferito',
+    MEMBRO_ORDINARIO_PROMOSSO   =>  'Socio Ordinario promosso ad Attivo',
     MEMBRO_ORDINARIO_DIMESSO    =>  'Membro Ordinario Dimesso',
     MEMBRO_EST_ANN              =>  'Richiesta estensione annullata',
     MEMBRO_EST_NEGATA           =>  'Estensione negata',
@@ -466,7 +468,7 @@ define('EST_REGIONALE',     30);
 define('EST_NAZIONALE',     40);
 
 $conf['est_obj'] = [
-    EST_UNITA       =>  'Comitato',
+    EST_UNITA       =>  'Unità',
     EST_LOCALE      =>  'Locale',
     EST_PROVINCIALE =>  'Provinciale',
     EST_REGIONALE   =>  'Regionale',
@@ -592,6 +594,7 @@ define('PRIVACY_PRIVATA',   10);
 define('PRIVACY_COMITATO', 20);
 define('PRIVACY_VOLONTARI', 30);
 define('PRIVACY_PUBBLICA', 40);
+define('PRIVACY_RISTRETTA', 50);
 
 /*
  * ===================================

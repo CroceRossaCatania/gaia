@@ -295,21 +295,31 @@ abstract class GeoPolitica extends GeoEntita {
     }
 
     public function modificabileDa(Utente $altroUtente) {
+        if(!$altroUtente) {
+            return false;
+        }
+
         if ($altroUtente->admin() || $this->unPresidente()->id == $altroUtente->id) {
             return true;
         }
-        /*
-        if ($this instanceof Locale
-            and $this->nome == $this->provinciale()->nome
-            and $this->provinciale()->unPresidente()->id == $altroUtente->id) {
-            return true;
-        }
+
         if ($this instanceof Comitato
-            and $this->locale()->nome == $this->provinciale()->nome
-            and $this->provinciale()->unPresidente()->id == $altroUtente->id) {
+            and $this->superiore()->modificabileDa($altroUtente)) {
             return true;
         }
-        */
+        
+        if ($this instanceof Locale
+            and $this->nome == $this->superiore()->nome
+            and $this->superiore()->modificabileDa($altroUtente)) {
+            return true;
+        }
+
+        if ($this instanceof Provinciale
+            and $this->nome == $this->superiore()->nome
+            and $this->superiore()->modificabileDa($altroUtente)) {
+            return true;
+        }
+        
         return false;
     }
 

@@ -17,6 +17,10 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 $t = $_POST['tipo'];
 $f = $_FILES['file'];
 
+if(!isset($_FILES['file'])) {
+	redirect("presidente.utente.visualizza&id={$u->id}&errDoc");
+}
+
 /* Qual è il vecchio documento? */
 $prec = $u->documento($t);
 

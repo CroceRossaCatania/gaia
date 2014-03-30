@@ -229,7 +229,7 @@ class APIServer {
                 continue;
             }
             $geoAttivita = GeoPolitica::daOid($attivita->comitato);
-            if ( $this->sessione->utente ) {
+            if ( $mioGeoComitato ) {
                 if ( $geoAttivita->contiene($mioGeoComitato) ) {
                     $colore = $conf['attivita']['colore_mie'];
                     if ( $turno->scoperto() ) {
@@ -306,7 +306,7 @@ class APIServer {
         $me = $this->richiediLogin();
         $this->richiedi(['id']);
         $t = Partecipazione::id($this->par['id']);
-        if ( $t->volontario() == $me ) {
+        if ( $t->volontario()->id == $me->id ) {
             $ok = true;
             $t->ritira();
         } else {

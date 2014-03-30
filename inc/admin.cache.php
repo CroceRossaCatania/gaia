@@ -25,7 +25,7 @@ $server = $cache->info();
     <div class="row-fluid">
 
         <div class="span4">
-            <h2>Cache server</h2>
+            <h2><i class="icon-cloud muted"></i> Cache server</h2>
 
             <p>Statistiche di funzionamento del server di cache.</p>
 

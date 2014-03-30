@@ -45,6 +45,18 @@ $p->cellulare           = $cell;
 $p->cellulareServizio   = $cells;
 $p->timestamp           = time();
 
+/* 
+ * Non si può far parte di IV e CM contemporaneamente
+ */
+
+if ( !(isset($_POST['inputIV']) && isset($_POST['inputCM']))) {
+    if( $p->sesso == DONNA){
+        $p->iv = $_POST['inputIV'];
+    }
+    $p->cm = $_POST['inputCM'];
+
+}
+
 if ($me->admin()) {
     $nome               = normalizzaNome($_POST['inputNome']);
     $cognome            = normalizzaNome($_POST['inputCognome']);

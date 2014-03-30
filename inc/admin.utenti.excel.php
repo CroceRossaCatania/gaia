@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 paginaApp([APP_SOCI , APP_PRESIDENTE, APP_CO , APP_OBIETTIVO]);
@@ -596,6 +596,56 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
 
         }
         $excel->genera("Elenco Soci Ordinari Dimessi {$c->nome}.xls");
+    }elseif(isset($_GET['cm'])){
+        foreach ( $c->membriCm() as $v ) {
+            $i++;    
+            $excel->aggiungiRiga([
+                $i,
+                $v->nome,
+                $v->cognome,
+                date('d/m/Y', $v->dataNascita),
+                $v->comuneNascita,
+                $v->provinciaNascita,
+                $v->codiceFiscale,
+                $v->indirizzo,
+                $v->civico,
+                $v->comuneResidenza,
+                $v->CAPResidenza,
+                $v->provinciaResidenza,
+                $v->email,
+                $v->emailServizio,
+                $v->cellulare,
+                $v->cellulareServizio,
+                $v->ingresso()->format("d/m/Y")
+                ]);
+
+        }
+        $excel->genera("Elenco Soci Corpo Militare Volontario {$c->nome}.xls");
+    }elseif(isset($_GET['iv'])){
+        foreach ( $c->membriIv() as $v ) {
+            $i++;    
+            $excel->aggiungiRiga([
+                $i,
+                $v->nome,
+                $v->cognome,
+                date('d/m/Y', $v->dataNascita),
+                $v->comuneNascita,
+                $v->provinciaNascita,
+                $v->codiceFiscale,
+                $v->indirizzo,
+                $v->civico,
+                $v->comuneResidenza,
+                $v->CAPResidenza,
+                $v->provinciaResidenza,
+                $v->email,
+                $v->emailServizio,
+                $v->cellulare,
+                $v->cellulareServizio,
+                $v->ingresso()->format("d/m/Y")
+                ]);
+
+        }
+        $excel->genera("Elenco Soci Infermiere Volontarie {$c->nome}.xls");
     }else{
         foreach ( $c->membriAttuali() as $v ) {
             $i++;    
@@ -657,6 +707,10 @@ if(isset($_GET['dimessi'])){
  $zip->comprimi("Elenco soci ordinari.zip"); 
 }elseif(isset($_GET['ordinaridimessi'])){
  $zip->comprimi("Elenco soci ordinari dimessi.zip"); 
+}elseif(isset($_GET['cm'])){
+ $zip->comprimi("Elenco soci Corpo Militare Volontario.zip"); 
+}elseif(isset($_GET['iv'])){
+ $zip->comprimi("Elenco soci Inferie Volontarie.zip"); 
 }else{
  $zip->comprimi("Anagrafica_volontari.zip");
 }

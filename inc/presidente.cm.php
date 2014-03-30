@@ -7,15 +7,10 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 menuElenchiVolontari(
-    "Elenco Soci",                  // Nome elenco
-    "?p=admin.utenti.excel&soci",   // Link scarica elenco
-    false                           // Link email elenco
+    "Elenco Corpo Militare",       // Nome elenco
+    "?p=admin.utenti.excel&cm",   // Link scarica elenco
+    false                        // Link email elenco
 );
-
-$data = DateTime::createFromFormat('d/m/Y', $_POST['inputData']);
-$data = $data->getTimestamp();
-$sessione->data = $data; // solo perchè in menù volontari non ho come mettere variabile
-
 
 ?>
   
@@ -36,7 +31,7 @@ $sessione->data = $data; // solo perchè in menù volontari non ho come mettere 
         <?php
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
         foreach($elenco as $comitato) {
-            $t = $comitato->membriData($data);
+            $t = $comitato->membriCm();
                 ?>
 
             <tr class="success">
@@ -46,7 +41,7 @@ $sessione->data = $data; // solo perchè in menù volontari non ho come mettere 
                         <?php echo count($t); ?>
                     </span>
                     <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&comitato=<?= $comitato->id; ?>&soci&data=<?= $data; ?>"
+                       href="?p=presidente.utenti.excel&comitato=<?= $comitato->id; ?>&cm"
                        data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                     </a>

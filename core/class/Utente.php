@@ -317,9 +317,13 @@ class Utente extends Persona {
     }
 
     public function appartenenzaAttuale() {
-        if($this->stato == VOLONTARIO && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO)->attuale()) {
+        if($this->stato == VOLONTARIO 
+            && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO) 
+            && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO)->attuale()) {
             return $this->ultimaAppartenenza(MEMBRO_VOLONTARIO);
-        } elseif (($this->stato == PERSONA || $this->stato == ASPIRANTE) && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)->attuale()) {
+        } elseif (($this->stato == PERSONA || $this->stato == ASPIRANTE)
+            && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)
+            && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)->attuale()) {
             return $this->ultimaAppartenenza(MEMBRO_ORDINARIO);
         }
         return null;
@@ -487,9 +491,11 @@ class Utente extends Persona {
             $g->cancella();
         }
         // 12. Sessioni in corso
+        /*
         foreach ( Sessione::filtra([['utente',$this]]) as $g ) {
             $g->cancella();
         }
+        */
         // 13. Titoli personali
         foreach ( TitoloPersonale::filtra([['volontario',$this]]) as $g ) {
             $g->cancella();
@@ -1211,8 +1217,9 @@ class Utente extends Persona {
     public function pri_smistatore($altroutente){
         if($this->admin()) {
             return PRIVACY_RISTRETTA;
-        } elseif($this->presidenziante() || $this->delegazioni([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO, APP_FORMAZIONE])){
-            $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO, APP_FORMAZIONE]);
+        }
+        if($this->presidenziante() || in_array($this->delegazioneAttuale()->applicazione, [APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
+            $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO]);
             foreach ($comitati as $comitato){
                 if($altroutente->in($comitato)){
                     return PRIVACY_RISTRETTA;            
@@ -1438,4 +1445,54 @@ class Utente extends Persona {
         return true;
     }
 
+	/* Se volontario è IV
+     * @return true se iv
+     */
+    public function iv() {
+        if($this->iv){
+            return true;
+            }else{
+                return false;
+            }
+    }
+
+    /* Se volontario è CM
+     * @return true se CM
+     */
+    public function cm() {
+        if($this->cm){
+            return true;
+            }else{
+                return false;
+            }
+    }
+    /*
+     * Funzione che non funziona correttamente
+     */
+    public static function limbo() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                anagrafica.id 
+            FROM    
+                anagrafica
+            WHERE
+                ( anagrafica.id NOT IN 
+                    ( SELECT 
+                            volontario 
+                        FROM 
+                            appartenenza 
+                    )
+                )     
+            ORDER BY
+                anagrafica.cognome     ASC,
+                anagrafica.nome  ASC");
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Utente::id($k[0]);
+        }
+        return $r;
+
+    }
 }

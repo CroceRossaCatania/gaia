@@ -10,6 +10,7 @@
  */
 
 controllaParametri(array('oid'));
+paginaPrivata();
 
 $_daGestire = [
     APP_CO          =>  [EST_UNITA, EST_LOCALE, EST_PROVINCIALE, EST_REGIONALE, EST_NAZIONALE],
