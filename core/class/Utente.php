@@ -1495,4 +1495,78 @@ class Utente extends Persona {
         return $r;
 
     }
+
+    /*
+     * Ritorna il File del Tesserino del Volontario
+     * @return File     Il tesserino del volontario
+     */
+    public function tesserino() {
+
+        // DEBUG
+        return $this->generaTesserino();
+        
+        // Controlla l'esistenza dell'ultimo tesserino
+        try {
+            if ( !$this->ultimoTesserino )
+                throw new Errore;
+
+            $t = new File($this->ultimoTesserino);
+
+        } catch (Errore $e) {
+            // Non piu' esistente, rigenera
+            $t = $this->generaTesserino();
+            $this->ultimoTesserino = $t->id;
+        }
+
+        return $t;
+
+    }
+
+    /*
+     * Genera il tesserino del Volontario
+     * @return File     Il tesserino del volontario
+     */
+    protected function generaTesserino() {
+        $codice = rand(100000000, 9999999999);
+        $f = new PDF('tesserini', "Tesserino{$codice}.pdf");
+        $f->_NOME       = $this->nome;
+        $f->_COGNOME    = $this->cognome;
+        $f->_NASCITA    = date('d/m/y', $this->dataNascita) .
+                          ", {$this->comuneNascita}";
+
+        $int = "Croce Rossa Italiana<br />{$this->unComitato()->locale()->nome}<br />";
+        if ( $this->sesso == UOMO )
+            $int .= 'Volontario';
+        else
+            $int .= 'Volontaria';
+        $f->_INTESTAZIONE = $int;
+
+        $f->_AVATAR     = $this->avatar()->file(20);
+        $f->_INGRESSO   = $this->ingresso()->format('d/m/y');
+        $f->_CODICE     = $codice;
+
+        $barcode = new Barcode;
+        $barcode->genera($this->codicePubblico());
+
+        $f->_BARCODE    = $barcode->percorso();
+
+        return $f->salvaFile();
+    }
+
+    /*
+     * Genera codice tesserino volontario (codicePubblico) DAMIGLIORARE
+     * @todo Da migliorare, controllo esistenza
+     * @return string Codice
+     */
+    public function codicePubblico() {
+        if ( $this->codicePubblico )
+            return $this->codicePubblico;
+
+        
+        // Generazione codice
+        $this->codicePubblico = '80142' . rand(1000000, 9999999);
+        $this->codicePubblico = $this->codicePubblico . ean_checkdigit($this->codicePubblico);
+        return $this->codicePubblico;
+    }
+
 }

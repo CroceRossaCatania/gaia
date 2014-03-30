@@ -3,23 +3,132 @@
 <HEAD>
 	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
 	<TITLE></TITLE>
-	<META NAME="GENERATOR" CONTENT="LibreOffice 3.6  (Linux)">
-	<META NAME="AUTHOR" CONTENT="Federico ">
-	<META NAME="CREATED" CONTENT="20130620;23484600">
-	<META NAME="CHANGEDBY" CONTENT="Federico ">
-	<META NAME="CHANGED" CONTENT="20130620;23534800">
 	<STYLE TYPE="text/css">
-	
-		body { padding-left: 1cm; padding-right: 1cm; padding-top: 1.4cm; padding-bottom: 1cm; background-size: 100% 100%; }
-		P { margin-bottom: 0.21cm; direction: ltr; color: #000000; widows: 2; orphans: 2 }
-                                .fronte {
-                                            width: 8.4cm;
-                                            }           
+		
+		body {
+			padding: 6cm 5cm 6cm 5cm;
+		}
+
+		.fronte, .retro {
+			padding: 0cm 0cm 0cm 0cm;
+			margin: auto;
+			width: 100%;
+			position: relative;
+		}		
+
+		#fronte_img, #retro_img {
+			/* Dimensioni standard ISO/IEC 7810 */
+			width: 8.560cm;
+			height: 5.398cm;
+			position: absolute;
+			top: 0cm;
+			left: 0cm;
+			border: 1px dashed red;
+		}
+
+		.fronte {
+			text-align: left;
+		}
+
+		.retro {
+			text-align: right;
+		}
+
+		.testo-nome,
+		.testo-cognome,
+		.testo-nascita,
+		.testo-intestazione,
+		.testo-ingresso,
+		.avatar,
+		#barcode
+			{
+			display: block;
+			float: left;
+			position: absolute;	
+			font-family: "Arial";
+			font-size: 10pt;	
+		}
+
+		.testo-nome {
+			top:  2.05cm;
+			left: 3.12cm;
+		}
+
+		.testo-cognome {
+			top:  2.80cm;
+			left: 3.12cm;
+		}
+
+		.testo-nascita {
+			left: 3.12cm;
+			top : 3.60cm;
+		}
+
+		.testo-intestazione {
+			right: 2.9cm;
+			top : 0.65cm;
+			font-weight: bold;
+			font-size: 7.056pt;
+			text-align: right;
+		}
+
+		.testo-ingresso {
+			top: 4.35cm;
+			left: 3.12cm;
+		}
+
+		.avatar 	{
+			left: 0.55cm;
+			top : 2.10cm;
+			width: 2.33cm;
+			height: 2.84cm;
+			border: 1px solid black;
+		}
+
+		#barcode {
+			left: .7cm;
+			top : 2.85cm;
+			width:  4.70cm;
+			height: 1.7cm;
+			position: absolute;
+		}
+
+		#barcode img {
+			width:  4.70cm;
+			height: 1.7cm;
+		}
+
+		#footer_pdf {
+			display: none;
+		}
+
+
 	</STYLE>
 </HEAD>
 <BODY LANG="it-IT">
+
+	<!-- Fronte -->
     <div class="fronte">
-        <img src="./img/tesserino_fronte.jpg" alt="">
+        <img id="fronte_img" src="./img/tesserino/fronte.png" alt="FRONTE" />
+        <span class="testo-nome"		>_NOME</span>
+        <span class="testo-cognome"		>_COGNOME</span>
+        <span class="testo-nascita"		>_NASCITA</span>
+        <img class="avatar" src="_AVATAR" />
+        <span class="testo-intestazione">_INTESTAZIONE</span>
+        <span class="testo-ingresso">_INGRESSO</span>
     </div>
+
+    <!-- Interruzione di pagina -->
+    <div style="page-break-before: always;"></div>
+
+    <!-- Retro  -->
+    <div class="retro">
+        <img id="retro_img" src="./img/tesserino/retro.png" alt="RETRO" />
+        <div id="barcode" alt="barcode">
+        	<img src="_BARCODE" />
+        </div>
+
+    </div>
+
 </BODY>
 </HTML>

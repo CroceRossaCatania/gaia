@@ -8,6 +8,10 @@ paginaAdmin();
 <?php
 
 
+$c = new Barcode;
+$c->genera($me->codicePubblico());
+$c->anteprima();
+
 	$f = new Excel;
 	$f->intestazione(['a', 'b']);
 	$f->aggiungiRiga(['1', '2']);
