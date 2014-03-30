@@ -293,7 +293,8 @@ class APIServer {
         $me = $this->richiediLogin();
         $t = Turno::id($this->par['id']);
         return [
-            'ok' => $t->chiediPartecipazione($me)
+            'ok' => $t->chiediPartecipazione($me),
+	    'id' => $t->partecipazione($me)->id
         ];
     }
 
