@@ -163,18 +163,22 @@ class Partecipazione extends Entita {
     }
 
     public function ritira() {
-        $v = $this->volontario();
-        $m = new Email('volontarioRitirato', 'Un volontario si è ritirato');
-        $m->a = $this->attivita()->referente();
-        $m->_NOME           = $this->attivita()->referente()->nome;
-        $m->_VOLONTARIO     = $v->nomeCompleto();
-        $m->_ATTIVITA       = $this->attivita()->nome;
-        $m->_TURNO          = $this->turno()->nome;
-        $m->_DATA           = $this->turno()->inizio()->inTesto();
-        $m->invia();
-        $v->numRitirati = ( (int) $v->numRitirati ) + 1;
-        $this->cancella();
-        return true;
+	if($this->stato == PART_PENDING && $this->turno()->inizio >= time()){
+        	$v = $this->volontario();
+        	$m = new Email('volontarioRitirato', 'Un volontario si è ritirato');
+        	$m->a = $this->attivita()->referente();
+        	$m->_NOME           = $this->attivita()->referente()->nome;
+        	$m->_VOLONTARIO     = $v->nomeCompleto();
+        	$m->_ATTIVITA       = $this->attivita()->nome;
+        	$m->_TURNO          = $this->turno()->nome;
+        	$m->_DATA           = $this->turno()->inizio()->inTesto();
+        	$m->invia();
+        	$v->numRitirati = ( (int) $v->numRitirati ) + 1;
+        	$this->cancella();
+        	return true;
+	}else{
+		return false;
+	}
     }
 
 }
