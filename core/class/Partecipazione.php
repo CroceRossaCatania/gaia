@@ -172,7 +172,7 @@ class Partecipazione extends Entita {
     public function ritira() {
     	if ( !$this->ritirabile() )
     		return false;
-    	$v = $this->volontario();
+        $v = $this->volontario();
         $m = new Email('volontarioRitirato', 'Un volontario si è ritirato');
         $m->a = $this->attivita()->referente();
         $m->_NOME           = $this->attivita()->referente()->nome;
