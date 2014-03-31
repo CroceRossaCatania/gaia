@@ -161,24 +161,29 @@ class Partecipazione extends Entita {
                 ]);
 
     }
+    
+    public function  ritirabile(){
+    	if($this->stato == PART_PENDING && $this->turno()->inizio >= time()){
+    		return true;
+    	}
+    	return false;
+    }
 
     public function ritira() {
-	if($this->stato == PART_PENDING && $this->turno()->inizio >= time()){
-        	$v = $this->volontario();
-        	$m = new Email('volontarioRitirato', 'Un volontario si è ritirato');
-        	$m->a = $this->attivita()->referente();
-        	$m->_NOME           = $this->attivita()->referente()->nome;
-        	$m->_VOLONTARIO     = $v->nomeCompleto();
-        	$m->_ATTIVITA       = $this->attivita()->nome;
-        	$m->_TURNO          = $this->turno()->nome;
-        	$m->_DATA           = $this->turno()->inizio()->inTesto();
-        	$m->invia();
-        	$v->numRitirati = ( (int) $v->numRitirati ) + 1;
-        	$this->cancella();
-        	return true;
-	}else{
-		return false;
-	}
+    	if ( !$this->ritirabile() )
+    		return false;
+    	$v = $this->volontario();
+        $m = new Email('volontarioRitirato', 'Un volontario si è ritirato');
+        $m->a = $this->attivita()->referente();
+        $m->_NOME           = $this->attivita()->referente()->nome;
+        $m->_VOLONTARIO     = $v->nomeCompleto();
+        $m->_ATTIVITA       = $this->attivita()->nome;
+        $m->_TURNO          = $this->turno()->nome;
+        $m->_DATA           = $this->turno()->inizio()->inTesto();
+        $m->invia();
+        $v->numRitirati = ( (int) $v->numRitirati ) + 1;
+        $this->cancella();
+        return true;
     }
 
 }
