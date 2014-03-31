@@ -278,10 +278,10 @@ class APIServer {
         return [
             'nome'      =>  $a->nome,
             'comitato'  =>  $a->comitato()->toJSON(),
-	    	'descrizione' => $a->descrizione,
-	    	'referente' => $a->referente()->nome . ' ' . $a->referente()->cognome,
-	    	'referentenum' => $a->referente()->cellulare(),
-	    	'referenteemail' => $a->referente()->email(),
+            'descrizione' => $a->descrizione,
+            'referente' => $a->referente()->nome . ' ' . $a->referente()->cognome,
+            'referentenum' => $a->referente()->cellulare(),
+            'referenteemail' => $a->referente()->email(),
             'luogo'     =>  $a->luogo,
             'coordinate'=>  $a->coordinate(),
             'turni'     =>  $t
