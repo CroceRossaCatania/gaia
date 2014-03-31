@@ -278,10 +278,10 @@ class APIServer {
         return [
             'nome'      =>  $a->nome,
             'comitato'  =>  $a->comitato()->toJSON(),
-	    'descrizione' => $a->descrizione,
-	    'referente' => $a->referente()->nome . ' ' . $a->referente()->cognome,
-	    'referentenum' => $a->referente()->cellulare(),
-	    'referenteemail' => $a->referente()->email(),
+	    	'descrizione' => $a->descrizione,
+	    	'referente' => $a->referente()->nome . ' ' . $a->referente()->cognome,
+	    	'referentenum' => $a->referente()->cellulare(),
+	    	'referenteemail' => $a->referente()->email(),
             'luogo'     =>  $a->luogo,
             'coordinate'=>  $a->coordinate(),
             'turni'     =>  $t
@@ -292,10 +292,13 @@ class APIServer {
         $this->richiedi(['id']);
         $me = $this->richiediLogin();
         $t = Turno::id($this->par['id']);
-        return [
-            'ok' => $t->chiediPartecipazione($me),
-	    'id' => $t->partecipazione($me)->id
-        ];
+        $val=$t->chiediPartecipazione($me);
+        $r = [];
+        $r['ok'] = $t->chiediPartecipazione($me);
+        if( $val == true){
+        	$r['id'] = $t->partecipazione($me)->id;
+        }
+        return $r;
     }
 
     private function api_partecipazioni() {
