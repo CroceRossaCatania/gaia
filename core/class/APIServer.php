@@ -294,7 +294,7 @@ class APIServer {
         $t = Turno::id($this->par['id']);
         $val=$t->chiediPartecipazione($me);
         $r = [];
-        $r['ok'] = $t->chiediPartecipazione($me);
+        $r['ok'] = $val;
         if( $val == true){
         	$r['id'] = $t->partecipazione($me)->id;
         }

@@ -80,6 +80,14 @@ class Turno extends Entita {
             return null;
         }
     }
+
+    public function partecipazioneStato(Utente $v) {
+    	$val=$this->partecipazione($v);
+    	if($val != null){
+    		return $val->ritirabile();
+    	}    
+    	return false;	
+    }
     
     public function partecipa(Utente $v) {
         return (bool) $this->partecipazione($v);
@@ -163,17 +171,18 @@ class Turno extends Entita {
 
     public function toJSON( $user ) {
         return [
-            'id'            =>  $this->id,
-            'nome'          =>  $this->nome,
-            'inizio'        =>  $this->inizio(),
-            'fine'          =>  $this->fine(),
-            'durata'        =>  $this->durata(),
-            'pieno'         =>  $this->pieno(),
-            'futuro'        =>  $this->futuro(),
-            'scoperto'      =>  $this->scoperto(),
-            'puoRichiedere' =>  $this->puoRichiederePartecipazione($user),
-            'partecipa'     =>  $this->partecipa($user),
-            'partecipazione'=>  $this->partecipazione($user)
+            'id'                 =>  $this->id,
+            'nome'               =>  $this->nome,
+            'inizio'             =>  $this->inizio(),
+            'fine'               =>  $this->fine(),
+            'durata'             =>  $this->durata(),
+            'pieno'              =>  $this->pieno(),
+            'futuro'             =>  $this->futuro(),
+            'scoperto'           =>  $this->scoperto(),
+            'puoRichiedere'      =>  $this->puoRichiederePartecipazione($user),
+            'partecipa'          =>  $this->partecipa($user),
+            'partecipazione'     =>  $this->partecipazione($user),
+            'partecipazioneStato'=>  $this->partecipazioneStato($user)
         ];
     }
 }
