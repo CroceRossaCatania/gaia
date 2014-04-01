@@ -72,13 +72,13 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             </div>
             <div class="btn-group">
                 <a href="#" class="btn btn-danger btn-group">
-                    <i class="icon-ok"></i>
+                    <i class="icon-remove"></i>
                     Quote non pagate
                 </a>
                 <a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="?p=us.quoteNo"><i class="icon-ok"></i> Volontari</a></li>
-                    <li><a href="?p=us.quoteNo.ordinari"><i class="icon-ok"></i> Soci Ordinari</a></li>
+                    <li><a href="?p=us.quoteNo"><i class="icon-remove"></i> Volontari</a></li>
+                    <li><a href="?p=us.quoteNo.ordinari"><i class="icon-remove"></i> Soci Ordinari</a></li>
                 </ul>
             </div>
             <a href="?p=us.dash" class="btn btn-block">
