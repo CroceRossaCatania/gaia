@@ -87,7 +87,8 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                         $z=0;
                         $partecipanti = $turno->partecipazioniStato(AUT_OK);
                         foreach ($partecipanti as $partecipante){ 
-                            $m = Coturno::filtra([['volontario', $partecipante->volontario()],['turno',$turno]]); 
+                            $partecipante = $partecipante->volontario();
+                            $m = Coturno::filtra([['volontario', $partecipante],['turno',$turno]]); 
                             if ( $turno->fine >= $f || ($m[0]->pMonta && !$m[0]->pSmonta) ) {
                                 $attivita = $turno->attivita();
                                 if($x!=$attivita){ 
@@ -110,8 +111,8 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                                     
                                     } ?>
                                 <tr class="<?php if(!$m[0]->pSmonta && !$m[0]->stato == CO_MONTA){ ?> warning <?php }elseif($m[0]->stato == CO_MONTA){ ?> success <?php }else{ ?> error <?php } ?>">
-                                   <td><?php echo $partecipante->volontario()->nomeCompleto(); ?></td>
-                                   <td><?php echo $partecipante->volontario()->cellulare(); ?></td>
+                                   <td><?php echo $partecipante->nomeCompleto(); ?></td>
+                                   <td><?php echo $partecipante->cellulare(); ?></td>
                                    <td>
                                        <div class="btn-group">
                                            <?php if($m[0]->stato == '' || !$m[0]->stato == CO_MONTA || $m[0]->stato == CO_MONTA){ ?>
