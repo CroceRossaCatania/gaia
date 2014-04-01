@@ -41,7 +41,7 @@ if ( $sessione->inGenerazioneTrasferimento) {
         $m->a = $me;
         $m->_NOME       = $me->nome;
         $m->_COMITATO   = $t->comitato()->nomeCompleto();
-        $m-> _TIME = date('d/m/Y', $t->timestamp);
+        $m->_TIME = date('d/m/Y', $t->timestamp);
         $m->allega($f);
         $m->invia();
         
@@ -51,7 +51,7 @@ if ( $sessione->inGenerazioneTrasferimento) {
         $m->_NOME       = $me->nomeCompleto();
         $m->_COMITATO   = $t->comitato()->nomeCompleto();
         $m->_USCENTE = $cout->nomeCompleto();
-        $m-> _TIME = date('d/m/Y', $t->timestamp);
+        $m->_TIME = date('d/m/Y', $t->timestamp);
         $m->allega($f);
         $m->invia();
        

@@ -7,6 +7,7 @@ paginaAdmin();
  */
 
 
+
 $t = Volontario::elenco();
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
@@ -83,7 +84,6 @@ $t = Volontario::elenco();
             <thead>
                 <th>Nome</th>
                 <th>Cognome</th>
-                <th>Località</th>
                 <th>Codice Fiscale</th>
                 <th>Stato</th>
                 <th>Azioni</th>
@@ -92,23 +92,14 @@ $t = Volontario::elenco();
         $totale = 0;
         foreach($t as $_v) {
             $appartenenze = $_v->numAppartenenzeTotali();
-            if($appartenenze == 0){
-                $totale++;
+            if($appartenenze == 0 || $_v->appartenenzaAttuale()->stato == MEMBRO_APP_NEGATA){
+            $totale++;
             ?>
                 <tr>
                     <td><?php echo $_v->nome; ?></td>
-                    <td><?php echo $_v->cognome; ?></td>
-                    <td>
-                        <span class="muted">
-                            <?php echo $_v->CAPResidenza; ?>
-                        </span>
-                        <?php echo $_v->comuneResidenza; ?>,
-                        <?php echo $_v->provinciaResidenza; ?>
-                    </td>
-                    
+                    <td><?php echo $_v->cognome; ?></td>                 
                     <td><?php echo $_v->codiceFiscale; ?></td>
                     <td><?php echo $conf['statoPersona'][$_v->stato]; ?></td>
-
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
@@ -122,7 +113,7 @@ $t = Volontario::elenco();
                             <a class="btn btn-small btn-primary" href="?p=admin.stato.modifica&id=<?php echo $_v->id; ?>" title="Cambia stato">
                                 <i class="icon-random"></i> Cambia stato
                             </a>
-                            <a class="btn btn-small btn-info" href="?p=admin.limbo.comitato.nuovo&id=<?php echo $_v->id; ?>" title="Assegna a Comitato">
+                            <a class="btn btn-small btn-info" href="?p=admin.limbo.comitato.nuovo&id=<?php echo $_v->id; ?>" title="Assegna a Comitato" target="_new">
                                     <i class="icon-arrow-right"></i> Assegna a Comitato
                             </a>
                             <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.limbo.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">

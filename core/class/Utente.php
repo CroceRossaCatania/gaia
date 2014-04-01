@@ -313,9 +313,13 @@ class Utente extends Persona {
     }
 
     public function appartenenzaAttuale() {
-        if($this->stato == VOLONTARIO && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO)->attuale()) {
+        if($this->stato == VOLONTARIO 
+            && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO) 
+            && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO)->attuale()) {
             return $this->ultimaAppartenenza(MEMBRO_VOLONTARIO);
-        } elseif ($this->stato == PERSONA && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)->attuale()) {
+        } elseif ($this->stato == PERSONA 
+            && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)
+            && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)->attuale()) {
             return $this->ultimaAppartenenza(MEMBRO_ORDINARIO);
         }
         return null;
@@ -1410,5 +1414,34 @@ class Utente extends Persona {
             }else{
                 return false;
             }
+    }
+    /*
+     * Funzione che non funziona correttamente
+     */
+    public static function limbo() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                anagrafica.id 
+            FROM    
+                anagrafica
+            WHERE
+                ( anagrafica.id NOT IN 
+                    ( SELECT 
+                            volontario 
+                        FROM 
+                            appartenenza 
+                    )
+                )     
+            ORDER BY
+                anagrafica.cognome     ASC,
+                anagrafica.nome  ASC");
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Utente::id($k[0]);
+        }
+        return $r;
+
     }
 }
