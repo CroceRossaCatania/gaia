@@ -87,14 +87,14 @@ if ($sessione->utente()->email) {
             <label class="control-label" for="inputEmail">Email</label>
             <div class="controls">
               <span class="add-on"><i class="icon-envelope"></i></span>
-              <input type="email" id="inputEmail" name="inputEmail" autofocus required value="<?php echo $sessione->email; ?>"/>
+              <input type="email" id="inputEmail" name="inputEmail" autofocus required autocomplete="off" />
             </div>
           </div>
           <div class="control-group input-prepend">
             <label class="control-label" for="inputCellulare">Cellulare</label>
             <div class="controls ">
               <span class="add-on">+39</span>
-              <input type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" value="<?php echo $sessione->cell; ?>"/>
+              <input type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" autocomplete="off"/>
             </div>
           </div>
           <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
@@ -102,7 +102,7 @@ if ($sessione->utente()->email) {
               <label class="control-label" for="inputCellulareServizio">Cell. servizio</label>
               <div class="controls">
                 <span class="add-on">+39</span>
-                <input type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" value="<?php echo $sessione->cells; ?>"/>
+                <input type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" autocomplete="off"/>
               </div>
             </div>
           <?php } ?>
