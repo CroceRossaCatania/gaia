@@ -1536,7 +1536,7 @@ class Utente extends Persona {
      * @return File     Il tesserino del volontario
      */
     protected function generaTesserino() {
-        if(!$this->fototessera()) {
+        if(!$this->fototessera() || $this->fototessera()->stato == FOTOTESSERA_PENDING) {
             return false;
         }
         $codice = rand(100000000, 9999999999);

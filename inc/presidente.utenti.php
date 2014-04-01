@@ -50,7 +50,7 @@ menuElenchiVolontari(
     <?php } elseif(isset($_GET['nofoto'])) { ?>
     <div class="alert alert-block alert-error">
         <h4><i class="icon-exclamation-sign"></i> Impossibile generare il tesserino</h4>
-        <p>Per poter generare il tesserino è necessario che l'utente abbia una fototessera caricata.</p>
+        <p>Per poter generare il tesserino è necessario che l'utente abbia una fototessera caricata e approvata.</p>
     </div>
     <?php }elseif(isset($_GET['emailGia'])) { ?>
     <div class="alert alert-block alert-error">
@@ -71,9 +71,6 @@ menuElenchiVolontari(
                 <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" target="_new" title="Dettagli">
                     <i class="icon-eye-open"></i> Dettagli
                 </a>
-                <!--<a class="btn btn-small btn-info" href="?p=us.tesserini.p&id={id}" title="Stampa tesserino">
-                    <i class="icon-barcode"></i> Tesserino
-                </a>-->
                 <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&id={id}" title="Dimetti Volontario">
                     <i class="icon-ban-circle"></i> Dimetti
                 </a>

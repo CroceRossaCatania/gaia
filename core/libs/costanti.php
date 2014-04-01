@@ -705,3 +705,41 @@ $conf['partecipazioneBase'] = [
 
 define('POSTA_INGRESSO',        0);
 define('POSTA_USCITA',          1);
+
+
+/*
+ * ===================================
+ * ==== TESSERINO TIPO RICHIESTA =====
+ * ===================================
+ */
+
+define('RILASCIO',          0);
+define('RINNOVO',          10);
+define('DUPLICATO',        20);
+
+$conf['tesseriniTipo'] = [
+    RILASCIO        =>  'Rilascio', 
+    RINNOVO         =>  'Rinnovo',
+    DUPLICATO       =>  'Duplicato', 
+];  
+
+
+/*
+ * ===================================
+ * ==== TESSERINO STATO RICHIESTA ====
+ * ===================================
+ */
+
+define('RIFIUTATO',           0);
+define('RICHIESTO',          10);
+define('STAMPATO',           20);
+define('SPEDITO_CASA',       30);
+define('SPEDITO_COMITATO',   40);
+
+$conf['tesseriniStato'] = [
+    RIFIUTATO           =>  'Richiesta di stampa rifiutata', 
+    RICHIESTO           =>  'Richiesta in attesa di essere lavorata',
+    STAMPATO            =>  'Tesserino emesso', 
+    SPEDITO_CASA        =>  'Tesserino inviato al domicilio', 
+    SPEDITO_COMITATO    =>  'Tesserino inviato al comitato', 
+];  
