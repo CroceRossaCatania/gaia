@@ -84,9 +84,12 @@ class Turno extends Entita {
     public function partecipazioneStato(Utente $v) {
     	$val=$this->partecipazione($v);
     	if($val != null){
-    		return $val->ritirabile();
+             return [
+                     'ritirabile' => $val->ritirabile(),
+                     'stato'      => $val->stato
+             ];
     	}    
-    	return false;	
+    	return null;	
     }
     
     public function partecipa(Utente $v) {
