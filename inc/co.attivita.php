@@ -84,15 +84,16 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
         foreach($comitati as $comitato){
             $turni = $comitato->coTurni();
                     foreach($turni as $turno){
-                        $z=0;
+                        $z=true;
+                        $x=true;
                         $partecipanti = $turno->partecipazioniStato(AUT_OK);
                         foreach ($partecipanti as $partecipante){ 
                             $partecipante = $partecipante->volontario();
                             $m = Coturno::filtra([['volontario', $partecipante],['turno',$turno]]); 
                             if ( $turno->fine >= $f || ($m[0]->pMonta && !$m[0]->pSmonta) ) {
                                 $attivita = $turno->attivita();
-                                if($x!=$attivita){ 
-                                    $x=$attivita; ?> 
+                                if($x){ 
+                                    $x=false; ?> 
                                     <tr class="primary">
                                         <td colspan="4" class="grassetto">
                                         <?php echo $attivita->nome ," - Referente: " , $attivita->referente()->nomeCompleto() , " Cell: ", $attivita->referente()->cellulare(); ?>
@@ -100,14 +101,14 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
                                     </tr>
                                     <?php 
                                     } 
-                                    if ( $z == 0){
+                                    if ($z){
                                     ?>
                                 <tr class="info">
                                        <td><?php echo $turno->nome; ?></td>
                                        <td><?php echo date('d-m-Y H:i', $turno->inizio); ?></td>
                                        <td><?php echo date('d-m-Y H:i', $turno->fine); ?></td>
                                 </tr>
-                                    <?php $z++;
+                                    <?php $z=false;
                                     
                                     } ?>
                                 <tr class="<?php if(!$m[0]->pSmonta && !$m[0]->stato == CO_MONTA){ ?> warning <?php }elseif($m[0]->stato == CO_MONTA){ ?> success <?php }else{ ?> error <?php } ?>">
