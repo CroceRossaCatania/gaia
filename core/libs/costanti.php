@@ -743,3 +743,11 @@ $conf['tesseriniStato'] = [
     SPEDITO_CASA        =>  'Tesserino inviato al domicilio', 
     SPEDITO_COMITATO    =>  'Tesserino inviato al comitato', 
 ];  
+
+$conf['tesseriniStatoBreve'] = [
+    RIFIUTATO           =>  'Rifiutato', 
+    RICHIESTO           =>  'Richiesto',
+    STAMPATO            =>  'Emesso', 
+    SPEDITO_CASA        =>  'Emesso', 
+    SPEDITO_COMITATO    =>  'Emesso', 
+];  

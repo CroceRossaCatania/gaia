@@ -12,5 +12,5 @@ $t = Volontario::id($f);
 if($t->tesserino()) {
 	$t->tesserino()->anteprima();
 }
-redirect('presidente.utenti&nofoto');
+redirect('presidente.soci.ok&nofoto');
 

@@ -1581,4 +1581,21 @@ class Utente extends Persona {
         return $this->codicePubblico;
     }
 
+    /**
+     * Ritorna eventuale richiesta del tesserino per il volontario
+     * @return RichiestaTesserino|bool   RichiestaTesserino se presente, false altrimenti
+     */
+    public function tesserinoRichiesta() {
+        $r = [];
+        $t = TesserinoRichiesta::filtra([
+            ['volontario', $this]
+            ]);
+        foreach($t as $_t) {
+            if ($_t->stato != RIFIUTATO) {
+                return $_t;
+            }
+        }
+        return null;
+    }
+
 }

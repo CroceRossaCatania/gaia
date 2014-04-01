@@ -611,15 +611,17 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
   <div class="span12 allinea-centro">
 
     <a class="btn" target="_new" href="?p=presidente.riserva.storico&id=<?php echo $u->id; ?>">
-      <i class="icon-pause"></i> Storico riserve
+      <i class="icon-pause"></i> Riserve
     </a>
     <a class="btn" target="_new" href="?p=presidente.appartenenze.storico&id=<?php echo $u->id; ?>">
-      <i class="icon-time"></i> Storico appartenenze
+      <i class="icon-time"></i> Appartenenze
     </a>
     <a class="btn" target="_new" href="?p=us.quote.visualizza&id=<?php echo $u->id; ?>">
-      <i class="icon-money"></i> Storico quote
+      <i class="icon-money"></i> Quote
     </a>
-
+    <a class="btn" target="_new" href="?p=us.tesserino.storico&id=<?php echo $u->id; ?>">
+      <i class="icon-barcode"></i> Tesserini
+    </a>
   </div>
 </div>
 
