@@ -271,20 +271,23 @@ class APIServer {
             $t[] = $turno->toJSON($me);
         }
         array_merge($t, [
-            'luogo'     =>  $a->luogo,
-            'coordinate'=>  $a->coordinate(),
-            'puoPartecipare'=>  $a->puoPartecipare($me)
+            'luogo'          =>  $a->luogo,
+            'coordinate'     =>  $a->coordinate(),
+            'puoPartecipare' =>  $a->puoPartecipare($me)
         ]);
         return [
-            'nome'      =>  $a->nome,
-            'comitato'  =>  $a->comitato()->toJSON(),
+            'nome'        => $a->nome,
+            'comitato'    => $a->comitato()->toJSON(),
             'descrizione' => $a->descrizione,
-            'referente' => $a->referente()->nome . ' ' . $a->referente()->cognome,
-            'referentenum' => $a->referente()->cellulare(),
-            'referenteemail' => $a->referente()->email(),
-            'luogo'     =>  $a->luogo,
-            'coordinate'=>  $a->coordinate(),
-            'turni'     =>  $t
+            'referente'   => [
+                              'id'     => $a->referente()->id,
+                              'nome'   => $a->referente()->nomeCompleto(),
+                              'numero' => $a->referente()->cellulare(), 
+                              'email'  => $a->referente()->email()
+                             ],
+            'luogo'       => $a->luogo,
+            'coordinate'  => $a->coordinate(),
+            'turni'       => $t
         ];
     }
 
@@ -382,7 +385,7 @@ class APIServer {
     private function api_comitati() {
         return GeoPolitica::ottieniAlbero();
     }
-    
+    	
     private function api_autorizza() {
         $this->richiedi(['id']);
         $this->richiediLogin();
