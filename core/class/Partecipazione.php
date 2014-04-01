@@ -163,10 +163,7 @@ class Partecipazione extends Entita {
     }
     
     public function  ritirabile(){
-    	if($this->stato == PART_PENDING && $this->turno()->inizio >= time()){
-    		return true;
-    	}
-    	return false;
+        return ($this->stato == PART_PENDING && $this->turno()->inizio >= time());
     }
 
     public function ritira() {
