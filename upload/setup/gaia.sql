@@ -539,8 +539,10 @@ CREATE TABLE IF NOT EXISTS `tesserinoRichiesta` (
   `tRichiesta` varchar(64) DEFAULT NULL,
   `pConferma` varchar(16) DEFAULT NULL,
   `tConferma` varchar(64) DEFAULT NULL,
+  `struttura` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `volontario` (`volontario`)
+  KEY `volontario` (`volontario`),
+  KEY `struttura` (`struttura`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `titoli` (

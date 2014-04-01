@@ -12,7 +12,15 @@ class TesserinoRichiesta extends Entita {
         $_dt    = null;
 
     public function data() {
+        return DT::daTimestamp($this->tRichiesta);
+    }
+
+    public function dataUltimaLavorazione() {
         return DT::daTimestamp($this->timestamp);
+    }
+
+    public function struttura() {
+        return GeoPolitica::daOid($this->struttura);
     }
 
 }

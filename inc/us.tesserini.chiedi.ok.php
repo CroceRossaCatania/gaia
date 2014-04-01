@@ -35,7 +35,7 @@ if($t) {
 	redirect('presidente.soci.ok&gia');
 }
 
-if(!$this->fototessera() || $this->fototessera()->stato == FOTOTESSERA_PENDING) {
+if(!$me->fototessera() || $me->fototessera()->stato == FOTOTESSERA_PENDING) {
 	redirect('presidente.soci.ok&nofoto');
 }
 
@@ -50,6 +50,7 @@ $t->stato 		= RICHIESTO;
 $t->pRichiesta 	= $me;
 $t->tRichiesta 	= $ora;
 $t->timestamp 	= $ora;
+$t->struttura	= $v->unComitato()->regionale()->oid();
 
 // bisogna inserire invio email a volontario
 
