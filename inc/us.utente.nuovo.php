@@ -193,7 +193,23 @@ caricaSelettoreComitato();
                 <div class="span8">
                     <input type="text" name="inputDataIngresso" id="inputDataIngresso" required />
                 </div>
-            </div>          
+            </div>  
+            <div class="row-fluid">
+                <div class="span4 centrato">
+                    <label class="control-label">Infermiera Volontaria</label>
+                </div>
+                <div class="span8">
+                    <input type="checkbox" id="inputIV" name="inputIV" >
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span4 centrato">
+                    <label class="control-label">Corpo Militare volontario</label>
+                </div>
+                <div class="span8">
+                    <input type="checkbox" id="inputCM" name="inputCM" >
+                </div>
+            </div>        
             <hr />
         </div>
         <div class="modal-footer">
