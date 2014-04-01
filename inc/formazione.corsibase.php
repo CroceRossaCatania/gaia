@@ -90,7 +90,7 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                             <?php echo $corso->fine()->inTesto(false); ?>
                             <br />
                             <?php if ( $corso->direttore ) { ?>
-                            Referente: 
+                            Direttore: 
                             <a href="?p=profilo.controllo&id=<?php echo $corso->direttore()->id; ?>" target="_new">
                                 <?php echo $corso->direttore()->nomeCompleto(); ?>
                             </a>
