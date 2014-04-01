@@ -340,9 +340,10 @@ CREATE TABLE IF NOT EXISTS `fototessera` (
   `id` int(11) NOT NULL,
   `utente` varchar(64) DEFAULT NULL,
   `timestamp` varchar(8) DEFAULT NULL,
+  `stato` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `utente` (`utente`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `gruppi` (
   `id` int(11) NOT NULL,

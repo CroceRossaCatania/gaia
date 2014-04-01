@@ -219,12 +219,20 @@ $conf['docs_tipologie'] = [
 
 /*
  * ===================================
- * ======== ESPLIRAZIONE =============
+ * ======== ESPLORAZIONE =============
  * ===================================
  */
 define('NON_ESPLORARE',         0);
 define('ESPLORA_RAMI',          1);
 define('ESPLORA_SOLO_FOGLIE',   2);
+
+/*
+ * ===================================
+ * ========= FOTOTESSERA =============
+ * ===================================
+ */
+define('FOTOTESSERA_PENDING',         0);
+define('FOTOTESSERA_OK',             10);
 
 /*
  * ===================================

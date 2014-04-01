@@ -125,7 +125,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                           <div class="btn-group">
                             <a class="btn btn-danger" href="?p=utente.me">
                                   <i class="icon-user icon-large"></i>&nbsp;
-                                  Ciao, <strong><?php echo $me->nome; ?></strong></a>
+                                  Ciao <strong><?php echo $me->nome; ?></strong></a>
                             <button class="btn dropdown-toggle btn-danger" data-toggle="dropdown">
                                   <span class="caret"></span>
                             </button>

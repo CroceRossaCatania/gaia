@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 class Fototessera extends Entita {
@@ -95,5 +95,15 @@ class Fototessera extends Entita {
     	parent::cancella();
     }
 
+    public function approvata() {
+        if($this->stato == FOTOTESSERA_OK) {
+            return true;
+        }
+        return false;
+    }
+
+    public function approva() {
+        $this->stato = FOTOTESSERA_OK;
+    }
 
 }

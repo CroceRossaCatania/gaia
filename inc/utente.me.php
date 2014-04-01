@@ -264,10 +264,8 @@ if(false && $consenso && !$sessione->barcode) { ?>
 
     <!-- BLOCCO NON MENU -->
     <div class="span9">
-        <h2><span class="muted">Ciao, </span>
-            <?php if ($me->admin()){ ?> <span class="muted">Admin</span> 
-            <?php } elseif ($me->presiede()){ ?><span class="muted">Presidente</span> 
-            <?php } echo $me->nome; ?>.
+        <h2><span class="muted">Ciao </span>
+            <?= $me->nome; ?>
         </h2>
 
         <div class="row-fluid">

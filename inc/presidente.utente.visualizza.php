@@ -43,7 +43,12 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <i class="icon-warning-sign"></i> <strong>Non posso ordinarizzare</strong>.
         L'utente ha roba in sospeso (deleghe, nomine, attività referenziate, ecc).
       </div>
-    <?php } ?>
+    <?php } elseif(isset($_GET['err'])) {?>
+      <div class="alert alert-danger">
+        <i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.
+        L'operazione che hai tentato di eseguire non è andata a buon fine. Per favore riprova
+      </div>
+    <?php }?>
 
     <!-- Attivazione account -->
 
@@ -179,11 +184,29 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
                   <img src="<?php echo $u->fototessera()->img(20); ?>" class="img-polaroid" />
                 <?php } else { ?>
                   <p><br />Fototessera non caricata</p>
-                <?php } ?>
+                <?php } 
+                $foto = $u->fototessera();
+                ?>
+
                 <br/><br/>
               </div>
               <div class="span5 allinea-sinistra"> 
                 <br/>
+                <?php 
+                if($foto && !$foto->approvata()) { ?>
+                  <div class="alert alert-warning">
+                    <p><i class="icon-spinner"></i> Fototessera in attesa di approvazione </p>
+                  </div>
+                  <div class="span12 allinea-centro">
+                    <a class="btn btn-success" href="?p=presidente.utente.fototessera.ok&ok&id=<?php echo $u->id; ?>">
+                      <i class="icon-ok"></i> Approva
+                    </a>
+                    <a class="btn btn-danger" href="?p=presidente.utente.fototessera.ok&no&id=<?php echo $u->id; ?>">
+                      <i class="icon-trash"></i> Elimina
+                    </a>
+                </div>
+                <?php } 
+                if(!$foto || $foto->approvata()) { ?>
                 <form id="caricaFoto" action="?p=presidente.utente.fototessera.ok&id=<?php echo $u; ?>" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
                   <p>Per modificare la foto del tesserino:</p>
                   <p>1. <strong>Scegli</strong>: <input type="file" name="fototessera" required /></p>
@@ -192,6 +215,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
                     <i class="icon-save"></i> Salva la fototessera
                   </button></p>
                 </form>
+                <?php } ?>
                 <br/>
               </div>
             </div>
