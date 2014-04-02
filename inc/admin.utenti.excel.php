@@ -336,7 +336,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso()->format("d/m/Y")
+                $v->ingresso()->format("d/m/Y"),
                 $v->quota($anno)->progressivo(),
                 $v->quota($anno)->dataPagamento()->format("d/m/Y")
                 ]);
