@@ -43,7 +43,7 @@ class PartecipazioneBase extends Entita {
         if($this->aggiorna(ISCR_CONFERMATA)) {
             $u = $this->utente();
 
-            if($com && !$u->appartenenzaAttuali(MEMBRO_ORDINARIO)){
+            if($com && !$u->appartenenzaAttuale(MEMBRO_ORDINARIO)){
                 $a = new Appartenenza();
                 $a->volontario  = $this->volontario;
                 $a->comitato    = $com;
