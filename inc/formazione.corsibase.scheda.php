@@ -491,7 +491,10 @@ $(document).ready( function() {
                 <h3><i class="icon-group"></i> Elenco degli iscritti</h3>
             </div>
             <div class="span6 allinea-destra">
-                <div class="btn-group">
+                <div class="btn-group">                    
+                    <a class="btn btn-small btn-success" href="?p=formazione.corsibase.email.nuova&iscrizioni&id=<?= $corso->id; ?>" title="Email">
+                        <i class="icon-envelope"></i> Invia email a tutti gli iscritti
+                    </a>
                     <a class="btn btn-small" href="?p=formazione.corsibase.excel&iscrizioni&id=<?= $corso->id; ?>" title="Excel">
                         <i class="icon-download"></i> Scarica come foglio excel
                     </a>
@@ -544,6 +547,9 @@ $(document).ready( function() {
             </div>
             <div class="span6 allinea-destra">
                 <div class="btn-group">
+                    <a class="btn btn-small btn-success" href="?p=formazione.corsibase.email.nuova&preiscrizioni&id=<?= $corso->id; ?>" title="Email">
+                        <i class="icon-envelope"></i> Invia email a tutti i preiscritti
+                    </a>
                     <a class="btn btn-small" href="?p=formazione.corsibase.excel&preiscrizioni&id=<?= $corso->id; ?>" title="Excel">
                         <i class="icon-download"></i> Scarica come foglio excel
                     </a>
