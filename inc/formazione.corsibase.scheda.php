@@ -1,7 +1,7 @@
 <?php
 
 /*
-* ©2013 Croce Rossa Italiana
+* ©2014 Croce Rossa Italiana
 */
 
 paginaAnonimo();
@@ -487,8 +487,15 @@ $(document).ready( function() {
         <!-- ISCRITTI -->
 
         <div class="row-fluid">
-            <div class="span12">
+            <div class="span6">
                 <h3><i class="icon-group"></i> Elenco degli iscritti</h3>
+            </div>
+            <div class="span6 allinea-destra">
+                <div class="btn-group">
+                    <a class="btn btn-small" href="?p=formazione.corsibase.excel&iscrizioni&id=<?= $corso->id; ?>" title="Excel">
+                        <i class="icon-download"></i> Scarica come foglio excel
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -532,8 +539,15 @@ $(document).ready( function() {
         <!-- PREISCRIZIONI -->
         
         <div class="row-fluid">
-            <div class="span12">
+            <div class="span6">
                 <h3><i class="icon-group"></i> Elenco delle preiscrizioni</h3>
+            </div>
+            <div class="span6 allinea-destra">
+                <div class="btn-group">
+                    <a class="btn btn-small" href="?p=formazione.corsibase.excel&preiscrizioni&id=<?= $corso->id; ?>" title="Excel">
+                        <i class="icon-download"></i> Scarica come foglio excel
+                    </a>
+                </div>
             </div>
         </div>
 

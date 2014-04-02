@@ -1,5 +1,9 @@
 <?php
 
+/*
+* ©2014 Croce Rossa Italiana
+*/
+
 paginaPrivata();
 controllaParametri(array('id'), 'formazione.corsibase&err');
 $corso = CorsoBase::id($_POST['id']);
@@ -42,7 +46,5 @@ if($corso->stato == CORSO_S_DACOMPLETARE){
         $m->accoda();
     }
 }
-
-
 
 redirect('formazione.corsibase.scheda&id=' . $corso->id);
