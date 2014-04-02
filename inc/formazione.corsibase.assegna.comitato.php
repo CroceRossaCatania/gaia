@@ -15,7 +15,7 @@ $u = Utente::id($_GET['asp']);
 
 paginaCorsoBase($corso);
 
-$comitati = new RamoGeoPolitico($comitato, ESPLORA_SOLO_FOGLIE);
+$comitati = new RamoGeoPolitico($comitato, ESPLORA_SOLO_FOGLIE, EST_UNITA);
 ?>
 
 <script type="text/javascript"><?php require './js/formazione.corsibase.scheda.js'; ?></script>
@@ -30,7 +30,7 @@ $comitati = new RamoGeoPolitico($comitato, ESPLORA_SOLO_FOGLIE);
             socio CRI a tutti gli effetti e potrà pagare la quota.</p>
         <select id="com" name="com" class="input-xxlarge">
             <?php foreach ( $comitati as $com ) { ?>
-            <option value="<?php echo $com->id; ?>"><?php echo $comitato->nomeCompleto(); ?></option>
+            <option value="<?php echo $com->id; ?>"><?php echo $com->nomeCompleto(); ?></option>
             <?php } ?>
         </select>
         <p class="muted">Attenzione! Ciò che scegli non sarà facilmente modificabile in seguito.</p>

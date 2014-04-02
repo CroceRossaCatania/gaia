@@ -85,6 +85,28 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
             'Cell. Servizio',
             'Data ingresso CRI'
             ]);
+    }elseif(isset($_GET['quotesi']) || isset($_GET['quotesiordinari'])){
+        $excel->intestazione([
+            'N.',
+            'Nome',
+            'Cognome',
+            'Data Nascita',
+            'Luogo Nascita',
+            'Provincia Nascita',
+            'C. Fiscale',
+            'Indirizzo Res.',
+            'Civico',
+            'Comune Res.',
+            'Cap Res.',
+            'Provincia Res.',
+            'eMail',
+            'eMail Servizio',
+            'Cellulare',
+            'Cell. Servizio',
+            'Data ingresso CRI',
+            'N. Quota',
+            'Data versamento'
+            ]);
     }else{
         $excel->intestazione([
             'N.',
@@ -278,7 +300,9 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso()->format("d/m/Y")
+                $v->ingresso()->format("d/m/Y"),
+                $v->quota($anno)->progressivo(),
+                $v->quota($anno)->dataPagamento()->format("d/m/Y")
                 ]);
 
         }
@@ -312,7 +336,9 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso()->format("d/m/Y")
+                $v->ingresso()->format("d/m/Y"),
+                $v->quota($anno)->progressivo(),
+                $v->quota($anno)->dataPagamento()->format("d/m/Y")
                 ]);
 
         }

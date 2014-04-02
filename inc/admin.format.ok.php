@@ -193,6 +193,23 @@ if(isset($_POST['ordinario'])){
                     echo(' INSERITA RISERVA');
                 }
 
+                if ($riga[21] == '') {
+                    $ffaa = false;    
+                } else {
+                    $ffaa = true;    
+                }
+
+                if ($ffaa && !$ordinario){
+                    $ffaa = maiuscolo($riga[21]);
+                    if ( $ffaa=="IV" && $p->sesso == DONNA ) {
+                        $p->iv = true;
+                    }elseif( $ffaa=="CMV" && $p->sesso == UOMO ) {
+                        $p->cm = true;
+                    }
+
+                    echo(' INSERITA FFAA');
+                }
+
                 echo(' fine inserimento :)<br>');
             }
 
