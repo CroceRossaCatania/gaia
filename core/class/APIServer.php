@@ -328,6 +328,52 @@ class APIServer {
             'ok'    =>  $ok
         ];
     }
+    
+    private function api_rubrica_delegati() {
+    	$me = $this->richiediLogin();
+    	$ccompetenza = $me->comitatiDiCompetenza();
+    	$comitati = $me->comitati();
+    	$locale = $me->unComitato()->locale();
+    	array_push($comitati, $locale);
+    	if ($ccompetenza)
+    		$comitati = array_merge($comitati, $ccompetenza);
+    	$comitati = array_unique($comitati);
+    	 
+    	$delegati = [];
+    	 
+    	foreach ( $comitati as $comitato ) {
+    		$delegati = array_merge($delegati, $comitato->volontariDelegati());
+    	}
+    	$delegati = array_unique($delegati);
+    	$r=[];
+    	foreach ( $delegati as $delegato ) {
+    		$_v = Volontario::id($delegato);
+    		$d = $_v->delegazioni();
+    		$del=[];
+    		foreach ($d as $_d) {
+    			$delega=[];
+    			$delega['applicazione'] = $_d->applicazione;
+    			$delega['comitato'] = $_d->comitato()->nomeCompleto();
+    			if ($_d->applicazione == APP_OBIETTIVO) {
+    				$delega['obiettivo'] = $_d->dominio;;
+    			}
+    			if ($_d->applicazione == APP_ATTIVITA) {
+    				$delega['area'] = $_d->dominio;
+    			}
+    			$del[] = $delega;
+    		}
+    		$r[] = [
+    		'avatar'  =>  $_v->avatar()->img(10),
+    		'nome'    =>  $_v->nomeCompleto(),
+    		'numero'  =>  $_v->cellulare(),
+    		'email'   =>  $_v->email(),
+    		'deleghe' =>  $del
+    		];
+    	}
+    	return [
+    	'risultati' => $r
+    	];
+    }
 
     private function api_geocoding() {
         $this->richiedi(['query']);
