@@ -219,7 +219,7 @@ $(document).ready( function() {
             <div clas="span12">
                 <a href="?p=formazione.corsibase.iscrizione.ok&id=<?php echo $corso->id ; ?>" class="btn btn-large btn-block btn-success">Preiscriviti al corso</a>
             </div>
-            <?php } else { ?>
+            <?php } elseif($corso->iscritto($me)) { ?>
             <div class="span6">
                 <button class="btn btn-large btn-block btn-primary disabled">Preiscrizione effettuata</button>
             </div>
