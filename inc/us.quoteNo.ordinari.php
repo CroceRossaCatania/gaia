@@ -128,12 +128,16 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
            <i class="icon-envelope"></i>
             <strong>Ufficio Soci</strong> &mdash; Invia mail di massa a tutti i Volontari.
        </a>
-       <?php if ($t->siPuoDimettereTutti()) { ?>
+       <?php 
+       /*
+       if ($t->siPuoDimettereTutti()) { ?>
        <a onClick="return confirm('Vuoi veramente chiudere le quote per anno corrente? questa operazione non è reversibile !');" href="?p=us.quote.chiudi" class="btn btn-block btn-danger">
            <i class="icon-off"></i>
             <strong>Ufficio Soci</strong> &mdash; Chiudi le quote per l'anno corrente
        </a>
-       <?php } ?>
+       <?php } 
+       */ 
+       ?>
        <hr />
        </div>
        
