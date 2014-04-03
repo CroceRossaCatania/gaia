@@ -24,10 +24,10 @@ $t = Utente::by('id',$f);
         <?php }elseif (isset($_GET['unit'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&id=<?php echo $f; ?>&unit" method="POST">
         <?php }elseif (isset($_GET['comgio'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comgio" method="POST">
         <?php }elseif (isset($_GET['unitgio'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&id=<?php echo $f; ?>&unitgio" method="POST">
-        <?php }elseif (isset($_GET['comquoteno'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comquoteno&anno=<?= $_GET['anno']; ?>" method="POST">
-        <?php }elseif (isset($_GET['comquotenoordinari'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comquotenoordinari&anno=<?= $_GET['anno']; ?>" method="POST">
-        <?php }elseif (isset($_GET['unitquoteno'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitquoteno&id=<?php echo $f; ?>&anno=<?= $_GET['anno']; ?>" method="POST">
-        <?php }elseif (isset($_GET['unitquotenoordinari'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitquotenoordinari&id=<?php echo $f; ?>&anno=<?= $_GET['anno']; ?>" method="POST">
+        <?php }elseif (isset($_GET['comquoteno'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comquoteno" method="POST">
+        <?php }elseif (isset($_GET['comquotenoordinari'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comquotenoordinari" method="POST">
+        <?php }elseif (isset($_GET['unitquoteno'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitquoteno&id=<?php echo $f; ?>" method="POST">
+        <?php }elseif (isset($_GET['unitquotenoordinari'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitquotenoordinari&id=<?php echo $f; ?>" method="POST">
         <?php }elseif (isset($_GET['comeleatt'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comeleatt&time=<?php echo $_GET['time']; ?>" method="POST">   
         <?php }elseif (isset($_GET['uniteleatt'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&uniteleatt&time=<?php echo $_GET['time']; ?>&id=<?php echo $f; ?>" method="POST">
         <?php }elseif (isset($_GET['unitelepass'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitelepass&time=<?php echo $_GET['time']; ?>&id=<?php echo $f; ?>" method="POST">
@@ -42,7 +42,26 @@ $t = Utente::by('id',$f);
         <?php }elseif (isset($_GET['ordinaridimessicom'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&ordinaridimessicom" method="POST">
         <?php }else{ ?> <form class="form-horizontal" action="?p=utente.mail.nuova.ok" method="POST"><?php } ?>
 
- <?php if (isset($_GET['mass']) || isset($_GET['com']) || isset($_GET['unit']) || isset($_GET['comgio']) || isset($_GET['unitgio'])|| isset($_GET['comquoteno'])|| isset($_GET['comquotesi'])|| isset($_GET['unitquoteno'])|| isset($_GET['unitquotesi'])||isset($_GET['comeleatt'])||isset($_GET['uniteleatt'])||isset($_GET['unitelepass'])||isset($_GET['gruppo'])||isset($_GET['estesi'])|| isset($_GET['riserva']) || isset($_GET['zeroturnicom']) || isset($_GET['zeroturniunit']) ) { ?>
+ <?php if (isset($_GET['mass']) 
+            || isset($_GET['com']) 
+            || isset($_GET['unit']) 
+            || isset($_GET['comgio']) 
+            || isset($_GET['unitgio'])
+            || isset($_GET['comquoteno'])
+            || isset($_GET['comquotenoordinari'])
+            || isset($_GET['comquotesi'])
+            || isset($_GET['unitquoteno'])
+            || isset($_GET['unitquotenoordinari'])
+            || isset($_GET['unitquotesi'])
+            || isset($_GET['comeleatt'])
+            || isset($_GET['uniteleatt'])
+            || isset($_GET['unitelepass'])
+            || isset($_GET['gruppo'])
+            || isset($_GET['estesi'])
+            || isset($_GET['riserva']) 
+            || isset($_GET['zeroturnicom']) 
+            || isset($_GET['zeroturniunit']) ) { 
+            ?>
             <div class="control-group">
               <label class="control-label" for="inputV">Destinatari</label>
               <div class="controls">

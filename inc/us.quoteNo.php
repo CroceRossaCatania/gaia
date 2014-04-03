@@ -123,12 +123,12 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
            <i class="icon-download"></i>
             <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari che non hanno versato la quota in un archivio zip.
        </a>
-       <?php } ?>
-       <a href="?p=utente.mail.nuova&comquoteno&anno=<?= $anno; ?>" class="btn btn-block btn-success">
+       <?php } if($anno == $questanno) { ?>
+       <a href="?p=utente.mail.nuova&comquoteno" class="btn btn-block btn-success">
            <i class="icon-envelope"></i>
             <strong>Ufficio Soci</strong> &mdash; Invia mail di massa a tutti i Volontari.
        </a>
-       <?php 
+       <?php }
        /*
        if ($t->siPuoDimettereTutti()) { ?>
        <a onClick="return confirm('Vuoi veramente chiudere le quote per anno corrente? questa operazione non è reversibile !');" href="?p=us.quote.chiudi" class="btn btn-block btn-danger">
@@ -169,10 +169,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     <span class="label label-important">
                         <?php echo "Codice fiscale non inserito!"; ?>
                     </span>
-                    <?php } ?>
-                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unitquoteno&<?= $anno; ?>">
+                    <?php } if ($anno == $questanno) { ?>
+                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&unitquoteno&id=<?php echo $comitato->id; ?>">
                            <i class="icon-envelope"></i> Invia mail
                     </a>
+                    <?php } ?>
                     <a class="btn btn-small pull-right" 
                        href="?p=presidente.utenti.excel&quoteno&comitato=<?php echo $comitato->id; ?>&anno=<?= $anno; ?>"
                        data-attendere="Generazione...">
