@@ -158,15 +158,7 @@ if (isset($_GET['unit'])) {
     $m->accoda();
 
 }elseif (isset($_GET['comquoteno'])) {
-    $questanno = $anno = date('Y');
-    if (!isset($_GET['anno'])) {
-        $anno = $questanno;
-    } else {
-        $anno = $_GET['anno'];
-        if ($anno > (int) $questanno) {
-            redirect('us.quoteNo');
-        }
-    }
+    $anno = date('Y');
     $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
     foreach($elenco as $comitato) {
         $v = $comitato->quoteNo($anno);
@@ -178,14 +170,6 @@ if (isset($_GET['unit'])) {
     }
 } elseif (isset($_GET['comquotenoordinari'])) {
     $questanno = $anno = date('Y');
-    if (!isset($_GET['anno'])) {
-        $anno = $questanno;
-    } else {
-        $anno = $_GET['anno'];
-        if ($anno > (int) $questanno) {
-            redirect('us.quoteNo');
-        }
-    }
     $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
     foreach($elenco as $comitato) {
         $v = $comitato->quoteNo($anno, MEMBRO_ORDINARIO);
@@ -196,14 +180,9 @@ if (isset($_GET['unit'])) {
         $m->accoda();
     }
 } elseif (isset($_GET['unitquoteno'])) {
-    $questanno = $anno = date('Y');
-    if (!isset($_GET['anno'])) {
-        $anno = $questanno;
-    } else {
-        $anno = $_GET['anno'];
-        if ($anno > (int) $questanno) {
-            redirect('us.quoteNo');
-        }
+    $anno = date('Y');
+    if (!isset($_GET['id'])) {
+        redirect('us.quoteNo');
     }
     $c = $_GET['id'];
     $c = Comitato::id($c);
@@ -215,14 +194,9 @@ if (isset($_GET['unit'])) {
     $m->accoda();
 
 } elseif (isset($_GET['unitquotenoordinari'])) {
-    $questanno = $anno = date('Y');
-    if (!isset($_GET['anno'])) {
-        $anno = $questanno;
-    } else {
-        $anno = $_GET['anno'];
-        if ($anno > (int) $questanno) {
-            redirect('us.quoteNo');
-        }
+    $anno = date('Y');
+    if (!isset($_GET['id'])) {
+        redirect('us.quoteNo');
     }
     $c = $_GET['id'];
     $c = Comitato::id($c);
