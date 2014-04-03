@@ -364,7 +364,8 @@ class APIServer {
     		}
     		$r[] = [
     		'avatar'  =>  $_v->avatar()->img(10),
-    		'nome'    =>  $_v->nomeCompleto(),
+    		'nome'    =>  $_v->nome,
+    		'cognome' =>  $_v->cognome,
     		'numero'  =>  $_v->cellulare(),
     		'email'   =>  $_v->email(),
     		'deleghe' =>  $del
