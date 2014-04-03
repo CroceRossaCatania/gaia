@@ -615,33 +615,38 @@ class Comitato extends GeoPolitica {
     }
     
     public function quoteSi($anno , $stato=MEMBRO_VOLONTARIO) {
+        $statiPossibili = [MEMBRO_VOLONTARIO, MEMBRO_DIMESSO, MEMBRO_TRASFERITO]; 
+        if($stato == MEMBRO_ORDINARIO) {
+            $statiPossibili = [MEMBRO_ORDINARIO, MEMBRO_ORDINARIO_DIMESSO];
+        }
+        $stati = implode(',', $statiPossibili);
         $q = $this->db->prepare("
-            SELECT  anagrafica.id
-            FROM    appartenenza, anagrafica, quote
+            SELECT  
+                anagrafica.id
+            FROM    
+                appartenenza, anagrafica
             WHERE
-              appartenenza.comitato     = :comitato
-            AND
-                ( appartenenza.fine < 1
-                 OR
-                appartenenza.fine > :ora 
-                OR
-                appartenenza.fine IS NULL)
+                appartenenza.comitato = :comitato
             AND
                 anagrafica.id = appartenenza.volontario
             AND
-                appartenenza.stato = :stato
+                appartenenza.stato IN ( ". $stati ." )
             AND
-                quote.appartenenza = appartenenza.id
-            AND
-                quote.anno = :anno
-            AND
-                quote.pAnnullata IS NULL
+                ( anagrafica.id IN 
+                    ( SELECT
+                            appartenenza.volontario
+                        FROM
+                            quote, appartenenza
+                        WHERE
+                            quote.appartenenza = appartenenza.id
+                        AND
+                            quote.anno = :anno
+                    )
+                )
             ORDER BY
               anagrafica.cognome     ASC,
               anagrafica.nome  ASC");
         $q->bindParam(':comitato',  $this->id);
-        $q->bindValue(':stato',  $stato);
-        $q->bindParam(':ora',  time());
         $q->bindValue(':anno',    $anno);
         $q->execute();
         $r = [];
@@ -666,12 +671,14 @@ class Comitato extends GeoPolitica {
             AND 
                 ( appartenenza.fine < 1 OR appartenenza.fine > :ora OR appartenenza.fine IS NULL)
             AND 
-                ( appartenenza.id NOT IN 
+                ( anagrafica.id NOT IN 
                     ( SELECT 
-                            appartenenza 
+                            appartenenza.volontario 
                         FROM 
-                            quote 
-                        WHERE 
+                            quote, appartenenza
+                        WHERE
+                            quote.appartenenza = appartenenza.id 
+                        AND
                             anno = :anno
                         AND
                             pAnnullata IS NULL
