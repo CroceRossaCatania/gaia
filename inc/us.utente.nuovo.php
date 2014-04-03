@@ -32,13 +32,13 @@ caricaSelettoreComitato();
                     <i class="icon-ban-circle"></i> <strong>Volontario già presente</strong>.
                     Il volontario che stai provando ad aggiungere è già presente nel database di GAIA.<br />
                     Questo può significare due cose: <br />- Il volontario sì è iscritto in autonomia ma non ha selezionato alcun comitato di destinazione;
-                    <br>- il volontario è atualmente in forza presso altro comitiato.<br> 
-                    Contatta il supporto per ulteriori informazioni fornendo il <strong>codice fiscale</strong>.
+                    <br>- il volontario è attualmente in forza presso altro comitiato.<br> 
+                    Contatta il supporto fornendo il <strong>codice fiscale</strong> per ulteriori informazioni.
                 </div>
                 <?php }elseif ( isset($_GET['mail']) ) { ?>
                 <div class="alert alert-danger">
                     <i class="icon-ban-circle"></i> <strong>Mail già presente</strong>.
-                    La mail che stai provando ad aggiungere è già presente nel sistema.
+                    La mail che stai provando ad aggiungere è già presente nel sistema.<br />
                 </div>
                 <?php }?>
                 <div class="alert alert-info">
