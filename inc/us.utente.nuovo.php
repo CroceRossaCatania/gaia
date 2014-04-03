@@ -30,7 +30,10 @@ caricaSelettoreComitato();
                 <?php }elseif ( isset($_GET['gia']) ) { ?>
                 <div class="alert alert-danger">
                     <i class="icon-ban-circle"></i> <strong>Volontario già presente</strong>.
-                    Il volontario che stai provando ad aggiungere è già presente.
+                    Il volontario che stai provando ad aggiungere è già presente nel database di GAIA.<br />
+                    Questo può significare due cose: <br />- Il volontario sì è iscritto in autonomia ma non ha selezionato alcun comitato di destinazione;
+                    <br>- il volontario è atualmente in forza presso altro comitiato.<br> 
+                    Contatta il supporto per ulteriori informazioni fornendo il <strong>codice fiscale</strong>.
                 </div>
                 <?php }elseif ( isset($_GET['mail']) ) { ?>
                 <div class="alert alert-danger">
