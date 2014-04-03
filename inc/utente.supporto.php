@@ -52,7 +52,7 @@ caricaSelettore();
       <div class="control-group">
         <label class="control-label" for="inputOggetto">Assistenza per</label>
         <div class="controls">
-          <a data-selettore="true" data-input="inputVolontario"
+          <a data-selettore="true" data-input="inputVolontario" data-stato="[<?= MEMBRO_VOLONTARIO ?>, <?= MEMBRO_ORDINARIO ?>]"
           class="btn btn-inverse btn-small">
           Seleziona un volontario... <i class="icon-pencil"></i>
         </a>

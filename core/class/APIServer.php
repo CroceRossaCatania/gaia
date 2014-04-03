@@ -462,6 +462,11 @@ class APIServer {
             $r->ordine = $ordini[$this->par['ordine']];
         }
 
+        if ($this->par['stato']) {
+            $stato = $this->par['stato'];
+            $r->stato = $stato;
+        }
+
         // versione modificata per #867
         if ($this->par['comitati']) {
             $g = GeoPolitica::daOid($this->par['comitati']);
