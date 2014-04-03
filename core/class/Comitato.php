@@ -616,26 +616,35 @@ class Comitato extends GeoPolitica {
     
     public function quoteSi($anno , $stato=MEMBRO_VOLONTARIO) {
         $q = $this->db->prepare("
-            SELECT  anagrafica.id
-            FROM    appartenenza, anagrafica, quote
+            SELECT  
+                anagrafica.id
+            FROM    
+                appartenenza, anagrafica
             WHERE
-              appartenenza.comitato     = :comitato
+                appartenenza.comitato = :comitato
             AND
-                ( appartenenza.fine < 1
-                 OR
-                appartenenza.fine > :ora 
+                ( 
+                    appartenenza.fine < 1
                 OR
-                appartenenza.fine IS NULL)
+                    appartenenza.fine > :ora 
+                OR
+                    appartenenza.fine IS NULL)
             AND
                 anagrafica.id = appartenenza.volontario
             AND
                 appartenenza.stato = :stato
             AND
-                quote.appartenenza = appartenenza.id
-            AND
-                quote.anno = :anno
-            AND
-                quote.pAnnullata IS NULL
+                ( anagrafica.id IN 
+                    ( SELECT
+                            appartenenza.volontario
+                        FROM
+                            quote, appartenenza
+                        WHERE
+                            quote.appartenenza = appartenenza.id
+                        AND
+                            quote.anno = :anno
+                    )
+                )
             ORDER BY
               anagrafica.cognome     ASC,
               anagrafica.nome  ASC");
@@ -666,12 +675,14 @@ class Comitato extends GeoPolitica {
             AND 
                 ( appartenenza.fine < 1 OR appartenenza.fine > :ora OR appartenenza.fine IS NULL)
             AND 
-                ( appartenenza.id NOT IN 
+                ( anagrafica.id NOT IN 
                     ( SELECT 
-                            appartenenza 
+                            appartenenza.volontario 
                         FROM 
-                            quote 
-                        WHERE 
+                            quote, appartenenza
+                        WHERE
+                            quote.appartenenza = appartenenza.id 
+                        AND
                             anno = :anno
                         AND
                             pAnnullata IS NULL

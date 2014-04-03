@@ -50,14 +50,14 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     ?>
     <br/>
 <div class="row-fluid">
-    <div class="span4 allinea-sinistra">
+    <div class="span5 allinea-sinistra">
         <h2>
             <i class="icon-group muted"></i>
-            Quote non pagate
+            Quote non pagate (attivi)
         </h2>
     </div>
             
-     <div class="span4">
+     <div class="span3">
         <div class="btn-group btn-group-vertical">
             <div class="btn-group">
                 <a href="#" class="btn btn-success btn-group">
