@@ -463,8 +463,7 @@ class APIServer {
         }
 
         if ($this->par['stato']) {
-            $stato = $this->par['stato'];
-            $r->stato = $stato;
+            $r->stato = $this->par['stato'];
         }
 
         // versione modificata per #867
