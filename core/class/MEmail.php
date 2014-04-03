@@ -125,7 +125,7 @@ class MEmail extends MEntita {
 		// Configurazione del mittente
 		if ( $this->mittente ) {
 			$u = Utente::id($this->mittente['id']);
-			$y->addReplyTo($u->email, $u->nomeCompleto());
+			$y->addReplyTo($u->email(), $u->nomeCompleto());
 
 		} else {
 			// Se non specificato, rispondi al Supporto
