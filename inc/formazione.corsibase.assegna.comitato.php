@@ -1,7 +1,7 @@
 <?php
 
 /*
-* ©2013 Croce Rossa Italiana
+* ©2014 Croce Rossa Italiana
 */
 
 controllaParametri(array('id', 'asp'), 'formazione.corsibase');
