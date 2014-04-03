@@ -615,6 +615,11 @@ class Comitato extends GeoPolitica {
     }
     
     public function quoteSi($anno , $stato=MEMBRO_VOLONTARIO) {
+        $statiPossibili = [MEMBRO_VOLONTARIO, MEMBRO_DIMESSO, MEMBRO_TRASFERITO]; 
+        if($stato == MEMBRO_ORDINARIO) {
+            $statiPossibili = [MEMBRO_ORDINARIO, MEMBRO_ORDINARIO_DIMESSO];
+        }
+        $stati = implode(',', $statiPossibili);
         $q = $this->db->prepare("
             SELECT  
                 anagrafica.id
@@ -623,16 +628,9 @@ class Comitato extends GeoPolitica {
             WHERE
                 appartenenza.comitato = :comitato
             AND
-                ( 
-                    appartenenza.fine < 1
-                OR
-                    appartenenza.fine > :ora 
-                OR
-                    appartenenza.fine IS NULL)
-            AND
                 anagrafica.id = appartenenza.volontario
             AND
-                appartenenza.stato = :stato
+                appartenenza.stato IN ( ". $stati ." )
             AND
                 ( anagrafica.id IN 
                     ( SELECT
@@ -649,8 +647,7 @@ class Comitato extends GeoPolitica {
               anagrafica.cognome     ASC,
               anagrafica.nome  ASC");
         $q->bindParam(':comitato',  $this->id);
-        $q->bindValue(':stato',  $stato);
-        $q->bindParam(':ora',  time());
+        //$q->bindValue(':stati',  $stati);
         $q->bindValue(':anno',    $anno);
         $q->execute();
         $r = [];
