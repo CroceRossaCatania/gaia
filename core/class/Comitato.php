@@ -647,7 +647,6 @@ class Comitato extends GeoPolitica {
               anagrafica.cognome     ASC,
               anagrafica.nome  ASC");
         $q->bindParam(':comitato',  $this->id);
-        //$q->bindValue(':stati',  $stati);
         $q->bindValue(':anno',    $anno);
         $q->execute();
         $r = [];
