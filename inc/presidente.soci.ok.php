@@ -129,11 +129,11 @@ caricare la fototessera entrando nella scheda <strong>Dettagli</strong>.
                         </div>
                         <?php if($tesseratore) { ?>
                         <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?= $_v ?>" title="Tesserino">
-                            <i class="icon-barcode"></i> Tesserino
+                            <i class="icon-credit-card"></i> Tesserino
                         </a>
                         <?php } if(!$ordinario && $inQuestoComitato && $modifica && $chiedeTesserini && !$tesserino && $fotot) { ?>
                         <a class="btn btn-small btn-info" href="?p=us.tesserini.chiedi.ok&id=<?= $_v ?>" title="Richiedi tesserino">
-                            <i class="icon-barcode"></i> Tesserino
+                            <i class="icon-credit-card"></i> Tesserino
                         </a>
                         <?php } ?>
                    </td>

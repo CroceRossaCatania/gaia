@@ -97,7 +97,7 @@ if ($me && $me->unComitato()) {
             'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti',
             'utente.riserva'  =>  '<i class="icon-pause"></i> Riserva',
             'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica',
-            'validaTesserino'  =>  '<i class="icon-barcode"></i> Verifica Tesserino'  
+            'validaTesserino'  =>  '<i class="icon-credit-card"></i> Verifica Tesserino'  
         ]];
 }
 $menu += [
