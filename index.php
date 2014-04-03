@@ -285,14 +285,21 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             </div>
                             <?php } ?>
 
-                            <?php if ( $me->admin && !$me->admin() ) { ?>
-                            <!-- ADMIN MODE NON ATTIVATA... -->
+                            <?php if ( $me->admin) {
+                                if(!$me->admin() ) { ?>
+                                <!-- ADMIN MODE NON ATTIVATA... -->
                                 <a href="#adminMode" class="btn btn-inverse" data-toggle="modal" role="button">
                                     <i class="icon-github-alt icon-large"></i>
                                 </a>
-
-
-                            <?php } ?>
+                                <?php } else { ?>
+                                <!-- ADMIN MODE  ATTIVATA... -->
+                                <a href="?p=admin.mode.exit" class="btn btn-inverse">
+                                    <span class="icon-stack">
+                                        <i class="icon-github-alt"></i>
+                                        <i class="icon-ban-circle icon-stack-base text-error"></i>
+                                    </span>
+                                </a>
+                            <?php }} ?>
 
                                            
 			</div>
