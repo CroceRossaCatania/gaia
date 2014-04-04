@@ -189,7 +189,11 @@ class Utente extends Persona {
 
             
     public function toJSONRicerca() {
-        $comitato = $this->unComitato();
+        if($this->stato == VOLONTARIO) {
+            $comitato = $this->unComitato();
+        } else {
+            $comitato = $this->unComitato(MEMBRO_ORDINARIO);
+        }
         if ( $comitato ) {
             $comitato = $comitato->toJSONRicerca();
         } else {
