@@ -298,7 +298,7 @@ class APIServer {
         $val=$t->chiediPartecipazione($me);
         $r = [];
         $r['ok'] = $val;
-        if( $val == true){
+        if( $val){
         	$r['id'] = $t->partecipazione($me)->id;
         }
         return $r;
