@@ -1272,7 +1272,7 @@ class Utente extends Persona {
      * @param $altroUtente il modificatore
      */
     public function modificabileDa(Utente $altroUtente) {
-        if (!$altroutente) {
+        if (!$altroUtente) {
             return false;
         }
         if ($altroUtente->admin()) {
