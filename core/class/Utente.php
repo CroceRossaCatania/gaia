@@ -1142,7 +1142,7 @@ class Utente extends Persona {
             $anno = date('Y');
         $q = $this->quote();
         foreach ($q as $_q) {
-            if ($_q->anno == $anno)
+            if ($_q->anno == $anno && !$_q->annullata())
                 return $_q;
         }
         return false;
