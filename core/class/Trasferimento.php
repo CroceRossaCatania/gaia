@@ -239,5 +239,12 @@ class Trasferimento extends Entita {
         $m->accoda();
 
     }
+
+    public function cancella() {
+        $a = $this->appartenenza();
+        $a->cancella();
+
+        parent::cancella();
+    }
 }
 ?>
