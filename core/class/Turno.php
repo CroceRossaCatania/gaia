@@ -81,15 +81,16 @@ class Turno extends Entita {
         }
     }
 
+	public function partecipazioneRitirabile(Utente $v) {
+    	$val=$this->partecipazione($v);
+    	return val && $val->ritirabile;	
+    }
+    
     public function partecipazioneStato(Utente $v) {
     	$val=$this->partecipazione($v);
-    	if($val != null){
-             return [
-                     'ritirabile' => $val->ritirabile(),
-                     'stato'      => $val->stato
-             ];
-    	}    
-    	return null;	
+    	if($val)
+    		return $val->stato;
+    	return val;
     }
     
     public function partecipa(Utente $v) {
@@ -185,7 +186,8 @@ class Turno extends Entita {
             'puoRichiedere'      =>  $this->puoRichiederePartecipazione($user),
             'partecipa'          =>  $this->partecipa($user),
             'partecipazione'     =>  $this->partecipazione($user),
-            'partecipazioneStato'=>  $this->partecipazioneStato($user)
+            'ritirabile'         =>  $this->partecipazioneRitirabile($user),
+            'stato'              =>  $this->partecipazioneStato($user)
         ];
     }
 }
