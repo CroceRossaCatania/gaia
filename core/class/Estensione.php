@@ -217,5 +217,12 @@ class Estensione extends Entita {
         $m->_COMITATO = $this->comitato()->nomeCompleto();
         $m->invia();
     }
+
+    public function cancella() {
+        $a = $this->appartenenza();
+        $a->cancella();
+
+        parent::cancella();
+    }
         
 }

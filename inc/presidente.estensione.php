@@ -5,6 +5,8 @@
  */
 
 paginaPresidenziale();
+$admin = (bool) $me->admin();
+
 ?>
 
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
@@ -13,8 +15,14 @@ paginaPresidenziale();
             <i class="icon-save"></i> <strong>Estensione Approvata</strong>.
             Estensione approvata con successo.
         </div>
-        <?php } ?>
-        <?php if ( isset($_GET['no']) ) { ?>
+<?php } ?>
+<?php if ( isset($_GET['canc']) ) { ?>
+<div class="alert alert-success">
+    <i class="icon-save"></i> <strong>Estensione cancellata</strong>.
+    L'estensione e l'appartenenza associata sono stati cancellati.
+</div>
+<?php } ?>
+<?php if ( isset($_GET['no']) ) { ?>
         <div class="alert alert-error">
             <i class="icon-warning-sign"></i> <strong>Estensione negata</strong>.
             Estensione negata.
@@ -75,7 +83,7 @@ foreach($comitati as $comitato){
         <td><?php echo $_e->comitato()->nomeCompleto(); ?></td>
         <?php if($_e->protNumero){ ?>
         <td>
-            <?php if ($modificabile) { ?>
+            <?php if ($modificabile || $admin) { ?>
             <div class="btn-group">
                 <a class="btn btn-success" href="?p=presidente.estensione.ok&id=<?php echo $_e->id; ?>&si">
                     <i class="icon-ok"></i> Conferma
@@ -83,6 +91,11 @@ foreach($comitati as $comitato){
                 <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare estensione a questo utente ?');" href="?p=presidente.estensioneNegata&id=<?php echo $_e->id; ?>">
                     <i class="icon-ban-circle"></i> Nega
                 </a>
+                <?php if ($admin) { ?>
+                    <a class="btn btn-danger" href="?p=admin.estensione.cancella&id=<?php echo $_e->id; ?>">
+                        <i class="icon-trash"></i> 
+                    </a>
+                <?php } ?>
             </div>
             <?php } ?>
         <?php }else{ ?>
@@ -91,10 +104,14 @@ foreach($comitati as $comitato){
                 <a class="btn btn-info" href="?p=utente.estensioneRichiesta.stampa&id=<?php echo $_e->id; ?>">
                     <i class="icon-print"></i> Stampa richiesta
                 </a>
-                <?php if($modificabile) { ?>
+                <?php if($modificabile || $admin) { ?>
                 <a class="btn btn-success" href="?p=presidente.estensioneRichiesta&id=<?php echo $_e->id; ?>">
                     <i class="icon-ok"></i> Protocolla richiesta
                 </a>
+                <?php } if ($admin) { ?>
+                    <a class="btn btn-danger" href="?p=admin.estensione.cancella&id=<?php echo $_e->id; ?>">
+                        <i class="icon-trash"></i> 
+                    </a>
                 <?php } ?>
             </div>
         <?php } ?>    
