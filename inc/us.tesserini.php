@@ -42,16 +42,32 @@ if(!$admin) {
         <h4><i class="icon-exclamation-sign"></i> Qualcosa non ha funzionato</h4>
         <p>L'operazione che hai tentato di eseguire non è andata a buon fine. Per favore riprova.</p>
     </div>
+    <?php } elseif (isset($_GET['gia'])) { ?>
+    <div class="alert alert-block alert-error">
+        <h4><i class="icon-exclamation-sign"></i> Operazione già effettuata</h4>
+        <p>Non è possibile effettuare più volte la stessa operazione.</p>
+    </div>
     <?php } elseif (isset($_GET['canc'])) { ?>
     <div class="alert alert-block alert-success">
         <h4><i class="icon-ok"></i> Tesserino cancellato</h4>
         <p>La cancellazione del tesserino è stata effettuata con successo.</p>
     </div>
+    <?php } elseif (isset($_GET['stampato'])) { ?>
+    <div class="alert alert-block alert-success">
+        <h4><i class="icon-ok"></i> Stampa registrata</h4>
+        <p>La registrazione della stampa del tesserino è avvenuta con successo.</p>
+    </div>
     <?php } 
 ?>
 
 <div class="alert alert-block alert-info">
-<i class="icon-info-sign"></i> bla bla bla
+<p><i class="icon-info-sign"></i> In questa pagina sono presenti tutte le richieste di emissione di <strong>tesserini</strong>
+in corso di lavorazione.</p>
+<p> Per procedere alla stampa di un tesserino premi il pulsante <strong>tesserino</strong> che ti permette di scaricare
+un file in formato <strong>PDF</strong> con dimensioni secondo lo standard <strong>CR-80</strong>.</p>
+<p> Per ogni tesserino è importante indicare tramite il pulsante <strong>Lavora pratica</strong> quando il tesserino è stato
+stampato e quando il tesserino è stato effettivamente inviato al volontario. Se per qualche motivo non ti è possibile
+emettere il tesserino potrai registrare questa informazione.</p>
 </div>
   
 <div class="row-fluid">
@@ -87,7 +103,7 @@ if(!$admin) {
                 <td><?php echo $v->nome; ?></td>
                 <td><?php echo $v->codiceFiscale; ?></td>
                 <td>
-                    <?php echo $v->ingresso()->format("d/m/Y"); ?>
+                    <?php echo $v->unComitato()->nome; ?>
                 </td>
                 <td>
                     <?= "{$conf['tesseriniStatoBreve'][$tesserino->stato]} il {$tesserino->data()->format('d/m/Y')}" ?>
@@ -97,13 +113,14 @@ if(!$admin) {
                         <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $v->id; ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli
                         </a>
+                        <?php if($tesserino->stato != RIFIUTATO || $admin) { ?>
                         <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?php echo $tesserino->id; ?>" title="Stampa Tesserino">
                             <i class="icon-credit-card"></i> Tesserino
                         </a>
                         <a class="btn btn-small btn-success" href="?p=us.tesserini.aggiorna&id=<?php echo $tesserino->id; ?>" title="Lavora Pratica">
                             <i class="icon-gears"></i> Lavora pratica
                         </a>
-                        <?php if($admin) { ?>
+                        <?php } if($admin) { ?>
                             <a class="btn btn-small btn-danger" href="?p=admin.tesserini.cancella&id=<?php echo $tesserino->id; ?>" title="Cancella Pratica">
                                 <i class="icon-trash"></i>
                             </a>
