@@ -42,7 +42,9 @@ class TesserinoRichiesta extends Entita {
         if (!$utente->fototessera() || $utente->fototessera()->stato == FOTOTESSERA_PENDING)
             return false;
 
-        $f = new PDF('tesserini', "Tesserino_{$utente->codicePubblico()}.pdf");
+        $f = new PDF('tesserini', "Tesserino_{$codice}.pdf");
+        $f->formato     = 'cr80';
+        $f->orientamento= 'landscape';
         $f->_NOME       = $utente->nome;
         $f->_COGNOME    = $utente->cognome;
         $f->_NASCITA    = date('d/m/y', $utente->dataNascita) .
