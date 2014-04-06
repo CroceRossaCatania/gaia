@@ -14,10 +14,6 @@ foreach ( Sessione::elenco() as $s ) {
 	$n++;
 }
 
-if ( $cache )
-	$cache->flushAll();
-
-
 ?>
 
 <h2><?php echo $n; ?> sessioni cancellate.</h2>

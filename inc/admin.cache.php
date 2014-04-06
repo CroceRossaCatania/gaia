@@ -32,7 +32,8 @@ $server = $cache->info();
             <p>Le richieste GET ricevute sono il numero di interrogazioni risparmiate
                 al database.</p>
 
-                <a href="?p=admin.cache.flush" class="btn btn-large btn-danger">
+                <a href="?p=admin.cache.flush" class="btn btn-large btn-danger"
+                    data-attendere-caricamento="Fammi lavorare...">
                     <i class="icon-warning-sign"></i>
                     Resetta la cache (flush)
                 </a>

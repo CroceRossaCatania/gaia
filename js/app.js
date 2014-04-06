@@ -36,11 +36,12 @@ $(window).ready( function () {
     $("#_logout").click( _logout );
     $("#_login").click( _login );
     
-    $("[data-attendere]")       .each( _attendere );
-    $("[data-suggerimento]")    .each( _suggerimento );
-    $("[data-volontari]")       .each( _tabella );
-    $("[data-posta]")           .each( _posta );
-    $("[data-conferma]")        .each( _conferma );
+    $("[data-attendere]")               .each( _attendere );
+    $("[data-attendere-caricamento]")   .each( _attendere_caricamento );
+    $("[data-suggerimento]")            .each( _suggerimento );
+    $("[data-volontari]")               .each( _tabella );
+    $("[data-posta]")                   .each( _posta );
+    $("[data-conferma]")                .each( _conferma );
 
     _render_utenti();
     _render_modali();
@@ -216,6 +217,18 @@ function _attendere(i, e) {
             $(e).html(vecchioTesto);
             $(e).removeClass('disabled').removeAttr('disabled');
         }, 6500);
+        if ( $(e).attr('type') == 'submit' ) {
+            $(e).parents('form').submit();
+            return true;
+        }
+    });
+}
+
+function _attendere_caricamento(i, e) {
+    $(e).click ( function() {
+        var testo = $(e).data('attendere-caricamento');
+        $(e).addClass('disabled').attr('disabled', 'disabled');
+        $(e).html('<i class="icon-spin icon-spinner"></i> ' + testo);
         if ( $(e).attr('type') == 'submit' ) {
             $(e).parents('form').submit();
             return true;

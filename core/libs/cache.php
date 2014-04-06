@@ -10,3 +10,17 @@ if (!class_exists('Redis') )
 
 $cache = new Redis();
 $cache->pconnect($conf['redis']['host']);
+
+/*
+ * Svuota la cache Entita su Redis
+ * Disclaimer: FUNZIONE LENTA! NON usare in produzione.
+ */
+function svuotaCacheEntita() {
+	global $conf, $cache;
+	if (!$cache)
+		return false;
+	foreach ( $cache->keys($conf['db_hash'] . '*') as $chiave ) {
+		$cache->delete($chiave);
+	}
+	return;
+}
