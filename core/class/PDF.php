@@ -13,7 +13,7 @@ class PDF {
             $nome = 'File';
 
     public
-        $orientamento   = 'portrait',
+        $orientamento   = ORIENTAMENTO_VERTICALE,
         $formato        = 'a4';
        
     public function __construct ( $modello, $nome ) {

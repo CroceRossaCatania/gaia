@@ -44,7 +44,7 @@ class TesserinoRichiesta extends Entita {
 
         $f = new PDF('tesserini', "Tesserino_{$codice}.pdf");
         $f->formato     = 'cr80';
-        $f->orientamento= 'landscape';
+        $f->orientamento= ORIENTAMENTO_ORIZZONTALE;
         $f->_NOME       = $utente->nome;
         $f->_COGNOME    = $utente->cognome;
         $f->_NASCITA    = date('d/m/y', $utente->dataNascita) .

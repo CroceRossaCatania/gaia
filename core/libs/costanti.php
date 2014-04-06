@@ -751,3 +751,13 @@ $conf['tesseriniStatoBreve'] = [
     SPEDITO_CASA        =>  'Emesso', 
     SPEDITO_COMITATO    =>  'Emesso', 
 ];  
+
+
+/*
+ * ===================================
+ * ======== ORIENTAMENTO PDF =========
+ * ===================================
+ */
+
+define('ORIENTAMENTO_ORIZZONTALE',        'landscape');
+define('ORIENTAMENTO_VERTICALE',          'portrait');
