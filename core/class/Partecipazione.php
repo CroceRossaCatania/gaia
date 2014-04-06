@@ -46,7 +46,10 @@ class Partecipazione extends Entita {
         return [
             'id'        =>  $this->id,
             'turno'     =>  $this->turno()->toJSON(),
-            'attivita'  =>  $this->turno()->attivita,
+            'attivita'  =>  [
+                'id'        =>  $this->turno()->attivita,
+                'nome'      =>  $this->turno()->attivita()->nome,
+            ],
             'stato'     =>  [
                 'id'        =>  (int) $this->stato,
                 'nome'      =>  $conf['partecipazione'][$this->stato]
@@ -158,8 +161,14 @@ class Partecipazione extends Entita {
                 ]);
 
     }
+    
+    public function  ritirabile(){
+        return ($this->stato == PART_PENDING && $this->turno()->inizio >= time());
+    }
 
     public function ritira() {
+    	if ( !$this->ritirabile() )
+    		return false;
         $v = $this->volontario();
         $m = new Email('volontarioRitirato', 'Un volontario si è ritirato');
         $m->a = $this->attivita()->referente();
