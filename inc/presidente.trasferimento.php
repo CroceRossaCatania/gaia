@@ -14,6 +14,12 @@ paginaPresidenziale();
     Trasferimento approvato con successo.
 </div>
 <?php } ?>
+<?php if ( isset($_GET['canc']) ) { ?>
+<div class="alert alert-success">
+    <i class="icon-save"></i> <strong>Trasferimento cancellato</strong>.
+    Il trasferimento e l'appartenenza associata sono stati cancellati.
+</div>
+<?php } ?>
 <?php if ( isset($_GET['no']) ) { ?>
 <div class="alert alert-error">
     <i class="icon-warning-sign"></i> <strong>Trasferimento negato</strong>.
@@ -61,44 +67,45 @@ paginaPresidenziale();
     </thead>
     <?php
     $comitati= $me->comitatiDiCompetenza();
-    $t = Trasferimento::filtra([['stato',TRASF_INCORSO]]);
-    foreach ($t as $_t){
-        $v =$_t->volontario();
-        $a = Appartenenza::filtra([['volontario',$v],['stato', MEMBRO_VOLONTARIO]]);
-        foreach($comitati as $comitato){
-            if ($a && $a[0]->comitato()==$comitato){
-                $b = Trasferimento::filtra([['volontario',$v],['stato', TRASF_INCORSO]]);
-                ?>
-                <tr>
-                    <td><?php echo $v->nome; ?></td>
-                    <td><?php echo $v->cognome; ?></td>
-                    <td><?php echo $v->codiceFiscale; ?></td>
-                    <td><?php echo date('d/m/Y', $b[0]->timestamp); ?></td> 
-                    <td><?php echo $b[0]->comitato()->nomeCompleto(); ?></td>
-                    <?php if($_t->protNumero){ ?>
-                    <td>
+    foreach($comitati as $comitato){
+        $t = Trasferimento::filtra([['stato', TRASF_INCORSO], ['cProvenienza', $comitato->id]]);
+        foreach($t as $_t) {
+            $v = $_t->volontario();
+            ?>
+            <tr>
+                <td><?php echo $v->nome; ?></td>
+                <td><?php echo $v->cognome; ?></td>
+                <td><?php echo $v->codiceFiscale; ?></td>
+                <td><?php echo date('d/m/Y', $_t->timestamp); ?></td> 
+                <td><?php echo $_t->comitato()->nomeCompleto(); ?></td>
+                <?php if($t->protNumero){ ?>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-success" href="?p=presidente.trasferimento.ok&id=<?php echo $_t->id; ?>&si">
+                            <i class="icon-ok"></i> Conferma
+                        </a>
+                        <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare il trasferimento a questo utente ?');" href="?p=presidente.trasferimentoNegato&id=<?php echo $_t->id; ?>">
+                            <i class="icon-ban-circle"></i> Nega
+                        </a>
+                    </div>
+                    <?php }else{ ?>
+                    <td>   
                         <div class="btn-group">
-                            <a class="btn btn-success" href="?p=presidente.trasferimento.ok&id=<?php echo $b[0]->id; ?>&si">
-                                <i class="icon-ok"></i> Conferma
+                            <a class="btn btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $_t->id; ?>">
+                                <i class="icon-print"></i> Stampa richiesta
                             </a>
-                            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare il trasferimento a questo utente ?');" href="?p=presidente.trasferimentoNegato&id=<?php echo $b[0]->id; ?>">
-                                <i class="icon-ban-circle"></i> Nega
+                            <a class="btn btn-success" href="?p=presidente.trasferimentoRichiesta&id=<?php echo $_t->id; ?>">
+                                <i class="icon-ok"></i> Protocolla richiesta
                             </a>
+                            <?php if ($me->admin()) { ?>
+                                <a class="btn btn-danger" href="?p=admin.trasferimento.cancella&id=<?php echo $_t->id; ?>">
+                                        <i class="icon-trash"></i> 
+                                </a>
+                            <?php } ?>
                         </div>
-                        <?php }else{ ?>
-                        <td>   
-                            <div class="btn-group">
-                                <a class="btn btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $b[0]->id; ?>">
-                                    <i class="icon-print"></i> Stampa richiesta
-                                </a>
-                                <a class="btn btn-success" href="?p=presidente.trasferimentoRichiesta&id=<?php echo $b[0]->id; ?>">
-                                    <i class="icon-ok"></i> Protocolla richiesta
-                                </a>
-                            </div>
-                            <?php } ?>    
-                        </td>
-                        
-                    </tr>
-                    <?php }}
-                } ?>
-            </table>
+                    <?php } ?>
+                </td>    
+            </tr>
+        <?php }
+    } ?>
+</table>

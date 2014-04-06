@@ -11,6 +11,10 @@ controllaParametri($parametri, 'us.dash&err');
 
 $v = Utente::id($_POST['vol']);
 
+if(!$v->modificabileDa($me)) {
+  redirect('us.dash&err');
+}
+
 proteggiDatiSensibili($v, [APP_SOCI , APP_PRESIDENTE]);
 
 if (!$t = Tesseramento::attivo()) {
