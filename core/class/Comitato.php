@@ -876,9 +876,9 @@ class Comitato extends GeoPolitica {
             FROM
                 attivita, turni
             WHERE
-                attivita.stato = :stato
-            AND
                 attivita.comitato = :comitato
+            AND
+                attivita.stato = :stato
             AND
                 turni.attivita = attivita.id
             AND

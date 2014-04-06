@@ -20,6 +20,8 @@ if ( $sessione->attenzione == false ){
         <div class="modal-body">
           <p>Salve Presidente <?php echo $me->nome; ?>, da oggi Gaia ti risponde!</p>
           <p>Se hai bisogno di assistenza immediata chiama il +39 <strong>06 9292 8574</strong></p>
+          <p>Ti ricordiamo che questa tipologia di assistenza telefonica nasce per aiutare gli utenti nell'utilizzo di GAIA.</p>
+          <p>Qualsiasi <strong>modifica</strong> dei dati presenti in Gaia dovrà avvenire mediante supporto</p>
         </div>
         <div class="modal-footer">
           <button data-dismiss="modal" aria-hidden="true" class="btn btn-primary">

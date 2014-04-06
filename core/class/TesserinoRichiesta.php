@@ -23,4 +23,8 @@ class TesserinoRichiesta extends Entita {
         return GeoPolitica::daOid($this->struttura);
     }
 
+    public function utente() {
+        return Utente::id($this->volontario);
+    }
+
 }

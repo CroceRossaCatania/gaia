@@ -92,7 +92,7 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#elenchi" data-toggle="tab">Elenchi</a></li>
                     <li><a href="#volontari" data-toggle="tab">Volontari</a></li>
-                    <li><a href="#quote" data-toggle="tab">Quote</a></li>
+                    <li><a href="#quote" data-toggle="tab">Amministrazione</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="elenchi">
@@ -202,6 +202,14 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                                             Ricerca quota associativa
                                         </a>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="row-fluid">
+                                    <a href="?p=us.tesserini" class="btn btn-block">
+                                        <i class="icon-credit-card"></i>
+                                        Tesserini
+                                    </a>
                                 </div>
                             </div>
                         </div>

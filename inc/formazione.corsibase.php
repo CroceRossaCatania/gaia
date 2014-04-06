@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -90,7 +90,7 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                             <?php echo $corso->fine()->inTesto(false); ?>
                             <br />
                             <?php if ( $corso->direttore ) { ?>
-                            Referente: 
+                            Direttore: 
                             <a href="?p=profilo.controllo&id=<?php echo $corso->direttore()->id; ?>" target="_new">
                                 <?php echo $corso->direttore()->nomeCompleto(); ?>
                             </a>
@@ -129,7 +129,7 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                             if ((in_array($corso->organizzatore(), $mieiComitati) && $corso->stato == CORSO_S_DACOMPLETARE)
                                         or $me->admin()){ ?>
                             <br />
-                            <a href="?p=formazione.corsibase.cancella.ok&id=<?php echo $corso->id; ?>">
+                            <a onClick="return confirm('Vuoi veramente cancellare questo corso base ?');" href="?p=formazione.corsibase.cancella.ok&id=<?php echo $corso->id; ?>">
                                 <i class="icon-remove"></i> cancella
                             </a>
                             <?php } ?>

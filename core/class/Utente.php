@@ -500,11 +500,9 @@ class Utente extends Persona {
             $g->cancella();
         }
         // 12. Sessioni in corso
-        /*
-        foreach ( Sessione::filtra([['utente',$this]]) as $g ) {
+        /*foreach ( Sessione::filtra([['utente',$this]]) as $g ) {
             $g->cancella();
-        }
-        */
+        }*/
         // 13. Titoli personali
         foreach ( TitoloPersonale::filtra([['volontario',$this]]) as $g ) {
             $g->cancella();

@@ -108,8 +108,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
               <span class="icon-bar"></span>
             </a>
             <a class="brand" href="?">
-            	<img src="./img/logoTop.png" />
-            	&nbsp; <span class="muted">Croce Rossa Italiana</span> &nbsp; «Gaia»
+            	<img src="./img/logoCroceSemplice.png" />
+            	&nbsp;<span class="scritta-cri">Croce Rossa Italiana</span>&nbsp;|&nbsp;Gaia
             </a>
             <div class="nav-collapse collapse">
               <ul class="nav">
@@ -117,7 +117,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                 <li><a href="?p=attivita"><i class="icon-calendar"></i> Attività</a></li>
                 <li><a href="?p=public.comitati.mappa"><i class="icon-map-marker"></i> Comitati</a></li>
                 <?php if(!$me) { ?>
-                <li><a href="?p=validaTesserino"><i class="icon-barcode"></i> Verifica tesserino</a></li>
+                <li><a href="?p=validaTesserino"><i class="icon-credit-card"></i> Verifica tesserino</a></li>
                 <?php } ?>
               </ul>  
             <?php

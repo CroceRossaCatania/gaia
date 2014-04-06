@@ -1,7 +1,7 @@
 <?php
 
 /*
-* ©2013 Croce Rossa Italiana
+* ©2014 Croce Rossa Italiana
 */
 
 paginaAnonimo();
@@ -219,7 +219,7 @@ $(document).ready( function() {
             <div clas="span12">
                 <a href="?p=formazione.corsibase.iscrizione.ok&id=<?php echo $corso->id ; ?>" class="btn btn-large btn-block btn-success">Preiscriviti al corso</a>
             </div>
-            <?php } else { ?>
+            <?php } elseif($corso->iscritto($me)) { ?>
             <div class="span6">
                 <button class="btn btn-large btn-block btn-primary disabled">Preiscrizione effettuata</button>
             </div>
@@ -487,8 +487,18 @@ $(document).ready( function() {
         <!-- ISCRITTI -->
 
         <div class="row-fluid">
-            <div class="span12">
+            <div class="span6">
                 <h3><i class="icon-group"></i> Elenco degli iscritti</h3>
+            </div>
+            <div class="span6 allinea-destra">
+                <div class="btn-group">                    
+                    <a class="btn btn-small btn-success" href="?p=formazione.corsibase.email.nuova&iscrizioni&id=<?= $corso->id; ?>" title="Email">
+                        <i class="icon-envelope"></i> Invia email a tutti gli iscritti
+                    </a>
+                    <a class="btn btn-small" href="?p=formazione.corsibase.excel&iscrizioni&id=<?= $corso->id; ?>" title="Excel">
+                        <i class="icon-download"></i> Scarica come foglio excel
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -532,8 +542,18 @@ $(document).ready( function() {
         <!-- PREISCRIZIONI -->
         
         <div class="row-fluid">
-            <div class="span12">
+            <div class="span6">
                 <h3><i class="icon-group"></i> Elenco delle preiscrizioni</h3>
+            </div>
+            <div class="span6 allinea-destra">
+                <div class="btn-group">
+                    <a class="btn btn-small btn-success" href="?p=formazione.corsibase.email.nuova&preiscrizioni&id=<?= $corso->id; ?>" title="Email">
+                        <i class="icon-envelope"></i> Invia email a tutti i preiscritti
+                    </a>
+                    <a class="btn btn-small" href="?p=formazione.corsibase.excel&preiscrizioni&id=<?= $corso->id; ?>" title="Excel">
+                        <i class="icon-download"></i> Scarica come foglio excel
+                    </a>
+                </div>
             </div>
         </div>
 

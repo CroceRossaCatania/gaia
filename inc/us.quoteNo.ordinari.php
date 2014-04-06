@@ -72,13 +72,13 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             </div>
             <div class="btn-group">
                 <a href="#" class="btn btn-danger btn-group">
-                    <i class="icon-ok"></i>
+                    <i class="icon-remove"></i>
                     Quote non pagate
                 </a>
                 <a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="?p=us.quoteNo"><i class="icon-ok"></i> Volontari</a></li>
-                    <li><a href="?p=us.quoteNo.ordinari"><i class="icon-ok"></i> Soci Ordinari</a></li>
+                    <li><a href="?p=us.quoteNo"><i class="icon-remove"></i> Volontari</a></li>
+                    <li><a href="?p=us.quoteNo.ordinari"><i class="icon-remove"></i> Soci Ordinari</a></li>
                 </ul>
             </div>
             <a href="?p=us.dash" class="btn btn-block">
@@ -93,7 +93,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <span class="add-on"><i class="icon-search"></i></span>
             <input autofocus required id="cercaUtente" placeholder="Cerca Volontario..." type="text">
         </div>
-       <form action="?p=us.quoteNo" method="POST">
+       <form action="?p=us.quoteNo.ordinari" method="POST">
         <div class="form-search">
             <span class="add-on"><i class="icon-calendar"></i></span>
             <input class="input-medium" autocomplete="off" name="anno" type="number" min="2005" max="<?php echo date('Y'); ?>" step="1" value="<?php echo $anno; ?>">
@@ -123,17 +123,21 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
            <i class="icon-download"></i>
             <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari che non hanno versato la quota in un archivio zip.
        </a>
-       <?php } ?>
-       <a href="?p=utente.mail.nuova&comquotenoordinari&anno=<?= $anno; ?>" class="btn btn-block btn-success">
+       <?php } if ($anno == $questanno) { ?>
+       <a href="?p=utente.mail.nuova&comquotenoordinari" class="btn btn-block btn-success">
            <i class="icon-envelope"></i>
             <strong>Ufficio Soci</strong> &mdash; Invia mail di massa a tutti i Volontari.
        </a>
-       <?php if ($t->siPuoDimettereTutti()) { ?>
+       <?php }
+       /*
+       if ($t->siPuoDimettereTutti()) { ?>
        <a onClick="return confirm('Vuoi veramente chiudere le quote per anno corrente? questa operazione non è reversibile !');" href="?p=us.quote.chiudi" class="btn btn-block btn-danger">
            <i class="icon-off"></i>
             <strong>Ufficio Soci</strong> &mdash; Chiudi le quote per l'anno corrente
        </a>
-       <?php } ?>
+       <?php } 
+       */ 
+       ?>
        <hr />
        </div>
        
@@ -165,10 +169,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     <span class="label label-important">
                         <?php echo "Codice fiscale non inserito!"; ?>
                     </span>
-                    <?php } ?>
-                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unitquotenoordinari&anno=<?= $anno; ?>">
+                    <?php } if ($anno == $questanno) { ?>
+                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&unitquotenoordinari&id=<?php echo $comitato->id; ?>">
                            <i class="icon-envelope"></i> Invia mail
                     </a>
+                    <?php } ?>
                     <a class="btn btn-small pull-right" 
                        href="?p=presidente.utenti.excel&quotenoordinari&comitato=<?php echo $comitato->id; ?>&anno=<?= $anno; ?>"
                        data-attendere="Generazione...">

@@ -65,6 +65,14 @@ body {
 
 }
 
+.scritta-cri {
+    color: rgb(204,0,0) !important;
+}
+
+.scritta-gaia {
+    color: rgb(0,0,0) !important;
+}
+
 .hero-unit p, .hero-unit h1 {
     text-shadow: 1px 2px 1px #333;
     color: white;

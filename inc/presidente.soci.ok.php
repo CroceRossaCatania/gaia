@@ -67,7 +67,6 @@ caricare la fototessera entrando nella scheda <strong>Dettagli</strong>.
             <thead>
                 <th>Cognome</th>
                 <th>Nome</th>
-                <th>Nascita</th>
                 <th>C. Fiscale</th>
                 <th>Data Ingresso</th>
                 <th>Tesserino</th>
@@ -106,13 +105,6 @@ caricare la fototessera entrando nella scheda <strong>Dettagli</strong>.
                 <tr>
                     <td><?php echo $_v->cognome; ?></td>
                     <td><?php echo $_v->nome; ?></td>
-                    <td>
-                        <?php echo date('d/m/Y', $_v->dataNascita); ?>, 
-                        <?php echo $_v->comuneNascita; ?>
-                        <span class="muted">
-                            <?php echo $_v->provinciaNascita; ?>
-                        </span>
-                    </td>
                     <td><?php echo $_v->codiceFiscale; ?></td>
                     <td>
                         <?php echo $_v->ingresso()->format("d/m/Y"); ?>
@@ -137,11 +129,11 @@ caricare la fototessera entrando nella scheda <strong>Dettagli</strong>.
                         </div>
                         <?php if($tesseratore) { ?>
                         <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?= $_v ?>" title="Tesserino">
-                            <i class="icon-barcode"></i> Tesserino
+                            <i class="icon-credit-card"></i> Tesserino
                         </a>
                         <?php } if(!$ordinario && $inQuestoComitato && $modifica && $chiedeTesserini && !$tesserino && $fotot) { ?>
                         <a class="btn btn-small btn-info" href="?p=us.tesserini.chiedi.ok&id=<?= $_v ?>" title="Richiedi tesserino">
-                            <i class="icon-barcode"></i> Tesserino
+                            <i class="icon-credit-card"></i> Tesserino
                         </a>
                         <?php } ?>
                    </td>

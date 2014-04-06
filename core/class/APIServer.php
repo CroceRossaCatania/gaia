@@ -581,7 +581,7 @@ class APIServer {
                 $m->_DIRETTORE      = $part->utente()->nomeCompleto();
                 $m->_CELLDIRETTORE  = $part->utente()->cellulare();
                 $m->allega($cal);
-                $m->invia(true);               
+                $m->invia();               
                 
             } else {
                 $part->nega();
