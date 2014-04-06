@@ -42,6 +42,11 @@ if(!$admin) {
         <h4><i class="icon-exclamation-sign"></i> Qualcosa non ha funzionato</h4>
         <p>L'operazione che hai tentato di eseguire non è andata a buon fine. Per favore riprova.</p>
     </div>
+    <?php } elseif (isset($_GET['canc'])) { ?>
+    <div class="alert alert-block alert-success">
+        <h4><i class="icon-ok"></i> Tesserino cancellato</h4>
+        <p>La cancellazione del tesserino è stata effettuata con successo.</p>
+    </div>
     <?php } 
 ?>
 
@@ -92,12 +97,17 @@ if(!$admin) {
                         <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $v->id; ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli
                         </a>
-                        <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?php echo $v->id; ?>" title="Stampa Tesserino">
+                        <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?php echo $tesserino->id; ?>" title="Stampa Tesserino">
                             <i class="icon-credit-card"></i> Tesserino
                         </a>
-                            <a class="btn btn-small btn-success" href="?p=us.tesserini.aggiorna&id=<?php echo $tesserino->id; ?>" title="Lavora Pratica">
+                        <a class="btn btn-small btn-success" href="?p=us.tesserini.aggiorna&id=<?php echo $tesserino->id; ?>" title="Lavora Pratica">
                             <i class="icon-gears"></i> Lavora pratica
                         </a>
+                        <?php if($admin) { ?>
+                            <a class="btn btn-small btn-danger" href="?p=admin.tesserini.cancella&id=<?php echo $tesserino->id; ?>" title="Cancella Pratica">
+                                <i class="icon-trash"></i>
+                            </a>
+                        <?php } ?>
                     </div>
                </td>
             </tr>

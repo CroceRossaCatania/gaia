@@ -7,10 +7,9 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 controllaParametri(['id'], 'us.dash&err');
 
-$f = $_GET['id'];
-$t = Volontario::id($f);
-if($t->tesserino()) {
-	$t->tesserino()->anteprima();
-}
+$t = $_GET['id'];
+$t = TesserinoRichiesta::id($t);
+$t->generaTesserino();
+
 redirect('presidente.soci.ok&nofoto');
 
