@@ -109,7 +109,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
             </a>
             <a class="brand" href="?">
             	<img src="./img/logoTop.png" />
-            	&nbsp; <span class="muted">Croce Rossa Italiana</span> &nbsp; «Gaia»
+            	&nbsp; <span class="muted">Croce Rossa Italiana</span> <span class="hidden-phone">&nbsp; «Gaia» </span>
             </a>
             <div class="nav-collapse collapse">
               <ul class="nav">
@@ -288,12 +288,12 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             <?php if ( $me->admin) {
                                 if(!$me->admin() ) { ?>
                                 <!-- ADMIN MODE NON ATTIVATA... -->
-                                <a href="#adminMode" class="btn btn-inverse" data-toggle="modal" role="button">
+                                <a href="#adminMode" class="btn btn-inverse hidden-phone" data-toggle="modal" role="button">
                                     <i class="icon-github-alt icon-large"></i>
                                 </a>
                                 <?php } else { ?>
                                 <!-- ADMIN MODE  ATTIVATA... -->
-                                <a href="?p=admin.mode.exit" class="btn btn-inverse">
+                                <a href="?p=admin.mode.exit" class="btn btn-inverse hidden-phone">
                                     <span class="icon-stack">
                                         <i class="icon-github-alt"></i>
                                         <i class="icon-ban-circle icon-stack-base text-error"></i>
