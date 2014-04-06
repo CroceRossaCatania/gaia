@@ -226,7 +226,7 @@ function _attendere(i, e) {
 
 function _attendere_caricamento(i, e) {
     $(e).click ( function() {
-        var testo = $(e).data('attendere');
+        var testo = $(e).data('attendere-caricamento');
         $(e).addClass('disabled').attr('disabled', 'disabled');
         $(e).html('<i class="icon-spin icon-spinner"></i> ' + testo);
         if ( $(e).attr('type') == 'submit' ) {
