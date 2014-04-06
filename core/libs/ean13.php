@@ -2,6 +2,8 @@
 
 /*
  * Ritorna codice di controllo EAN13
+ * @param $barcode Il barcode non completo (12 caratteri)
+ * @return string(1) Check digit come stringa
  */
 function ean_checkdigit($barcode){
     $digits = $barcode;
@@ -29,3 +31,25 @@ function ean_checkdigit($barcode){
 
     return (string) $check_digit;
 }
+
+/*
+ * Dato un numero casuale, lo avvolge nel formato EAN13 pubblico
+ * ref. https://github.com/CroceRossaCatania/gaia/issues/84#issuecomment-39663074
+ * @param string 7 cifre casuali
+ * @return string EAN13 corretto
+ */
+function avvolgiCodicePubblico( $numeriCasuali ) {
+    return "8016{$numeriCasuali}{ean_checkdigit($numeriCasuali)}";
+}
+
+
+/*
+ * Dato un numero casuale, lo avvolge nel formato EAN13 privato
+ * ref. https://github.com/CroceRossaCatania/gaia/issues/84#issuecomment-39663074
+ * @param string 7 cifre casuali
+ * @return string EAN13 corretto
+ */
+function avvolgiCodicePrivato( $numeriCasuali ) {
+    return "8017{$numeriCasuali}{ean_checkdigit($numeriCasuali)}";
+}
+

@@ -1504,84 +1504,30 @@ class Utente extends Persona {
     }
 
     /*
-     * Ritorna il File del Tesserino del Volontario
-     * @return File     Il tesserino del volontario
+     * Ritorna il File del Tesserino del Volontario, se esistente
+     * @return bool(false)|File     Il tesserino del volontario, false altrimenti
      */
     public function tesserino() {
-
-        // DEBUG
-        return $this->generaTesserino();
-        
-        // Controlla l'esistenza dell'ultimo tesserino
-        try {
-            if ( !$this->ultimoTesserino )
-                throw new Errore;
-
-            $t = new File($this->ultimoTesserino);
-
-        } catch (Errore $e) {
-            // Non piu' esistente, rigenera
-            $t = $this->generaTesserino();
-            $this->ultimoTesserino = $t->id;
-        }
-
-        return $t;
-
+        $r = $this->tesserinoRichiesta();
+        if ( $r && $r->haCodice() )  
+            return $r->generaTesserino();
+        return false;
     }
 
     /*
-     * Genera il tesserino del Volontario
-     * @return File     Il tesserino del volontario
-     */
-    protected function generaTesserino() {
-        if(!$this->fototessera() || $this->fototessera()->stato == FOTOTESSERA_PENDING) {
-            return false;
-        }
-        $codice = rand(100000000, 9999999999);
-        $f = new PDF('tesserini', "Tesserino{$codice}.pdf");
-        $f->_NOME       = $this->nome;
-        $f->_COGNOME    = $this->cognome;
-        $f->_NASCITA    = date('d/m/y', $this->dataNascita) .
-                          ", {$this->comuneNascita}";
-
-        $int = "Croce Rossa Italiana<br />{$this->unComitato()->locale()->nome}<br />";
-        if ( $this->sesso == UOMO )
-            $int .= 'Volontario';
-        else
-            $int .= 'Volontaria';
-        $f->_INTESTAZIONE = $int;
-
-        $f->_AVATAR     = $this->fototessera()->file(20);
-        $f->_INGRESSO   = $this->ingresso()->format('d/m/Y');
-        $f->_CODICE     = $codice;
-
-        $barcode = new Barcode;
-        $barcode->genera($this->codicePubblico());
-
-        $f->_BARCODE    = $barcode->percorso();
-
-        return $f->salvaFile();
-    }
-
-    /*
-     * Genera codice tesserino volontario (codicePubblico) DAMIGLIORARE
-     * @todo Da migliorare, controllo esistenza
-     * @return string Codice
+     * Ottiene codice ultimo tesserino valido volontario (codicePubblico) 
+     * @return bool(false)|string Codice se presente, alternativamente false
      */
     public function codicePubblico() {
-        if ( $this->codicePubblico )
-            return $this->codicePubblico;
-
-        
-        // Generazione codice
-        $this->codicePubblico = '80142' . rand(1000000, 9999999);
-        $this->codicePubblico = $this->codicePubblico . ean_checkdigit($this->codicePubblico);
-        return $this->codicePubblico;
+        $r = $this->tesserinoRichiesta();
+        if ( $r && $r->haCodice() )
+            return $r->codice;
+        return false;
     }
 
     /**
      * Ritorna eventuale richiesta del tesserino per il volontario
-     * @return RichiestaTesserino|bool   RichiestaTesserino se presente, false altrimenti
+     * @return RichiestaTesserino|bool(false)   RichiestaTesserino se presente, false altrimenti
      */
     public function tesserinoRichiesta() {
         $r = [];
@@ -1593,7 +1539,7 @@ class Utente extends Persona {
                 return $_t;
             }
         }
-        return null;
+        return false;
     }
 
 }
