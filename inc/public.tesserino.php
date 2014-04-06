@@ -26,7 +26,7 @@
 
  <div class="row-fluid">
     <div class="span6">
-        <form class="form-horizontal" action="?p=validaTesserino.fatto" method="POST">
+        <form class="form-horizontal" action="?p=public.tesserino.fatto" method="POST">
             <?php if (isset($_GET['num'])) { ?>
               <div class="alert alert-error">
                   <strong>Nessun numero di tessera inserito</strong>.<br />

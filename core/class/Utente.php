@@ -1603,4 +1603,8 @@ class Utente extends Persona {
         return null;
     }
 
+    public static function daCodicePubblico($codice) {
+        return null;
+    }
+
 }
