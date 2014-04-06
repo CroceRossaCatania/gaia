@@ -152,14 +152,12 @@ foreach ($f as $_f) {
     $_f->cancella();
 }
 
-/*
 $f = Sessione::filtra([
   ['utente', $t]
   ]);
 foreach ($f as $_f) {
     $_f->cancella();
 }
-*/
 
 $f = TitoloPersonale::filtra([
   ['volontario', $t]
@@ -179,4 +177,3 @@ $t->cancella();
 
 redirect('presidente.utenti&ok');    
 
-?>
