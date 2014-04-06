@@ -12,11 +12,17 @@ controllaParametri(['inputNum'], 'validaTesserino&err');
 
 $num = $_GET['inputNum'];
 
-$u = Utente::by('codice', $num);
+$u = Utente::daCodicePubblico($num);
+
 
 $verificato = true;
-if($u && $u->appartenenzaAttuale()) {
+//if($u && $u->appartenenzaAttuale()) {
+if (true) {
+    $cogn = 'marinella';
     $verificato = true;
+    $l = strlen($cogn);
+    $r = rand(1, $l);
+    $c = substr($cogn, $r-1, 1);
 } 
 
 ?>
@@ -33,7 +39,11 @@ if($u && $u->appartenenzaAttuale()) {
         <div class="row-fluid">
             <div class="span8 offset2"
                 <div class="item active altoCento">
-                    <img class="altoCentro" src="./img/esempio_fronte.png" alt="esempio fronte">
+                    <?php if($verificato) { ?>
+                        <img class="altoCentro" src="./img/esempio_fronte_ok.png" alt="tesserino verificato">
+                    <?php } else { ?>
+                        <img class="altoCentro" src="./img/esempio_fronte_no.png" alt="tesserino non verificato">
+                    <?php } ?>
             </div>
         </div>
     </div>
@@ -46,6 +56,7 @@ if($u && $u->appartenenzaAttuale()) {
                     <p>
                     <ul>
                         <!-- mettere roba per ordinario -->
+                        <li>La lettera in posizione <strong><?= $r ?></strong> del cognome del volontario è <strong><?= $c ?></strong></li>
                         <li>Il tesserino appartiene ad un Volontario della Croce Rossa</li>
                         <li>Il Volontario è in regola con la quota associativa</li>
                     </ul>
