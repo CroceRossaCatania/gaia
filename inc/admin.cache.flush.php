@@ -10,8 +10,7 @@ if ( !$cache ) {
     die('Gaia non sta usando la cache.');
 }
 
-$cache->flushAll();
+svuotaCacheEntita();
 
 redirect('admin.cache&flush');
 
-?>
