@@ -189,7 +189,11 @@ class Utente extends Persona {
 
             
     public function toJSONRicerca() {
-        $comitato = $this->unComitato();
+        if($this->stato == VOLONTARIO) {
+            $comitato = $this->unComitato();
+        } else {
+            $comitato = $this->unComitato(MEMBRO_ORDINARIO);
+        }
         if ( $comitato ) {
             $comitato = $comitato->toJSONRicerca();
         } else {
@@ -1168,7 +1172,7 @@ class Utente extends Persona {
             $anno = date('Y');
         $q = $this->quote();
         foreach ($q as $_q) {
-            if ($_q->anno == $anno)
+            if ($_q->anno == $anno && !$_q->annullata())
                 return $_q;
         }
         return false;
@@ -1307,6 +1311,9 @@ class Utente extends Persona {
      * @param $altroUtente il modificatore
      */
     public function modificabileDa(Utente $altroUtente) {
+        if (!$altroUtente) {
+            return false;
+        }
         if ($altroUtente->admin()) {
             return true;
         }

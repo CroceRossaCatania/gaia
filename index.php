@@ -109,7 +109,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
             </a>
             <a class="brand" href="?">
             	<img src="./img/logoCroceSemplice.png" />
-            	&nbsp;<span class="scritta-cri">Croce Rossa Italiana</span>&nbsp;|&nbsp;Gaia
+            	&nbsp;<span class="scritta-cri">Croce Rossa Italiana</span><span class="hidden-phone">&nbsp;|&nbsp;Gaia</span>
             </a>
             <div class="nav-collapse collapse">
               <ul class="nav">
@@ -293,11 +293,15 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                 <a href="#adminMode" class="btn btn-inverse" data-toggle="modal" role="button">
                                     <i class="icon-github-alt icon-large"></i>
                                 </a>
-
-
-                            <?php } ?>
-
-                                           
+                                <?php } else { ?>
+                                <!-- ADMIN MODE  ATTIVATA... -->
+                                <a href="?p=admin.mode.exit" class="btn btn-inverse hidden-phone">
+                                    <span class="icon-stack">
+                                        <i class="icon-github-alt"></i>
+                                        <i class="icon-ban-circle icon-stack-base text-error"></i>
+                                    </span>
+                                </a>
+                            <?php } ?>                        
 			</div>
 			<?php } else { ?>
             <div class="paddingSopra pull-right">

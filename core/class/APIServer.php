@@ -271,16 +271,23 @@ class APIServer {
             $t[] = $turno->toJSON($me);
         }
         array_merge($t, [
-            'luogo'     =>  $a->luogo,
-            'coordinate'=>  $a->coordinate(),
-            'puoPartecipare'=>  $a->puoPartecipare($me)
+            'luogo'          =>  $a->luogo,
+            'coordinate'     =>  $a->coordinate(),
+            'puoPartecipare' =>  $a->puoPartecipare($me)
         ]);
         return [
-            'nome'      =>  $a->nome,
-            'comitato'  =>  $a->comitato()->toJSON(),
-            'luogo'     =>  $a->luogo,
-            'coordinate'=>  $a->coordinate(),
-            'turni'     =>  $t
+            'nome'        => $a->nome,
+            'comitato'    => $a->comitato()->toJSON(),
+            'descrizione' => $a->descrizione,
+            'referente'   => [
+                              'id'     => $a->referente()->id,
+                              'nome'   => $a->referente()->nomeCompleto(),
+                              'numero' => $a->referente()->cellulare(), 
+                              'email'  => $a->referente()->email()
+                             ],
+            'luogo'       => $a->luogo,
+            'coordinate'  => $a->coordinate(),
+            'turni'       => $t
         ];
     }
 
@@ -288,9 +295,13 @@ class APIServer {
         $this->richiedi(['id']);
         $me = $this->richiediLogin();
         $t = Turno::id($this->par['id']);
-        return [
-            'ok' => $t->chiediPartecipazione($me)
-        ];
+        $val=$t->chiediPartecipazione($me);
+        $r = [];
+        $r['ok'] = $val;
+        if( $val){
+        	$r['id'] = $t->partecipazione($me)->id;
+        }
+        return $r;
     }
 
     private function api_partecipazioni() {
@@ -299,7 +310,9 @@ class APIServer {
         foreach ( $me->partecipazioni() as $p ) {
             $r[] = $p->toJSON();
         }
-        return $r;
+        return [
+	    'risultati' => $r
+	];
     }
 
     private function api_partecipazione_ritirati() {
@@ -307,14 +320,60 @@ class APIServer {
         $this->richiedi(['id']);
         $t = Partecipazione::id($this->par['id']);
         if ( $t->volontario()->id == $me->id ) {
-            $ok = true;
-            $t->ritira();
+            $ok = $t->ritira();
         } else {
             $ok = false;
         }
         return [
             'ok'    =>  $ok
         ];
+    }
+    
+    private function api_rubrica_delegati() {
+    	$me = $this->richiediLogin();
+    	$ccompetenza = $me->comitatiDiCompetenza();
+    	$comitati = $me->comitati();
+    	$locale = $me->unComitato()->locale();
+    	array_push($comitati, $locale);
+    	if ($ccompetenza)
+    		$comitati = array_merge($comitati, $ccompetenza);
+    	$comitati = array_unique($comitati);
+    	 
+    	$delegati = [];
+    	 
+    	foreach ( $comitati as $comitato ) {
+    		$delegati = array_merge($delegati, $comitato->volontariDelegati());
+    	}
+    	$delegati = array_unique($delegati);
+    	$r=[];
+    	foreach ( $delegati as $delegato ) {
+    		$_v = Volontario::id($delegato);
+    		$d = $_v->delegazioni();
+    		$del=[];
+    		foreach ($d as $_d) {
+    			$delega=[];
+    			$delega['applicazione'] = $_d->applicazione;
+    			$delega['comitato'] = $_d->comitato()->nomeCompleto();
+    			if ($_d->applicazione == APP_OBIETTIVO) {
+    				$delega['obiettivo'] = $_d->dominio;;
+    			}
+    			if ($_d->applicazione == APP_ATTIVITA) {
+    				$delega['area'] = $_d->dominio;
+    			}
+    			$del[] = $delega;
+    		}
+    		$r[] = [
+    		'avatar'  =>  $_v->avatar()->img(10),
+    		'nome'    =>  $_v->nome,
+    		'cognome' =>  $_v->cognome,
+    		'numero'  =>  $_v->cellulare(),
+    		'email'   =>  $_v->email(),
+    		'deleghe' =>  $del
+    		];
+    	}
+    	return [
+    	'risultati' => $r
+    	];
     }
 
     private function api_geocoding() {
@@ -373,7 +432,7 @@ class APIServer {
     private function api_comitati() {
         return GeoPolitica::ottieniAlbero();
     }
-    
+    	
     private function api_autorizza() {
         $this->richiedi(['id']);
         $this->richiediLogin();
@@ -462,6 +521,10 @@ class APIServer {
             isset($ordini[$this->par['ordine']])
             ) {
             $r->ordine = $ordini[$this->par['ordine']];
+        }
+
+        if ($this->par['stato']) {
+            $r->stato = $this->par['stato'];
         }
 
         // versione modificata per #867

@@ -6,6 +6,9 @@
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
+$d = $me->delegazioneAttuale();
+$admin = (bool) $me->admin();
+
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -50,14 +53,14 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     ?>
     <br/>
 <div class="row-fluid">
-    <div class="span4 allinea-sinistra">
+    <div class="span5 allinea-sinistra">
         <h2>
             <i class="icon-group muted"></i>
-            Quote non pagate
+            Quote non pagate (attivi)
         </h2>
     </div>
             
-     <div class="span4">
+     <div class="span3">
         <div class="btn-group btn-group-vertical">
             <div class="btn-group">
                 <a href="#" class="btn btn-success btn-group">
@@ -154,6 +157,12 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         foreach($elenco as $comitato) {
             $t = $comitato->quoteNo($anno);
             $fiscali = false;
+            $possoRegistrarePagamenti = false;
+            if($admin 
+                || $comitato->nome == $d->comitato()->nome 
+                || $comitato->superiore()->nome == $d->comitato()->nome ) {
+                $possoRegistrarePagamenti = true;
+            }
             if ($comitato->cf()) {
                 $fiscali = true;
             }
@@ -203,7 +212,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
                     <td>
                         <div class="btn-group">
-                            <?php if($registraOk && $accettaPagamenti && $fiscali) { ?>
+                            <?php if($registraOk && $accettaPagamenti && $fiscali && $possoRegistrarePagamenti) { ?>
                             <a class="btn btn-small btn-info" href="?p=us.quote.nuova&id=<?php echo $_v->id; ?>" title="Paga quota">
                                 <i class="icon-certificate"></i> Registra
                             </a>
