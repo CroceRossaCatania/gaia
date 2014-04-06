@@ -74,6 +74,7 @@ abstract class REntita {
   
     /**
      * Ritorna un elenco di tutti gli oggetti nel database
+     * LENTO! NON usare in produzione!
      *
      * @param string $ordine    Opzionale. Ordine in SQL
      * @return array            Array di oggetti

@@ -30,7 +30,7 @@ if ( isset($_COOKIE['sessione']) ) {
 }
 $sessione = new Sessione($sid);
 @setcookie('sessione', $sessione->id, time() + $conf['sessioni']['durata']);
- 
+
 /* Crea eventuale oggetto $me */
 $me = $sessione->utente();
 
@@ -275,6 +275,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     <li><a href="?p=admin.report.comitati.excel"><i class="icon-building"></i> Excel Comitati</a></li>  
                                     <li><a href="?p=admin.format"><i class="icon-upload"></i> Carica format</a></li> 
                                     <li class="nav-header">Avanzate</li>
+                                    <li><a href="?p=admin.buttafuori" data-conferma="Butti fuori tutti da Gaia?"><i class="icon-frown"></i> Butta fuori</a></li> 
                                     <li><a href="?p=admin.script"><i class="icon-stackexchange"></i> Script</a></li> 
                                     <li><a href="?p=admin.reset.comitati"><i class="icon-fire"></i> Reset Comitati</a></li>
                                     <li><a href="?p=admin.cache"><i class="icon-cloud"></i> Cache</a></li>
