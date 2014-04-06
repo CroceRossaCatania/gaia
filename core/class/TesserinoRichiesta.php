@@ -95,18 +95,4 @@ class TesserinoRichiesta extends Entita {
         return $this->codice;
     }
 
-    /*
-     * Ottiene codice tesserino volontario (codicePubblico) DAMIGLIORARE
-     * @return bool(false)|string Codice se presente, alternativamente false
-     */
-    public function codicePubblico() {
-        if ( $this->codicePubblico )
-            return $this->codicePubblico;
-
-        // Generazione codice
-        $this->codicePubblico = '80142' . rand(1000000, 9999999);
-        $this->codicePubblico = $this->codicePubblico . ean_checkdigit($this->codicePubblico);
-        return $this->codicePubblico;
-    }
-
 }
