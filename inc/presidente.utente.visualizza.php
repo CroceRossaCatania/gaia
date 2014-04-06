@@ -465,7 +465,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <th>Fine</th>
         <th>Azioni</th>
       </thead>
-      <?php foreach ( $u->appartenenzeAttuali() as $app ) { ?>
+      <?php foreach ( $u->appartenenzeAttuali(MEMBRO_ORDINARIO) as $app ) { ?>
       <tr class="success">
         <td>
           <strong><?php echo $conf['membro'][$app->stato]; ?></strong>
