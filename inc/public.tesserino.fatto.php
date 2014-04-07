@@ -10,7 +10,7 @@ if ( !captcha_controlla($_POST['sckey'], $_POST['scvalue']) ) {
 
 controllaParametri(['inputNum'], 'validaTesserino&err');
 
-$num = $_GET['inputNum'];
+$num = $_POST['inputNum'];
 
 $u = Utente::daCodicePubblico($num);
 
@@ -18,12 +18,13 @@ $u = Utente::daCodicePubblico($num);
 $verificato = false;
 //if($u && $u->appartenenzaAttuale()) {
 if ($u) {
-    $cogn = 'marinella';
+    $cogn = $u->cognome;
     $verificato = true;
     $l = strlen($cogn);
     $r = rand(1, $l);
-    $c = substr($cogn, $r-1, 1);
+    $c = strtoupper(substr($cogn, $r-1, 1));
 } 
+
 
 ?>
 
@@ -59,6 +60,7 @@ if ($u) {
                         <li>La lettera in posizione <strong><?= $r ?></strong> del cognome del volontario è <strong><?= $c ?></strong></li>
                         <li>Il tesserino appartiene ad un Volontario della Croce Rossa</li>
                         <li>Il Volontario è in regola con la quota associativa</li>
+                        <li>L'immagine a fianco è di esempio e non si riferisce al tesserino che stai verificando</li>
                     </ul>
                     </p>
                 </div>
@@ -69,16 +71,17 @@ if ($u) {
                     <p>
                     <ul>
                         <li>Hai inserito in modo errato il numero di tessera</li>
-                        <li>Il tesserino appartiene ad una persona che non appartiene più alla Croce Rossa</li>
+                        <li>Il tesserino appartiene ad una persona non più in Croce Rossa</li>
                         <li>Il tesserino è scaduto (la data di scadenza è riportata sul retro)</li>
                     </ul>
                     </p>
+                    <p>L'immagine a fianco è di esempio e non si riferisce al tesserino che stai verificando.</p>
                 </div>
             <?php } ?>
         </div>
         <div class="row-fluid">
             <div class="span12">
-                <a href="?p=validaTesserino" class="btn btn-block">
+                <a href="?p=public.tesserino" class="btn btn-block">
                     <i class="icon-reply"></i>
                     Verifica un altro tesserino
                 </a>

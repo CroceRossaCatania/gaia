@@ -113,7 +113,16 @@ class TesserinoRichiesta extends Entita {
         if (!$this->haCodice()) {
             return false;
         }
-        return true();
+        if($this->stato < SPEDITO_CASA) {
+            return false;
+        }
+        if($this->stato > SPEDITO_COMITATO) {
+            return false;
+        }
+        if(!$this->utente()) {
+            return false;
+        }
+        return true;
 
     }
 }

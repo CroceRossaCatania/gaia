@@ -1550,6 +1550,10 @@ class Utente extends Persona {
     }
 
     public static function daCodicePubblico($codice) {
+        $t = TesserinoRichiesta::by('codice', $codice);
+        if($t && $t->utente()) {
+            return $t->utente();
+        }
         return null;
     }
 
