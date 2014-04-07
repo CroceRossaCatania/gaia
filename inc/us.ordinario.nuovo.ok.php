@@ -165,7 +165,7 @@ $l->_LUOGO 		= $a->comitato()->locale()->comune;
 $l->_DATA 		= $q->dataPagamento()->format('d/m/Y');
 $l->_CHINOME	= $me->nomeCompleto();
 $l->_CHICF		= $me->codiceFiscale;
-$f = $l->salvaFile($quota->comitato());
+$f = $l->salvaFile($q->comitato());
 
 
 
