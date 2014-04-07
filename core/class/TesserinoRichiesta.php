@@ -36,7 +36,7 @@ class TesserinoRichiesta extends Entita {
         $utente = $this->utente();
 
         // Verifica l'assegnazione di un codice al tesserino
-        if ( !$this->haCodice() )
+        if (true || !$this->haCodice() )
             $codice = $this->assegnaCodice();
 
         if (!$utente->fototessera() || $utente->fototessera()->stato == FOTOTESSERA_PENDING)
@@ -70,7 +70,7 @@ class TesserinoRichiesta extends Entita {
     }
 
 
-    /*
+    /**
      * Controlla se il tesserino ha un codice assegnato
      * @return bool
      */
@@ -78,7 +78,7 @@ class TesserinoRichiesta extends Entita {
         return (bool) $this->codice;
     }
 
-    /*
+    /**
      * Genera un nuovo codice e lo salva sulla richiesta tesserino
      * Disclaimer: SOVRASCRIVE EVENTUALI CODICI PRESENTI!
      * @return string Codice generato
@@ -97,4 +97,11 @@ class TesserinoRichiesta extends Entita {
         return $this->codice;
     }
 
+    /**
+     * Controlla se la pratica di generazione del tesserino è aperta
+     * @return boot
+     */
+    public function praticaAperta() {
+        return (bool) ($this->stato == RICHIESTO || $this->stato == STAMPATO);
+    }
 }

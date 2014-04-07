@@ -32,6 +32,5 @@ if($_POST["stampa"] == true) {
 
 $t->pConferma = $me;
 $t->tConferma = time();
-$t->timestamp = time();
 
 redirect('us.tesserini&stampato');

@@ -20,7 +20,7 @@ if(!$me->admin() && $me->delegazioneAttuale()->comitato() != $t->struttura()) {
 
 
 if($t->stato == RICHIESTO) { ?>
-<form action="?p=us.tesserini.aggiorna.ok" method="POST">
+<form action="?p=us.tesserini.stampa.ok" method="POST">
 
     <input type="hidden" name="id" value="<?php echo $t->id; ?>" />
 
@@ -71,7 +71,45 @@ if($t->stato == RICHIESTO) { ?>
     </div>
 </form>
 
-<?php } else { ?>
+<?php } elseif ($t->stato == STAMPATO) {
+$c = $u->unComitato();
+?>
+<form action="?p=us.tesserini.invia.ok" method="POST">
+    <input type="hidden" name="id" value="<?php echo $t->id; ?>" />
 
-<?php } ?>
-
+    <div class="modal fade automodal">
+        <div class="modal-header">
+            <h3><i class="icon-credit-card"></i> Stampa del tesserino</h3>
+        </div>
+        <div class="modal-body">
+            <p><strong>Procedura per la spedizione del tesserino di <?= $u->nomeCompleto() ?></strong></p>
+                <label class="radio">
+                    <input type="radio" name="spedizione" value="1" id="comitato" checked>
+                    Spedito presso il <strong><?= $c->nomeCompleto() ?></strong> sito in <?= $c->formattato; ?>
+                </label>
+                <label class="radio">
+                    <input type="radio" name="spedizione" value="0" id="casa">
+                    Spedito all'indirizzo di residenza del Volontario (vedi scheda di dettaglio utente)
+                </label>
+            <hr />
+            <p><strong>Perchè devi fare ciò?</strong></p>
+            <p>
+            Con questo secondo passo stai dichiarando che il tesserino di <?= $u->nomeCompleto() ?> è stato
+            correttamente spedito.<br />
+            </p>
+            <p class="text-info"><i class="icon-info-sign"></i> 
+            <strong>Nota bene: </strong> questa operazione verrà notificata a <?= $u->nome ?> via 
+            email e non è in nessun modo reversibile
+            </p>
+        </div>
+        <div class="modal-footer">
+            <a href="?p=us.tesserini" class="btn">Annulla</a>
+            <button type="submit" class="btn btn-success">
+                <i class="icon-asterisk"></i> Aggiorna lavorazione
+            </button>
+        </div>
+    </div>
+</form>
+<?php } else {
+    redirect('errore.permessi&cattivo');
+}

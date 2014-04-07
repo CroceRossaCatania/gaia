@@ -25,8 +25,8 @@ if(!$admin) {
     </div>
 
     <div class="span4">
-        <a class="btn btn-block" href="?p=us.tesserini.archiviati" title="Pratiche archiviate">
-            <i class="icon-reply"></i> Pratiche archiviate
+        <a class="btn btn-block" href="?p=us.tesserini" title="Pratiche aperte">
+            Pratiche aperte <i class="icon-share-alt"></i>
         </a>
     </div>
     
@@ -63,22 +63,12 @@ if(!$admin) {
         <h4><i class="icon-ok"></i> Stampa registrata</h4>
         <p>La registrazione della stampa del tesserino è avvenuta con successo.</p>
     </div>
-    <?php } elseif (isset($_GET['spedito'])) { ?>
-    <div class="alert alert-block alert-success">
-        <h4><i class="icon-ok"></i> Spedizione registrata</h4>
-        <p>La registrazione della spedizione del tesserino è avvenuta con successo.</p>
-    </div>
     <?php } 
 ?>
 
 <div class="alert alert-block alert-info">
 <p><i class="icon-info-sign"></i> In questa pagina sono presenti tutte le richieste di emissione di <strong>tesserini</strong>
-in corso di lavorazione.</p>
-<p> Per procedere alla stampa di un tesserino premi il pulsante <strong>tesserino</strong> che ti permette di scaricare
-un file in formato <strong>PDF</strong> con dimensioni secondo lo standard <strong>CR-80</strong>.</p>
-<p> Per ogni tesserino è importante indicare tramite il pulsante <strong>Lavora pratica</strong> quando il tesserino è stato
-stampato e quando il tesserino è stato effettivamente inviato al volontario. Se per qualche motivo non ti è possibile
-emettere il tesserino potrai registrare questa informazione.</p>
+in lavorate.</p>
 </div>
   
 <div class="row-fluid">
@@ -104,7 +94,7 @@ emettere il tesserino potrai registrare questa informazione.</p>
             ]);
         }
         foreach($elenco as $tesserino) {
-            if(!$tesserino->praticaAperta()) { continue; }
+            if ($tesserino->praticaAperta()) {continue; }
             $v = $tesserino->utente();
             ?>
 

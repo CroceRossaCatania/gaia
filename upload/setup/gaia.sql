@@ -534,7 +534,7 @@ CREATE TABLE IF NOT EXISTS `tesserinoRichiesta` (
   `volontario` varchar(16) DEFAULT NULL,
   `stato` int(11) DEFAULT NULL,
   `tipo` int(11) DEFAULT NULL,
-  `codice` int(11) DEFAULT NULL,
+  `codice` int(20) DEFAULT NULL,
   `timestamp` varchar(64) DEFAULT NULL,
   `pRichiesta` varchar(16) DEFAULT NULL,
   `tRichiesta` varchar(64) DEFAULT NULL,

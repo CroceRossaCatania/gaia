@@ -39,7 +39,7 @@ function ean_checkdigit($barcode){
  * @return string EAN13 corretto
  */
 function avvolgiCodicePubblico( $numeriCasuali ) {
-    return "8016{$numeriCasuali}{ean_checkdigit($numeriCasuali)}";
+    return (int) "8016{$numeriCasuali}" . ean_checkdigit($numeriCasuali);
 }
 
 
@@ -50,6 +50,6 @@ function avvolgiCodicePubblico( $numeriCasuali ) {
  * @return string EAN13 corretto
  */
 function avvolgiCodicePrivato( $numeriCasuali ) {
-    return "8017{$numeriCasuali}{ean_checkdigit($numeriCasuali)}";
+    return (int) "8017{$numeriCasuali}" . ean_checkdigit($numeriCasuali);
 }
 
