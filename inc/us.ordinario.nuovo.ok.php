@@ -123,6 +123,8 @@ if(!$gia){
 
 /* Generazione della quota */
 
+$quotaMin = $t->ordinario;
+
 $q = new Quota();
 $q->appartenenza 	= $a;
 $q->timestamp 		= time();
@@ -151,7 +153,7 @@ $l->_NASCITA 	= date('d/m/Y', $p->dataNascita);
 $l->_LUOGO 		= $p->luogoNascita;
 $l->_IMPORTO	= soldi($q->quota - ($q->quota - $quotaMin));
 $l->_QUOTA  	= $q->causale;
-if ($q->q - $quotaMin > 0) {
+if ($q->quota - $quotaMin > 0) {
 	$l->_OFFERTA	= $q->offeta;
 	$l->_OFFERIMPORTO = soldi($q->quota - $quotaMin) . "  &#0128; ";
 } else {
@@ -163,7 +165,7 @@ $l->_LUOGO 		= $a->comitato()->locale()->comune;
 $l->_DATA 		= $q->dataPagamento()->format('d/m/Y');
 $l->_CHINOME	= $me->nomeCompleto();
 $l->_CHICF		= $me->codiceFiscale;
-$f = $l->salvaFile();  
+$f = $l->salvaFile($q->comitato());
 
 
 
