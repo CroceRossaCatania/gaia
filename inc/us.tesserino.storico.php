@@ -62,9 +62,9 @@ proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
             ?>
             <tr>
                 <!-- qui ci va il numero di tesserino che è attributo del volontario -->
-                <td></td>
+                <td><?= $_t->codice ?></td>
                 <td>
-                    <?php if ($t->stato >= EMESSO) { ?>
+                    <?php if ($_t->valido()) { ?>
                         <span class="badge badge-success"><i class="icon-ok"></i> Valido</span>
                     <?php } else { ?>
                         <span class="badge badge-important"><i class="icon-remove"></i> Non Valido</span>

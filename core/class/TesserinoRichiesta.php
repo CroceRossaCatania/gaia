@@ -99,9 +99,21 @@ class TesserinoRichiesta extends Entita {
 
     /**
      * Controlla se la pratica di generazione del tesserino è aperta
-     * @return boot
+     * @return bool Stato della pratica
      */
     public function praticaAperta() {
         return (bool) ($this->stato == RICHIESTO || $this->stato == STAMPATO);
+    }
+
+    /**
+     * Controlla se un tesserino è valido
+     * @return bool Stato del tesserino
+     */
+    public function valido() {
+        if (!$this->haCodice()) {
+            return false;
+        }
+        return true();
+
     }
 }

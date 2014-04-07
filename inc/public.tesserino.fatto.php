@@ -15,9 +15,9 @@ $num = $_GET['inputNum'];
 $u = Utente::daCodicePubblico($num);
 
 
-$verificato = true;
+$verificato = false;
 //if($u && $u->appartenenzaAttuale()) {
-if (true) {
+if ($u) {
     $cogn = 'marinella';
     $verificato = true;
     $l = strlen($cogn);
