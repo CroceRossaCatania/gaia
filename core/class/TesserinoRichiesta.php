@@ -36,7 +36,7 @@ class TesserinoRichiesta extends Entita {
         $utente = $this->utente();
 
         // Verifica l'assegnazione di un codice al tesserino
-        if ( !$this->haCodice() )
+        if (true || !$this->haCodice() )
             $codice = $this->assegnaCodice();
 
         if (!$utente->fototessera() || $utente->fototessera()->stato == FOTOTESSERA_PENDING)
@@ -49,17 +49,21 @@ class TesserinoRichiesta extends Entita {
         $f->_COGNOME    = $utente->cognome;
         $f->_NASCITA    = date('d/m/y', $utente->dataNascita) .
                           ", {$utente->comuneNascita}";
+        $f->_COMITATO   = $utente->unComitato()->formattato;
 
-        $int = "Croce Rossa Italiana<br />{$utente->unComitato()->locale()->nome}<br />";
-        if ( $utente->sesso == UOMO )
-            $int .= 'Volontario';
-        else
-            $int .= 'Volontaria';
+        $int = "Croce Rossa Italiana<br />{$utente->unComitato()->locale()->nome}";
         $f->_INTESTAZIONE = $int;
+        
+        $volontario = 'VOLONTARIA';
+        if ( $utente->sesso == UOMO )
+            $volontario = 'VOLONTARIO';
+        $f->_VOLONTARIO = $volontario;
 
         $f->_AVATAR     = $utente->fototessera()->file(20);
         $f->_INGRESSO   = $utente->ingresso()->format('d/m/Y');
         $f->_CODICE     = $codice;
+        $scadenza = $this->timestamp + (7 * ANNO);
+        $f->_SCADENZA   = date('m/Y', $scadenza);
 
         $barcode = new Barcode;
         $barcode->genera($codice);
@@ -92,5 +96,32 @@ class TesserinoRichiesta extends Entita {
         $this->codice = $nuovoCodice;
         return $this->codice;
     }
+
+    /**
+     * Controlla se la pratica di generazione del tesserino è aperta
+     * @return bool Stato della pratica
+     */
+    public function praticaAperta() {
+        return (bool) ($this->stato == RICHIESTO || $this->stato == STAMPATO);
+    }
+     /**
+     * Controlla se un tesserino è valido
+     * @return bool Stato del tesserino
+     */
+    public function valido() {
+        if (!$this->haCodice()) {
+            return false;
+        }
+        if($this->stato < SPEDITO_CASA) {
+            return false;
+        }
+        if($this->stato > SPEDITO_COMITATO) {
+            return false;
+        }
+        if(!$this->utente()) {
+            return false;
+        }
+        return true;
+     }
 
 }

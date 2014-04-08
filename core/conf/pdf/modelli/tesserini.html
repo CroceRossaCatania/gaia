@@ -20,12 +20,11 @@
 
 		#fronte_img, #retro_img {
 			/* Dimensioni standard ISO/IEC 7810 */
-			width: 8.560cm;
-			height: 5.398cm;
+			width: 100%;
+			height: 100%;
 			position: absolute;
 			top: 0cm;
 			left: 0cm;
-			border: 1px dashed red;
 		}
 
 		.fronte {
@@ -51,53 +50,92 @@
 			font-size: 10pt;	
 		}
 
+		.testo-volontario,
+			{
+			display: block;
+			float: left;
+			position: absolute;	
+			font-family: "Arial";
+			font-size: 10pt;
+			font-weight: bold;
+			color: rgb(123, 121, 121);
+			width: 2.10cm;
+			letter-spacing: -1px;
+		}
+
+		.testo-comitato,
+		.testo-scadenza
+			{
+			display: block;
+			float: left;
+			position: absolute;	
+			font-family: "Arial Italic";
+			font-size: 4pt;
+			font-style: italic;
+		}
+
 		.testo-nome {
-			top:  2.05cm;
-			left: 3.12cm;
+			top:  1.80cm;
+			left: 2.80cm;
 		}
 
 		.testo-cognome {
-			top:  2.80cm;
-			left: 3.12cm;
+			top:  2.45cm;
+			left: 2.80cm;
 		}
 
 		.testo-nascita {
-			left: 3.12cm;
-			top : 3.60cm;
+			left: 2.80cm;
+			top : 3.10cm;
 		}
 
 		.testo-intestazione {
 			right: 2.9cm;
-			top : 0.65cm;
+			top : 0.70cm;
 			font-weight: bold;
 			font-size: 7.056pt;
 			text-align: right;
 		}
 
 		.testo-ingresso {
-			top: 4.35cm;
-			left: 3.12cm;
+			top: 3.80cm;
+			left: 2.80cm;
+		}
+
+		.testo-comitato {
+			top: 2.85cm;
+			left: 1.20cm;
+		}
+
+		.testo-scadenza {
+			top: 3.09cm;
+			left: 6.45cm;
+		}
+
+		.testo-volontario {
+			top: 1.45cm;
+			left: 0.50cm;
 		}
 
 		.avatar 	{
-			left: 0.55cm;
-			top : 2.10cm;
-			width: 2.33cm;
-			height: 2.84cm;
+			left: 0.50cm;
+			top : 1.90cm;
+			width: 2.10cm;
+			height: 2.55cm;
 			border: 1px solid black;
 		}
 
 		#barcode {
-			left: .7cm;
-			top : 2.85cm;
-			width:  4.70cm;
-			height: 1.7cm;
+			left: .4cm;
+			top : 3.10cm;
+			width:  4.60cm;
+			height: 1.6cm;
 			position: absolute;
 		}
 
 		#barcode img {
-			width:  4.70cm;
-			height: 1.7cm;
+			width:  4.60cm;
+			height: 1.6cm;
 		}
 
 		#footer_pdf {
@@ -111,7 +149,8 @@
 
 	<!-- Fronte -->
     <div class="fronte">
-        <img id="fronte_img" src="./img/tesserino/fronte.png" alt="FRONTE" />
+        <img id="fronte_img" src="./img/tesserino/fronte.jpg" alt="FRONTE" />
+        <span class="testo-volontario"		>_VOLONTARIO</span>
         <span class="testo-nome"		>_NOME</span>
         <span class="testo-cognome"		>_COGNOME</span>
         <span class="testo-nascita"		>_NASCITA</span>
@@ -125,7 +164,9 @@
 
     <!-- Retro  -->
     <div class="retro">
-        <img id="retro_img" src="./img/tesserino/retro.png" alt="RETRO" />
+        <img id="retro_img" src="./img/tesserino/retro.jpg" alt="RETRO" />
+        <span class="testo-comitato"		>_COMITATO</span>.
+        <span class="testo-scadenza"		>_SCADENZA</span>
         <div id="barcode" alt="barcode">
         	<img src="_BARCODE" />
         </div>

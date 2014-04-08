@@ -9,8 +9,8 @@ require_once 'core/libs/barcode/Barcode2.php';
 class Barcode extends File {
     
     public 
-        $larghezza  = 5,
-        $altezza    = 200,
+        $larghezza  = 2,
+        $altezza    = 100,
         $testo      = true,
         $tipo       = 'ean13';
 
@@ -26,10 +26,11 @@ class Barcode extends File {
             Image_Barcode2::IMAGE_PNG,
             false,
             $this->altezza,
-            $this->larghezza
+            $this->larghezza,
+            $this->testo
         );
 
-        return imagepng($i, $this->percorso());
+        return imagejpeg($i, $this->percorso());
     }
     
 }
