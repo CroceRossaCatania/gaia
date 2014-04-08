@@ -162,10 +162,18 @@ class Partecipazione extends Entita {
 
     }
     
+    /**
+     * Ritorna se la prenotazione e' ritirabile
+     * @return bool false se la prenotazione non e ritirabile, altrimenti true
+     */
     public function  ritirabile(){
         return ($this->stato == PART_PENDING && $this->turno()->inizio >= time());
     }
 
+    /**
+     * Ritira la prenotazione 
+     * @return bool false se la prenotazione non e ritirabile, altrimenti true
+     */
     public function ritira() {
     	if ( !$this->ritirabile() )
     		return false;
