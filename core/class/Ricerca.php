@@ -129,7 +129,7 @@ class Ricerca {
             $pPassato = ' ';
         }
 
-        if (true) {
+        if ($giovane) {
             $data = time() - GIOVANI;
             $pGiovane = "
                 AND anagrafica.id = dettagliPersona.id
