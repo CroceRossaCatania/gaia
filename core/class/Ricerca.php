@@ -145,7 +145,7 @@ class Ricerca {
             SELECT
                 anagrafica.id, {$pPertinenza}
             FROM
-                anagrafica, appartenenza, comitati {pWhere}
+                anagrafica, appartenenza, comitati {$pWhere}
             WHERE
                         anagrafica.id           =   appartenenza.volontario
                 {$pGiovane}
