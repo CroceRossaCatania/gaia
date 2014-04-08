@@ -129,23 +129,23 @@ class Ricerca {
             $pPassato = ' ';
         }
 
-        if ($giovane) {
+        if (true) {
             $data = time() - GIOVANI;
             $pGiovane = "
-                AND anagrafica.id = dettagliPersona
-                AND dettagliPersona.nome LIKE 'dataNascita'
+                AND anagrafica.id = dettagliPersona.id
+                AND dettagliPersona.nome = 'dataNascita'
                 AND dettagliPersona.valore > {$data} ";
-            $pWhere = ", dettagliPersona";
+            $extraFrom = ", dettagliPersona";
         } else {
             $pWhere = ' ';
-            $pGiovane = ' ';
+            $extraFrom = ' ';
         }
 
         $query = "
             SELECT
                 anagrafica.id, {$pPertinenza}
             FROM
-                anagrafica, appartenenza, comitati {$pWhere}
+                anagrafica, appartenenza, comitati {$extraFrom}
             WHERE
                         anagrafica.id           =   appartenenza.volontario
                 {$pGiovane}

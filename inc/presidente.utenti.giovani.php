@@ -10,6 +10,8 @@ menuElenchiVolontari(
     "?p=utente.mail.nuova&comgio"
 );
 
+$admin = (bool) $me->admin();
+
 ?>
 <?php if ( isset($_GET['ok']) ) { ?>
     <div class="alert alert-success">
@@ -34,9 +36,6 @@ menuElenchiVolontari(
             <div class="btn-group">
                 <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" target="_new" title="Dettagli">
                     <i class="icon-eye-open"></i> Dettagli
-                </a>
-                <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&id={id}" title="Dimetti Volontario">
-                    <i class="icon-ban-circle"></i> Dimetti
                 </a>
                 <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id={id}" title="Invia Mail">
                     <i class="icon-envelope"></i>
@@ -67,85 +66,10 @@ menuElenchiVolontari(
         data-volontari="elenco"
         data-perpagina="30"
         data-azioni="#azioniElenco"
-        data-giovani="true"
+        data-giovane="true"
         <?php if(!$me->admin) echo("data-comitati=\"{$me->delegazioneAttuale()->comitato()->oid()}\""); ?>
         >
-    </table>
-        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
-            <thead>
-                <th>Nome</th>
-                <th>Cognome</th>
-                <th>Codice Fiscale</th> 
-                <th>Azioni</th>
-            </thead>
-            <?php
-            $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO ]);
-            foreach($elenco as $comitato) {
-                $t = $comitato->membriGiovani();
-            ?>
-            <tr class="success">
-                <td colspan="4" class="grassetto">
-                    <?php echo $comitato->nomeCompleto(); ?>
-                    <span class="label label-warning">
-                        <?php echo count($t); ?>
-                    </span>
-                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unitgio">
-                           <i class="icon-envelope"></i> Invia mail
-                    </a>
-                    <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&giovani"
-                       data-attendere="Generazione...">
-                            <i class="icon-download"></i> scarica come foglio excel
-                    </a>
-                </td>
-            </tr>
-            <?php
-            foreach ( $t as $_v ) {
-            ?>
-                <tr>
-                    <td><?php echo $_v->cognome; ?></td>
-                    <td><?php echo $_v->nome; ?></td>
-                    <td><?php echo $_v->codiceFiscale; ?></td>
-                    <td>
-                        <div class="btn-group">
-                            <?php if ( $me->delegazioni(APP_OBIETTIVO) ) { ?>
-                                <a class="btn btn-small" href="?p=profilo.controllo&id=<?php echo $_v->id; ?>" title="Dettagli">
-                                    <i class="icon-eye-open"></i> Dettagli
-                                </a>
-                            <?php }else{ ?>
-                                <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
-                                    <i class="icon-eye-open"></i> Dettagli
-                                </a>
-                            <?php } ?>
-                            <?php if ( $me->presidenziante() || $me->admin() ){ ?>
-                                <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&id=<?php echo $_v->id; ?>" title="Dimetti Volontario">
-                                        <i class="icon-ban-circle"></i> Dimetti
-                                </a>
-                            <?php } ?>
-                            <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
-                                <i class="icon-envelope"></i>
-                            </a>
-                            <?php if ($me->admin) { ?>
-                                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
-                                <i class="icon-trash"></i> Cancella
-                                </a>
-                                <a class="btn btn-small btn-primary" href="?p=admin.beuser&id=<?php echo $_v->id; ?>" title="Log in">
-                                    <i class="icon-key"></i>
-                                </a> 
-                                <a class="btn btn-small btn-primary" href="?p=admin.presidente.nuovo&id=<?php echo $_v->id; ?>" title="Nomina Presidente">
-                                    <i class="icon-star"></i>
-                                </a> 
-                                <a class="btn btn-small btn-danger <?php if ($_v->admin) { ?>disabled<?php } ?>" href="?p=admin.admin.nuovo&id=<?php echo $_v->id; ?>" title="Nomina Admin">
-                                    <i class="icon-magic"></i>
-                                </a>
-                            <?php } ?>
-                        </div>
-                   </td>
-                </tr>
-        <?php 
-            }
-        }
-        ?>
         </table>
+    
     </div>
 </div>
