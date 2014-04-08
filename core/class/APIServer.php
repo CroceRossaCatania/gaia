@@ -375,8 +375,30 @@ class APIServer {
     	'risultati' => $r
     	];
     }
-
-    private function api_geocoding() {
+    
+    private function api_rubrica() {
+    	$me = $this->richiediLogin();
+    	$comitato = $me->unComitato();
+    	$volontari = $comitato->locale()->tuttiVolontari();
+    
+    	foreach ( $volontari as $_v ) {
+    		if($_v->privacy()->contatti($me)) {
+    			$r[] = [
+    			'avatar'  =>  $_v->avatar()->img(10),
+    			'nome'    =>  $_v->nome,
+    			'cognome' =>  $_v->cognome,
+    			'numero'  =>  $_v->cellulare(),
+    			'email'   =>  $_v->email(),
+    			'comitato'=>  $_v->unComitato()->nome
+    			];
+    		}
+    	}
+    	return [
+    	'risultati' => $r
+    	];
+    }
+         
+     private function api_geocoding() {
         $this->richiedi(['query']);
         $g = new Geocoder($this->par['query']);
         return $g->risultati;
