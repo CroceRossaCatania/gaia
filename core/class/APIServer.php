@@ -525,6 +525,16 @@ class APIServer {
 
         if ($this->par['stato']) {
             $r->stato = $this->par['stato'];
+        } elseif ($this->par['stato'] === 0) {
+            $r->stato = 0;
+        }
+
+        if ($this->par['passato']) {
+            $r->passato = true;
+        }
+
+        if ($this->par['giovane']) {
+            $r->giovane = true;
         }
 
         // versione modificata per #867

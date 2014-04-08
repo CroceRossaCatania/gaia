@@ -192,7 +192,12 @@ class Utente extends Persona {
         if($this->stato == VOLONTARIO) {
             $comitato = $this->unComitato();
         } else {
-            $comitato = $this->unComitato(MEMBRO_ORDINARIO);
+            $d = $this->dimesso();
+            if($d || $d === 0) {
+                $comitato = $this->ultimaAppartenenza($d)->comitato();
+            } else {
+                $comitato = $this->unComitato(MEMBRO_ORDINARIO);
+            }
         }
         if ( $comitato ) {
             $comitato = $comitato->toJSONRicerca();
@@ -1400,6 +1405,25 @@ class Utente extends Persona {
             $r[] = $a;
         }
         return $r;
+    }
+
+    /**
+     * Dice se un socio è dimesso
+     * @return int|false   tipo dimissione se dimesso altrimenti false
+     */
+    public function dimesso() {
+        if($this->stato != PERSONA) {
+            return false;
+        }
+        $a = $this->ultimaAppartenenza(MEMBRO_DIMESSO);
+        if($a) {
+            return MEMBRO_DIMESSO;
+        }
+        $a = $this->ultimaAppartenenza(MEMBRO_ORDINARIO_DIMESSO);
+        if($a) {
+            return MEMBRO_ORDINARIO_DIMESSO;
+        }
+        return false;
     }
 
     /**

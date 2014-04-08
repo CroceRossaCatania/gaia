@@ -30,6 +30,47 @@ menuElenchiVolontari(
     
 <div class="row-fluid">
    <div class="span12">  
+        <div class="nascosto" id="azioniElenco">
+            <div class="btn-group">
+                <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" target="_new" title="Dettagli">
+                    <i class="icon-eye-open"></i> Dettagli
+                </a>
+                <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&id={id}" title="Dimetti Volontario">
+                    <i class="icon-ban-circle"></i> Dimetti
+                </a>
+                <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id={id}" title="Invia Mail">
+                    <i class="icon-envelope"></i>
+                </a>
+                <?php if ($admin) { ?>
+                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id={id}" title="Cancella Utente" class="btn btn-small btn-warning">
+                    <i class="icon-trash"></i> Cancella
+                </a>
+                <a class="btn btn-small btn-primary" href="?p=admin.beuser&id={id}" title="Log in">
+                    <i class="icon-key"></i>
+                </a> 
+                <a class="btn btn-small btn-primary" href="?p=admin.password.nuova&id={id}" title="Cambia password">
+                    <i class="icon-eraser"></i>
+                </a>
+                <a class="btn btn-small btn-primary" href="?p=admin.password.reset&id={id}" title="Esegui reset password">
+                    <i class="icon-flag-checkered"></i>
+                </a>                
+                <a class="btn btn-small btn-primary" href="?p=admin.presidente.nuovo&id={id}" title="Nomina Presidente">
+                    <i class="icon-star"></i>
+                </a> 
+                <a class="btn btn-small btn-danger" href="?p=admin.admin.nuovo&id={id}" title="Nomina Admin">
+                    <i class="icon-magic"></i>
+                </a>
+                <?php } ?>
+            </div>
+        </div>
+        <table
+        data-volontari="elenco"
+        data-perpagina="30"
+        data-azioni="#azioniElenco"
+        data-giovani="true"
+        <?php if(!$me->admin) echo("data-comitati=\"{$me->delegazioneAttuale()->comitato()->oid()}\""); ?>
+        >
+    </table>
         <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
                 <th>Nome</th>

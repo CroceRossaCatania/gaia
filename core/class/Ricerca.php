@@ -15,6 +15,8 @@ class Ricerca {
         $pagina         = 1,
         $perPagina      = 30,
         $stato          = MEMBRO_VOLONTARIO,
+        $passato        = false,
+        $giovane        = false,
         $ordine         = [
             'pertinenza             DESC',
             'comitati.nome          ASC',
@@ -82,6 +84,8 @@ class Ricerca {
         $dominio    = $this->_dominio;
         $query      = $this->query;
         $stato      = $this->stato;
+        $passato    = $this->passato;
+        $giovane    = $this->giovane;
         $ora        = (int) time();
 
         if ( $dominio == '*' ) {
@@ -114,21 +118,41 @@ class Ricerca {
             $pStato = "IN ($stato)";
         }
 
+        if (!$passato) {
+            $pPassato = "
+                    AND     ( 
+                                appartenenza.fine  IS NULL 
+                             OR appartenenza.fine  =   0
+                             OR appartenenza.fine  >=  {$ora}
+                        ) ";
+        } else {
+            $pPassato = ' ';
+        }
+
+        if ($giovane) {
+            $data = time() - GIOVANI;
+            $pGiovane = "
+                AND anagrafica.id = dettagliPersona
+                AND dettagliPersona.nome LIKE 'dataNascita'
+                AND dettagliPersona.valore > {$data} ";
+            $pWhere = ", dettagliPersona";
+        } else {
+            $pWhere = ' ';
+            $pGiovane = ' ';
+        }
+
         $query = "
             SELECT
                 anagrafica.id, {$pPertinenza}
             FROM
-                anagrafica, appartenenza, comitati
+                anagrafica, appartenenza, comitati {pWhere}
             WHERE
                         anagrafica.id           =   appartenenza.volontario
+                {$pGiovane}
                 AND     appartenenza.comitato   =   comitati.id
                 AND     appartenenza.stato      {$pStato}
                 AND     appartenenza.inizio     <=  {$ora}
-                AND     ( 
-                            appartenenza.fine  IS NULL 
-                         OR appartenenza.fine  =   0
-                         OR appartenenza.fine  >=  {$ora}
-                    )
+                {$pPassato}
                 {$pDominio}
                 {$pRicerca}   
             GROUP BY    anagrafica.id

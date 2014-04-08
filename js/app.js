@@ -345,6 +345,16 @@ function _tabella_ricerca ( e, query, input, pagina ) {
         geoPolitica = $(e).data('comitati');
     }
 
+    var stato = '';
+    if ( typeof $(e).data('stato') == 'undefined') {
+        stato = false;
+    } else {
+        stato = $(e).data('stato');
+    } 
+
+    var passato = $(e).data('passato');
+    var giovane = $(e).data('giovane');
+
     if (!perPagina) {
         perPagina = 30;
     }
@@ -352,7 +362,10 @@ function _tabella_ricerca ( e, query, input, pagina ) {
         'query':        query,
         'pagina':       pagina,
         'perPagina':    perPagina,
-        'comitati':     geoPolitica
+        'comitati':     geoPolitica,
+        'stato':        stato,
+        'passato':      passato,
+        'giovane':      giovane
     }, function (dati) {
         _tabella_ridisegna(e, dati.risposta, input);
          /* Pulsante indietro... */
