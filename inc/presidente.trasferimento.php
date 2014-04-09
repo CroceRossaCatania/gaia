@@ -37,6 +37,11 @@ paginaPresidenziale();
     <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
     <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
 </div> 
+<?php } if (isset($_GET['giaprot'])) { ?>
+<div class="alert alert-block alert-error">
+    <h4><i class="icon-warning-sign"></i> <strong>Richiesta già protocollata</strong>.</h4>
+    <p>Non è possibile riprotocollare la stessa richiesta più volte.</p>
+</div> 
 <?php } ?>
 <br/>
 <div class="row-fluid">
@@ -78,32 +83,35 @@ paginaPresidenziale();
                 <td><?php echo $v->codiceFiscale; ?></td>
                 <td><?php echo date('d/m/Y', $_t->timestamp); ?></td> 
                 <td><?php echo $_t->comitato()->nomeCompleto(); ?></td>
-                <?php if($t->protNumero){ ?>
-                <td>
-                    <div class="btn-group">
-                        <a class="btn btn-success" href="?p=presidente.trasferimento.ok&id=<?php echo $_t->id; ?>&si">
-                            <i class="icon-ok"></i> Conferma
-                        </a>
-                        <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare il trasferimento a questo utente ?');" href="?p=presidente.trasferimentoNegato&id=<?php echo $_t->id; ?>">
-                            <i class="icon-ban-circle"></i> Nega
-                        </a>
-                    </div>
-                    <?php }else{ ?>
-                    <td>   
+                <?php 
+                if($v->modificabileDa($me)) {
+                    if($_t->protNumero){ ?>
+                    <td>
                         <div class="btn-group">
-                            <a class="btn btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $_t->id; ?>">
-                                <i class="icon-print"></i> Stampa richiesta
+                            <a class="btn btn-success" href="?p=presidente.trasferimento.ok&id=<?php echo $_t->id; ?>&si">
+                                <i class="icon-ok"></i> Conferma
                             </a>
-                            <a class="btn btn-success" href="?p=presidente.trasferimentoRichiesta&id=<?php echo $_t->id; ?>">
-                                <i class="icon-ok"></i> Protocolla richiesta
+                            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare il trasferimento a questo utente ?');" href="?p=presidente.trasferimentoNegato&id=<?php echo $_t->id; ?>">
+                                <i class="icon-ban-circle"></i> Nega
                             </a>
-                            <?php if ($me->admin()) { ?>
-                                <a class="btn btn-danger" href="?p=admin.trasferimento.cancella&id=<?php echo $_t->id; ?>">
-                                        <i class="icon-trash"></i> 
-                                </a>
-                            <?php } ?>
                         </div>
-                    <?php } ?>
+                        <?php }else{ ?>
+                        <td>   
+                            <div class="btn-group">
+                                <a class="btn btn-info" href="?p=presidente.trasferimentoRichiesta.stampa&id=<?php echo $_t->id; ?>">
+                                    <i class="icon-print"></i> Stampa richiesta
+                                </a>
+                                <a class="btn btn-success" href="?p=presidente.trasferimentoRichiesta&id=<?php echo $_t->id; ?>">
+                                    <i class="icon-ok"></i> Protocolla richiesta
+                                </a>
+                                <?php if ($me->admin()) { ?>
+                                    <a class="btn btn-danger" href="?p=admin.trasferimento.cancella&id=<?php echo $_t->id; ?>">
+                                            <i class="icon-trash"></i> 
+                                    </a>
+                                <?php } ?>
+                            </div>
+                        <?php }
+                    } ?>
                 </td>    
             </tr>
         <?php }
