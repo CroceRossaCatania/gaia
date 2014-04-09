@@ -1,8 +1,10 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
+
+paginaPrivata();
 
 if ($sessione->utente()->email) {
   redirect('errore.permessi&cattivo');
