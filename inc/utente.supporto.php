@@ -25,6 +25,8 @@ caricaSelettore();
     <?php if($me->presiede()){?>
     <p>Siamo qui per aiutare. </p>
     <p>Puoi contattarci allo <i class="icon-phone"></i><strong> +39 0692928574</strong>, attenzione questo numero è riservato solo a voi Presidenti pertanto vi invitiamo a non diffonderlo tra i volontari del vostro Comitato. </p>
+    <p>Ti ricordiamo che questa tipologia di assistenza telefonica nasce per aiutare gli utenti nell'utilizzo di GAIA.</p>
+    <p>Qualsiasi <strong>modifica</strong> dei dati presenti in Gaia dovrà avvenire mediante supporto ticket e <strong>NON</strong> tramite telefono!</p>
     <p>Oppure con questo modulo potete richiedere supporto per Gaia.</p>
     <?php }else{ ?>
     <p>Siamo qui per aiutare. Con questo modulo puoi richiedere supporto per Gaia.</p>
@@ -50,7 +52,7 @@ caricaSelettore();
       <div class="control-group">
         <label class="control-label" for="inputOggetto">Assistenza per</label>
         <div class="controls">
-          <a data-selettore="true" data-input="inputVolontario"
+          <a data-selettore="true" data-input="inputVolontario" data-stato="[<?= MEMBRO_VOLONTARIO ?>, <?= MEMBRO_ORDINARIO ?>]"
           class="btn btn-inverse btn-small">
           Seleziona un volontario... <i class="icon-pencil"></i>
         </a>
@@ -62,7 +64,7 @@ caricaSelettore();
       <div class="controls">
         <textarea rows="8" class="input-xlarge conEditor" type="text" id="inputTesto" name="inputTesto" placeholder="Descrivi il tuo problema. Sii descrittivo!"><?php
         if ( isset($_GET['errore']) ) {
-          echo "(Descrivi qui il problema. Per favore sii descrittivo.)<br/><br/>Rif. errore codice {$_GET['errore']}.";
+          echo "(Descrivi qui il problema. Per favore sii descrittivo.)<br/><br/>Rif. errore codice {$_GET['errore']} ";
         }
         ?></textarea>
       </div>

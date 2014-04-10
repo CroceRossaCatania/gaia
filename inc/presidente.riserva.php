@@ -5,6 +5,8 @@
  */
 
 paginaPresidenziale();
+$admin = (bool) $me->admin();
+
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -12,8 +14,14 @@ paginaPresidenziale();
             <i class="icon-save"></i> <strong>Riserva Approvata</strong>.
             Riserva approvata con successo.
         </div>
-        <?php } ?>
-        <?php if ( isset($_GET['no']) ) { ?>
+<?php } ?>
+<?php if ( isset($_GET['canc']) ) { ?>
+        <div class="alert alert-success">
+            <i class="icon-save"></i> <strong>Riserva cancellata</strong>.
+            La riserva è stata cancellata con successo.
+        </div>
+<?php } ?>
+<?php if ( isset($_GET['no']) ) { ?>
         <div class="alert alert-error">
             <i class="icon-warning-sign"></i> <strong>Riserva negata</strong>.
             Riserva negata.
@@ -64,7 +72,7 @@ $comitati= $me->unitaDiCompetenza();
 foreach($comitati as $comitato){
     foreach($comitato->riserve(RISERVA_INCORSO) as $_t){
         $_v = $_t->volontario();
-        $c=$_t->comitato();
+        $c = $_t->comitato();
  ?>
     <tr>
         <td><?php echo $_v->nome; ?></td>
@@ -96,6 +104,11 @@ foreach($comitati as $comitato){
                 <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare la riserva a questo utente ?');" href="?p=presidente.riservaNegato&id=<?php echo $_t->id; ?>">
                     <i class="icon-ban-circle"></i> Nega
                 </a>
+                <?php if ($admin) { ?>
+                    <a class="btn btn-danger" href="?p=admin.riserva.cancella&id=<?php echo $_t->id; ?>">
+                        <i class="icon-trash"></i> 
+                    </a>
+                <?php } ?>
             </div>
         <?php }else{ ?>
         <td>   
@@ -106,6 +119,11 @@ foreach($comitati as $comitato){
                 <a class="btn btn-success" href="?p=presidente.riservaRichiesta&id=<?php echo $_t->id; ?>&si">
                     <i class="icon-ok"></i> Protocolla richiesta
                 </a>
+                <?php if ($admin) { ?>
+                    <a class="btn btn-danger" href="?p=admin.riserva.cancella&id=<?php echo $_t->id; ?>">
+                        <i class="icon-trash"></i> 
+                    </a>
+                <?php } ?>
             </div>
         <?php } ?>    
         </td>

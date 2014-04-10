@@ -7,10 +7,9 @@
 paginaPrivata();
 richiediComitato();
 
-$parametri = array('id', 'inputComitato', 'inputMotivo');
-controllaParametri($parametri);
+$parametri = array();
+controllaParametri(['inputComitato', 'inputMotivo'], $parametri);
 
-$t = $_GET['id'];
 $c = $_POST['inputComitato'];
 if ( !$c ) { 
     redirect('utente.estensione');
@@ -19,7 +18,7 @@ $m = $_POST['inputMotivo'];
 
 /* Cerco appartenenze al comitato specificato */
 $f = Appartenenza::filtra([
-  ['volontario',    $t],
+  ['volontario',    $me],
   ['comitato',      $c]
 ]);
 

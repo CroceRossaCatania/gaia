@@ -9,6 +9,10 @@ $id = $_GET['id'];
 
 $v = Utente::id($id);
 
+if(!$v->modificabileDa($me)) {
+  redirect('us.dash&err');
+}
+
 proteggiDatiSensibili($v, [APP_SOCI , APP_PRESIDENTE]);
 
 /* 

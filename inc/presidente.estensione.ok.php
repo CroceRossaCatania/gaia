@@ -28,7 +28,7 @@
         $m->a = $a->volontario();
         $m->_NOME       = $a->volontario()->nome;
         $m->_COMITATO   = $a->comitato()->nomeCompleto();
-        $m-> _TIME = date('d-m-Y', $e->appartenenza()->timestamp);
+        $m->_TIME = date('d/m/Y', $e->appartenenza()->timestamp);
         $m->invia();
       
         redirect('presidente.estensione&ok');  
@@ -49,8 +49,8 @@
         $m->a = $a->volontario();
         $m->_NOME       = $a->volontario()->nome;
         $m->_COMITATO   = $a->comitato()->nomeCompleto();
-        $m-> _TIME = date('d-m-Y', $a->timestamp);
-        $m-> _MOTIVO = $_POST['motivo'];
+        $m->_TIME = date('d/m/Y', $a->timestamp);
+        $m->_MOTIVO = $_POST['motivo'];
         $m->invia();
 
         redirect('presidente.estensione&no');   

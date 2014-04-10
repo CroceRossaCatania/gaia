@@ -189,7 +189,11 @@ class Utente extends Persona {
 
             
     public function toJSONRicerca() {
-        $comitato = $this->unComitato();
+        if($this->stato == VOLONTARIO) {
+            $comitato = $this->unComitato();
+        } else {
+            $comitato = $this->unComitato(MEMBRO_ORDINARIO);
+        }
         if ( $comitato ) {
             $comitato = $comitato->toJSONRicerca();
         } else {
@@ -313,9 +317,13 @@ class Utente extends Persona {
     }
 
     public function appartenenzaAttuale() {
-        if($this->stato == VOLONTARIO && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO)->attuale()) {
+        if($this->stato == VOLONTARIO 
+            && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO) 
+            && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO)->attuale()) {
             return $this->ultimaAppartenenza(MEMBRO_VOLONTARIO);
-        } elseif ($this->stato == PERSONA && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)->attuale()) {
+        } elseif ($this->stato == PERSONA 
+            && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)
+            && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)->attuale()) {
             return $this->ultimaAppartenenza(MEMBRO_ORDINARIO);
         }
         return null;
@@ -479,11 +487,9 @@ class Utente extends Persona {
             $g->cancella();
         }
         // 12. Sessioni in corso
-        /*
-        foreach ( Sessione::filtra([['utente',$this]]) as $g ) {
+        /*foreach ( Sessione::filtra([['utente',$this]]) as $g ) {
             $g->cancella();
-        }
-        */
+        }*/
         // 13. Titoli personali
         foreach ( TitoloPersonale::filtra([['volontario',$this]]) as $g ) {
             $g->cancella();
@@ -1136,7 +1142,7 @@ class Utente extends Persona {
             $anno = date('Y');
         $q = $this->quote();
         foreach ($q as $_q) {
-            if ($_q->anno == $anno)
+            if ($_q->anno == $anno && !$_q->annullata())
                 return $_q;
         }
         return false;
@@ -1266,6 +1272,9 @@ class Utente extends Persona {
      * @param $altroUtente il modificatore
      */
     public function modificabileDa(Utente $altroUtente) {
+        if (!$altroUtente) {
+            return false;
+        }
         if ($altroUtente->admin()) {
             return true;
         }
@@ -1412,5 +1421,34 @@ class Utente extends Persona {
             }else{
                 return false;
             }
+    }
+    /*
+     * Funzione che non funziona correttamente
+     */
+    public static function limbo() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                anagrafica.id 
+            FROM    
+                anagrafica
+            WHERE
+                ( anagrafica.id NOT IN 
+                    ( SELECT 
+                            volontario 
+                        FROM 
+                            appartenenza 
+                    )
+                )     
+            ORDER BY
+                anagrafica.cognome     ASC,
+                anagrafica.nome  ASC");
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Utente::id($k[0]);
+        }
+        return $r;
+
     }
 }

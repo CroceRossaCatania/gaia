@@ -106,7 +106,7 @@ caricaSelettoreComitato();
         </div>
         
 <div class="row-fluid">
-    <form class="form-horizontal" action="?p=utente.estensione.ok&id=<?php echo $me->id; ?>" method="POST">
+    <form class="form-horizontal" action="?p=utente.estensione.ok" method="POST">
      <div class="control-group">
         <label class="control-label" for="comitato">Comitato Attuale </label>
         <div class="controls">

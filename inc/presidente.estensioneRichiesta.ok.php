@@ -13,6 +13,12 @@ controllaParametri($parametri, 'presidente.estensione&err');
 $e     = $_GET['id'];
 
 $a = Estensione::id($e);
+$v = $a->volontario();
+
+if (!$v->modificabileDa($me) && !$me->admin()) {
+  redirect('presidente.estensione&err');
+}
+
 $a->protNumero = $_POST['numprotocollo'];
 $protData = @DateTime::createFromFormat('d/m/Y', $_POST['dataprotocollo']);
 $protData = @$protData->getTimestamp();

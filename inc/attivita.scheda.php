@@ -409,7 +409,7 @@ $(document).ready( function() {
                                                     </a>
                                                     <?php if( $turno->futuro() && $a->modificabileDa($me) ){ ?>
                                                         <a class="btn btn-small btn-success" href="?p=attivita.modifica.volontario.autorizza&v=<?= $v->id; ?>&turno=<?= $turno; ?>">
-                                                            <i class="icon-trash" ></i> Autorizza volontario
+                                                            <i class="icon-ok-sign" ></i> Autorizza volontario
                                                         </a>
                                                     <?php } ?>
                                                 </li>

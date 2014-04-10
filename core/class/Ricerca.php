@@ -66,7 +66,7 @@ class Ricerca {
         $qRicerca = $db->query($qRicerca);
         $this->risultati = [];
         while ( $k = $qRicerca->fetch(PDO::FETCH_NUM) ) {
-            $this->risultati[] = new Volontario($k[0]);
+            $this->risultati[] = new Utente($k[0]);
         }
 
         $fine = microtime(true);
@@ -81,7 +81,7 @@ class Ricerca {
         $this->ottimizzaDominio();
         $dominio    = $this->_dominio;
         $query      = $this->query;
-        $stato      = (int) $this->stato;
+        $stato      = $this->stato;
         $ora        = (int) time();
 
         if ( $dominio == '*' ) {
@@ -106,6 +106,14 @@ class Ricerca {
             $pRicerca = '';
         }
 
+        if (!is_array($stato)) {
+            $stato = (int) $stato;
+            $pStato = "= {$stato}";
+        } else {
+            $stato = implode(',', $stato);
+            $pStato = "IN ($stato)";
+        }
+
         $query = "
             SELECT
                 anagrafica.id, {$pPertinenza}
@@ -114,7 +122,7 @@ class Ricerca {
             WHERE
                         anagrafica.id           =   appartenenza.volontario
                 AND     appartenenza.comitato   =   comitati.id
-                AND     appartenenza.stato      =   {$stato}
+                AND     appartenenza.stato      {$pStato}
                 AND     appartenenza.inizio     <=  {$ora}
                 AND     ( 
                             appartenenza.fine  IS NULL 

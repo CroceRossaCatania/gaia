@@ -292,6 +292,11 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
                     <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
                 </div> 
+                <?php } if (isset($_GET['nodest'])) { $attenzione = true;  ?>
+                <div class="alert alert-block alert-error">
+                    <h4><i class="icon-warning-sign"></i> <strong>Nessun destinatario valido</strong>.</h4>
+                    <p>L'email che stavi inviando non può essere spedita.</p>
+                </div> 
                 <?php } if (!$me->wizard) { $attenzione = true;  ?>
                 <div class="alert alert-block alert-error">
                     <h4><i class="icon-warning-sign"></i> Completa il tuo profilo</h4>
