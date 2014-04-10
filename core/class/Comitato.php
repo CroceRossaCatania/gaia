@@ -487,7 +487,11 @@ class Comitato extends GeoPolitica {
      * Riserve del comitato in oggetto
      * @return array riserve per dato comitato
      */
-    public function riserve($statoRiserva = RISERVA_INCORSO) {
+    public function riserve($stato = null) {
+        $pStato = ' ';
+        if ($stato) {
+            $pStato = " AND riserve.stato = {$stato} ";
+        }
         $q = "
             SELECT
                 riserve.id
@@ -495,8 +499,7 @@ class Comitato extends GeoPolitica {
                 riserve, appartenenza
             WHERE
                 riserve.volontario = appartenenza.volontario
-            AND
-                riserve.stato = :statoRiserva
+            {$pStato}
             AND
                 appartenenza.stato = :stato
             AND
@@ -505,7 +508,6 @@ class Comitato extends GeoPolitica {
                 riserve.timestamp DESC";
         $q = $this->db->prepare($q);
         $q->bindParam(':id', $this->id);
-        $q->bindParam(':statoRiserva', $statoRiserva);
         $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->execute();
         $r = [];
