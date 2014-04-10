@@ -236,7 +236,7 @@ class Trasferimento extends Entita {
         $v = $this->volontario();
 
         $destinatari = [$v, $this->comitato()->unPresidente(), $v->unComitato()->unPresidente()];
-        $m = new Email('richiestaTrasferimentoAnnullamento', 'Annullata richiesta estensione');          
+        $m = new Email('richiestaTrasferimentoAnnullamento', 'Annullata richiesta trasferimento');          
         $m->a = $destinatari;
         $m->_NOME = $v->nomeCompleto();
         $m->_COMITATO = $this->comitato()->nomeCompleto();
