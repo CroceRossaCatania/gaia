@@ -363,7 +363,7 @@ class APIServer {
     			$del[] = $delega;
     		}
     		$r[] = [
-    		'avatar'  =>  $_v->avatar()->img(10),
+    		'avatar'  =>  $_v->avatar()->URL(),
     		'nome'    =>  $_v->nome,
     		'cognome' =>  $_v->cognome,
     		'numero'  =>  $_v->cellulare(),
@@ -384,7 +384,7 @@ class APIServer {
     	foreach ( $volontari as $_v ) {
     		if($_v->privacy()->contatti($me)) {
     			$r[] = [
-    			'avatar'  =>  $_v->avatar()->img(10),
+    			'avatar'  =>  $_v->avatar()->URL(),
     			'nome'    =>  $_v->nome,
     			'cognome' =>  $_v->cognome,
     			'numero'  =>  $_v->cellulare(),
