@@ -13,11 +13,7 @@ $e = Estensione::id($f);
 $cest = $e->comitato();
 
 $capp = $e->volontario()->unComitato();
-$app = Appartenenza::filtra([
-    ['volontario',  $e->volontario()->id],
-    ['comitato',    $capp->id]
-]);
-$app = $app[0];
+$me->appartenenzaAttuale();
 
 /* Modificando questo, modificare anche utente.estensione.ok */
 $p = new PDF('estensione', 'Estensione.pdf');
@@ -43,9 +39,18 @@ if ( $sessione->inGenerazioneEstensione) {
         $m->_COMITATO   = $cest->nomeCompleto();
         $m-> _TIME = date('d/m/Y', $e->timestamp);
         $m->allega($f);
-        $m->invia();
+        $m->accoda();
+
+        /* Richiesta per all'attuale presidente */
+        $m = new Email('richiestaEstensione.presidente', 'Richiesta estensione di ' . $me->nomeCompleto());
+        $m->a = $capp->unPresidente();
+        $m->_NOME       = $me->nomeCompleto();
+        $m->_COMITATO   = $cest->nomeCompleto();
+        $m->_TIME = date('d/m/Y', $e->timestamp);
+        $m->allega($f);
+        $m->accoda();
         
-         /* Richiesta per conoscenza al nuovo presidente */
+        /* Richiesta per conoscenza al nuovo presidente */
         $m = new Email('richiestaEstensione.cc', 'Richiesta estensione in arrivo a: ' . $e->comitato()->nome);
         $m->a = $cest->unPresidente();
         $m->_NOME       = $me->nomeCompleto();
@@ -53,7 +58,7 @@ if ( $sessione->inGenerazioneEstensione) {
         $m->_USCENTE = $capp->nomeCompleto();
         $m-> _TIME = date('d/m/Y', $e->timestamp);
         $m->allega($f);
-        $m->invia();
+        $m->accoda();
        
         
     redirect('utente.estensione&ok');
