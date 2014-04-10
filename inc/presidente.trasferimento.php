@@ -40,7 +40,7 @@ paginaApp([APP_SOCI, APP_PRESIDENTE]);
 <?php } if (isset($_GET['giaprot'])) { ?>
 <div class="alert alert-block alert-error">
     <h4><i class="icon-warning-sign"></i> <strong>Richiesta già protocollata</strong>.</h4>
-    <p>Non è possibile riprotocollare la stessa richiesta più volte.</p>
+    <p>Non è possibile protocollare la stessa richiesta più volte.</p>
 </div> 
 <?php } ?>
 <br/>

@@ -294,7 +294,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                 <a href="#adminMode" class="btn btn-inverse" data-toggle="modal" role="button">
                                     <i class="icon-github-alt icon-large"></i>
                                 </a>
-                                <?php } else { ?>
+                                <?php } 
+                            if ( $me->admin && $me->admin() ) { ?>
                                 <!-- ADMIN MODE  ATTIVATA... -->
                                 <a href="?p=admin.mode.exit" class="btn btn-inverse hidden-phone">
                                     <i class="icon-github-alt icon-large"></i>

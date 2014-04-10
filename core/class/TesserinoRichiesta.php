@@ -43,13 +43,12 @@ class TesserinoRichiesta extends Entita {
             return false;
 
         $f = new PDF('tesserini', "Tesserino_{$codice}.pdf");
-        $f->formato     = 'cr80';
-        $f->orientamento= ORIENTAMENTO_ORIZZONTALE;
-        $f->_NOME       = $utente->nome;
-        $f->_COGNOME    = $utente->cognome;
-        $f->_NASCITA    = date('d/m/y', $utente->dataNascita) .
-                          ", {$utente->comuneNascita}";
-        $f->_COMITATO   = $utente->unComitato()->formattato;
+        $f->formato         = 'cr80';
+        $f->orientamento    = ORIENTAMENTO_ORIZZONTALE;
+        $f->_NOME           = $utente->nome;
+        $f->_COGNOME        = $utente->cognome;
+        $f->_CODICEFISCALE  = $utente->codiceFiscale;
+        $f->_COMITATO       = $utente->unComitato()->formattato;
 
         $int = "Croce Rossa Italiana<br />{$utente->unComitato()->locale()->nome}";
         $f->_INTESTAZIONE = $int;

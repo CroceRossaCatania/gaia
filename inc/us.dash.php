@@ -192,13 +192,13 @@ if(!$me->admin()) {
                                             <i class="icon-arrow-right"></i>
                                             Trasferimenti in attesa <span class="badge badge-important"><?php if($_n_trasf) { echo($_n_trasf); } ?></span>
                                         </a>
-                                        <a href="?p=presidente.estensiono" class="btn btn-block">
+                                        <a href="?p=presidente.estensione" class="btn btn-block">
                                             <i class="icon-random"></i>
-                                            Estensioni in attesa <span class="badge badge-important"><?php if($_n_ris) { echo($_n_ris); } ?></span>
+                                            Estensioni in attesa <span class="badge badge-important"><?php if($_n_est) { echo($_n_est); } ?></span>
                                         </a>
                                         <a href="?p=presidente.riserva" class="btn btn-block">
                                             <i class="icon-pause"></i>
-                                            Riserve in attesa <span class="badge badge-important"><?php if($_n_est) { echo($_n_est); } ?></span>
+                                            Riserve in attesa <span class="badge badge-important"><?php if($_n_ris) { echo($_n_ris); } ?></span>
                                         </a>
                                     </div>
                                 </div>
@@ -223,10 +223,12 @@ if(!$me->admin()) {
                             </div>
                             <div class="span6">
                                 <div class="row-fluid">
+                                    <?php if ($me->admin() || ($me->delegazioneAttuale()->estensione > EST_PROVINCIALE)) { ?>
                                     <a href="?p=us.tesserini" class="btn btn-block">
                                         <i class="icon-credit-card"></i>
                                         Tesserini
                                     </a>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>

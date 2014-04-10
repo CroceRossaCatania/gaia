@@ -8,7 +8,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $admin = (bool) $me->admin();
 
-if (!$admin && !$me->delegazioneAttuale()->estensione > EST_PROVINCIALE) {
+if (!$admin && !($me->delegazioneAttuale()->estensione > EST_PROVINCIALE)) {
     redirect('errore.permessi&cattivo');
 }
 
