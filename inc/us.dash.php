@@ -7,6 +7,11 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 $_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
 $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
+if(!$me->admin()) {
+    $_n_trasf  = $me->numTrasfPending   ([APP_PRESIDENTE, APP_SOCI]);
+    $_n_ris    = $me->numRisPending     ([APP_PRESIDENTE, APP_SOCI]);
+    $_n_est    = $me->numEstPending     ([APP_PRESIDENTE, APP_SOCI]);
+}
 ?>
 
 <div class="row-fluid">
@@ -182,6 +187,18 @@ $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
                                         <a href="?p=presidente.titoli" class="btn btn-block">
                                             <i class="icon-star"></i>
                                             Titoli in attesa <span class="badge badge-important"><?= $_n_titoli; ?></span>
+                                        </a>
+                                        <a href="?p=presidente.trasferimento" class="btn btn-block">
+                                            <i class="icon-arrow-right"></i>
+                                            Trasferimenti in attesa <span class="badge badge-important"><?php if($_n_trasf) { echo($_n_trasf); } ?></span>
+                                        </a>
+                                        <a href="?p=presidente.estensiono" class="btn btn-block">
+                                            <i class="icon-random"></i>
+                                            Estensioni in attesa <span class="badge badge-important"><?php if($_n_ris) { echo($_n_ris); } ?></span>
+                                        </a>
+                                        <a href="?p=presidente.riserva" class="btn btn-block">
+                                            <i class="icon-pause"></i>
+                                            Riserve in attesa <span class="badge badge-important"><?php if($_n_est) { echo($_n_est); } ?></span>
                                         </a>
                                     </div>
                                 </div>

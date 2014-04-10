@@ -297,10 +297,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                 <?php } else { ?>
                                 <!-- ADMIN MODE  ATTIVATA... -->
                                 <a href="?p=admin.mode.exit" class="btn btn-inverse hidden-phone">
-                                    <span class="icon-stack">
-                                        <i class="icon-github-alt"></i>
-                                        <i class="icon-ban-circle icon-stack-base text-error"></i>
-                                    </span>
+                                    <i class="icon-github-alt icon-large"></i>
                                 </a>
                             <?php } ?>                        
 			</div>
