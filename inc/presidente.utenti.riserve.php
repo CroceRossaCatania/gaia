@@ -21,6 +21,7 @@ menuElenchiVolontari(
                 <th>Cognome</th>
                 <th>Inizio</th>
                 <th>Fine</th>
+                <th>Stato</th>
                 <th>Azioni</th>
             </thead>
             <?php
@@ -29,7 +30,7 @@ menuElenchiVolontari(
                 $r = $comitato->riserve();
                 ?>
                 <tr class="success">
-                    <td colspan="7" class="grassetto">
+                    <td colspan="6" class="grassetto">
                         <?php echo $comitato->nomeCompleto(); ?>
                         <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&riserva">
                             <i class="icon-envelope"></i> Invia mail
@@ -51,6 +52,7 @@ menuElenchiVolontari(
                             <td><?php echo $_v->nome; ?></td>
                             <td><?php echo date('d/m/Y', $riserva->inizio); ?></td>
                             <td><?php echo date('d/m/Y', $riserva->fine); ?></td>
+                            <td><?php echo $conf['riserve'][$riserva->stato]; ?></td>
                             <td>
                                 <div class="btn-group">
                                     <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">

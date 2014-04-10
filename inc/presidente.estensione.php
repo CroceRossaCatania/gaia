@@ -44,7 +44,7 @@ $admin = (bool) $me->admin();
     <h4><i class="icon-warning-sign"></i> <strong>Richiesta già protocollata</strong>.</h4>
     <p>Non è possibile protocollare la stessa richiesta più volte.</p>
 </div> 
-<?php } ?>?>
+<?php } ?>
 <br/>
 <div class="row-fluid">
     <div class="span8">

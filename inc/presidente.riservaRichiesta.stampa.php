@@ -24,12 +24,12 @@ $p->_COMITATO = $c->locale()->nome;
 $p->_NOME = $t->volontario()->nome;
 $p->_COGNOME = $t->volontario()->cognome;
 $p->_LUOGO = $t->volontario()->comuneNascita;
-$p->_DATA = date('d-m-Y', $t->volontario()->dataNascita);
-$p->_ANNOCRI = date('d-m-Y', $app->inizio);
+$p->_DATA = date('d/m/Y', $t->volontario()->dataNascita);
+$p->_ANNOCRI = date('d/m/Y', $app->inizio);
 $p->_MOTIVO = $t->motivo;
-$p->_INIZIO = date('d-m-Y', $t->inizio);
-$p->_FINE = date('d-m-Y', $t->fine);
-$p->_TIME = date('d-m-Y', $t->timestamp);
+$p->_INIZIO = date('d/m/Y', $t->inizio);
+$p->_FINE = date('d/m/Y', $t->fine);
+$p->_TIME = date('d/m/Y', $t->timestamp);
 $f = $p->salvaFile();
 
 if ( $sessione->inGenerazioneRiserva) {
