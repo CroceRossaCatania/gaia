@@ -81,11 +81,20 @@ class Turno extends Entita {
         }
     }
 
+    /**
+     * Ritorna se la prenotazione risulta essere ritirabile
+     * @param mixed $v Riferimento all'utente
+     * @return bool true se esiste una partecipazione ed e ritirabile, altrimenti false
+     */
 	public function partecipazioneRitirabile(Utente $v) {
     	$val=$this->partecipazione($v);
     	return val && $val->ritirabile;	
     }
-    
+    /**
+     * Ritorna lo stato della prenotazione se presente(in attesa, concessa, negata)
+     * @param mixed $v Riferimento all'utente
+     * @return null | int Stato partecipazione se esiste altrimenti null
+     */
     public function partecipazioneStato(Utente $v) {
     	$val=$this->partecipazione($v);
     	if($val)
