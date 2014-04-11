@@ -645,6 +645,8 @@ class Comitato extends GeoPolitica {
                             quote.appartenenza = appartenenza.id
                         AND
                             quote.anno = :anno
+                        AND 
+                            quote.pAnnullata IS NULL
                     )
                 )
             ORDER BY
