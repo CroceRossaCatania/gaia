@@ -15,7 +15,7 @@ if (!$admin && $d->estensione == EST_UNITA) {
     redirect('errore.permessi&cattivo');
 }
 
-$comitato = $_GET['comitato'];
+$comitato = $_GET['id'];
 
 if ($admin) {
     $comitato = Nazionale::elenco()[0];
@@ -35,10 +35,20 @@ $ramo = new RamoGeoPolitico($comitato, ESPLORA_RAMI, EST_LOCALE);
             <div class="span12">
                 <h3><i class="icon-book"></i> Elenco Presidenti </h3>
                 <br />
-                <a href="?p=presidente.presidenti.email&comitato=<?= $comitato->oid() ?>" class="btn btn-block btn-success">
-                    <i class="icon-envelope"></i>
-                    Invia email ai presidenti
-                </a>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <a href="?p=presidente.presidenti.email&comitato=<?= $comitato->oid() ?>" class="btn btn-success btn-block">
+                            <i class="icon-envelope"></i>
+                            Invia email ai presidenti
+                        </a>
+                    </div>
+                    <div class="span6">
+                        <a href="?p=us.utenti.excel&id=<?= $comitato->oid() ?>" class="btn btn-info btn-block">
+                            <i class="icon-download-alt"></i>
+                            Scarica elenco come excel
+                        </a>
+                    </div>
+                </div>
                 <hr />
                 <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
                     <thead>
