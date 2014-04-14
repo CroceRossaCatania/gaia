@@ -3,9 +3,10 @@
 paginaPrivata();
 
 // Redirect ad applicazione
-if ( $sessione->app_redirect )
+if ( $sessione->app_redirect ) {
 	header("Location: {$sessione->app_redirect}");
 	exit(0);
+}
 
 ?>
 

@@ -96,6 +96,7 @@ paginaPubblica();
               <input type="password" id="inputPassword" name="inputPassword" required pattern=".{3,15}" />
             </div>
           </div>
+
           <div class="control-group">
             <label class="control-label" for="inputValida">
               
