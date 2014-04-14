@@ -73,15 +73,5 @@ class Nazionale extends GeoPolitica {
     public function privato() {
         return false;
     }
-
-    public function modificabileDa(Utente $u) {
-        if ($altroUtente->admin()) {
-            return true;
-        }
-        if ($this->unPresidente()->id == $u->id) {
-            return true;
-        }
-        return false;
-    }
     
 }

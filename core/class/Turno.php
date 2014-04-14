@@ -88,7 +88,7 @@ class Turno extends Entita {
      */
 	public function partecipazioneRitirabile(Utente $v) {
     	$val=$this->partecipazione($v);
-    	return val && $val->ritirabile;	
+    	return (bool) ($val && $val->ritirabile());	
     }
     /**
      * Ritorna lo stato della prenotazione se presente(in attesa, concessa, negata)

@@ -12,6 +12,7 @@ if(!$me->admin()) {
     $_n_ris    = $me->numRisPending     ([APP_PRESIDENTE, APP_SOCI]);
     $_n_est    = $me->numEstPending     ([APP_PRESIDENTE, APP_SOCI]);
 }
+
 ?>
 
 <div class="row-fluid">
@@ -68,7 +69,13 @@ if(!$me->admin()) {
                 <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
                 <p>La quota che hai tentato di annullare risultava già annullata.</p>
             </div> 
-            <?php } ?>            
+            <?php } ?>   
+            <?php if (isset($_GET['email'])) { ?>
+            <div class="alert alert-block alert-success">
+                <h4><i class="icon-ok"></i> <strong>Email inviata con successo</strong>.</h4>
+                <p>L'email che hai inviato è stata inserita in coda di invio e al più presto sarà recapitata.</p>
+            </div> 
+            <?php } ?>         
             <div class="span12">
                 <h3>Ufficio Soci</h3>
             </div>
@@ -98,6 +105,7 @@ if(!$me->admin()) {
                     <li class="active"><a href="#elenchi" data-toggle="tab">Elenchi</a></li>
                     <li><a href="#volontari" data-toggle="tab">Volontari</a></li>
                     <li><a href="#quote" data-toggle="tab">Amministrazione</a></li>
+                    <li><a href="#referenti" data-toggle="tab">Referenti</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="elenchi">
@@ -230,6 +238,28 @@ if(!$me->admin()) {
                                     </a>
                                     <?php } ?>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="referenti">
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="btn-group btn-group-vertical span12">
+                                    <?php foreach([1, 2, 3, 4, 5, 6] as $a) { ?>
+                                    <a href="?p=obiettivo.delegati&area=<?= $a ?>" class="btn btn-block">
+                                        <i class="icon-book"></i>
+                                        Delegati area <?= $a ?>
+                                    </a>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <?php if($me->admin() || $me->delegazioneAttuale()->estensione > EST_LOCALE) { ?>
+                                <a href="?p=presidente.presidenti&comitato=<?= $me->delegazioneAttuale()->comitato()->oid() ?>" class="btn btn-block">
+                                    <i class="icon-book"></i>
+                                    Elenco Presidenti
+                                </a>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>

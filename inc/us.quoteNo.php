@@ -63,22 +63,22 @@ $admin = (bool) $me->admin();
      <div class="span3">
         <div class="btn-group btn-group-vertical">
             <div class="btn-group">
-                <a href="#" class="btn btn-success btn-group">
+                <a class="btn dropdown-toggle btn-success" data-toggle="dropdown">
                     <i class="icon-ok"></i>
-                    Quote Pagate
+                    Quote Pagate   
+                    <span class="caret"></span>
                 </a>
-                <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="?p=us.quoteSi"><i class="icon-ok"></i> Volontari</a></li>
                     <li><a href="?p=us.quoteSi.ordinari"><i class="icon-ok"></i> Soci Ordinari</a></li>
                 </ul>
             </div>
             <div class="btn-group">
-                <a href="#" class="btn btn-danger btn-group">
+                <a class="btn dropdown-toggle btn-danger" data-toggle="dropdown">
                     <i class="icon-remove"></i>
                     Quote non pagate
+                    <span class="caret"></span>
                 </a>
-                <a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="?p=us.quoteNo"><i class="icon-remove"></i> Volontari</a></li>
                     <li><a href="?p=us.quoteNo.ordinari"><i class="icon-remove"></i> Soci Ordinari</a></li>

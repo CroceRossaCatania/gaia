@@ -188,7 +188,7 @@ $t = TitoloPersonale::filtra([['volontario',$u]]);
                     <th>Fine</th>
                 </thead>
                 <?php foreach ( $u->storicoDelegazioni() as $app ) { ?>
-                <tr>
+                <tr
                     <?php if ($app->fine >= time() || $app->fine == 0 ) { ?> class="success"<?php } ?>>
                     <td>
                         <?php if ($app->fine >= time() || $app->fine == 0 ) { ?>
