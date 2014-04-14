@@ -20,21 +20,25 @@ class Excel extends File {
     }
     
     public function genera($nome) {
+
+        global $conf;
+
         $this->nome = $nome;
         $this->mime = 'application/vnd.ms-excel';
         
         $s  = "<meta charset='utf-8'>";
+        $s .= "<head><style>.excel-text{ mso-number-format: \"\@\"; } </style></head>";
         $s .= '<table border="0">';
         $s .= '<thead>';
-        foreach ( $this->intestazione as $int ) {
-            $s .= "<th><strong>{$int}</strong></th>";
+        foreach ( $this->intestazione as $int) {
+            $s .= "<th class='excel-text'><strong>{$int}</strong></th>";
         }
         $s .= '</thead>';
         $s .= '<tbody>';
         foreach ( $this->righe as $riga ) {
             $s .= '<tr>';
             foreach ( $riga as $cont ) {
-                $s .= '<td style="min-width: 200px;">';
+                $s .= '<td style="min-width: 200px;" class="excel-text">';
                 $s .= htmlentities($cont);
                 $s .= '</td>';
             }

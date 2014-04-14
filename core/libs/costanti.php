@@ -763,3 +763,18 @@ $conf['tesseriniStatoBreve'] = [
 
 define('ORIENTAMENTO_ORIZZONTALE',        'landscape');
 define('ORIENTAMENTO_VERTICALE',          'portrait');
+
+
+/*
+ * ===================================
+ * ========= COLONNE EXCEL ===========
+ * ===================================
+ */
+
+define('EXCEL-TEXT',           0);
+define('EXCEL-NUM',           10);
+
+$conf['excel'] = [
+    EXCEL_TEXT      =>  'excel-text', 
+    EXCEL_NUM       =>  'excel-num'
+    ];

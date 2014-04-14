@@ -254,8 +254,13 @@ if(!$me->admin()) {
                                 </div>
                             </div>
                             <div class="span6">
-                                <?php if($me->admin() || $me->delegazioneAttuale()->estensione > EST_LOCALE) { ?>
+                                <?php if($me->delegazioneAttuale()->estensione > EST_LOCALE) { ?>
                                 <a href="?p=presidente.presidenti&comitato=<?= $me->delegazioneAttuale()->comitato()->oid() ?>" class="btn btn-block">
+                                    <i class="icon-book"></i>
+                                    Elenco Presidenti
+                                </a>
+                                <?php } elseif($me->admin() ) { ?>
+                                <a href="?p=presidente.presidenti&comitato=Nazionale:1>" class="btn btn-block">
                                     <i class="icon-book"></i>
                                     Elenco Presidenti
                                 </a>
