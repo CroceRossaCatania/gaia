@@ -68,7 +68,9 @@ class File extends Entita {
     }
     
     public function cancella() {
-        @unlink($this->percorso());
+        if(is_file($this->percorso())) {
+            unlink(realpath($this->percorso()));
+        }
         parent::cancella();
     }
 }

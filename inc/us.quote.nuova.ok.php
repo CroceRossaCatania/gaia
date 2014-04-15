@@ -11,6 +11,10 @@ controllaParametri($parametri, 'us.dash&err');
 
 $v = Utente::id($_POST['vol']);
 
+if(!$v->modificabileDa($me)) {
+  redirect('us.dash&err');
+}
+
 proteggiDatiSensibili($v, [APP_SOCI , APP_PRESIDENTE]);
 
 if (!$t = Tesseramento::attivo()) {
@@ -87,7 +91,7 @@ if ($q->quota - $quotaMin > 0) {
 }
 $p->_TOTALE     = soldi($q->quota);
 $p->_LUOGO 		= $app->comitato()->locale()->comune;
-$p->_DATA 		= $q->dataPagamento()->inTesto(false);
+$p->_DATA 		= $q->dataPagamento()->format('d/m/Y');
 $p->_CHINOME	= $me->nomeCompleto();
 $p->_CHICF		= $me->codiceFiscale;
 $f = $p->salvaFile($app->comitato());                                

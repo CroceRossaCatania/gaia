@@ -19,8 +19,9 @@ foreach($f as $_f){
 $f = Appartenenza::filtra([
   ['volontario', $t]
   ]);
-$a = $t->ultimaAppartenenza();
+$a = $t->appartenenzaAttuale();
 $c = $a->comitato();
+$a = $a->id;
 foreach($f as $_f){
     $_f->cancella();
 }
@@ -172,13 +173,7 @@ foreach ($f as $_f) {
     $_f->cancella();
 }
 
-$t = Persona::id($t);
 $t->cancella();
 
-if($me->id==$t){
-    $sessione->logout();
-}else{
-    redirect('presidente.utenti&ok');    
-}
+redirect('presidente.utenti&ok');    
 
-?>

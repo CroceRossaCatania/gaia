@@ -7,34 +7,16 @@ paginaAdmin();
 <pre>
 <?php
 
+$s = new Sessione;
+$s->test = "x";
+$s = new Sessione;
+$s->test = "x";
+$s->foo = "x";
 
-	$f = new Excel;
-	$f->intestazione(['a', 'b']);
-	$f->aggiungiRiga(['1', '2']);
-	$f->genera('Prova file.xls');
-
-	$m = new Email('mailTestolibero', 'Prova di invio');
-	$m->a = [
-		Utente::by('email', 'alfio.emanuele.f@gmail.com'),
-		Utente::by('email', 'alfio.emanuele.f@gmail.com'),
-		Utente::by('email', 'alfio.emanuele.f@gmail.com'),
-		Utente::by('email', 'alfio.emanuele.f@gmail.com'),
-	];
-	$m->da = Utente::by('email', 'alfio.emanuele.f@gmail.com');
-	$m->_TESTO = 'Prova di testo <b>html</b>';
-	$m->allega($f);
-	$m->allega($f);
-	$m->accoda();
-
-
-
-	foreach ( MEmail::inCoda() as $y ) {
-		$y = MEmail::object($y);
-		echo "Invio email {$y}...\n";
-		$y->invia();
-
-	}
-
+var_dump(Sessione::filtra([['y', 1]]));
+var_dump(Sessione::filtra([['test', 1]]));
+var_dump(Sessione::filtra([['test', "x"]]));
+var_dump(Sessione::filtra([['test', "x"], ["foo", "x"]]));
 
 
 

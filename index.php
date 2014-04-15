@@ -30,7 +30,7 @@ if ( isset($_COOKIE['sessione']) ) {
 }
 $sessione = new Sessione($sid);
 @setcookie('sessione', $sessione->id, time() + $conf['sessioni']['durata']);
- 
+
 /* Crea eventuale oggetto $me */
 $me = $sessione->utente();
 
@@ -109,7 +109,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
             </a>
             <a class="brand" href="?">
             	<img src="./img/logoTop.png" />
-            	&nbsp; <span class="muted">Croce Rossa Italiana</span> &nbsp; «Gaia»
+            	&nbsp; <span class="muted">Croce Rossa Italiana</span> <span class="hidden-phone">&nbsp; «Gaia» </span>
             </a>
             <div class="nav-collapse collapse">
               <ul class="nav">
@@ -275,6 +275,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     <li><a href="?p=admin.report.comitati.excel"><i class="icon-building"></i> Excel Comitati</a></li>  
                                     <li><a href="?p=admin.format"><i class="icon-upload"></i> Carica format</a></li> 
                                     <li class="nav-header">Avanzate</li>
+                                    <li><a href="?p=admin.buttafuori" data-conferma="Butti fuori tutti da Gaia?"><i class="icon-frown"></i> Butta fuori</a></li> 
                                     <li><a href="?p=admin.script"><i class="icon-stackexchange"></i> Script</a></li> 
                                     <li><a href="?p=admin.reset.comitati"><i class="icon-fire"></i> Reset Comitati</a></li>
                                     <li><a href="?p=admin.cache"><i class="icon-cloud"></i> Cache</a></li>
@@ -285,14 +286,21 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             </div>
                             <?php } ?>
 
-                            <?php if ( $me->admin && !$me->admin() ) { ?>
-                            <!-- ADMIN MODE NON ATTIVATA... -->
-                                <a href="#adminMode" class="btn btn-inverse" data-toggle="modal" role="button">
+                            <?php if ( $me->admin) {
+                                if(!$me->admin() ) { ?>
+                                <!-- ADMIN MODE NON ATTIVATA... -->
+                                <a href="#adminMode" class="btn btn-inverse hidden-phone" data-toggle="modal" role="button">
                                     <i class="icon-github-alt icon-large"></i>
                                 </a>
-
-
-                            <?php } ?>
+                                <?php } else { ?>
+                                <!-- ADMIN MODE  ATTIVATA... -->
+                                <a href="?p=admin.mode.exit" class="btn btn-inverse hidden-phone">
+                                    <span class="icon-stack">
+                                        <i class="icon-github-alt"></i>
+                                        <i class="icon-ban-circle icon-stack-base text-error"></i>
+                                    </span>
+                                </a>
+                            <?php }} ?>
 
                                            
 			</div>
@@ -402,7 +410,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
         include './inc/part/comitato.selettore.php';
     } ?>
 
-    <?php if ( $me->admin && !$me->admin() ) { ?>
+    <?php if ( $me && $me->admin && !$me->admin() ) { ?>
     <!-- ADMIN MODE NON ATTIVATA -->
       <div id="adminMode" class="modal hide fade" role="dialog">
         <div class="modal-header">

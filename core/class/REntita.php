@@ -74,6 +74,7 @@ abstract class REntita {
   
     /**
      * Ritorna un elenco di tutti gli oggetti nel database
+     * LENTO! NON usare in produzione!
      *
      * @param string $ordine    Opzionale. Ordine in SQL
      * @return array            Array di oggetti
@@ -87,7 +88,40 @@ abstract class REntita {
             $id = explode(':', $chiave);
             $r[] = static::id($id[1]);
         }
-        return $r;
+        return array_unique($r);
+    }
+
+    /*
+     * Ricerca (lentissima) per uguaglianza, compatibile con Entita::filtra()
+     * @param array(mixed) $pars Array di parametri come da Entita::filtra()
+     * @return array(static) Array di elementi
+     */
+    public static function filtra($pars) {
+        global $cache;
+        $prefisso = static::_prefisso();
+        $primaIterazione = true;
+        $vecchiRisultati = [];
+        foreach ( $pars as $par ) {
+            $risultati  = [];
+            $nome       = $par[0];
+            $valore     = $par[1];
+            $chiavi = $cache->keys("{$prefisso}:*:{$nome}");
+            foreach ( $chiavi as $chiave ) {
+                if ( $cache->get($chiave) == $valore ) {
+                    $id = explode(':', $chiave)[1];
+                    $risultati[] = $id;
+                }
+            }
+            if ( !$primaIterazione ) {
+                $risultati = array_intersect($vecchiRisultati, $risultati);
+            }
+            $vecchiRisultati = $risultati;
+            $primaIterazione = false;
+        }
+        foreach ( $vecchiRisultati as &$r ) {
+            $r = static::id($r);
+        }
+        return $vecchiRisultati;
     }
     
     public function __toString() {

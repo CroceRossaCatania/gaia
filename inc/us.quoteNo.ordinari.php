@@ -6,6 +6,9 @@
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
+$d = $me->delegazioneAttuale();
+$admin = (bool) $me->admin();
+
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -50,35 +53,35 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     ?>
     <br/>
 <div class="row-fluid">
-    <div class="span4 allinea-sinistra">
+    <div class="span5 allinea-sinistra">
         <h2>
             <i class="icon-group muted"></i>
-            Quote non pagate
+            Quote non pagate (ordinari)
         </h2>
     </div>
             
-   <div class="span4">
+   <div class="span3">
         <div class="btn-group btn-group-vertical">
             <div class="btn-group">
-                <a href="#" class="btn btn-success btn-group">
+                <a class="btn dropdown-toggle btn-success" data-toggle="dropdown">
                     <i class="icon-ok"></i>
-                    Quote Pagate
+                    Quote Pagate   
+                    <span class="caret"></span>
                 </a>
-                <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="?p=us.quoteSi"><i class="icon-ok"></i> Volontari</a></li>
                     <li><a href="?p=us.quoteSi.ordinari"><i class="icon-ok"></i> Soci Ordinari</a></li>
                 </ul>
             </div>
             <div class="btn-group">
-                <a href="#" class="btn btn-danger btn-group">
-                    <i class="icon-ok"></i>
+                <a class="btn dropdown-toggle btn-danger" data-toggle="dropdown">
+                    <i class="icon-remove"></i>
                     Quote non pagate
+                    <span class="caret"></span>
                 </a>
-                <a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="?p=us.quoteNo"><i class="icon-ok"></i> Volontari</a></li>
-                    <li><a href="?p=us.quoteNo.ordinari"><i class="icon-ok"></i> Soci Ordinari</a></li>
+                    <li><a href="?p=us.quoteNo"><i class="icon-remove"></i> Volontari</a></li>
+                    <li><a href="?p=us.quoteNo.ordinari"><i class="icon-remove"></i> Soci Ordinari</a></li>
                 </ul>
             </div>
             <a href="?p=us.dash" class="btn btn-block">
@@ -93,7 +96,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <span class="add-on"><i class="icon-search"></i></span>
             <input autofocus required id="cercaUtente" placeholder="Cerca Volontario..." type="text">
         </div>
-       <form action="?p=us.quoteNo" method="POST">
+       <form action="?p=us.quoteNo.ordinari" method="POST">
         <div class="form-search">
             <span class="add-on"><i class="icon-calendar"></i></span>
             <input class="input-medium" autocomplete="off" name="anno" type="number" min="2005" max="<?php echo date('Y'); ?>" step="1" value="<?php echo $anno; ?>">
@@ -123,17 +126,21 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
            <i class="icon-download"></i>
             <strong>Ufficio Soci</strong> &mdash; Scarica tutti i fogli dei volontari che non hanno versato la quota in un archivio zip.
        </a>
-       <?php } ?>
-       <a href="?p=utente.mail.nuova&comquotenoordinari&anno=<?= $anno; ?>" class="btn btn-block btn-success">
+       <?php } if ($anno == $questanno) { ?>
+       <a href="?p=utente.mail.nuova&comquotenoordinari" class="btn btn-block btn-success">
            <i class="icon-envelope"></i>
             <strong>Ufficio Soci</strong> &mdash; Invia mail di massa a tutti i Volontari.
        </a>
-       <?php if ($t->siPuoDimettereTutti()) { ?>
+       <?php }
+       /*
+       if ($t->siPuoDimettereTutti()) { ?>
        <a onClick="return confirm('Vuoi veramente chiudere le quote per anno corrente? questa operazione non è reversibile !');" href="?p=us.quote.chiudi" class="btn btn-block btn-danger">
            <i class="icon-off"></i>
             <strong>Ufficio Soci</strong> &mdash; Chiudi le quote per l'anno corrente
        </a>
-       <?php } ?>
+       <?php } 
+       */ 
+       ?>
        <hr />
        </div>
        
@@ -150,11 +157,16 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         foreach($elenco as $comitato) {
             $t = $comitato->quoteNo($anno , MEMBRO_ORDINARIO);
             $fiscali = false;
+            $possoRegistrarePagamenti = false;
+            if($admin 
+                || $comitato->nome == $d->comitato()->nome 
+                || $comitato->superiore()->nome == $d->comitato()->nome ) {
+                $possoRegistrarePagamenti = true;
+            }
             if ($comitato->cf()) {
                 $fiscali = true;
             }
-                ?>
-            
+            ?>
             <tr class="success">
                 <td colspan="5" class="grassetto">
                     <?php echo $comitato->nomeCompleto(); ?>
@@ -165,10 +177,11 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     <span class="label label-important">
                         <?php echo "Codice fiscale non inserito!"; ?>
                     </span>
-                    <?php } ?>
-                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&unitquotenoordinari&anno=<?= $anno; ?>">
+                    <?php } if ($anno == $questanno) { ?>
+                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&unitquotenoordinari&id=<?php echo $comitato->id; ?>">
                            <i class="icon-envelope"></i> Invia mail
                     </a>
+                    <?php } ?>
                     <a class="btn btn-small pull-right" 
                        href="?p=presidente.utenti.excel&quotenoordinari&comitato=<?php echo $comitato->id; ?>&anno=<?= $anno; ?>"
                        data-attendere="Generazione...">
@@ -198,7 +211,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
                     <td>
                         <div class="btn-group">
-                            <?php if($registraOk && $accettaPagamenti && $fiscali) { ?>
+                            <?php if($registraOk && $accettaPagamenti && $fiscali && $possoRegistrarePagamenti) { ?>
                             <a class="btn btn-small btn-info" href="?p=us.quote.nuova&id=<?php echo $_v->id; ?>" title="Paga quota">
                                 <i class="icon-certificate"></i> Registra
                             </a>

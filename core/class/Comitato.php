@@ -487,8 +487,11 @@ class Comitato extends GeoPolitica {
      * Riserve del comitato in oggetto
      * @return array riserve per dato comitato
      */
-    public function riserve() {
-        $stato = (int) $stato;
+    public function riserve($stato = null) {
+        $pStato = ' ';
+        if ($stato) {
+            $pStato = " AND riserve.stato = {$stato} ";
+        }
         $q = "
             SELECT
                 riserve.id
@@ -496,6 +499,7 @@ class Comitato extends GeoPolitica {
                 riserve, appartenenza
             WHERE
                 riserve.volontario = appartenenza.volontario
+            {$pStato}
             AND
                 appartenenza.stato = :stato
             AND
@@ -504,7 +508,7 @@ class Comitato extends GeoPolitica {
                 riserve.timestamp DESC";
         $q = $this->db->prepare($q);
         $q->bindParam(':id', $this->id);
-        $q->bindValue('stato', MEMBRO_VOLONTARIO);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
@@ -624,33 +628,40 @@ class Comitato extends GeoPolitica {
     }
     
     public function quoteSi($anno , $stato=MEMBRO_VOLONTARIO) {
+        $statiPossibili = [MEMBRO_VOLONTARIO, MEMBRO_DIMESSO, MEMBRO_TRASFERITO]; 
+        if($stato == MEMBRO_ORDINARIO) {
+            $statiPossibili = [MEMBRO_ORDINARIO, MEMBRO_ORDINARIO_DIMESSO];
+        }
+        $stati = implode(',', $statiPossibili);
         $q = $this->db->prepare("
-            SELECT  anagrafica.id
-            FROM    appartenenza, anagrafica, quote
+            SELECT  
+                anagrafica.id
+            FROM    
+                appartenenza, anagrafica
             WHERE
-              appartenenza.comitato     = :comitato
-            AND
-                ( appartenenza.fine < 1
-                 OR
-                appartenenza.fine > :ora 
-                OR
-                appartenenza.fine IS NULL)
+                appartenenza.comitato = :comitato
             AND
                 anagrafica.id = appartenenza.volontario
             AND
-                appartenenza.stato = :stato
+                appartenenza.stato IN ( ". $stati ." )
             AND
-                quote.appartenenza = appartenenza.id
-            AND
-                quote.anno = :anno
-            AND
-                quote.pAnnullata IS NULL
+                ( anagrafica.id IN 
+                    ( SELECT
+                            appartenenza.volontario
+                        FROM
+                            quote, appartenenza
+                        WHERE
+                            quote.appartenenza = appartenenza.id
+                        AND
+                            quote.anno = :anno
+                        AND 
+                            quote.pAnnullata IS NULL
+                    )
+                )
             ORDER BY
               anagrafica.cognome     ASC,
               anagrafica.nome  ASC");
         $q->bindParam(':comitato',  $this->id);
-        $q->bindValue(':stato',  $stato);
-        $q->bindParam(':ora',  time());
         $q->bindValue(':anno',    $anno);
         $q->execute();
         $r = [];
@@ -675,12 +686,14 @@ class Comitato extends GeoPolitica {
             AND 
                 ( appartenenza.fine < 1 OR appartenenza.fine > :ora OR appartenenza.fine IS NULL)
             AND 
-                ( appartenenza.id NOT IN 
+                ( anagrafica.id NOT IN 
                     ( SELECT 
-                            appartenenza 
+                            appartenenza.volontario 
                         FROM 
-                            quote 
-                        WHERE 
+                            quote, appartenenza
+                        WHERE
+                            quote.appartenenza = appartenenza.id 
+                        AND
                             anno = :anno
                         AND
                             pAnnullata IS NULL
@@ -885,9 +898,9 @@ class Comitato extends GeoPolitica {
             FROM
                 attivita, turni
             WHERE
-                attivita.stato = :stato
-            AND
                 attivita.comitato = :comitato
+            AND
+                attivita.stato = :stato
             AND
                 turni.attivita = attivita.id
             AND

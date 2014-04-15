@@ -95,7 +95,7 @@ function gestore_errori(
 
 	// Eventualmente redirige alla pagina errore fatale
 	if ( $livello == E_ERROR || $livello == E_USER_ERROR )
-		redirect("errore.fatale&errore={$codice}");
+		redirect("errore.fatale&errore={$e}");
 
 	return true;
 

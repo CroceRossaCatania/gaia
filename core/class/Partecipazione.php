@@ -46,7 +46,10 @@ class Partecipazione extends Entita {
         return [
             'id'        =>  $this->id,
             'turno'     =>  $this->turno()->toJSON(),
-            'attivita'  =>  $this->turno()->attivita,
+            'attivita'  =>  [
+                'id'        =>  $this->turno()->attivita,
+                'nome'      =>  $this->turno()->attivita()->nome,
+            ],
             'stato'     =>  [
                 'id'        =>  (int) $this->stato,
                 'nome'      =>  $conf['partecipazione'][$this->stato]
@@ -92,7 +95,7 @@ class Partecipazione extends Entita {
             $a->richiedi();
             
             $m = new Email('richiestaAutorizzazione', 'Richiesta autorizzazione partecipazione attività');
-            $m->da = $me;
+            $m->da           = $this->volontario();
             $m->a            = $this->turno()->attivita()->referente();
             $m->_NOME        = $this->turno()->attivita()->referente()->nome;
             $m->_ATTIVITA    = $this->turno()->attivita()->nome;
@@ -158,8 +161,22 @@ class Partecipazione extends Entita {
                 ]);
 
     }
+    
+    /**
+     * Ritorna se la prenotazione e' ritirabile
+     * @return bool false se la prenotazione non e ritirabile, altrimenti true
+     */
+    public function  ritirabile(){
+        return ($this->stato == PART_PENDING && $this->turno()->inizio >= time());
+    }
 
+    /**
+     * Ritira la prenotazione 
+     * @return bool false se la prenotazione non e ritirabile, altrimenti true
+     */
     public function ritira() {
+    	if ( !$this->ritirabile() )
+    		return false;
         $v = $this->volontario();
         $m = new Email('volontarioRitirato', 'Un volontario si è ritirato');
         $m->a = $this->attivita()->referente();

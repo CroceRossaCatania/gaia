@@ -37,6 +37,10 @@ class Trasferimento extends Entita {
         }
     }
 
+    public function dataRichiesta() {
+        return DT::daTimestamp($this->protData);
+    }
+
     public function nega($motivo) {
         global $sessione;    
         $v = $this->volontario();
@@ -58,7 +62,7 @@ class Trasferimento extends Entita {
         $m->a = $a->volontario();
         $m->_NOME       = $v->nome;
         $m->_COMITATO   = $a->comitato()->nomeCompleto();
-        $m->_TIME = date('d/m/Y', $a->timestamp);
+        $m->_TIME = $this->dataRichiesta()->format('d/m/Y');
         $m->_MOTIVO = $motivo;
         $m->invia();
     }
@@ -72,7 +76,7 @@ class Trasferimento extends Entita {
         $m->a = $destinatari;
         $m->_NOME       = $v->nome;
         $m->_COMITATO   = $v->unComitato()->nomeCompleto();
-        $m->_TIME = date('d/m/Y', $t->timestamp);
+        $m->_TIME = $this->dataRichiesta()->format('d/m/Y');
         $m->accoda();
     }
 
@@ -89,7 +93,7 @@ class Trasferimento extends Entita {
         
         $v = $this->volontario();
         $a = $v->appartenenzaAttuale();
-        $c = Comitato::id($a->comitato);
+        $c = $v->unComitato();
 
         /* Chiusura delle estensioni in corso*/
         $e = Estensione::filtra([
@@ -168,7 +172,7 @@ class Trasferimento extends Entita {
             ['volontario', $v->id]
             ]);
         foreach ($p as $_p) {
-            if ( $_p->turno()->futuro() && $_p->turno()->attivita()->comitato() == $c->id) {
+            if ( $_p->turno()->futuro()) {
                 $_p->cancella();
             }
         }
@@ -184,26 +188,26 @@ class Trasferimento extends Entita {
         $nuovaApp = $this->appartenenza();
         $nuovaApp->timestamp = time();
         $nuovaApp->stato     = MEMBRO_VOLONTARIO;
-        if (!auto) 
+        if (!$auto) 
         {
             $nuovaApp->conferma = $sessione->utente()->id;
         }
         $nuovaApp->inizio = time();
         $nuovaApp->fine = PROSSIMA_SCADENZA;
-        if (!auto) {
-            $destinatari = [$nuovaApp->volontario(), $c->unPresidente(), $nuovaApp->comitato()->unPresidente];
-            $m = new Email('richiestaTrasferimentook', 'Approvata richiesta trasferimento verso: ' . $nuovaApp->comitato()->nome);
-            if (!auto)
-            {
-                $m->da = $this->pConferma; 
-            }            
-            $m->a = $destinatari;
-            $m->_NOME       = $nuovaApp->volontario()->nomeCompleto();
-            $m->_COMITATO   = $nuovaApp->comitato()->nomeCompleto();
-            $m-> _TIME = date('d-m-Y', $t->protData);
-            $m->accoda();
 
-        }       
+        $destinatari = [$v, $presidente, $nuovaApp->comitato()->unPresidente()];
+        $m = new Email('richiestaTrasferimentook', 'Approvata richiesta trasferimento verso: ' . $nuovaApp->comitato()->nome);
+        if (!$auto)
+        {
+            $m->da = $sessione->utente();
+        }            
+        $m->a = $destinatari;
+        $m->_NOME       = $nuovaApp->volontario()->nomeCompleto();
+        $m->_COMITATO   = $nuovaApp->comitato()->nomeCompleto();
+        $m->_TIME = $this->dataRichiesta()->format('d/m/Y');
+        $m->accoda();
+
+      
     }
 
     public static function daAutorizzare() {
@@ -238,6 +242,13 @@ class Trasferimento extends Entita {
         $m->_COMITATO = $this->comitato()->nomeCompleto();
         $m->accoda();
 
+    }
+
+    public function cancella() {
+        $a = $this->appartenenza();
+        $a->cancella();
+
+        parent::cancella();
     }
 }
 ?>

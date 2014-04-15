@@ -409,7 +409,7 @@ $(document).ready( function() {
                                                     </a>
                                                     <?php if( $turno->futuro() && $a->modificabileDa($me) ){ ?>
                                                         <a class="btn btn-small btn-success" href="?p=attivita.modifica.volontario.autorizza&v=<?= $v->id; ?>&turno=<?= $turno; ?>">
-                                                            <i class="icon-trash" ></i> Autorizza volontario
+                                                            <i class="icon-ok-sign" ></i> Autorizza volontario
                                                         </a>
                                                     <?php } ?>
                                                 </li>
@@ -450,7 +450,7 @@ $(document).ready( function() {
                             <a class="btn btn-block btn-info btn-large disabled" href="">
                                 <?php echo $conf['partecipazione'][$pk->stato]; ?>
                             </a>
-                            <?php if($pk->stato == PART_PENDING && $turno->inizio >= time()) {?>
+                            <?php if($pk->ritirabile()) {?>
                             <a class="btn btn-block btn-danger " href="?p=attivita.ritirati&id=<?php echo $pk->id; ?>">
                                 <i class="icon-remove"></i>
                                 Ritirati

@@ -20,13 +20,15 @@ $comitato = $attuale->comitato();
 $motivo = $conf['dimissioni'][$_POST['motivo']];
 
 /* Avviso il volontario */
-$m = new Email('dimissionevolontario', 'Dimissione Volontario: ' . $v->nomeCompleto());
-$m->da      = $me;
-$m->a       = $v;
-$m->_NOME   = $v->nome;
-$m->_MOTIVO = $motivo;
-$m->_INFO   = $_POST['info'];
-$m->invia();
+if($_POST['motivo'] != DIM_DECEDUTO) {
+  $m = new Email('dimissionevolontario', 'Dimissione Volontario: ' . $v->nomeCompleto());
+  $m->da      = $me;
+  $m->a       = $v;
+  $m->_NOME   = $v->nome;
+  $m->_MOTIVO = $motivo;
+  $m->_INFO   = $_POST['info'];
+  $m->invia();
+}
 
 /* Creo la dimissione */                
 $d = new Dimissione();
@@ -129,10 +131,25 @@ foreach ($f as $_f) {
 }
 
 /* Chiudo l'appartenenza e declasso a persona */
-$attuale->fine = time();
+$ora = time();
+$comitato = $attuale->comitato;
+$attuale->fine = $ora;
 $attuale->stato = MEMBRO_DIMESSO;
 $v->stato = PERSONA;
 $v->admin=null;
+
+/* Se dimissioni volontarie e l'ha chiesto lo lascio ordinario */
+
+if($d->motivo == DIM_VOLONTARIE && isset($_POST['ordinario'])) {
+  $a = new Appartenenza();
+  $a->volontario  = $v;
+  $a->inizio      = $ora;
+  $a->comitato    = $comitato;
+  $a->fine        = PROSSIMA_SCADENZA;
+  $a->timestamp   = time();
+  $a->stato       = MEMBRO_ORDINARIO;
+  $a->conferma    = $me;
+}
                
 redirect('presidente.utenti&dim');   
 ?>

@@ -4,6 +4,10 @@
  * ©2013 Croce Rossa Italiana
  */
 
+
+// sta merda non funziona
+redirect('errore.permessi&cattivo');
+
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 foreach ( $conf['dimissioni'] as $numero => $dimissioni ) {
