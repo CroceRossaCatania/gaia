@@ -3,6 +3,9 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
+
+paginaAdmin();
+
 $parametri = array('inputTesto', 'inputOggetto');
 controllaParametri($parametri);
 $oggetto= $_POST['inputOggetto']; 

@@ -13,6 +13,8 @@ $e = Estensione::id($e);
 $c=$e->comitato();
 $v = $e->volontario();
 
+proteggiDatiSensibili($v, [APP_PRESIDENTE]);
+
 ?>
 <div class="row-fluid">
     <div class="span12">
