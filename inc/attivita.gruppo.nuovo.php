@@ -20,7 +20,15 @@ $g = new Gruppo();
 	$g->area        =   $attivita->area();
 	$g->referente   =   $attivita->referente();
 	$g->attivita 	=	$attivita->id;
-	$g->estensione	=	EST_GRP_UNITA;
+	if ($attivita->comitato()->_estensione() == EST_REGIONALE) {
+        $g->estensione  =   EST_GRP_REGIONALE;    
+    } elseif ($attivita->comitato()->_estensione() == EST_PROVINCIALE) {
+        $g->estensione  =   EST_GRP_PROVINCIALE;
+    } elseif ($attivita->comitato()->_estensione() == EST_LOCALE) {
+        $g->estensione  =   EST_GRP_LOCALE;
+    } else {
+        $g->estensione  =   EST_GRP_UNITA;
+    }
 
 redirect('attivita.scheda&gok&id=' . $attivita->id);
 

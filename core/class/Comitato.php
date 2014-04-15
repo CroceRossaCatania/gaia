@@ -559,16 +559,25 @@ class Comitato extends GeoPolitica {
         ], 'nome ASC');
         $c = $this->locale();
         $g = array_merge($g, Gruppo::filtra([['comitato', $c->oid()],['estensione', EST_GRP_LOCALE]]));
-        $locali = $c->figli();
+        $r = $c->provinciale()->regionale();
+        $provinciali = $r->figli();
 
-        /*
-         * La parte qua sotto vuol dire che noi facciamo dei gruppo di attività di unità
-         * aperte al comitato..... Ora..... perchè non facciamo attività aperte al comitato?
-         */
-        
-        foreach ($locali as $loc){
-            $loc = $loc->oid();
-            $g = array_merge($g, Gruppo::filtra([['comitato', $loc],['estensione', EST_GRP_LOCALE]]));
+        foreach ($provinciali as $provinciale){
+            $prov = $provinciale->oid();
+            $g = array_merge($g, Gruppo::filtra([['comitato', $prov],['estensione', EST_GRP_REGIONALE]]));
+            $locali = $provinciale->figli();
+            foreach($locali as $locale){
+                $loc = $locale->oid();
+                $g = array_merge($g, Gruppo::filtra([['comitato', $loc],['estensione', EST_GRP_REGIONALE]]));
+                $g = array_merge($g, Gruppo::filtra([['comitato', $loc],['estensione', EST_GRP_PROVINCIALE]]));
+                $comitati = $locale->figli();
+                foreach($comitati as $comitato){
+                    $com = $comitato->oid();
+                    $g = array_merge($g, Gruppo::filtra([['comitato', $com],['estensione', EST_GRP_REGIONALE]]));
+                    $g = array_merge($g, Gruppo::filtra([['comitato', $com],['estensione', EST_GRP_PROVINCIALE]]));
+                    $g = array_merge($g, Gruppo::filtra([['comitato', $com],['estensione', EST_GRP_LOCALE]]));
+                }
+            }
         }
         return array_unique($g);
     }
