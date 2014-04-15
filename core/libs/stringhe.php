@@ -7,12 +7,14 @@
 /**
  * Ritorna una stringa normalizzata come nome (maiuscole e niente spazi di troppo)
  * @param string Una stringa
- * @return string La stringa normalizzata
+ * @return string La stringa normalizzata.
  */
 function normalizzaNome( $stringa ) {
     $stringa = trim($stringa);
     $stringa = strtolower($stringa);
+    $stringa = str_replace("'","' ",$stringa);
     $stringa = ucwords($stringa);
+    $stringa = str_replace("' ","'",$stringa); 
     return $stringa;
 }
 
