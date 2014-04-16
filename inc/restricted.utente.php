@@ -171,9 +171,7 @@ $t = TitoloPersonale::filtra([['volontario',$u]]);
             <?php } ?>     
         </table>
     </div>
-    <?php }
-    if ($titolo) {
-    $titoli = $conf['titoli'];?>
+    <?php } ?>
     <div class="span6">
         <h4><i class="icon-list muted"></i> Curriculum </h4>
         <table class="table table-striped">
@@ -219,5 +217,4 @@ $t = TitoloPersonale::filtra([['volontario',$u]]);
                     <?php } ?>
             </table>
     </div>
-    <?php } ?> 
 </div>
