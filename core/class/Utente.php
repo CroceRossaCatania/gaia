@@ -506,7 +506,9 @@ class Utente extends Persona {
             AND     titoliPersonali.volontario = appartenenza.volontario
             AND     ( appartenenza.fine < 1 
                     OR
-                    appartenenza.fine > :ora )
+                    appartenenza.fine > :ora 
+                    OR 
+                    appartenenza.fine is NULL)
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $ora = time();
@@ -524,7 +526,9 @@ class Utente extends Persona {
             WHERE   stato = :statoPendente
             AND     ( appartenenza.fine < 1 
                     OR
-                    appartenenza.fine > :ora )
+                    appartenenza.fine > :ora 
+                    OR 
+                    appartenenza.fine is NULL)
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', MEMBRO_PENDENTE);
@@ -586,7 +590,9 @@ class Utente extends Persona {
             AND     appartenenza.stato = :stato
             AND     ( appartenenza.fine < 1 
                     OR
-                    appartenenza.fine > :ora )
+                    appartenenza.fine > :ora 
+                    OR 
+                    appartenenza.fine is NULL)
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', RISERVA_INCORSO);
