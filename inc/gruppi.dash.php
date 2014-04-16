@@ -6,7 +6,7 @@
 
 paginaPrivata();
 caricaSelettore();
-
+$modificabile = $gruppo->comitato()->modificabileDa($me);
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
@@ -113,7 +113,7 @@ foreach ($gruppi as $gruppo){
                                 <i class="icon-envelope"></i>
                             </a>
                         <?php }
-                             if ( $gruppo->comitato()->modificabileDa($me) || $me->admin() ){ ?>
+                             if ( $modificabile || $me->admin() ){ ?>
                                 <a class="btn btn-small btn-danger pull-right" onclick="return confirm('Sei davvero sicuro di voler eliminare il gruppo?');" href="?p=gruppi.elimina&id=<?= $gruppo->id; ?>" title="Elimina gruppo">
                                     <i class="icon-trash"></i>
                                 </a>
@@ -126,11 +126,11 @@ foreach ($gruppi as $gruppo){
                                     <i class="icon-random"></i> 
                                     <?php if($gruppo->estensione() != null){ echo $conf['est_grp'][$gruppo->estensione()]; }else{ ?> Seleziona una estensione per il gruppo <?php } ?>
                                 </a>
-                        <?php } } if ( $gruppo->comitato()->modificabileDa($me) || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
+                        <?php } } if ( $modificabile || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
                                 <a class="btn btn-small btn-info pull-right" href="?p=gruppo.modifica&id=<?= $gruppo->id; ?>" title="Modifica gruppo">
                                     <i class="icon-edit"></i>
                                 </a>
-                        <?php } if ( $gruppo->comitato()->modificabileDa($me) ) { ?>
+                        <?php } if ( $modificabile ) { ?>
                         <form class="pull-right" action="?p=gruppi.utente.aggiungi&id=<?php echo $gruppo->id; ?>" method="POST" style="margin-bottom: 0px;">
                             <a data-selettore="true" 
                                data-input="volontari" 
@@ -160,7 +160,7 @@ foreach ($gruppi as $gruppo){
                                 <a class="btn btn-small" href="?p=profilo.controllo&id=<?php echo $volontario->id; ?>" target="_new"  title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>
-                                <?php if ( $gruppo->comitato()->modificabileDa($me) || $me->admin() || $me->gruppiDiCompetenza()){ ?>
+                                <?php if ( $modificabile || $me->admin() || $me->gruppiDiCompetenza()){ ?>
                                     <a class="btn btn-small btn-danger" href="?p=gruppo.utente.espelli&id=<?= $gp[0]; ?>" title="Espelli dal gruppo" onclick="return confirm('Sei davvero sicuro di voler espellere il volontario dal gruppo?');">
                                         <i class="icon-ban-circle"></i> Espelli dal gruppo
                                     </a>
