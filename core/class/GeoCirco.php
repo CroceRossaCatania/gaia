@@ -28,14 +28,14 @@ abstract class GeoCirco extends GeoEntita {
     ) {
         global $db;
         $query  = "SELECT id, ";
-        $query .= static::formulaDistanzaEuclideaPunto($punto) . 'as distanza';
+        $query .= static::formulaDistanzaEuclideaPunto($punto) . ' as distanza ';
         $query .= 'FROM '. static::$_t .' WHERE ';
         $query .= "ST_CONTAINS( ";
-        $query .=   "BUFFER(GEOMFROMTEXT('POINT({$this->latlng()})'), raggio),";
+        $query .=   "BUFFER(geo, raggio),";
         $query .=   "GEOMFROMTEXT('POINT({$punto->latlng()})')";
         $query .= ") ";
         $query .= static::preparaCondizioni($_condizioni);
-        $query .= "ORDER BY {$_ordine}";
+        $query .= " ORDER BY {$_ordine}";
         $query = $db->query($query);
         $r = [];
         while ( $k = $query->fetch(PDO::FETCH_NUM) ) {
