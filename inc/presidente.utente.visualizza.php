@@ -320,6 +320,11 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         href="?p=admin.ordinarizza&id=<?php echo $id; ?>" class="btn btn-warning">
         <i class="icon-hand-down"></i> Ordinarizza
       </a>
+      <?php if(!Appartenenza::filtra([['volontario', $id]])) { ?>
+      <a class="btn btn-info" href="?p=admin.limbo.comitato.nuovo&id=<?= $id; ?>" title="Assegna a Comitato" target="_new">
+        <i class="icon-arrow-right"></i> Assegna a Comitato
+      </a>
+      <?php } ?>
     </div>
   </div>
 <?php }?>
