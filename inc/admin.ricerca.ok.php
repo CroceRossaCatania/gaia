@@ -11,6 +11,9 @@ if(!$u){
 	$u = Utente::by('id', $_POST['input']);
 }
 if(!$u){
+	$u = Utente::by('email', $_POST['input']);
+}
+if(!$u){
 	redirect('admin.ricerca&no');	
 }
 redirect('presidente.utente.visualizza&id='.$u);
