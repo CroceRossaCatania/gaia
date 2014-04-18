@@ -19,9 +19,11 @@ foreach($f as $_f){
 $f = Appartenenza::filtra([
   ['volontario', $t]
   ]);
-$a = $t->appartenenzaAttuale();
-$c = $a->comitato();
-$a = $a->id;
+if($f) {
+  $a = $t->appartenenzaAttuale();
+  $c = $a->comitato();
+  $a = $a->id;
+}
 foreach($f as $_f){
     $_f->cancella();
 }
@@ -103,11 +105,13 @@ foreach ($f as $_f) {
     $_f->cancella();
 }
 
-$f = Gruppo::filtra([
-  ['referente', $t]
-  ]);
-foreach($f as $_f){
-    $_f->referente = $c->unPresidente();
+if($c) {
+  $f = Gruppo::filtra([
+    ['referente', $t]
+    ]);
+  foreach($f as $_f){
+      $_f->referente = $c->unPresidente();
+  }
 }
 
 $f = AppartenenzaGruppo::filtra([
@@ -131,11 +135,13 @@ foreach ($f as $_f) {
     $_f->cancella();
 }
 
-$f = Quota::filtra([
-  ['appartenenza', $a]
-  ]);
-foreach ($f as $_f) {
-    $_f->cancella();
+if($a) {
+  $f = Quota::filtra([
+    ['appartenenza', $a]
+    ]);
+  foreach ($f as $_f) {
+      $_f->cancella();
+  }
 }
 
 $f = Reperibilita::filtra([
