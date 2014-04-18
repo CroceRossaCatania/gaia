@@ -310,13 +310,14 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 <div class="span6">
 <?php if ($admin) { ?>
   <div class="row-fluid">
+    <h4><i class="icon-github"></i> Opzioni admin</h4>
     <div class="span12 allinea-centro">
       <a onClick="return confirm('Vuoi veramente cancellare questo utente?');" 
-        href="?p=admin.utente.cancella&id=<?php echo $id; ?>" class="btn btn-danger btn-large">
+        href="?p=admin.utente.cancella&id=<?php echo $id; ?>" class="btn btn-danger">
         <i class="icon-trash"></i> Cancella
       </a>
       <a onClick="return confirm('Vuoi veramente far diventare un ordinario questo utente?');" 
-        href="?p=admin.ordinarizza&id=<?php echo $id; ?>" class="btn btn-warning btn-large">
+        href="?p=admin.ordinarizza&id=<?php echo $id; ?>" class="btn btn-warning">
         <i class="icon-hand-down"></i> Ordinarizza
       </a>
     </div>
