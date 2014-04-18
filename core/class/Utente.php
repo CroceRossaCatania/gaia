@@ -1205,14 +1205,19 @@ class Utente extends Persona {
         if($this->admin()) {
             return PRIVACY_RISTRETTA;
         }
-        if($this->presidenziante() || in_array($this->delegazioneAttuale()->applicazione, [APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
+        if( $this->presidenziante() ||  in_array($this->delegazioneAttuale()->applicazione, [APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
             $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO]);
             foreach ($comitati as $comitato){
+                echo $altroutente;
+                echo $comitato;
+                echo $altroutente->in($comitato);
                 if($altroutente->in($comitato)){
                     return PRIVACY_RISTRETTA;
                 }
             }
-        }elseif($this->areeDiResponsabilita()){
+        }
+
+        if($this->areeDiResponsabilita()){
             $ar = $this->areeDiResponsabilita();
             foreach( $ar as $_a ){
                 $c = $_a->comitato()->estensione();
@@ -1222,7 +1227,9 @@ class Utente extends Persona {
                     }
                 }
             }
-        }elseif($this->attivitaReferenziate()){
+        }
+        
+        if($this->attivitaReferenziate()){
             $a = $this->attivitaReferenziate();
             $partecipazioni = $this->partecipazioni(PART_OK);
             foreach( $partecipazioni as $p ){
