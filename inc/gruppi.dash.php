@@ -6,7 +6,7 @@
 
 paginaPrivata();
 caricaSelettore();
-$modificabile = $gruppo->comitato()->modificabileDa($me);
+
 ?>
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
@@ -100,6 +100,7 @@ if ( isset($_GET['cancellato'] ) ) {
             </thead>
 <?php
 foreach ($gruppi as $gruppo){
+        $modificabile = $gruppo->comitato()->modificabileDa($me);
         $g = $gruppo->membri();
     ?>
         <tr class="success">
