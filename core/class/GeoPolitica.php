@@ -335,5 +335,16 @@ abstract class GeoPolitica extends GeoEntita {
         } 
         return null;
     }
+
+    /**
+     * Restituisce i gruppi associati ad una geopolitica
+     * @return array(Gruppo) Array di gruppi
+     */
+    public function gruppi() {
+        $g = Gruppo::filtra([
+            ['comitato',    $this->oid()]
+        ], 'nome ASC');
+        return $g;
+    }
     
 }

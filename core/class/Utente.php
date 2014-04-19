@@ -826,6 +826,38 @@ class Utente extends Persona {
         }
         return NULL;
     }
+
+    /**
+     * Restituisce l'elenco dei gruppi a cui un volontario si può iscrivere
+     * @return Array(Gruppo) restituisce un array di gruppi
+     */
+    public function gruppiDisponibili() {
+        $app = $this->appartenenzeAttuali();
+        $r = [];
+        foreach($app as $_a) {
+            $comitato = $_a->comitato();
+            $r = array_merge($r, $comitato->gruppi());
+            while($comitato = $comitato->superiore()) {
+                $r = array_merge($r, $comitato->gruppi());
+            }
+        }
+        return $r;
+    }
+
+    /**
+     * Restituisce l'elenco dei a cui il volontario è attualmente iscritto
+     * @return Array(Gruppo) restituisce un array di gruppi
+     */
+    public function gruppiAttuali() {
+        $g = $this->mieiGruppi();
+        $r = [];
+        foreach($g as $_g) {
+            if($_g->attuale()) {
+                $r[] = $_g;
+            }
+        }
+        return $r;
+    }
     
     public function mieiGruppi() {
         return AppartenenzaGruppo::filtra([
@@ -1083,27 +1115,15 @@ class Utente extends Persona {
     
     public function gruppiDiCompetenza( $app = [ APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO ] ) {
         $gruppi = [];
-        $comitati = $this->comitatiApp($app);
-        $domini = $this->dominiDelegazioni(APP_OBIETTIVO);
-        if ( $domini && !$this->admin() && !$this->presidenziante() ){
+        $comitati = $this->comitatiApp($app, false);
+        if ( !$this->admin() && !$this->presidenziante() ){
             foreach ($comitati as $comitato) {
-                foreach ($domini as $d){
-                    $gruppi = array_merge(
-                        $gruppi,
-                        Gruppo::filtra([
-                            ['referente',$this],
-                            ['obiettivo',$d]
-                        ])
-                    );
-                    if (!$gruppi){
-                        $gruppi = array_merge(
-                            $gruppi,
-                            Gruppo::filtra([
-                            ['referente',$this]
-                        ])
-                        );
-                    }
-                }
+                $gruppi = array_merge(
+                    $gruppi,
+                    Gruppo::filtra([
+                    ['referente',$this]
+                ])
+                );
             $gruppi = array_unique($gruppi);
             }
         }else{
