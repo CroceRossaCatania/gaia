@@ -45,16 +45,18 @@ paginaPresidenziale();
 			<?php
 			$gruppi = $me->gruppiDiCompetenza();
 			$g = [];
-			foreach ($gruppi as $gruppo){
-		        $g = array_merge($g, $gruppo->membri());
-			}
-			$g = array_unique($g);
-			$comitati= $me->comitatiDiCompetenza();
+			$comitati= $me->comitatiApp([APP_PRESIDENTE]);
 			$volontari = [];
 			foreach($comitati as $comitato){
 				$volontari = array_merge($volontari, $comitato->membriAttuali(MEMBRO_VOLONTARIO));
+				foreach($volontari as $_v) {
+					if($_v->gruppiAttuali()) {
+						$g[] = $_v;
+					}
+				}
 			}
 			$volontari = array_unique($volontari);
+			$g = array_unique($g);
 			$mancanti = array_diff( $volontari, $g);
 			foreach ($mancanti as $mancante ){ ?>
 		 		<tr>

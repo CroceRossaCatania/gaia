@@ -357,7 +357,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
 
                 /* Presto iscriviti ad un gruppo! */
 
-                if ( $me->comitati() && $me->unComitato()->gruppi() ) { 
+                if ( $me->comitati() && $me->gruppiDisponibili() ) { 
                     if (!$me->mieiGruppi()){ ?>
                     <div class="alert alert-danger">
                         <div class="row-fluid">

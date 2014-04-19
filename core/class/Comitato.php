@@ -551,39 +551,6 @@ class Comitato extends GeoPolitica {
         }
     }
     
-    
-    
-    public function gruppi() {
-        $g = Gruppo::filtra([
-            ['comitato',    $this->oid()]
-        ], 'nome ASC');
-        $c = $this->locale();
-        $g = array_merge($g, Gruppo::filtra([['comitato', $c->oid()],['estensione', EST_GRP_LOCALE]]));
-        $r = $c->provinciale()->regionale();
-        $provinciali = $r->figli();
-
-        foreach ($provinciali as $provinciale){
-            $prov = $provinciale->oid();
-            $g = array_merge($g, Gruppo::filtra([['comitato', $prov],['estensione', EST_GRP_REGIONALE]]));
-            $locali = $provinciale->figli();
-            foreach($locali as $locale){
-                $loc = $locale->oid();
-                $g = array_merge($g, Gruppo::filtra([['comitato', $loc],['estensione', EST_GRP_REGIONALE]]));
-                $g = array_merge($g, Gruppo::filtra([['comitato', $loc],['estensione', EST_GRP_PROVINCIALE]]));
-                $comitati = $locale->figli();
-                foreach($comitati as $comitato){
-                    $com = $comitato->oid();
-                    $g = array_merge($g, Gruppo::filtra([['comitato', $com],['estensione', EST_GRP_REGIONALE]]));
-                    $g = array_merge($g, Gruppo::filtra([['comitato', $com],['estensione', EST_GRP_PROVINCIALE]]));
-                    $g = array_merge($g, Gruppo::filtra([['comitato', $com],['estensione', EST_GRP_LOCALE]]));
-                }
-            }
-        }
-        return array_unique($g);
-    }
-    
-
-    
     public function toJSON() {
         return [
             'id'            =>  $this->id,
