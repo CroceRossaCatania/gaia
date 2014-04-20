@@ -444,6 +444,7 @@ function _tabella_ridisegna( e, dati, input ) {
     );
     var tbody = $(e).find('tbody');
     $.each( dati.risultati, function (i, volontario) {
+        console.log(volontario);
         var nt = _tabella_sostituzioni(_testo, volontario);
         $(tbody).append(
             '<tr>' +
@@ -473,6 +474,9 @@ function _tabella_sostituzioni (testo, volontario) {
     testo = testo.replace(/{id}/g,       volontario.id);
     testo = testo.replace(/{nome}/g,     volontario.nome);
     testo = testo.replace(/{cognome}/g,  volontario.cognome);
+    if (!volontario.riammissibile) {
+        testo = testo.replace(/{riammissibile}/g,  "nascosto");
+    }
     return testo;
 }
 

@@ -193,8 +193,10 @@ class Utente extends Persona {
             $comitato = $this->unComitato();
         } else {
             $d = $this->dimesso();
-            if($d || $d === 0) {
+            // il secondo check è perchè MEMBRO_DIMESSO è 0
+            if($d || $d === MEMBRO_DIMESSO) {
                 $comitato = $this->ultimaAppartenenza($d)->comitato();
+                $riammissibile = $this->riammissibile();
             } else {
                 $comitato = $this->unComitato(MEMBRO_ORDINARIO);
             }
@@ -204,7 +206,7 @@ class Utente extends Persona {
         } else {
             $comitato = false;
         }
-        return [
+        $r = [
             'id'            =>  $this->id,
             'cognome'       =>  $this->cognome,
             'nome'          =>  $this->nome,
@@ -212,6 +214,10 @@ class Utente extends Persona {
             'codiceFiscale' =>  $this->codiceFiscale,
             'comitato'      =>  $comitato
         ];
+        if($riammissibile) {
+            $r['riammissibile'] = $riammissibile;
+        }
+        return $r;
     }
 
     public function calendarioAttivita(DT $inizio, DT $fine) {
@@ -1328,7 +1334,13 @@ class Utente extends Persona {
         $comitatiGestiti = array_unique($comitatiGestiti);
         
         if ($this->stato == PERSONA || $this->stato == ASPIRANTE) {
-            $c = $this->unComitato(MEMBRO_ORDINARIO);
+            $d = $this->dimesso();
+            // il secondo check è perchè MEMBRO_DIMESSO è 0
+            if($d || $d === MEMBRO_DIMESSO) {
+                $c = $this->ultimaAppartenenza($d)->comitato();
+            } else {
+                $c = $this->unComitato(MEMBRO_ORDINARIO);
+            }
         } else {
             $c = $this->unComitato(MEMBRO_PENDENTE);
         }
@@ -1357,12 +1369,12 @@ class Utente extends Persona {
 
     /*
      * Controlla la riammissibilità entro l'anno solare di un volontario
-     * @return true se volontario riammissible false se non riammissibile
+     * @return true se volontario riammissibile false se non riammissibile
      */
     public function riammissibile() {
         $dimissione = $this->ultimaAppartenenza(MEMBRO_DIMESSO);
-        $ultimo = $dimissione->fine+ANNO;
-        if ($ultimo >= time()){
+        $limiteRiammissione = $dimissione->fine + ANNO;
+        if ($limiteRiammissione >= time()){
             return true;
         }
         return false;
