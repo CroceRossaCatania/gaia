@@ -14,6 +14,8 @@ if(!$u->riammissibile() || !$u->modificabileDa($me)){
 
 $c = $u->ultimaAppartenenza(MEMBRO_DIMESSO)->comitato();
 
+$u->stato = VOLONTARIO;
+
 $a = new Appartenenza();
 $a->volontario = $u;
 $a->comitato = $c;
@@ -23,4 +25,5 @@ $a->stato = MEMBRO_VOLONTARIO;
 $a->timestamp = time();
 $a->conferma = $me;
 
-//bisogna mandare email e fare in modo che non stia più tra i dimessi
+//bisogna mandare email e fare in modo che non stia più tra i dimessi, 
+//inserire pagamento quota reintegro e cazzi e mazzi

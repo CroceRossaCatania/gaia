@@ -1372,6 +1372,9 @@ class Utente extends Persona {
      * @return true se volontario riammissibile false se non riammissibile
      */
     public function riammissibile() {
+        if($this->appartenenzaAttuale()) {
+            return false;
+        }
         $dimissione = $this->ultimaAppartenenza(MEMBRO_DIMESSO);
         $limiteRiammissione = $dimissione->fine + ANNO;
         if ($limiteRiammissione >= time()){
