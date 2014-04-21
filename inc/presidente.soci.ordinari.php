@@ -54,7 +54,7 @@ $admin = $me->admin();
    <div class="span12">
         <div class="nascosto" id="azioniElenco">     
             <div class="btn-group">
-                <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" title="Dettagli">
+                <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" title="Dettagli" target="_new">
                     <i class="icon-eye-open"></i> Dettagli
                 </a> 
                 <a class="btn btn-small btn-info {iscriviBase}" href="?p=formazione.corsibase.iscrizione.ordinario&id={id}" title="Iscrivi a corso base">
@@ -84,6 +84,7 @@ $admin = $me->admin();
         data-perpagina="30"
         data-azioni="#azioniElenco"
         data-stato="<?= MEMBRO_ORDINARIO ?>"
+        <?php if(!$me->admin()) echo("data-comitati=\"{$me->delegazioneAttuale()->comitato()->oid()}\""); ?>
         />
         </table>
     </div>

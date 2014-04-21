@@ -31,6 +31,7 @@ menuElenchiVolontari(
         data-perpagina="30"
         data-azioni="#azioniElenco"
         data-militare="true"
+        <?php if(!$me->admin) echo("data-comitati=\"{$me->delegazioneAttuale()->comitato()->oid()}\""); ?>
         />
         </table>
     </div>
