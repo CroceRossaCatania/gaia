@@ -485,8 +485,13 @@ function _tabella_sostituzioni (testo, volontario) {
     testo = testo.replace(/{id}/g,       volontario.id);
     testo = testo.replace(/{nome}/g,     volontario.nome);
     testo = testo.replace(/{cognome}/g,  volontario.cognome);
+    // se non è riammissibile nascondo il tasto
     if (!volontario.riammissibile) {
         testo = testo.replace(/{riammissibile}/g,  "nascosto");
+    }
+    // se è già iscritto ad un base nascondo il tasto
+    if (volontario.iscrittoBase) {
+        testo = testo.replace(/{iscrittoBase}/g,  "nascosto");
     }
     return testo;
 }

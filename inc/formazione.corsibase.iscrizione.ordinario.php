@@ -4,7 +4,7 @@
 * ©2014 Croce Rossa Italiana
 */
 
-controllaParametri(['id', 'com'], 'presidente.soci.ordinari&err');
+controllaParametri(['id'], 'presidente.soci.ordinari&err');
 paginaPrivata();
 paginaModale();
 
@@ -16,7 +16,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 a cercare per vedere se ci sono corsi base 
 e faccio un po' di merda visto che copernico non c'è */
 
-$comitato = Comitato::id($_GET['com']);
+$comitato = $u->unComitato(MEMBRO_ORDINARIO);
 
 $start = $comitato->superiore();
 if($start->nomeCompleto() == $start->superiore()->nomeCompleto()) {
@@ -30,6 +30,10 @@ $corsi = [];
 foreach($ramo as $c) {
     $corso = $c->corsiBase(false);
     $corsi = array_merge($corsi, $corso);
+}
+
+if(!$corsi) {
+    redirect("presidente.soci.ordinari&noCorsi");
 }
 
 ?>

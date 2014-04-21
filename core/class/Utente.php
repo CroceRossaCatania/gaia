@@ -192,13 +192,16 @@ class Utente extends Persona {
         if($this->stato == VOLONTARIO) {
             $comitato = $this->unComitato();
         } else {
+            // sono su una persona o su un aspirante e controllo prima se è dimesso
             $d = $this->dimesso();
             // il secondo check è perchè MEMBRO_DIMESSO è 0
             if($d || $d === MEMBRO_DIMESSO) {
                 $comitato = $this->ultimaAppartenenza($d)->comitato();
                 $riammissibile = $this->riammissibile();
             } else {
+                // sto lavorando su un ordinario non dimesso e verifico situazione cbase
                 $comitato = $this->unComitato(MEMBRO_ORDINARIO);
+                $iscrittoBase = (bool) $this->partecipazioniBase(ISCR_CONFERMATA);
             }
         }
         if ( $comitato ) {
@@ -214,8 +217,15 @@ class Utente extends Persona {
             'codiceFiscale' =>  $this->codiceFiscale,
             'comitato'      =>  $comitato
         ];
+
+        // se dimesso per cause valide verifico riammissibilità
         if($riammissibile) {
             $r['riammissibile'] = $riammissibile;
+        }
+
+        // se iscritto a base non lo faccio reiscrivere
+        if($iscrittoBase) {
+            $r['iscrittoBase'] = $iscrittoBase;
         }
         return $r;
     }
