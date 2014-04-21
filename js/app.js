@@ -359,8 +359,10 @@ function _tabella_ricerca ( e, query, input, pagina ) {
         statoPersona = $(e).data('statopersona');
     }
 
-    var passato = $(e).data('passato');
-    var giovane = $(e).data('giovane');
+    var passato     = $(e).data('passato');
+    var giovane     = $(e).data('giovane');
+    var infermiera  = $(e).data('infermiera');
+    var militare    = $(e).data('militare');
 
     if (!perPagina) {
         perPagina = 30;
@@ -373,7 +375,9 @@ function _tabella_ricerca ( e, query, input, pagina ) {
         'stato':        stato,
         'passato':      passato,
         'giovane':      giovane,
-        'statoPersona': statoPersona
+        'statoPersona': statoPersona,
+        'infermiera':   infermiera,
+        'militare':     militare
     }, function (dati) {
         _tabella_ridisegna(e, dati.risposta, input);
          /* Pulsante indietro... */

@@ -567,6 +567,14 @@ class APIServer {
             $r->giovane = true;
         }
 
+        if ($this->par['infermiera']) {
+            $r->infermiera = true;
+        }
+
+        if ($this->par['militare']) {
+            $r->militare = true;
+        }
+
         // versione modificata per #867
         if ($this->par['comitati']) {
             $g = GeoPolitica::daOid($this->par['comitati']);

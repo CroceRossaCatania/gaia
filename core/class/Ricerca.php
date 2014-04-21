@@ -18,6 +18,8 @@ class Ricerca {
         $statoPersona   = false,
         $passato        = false,
         $giovane        = false,
+        $infermiera     = false,
+        $militare       = false,
         $ordine         = [
             'pertinenza             DESC',
             'comitati.nome          ASC',
@@ -88,6 +90,8 @@ class Ricerca {
         $statoPersona   = $this->statoPersona;
         $passato        = $this->passato;
         $giovane        = $this->giovane;
+        $infermiera     = $this->infermiera;
+        $militare       = $this->militare;
         $ora            = (int) time();
 
         if ( $dominio == '*' ) {
@@ -131,6 +135,9 @@ class Ricerca {
             $pPassato = ' ';
         }
 
+        $pGiovane = ' ';
+        $extraFrom = ' ';
+
         if ($giovane) {
             $data = time() - GIOVANI;
             $pGiovane = "
@@ -138,9 +145,6 @@ class Ricerca {
                 AND dettagliPersona.nome = 'dataNascita'
                 AND dettagliPersona.valore > {$data} ";
             $extraFrom = ", dettagliPersona";
-        } else {
-            $pWhere = ' ';
-            $extraFrom = ' ';
         }
 
         if (!$statoPersona && $statoPersona !== 0) {
@@ -153,6 +157,24 @@ class Ricerca {
             $pStatoPersona = " AND anagrafica.stato IN ($statoPersona)";
         }
 
+        if($infermiera) {
+            $pInfermiera = "
+                AND anagrafica.id = dettagliPersona.id
+                AND dettagliPersona.nome = 'iv'
+                AND dettagliPersona.valore = 'on'
+            ";
+            $extraFrom = ", dettagliPersona";
+        }
+
+        if($militare) {
+            $pMilitare = "
+                AND anagrafica.id = dettagliPersona.id
+                AND dettagliPersona.nome = 'cm'
+                AND dettagliPersona.valore = 'on'
+            ";
+            $extraFrom = ", dettagliPersona";
+        }
+
         $query = "
             SELECT
                 anagrafica.id, {$pPertinenza}
@@ -162,6 +184,8 @@ class Ricerca {
                         anagrafica.id           =   appartenenza.volontario
                         {$pStatoPersona}
                         {$pGiovane}
+                        {$pInfermiera}
+                        {$pMilitare}
                 AND     appartenenza.comitato   =   comitati.id
                 AND     appartenenza.stato      {$pStato}
                 AND     appartenenza.inizio     <=  {$ora}
