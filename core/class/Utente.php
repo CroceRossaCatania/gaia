@@ -1372,15 +1372,25 @@ class Utente extends Persona {
      * @return true se volontario riammissibile false se non riammissibile
      */
     public function riammissibile() {
+        // appartenenza aperta di qualche tipo
         if($this->appartenenzaAttuale()) {
             return false;
         }
-        $dimissione = $this->ultimaAppartenenza(MEMBRO_DIMESSO);
-        $limiteRiammissione = $dimissione->fine + ANNO;
-        if ($limiteRiammissione >= time()){
-            return true;
+
+        // fuori tempo
+        $app = $this->ultimaAppartenenza(MEMBRO_DIMESSO);
+        $limiteRiammissione = $app->fine + ANNO;
+        if ($limiteRiammissione < time()){
+            return false;
         }
-        return false;
+
+        // controllo tipo dimissione
+        $dimissione = Dimissione::by('appartenenza', $app);
+        if(!in_array($dimissione->motivo, [DIM_TURNO, DIM_QUOTA])) {
+            return false;
+        }
+
+        return true;
     }
 
     /*

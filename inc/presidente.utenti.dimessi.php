@@ -61,6 +61,7 @@ menuElenchiVolontari(
         data-azioni="#azioniElenco"
         data-passato="true"
         data-stato="<?= MEMBRO_DIMESSO ?>"
+        data-statopersona="<?= PERSONA ?>"
         <?php if(!$me->admin()) echo("data-comitati=\"{$me->delegazioneAttuale()->comitato()->oid()}\""); ?>
         >
         </table>

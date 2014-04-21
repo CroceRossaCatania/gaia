@@ -15,6 +15,7 @@ class Ricerca {
         $pagina         = 1,
         $perPagina      = 30,
         $stato          = MEMBRO_VOLONTARIO,
+        $statoPersona   = false,
         $passato        = false,
         $giovane        = false,
         $ordine         = [
@@ -81,12 +82,13 @@ class Ricerca {
         global $db;
 
         $this->ottimizzaDominio();
-        $dominio    = $this->_dominio;
-        $query      = $this->query;
-        $stato      = $this->stato;
-        $passato    = $this->passato;
-        $giovane    = $this->giovane;
-        $ora        = (int) time();
+        $dominio        = $this->_dominio;
+        $query          = $this->query;
+        $stato          = $this->stato;
+        $statoPersona   = $this->statoPersona;
+        $passato        = $this->passato;
+        $giovane        = $this->giovane;
+        $ora            = (int) time();
 
         if ( $dominio == '*' ) {
             $pDominio = '';
@@ -141,6 +143,16 @@ class Ricerca {
             $extraFrom = ' ';
         }
 
+        if (!$statoPersona && $statoPersona !== 0) {
+            $pStatoPersona = ' ';
+        } elseif(!is_array($statoPersona) || $statoPersona === 0) {
+            $statoPersona = (int) $statoPersona;
+            $pStatoPersona = " AND anagrafica.stato = {$statoPersona} ";
+        } else {
+            $statoPersona = implode(',', $statoPersona);
+            $pStatoPersona = " AND anagrafica.stato IN ($statoPersona)";
+        }
+
         $query = "
             SELECT
                 anagrafica.id, {$pPertinenza}
@@ -148,13 +160,14 @@ class Ricerca {
                 anagrafica, appartenenza, comitati {$extraFrom}
             WHERE
                         anagrafica.id           =   appartenenza.volontario
-                {$pGiovane}
+                        {$pStatoPersona}
+                        {$pGiovane}
                 AND     appartenenza.comitato   =   comitati.id
                 AND     appartenenza.stato      {$pStato}
                 AND     appartenenza.inizio     <=  {$ora}
-                {$pPassato}
-                {$pDominio}
-                {$pRicerca}   
+                        {$pPassato}
+                        {$pDominio}
+                        {$pRicerca}   
             GROUP BY    anagrafica.id
 
         ";
