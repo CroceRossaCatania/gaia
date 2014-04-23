@@ -20,6 +20,7 @@ class Ricerca {
         $giovane        = false,
         $infermiera     = false,
         $militare       = false,
+        $filtro         = false,
         $ordine         = [
             'pertinenza             DESC',
             'comitati.nome          ASC',
@@ -28,7 +29,12 @@ class Ricerca {
         ];
 
     private
-        $_dominio       = '';
+        $_dominio       = '',
+        $_tabelle       = [
+            'anagrafica',
+            'appartenenza',
+            'comitati'
+        ];
 
     /*
      * Prepara il dominio di ricerca (elenco di comitati)
@@ -163,7 +169,7 @@ class Ricerca {
                 AND dettagliPersona.nome = 'iv'
                 AND dettagliPersona.valore = 'on'
             ";
-            $extraFrom = ", dettagliPersona";
+            $this->_tabelle[] = 'dettagliPersona';
         }
 
         if($militare) {
@@ -172,14 +178,15 @@ class Ricerca {
                 AND dettagliPersona.nome = 'cm'
                 AND dettagliPersona.valore = 'on'
             ";
-            $extraFrom = ", dettagliPersona";
+            $this->_tabelle[] = 'dettagliPersona';
         }
 
+        $from  = implode(', ', $this->_tabelle);
         $query = "
             SELECT
                 anagrafica.id, {$pPertinenza}
             FROM
-                anagrafica, appartenenza, comitati {$extraFrom}
+                {$from}
             WHERE
                         anagrafica.id           =   appartenenza.volontario
                         {$pStatoPersona}
@@ -213,5 +220,22 @@ class Ricerca {
         $s = "SELECT COUNT(*) as Numero FROM ({$query}) as Tabella";
         return $s;
     }
+
+    /**
+     * Si occupa di applicare un filtro alla ricerca attuale, modificando la query di conseguenza
+     *
+     * @param string                $codiceFiltro     La costante filtro del filtro da applicare, una di FILTRO_*
+     * @param *string               $sql              (Ref.) SQL aggiuntivo al quale eventualmente appendere condizioni
+     * @param Utente|bool(false)    $esecutore        L'utente che esegue la ricerca, sul quale modellare il dominio del filtro
+     * @return bool         True in caso di successo, false se filtro non esistente
+     */
+    protected function _applicaFiltro( $codiceFiltro, &$sql, $esecutore ) {
+
+    }
+
+    /**
+     * Applica un filtro alla ricerca attuale, dato codice filtro ed (opz.) esecutore
+     *
+     * @param */
 
 }
