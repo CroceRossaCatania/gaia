@@ -21,7 +21,7 @@ menuElenchiVolontari(
                 <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" title="Dettagli" target="_new">
                     <i class="icon-eye-open"></i> Dettagli
                 </a>
-                <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id={id}" title="Invia Mail" target="_new"vvvvvsssss>
+                <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id={id}" title="Invia Mail" target="_new">
                     <i class="icon-envelope"></i>
                 </a>
             </div>
