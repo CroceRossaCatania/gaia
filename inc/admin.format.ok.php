@@ -41,6 +41,11 @@ if(isset($_POST['ordinario'])){
 
         $v = Volontario::by('codiceFiscale', $codiceFiscale);
 
+        if (isset($_POST['cancellaCsv'])) {
+            $v->cancellaUtente();
+            continue;
+        }
+
         if ($v && isset($_POST['resetPassword'])) {
             /* Genera e cambia la password casuale */
             $password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
