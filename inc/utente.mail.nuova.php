@@ -7,7 +7,7 @@
 paginaPrivata();
 
 $f = $_GET['id'];
-$t=utente::by('id',$f);
+$t = Utente::by('id',$f);
 ?>
 <div class="row-fluid">
     <div class="span3">
@@ -25,9 +25,9 @@ $t=utente::by('id',$f);
         <?php }elseif (isset($_GET['comgio'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comgio" method="POST">
         <?php }elseif (isset($_GET['unitgio'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&id=<?php echo $f; ?>&unitgio" method="POST">
         <?php }elseif (isset($_GET['comquoteno'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comquoteno" method="POST">
-        <?php }elseif (isset($_GET['comquotesi'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comquotesi" method="POST">
+        <?php }elseif (isset($_GET['comquotenoordinari'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comquotenoordinari" method="POST">
         <?php }elseif (isset($_GET['unitquoteno'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitquoteno&id=<?php echo $f; ?>" method="POST">
-        <?php }elseif (isset($_GET['unitquotesi'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitquotesi&id=<?php echo $f; ?>" method="POST">
+        <?php }elseif (isset($_GET['unitquotenoordinari'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitquotenoordinari&id=<?php echo $f; ?>" method="POST">
         <?php }elseif (isset($_GET['comeleatt'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&comeleatt&time=<?php echo $_GET['time']; ?>" method="POST">   
         <?php }elseif (isset($_GET['uniteleatt'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&uniteleatt&time=<?php echo $_GET['time']; ?>&id=<?php echo $f; ?>" method="POST">
         <?php }elseif (isset($_GET['unitelepass'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitelepass&time=<?php echo $_GET['time']; ?>&id=<?php echo $f; ?>" method="POST">
@@ -36,28 +36,46 @@ $t=utente::by('id',$f);
         <?php }elseif (isset($_GET['riserva'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&riserva&id=<?php echo $f; ?>" method="POST">
         <?php }elseif (isset($_GET['zeroturnicom'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&zeroturnicom&time=<?php echo $_GET['time']; ?>" method="POST">
         <?php }elseif (isset($_GET['zeroturniunit'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&zeroturniunit&id=<?php echo $_GET['id']; ?>&time=<?php echo $_GET['time']; ?>" method="POST">
+        <?php }elseif (isset($_GET['ordinariunit'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&ordinariunit&id=<?php echo $f; ?>" method="POST">
+        <?php }elseif (isset($_GET['ordinaricom'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&ordinaricom" method="POST">
+        <?php }elseif (isset($_GET['ordinaridimessiunit'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&ordinaridimessiunit&id=<?php echo $f; ?>" method="POST">
+        <?php }elseif (isset($_GET['ordinaridimessicom'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&ordinaridimessicom" method="POST">
         <?php }else{ ?> <form class="form-horizontal" action="?p=utente.mail.nuova.ok" method="POST"><?php } ?>
 
- <?php if (isset($_GET['mass']) || isset($_GET['com']) || isset($_GET['unit']) || isset($_GET['comgio']) || isset($_GET['unitgio'])|| isset($_GET['comquoteno'])|| isset($_GET['comquotesi'])|| isset($_GET['unitquoteno'])|| isset($_GET['unitquotesi'])||isset($_GET['comeleatt'])||isset($_GET['uniteleatt'])||isset($_GET['unitelepass'])||isset($_GET['gruppo'])||isset($_GET['estesi'])|| isset($_GET['riserva']) || isset($_GET['zeroturnicom']) || isset($_GET['zeroturniunit']) ) { ?>
+ <?php if (isset($_GET['mass']) 
+            || isset($_GET['com']) 
+            || isset($_GET['unit']) 
+            || isset($_GET['comgio']) 
+            || isset($_GET['unitgio'])
+            || isset($_GET['comquoteno'])
+            || isset($_GET['comquotenoordinari'])
+            || isset($_GET['comquotesi'])
+            || isset($_GET['unitquoteno'])
+            || isset($_GET['unitquotenoordinari'])
+            || isset($_GET['unitquotesi'])
+            || isset($_GET['comeleatt'])
+            || isset($_GET['uniteleatt'])
+            || isset($_GET['unitelepass'])
+            || isset($_GET['gruppo'])
+            || isset($_GET['estesi'])
+            || isset($_GET['riserva']) 
+            || isset($_GET['zeroturnicom']) 
+            || isset($_GET['zeroturniunit']) ) { 
+            ?>
             <div class="control-group">
-              <label class="control-label" for="inputDestinatari">Destinatari</label>
+              <label class="control-label" for="inputV">Destinatari</label>
               <div class="controls">
-                <input type="text" class="span5" name="inputDestinatari" id="inputDestinatari" readonly value="Destinatari Multipli">
+                <input type="text" class="span5" name="inputV" id="inputV" readonly value="Destinatari Multipli">
               </div>
             </div>
            <?php }else{ ?>     
             <div class="control-group">
-              <label class="control-label" for="inputDestinatario">Destinatario</label>
+              <label class="control-label" for="inputV">Destinatario</label>
               <div class="controls">
-                <input type="text" class="span5" name="inputDestinatario" id="inputDestinatario" readonly value="<?php echo $t->nome, " "; echo $t->cognome; ?>">
+                <input type="text" class="span5" name="inputV" id="inputV" readonly value="<?php echo $t->nome, " "; echo $t->cognome; ?>">
               </div>
             </div>
-            <div class="control-group">
-              <label class="control-label" for="inputMail">Mail</label>
-              <div class="controls">
-                <input type="text" class="span5" name="inputMail" id="inputMail" readonly value="<?php echo $t->email; ?>">
-              </div>
-            </div>
+            <input type="hidden" name="inputDestinatario" id="inputDestinatario" value="<?php echo $t->id; ?>">
           <?php } ?>      
             <div class="control-group">
               <label class="control-label" for="inputOggetto">Oggetto</label>

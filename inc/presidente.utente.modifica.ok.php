@@ -45,12 +45,25 @@ $p->cellulare           = $cell;
 $p->cellulareServizio   = $cells;
 $p->timestamp           = time();
 
+/* 
+ * Non si può far parte di IV e CM contemporaneamente
+ */
+
+if ( !(isset($_POST['inputIV']) && isset($_POST['inputCM']))) {
+    if( $p->sesso == DONNA){
+        $p->iv = $_POST['inputIV'];
+    }
+    $p->cm = $_POST['inputCM'];
+
+}
+
 if ($me->admin()) {
     $nome               = normalizzaNome($_POST['inputNome']);
     $cognome            = normalizzaNome($_POST['inputCognome']);
     $sesso              = $_POST['inputSesso'];
     $codiceFiscale      = maiuscolo($_POST['inputCodiceFiscale']);
     $email              = minuscolo($_POST['inputEmail']);
+    $stato              = $_POST['inputStato'];
 
     /*
      * Controlla se sto scrivendo una email in possesso ad altro utente
@@ -64,6 +77,7 @@ if ($me->admin()) {
     $p->sesso           = ($sesso) ? UOMO : DONNA;
     $p->codiceFiscale   = $codiceFiscale;
     $p->email           = $email;
+    $p->stato           = $stato;
 }
 
 redirect('presidente.utente.visualizza&ok&id='.$_GET['t']);

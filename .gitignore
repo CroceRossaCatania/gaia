@@ -1,26 +1,27 @@
-
-
-# Captcha
-/core/conf/captcha.conf.php
+##
+## (c)2014 Croce Rossa Italiana
+##
 
 # Font DOMPDF
 /core/inc/dompdf/lib/fonts/php_Times-Roman.afm
 /core/inc/dompdf/lib/fonts/php_Times-Bold.afm
 
-# Configurazione del database
-core/conf/database.conf.php
+# Log DOMPDF
+/core/inc/dompdf/lib/fonts/log.htm
+/core/libs/dompdf/lib/fonts/log.htm
 
-# Configurazione SMTP
-core/conf/smtp.conf.php
-
-# Configurazione AUTOPULL
-core/conf/autopull.conf.php
+# Configurazioni
+/core/conf/*
+!/core/conf/*/
 
 # Vari log 
 upload/log/*
 
 # Avatar utenti
 upload/avatar/*/*
+
+# Fototessere utenti
+upload/fototessere/*/*
 
 # Documenti utenti
 upload/docs/

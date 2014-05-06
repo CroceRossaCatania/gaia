@@ -12,7 +12,6 @@ ob_start('ob_gzhandler');
 // Imposta la risposta in JSON
 header('Content-type: application/json');
 
-
 // Ottiene il corpo della richiesta
 $corpo = file_get_contents('php://input');
 

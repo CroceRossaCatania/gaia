@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaPrivata();
 
 $parametri = array('id', 'inputReferente');
 controllaParametri($parametri);

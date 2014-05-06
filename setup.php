@@ -8,31 +8,28 @@
 require('./core.inc.php');
 
 /* Controllo l'installazione di Gaia */
-if ( file_exists('upload/setup/lock') ) { 
-    die('Errore: Gaia è stato già installato.');
-}
+if ( file_exists('upload/setup/lock') )
+    die("Errore: Gaia è stato già installato.\n");
 
 /* Controllo se la cartella è scrivibile */
-if ( !is_writable('upload/setup/') ) { 
-    die('Errore: Directory upload/setup non scrivibile. Rendere upload e tutte le sue sottocartelle scrivibili da php.');
-}
+if ( !is_writable('upload/setup/') )
+    die("Errore: Directory upload/setup non scrivibile. Rendere upload e tutte le sue sottocartelle scrivibili da php.\n");
 
 /* Controllo se la cartella è scrivibile II la vendetta */
-if ( !is_writable('upload/') ) { 
-    die('Errore: Directory upload/ non scrivibile. Rendere upload e tutte le sue sottocartelle scrivibili da php.');
-}
+if ( !is_writable('upload/') )
+    die("Errore: Directory upload/ non scrivibile. Rendere upload e tutte le sue sottocartelle scrivibili da php.\n");
 
 echo "================ INSTALLAZIONE DI GAIA ==============\n\n";
 
 echo "Creazione directory upload/log...\n";
-@mkdir('upload/log');
-
+if (!mkdir('upload/log'))
+    die("Errore, impossibile scrivere dentro /upload\n");
 
 echo "Prova di scrittura sul database...\n";
 try {
     $c = new Comitato; $c->cancella();
 } catch ( Exception $e ) {
-    die("Errore: Impossibile scrivere sul database. È stato caricato il file /core/conf/gaia.sql?");
+    die("Errore: Impossibile scrivere sul database. È stato caricato il file /upload/setup/gaia.sql?\n");
 }
 
 echo "Creazione delle cartelle per gli avatar...\n";
@@ -41,8 +38,14 @@ foreach ( $conf['avatar'] as $x => $y ) {
     @mkdir('upload/avatar/' . $x);
 }
 
+echo "Creazione delle cartelle per le fototessere...\n";
+/* Crea le cartelle per gli fototessere */
+foreach ( $conf['fototessera'] as $x => $y ) {
+    @mkdir('upload/fototessere/' . $x);
+}
+
 echo "Creazione delle cartelle per i documenti...\n";
-/* Crea le cartelle per gli avatar */
+/* Crea le cartelle per i documenti */
 @mkdir('upload/get');
 @mkdir('upload/docs');
 @mkdir('upload/docs/o');

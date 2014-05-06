@@ -13,6 +13,10 @@ $u = Utente::id($id);
 $hoPotere = $u->modificabileDa($me);
 $t = TitoloPersonale::filtra([['volontario',$u]]);
 $admin = $me->admin();
+$attivo = true;
+if ($u->stato == PERSONA) {
+  $attivo = false;
+}
 
 proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 ?>
@@ -34,7 +38,17 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <i class="icon-warning-sign"></i> <strong>Email già presente</strong>.
         L'email che si sta tentando di sostituire appartiene già ad un altro utente.
       </div>
-    <?php } ?>
+    <?php } elseif(isset($_GET['roba'])) {?>
+      <div class="alert alert-danger">
+        <i class="icon-warning-sign"></i> <strong>Non posso ordinarizzare</strong>.
+        L'utente ha roba in sospeso (deleghe, nomine, attività referenziate, ecc).
+      </div>
+    <?php } elseif(isset($_GET['err'])) {?>
+      <div class="alert alert-danger">
+        <i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.
+        L'operazione che hai tentato di eseguire non è andata a buon fine. Per favore riprova
+      </div>
+    <?php }?>
 
     <!-- Attivazione account -->
 
@@ -102,37 +116,118 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
     <?php } ?>
 
-    <!--Visualizzazione e modifica avatar utente-->
     <div class="span12">
       <h3><i class="icon-edit muted"></i> Anagrafica</h3>
-      <div class="span6 allinea-centro">
-        <?php if ( isset($_GET['aok']) ) { ?>
-        <div class="alert alert-success">
-          <i class="icon-ok"></i> Fotografia modificata!
-        </div>
-        <?php } elseif ( isset($_GET['aerr']) ) { ?>
-        <div class="alert alert-error">
-          <i class="icon-warning-sign"></i>
-          <strong>Errore</strong> &mdash; File troppo grande o non valido.
-        </div>
-        <?php } else { ?>
 
-        <?php } ?>
-        <img src="<?php echo $u->avatar()->img(20); ?>" class="img-polaroid" />
-        <br/><br/></div>
-        <div class="span5 allinea-sinistra"> 
-         <br/>
-         <form id="caricaFoto" action="?p=utente.avatar.ok&id=<?php echo $u; ?>&pre" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
-          <p>Per modificare la foto:</p>
-          <p>1. <strong>Scegli</strong>: <input type="file" name="avatar" required /></p>
-          <p>2. <strong>Clicca</strong>:<br />
-            <button type="submit" class="btn btn-block btn-success">
-              <i class="icon-save"></i> Salva la foto
-            </button></p>
-          </form>
-          <br/>   
-        </div> 
+      <?php 
+      $ctess = false;
+      if(isset($_GET['tessok']) || isset($_GET['tesserr'])) {
+        $ctess = true;
+      } 
+      ?>
+
+      <!--Visualizzazione e modifica avatar utente e tesserino -->
+      <?php if ($attivo) { ?>
+      <div class="tabbable">
+        <ul class="nav nav-tabs">
+          <li <?php if(!$ctess) echo "class=\"active\" " ; ?> ><a href="#tab_avatar" data-toggle="tab">Avatar</a></li>
+          <li <?php if($ctess) echo "class=\"active\" " ; ?>><a href="#tab_tesserino" data-toggle="tab">Tesserino</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane <?php if(!$ctess) echo "active" ; ?>" id="tab_avatar">
+
+            <div class="row-fluid">
+              <div class="span6 allinea-centro">
+                <?php if ( isset($_GET['aok']) ) { ?>
+                <div class="alert alert-success">
+                  <i class="icon-ok"></i> Fotografia modificata!
+                </div>
+                <?php } elseif ( isset($_GET['aerr']) ) { ?>
+                <div class="alert alert-error">
+                  <i class="icon-warning-sign"></i>
+                  <strong>Errore</strong> &mdash; File non selezionato, troppo grande o non valido.
+                </div>
+                <?php } ?>
+                <img src="<?php echo $u->avatar()->img(20); ?>" class="img-polaroid" />
+                <br/><br/>
+              </div>
+              <div class="span5 allinea-sinistra"> 
+                <br/>
+                <form id="caricaFoto" action="?p=utente.avatar.ok&id=<?php echo $u; ?>&pre" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
+                  <p>Per modificare l'avatar:</p>
+                  <p>1. <strong>Scegli</strong>: <input type="file" name="avatar" required /></p>
+                  <p>2. <strong>Clicca</strong>:<br />
+                  <button type="submit" class="btn btn-block btn-success">
+                    <i class="icon-save"></i> Salva la foto
+                  </button></p>
+                </form>
+                <br/>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane <?php if($ctess) echo "active" ; ?>" id="tab_tesserino">
+
+            <div class="row-fluid">
+              <div class="span6 allinea-centro">
+                <?php if ( isset($_GET['tessok']) ) { ?>
+                <div class="alert alert-success">
+                  <i class="icon-ok"></i> Fototessera modificata!
+                </div>
+                <?php } elseif ( isset($_GET['tesserr']) ) { ?>
+                <div class="alert alert-error">
+                  <i class="icon-warning-sign"></i>
+                  <strong>Errore</strong> &mdash; File non selezionato, troppo grande o non valido.
+                </div>
+                <?php } 
+                if ($u->fototessera()) { ?>
+                  <img src="<?php echo $u->fototessera()->img(20); ?>" class="img-polaroid" />
+                <?php } else { ?>
+                  <p><br />Fototessera non caricata</p>
+                <?php } 
+                $foto = $u->fototessera();
+                ?>
+
+                <br/><br/>
+              </div>
+              <div class="span5 allinea-sinistra"> 
+                <br/>
+                <?php 
+                if($foto && !$foto->approvata()) { ?>
+                  <div class="alert alert-warning">
+                    <p><i class="icon-spinner"></i> Fototessera in attesa di approvazione </p>
+                  </div>
+                  <div class="span12 allinea-centro">
+                    <a class="btn btn-success" href="?p=presidente.utente.fototessera.ok&ok&id=<?php echo $u->id; ?>">
+                      <i class="icon-ok"></i> Approva
+                    </a>
+                    <a class="btn btn-danger" href="?p=presidente.utente.fototessera.ok&no&id=<?php echo $u->id; ?>">
+                      <i class="icon-trash"></i> Elimina
+                    </a>
+                </div>
+                <?php } 
+                if(!$foto || $foto->approvata()) { ?>
+                <form id="caricaFoto" action="?p=presidente.utente.fototessera.ok&id=<?php echo $u; ?>" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
+                  <p>Per modificare la foto del tesserino:</p>
+                  <p>1. <strong>Scegli</strong>: <input type="file" name="fototessera" required /></p>
+                  <p>2. <strong>Clicca</strong>:<br />
+                  <button type="submit" class="btn btn-block btn-success">
+                    <i class="icon-save"></i> Salva la fototessera
+                  </button></p>
+                </form>
+                <?php } ?>
+                <br/>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div> 
+      <?php } ?>
+      <!-- Fine visualizzazione e modifica avatar utente e tesserino -->
+
       </div>
+
 
     <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $id; ?>" method="POST">
       <hr />
@@ -230,6 +325,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
          <input value="<?php echo $u->cellulare; ?>"  type="text" id="inputCellulare" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCellulare" pattern="[0-9]{9,11}" />
        </div>
      </div>
+     <?php if($attivo) { ?>
      <div class="control-group input-prepend">
        <label class="control-label" for="inputCellulareServizio">Cellulare Servizio</label>
        <div class="controls">
@@ -237,7 +333,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
          <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCellulareServizio" pattern="[0-9]{9,11}" />
        </div>
      </div>
-
+     <?php } ?>
      <div class="control-group">
       <label class="control-label" for="inputConsenso">Consenso dati personali</label>
       <div class="controls">
@@ -252,21 +348,57 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
      </div>
    </div>
 
+   <?php if($admin) { ?>
+   <div class="control-group">
+        <label class="control-label" for="inputStato">Stato</label>
+        <div class="controls">
+          <select class="input-medium" id="inputStato" name="inputStato" required>
+            <?php
+            foreach ( $conf['statoPersona'] as $numero => $tipo ) { 
+              if($tipo != 'Nessuno') {?>
+            <option value="<?php echo $numero; ?>" <?php if ( $numero == $u->stato ) { ?>selected<?php } ?>><?php echo $tipo; ?></option>
+            <?php }
+            } ?>
+          </select>  
+        </div>
+      </div>
+   <?php } ?>
+      <div class="control-group">
+        <label class="control-label">Infermiera Volontaria</label>
+        <div class="controls">
+          <input type="checkbox" <?php if($u->iv){ ?> checked <?php } ?> id="inputIV" name="inputIV" <?php if(!$me->admin() && $u->iv || $u->cm && !$hoPotere){?> readonly <?php } ?>>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Corpo Militare volontario</label>
+        <div class="controls">
+          <input type="checkbox" <?php if($u->cm){ ?> checked <?php } ?> id="inputCM" name="inputCM" <?php if(!$me->admin() && $u->iv || $u->cm && !$hoPotere){?> readonly <?php } ?>>
+        </div>
+      </div>
    <?php if($hoPotere) { ?>
    <hr />
    <div class="form-actions">
-    <button type="submit" class="btn btn-success btn-large">
-      <i class="icon-save"></i>
-      Salva modifiche
-    </button>
+     <div class="btn-group">
+      <button type="submit" class="btn btn-success btn-large">
+        <i class="icon-save"></i>
+        Salva modifiche
+      </button>
+      <?php if ($admin) { ?>
+      <a onClick="return confirm('Vuoi veramente far diventare un ordinario questo utente?');" 
+        href="?p=admin.ordinarizza&id=<?php echo $id; ?>" class="btn btn-warning btn-large">
+        <i class="icon-hand-down"></i> Ordinarizza
+      </a>
+      <?php }?>
+    </div>
   </div>
   <?php } ?>
 </form>    
 </div>
 <!--Visualizzazione e modifica appartenenze utente -->
 <div class="span6">
+<?php if($attivo) { ?>
   <div class="row-fluid">
-    <div class="span112">
+    <div class="span12">
       <h4><i class="icon-folder-open"></i> Documenti volontario</h4>
       <?php if(isset($_GET['errDoc'])){?>
         <div class="alert alert-error">
@@ -395,6 +527,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       </div>
     </div>
   </div>
+  <?php } ?>
 
   <div class="row-fluid">
     <h4>
@@ -414,7 +547,14 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <th>Fine</th>
         <th>Azioni</th>
       </thead>
-      <?php foreach ( $u->appartenenzeAttuali() as $app ) { ?>
+      <?php 
+      if($u->stato == VOLONTARIO) {
+        $appartenenze = $u->appartenenzeAttuali();
+      } else {
+        $appartenenze = $u->appartenenzeAttuali(MEMBRO_ORDINARIO);
+      }
+
+      foreach ( $appartenenze as $app ) { ?>
       <tr class="success">
         <td>
           <strong><?php echo $conf['membro'][$app->stato]; ?></strong>
@@ -459,6 +599,8 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
     </table>
   </div>
+
+  <!-- Blocco storico -->
   <div class="row-fluid">
     <h4>
       <i class="icon-ellipsis-horizontal muted"></i>
@@ -469,15 +611,22 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
   <div class="span12 allinea-centro">
 
     <a class="btn" target="_new" href="?p=presidente.riserva.storico&id=<?php echo $u->id; ?>">
-      <i class="icon-pause"></i> Storico riserve
+      <i class="icon-pause"></i> Riserve
     </a>
     <a class="btn" target="_new" href="?p=presidente.appartenenze.storico&id=<?php echo $u->id; ?>">
-      <i class="icon-time"></i> Storico appartenenze
+      <i class="icon-time"></i> Appartenenze
     </a>
-
+    <a class="btn" target="_new" href="?p=us.quote.visualizza&id=<?php echo $u->id; ?>">
+      <i class="icon-money"></i> Quote
+    </a>
+    <a class="btn" target="_new" href="?p=us.tesserino.storico&id=<?php echo $u->id; ?>">
+      <i class="icon-barcode"></i> Tesserini
+    </a>
   </div>
-
 </div>
+
+
+
 <!--Visualizzazione e modifica titoli utente-->
 <?php $titoli = $conf['titoli']; ?>
 <div class="span6">
@@ -642,3 +791,5 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
     </table>
   </div>
 </div>
+
+

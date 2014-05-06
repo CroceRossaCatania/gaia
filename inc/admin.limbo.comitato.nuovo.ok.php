@@ -32,6 +32,5 @@ $m->_NOME       = $v->nome;
 $m->_PASSWORD   = $password;
 $m->invia();
 
-redirect('admin.limbo&nasp');
+redirect("presidente.utente.visualizza&id={$v->id}");
 
-?>

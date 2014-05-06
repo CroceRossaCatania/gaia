@@ -4,6 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
+paginaPrivata();
 paginaApp([APP_PATENTI , APP_PRESIDENTE]);
 $_n     +=  $_n_pat    = $me->numPatentiPending([APP_PRESIDENTE, APP_PATENTI]);
 ?>

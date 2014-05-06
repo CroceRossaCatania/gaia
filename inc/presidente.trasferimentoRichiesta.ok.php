@@ -4,15 +4,25 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 $parametri = array('id', 'numprotocollo', 'dataprotocollo');
 controllaParametri($parametri, 'presidente.trasferimento&err');
 
-$t     = $_GET['id'];
+$t = $_POST['id'];
 
 
 $a = Trasferimento::id($t);
+
+$v = $a->volontario();
+if(!$v->modificabileDa($me)) {
+	redirect('errore.permessi&cattivo');
+}
+
+if($a->protData && $a->protNumero) {
+	redirect('presidente.trasferimento&giaprot');
+}
+
 $a->protNumero = $_POST['numprotocollo'];
 $protData = @DateTime::createFromFormat('d/m/Y', $_POST['dataprotocollo']);
 $protData = @$protData->getTimestamp();
@@ -21,8 +31,8 @@ $m = new Email('richiestaTrasferimentoprot', 'Richiesta trasferimento Protocolla
 $m->a = $a->volontario();
 $m->_NOME       = $a->volontario()->nome;
 $m->_COMITATO   = $a->comitato()->nomeCompleto();
-$m-> _TIME = date('d-m-Y', $a->protData);
-$m-> _NUM = $a->protNumero;
+$m->_TIME = $a->dataRichiesta()->format('d/m/Y');
+$m->_NUM = $a->protNumero;
 $m->invia();
 
 redirect('presidente.trasferimento&prot');   

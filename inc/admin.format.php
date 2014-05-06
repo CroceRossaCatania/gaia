@@ -26,18 +26,13 @@ paginaAdmin();
           <div class="controls">
             <input type="file" id="inputCSV" name="inputCSV">
         </div>
-    </div>    
-    <div class="control-group">
-        <label class="checkbox" for="inputQuote">
-            <input type="checkbox" id="inputQuote" name="inputQuote">Segna contestualmente quote come pagate
-        </label>
     </div>
     <div class="form-actions">
-        <button type="submit" class="btn btn-danger">
-            <i class="icon-key"></i> Importa dati in massa e genera password
+        <button type="submit" class="btn btn-danger" onClick="return confirm('Procedo con import Volontari ?');">
+            <i class="icon-key"></i> Importa dati e genera password Volontari
         </button>
-        <button name="fixproblem" type="submit" class="btn btn-danger">
-            <i class="icon-key"></i> Risolve il primo problema creato da dex
+        <button name="ordinario" type="submit" class="btn btn-danger" onClick="return confirm('Procedo con import Soci Ordinari ?');">
+            <i class="icon-key"></i> Importa dati e genera password Soci Ordinari
         </button>
         <button name="resetPassword" type="submit" class="btn btn-danger">
             <i class="icon-key"></i> Rimanda le password verificando per CF

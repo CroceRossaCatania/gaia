@@ -65,6 +65,14 @@ body {
 
 }
 
+.scritta-cri {
+    color: rgb(204,0,0) !important;
+}
+
+.scritta-gaia {
+    color: rgb(0,0,0) !important;
+}
+
 .hero-unit p, .hero-unit h1 {
     text-shadow: 1px 2px 1px #333;
     color: white;
@@ -80,6 +88,14 @@ body {
 .theLoginBox {
 	background-color: white;
 	border-radius: 5px;
+}
+
+.riga-cliccabile {
+  cursor: pointer;
+}
+
+.riga-cliccabile:hover {
+  background-color: #eee !important;
 }
 
 
@@ -221,8 +237,9 @@ body {
 	/* CELL */
     @media (max-width: 767px) {
 
-      .navbar-inner {
-        margin: -20px;
+      .navbar {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
       }
 
       .carousel {
@@ -363,3 +380,25 @@ body {
     font-weight: bold;
     margin: auto;
 }
+
+.aspiranti_contatore {
+    font-size: 8.5em; 
+    line-height: 1em;
+    text-shadow: 3px 3px 0px white;
+}
+
+.aspiranti_descrizione {
+    font-size: 2em;
+    text-transform: uppercase;
+}
+
+.quote_contatore {
+    font-size: 6.5em; 
+    line-height: 1em;
+    text-shadow: 3px 3px 0px white;
+}
+
+.compila-prima-riga td {
+    border-top: 2px dashed #888 !important;
+}
+

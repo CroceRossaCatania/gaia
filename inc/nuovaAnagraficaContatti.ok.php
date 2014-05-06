@@ -1,8 +1,10 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
+
+paginaPrivata();
 
 /*
  * Sessione utente necessaria
@@ -10,18 +12,22 @@
 
 if ($sessione->utente()->email) {
   redirect('errore.permessi&cattivo');
+} elseif($sessione->utente()->ordinario()) {
+  redirect('utente.me');
 }
 
 paginaPrivata();
-controllaParametri(array('inputEmail'), 'nuovaAnagraficaContatti&err');
+controllaParametri(['inputEmail', 'inputEmail2'], 'nuovaAnagraficaContatti&err');
 
 /*
  * Normalizzazione dei dati
  */
 $email      		= minuscolo($_POST['inputEmail']);
+$email2      		= minuscolo($_POST['inputEmail2']);
 $cell       		= normalizzaNome($_POST['inputCellulare']);
 $cells      		= normalizzaNome(@$_POST['inputCellulareServizio']);
 $sessione->email 	= $email;
+$sessione->email2 	= $email2;
 $sessione->cell 	= $cell;
 $sessione->cells 	= $cells;
 
@@ -32,7 +38,15 @@ if ( $e and $e->password ) {
     redirect('nuovaAnagraficaContatti&email');
 }
 
-if ( strlen($_POST['inputPassword']) < 6 || strlen($_POST['inputPassword']) > 15 ) {
+if($email != $email2) {
+	redirect('nuovaAnagraficaContatti&match');
+}
+
+if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+	redirect('nuovaAnagraficaContatti&emailnon');
+}
+
+if ( strlen($_POST['inputPassword']) < 8 || strlen($_POST['inputPassword']) > 15 ) {
 	redirect('nuovaAnagraficaContatti&e');
 }
 
@@ -50,16 +64,14 @@ $p->cellulareServizio   = $cells;
 $password     		= $_POST['inputPassword'];
 $sessione->utente()->cambiaPassword($password);
 
-if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
 
+if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
     redirect('nuovaAnagraficaAccesso');
-} else {
-    $m = new Email('registrazioneAspirante', 'Grazie futuro volontario');
-	$m->a     = $sessione->utente();
-	$m->_NOME = $sessione->utente()->nome;
-	$m->invia();
-	$sessione->utente = NULL;
-	redirect('grazieAspirante');
 }
 
-?>
+$m = new Email('registrazioneAspirante', 'Grazie futuro volontario');
+$m->a     = $sessione->utente();
+$m->_NOME = $sessione->utente()->nome;
+$m->invia();
+redirect('aspirante.registra');
+

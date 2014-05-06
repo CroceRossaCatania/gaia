@@ -111,6 +111,18 @@ if(!$gia){
 	$a->conferma  = $me;
 }
 
+/* 
+ * Non si può far parte di IV e CM contemporaneamente
+ */
+
+if ( !(isset($_POST['inputIV']) && isset($_POST['inputCM']))) {
+    if( $p->sesso == DONNA){
+        $p->iv = $_POST['inputIV'];
+    }
+    $p->cm = $_POST['inputCM'];
+
+}
+
 /* Genera la password casuale */
 $password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
 
