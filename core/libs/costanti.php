@@ -132,11 +132,13 @@ $conf['autorizzazione'] = [
  */
 
 
+define('PART_RIT',           0);
 define('PART_PENDING',      10);
 define('PART_NO',           20);
 define('PART_OK',           30);
 
 $conf['partecipazione'] = [
+    PART_RIT            =>  'Ritirato',
     PART_PENDING        =>  'In attesa',
     PART_NO             =>  'Negata',
     PART_OK             =>  'Concessa'

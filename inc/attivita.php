@@ -6,8 +6,10 @@
 
 paginaAnonimo();
 
-// Gli anonimi vengono riportati alla mappa!
-redirect('public.attivita.mappa');
+if ( $me instanceof Anonimo ) { 
+    // Gli anonimi vengono riportati alla mappa!
+    redirect('public.attivita.mappa');
+}
 
 ?>
 <div class="row-fluid">
