@@ -108,4 +108,26 @@ class Appartenenza extends Entita {
             return false;
         }
 
+        /**
+         * Data un'appartenenza ritorna la tipologia di socio di riferimento
+         * @return int|null Costante dello stato socio, null se non primario
+         */
+        public function statoSocio() {
+            switch ($this->stato) {
+                case MEMBRO_ORDINARIO_DIMESSO:
+                    return PERSONA;
+                case MEMBRO_ORDINARIO:
+                    return PERSONA;
+                case MEMBRO_VOLONTARIO:
+                    return VOLONTARIO;
+                case MEMBRO_DIMESSO:
+                    return VOLONTARIO;
+                case MEMBRO_TRASFERITO:
+                    return VOLONTARIO;                
+                default:
+                    return null;
+            }
+            return null;
+        }
+
 }
