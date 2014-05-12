@@ -6,7 +6,7 @@ paginaAdmin();
  * ©2013 Croce Rossa Italiana
  */
 
-
+set_time_limit (0);
 
 $t = Volontario::elenco();
 ?>
