@@ -1117,7 +1117,6 @@ class Utente extends Persona {
         $gruppi = [];
         $comitati = $this->comitatiApp($app, false);
         if ( !$this->admin() && !$this->presidenziante() ){
-            foreach ($comitati as $comitato) {
                 $gruppi = array_merge(
                     $gruppi,
                     Gruppo::filtra([
@@ -1125,7 +1124,6 @@ class Utente extends Persona {
                 ])
                 );
             $gruppi = array_unique($gruppi);
-            }
         }else{
             foreach ($comitati as $comitato) {
                 $gruppi = array_merge($gruppi, $comitato->gruppi());

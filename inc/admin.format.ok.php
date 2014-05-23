@@ -41,6 +41,16 @@ if(isset($_POST['ordinario'])){
 
         $v = Volontario::by('codiceFiscale', $codiceFiscale);
 
+        if (isset($_POST['invertiCsv']) && $v) {
+            echo " Inverto";
+            $nome       = $v->nome;
+            $cognome    = $v->cognome;
+            $v->nome    = $cognome;
+            $v->cognome = $nome;
+            echo " Inversione Completa<br/>";
+            continue;
+        }
+
         if (isset($_POST['cancellaCsv'])) {
             $v->cancellaUtente();
             continue;

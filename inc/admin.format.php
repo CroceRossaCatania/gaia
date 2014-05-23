@@ -37,6 +37,9 @@ paginaAdmin();
         <button name="resetPassword" type="submit" class="btn btn-danger">
             <i class="icon-key"></i> Rimanda le password verificando per CF
         </button>
+        <button name="invertiCsv" type="submit" class="btn btn-danger" onClick="return confirm('ATTENZIONE! Stai per invertire tutti i cognmi con nomi dei volontari da CSV, vuoi proseguire ?');">
+            <i class="icon-random"></i> Inversione Nome e Cognome
+        </button>
         <button name="cancellaCsv" type="submit" class="btn btn-danger" onClick="return confirm('ATTENZIONE! Stai per cancellare tutti i volontari da CSV, vuoi proseguire ?');">
             <i class="icon-trash"></i> Cancellazione da CSV
         </button>
