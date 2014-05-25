@@ -95,6 +95,11 @@ foreach($comitati as $comitato) {
                     <i class="icon-ban-circle"></i> Nega
                 </a>
                 <?php } ?>
+                <?php if( $me->admin() ) {?>    
+                <a class="btn btn-danger btn-small" href="?p=us.appartenenza.cancella&a=<?php echo $_t->id; ?>">
+                    <i class="icon-trash"></i> Cancella
+                </a>
+                <?php } ?>
             </div>
         </td>
        
