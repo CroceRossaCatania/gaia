@@ -58,16 +58,11 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
 ?><!DOCTYPE html>
 <html>
-  <head prefix="og: http://ogp.me/ns#">
+  <head>
   	<meta charset="utf-8" />
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>{_titolo}</title>
-    <meta property="og:url" content="http://gaia.cri.it/?p=<?= $p ?>">
-    <meta property="og:title" content="{_titolo}">
-    <meta property="og:site_name" content="Progetto Gaia - Croce Rossa Italiana">
-    <meta property="og:description" content="{_descrizione}">
-    <meta property="og:image" content="http://gaia.cri.it/img/Emblema_CRI.png"/>
     <meta name="description" content="{_descrizione}">
     <meta name="author" content="Progetto Gaia - Croce Rossa Italiana">
     <link rel="shortcut icon" href="/img/favicon.ico" />
@@ -113,17 +108,14 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
               <span class="icon-bar"></span>
             </a>
             <a class="brand" href="?">
-            	<img src="./img/logoCroceSemplice.png" />
-            	&nbsp;<span class="scritta-cri">Croce Rossa Italiana</span><span class="hidden-phone">&nbsp;|&nbsp;Gaia</span>
+            	<img src="./img/logoTop.png" />
+            	&nbsp; <span class="muted">Croce Rossa Italiana</span> <span class="hidden-phone">&nbsp; «Gaia» </span>
             </a>
             <div class="nav-collapse collapse">
               <ul class="nav">
                 <li><a href="index.php"><i class="icon-home"></i> Home</a></li>
                 <li><a href="?p=attivita"><i class="icon-calendar"></i> Attività</a></li>
                 <li><a href="?p=public.comitati.mappa"><i class="icon-map-marker"></i> Comitati</a></li>
-                <?php if(!$me) { ?>
-                <li><a href="?p=public.tesserino"><i class="icon-credit-card"></i> Verifica tesserino</a></li>
-                <?php } ?>
               </ul>  
             <?php
             if ( $me ) { 
@@ -133,18 +125,18 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                           <div class="btn-group">
                             <a class="btn btn-danger" href="?p=utente.me">
                                   <i class="icon-user icon-large"></i>&nbsp;
-                                  Ciao <strong><?php echo $me->nome; ?></strong></a>
+                                  Ciao, <strong><?php echo $me->nome; ?></strong></a>
                             <button class="btn dropdown-toggle btn-danger" data-toggle="dropdown">
                                   <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
                                 <?php if ( $me->stato == VOLONTARIO ) { ?>
+                                  <li><a href="?p=utente.anagrafica"><i class="icon-edit"></i> Anagrafica</a></li>
                                   <li><a href="?p=utente.privacy"><i class="icon-cog"></i> Privacy</a></li>
+                                  <li><a href="?p=utente.contatti"><i class="icon-phone"></i> Modifica contatti</a></li>
+                                  <li class="divider"></li>
                                 <?php } ?>
 
-                                  <li><a href="?p=utente.contatti"><i class="icon-phone"></i> Modifica contatti</a></li>
-                                  <li><a href="?p=utente.password"><i class="icon-key"></i> Modifica password</a></li>
-                                  <li class="divider"></li>
                                   <li><a href="?p=logout"><i class="icon-remove"></i> Esci</a></li>
                             </ul>
                           </div>
@@ -154,12 +146,14 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             <div class="btn-group">
                                 <?php
                                     /* Conto le notifiche */
-                                    $_n     =   $_n_titoli = $_n_app = $_n_trasf = $_n_ris = $_n_est = 0;
-                                    $_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
-                                    $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
-                                    $_n     +=  $_n_trasf  = $me->numTrasfPending   ([APP_PRESIDENTE]);
-                                    $_n     +=  $_n_ris    = $me->numRisPending     ([APP_PRESIDENTE, APP_SOCI]);
-                                    $_n     +=  $_n_est    = $me->numEstPending     ([APP_PRESIDENTE]);
+                                    $_n     =   $_n_titoli 	= $_n_app = $_n_trasf = $_n_ris = $_n_est = 0;
+                                    $_n     +=  $_n_titoli 	= $me->numTitoliPending  	([APP_PRESIDENTE, APP_SOCI]);
+                                    $_n     +=  $_n_donazioni 	= $me->numDonazioniPending	([APP_PRESIDENTE, APP_SOCI]);
+                                    $_n     +=  $_n_merito 	= $me->numDonazioniMerito	([APP_PRESIDENTE, APP_SOCI]);
+                                    $_n     +=  $_n_app    	= $me->numAppPending     	([APP_PRESIDENTE, APP_SOCI]);
+                                    $_n     +=  $_n_trasf  	= $me->numTrasfPending   	([APP_PRESIDENTE]);
+                                    $_n     +=  $_n_ris    	= $me->numRisPending     	([APP_PRESIDENTE, APP_SOCI]);
+                                    $_n     +=  $_n_est    	= $me->numEstPending     	([APP_PRESIDENTE]);
                                    ?>
                                 <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
                                     <i class="icon-asterisk"></i>
@@ -182,6 +176,30 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                             <?php if ( $_n_titoli ) { ?>
                                                 <span class="badge badge-warning">
                                                     <?php echo $_n_titoli; ?>
+                                                </span>
+                                            <?php } ?>
+                                        </a>
+                                    </li>
+
+				    <li>
+                                        <a href="?p=presidente.donazioni">
+                                            <i class="icon-star"></i>
+                                            Donazioni in attesa
+                                            <?php if ( $_n_donazioni ) { ?>
+                                                <span class="badge badge-warning">
+                                                    <?php echo $_n_donazioni; ?>
+                                                </span>
+                                            <?php } ?>
+                                        </a>
+                                    </li>
+
+				    <li>
+                                        <a href="?p=presidente.donazioni.merito">
+                                            <i class="icon-star"></i>
+                                            Donazioni (avvisi di premiazioni)
+                                            <?php if ( $_n_merito ) { ?>
+                                                <span class="badge badge-warning">
+                                                    <?php echo $_n_merito; ?>
                                                 </span>
                                             <?php } ?>
                                         </a>
@@ -275,6 +293,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
                                     <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li> 
                                     <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
+                                    <li><a href="?p=admin.donazioni"><i class="icon-certificate"></i> Donazioni</a></li>
+                                    <li><a href="?p=admin.donazioni.sedi"><i class="icon-certificate"></i> Donazioni sedi</a></li>
                                     <li><a href="?p=admin.limbo"><i class="icon-meh"></i> Limbo</a></li> 
                                     <li><a href="?p=admin.double"><i class="icon-superscript"></i> Double</a></li>
                                     <li><a href="?p=admin.tesseramento"><i class="icon-eur"></i> Tesseramento</a></li>
@@ -294,18 +314,23 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             </div>
                             <?php } ?>
 
-                            <?php if ( $me->admin && !$me->admin() ) { ?>
-                            <!-- ADMIN MODE NON ATTIVATA... -->
-                                <a href="#adminMode" class="btn btn-inverse" data-toggle="modal" role="button">
+                            <?php if ( $me->admin) {
+                                if(!$me->admin() ) { ?>
+                                <!-- ADMIN MODE NON ATTIVATA... -->
+                                <a href="#adminMode" class="btn btn-inverse hidden-phone" data-toggle="modal" role="button">
                                     <i class="icon-github-alt icon-large"></i>
                                 </a>
-                                <?php } 
-                            if ( $me->admin && $me->admin() ) { ?>
+                                <?php } else { ?>
                                 <!-- ADMIN MODE  ATTIVATA... -->
                                 <a href="?p=admin.mode.exit" class="btn btn-inverse hidden-phone">
-                                    <i class="icon-github-alt icon-large"></i>
+                                    <span class="icon-stack">
+                                        <i class="icon-github-alt"></i>
+                                        <i class="icon-ban-circle icon-stack-base text-error"></i>
+                                    </span>
                                 </a>
-                            <?php } ?>                        
+                            <?php }} ?>
+
+                                           
 			</div>
 			<?php } else { ?>
             <div class="paddingSopra pull-right">
@@ -453,8 +478,6 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
       </div>
       <?php } ?>
     
-
-    <?php if(!$conf['debug']) { ?>
     <!-- Statistiche -->
 	<script type="text/javascript">
 	  var _paq = _paq || [];
@@ -474,7 +497,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <!-- CHAT SUPPORTO --><div class="hidden-phone" id="swifttagcontainer866f2l0ph4"><div id="proactivechatcontainer866f2l0ph4"></div><div style="display: inline;" id="swifttagdatacontainer866f2l0ph4"></div></div> <script type="text/javascript">var swiftscriptelem866f2l0ph4=document.createElement("script");swiftscriptelem866f2l0ph4.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "866f2l0ph4"; var swifttagurl866f2l0ph4="https://supporto.giovanicri.it/visitor/index.php?/Gaia/LiveChat/HTML/SiteBadge/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPTg2NmYybDBwaDQmdmVyc2lvbj00LjYyLjAuNDM5NCZwcm9kdWN0PUZ1c2lvbiZmaWx0ZXJkZXBhcnRtZW50aWQ9NTAmcm91dGVjaGF0c2tpbGxpZD00JmFsZXJ0WzBdWzBdPSZhbGVydFswXVsxXT0mc2l0ZWJhZGdlY29sb3I9d2hpdGUmYmFkZ2VsYW5ndWFnZT1lbiZiYWRnZXRleHQ9bGl2ZWNoYXQmb25saW5lY29sb3I9IzE1ZDkxNSZvbmxpbmVjb2xvcmhvdmVyPSM1Y2U1NWMmb25saW5lY29sb3Jib3JkZXI9IzBmOTgwZiZvZmZsaW5lY29sb3I9I2Y3MDAwMCZvZmZsaW5lY29sb3Job3Zlcj0jZmE0ZDRkJm9mZmxpbmVjb2xvcmJvcmRlcj0jYWQwMDAwJmF3YXljb2xvcj0jZjJmMjA4JmF3YXljb2xvcmhvdmVyPSNmNmY2NTMmYXdheWNvbG9yYm9yZGVyPSNhOWE5MDYmYmFja3Nob3J0bHljb2xvcj0jZjJmMjA4JmJhY2tzaG9ydGx5Y29sb3Job3Zlcj0jZjZmNjUzJmJhY2tzaG9ydGx5Y29sb3Jib3JkZXI9I2E5YTkwNiZjdXN0b21vbmxpbmU9JmN1c3RvbW9mZmxpbmU9JmN1c3RvbWF3YXk9JmN1c3RvbWJhY2tzaG9ydGx5PQo5MWE3NmQxYWVmZGYxZGQzMDIwMTFjZDZiMGMxMTNiZmE5MGU3Yjkx";setTimeout("swiftscriptelem866f2l0ph4.src=swifttagurl866f2l0ph4;document.getElementById('swifttagcontainer866f2l0ph4').appendChild(swiftscriptelem866f2l0ph4);",1);</script><!-- END TAG CODE - DO NOT EDIT! -->
     <!-- FUSION TAG    --><div class="hidden-phone" id="proactivechatcontainerafechw6ctt"></div><div id="swifttagcontainerafechw6ctt" style="display: none;"><div id="swifttagdatacontainerafechw6ctt"></div></div> <script type="text/javascript">var swiftscriptelemafechw6ctt=document.createElement("script");swiftscriptelemafechw6ctt.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "afechw6ctt"; var swifttagurlafechw6ctt="https://supporto.giovanicri.it/visitor/index.php?/LiveChat/HTML/Monitoring/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPWFmZWNodzZjdHQmdmVyc2lvbj00LjU4LjAuMzY1MCZwcm9kdWN0PUZ1c2lvbiZjdXN0b21vbmxpbmU9JmN1c3RvbW9mZmxpbmU9JmN1c3RvbWF3YXk9JmN1c3RvbWJhY2tzaG9ydGx5PQo0ODFmZjE5NjZhOTY3ZDVhNzY0OTZkMmQ1MTdmMmEyZTU4NGQ4OGE0";setTimeout("swiftscriptelemafechw6ctt.src=swifttagurlafechw6ctt;document.getElementById('swifttagcontainerafechw6ctt').appendChild(swiftscriptelemafechw6ctt);",1);</script><!-- END FUSION TAG CODE - DO NOT EDIT! -->
   
-    <?php } ?>
+
   </body>
 </html><?php
 ob_end_flush(); 

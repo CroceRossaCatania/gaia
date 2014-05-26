@@ -176,6 +176,18 @@ class Utente extends Persona {
         }
         return false;
     }
+
+    public function donazioniTipo( $tipoDonazioni ) {
+        $r = [];
+        foreach (DonazionePersonale::filtra([
+            ['volontario',  $this->id]
+        ], 'data') as $donazione) {
+            if ( $donazione->donazione()->tipo == $tipoDonazioni ) {
+                $r[] = $donazione;
+            }
+        }
+        return $r;
+    }
     
     public function toJSON() {
         return [
@@ -192,24 +204,14 @@ class Utente extends Persona {
         if($this->stato == VOLONTARIO) {
             $comitato = $this->unComitato();
         } else {
-            // sono su una persona o su un aspirante e controllo prima se è dimesso
-            $d = $this->dimesso();
-            // il secondo check è perchè MEMBRO_DIMESSO è 0
-            if($d || $d === MEMBRO_DIMESSO) {
-                $comitato = $this->ultimaAppartenenza($d)->comitato();
-                $riammissibile = $this->riammissibile();
-            } else {
-                // sto lavorando su un ordinario non dimesso e verifico situazione cbase
-                $comitato = $this->unComitato(MEMBRO_ORDINARIO);
-                $iscrittoBase = (bool) $this->partecipazioniBase(ISCR_CONFERMATA);
-            }
+            $comitato = $this->unComitato(MEMBRO_ORDINARIO);
         }
         if ( $comitato ) {
             $comitato = $comitato->toJSONRicerca();
         } else {
             $comitato = false;
         }
-        $r = [
+        return [
             'id'            =>  $this->id,
             'cognome'       =>  $this->cognome,
             'nome'          =>  $this->nome,
@@ -217,17 +219,6 @@ class Utente extends Persona {
             'codiceFiscale' =>  $this->codiceFiscale,
             'comitato'      =>  $comitato
         ];
-
-        // se dimesso per cause valide verifico riammissibilità
-        if($riammissibile) {
-            $r['riammissibile'] = $riammissibile;
-        }
-
-        // se iscritto a base non lo faccio reiscrivere
-        if($iscrittoBase) {
-            $r['iscrittoBase'] = $iscrittoBase;
-        }
-        return $r;
     }
 
     public function calendarioAttivita(DT $inizio, DT $fine) {
@@ -323,10 +314,6 @@ class Utente extends Persona {
                 if($_p->validaPerAnzianita(PERSONA)) {
                     return $_p;
                 }
-            } elseif ($this->stato == ASPIRANTE) {
-                if($_p->validaPerAnzianita(ASPIRANTE)) {
-                    return $_p;
-                }
             }
         }
         return null;
@@ -346,7 +333,7 @@ class Utente extends Persona {
             && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO) 
             && $this->ultimaAppartenenza(MEMBRO_VOLONTARIO)->attuale()) {
             return $this->ultimaAppartenenza(MEMBRO_VOLONTARIO);
-        } elseif (($this->stato == PERSONA || $this->stato == ASPIRANTE)
+        } elseif ($this->stato == PERSONA 
             && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)
             && $this->ultimaAppartenenza(MEMBRO_ORDINARIO)->attuale()) {
             return $this->ultimaAppartenenza(MEMBRO_ORDINARIO);
@@ -376,7 +363,7 @@ class Utente extends Persona {
             $app = [$app];
         }
         if ( $this->admin() ) {
-            return $this->comitatiDiCompetenza($soloComitati);
+            return $this->comitatiDiCompetenza();
         }
         $r = [];
         foreach ( $app as $k ) {
@@ -431,23 +418,10 @@ class Utente extends Persona {
             return $a;
         }
     }
-
-    /* Fototessera */
-    public function fototessera() {
-        $a = Fototessera::by('utente', $this->id);
-        if ( $a ) {
-            return $a;
-        }
-        return false;
-    }
     
-    public function comitatiDiCompetenza($soloComitati = false) {
+    public function comitatiDiCompetenza() {
         if ( $this->admin() ) {
-            $n = Nazionale::id(1);
-            if($soloComitati) {
-                return Comitato::elenco('locale ASC');    
-            }
-            return $n->estensione($soloComitati);
+            return Comitato::elenco('locale ASC');
         } else {
             return $this->comitatiPresidenzianti();
         }
@@ -544,11 +518,41 @@ class Utente extends Persona {
             AND     titoliPersonali.volontario = appartenenza.volontario
             AND     ( appartenenza.fine < 1 
                     OR
-                    appartenenza.fine > :ora )
+                    appartenenza.fine > :ora 
+                    OR 
+                    appartenenza.fine is NULL)
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $ora = time();
         $q->bindParam(':ora', $ora);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+
+    public function numDonazioniPending( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma( $app );
+        $q = $this->db->prepare("
+            SELECT  COUNT(donazioniPersonali.id)
+            FROM    donazioniPersonali, appartenenza
+            WHERE   ( donazioniPersonali.tConferma < 1 OR donazioniPersonali.tConferma IS NULL )
+            AND     donazioniPersonali.volontario = appartenenza.volontario
+            AND     appartenenza.comitato  IN
+                ( {$comitati} )");
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+
+    public function numDonazioniMerito( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma( $app );
+        $q = $this->db->prepare("
+            SELECT  COUNT(donazioniMerito.id)
+            FROM    donazioniMerito, appartenenza
+            WHERE   ( donazioniMerito.tConferma < 1 OR donazioniMerito.tConferma IS NULL )
+            AND     donazioniMerito.volontario = appartenenza.volontario
+            AND     appartenenza.comitato  IN
+                ( {$comitati} )");
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
@@ -562,7 +566,9 @@ class Utente extends Persona {
             WHERE   stato = :statoPendente
             AND     ( appartenenza.fine < 1 
                     OR
-                    appartenenza.fine > :ora )
+                    appartenenza.fine > :ora 
+                    OR 
+                    appartenenza.fine is NULL)
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', MEMBRO_PENDENTE);
@@ -624,7 +630,9 @@ class Utente extends Persona {
             AND     appartenenza.stato = :stato
             AND     ( appartenenza.fine < 1 
                     OR
-                    appartenenza.fine > :ora )
+                    appartenenza.fine > :ora 
+                    OR 
+                    appartenenza.fine is NULL)
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', RISERVA_INCORSO);
@@ -802,19 +810,6 @@ class Utente extends Persona {
             ], 'timestamp DESC');
         }
     }
-
-    public function partecipazioniBase( $stato = false ) {
-        if ( $stato ) {
-            return PartecipazioneBase::filtra([
-                ['volontario',  $this->id],
-                ['stato',       $stato]
-            ], 'timestamp DESC');
-        } else {
-            return PartecipazioneBase::filtra([
-                ['volontario',  $this->id]
-            ], 'timestamp DESC');
-        }
-    }
     
     
     public function trasferimenti($stato = null) {
@@ -870,6 +865,38 @@ class Utente extends Persona {
                 return $_r;
         }
         return NULL;
+    }
+
+    /**
+     * Restituisce l'elenco dei gruppi a cui un volontario si può iscrivere
+     * @return Array(Gruppo) restituisce un array di gruppi
+     */
+    public function gruppiDisponibili() {
+        $app = $this->appartenenzeAttuali();
+        $r = [];
+        foreach($app as $_a) {
+            $comitato = $_a->comitato();
+            $r = array_merge($r, $comitato->gruppi());
+            while($comitato = $comitato->superiore()) {
+                $r = array_merge($r, $comitato->gruppi());
+            }
+        }
+        return $r;
+    }
+
+    /**
+     * Restituisce l'elenco dei a cui il volontario è attualmente iscritto
+     * @return Array(Gruppo) restituisce un array di gruppi
+     */
+    public function gruppiAttuali() {
+        $g = $this->mieiGruppi();
+        $r = [];
+        foreach($g as $_g) {
+            if($_g->attuale()) {
+                $r[] = $_g;
+            }
+        }
+        return $r;
     }
     
     public function mieiGruppi() {
@@ -1128,27 +1155,15 @@ class Utente extends Persona {
     
     public function gruppiDiCompetenza( $app = [ APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO ] ) {
         $gruppi = [];
-        $comitati = $this->comitatiApp($app);
-        $domini = $this->dominiDelegazioni(APP_OBIETTIVO);
-        if ( $domini && !$this->admin() && !$this->presidenziante() ){
+        $comitati = $this->comitatiApp($app, false);
+        if ( !$this->admin() && !$this->presidenziante() ){
             foreach ($comitati as $comitato) {
-                foreach ($domini as $d){
-                    $gruppi = array_merge(
-                        $gruppi,
-                        Gruppo::filtra([
-                            ['referente',$this],
-                            ['obiettivo',$d]
-                        ])
-                    );
-                    if (!$gruppi){
-                        $gruppi = array_merge(
-                            $gruppi,
-                            Gruppo::filtra([
-                            ['referente',$this]
-                        ])
-                        );
-                    }
-                }
+                $gruppi = array_merge(
+                    $gruppi,
+                    Gruppo::filtra([
+                    ['referente',$this]
+                ])
+                );
             $gruppi = array_unique($gruppi);
             }
         }else{
@@ -1250,14 +1265,19 @@ class Utente extends Persona {
         if($this->admin()) {
             return PRIVACY_RISTRETTA;
         }
-        if($this->presidenziante() || in_array($this->delegazioneAttuale()->applicazione, [APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
+        if( $this->presidenziante() ||  in_array($this->delegazioneAttuale()->applicazione, [APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
             $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO]);
             foreach ($comitati as $comitato){
+                echo $altroutente;
+                echo $comitato;
+                echo $altroutente->in($comitato);
                 if($altroutente->in($comitato)){
-                    return PRIVACY_RISTRETTA;            
+                    return PRIVACY_RISTRETTA;
                 }
             }
-        } elseif($this->areeDiResponsabilita()) {
+        }
+
+        if($this->areeDiResponsabilita()){
             $ar = $this->areeDiResponsabilita();
             foreach( $ar as $_a ){
                 $c = $_a->comitato()->estensione();
@@ -1267,23 +1287,16 @@ class Utente extends Persona {
                     }
                 }
             }
-        } elseif($this->attivitaReferenziate()) {
+        }
+        
+        if($this->attivitaReferenziate()){
             $a = $this->attivitaReferenziate();
-            $partecipazioni = $altroutente->partecipazioni(PART_OK);
+            $partecipazioni = $this->partecipazioni(PART_OK);
             foreach( $partecipazioni as $p ){
                 if (in_array($p->attivita(), $a)) {
                     return PRIVACY_RISTRETTA;
                 }
             }
-        } elseif($this->corsiBaseDiretti()) {
-            $c = $this->corsiBaseDiretti();
-            $partecipazioni = $altroutente->partecipazioniBase();
-            foreach ($partecipazioni as $p) {
-                if(in_array($p->corsoBase(), $c)) {
-                    return PRIVACY_RISTRETTA;
-                }
-            }
-
         }
         return PRIVACY_PUBBLICA;
     }
@@ -1343,14 +1356,8 @@ class Utente extends Persona {
                             );
         $comitatiGestiti = array_unique($comitatiGestiti);
         
-        if ($this->stato == PERSONA || $this->stato == ASPIRANTE) {
-            $d = $this->dimesso();
-            // il secondo check è perchè MEMBRO_DIMESSO è 0
-            if($d || $d === MEMBRO_DIMESSO) {
-                $c = $this->ultimaAppartenenza($d)->comitato();
-            } else {
-                $c = $this->unComitato(MEMBRO_ORDINARIO);
-            }
+        if ($this->stato == PERSONA) {
+            $c = $this->unComitato(MEMBRO_ORDINARIO);
         } else {
             $c = $this->unComitato(MEMBRO_PENDENTE);
         }
@@ -1379,28 +1386,15 @@ class Utente extends Persona {
 
     /*
      * Controlla la riammissibilità entro l'anno solare di un volontario
-     * @return true se volontario riammissibile false se non riammissibile
+     * @return true se volontario riammissible false se non riammissibile
      */
     public function riammissibile() {
-        // appartenenza aperta di qualche tipo
-        if($this->appartenenzaAttuale()) {
-            return false;
+        $dimissione = $this->ultimaAppartenenza(MEMBRO_DIMESSO);
+        $ultimo = $dimissione->fine+ANNO;
+        if ($ultimo >= time()){
+            return true;
         }
-
-        // fuori tempo
-        $app = $this->ultimaAppartenenza(MEMBRO_DIMESSO);
-        $limiteRiammissione = $app->fine + ANNO;
-        if ($limiteRiammissione < time()){
-            return false;
-        }
-
-        // controllo tipo dimissione
-        $dimissione = Dimissione::by('appartenenza', $app);
-        if(!in_array($dimissione->motivo, [DIM_TURNO, DIM_QUOTA])) {
-            return false;
-        }
-
-        return true;
+        return false;
     }
 
     /*
@@ -1443,25 +1437,6 @@ class Utente extends Persona {
     }
 
     /**
-     * Dice se un socio è dimesso
-     * @return int|false   tipo dimissione se dimesso altrimenti false
-     */
-    public function dimesso() {
-        if($this->stato != PERSONA) {
-            return false;
-        }
-        $a = $this->ultimaAppartenenza(MEMBRO_DIMESSO);
-        if($a) {
-            return MEMBRO_DIMESSO;
-        }
-        $a = $this->ultimaAppartenenza(MEMBRO_ORDINARIO_DIMESSO);
-        if($a) {
-            return MEMBRO_ORDINARIO_DIMESSO;
-        }
-        return false;
-    }
-
-    /**
      * Dice se un socio è benemerito per un dato anno
      * @param $anno int     Anno su cui voglio fare il controllo
      * @return Quota|bool   Quota se benemerito, false altrimenti
@@ -1499,26 +1474,7 @@ class Utente extends Persona {
         return null;        
     }
 
-    public function trasformaInVolontario(Utente $trasformatore) {
-        if(!$this->stato == ASPIRANTE) {
-            return false;
-        }
-        $app = $this->appartenenzaAttuale();
-        $ora = time();
-        $comitato = $app->comitato;
-        $app->fine = $time;
-        $this->stato = VOLONTARIO;
-        $nuovaApp = new Appartenenza();
-        $nuovaApp->volontario = $this;
-        $nuovaApp->comitato = $comitato;
-        $nuovaApp->stato = MEMBRO_VOLONTARIO;
-        $nuovaApp->inizio = $ora;
-        $nuovaApp->timestamp = time();
-        $nuovaApp->comferma = $trasformatore;
-        return true;
-    }
-
-	/* Se volontario è IV
+    /* Se volontario è IV
      * @return true se iv
      */
     public function iv() {
@@ -1568,52 +1524,4 @@ class Utente extends Persona {
         return $r;
 
     }
-
-    /*
-     * Ritorna il File del Tesserino del Volontario, se esistente
-     * @return bool(false)|File     Il tesserino del volontario, false altrimenti
-     */
-    public function tesserino() {
-        $r = $this->tesserinoRichiesta();
-        if ( $r && $r->haCodice() )  
-            return $r->generaTesserino();
-        return false;
-    }
-
-    /*
-     * Ottiene codice ultimo tesserino valido volontario (codicePubblico) 
-     * @return bool(false)|string Codice se presente, alternativamente false
-     */
-    public function codicePubblico() {
-        $r = $this->tesserinoRichiesta();
-        if ( $r && $r->haCodice() )
-            return $r->codice;
-        return false;
-    }
-
-    /**
-     * Ritorna eventuale richiesta del tesserino per il volontario
-     * @return RichiestaTesserino|bool(false)   RichiestaTesserino se presente, false altrimenti
-     */
-    public function tesserinoRichiesta() {
-        $r = [];
-        $t = TesserinoRichiesta::filtra([
-            ['volontario', $this]
-            ]);
-        foreach($t as $_t) {
-            if ($_t->stato != RIFIUTATO) {
-                return $_t;
-            }
-        }
-        return false;
-    }
-
-    public static function daCodicePubblico($codice) {
-        $t = TesserinoRichiesta::by('codice', $codice);
-        if($t && $t->utente()) {
-            return $t->utente();
-        }
-        return null;
-    }
-
 }

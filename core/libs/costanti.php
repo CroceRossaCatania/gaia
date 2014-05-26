@@ -177,19 +177,6 @@ $conf['avatar'] = [
     80  =>  [750,   750]
 ];
 
-/*
- * ===================================
- * =========== FOTOTESSERA ===========
- * ===================================
- */
-
-/* Avatar, dimensioni */
-$conf['fototessera'] = [
-    10  =>  [75,    75],
-    20  =>  [150,   150],
-    80  =>  [750,   750]
-];
-
 
 /*
  * ===================================
@@ -219,20 +206,12 @@ $conf['docs_tipologie'] = [
 
 /*
  * ===================================
- * ======== ESPLORAZIONE =============
+ * ======== ESPLIRAZIONE =============
  * ===================================
  */
 define('NON_ESPLORARE',         0);
 define('ESPLORA_RAMI',          1);
 define('ESPLORA_SOLO_FOGLIE',   2);
-
-/*
- * ===================================
- * ========= FOTOTESSERA =============
- * ===================================
- */
-define('FOTOTESSERA_PENDING',         0);
-define('FOTOTESSERA_OK',             10);
 
 /*
  * ===================================
@@ -246,6 +225,7 @@ define('TITOLO_PATENTE_CIVILE', 1);
 define('TITOLO_PATENTE_CRI',    2);
 define('TITOLO_STUDIO',      	3);
 define('TITOLO_CRI',            4);
+define('TITOLO_SANGUE',         5);
 
 
 $conf['titoli'] = [
@@ -255,7 +235,43 @@ $conf['titoli'] = [
 	TITOLO_PATENTE_CIVILE	=>	['Patente Civile',             	false,	true,	false],
 	TITOLO_PATENTE_CRI	=>	['Patente CRI',             	true,	true,	true],
 	TITOLO_STUDIO   	=>	['Titolo di studio',		false,  true,   false],
-	TITOLO_CRI       	=>	['Titolo di Croce Rossa',	true,	true,	false]
+	TITOLO_CRI       	=>	['Titolo di Croce Rossa',	true,	true,	false],
+	TITOLO_SANGUE       	=>	['Donazione di sangue',		true,	true,	true]
+];
+
+
+
+/*
+ * ===================================
+ * =========== DONAZIONI =============
+ * ===================================
+ */
+
+/* Tipologie di donazioni */
+define('DONAZIONE_SANGUE',      0);
+
+$conf['tipiDonazioni'] = [
+	'Donazione di sangue'
+];
+
+$conf['donazioni'] = [
+	/*
+	num =>  [denominazione,		       verifica, data,  data_obbl] */
+	DONAZIONE_SANGUE	=>	['Donazione di sangue',		true,	true,	true]
+];
+
+
+/*
+ * ===================================
+ * ======= DONAZIONI MERITO ==========
+ * ===================================
+ */
+
+/* Tipologie di merito */
+$conf['merito'] = [
+	/*
+	tipo donazione =>  [classe 1, classe 2,  ... classe N] */
+	0	=>	[1, 10, 20, 40]
 ];
 
 
@@ -569,10 +585,14 @@ $conf['patente'] = [
 
 define('EST_GRP_UNITA',         10);
 define('EST_GRP_LOCALE',        20);
+define('EST_GRP_PROVINCIALE',   30);
+define('EST_GRP_REGIONALE',     40);
 
 $conf['est_grp'] = [
     EST_GRP_UNITA       =>  'Unità',
-    EST_GRP_LOCALE      =>  'Locale'    
+    EST_GRP_LOCALE      =>  'Locale' ,
+    EST_GRP_PROVINCIALE =>  'Provinciale',
+    EST_GRP_REGIONALE   =>  'Regionale' 
 ];
 
 /*
@@ -682,7 +702,6 @@ $conf['corso_stato'] = [
  */
 
 define('ISCR_ANNULLATA',       0);
-define('ISCR_NEGATA',          5);
 define('ISCR_ABBANDONO',      10);
 define('ISCR_RICHIESTA',      20);
 define('ISCR_CONFERMATA',     30);
@@ -691,7 +710,6 @@ define('ISCR_BOCCIATO',       50);
 
 $conf['partecipazioneBase'] = [
     ISCR_ANNULLATA      =>  'Annullata', 
-    ISCR_NEGATA         =>  'Negata',
     ISCR_ABBANDONO      =>  'Abbandonato', 
     ISCR_RICHIESTA      =>  'Preiscritto', 
     ISCR_CONFERMATA     =>  'Iscritto',
@@ -707,59 +725,3 @@ $conf['partecipazioneBase'] = [
 
 define('POSTA_INGRESSO',        0);
 define('POSTA_USCITA',          1);
-
-
-/*
- * ===================================
- * ==== TESSERINO TIPO RICHIESTA =====
- * ===================================
- */
-
-define('RILASCIO',          0);
-define('RINNOVO',          10);
-define('DUPLICATO',        20);
-
-$conf['tesseriniTipo'] = [
-    RILASCIO        =>  'Rilascio', 
-    RINNOVO         =>  'Rinnovo',
-    DUPLICATO       =>  'Duplicato', 
-];  
-
-
-/*
- * ===================================
- * ==== TESSERINO STATO RICHIESTA ====
- * ===================================
- */
-
-define('RIFIUTATO',           0);
-define('RICHIESTO',          10);
-define('STAMPATO',           20);
-define('SPEDITO_CASA',       30);
-define('SPEDITO_COMITATO',   40);
-
-$conf['tesseriniStato'] = [
-    RIFIUTATO           =>  'Richiesta di stampa rifiutata', 
-    RICHIESTO           =>  'Richiesta in attesa di essere lavorata',
-    STAMPATO            =>  'Tesserino emesso', 
-    SPEDITO_CASA        =>  'Tesserino inviato al domicilio', 
-    SPEDITO_COMITATO    =>  'Tesserino inviato al comitato', 
-];  
-
-$conf['tesseriniStatoBreve'] = [
-    RIFIUTATO           =>  'Rifiutato', 
-    RICHIESTO           =>  'Richiesto',
-    STAMPATO            =>  'Emesso', 
-    SPEDITO_CASA        =>  'Emesso', 
-    SPEDITO_COMITATO    =>  'Emesso', 
-];  
-
-
-/*
- * ===================================
- * ======== ORIENTAMENTO PDF =========
- * ===================================
- */
-
-define('ORIENTAMENTO_ORIZZONTALE',        'landscape');
-define('ORIENTAMENTO_VERTICALE',          'portrait');

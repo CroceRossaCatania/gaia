@@ -456,6 +456,43 @@ class Comitato extends GeoPolitica {
         }
         return $r;
     }
+
+    public function donazioniPendenti() {
+        $q = $this->db->prepare("
+            SELECT 
+                donazioniPersonali.id
+            FROM
+                donazioniPersonali, appartenenza
+            WHERE
+                donazioniPersonali.volontario = appartenenza.volontario
+            AND
+                donazioniPersonali.pConferma IS NULL
+            AND
+                appartenenza.comitato = :comitato");
+        $q->bindParam(':comitato', $this->id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = DonazionePersonale::id($k[0]);
+        }
+        return $r;
+    }
+
+    public function meritiPendenti() {
+        $q = $this->db->prepare("
+            SELECT  donazioniMerito.id
+            FROM    donazioniMerito, appartenenza
+            WHERE   ( donazioniMerito.tConferma < 1 OR donazioniMerito.tConferma IS NULL )
+            AND     donazioniMerito.volontario = appartenenza.volontario
+            AND     appartenenza.comitato  IN
+                ( :comitato )");
+        $q->bindParam(':comitato', $this->id);
+        $q->execute();
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = DonazioneMerito::id($k[0]);
+        }
+        return $r;
+    }
     
     
     public function trasferimenti($stato = null) {
@@ -550,30 +587,6 @@ class Comitato extends GeoPolitica {
             ], 'obiettivo ASC');
         }
     }
-    
-    
-    
-    public function gruppi() {
-        $g = Gruppo::filtra([
-            ['comitato',    $this->oid()]
-        ], 'nome ASC');
-        $c = $this->locale();
-        $g = array_merge($g, Gruppo::filtra([['comitato', $c->oid()],['estensione', EST_GRP_LOCALE]]));
-        $locali = $c->figli();
-
-        /*
-         * La parte qua sotto vuol dire che noi facciamo dei gruppo di attività di unità
-         * aperte al comitato..... Ora..... perchè non facciamo attività aperte al comitato?
-         */
-        
-        foreach ($locali as $loc){
-            $loc = $loc->oid();
-            $g = array_merge($g, Gruppo::filtra([['comitato', $loc],['estensione', EST_GRP_LOCALE]]));
-        }
-        return array_unique($g);
-    }
-    
-
     
     public function toJSON() {
         return [
