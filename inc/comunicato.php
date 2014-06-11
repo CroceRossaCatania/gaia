@@ -3,8 +3,10 @@
 /*
  * ©2014 Croce Rossa Italiana
  */
-$sessione->deadline = time();
-paginaPrivata();
+
+if ($me) {
+	$sessione->deadline = time();
+}
 
 ?>
 
@@ -102,9 +104,15 @@ e magazzini interni al comitato e tanto altro ancora.
 
 <p>
 <strong>Ringraziamenti</strong><br/>
-Vorremmo ringrazia tutti gli utenti di Gaia che in questi mesi hanno contribuito a segnalarci bug e malfunzionamenti di ogni genere via email, telefono, github, facebook e con ogni altro strumento. Vorremmo inoltre ringraziare tutte le persone che ci hanno suggerito funzionalità e miglioramenti da introdurre nel sistema. Vorremmo ringraziare inoltre tutti i presidenti e gli uffici soci dei comitati che hanno aderito al progetto e hanno avuto la pazienza di attendere le risposte del supporto quando avevano qualche problema, di compilare in maniera corretta gli i formati e di spiegare ai loro volontari come utilizzare il sistema. Da ultimo ci teniamo a ringraziare tutto lo staff dell'helpdesk di primo
-livello che in questi mesi ci ha aiutato a smaltire il numero sempre maggiore di ticket da parte degli
-utenti.
+Vorremmo ringrazia tutti gli utenti di Gaia che in questi mesi hanno contribuito a segnalarci 
+bug e malfunzionamenti di ogni genere via email, telefono, github, facebook e con ogni altro 
+strumento. Vorremmo inoltre ringraziare tutte le persone che ci hanno suggerito funzionalità e 
+miglioramenti da introdurre nel sistema. Vorremmo ringraziare inoltre tutti i presidenti e gli 
+uffici soci dei comitati che hanno aderito al progetto e hanno avuto la pazienza di attendere le 
+risposte del supporto quando avevano qualche problema, di compilare in maniera corretta gli i 
+formati e di spiegare ai loro volontari come utilizzare il sistema. Da ultimo ci teniamo a ringraziare 
+tutto lo staff dell'helpdesk di primo livello che in questi mesi ci ha aiutato a smaltire il 
+numero sempre maggiore di ticket da parte degli utenti.
 </p>
 
 <p>

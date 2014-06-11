@@ -2,7 +2,23 @@
 
 paginaPubblica(); 
 ?>
-      <div class="row-fluid centrato">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="alert">
+                <div class="row-fluid">
+                    <div class="span8">
+                        <strong>15 giugno 2014</strong> - Nota importante degli sviluppatori sulle problematiche recenti.
+                    </div>
+                    <div class="span4">
+                        <a href="?p=comunicato" class="btn btn-warning btn-block">
+                            Leggi ora
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid centrato">
         <div class="span6">
         	<h2>Già volontario? </h2>
                 <h3 class="muted">Registrati su Gaia.</h3>
@@ -44,6 +60,7 @@ paginaPubblica();
     	</div>
 
       </div>
+
       
 
 <hr />
