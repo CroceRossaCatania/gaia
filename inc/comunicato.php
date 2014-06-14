@@ -166,7 +166,7 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 
 		<ul id="sviluppatori">
 			<li><strong>Alberto Copelli</strong>
-				<a href="#" target="_new" class="icon-github"></a><br />
+				<a href="https://github.com/ciopper90" target="_new" class="icon-github"></a><br />
 				 Sviluppo app Android</li>
 
 			<li><strong>Luca De Sano</strong> 
@@ -185,23 +185,24 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 				 Sviluppo GAIA e Supporto API</li>
 
 			<li><strong>Paolo Giustiniani</strong> 
-				<a href="#" target="_new" class="icon-github"></a><br />
+				<a href="https://github.com/PaoloGiustiniani" target="_new" class="icon-github"></a><br />
 				 Sviluppo GAIA e Supporto</li>
 
 			<li><strong>Alfio Musmarra</strong> 
-				<a href="#" target="_new" class="icon-facebook-sign"></a><br />
+				<a href="https://github.com/alfiomusmarra" target="_new" class="icon-github"></a><br />
 				 Supporto</li>
 
 			<li><strong>Stefano Principato</strong> 
-				<a href="#" target="_new" class="icon-facebook-sign"></a><br />
+				<a href="https://facebook.com/stefano.principato.39" target="_new" class="icon-facebook-sign"></a><br />
 				 Responsabile progetto</li>
 
 			<li><strong>Biagio Saitta</strong> 
-				<a href="#" target="_new" class="icon-github"></a><br />
+				<a href="https://facebook.com/biagiosaitta" target="_new" class="icon-facebook-sign"></a>
+				<a href="https://github.com/biagiosaitta" target="_new" class="icon-github"></a><br />
 				 Supporto ed Attivazione Comitati</li>
 
 			<li><strong>Tommaso Scquizzato</strong> 
-				<a href="#" target="_new" class="icon-github"></a><br />
+				<a href="https://facebook.com/tommaso.scquizzato" target="_new" class="icon-facebook-sign"></a><br />
 				 Sviluppo app iOS</li>
 
 			<li><strong>Giuseppe Titolo</strong> 
