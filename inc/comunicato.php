@@ -8,7 +8,7 @@ if ($me) {
 	$sessione->deadline = time();
 }
 
-$_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Supporto e dell'Assistenza sul Progetto Gaia";
+$_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Supporto e dell'Assistenza per il Progetto Gaia";
 
 ?>
 
@@ -39,7 +39,7 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 		<div style="text-align: center;">
 			<p><strong>15 giugno 2014</strong></p>
 			<h1>Nota della Squadra di Gaia</h1>
-			<h4>Interruzione dello Sviluppo, del Supporto<br />e dell'assistenza sul progetto Gaia</h4>
+			<h4>Interruzione dello Sviluppo, del Supporto<br />e dell'assistenza per il progetto Gaia</h4>
 		</div>
 
 		<hr />
@@ -99,27 +99,27 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 		</p>
 		<p>
 		<ul>
-			<li>Sistema di gestione dei corsi base (completo)</li>
-			<li>Sistema di gestione degli aspiranti volontari con la funzionalità "Cerca il corso base più
-			vicino a te" (completo)</li>
-			<li>Sistema di emissione, verifica e gestione dei tesserini per volontari e soci ordinari (colmpleto)</li>
+			<li>Sistema di gestione dei corsi base (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
+			<li>Prima versione dell'Applicazione Ufficiale per dispositivi Android (<a href="https://play.google.com/store/apps/details?id=it.gaiacri.mobile" target="_new">completa, disponibile su Play Store</a>);</li>
+			<li>Sistema di gestione degli aspiranti volontari con la funzionalità &laquo;Cerca il corso base più
+			vicino a te&raquo; (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
+			<li>Sistema di emissione, verifica e gestione dei tesserini per volontari e soci ordinari (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
 			<li>Sistema di gestione delle donazioni del sangue sviluppato dal gruppo di lavoro 
-			sulle donazioni (compelto)</li>
-			<li>Adeguamento del portale alle linee guida di comunicazione istituzionale (completo)</li>
+			sulle donazioni (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
+			<li>Adeguamento del portale alle linee guida di comunicazione istituzionale (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>)</li>
 			<li>Nuovo sistema di gestione delle quote dei volontari che rispetta le indicazioni
-			legate alla provatizzazione dei comitati CRI(completo)</li>
-			<li>Introduzione di una timeline con le ultime informazioni sul mondo CRI (completo)</li>
-			<li>Gestione da parte dell'ufficio soci di trasferimenti, estensioni e riserve (completo)</li>
-			<li>Revisione del sistema di gestione degli elenchi, degli export e delle email (completo)</li>
+			legate alla provatizzazione dei comitati CRI (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
+			<li>Introduzione di una timeline con le ultime informazioni sul mondo CRI (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
+			<li>Gestione da parte dell'ufficio soci di trasferimenti, estensioni e riserve (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
+			<li>Revisione del sistema di gestione degli elenchi, degli export e delle email (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
 			<li>Introduzione del sistema di gestione dei provvedimenti disciplinari e 
-			delle riammissioni secondo le ultime direttive (completo) </li>
+			delle riammissioni secondo le ultime direttive (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
 		</ul>
 		</p>
 
 		<p>
-		Oltre a quanto riportato in elenco è pronta l'applicazione ufficiale per smartphone Android e era
-		in fase di completamento quella per smartphone iOS. Anche questi ulteriori strumenti purtroppo non
-		vedranno la luce.
+		Oltre a quanto riportato in elenco è in fase di completamento l'applicazione per smartphone iOS. Anche questo ulteriore strumento purtroppo non
+		vedr&agrave; la luce.
 		</p>
 
 		<p>
@@ -178,6 +178,10 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 			<li><strong>Paolo Giustiniani</strong> 
 				<a href="#" target="_new" class="icon-github"></a><br />
 				 Sviluppo GAIA e Supporto</li>
+
+			<li><strong>Alfio Musmarra</strong> 
+				<a href="#" target="_new" class="icon-facebook-sign"></a><br />
+				 Supporto</li>
 
 			<li><strong>Stefano Principato</strong> 
 				<a href="#" target="_new" class="icon-facebook-sign"></a><br />
