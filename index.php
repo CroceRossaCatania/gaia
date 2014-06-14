@@ -456,7 +456,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 	  _paq.push(["trackPageView"]);
 	  _paq.push(["enableLinkTracking"]);
 	  (function() {
-	    var u = "https://stats.gaiacri.it/";
+	    var u = "https://statsgaiacri.alacriter.co.uk/";
 	    _paq.push(["setTrackerUrl", u+"piwik.php"]);
 	    _paq.push(["setSiteId", "1"]);
 	    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
