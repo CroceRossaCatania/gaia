@@ -26,6 +26,11 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 		background-color: #F9F9F9;
 		font-size: 115%;
 	}
+	#grafico {
+		padding: 20px 0px;
+		font-style: italic;
+		text-align: center;
+	}
 </style>
 
 <link href='http://fonts.googleapis.com/css?family=Cardo:400,700,400italic' rel='stylesheet' type='text/css'>
@@ -62,7 +67,11 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 		Nessuna delle numerose richieste che sono state avanzate per migliorare l’infrastruttura e gli strumenti tecnici necessari al Progetto si è concretizzata. Queste includevano ulteriori server, macchine più potenti, costi di licenze, strumenti di sviluppo. Noi sviluppatori siamo sempre stati abituati a lavorare in economia ed a sfruttare al meglio le risorse presenti, ma non e’ più pensabile che il Progetto possa servire tutta Italia con le stesse risorse con le quali è stati avviato.
 		</p>
 
-		Grafico delle pagine servite per giorno dal Progetto, attuali 32mila/giorno
+		<div id="grafico">
+			<img src="/img/comunicato_img1.png" title="Grafico delle Pagine servite" alt="Grafico delle pagine servite" class="img-polaroid" />
+			<br />
+			<p>Grafico delle pagine servite per giorno dal Progetto, attuali 32mila/giorno</p>
+		</div>
 
 		<p>
 		Alla data attuale, nonostante le decine di richieste e l’impegno costante che abbiamo messo nel Progetto, <strong>nessun investimento è stato fatto da parte della CRI su di esso</strong>. Purtroppo le procedure burocratiche a cui dobbiamo tutti sottostare hanno fatto fallire ogni tentativo iniziato dal gruppo di lavoro dell’Area VI e dagli sviluppatori di Gaia. Gli unici soldi spesi per rendere funzionante Gaia sono stati spesi direttamente dai volontari che ci hanno lavorato ininterrottamente e dal personale dell’area VI, di tasca propria, per evitare che tutto si fermasse.
