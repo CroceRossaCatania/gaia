@@ -26,7 +26,7 @@ Negli ultimi mesi un grandissimo numero di Comitati ha aderito al Progetto e di 
 </p>
 
 <p>
-Purtroppo a questo incremento di utenti non è seguito <strong>nessuno stanziamento di fondi</strong> da parte della Croce Rossa per rendere disponibili a noi sviluppatori, e quindi a tutti gli utenti, le risorse che da ormai un anno stiamo chiedendo. 
+Purtroppo a questo incremento di utenti non è seguito <strong>l'adeguamento informatico necessario</strong> da parte della Croce Rossa per rendere disponibili a noi sviluppatori, e quindi a tutti gli utenti, le risorse che da ormai un anno stiamo chiedendo. 
 </p>
 
 <p>
@@ -41,7 +41,7 @@ Alla data attuale, nonostante le decine di richieste e l’impegno costante che 
 
 <p>
 <strong>Cosa ha fatto il team di Gaia?</strong><br/>
-Circa un mese fa, abbiamo comunicato definitivamente all’Area VI la nostra <strong>impossibilità nel continuare a sostenere una situazione di questo tipo</strong>, indicando la fine di giugno come termine ultimo per investire i fondi necessari oppure dare autorizzazione al Progetto di ricevere donazioni online per il suo stesso mantenimento o ancora, infine, permettere ad un Comitato CRI di sostenere i corsi di Gaia per un periodo limitato in attesa che si trovasse il modo di risolvere la situazione. Tristemente, <strong>nessuna risposta</strong> è ci è arrivata.
+Circa un mese fa, abbiamo comunicato all’Area VI la nostra <strong>impossibilità nel continuare a sostenere una situazione di questo tipo</strong>, indicando la fine di giugno come termine ultimo per concretizzare gli acquisti necessari, ormai improrogabili, oppure dare autorizzazione al Progetto di ricevere donazioni online per il suo stesso mantenimento o ancora permettere ad un Comitato CRI di sostenere i costi di Gaia per un periodo limitato in attesa che si trovasse il modo di risolvere la situazione. Tristemente, nonostante i costanti solleciti nel corso dei mesi, <strong>nessuna risposta</strong> &egrave; pervenuta alle nostre proposte avanzate.
 </p>
 
 <p>
