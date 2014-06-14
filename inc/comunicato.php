@@ -212,7 +212,7 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 				<div class="fb-like" data-href="https://gaia.cri.it/?p=comunicato" data-layout="box_count" data-action="like" data-show-faces="true" data-share="false"></div>
 			</div>
 			<div class="span9">
-				<a class="btn btn-large btn-block btn-primary">
+				<a class="btn btn-large btn-block btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgaia.cri.it%2Findex.php%3Fp%3Dcomunicato" target="_new">
 					<i class="icon-facebook-sign"></i>
 					Condividi su Facebook
 				</a>
