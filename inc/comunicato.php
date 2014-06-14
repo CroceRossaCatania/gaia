@@ -50,7 +50,7 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 		<hr />
 
 		<p>
-		Ciao <?php echo (( $me instanceOf Volontario ) ? $me->nome : "Volontario"); ?>,<br/>
+		Ciao <?php echo (( $me instanceOf Utente ) ? $me->nome : "Volontario"); ?>,<br/>
 		come avrai potuto notare, in queste ultime settimane il portale che ospita il Progetto Gaia è poco responsivo e la squadra di Supporto non è più in grado di fornire assistenza con la stessa assiduità con cui lo faceva prima.
 		</p>
 
