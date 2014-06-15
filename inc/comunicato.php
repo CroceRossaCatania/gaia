@@ -130,7 +130,7 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 		e magazzini interni al comitato e tanto altro ancora.
 		</p>
 
-		<h3>Ringraziamenti</h3>
+		<h3>Ringraziamenti e pazienza...</h3>
 		<p>
 		Vorremmo ringraziare tutti gli utenti di Gaia che in questi mesi stanno contribuendo a segnalarci 
 		bug e malfunzionamenti di ogni genere via email, telefono, github, facebook e con ogni altro 
