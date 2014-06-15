@@ -75,12 +75,13 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 		<h3>Cosa stiamo facendo e cosa succeder&agrave;?</h3>
 		<p>
 		La Squadra ha effettuato un'analisi delle problematiche, stilando varie relazioni tecniche sulle necessit&agrave; per poter proseguire nello Sviluppo del Progetto GAIA.
-		Per rendere le acquisizioni piu&ugrave; rapide, consci che i tempi della Publica Amministrazione su cose cos&igrave; tecniche spesso non ci aiutano, ci stiamo anche
-		interrogando per trovare altre linee di finanziament al progetto, anche attraverso raccolte esterne.
+		Per rendere le acquisizioni piu&ugrave; rapide, consci che i tempi della Pubblica Amministrazione su cose cos&igrave; tecniche spesso non ci aiutano, ci stiamo anche
+		interrogando per trovare altre linee di finanziamento al progetto, anche attraverso raccolte esterne.
 		</p>
 
 		<p>
-		In questo momento per&ograve; tali necessit&agrave; sono cruciali per far sviluppare nuove funzionalit&agrave; risolvere le problematiche attuali ed assicurare l'assistenza che arriver&agrave; tramite i canali di supporto in tempi stretti.
+		In questo momento per&ograve; tali necessit&agrave; sono cruciali per
+		 far sviluppare nuove funzionalit&agrave; risolvere le problematiche attuali ed assicurare l'assistenza che arriver&agrave; tramite i canali di supporto in tempi stretti.
 		</p>
 
 		<p>
@@ -92,7 +93,9 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 
 		<h3>Quali funzionalit&agrave; vedranno la luce?</h3>
 		<p>
-		Moltissime funzionalità di Gaia in questi mesi sono state sviluppate partendo dai regolamenti e dalle esigenze dei comitati CRI. Alcune di queste, ormai pronte per essere rilasciate, saranno messe a disposizione appena potranno essere adeguatamente mantenute.</p>
+		Moltissime funzionalità di Gaia in questi mesi sono state sviluppate partendo dai regolamenti
+		 e dalle esigenze dei comitati CRI. Alcune di queste, ormai pronte per essere rilasciate, saranno
+		 messe a disposizione appena potranno essere adeguatamente mantenute.</p>
 		<p>
 		Le funzionalità sviluppate e non ancora attivabili sul sistema sono le seguenti:
 		</p>
@@ -129,10 +132,11 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 
 		<h3>Ringraziamenti</h3>
 		<p>
-		Vorremmo ringrazia tutti gli utenti di Gaia che in questi mesi hanno contribuito a segnalarci 
+		Vorremmo ringraziare tutti gli utenti di Gaia che in questi mesi stanno contribuendo a segnalarci 
 		bug e malfunzionamenti di ogni genere via email, telefono, github, facebook e con ogni altro 
-		strumento. Vorremmo inoltre ringraziare tutte le persone che ci hanno suggerito funzionalità e 
-		miglioramenti da introdurre nel sistema. Vorremmo ringraziare inoltre tutti i presidenti e gli 
+		strumento. Vorremmo inoltre ringraziare tutte le persone che ci continuano a suggerire funzionalità e 
+		miglioramenti da introdurre nel sistema all'indirizzo <a href="mailto:feedback@gaia.cri.it">feedback@gaia.cri.it</a>,
+		nonch&eacute; i presidenti e gli 
 		uffici soci dei comitati che hanno aderito al progetto e hanno avuto la pazienza di attendere le 
 		risposte del supporto quando avevano qualche problema, di compilare in maniera corretta gli i 
 		formati e di spiegare ai loro volontari come utilizzare il sistema. Da ultimo ci teniamo a ringraziare 
