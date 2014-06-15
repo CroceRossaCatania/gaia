@@ -214,7 +214,7 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 		<p>&nbsp;</p>
 		<hr />
 
-		<p><strong>Nota</strong: Il testo &egrave; stato modificato dopo la pubblicazione iniziale.</p>
+		<p><strong>Nota</strong>: Il testo &egrave; stato modificato dopo la pubblicazione iniziale.</p>
 
 	</div>
 
