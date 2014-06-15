@@ -44,27 +44,25 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 		<div style="text-align: center;">
 			<p><strong>15 giugno 2014</strong></p>
 			<h1>Nota della Squadra di Gaia</h1>
-			<h4>Interruzione dello Sviluppo, del Supporto<br />e dell'assistenza per il progetto Gaia</h4>
+			<h4>Rallentamento temporaneo dello Sviluppo, del Supporto<br />e dell'assistenza per il progetto Gaia</h4>
 		</div>
 
 		<hr />
 
 		<p>
-		Ciao <?php echo (( $me instanceOf Utente ) ? $me->nome : "Volontario"); ?>,<br/>
-		come avrai potuto notare, in queste ultime settimane il portale che ospita il Progetto Gaia è poco responsivo e la squadra di Supporto non è più in grado di fornire assistenza con la stessa assiduità con cui lo faceva prima.
+		Ciao <?php echo (( $me instanceOf Utente ) ? $me->nome : "Volontario/a"); ?>,<br/>
+		come avrai potuto notare, in queste ultime settimane il portale che ospita il Progetto Gaia
+		è poco responsivo e la squadra di Supporto, nonostante gli sforzi, non è in grado di fornire una soluzione tempestiva.
 		</p>
 
 		<h3>Cosa è successo?</h3>
 		<p>
-		Negli ultimi mesi un grandissimo numero di Comitati ha aderito al Progetto e di conseguenza il numero di volontari e soci registrati ha superato i <strong>56.000</strong>, facendo crescere drasticamente il carico di lavoro sull’infrastruttura informatica e rendendo <strong>improrogabile</strong> l’avvio di una serie di interventi e di migliorie per permettere al sistema di continuare a servire l’utenza.
-		</p>
-
-		<p>
-		Purtroppo a questo incremento di utenti non è seguito <strong>l'adeguamento informatico necessario</strong> da parte della Croce Rossa per rendere disponibili a noi sviluppatori, e quindi a tutti gli utenti, le risorse che da ormai un anno stiamo chiedendo. 
-		</p>
-
-		<p>
-		Nessuna delle numerose richieste che sono state avanzate per migliorare l’infrastruttura e gli strumenti tecnici necessari al Progetto si è concretizzata. Queste includevano ulteriori server, macchine più potenti, costi di licenze, strumenti di sviluppo. Noi sviluppatori siamo sempre stati abituati a lavorare in economia ed a sfruttare al meglio le risorse presenti, ma non e’ più pensabile che il Progetto possa servire tutta Italia con le stesse risorse con le quali è stati avviato.
+		Negli ultimi mesi un grandissimo numero di Comitati ha aderito al Progetto e di conseguenza il numero di volontari e soci registrati ha superato i 
+		<strong>56.000</strong>, facendo crescere drasticamente il carico di lavoro sull’infrastruttura informatica e rendendo <strong>improrogabile</strong> 
+		l’avvio di una serie di interventi e di migliorie per permettere al sistema di continuare a servire l’utenza attraverso un <strong>adeguamento
+		informatico necessario (server, macchine più potenti, costi di licenze, strumenti di sviluppo, ecc.).
+		Siamo sempre stati abituati a lavorare in economia ed a sfruttare al meglio le risorse presenti, 
+		ma non &egrave; più pensabile che il Progetto possa servire tutta Italia con le stesse risorse con le quali è stati avviato.
 		</p>
 
 		<div id="grafico">
@@ -73,38 +71,25 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 			<p>Grafico delle pagine servite per giorno dal Progetto, attuali 32mila/giorno</p>
 		</div>
 
+
+		<h3>Cosa stiamo facendo e cosa succeder&agrave;?</h3>
 		<p>
-		Alla data attuale, nonostante le decine di richieste e l’impegno costante che abbiamo messo nel Progetto, <strong>nessun investimento è stato fatto da parte della CRI su di esso</strong>. Purtroppo le procedure burocratiche a cui dobbiamo tutti sottostare hanno fatto fallire ogni tentativo iniziato dal gruppo di lavoro dell’Area VI e dagli sviluppatori di Gaia. Gli unici soldi spesi per rendere funzionante Gaia sono stati spesi direttamente dai volontari che ci hanno lavorato ininterrottamente e dal personale dell’area VI, di tasca propria, per evitare che tutto si fermasse.
+		La Squadra ha effettuato un'analisi delle problematiche, stilando varie relazioni tecniche sulle necessit&agrave; per poter proseguire nello Sviluppo del Progetto GAIA.
+		Per rendere le acquisizioni piu&ugrave; rapide, consci che i tempi della Publica Amministrazione su cose cos&igrave; tecniche spesso non ci aiutano, ci stiamo anche
+		interrogando per trovare altre linee di finanziament al progetto, anche attraverso raccolte esterne.
 		</p>
 
-		<h3>Cosa ha fatto il team di Gaia?</h3>
 		<p>
-		Circa un mese fa, abbiamo comunicato all’Area VI la nostra <strong>impossibilità nel continuare a sostenere una situazione di questo tipo</strong>, indicando la fine di giugno come termine ultimo per concretizzare gli acquisti necessari, ormai improrogabili, oppure dare autorizzazione al Progetto di ricevere donazioni online per il suo stesso mantenimento o ancora permettere ad un Comitato CRI di sostenere i costi di Gaia per un periodo limitato in attesa che si trovasse il modo di risolvere la situazione. Tristemente, nonostante i costanti solleciti nel corso dei mesi, <strong>nessuna risposta</strong> &egrave; pervenuta alle nostre proposte avanzate.
+		In questo momento per&ograve; tali necessit&agrave; sono cruciali per far sviluppare nuove funzionalit&agrave; risolvere le problematiche attuali ed assicurare l'assistenza che arriver&agrave; tramite i canali di supporto in tempi stretti.
 		</p>
+		<p><strong> Il nostro Coordinatore di Progetto ci ha oggi assicurato che sono state avviate dagli uffici competenti le procedure per l’acquisizione di licenze, server, ecc, e che queste risorse dovrebbero essere disponibili e andare a regime entro la fine di giugno.</strong></p>
 
-		<p>
-		Crediamo fermamente che sia necessario essere seri e responsabili nei confronti degli utenti del
-		sistema e che se si vuole servire un servizio questo deve essere erogato con standard di qualità
-		accettabili, che siano al passo coi tempi sia per quanto riguarda gli aspetti tecnici sia per quanto
-		riguarda la tipologia di servizio fornito. Preferiamo, per rispetto nei confronti di tutti gli utenti
-		nel caso non sia possibile lavorare in queste condizioni, non erogare nessun servizio.	
-		</p>
 
-		<h3>Cosa succederà ora?</h3>
+		<h3>Quali funzionalit&agrave; vedranno la luce?</h3>
 		<p>
-		Alla fine di questo mese, nel caso in cui nulla cambierà, non svilupperemo più nuove funzionalità, non rilasceremo aggiornamenti al sistema e non saremo più in grado di dare seguito alle richieste di assistenza che arriveranno tramite i canali di supporto.
-		</p>
-
-		<h3>Cosa devo fare?</h3>
+		Moltissime funzionalità di Gaia in questi mesi sono state sviluppate partendo dai regolamenti e dalle esigenze dei comitati CRI. Alcune di queste, ormai pronte per essere rilasciate, saranno messe a disposizione appena potranno essere adeguatamente mantenute.</p>
 		<p>
-		Se sei un presidente o un delegato ufficio soci, ti invitiamo a scaricare e conservare gli elenchi dei volontari e dei soci ordinari che hai caricato su Gaia, dalle apposite sezioni, di modo da non perdere i dati.
-		</p>
-
-		<h3>Nuove funzionalità che non vedranno la luce</h3>
-		<p>
-		Moltissime funzionalità di Gaia in questi mesi sono state sviluppate partendo dai regolamenti e dalle esigenze dei comitati CRI. Alcune di queste, ormai pronte per essere rilasciate, non verranno messe a disposizione in quanto non potranno essere adeguatamente mantenute.</p>
-		<p>
-		Le funzionalità sviluppate e non presenti sul sistema sono le seguenti:
+		Le funzionalità sviluppate e non ancora attivabili sul sistema sono le seguenti:
 		</p>
 		<p>
 		<ul>
@@ -123,13 +108,10 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 			<li>Revisione del sistema di gestione degli elenchi, degli export e delle email (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
 			<li>Introduzione del sistema di gestione dei provvedimenti disciplinari e 
 			delle riammissioni secondo le ultime direttive (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
+			<li>Applicazione Ufficiale per iPhone ed iPad (in lavorazione).
 		</ul>
 		</p>
 
-		<p>
-		Oltre a quanto riportato in elenco è in fase di completamento l'applicazione per smartphone iOS. Anche questo ulteriore strumento purtroppo non
-		vedr&agrave; la luce.
-		</p>
 
 		<p>
 		<strong>E tanto altro ancora...</strong><br/>
@@ -154,7 +136,10 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 		</p>
 
 		<blockquote style="font-weight: bold;">
-		La nostra speranza è quella che la Croce Rossa Italiana decida, visto l'entusiasmo dei Volontari che hanno creduto nel progetto e gli ottimi risultati raggiunti in poco tempo e con un budget nullo, di investire e far crescere questo progetto anche se, al momento attuale, la strada sembra essere troppo in salita anche per noi.
+			Siamo ad un cruciale giro di boa e, sperando che gli uffici accelerino al massimo queste acquisizioni,
+			visto l'entusiasmo dei Volontari che hanno creduto nel progetto e gli ottimi risultati raggiunt
+			in poco tempo e con un budget nullo, vi chiediamo di pazientare ancora qualche giorno (e non odiarci)
+			fino a che il nostro GAIA decolli definitivamente. 
 		</blockquote>
 
 		<p>&nbsp;</p>
@@ -194,7 +179,11 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 
 			<li><strong>Stefano Principato</strong> 
 				<a href="https://facebook.com/stefano.principato.39" target="_new" class="icon-facebook-sign"></a><br />
-				 Responsabile progetto</li>
+				 Responsabile del Progetto</li>
+
+			<li><strong>Flavio Ronzi</strong> 
+				<a href="https://www.facebook.com/flavio.ronzi" target="_new" class="icon-facebook-sign"></a><br />
+				 DTN Area VI e Coordinatore del Progetto</li>
 
 			<li><strong>Biagio Saitta</strong> 
 				<a href="https://facebook.com/biagiosaitta" target="_new" class="icon-facebook-sign"></a>
@@ -231,7 +220,7 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 
 		<hr />
 
-		<div class="fb-comments" data-href="https://gaia.cri.it/?p=comunicato" data-width="470" data-numposts="25" data-colorscheme="light"></div>
+		<div class="fb-comments" data-href="https://gaia.cri.it/?p=comunicato&amp;v2" data-width="470" data-numposts="25" data-colorscheme="light"></div>
 
 
 	</div>
