@@ -60,7 +60,7 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 		Negli ultimi mesi un grandissimo numero di Comitati ha aderito al Progetto e di conseguenza il numero di volontari e soci registrati ha superato i 
 		<strong>56.000</strong>, facendo crescere drasticamente il carico di lavoro sull’infrastruttura informatica e rendendo <strong>improrogabile</strong> 
 		l’avvio di una serie di interventi e di migliorie per permettere al sistema di continuare a servire l’utenza attraverso un <strong>adeguamento
-		informatico necessario (server, macchine più potenti, costi di licenze, strumenti di sviluppo, ecc.).
+		informatico necessario</strong> (server, macchine più potenti, costi di licenze, strumenti di sviluppo, ecc.).
 		Siamo sempre stati abituati a lavorare in economia ed a sfruttare al meglio le risorse presenti, 
 		ma non &egrave; più pensabile che il Progetto possa servire tutta Italia con le stesse risorse con le quali è stati avviato.
 		</p>
@@ -82,7 +82,12 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 		<p>
 		In questo momento per&ograve; tali necessit&agrave; sono cruciali per far sviluppare nuove funzionalit&agrave; risolvere le problematiche attuali ed assicurare l'assistenza che arriver&agrave; tramite i canali di supporto in tempi stretti.
 		</p>
-		<p><strong> Il nostro Coordinatore di Progetto ci ha oggi assicurato che sono state avviate dagli uffici competenti le procedure per l’acquisizione di licenze, server, ecc, e che queste risorse dovrebbero essere disponibili e andare a regime entro la fine di giugno.</strong></p>
+
+		<p>
+		<strong>
+		Il nostro Coordinatore di Progetto ci ha oggi assicurato che sono state avviate dagli uffici competenti le 
+		procedure per l’acquisizione di licenze, server, ecc, e che queste risorse dovrebbero essere disponibili
+		e andare a regime entro la fine di giugno.</strong></p>
 
 
 		<h3>Quali funzionalit&agrave; vedranno la luce?</h3>
