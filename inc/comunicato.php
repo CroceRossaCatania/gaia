@@ -42,7 +42,7 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 	<div class="span7" id="comunicato">
 
 		<div style="text-align: center;">
-			<p><strong>15 giugno 2014</strong></p>
+			<p><strong>15 giugno 2014</strong> (aggiornato, ore 16.50)</p>
 			<h1>Nota della Squadra di Gaia</h1>
 			<h4>Rallentamento temporaneo dello Sviluppo, del Supporto<br />e dell'assistenza per il progetto Gaia</h4>
 		</div>
@@ -211,6 +211,11 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 
 		</ul>
 
+		<p>&nbsp;</p>
+		<hr />
+
+		<p><strong>Nota</strong: Il testo &egrave; stato modificato dopo la pubblicazione iniziale.</p>
+
 	</div>
 
 	<div class="span5">
@@ -229,7 +234,7 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 
 		<hr />
 
-		<div class="fb-comments" data-href="https://gaia.cri.it/?p=comunicato&amp;v2" data-width="470" data-numposts="25" data-colorscheme="light"></div>
+		<div class="fb-comments" data-href="https://gaia.cri.it/?p=comunicato" data-width="470" data-numposts="25" data-colorscheme="light"></div>
 
 
 	</div>
