@@ -53,6 +53,10 @@ if (isset($_GET['rimandaPrivatizzazione'])) {
     $sessione->rimandaPrivatizzazione = true;
 }
 
+if (isset($_GET['rimandaDeadline'])) {
+    $sessione->deadline = time();
+}
+
 if ($consenso && !$me->email ) { redirect('nuovaAnagraficaContatti'); }
 if ($consenso && !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
 
@@ -65,6 +69,28 @@ if ($consenso) {
         }
     }
 }
+
+if ((!$sessione->deadline || ($sessione->deadline + GIORNO) < time()) && $consenso) {
+    ?>
+    <div class="modal fade automodal">
+        <div class="modal-header">
+            <h3 class="text-success"><i class="icon-important-sign"></i> Rallentamenti sviluppo portale Gaia</h3>
+        </div>
+        <div class="modal-body">
+            Per favore trova un momento per leggere il comunicato degli sviluppatori 
+            e della squadra di supporto di Gaia riguardante le problematiche che stanno 
+            ostacolando lo sviluppo del sistema e che stanno causando rallentamenti e malfunzionamenti.
+        </div>
+        <div class="modal-footer">
+            <a href="?p=utente.me&rimandaDeadline" class="btn">
+                <i class="icon-remove"></i> Non ora
+            </a>
+            <a href="?p=comunicato" class="btn btn-success">
+                <i class="icon-ok"></i> Leggi il comunicato
+            </a>
+        </div>
+    </div>
+<?php }
 
 if (!$sessione->rimandaPrivatizzazione && $consenso) {
     foreach($me->comitatiPresidenzianti() as $comitato) {
@@ -270,6 +296,16 @@ if(false && $consenso && !$sessione->barcode) { ?>
 
         <div class="row-fluid">
             <div class="span8">
+                <div class="alert alert-block alert-error">
+                    <div class="row-fluid">
+                        <h4><i class="icon-ok"></i> Ciao <?php echo $me->nome ?></h4>
+                        <p>Per favore prendi qualche minuti di tempo, se non lo hai già fatto,
+                        per leggere un importante comunicato da parte degli sviluppatori di Gaia.</p>
+                        <a href="?p=comunicato" class="btn">
+                            Leggi il comunicato
+                        </a> 
+                    </div>
+                </div>
                 <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
                 <div class="alert alert-success">
                     <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
@@ -355,7 +391,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
 
                 /* Presto iscriviti ad un gruppo! */
 
-                if ( $me->comitati() && $me->unComitato()->gruppi() ) { 
+                if ( $me->comitati() && $me->gruppiDisponibili() ) { 
                     if (!$me->mieiGruppi()){ ?>
                     <div class="alert alert-danger">
                         <div class="row-fluid">

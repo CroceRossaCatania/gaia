@@ -50,27 +50,7 @@ richiediComitato();
            Hai abbandonato il gruppo di lavoro con successo.
         </div>
         <?php } ?>
-        <?php 
-    $i=0;
-    foreach ( $me->storico() as $app ) { 
-                         if ($app->attuale()) 
-                                    {
-                          $trasferimento = Trasferimento::by('appartenenza', $app->id);
-                           if($app->stato == MEMBRO_PENDENTE){ 
-                               redirect('errore.comitato');
-                               $i=1; }elseif($trasferimento && $trasferimento->stato==TRASF_INCORSO){ ?>
-                     <div class="row-fluid">
-                                        <h2><i class="icon-warning-sign muted"></i> Impossibile richiedere iscrizione a gruppo di lavoro</h2>
-                                        <div class="alert alert-error">
-                                            <div class="row-fluid">
-                                                <span class="span12">
-                                                    <p>Ci dispiace ma non puoi chiedere l'iscrizione ad un gruppo di lavoro finchè il tuo trasferimento è pendente.</p>
-                                                </span>
-                                            </div>
-                                        </div>           
-                                    </div>  
-             <?php $i=2; } } }
-if($i==0){ ?>
+        
         <div class="row-fluid">
             <h2><i class="icon-group muted"></i> Gruppi di lavoro</h2>
             <div class="alert alert-block alert-info ">
@@ -90,19 +70,12 @@ if($i==0){ ?>
         <label class="control-label" for="inputGruppo">Gruppi di lavoro </label>
         <div class="controls">
             <?php
-            $comitati = $me->comitati();
-            $nogruppi = True;
-            foreach ($comitati as $c)
-            {
-                if ($c->gruppi())
-                {
-                    $nogruppi = False;
-                    break;
-                }
+            $app = $me->appartenenzeAttuali();
+            $gruppi = $me->gruppiDisponibili();
+            $nogruppi = (bool) !$gruppi;
+            
 
-            }
-            if ($nogruppi)
-            { ?>
+            if ($nogruppi) { ?>
                 <span class="text-error">
                     <i class="icon-warning-sign"></i>
                     Spiacente.<br />
@@ -111,25 +84,17 @@ if($i==0){ ?>
 
             <?php } else { ?>
                 <select name="inputGruppo" class="input-xxlarge" required>
-                <?php foreach ($comitati as $c) 
-                {
-                    foreach ($c->gruppi() as $g) 
-                    { ?>
+                <?php foreach ($gruppi as $g) { ?>
                         <option value="<?php echo $g->id; ?>"><?php echo $g->comitato()->nomeCompleto() ?> : <?php echo $g->nome; ?></option>
-                    <?php }
-                } ?>
+                <?php } ?>
                 </select>
-            <?php }
-
-
-            ?>            
+            
             </div>
           </div>
         <div class="control-group">
             <div class="controls">
-              <button type="submit" class="btn btn-large btn-success <?php if ($nogruppi) {?>disabled" disabled="disabled"<?php } else { ?>"<?php } ?>>
-                  <i class="icon-ok"></i>
-                  Iscriviti
+              <button type="submit" class="btn btn-large btn-success" <?php if ($nogruppi) { ?> disabled <?php } ?>>
+                  <i class="icon-ok"></i> Iscriviti
               </button>
             </div>
           </div>
@@ -155,58 +120,48 @@ if($i==0){ ?>
                     <th>Azione</th>
                 </thead>
                 
-                <?php foreach ( $me->mieiGruppi() as $app ) { ?>
-                    <tr<?php if ($app->attuale()) { ?> class="success"<?php } ?>>
+                <?php foreach ( $me->mieiGruppi() as $_g ) { ?>
+                    <tr<?php if ($_g->attuale()) { ?> class="success"<?php } ?>>
                         <td>
-                            <?php if ($app->attuale()) { ?>
+                            <?php if ($_g->attuale()) { ?>
                                 Attuale
                             <?php } else { ?>
                                 Passato
                             <?php } ?>
                         </td>
-                        
                         <td>
-                            <strong><?php echo $app->gruppo()->nome; ?></strong>
+                            <strong><?php echo $_g->gruppo()->nome; ?></strong>
                         </td>
-                        
                         <td>
-                            <strong><?php echo $app->comitato()->nomeCompleto(); ?></strong>
+                            <strong><?php echo $_g->comitato()->nomeCompleto(); ?></strong>
                         </td>
-                        
                         <td>
                             <i class="icon-calendar muted"></i>
-                            <?php echo $app->inizio()->inTesto(false); ?>
+                            <?php echo $_g->inizio()->inTesto(false); ?>
                         </td>
-                        
                         <td>
-                            <?php if ($app->fine) { ?>
+                            <?php if ($_g->fine) { ?>
                                 <i class="icon-time muted"></i>
-                                <?php echo $app->fine()->inTesto(false); ?>
+                                <?php echo $_g->fine()->inTesto(false); ?>
                             <?php } else { ?>
                                 <i class="icon-question-sign muted"></i>
                                 Indeterminato
                             <?php } ?>
                         </td>
-                        
                         <td>
-                            <?php if ($app->attuale() && $me->contaGruppi()>1) { ?>
-                            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente abbandonare questo gruppo di lavoro ?');" href="?p=utente.gruppo.dimetti&id=<?php echo $app->id; ?>">
+                            <?php if ($_g->attuale() && ($me->contaGruppi() > 1)) { ?>
+                            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente abbandonare questo gruppo di lavoro ?');" href="?p=utente.gruppo.dimetti&id=<?php echo $_g->id; ?>">
                                 <i class="icon-ban-circle"></i>
                                 Abbandona
                             </a>
                             <?php } ?>
                         </td>
-                        
                     </tr>
                 <?php } ?>
-            
             </table>
         </div>
-                        <?php } ?>
-
+        <?php } ?>
         </div>
-
-
-<?php } ?>  
+    <?php } ?>  
     </div>
-   </div>
+</div>

@@ -25,14 +25,14 @@ echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | 
 
 clear
 echo "Aggiornamento delle sorgenti software..."
-sudo apt-get update -q=2
+sudo apt-get update
 
 # Installazione software
 echo "Installazione del software necessario a Gaia..."
-sudo apt-get install --yes wget sed unzip build-essentials nano php5-cli php5-common php-pear php-mail mysql-server php5-dev php5-mysql redis-server mongodb-10gen
+sudo apt-get install --yes wget sed unzip nano php5-cli php5-common php-pear php-mail mysql-server php5-dev php5-mysql redis-server mongodb-10gen
 
 echo "Installazione della estensione Mongo..."
-sudo pecl install mongo > /dev/null
+sudo pecl install mongo
 
 # Aggiungi i moduli necessari al php.ini
 if [ -f /etc/php5/cli/php.ini ];then

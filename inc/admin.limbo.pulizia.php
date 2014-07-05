@@ -74,7 +74,7 @@ paginaAdmin();
         foreach($v as $_v) 
         {
             $appartenenze = $_v->numAppartenenzeTotali(MEMBRO_DIMESSO);
-            if($appartenenze == 0 && !$_v->email && !$_v->cellulare)
+            if($appartenenze == 0 && !$_v->email)
             {
                 $totale++;
                 echo('Anagrafica ID:['.$_v->id.'] senza contatti -> provvedo alla rimozione di '.$_v->codiceFiscale.' '.$_v->nome.' '.$_v->cognome.'<br>');

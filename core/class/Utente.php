@@ -544,7 +544,9 @@ class Utente extends Persona {
             AND     titoliPersonali.volontario = appartenenza.volontario
             AND     ( appartenenza.fine < 1 
                     OR
-                    appartenenza.fine > :ora )
+                    appartenenza.fine > :ora 
+                    OR 
+                    appartenenza.fine is NULL)
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $ora = time();
@@ -562,7 +564,9 @@ class Utente extends Persona {
             WHERE   stato = :statoPendente
             AND     ( appartenenza.fine < 1 
                     OR
-                    appartenenza.fine > :ora )
+                    appartenenza.fine > :ora 
+                    OR 
+                    appartenenza.fine is NULL)
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', MEMBRO_PENDENTE);
@@ -624,7 +628,9 @@ class Utente extends Persona {
             AND     appartenenza.stato = :stato
             AND     ( appartenenza.fine < 1 
                     OR
-                    appartenenza.fine > :ora )
+                    appartenenza.fine > :ora 
+                    OR 
+                    appartenenza.fine is NULL)
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $q->bindValue(':statoPendente', RISERVA_INCORSO);
@@ -870,6 +876,38 @@ class Utente extends Persona {
                 return $_r;
         }
         return NULL;
+    }
+
+    /**
+     * Restituisce l'elenco dei gruppi a cui un volontario si può iscrivere
+     * @return Array(Gruppo) restituisce un array di gruppi
+     */
+    public function gruppiDisponibili() {
+        $app = $this->appartenenzeAttuali();
+        $r = [];
+        foreach($app as $_a) {
+            $comitato = $_a->comitato();
+            $r = array_merge($r, $comitato->gruppi());
+            while($comitato = $comitato->superiore()) {
+                $r = array_merge($r, $comitato->gruppi());
+            }
+        }
+        return $r;
+    }
+
+    /**
+     * Restituisce l'elenco dei a cui il volontario è attualmente iscritto
+     * @return Array(Gruppo) restituisce un array di gruppi
+     */
+    public function gruppiAttuali() {
+        $g = $this->mieiGruppi();
+        $r = [];
+        foreach($g as $_g) {
+            if($_g->attuale()) {
+                $r[] = $_g;
+            }
+        }
+        return $r;
     }
     
     public function mieiGruppi() {
@@ -1128,29 +1166,15 @@ class Utente extends Persona {
     
     public function gruppiDiCompetenza( $app = [ APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO ] ) {
         $gruppi = [];
-        $comitati = $this->comitatiApp($app);
-        $domini = $this->dominiDelegazioni(APP_OBIETTIVO);
-        if ( $domini && !$this->admin() && !$this->presidenziante() ){
-            foreach ($comitati as $comitato) {
-                foreach ($domini as $d){
-                    $gruppi = array_merge(
-                        $gruppi,
-                        Gruppo::filtra([
-                            ['referente',$this],
-                            ['obiettivo',$d]
-                        ])
-                    );
-                    if (!$gruppi){
-                        $gruppi = array_merge(
-                            $gruppi,
-                            Gruppo::filtra([
-                            ['referente',$this]
-                        ])
-                        );
-                    }
-                }
+        $comitati = $this->comitatiApp($app, false);
+        if ( !$this->admin() && !$this->presidenziante() ){
+                $gruppi = array_merge(
+                    $gruppi,
+                    Gruppo::filtra([
+                    ['referente',$this]
+                ])
+                );
             $gruppi = array_unique($gruppi);
-            }
         }else{
             foreach ($comitati as $comitato) {
                 $gruppi = array_merge($gruppi, $comitato->gruppi());
@@ -1254,10 +1278,12 @@ class Utente extends Persona {
             $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO]);
             foreach ($comitati as $comitato){
                 if($altroutente->in($comitato)){
-                    return PRIVACY_RISTRETTA;            
+                    return PRIVACY_RISTRETTA;
                 }
             }
-        } elseif($this->areeDiResponsabilita()) {
+        }
+
+        if($this->areeDiResponsabilita()){
             $ar = $this->areeDiResponsabilita();
             foreach( $ar as $_a ){
                 $c = $_a->comitato()->estensione();
@@ -1267,7 +1293,9 @@ class Utente extends Persona {
                     }
                 }
             }
-        } elseif($this->attivitaReferenziate()) {
+        }
+        
+        if($this->attivitaReferenziate()){
             $a = $this->attivitaReferenziate();
             $partecipazioni = $altroutente->partecipazioni(PART_OK);
             foreach( $partecipazioni as $p ){
@@ -1275,7 +1303,9 @@ class Utente extends Persona {
                     return PRIVACY_RISTRETTA;
                 }
             }
-        } elseif($this->corsiBaseDiretti()) {
+        }
+
+		if($this->corsiBaseDiretti()) {
             $c = $this->corsiBaseDiretti();
             $partecipazioni = $altroutente->partecipazioniBase();
             foreach ($partecipazioni as $p) {
@@ -1569,7 +1599,196 @@ class Utente extends Persona {
 
     }
 
-    /*
+    public function cancellaUtente(){
+        $t = Utente::id($this);
+
+        $f = Annunci::filtra([
+          ['autore', $t]
+          ]);
+        foreach($f as $_f){
+            $_f->cancella();
+        }
+
+        $app = Appartenenza::filtra([
+          ['volontario', $t]
+          ]);
+        $a = $t->appartenenzaAttuale();
+
+        if($a) {
+          $c = $a->comitato();
+          $a = $a->id;
+        }
+
+        // roba legata ad appartenenza attuale
+        if($a) {
+            $f = Attivita::filtra([
+                ['referente', $t]
+                ]);
+            foreach($f as $_f){
+                $_f->referente = $c->unPresidente();
+            }
+
+            $f = Autorizzazione::filtra([
+                ['volontario', $t]
+                ]);
+            foreach($f as $_f){
+                $_f->volontario = $c->unPresidente();
+            }
+
+            if($c) {
+                $f = Gruppo::filtra([
+                    ['referente', $t]
+                    ]);
+                foreach($f as $_f){
+                    $_f->referente = $c->unPresidente();
+                }
+            }
+        }
+
+        // roba generica
+
+        $f = Avatar::filtra([
+          ['utente', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = Area::filtra([
+          ['responsabile', $t]
+          ]);
+        foreach($f as $_f){
+            $_f->dimettiReferente();
+        }
+
+        $f = Commento::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = Coturno::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = Delegato::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = Dimissione::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = Documento::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = Estensione::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = File::filtra([
+          ['autore', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = AppartenenzaGruppo::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = Partecipazione::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = Privacy::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = Reperibilita::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = Riserva::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = Sessione::filtra([
+          ['utente', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = TitoloPersonale::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = Trasferimento::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        // roba legata a tutte le appartenenza
+
+        foreach($app as $_app) {
+          $f = Quota::filtra([
+            ['appartenenza', $_app]
+            ]);
+          foreach ($f as $_f) {
+              $_f->cancella();
+          }
+        }
+
+        // cancella appartenenza
+        foreach($app as $_app){
+            $_app->cancella();
+        }
+
+        // cancella anagrafica
+        $t->cancella();
+
+        return;
+    }
+
+	/*
      * Ritorna il File del Tesserino del Volontario, se esistente
      * @return bool(false)|File     Il tesserino del volontario, false altrimenti
      */
@@ -1615,5 +1834,4 @@ class Utente extends Persona {
         }
         return null;
     }
-
 }

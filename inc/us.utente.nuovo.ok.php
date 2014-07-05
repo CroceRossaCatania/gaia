@@ -33,7 +33,7 @@ if ( !preg_match("/^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$/", $codiceF
 
 /* Cerca eventuali utenti con la stessa email... */
 $e = Utente::by('email', $email);
-if ( $e and $e->password ) {
+if ( $e && $email && $e->password ) {
     /* Se l'utente esiste, ed ha già pure una password */
     redirect('us.utente.nuovo&mail');
 }

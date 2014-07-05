@@ -10,6 +10,7 @@ $sessione->adminMode  				= null;
 $sessione->barcode	  				= null;
 $sessione->ambito		  			= null;
 $sessione->rimandaPrivatizzazione 	= null;
+$sessione->deadline 				= null;
 $sessione->logout();
 
 ?>

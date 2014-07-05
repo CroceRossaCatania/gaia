@@ -57,12 +57,21 @@ function recaptcha_controlla() {
 
 
 function captcha_mostra() {
-    global $sweetcaptcha;
+    global $sweetcaptcha, $conf;
+    if ($conf['debug']) {
+        echo '<p>Captcha disattivo in modalita\' debug.';
+        return true;
+    }
     echo $sweetcaptcha->get_html() ;
 }
 
 function captcha_controlla($sckey, $scvalue) {
-    global $sweetcaptcha;
+    global $sweetcaptcha, $conf;
+
+    // In debug, ritorna sempre OK
+    if ($conf['debug'])
+        return true;
+
     if (isset($sckey) 
         and isset($scvalue) 
         and $sweetcaptcha->check(array('sckey' => $sckey, 'scvalue' => $scvalue)) == "true") {
@@ -70,5 +79,3 @@ function captcha_controlla($sckey, $scvalue) {
     }
     return false;
 }
-
-?>

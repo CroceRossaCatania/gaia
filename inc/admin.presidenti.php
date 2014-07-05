@@ -95,6 +95,9 @@ foreach ( $presidenti as $presidente ) {
             <a class="btn btn-danger btn-mini" onClick="return confirm('Vuoi veramente dimettere <?php echo addslashes($_v->nomeCompleto()); ?> da presidente?');" href="?p=admin.presidente.dimetti&id=<?php echo $presidente->id; ?>">
                 Dimetti
             </a>
+            <a class="btn btn-danger btn-mini" onClick="return confirm('Vuoi veramente cancellare <?php echo addslashes($_v->nomeCompleto()); ?> da presidente?');" href="?p=admin.presidente.cancella&id=<?php echo $presidente->id; ?>">
+                Cancella
+            </a>
         </td>
 
     </tr>
