@@ -84,8 +84,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <![endif]-->
 
     <!-- JS -->
-    <?php if (file_exists('js/'. $p . '.js')) { /* Javascript dinamico */ ?>
-        <script type="text/javascript" src="js/<?php echo $p; ?>.js"></script>
+    <?php if (file_exists('assets/js/'. $p . '.js')) { /* Javascript dinamico */ ?>
+        <script type="text/javascript" src="/assets/js/<?php echo $p; ?>.js"></script>
     <?php } ?>
 
   </head>
