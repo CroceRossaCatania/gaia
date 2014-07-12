@@ -290,10 +290,8 @@ if(false && $consenso && !$sessione->barcode) { ?>
 
     <!-- BLOCCO NON MENU -->
     <div class="span9">
-        <h2><span class="muted">Ciao, </span>
-            <?php if ($me->admin()){ ?> <span class="muted">Admin</span> 
-            <?php } elseif ($me->presiede()){ ?><span class="muted">Presidente</span> 
-            <?php } echo $me->nome; ?>.
+        <h2><span class="muted">Ciao </span>
+            <?= $me->nome; ?>
         </h2>
 
         <div class="row-fluid">
@@ -441,14 +439,20 @@ if(false && $consenso && !$sessione->barcode) { ?>
 
             <!-- PANNELLO ULTIME EMAIL -->
             <div class="span4">
-                <h4><i class="icon-time"></i> Ultime comunicazioni</h4>
-                
-                <div
-                    data-posta      ="true"
-                    data-direzione  ="ingresso"
-                    data-perPagina  ="5"
-                    data-mini       ="true"
-                ></div>
+                <div class="row-fluid">
+                    <h4><i class="icon-time"></i> Ultime comunicazioni</h4>
+                    
+                    <div
+                        data-posta      ="true"
+                        data-direzione  ="ingresso"
+                        data-perPagina  ="5"
+                        data-mini       ="true"
+                    ></div>
+                </div>
+                <div class="row-fluid">
+                    <a class="twitter-timeline" href="https://twitter.com/progettogaiacri/gaia-update" data-widget-id="441278779487305729">Tweets from https://twitter.com/progettogaiacri/gaia-update</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                </div>
             </div>
         </div>
     </div>

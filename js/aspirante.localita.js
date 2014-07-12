@@ -9,10 +9,10 @@ $(document).ready( function() {
 
       api('geocoding', { query: $("#ricercaLuogo").val() }, function(x) {
          
-         if ( x.response.length > 0 ){
+         if ( x.risposta.length > 0 ){
              $("#quiRisultati").html('');
-             for (var i in x.response) {
-                 $("#quiRisultati").append("<div data-x='" + x.response[i].lat +"' data-y='" + x.response[i].lng + "' class='mLocalita'>" + x.response[i].formattato + "</div>");
+             for (var i in x.risposta) {
+                 $("#quiRisultati").append("<div data-x='" + x.risposta[i].lat +"' data-y='" + x.risposta[i].lng + "' class='mLocalita'>" + x.risposta[i].formattato + "</div>");
                  
                  
              }

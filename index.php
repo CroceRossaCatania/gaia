@@ -58,11 +58,16 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
 ?><!DOCTYPE html>
 <html>
-  <head>
+  <head prefix="og: http://ogp.me/ns#">
   	<meta charset="utf-8" />
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>{_titolo}</title>
+    <meta property="og:url" content="http://gaia.cri.it/?p=<?= $p ?>">
+    <meta property="og:title" content="{_titolo}">
+    <meta property="og:site_name" content="Progetto Gaia - Croce Rossa Italiana">
+    <meta property="og:description" content="{_descrizione}">
+    <meta property="og:image" content="http://gaia.cri.it/img/Emblema_CRI.png"/>
     <meta name="description" content="{_descrizione}">
     <meta name="author" content="Progetto Gaia - Croce Rossa Italiana">
     <link rel="shortcut icon" href="/img/favicon.ico" />
@@ -108,14 +113,17 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
               <span class="icon-bar"></span>
             </a>
             <a class="brand" href="?">
-            	<img src="./img/logoTop.png" />
-            	&nbsp; <span class="muted">Croce Rossa Italiana</span> <span class="hidden-phone">&nbsp; «Gaia» </span>
+            	<img src="./img/logoCroceSemplice.png" />
+            	&nbsp;<span class="scritta-cri">Croce Rossa Italiana</span><span class="hidden-phone">&nbsp;|&nbsp;Gaia</span>
             </a>
             <div class="nav-collapse collapse">
               <ul class="nav">
                 <li><a href="index.php"><i class="icon-home"></i> Home</a></li>
                 <li><a href="?p=attivita"><i class="icon-calendar"></i> Attività</a></li>
                 <li><a href="?p=public.comitati.mappa"><i class="icon-map-marker"></i> Comitati</a></li>
+                <?php if(!$me) { ?>
+                <li><a href="?p=public.tesserino"><i class="icon-credit-card"></i> Verifica tesserino</a></li>
+                <?php } ?>
               </ul>  
             <?php
             if ( $me ) { 
@@ -125,18 +133,18 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                           <div class="btn-group">
                             <a class="btn btn-danger" href="?p=utente.me">
                                   <i class="icon-user icon-large"></i>&nbsp;
-                                  Ciao, <strong><?php echo $me->nome; ?></strong></a>
+                                  Ciao <strong><?php echo $me->nome; ?></strong></a>
                             <button class="btn dropdown-toggle btn-danger" data-toggle="dropdown">
                                   <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
                                 <?php if ( $me->stato == VOLONTARIO ) { ?>
-                                  <li><a href="?p=utente.anagrafica"><i class="icon-edit"></i> Anagrafica</a></li>
                                   <li><a href="?p=utente.privacy"><i class="icon-cog"></i> Privacy</a></li>
-                                  <li><a href="?p=utente.contatti"><i class="icon-phone"></i> Modifica contatti</a></li>
-                                  <li class="divider"></li>
                                 <?php } ?>
 
+                                  <li><a href="?p=utente.contatti"><i class="icon-phone"></i> Modifica contatti</a></li>
+                                  <li><a href="?p=utente.password"><i class="icon-key"></i> Modifica password</a></li>
+                                  <li class="divider"></li>
                                   <li><a href="?p=logout"><i class="icon-remove"></i> Esci</a></li>
                             </ul>
                           </div>
@@ -286,23 +294,18 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             </div>
                             <?php } ?>
 
-                            <?php if ( $me->admin) {
-                                if(!$me->admin() ) { ?>
-                                <!-- ADMIN MODE NON ATTIVATA... -->
-                                <a href="#adminMode" class="btn btn-inverse hidden-phone" data-toggle="modal" role="button">
+                            <?php if ( $me->admin && !$me->admin() ) { ?>
+                            <!-- ADMIN MODE NON ATTIVATA... -->
+                                <a href="#adminMode" class="btn btn-inverse" data-toggle="modal" role="button">
                                     <i class="icon-github-alt icon-large"></i>
                                 </a>
-                                <?php } else { ?>
+                                <?php } 
+                            if ( $me->admin && $me->admin() ) { ?>
                                 <!-- ADMIN MODE  ATTIVATA... -->
                                 <a href="?p=admin.mode.exit" class="btn btn-inverse hidden-phone">
-                                    <span class="icon-stack">
-                                        <i class="icon-github-alt"></i>
-                                        <i class="icon-ban-circle icon-stack-base text-error"></i>
-                                    </span>
+                                    <i class="icon-github-alt icon-large"></i>
                                 </a>
-                            <?php }} ?>
-
-                                           
+                            <?php } ?>                        
 			</div>
 			<?php } else { ?>
             <div class="paddingSopra pull-right">
@@ -450,6 +453,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
       </div>
       <?php } ?>
     
+
+    <?php if(!$conf['debug']) { ?>
     <!-- Statistiche -->
 	<script type="text/javascript">
 	  var _paq = _paq || [];

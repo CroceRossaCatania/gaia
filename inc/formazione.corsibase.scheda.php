@@ -1,7 +1,7 @@
 <?php
 
 /*
-* ©2013 Croce Rossa Italiana
+* ©2014 Croce Rossa Italiana
 */
 
 paginaAnonimo();
@@ -20,8 +20,23 @@ if ($me->stato == ASPIRANTE) {
     $puoPartecipare = true;
 }
 
+$p = PartecipazioneBase::filtra([
+    ['volontario', $me->id],
+    ['corsoBase', $corso->id],
+    ['stato', ISCR_CONFERMATA]
+    ]);
 
-$_titolo = $corso->nome . ' - Corso Base CRI su Gaia';
+$iscritto = false;
+if($p) {
+    $iscritto = true;
+}
+
+if(!$corso->direttore()) {
+    redirect("formazione.corsibase.direttore&id={$corso->id}");
+}
+
+
+$_titolo = $corso->nome . 'Corso Base CRI su Gaia';
 $_descrizione = $corso->luogo
 ." || Organizzato da " . $corso->organizzatore()->nomeCompleto();
 
@@ -45,15 +60,19 @@ $(document).ready( function() {
         <div class="row-fluid">
 
             <div class="span8 btn-group">
-                <?php if ( $corso->modificabileDa($me) ) { ?>
+                <?php if ( $corso->modificabileDa($me) && !$corso->concluso()) { ?>
                 <a href="?p=formazione.corsibase.modifica&id=<?php echo $corso->id; ?>" class="btn btn-large btn-info">
                     <i class="icon-edit"></i>
                     Modifica
                 </a>
-                <?php } ?>
+                <?php } 
+
+                /*  NIENTE LEZIONI PER ORA
                 <a href="?p=formazione.corsibase.lezioni&id=<?= $corso ?>" class="btn btn-primary btn-large">
                     <i class="icon-calendar"></i> Lezioni
                 </a>
+                */
+                ?>
                 <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://gaia.cri.it/index.php?p=formazione.corsibase.scheda&id={$corso->id}"); ?>" target="_blank">
                     <i class="icon-facebook-sign"></i> Condividi
                 </a>
@@ -72,6 +91,12 @@ $(document).ready( function() {
                 <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
             </div> 
         <?php } ?>
+        <?php if (isset($_GET['verberr'])) { ?>
+            <div class="alert alert-block alert-error">
+                <h4><i class="icon-warning-sign"></i> <strong>Problemi sulla compilazione del verbale</strong>.</h4>
+                <p>Ci sono stai dei problemi sulla compilazione del verbale. Per favore riprova.</p>
+            </div> 
+        <?php } ?>
         <?php if (isset($_GET['gia'])) { ?>
             <div class="alert alert-block alert-error">
                 <h4><i class="icon-warning-sign"></i> <strong>Sei già iscritto</strong>.</h4>
@@ -84,13 +109,19 @@ $(document).ready( function() {
                 <p>La preiscrizione al corso è stata effettuata con successo.</p>
             </div> 
         <?php } ?>
+        <?php if (isset($_GET['verbok'])) { ?>
+            <div class="alert alert-block alert-success">
+                <h4><i class="icon-ok"></i> <strong>Verbale compilato correttamente</strong>.</h4>
+                <p>Le informazioni sull'esito dell'esame sono state correttamente inserite.</p>
+            </div> 
+        <?php } ?>
         <?php if (isset($_GET['cancellato'])) { ?>
             <div class="alert alert-block alert-success">
                 <h4><i class="icon-ok"></i> <strong>Operazione andata a buon fine</strong>.</h4>
                 <p>La preiscrizione al corso è stata cancellata con successo.</p>
             </div> 
         <?php } ?>
-        <?php if (!$corso->accettaIscrizioni()) { ?>
+        <?php if (!$corso->accettaIscrizioni() && $puoPartecipare) { ?>
             <div class="alert alert-block alert-error">
                 <h4><i class="icon-warning-sign"></i> <strong>Le iscrizioni sono chiuse</strong>.</h4>
                 <p>Non puoi più effettuare tramite il portale la preiscrizione al corso, contatta il referente
@@ -111,7 +142,7 @@ $(document).ready( function() {
         <hr />
 
         <div class="row-fluid allinea-centro">
-            <div class="span3">
+            <div class="span2">
                 <span>
                     <i class="icon-user"></i>
                     Direttore
@@ -146,6 +177,15 @@ $(document).ready( function() {
             </div>
             <div class="span2">
                 <span>
+                    <i class="icon-calendar"></i>
+                    Data esame
+                </span><br />
+                <span class="text-info">
+                    <strong><?php echo $corso->fine()->inTesto(false); ?></strong>
+                </span>
+            </div>
+            <div class="span2">
+                <span>
                     <i class="icon-group"></i>
                     Numero iscritti
                 </span><br />
@@ -153,7 +193,7 @@ $(document).ready( function() {
                     <strong><?php echo $corso->numIscritti(); ?></strong>
                 </span>
             </div>
-            <div class="span3">
+            <div class="span2">
                 <span>
                     <i class="icon-home"></i>
                     Organizzato da
@@ -164,6 +204,39 @@ $(document).ready( function() {
             </div>
         </div>
         <hr />
+        <?php if($corso->modificabileDa($me) && $corso->finito() && !$corso->concluso()) { ?>
+        <div class="row-fluid">
+            <a href="?p=formazione.corsibase.finalizza&id=<?= $corso->id ?>" class="btn btn-block btn-success btn-large">
+                <i class="icon-flag-checkered"></i> Genera verbale e chiudi corso
+            </a>
+        </div>
+        <hr />
+        <?php } ?>
+
+        <?php if($puoPartecipare && !$iscritto) { ?>
+        <div class="row-fluid">
+            <?php if ($corso->accettaIscrizioni() && !$corso->iscritto($me)) { ?>
+            <div clas="span12">
+                <a href="?p=formazione.corsibase.iscrizione.ok&id=<?php echo $corso->id ; ?>" class="btn btn-large btn-block btn-success">Preiscriviti al corso</a>
+            </div>
+            <?php } elseif($corso->iscritto($me)) { ?>
+            <div class="span6">
+                <button class="btn btn-large btn-block btn-primary disabled">Preiscrizione effettuata</button>
+            </div>
+            <div class="span6">
+                <a href="?p=formazione.corsibase.iscrizione.cancella.ok&id=<?php echo $corso->id ; ?>" class="btn btn-large btn-block btn-danger">Cancella Preiscrizione</a>
+            </div>
+            <?php } ?>
+        <div>
+        <?php } elseif($iscritto) { ?>
+        <div class="row-fluid">
+            <div class="hero-unit" >
+                <h1><i class="icon-flag"></i> Complimenti, sei iscritto a questo corso! </h1>
+                <p>Ora non ti resta che presentarti presso il luogo indicato per lo svolgimento
+                delle lezioni. Se hai bisogno di maggiori informazioni contatta il direttore del corso.</p>
+            </div>
+        </div>
+        <?php } ?>
 
         <div class="row-fluid">
             <div class="span12" style="max-height: 500px; padding-right: 10px; overflow-y: auto;">
@@ -175,22 +248,12 @@ $(document).ready( function() {
             </div>
         </div>
         <hr />
-        <?php if($puoPartecipare) { ?>
-        <div class="row-fluid">
-            <?php if ($corso->accettaIscrizioni() && !$corso->iscritto($me)) { ?>
-            <div clas="span12">
-                <a href="?p=formazione.corsibase.iscrizione.ok&id=<?php echo $corso->id ; ?>" class="btn btn-large btn-block btn-success">Preiscriviti al corso</a>
-            </div>
-            <?php } else { ?>
-            <div class="span6">
-                <button class="btn btn-large btn-block btn-primary disabled">Preiscrizione effettuata</button>
-            </div>
-            <div class="span6">
-                <a href="?p=formazione.corsibase.iscrizione.cancella.ok&id=<?php echo $corso->id ; ?>" class="btn btn-large btn-block btn-danger">Cancella Preiscrizione</a>
-            </div>
-            <?php } ?>
-        <div>
-        <?php } ?>
+
+        <?php 
+
+        /*  Per ora nascondiamo le lezioni 
+
+
         <div class="row-fluid">
             <div class="span12">
                 <h3><i class="icon-time"></i> Elenco delle lezioni</h3>
@@ -413,12 +476,32 @@ $(document).ready( function() {
                 <?php } ?>
             </table>
         </div>
-        <?php if ( $corso->modificabileDa($me) ) { ?>
+
+        */ 
+
+        ?>
+
+
+        <?php if ( !$corso->concluso() && $corso->modificabileDa($me) ) { ?>
+
+        <!-- ISCRITTI -->
+
         <div class="row-fluid">
-            <div class="span12">
+            <div class="span6">
                 <h3><i class="icon-group"></i> Elenco degli iscritti</h3>
             </div>
+            <div class="span6 allinea-destra">
+                <div class="btn-group">                    
+                    <a class="btn btn-small btn-success" href="?p=formazione.corsibase.email.nuova&iscrizioni&id=<?= $corso->id; ?>" title="Email">
+                        <i class="icon-envelope"></i> Invia email a tutti gli iscritti
+                    </a>
+                    <a class="btn btn-small" href="?p=formazione.corsibase.excel&iscrizioni&id=<?= $corso->id; ?>" title="Excel">
+                        <i class="icon-download"></i> Scarica come foglio excel
+                    </a>
+                </div>
+            </div>
         </div>
+
         <div class="row-fluid">
             <table class="table table-striped table-bordered" id="tabellaUtenti">
                 <thead>
@@ -426,15 +509,16 @@ $(document).ready( function() {
                     <th>Nominativo</th>
                     <th>Telefono</th>
                     <th>Email</th>
+                    <th>Stato</th>
                     <th>Azione</th>
                 </thead>
                 <?php 
-                $part = $corso->partecipazioni();
+                $part = $corso->partecipazioni(ISCR_CONFERMATA);
 
                 foreach ( $part as $p ) { 
                     $iscritto = $p->utente(); ?>
                     <tr>
-                        <td><img src="<?php echo $iscritto->avatar()->img(10); ?>" class="img-polaroid" /></td>
+                        <td><img width="50" height="50" src="<?php echo $iscritto->avatar()->img(10); ?>" class="img-polaroid" /></td>
                         <td><?php echo $iscritto->nomeCompleto(); ?></td>
                         <td>
                             <span data-nascondi="" data-icona="icon-phone"><?php echo $iscritto->cellulare(); ?></span>
@@ -442,9 +526,67 @@ $(document).ready( function() {
                         <td>
                             <span data-nascondi="" data-icona="icon-envelope"><?php echo $iscritto->email(); ?></span>
                         </td>
+                        <td>
+                            <?= $conf['partecipazioneBase'][$p->stato]; ?>
+                        </td>
+                        <td width="15%">
+                            <a href="<?= "?p=profilo.controllo&id={$iscritto->id}" ?>" class="btn" target="_new" title="Dettagli">
+                                <i class="icon-eye-open"></i> Dettagli
+                            </a>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </table>
+        </div>
+
+        <!-- PREISCRIZIONI -->
+        
+        <div class="row-fluid">
+            <div class="span6">
+                <h3><i class="icon-group"></i> Elenco delle preiscrizioni</h3>
+            </div>
+            <div class="span6 allinea-destra">
+                <div class="btn-group">
+                    <a class="btn btn-small btn-success" href="?p=formazione.corsibase.email.nuova&preiscrizioni&id=<?= $corso->id; ?>" title="Email">
+                        <i class="icon-envelope"></i> Invia email a tutti i preiscritti
+                    </a>
+                    <a class="btn btn-small" href="?p=formazione.corsibase.excel&preiscrizioni&id=<?= $corso->id; ?>" title="Excel">
+                        <i class="icon-download"></i> Scarica come foglio excel
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <table class="table table-striped table-bordered" id="tabellaUtenti">
+                <thead>
+                    <th>Foto</th>
+                    <th>Nominativo</th>
+                    <th>Telefono</th>
+                    <th>Email</th>
+                    <th>Stato</th>
+                    <th>Azione</th>
+                </thead>
+                <?php 
+                $part = $corso->partecipazioni(ISCR_RICHIESTA);
+
+                foreach ( $part as $p ) { 
+                    $iscritto = $p->utente(); ?>
+                    <tr>
+                        <td><img width="50" height="50" src="<?php echo $iscritto->avatar()->img(10); ?>" class="img-polaroid" /></td>
+                        <td><?php echo $iscritto->nomeCompleto(); ?></td>
+                        <td>
+                            <span data-nascondi="" data-icona="icon-phone"><?php echo $iscritto->cellulare(); ?></span>
+                        </td>
+                        <td>
+                            <span data-nascondi="" data-icona="icon-envelope"><?php echo $iscritto->email(); ?></span>
+                        </td>
+                        <td>
+                            <?= $conf['partecipazioneBase'][$p->stato]; ?>
+                        </td>
                         <td width="15%">
                             <div class="btn-group btn-group-vertical">
-                                <a data-iscrizione="<?php echo $p->id; ?>" data-accetta="1" class="btn btn-success">
+                                <a href="<?= "?p=formazione.corsibase.assegna.comitato&id={$p->id}&asp={$iscritto->id}" ?>" class="btn btn-success">
                                     <i class="icon-ok"></i> Accetta
                                 </a>
                                 <a data-iscrizione="<?php echo $p->id; ?>" data-accetta="0" class="btn btn-danger">
@@ -456,6 +598,57 @@ $(document).ready( function() {
                 <?php } ?>
             </table>
         </div>
+
+        <?php } elseif($corso->concluso() && $corso->modificabileDa($me)) { ?>
+
+        <!-- ELENCHI FINE CORSO -->
+        
+        <div class="row-fluid">
+            <div class="span12">
+                <h3><i class="icon-group"></i> Esiti corso</h3>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <table class="table table-striped table-bordered" id="tabellaUtenti">
+                <thead>
+                    <th>Foto</th>
+                    <th>Nominativo</th>
+                    <th>Telefono</th>
+                    <th>Email</th>
+                    <th>Stato</th>
+                    <th>Azione</th>
+                </thead>
+                <?php 
+                $part = $corso->partecipazioni();
+
+                foreach ( $part as $p ) { 
+                    if(!$p->haConclusoCorso()) {continue; }
+                    $iscritto = $p->utente(); 
+
+                    ?>
+                    <tr>
+                        <td><img width="50" height="50" src="<?php echo $iscritto->avatar()->img(10); ?>" class="img-polaroid" /></td>
+                        <td><?php echo $iscritto->nomeCompleto(); ?></td>
+                        <td>
+                            <span data-nascondi="" data-icona="icon-phone"><?php echo $iscritto->cellulare(); ?></span>
+                        </td>
+                        <td>
+                            <span data-nascondi="" data-icona="icon-envelope"><?php echo $iscritto->email(); ?></span>
+                        </td>
+                        <td>
+                            <?= $conf['partecipazioneBase'][$p->stato]; ?>
+                        </td>
+                        <td width="15%">
+                            <a href="<?= "?p=profilo.controllo&id={$iscritto->id}" ?>" class="btn" target="_new" title="Dettagli">
+                                <i class="icon-eye-open"></i> Dettagli
+                            </a>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </table>
+        </div>
+
         <?php } ?>
     </div>
 </div>

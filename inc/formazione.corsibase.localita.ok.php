@@ -1,12 +1,14 @@
 <?php
 
+/*
+* ©2014 Croce Rossa Italiana
+*/
+
 paginaPrivata();
 controllaParametri(['id', 'formattato'], 'formazione.corsibase&err');
 $corso = CorsoBase::id($_POST['id']);
 
 paginaCorsoBase($corso);
-
-$corso->stato = CORSO_S_ATTIVO;
 
 $corso->luogo = $_POST['formattato'];
 $corso->localizzaStringa($_POST['formattato']);

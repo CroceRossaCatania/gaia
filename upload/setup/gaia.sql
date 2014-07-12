@@ -163,6 +163,7 @@ CREATE TABLE IF NOT EXISTS `corsibase` (
   `geo` point NOT NULL,
   `descrizione` text,
   `stato` int(11) DEFAULT NULL,
+  `aggiornamento` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `organizzatore` (`organizzatore`),
   KEY `direttore` (`direttore`),
@@ -186,6 +187,13 @@ CREATE TABLE IF NOT EXISTS `coturni` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `datiComitati` (
+  `id` varchar(128) NOT NULL DEFAULT '',
+  `nome` varchar(32) NOT NULL DEFAULT '',
+  `valore` text,
+  PRIMARY KEY (`id`,`nome`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `datiPartecipazioniBase` (
   `id` varchar(128) NOT NULL DEFAULT '',
   `nome` varchar(32) NOT NULL DEFAULT '',
   `valore` text,
@@ -329,6 +337,15 @@ CREATE TABLE IF NOT EXISTS `file` (
   KEY `scadenza` (`scadenza`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `fototessera` (
+  `id` int(11) NOT NULL,
+  `utente` varchar(64) DEFAULT NULL,
+  `timestamp` varchar(8) DEFAULT NULL,
+  `stato` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `utente` (`utente`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `gruppi` (
   `id` int(11) NOT NULL,
   `comitato` varchar(16) DEFAULT NULL,
@@ -399,8 +416,8 @@ CREATE TABLE IF NOT EXISTS `partecipazioniBase` (
   `timestamp` varchar(64) DEFAULT NULL,
   `tConferma` varchar(64) DEFAULT NULL,
   `pConferma` varchar(16) DEFAULT NULL,
-  `tAttestato` varchar(8) DEFAULT NULL,
-  `cAttestato` varchar(8) DEFAULT NULL,
+  `tAttestato` varchar(64) DEFAULT NULL,
+  `cAttestato` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `corsoBase` (`corsoBase`),
   KEY `volontario` (`volontario`)
@@ -438,6 +455,10 @@ CREATE TABLE IF NOT EXISTS `quote` (
   `offerta` varchar(255) DEFAULT NULL,
   `causale` varchar(255) DEFAULT NULL,
   `anno` varchar(4) DEFAULT NULL,
+  `pAnnullata` varchar(16) DEFAULT NULL,
+  `tAnnullata` varchar(16) DEFAULT NULL,
+  `progressivo` int(8) DEFAULT NULL,
+  `benemerito` int(8) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `appartenenza` (`appartenenza`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7894 ;
@@ -511,6 +532,25 @@ CREATE TABLE IF NOT EXISTS `tesseramenti` (
   `ordinario` varchar(10) DEFAULT NULL,
   `benemerito` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `tesserinoRichiesta` (
+  `id` int(11) NOT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `stato` int(11) DEFAULT NULL,
+  `tipo` int(11) DEFAULT NULL,
+  `codice` varchar(64) DEFAULT NULL,
+  `timestamp` varchar(64) DEFAULT NULL,
+  `pRichiesta` varchar(16) DEFAULT NULL,
+  `tRichiesta` varchar(64) DEFAULT NULL,
+  `pConferma` varchar(16) DEFAULT NULL,
+  `tConferma` varchar(64) DEFAULT NULL,
+  `motivo` text,
+  `struttura` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `volontario` (`volontario`),
+  KEY `struttura` (`struttura`),
+  KEY `codice` (`codice`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `titoli` (

@@ -41,10 +41,20 @@ $ramo = new RamoGeoPolitico($comitato);
             <div class="span12">
                 <h3><i class="icon-book"></i> Elenco Delegati di Area <?= $area ?> </h3>
                 <br />
-                <a href="?p=obiettivo.delegati.email&area=<?= $area?>" class="btn btn-block btn-success">
-                    <i class="icon-envelope"></i>
-                    Invia email ai delegati
-                </a>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <a href="?p=obiettivo.delegati.email&area=<?= $area?>" class="btn btn-block btn-success">
+                            <i class="icon-envelope"></i>
+                            Invia email ai delegati
+                        </a>
+                    </div>
+                    <div class="span6">
+                        <a href="?p=us.utenti.excel&id=<?= $area ?>&delegati" class="btn btn-info btn-block">
+                            <i class="icon-download-alt"></i>
+                            Scarica elenco come excel
+                        </a>
+                    </div>
+                </div>
                 <hr />
                 <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
                     <thead>

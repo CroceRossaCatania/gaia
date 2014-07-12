@@ -1,7 +1,7 @@
 <?php
 
 /* 
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -47,7 +47,8 @@ if (!$corso->haPosizione()) {
                 <li>Queste informazioni saranno rese pubbliche ed accessibili a chiunque: <strong>evita</strong>
                 di inserire dati personali, numeri di telefono privati o informazioni che vorresti fossero divulgate;</li>
                 <li>Agli aspiranti volontari che si registrano verranno fornite in le informazioni per 
-                contattare il direttore del corso in caso necessità.</li>
+                contattare il direttore del corso in caso necessità;</li>
+                <li>Non è possibile modificare la data di inizio di corsi già considerati iniziati.</li>
             </ul>
 
         </div>
@@ -90,6 +91,23 @@ if (!$corso->haPosizione()) {
                 <i class='icon-pencil'></i>
                 modifica la località
             </a>
+        </p>
+
+        <p>
+            <strong>Data inizio</strong><br />
+                <?php if(!$corso->iniziato() || $me->admin()) { ?>
+                <input type="text" name="inputDataInizio" id="inputDataInizio" value="<?php echo $corso->inizio()->format('d/m/Y H:i')?>" required />
+                <?php } else {
+                    echo($corso->inizio()->format('d/m/Y H:i'));
+                } ?> 
+        </p>
+        <p>
+            <strong>Data esame</strong><br />
+                <?php if(!$corso->finito() || $me->admin()) { ?>
+                <input type="text" name="inputDataEsame" id="inputDataEsame" value="<?php echo $corso->fine()->format('d/m/Y H:i')?>" required />
+                <?php } else {
+                    echo($corso->fine()->format('d/m/Y H:i'));
+                } ?> 
         </p>
         
         

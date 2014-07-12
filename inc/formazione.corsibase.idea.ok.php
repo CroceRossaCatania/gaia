@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -15,14 +15,16 @@ $comitato = GeoPolitica::daOid($comitato);
 proteggiClasse($comitato, $me);
 
 $corsoBase                   = new CorsoBase();
-$corsoBase->stato    		 = CORSO_S_DACOMPLETARE;
-$corsoBase->organizzatore 	 = $comitato->oid();
-$data 						 = DT::createFromFormat('d/m/Y', $_POST['inputDataInizio']);
-$data 						 = $data;
-$corsoBase->inizio    		 = $data->getTimestamp();
-$corsoBase->anno 			 = $data->format('Y');
-$corsoBase->aggiornamento	 = time();
+$corsoBase->stato            = CORSO_S_DACOMPLETARE;
+$corsoBase->organizzatore    = $comitato->oid();
+$data                        = DT::createFromFormat('d/m/Y H:i', $_POST['inputDataInizio']);
+$data                        = $data;
+$corsoBase->inizio           = $data->getTimestamp();
+$corsoBase->tEsame           = (int) $corsoBase->inizio + MESE;
+$corsoBase->anno             = $data->format('Y');
+$corsoBase->aggiornamento    = time();
 $corsoBase->assegnaProgressivo();
+
 
 redirect('formazione.corsibase.direttore&id=' . $corsoBase->id);
 

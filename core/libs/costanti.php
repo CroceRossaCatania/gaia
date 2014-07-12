@@ -132,11 +132,13 @@ $conf['autorizzazione'] = [
  */
 
 
+define('PART_RIT',           0);
 define('PART_PENDING',      10);
 define('PART_NO',           20);
 define('PART_OK',           30);
 
 $conf['partecipazione'] = [
+    PART_RIT            =>  'Ritirato',
     PART_PENDING        =>  'In attesa',
     PART_NO             =>  'Negata',
     PART_OK             =>  'Concessa'
@@ -177,6 +179,19 @@ $conf['avatar'] = [
     80  =>  [750,   750]
 ];
 
+/*
+ * ===================================
+ * =========== FOTOTESSERA ===========
+ * ===================================
+ */
+
+/* Avatar, dimensioni */
+$conf['fototessera'] = [
+    10  =>  [75,    75],
+    20  =>  [150,   150],
+    80  =>  [750,   750]
+];
+
 
 /*
  * ===================================
@@ -206,12 +221,20 @@ $conf['docs_tipologie'] = [
 
 /*
  * ===================================
- * ======== ESPLIRAZIONE =============
+ * ======== ESPLORAZIONE =============
  * ===================================
  */
 define('NON_ESPLORARE',         0);
 define('ESPLORA_RAMI',          1);
 define('ESPLORA_SOLO_FOGLIE',   2);
+
+/*
+ * ===================================
+ * ========= FOTOTESSERA =============
+ * ===================================
+ */
+define('FOTOTESSERA_PENDING',         0);
+define('FOTOTESSERA_OK',             10);
 
 /*
  * ===================================
@@ -665,6 +688,7 @@ $conf['corso_stato'] = [
  */
 
 define('ISCR_ANNULLATA',       0);
+define('ISCR_NEGATA',          5);
 define('ISCR_ABBANDONO',      10);
 define('ISCR_RICHIESTA',      20);
 define('ISCR_CONFERMATA',     30);
@@ -673,6 +697,7 @@ define('ISCR_BOCCIATO',       50);
 
 $conf['partecipazioneBase'] = [
     ISCR_ANNULLATA      =>  'Annullata', 
+    ISCR_NEGATA         =>  'Negata',
     ISCR_ABBANDONO      =>  'Abbandonato', 
     ISCR_RICHIESTA      =>  'Preiscritto', 
     ISCR_CONFERMATA     =>  'Iscritto',
@@ -688,3 +713,59 @@ $conf['partecipazioneBase'] = [
 
 define('POSTA_INGRESSO',        0);
 define('POSTA_USCITA',          1);
+
+
+/*
+ * ===================================
+ * ==== TESSERINO TIPO RICHIESTA =====
+ * ===================================
+ */
+
+define('RILASCIO',          0);
+define('RINNOVO',          10);
+define('DUPLICATO',        20);
+
+$conf['tesseriniTipo'] = [
+    RILASCIO        =>  'Rilascio', 
+    RINNOVO         =>  'Rinnovo',
+    DUPLICATO       =>  'Duplicato', 
+];  
+
+
+/*
+ * ===================================
+ * ==== TESSERINO STATO RICHIESTA ====
+ * ===================================
+ */
+
+define('RIFIUTATO',           0);
+define('RICHIESTO',          10);
+define('STAMPATO',           20);
+define('SPEDITO_CASA',       30);
+define('SPEDITO_COMITATO',   40);
+
+$conf['tesseriniStato'] = [
+    RIFIUTATO           =>  'Richiesta di stampa rifiutata', 
+    RICHIESTO           =>  'Richiesta in attesa di essere lavorata',
+    STAMPATO            =>  'Tesserino emesso', 
+    SPEDITO_CASA        =>  'Tesserino inviato al domicilio', 
+    SPEDITO_COMITATO    =>  'Tesserino inviato al comitato', 
+];  
+
+$conf['tesseriniStatoBreve'] = [
+    RIFIUTATO           =>  'Rifiutato', 
+    RICHIESTO           =>  'Richiesto',
+    STAMPATO            =>  'Emesso', 
+    SPEDITO_CASA        =>  'Emesso', 
+    SPEDITO_COMITATO    =>  'Emesso', 
+];  
+
+
+/*
+ * ===================================
+ * ======== ORIENTAMENTO PDF =========
+ * ===================================
+ */
+
+define('ORIENTAMENTO_ORIZZONTALE',        'landscape');
+define('ORIENTAMENTO_VERTICALE',          'portrait');

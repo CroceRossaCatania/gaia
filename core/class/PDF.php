@@ -11,6 +11,10 @@ class PDF {
             $sostituzioni = [],
             $modello = '',
             $nome = 'File';
+
+    public
+        $orientamento   = ORIENTAMENTO_VERTICALE,
+        $formato        = 'a4';
        
     public function __construct ( $modello, $nome ) {
         global $db;
@@ -54,6 +58,7 @@ class PDF {
 
         $dompdf = new DOMPDF();
         $dompdf->load_html($corpo);
+        $dompdf->set_paper($this->formato, $this->orientamento);
         $dompdf->render();
         
         $f = new File();

@@ -4,6 +4,15 @@
  * ©2014 Croce Rossa Italiana
  */
 
+/**
+ * @property    integer     id 
+ * @property    string      chiave  
+ * @property    integer     oggi    
+ * @property    integer     limite  
+ * @property    string      email   
+ * @property    string      nome    
+ * @property    integer     attiva
+ */
 class APIKey extends Entita {
 
     protected static

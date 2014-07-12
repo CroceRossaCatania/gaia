@@ -45,6 +45,14 @@ class CorsoBase extends GeoEntita {
     }
 
     /**
+     * Ritorna la data dell'esame
+     * @return DT
+     */
+    public function fine() {
+        return DT::daTimestamp($this->tEsame);
+    }
+
+    /**
      * Controlla se il corso e' futuro (non iniziato)
      * @return bool
      */
@@ -58,6 +66,22 @@ class CorsoBase extends GeoEntita {
      */
     public function iniziato() {
     	return !$this->futuro();
+    }
+
+    /**
+     * Controlla se il corso e' finito
+     * @return bool
+     */
+    public function finito() {
+        return $this->fine() < new DT; 
+    }
+
+    /**
+     * Controlla se il corso e' concluso (finito e fatto esame)
+     * @return bool
+     */
+    public function concluso() {
+        return $this->finito() && $this->stato == CORSO_S_CONCLUSO; 
     }
 
     /**
@@ -82,7 +106,7 @@ class CorsoBase extends GeoEntita {
      * @return string     il nome del corso
      */
     public function nome() {
-        return "Corso Base per Volontari del ".$this->organizzatore()->nomeCompleto();
+        return "Corso Base del ".$this->organizzatore()->nomeCompleto();
     }
 
     /**
@@ -154,13 +178,15 @@ class CorsoBase extends GeoEntita {
      * Elenco delle partecipazioni degli iscritti
      * @return PartecipazioneBase elenco delle partecipazioni degli iscritti 
      */
-    public function partecipazioni() {
+    public function partecipazioni($stato = null) {
         $p = PartecipazioneBase::filtra([
             ['corsoBase', $this->id]
             ]);
         $part = [];
         foreach($p as $_p) {
-            if($_p->attiva()) {
+            if(!$stato && $_p->attiva()) {
+                $part[] = $_p;
+            } elseif($stato && $_p->stato == $stato) {
                 $part[] = $_p;
             }
         }
@@ -190,6 +216,21 @@ class CorsoBase extends GeoEntita {
      */
     public function numIscritti() {
         return count($this->iscritti());
+    }
+
+    /**
+     * Cancella il corso base e tutto ciò che c'è di associato
+     */
+    public function cancella() {
+        $p = PartecipazioneBase::filtra([
+            ['corsoBase', $this->id]
+            ]);
+        foreach($p as $_p) {
+            $_p->cancella();
+        }
+
+        parent::cancella();
+
     }
 
 }

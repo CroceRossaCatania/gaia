@@ -36,62 +36,30 @@ menuElenchiVolontari(
 <?php } ?>
   
 <div class="row-fluid">
-   <div class="span12">
-
-       <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
-            <thead>
-                <th>Cognome</th>
-                <th>Nome</th>
-                <th>Codice Fiscale</th>
-                <th>Socio dal</th>
-                <th>Socio fino</th>
-                <th>Comitato trasferimento</th>
-                <th></th>
-            </thead>
-        <?php
-        $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
-        foreach($elenco as $comitato) {
-            $t = $comitato->membriTrasferiti();
-                ?>
-            
-            <tr class="success">
-                <td colspan="6" class="grassetto">
-                    <?php echo $comitato->nomeCompleto(); ?>
-                    <span class="label label-warning">
-                        <?php echo count($t); ?>
-                    </span>
-                    <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&trasferiti"
-                       data-attendere="Generazione...">
-                            <i class="icon-download"></i> scarica come foglio excel
-                    </a>
-                </td>
-            </tr>
-            
-            <?php
-            foreach ( $t as $_t ) {
-                $v = $_t->volontario();
-                $a = Appartenenza::filtra([
-                        ['comitato', $_t->provenienza()],
-                        ['stato', MEMBRO_TRASFERITO]
-                    ]); 
-                $a = $a[0];
-             ?>
-                <tr>
-                    <td><?php echo $v->cognome; ?></td>
-                    <td><?php echo $v->nome; ?></td>
-                    <td><?php echo $v->codiceFiscale; ?></td>
-                    <td><?php echo date('d/m/Y', $a->inizio); ?></td>
-                    <td><?php echo date('d/m/Y', $_t->appartenenza()->inizio); ?></td>
-                    <td><?php echo $_t->comitato()->nomeCompleto(); ?></td>
-                </tr>  
-       
-        <?php }
-        }
-        ?>
-        
+    <div class="span12">
+        <div class="nascosto" id="azioniElenco">
+            <div class="btn-group">
+                <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" target="_new" title="Dettagli">
+                    <i class="icon-eye-open"></i> Dettagli
+                </a>
+                <?php if ($admin) { ?>
+                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id={id}" title="Cancella Utente" class="btn btn-small btn-warning">
+                    <i class="icon-trash"></i> Cancella
+                </a>
+                <a class="btn btn-small btn-primary" href="?p=admin.beuser&id={id}" title="Log in">
+                    <i class="icon-key"></i>
+                </a> 
+                <?php } ?>
+            </div>
+        </div>
+        <table
+        data-volontari="elenco"
+        data-perpagina="30"
+        data-azioni="#azioniElenco"
+        data-stato="<?= MEMBRO_TRASFERITO ?>"
+        data-passato="true"
+        <?php if(!$me->admin()) echo("data-comitati=\"{$me->delegazioneAttuale()->comitato()->oid()}\""); ?>
+        >
         </table>
-
     </div>
-    
 </div>

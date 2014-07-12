@@ -226,7 +226,7 @@ function _attendere(i, e) {
 
 function _attendere_caricamento(i, e) {
     $(e).click ( function() {
-        var testo = $(e).data('attendere');
+        var testo = $(e).data('attendere-caricamento');
         $(e).addClass('disabled').attr('disabled', 'disabled');
         $(e).html('<i class="icon-spin icon-spinner"></i> ' + testo);
         if ( $(e).attr('type') == 'submit' ) {
@@ -345,6 +345,25 @@ function _tabella_ricerca ( e, query, input, pagina ) {
         geoPolitica = $(e).data('comitati');
     }
 
+    var stato = '';
+    if ( typeof $(e).data('stato') == 'undefined') {
+        stato = false;
+    } else {
+        stato = $(e).data('stato');
+    }
+
+    var statoPersona = '';
+    if ( typeof $(e).data('statopersona') == 'undefined') {
+        statoPersona = false;
+    } else {
+        statoPersona = $(e).data('statopersona');
+    }
+
+    var passato     = $(e).data('passato');
+    var giovane     = $(e).data('giovane');
+    var infermiera  = $(e).data('infermiera');
+    var militare    = $(e).data('militare');
+
     if (!perPagina) {
         perPagina = 30;
     }
@@ -352,7 +371,13 @@ function _tabella_ricerca ( e, query, input, pagina ) {
         'query':        query,
         'pagina':       pagina,
         'perPagina':    perPagina,
-        'comitati':     geoPolitica
+        'comitati':     geoPolitica,
+        'stato':        stato,
+        'passato':      passato,
+        'giovane':      giovane,
+        'statoPersona': statoPersona,
+        'infermiera':   infermiera,
+        'militare':     militare
     }, function (dati) {
         _tabella_ridisegna(e, dati.risposta, input);
          /* Pulsante indietro... */
@@ -460,6 +485,14 @@ function _tabella_sostituzioni (testo, volontario) {
     testo = testo.replace(/{id}/g,       volontario.id);
     testo = testo.replace(/{nome}/g,     volontario.nome);
     testo = testo.replace(/{cognome}/g,  volontario.cognome);
+    // se non è riammissibile nascondo il tasto
+    if (!volontario.riammissibile) {
+        testo = testo.replace(/{riammissibile}/g,  "nascosto");
+    }
+    // se è già iscritto ad un base nascondo il tasto
+    if (volontario.iscrittoBase) {
+        testo = testo.replace(/{iscrittoBase}/g,  "nascosto");
+    }
     return testo;
 }
 
