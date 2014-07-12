@@ -72,12 +72,10 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <meta name="author" content="Progetto Gaia - Croce Rossa Italiana">
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
-    <!-- CSS -->
-    <link href="css/bootstrap.min.css"      rel="stylesheet" media="screen">
-    <link href="css/font-awesome.min.css"   rel="stylesheet" media="screen">
-    <link href="css/main.css"               rel="stylesheet" media="screen">
-    <link href="css/fullcalendar.css"       rel="stylesheet" media="screen">
-    <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.min.css" rel="stylesheet" media="screen">
+    <!-- JS e CSS compressi -->
+    <link href="/assets/min/20140712/build/build.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="/assets/min/20140712/build/build.js"></script>
+
     <!--[if IE]>
         <link href="css/main-ie.css" rel="stylesheet" media="screen">
     <![endif]-->
@@ -86,17 +84,6 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <![endif]-->
 
     <!-- JS -->
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"        ></script>
-    <script type="text/javascript" src="js/modernizr.custom.03290.js"                   ></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"                            ></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"   ></script>
-    <script type="text/javascript" src="js/jquery.timepicker.js"                        ></script>
-    <script type="text/javascript" src="js/fullcalendar.min.js"                         ></script>
-    <script type="text/javascript" src="js/jquery.cookie.js"                            ></script>
-    <script type="text/javascript" src="js/app.js"                                      ></script>
-    <script type="text/javascript" src="js/ui.datepicker-it.js"                         ></script>
-    <script type="text/javascript" src="js/tinymce/tinymce.min.js"                      ></script>
-    <script type="text/javascript" src="js/polychart2.standalone.js"                    ></script>
     <?php if (file_exists('js/'. $p . '.js')) { /* Javascript dinamico */ ?>
         <script type="text/javascript" src="js/<?php echo $p; ?>.js"></script>
     <?php } ?>
