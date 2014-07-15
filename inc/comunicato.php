@@ -10,6 +10,8 @@ if ($me) {
 
 $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Supporto e dell'Assistenza per il Progetto Gaia";
 
+// redirec rapido
+redirect('utente.me');
 ?>
 
 <style>
