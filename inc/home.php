@@ -2,6 +2,8 @@
 
 paginaPubblica(); 
 ?>
+    <?php /*
+    COMUNICATO (DA MODIFICARE?)
     <div class="row-fluid">
         <div class="span12">
             <div class="alert alert-error">
@@ -22,6 +24,7 @@ paginaPubblica();
             </div>
         </div>
     </div>
+    */ ?>
     <div class="row-fluid centrato">
         <div class="span6">
         	<h2>Già volontario? </h2>

@@ -52,11 +52,11 @@ if ( !$consenso ){ ?>
 if (isset($_GET['rimandaPrivatizzazione'])) {
     $sessione->rimandaPrivatizzazione = true;
 }
-
+/* deadline stop gaia
 if (isset($_GET['rimandaDeadline'])) {
     $sessione->deadline = time();
 }
-
+*/
 if ($consenso && !$me->email ) { redirect('nuovaAnagraficaContatti'); }
 if ($consenso && !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
 
@@ -69,7 +69,7 @@ if ($consenso) {
         }
     }
 }
-
+/* modale deadline gaia
 if ((!$sessione->deadline || ($sessione->deadline + GIORNO) < time()) && $consenso) {
     ?>
     <div class="modal fade automodal">
@@ -91,7 +91,7 @@ if ((!$sessione->deadline || ($sessione->deadline + GIORNO) < time()) && $consen
         </div>
     </div>
 <?php }
-
+*/
 if (!$sessione->rimandaPrivatizzazione && $consenso) {
     foreach($me->comitatiPresidenzianti() as $comitato) {
         $p = $comitato->unPresidente();
@@ -296,6 +296,8 @@ if(false && $consenso && !$sessione->barcode) { ?>
 
         <div class="row-fluid">
             <div class="span8">
+                <?php /*
+                blocco informativo deadline
                 <div class="alert alert-block alert-error">
                     <div class="row-fluid">
                         <h4><i class="icon-ok"></i> Ciao <?php echo $me->nome ?></h4>
@@ -306,6 +308,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                         </a> 
                     </div>
                 </div>
+                */ ?>
                 <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
                 <div class="alert alert-success">
                     <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
