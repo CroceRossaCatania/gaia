@@ -67,6 +67,29 @@ paginaAdmin();
         }
     }
 
+    if (isset($_GET['contatti'])) 
+    {
+        echo('<br><strong>Avviata procedura di pulizia per mancanza contatti</strong><br><br>');
+        $v = Volontario::elenco();
+        foreach($v as $_v) 
+        {
+            $appartenenze = $_v->numAppartenenzeTotali(MEMBRO_DIMESSO);
+            if($appartenenze == 0 && !$_v->email)
+            {
+                $totale++;
+                echo('Anagrafica ID:['.$_v->id.'] senza contatti -> provvedo alla rimozione di '.$_v->codiceFiscale.' '.$_v->nome.' '.$_v->cognome.'<br>');
+                $f = TitoloPersonale::filtra([
+                    ['volontario', $_v->id]
+                ]);
+
+                foreach ($f as $_f) {
+                    $_f->cancella();
+                }
+                $_v->cancella();
+            }
+        }
+    }
+
     echo('<br><strong>Sono state cancellate '.$totale.' persone</strong>');
 
     ?>

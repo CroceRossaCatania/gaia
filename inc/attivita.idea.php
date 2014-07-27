@@ -47,7 +47,7 @@ if (!in_array($c, $comitati)) {
           <p><strong>Nome dell'attività</strong></p>
           <p>Ricorda: I nomi migliori son corti e memorabili.</p>
           <input type="text" required name="inputNome" class="input-xlarge" placeholder="es.: Aggiungi un posto a tavola" />
-          <?php if($c->_estensione() < EST_PROVINCIALE) { ?>
+          <?php if($c->_estensione() < EST_NAZIONALE) { ?>
           <input type="hidden" name="inputGruppo" value="0" />
           <label>
               <input type="checkbox" name="inputGruppo" value="1" />

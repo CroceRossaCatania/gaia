@@ -11,6 +11,10 @@ controllaParametri(array('tipo'));
 $t = $_POST['tipo'];
 $f = $_FILES['file'];
 
+if(!isset($_FILES['file'])) {
+	redirect('utente.documenti&err');
+}
+
 /* Qual è il vecchio documento? */
 $prec = $me->documento($t);
 

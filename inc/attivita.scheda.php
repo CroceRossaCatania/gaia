@@ -71,7 +71,7 @@ $(document).ready( function() {
                 <a href="?p=attivita.cancella&id=<?= $a->id; ?>" class="btn btn-large btn-danger" title="Cancella attività e tutti i turni">
                     <i class="icon-trash"></i>
                 </a>
-                <?php if (!$g && $a->comitato()->_estensione() < EST_PROVINCIALE){ ?>
+                <?php if (!$g && $a->comitato()->_estensione() < EST_NAZIONALE){ ?>
                     <a class="btn btn-large btn-success" href="?p=attivita.gruppo.nuovo&id=<?php echo $a->id; ?>" itle="Crea nuovo gruppo di lavoro">
                         <i class="icon-group"></i> Crea gruppo
                     </a>
@@ -370,6 +370,11 @@ $(document).ready( function() {
                                                         <i class="icon-trash" ></i> Rimuovi volontario
                                                     </a>
                                                     <?php } ?>
+                                                    <?php if( $a->modificabileDa($me) ){ ?>
+                                                    <a class="btn btn-small btn-danger" href="?p=attivita.modifica.volontario.assente&v=<?= $v->id; ?>&turno=<?= $turno; ?>">
+                                                        <i class="icon-remove" ></i> Volontario assente
+                                                    </a>
+                                                    <?php } ?>
                                                 </li>
                                                 <?php } ?>
                                             </ul>
@@ -409,7 +414,7 @@ $(document).ready( function() {
                                                     </a>
                                                     <?php if( $turno->futuro() && $a->modificabileDa($me) ){ ?>
                                                         <a class="btn btn-small btn-success" href="?p=attivita.modifica.volontario.autorizza&v=<?= $v->id; ?>&turno=<?= $turno; ?>">
-                                                            <i class="icon-trash" ></i> Autorizza volontario
+                                                            <i class="icon-ok-sign" ></i> Autorizza volontario
                                                         </a>
                                                     <?php } ?>
                                                 </li>
@@ -421,7 +426,12 @@ $(document).ready( function() {
                                             <?php if ( $a->modificabileDa($me) ) { ?>
                                             <form action="?p=attivita.modifica.volontari.aggiungi&id=<?php echo $a->id; ?>" method="POST">
                                                 <input type="hidden" name="turno" value="<?php echo $turno->id; ?>" />
-                                                <a data-selettore="true" data-input="volontari" data-autosubmit="true" data-multi="true" class="btn btn-block btn-primary btn-large btn-success">
+                                                <a data-selettore="true" 
+                                                   data-input="volontari" 
+                                                   data-autosubmit="true" 
+                                                   data-multi="true" 
+                                                   data-comitati="<?php echo $a->comitato; ?>"
+                                                   class="btn btn-block btn-primary btn-large btn-success">
                                                     <i class="icon-plus"></i>
                                                     Aggiungi volontari
                                                 </a>
@@ -445,7 +455,7 @@ $(document).ready( function() {
                             <a class="btn btn-block btn-info btn-large disabled" href="">
                                 <?php echo $conf['partecipazione'][$pk->stato]; ?>
                             </a>
-                            <?php if($pk->stato == PART_PENDING && $turno->inizio >= time()) {?>
+                            <?php if($pk->ritirabile()) {?>
                             <a class="btn btn-block btn-danger " href="?p=attivita.ritirati&id=<?php echo $pk->id; ?>">
                                 <i class="icon-remove"></i>
                                 Ritirati

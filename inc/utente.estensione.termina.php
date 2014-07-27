@@ -14,7 +14,8 @@ $app = Appartenenza::id($id);
 $est = Estensione::by('appartenenza', $app);
 ?>
 
-<form action="?p=utente.estensione.termina.ok&id=<?= $est->id; ?>" method="POST">
+<form action="?p=utente.estensione.termina.ok" method="POST">
+    <input type="hidden" name="id" value="<?= $est->id; ?>" />
     <div class="modal fade automodal">
         <div class="modal-header">
           <h3><i class="icon-stop"></i> Termina Estensione</h3>

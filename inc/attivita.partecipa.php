@@ -6,23 +6,13 @@
 
 paginaPrivata();
 
-controllaParametri(array('turno'));
-$t = $_GET['turno'];
-$t = Turno::id($t);
+controllaParametri(['turno']);
+$t = Turno::id($_GET['turno']);
 $a = $t->attivita();
 
 /* Se non posso partecipare torna alla scheda... */
-if ( !$t->puoRichiederePartecipazione($me) ) {
-    redirect('attivita.scheda&id=' . $a->id);
+if ( !$t->chiediPartecipazione($me) ) {
+    redirect("attivita.scheda&id={$a->id}");
 }
 
-/* Crea la partecipazione */
-$p = new Partecipazione();
-$p->turno =          $t;
-$p->volontario =     $me;
-$p->generaAutorizzazioni();
-
-
-/* Crea la email */
-
-redirect('attivita.storico&okpending&id=' . $a->id);
+redirect("attivita.storico&okpending&id={$a->id}");

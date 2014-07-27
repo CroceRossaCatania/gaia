@@ -9,7 +9,8 @@ var
     uob = null;
     
 var conf = {
-    api:    'api.php?a='
+    api:    'api.php',
+    key:    'bb2c08ff4da11f0b590a7ae884412e2bfd8ac28a'
 };
 
 $(window).ready( function () { 
@@ -22,22 +23,28 @@ $(window).ready( function () {
        type:        "POST",
        dataType:    "json",
        error:       _rete_errore,
-       success:    _rete_ok
+       contentType: "application/json; charset=UTF-8",
+       success:     _rete_ok
     });
       
     /* Carica eventuali impostazioni */
     sid = $.cookie('sessione');
     _sincronizza();
-    api('welcome', {}, _aggiorna_chiSono());
+    api('ciao', {}, _aggiorna_chiSono());
     
     /* Bind */
     $("#_logout").click( _logout );
     $("#_login").click( _login );
-    $("#barraRicerca").keyup( _barraRicerca );
     
-    $("[data-attendere]")       .each( _attendere );
-    $("[data-suggerimento]")    .each( _suggerimento );
-    $("[data-volontari]")       .each( _tabella );
+    $("[data-attendere]")               .each( _attendere );
+    $("[data-attendere-caricamento]")   .each( _attendere_caricamento );
+    $("[data-suggerimento]")            .each( _suggerimento );
+    $("[data-volontari]")               .each( _tabella );
+    $("[data-posta]")                   .each( _posta );
+    $("[data-conferma]")                .each( _conferma );
+
+    _render_utenti();
+    _render_modali();
 
     $('.automodal').modal({ keyboard: false, backdrop: 'static' });
     $('.alCambioSalva').change( function () {
@@ -100,8 +107,8 @@ function _rete_errore(a, b, c) {
 }
 
 function _rete_ok(a, b, c) {
-    sid = a.session.id;
-    uob = a.session.user;
+    sid = a.sessione.id;
+    uob = a.sessione.utente;
     if ( uob ) {
         uid = uob.id;
     }
@@ -109,20 +116,49 @@ function _rete_ok(a, b, c) {
 }
 
 function _sincronizza() {
-    $.ajaxSetup({
-        data: {
-            sid:    sid
-        }
-    });
     $.cookie('sessione', sid);
     _aggiorna_chiSono();
 }
 
+function _conferma(i, e) {
+    $(e).click( function() {
+        return confirm($(e).data('conferma'));
+    });
+}
+
 function _aggiorna_chiSono() {
 }
-  
-function api(operazione, dati, callback) {
-    $.post(conf.api + operazione, dati, [_rete_ok, callback]);
+ 
+var _cache = {}; 
+function api(metodo, dati, callback, cache) {
+    if ( cache === undefined ) {
+        // Standard, non cache
+        $.post(
+            conf.api,
+            JSON.stringify($.extend(
+                dati,
+                { 
+                    metodo: metodo,
+                    sid:    sid,
+                    key:    conf.key
+                })),
+            [_rete_ok, callback]
+        );
+    } else {
+
+        // Cache!
+        var chiave = metodo + ':' + JSON.stringify(dati);
+        if (_cache.hasOwnProperty(chiave)) {
+            callback(_cache[chiave]);
+        } else {
+            api(metodo, dati, function(x) {
+                _cache[chiave] = x;
+                if ( callback !== undefined )
+                    callback(x);
+            });
+        }
+
+    }
 }
 
 function _dump( x ) {
@@ -134,24 +170,6 @@ function _logout () {
 
 function _login () {
    
-}
-
-function _barraRicerca () {
-    var q = $("#barraRicerca").val();
-    if ( q.length < 1 ) {
-        $("#laRicerca").hide(1000);
-    } else {
-        $("#laRicerca").show(1000);
-    }
-    $("#barraRicerca").addClass('inRicerca');
-    api('ricercaSalone', {query: q}, _mostraRisultati);
-}
-
-function _mostraRisultati () {
-    setTimeout(
-    function() {$("#barraRicerca").removeClass('inRicerca');},
-    1000);
-    
 }
 
 function _abilita_filtraggio (idInput, idTabella) {
@@ -199,6 +217,18 @@ function _attendere(i, e) {
             $(e).html(vecchioTesto);
             $(e).removeClass('disabled').removeAttr('disabled');
         }, 6500);
+        if ( $(e).attr('type') == 'submit' ) {
+            $(e).parents('form').submit();
+            return true;
+        }
+    });
+}
+
+function _attendere_caricamento(i, e) {
+    $(e).click ( function() {
+        var testo = $(e).data('attendere-caricamento');
+        $(e).addClass('disabled').attr('disabled', 'disabled');
+        $(e).html('<i class="icon-spin icon-spinner"></i> ' + testo);
         if ( $(e).attr('type') == 'submit' ) {
             $(e).parents('form').submit();
             return true;
@@ -308,15 +338,48 @@ function _tabella_ricerca ( e, query, input, pagina ) {
     }
     var perPagina = $(e).data('perpagina');
     var _tid      = $(e).data('tid');
+    var geoPolitica = '';
+    if ( typeof $(e).data('comitati') == 'undefined') {
+        geoPolitica = false;
+    } else {
+        geoPolitica = $(e).data('comitati');
+    }
+
+    var stato = '';
+    if ( typeof $(e).data('stato') == 'undefined') {
+        stato = false;
+    } else {
+        stato = $(e).data('stato');
+    }
+
+    var statoPersona = '';
+    if ( typeof $(e).data('statopersona') == 'undefined') {
+        statoPersona = false;
+    } else {
+        statoPersona = $(e).data('statopersona');
+    }
+
+    var passato     = $(e).data('passato');
+    var giovane     = $(e).data('giovane');
+    var infermiera  = $(e).data('infermiera');
+    var militare    = $(e).data('militare');
+
     if (!perPagina) {
         perPagina = 30;
     }
     api('volontari:cerca', {
         'query':        query,
         'pagina':       pagina,
-        'perPagina':    perPagina
+        'perPagina':    perPagina,
+        'comitati':     geoPolitica,
+        'stato':        stato,
+        'passato':      passato,
+        'giovane':      giovane,
+        'statoPersona': statoPersona,
+        'infermiera':   infermiera,
+        'militare':     militare
     }, function (dati) {
-        _tabella_ridisegna(e, dati.response, input);
+        _tabella_ridisegna(e, dati.risposta, input);
          /* Pulsante indietro... */
         if ( pagina == 1 ) {
             $('.' + _tid + '_indietro')
@@ -331,7 +394,7 @@ function _tabella_ricerca ( e, query, input, pagina ) {
                 });
         }   
         /* Pulsante avanti... */
-        if ( pagina == dati.response.pagine ) {
+        if ( pagina == dati.risposta.pagine ) {
             $('.' + _tid + '_avanti')
                 .unbind('click')
                 .addClass('disabled');
@@ -422,6 +485,14 @@ function _tabella_sostituzioni (testo, volontario) {
     testo = testo.replace(/{id}/g,       volontario.id);
     testo = testo.replace(/{nome}/g,     volontario.nome);
     testo = testo.replace(/{cognome}/g,  volontario.cognome);
+    // se non è riammissibile nascondo il tasto
+    if (!volontario.riammissibile) {
+        testo = testo.replace(/{riammissibile}/g,  "nascosto");
+    }
+    // se è già iscritto ad un base nascondo il tasto
+    if (volontario.iscrittoBase) {
+        testo = testo.replace(/{iscrittoBase}/g,  "nascosto");
+    }
     return testo;
 }
 
@@ -432,4 +503,387 @@ function _tabella_caricamento (e) {
             '<strong>Caricamento in corso...</strong>' +
         '</h3></td></tr>'
     );
+}
+
+
+/*
+ * Sistema di gestione della posta
+ */
+ function _posta (i, e) {
+    var _eid = 'posta_' + Math.floor( Math.random() * 100 );
+    $(e)
+        .addClass('table')
+
+    // Crea i tasti avanti ed indietro, se non "mini"
+    if ( !$(e).data('mini') ) {
+        var x = $(
+            '<div class="row-fluid">' +
+                '<div class="span8 allinea-sinistra">' +
+                    'Pagina <span id="' + _eid + '_a">X</span> di ' +
+                    '<span id="' + _eid + '_b">Y</span>  ' +
+                '</div>' +
+                '<div class="span4 allinea-destra">' +
+                    '<div class="btn-group" id="'+ _eid + '">' +
+                        '<a class="btn ' + _eid + '_indietro">' +
+                            '<i class="icon-chevron-left"></i> ' +
+                        '</a>' +
+                        '<a class="btn ' + _eid + '_avanti">' +
+                            '<i class="icon-chevron-right"></i>' +
+                        '</a>' +
+                    '</div>' +
+                '</div>' +
+            '</div>'
+        );
+        $(e).before(x); 
+    }
+    
+    $(e).data('eid', _eid);
+    // Avvia senza ricerca...
+    //_email_ricerca(e, null, $('#' + _eid + '_ricerca').find('input').first());
+    _posta_ricerca(e);
+}
+
+function _posta_ricerca ( e, pagina ) {
+    _tabella_caricamento(e);
+    //_tabella_blocca_input(input);
+    if ( !pagina || pagina < 0 ) {
+        pagina = 1;
+    }
+    var perPagina = $(e).data('perpagina');
+    var _eid      = $(e).data('eid');
+    if (!perPagina) {
+        perPagina = 10;
+    }
+    
+    api('posta:cerca', {
+        'direzione':    $(e).data('direzione'),
+        'pagina':       pagina,
+        'perPagina':    perPagina
+    }, function (dati) {
+        _tabella_posta_ridisegna(e, dati.risposta);
+         /* Pulsante indietro... */
+        if ( pagina == 1 ) {
+            $('.' + _eid + '_indietro')
+                .unbind('click')
+                .addClass('disabled');
+        } else {
+            $('.' + _eid + '_indietro')
+                .unbind('click')
+                .removeClass('disabled')
+                .click ( function () {
+                    _posta_ricerca(e, pagina - 1);
+                });
+        }   
+        /* Pulsante avanti... */
+        if ( pagina == dati.risposta.pagine ) {
+            $('.' + _eid + '_avanti')
+                .unbind('click')
+                .addClass('disabled');
+        } else {
+            $('.' + _eid + '_avanti')
+                .unbind('click')
+                .removeClass('disabled')
+                .click ( function () {
+                    _posta_ricerca(e, pagina + 1);
+                });
+        }
+
+    });
+
+}
+
+function _tabella_posta_ridisegna( e, dati, input ) {
+    var _eid         = $(e).data('eid');
+    var direzione    = $(e).data('direzione');  
+    var persona      = '';
+    var destinatario = '';
+
+    /* Aggiorna i totali (pagina x di y, tot risultati) */
+    $('#' + _eid + '_a').text( dati.pagina );
+    $('#' + _eid + '_b').text( dati.pagine );
+
+    $(e).html(
+        '<table class="table table-condensed">' +
+            '<thead class="allinea-centro">' +
+                '<th class="allinea-centro"><i class="icon-user"></i></th>' +
+                '<th class="allinea-centro">Messaggio</th>' +
+            '</thead>' +
+            '<tbody>' +
+            '</tbody>' +
+        '</table>'
+    );
+    var tbody = $(e).find('tbody');
+    $.each( dati.risultati, function (i, email) {
+        var ogg = '';
+        if (email.oggetto.length > 35) {
+            ogg = email.oggetto.substring(0, 35) + '...'
+        } else {
+            ogg = email.oggetto;
+        }
+        if ( email.mittente !== false  ) {
+            // MITTENTE CONOSCIUTO
+            //
+            if ( direzione == 'ingresso' ) {
+                $(tbody).append(
+                    '<tr data-utente="' + email.mittente.id + '">' +
+                        '<td>' +
+                            '<img width="50" height="50" class="img-circle" src="{avatar}" title="{nomeCompleto}" alt="{nomeCompleto}" />' +
+                        '</td>' +
+                        '<td><strong>' + ogg + '</strong><br />{nomeCompleto}</td>' +
+                    '</tr>'
+                );
+                persona  = '<i class="icon-user"></i> Da <span data-utente="' + email.mittente.id + '">{nomeCompleto}</span>';
+            }
+            mittente = '<i class="icon-user"></i> <span data-utente="' + email.mittente.id + '">{nomeCompleto}</span>';
+        } else {
+            // DA GAIA
+            if ( direzione == 'ingresso' ) {
+                $(tbody).append(
+                    '<tr>' +
+                        '<td>' +
+                            '<img width="50" height="50" class="img-circle" src="https://gaia.cri.it/upload/avatar/placeholder/20.jpg" />' +
+                        '</td>' +
+                        '<td><strong>' + ogg + '</strong><br />Notifica da Gaia</td>' +
+                    '</tr>'
+                );
+                persona  = '<i class="icon-info-sign"></i> <span>Notifica Gaia</span>';
+            }
+            mittente = '<i class="icon-info-sign"></i> Notifica di sistema Gaia';
+        }
+        
+        if ( email.destinatari.length > 1 ) {
+
+            // DESTINATARI MULTIPLI
+            if ( direzione == 'uscita' ) {
+                $(tbody).append(
+                    '<tr>' +
+                        '<td>' +
+                            '<img width="50" height="50" class="img-circle" src="https://gaia.cri.it/upload/avatar/placeholder/20.jpg" />' +
+                        '</td>' +
+                        '<td><strong>' + ogg + '</strong><br />Destinatari multipli (' + email.destinatari.length + ')</td>' +
+                    '</tr>'
+                );
+                persona      = '<i class="icon-group"></i> A <span>Destinatari multipli (' + email.destinatari.length + ')</span>';
+            }
+
+            destinatario = '<ul>';
+            $.each(email.destinatari, function(y, q) {
+                destinatario += '<li data-utente="' + q.id + '">{nomeCompleto}';
+                if ( q.inviato ) {
+                    destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + stampaDataOra(new Date(q.inviato * 1000)) + ')';
+                } else {
+                    destinatario += ' (<i class="icon-time text-warning"></i> in coda di invio)';
+                }
+                destinatario += '</li>';
+            });
+            destinatario += '</ul>';
+
+
+        } else if ( email.destinatari.length > 0 ) {
+
+            // DESTINATARIO SINGOLO
+            if ( direzione == 'uscita' ) {
+                $(tbody).append(
+                    '<tr data-utente="' + email.destinatari[0].id + '">' +
+                        '<td>' +
+                            '<img width="50" height="50" class="img-circle" src="{avatar}" title="{nomeCompleto}" alt="{nomeCompleto}" />' +
+                        '</td>' +
+                        '<td><strong>' + ogg + '</strong><br />{nomeCompleto}</td>' +
+                    '</tr>'
+                );
+                persona      = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '">{nomeCompleto}</span>';
+            }
+
+            destinatario = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '">{nomeCompleto}</span>';
+            if ( email.invio.terminato ) {
+                destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + stampaDataOra(new Date(email.invio.terminato * 1000)) + ')';
+            } else {
+                destinatario += ' (<i class="icon-time text-warning"></i> in coda di invio)';
+            }
+
+
+        } else {
+            // AL SUPPORTO
+            if ( direzione == 'uscita' ) {
+                $(tbody).append(
+                    '<tr>' +
+                        '<td>' +
+                            '<img width="50" height="50" class="img-circle" src="https://gaia.cri.it/upload/avatar/placeholder/20.jpg" />' +
+                        '</td>' +
+                        '<td><strong>' + ogg + '</strong><br />Squadra di Supporto Gaia</td>' +
+                    '</tr>'
+                );
+                persona      = '<i class="icon-ambulance"></i> Squadra di Supporto</span>';
+            }
+
+            destinatario = '<i class="icon-ambulance"></i> Squadra di Supporto di Gaia</span>';
+            if ( email.invio.terminato ) {
+                destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + stampaDataOra(new Date(email.invio.terminato * 1000)) + ')';
+            } else {
+                destinatario += ' (<i class="icon-time text-warning"></i> in coda di invio)';
+            }
+
+        }      
+        
+        $(tbody).find('tr:last')
+            .data('persona',        persona)
+            .data('destinatario',   destinatario)
+            .data('mittente',       mittente)
+            .data('codice',         email.id)
+            .addClass('riga-cliccabile')
+            .click(
+                function() {
+
+            $('tr').removeClass("success");
+            $(this).addClass("success");
+            if ( $(e).data('messaggio') ) {
+                var output = $(e).data('messaggio');
+                $(output).html(
+                    '<h4><i class="icon-comments"></i> ' + email.oggetto + '</h4>' +
+                    '<div class="row-fluid" style="font-size: smaller;">' + 
+                        '<span class="span6"><strong>' + $(this).data('persona') + '</strong> <a data-modale="(mostra dettagli)" data-titolo="Dettagli messaggio">' +
+                            '<ul><li><strong>Mittente:</strong> ' + $(this).data('mittente') +
+                            '</li><li><strong>Destinatario:</strong> ' + $(this).data('destinatario') +
+                            '</li><li><strong>Creato:</strong> <i class="icon-time"></i> ' + stampaDataOra(new Date(email.timestamp*1000)) +
+                            '</li><li><strong>Oggetto:</strong> ' + email.oggetto +
+                            '</li></ul></a>'+ 
+                        '</span>' +
+                        '<span class="span3"><i class="icon-calendar"></i> ' + stampaData(new Date(email.timestamp*1000)) + '</span>' +
+                        '<span class="span3"><i class="icon-time"></i> ' + stampaOra(new Date(email.timestamp*1000)) + '</span>' +
+
+                    '</div>' +
+                    '<hr />' +
+                    '<blockquote style="font-size: 12px !important;">' +
+                      email.corpo +
+                    '</blockquote>'
+
+
+                );
+                _render_utenti();
+                _render_modali();
+            } else {
+                window.location = 'https://gaia.cri.it/?p=utente.posta&id=' + email.id;
+            }
+
+        });
+    });
+
+    if ( $(e).data('contatore') ) {
+        $($(e).data('contatore')).text(dati.totale);
+    }
+
+    if ( dati.risultati.length == 0 ) {
+        $(tbody).append(
+            '<tr class="error">' +
+                '<td colspan="2" class="allinea-centro">' +
+                    '<h4><i class="icon-frown"></i> Nessuna comunicazione</h4>' +
+                    '<p>Niente paura! Qui verranno salvate tutte le comunicazioni future inviate o ricevute tramite Gaia.</p>' +
+                '</td>' +
+            '</tr>'
+        );
+    }
+    _render_utenti(); // Render mittenti e destinatari
+    //_tabella_sblocca_input(input);
+}
+
+function _email_sostituzioni (testo, email) {
+    testo = testo.replace(/{id}/g,       email.id);
+    testo = testo.replace(/{oggetto}/g,  email.oggetto);
+    return testo;
+}
+
+
+/**
+ * Rendering utenti 
+ */
+function _render_utenti() {
+    var riassunto = [];
+    var richieste = [];
+    $("[data-utente]").each( function(i, e) {
+        var id = $(e).data('utente')
+        $(e).attr('data-contenuto', $(e).html());
+        riassunto.push({elemento: e, id: id});
+        richieste.push({
+            metodo      : 'utente',
+            parametri   : {id: id}
+        });
+    });
+
+    api('multi', {richieste: richieste}, function(x) {
+        $(x.risposta.risultato).each( function(i, r) {
+            _render_utente(riassunto[i].elemento, r.risposta);
+        });
+    });
+}
+
+function _render_utente(elemento, dati) {
+    var testo = '' + $(elemento).attr('data-contenuto');
+    testo = testo.replace(/{id}/gi,              dati.id);
+    testo = testo.replace(/{nome}/gi,            dati.nome);
+    testo = testo.replace(/{cognome}/gi,         dati.cognome);
+    testo = testo.replace(/{nomeCompleto}/gi,    dati.nomeCompleto);
+    testo = testo.replace(/{avatar}/gi,          dati.avatar["20"]);
+    $(elemento).removeAttr('data-utente');
+    $(elemento).html(testo);
+}
+
+/**
+ * Modale inlinea 
+ */
+
+function _render_modali() {
+    $("[data-modale]").each( _modale_inline );
+}
+
+function _modale_inline(i, e) {
+    $(e).attr('role', 'button').data('toggle', 'modal');
+    var contenuto = $(e).html();
+    $(e).html($(e).data('modale'));
+    $(e).removeAttr('data-modale');
+    var _mid = 'modale_' + Math.floor( Math.random() * 10000 );
+    $(e).attr('href', '#' + _mid);
+    $("body").append(
+        '<div id="' + _mid + '" class="modal hide fade" role="dialog">' +
+            '<div class="modal-header">' +
+                '<button type="button" class="close" data-dismiss="modal"><i class="icon-remove"></i></button>' +
+                '<h3>' + $(e).data('titolo') + '</h3>' +
+            '</div><div class="modal-body">' +
+                contenuto +
+            '</div><div class="modal-footer">' +
+                '<button class="btn" data-dismiss="modal"><i class="icon-remove"></i> Okay</button>' +
+            '</div>' +
+        '</div>'
+    );
+    $(e).click( function() {
+        $('#' + _mid).modal('show');
+        _render_utenti();
+        return false;
+    });
+
+}
+
+/**
+ * Stampa la data in modalita it-IT con extra 0 
+ */
+function stampaData(data) {
+    var d = ("0" + data.getDate()).slice(-2) + '/' + 
+            ("0" + (data.getMonth()+1)).slice(-2) + '/' + 
+            data.getFullYear();
+    return d;
+}
+/**
+ * Stampa l'ora in modalita it-IT con extra 0 
+ */
+function stampaOra(data) {
+    var d = ("0" + data.getHours()).slice(-2) + ':' +  
+            ("0" + data.getMinutes()).slice(-2) + ':' +
+            ("0" + data.getSeconds()).slice(-2);
+    return d;
+}
+
+/**
+ * Bhe... non ci vuole un genio per capire cosa fa questa
+ */
+function stampaDataOra(data) {
+    return stampaData(data) + ' ' + stampaOra(data);
 }

@@ -6,6 +6,7 @@ paginaAdmin();
  * ©2013 Croce Rossa Italiana
  */
 
+set_time_limit (0);
 
 $t = Volontario::elenco();
 ?>
@@ -44,23 +45,28 @@ $t = Volontario::elenco();
     </div> 
 
     <div class="row-fluid">
-        <div class="span3">
+        <div class="span2">
             <a  onClick="return confirm('Vuoi veramente cancellare tutte le persone senza dati? Solo se senza appartenenze');" href="?p=admin.limbo.pulizia&soft" title="Cancella chi non ha dati" class="btn btn-block btn-danger">
                 <i class="icon-trash"></i> Pulizia soft
             </a>
         </div>
-        <div class="span3">
+        <div class="span2">
             <a  onClick="return confirm('Vuoi veramente cancellare tutte le persone con codice fiscale orfano? Solo se senza appartenenze');" href="?p=admin.limbo.pulizia&hard" title="Cancella chi ha solo CF ma non appartenenze" class="btn btn-block btn-danger">
                 <i class="icon-trash"></i> Pulizia meno soft
             </a>
         </div>
-        <div class="span3">
+        <div class="span2">
             <a  onClick="return confirm('Vuoi veramente cancellare tutte le persone con anagrafica senza stato? Solo se senza appartenenze');" href="?p=admin.limbo.pulizia&extreme" title="Cancella chi ha anagrafica ma non stato" class="btn btn-block btn-danger">
                 <i class="icon-trash"></i> Pulizia ancora meno soft
             </a>
         </div>
         <div class="span3">
-            <a  onClick="return confirm('Shhh... sto per cambiare stato a della gente...');" href="?p=admin.limbo.cambiastato" title="Sistema gli stati rotti" class="btn btn-block btn-danger">
+            <a  onClick="return confirm('Vuoi veramente cancellare tutte le persone con anagrafica senza contatti? Solo se senza appartenenze');" href="?p=admin.limbo.pulizia&contatti" title="Cancella senza appartenenza ne contatti" class="btn btn-block btn-danger">
+                <i class="icon-trash"></i> Pulizia contatti
+            </a>
+        </div>
+        <div class="span3">
+            <a  onClick="return confirm('Vuoi veramente cambiare stato ?');" href="?p=admin.limbo.cambiastato" title="Sistema gli stati rotti" class="btn btn-block btn-danger">
                 <i class="icon-trash"></i> Fix aspiranti
             </a>
         </div>
@@ -78,7 +84,6 @@ $t = Volontario::elenco();
             <thead>
                 <th>Nome</th>
                 <th>Cognome</th>
-                <th>Località</th>
                 <th>Codice Fiscale</th>
                 <th>Stato</th>
                 <th>Azioni</th>
@@ -87,23 +92,14 @@ $t = Volontario::elenco();
         $totale = 0;
         foreach($t as $_v) {
             $appartenenze = $_v->numAppartenenzeTotali();
-            if($appartenenze == 0){
-                $totale++;
+            if($appartenenze == 0 || $_v->appartenenzaAttuale()->stato == MEMBRO_APP_NEGATA){
+            $totale++;
             ?>
                 <tr>
                     <td><?php echo $_v->nome; ?></td>
-                    <td><?php echo $_v->cognome; ?></td>
-                    <td>
-                        <span class="muted">
-                            <?php echo $_v->CAPResidenza; ?>
-                        </span>
-                        <?php echo $_v->comuneResidenza; ?>,
-                        <?php echo $_v->provinciaResidenza; ?>
-                    </td>
-                    
+                    <td><?php echo $_v->cognome; ?></td>                 
                     <td><?php echo $_v->codiceFiscale; ?></td>
                     <td><?php echo $conf['statoPersona'][$_v->stato]; ?></td>
-
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
@@ -117,7 +113,7 @@ $t = Volontario::elenco();
                             <a class="btn btn-small btn-primary" href="?p=admin.stato.modifica&id=<?php echo $_v->id; ?>" title="Cambia stato">
                                 <i class="icon-random"></i> Cambia stato
                             </a>
-                            <a class="btn btn-small btn-info" href="?p=admin.limbo.comitato.nuovo&id=<?php echo $_v->id; ?>" title="Assegna a Comitato">
+                            <a class="btn btn-small btn-info" href="?p=admin.limbo.comitato.nuovo&id=<?php echo $_v->id; ?>" title="Assegna a Comitato" target="_new">
                                     <i class="icon-arrow-right"></i> Assegna a Comitato
                             </a>
                             <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.limbo.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">

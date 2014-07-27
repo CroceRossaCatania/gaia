@@ -1,8 +1,16 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
+
+paginaPrivata();
+
+if ($sessione->utente()->email) {
+  redirect('errore.permessi&cattivo');
+} elseif($sessione->utente()->ordinario()) {
+  redirect('utente.me');
+}
 
 ?>
 
@@ -39,6 +47,13 @@
         <p>
             <i class="icon-key"></i> Inserisci inoltre la password che userai per accedere.
         </p>
+        <p>Scegli una password che abbia tra <strong>8 e 15 caratteri</strong> e usa, se possibile, lettere maiuscole,
+          minuscole e numeri.</p>
+        <p>Ti consigliamo di non usare la password che giù utilizzi per altri account.</p>
+        <p>La password che hai inserito è <strong><span id="strength_human">non sicura</span></strong>  </p> 
+        <div class="progress span10 centrato">
+          <div class="bar bar-danger" style="width: 0%" id="strength_score"></div>
+        </div>
     </div>
     <div class="span8">
           <?php if ( isset($_GET['email'] ) ) { ?>
@@ -46,6 +61,19 @@
                   <h4>Email già in uso</h4>
                   <p>Questa email è già usata da un altro utente.</p>
                   <p>Devi avere un indirizzo email univoco in quanto questo viene usato per 
+                     comunicazioni personali ed al momento dell'accesso.</p>
+              </div>
+          <?php } ?>
+          <?php if ( isset($_GET['match'] ) ) { ?>
+              <div class="alert alert-block alert-error">
+                  <h4>Le email non coincidono</h4>
+                  <p>Le email che hai inserito non coincidono, per favore riprova.</p>
+              </div>
+          <?php } ?>
+          <?php if ( isset($_GET['emailnon'] ) ) { ?>
+              <div class="alert alert-block alert-error">
+                  <h4>Email non valida</h4>
+                  <p>Devi avere un indirizzo email valido in quanto questo viene usato per 
                      comunicazioni personali ed al momento dell'accesso.</p>
               </div>
           <?php } ?>
@@ -74,14 +102,21 @@
             <label class="control-label" for="inputEmail">Email</label>
             <div class="controls">
               <span class="add-on"><i class="icon-envelope"></i></span>
-              <input type="email" id="inputEmail" name="inputEmail" autofocus required value="<?php echo $sessione->email; ?>"/>
+              <input type="email" id="inputEmail" name="inputEmail" autofocus required value="<?php echo $sessione->email; ?>" autocomplete="off" />
+            </div>
+          </div>
+          <div class="control-group input-prepend">
+            <label class="control-label" for="inputEmail2">Ripeti email</label>
+            <div class="controls">
+              <span class="add-on"><i class="icon-envelope"></i></span>
+              <input type="email" id="inputEmail2" name="inputEmail2" required value="<?php echo $sessione->email2; ?>" autocomplete="off"/>
             </div>
           </div>
           <div class="control-group input-prepend">
             <label class="control-label" for="inputCellulare">Cellulare</label>
             <div class="controls ">
               <span class="add-on">+39</span>
-              <input type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" value="<?php echo $sessione->cell; ?>"/>
+              <input type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" autocomplete="off"/>
             </div>
           </div>
           <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
@@ -89,7 +124,7 @@
               <label class="control-label" for="inputCellulareServizio">Cell. servizio</label>
               <div class="controls">
                 <span class="add-on">+39</span>
-                <input type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" value="<?php echo $sessione->cells; ?>"/>
+                <input type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" autocomplete="off"/>
               </div>
             </div>
           <?php } ?>
@@ -102,13 +137,14 @@
               </div>
           </div>
           <div class="control-group input-prepend">
-              <label class="control-label" for="inputPassword2">Reinserire Password</label>
+              <label class="control-label" for="inputPassword2">Ripeti Password</label>
               <div class="controls ">
                   <span class="add-on"><i class="icon-key"></i></span>
                   <input type="password" id="inputPassword2" name="inputPassword2" required pattern=".{8,15}" />
               </div>
           </div>
-          <p class="centrato muted">Scegli una password complessa, dai 8 ai 15 caratteri.</p>
+          
+              <br /><br />
           <hr/>
           <div class="control-group">
             <div class="controls">

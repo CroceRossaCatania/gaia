@@ -5,6 +5,12 @@
 */
 
 caricaSelettoreComitato();
+paginaPrivata();
+if ($sessione->utente()->unComitato(SOGLIA_APPARTENENZE)) {
+    redirect('errore.permessi&cattivo');
+} elseif ($sessione->utente()->ordinario()) {
+    redirect('utente.me');
+}
 
 ?>
 

@@ -33,7 +33,7 @@ if ( !preg_match("/^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$/", $codiceF
 
 /* Cerca eventuali utenti con la stessa email... */
 $e = Utente::by('email', $email);
-if ( $e and $e->password ) {
+if ( $e && $email && $e->password ) {
     /* Se l'utente esiste, ed ha già pure una password */
     redirect('us.utente.nuovo&mail');
 }
@@ -109,6 +109,18 @@ if(!$gia){
 	$a->timestamp = time();
 	$a->stato     = MEMBRO_VOLONTARIO;
 	$a->conferma  = $me;
+}
+
+/* 
+ * Non si può far parte di IV e CM contemporaneamente
+ */
+
+if ( !(isset($_POST['inputIV']) && isset($_POST['inputCM']))) {
+    if( $p->sesso == DONNA){
+        $p->iv = $_POST['inputIV'];
+    }
+    $p->cm = $_POST['inputCM'];
+
 }
 
 /* Genera la password casuale */

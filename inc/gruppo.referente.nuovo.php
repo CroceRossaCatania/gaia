@@ -31,7 +31,10 @@ proteggiClasse($gruppo, $me);
               <li>Coordina il gruppo per svolgere le attività continuative in maniera efficace e efficente;</li>
           </ul>
           <p>
-              <a data-selettore="true" data-input="inputReferente" data-autosubmit="true" 
+              <a data-selettore="true" 
+                 data-input="inputReferente" 
+                 data-autosubmit="true" 
+                 data-comitati="<?php echo $gruppo->comitato; ?>"
                  class="btn btn-inverse btn-block btn-large">
                   Seleziona un volontario... <i class="icon-pencil"></i>
               </a>

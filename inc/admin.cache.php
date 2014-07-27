@@ -25,14 +25,15 @@ $server = $cache->info();
     <div class="row-fluid">
 
         <div class="span4">
-            <h2>Cache server</h2>
+            <h2><i class="icon-cloud muted"></i> Cache server</h2>
 
             <p>Statistiche di funzionamento del server di cache.</p>
 
             <p>Le richieste GET ricevute sono il numero di interrogazioni risparmiate
                 al database.</p>
 
-                <a href="?p=admin.cache.flush" class="btn btn-large btn-danger">
+                <a href="?p=admin.cache.flush" class="btn btn-large btn-danger"
+                    data-attendere-caricamento="Fammi lavorare...">
                     <i class="icon-warning-sign"></i>
                     Resetta la cache (flush)
                 </a>

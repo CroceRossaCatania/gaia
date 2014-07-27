@@ -4,14 +4,14 @@
  * ©2012 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 controllaParametri(array('id'), 'presidente.estensione&err');
 
 $e = $_GET['id'];
 $e = Estensione::id($e);
 $_v = $e->volontario();
-if (!$_v->modificabileDa($me)) {
+if (!$_v->modificabileDa($me) && !$me->admin()) {
   redirect('presidente.estensione&err');
 }
 ?>

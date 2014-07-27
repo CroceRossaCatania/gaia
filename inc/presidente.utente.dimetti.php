@@ -10,6 +10,12 @@ controllaParametri(array('id'), 'presidente.utenti&errGen');
 
 $v = $_GET['id'];
 $v = Volontario::id($v);
+
+proteggiDatiSensibili($v, [APP_SOCI , APP_PRESIDENTE]);
+if (!$v->modificabileDa($me)) {
+  redirect('presidente.utenti&nonpuoi');
+}
+
 ?>
 <div class="row-fluid">
     <div class="span12">
@@ -18,7 +24,6 @@ $v = Volontario::id($v);
             <div class="alert alert-error">
                 <div class="row-fluid">
                     <span class="span12">
-                        <p><strong><?php if($me->presiede()){?><span class="muted">Presidente,</span><?php } ?></strong></p>
                         <p>Stai dimettendo il volontario <strong><?php echo $v->nomeCompleto();?></strong>.</p>
                         <p>Specifica il motivo di tale decisione</p>
                     </span>
@@ -43,7 +48,13 @@ $v = Volontario::id($v);
                 <div class="control-group">
                     <label class="control-label" for="info">Informazioni aggiuntive </label>
                     <div class="controls">
-                        <input class="span8" type="text" name="info" id="info" placeholder="es.: Provvedimento di radiazione n. 134 del 12/12/2013" >
+                        <input class="span8" type="text" name="info" id="info" placeholder="es.: Provvedimento di radiazione n. 134 del 12/12/2013" required>
+                    </div>
+                </div>
+                <div class="control-group" id='blocco'>
+                    <label class="control-label" for="ordinario">Passa a Socio Ordinario </label>
+                    <div class="controls">
+                        <input type="checkbox" name="ordinario" id="ordinario" >
                     </div>
                 </div>
                 <div class="control-group">

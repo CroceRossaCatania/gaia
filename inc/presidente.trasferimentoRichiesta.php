@@ -4,7 +4,7 @@
  * ©2012 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 controllaParametri(array('id'), 'presidente.trasferimento&err');
 
@@ -20,14 +20,15 @@ $_v = $t->volontario();
             <div class="alert alert-block alert-info ">
                 <div class="row-fluid">
                     <span class="span12">
-                        <p>Con questo modulo si prende in carico la richiesta di trasferimento del volontario <strong><?php echo $_v->nome; echo " "; echo $_v->cognome; ?></strong> al <strong><?php echo $t->comitato()->nome; ?></strong></p>
+                        <p>Con questo modulo si prende in carico la richiesta di trasferimento del volontario <strong><?php echo $_v->nome; echo " "; echo $_v->cognome; ?></strong> al <strong><?php echo $t->comitato()->nomeCompleto(); ?></strong></p>
                     </span>
                 </div>
             </div>           
         </div>
         
 <div class="row-fluid">
-    <form class="form-horizontal" action="?p=presidente.trasferimentoRichiesta.ok&id=<?php echo $t->id; ?>" method="POST">
+    <form class="form-horizontal" action="?p=presidente.trasferimentoRichiesta.ok" method="POST">
+    <input type="hidden" name="id" value="<?= $t->id; ?>">
      <div class="control-group">
         <label class="control-label" for="numprotocollo">Numero Protocollo </label>
         <div class="controls">

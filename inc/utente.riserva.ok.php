@@ -12,40 +12,30 @@ controllaParametri($parametri);
 
 $t = $_GET['id'];
 $m = $_POST['inputMotivo'];
- foreach ( $me->storico() as $app ) { 
-                         if ($app->attuale()) 
-                                    {
-                             $c = $app;
-                         }
-                         } 
+$c = $me->appartenenzaAttuale();
+
+/* Evita richieste doppie se già riserva in sospeso o autorizzata */
+if ($me->unaRiservaInSospeso() || $me->inRiserva()){
+	redirect('utente.riserva&gia');
+}
+
+$inizio = DT::daFormato($_POST['datainizio']);
+$fine = DT::daFormato($_POST['datafine']);
+
+if (!$inizio || !$fine) {
+    redirect('utente.riserva&err');
+}
 
 /*Avvio la procedura*/
+$t = new Riserva();
+$t->stato = RISERVA_INCORSO;
+$t->appartenenza = $c;
+$t->volontario = $me->id;
+$t->motivo = $m;
+$t->timestamp = time();                
+$t->inizio = $inizio->getTimestamp();
+$t->fine = $fine->getTimestamp();
 
-        $t = new Riserva();
-        $t->stato = RISERVA_INCORSO;
-        $t->appartenenza = $c;
-        $t->volontario = $me->id;
-        $t->motivo = $m;
-        $t->timestamp = time();                
-        if ( $_POST['datainizio'] ) {
-            $inizio = @DateTime::createFromFormat('d/m/Y', $_POST['datainizio']);
-            if ( $inizio ) {
-                $inizio = @$inizio->getTimestamp();
-                $t->inizio = $inizio;
-            } else {
-                $t->inizio = 0;
-            }
-        }
+$sessione->inGenerazioneRiserva = time();
 
-        if ( $_POST['datafine'] ) {
-            $fine = @DateTime::createFromFormat('d/m/Y', $_POST['datafine']);
-            if ( $fine ) {
-                $fine = @$fine->getTimestamp();
-                $t->fine = $fine;
-            } else {
-                $t->fine = 0;
-            }
-        }
-        
-        $sessione->inGenerazioneRiserva = time();
-        redirect('presidente.riservaRichiesta.stampa&id=' . $t);
+redirect('presidente.riservaRichiesta.stampa&id=' . $t);

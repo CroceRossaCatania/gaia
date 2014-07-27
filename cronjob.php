@@ -68,12 +68,7 @@ function cronjobGiornaliero()  {
 
 
     /* === 2. CANCELLA SESSIONI SCADUTE DA DATABASE */
-    $n = 0;
-    foreach ( Sessione::scadute() as $s ) {
-        $s->cancella(); $n++;
-    }
-    $log .= "Cancellate $n sessioni scadute\n";
-
+    // Rimosso, ora sessioni sta in redis...
 
     /* === 3. AUTORIZZO ESTENSIONI DOPO 30 GG E NOTIFICO AL VOLONTARIO*/
     $n = 0;
@@ -121,6 +116,10 @@ function cronjobGiornaliero()  {
     /* === 10. CHIUDE LE VALIDAZIONI SCADUTE */
     Validazione::chiudi();
     $log .= "Chiuse le validazioni scadute\n";
+
+    /* === 11. RIMUOVE ERRORI VECCHI DI UNA SETTIMANA */
+    $n = MErrore::pulisci();
+    $log .= "Cancellati log di {$n} errori in database\n";
     
 };
 // =========== FINE CRONJOB GIORNALIERO
@@ -240,9 +239,5 @@ file_put_contents('upload/log/cronjob.txt', "\n" . $log, FILE_APPEND);
 
 /* Invia per email il log */
 $m = new Email('mailTestolibero', 'Report cronjob');
-$dest = new stdClass();
-$dest->nome     = 'Servizi';
-$dest->email    = 'supporto@gaia.cri.it';
-$m->a = $dest;
 $m->_TESTO = nl2br($log);
 $m->invia();

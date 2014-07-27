@@ -30,7 +30,13 @@ caricaSelettoreComitato();
                 <?php }elseif ( isset($_GET['gia']) ) { ?>
                 <div class="alert alert-danger">
                     <i class="icon-ban-circle"></i> <strong>Volontario già presente</strong>.
-                    Il volontario che stai provando ad aggiungere è già presente.
+                    Il volontario che stai provando ad aggiungere è già presente nel database di GAIA.<br />
+                    Questo può significare due cose: <br />
+                    <ul>
+                        <li>il volontario sì è iscritto in autonomia ma non ha selezionato alcun comitato di destinazione;</li>
+                        <li>il volontario è attualmente in forza presso altro comitiato.</li>
+                    </ul>
+                    Contatta il supporto fornendo il <strong>codice fiscale</strong> per ulteriori informazioni.
                 </div>
                 <?php }elseif ( isset($_GET['mail']) ) { ?>
                 <div class="alert alert-danger">
@@ -193,7 +199,23 @@ caricaSelettoreComitato();
                 <div class="span8">
                     <input type="text" name="inputDataIngresso" id="inputDataIngresso" required />
                 </div>
-            </div>          
+            </div>  
+            <div class="row-fluid">
+                <div class="span4 centrato">
+                    <label class="control-label">Infermiera Volontaria</label>
+                </div>
+                <div class="span8">
+                    <input type="checkbox" id="inputIV" name="inputIV" >
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span4 centrato">
+                    <label class="control-label">Corpo Militare volontario</label>
+                </div>
+                <div class="span8">
+                    <input type="checkbox" id="inputCM" name="inputCM" >
+                </div>
+            </div>        
             <hr />
         </div>
         <div class="modal-footer">

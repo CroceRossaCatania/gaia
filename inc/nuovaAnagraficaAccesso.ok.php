@@ -5,6 +5,11 @@
  */
 
 paginaPrivata();
+if ($sessione->utente()->unComitato(SOGLIA_APPARTENENZE)) {
+    redirect('errore.permessi&cattivo');
+} elseif ($sessione->utente()->ordinario()) {
+    redirect('utente.me');
+}
 
 $parametri = array('inputDataIngresso');
 controllaParametri($parametri, 'nuovaAnagraficaAccesso&err');
@@ -13,9 +18,9 @@ $comitato     = $_POST['inputComitato'];
 if ( !$comitato ) {
     redirect('nuovaAnagraficaAccesso&c');
 }
-$comitato     = new Comitato($comitato);
+$comitato = Comitato::id($comitato);
 
-$inizio   = DT::createFromFormat('d/m/Y', $_POST['inputDataIngresso']);
+$inizio = DT::createFromFormat('d/m/Y', $_POST['inputDataIngresso']);
 
 /*
  * Scrive i dati nella sessione 
