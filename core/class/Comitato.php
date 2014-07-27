@@ -172,6 +172,8 @@ class Comitato extends GeoPolitica {
      * Membri in estensione
      * @return estensioni dal comitato $this
      */
+
+    // spostata
     public function membriInEstensione() {
         $q = $this->db->prepare("
             SELECT 
@@ -200,6 +202,8 @@ class Comitato extends GeoPolitica {
     /*
      * Volontari che alla data $elezioni hanno certa $anzianita
      */
+
+    // spostata
     public function elettoriAttivi(DateTime $elezioni, $anzianita = ANZIANITA) {
         $q = $this->db->prepare("
             SELECT  DISTINCT( anagrafica.id )
@@ -241,6 +245,8 @@ class Comitato extends GeoPolitica {
      * Volontari del comitato che alla data $elezioni
      * hanno certa anzianità e 18 anni.
      */
+
+    // spostata
     public function elettoriPassivi(DateTime $elezioni, $anzianita = ANZIANITA) {
         $elettori   = $this->elettoriAttivi($elezioni, $anzianita);
         $eta        = clone $elezioni;
@@ -254,6 +260,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
+    // spostata
     public function membriDimessi() {
         $q = $this->db->prepare("
             SELECT

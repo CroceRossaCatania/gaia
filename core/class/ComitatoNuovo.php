@@ -175,4 +175,292 @@ class ComitatoNuovo extends GeoPolitica {
         return $r;
     }
 
+    /*
+     * Membri in estensione
+     * @return estensioni dal comitato $this
+     */
+    // solito problema
+    public function membriInEstensione() {
+        $q = $this->db->prepare("
+            SELECT 
+                estensioni.id
+            FROM
+                anagrafica, estensioni
+            WHERE
+                estensioni.cProvenienza = :comitato
+            AND
+                estensioni.volontario = anagrafica.id
+            AND
+                estensioni.stato >= :stato
+            ORDER BY
+                anagrafica.cognome ASC,
+                anagrafica.nome ASC");
+        $q->bindValue(':stato', EST_OK);
+        $q->bindParam(':comitato', $this->vecchio_id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Estensione::id($k[0]);
+        }
+        return $r;
+    }
+
+    /*
+     * Volontari che alla data $elezioni hanno certa $anzianita
+     */
+    // idem
+    public function elettoriAttivi(DateTime $elezioni, $anzianita = ANZIANITA) {
+        $q = $this->db->prepare("
+            SELECT  DISTINCT( anagrafica.id )
+            FROM    appartenenza, anagrafica
+            WHERE   
+              appartenenza.comitato     = :comitato
+            AND
+              appartenenza.stato        = :stato
+            AND
+              appartenenza.volontario   = anagrafica.id 
+            AND
+              ( inizio <= :minimo )
+            AND
+              appartenenza.volontario IN (
+                SELECT volontario FROM appartenenza
+                WHERE comitato = :comitato AND
+                stato = :stato AND
+                fine = 0 OR fine > :elezioni
+              )
+            ORDER BY
+              anagrafica.cognome     ASC,
+              anagrafica.nome        ASC");
+        $minimo = clone $elezioni;
+        $anzianita = (int) $anzianita;
+        $minimo->modify("-{$anzianita} years");
+        $q->bindValue(':comitato',  $this->vecchio_id);
+        $q->bindValue(':stato',  MEMBRO_VOLONTARIO);
+        $q->bindParam(':elezioni',  $elezioni->getTimestamp(), PDO::PARAM_INT);
+        $q->bindParam(':minimo',    $minimo->getTimestamp(), PDO::PARAM_INT);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Volontario::id($k[0]);
+        }
+        return $r;
+    }   
+
+    /*
+     * Volontari del comitato che alla data $elezioni
+     * hanno certa anzianità e 18 anni.
+     */
+
+    // idem
+    public function elettoriPassivi(DateTime $elezioni, $anzianita = ANZIANITA) {
+        $elettori   = $this->elettoriAttivi($elezioni, $anzianita);
+        $eta        = clone $elezioni;
+        $eta->modify("-18 years");
+        $eta        = $eta->getTimestamp();
+        $r = [];
+        foreach ( $elettori as $elettore ) {
+            if ( $elettore->dataNascita > $eta ) { continue; }
+            $r[] = $elettore;
+        }
+        return $r;
+    }
+
+    /*
+     * Membri dimessi
+     * @return dimissioni dal comitato $this
+     */
+    // idem
+    public function membriDimessi() {
+        $q = $this->db->prepare("
+            SELECT
+                anagrafica.id
+            FROM
+                appartenenza, anagrafica
+            WHERE
+                anagrafica.id = appartenenza.volontario
+            AND
+                comitato = :comitato
+            AND
+                appartenenza.stato = :stato
+            ORDER BY
+                cognome ASC, nome ASC");
+        $q->bindParam(':comitato', $this->vecchio_id);
+        $q->bindValue(':stato', MEMBRO_DIMESSO);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Volontario::id($k[0]);
+        }
+        return $r;
+    }
+
+    /*
+     * Membri trasferiti
+     * @return trasferiti dal comitato $this
+     */
+    // idem
+    public function membriTrasferiti() {
+        $q = $this->db->prepare("
+            SELECT 
+                trasferimenti.id
+            FROM
+                anagrafica, trasferimenti
+            WHERE
+                trasferimenti.cProvenienza = :comitato
+            AND
+                trasferimenti.volontario = anagrafica.id
+            AND
+                trasferimenti.stato >= :stato
+            ORDER BY
+                anagrafica.cognome ASC,
+                anagrafica.nome ASC");
+        $q->bindValue(':stato', TRASF_OK);
+        $q->bindParam(':comitato', $this->vecchio_id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Trasferimento::id($k[0]);
+        }
+        return $r;
+    }
+
+    /*
+     * Membri ordinari
+     * @return ordinari del comitato $this
+     */
+    // idem
+    public function membriOrdinari() {
+        $q = $this->db->prepare("
+            SELECT
+                anagrafica.id
+            FROM
+                appartenenza, anagrafica
+            WHERE
+                anagrafica.id = appartenenza.volontario
+            AND
+                comitato = :comitato
+            AND
+                appartenenza.stato = :stato
+            ORDER BY
+                cognome ASC, nome ASC");
+        $q->bindParam(':comitato', $this->vecchio_id);
+        $q->bindValue(':stato', MEMBRO_ORDINARIO);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Volontario::id($k[0]);
+        }
+        return $r;
+    }
+
+    /*
+     * Membri ordinari dimessi
+     * @return ordinari dimessi del comitato $this
+     */
+    // idem
+    public function membriOrdinariDimessi() {
+        $q = $this->db->prepare("
+            SELECT
+                anagrafica.id
+            FROM
+                appartenenza, anagrafica
+            WHERE
+                anagrafica.id = appartenenza.volontario
+            AND
+                comitato = :comitato
+            AND
+                appartenenza.stato = :stato
+            ORDER BY
+                cognome ASC, nome ASC");
+        $q->bindParam(':comitato', $this->vecchio_id);
+        $q->bindValue(':stato', MEMBRO_ORDINARIO_DIMESSO);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Volontario::id($k[0]);
+        }
+        return $r;
+    }
+
+    /*
+     * Numero membri ordinari dimessi
+     * @return int numero ordinari dimessi del comitato $this
+     */
+    // idem
+    public function numMembriOrdinariDimessi() {
+        $q = $this->db->prepare("
+            SELECT
+                COUNT(volontario)
+            FROM
+                appartenenza
+            WHERE
+                ( fine >= :ora OR fine IS NULL OR fine = 0) 
+            AND
+                comitato = :comitato
+            AND
+                stato    = :stato
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':comitato', $this->vecchio_id);
+        $q->bindValue(':stato',    MEMBRO_ORDINARIO_DIMESSO);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+
+    /*
+     * Numero membri ordinari
+     * @return int numero dimessi del comitato $this
+     */
+    // idem
+    public function numMembriOrdinari() {
+        $q = $this->db->prepare("
+            SELECT
+                COUNT(volontario)
+            FROM
+                appartenenza
+            WHERE
+                ( fine >= :ora OR fine IS NULL OR fine = 0) 
+            AND
+                comitato = :comitato
+            AND
+                stato    = :stato
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':comitato', $this->vecchio_id);
+        $q->bindValue(':stato',    MEMBRO_ORDINARIO);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+
+    /*
+     * Numero membri attuali
+     * @return int numero attuali del comitato $this
+     */
+    // idem
+    public function numMembriAttuali($stato = MEMBRO_ESTESO) {
+        $q = $this->db->prepare("
+            SELECT
+                COUNT(volontario)
+            FROM
+                appartenenza
+            WHERE
+                ( fine >= :ora OR fine IS NULL OR fine = 0) 
+            AND
+                comitato = :comitato
+            AND
+                stato    >= :stato
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':comitato', $this->vecchio_id);
+        $q->bindParam(':stato',    $stato);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+
 }
