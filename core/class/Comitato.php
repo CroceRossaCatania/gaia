@@ -17,6 +17,8 @@ class Comitato extends GeoPolitica {
      * Sovrascrive metodo __get se unita' principale
      * ref. https://github.com/CroceRossaCatania/gaia/issues/360
      */ 
+    
+    // spostata
     public function __get ($_nome) {
         $nonSovrascrivere = ['id', 'nome', 'principale', 'locale'];
         if ( parent::__get('principale') && !in_array($_nome, $nonSovrascrivere) ) {
@@ -25,14 +27,17 @@ class Comitato extends GeoPolitica {
         return parent::__get($_nome);
     }
 
+    // spostata
     public function superiore() {
         return $this->locale();
     }
 
+    // spostata
     public function figli() {
         return [];
     }
     
+    // non so a cosa serve...
     public function colore() { 
     	$c = $this->colore;
     	if (!$c) {
@@ -42,10 +47,12 @@ class Comitato extends GeoPolitica {
     	return $c;
     }
 
+    // spostata ma con problemi sugli oid() da verificare
     public function unPresidente() {
         return $this->locale()->unPresidente();
     }
 
+    // continuo a non sapere a cosa serve
     private function generaColore() { 
     	$r = 100 + rand(0, 155);
     	$g = 100 + rand(0, 155);
@@ -56,6 +63,7 @@ class Comitato extends GeoPolitica {
     	$this->colore = $r . $g . $b;
     }
     
+    // spostata con il vecchio id
     public function membriAttuali($stato = MEMBRO_ESTESO) {
         $q = $this->db->prepare("
             SELECT
@@ -83,6 +91,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
 
+    // spostata, sempre con problema vecchio id
     public function membriData($data) {
         $q = $this->db->prepare("
             SELECT
@@ -120,6 +129,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
 
+    // spostata
     public function membriGiovani() {
         $v = $this->membriAttuali();
         $r = [];
@@ -130,6 +140,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
+    // spostata
     public function membriRiserva() {
         $q = $this->db->prepare("
             SELECT

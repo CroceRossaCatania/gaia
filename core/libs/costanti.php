@@ -500,6 +500,14 @@ $conf['est_obj'] = [
     EST_NAZIONALE   =>  'Nazionale'     
 ];
 
+$conf['est_oid'] = [
+    EST_UNITA       =>  'Comitato',
+    EST_LOCALE      =>  'Locale',
+    EST_PROVINCIALE =>  'Provinciale',
+    EST_REGIONALE   =>  'Regionale',
+    EST_NAZIONALE   =>  'Nazionale'     
+];
+
 /*
  * ===================================
  * =========== ELEZIONI ==============

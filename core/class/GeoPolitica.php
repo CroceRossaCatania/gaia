@@ -182,6 +182,7 @@ abstract class GeoPolitica extends GeoEntita {
         return false;
     }
     
+    // modificata con i vecchi ID attenzine che va prima o poi sistemata
     public function delegati($app = null, $storico = false) {
         if ( $app ) {
             $app = (int) $app;
