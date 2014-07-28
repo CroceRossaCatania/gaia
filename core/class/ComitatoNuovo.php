@@ -704,4 +704,389 @@ class ComitatoNuovo extends GeoPolitica {
         return $r;
     }
 
+    // questa fa cagare... va sistemata agressivamente
+    public function quoteSi($anno , $stato=MEMBRO_VOLONTARIO) {
+        $statiPossibili = [MEMBRO_VOLONTARIO, MEMBRO_DIMESSO, MEMBRO_TRASFERITO]; 
+        if($stato == MEMBRO_ORDINARIO) {
+            $statiPossibili = [MEMBRO_ORDINARIO, MEMBRO_ORDINARIO_DIMESSO];
+        }
+        $stati = implode(',', $statiPossibili);
+        $q = $this->db->prepare("
+            SELECT  
+                anagrafica.id
+            FROM    
+                appartenenza, anagrafica
+            WHERE
+                appartenenza.comitato = :comitato
+            AND
+                anagrafica.id = appartenenza.volontario
+            AND
+                appartenenza.stato IN ( ". $stati ." )
+            AND
+                ( anagrafica.id IN 
+                    ( SELECT
+                            appartenenza.volontario
+                        FROM
+                            quote, appartenenza
+                        WHERE
+                            quote.appartenenza = appartenenza.id
+                        AND
+                            quote.anno = :anno
+                        AND 
+                            quote.pAnnullata IS NULL
+                    )
+                )
+            ORDER BY
+              anagrafica.cognome     ASC,
+              anagrafica.nome  ASC");
+        $q->bindParam(':comitato',  $this->vecchio_id);
+        $q->bindValue(':anno',    $anno);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Volontario::id($k[0]);
+        }
+        return $r;
+    }
+    
+
+    // idem
+    public function quoteNo($anno , $stato=MEMBRO_VOLONTARIO) {
+        $q = $this->db->prepare("
+            SELECT 
+                anagrafica.id 
+            FROM    
+                anagrafica, appartenenza 
+            WHERE         
+                anagrafica.id = appartenenza.volontario 
+            AND
+                appartenenza.comitato = :comitato
+            AND
+                appartenenza.stato = :stato
+            AND 
+                ( appartenenza.fine < 1 OR appartenenza.fine > :ora OR appartenenza.fine IS NULL)
+            AND 
+                ( anagrafica.id NOT IN 
+                    ( SELECT 
+                            appartenenza.volontario 
+                        FROM 
+                            quote, appartenenza
+                        WHERE
+                            quote.appartenenza = appartenenza.id 
+                        AND
+                            anno = :anno
+                        AND
+                            pAnnullata IS NULL
+                    )
+                ) 
+                
+            ORDER BY
+                anagrafica.cognome     ASC,
+                anagrafica.nome  ASC");
+        $q->bindParam(':comitato',  $this->vecchio_id);
+        $q->bindParam(':ora',  time());
+        $q->bindParam(':anno', $anno);
+        $q->bindParam(':stato', $stato);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Volontario::id($k[0]);
+        }
+        return $r;
+    }
+    
+    /*
+     * @param $titoli Array di elementi Titolo
+     */
+    public function ricercaMembriTitoli( $titoli = [], $stato = MEMBRO_ESTESO ) {
+        $daFiltrare = $this->membriAttuali($stato);
+        foreach ( $titoli as $titolo ) {
+            $filtrato = [];
+            foreach ( $daFiltrare as $volontario ) {
+                if ( $t = TitoloPersonale::filtra([
+                    ['titolo',      $titolo->id],
+                    ['volontario',  $volontario]
+                ])){
+                    if(
+                        $t[0]->confermato()){
+                            $filtrato[] = $volontario;
+                            }
+                }
+            }
+            $daFiltrare = $filtrato;
+        }
+        return $daFiltrare;
+    }
+    
+    // non ho capito questa funzione dentro a comitato???
+    public function ricercaPatente($ricerca) {
+        $q = $this->db->prepare("
+            SELECT DISTINCT (anagrafica.id)
+            FROM 
+                titoli, titoliPersonali, anagrafica, appartenenza
+            WHERE 
+                anagrafica.id = titoliPersonali.volontario
+            AND 
+                titoli.id = titoliPersonali.titolo
+            AND 
+                titoli.nome LIKE :ricerca
+            ORDER BY 
+                anagrafica.cognome, 
+                anagrafica.nome");
+        $q->bindValue ( ":ricerca", $ricerca );
+        $q->execute();
+        var_dump($q->errorInfo());
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Volontario::id($k[0]);
+        }
+        return $r;
+    }   
+    
+    //idem
+    public function pratichePatenti() {
+        $q = $this->db->prepare("
+            SELECT
+                patentiRichieste.id
+            FROM
+                appartenenza, anagrafica, patentiRichieste
+            WHERE
+                patentiRichieste.appartenenza = appartenenza.id
+            AND
+                anagrafica.id = appartenenza.volontario
+            AND
+                appartenenza.comitato = :comitato
+            ORDER BY
+                 cognome ASC, nome ASC");
+        $q->bindParam(':comitato', $this->vecchio_id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = PatentiRichieste::id($k[0]);
+        }
+        return $r;
+    }
+
+    /*
+     * manca il fetch del sesso della persona
+     */ 
+    public function etaSessoComitato() {
+        $q = $this->db->prepare("
+            SELECT 
+                dettagliPersona.valore, anagrafica.codiceFiscale
+            FROM  
+                dettagliPersona, anagrafica, appartenenza
+            WHERE 
+                dettagliPersona.id = anagrafica.id
+            AND 
+                anagrafica.id = appartenenza.volontario
+            AND 
+                dettagliPersona.nome = 'dataNascita'
+            AND
+                appartenenza.comitato = :comitato");
+        $q->bindParam(':comitato', $this->vecchio_id);
+        $q->execute();
+        
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $sesso = Utente::sesso($k[1]);
+            $r[] = ['data'=>$k[0],'sesso'=>$sesso];
+        }
+
+        return $r;
+        
+    }
+
+    public function anzianitaMembri($stato = MEMBRO_VOLONTARIO) {
+        $q = $this->db->prepare("
+            SELECT 
+                appartenenza.inizio, anagrafica.codiceFiscale
+            FROM  
+                anagrafica, appartenenza
+            WHERE 
+                anagrafica.id = appartenenza.volontario
+            AND
+                appartenenza.comitato = :comitato
+            AND
+                appartenenza.stato = :stato");
+        $q->bindParam(':comitato', $this->vecchio_id);
+        $q->bindParam(':stato', $stato);
+        $q->execute();
+        
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $sesso = Utente::sesso($k[1]);
+            $r[] = ['ingresso'=>$k[0],'sesso'=>$sesso];
+        }
+
+        return $r;
+    }
+    
+
+    public function informazioniVolontariJSON() {
+        $datesesso = $this->etaSessoComitato();
+        $anzianita = $this->anzianitaMembri();
+
+        $r = [  'datesesso'=>$datesesso,
+                'anzianita'=>$anzianita];
+        return json_encode($r);
+    }
+
+    public function reperibilitaReport(DateTime $inizio, DateTime $fine) {
+        $q = $this->db->prepare("
+            SELECT  id
+            FROM    reperibilita
+            WHERE   
+              comitato     = :comitato
+            AND
+              ( inizio >= :minimo )
+            AND
+              ( fine <= :massimo )");
+        $q->bindValue(':comitato',  $this->vecchio_id);
+        $q->bindValue(':minimo',    $inizio->getTimestamp());
+        $q->bindValue(':massimo',    $fine->getTimestamp());
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Reperibilita::id($k[0]);
+        }
+        return $r;
+    }
+
+    public static function comitatiNull() {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                comitatiNuovi
+            WHERE 
+                nome IS NULL
+            ");
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        return $r;
+    }
+     
+    public function coTurni() {
+        global $db;
+        $q = $db->prepare("
+            SELECT
+                turni.id
+            FROM
+                attivita, turni
+            WHERE
+                attivita.comitato = :comitato
+            AND
+                attivita.stato = :stato
+            AND
+                turni.attivita = attivita.id
+            AND
+                turni.inizio <= :inizio
+            ORDER BY
+                turni.inizio ASC");
+        $inizio = time()+3600;
+        $q->bindValue(':inizio', $inizio);
+        $q->bindValue(':stato', ATT_STATO_OK);
+        $q->bindParam(':comitato', $this->oid());
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Turno::id($k[0]);
+        }
+            return $r;
+    }
+
+    /**
+     * Partita iva del comitato di riferimento
+     * @return string   Partita iva
+     */
+    public function piva($inTesto = false) {
+        if ($this->estensione === 0) {
+            return $this->superiore()->piva($inTesto);
+        }
+        $piva = $this->piva;
+        if ($this->estensione > EST_PROVINCIALE) {
+            $piva = PIVA;
+        }
+        if ($this->nome == "Comitato Provinciale di Trento"
+            or $this->nome == "Comitato Provinciale di Bolzano")
+            $piva = PIVA;
+        if ($inTesto && $piva) {
+            return "P.IVA: {$piva}";
+        }
+        return $piva;
+
+    }
+
+    /**
+     * Codice fiscale del locale di riferimento
+     * @return string   CF
+     */
+    public function cf($inTesto = false) {
+        if ($this->estensione === 0) {
+            return $this->superiore()->cf($inTesto);
+        }
+        $cf = $this->cf;
+        if ($this->estensione > EST_PROVINCIALE) {
+            $cf = CF;
+        }
+        if ($this->nome == "Comitato Provinciale di Trento"
+            or $this->nome == "Comitato Provinciale di Bolzano")
+            $cf = CF;
+        if ($inTesto && $cf) {
+            return "P.IVA: {$cf}";
+        }
+        return $cf;
+    }
+
+    /**
+     * Ritorna lo stato del comitato
+     * @return bool  True se privato
+     */
+    public function privato() {
+        if ($this->estensione === 0) {
+            $this->superiore()->privato();
+        }
+        $privato = true;
+        if ($this->estensione > EST_PROVINCIALE) {
+            $privato = false;
+        }
+        if ($this->nome == "Comitato Provinciale di Trento"
+            or $this->nome == "Comitato Provinciale di Bolzano")
+            $privato = true;
+        return $privato;
+    }
+
+    /**
+     * Infermiere Volontarie in comitato
+     * @return array   Anagrafica id IV
+     */
+    public function membriIv() {
+        $v = $this->membriAttuali();
+        $r = [];
+        foreach ($v as $_v) {
+            if ($_v->iv())
+                $r[] = $_v;
+        }
+        return $r;
+    }
+
+    /**
+     * Corpo Militare in comitato
+     * @return array   Anagrafica id CM
+     */
+    public function membriCm() {
+        $v = $this->membriAttuali();
+        $r = [];
+        foreach ($v as $_v) {
+            if ($_v->cm())
+                $r[] = $_v;
+        }
+        return $r;
+    }
+
 }
