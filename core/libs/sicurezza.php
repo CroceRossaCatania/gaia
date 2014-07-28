@@ -43,3 +43,23 @@ function proteggiDatiSensibili( $volontario, $app = [APP_PRESIDENTE] ) {
 
     redirect('errore.permessi&cattivo');
 }
+
+/**
+ * Usare per proteggere in una pagina i veicoli
+ * @param $veicolo id del veicolo
+ * @param $app di riferimento
+ * @return ritorna true or false
+ */
+function proteggiVeicoli( $veicolo, $app = [APP_PRESIDENTE] ) {
+    global $me;
+    if ( $me->admin() ) { return true; }
+
+    $comitati = $me->comitatiApp($app,false);
+    $comitato = $veicolo->comitato;
+    $comitato = GeoPolitica::daOid($comitato);
+    if (in_array($comitato, $comitati)) {
+        return true;
+    }
+
+    redirect('errore.permessi&cattivo');
+}
