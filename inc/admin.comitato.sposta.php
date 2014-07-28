@@ -9,11 +9,11 @@ paginaModale();
 $t = GeoPolitica::daOid($_GET['oid']);
 $estensione = $t->_estensione();
 if($estensione==EST_UNITA){
-	$elenco = Locale::elenco();
+	$elenco = Locale::elenco('nome ASC');
 }elseif($estensione==EST_LOCALE){
-	$elenco = Provinciale::elenco();
+	$elenco = Provinciale::elenco('nome ASC');
 }elseif($estensione==EST_PROVINCIALE){
-	$elenco = Regionale::elenco();
+	$elenco = Regionale::elenco('nome ASC');
 }
 ?>
 
