@@ -285,6 +285,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
+    // spostata
     public function membriTrasferiti() {
         $q = $this->db->prepare("
             SELECT 
@@ -310,6 +311,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
 
+    // spostata
     public function membriOrdinari() {
         $q = $this->db->prepare("
             SELECT
@@ -334,6 +336,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
 
+    // spostata
     public function membriOrdinariDimessi() {
         $q = $this->db->prepare("
             SELECT
@@ -358,6 +361,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
 
+    // spostata
     public function numMembriOrdinariDimessi() {
         $q = $this->db->prepare("
             SELECT
@@ -380,6 +384,7 @@ class Comitato extends GeoPolitica {
         return (int) $r[0];
     }
 
+    // spostata
     public function numMembriOrdinari() {
         $q = $this->db->prepare("
             SELECT
@@ -402,6 +407,7 @@ class Comitato extends GeoPolitica {
         return (int) $r[0];
     }
 
+    // spostata
     public function numMembriAttuali($stato = MEMBRO_ESTESO) {
         $q = $this->db->prepare("
             SELECT
@@ -424,6 +430,7 @@ class Comitato extends GeoPolitica {
         return (int) $r[0];
     }
 
+    // spostata
     public function appartenenzePendenti() {
         $q = $this->db->prepare("
             SELECT
@@ -449,6 +456,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
+    // spostata
     public function titoliPendenti() {
         $q = $this->db->prepare("
             SELECT 
@@ -475,7 +483,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
-    
+    // spostata
     public function trasferimenti($stato = null) {
         $stato = (int) $stato;
         $q = "
@@ -505,6 +513,7 @@ class Comitato extends GeoPolitica {
      * Riserve del comitato in oggetto
      * @return array riserve per dato comitato
      */
+    // spostata
     public function riserve($stato = null) {
         $pStato = ' ';
         if ($stato) {
@@ -535,6 +544,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
+    // riformulati con superiore nuovo
     public function locale() {
         return Locale::id($this->locale);
     }

@@ -46,30 +46,36 @@ class ComitatoNuovo extends GeoPolitica {
         return parent::__get($_attributo);
     }
 
-    public function superiore() {
-    	if ($this->superiore) {
-    		return ComitatoNuovo::id($this->superiore);
-    	}
-    	return null;
+    public function superiore($estensione = null) {
+        if (!$estensione && $this->superiore) {
+            return ComitatoNuovo::id($this->superiore);
+        }
+        if ($estensione && $estensione > $this->estensione && $this->superiore) {
+             return $this->superiore()->superiore($estensione);
+        }
+        if ($estensione && $estensione == $this->estensione) {
+            return $this;
+        }
+        return null;
     }
 
     public function figli() {
-    	$figli = ComitatoNuovo::filtra([
-    		['superiore', $this->id]
-    		]);
-    	return $figli;
+        $figli = ComitatoNuovo::filtra([
+            ['superiore', $this->id]
+            ]);
+        return $figli;
     }
 
     public function unPresidente() {
-    	if ($this->estensione == EST_UNITA) {
-    		return $this->superiore()->unPresidente();
-    	}
-    	parent::unPresidente();
+        if ($this->estensione == EST_UNITA) {
+            return $this->superiore()->unPresidente();
+        }
+        parent::unPresidente();
     }
 
     // ritorna il vecchio oid
     public function oid() {
-    	return "{$conf[$this->estensione]}:{$this->vecchio_id}";
+        return "{$conf[$this->estensione]}:{$this->vecchio_id}";
     }
 
     // le appartenenze contengono il vecchio id... da aggiornare!
@@ -461,6 +467,241 @@ class ComitatoNuovo extends GeoPolitica {
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
+    }
+
+    /*
+     * Appartenenze pendenti
+     * @return appartenenze pendenti del comitato $this
+     */
+    // idem
+    public function appartenenzePendenti() {
+        $q = $this->db->prepare("
+            SELECT
+                id
+            FROM
+                appartenenza
+            WHERE
+                ( fine >= :ora OR fine IS NULL OR fine = 0) 
+            AND
+                comitato = :comitato
+            AND
+                stato    = :stato
+            ORDER BY
+                inizio ASC");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':comitato', $this->vecchio_id);
+        $q->bindValue(':stato',  MEMBRO_PENDENTE);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Appartenenza::id($k[0]);
+        }
+        return $r;
+    }
+
+    /*
+     * Titoli pendenti del comitato in oggetto
+     * @return array tit pendenti per dato comitato
+     */
+    public function titoliPendenti() {
+        $q = $this->db->prepare("
+            SELECT 
+                titoliPersonali.id
+            FROM
+                titoliPersonali, appartenenza
+            WHERE
+                titoliPersonali.volontario = appartenenza.volontario
+            AND
+                titoliPersonali.pConferma IS NULL
+            AND
+                appartenenza.comitato = :comitato
+            AND
+                (appartenenza.fine >= :ora
+                 OR appartenenza.fine is NULL
+                 OR appartenenza.fine = 0)");
+        $q->bindValue(':ora', time());
+        $q->bindParam(':comitato', $this->vecchio_id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = TitoloPersonale::id($k[0]);
+        }
+        return $r;
+    }
+    
+    /*
+     * Trasferimenti del comitato in oggetto
+     * @return array trasferimenti per dato comitato
+     */
+    public function trasferimenti($stato = null) {
+        $stato = (int) $stato;
+        $q = "
+            SELECT
+                trasferimenti.id
+            FROM
+                trasferimenti, appartenenza
+            WHERE
+                trasferimenti.appartenenza = appartenenza.id
+            AND
+                appartenenza.comitato = :id";
+        if ( $stato ) {
+            $q .= " AND trasferimenti.stato = $stato";
+        }
+        $q .= " ORDER BY trasferimenti.timestamp DESC";
+        $q = $this->db->prepare($q);
+        $q->bindParam(':id', $this->vecchio_id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Trasferimento::id($k[0]);
+        }
+        return $r;
+    }
+    
+    /*
+     * Riserve del comitato in oggetto
+     * @return array riserve per dato comitato
+     */
+    public function riserve($stato = null) {
+        $pStato = ' ';
+        if ($stato) {
+            $pStato = " AND riserve.stato = {$stato} ";
+        }
+        $q = "
+            SELECT
+                riserve.id
+            FROM
+                riserve, appartenenza
+            WHERE
+                riserve.volontario = appartenenza.volontario
+            {$pStato}
+            AND
+                appartenenza.stato = :stato
+            AND
+                appartenenza.comitato = :id
+            ORDER BY 
+                riserve.timestamp DESC";
+        $q = $this->db->prepare($q);
+        $q->bindParam(':id', $this->vecchio_id);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Riserva::id($k[0]);
+        }
+        return $r;
+    }
+
+    public function locale() {
+        if($this->estensione > EST_LOCALE) {
+            return null;
+        }
+        return $this->superiore(EST_LOCALE);
+    }
+    
+    public function provinciale() {
+        if($this->estensione > EST_PROVINCIALE) {
+            return null;
+        }
+        return $this->superiore(EST_PROVINCIALE);
+    }
+    
+    public function regionale() {
+        if($this->estensione > EST_REGIONALE) {
+            return null;
+        }
+        return $this->superiore(EST_REGIONALE);
+    }
+    
+    public function nazionale() {
+        return $this->superiore(EST_NAZIONALE);
+    }
+
+    // lavora coi vecchi oid che vanno sistemati...
+    public function aree( $obiettivo = null, $espandiLocali = false ) {
+        if ( $obiettivo ) {
+            $obiettivo = (int) $obiettivo;
+            return Area::filtra([
+                ['comitato',    $this->oid()],
+                ['obiettivo',   $obiettivo]
+            ], 'obiettivo ASC'); 
+        } else {
+            return Area::filtra([
+                ['comitato',    $this->oid()]
+            ], 'obiettivo ASC');
+        }
+    }
+    
+    // dovrebbe funzionare (ritorna 0 sui livelli superiori al comitato nel count)
+    public function toJSON() {
+        return [
+            'id'            =>  $this->id,
+            'nome'          =>  $this->nome,
+            'indirizzo'     =>  $this->formattato,
+            'coordinate'    =>  $this->coordinate(),
+            'telefono'      =>  $this->telefono,
+            'email'         =>  $this->email,
+            'volontari'     =>  count($this->membriAttuali()),
+            'oid'           =>  $this->oid()
+        ];
+    }
+
+    public function toJSONRicerca() {
+        return [
+            'id'            =>  $this->id,
+            'nome'          =>  $this->nome,
+            'nomeCompleto'  =>  $this->nomeCompleto()
+        ];
+    }
+    
+    /*
+     * Reperibili del comitato in oggetto
+     * @return array reperibili per dato comitato
+     */
+    public function reperibili() {
+        $q = "
+            SELECT
+                reperibilita.id
+            FROM
+                reperibilita
+            WHERE
+                reperibilita.comitato = :id";
+        $q .= " ORDER BY reperibilita.inizio ASC";
+        $q = $this->db->prepare($q);
+        $q->bindParam(':id', $this->vecchio_id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Reperibilita::id($k[0]);
+        }
+        return $r;
+    }
+    
+    /*
+     * Estensione di un comitato usando l'albertatore lr
+     * @return array comitati sottostanti
+     */
+    public function estensione() {
+        $q = "
+            SELECT
+                comitatiNuovi.id
+            FROM
+                comitatiNuovi
+            WHERE
+                comitatiNuovi.left > :left
+            AND
+                comitatiNuovi.right < :right
+            ORDER BY 
+                comitatiNuovi.left ASC";
+        $q = $this->db->prepare($q);
+        $q->bindParam(':left', $this->left);
+        $q->bindParam(':right', $this->right);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = ComitatoNuovo::id($k[0]);
+        }
+        return $r;
     }
 
 }
