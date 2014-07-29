@@ -631,6 +631,56 @@ class ComitatoNuovo extends GeoPolitica {
             ], 'obiettivo ASC');
         }
     }
+
+    /**
+     * Elenco delle unità territoriali
+     * @return array Comitati con estensione = EST_UNITA
+     */
+    public static function unita() {
+        return ComitatoNuovo::filtra([
+            ['estensione', EST_UNITA]
+            ]);
+    }
+
+    /**
+     * Elenco dei locali
+     * @return array Comitati con estensione = EST_LOCALE
+     */
+    public static function locali() {
+        return ComitatoNuovo::filtra([
+            ['estensione', EST_LOCALE]
+            ]);
+    }
+
+    /**
+     * Elenco dei provinciali
+     * @return array Comitati con estensione = EST_PROVINCIALE
+     */
+    public static function provinciali() {
+        return ComitatoNuovo::filtra([
+            ['estensione', EST_PROVINCIALE]
+            ]);
+    }
+
+    /**
+     * Elenco dei regionali
+     * @return array Comitati con estensione = EST_REGIONALE
+     */
+    public static function regionali() {
+        return ComitatoNuovo::filtra([
+            ['estensione', EST_REGIONALE]
+            ]);
+    }
+
+    /**
+     * Elenco dei nazionali
+     * @return array Comitati con estensione = EST_NAZIONALE
+     */
+    public static function nazionali() {
+        return ComitatoNuovo::filtra([
+            ['estensione', EST_NAZIONALE]
+            ]);
+    }
     
     // dovrebbe funzionare (ritorna 0 sui livelli superiori al comitato nel count)
     public function toJSON() {
@@ -688,14 +738,14 @@ class ComitatoNuovo extends GeoPolitica {
             FROM
                 comitatiNuovi
             WHERE
-                comitatiNuovi.left > :left
+                comitatiNuovi.lft > :lft
             AND
-                comitatiNuovi.right < :right
+                comitatiNuovi.rgt < :rgt
             ORDER BY 
-                comitatiNuovi.left ASC";
+                comitatiNuovi.lft ASC";
         $q = $this->db->prepare($q);
-        $q->bindParam(':left', $this->left);
-        $q->bindParam(':right', $this->right);
+        $q->bindParam(':lft', $this->lft);
+        $q->bindParam(':rgt', $this->rgt);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
