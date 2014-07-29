@@ -2,7 +2,27 @@
 
 paginaPubblica(); 
 ?>
-      <div class="row-fluid centrato">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="alert alert-error">
+                <div class="row-fluid">
+                    <div class="span9">
+                    <p>
+                        <i class="icon-warning-sign"></i>
+                        <strong>15 giugno 2014</strong> &mdash;
+                        Nota importante dalla Squadra di Gaia sullo sviluppo, il supporto e le problematiche recenti.
+                    </p>
+                    </div>
+                    <div class="span3">
+                        <a href="?p=comunicato" class="btn btn-small btn-danger btn-block">
+                            Leggi ora &raquo;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid centrato">
         <div class="span6">
         	<h2>Già volontario? </h2>
                 <h3 class="muted">Registrati su Gaia.</h3>
@@ -44,6 +64,7 @@ paginaPubblica();
     	</div>
 
       </div>
+
       
 
 <hr />

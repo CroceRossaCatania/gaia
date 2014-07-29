@@ -162,14 +162,19 @@ class APIServer {
         $this->sessione->logout();
         $sid = $this->sessione->id;
 
+        $redirect = false;
+        if ( isset($this->par['redirect']) )
+            $redirect = $this->par['redirect'];
+
         $val    = new Validazione;
         $token  = $val->generaValidazione(
             null,
             VAL_ATTESA,
             json_encode([
-                'app'   =>  $this->chiave->id,
-                'ip'    =>  $_SERVER['REMOTE_ADDR'],
-                'sid'   =>  $sid
+                'app'       =>  $this->chiave->id,
+                'ip'        =>  $_SERVER['REMOTE_ADDR'],
+                'sid'       =>  $sid,
+                'redirect'  =>  $redirect
             ])
         );
 

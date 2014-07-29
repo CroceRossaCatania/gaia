@@ -383,12 +383,6 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <i class="icon-save"></i>
         Salva modifiche
       </button>
-      <?php if ($admin) { ?>
-      <a onClick="return confirm('Vuoi veramente far diventare un ordinario questo utente?');" 
-        href="?p=admin.ordinarizza&id=<?php echo $id; ?>" class="btn btn-warning btn-large">
-        <i class="icon-hand-down"></i> Ordinarizza
-      </a>
-      <?php }?>
     </div>
   </div>
   <?php } ?>
@@ -396,6 +390,29 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 </div>
 <!--Visualizzazione e modifica appartenenze utente -->
 <div class="span6">
+<?php if ($admin) { ?>
+  <div class="row-fluid">
+    <h4><i class="icon-github"></i> Opzioni admin</h4>
+    <div class="span12 allinea-centro">
+      <a onClick="return confirm('Vuoi veramente cancellare questo utente?');" 
+        href="?p=admin.utente.cancella&id=<?php echo $id; ?>" class="btn btn-danger">
+        <i class="icon-trash"></i> Cancella
+      </a>
+      <a onClick="return confirm('Vuoi veramente far diventare un ordinario questo utente?');" 
+        href="?p=admin.ordinarizza&id=<?= $id; ?>" class="btn btn-warning">
+        <i class="icon-hand-down"></i> Ordinarizza
+      </a>
+      <a class="btn btn-primary" href="?p=admin.beuser&id=<?= $id; ?>" title="Log in">
+        <i class="icon-key"></i> Login
+      </a>
+      <?php if(!Appartenenza::filtra([['volontario', $id]])) { ?>
+      <a class="btn btn-info" href="?p=admin.limbo.comitato.nuovo&id=<?= $id; ?>" title="Assegna a Comitato" target="_new">
+        <i class="icon-arrow-right"></i> Assegna a Comitato
+      </a>
+      <?php } ?>
+    </div>
+  </div>
+<?php }?>
 <?php if($attivo) { ?>
   <div class="row-fluid">
     <div class="span12">

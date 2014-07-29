@@ -36,7 +36,7 @@ $t = $_GET['id'];
 </div>
 </div>
 <div class="modal-footer">
-    <a href="?p=admin.limbo" class="btn">Annulla</a>
+    <a href="?p=presidente.utente.visualizza&id=<?= $t ?>" class="btn">Annulla</a>
     <button type="submit" class="btn btn-success">
       <i class="icon-ok"></i> Assegna
   </button>

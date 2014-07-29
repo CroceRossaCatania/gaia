@@ -100,96 +100,24 @@ $t = TitoloPersonale::filtra([['volontario',$u]]);
             </div>
         </div>    
     </div>
+    <?php if ( $u->storicoDelegazioni()) { ?>
     <div class="span6">
-        <div class="row-fluid">
-            <h4>
-              <i class="icon-time muted"></i>
-              Appartenenze attuali
-            </h4>
-        </div>
-
-        <div class="row-fluid">
-
-            <table class="table table-bordered table-striped">
-                  <thead>
-                    <th>Ruolo</th>
-                    <th>Comitato</th>
-                    <th>Inizio</th>
-                    <th>Fine</th>
-                    <th>Azioni</th>
-                  </thead>
-                  <?php 
-                  if($u->stato == VOLONTARIO) {
-                    $appartenenze = $u->appartenenzeAttuali();
-                  } else {
-                    $appartenenze = $u->appartenenzeAttuali(MEMBRO_ORDINARIO);
-                  }
-                  foreach ( $appartenenze as $app ) { ?>
-                  <tr class="success">
-                    <td>
-                      <strong><?php echo $conf['membro'][$app->stato]; ?></strong>
-                    </td>
-
-                    <td>
-                      <?php echo $app->comitato()->nomeCompleto(); ?>
-                    </td>
-
-                    <td>
-                      <i class="icon-calendar muted"></i>
-                      <?php echo $app->inizio()->inTesto(false); ?>
-                    </td>
-
-                    <td>
-                      <?php if ($app->fine) { ?>
-                      <i class="icon-time muted"></i>
-                      <?php echo $app->fine()->inTesto(false); ?>
-                      <?php } else { ?>
-                      <i class="icon-question-sign muted"></i>
-                      Indeterminato
-                      <?php } ?>
-                    </td>
-
-                    <td>
-
-                      <div class="btn-group">
-                        <?php if($hoPotere) { ?>
-                        <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
-                          <i class="icon-edit"></i>
-                        </a>
-                        <?php } if($me->admin()){ ?>
-                        <a onClick="return confirm('Vuoi veramente cancellare questa appartenenza ?');" href="?p=us.appartenenza.cancella&a=<?php echo $app; ?>" title="Cancella appartenenza" class="btn btn-small btn-danger">
-                          <i class="icon-trash"></i>
-                        </a>
-                        <?php } ?>
-                      </div>
-                    </td>
-
-                </tr>
-                <?php } ?>
-
-            </table>
-        </div>
-
-        <?php if ( $u->storicoDelegazioni()) { ?>
-
-        <div class="row-fluid">
-            <h2>
-                <i class="icon-briefcase muted"></i>
-                Incarichi
-                </h2>    
-        </div>
-        <div class="row-fluid">
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <th>Stato</th>
-                    <th>Ruolo</th>
-                    <th>Comitato</th>
-                    <th>Inizio</th>
-                    <th>Fine</th>
-                </thead>
-                <?php foreach ( $u->storicoDelegazioni() as $app ) { ?>
-                <tr
-                    <?php if ($app->fine >= time() || $app->fine == 0 ) { ?> class="success"<?php } ?>>
+        <h2>
+            <i class="icon-briefcase muted"></i>
+            Incarichi
+            </h2>    
+    </div>
+    <div class="span6">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <th>Stato</th>
+                <th>Ruolo</th>
+                <th>Comitato</th>
+                <th>Inizio</th>
+                <th>Fine</th>
+            </thead>
+            <?php foreach ( $u->storicoDelegazioni() as $app ) { ?>
+                <tr<?php if ($app->fine >= time() || $app->fine == 0 ) { ?> class="success"<?php } ?>>
                     <td>
                         <?php if ($app->fine >= time() || $app->fine == 0 ) { ?>
                             Attuale
@@ -240,16 +168,14 @@ $t = TitoloPersonale::filtra([['volontario',$u]]);
                         <?php } ?>
                     </td>
                 </tr>
-                <?php } ?>     
-            </table>
-        </div>
-        <?php }
-        if ($titolo) {
-        $titoli = $conf['titoli'];?>
-        <div class="row-fluid">
-            <h4><i class="icon-list muted"></i> Curriculum </h4>
-            <table class="table table-striped">
-                <?php foreach ( $t as $titolo ) { ?>
+            <?php } ?>     
+        </table>
+    </div>
+    <?php } ?>
+    <div class="span6">
+        <h4><i class="icon-list muted"></i> Curriculum </h4>
+        <table class="table table-striped">
+            <?php foreach ( $t as $titolo ) { ?>
                 <tr <?php if (!$titolo->tConferma) { ?>class="warning"<?php } ?>>
                     <td>
                         <?php if ($titolo->tConferma) { ?>
@@ -288,9 +214,7 @@ $t = TitoloPersonale::filtra([['volontario',$u]]);
                         <td>&nbsp;</td>
                     <?php } ?>
                 </tr>
-                        <?php } ?>
+                    <?php } ?>
             </table>
-        </div>
-    <?php } ?> 
     </div>
 </div>

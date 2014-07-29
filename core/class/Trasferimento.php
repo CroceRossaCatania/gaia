@@ -131,7 +131,7 @@ class Trasferimento extends Entita {
             ['comitato',    $c->id]
             ]);
         
-        $presidente = $c->unPresidente();
+        $presidente = $c->primoPresidente();
         foreach ($att as $_att) {
             $_att->referente = $presidente->id;
         }
