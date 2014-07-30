@@ -75,7 +75,15 @@ class ComitatoNuovo extends GeoPolitica {
 
     // ritorna il vecchio oid
     public function oid() {
-        return "{$conf[$this->estensione]}:{$this->vecchio_id}";
+        global $conf;
+        $oid = $conf['oid'][$this->estensione];
+        return "{$oid}:{$this->vecchio_id}";
+    }
+
+    public function nomeCompleto() {
+        if($this->estensione == EST_UNITA)
+            return $this->superiore()->nome . ': ' . $this->nome;
+        return $this->nome;
     }
 
     // le appartenenze contengono il vecchio id... da aggiornare!

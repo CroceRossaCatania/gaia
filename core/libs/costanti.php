@@ -500,7 +500,7 @@ $conf['est_obj'] = [
     EST_NAZIONALE   =>  'Nazionale'     
 ];
 
-$conf['est_oid'] = [
+$conf['oid'] = [
     EST_UNITA       =>  'Comitato',
     EST_LOCALE      =>  'Locale',
     EST_PROVINCIALE =>  'Provinciale',

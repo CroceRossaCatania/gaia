@@ -100,6 +100,15 @@ paginaAdmin();
                 <i class="icon-user"></i>
                 Fix appartenenze
             </a>
+            <hr/>
+            <div class="alert alert-danger">
+                <strong>Script per spostare i comitati usando il nuovo sistema</strong>
+                <p>Questo script converte i vecchi comitati usando il nuovo sistema</p>
+            </div>
+            <a href="?p=admin.nuovicomitati" class="btn btn-large btn-danger">
+                <i class="icon-user"></i>
+                Fix Comitati nuovi
+            </a>
         </div>
     </div>
 </div>
