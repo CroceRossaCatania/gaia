@@ -456,7 +456,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 	  _paq.push(["trackPageView"]);
 	  _paq.push(["enableLinkTracking"]);
 	  (function() {
-	    var u = "https://stats.gaiacri.it/";
+	    var u = "https://statsgaiacri.alacriter.co.uk/";
 	    _paq.push(["setTrackerUrl", u+"piwik.php"]);
 	    _paq.push(["setSiteId", "1"]);
 	    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
@@ -470,6 +470,17 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <!-- FUSION TAG    --><div class="hidden-phone" id="proactivechatcontainerafechw6ctt"></div><div id="swifttagcontainerafechw6ctt" style="display: none;"><div id="swifttagdatacontainerafechw6ctt"></div></div> <script type="text/javascript">var swiftscriptelemafechw6ctt=document.createElement("script");swiftscriptelemafechw6ctt.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "afechw6ctt"; var swifttagurlafechw6ctt="https://supporto.giovanicri.it/visitor/index.php?/LiveChat/HTML/Monitoring/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPWFmZWNodzZjdHQmdmVyc2lvbj00LjU4LjAuMzY1MCZwcm9kdWN0PUZ1c2lvbiZjdXN0b21vbmxpbmU9JmN1c3RvbW9mZmxpbmU9JmN1c3RvbWF3YXk9JmN1c3RvbWJhY2tzaG9ydGx5PQo0ODFmZjE5NjZhOTY3ZDVhNzY0OTZkMmQ1MTdmMmEyZTU4NGQ4OGE0";setTimeout("swiftscriptelemafechw6ctt.src=swifttagurlafechw6ctt;document.getElementById('swifttagcontainerafechw6ctt').appendChild(swiftscriptelemafechw6ctt);",1);</script><!-- END FUSION TAG CODE - DO NOT EDIT! -->
   
 
+    <!-- Google Analytics -->
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	  ga('create', 'UA-51942737-1', 'cri.it');
+	  ga('require', 'displayfeatures');
+	  ga('send', 'pageview');
+	</script>
+	
   </body>
 </html><?php
 ob_end_flush(); 
