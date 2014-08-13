@@ -65,7 +65,7 @@ paginaAdmin();
             </a>
             <hr/>
             <div class="alert alert-info">
-                <strong>Script per cancellazione comitati </strong>
+                <strong>Fix Titoli </strong>
                 <p>Questo script elimina i titoli doppioni correggendo anche i titoli personali</p>
             </div>
             <a href="?p=admin.fix.titoli" class="btn btn-large btn-info">
