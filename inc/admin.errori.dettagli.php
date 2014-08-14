@@ -7,8 +7,20 @@
 paginaAdmin();
 
 try {
-	$errore = MErrore::findOne(['_id' => new MongoId($_GET['id'])]);
+	$id  = new MongoId($_GET['id']);
+} catch (Exception $e) {
+	$id = "unacosachenonesiste";
+}
+
+try {
+	$errore = MErrore::findOne(['$or' =>
+		[
+			['_id' => $id],
+			['codice' => $_GET['id']]
+		]
+	]);
 } catch ( Exception $e ) {
+	echo $e->getMessage();
 	die("Non nel formato corretto.");
 }
 if ( !$errore ) {
