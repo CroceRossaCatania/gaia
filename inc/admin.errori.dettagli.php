@@ -20,7 +20,6 @@ try {
 		]
 	]);
 } catch ( Exception $e ) {
-	echo $e->getMessage();
 	die("Non nel formato corretto.");
 }
 if ( !$errore ) {
