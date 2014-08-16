@@ -74,12 +74,11 @@ if ((!$sessione->deadline || ($sessione->deadline + GIORNO) < time()) && $consen
     ?>
     <div class="modal fade automodal">
         <div class="modal-header">
-            <h3 class="text-success"><i class="icon-important-sign"></i> Rallentamenti sviluppo portale Gaia</h3>
+            <h3 class="text-success"><i class="icon-important-sign"></i> <b>Risoluzione</b> delle problematiche recenti sul portale Gaia</h3>
         </div>
         <div class="modal-body">
-            Per favore trova un momento per leggere il comunicato degli sviluppatori 
-            e della squadra di supporto di Gaia riguardante le problematiche che stanno 
-            ostacolando lo sviluppo del sistema e che stanno causando rallentamenti e malfunzionamenti.
+            Per favore trova un momento per leggere il comunicato dello staff di Gaia 
+            riguardante la <b>risoluzione</b> delle problematiche che hanno ostacolato lo sviluppo del sistema.
         </div>
         <div class="modal-footer">
             <a href="?p=utente.me&rimandaDeadline" class="btn">

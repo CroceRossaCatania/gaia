@@ -42,8 +42,8 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 	<div class="span7" id="comunicato">
 
 		<div style="text-align: center;">
-			<p><strong>15 giugno 2014</strong> (aggiornato, ore 16.50)</p>
-			<h1>Nota della Squadra di Gaia</h1>
+			<p><strong>20 agosto 2014</strong></p>
+			<h1>Comunicato importante dalla Squadra di Gaia sulla <b>risoluzione</b> delle problematiche recenti di Gaia</h1>
 			<h4>Rallentamento temporaneo dello Sviluppo, del Supporto<br />e dell'assistenza per il progetto Gaia</h4>
 		</div>
 
@@ -51,7 +51,7 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 
 		<p>
 		Ciao <?php echo (( $me instanceOf Utente ) ? $me->nome : "Volontario/a"); ?>,<br/>
-		come avrai potuto notare, in queste ultime settimane il portale che ospita il Progetto Gaia
+		<!--come avrai potuto notare, in queste ultime settimane il portale che ospita il Progetto Gaia
 		è poco responsivo e la squadra di Supporto, nonostante gli sforzi, non è in grado di fornire una soluzione tempestiva.
 		</p>
 
@@ -152,12 +152,12 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 		</blockquote>
 
 		<p>&nbsp;</p>
-
+		-->
 		<p style="font-style: italic;">
 		In fede,<br />
-		Gli Sviluppatori e la Squadra di Supporto di Gaia:
+		La Squadra di Gaia:
 		</p>
-
+	
 		<ul id="sviluppatori">
 			<li><strong>Alberto Copelli</strong>
 				<a href="https://github.com/ciopper90" target="_new" class="icon-github"></a><br />
@@ -212,9 +212,6 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 		</ul>
 
 		<p>&nbsp;</p>
-		<hr />
-
-		<p><strong>Nota</strong>: Il testo &egrave; stato modificato dopo la pubblicazione iniziale.</p>
 
 	</div>
 
