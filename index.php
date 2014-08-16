@@ -73,8 +73,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
     <!-- JS e CSS compressi -->
-    <link href="/assets/min/20140712/build/build.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="/assets/min/20140712/build/build.js"></script>
+    <link href="/assets/min/20140816/build/build.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="/assets/min/20140816/build/build.js"></script>
 
     <!--[if IE]>
         <link href="css/main-ie.css" rel="stylesheet" media="screen">
