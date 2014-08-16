@@ -63,12 +63,6 @@ $v = $app->volontario;
                 </div>
             </div>
             <?php } ?>
-
-
-
-
-
-
             <div class="row-fluid">
                 <div class="span4 centrato">
                     <label for="inputComitato"><i class="icon-home"></i> Comitato</label>
