@@ -79,6 +79,7 @@ class Attivita extends GeoEntita {
     public function modificabileDa(Utente $u) {
         return (bool) (
                 $u->id == $this->referente
+            ||  $u->admin 
             ||  in_array($this->area, $u->areeDiCompetenza())
             ||  in_array($this, $u->attivitaDiGestione())
         );

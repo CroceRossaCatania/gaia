@@ -187,8 +187,7 @@ abstract class Entita {
 
         $where = static::preparaCondizioni($_array, 'WHERE');
 
-        $query = "
-            SELECT * FROM ". static::$_t . " $where $_order";
+        $query = "SELECT * FROM ". static::$_t . " $where $_order";
         
         /*
          * Controlla se la query è già in cache
@@ -239,10 +238,13 @@ abstract class Entita {
                 else
                     $op = OP_EQ;
 
-                if ( is_int($_elem[1]) || is_float($_elem[2]) )
+                if ( $op == OP_SQL ) {
+                    $_condizioni[] = "{$_elem[0]}";
+                } else if ( is_int($_elem[1]) || is_float($_elem[2]) ) {
                     $_condizioni[] = "{$_elem[0]} {$op} {$_elem[1]}";
-                else
+                } else {
                     $_condizioni[] = "{$_elem[0]} {$op} '{$_elem[1]}'";
+                }
 
             }
         }

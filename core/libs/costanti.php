@@ -53,6 +53,7 @@ define('OP_LTE',    '<=');
 define('OP_GT',     '>');
 define('OP_GTE',    '>=');
 define('OP_NE',     '<>');
+define('OP_SQL',    'YOU_SHOULD_NOT_SEE_ME_IN_A_QUERY');
 
 /*
  * ===================================

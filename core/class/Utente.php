@@ -245,30 +245,18 @@ class Utente extends Persona {
     }
     
     public function appartenenzeAttuali($tipo = MEMBRO_ESTESO) {
-        $q = $this->db->prepare("
-            SELECT
-                appartenenza.id
-            FROM
-                appartenenza
-            WHERE
-                stato >= :tipo
-            AND
-                volontario = :me
-            AND
+        $ora = time();
+        $r = Appartenenza::filtra([
+            ['stato',       $tipo,   OP_GTE],
+            ['volontario',  $this->id],
+            ["
                 ( appartenenza.fine < 1
                  OR
-                appartenenza.fine > :ora 
+                appartenenza.fine > {$ora} 
                  OR
-                appartenenza.fine IS NULL)");
-        $q->bindParam(':tipo', $tipo);
-        $ora = time();
-        $q->bindParam(':ora',  $ora);
-        $q->bindParam(':me', $this->id);
-        $q->execute();
-        $r = [];
-        while ( $x = $q->fetch(PDO::FETCH_NUM ) ) {
-            $r[] = Appartenenza::id($x[0]);
-        }
+                appartenenza.fine IS NULL)
+            ", true, OP_SQL]
+        ]);
         return $r;
     }
     
@@ -287,26 +275,7 @@ class Utente extends Persona {
     }
     
     public function numeroAppartenenzeAttuali($tipo = MEMBRO_VOLONTARIO) {
-        $q = $this->db->prepare("
-            SELECT
-                COUNT( appartenenza.id )
-            FROM
-                appartenenza
-            WHERE
-                stato >= :tipo
-            AND
-                volontario = :me
-            AND
-                ( appartenenza.fine < 1 
-                 OR
-                appartenenza.fine > :ora )");
-        $q->bindParam(':tipo', $tipo);
-        $q->bindParam(':me', $this->id);
-        $ora = time();
-        $q->bindParam(':ora',  $ora);
-        $q->execute();
-        $q = $q->fetch(PDO::FETCH_NUM);
-        return $q[0];
+        return count($this->appartenenzeAttuali());
     }
     
     public function primaAppartenenza() {
@@ -986,7 +955,8 @@ class Utente extends Persona {
             }
             
         } else {
-            
+            if ( $this->admin() )
+                return [];
             $r = [];
             foreach ( $this->comitatiDiCompetenza() as $c ) {
                 $r = array_merge($r, $c->aree());
@@ -1101,6 +1071,9 @@ class Utente extends Persona {
     }
     
     public function attivitaDiGestione() {
+        if ( $this->admin() ) {
+            return [];
+        }
         $a = array_merge($this->attivitaReferenziate(), $this->attivitaAreeDiCompetenza());
         foreach ( $this->comitatiDiCompetenza() as $c ) {
             $a = array_merge($a, $c->attivita());
