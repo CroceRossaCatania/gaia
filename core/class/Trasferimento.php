@@ -54,7 +54,7 @@ class Trasferimento extends Entita {
 
         $a = Appartenenza::id($this->appartenenza);
         $a->timestamp = time();
-        $a->stato     = TRASF_NEGATO;
+        $a->stato     = MEMBRO_TRASF_NEGATO;
         $a->conferma  = $this->pConferma;    
         $a->inizio = time();
         $a->fine = time();
