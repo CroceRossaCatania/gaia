@@ -15,7 +15,7 @@ if (!$admin && !$me->delegazioneAttuale()->estensione > EST_PROVINCIALE) {
 if(!$admin) {
     $comitato = $me->delegazioneAttuale()->comitato();
 } ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <div class="row-fluid">
     <div class="span4">
         <h2>

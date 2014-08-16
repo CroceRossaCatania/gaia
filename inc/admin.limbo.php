@@ -10,7 +10,7 @@ set_time_limit (0);
 
 $t = Volontario::elenco();
 ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-save"></i> <strong>Utente eliminato</strong>.

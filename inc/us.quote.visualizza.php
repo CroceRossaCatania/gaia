@@ -12,7 +12,7 @@ $v = $_GET['id'];
 $v = Volontario::id($v);
 $appartenenza = $v->storico();
 ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <br/>
 <div class="row-fluid">
     <div class="span5 allinea-sinistra">

@@ -16,7 +16,7 @@ $giorno = cal_days_in_month(CAL_GREGORIAN, $mese, $anno);
 $fine = mktime(0, 0, 0, $mese, $giorno, $anno);
 
 ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <br/>
 <div class="row-fluid">
     <div class="span8">

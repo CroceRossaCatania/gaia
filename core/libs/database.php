@@ -23,4 +23,4 @@ try {
 
 // CREAZIONE HASH DATABASE
 
-$conf['db_hash'] = substr( md5($conf['database']['dns']), 2, 8) . ':';
+$conf['db_hash'] = substr( md5($conf['database']['dns']), 2, 8);
