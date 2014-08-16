@@ -7,20 +7,11 @@ paginaAdmin();
 <pre>
 <?php
 
-$s = new Sessione;
-$s->test = "x";
-$s = new Sessione;
-$s->test = "x";
-$s->foo = "x";
+$v = Utente::filtra([
+	['codiceFiscale', 'FRSLMN%', OP_LIKE]
+]);
 
-var_dump(Sessione::filtra([['y', 1]]));
-var_dump(Sessione::filtra([['test', 1]]));
-var_dump(Sessione::filtra([['test', "x"]]));
-var_dump(Sessione::filtra([['test', "x"], ["foo", "x"]]));
-
-
-
-
+var_dump($v);
 
 
 

@@ -223,14 +223,22 @@ abstract class Entita {
         if (!$_array) { return ' '; }
         $_condizioni = [];
         foreach ( $_array as $_elem ) {
+            
             if ( $_elem[1] === null ) {
                 $_condizioni[] = "{$_elem[0]} IS NULL OR {$_elem[0]} = 0";
+
             } else {
-                if ( is_int($_elem[1]) ) {
-                    $_condizioni[] = "{$_elem[0]} = {$_elem[1]}";
-                } else {
-                    $_condizioni[] = "{$_elem[0]} = '{$_elem[1]}'";
-                }
+
+                if ( isset($_elem[2]) && $_elem[2] != OP_EQ )
+                    $op = $_elem[2];
+                else
+                    $op = OP_EQ;
+
+                if ( is_int($_elem[1]) || is_float($_elem[2]) )
+                    $_condizioni[] = "{$_elem[0]} {$op} {$_elem[1]}";
+                else
+                    $_condizioni[] = "{$_elem[0]} {$op} '{$_elem[1]}'";
+
             }
         }
         $stringa = implode(' AND ', $_condizioni);
