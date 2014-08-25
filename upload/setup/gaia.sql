@@ -653,9 +653,9 @@ CREATE TABLE IF NOT EXISTS `validazioni` (
 
 CREATE TABLE IF NOT EXISTS `veicoli` (
   `id` int(11) NOT NULL,
-  `targa` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `libretto` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `telaio` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `targa` varchar(255) DEFAULT NULL,
+  `libretto` varchar(255) DEFAULT NULL,
+  `telaio` varchar(255) DEFAULT NULL,
   `comitato` varchar(16) DEFAULT NULL,
   `stato` varchar(8) DEFAULT NULL,
   `pFuoriuso` varchar(16) DEFAULT NULL,
