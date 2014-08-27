@@ -70,28 +70,6 @@ if ($consenso) {
     }
 }
 
-if ((!$sessione->deadline || ($sessione->deadline + GIORNO) < time()) && $consenso) {
-    ?>
-    <div class="modal fade automodal">
-        <div class="modal-header">
-            <h3 class="text-success"><i class="icon-important-sign"></i> Rallentamenti sviluppo portale Gaia</h3>
-        </div>
-        <div class="modal-body">
-            Per favore trova un momento per leggere il comunicato degli sviluppatori 
-            e della squadra di supporto di Gaia riguardante le problematiche che stanno 
-            ostacolando lo sviluppo del sistema e che stanno causando rallentamenti e malfunzionamenti.
-        </div>
-        <div class="modal-footer">
-            <a href="?p=utente.me&rimandaDeadline" class="btn">
-                <i class="icon-remove"></i> Non ora
-            </a>
-            <a href="?p=comunicato" class="btn btn-success">
-                <i class="icon-ok"></i> Leggi il comunicato
-            </a>
-        </div>
-    </div>
-<?php }
-
 if (!$sessione->rimandaPrivatizzazione && $consenso) {
     foreach($me->comitatiPresidenzianti() as $comitato) {
         $p = $comitato->unPresidente();

@@ -9,13 +9,13 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
 ?>
 <?php if ( isset($_GET['new']) ) { ?>
     <div class="alert alert-success">
-        <i class="icon-save"></i> <strong>Veicolo aggiunto</strong>.
-        Il Veicolo è stato aggiunto con successo.
+        <i class="icon-save"></i> <strong>Autoparco aggiunto</strong>.
+        L'Autoparco è stato aggiunto con successo.
     </div>
 <?php } elseif ( isset($_GET['del']) )  { ?>
     <div class="alert alert-block alert-error">
-        <i class="icon-exclamation-sign"></i> <strong>Veicolo cancellato</strong>
-        Il Veicolo è stato cancellato con successo.
+        <i class="icon-exclamation-sign"></i> <strong>Autoparco cancellato</strong>
+        L'Autoparco è stato cancellato con successo.
     </div>
 <?php } ?>
 <?php if (isset($_GET['err'])) { ?>
@@ -77,13 +77,13 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                         <td><?= $comitato->nome; ?></td>
                         <td>
                             <div class="btn-group">
-                                <a href="?p=autoparco.veicolo.dettagli&id=<?= $autoparco->id; ?>" title="Visualizza dettagli veicolo" class="btn btn-small">
+                                <a href="?p=autoparco.dettagli&id=<?= $autoparco->id; ?>" title="Visualizza dettagli autoparco" class="btn btn-small">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>
-                                <a href="?p=autoparco.veicolo.modifica&id=<?= $autoparco->id; ?>" title="Modifica Veicolo" class="btn btn-small btn-info">
+                                <a href="?p=autoparco.modifica&id=<?= $autoparco->id; ?>" title="Modifica Autoparco" class="btn btn-small btn-info">
                                     <i class="icon-edit"></i> Modifica
                                 </a>
-                                <a  onClick="return confirm('Vuoi veramente cancellare questo veicolo ?');" href="?p=autoparco.veicolo.cancella&id=<?= $autoparco->id; ?>" title="Cancella Veicolo" class="btn btn-small btn-danger">
+                                <a  onClick="return confirm('Vuoi veramente cancellare questo autoparco ?');" href="?p=autoparco.cancella&id=<?= $autoparco->id; ?>" title="Cancella autoparco" class="btn btn-small btn-danger">
                                     <i class="icon-trash"></i> Cancella
                                 </a>
                             </div>
