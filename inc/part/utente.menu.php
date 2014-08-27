@@ -45,11 +45,11 @@ if ( $presidente || ($me && $me->delegazioneAttuale()->applicazione == APP_CO)) 
 }
 
 /* blocco aspiranti */
-if ( $presidente || $me->delegazioni(APP_FORMAZIONE) || $me->corsiBaseDiGestione()) {
+/*if ( $presidente || $me->delegazioni(APP_FORMAZIONE) || $me->corsiBaseDiGestione()) {
     $menu[''] += [
         'formazione.corsibase'   =>  '<span class="badge badge-success">&nbsp;</span> Corsi Base'
     ];
-}
+}*/
 
 if ( $presidente || ($me && $me->delegazioneAttuale()->applicazione == APP_OBIETTIVO)) {
     $menu[''] += [
