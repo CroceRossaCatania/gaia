@@ -6,15 +6,22 @@
 
 paginaApp([APP_PRESIDENTE, APP_AUTOPARCO]);
 
-$c = new Autoparco();
+if ( isset($_GET['mod']) ){
+	$autoparco = $_GET['id'];
+	$c = Autoparco::id($autoparco);
+}else{
+	$c = new Autoparco();
+}
 
 $c->nome        =   normalizzaNome($_POST['inputNome']);
 $c->telefono    =   maiuscolo($_POST['inputTelefono']);
 
-$comitato = $_POST['inputComitato'];
-$comitato = GeoPolitica::daOid($comitato);
+if ( !isset($_GET['mod']) ){
+	$comitato = $_POST['inputComitato'];
+	$comitato = GeoPolitica::daOid($comitato);
 
-$c->comitato = $comitato->oid();
+	$c->comitato = $comitato->oid();
+}
 
 $ricerca  = $_POST['inputIndirizzo'] . ', ';
 $ricerca .= $_POST['inputCivico'] . ' ';
