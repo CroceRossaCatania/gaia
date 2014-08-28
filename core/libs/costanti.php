@@ -409,6 +409,7 @@ $conf['riserve'] = [
  */
 define('DIM_VOLONTARIE', 10);
 define('DIM_TURNO',      20);
+define('DIM_RISERVA',    25);
 define('DIM_QUOTA',      30);
 define('DIM_RADIAZIONE', 40);
 define('DIM_DECEDUTO',   50);
@@ -416,6 +417,7 @@ define('DIM_DECEDUTO',   50);
 $conf['dimissioni'] = [
     DIM_VOLONTARIE  =>  'Dimissioni Volontarie',
     DIM_TURNO       =>  'Mancato svolgimento turno',
+    DIM_RISERVA     =>  'Mancato rientro da riserva',
     DIM_QUOTA       =>  'Mancato versamente quota annuale',
     DIM_RADIAZIONE  =>  'Radiazione da Croce Rossa Italiana',
     DIM_DECEDUTO    =>  'Decesso'
