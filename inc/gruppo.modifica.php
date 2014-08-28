@@ -4,8 +4,6 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
-
 controllaParametri(array('id'), 'gruppi.dash&err');
 
 $gruppo = $_GET['id'];
