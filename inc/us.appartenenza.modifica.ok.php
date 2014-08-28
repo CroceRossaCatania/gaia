@@ -12,8 +12,6 @@ $a = $_GET['a'];
 $app = Appartenenza::id($a);
 $v = $app->volontario;
 
-$app = Appartenenza::id($a);
-$app->volontario  = $v;
 
 if ( $_POST['dataInizio'] ) {
     $inizio = @DateTime::createFromFormat('d/m/Y', $_POST['dataInizio']);
@@ -31,6 +29,10 @@ if ( $_POST['inputComitato'] ) {
     $comitato     = $_POST['inputComitato'];
     $comitato     = Comitato::id($comitato);
     $app->comitato = $comitato->id;
+}
+
+if ($me->admin() && $_POST['stato'] != $app->stato){
+    $app->stato = $_POST['stato'];
 }
 
 redirect('presidente.utente.visualizza&id=' . $v);
