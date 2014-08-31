@@ -20,6 +20,7 @@ $attivita           = new Attivita();
 $attivita->stato    = ATT_STATO_BOZZA;
 $attivita->area     = $area;
 $attivita->comitato = $comitato->oid();
+$attivita->apertura = ATT_APERTA;
 
 $attivita->nome     = normalizzaTitolo($_POST['inputNome']);
 
