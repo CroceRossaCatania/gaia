@@ -13,6 +13,7 @@ controllaParametri($parametri, 'attivita.gestione&err');
 $attivita = $_GET['id'];
 
 $attivita = Attivita::id($attivita);
+$attivita->timestamp = time();
 
 if ( isset($_GET['chiudi']) ) {
 
