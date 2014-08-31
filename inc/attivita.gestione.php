@@ -100,8 +100,8 @@ $mieAree = $me->areeDiCompetenza();
                                 cambia referente
                             </a>
                             <br />
-                            <a href="?p=attivita.apertura.ok&chiudi&id=<?= $attivita->id; ?>" onclick="return confirm('Sei sicuro di voler chiudere l'attività?');">
-                                <i class="icon-remove"></i> 
+                            <a href="?p=attivita.apertura.ok&id=<?= $attivita->id; ?>&chiudi" onclick="return confirm('Sei sicuro di voler chiudere l'attività?');">
+                                <i class="icon-folder-close-alt"></i> 
                                 chiudi attività
                             </a>
                             <br />

@@ -14,9 +14,10 @@ class Area extends Entita {
         return Volontario::id($this->responsabile);
     }
     
-    public function attivita() {
+    public function attivita($apertura = ATT_APERTA) {
         return Attivita::filtra([
-            ['area',    $this->id]
+            ['area',    $this->id],
+            ['apertura', $apertura]
         ]);
     }
     
