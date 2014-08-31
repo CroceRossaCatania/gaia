@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `attivita` (
   `descrizione` text,
   `stato` int(11) DEFAULT NULL,
   `area` int(16) DEFAULT NULL,
-  `apertura` varchar(11) DEFAULT NULL,
+  `apertura` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `comitato` (`comitato`),
   KEY `referente` (`referente`),
