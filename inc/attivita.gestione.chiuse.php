@@ -19,16 +19,10 @@ $mieAree = $me->areeDiCompetenza();
             <div class="span7">
                 <h2>
                     <i class="icon-star muted"></i>
-                    Gestione delle attività
+                    Gestione delle attività chiuse
                 </h2>
             </div>
-            <div class="span5">  
-                <?php if ( $me->comitatiAreeDiCompetenza() ) { ?>
-                <a href="?p=attivita.idea" class="btn btn-large btn-block btn-success">
-                    <i class="icon-plus-sign"></i>
-                    Crea una nuova attività
-                </a>      
-                <?php } ?>
+            <div class="span5">
             </div>
         </div>
         <div class="row-fluid">
@@ -39,10 +33,10 @@ $mieAree = $me->areeDiCompetenza();
                         <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
                     </div> 
                 <?php } ?> 
-                <?php if (isset($_GET['chiusa'])) { ?>
+                <?php if (isset($_GET['aperta'])) { ?>
                     <div class="alert alert-block alert-success">
-                        <h4><i class="icon-remove-sign"></i> <strong>Attività chiusa</strong>.</h4>
-                        <p>Potrai riaprire l'attività andando in fondo alla pagina, cliccando attività chiuse e cliccando apri attività sull'attività corrispondente.</p>
+                        <h4><i class="icon-remove-sign"></i> <strong>Attività aperta</strong>.</h4>
+                        <p>Troverai l'attività andando nel menù a sx e cliccando gestisci attivita.</p>
                     </div> 
                 <?php } ?>
                 <table class="table table-striped table-bordered">
@@ -63,7 +57,7 @@ $mieAree = $me->areeDiCompetenza();
                         </th>
                     </thead>
 
-                    <?php foreach ( $me->attivitaDiGestione() as $attivita ) { ?>
+                    <?php foreach ( $me->attivitaDiGestione(ATT_CHIUSA) as $attivita ) { ?>
 
                     <tr>
                         <td style="width: 40%;">
@@ -100,9 +94,9 @@ $mieAree = $me->areeDiCompetenza();
                                 cambia referente
                             </a>
                             <br />
-                            <a href="?p=attivita.apertura.ok&chiudi&id=<?= $attivita->id; ?>" onclick="return confirm('Sei sicuro di voler chiudere l'attività?');">
+                            <a href="?p=attivita.apertura.ok&apri&id=<?= $attivita->id; ?>" onclick="return confirm('Sei sicuro di voler chiudere l'attività?');">
                                 <i class="icon-remove"></i> 
-                                chiudi attività
+                                apri attività
                             </a>
                             <br />
                             <?php } ?>
@@ -122,18 +116,7 @@ $mieAree = $me->areeDiCompetenza();
                     </tr>
 
                     <?php } ?>
-                    <?php 
-                    if( $me->attivitaDiGestione(ATT_CHIUSA) ){ ?>
-                        <tr>
-                            <td colspan="4">
-                                <a data-attendere="Attendere..." href="?p=attivita.gestione.chiuse" class="btn btn-block">
-                                    <i class="icon-info-sign"></i>
-                                    Ci sono attività chiuse.
-                                    <strong>Clicca per mostrarle.</strong>
-                                </a>
-                            </td>
-                        </tr>
-                    <?php } ?>
+
                 </table>
             </div>
         </div>

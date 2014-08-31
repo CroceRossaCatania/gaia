@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2013 Alfio Emanuele Fresta
+ * ©2014 Croce Rossa Italiana
  */
 
 paginaPrivata();
