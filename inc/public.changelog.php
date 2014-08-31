@@ -63,7 +63,7 @@
 					</td>
 					<td class="span3">
 						<a class="btn btn-block" target="_blank"
-						   href="<?= $pull->_links->html; ?>">
+						   href="<?= $pull->_links->html->href; ?>">
 						   <i class="icon-search"></i> Vedi dettagli
 					    </a>
 
