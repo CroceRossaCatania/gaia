@@ -236,7 +236,9 @@ $(document).ready( function() {
                                     <?php } ?>
                                     <p class="text"><?php echo $c->commento; ?></p>
                                     <?php $r = $c->risposte(); ?>
-                                    <small><a href="?p=attivita.pagina&id=<?= $a->id; ?>#<?= $c->id; ?>"><i class="icon-comment"></i> <?php if (count($r)==0){ ?> Nessun comento<?php }elseif(Count($r)==1){ echo count($r); ?> Commento<?php }else{ echo count($r); ?> Commenti<?php } ?></a></small>
+                                    <small><a href="?p=attivita.pagina&id=<?= $a->id; ?>#<?= $c->id; ?>"><i class="icon-comment"></i> <?php if (count($r)==0){ ?> Nessun commento<?php }elseif(Count($r)==1){ echo count($r); ?> Commento<?php }else{ echo count($r); ?> Commenti<?php } ?></a></small>
+                                    <small><a href="?p=attivita.commento.like&piace&id=<?= $c->id; ?>"><i class="icon-thumbs-up"></i> <?= $like=$c->miPiace(); ?></small>
+                                    <small><a href="?p=attivita.commento.like&nonpiace&id=<?= $c->id; ?>"><i class="icon-thumbs-down"></i> <?= $notlike=$c->nonMiPiace(); ?></small>
                                 </div>
                             </div>
                             <?php } ?>

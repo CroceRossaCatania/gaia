@@ -369,6 +369,17 @@ CREATE TABLE IF NOT EXISTS `locali` (
   SPATIAL KEY `geo` (`geo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `mipiace` (
+  `id` int(11) NOT NULL,
+  `commento` varchar(16) DEFAULT NULL,
+  `volontario` varchar(64) DEFAULT NULL,
+  `timestamp` varchar(16) DEFAULT NULL,
+  `stato` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `volontario` (`volontario`),
+  KEY `commento` (`commento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `nazionali` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
