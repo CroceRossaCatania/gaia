@@ -47,7 +47,7 @@ class Appartenenza extends Entita {
 
         /**
          * Ritorna l'oggetto comitato relativo all'appartenenza 
-         * @return Object Comitato
+         * @return Comitato Ritorna id del comitato
          */
         public function comitato() {
             return Comitato::id($this->comitato);
@@ -55,7 +55,7 @@ class Appartenenza extends Entita {
         
         /**
          * Ritorna l'oggetto volontario relativo all'appartenenza 
-         * @return Object volontario
+         * @return Volontario
          */
         public function volontario() {
             return Volontario::id($this->volontario);
@@ -70,7 +70,7 @@ class Appartenenza extends Entita {
 
         /**
          * Ritorna l'oggetto trasferimento relativo all'appartenenza 
-         * @return Object Trasferimento
+         * @return Trasferimento
          */
         public function trasferimento(){
             return Trasferimento::by('appartenenza', $this);
@@ -78,7 +78,7 @@ class Appartenenza extends Entita {
 
         /**
          * Ritorna l'oggetto estensione relativo all'appartenenza 
-         * @return Object Estensione
+         * @return Estensione
          */
         public function estensione(){
             return Estensione::by('appartenenza', $this);
@@ -86,7 +86,7 @@ class Appartenenza extends Entita {
 
         /**
          * Ritorna l'oggetto dimissione relativo all'appartenenza 
-         * @return Object Dimissione
+         * @return Dimissione
          */
         public function dimissione(){
             return Dimissione::by('appartenenza', $this);
