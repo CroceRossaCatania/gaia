@@ -3,6 +3,8 @@
 /**
  * (c)2014 Croce Rossa Italiana
  */
+ 
+$_titolo = 'Aggiornamenti, novit&agrave; e miglioramenti';
 
 ?>
 
