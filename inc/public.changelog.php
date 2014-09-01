@@ -76,7 +76,7 @@
 
 		<p class="alert alert-info">
 			<i class="icon-info-sign"></i>
-			Questa tabelle &egrave; molto tecnica ed elenca le ultime contribuzioni degli sviluppatori al codice di Gaia
+			Questa tabella pu&ograve; avere contenuti molto tecnici ed elenca le ultime contribuzioni degli sviluppatori al codice di Gaia
 			(non sono visualizzate le contribuzioni che non sono sono state ancora rilasciate).
 		</p>
 		<table class="table table-striped">
@@ -129,6 +129,11 @@
 				<i class="icon-envelope-alt"></i>
 				feedback@gaia.cri.it
 			</a>
+			<p style="font-size: smaller;">
+				<i class="icon-warning-sign"></i> 
+				Se hai bisogno di aiuto, scrivi invece a 
+				<a href="mailto:supporto@gaia.cri.it">supporto@gaia.cri.it</a>.
+			</p>
 		</div>
 
 		<div class="alert alert-block alert-info">
