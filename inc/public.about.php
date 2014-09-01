@@ -64,30 +64,33 @@
     </a></p>
     
     <p>Oppure contattaci per email a <a href="mailto:supporto@gaia.cri.it"><i class="icon-envelope-alt"></i> supporto@gaia.cri.it</a>.</p>
-    <p>&nbsp;</p>
     
-    <hr />        
-    
-    <p>&nbsp;</p>
-    <h2><i class="icon-github icon-large"></i> Collabora</h2>
 
-    <p>Gaia è un progetto open source sviluppato da volontari e rilasciato con <a href="LICENSE.txt" target="_new"><i class="icon-link"></i> licenza GPL v3</a>. Per informazioni sul come collaborare, visita la pagina del progetto:</p> 
-    
-    <a href="https://github.com/CroceRossaCatania/gaia" target="_new" class="btn btn-large btn-block">
-        Progetto su GitHub
-    </a>
-    <p>&nbsp;</p>
     
     <hr />
     
-    <p>&nbsp;</p>
     <h2><i class="icon-question-sign"></i> Usare Gaia</h2>
 
     <p>Per usare Gaia nel tuo Comitato, invia una mail a <a href="mailto:info@gaia.cri.it"><i class="icon-envelope-alt"></i> info@gaia.cri.it</a> includendo i tuoi recapiti. Ti risponderemo appena possibile con le istruzioni.</p>
 
+    <hr />        
+    
+    <h2><i class="icon-github icon-large"></i> Collabora</h2>
+
+    <p>Gaia è un progetto open source sviluppato da volontari e rilasciato con <a href="LICENSE.txt" target="_new"><i class="icon-link"></i> licenza GPL v3</a>. Per informazioni sul come collaborare, visita la pagina del progetto:</p> 
+    
+    <a href="https://github.com/CroceRossaCatania/gaia" target="_new" class="btn  btn-block">
+        Progetto su GitHub
+    </a>
+
     <hr />
     
-    <p>&nbsp;</p>
+    <h2><i class="icon-rss-sign icon-large"></i> Aggiornamenti</h2>
+
+    <p>Se vuoi sapere di pi&ugrave; sugli ultimi aggiornamenti, miglioramenti e novit&agrave; del software Gaia,
+       <a href="?p=public.changelog">visita questa pagina</a>.</p>
+
+    <hr />
     
     
     <h2><i class="icon-link"></i> Integrare Gaia</h2>
@@ -95,18 +98,14 @@
     <p>Puoi integrare Gaia con le tue applicazioni, usando le API. C'è addirittura una <a href="http://github.com/AlfioEmanueleFresta/gaia-api-php">libreria PHP</a> già pronta per l'uso. Per maggiori informazioni, <a href="mailto:supporto@gaia.cri.it">contattaci</a>.</p>
 
     <hr />
+        
     
-    <p>&nbsp;</p>
-    
-    
-    <h2><i class="icon-lock"></i> Sicurezza Gaia</h2>
+    <h2><i class="icon-lock"></i> Sicurezza in Gaia</h2>
 
-    <p>I tuoi dati personali sono veramente importanti per noi scopri come vengono <a href="?p=public.sicurezza">protetti</a> su Gaia.</p>
+    <p>I tuoi dati personali sono veramente importanti per noi. <a href="?p=public.sicurezza">Scopri come vengono protetti</a> su Gaia.</p>
     
     <hr />
-    
-    <p>&nbsp;</p>
-    
+        
     
     <h2><i class="icon-shield"></i> Condizioni d'uso</h2>
 
