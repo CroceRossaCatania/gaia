@@ -9,48 +9,85 @@ class Appartenenza extends Entita {
             $_t  = 'appartenenza',
             $_dt = null;
         
+        /**
+         * Richiede l'appartenenza mettendo come stato membro pendente
+         * impostando il timestamp alla data e ora attuali, e resettando la conferma a 0
+         */
         public function richiedi() {
             $this->timestamp = time();
             $this->stato     = MEMBRO_PENDENTE;
             $this->conferma  = 0;
         }
 
+        /**
+         * Richiede l'estensione mettendo come stato membro estensione pendente
+         * impostando il timestamp alla data e ora attuali, e resettando la conferma a 0
+         */
         public function richiediEstensione() {
             $this->timestamp = time();
             $this->stato     = MEMBRO_EST_PENDENTE;
             $this->conferma  = 0;
         }
 
+        /**
+         * Ritorna la data di inizio appartenenza 
+         * @return DT inizio appartenenza
+         */
         public function inizio() {
             return DT::daTimestamp($this->inizio);
         }
 
+        /**
+         * Ritorna la data di fine appartenenza 
+         * @return DT fine appartenenza
+         */
         public function fine() {
             return DT::daTimestamp($this->fine);
         }
 
+        /**
+         * Ritorna l'oggetto comitato relativo all'appartenenza 
+         * @return Object Comitato
+         */
         public function comitato() {
             return Comitato::id($this->comitato);
         }
         
+        /**
+         * Ritorna l'oggetto volontario relativo all'appartenenza 
+         * @return Object volontario
+         */
         public function volontario() {
             return Volontario::id($this->volontario);
         }
         
+
         /* L'appartenenza è ancora attuale? */
         public function attuale() {
             /* Vero se la fine è dopo, o non c'è fine! */
             return ( ( $this->fine > time() ) || ( !$this->fine ) );
         }
 
+        /**
+         * Ritorna l'oggetto trasferimento relativo all'appartenenza 
+         * @return Object Trasferimento
+         */
         public function trasferimento(){
             return Trasferimento::by('appartenenza', $this);
         }
 
+        /**
+         * Ritorna l'oggetto estensione relativo all'appartenenza 
+         * @return Object Estensione
+         */
         public function estensione(){
             return Estensione::by('appartenenza', $this);
         }
 
+        /**
+         * Ritorna l'oggetto dimissione relativo all'appartenenza 
+         * @return Object Dimissione
+         */
         public function dimissione(){
             return Dimissione::by('appartenenza', $this);
         }
