@@ -12,7 +12,7 @@ class Fermotecnico extends Entita {
 
     /**
      * Ritorna true se attuale
-     * @return True or False
+     * @return bool True or False
      */
     public function attuale() {
         return ( ( $this->fine > time() ) || ( !$this->fine ) );
@@ -20,7 +20,7 @@ class Fermotecnico extends Entita {
 
     /**
      * Ritorna veicolo
-     * @return Object Veicolo
+     * @return Veicolo
      */
     public function veicolo() {
         return Veicolo::id($this->veicolo);
@@ -28,7 +28,7 @@ class Fermotecnico extends Entita {
 
     /**
      * Ritorna autoparco
-     * @return Object Autoparco
+     * @return Autoparco
      */
     public function autoparco() {
         return Autoparco::id($this->veicolo()->autoparco);
@@ -60,7 +60,7 @@ class Fermotecnico extends Entita {
     
     /**
      * Ritorna oggetto volontario che ha dichiarato fuoriuso
-     * @return Object Volontatario
+     * @return Volontatario
      */
     public function pInizio() {
         return Volontario::id($this->pInizio);

@@ -70,9 +70,12 @@ $numAttivi = $numVeicoli - $numFermotecnico;
                 </div>
                 <div class="span4 centrato">
                     <h4><i class="icon-unlink"></i> Fermo tecnico: <?= $numFermotecnico;?> </h4>
-                    <?php foreach ( $fermotecnico as $fermo ){ 
-                        echo $fermo->targa, "<br/>";
-                    } ?>
+                    <?php foreach ( $fermotecnico as $fermo ){ ?>
+                        <a href="?p=autoparco.veicolo.fermitecnici&id=<?= $fermo; ?>">
+                            <?= $fermo->targa; ?>
+                        </a>
+                        <br/>
+                    <?php } ?>
                 </div>
             </div>
             <hr/>
