@@ -104,6 +104,12 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                     <input class="input-large" type="text" name="inputLarghezza" id="inputLarghezza" placeholder="3,56">
                 </div>
             </div>
+            <div class="control-group">
+                <label class="control-label" for="inputSbalzo">Sbalzo [m]</label>
+                <div class="controls">
+                    <input class="input-large" type="text" name="inputSbalzo" id="inputSbalzo" placeholder="1,60">
+                </div>
+            </div>
             <br/><br/>
             <div class="control-group">
                 <label class="control-label" for="inputTara">Tara [kg]</label>
