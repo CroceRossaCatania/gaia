@@ -119,12 +119,16 @@ class Veicolo extends Entita {
      */
     public function consumoMedio() {
         $rifornimenti = Rifornimento::filtra([['veicolo', $this]],'data DESC');
-        $litri   = 0;
-        $consumo = 0;
-        foreach ( $rifornimenti as $rifornimento ){ 
-                $litri    = $litri + $rifornimento->litri;
+        if ( $rifornimenti ){
+            $litri   = 0;
+            $consumo = 0;
+            foreach ( $rifornimenti as $rifornimento ){ 
+                    $litri    = $litri + $rifornimento->litri;
+            }
+            $consumo  = ($litri*100)/$this->kmPercorsi();
+        }else{
+            $consumo = "<i>Dati non sufficienti</i>";
         }
-        $consumo  = ($litri*100)/$this->kmPercorsi();
         return $consumo;
     }
 }
