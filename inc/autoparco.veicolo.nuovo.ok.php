@@ -10,11 +10,27 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
 $parametri = array('inputTarga', 'inputLibretto', 'inputTelaio', 'inputPrimaImmatricolazione', 'inputCognome', 'inputNome', 'inputIndirizzo', 'inputAnt', 'inputPost');
 controllaParametri($parametri, 'autoparco.veicoli&err');*/
 
-$libretto = Veicolo::by('libretto', $_POST['inputLibretto']);
+$id = $_GET['id'];
+
+if( $id ){
+
+    $t = Veicolo::id($id);
+    $libretto = null;
+
+}else{
+
+    $t = new Veicolo();
+    $libretto = Veicolo::by('libretto', $_POST['inputLibretto']);
+
+}
 
 if (!$libretto){
-    $t = new Veicolo();
-    $t->comitato                = $me->delegazioneAttuale()->comitato()->oid();
+    if( $me->admin() ){
+        $t->comitato            = $me->appartenenzaAttuale()->comitato()->oid();
+    }else{
+        $t->comitato            = $me->delegazioneAttuale()->comitato()->oid();
+    }
+
     $t->targa                   = maiuscolo($_POST['inputTarga']);
     $t->libretto                = maiuscolo( $_POST['inputLibretto'] );
     $t->telaio                  = $_POST['inputTelaio'];

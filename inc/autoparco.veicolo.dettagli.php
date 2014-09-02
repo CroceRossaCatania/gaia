@@ -7,13 +7,17 @@
 paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
 
 $veicolo = $_GET['id'];
-$veicolo = new Veicolo($veicolo);
 
-/* Mica posso vedere o modificare i veicoli di altri */
-proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
+if ( $veicolo ){
 
-if ( $veicolo->stato == VEI_FUORIUSO ) {
-    $x=1;
+    $veicolo = Veicolo::id($veicolo);
+
+    /* Mica posso vedere o modificare i veicoli di altri */
+    proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
+
+    if ( $veicolo->stato == VEI_FUORIUSO ) {
+        $x=1;
+    }
 }
 
 ?>
@@ -24,17 +28,22 @@ if ( $veicolo->stato == VEI_FUORIUSO ) {
             <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
             <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
         </div> 
+    <?php } 
+    if ( !($veicolo) ){?>
+        <h2><i class="icon-truck muted"></i> Aggiungi nuovo Veicolo</h2>
+        <div class="alert alert-block alert-info ">
+            <div class="row-fluid">
+                <span class="span12">
+                    <p>Con questo modulo si possono aggiungere <b>nuovi veicoli</b>, curati di inserire le informazioni con <b>attenzione</b></p>
+                </span>
+            </div>
+        </div>  
+    <?php } else { ?>
+        <h2><i class="icon-truck muted"></i> Dettagli Veicolo</h2>   
+        <br/>  
     <?php } ?>
-    <h2><i class="icon-truck muted"></i> Aggiungi nuovo Veicolo</h2>
-    <div class="alert alert-block alert-info ">
-        <div class="row-fluid">
-            <span class="span12">
-                <p>Con questo modulo si possono aggiungere <b>nuovi veicoli</b>, curati di inserire le informazioni con <b>attenzione</b></p>
-            </span>
-        </div>
-    </div>           
 </div>
-<form class="form-horizontal" action="?p=autoparco.veicolo.modifica.ok&id=<?= $veicolo; ?>" method="POST">
+<form class="form-horizontal" action="?p=autoparco.veicolo.nuovo.ok&id=<?= $veicolo; ?>" method="POST">
     <div class="row-fluid">
         <div class="span6">
             <div class="control-group">
@@ -52,7 +61,7 @@ if ( $veicolo->stato == VEI_FUORIUSO ) {
             <div class="control-group">
                 <label class="control-label" for="inputPrimaImmatricolazione">Prima immatricolazione <b>(B)</b></label>
                 <div class="controls">
-                    <input class="input-small" type="text" value="<?= date('d/m/Y', $veicolo->primaImmatricolazione); ?>" name="inputPrimaImmatricolazione" id="inputPrimaImmatricolazione" required<?php if ($x) { ?> readonly <?php } ?>>
+                    <input class="input-small" type="text" <?php if ( $veicolo ) { ?> value="<?= date('d/m/Y', $veicolo->primaImmatricolazione); ?>" <?php } ?> name="inputPrimaImmatricolazione" id="inputPrimaImmatricolazione" required<?php if ($x) { ?> readonly <?php } ?>>
                 </div>
             </div>
             <h3>Proprietario del veicolo (C.2)</h3>
@@ -118,7 +127,7 @@ if ( $veicolo->stato == VEI_FUORIUSO ) {
             <div class="control-group">
                 <label class="control-label" for="inputSbalzo">Sbalzo [m]</label>
                 <div class="controls">
-                    <input class="input-large" type="text" name="inputSbalzo" id="inputSbalzo" placeholder="1,60">
+                    <input class="input-large" type="text" value="<?= $veicolo->sbalzo; ?>" name="inputSbalzo" id="inputSbalzo" placeholder="1,60">
                 </div>
             </div>
             <br/><br/>
@@ -160,7 +169,7 @@ if ( $veicolo->stato == VEI_FUORIUSO ) {
             <div class="control-group">
                 <label class="control-label" for="inputImmatricolazione">Data immatricolazione attuale <b>(I)</b></label>
                 <div class="controls">
-                    <input class="input-small" type="text" value="<?= date('d/m/Y', $veicolo->immatricolazione); ?>" name="inputImmatricolazione" id="inputImmatricolazione" required <?php if ($x) { ?> readonly <?php } ?>>
+                    <input class="input-small" type="text" <?php if ( $veicolo ) { ?> value="<?= date('d/m/Y', $veicolo->immatricolazione); ?>" <?php } ?> name="inputImmatricolazione" id="inputImmatricolazione" required <?php if ($x) { ?> readonly <?php } ?>>
                 </div>
             </div>
             <h3>Categoria del veicolo (J)</h3>

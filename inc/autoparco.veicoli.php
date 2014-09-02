@@ -72,7 +72,7 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
             <span class="add-on"><i class="icon-search"></i></span>
             <input autofocus required id="cercaUtente" placeholder="Cerca Veicolo..." type="text">
         </div>
-        <a class="btn btn-success" href="?p=autoparco.veicolo.nuovo">
+        <a class="btn btn-success" href="?p=autoparco.veicolo.dettagli">
             <i class="icon-plus"></i> Aggiungi Veicolo
         </a>
     </div>  
