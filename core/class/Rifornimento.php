@@ -25,5 +25,5 @@ class Rifornimento extends Entita {
     public function volontario() {
         return Volontario::id($this->pRegistra);
     }
-
+    
 }

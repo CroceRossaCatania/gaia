@@ -59,7 +59,7 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
     <div class="modal-footer">
       <a href="?p=autoparco.veicoli" class="btn">Annulla</a>
       <button type="submit" class="btn btn-success">
-        <i class="icon-save"></i> Salva
+        <i class="icon-save"></i> Registra
       </button>
     </div>
   </div>

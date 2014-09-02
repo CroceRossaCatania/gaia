@@ -127,7 +127,7 @@ if ( $veicolo ){
             <div class="control-group">
                 <label class="control-label" for="inputSbalzo">Sbalzo [m]</label>
                 <div class="controls">
-                    <input class="input-large" type="text" value="<?= $veicolo->sbalzo; ?>" name="inputSbalzo" id="inputSbalzo" placeholder="1,60">
+                    <input class="input-large" type="text" value="<?= $veicolo->sbalzo; ?>" name="inputSbalzo" id="inputSbalzo" placeholder="1,60" <?php if ($x) { ?> readonly <?php } ?>>
                 </div>
             </div>
             <br/><br/>
@@ -242,17 +242,26 @@ if ( $veicolo ){
         <div class="span12">
             <hr/>
             <h3>Intervallo revisione</h3>
-            <div class="control-group">
-                <label class="control-label" for="inputintervalloRevisione">Intervallo</label>
-                <div class="controls">
-                   <select class="input-large" id="inputintervalloRevisione" name="inputintervalloRevisione"  required>
-                        <?php
-                        foreach ( $conf['rev_intervallo'] as $numero => $gruppo ) { ?>
-                            <option value="<?php echo $numero; ?>"><?php echo $gruppo; ?></option>
-                        <?php } ?>
-                    </select> 
+            <?php if ($x) { ?> 
+                <div class="control-group">
+                    <label class="control-label" for="inputintervalloRevisione">Intervallo</label>
+                    <div class="controls">
+                        <input class="input-large" type="text" value="<?= $conf['rev_intervallo'][$veicolo->intervalloRevisione]; ?>" name="inputintervalloRevisione" id="inputintervalloRevisione" readonly >
+                    </div>
                 </div>
-            </div>
+            <?php }else{ ?>
+                <div class="control-group">
+                    <label class="control-label" for="inputintervalloRevisione">Intervallo</label>
+                    <div class="controls">
+                       <select class="input-large" id="inputintervalloRevisione" name="inputintervalloRevisione"  required>
+                            <?php
+                            foreach ( $conf['rev_intervallo'] as $numero => $gruppo ) { ?>
+                                <option value="<?php echo $numero; ?>"><?php echo $gruppo; ?></option>
+                            <?php } ?>
+                        </select> 
+                    </div>
+                </div>
+            <?php } ?>
             <hr/>
             <h3>Stato veicolo</h3>
             <div class="control-group">

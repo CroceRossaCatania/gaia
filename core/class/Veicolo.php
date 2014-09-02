@@ -101,4 +101,30 @@ class Veicolo extends Entita {
             return $this->primaImmatricolazione;
         }
     }
+
+    /**
+     * Ritorna i km percorsi dal veicoli estraendoli dai fogli carburante
+     * @return Number
+     */
+    public function kmPercorsi() {
+        $ultimokm = Rifornimento::filtra([['veicolo', $this]],'km DESC LIMIT 0,5');
+        $primokm  = Rifornimento::filtra([['veicolo', $this]],'km ASC LIMIT 0,5');
+        $km       = $ultimokm[0]->km - $primokm[0]->km;
+        return $km;
+    }
+
+    /**
+     * Ritorna consumo medio del veicoli estraendoli dai fogli carburante
+     * @return Number
+     */
+    public function consumoMedio() {
+        $rifornimenti = Rifornimento::filtra([['veicolo', $this]],'data DESC');
+        $litri   = 0;
+        $consumo = 0;
+        foreach ( $rifornimenti as $rifornimento ){ 
+                $litri    = $litri + $rifornimento->litri;
+        }
+        $consumo  = ($litri*100)/$this->kmPercorsi();
+        return $consumo;
+    }
 }

@@ -55,9 +55,10 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
             </thead>
             <?php
             $rifornimenti = Rifornimento::filtra([['veicolo', $veicolo]],'data DESC');
-            $costo = 0;
+            $costo   = 0;
             foreach ( $rifornimenti as $rifornimento ){ 
-                $costo = $costo + $rifornimento->costo; ?>
+                $costo    = $costo + $rifornimento->costo;
+                 ?>
                     <tr>
                         <td><?= $rifornimento->km; ?></td>
                         <td><?= date('d/m/Y', $rifornimento->data); ?></td>
@@ -65,9 +66,10 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
                         <td><?= $rifornimento->costo; ?></td>
                         <td><?= $rifornimento->volontario()->nomeCompleto(); ?></td>
                     </tr>
-                <?php }?>
+                <?php } ?>
         </table>
         <hr/>
         <h3>Costo complessivo rifornimenti: <?= $costo; ?> €</h3>
+        <h3>Consumo medio carburante: <?= $veicolo->consumoMedio(); ?> l/100km</h3>
     </div>
 </div>

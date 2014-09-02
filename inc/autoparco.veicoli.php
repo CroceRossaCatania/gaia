@@ -121,11 +121,11 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                                 <a  href="?p=autoparco.veicolo.colloca&id=<?= $veicolo->id; ?>" title="Colloca Veicolo" class="btn btn-small btn-primary">
                                     <i class="icon-arrow-right"></i> Collocazione
                                 </a>
-                                <a  href="?p=autoparco.veicolo.manutenzione&id=<?= $veicolo->id; ?>" title="Manutenzioni Veicolo" class="btn btn-small btn-success">
+                                <a  href="?p=autoparco.veicolo.manutenzione&id=<?= $veicolo->id; ?>" title="Manutenzione Veicolo" class="btn btn-small btn-success">
                                     <i class="icon-wrench"></i> Manutenzione
                                 </a>
-                                <a  href="?p=autoparco.veicolo.rifornimenti&id=<?= $veicolo->id; ?>" title="Rifornimenti Veicolo" class="btn btn-small btn-info">
-                                    <i class="icon-credit-card"></i> Rifornimenti
+                                <a  href="?p=autoparco.veicolo.rifornimento.nuovo&id=<?= $veicolo->id; ?>" title="Rifornimento Veicolo" class="btn btn-small btn-info">
+                                    <i class="icon-credit-card"></i> Rifornimento
                                 </a>
                                 <?php if ( $me->admin() ) { ?>
                                     <a  onClick="return confirm('Vuoi veramente cancellare questo veicolo ?');" href="?p=autoparco.veicolo.cancella&id=<?= $veicolo->id; ?>" title="Cancella Veicolo" class="btn btn-small btn-danger">

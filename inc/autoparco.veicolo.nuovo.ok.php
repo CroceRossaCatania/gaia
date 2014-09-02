@@ -16,11 +16,13 @@ if( $id ){
 
     $t = Veicolo::id($id);
     $libretto = null;
+    $mod = "mod";
 
 }else{
 
     $t = new Veicolo();
     $libretto = Veicolo::by('libretto', $_POST['inputLibretto']);
+    $mod = "new";
 
 }
 
@@ -66,7 +68,8 @@ if (!$libretto){
     $t->regime                  = $_POST['inputRegime'];
     $t->tInserimento            = time();
     $t->pInserimento            = $me;
-    $t->stato                   = $_POST['inputStato'];
+    $stato                      = $_POST['inputStato'];
+    $t->stato                   = $stato;
     $t->intervalloRevisione     = $_POST['inputintervalloRevisione'];
 
     if ( $stato == VEI_FUORIUSO ) {
@@ -74,7 +77,7 @@ if (!$libretto){
         $t->pFuoriuso = $me;
     }
 
-    redirect('autoparco.veicoli&new');
+    redirect('autoparco.veicoli&'.$mod);
     
 }else{
     
