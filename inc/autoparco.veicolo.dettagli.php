@@ -115,6 +115,12 @@ if ( $veicolo->stato == VEI_FUORIUSO ) {
                     <input class="input-large" type="text" value="<?= $veicolo->larghezza; ?>" name="inputLarghezza" id="inputLarghezza" placeholder="3,56" <?php if ($x) { ?> readonly <?php } ?>>
                 </div>
             </div>
+            <div class="control-group">
+                <label class="control-label" for="inputSbalzo">Sbalzo [m]</label>
+                <div class="controls">
+                    <input class="input-large" type="text" name="inputSbalzo" id="inputSbalzo" placeholder="1,60">
+                </div>
+            </div>
             <br/><br/>
             <div class="control-group">
                 <label class="control-label" for="inputTara">Tara [kg]</label>
