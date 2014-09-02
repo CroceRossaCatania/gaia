@@ -23,7 +23,7 @@ class Rifornimento extends Entita {
      * @return Volontario
      */
     public function volontario() {
-        return Volontario::id($this->volontario);
+        return Volontario::id($this->pRegistra);
     }
 
 }

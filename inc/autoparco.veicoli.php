@@ -42,6 +42,11 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
         <i class="icon-ok"></i> <strong>Intervento di manutenzione registrato e veicolo nuovamente attivo</strong>.
         E' stata registrata una manutenzione ed il veicolo è uscito dal fermo tecnico
     </div>
+<?php }elseif ( isset($_GET['rifOk']) ) { ?>
+    <div class="alert alert-success">
+        <i class="icon-ok"></i> <strong>Rifornimento registrato correttamente</strong>.
+        E' stato registrato un nuovo rifornimento per il veicolo
+    </div>
 <?php } ?>
 <?php if (isset($_GET['err'])) { ?>
     <div class="alert alert-block alert-error">
@@ -116,8 +121,11 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                                 <a  href="?p=autoparco.veicolo.colloca&id=<?= $veicolo->id; ?>" title="Colloca Veicolo" class="btn btn-small btn-primary">
                                     <i class="icon-arrow-right"></i> Collocazione
                                 </a>
-                                <a  href="?p=autoparco.veicolo.manutenzione&id=<?= $veicolo->id; ?>" title="Manutenzione Veicolo" class="btn btn-small btn-success">
+                                <a  href="?p=autoparco.veicolo.manutenzione&id=<?= $veicolo->id; ?>" title="Manutenzioni Veicolo" class="btn btn-small btn-success">
                                     <i class="icon-wrench"></i> Manutenzione
+                                </a>
+                                <a  href="?p=autoparco.veicolo.rifornimenti&id=<?= $veicolo->id; ?>" title="Rifornimenti Veicolo" class="btn btn-small btn-info">
+                                    <i class="icon-credit-card"></i> Rifornimenti
                                 </a>
                                 <?php if ( $me->admin() ) { ?>
                                     <a  onClick="return confirm('Vuoi veramente cancellare questo veicolo ?');" href="?p=autoparco.veicolo.cancella&id=<?= $veicolo->id; ?>" title="Cancella Veicolo" class="btn btn-small btn-danger">
