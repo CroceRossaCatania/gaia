@@ -8,7 +8,7 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
 
 controllaParametri(array('id'), 'autoparco.veicoli&err');
 $veicolo = $_GET['id'];
-$veicolo = new Veicolo($veicolo);
+$veicolo = Veicolo::id($veicolo);
 
 proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
 

@@ -545,6 +545,20 @@ CREATE TABLE IF NOT EXISTS `richiesteTurni` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `rifornimento` (
+  `id` int(11) NOT NULL,
+  `pRegistra` varchar(16) DEFAULT NULL,
+  `tRegistra` varchar(64) DEFAULT NULL,
+  `km` varchar(255) DEFAULT NULL,
+  `data` varchar(64) DEFAULT NULL,
+  `veicolo` varchar(16) DEFAULT NULL,
+  `timestamp` varchar(64) DEFAULT NULL,
+  `litri` varchar(64) DEFAULT NULL,
+  `costo` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `veicolo` (`veicolo`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
 CREATE TABLE IF NOT EXISTS `riserve` (
   `id` int(11) NOT NULL,
   `stato` varchar(16) DEFAULT NULL,
