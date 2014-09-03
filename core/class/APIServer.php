@@ -641,5 +641,38 @@ class APIServer {
         return $risposta;
 
     }
+
+    private function api_like() {
+        global $conf;
+        $this->richiedi(['oggetto']);
+        $oggetto = Entita::daOid($this->par['oggetto']);
+        $me = false;
+        if ( $this->sessione->utente ) {
+            $me = $this->richiediLogin();
+        }
+        if ( isset($this->par['tipo']) ) {
+            if ( !$me ) {
+                throw new Errore(1019);
+            }
+            $t = (int) $this->par['tipo'];
+            if ( $t !== PIACE && $t !== NON_PIACE ) {
+                throw new Errore(1020);
+            }
+            $me->apponiLike($oggetto, $t);
+        }
+        $p = -1;
+        if ( $me && $a = $me->appostoLike($oggetto) ) {
+            $p = $a->tipo;
+        }        
+        $r = [];
+        foreach ( $conf['like'] as $tipo => $descrizione ) {
+            $r[$tipo] = [
+                'nome'      =>  $descrizione,
+                'numero'    =>  $oggetto->like($tipo),
+                'apposto'   =>  ($p == $tipo)
+            ];
+        }
+        return $r;
+    }
         
 }
