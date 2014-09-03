@@ -820,7 +820,6 @@ function _like_click(oggetto, pulsante) {
 }
 
 function _render_like_singolo(oggetto, dati) {
-    console.log(oggetto, dati);
     var e = $("[data-like='" + oggetto + "']");
     $(e).find('.btn').removeClass('active');
     for ( i in dati ) {
