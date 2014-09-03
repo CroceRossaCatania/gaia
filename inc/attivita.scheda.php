@@ -253,7 +253,7 @@ $(document).ready( function() {
                                         </a>
                                     </small>
                                     <!-- Box Like/Dislike -->
-                                    <div data-like="<?= $c->oid(); ?>" data-piccolo="true"></div>
+                                    <div data-like="<?= $c->oid(); ?>" data-piccolo="true" class="pull-right"></div>
 
                                 </div>
                             </div>
