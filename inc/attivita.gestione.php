@@ -124,12 +124,12 @@ if ( isset($_GET['chiuse']) ){
                             </a>
                             <br />
                             <?php if ($chiusa){ ?>
-                                <a onclick="return confirm('Sei sicuro di voler aprire l'attività?');" href="?p=attivita.apertura.ok&id=<?= $attivita->id; ?>&apri" >
+                                <a onclick="return confirm('Sei sicuro di voler aprire l\'attività?');" href="?p=attivita.apertura.ok&id=<?= $attivita->id; ?>&apri" >
                                     <i class="icon-folder-close-alt"></i> 
                                     apri attività
                                 </a>
                             <?php }else{ ?>
-                                <a onclick="return confirm('Sei sicuro di voler chiudere l'attività?');" href="?p=attivita.apertura.ok&id=<?= $attivita->id; ?>&chiudi" >
+                                <a onclick="return confirm('Sei sicuro di voler chiudere l\'attività?');" href="?p=attivita.apertura.ok&id=<?= $attivita->id; ?>&chiudi" >
                                     <i class="icon-folder-close-alt"></i> 
                                     chiudi attività
                                 </a>

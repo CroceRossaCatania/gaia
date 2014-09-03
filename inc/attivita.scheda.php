@@ -84,7 +84,7 @@ $(document).ready( function() {
                     <i class="icon-facebook-sign"></i> Condividi
                 </a>
                 <?php if ( !$apertura ){ ?>
-                    <a class="btn btn-large btn-danger disabled" <?php if ($a->modificabileDa($me)){ ?> onclick="return confirm('Vuoi nuovamente aprire l'attività?');" href="?p=attivita.apertura.ok&id=<?=$a->id; ?>&apri" <?php } ?>>
+                    <a class="btn btn-large btn-danger disabled" <?php if ($a->modificabileDa($me)){ ?> onclick="return confirm('Vuoi nuovamente aprire l\'attività?');" href="?p=attivita.apertura.ok&id=<?=$a->id; ?>&apri" <?php } ?>>
                             <i class="icon-lock"></i>
                             Attività chiusa
                     </a>
