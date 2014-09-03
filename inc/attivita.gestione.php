@@ -58,6 +58,12 @@ if ( isset($_GET['chiuse']) ){
                         <p>Troverai l'attività andando nel menù a sx e cliccando gestisci attivita.</p>
                     </div> 
                 <?php } ?>
+                <?php if (isset($_GET['turni'])) { ?>
+                    <div class="alert alert-block alert-error">
+                        <h4><i class="icon-remove-sign"></i> <strong>Impossibile chiudere l'attività</strong>.</h4>
+                        <p>Attenzione! L'attività che stai tentando di chiudere ha in programma dei turni nel futuro, cancella i turni e chiudi l'attività</p>
+                    </div> 
+                <?php } ?>
                 <table class="table table-striped table-bordered">
 
                     <thead>
@@ -143,12 +149,12 @@ if ( isset($_GET['chiuse']) ){
 
                     <?php } ?>
                     <?php 
-                    if( $me->attivitaDiGestione(ATT_CHIUSA) ){ ?>
+                    if( $me->attivitaDiGestione($apertura) ){ ?>
                         <tr>
                             <td colspan="4">
-                                <a data-attendere="Attendere..." href="?p=attivita.gestione&chiuse" class="btn btn-block">
+                                <a data-attendere="Attendere..." href="?p=attivita.gestione" class="btn btn-block">
                                     <i class="icon-info-sign"></i>
-                                    Ci sono attività chiuse.
+                                    Ci sono attività aperte.
                                     <strong>Clicca per mostrarle.</strong>
                                 </a>
                             </td>
