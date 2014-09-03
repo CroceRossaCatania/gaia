@@ -706,3 +706,17 @@ $conf['partecipazioneBase'] = [
 
 define('POSTA_INGRESSO',        0);
 define('POSTA_USCITA',          1);
+
+/*
+ * ===================================
+ * ============ LIKE  ================
+ * ===================================
+ */
+
+define('PIACE',        0);
+define('NON_PIACE',    1);
+
+$conf['like'] = [
+    PIACE      =>  'Mi piace', 
+    NON_PIACE  =>  'Non mi piace'
+];  
