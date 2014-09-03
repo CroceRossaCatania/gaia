@@ -379,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `mipiace` (
   KEY `volontario` (`volontario`),
   KEY `oggetto` (`oggetto`),
   KEY `cercatipo` (`volontario`, `oggetto`),
-  KEY `cercalike` (`tipo`, `oggetto`),
+  KEY `cercalike` (`tipo`, `oggetto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `nazionali` (
