@@ -1044,7 +1044,7 @@ class Utente extends Persona {
     public function attivitaAreeDiCompetenza($apertura = ATT_APERTA) {
         $r = [];
         foreach ( $this->areeDiCompetenza() as $area ) {
-            $r = array_merge($r, $area->attivita($apertura = ATT_APERTA));
+            $r = array_merge($r, $area->attivita($apertura));
         }
         $r = array_unique($r);
         return $r;

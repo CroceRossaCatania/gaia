@@ -282,9 +282,10 @@ abstract class GeoPolitica extends GeoEntita {
                 )");
     }
 
-    public function attivita() {
+    public function attivita($apertura = ATT_APERTA) {
         return Attivita::filtra([
-            ['comitato', $this->oid()]
+            ['comitato', $this->oid()],
+            ['apertura', $apertura]
         ],'nome ASC');
     }
 
