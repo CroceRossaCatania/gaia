@@ -113,6 +113,12 @@ if ( $veicolo ){
             </div>
             <br/>
             <div class="control-group">
+                <label class="control-label" for="inputCambio">Cambio</label>
+                <div class="controls">
+                    <input class="input-large" type="text" value="<?= $veicolo->cambio; ?>" name="inputCambio" id="inputCambio" placeholder="Meccanico" <?php if ($x) { ?> readonly <?php } ?>>
+                </div>
+            </div>
+            <div class="control-group">
                 <label class="control-label" for="inputLunghezza">Lunghezza[m]</label>
                 <div class="controls">
                     <input class="input-large" type="text" value="<?= $veicolo->lunghezza; ?>" name="inputLunghezza" id="inputLunghezza" placeholder="2,15" <?php if ($x) { ?> readonly <?php } ?>>

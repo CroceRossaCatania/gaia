@@ -46,6 +46,7 @@ if (!$libretto){
     $t->posteriori              = $_POST['inputPost'];
     $t->altAnt                  = $_POST['inputAltAnt'];
     $t->altPost                 = $_POST['inputAltPost'];
+    $t->cambio                  = $_POST['inputCambio'];
     $t->lunghezza               = $_POST['inputLunghezza'];
     $t->larghezza               = $_POST['inputLarghezza'];
     $t->sbalzo                  = $_POST['inputSbalzo'];
