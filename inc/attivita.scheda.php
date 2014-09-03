@@ -85,6 +85,8 @@ $(document).ready( function() {
                     <strong>Ultimo aggiornamento</strong>:<br />
                     <i class="icon-time"></i> <?php echo date("d/m/Y H:i:s", $a->timestamp); ?>
                 </span>
+                <!-- Box Like/Dislike -->
+                <div data-like="<?= $a->oid(); ?>" class="pull-right"></div>
             </div>
         </div>
         <hr />
@@ -252,7 +254,7 @@ $(document).ready( function() {
                                     </small>
                                     <!-- Box Like/Dislike -->
                                     <div data-like="<?= $c->oid(); ?>" data-piccolo="true"></div>
-                                    
+
                                 </div>
                             </div>
                             <?php } ?>

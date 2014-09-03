@@ -809,7 +809,7 @@ function _like_click(oggetto, pulsante) {
         oggetto: oggetto,
         tipo: tipo
     }, function(x) {
-        if (x.hasOwnProperty('errore')) {
+        if (x.risposta.hasOwnProperty('errore')) {
             alert('Devi effettuare l\'accesso su Gaia per poter esprimere giudizi su questo oggetto.');
         } else {
             _render_like_singolo(oggetto, x.risposta);
