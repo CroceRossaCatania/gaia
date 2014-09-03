@@ -1676,4 +1676,61 @@ class Utente extends Persona {
 
         return;
     }
+
+    /**
+     * Appone un Like (PIACE o NON_PIACE) ad un oggetto
+     * @param Entita $oggetto       L'oggetto al quale apporre il like
+     * @param int $tipo             Costante tra PIACE e NON_PIACE
+     * @return bool                 True o False
+     * @throws Exception            Se tipo non valido
+     */
+    public function apponiLike(Entita $oggetto, $tipo = PIACE) {
+        if ( $e = $this->appostoLike($oggetto) ) {
+            $e->cancella();
+        }
+        $l = new Like();
+        if ( $tipo !== PIACE && $tipo !== NON_PIACE ) {
+            throw new Errore(1020);
+        }
+        $l->tipo        = $tipo;
+        $l->oggetto     = $oggetto->oid();
+        $l->timestamp   = time();
+        $l->volontario  = $this->id;
+        return true;
+    }
+
+    /**
+     * Appone un Like PIACE ad un oggetto
+     * @param Entita $oggetto       L'oggetto al quale apporre il like
+     * @return bool                 True o False
+     */
+    public function apponiMiPiace(Entita $oggetto) {
+        return $this->apponiLike($oggetto, PIACE);
+    }
+
+    /**
+     * Appone un Like NON_PIACE ad un oggetto
+     * @param Entita $oggetto       L'oggetto al quale apporre il like
+     * @return bool                 True o False
+     */
+    public function apponiNonMiPiace(Entita $oggetto) {
+        return $this->apponiLike($oggetto, NON_PIACE);
+    }
+
+    /**
+     * Ritorna un Like se apposto dall'utente ad un oggetto
+     * @param Entita $oggetto       L'oggetto da controllare
+     * @return bool|Like            False se nessun like trovato o il Like in questione
+     */
+    public function appostoLike(Entita $oggetto) {
+        if ( $r = Like::filtra([
+            ['volontario',  $this->id],
+            ['oggetto',     $oggetto->oid()]
+        ])) {
+            return $r[0];
+        } else {
+            return false;
+        }
+    }
+
 }

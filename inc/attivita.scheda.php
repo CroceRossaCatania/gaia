@@ -85,6 +85,8 @@ $(document).ready( function() {
                     <strong>Ultimo aggiornamento</strong>:<br />
                     <i class="icon-time"></i> <?php echo date("d/m/Y H:i:s", $a->timestamp); ?>
                 </span>
+                <!-- Box Like/Dislike -->
+                <div data-like="<?= $a->oid(); ?>" class="pull-right"></div>
             </div>
         </div>
         <hr />
@@ -236,7 +238,23 @@ $(document).ready( function() {
                                     <?php } ?>
                                     <p class="text"><?php echo $c->commento; ?></p>
                                     <?php $r = $c->risposte(); ?>
-                                    <small><a href="?p=attivita.pagina&id=<?= $a->id; ?>#<?= $c->id; ?>"><i class="icon-comment"></i> <?php if (count($r)==0){ ?> Nessun comento<?php }elseif(Count($r)==1){ echo count($r); ?> Commento<?php }else{ echo count($r); ?> Commenti<?php } ?></a></small>
+                                    <small>
+                                        <a href="?p=attivita.pagina&id=<?= $a->id; ?>#<?= $c->id; ?>">
+                                            <i class="icon-comment"></i>
+                                            <?php if (count($r)==0){ ?> 
+                                                 Nessun commento
+                                            <?php } elseif (count($r)==1) { ?>
+                                                 <?= count($r); ?>
+                                                 Commento
+                                            <?php } else { ?> 
+                                                 <?= count($r); ?>
+                                                 Commenti
+                                            <?php } ?>
+                                        </a>
+                                    </small>
+                                    <!-- Box Like/Dislike -->
+                                    <div data-like="<?= $c->oid(); ?>" data-piccolo="true" class="pull-right"></div>
+
                                 </div>
                             </div>
                             <?php } ?>

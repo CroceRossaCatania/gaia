@@ -29,7 +29,9 @@ $conf['errori'] = [
     1015    =>  'Nessuna delegazione selezionata o delegazione non valida',
     1016    =>  'Accesso negato: Nessun permesso di accesso al ramo specificato',
     1017    =>  'Errore di connessione al sistema di distribuzione email desiderato',
-    1018    =>  'Email impossibile da inviare: nessun destinatario con indirizzo email'
+    1018    =>  'Email impossibile da inviare: nessun destinatario con indirizzo email',
+    1019    =>  'Devi essere identificato per apporre Like di qualsiasi tipo',
+    1020    =>  'Puoi apporre solo Like di tipo PIACE e NON_PIACE',
 ];
 
 

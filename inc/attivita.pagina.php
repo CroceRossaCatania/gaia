@@ -77,6 +77,8 @@ if (!$a->puoPartecipare($me)) {
                 <div class="span8">
                     <p class="text-info"><?php echo $g->nomeCompleto(); ?> <?php echo $_c->quando()->inTesto(); ?></p>
                     <p class="text"><blockquote><?php echo $_c->commento; ?></blockquote></p>
+                    <small><a href="?p=attivita.commento.like&piace&id=<?= $c->id; ?>"><i class="icon-thumbs-up"></i> <?= $like=$_c->miPiace(); ?></small>
+                    <small><a href="?p=attivita.commento.like&nonpiace&id=<?= $c->id; ?>"><i class="icon-thumbs-down"></i> <?= $notlike=$_c->nonMiPiace(); ?></small>        
                 </div>
                 <div class="span2 allinea-destra">
                  <?php if($_c->volontario == $me || $me->admin()){?>

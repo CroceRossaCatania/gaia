@@ -714,3 +714,16 @@ $conf['rev_intervallo'] = [
     REV_ANNO      =>  "1 Anno",
     REV_DUEANNI   =>  "2 Anni"
 ];
+
+/*
+ * ============ LIKE  ================
+ * ===================================
+ */
+
+define('PIACE',        0);
+define('NON_PIACE',    1);
+
+$conf['like'] = [
+    PIACE      =>  'Mi piace', 
+    NON_PIACE  =>  'Non mi piace'
+];  

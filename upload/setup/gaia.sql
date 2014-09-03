@@ -441,6 +441,19 @@ CREATE TABLE IF NOT EXISTS `manutenzioni` (
   KEY `veicolo` (`veicolo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `mipiace` (
+  `id` int(11) NOT NULL,
+  `oggetto` varchar(16) DEFAULT NULL,
+  `volontario` int(11) DEFAULT NULL,
+  `timestamp` int(16) DEFAULT NULL,
+  `tipo` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `volontario` (`volontario`),
+  KEY `oggetto` (`oggetto`),
+  KEY `cercatipo` (`volontario`, `oggetto`),
+  KEY `cercalike` (`tipo`, `oggetto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `nazionali` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
