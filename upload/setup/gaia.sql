@@ -371,13 +371,15 @@ CREATE TABLE IF NOT EXISTS `locali` (
 
 CREATE TABLE IF NOT EXISTS `mipiace` (
   `id` int(11) NOT NULL,
-  `commento` varchar(16) DEFAULT NULL,
-  `volontario` varchar(64) DEFAULT NULL,
-  `timestamp` varchar(16) DEFAULT NULL,
-  `stato` int(11) DEFAULT NULL,
+  `oggetto` varchar(16) DEFAULT NULL,
+  `volontario` int(11) DEFAULT NULL,
+  `timestamp` int(16) DEFAULT NULL,
+  `tipo` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `volontario` (`volontario`),
-  KEY `commento` (`commento`)
+  KEY `oggetto` (`oggetto`),
+  KEY `cercatipo` (`volontario`, `oggetto`),
+  KEY `cercalike` (`tipo`, `oggetto`),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `nazionali` (

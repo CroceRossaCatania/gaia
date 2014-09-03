@@ -45,6 +45,7 @@ $(window).ready( function () {
 
     _render_utenti();
     _render_modali();
+    _render_like();
 
     $('.automodal').modal({ keyboard: false, backdrop: 'static' });
     $('.alCambioSalva').change( function () {
@@ -759,6 +760,77 @@ function _email_sostituzioni (testo, email) {
     return testo;
 }
 
+/**
+ * Rendering dei Like
+ */
+function _render_like(oggetto) {
+    var oggetti = [];
+    var richieste = [];
+    var str = '';
+    str += '<div class="btn btn-small btn-like btn-0" data-tipo="0">';
+    str += '  <i class="icon-thumbs-up icon-large"></i>';
+    str += '  <span class="numero-like numero-like-0 badge badge-success"></span>';
+    str += '</div>';
+    str += '<div class="btn btn-small btn-like btn-1" data-tipo="1">';
+    str += '  <i class="icon-thumbs-down  icon-large"></i>';
+    str += '  <span class="numero-like numero-like-1 badge badge-important"></span>';
+    str += '</div>';
+    $("[data-like]").each( function(i, e) {
+        var oggetto = $(e).data('like');
+        $(e).addClass('contenitore-like').addClass('btn-group');
+        if ( $(e).data('piccolo') ) {
+            $(e).html(str.replace(/btn-small/g, 'btn-mini'));
+        } else {
+            $(e).html(str);
+        }
+        console.log($(e).children('.numero-like'));
+        $(e).find('.numero-like').html('<i class="icon-spin icon-spinner"></i>');
+        oggetti.push(oggetto);
+        richieste.push({
+            metodo      : 'like',
+            parametri   : {oggetto: oggetto}
+        });
+        $(e).children('.btn').each(function(k,y) {
+            $(y).click(function(){_like_click(oggetto, y);});
+        });
+    });
+
+    api('multi', {richieste: richieste}, function(x) {
+        $(x.risposta.risultato).each( function(i, r) {
+            _render_like_singolo(oggetti[i], r.risposta);
+        });
+    });
+}
+
+function _like_click(oggetto, pulsante) {
+    $(pulsante).attr('disabled', 'disabled').addClass('disabled');
+    var tipo = $(pulsante).data('tipo');
+    api('like', {
+        oggetto: oggetto,
+        tipo: tipo
+    }, function(x) {
+        if (x.hasOwnProperty('errore')) {
+            alert('Devi effettuare l\'accesso su Gaia per poter esprimere giudizi su questo oggetto.');
+        } else {
+            _render_like_singolo(oggetto, x.risposta);
+        }
+        $(pulsante).removeAttr('disabled').removeClass('disabled');
+    });
+
+}
+
+function _render_like_singolo(oggetto, dati) {
+    console.log(oggetto, dati);
+    var e = $("[data-like='" + oggetto + "']");
+    $(e).find('.btn').removeClass('active');
+    for ( i in dati ) {
+        var x = $("[data-like='" + oggetto + "'] .btn-" + i);
+        if ( dati[i].apposto ) {
+            $(x).addClass('active');
+        }
+        $(x).find('.numero-like').text(dati[i].numero);
+    }
+}
 
 /**
  * Rendering utenti 
