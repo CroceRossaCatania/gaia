@@ -9,10 +9,14 @@ paginaPrivata();
 $mieAree = $me->areeDiCompetenza();
 
 if ( isset($_GET['chiuse']) ){
+
     $apertura = ATT_CHIUSA;
     $chiusa   = true;
+
 }else{
+
     $apertura = ATT_APERTA;
+    $redirect = "&chiuse";
 }
 
 ?>
@@ -55,7 +59,7 @@ if ( isset($_GET['chiuse']) ){
                 <?php if (isset($_GET['aperta'])) { ?>
                     <div class="alert alert-block alert-success">
                         <h4><i class="icon-remove-sign"></i> <strong>Attività aperta</strong>.</h4>
-                        <p>Troverai l'attività andando nel menù a sx e cliccando gestisci attivita.</p>
+                        <p>Troverai l'attività andando nel menù a sinistra e cliccando gestisci attivita.</p>
                     </div> 
                 <?php } ?>
                 <?php if (isset($_GET['turni'])) { ?>
@@ -120,12 +124,12 @@ if ( isset($_GET['chiuse']) ){
                             </a>
                             <br />
                             <?php if ($chiusa){ ?>
-                                <a href="?p=attivita.apertura.ok&id=<?= $attivita->id; ?>&apri" onclick="return confirm('Sei sicuro di voler aprire l'attività?');">
+                                <a onclick="return confirm('Sei sicuro di voler aprire l'attività?');" href="?p=attivita.apertura.ok&id=<?= $attivita->id; ?>&apri" >
                                     <i class="icon-folder-close-alt"></i> 
                                     apri attività
                                 </a>
                             <?php }else{ ?>
-                                <a href="?p=attivita.apertura.ok&id=<?= $attivita->id; ?>&chiudi" onclick="return confirm('Sei sicuro di voler chiudere l'attività?');">
+                                <a onclick="return confirm('Sei sicuro di voler chiudere l'attività?');" href="?p=attivita.apertura.ok&id=<?= $attivita->id; ?>&chiudi" >
                                     <i class="icon-folder-close-alt"></i> 
                                     chiudi attività
                                 </a>
@@ -152,9 +156,9 @@ if ( isset($_GET['chiuse']) ){
                     if( $me->attivitaDiGestione($apertura) ){ ?>
                         <tr>
                             <td colspan="4">
-                                <a data-attendere="Attendere..." href="?p=attivita.gestione" class="btn btn-block">
+                                <a data-attendere="Attendere..." href="?p=attivita.gestione<?= $redirect; ?>" class="btn btn-block">
                                     <i class="icon-info-sign"></i>
-                                    Ci sono attività aperte.
+                                    Ci sono <?= $conf['attivita_stato'][$apertura]; ?>.
                                     <strong>Clicca per mostrarle.</strong>
                                 </a>
                             </td>
