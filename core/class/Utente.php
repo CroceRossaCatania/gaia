@@ -1432,7 +1432,8 @@ class Utente extends Persona {
         return null;        
     }
 
-    /* Se volontario è IV
+    /** 
+     * Se volontario è IV
      * @return true se iv
      */
     public function iv() {
@@ -1443,7 +1444,8 @@ class Utente extends Persona {
             }
     }
 
-    /* Se volontario è CM
+    /**
+     * Se volontario è CM
      * @return true se CM
      */
     public function cm() {
@@ -1453,6 +1455,7 @@ class Utente extends Persona {
                 return false;
             }
     }
+
     /*
      * Funzione che non funziona correttamente
      */
@@ -1483,6 +1486,10 @@ class Utente extends Persona {
 
     }
 
+    /**
+     * Funzione per la cancellazione di un utente su gaia
+     *
+     */
     public function cancellaUtente(){
         $t = Utente::id($this);
 
@@ -1512,11 +1519,20 @@ class Utente extends Persona {
                 $_f->referente = $c->unPresidente();
             }
 
+            /* Presidente per autorizzazioni ad utente da cancellare */
             $f = Autorizzazione::filtra([
                 ['volontario', $t]
                 ]);
             foreach($f as $_f){
                 $_f->volontario = $c->unPresidente();
+            }
+
+            /* Presidente per firme ad utente da cancellare */
+            $f = Autorizzazione::filtra([
+                ['pFirma', $t]
+                ]);
+            foreach($f as $_f){
+                $_f->pFirma = $c->unPresidente();
             }
 
             if($c) {
@@ -1545,11 +1561,25 @@ class Utente extends Persona {
             $_f->dimettiReferente();
         }
 
+        $f = Aspirante::filtra([
+          ['utente', $t]
+          ]);
+        foreach($f as $_f){
+            $_f->cancella();
+        }
+
         $f = Commento::filtra([
           ['volontario', $t]
           ]);
         foreach ($f as $_f) {
             $_f->cancella();
+        }
+
+        $f = CorsoBase::filtra([
+          ['direttore', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->direttore = $c->unPresidente();
         }
 
         $f = Coturno::filtra([
@@ -1559,11 +1589,32 @@ class Utente extends Persona {
             $_f->cancella();
         }
 
+        $f = Coturno::filtra([
+          ['pMonta', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->pMonta = $c->unPresidente();
+        }
+
+        $f = Coturno::filtra([
+          ['pSmonta', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->pSmonta = $c->unPresidente();
+        }
+
         $f = Delegato::filtra([
           ['volontario', $t]
           ]);
         foreach ($f as $_f) {
             $_f->cancella();
+        }
+
+        $f = Delegato::filtra([
+          ['pConferma', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->pConferma = $c->unPresidente();
         }
 
         $f = Dimissione::filtra([
@@ -1587,6 +1638,13 @@ class Utente extends Persona {
             $_f->cancella();
         }
 
+        $f = Estensione::filtra([
+          ['pConferma', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->pConferma = $c->unPresidente();
+        }
+
         $f = File::filtra([
           ['autore', $t]
           ]);
@@ -1601,6 +1659,20 @@ class Utente extends Persona {
             $_f->cancella();
         }
 
+        $f = AppartenenzaGruppo::filtra([
+          ['pNega', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->pNega = $c->unPresidente();
+        }
+
+        $f = Like::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
         $f = Partecipazione::filtra([
           ['volontario', $t]
           ]);
@@ -1608,11 +1680,39 @@ class Utente extends Persona {
             $_f->cancella();
         }
 
+        $f = Partecipazione::filtra([
+          ['pConferma', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->pConferma = $c->unPresidente();
+        }
+
+        $f = PartecipazioneBase::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = PartecipazioneBase::filtra([
+          ['pConferma', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->pConferma = $c->unPresidente();
+        }
+
         $f = Privacy::filtra([
           ['volontario', $t]
           ]);
         foreach ($f as $_f) {
             $_f->cancella();
+        }
+
+        $f = Quota::filtra([
+            ['pConferma', $_app]
+            ]);
+        foreach ($f as $_f) {
+            $_f->pConferma = $c->unPresidente();
         }
 
         $f = Reperibilita::filtra([
@@ -1629,6 +1729,13 @@ class Utente extends Persona {
             $_f->cancella();
         }
 
+        $f = Riserva::filtra([
+          ['pConferma', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->pConferma = $c->unPresidente();
+        }
+
         $f = Sessione::filtra([
           ['utente', $t]
           ]);
@@ -1643,7 +1750,28 @@ class Utente extends Persona {
             $_f->cancella();
         }
 
+        $f = TitoloPersonale::filtra([
+          ['pConferma', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->pConferma = $c->unPresidente();
+        }
+
         $f = Trasferimento::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = Trasferimento::filtra([
+          ['pConferma', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->pConferma = $c->unPresidente();
+        }
+
+        $f = Validazione::filtra([
           ['volontario', $t]
           ]);
         foreach ($f as $_f) {
