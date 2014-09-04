@@ -212,6 +212,30 @@ abstract class Entita {
         
         return $t;
     }
+
+    /**
+     * Conta oggetti con le corrispondenze specificate
+     *
+     * @param array $_array     La query associativa di ricerca
+     * @return int              Numero di risultati
+     */
+    public static function conta($_array) {
+        global $db, $conf, $cache;
+        $entita = get_called_class();
+
+        $where = static::preparaCondizioni($_array, 'WHERE');
+
+        $query = "SELECT COUNT(id) FROM ". static::$_t . " $where";
+        
+        $q = $db->prepare($query);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        if ( $r && !((int) $r[0]) ) {
+            return 0;
+        } else {
+            return (int) $r[0];
+        }
+    }
     
     /**
      * Ritora espressioni SQL (per WHERE clause) da un array associativo
@@ -495,6 +519,37 @@ abstract class Entita {
             throw new Errore(1013);
         }
         return $obj;
+    }
+
+    /**
+     * Ottiene numero di mi piace/ non mi piace per l'oggetto
+     * @param int $tipo Uno tra costanti PIACE / NON_PIACE
+     * @return int Numero di mi piace o non mi piace 
+     */
+    public function like($tipo = PIACE) {
+        if ( $tipo !== PIACE && $tipo !== NON_PIACE ) {
+            throw new Errore(1020);
+        }
+        return Like::conta([
+            ['oggetto', $this->oid()],
+            ['tipo',    $tipo]
+        ]);
+    }
+
+    /**
+     * Ottiene quanti mi piace ha ricevuto questo oggetto
+     * @return Count
+     */ 
+    public function miPiace() {
+        return $this->like(PIACE);
+    }
+
+    /**
+     * Ottiene quanti non mi piace ha ricevuto questo oggetto
+     * @return Count
+     */ 
+    public function nonMiPiace() {
+        return $this->like(NON_PIACE);
     }
 
 }

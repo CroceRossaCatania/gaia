@@ -70,7 +70,7 @@ if ($consenso) {
     }
 }
 
-if ((!$sessione->deadline || ($sessione->deadline + GIORNO) < time()) && $consenso) {
+/*if ((!$sessione->deadline || ($sessione->deadline + GIORNO) < time()) && $consenso) {
     ?>
     <div class="modal fade automodal">
         <div class="modal-header">
@@ -89,7 +89,7 @@ if ((!$sessione->deadline || ($sessione->deadline + GIORNO) < time()) && $consen
             </a>
         </div>
     </div>
-<?php }
+<?php } */
 
 if (!$sessione->rimandaPrivatizzazione && $consenso) {
     foreach($me->comitatiPresidenzianti() as $comitato) {

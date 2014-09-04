@@ -23,7 +23,7 @@ class Estensione extends Entita {
         return $this->appartenenza()->comitato();
     }
 
-    public function provenienzaa() {
+    public function provenienza() {
         return $this->cProvenienza->comitato();
     }
 

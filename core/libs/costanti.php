@@ -132,11 +132,13 @@ $conf['autorizzazione'] = [
  */
 
 
+define('PART_RIT',           0);
 define('PART_PENDING',      10);
 define('PART_NO',           20);
 define('PART_OK',           30);
 
 $conf['partecipazione'] = [
+    PART_RIT            =>  'Ritirato',
     PART_PENDING        =>  'In attesa',
     PART_NO             =>  'Negata',
     PART_OK             =>  'Concessa'
@@ -407,6 +409,7 @@ $conf['riserve'] = [
  */
 define('DIM_VOLONTARIE', 10);
 define('DIM_TURNO',      20);
+define('DIM_RISERVA',    25);
 define('DIM_QUOTA',      30);
 define('DIM_RADIAZIONE', 40);
 define('DIM_DECEDUTO',   50);
@@ -414,6 +417,7 @@ define('DIM_DECEDUTO',   50);
 $conf['dimissioni'] = [
     DIM_VOLONTARIE  =>  'Dimissioni Volontarie',
     DIM_TURNO       =>  'Mancato svolgimento turno',
+    DIM_RISERVA     =>  'Mancato rientro da riserva',
     DIM_QUOTA       =>  'Mancato versamente quota annuale',
     DIM_RADIAZIONE  =>  'Radiazione da Croce Rossa Italiana',
     DIM_DECEDUTO    =>  'Decesso'
@@ -688,3 +692,17 @@ $conf['partecipazioneBase'] = [
 
 define('POSTA_INGRESSO',        0);
 define('POSTA_USCITA',          1);
+
+/*
+ * ===================================
+ * ============ LIKE  ================
+ * ===================================
+ */
+
+define('PIACE',        0);
+define('NON_PIACE',    1);
+
+$conf['like'] = [
+    PIACE      =>  'Mi piace', 
+    NON_PIACE  =>  'Non mi piace'
+];  
