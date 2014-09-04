@@ -7,10 +7,15 @@
 paginaApp([APP_PRESIDENTE, APP_AUTOPARCO]);
 
 if ( isset($_GET['mod']) ){
+
 	$autoparco = $_GET['id'];
 	$c = Autoparco::id($autoparco);
+	proteggiAutoparco($autoparco, [APP_AUTOPARCO, APP_PRESIDENTE]);
+
 }else{
+
 	$c = new Autoparco();
+	
 }
 
 $c->nome        =   normalizzaNome($_POST['inputNome']);

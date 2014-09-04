@@ -80,9 +80,6 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                                 <a href="?p=autoparco.dettagli&id=<?= $autoparco->id; ?>" title="Visualizza dettagli autoparco" class="btn btn-small">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>
-                                <a href="?p=autoparco.modifica&id=<?= $autoparco->id; ?>" title="Modifica Autoparco" class="btn btn-small btn-info">
-                                    <i class="icon-edit"></i> Modifica
-                                </a>
                                 <a  onClick="return confirm('Vuoi veramente cancellare questo autoparco ?');" href="?p=autoparco.cancella&id=<?= $autoparco->id; ?>" title="Cancella autoparco" class="btn btn-small btn-danger">
                                     <i class="icon-trash"></i> Cancella
                                 </a>

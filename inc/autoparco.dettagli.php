@@ -9,6 +9,8 @@ $autoparco = Autoparco::id($autoparco);
 
 paginaApp([APP_PRESIDENTE, APP_AUTOPARCO]);
 
+proteggiAutoparco($autoparco, [APP_AUTOPARCO, APP_PRESIDENTE]);
+
 $admin = $me->admin();
 
 ?>
@@ -60,7 +62,7 @@ $admin = $me->admin();
             <div class="control-group">
               <label class="control-label" for="inputComitato">Comitato</label>
                 <div class="controls">
-                  <select class="input-large" id="inputComitato" name="inputComitato" required>
+                  <select class="input-xlarge" id="inputComitato" name="inputComitato" required>
                       <?php
                       foreach ( $me->comitatiApp ([ APP_AUTOPARCO, APP_PRESIDENTE ]) as $comitato ) { ?>
                           <option value="<?= $comitato->oid(); ?>"><?= $comitato->nomeCompleto(); ?></option>
