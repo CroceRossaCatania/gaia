@@ -34,11 +34,11 @@ menuElenchiVolontari(
                     <span class="label label-warning">
                         <?php echo count($estesi); ?>
                     </span>
-                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&estesi">
+                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&id=<?php echo $comitato->id; ?>&inestensione">
                            <i class="icon-envelope"></i> Invia mail
                     </a>
                     <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&estesi"
+                       href="?p=presidente.utenti.excel&comitato=<?php echo $comitato->id; ?>&estensione"
                        data-attendere="Generazione...">
                             <i class="icon-download"></i> scarica come foglio excel
                     </a>
