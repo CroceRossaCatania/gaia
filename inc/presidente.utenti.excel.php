@@ -9,9 +9,8 @@ controllaParametri(array('comitato'), 'presidente.utenti&errGen');
 
 $c = $_GET['comitato'];
 $c = Comitato::id($c);
-$i=0;
+$i = 0;
 paginaApp([APP_SOCI , APP_PRESIDENTE, APP_OBIETTIVO], [$c]);
-
 
 if(isset($_GET['dimessi'])){
     
@@ -419,6 +418,34 @@ if(isset($_GET['dimessi'])){
 
     }
     $excel->genera("Volontari estesi.xls");
+    $excel->download();
+    
+}elseif(isset($_GET['estensione'])){
+    $excel = new Excel();
+    
+    $excel->intestazione([
+        'Nome',
+        'Cognome',
+        'C. Fiscale',
+        'Data Nascita',
+        'Luogo Nascita',
+        'Provincia Nascita'
+        ]);
+    $estensione = $c->membriInEstensione();
+    foreach ( $estensione as $e ) {
+        $v = $e->volontario();
+
+        $excel->aggiungiRiga([
+            $v->nome,
+            $v->cognome,
+            $v->codiceFiscale,
+            date('d/m/Y', $v->dataNascita),
+            $v->comuneNascita,
+            $v->provinciaNascita
+            ]);
+
+    }
+    $excel->genera("Volontari in estensione.xls");
     $excel->download();
     
 }elseif(isset($_GET['trasferiti'])){

@@ -292,6 +292,19 @@ if (isset($_GET['unit'])) {
     $m->_TESTO = $testo;
     $m->accoda();
 
+} elseif(isset($_GET['estensione'])) {
+    $g = $_GET['id'];
+    $comitato = Comitato::id($g);
+    $estensione = $comitato->membriInEstensione();
+    foreach ( $estensione as $esteso ){   
+        $v = $esteso->volontario();
+        $m = new Email('mailTestolibero', ''.$oggetto);
+        $m->da = $me; 
+        $m->a = $v;
+        $m->_TESTO = $testo;
+        $m->accoda();
+    }
+
 }elseif (isset($_GET['riserva'])) {
     $g = $_GET['id'];
     $comitato = Comitato::id($g);
