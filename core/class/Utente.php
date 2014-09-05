@@ -1227,9 +1227,6 @@ class Utente extends Persona {
         if( $this->presidenziante() ||  in_array($this->delegazioneAttuale()->applicazione, [APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
             $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO]);
             foreach ($comitati as $comitato){
-                echo $altroutente;
-                echo $comitato;
-                echo $altroutente->in($comitato);
                 if($altroutente->in($comitato)){
                     return PRIVACY_RISTRETTA;
                 }
