@@ -60,8 +60,8 @@ $numAttivi = $numVeicoli - $numFermotecnico;
         </div>
         <hr />
         
-        <div class="span12">
-            <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="span12">
                 <div class="span4 centrato">
                     <h4><i class="icon-truck"></i> Registrati: <?= $numVeicoli; ?> </h4>
                 </div>
@@ -78,55 +78,51 @@ $numAttivi = $numVeicoli - $numFermotecnico;
                     <?php } ?>
                 </div>
             </div>
-            <hr/>
-            <?php if ( $revisioni ) { ?>
-                <div class="span12">
-                    <div class ="row-fluid">
-                        <div class="alert alert-danger">
-                            <i class="icon-exclamation"></i> <strong>Attenzione revisione in scadenza</strong>.
-                            <p>I seguenti veicoli necessitano revisione periodica: </p>
-                            <?php foreach ( $revisioni as $revisione ){
-                                echo "<b>", $revisione->targa, "</b> - Ultima revisione: ", date('d/m/Y', $revisione->ultimaRevisione()), "<br/>";
-                            } ?>
-                        </div>
+        </div>
+        <hr/>
+        <div class="row-fluid">
+            <div class="span12">
+                <?php if ( $revisioni ) { ?>
+                    <div class="alert alert-danger">
+                        <i class="icon-exclamation"></i> <strong>Attenzione revisione in scadenza</strong>.
+                        <p>I seguenti veicoli necessitano revisione periodica: </p>
+                        <?php foreach ( $revisioni as $revisione ){
+                            echo "<b>", $revisione->targa, "</b> - Ultima revisione: ", date('d/m/Y', $revisione->ultimaRevisione()), "<br/>";
+                        } ?>
                     </div>
-                </div>
-            <?php } ?>
-            <?php if ( $manutenzioni ) { ?>
-                <div class="span12">
-                    <div class ="row-fluid">
-                        <div class="alert alert-danger">
-                            <i class="icon-exclamation"></i> <strong>Attenzione mancata manutenzione</strong>.
-                            <p>I seguenti veicoli non vengono manutentati da un anno: </p>
-                            <?php foreach ( $manutenzioni as $manutenzione ){
-                                echo "<b>", $manutenzione->targa, "</b> - Ultima manutenzione: ", date('d/m/Y', $manutenzione->ultimaManutenzione()), "<br/>";
-                            } ?>
-                        </div>
+                <?php } ?>
+                <?php if ( $manutenzioni ) { ?>
+                    <div class="alert alert-danger">
+                        <i class="icon-exclamation"></i> <strong>Attenzione mancata manutenzione</strong>.
+                        <p>I seguenti veicoli non vengono manutentati da un anno: </p>
+                        <?php foreach ( $manutenzioni as $manutenzione ){
+                            echo "<b>", $manutenzione->targa, "</b> - Ultima manutenzione: ", date('d/m/Y', $manutenzione->ultimaManutenzione()), "<br/>";
+                        } ?>
                     </div>
-                </div>
-            <?php } ?>
-            <div class="row-fluid">
-                <div class="span6">
-                    <div class="row-fluid">
-                        <div class="btn-group btn-group-vertical span12">
-                            <a href="?p=autoparco.veicoli" class="btn btn-success btn-block">
-                                <i class="icon-truck"></i>
-                                Veicoli
-                            </a>
-                            <a href="?p=autoparco.veicoli.fuoriuso" class="btn btn-danger btn-block">
-                                <i class="icon-truck"></i>
-                                Veicoli fuori uso
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="span6">
+                <?php } ?>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="row-fluid">
                     <div class="btn-group btn-group-vertical span12">
-                        <a href="?p=autoparco.autoparchi" class="btn btn-info btn-block">
+                        <a href="?p=autoparco.veicoli" class="btn btn-success btn-block">
                             <i class="icon-truck"></i>
-                            Autoparchi
+                            Veicoli
+                        </a>
+                        <a href="?p=autoparco.veicoli.fuoriuso" class="btn btn-danger btn-block">
+                            <i class="icon-truck"></i>
+                            Veicoli fuori uso
                         </a>
                     </div>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="btn-group btn-group-vertical span12">
+                    <a href="?p=autoparco.autoparchi" class="btn btn-info btn-block">
+                        <i class="icon-truck"></i>
+                        Autoparchi
+                    </a>
                 </div>
             </div>
         </div>
