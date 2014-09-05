@@ -974,9 +974,10 @@ class Utente extends Persona {
     }
     
     
-    public function attivitaReferenziate() {
+    public function attivitaReferenziate($apertura = ATT_APERTA) {
         return Attivita::filtra([
-            ['referente',   $this->id]
+            ['referente',   $this->id],
+            ['apertura', $apertura]
         ], 'nome ASC');
     }
 
@@ -1040,19 +1041,19 @@ class Utente extends Persona {
         return array_unique($r);
     }
     
-    public function attivitaAreeDiCompetenza() {
+    public function attivitaAreeDiCompetenza($apertura = ATT_APERTA) {
         $r = [];
         foreach ( $this->areeDiCompetenza() as $area ) {
-            $r = array_merge($r, $area->attivita());
+            $r = array_merge($r, $area->attivita($apertura));
         }
         $r = array_unique($r);
         return $r;
     }
     
-    public function attivitaDiGestione() {
-        $a = array_merge($this->attivitaReferenziate(), $this->attivitaAreeDiCompetenza());
+    public function attivitaDiGestione($apertura = ATT_APERTA) {
+        $a = array_merge($this->attivitaReferenziate($apertura), $this->attivitaAreeDiCompetenza($apertura));
         foreach ( $this->comitatiDiCompetenza() as $c ) {
-            $a = array_merge($a, $c->attivita());
+            $a = array_merge($a, $c->attivita($apertura));
         }
         return array_unique($a);
     }

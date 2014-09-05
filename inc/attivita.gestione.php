@@ -1,12 +1,23 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 paginaPrivata();
 
 $mieAree = $me->areeDiCompetenza();
+
+if ( isset($_GET['chiuse']) ){
+
+    $apertura = ATT_CHIUSA;
+    $chiusa   = true;
+
+}else{
+
+    $apertura = ATT_APERTA;
+    $redirect = "&chiuse";
+}
 
 ?>
 
@@ -19,7 +30,7 @@ $mieAree = $me->areeDiCompetenza();
             <div class="span7">
                 <h2>
                     <i class="icon-star muted"></i>
-                    Gestione delle attività
+                    Gestione delle attività <?php if ( $chiusa ) { ?> chiuse <?php } ?>
                 </h2>
             </div>
             <div class="span5">  
@@ -34,11 +45,29 @@ $mieAree = $me->areeDiCompetenza();
         <div class="row-fluid">
             <div class="span12">
                 <?php if (isset($_GET['err'])) { ?>
-                <div class="alert alert-block alert-error">
-                    <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
-                    <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
-                </div> 
+                    <div class="alert alert-block alert-error">
+                        <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
+                        <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+                    </div> 
                 <?php } ?> 
+                <?php if (isset($_GET['chiusa'])) { ?>
+                    <div class="alert alert-block alert-success">
+                        <h4><i class="icon-remove-sign"></i> <strong>Attività chiusa</strong>.</h4>
+                        <p>Potrai riaprire l'attività andando in fondo alla pagina, cliccando attività chiuse e cliccando apri attività sull'attività corrispondente.</p>
+                    </div> 
+                <?php } ?>
+                <?php if (isset($_GET['aperta'])) { ?>
+                    <div class="alert alert-block alert-success">
+                        <h4><i class="icon-remove-sign"></i> <strong>Attività aperta</strong>.</h4>
+                        <p>Troverai l'attività andando nel menù a sinistra e cliccando gestisci attivita.</p>
+                    </div> 
+                <?php } ?>
+                <?php if (isset($_GET['turni'])) { ?>
+                    <div class="alert alert-block alert-error">
+                        <h4><i class="icon-remove-sign"></i> <strong>Impossibile chiudere l'attività</strong>.</h4>
+                        <p>Attenzione! L'attività che stai tentando di chiudere ha in programma dei turni nel futuro, cancella i turni e chiudi l'attività</p>
+                    </div> 
+                <?php } ?>
                 <table class="table table-striped table-bordered">
 
                     <thead>
@@ -57,7 +86,7 @@ $mieAree = $me->areeDiCompetenza();
                         </th>
                     </thead>
 
-                    <?php foreach ( $me->attivitaDiGestione() as $attivita ) { ?>
+                    <?php foreach ( $me->attivitaDiGestione($apertura) as $attivita ) { ?>
 
                     <tr>
                         <td style="width: 40%;">
@@ -94,6 +123,18 @@ $mieAree = $me->areeDiCompetenza();
                                 cambia referente
                             </a>
                             <br />
+                            <?php if ($chiusa){ ?>
+                                <a onclick="return confirm('Sei sicuro di voler aprire l\'attività?');" href="?p=attivita.apertura.ok&id=<?= $attivita->id; ?>&apri" >
+                                    <i class="icon-folder-close-alt"></i> 
+                                    apri attività
+                                </a>
+                            <?php }else{ ?>
+                                <a onclick="return confirm('Sei sicuro di voler chiudere l\'attività?');" href="?p=attivita.apertura.ok&id=<?= $attivita->id; ?>&chiudi" >
+                                    <i class="icon-folder-close-alt"></i> 
+                                    chiudi attività
+                                </a>
+                            <?php } ?>
+                            <br />
                             <?php } ?>
                             <a href="?p=attivita.modifica&id=<?php echo $attivita->id; ?>">
                                 <i class="icon-edit"></i> modifica attività
@@ -111,7 +152,18 @@ $mieAree = $me->areeDiCompetenza();
                     </tr>
 
                     <?php } ?>
-
+                    <?php 
+                    if( $me->attivitaDiGestione($apertura) ){ ?>
+                        <tr>
+                            <td colspan="4">
+                                <a data-attendere="Attendere..." href="?p=attivita.gestione<?= $redirect; ?>" class="btn btn-block">
+                                    <i class="icon-info-sign"></i>
+                                    Ci sono <?= $conf['attivita_stato'][$apertura]; ?>.
+                                    <strong>Clicca per mostrarle.</strong>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 </table>
             </div>
         </div>

@@ -45,7 +45,7 @@ paginaPrivata();
                     ?>
                     <tr>
                         <td>
-                            <strong><?php echo $v->nomeCompleto(); ?></strong><br />
+                            <strong><a href="?p=profilo.controllo&id=<?= $v->id; ?>" target="_new"><?php echo $v->nomeCompleto(); ?></a></strong><br />
                             (<?php echo $v->unComitato()->nomeCompleto(); ?>)
                         </td>
                         <td>

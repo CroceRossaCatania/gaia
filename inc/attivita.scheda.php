@@ -25,6 +25,9 @@ $_descrizione = $a->luogo . " || Aperto a: " . $conf['att_vis'][$a->visibilita]
 ." || Organizzato da " . $geoComitato->nomeCompleto();
 
 $g = Gruppo::by('attivita', $a);
+
+$apertura = $a->apertura;
+
 if ( isset($_GET['riapri']) ) { ?>
 <script type='text/javascript'>
 $(document).ready( function() {
@@ -60,25 +63,33 @@ $(document).ready( function() {
             <?php } ?>
 
             <div class="span8 btn-group">
-                <?php if ( $a->modificabileDa($me) ) { ?>
-                <a href="?p=attivita.modifica&id=<?php echo $a->id; ?>" class="btn btn-large btn-info">
-                    <i class="icon-edit"></i>
-                    Modifica
-                </a>
-                <a href="?p=attivita.turni&id=<?= $a ?>" class="btn btn-primary btn-large">
-                    <i class="icon-calendar"></i> Turni
-                </a>
-                <a href="?p=attivita.cancella&id=<?= $a->id; ?>" class="btn btn-large btn-danger" title="Cancella attività e tutti i turni">
-                    <i class="icon-trash"></i>
-                </a>
-                <?php if (!$g && $a->comitato()->_estensione() < EST_NAZIONALE){ ?>
-                    <a class="btn btn-large btn-success" href="?p=attivita.gruppo.nuovo&id=<?php echo $a->id; ?>" itle="Crea nuovo gruppo di lavoro">
-                        <i class="icon-group"></i> Crea gruppo
+                <?php if ( $apertura && $a->modificabileDa($me) ) { ?>
+                    <a href="?p=attivita.modifica&id=<?php echo $a->id; ?>" class="btn btn-large btn-info">
+                        <i class="icon-edit"></i>
+                        Modifica
                     </a>
-                <?php }} ?>
+                    <a href="?p=attivita.turni&id=<?= $a ?>" class="btn btn-primary btn-large">
+                        <i class="icon-calendar"></i> Turni
+                    </a>
+                    <a href="?p=attivita.cancella&id=<?= $a->id; ?>" class="btn btn-large btn-danger" title="Cancella attività e tutti i turni">
+                        <i class="icon-trash"></i>
+                    </a>
+                    <?php if (!$g && $a->comitato()->_estensione() < EST_NAZIONALE){ ?>
+                        <a class="btn btn-large btn-success" href="?p=attivita.gruppo.nuovo&id=<?php echo $a->id; ?>" title="Crea nuovo gruppo di lavoro">
+                            <i class="icon-group"></i> Crea gruppo
+                        </a>
+                    <?php }
+                } ?>
                 <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://gaia.cri.it/index.php?p=attivita.scheda&id={$a->id}"); ?>" target="_blank">
                     <i class="icon-facebook-sign"></i> Condividi
                 </a>
+                <?php if ( !$apertura ){ ?>
+                    <a class="btn btn-large btn-danger disabled" <?php if ($a->modificabileDa($me)){ ?> onclick="return confirm('Vuoi nuovamente aprire l\'attività?');" href="?p=attivita.apertura.ok&id=<?=$a->id; ?>&apri" <?php } ?>>
+                            <i class="icon-lock"></i>
+                            Attività chiusa
+                    </a>
+                <?php } ?>
+
             </div>
             <div class="span4 allinea-destra">
                 <span class="muted">
