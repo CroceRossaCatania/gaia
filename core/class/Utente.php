@@ -979,9 +979,10 @@ class Utente extends Persona {
     }
     
     
-    public function attivitaReferenziate() {
+    public function attivitaReferenziate($apertura = ATT_APERTA) {
         return Attivita::filtra([
-            ['referente',   $this->id]
+            ['referente',   $this->id],
+            ['apertura', $apertura]
         ], 'nome ASC');
     }
 
@@ -1045,19 +1046,19 @@ class Utente extends Persona {
         return array_unique($r);
     }
     
-    public function attivitaAreeDiCompetenza() {
+    public function attivitaAreeDiCompetenza($apertura = ATT_APERTA) {
         $r = [];
         foreach ( $this->areeDiCompetenza() as $area ) {
-            $r = array_merge($r, $area->attivita());
+            $r = array_merge($r, $area->attivita($apertura));
         }
         $r = array_unique($r);
         return $r;
     }
     
-    public function attivitaDiGestione() {
-        $a = array_merge($this->attivitaReferenziate(), $this->attivitaAreeDiCompetenza());
+    public function attivitaDiGestione($apertura = ATT_APERTA) {
+        $a = array_merge($this->attivitaReferenziate($apertura), $this->attivitaAreeDiCompetenza($apertura));
         foreach ( $this->comitatiDiCompetenza() as $c ) {
-            $a = array_merge($a, $c->attivita());
+            $a = array_merge($a, $c->attivita($apertura));
         }
         return array_unique($a);
     }
@@ -1231,9 +1232,6 @@ class Utente extends Persona {
         if( $this->presidenziante() ||  in_array($this->delegazioneAttuale()->applicazione, [APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
             $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO]);
             foreach ($comitati as $comitato){
-                echo $altroutente;
-                echo $comitato;
-                echo $altroutente->in($comitato);
                 if($altroutente->in($comitato)){
                     return PRIVACY_RISTRETTA;
                 }
@@ -1548,6 +1546,91 @@ class Utente extends Persona {
                     $_f->referente = $c->unPresidente();
                 }
             }
+
+            $f = CorsoBase::filtra([
+              ['direttore', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->direttore = $c->unPresidente();
+            }
+
+            $f = Coturno::filtra([
+              ['pMonta', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->pMonta = $c->unPresidente();
+            }
+
+            $f = Coturno::filtra([
+              ['pSmonta', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->pSmonta = $c->unPresidente();
+            }
+
+            $f = Delegato::filtra([
+                ['pConferma', $t]
+            ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
+            $f = Estensione::filtra([
+              ['pConferma', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
+            $f = AppartenenzaGruppo::filtra([
+              ['pNega', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->pNega = $c->unPresidente();
+            }
+
+            $f = Partecipazione::filtra([
+                ['pConferma', $t]
+            ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
+            $f = PartecipazioneBase::filtra([
+                ['pConferma', $t]
+            ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
+            $f = Quota::filtra([
+                ['pConferma', $_app]
+                ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
+            $f = Riserva::filtra([
+              ['pConferma', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
+            $f = TitoloPersonale::filtra([
+              ['pConferma', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
+            $f = Trasferimento::filtra([
+              ['pConferma', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
         }
 
         // roba generica
@@ -1580,13 +1663,6 @@ class Utente extends Persona {
             $_f->cancella();
         }
 
-        $f = CorsoBase::filtra([
-          ['direttore', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->direttore = $c->unPresidente();
-        }
-
         $f = Coturno::filtra([
           ['volontario', $t]
           ]);
@@ -1594,32 +1670,11 @@ class Utente extends Persona {
             $_f->cancella();
         }
 
-        $f = Coturno::filtra([
-          ['pMonta', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->pMonta = $c->unPresidente();
-        }
-
-        $f = Coturno::filtra([
-          ['pSmonta', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->pSmonta = $c->unPresidente();
-        }
-
         $f = Delegato::filtra([
           ['volontario', $t]
           ]);
         foreach ($f as $_f) {
             $_f->cancella();
-        }
-
-        $f = Delegato::filtra([
-          ['pConferma', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->pConferma = $c->unPresidente();
         }
 
         $f = Dimissione::filtra([
@@ -1643,13 +1698,6 @@ class Utente extends Persona {
             $_f->cancella();
         }
 
-        $f = Estensione::filtra([
-          ['pConferma', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->pConferma = $c->unPresidente();
-        }
-
         $f = File::filtra([
           ['autore', $t]
           ]);
@@ -1662,13 +1710,6 @@ class Utente extends Persona {
           ]);
         foreach ($f as $_f) {
             $_f->cancella();
-        }
-
-        $f = AppartenenzaGruppo::filtra([
-          ['pNega', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->pNega = $c->unPresidente();
         }
 
         $f = Like::filtra([
@@ -1685,25 +1726,11 @@ class Utente extends Persona {
             $_f->cancella();
         }
 
-        $f = Partecipazione::filtra([
-          ['pConferma', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->pConferma = $c->unPresidente();
-        }
-
         $f = PartecipazioneBase::filtra([
           ['volontario', $t]
           ]);
         foreach ($f as $_f) {
             $_f->cancella();
-        }
-
-        $f = PartecipazioneBase::filtra([
-          ['pConferma', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->pConferma = $c->unPresidente();
         }
 
         $f = Privacy::filtra([
@@ -1711,13 +1738,6 @@ class Utente extends Persona {
           ]);
         foreach ($f as $_f) {
             $_f->cancella();
-        }
-
-        $f = Quota::filtra([
-            ['pConferma', $_app]
-            ]);
-        foreach ($f as $_f) {
-            $_f->pConferma = $c->unPresidente();
         }
 
         $f = Reperibilita::filtra([
@@ -1734,13 +1754,6 @@ class Utente extends Persona {
             $_f->cancella();
         }
 
-        $f = Riserva::filtra([
-          ['pConferma', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->pConferma = $c->unPresidente();
-        }
-
         $f = Sessione::filtra([
           ['utente', $t]
           ]);
@@ -1755,25 +1768,11 @@ class Utente extends Persona {
             $_f->cancella();
         }
 
-        $f = TitoloPersonale::filtra([
-          ['pConferma', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->pConferma = $c->unPresidente();
-        }
-
         $f = Trasferimento::filtra([
           ['volontario', $t]
           ]);
         foreach ($f as $_f) {
             $_f->cancella();
-        }
-
-        $f = Trasferimento::filtra([
-          ['pConferma', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->pConferma = $c->unPresidente();
         }
 
         $f = Validazione::filtra([
