@@ -61,7 +61,7 @@ if(isset($_GET['dimessi'])){
         'Cell. Servizio'
         ]);
 
-    foreach ( $c->membriGiovani as $v ) {
+    foreach ( $c->membriGiovani() as $v ) {
         $excel->aggiungiRiga([
             $v->nome,
             $v->cognome,
