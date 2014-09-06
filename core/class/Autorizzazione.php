@@ -18,11 +18,19 @@ class Autorizzazione extends Entita {
         return Volontario::id($this->volontario);
     }
     
-    public function aggiorna( $t = AUT_OK ) {
-        global $sessione;
-        $u = $sessione->utente;
+    /**
+     * Aggiorna lo stato dell'Autorizzazione.
+     *
+     * @param int $t        Nuovo stato, uno da AUT_OK, AUT_NO, ...
+     * @param Utente|false  Firmatario. Opzionale: se vuoto, $me.
+     */
+    public function aggiorna( $t = AUT_OK, $firmatario = false ) {
+        if ( !$firmatario ) {
+            global $sessione;
+            $firmatario = $sessione->utente();
+        }
         $this->stato = (int) $t;
-        $this->pFirma = $u;
+        $this->pFirma = $firmatario->id;
         $this->tFirma = time();
         $this->partecipazione()->aggiornaStato();
     }
@@ -47,12 +55,12 @@ class Autorizzazione extends Entita {
         ];
     }
     
-    public function concedi() {
-        return $this->aggiorna(AUT_OK);
+    public function concedi( $firmatario = false ) {
+        return $this->aggiorna(AUT_OK, $firmatario);
     }
     
-    public function nega() {
-        return $this->aggiorna(AUT_NO);
+    public function nega( $firmatario = false ) {
+        return $this->aggiorna(AUT_NO, $firmatario);
     }
     
     public function richiedi() {
