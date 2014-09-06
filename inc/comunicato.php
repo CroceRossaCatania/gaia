@@ -42,7 +42,7 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 	<div class="span7" id="comunicato">
 
 		<div style="text-align: center;">
-			<p><strong>20 agosto 2014</strong></p>
+			<p><strong>7 settembre 2014</strong></p>
 			<h1>Comunicato importante dalla Squadra di Gaia sulla <b>risoluzione</b> delle problematiche recenti di Gaia</h1>
 			<h4>Rallentamento temporaneo dello Sviluppo, del Supporto<br />e dell'assistenza per il progetto Gaia</h4>
 		</div>
@@ -51,108 +51,54 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 
 		<p>
 		Ciao <?php echo (( $me instanceOf Utente ) ? $me->nome : "Volontario/a"); ?>,<br/>
-		<!--come avrai potuto notare, in queste ultime settimane il portale che ospita il Progetto Gaia
-		è poco responsivo e la squadra di Supporto, nonostante gli sforzi, non è in grado di fornire una soluzione tempestiva.
+		siamo felici di comunicarvi che in questi mesi di lavoro sono state finalmente superate le problematiche che avevano portato ad un rallentamento delle funzioni di Gaia. 
+
+		<br/><br/>Da agosto, anche grazie alla firma di un protocollo d’intesa, è stato possibile riprendere fattivamente lo sviluppo di Gaia e accelerare il processo, in modo da poter sviluppare alcune importanti funzionalità da mettere a disposizione dei Comitati CRI e di tutti i Volontari,
+
+		<br/><br/>Con la firma di questo accordo è stata data una risposta concreta alle necessità sempre crescenti del Progetto che è cresciuto esponenzialmente nel corso dell’anno passato. 
+
+		<br/><br/>Nello specifico, il Delegato Nazionale Area VI Flavio Ronzi, responsabile di portare a compimento il progetto, ha chiesto che il Comitato di Catania, dove ha trovato i natali Gaia, assicurasse il service nazionale per l’attività di progettazione e sviluppo,  curando le fasi necessarie a realizzare quanto preventivato, nonché predisporre gli strumenti atti a farlo efficacemente e velocemente.
 		</p>
 
-		<h3>Cosa è successo?</h3>
+		<br/><h3>Il futuro del Progetto Gaia</h3>
 		<p>
-		Negli ultimi mesi un grandissimo numero di Comitati ha aderito al Progetto e di conseguenza il numero di volontari e soci registrati ha superato i 
-		<strong>56.000</strong>, facendo crescere drasticamente il carico di lavoro sull’infrastruttura informatica e rendendo <strong>improrogabile</strong> 
-		l’avvio di una serie di interventi e di migliorie per permettere al sistema di continuare a servire l’utenza attraverso un <strong>adeguamento
-		informatico necessario</strong> (server, macchine più potenti, costi di licenze, strumenti di sviluppo, ecc.).
-		Siamo sempre stati abituati a lavorare in economia ed a sfruttare al meglio le risorse presenti, 
-		ma non &egrave; più pensabile che il Progetto possa servire tutta Italia con le stesse risorse con le quali è stati avviato.
-		</p>
-
-		<div id="grafico">
-			<img src="/img/comunicato_img1.png" title="Grafico delle Pagine servite" alt="Grafico delle pagine servite" class="img-polaroid" />
-			<br />
-			<p>Grafico delle pagine servite per giorno dal Progetto, attuali 32mila/giorno</p>
-		</div>
-
-
-		<h3>Cosa stiamo facendo e cosa succeder&agrave;?</h3>
-		<p>
-		La Squadra ha effettuato un'analisi delle problematiche, stilando varie relazioni tecniche sulle necessit&agrave; per poter proseguire nello Sviluppo del Progetto GAIA.
-		Per rendere le acquisizioni piu&ugrave; rapide, consci che i tempi della Pubblica Amministrazione su cose cos&igrave; tecniche spesso non ci aiutano, ci stiamo anche
-		interrogando per trovare altre linee di finanziamento al progetto, anche attraverso raccolte esterne.
-		</p>
-
-		<p>
-		In questo momento per&ograve; tali necessit&agrave; sono cruciali per
-		 far sviluppare nuove funzionalit&agrave; risolvere le problematiche attuali ed assicurare l'assistenza che arriver&agrave; tramite i canali di supporto in tempi stretti.
-		</p>
-
-		<p>
-		<strong>
-		Il nostro Coordinatore di Progetto ci ha oggi assicurato che sono state avviate dagli uffici competenti le 
-		procedure per l’acquisizione di licenze, server, ecc, e che queste risorse dovrebbero essere disponibili
-		e andare a regime entro la fine di giugno.</strong></p>
-
-
-		<h3>Quali funzionalit&agrave; vedranno la luce?</h3>
-		<p>
-		Moltissime funzionalità di Gaia in questi mesi sono state sviluppate partendo dai regolamenti
-		 e dalle esigenze dei comitati CRI. Alcune di queste, ormai pronte per essere rilasciate, saranno
-		 messe a disposizione appena potranno essere adeguatamente mantenute.</p>
-		<p>
-		Le funzionalità sviluppate e non ancora attivabili sul sistema sono le seguenti:
-		</p>
-		<p>
-		<ul>
-			<li>Sistema di gestione dei corsi base (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
-			<li>Prima versione dell'Applicazione Ufficiale per dispositivi Android (<a href="https://play.google.com/store/apps/details?id=it.gaiacri.mobile" target="_new">completa, disponibile su Play Store</a>);</li>
-			<li>Sistema di gestione degli aspiranti volontari con la funzionalità &laquo;Cerca il corso base più
-			vicino a te&raquo; (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
-			<li>Sistema di emissione, verifica e gestione dei tesserini per volontari e soci ordinari (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
-			<li>Sistema di gestione delle donazioni del sangue sviluppato dal gruppo di lavoro 
-			sulle donazioni (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
-			<li>Adeguamento del portale alle linee guida di comunicazione istituzionale (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>)</li>
-			<li>Nuovo sistema di gestione delle quote dei volontari che rispetta le indicazioni
-			legate alla provatizzazione dei comitati CRI (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
-			<li>Introduzione di una timeline con le ultime informazioni sul mondo CRI (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
-			<li>Gestione da parte dell'ufficio soci di trasferimenti, estensioni e riserve (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
-			<li>Revisione del sistema di gestione degli elenchi, degli export e delle email (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
-			<li>Introduzione del sistema di gestione dei provvedimenti disciplinari e 
-			delle riammissioni secondo le ultime direttive (<a href="https://github.com/CroceRossaCatania/gaia/pull/1209" target="_new">completo</a>);</li>
-			<li>Applicazione Ufficiale per iPhone ed iPad (in lavorazione).
-		</ul>
+		I mesi a venire porteranno Gaia a dotarsi di molteplici grandi novità, come la tanto attesa gestione degli Aspiranti Volontari e dei Corsi Base. 
+		Tali funzionalità permetteranno a tutti gli interessati di tenersi costantemente informati sui corsi di accesso CRI più vicini a loro, nonché, a  tutti i Comitati, di avere delle chiare informazioni sulle necessità del territorio circostante, al fine di programmare i corsi in modo più funzionale.
+		<br/><br/>Oltre alla gestione degli Aspiranti, verranno implementate molte altre funzionalità, alcune delle quali già preannunciate, come la richiesta, generazione e validazione dei Tesserini CRI e altre inedite, con le quali avremo il piacere di sorprendervi man mano!
+		<br/><br/>Parallelamente, l’accordo siglato permetterà di effettuare tutti gli interventi necessari all’ampliamento e modifica dell’infrastruttura che ospita il Progetto Gaia, portando, entro la fine dell’anno, a miglioramenti significativi in tema di velocità, qualità complessiva ed affidabilità del servizio erogato.
 		</p>
 
 
+		<h3>Gaia ha bisogno di te!</h3>
 		<p>
-		<strong>E tanto altro ancora...</strong><br/>
-		Tante sono poi le funzionalità di Gaia in fase di sviluppo, a cominciare dal sistema di gestione
-		unificato per la formazione interna ed esterna all'associazione, passando per il modulo di 
-		gestione delle visite mediche e degli aspetti sanitari che avrebbe integrato tutte le procedure
-		di sicurezza per la gestione dei dati sensibili, arrivando al modulo per la gestione di vestiario
-		e magazzini interni al comitato e tanto altro ancora.
+		Se sei un volontario, se credi di avere le giuste competenze e desideri collaborare allo Sviluppo del Progetto Gaia per favore visita la pagina “Come collaborare al progetto Gaia”.
+		Crediamo in una Croce Rossa Italiana che sappia muoversi velocemente, più trasparente ed aperta a tutti: Noi ci crediamo veramente!
 		</p>
 
-		<h3>Ringraziamenti e pazienza...</h3>
+		<h3>Assistenza e Supporto</h3>
 		<p>
-		Vorremmo ringraziare tutti gli utenti di Gaia che in questi mesi stanno contribuendo a segnalarci 
-		bug e malfunzionamenti di ogni genere via email, telefono, github, facebook e con ogni altro 
-		strumento. Vorremmo inoltre ringraziare tutte le persone che ci continuano a suggerire funzionalità e 
-		miglioramenti da introdurre nel sistema all'indirizzo <a href="mailto:feedback@gaia.cri.it">feedback@gaia.cri.it</a>,
-		nonch&eacute; i presidenti e gli 
-		uffici soci dei comitati che hanno aderito al progetto e hanno avuto la pazienza di attendere le 
-		risposte del supporto quando avevano qualche problema, di compilare in maniera corretta gli i 
-		formati e di spiegare ai loro volontari come utilizzare il sistema. Da ultimo ci teniamo a ringraziare 
-		tutto lo staff dell'helpdesk di primo livello che in questi mesi ci ha aiutato a smaltire il 
-		numero sempre maggiore di ticket da parte degli utenti.
+			Proprio in questi giorni, la nostra Squadra di Supporto sta lavorando instancabilmente per smaltire la coda residua delle richieste accumulatesi in quest’ultimo periodo;  vi chiediamo, pertanto, di pazientare fino a quando questo processo non sarà terminato. 
+			Il nuovo accordo, inoltre, ci fornirà gli strumenti necessari ad aiutarci a rendere il Sistema di Aiuto e Supporto sempre più efficace.
+		</p>
+		
+
+		<h3>Feedback: nuove idee, consigli e critiche</h3>
+		<p>
+			Al fine di migliorare il servizio, teniamo continuamente in considerazione il Feedback che riceviamo dagli Utenti e dai Presidenti che, quotidianamente, usano Gaia. 
+			A tal proposito, vi ricordiamo che è sempre a vostra disposizione l’indirizzo email feedback@gaia.cri.it, al quale poter inviare idee, consigli e critiche relative al Progetto Gaia.
 		</p>
 
-		<blockquote style="font-weight: bold;">
-			Siamo ad un cruciale giro di boa e, sperando che gli uffici accelerino al massimo queste acquisizioni,
-			visto l'entusiasmo dei Volontari che hanno creduto nel progetto e gli ottimi risultati raggiunt
-			in poco tempo e con un budget nullo, vi chiediamo di pazientare ancora qualche giorno (e non odiarci)
-			fino a che il nostro GAIA decolli definitivamente. 
-		</blockquote>
+		<h3>Ringraziamenti </h3>
+		<p>
+			A questo punto ci sembra corretto e doveroso ringraziare tutti gli utenti Gaia, lo staff dell’Helpdesk di primo livello, i Presidenti – e, primi fra tutti il Presidente Regionale CRI Lazio, Adriano De Nardis e quello Provinciale di Catania, Stefano Principato, che hanno assicurato direttamente il sostegno organizzativo ed economico  -  nonché tutti i Volontari che hanno creduto in questo Progetto, al punto da tollerare alcune criticità che il sistema ha avuto.
+			La vostra comprensione ci ha permesso di capire quanto, di fatto, il Progetto Gaia sia stato percepito come un programma fatto da Volontari per i Volontari.
+			E se oggi tali criticità possono essere descritte coniugando i verbi al passato è perché c’è stata una persona che, forse più degli altri, ha creduto in questo Progetto e si è adoperata concretamente affinché problemi che sembravano insormontabili, di fatto, svanissero: grazie, quindi, a Francesco Rocca che ha dimostrato di voler veramente una Croce Rossa che non metta più al centro del sistema il Comitato con i suoi procedimenti barocchi ma i Volontari e le loro esigenze.
+			Questa fiducia ricevuta, anche e soprattutto dal Presidente Nazionale, ci permette di poter finalmente e con serenità guardare avanti, verso nuovi orizzonti, e di contribuire a concretizzare, non solo dal punto di vista formale ma anche sostanziale, il processo di profonda trasformazione che sta investendo la nostra Associazione.
+			Mi auguro, infine, che i ringraziamenti più belli debbano ancora essere scritti ed estesi a tutti coloro che vorranno diventare i protagonisti di questo progetto e, insieme a noi, scrivere le pagine più belle della nostra Associazione … ricordandovi che il futuro passa prima da Noi!
+		</p>
+
 
 		<p>&nbsp;</p>
-		-->
 		<p style="font-style: italic;">
 		In fede,<br />
 		La Squadra di Gaia:
