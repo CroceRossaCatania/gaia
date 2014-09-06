@@ -157,7 +157,7 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
-    /*
+    /**
      * Membri in estensione
      * @return estensioni dal comitato $this
      */

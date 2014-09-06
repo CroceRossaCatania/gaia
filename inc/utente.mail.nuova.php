@@ -33,6 +33,7 @@ $t = Utente::by('id',$f);
         <?php }elseif (isset($_GET['unitelepass'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&unitelepass&time=<?php echo $_GET['time']; ?>&id=<?php echo $f; ?>" method="POST">
         <?php }elseif (isset($_GET['gruppo'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&gruppo&id=<?php echo $f; ?>" method="POST">
         <?php }elseif (isset($_GET['estesi'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&estesi&id=<?php echo $f; ?>" method="POST">
+        <?php }elseif (isset($_GET['estensione'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&estensione&id=<?php echo $f; ?>" method="POST">
         <?php }elseif (isset($_GET['riserva'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&riserva&id=<?php echo $f; ?>" method="POST">
         <?php }elseif (isset($_GET['zeroturnicom'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&zeroturnicom&time=<?php echo $_GET['time']; ?>" method="POST">
         <?php }elseif (isset($_GET['zeroturniunit'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&zeroturniunit&id=<?php echo $_GET['id']; ?>&time=<?php echo $_GET['time']; ?>" method="POST">
@@ -58,6 +59,7 @@ $t = Utente::by('id',$f);
             || isset($_GET['unitelepass'])
             || isset($_GET['gruppo'])
             || isset($_GET['estesi'])
+            || isset($_GET['estensione'])
             || isset($_GET['riserva']) 
             || isset($_GET['zeroturnicom']) 
             || isset($_GET['zeroturniunit']) ) { 
