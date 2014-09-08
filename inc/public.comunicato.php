@@ -145,10 +145,6 @@ $_titolo = "Nota dalla Squadra di Gaia: Ripresa dello Sviluppo, del Supporto e d
 				<a href="https://github.com/biagiosaitta" target="_new" class="icon-github"></a><br />
 				 Supporto ed Attivazione Comitati</li>
 
-			<li><strong>Tommaso Scquizzato</strong> 
-				<a href="https://facebook.com/tommaso.scquizzato" target="_new" class="icon-facebook-sign"></a><br />
-				 Sviluppo app iOS</li>
-
 			<li><strong>Giuseppe Titolo</strong> 
 				<a href="https://facebook.com/mrgius" target="_new" class="icon-facebook-sign"></a>
 				<a href="https://twitter.com/Giuseppe_Titolo" target="_new" class="icon-twitter"></a>
