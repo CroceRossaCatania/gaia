@@ -9,6 +9,10 @@ controllaParametri(array('id'), 'autoparco.veicoli&err');
 $veicolo = $_GET['id'];
 $veicolo = Veicolo::id($veicolo);
 
+if ( $veicolo->fuoriuso() ){
+  redirect('autoparco.veicoli&giaFuori');
+}
+
 proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
 
 ?>

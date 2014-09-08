@@ -12,7 +12,7 @@ class Veicolo extends Entita {
 
     /**
      * Ritorna oggetto volontario che ha dichiarato fuoriuso
-     * @return Object Volontatario
+     * @return Volontatario
      */
     public function pFuoriuso() {
         return Volontario::id($this->pFuoriuso);
@@ -130,5 +130,17 @@ class Veicolo extends Entita {
             $consumo = "<i>Dati non sufficienti</i>";
         }
         return $consumo;
+    }
+
+    /**
+     * Ritorna true or false se veicolo fuori uso
+     * @return True or False
+     */
+    public function fuoriuso() {
+        if ( $this->stato == VEI_FUORIUSO){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
