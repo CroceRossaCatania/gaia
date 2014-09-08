@@ -4,17 +4,17 @@ paginaPubblica();
 ?>
     <div class="row-fluid">
         <div class="span12">
-            <div class="alert alert-error">
+            <div class="alert alert-success">
                 <div class="row-fluid">
                     <div class="span9">
                     <p>
                         <i class="icon-warning-sign"></i>
-                        <strong>15 giugno 2014</strong> &mdash;
-                        Nota importante dalla Squadra di Gaia sullo sviluppo, il supporto e le problematiche recenti.
+                        <strong>8 settembre 2014</strong> &mdash;
+                        Comunicato importante dalla Squadra di Gaia sulla <b>risoluzione</b> delle problematiche recenti.
                     </p>
                     </div>
                     <div class="span3">
-                        <a href="?p=comunicato" class="btn btn-small btn-danger btn-block">
+                        <a href="?p=public.comunicato" class="btn btn-small btn-success btn-block">
                             Leggi ora &raquo;
                         </a>
                     </div>
