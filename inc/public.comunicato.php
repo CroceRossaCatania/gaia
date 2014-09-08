@@ -8,7 +8,7 @@ if ($me) {
 	$sessione->deadline = time();
 }
 
-$_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Supporto e dell'Assistenza per il Progetto Gaia";
+$_titolo = "Nota dalla Squadra di Gaia: Ripresa dello Sviluppo, del Supporto e dell'Assistenza per il Progetto Gaia";
 
 ?>
 
@@ -42,9 +42,9 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 	<div class="span7" id="comunicato">
 
 		<div style="text-align: center;">
-			<p><strong>7 settembre 2014</strong></p>
+			<p><strong>8 settembre 2014</strong></p>
 			<h1>Comunicato importante dalla Squadra di Gaia sulla <b>risoluzione</b> delle problematiche recenti di Gaia</h1>
-			<h4>Rallentamento temporaneo dello Sviluppo, del Supporto<br />e dell'assistenza per il progetto Gaia</h4>
+			<h4>Ripresa dello Sviluppo, del Supporto<br />e dell'assistenza per il progetto Gaia</h4>
 		</div>
 
 		<hr />
@@ -163,12 +163,19 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 
 	<div class="span5">
 
+		<div class="row-fluid allinea-centro">
+		</div>
+
 		<div class="row-fluid">
-			<div class="span3">
-				<div class="fb-like" data-href="https://gaia.cri.it/?p=comunicato" data-layout="box_count" data-action="like" data-show-faces="true" data-share="false"></div>
+		
+			<div class="span4">
+				<div data-like="Nazionale:1"></div> <!-- Nazionale:1 come entita' raccoglitrice -->
 			</div>
-			<div class="span9">
-				<a class="btn btn-large btn-block btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgaia.cri.it%2Findex.php%3Fp%3Dcomunicato" target="_new">
+			<div class="span2">
+				<div class="fb-like" data-href="https://gaia.cri.it/?p=public.comunicato" data-layout="box_count" data-action="like" data-show-faces="true" data-share="false"></div>
+			</div>
+			<div class="span6">
+				<a class="btn btn-large btn-block btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgaia.cri.it%2Findex.php%3Fp%3Dpublic.comunicato" target="_new">
 					<i class="icon-facebook-sign"></i>
 					Condividi su Facebook
 				</a>
@@ -177,7 +184,7 @@ $_titolo = "Nota dalla Squadra di Gaia: Interruzione dello Sviluppo, del Support
 
 		<hr />
 
-		<div class="fb-comments" data-href="https://gaia.cri.it/?p=comunicato" data-width="470" data-numposts="25" data-colorscheme="light"></div>
+		<div class="fb-comments" data-href="https://gaia.cri.it/?p=public.comunicato" data-width="470" data-numposts="25" data-colorscheme="light"></div>
 
 
 	</div>

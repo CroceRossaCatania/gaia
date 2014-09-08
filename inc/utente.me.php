@@ -304,6 +304,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                         per leggere un importante comunicato da parte degli sviluppatori di Gaia.</p>
                         <a href="?p=comunicato" class="btn">
                             Leggi il comunicato
+                            <span class="badge badge-warning">Nuovo!</span>
                         </a> 
                     </div>
                 </div>

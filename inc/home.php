@@ -9,12 +9,12 @@ paginaPubblica();
                     <div class="span9">
                     <p>
                         <i class="icon-warning-sign"></i>
-                        <strong>19 agosto 2014</strong> &mdash;
+                        <strong>8 settembre 2014</strong> &mdash;
                         Comunicato importante dalla Squadra di Gaia sulla <b>risoluzione</b> delle problematiche recenti.
                     </p>
                     </div>
                     <div class="span3">
-                        <a href="?p=comunicato" class="btn btn-small btn-success btn-block">
+                        <a href="?p=public.comunicato" class="btn btn-small btn-success btn-block">
                             Leggi ora &raquo;
                         </a>
                     </div>
