@@ -84,6 +84,12 @@ if($me->admin() || $me->presidenziante()) {
                     <?php } ?>
                 </div>
                 <hr />
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+            </div>
+            <div class="span6">
                 <div class="btn-group btn-group-vertical span12">
                     <?php if ($tutto) {
                             foreach([1, 2, 3, 4, 5, 6] as $a) { ?>
