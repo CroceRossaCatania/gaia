@@ -39,6 +39,8 @@ if ( $veicolo->fermoTecnico() ){
 
 	$veicolo->fermotecnico = null;
 
+	redirect('autoparco.veicoli&manfermOk');
+
 }
 
 redirect('autoparco.veicoli&manOk');

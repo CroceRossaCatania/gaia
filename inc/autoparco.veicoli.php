@@ -37,10 +37,15 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
         <i class="icon-ok"></i> <strong>Veicolo nuovamente attivo</strong>.
         Il veicolo è uscito dal fermo tecnico
     </div>
-<?php }elseif ( isset($_GET['manOk']) ) { ?>
+<?php }elseif ( isset($_GET['manfermOk']) ) { ?>
     <div class="alert alert-success">
         <i class="icon-ok"></i> <strong>Intervento di manutenzione registrato e veicolo nuovamente attivo</strong>.
         E' stata registrata una manutenzione ed il veicolo è uscito dal fermo tecnico
+    </div>
+<?php }elseif ( isset($_GET['manOk']) ) { ?>
+    <div class="alert alert-success">
+        <i class="icon-ok"></i> <strong>Intervento di manutenzione registrato</strong>.
+        E' stata registrata una manutenzione del veicolo
     </div>
 <?php }elseif ( isset($_GET['rifOk']) ) { ?>
     <div class="alert alert-success">
