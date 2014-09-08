@@ -45,11 +45,11 @@ if ( $presidente || ($me && $me->delegazioneAttuale()->applicazione == APP_CO)) 
 }
 
 /* blocco aspiranti */
-if ( $presidente || $me->delegazioni(APP_FORMAZIONE) || $me->corsiBaseDiGestione()) {
+/*if ( $presidente || $me->delegazioni(APP_FORMAZIONE) || $me->corsiBaseDiGestione()) {
     $menu[''] += [
         'formazione.corsibase'   =>  '<span class="badge badge-success">&nbsp;</span> Corsi Base'
     ];
-}
+}*/
 
 if ( $presidente || ($me && $me->delegazioneAttuale()->applicazione == APP_OBIETTIVO)) {
     $menu[''] += [
@@ -96,8 +96,8 @@ if ($me && $me->unComitato()) {
             'utente.estensione'  =>  '<i class="icon-random"></i> Estensioni',
             'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti',
             'utente.riserva'  =>  '<i class="icon-pause"></i> Riserva',
-            'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica',
-            'public.tesserino'  =>  '<i class="icon-credit-card"></i> Verifica Tesserino'  
+            'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica'
+            /*'public.tesserino'  =>  '<i class="icon-credit-card"></i> Verifica Tesserino' */
         ]];
 }
 $menu += [
@@ -107,10 +107,10 @@ $menu += [
         'utente.titoli&t=2' =>  '<i class="icon-ambulance"></i> Patenti CRI',
         'utente.titoli&t=3' =>  '<i class="icon-beaker"></i> Titoli di studio',
         'utente.titoli&t=4' =>  '<i class="icon-plus-sign-alt"></i> Titoli CRI'
-    ],
+    ],/*
     'Impostazioni' =>  [
         'utente.password'     =>   '<i class="icon-key"></i> Password'
-    ],
+    ],*/
     'Statistiche' =>  [
         'utente.statistiche.volontari'     =>   '<i class="icon-puzzle-piece"></i> Volontari'
 //        'utente.statistiche.attivita'     =>   '<i class="icon-weibo"></i> Attività'
