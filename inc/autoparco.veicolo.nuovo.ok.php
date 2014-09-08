@@ -62,6 +62,7 @@ if (!$libretto){
     $t->carrozzeria             = $_POST['inputCarozzeria'];
     $t->omologazione            = $_POST['inputOmologazione'];
 	$t->assi                    = $_POST['inputAssi'];
+    $t->rimorchioFrenato        = $_POST['inputRimorchioFrenato'];
     $t->cilindrata              = $_POST['inputCilindrata'];
     $t->potenza                 = $_POST['inputPotenza'];
     $t->alimentazione           = $_POST['inputAlimentazione'];

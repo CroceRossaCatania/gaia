@@ -211,6 +211,13 @@ if ( $veicolo ){
                     <input class="input-large" type="text" value="<?= $veicolo->assi; ?>" name="inputAssi" id="inputAssi" placeholder="2" required <?php if ($x) { ?> readonly <?php } ?>>
                 </div>
             </div>
+            <h3>Massa massima a rimorchio tecnicamente ammissibile (O)</h3>
+            <div class="control-group">
+                <label class="control-label" for="inputRimorchioFrenato">Rimorchio frenato [Kg]<b>(O.1)</b></label>
+                <div class="controls">
+                    <input class="input-large" type="text" value="<?= $veicolo->rimorchioFrenato; ?>" name="inputRimorchioFrenato" id="inputRimorchioFrenato" placeholder="2500" required <?php if ($x) { ?> readonly <?php } ?>>
+                </div>
+            </div>
             <h3>Motore (P)</h3>
             <div class="control-group">
                 <label class="control-label" for="inputCilindrata">Cilindrata <b>(P.1)</b></label>
