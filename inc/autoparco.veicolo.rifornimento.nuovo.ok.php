@@ -7,12 +7,24 @@
 paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
 
 controllaParametri(array('id'), 'autoparco.veicoli&err');
-$veicolo = $_GET['id'];
-$veicolo = Veicolo::id($veicolo);
 
-$rifornimento = new Rifornimento();
+if ( isset($_GET['mod']) ){ 
 
-$rifornimento->veicolo = $veicolo->id;
+	$rifornimento = Rifornimento::id($_GET['id']);
+    $libretto = null;
+    $mod = "rifMod";
+    $veicolo = $rifornimento->veicolo();
+
+}else{
+
+	$veicolo = $_GET['id'];
+	$veicolo = Veicolo::id($veicolo);
+	$rifornimento = new Rifornimento();
+    $mod = "rifOk";
+
+}
+
+$rifornimento->veicolo = $veicolo;
 $rifornimento->km = $_POST['inputKm'];
 
 $data = @DateTime::createFromFormat('d/m/Y', $_POST['inputData']);
@@ -32,4 +44,4 @@ $rifornimento->litri = $litri;
 
 $rifornimento->timestamp = time();
 
-redirect('autoparco.veicoli&rifOk');
+redirect('autoparco.veicoli&'.$mod);

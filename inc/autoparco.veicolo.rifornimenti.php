@@ -51,7 +51,8 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
                 <th>Data</th>
                 <th>Litri</th>
                 <th>Costo</th>
-                <th>registrato da</tH>
+                <th>registrato da</th>
+                <th>Azioni</th>
             </thead>
             <?php
             $rifornimenti = Rifornimento::filtra([['veicolo', $veicolo]],'data DESC');
@@ -65,6 +66,11 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
                         <td><?= $rifornimento->litri; ?></td>
                         <td><?= $rifornimento->costo; ?></td>
                         <td><?= $rifornimento->volontario()->nomeCompleto(); ?></td>
+                        <td>
+                            <a  href="?p=autoparco.veicolo.rifornimento.nuovo&id=<?= $rifornimento->id; ?>&mod" title="Modifica rifornimenti veicolo" class="btn btn-small btn-info">
+                                <i class="icon-edit"></i> Modifica
+                            </a>
+                        </td>
                     </tr>
                 <?php } ?>
         </table>

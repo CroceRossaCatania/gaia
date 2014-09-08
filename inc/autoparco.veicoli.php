@@ -52,6 +52,11 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
         <i class="icon-ok"></i> <strong>Rifornimento registrato correttamente</strong>.
         E' stato registrato un nuovo rifornimento per il veicolo
     </div>
+<?php }elseif ( isset($_GET['rifMod']) ) { ?>
+    <div class="alert alert-success">
+        <i class="icon-edit"></i> <strong>Rifornimento modificato correttamente</strong>.
+        E' stato modificato correttamente un rifornimento per il veicolo
+    </div>
 <?php }elseif ( isset($_GET['giaFuori']) ) { ?>
     <div class="alert alert-error">
         <i class="icon-warning-sign"></i> <strong>Veicolo fuori uso</strong>.

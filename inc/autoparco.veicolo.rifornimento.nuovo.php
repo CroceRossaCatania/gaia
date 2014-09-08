@@ -7,17 +7,31 @@
 paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
 
 controllaParametri(array('id'), 'autoparco.veicoli&err');
-$veicolo = $_GET['id'];
-$veicolo = Veicolo::id($veicolo);
+
+$mod = null;
+
+if ( isset($_GET['mod']) ){ 
+
+  $mod = "&mod";
+  $rifornimento = Rifornimento::id($_GET['id']);
+  $rifornimenti = Rifornimento::filtra([['veicolo', $rifornimento->veicolo()]],'data DESC LIMIT 0,5');
+  $veicolo      = $rifornimento->id;
+
+}else{
+
+  $veicolo = Veicolo::id($_GET['id']);
+  proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
+  $rifornimenti = Rifornimento::filtra([['veicolo', $veicolo]],'data DESC LIMIT 0,5');
+  $rifornimento = null;
+          
+}
 
 if ( $veicolo->fuoriuso() ){
   redirect('autoparco.veicoli&giaFuori');
 }
 
-proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
-
 ?>
-<form class="form-horizontal" action="?p=autoparco.veicolo.rifornimento.nuovo.ok&id=<?= $veicolo; ?>" method="POST">
+<form class="form-horizontal" action="?p=autoparco.veicolo.rifornimento.nuovo.ok&id=<?= $veicolo; ?><?= $mod; ?>" method="POST">
   <div class="modal fade automodal">
     <div class="modal-header">
       <h3><i class="icon-credit-card"></i> Rifornimenti veicolo</h3>
@@ -27,30 +41,30 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
         <div class="control-group">
           <label class="control-label" for="inputKm">Km</label>
           <div class="controls">
-            <input class="input-medium" type="text" name="inputKm" id="inputKm" placeholder="150000" required>
+            <input class="input-medium" type="text" name="inputKm" id="inputKm" placeholder="150000" required value="<?= $rifornimento->km; ?>">
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="inputData">Data</label>
           <div class="controls">
-            <input class="input-medium" type="text" name="inputData" id="inputData" placeholder="01/10/2014" required>
+            <input class="input-medium" type="text" name="inputData" id="inputData" placeholder="01/10/2014" required value="<?php if ($rifornimento) echo date('d/m/Y', $rifornimento->data); ?>">
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="inputLitri">Litri</label>
           <div class="controls">
-            <input class="input-medium" type="number" step="0.01" name="inputLitri" id="inputLitri" placeholder="50" required>
+            <input class="input-medium" type="number" step="0.01" name="inputLitri" id="inputLitri" placeholder="50" required value="<?= $rifornimento->litri; ?>">
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="inputCosto">Costo</label>
           <div class="controls">
-            <input class="input-medium" type="number" step="0.01" name="inputCosto" id="inputCosto" placeholder="15,00" required> <span class="add-on"><i class="icon-euro"></i></span>
+            <input class="input-medium" type="number" step="0.01" name="inputCosto" id="inputCosto" placeholder="15,00" required value="<?= $rifornimento->costo; ?>"> <span class="add-on"><i class="icon-euro"></i></span>
           </div>
         </div>
         <hr/>
-        <h4>Ultimi 5 Rifornimenti<a href="?p=autoparco.veicolo.rifornimenti&id=<?= $veicolo; ?>" class="btn btn-small pull-right"> Visualizza tutti
-                                </a></h4>
+        <h4>Ultimi 5 Rifornimenti<?php if(!isset($_GET['mod'])){ ?><a href="?p=autoparco.veicolo.rifornimenti&id=<?= $veicolo; ?>" class="btn btn-small pull-right"> Visualizza tutti
+                                </a><?php } ?></h4>
         <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
           <thead>
               <th>Km</th>
@@ -59,13 +73,12 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
               <th>Costo</th>
           </thead>
           <?php 
-          $rifornimenti = Rifornimento::filtra([['veicolo', $veicolo]],'data DESC LIMIT 0,5');
-          foreach($rifornimenti as $rifornimento){ ?>
+          foreach($rifornimenti as $riforni){ ?>
             <tr>
-                <td><?= $rifornimento->km; ?></td>
-                <td><?= date('d/m/Y', $rifornimento->data); ?></td>
-                <td><?= $rifornimento->litri; ?></td>
-                <td><?= $rifornimento->costo; ?></td>
+                <td><?= $riforni->km; ?></td>
+                <td><?= date('d/m/Y', $riforni->data); ?></td>
+                <td><?= $riforni->litri; ?></td>
+                <td><?= $riforni->costo; ?></td>
             </tr>
           <?php } ?>  
         </table>

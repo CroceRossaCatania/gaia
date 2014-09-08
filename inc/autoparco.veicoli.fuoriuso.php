@@ -95,6 +95,9 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                                 <a  href="?p=autoparco.veicolo.manutenzione&id=<?= $veicolo->id; ?>" title="Manutenzione Veicolo" class="btn btn-small btn-success">
                                     <i class="icon-wrench"></i> Manutenzione
                                 </a>
+                                <a  href="?p=autoparco.veicolo.rifornimento.nuovo&id=<?= $veicolo->id; ?>" title="Rifornimento Veicolo" class="btn btn-small btn-info">
+                                    <i class="icon-credit-card"></i> Rifornimento
+                                </a>
                                 <?php if ( $me->admin() ){ ?>
                                     <a  href="?p=autoparco.veicolo.modifica&id=<?= $veicolo->id; ?>" title="Modifica Veicolo" class="btn btn-small btn-info">
                                         <i class="icon-edit"></i> Modifica
