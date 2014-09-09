@@ -126,7 +126,7 @@ class Veicolo extends Entita {
                     $litri    = $litri + $rifornimento->litri;
             }
             $ultimilitri = Rifornimento::filtra([['veicolo', $this]],'km DESC');
-            $consumo  = (($litri-$ultimilitri[0])*100)/$this->kmPercorsi();
+            $consumo  = (($litri-$ultimilitri[0]->litri)*100)/$this->kmPercorsi();
         }else{
             $consumo = "<i>Dati non sufficienti</i>";
         }
