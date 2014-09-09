@@ -8,27 +8,40 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
 
 controllaParametri(array('id'), 'autoparco.veicoli&err');
 
+$data = @DateTime::createFromFormat('d/m/Y', $_POST['inputData']);
+$data = @$data->getTimestamp();
+
 if ( isset($_GET['mod']) ){ 
 
 	$rifornimento = Rifornimento::id($_GET['id']);
     $libretto = null;
     $mod = "rifMod";
     $veicolo = $rifornimento->veicolo();
+    $ultimorifornimento = $veicolo->ultimorifornimento();
+
+    if ( $_POST['inputKm'] < $ultimorifornimento->km && $data > $ultimorifornimento->data ){
+		redirect('autoparco.veicolo.rifornimento.nuovo&old&id='.$rifornimento->veicolo());
+	}
 
 }else{
 
 	$veicolo = $_GET['id'];
 	$veicolo = Veicolo::id($veicolo);
+	$ultimorifornimento = $veicolo->ultimorifornimento();
+
+	if ( $_POST['inputKm'] < $ultimorifornimento->km && $data > $ultimorifornimento->data ){
+		redirect('autoparco.veicolo.rifornimento.nuovo&old&id='.$veicolo);
+	}
+
 	$rifornimento = new Rifornimento();
     $mod = "rifOk";
 
 }
 
 $rifornimento->veicolo = $veicolo;
+
 $rifornimento->km = $_POST['inputKm'];
 
-$data = @DateTime::createFromFormat('d/m/Y', $_POST['inputData']);
-$data = @$data->getTimestamp();
 $rifornimento->data = $data;
 
 $rifornimento->tRegistra = time();

@@ -144,4 +144,13 @@ class Veicolo extends Entita {
             return false;
         }
     }
+
+    /**
+     * Ritorna id ultimo rifornimento
+     * @return Rifornimento
+     */
+    public function ultimoRifornimento() {
+        $rifornimento = Rifornimento::filtra([['veicolo', $this]],'km DESC LIMIT 0,2');
+        return $rifornimento[0];
+    }
 }

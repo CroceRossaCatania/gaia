@@ -40,6 +40,12 @@ if ( isset($_GET['mod']) ){
     </div>
     <div class="modal-body">
       <div class="row-fluid">
+      <?php if ( isset($_GET['old']) ) { ?>
+        <div class="alert alert-error">
+            <i class="icon-credit-card"></i> <strong>Km sembrano errati</strong>.
+            Attenzione il rifornimento che stai cercando di registrare ha dei km inferiori rispetto l'ultimo registrato.
+        </div>
+      <?php } ?>
         <div class="control-group">
           <label class="control-label" for="inputKm">Km</label>
           <div class="controls">
