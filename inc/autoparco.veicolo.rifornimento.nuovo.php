@@ -16,6 +16,9 @@ if ( isset($_GET['mod']) ){
   $rifornimento = Rifornimento::id($_GET['id']);
   $rifornimenti = Rifornimento::filtra([['veicolo', $rifornimento->veicolo()]],'data DESC LIMIT 0,5');
   $veicolo      = $rifornimento->id;
+  if ( $rifornimento->veicolo()->fuoriuso() ){
+    redirect('autoparco.veicoli&giaFuori');
+  }
 
 }else{
 
@@ -23,6 +26,9 @@ if ( isset($_GET['mod']) ){
   proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
   $rifornimenti = Rifornimento::filtra([['veicolo', $veicolo]],'data DESC LIMIT 0,5');
   $rifornimento = null;
+  if ( $veicolo->fuoriuso() ){
+    redirect('autoparco.veicoli&giaFuori');
+  }
           
 }
 

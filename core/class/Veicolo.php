@@ -107,8 +107,8 @@ class Veicolo extends Entita {
      * @return Number
      */
     public function kmPercorsi() {
-        $ultimokm = Rifornimento::filtra([['veicolo', $this]],'km DESC LIMIT 0,5');
-        $primokm  = Rifornimento::filtra([['veicolo', $this]],'km ASC LIMIT 0,5');
+        $ultimokm = Rifornimento::filtra([['veicolo', $this]],'km DESC LIMIT 0,2');
+        $primokm  = Rifornimento::filtra([['veicolo', $this]],'km ASC LIMIT 0,2');
         $km       = $ultimokm[0]->km - $primokm[0]->km;
         return $km;
     }
