@@ -32,10 +32,6 @@ if ( isset($_GET['mod']) ){
           
 }
 
-if ( $veicolo->fuoriuso() ){
-  redirect('autoparco.veicoli&giaFuori');
-}
-
 ?>
 <form class="form-horizontal" action="?p=autoparco.veicolo.rifornimento.nuovo.ok&id=<?= $veicolo; ?><?= $mod; ?>" method="POST">
   <div class="modal fade automodal">
