@@ -118,7 +118,7 @@ class Veicolo extends Entita {
      * @return Number
      */
     public function consumoMedio() {
-        $rifornimenti = Rifornimento::filtra([['veicolo', $this]],'data DESC');
+        $rifornimenti = Rifornimento::filtra([['veicolo', $this]],'km DESC');
         if ( count($rifornimenti) > 1 ){
             $litri   = 0;
             $consumo = 0;
