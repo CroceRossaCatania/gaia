@@ -6,9 +6,8 @@
 
 paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
 
-/*
-$parametri = array('inputTarga', 'inputLibretto', 'inputTelaio', 'inputPrimaImmatricolazione', 'inputCognome', 'inputNome', 'inputIndirizzo', 'inputAnt', 'inputPost');
-controllaParametri($parametri, 'autoparco.veicoli&err');*/
+$parametri = array('inputTarga', 'inputLibretto', 'inputTelaio', 'inputStato');
+controllaParametri($parametri, 'autoparco.veicoli&err');
 
 $id = $_GET['id'];
 

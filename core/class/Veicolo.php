@@ -129,7 +129,7 @@ class Veicolo extends Entita {
         }else{
             $consumo = "<i>Dati non sufficienti</i>";
         }
-        return $consumo;
+        return round($consumo,2);
     }
 
     /**
