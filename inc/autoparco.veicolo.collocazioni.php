@@ -6,7 +6,7 @@
 
 paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
 
-controllaParametri(array('id'), 'autoparco.veicoli&err');
+controllaParametri(['id'], 'autoparco.veicoli&err');
 $veicolo = $_GET['id'];
 $veicolo = Veicolo::id($veicolo);
 

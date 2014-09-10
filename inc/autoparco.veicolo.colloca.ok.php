@@ -6,7 +6,7 @@
 
 paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
 
-controllaParametri(array('id','inputAutoparco'), 'autoparco.veicoli&err');
+controllaParametri(['id','inputAutoparco'], 'autoparco.veicoli&err');
 $veicolo = $_GET['id'];
 $autoparco = $_POST['inputAutoparco'];
 

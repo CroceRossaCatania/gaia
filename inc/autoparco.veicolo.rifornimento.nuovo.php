@@ -6,7 +6,7 @@
 
 paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
 
-controllaParametri(array('id'), 'autoparco.veicoli&err');
+controllaParametri(['id'], 'autoparco.veicoli&err');
 
 $mod = null;
 
@@ -14,7 +14,7 @@ if ( isset($_GET['mod']) ){
 
   $mod = "&mod";
   $rifornimento = Rifornimento::id($_GET['id']);
-  $rifornimenti = Rifornimento::filtra([['veicolo', $rifornimento->veicolo()]],'data DESC LIMIT 0,5');
+  $rifornimenti = Rifornimento::filtra([['veicolo', $rifornimento->veicolo()]],'km DESC LIMIT 0,5');
   $veicolo      = $rifornimento->id;
   if ( $rifornimento->veicolo()->fuoriuso() ){
     redirect('autoparco.veicoli&giaFuori');
@@ -24,7 +24,7 @@ if ( isset($_GET['mod']) ){
 
   $veicolo = Veicolo::id($_GET['id']);
   proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
-  $rifornimenti = Rifornimento::filtra([['veicolo', $veicolo]],'data DESC LIMIT 0,5');
+  $rifornimenti = Rifornimento::filtra([['veicolo', $veicolo]],'km DESC LIMIT 0,5');
   $rifornimento = null;
   if ( $veicolo->fuoriuso() ){
     redirect('autoparco.veicoli&giaFuori');

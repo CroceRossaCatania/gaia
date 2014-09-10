@@ -153,4 +153,72 @@ class Veicolo extends Entita {
         $rifornimento = Rifornimento::filtra([['veicolo', $this]],'km DESC LIMIT 0,2');
         return $rifornimento[0];
     }
+
+    /**
+     * Valida rifornimento
+     * @return true or false se rifornimento valido
+     */
+    public function primaRifornimento($km) {
+        global $db;
+        $q = $db->prepare("
+            SELECT
+                id
+            FROM
+                rifornimento
+            WHERE
+                veicolo = :veicolo
+            AND
+                km > :km
+            ORDER BY
+                km ASC");
+        $q->bindParam(':km', $km);
+        $q->bindParam(':veicolo', $this);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Rifornimento::id($k[0]);
+        }
+        return $r[0];
+    }
+
+    /**
+     * Valida rifornimento
+     * @return true or false se rifornimento valido
+     */
+    public function dopoRifornimento($km) {
+        global $db;
+        $q = $db->prepare("
+            SELECT
+                id
+            FROM
+                rifornimento
+            WHERE
+                veicolo = :veicolo
+            AND
+                km < :km
+            ORDER BY
+                km DESC");
+        $q->bindParam(':km', $km);
+        $q->bindParam(':veicolo', $this);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Rifornimento::id($k[0]);
+        }
+        return $r[0];
+    }
+
+    /**
+     * Valida rifornimento
+     * @return true or false se rifornimento valido
+     */
+    public function validaRifornimento($data, $km) {
+        $prima = $this->primaRifornimento($km);
+        $dopo  = $this->dopoRifornimento($km);
+        if ( ( $prima && $km > $prima->km && $data >= $prima->data ) || ( $dopo && $km < $dopo->km && $data <= $dopo->data ) ){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
