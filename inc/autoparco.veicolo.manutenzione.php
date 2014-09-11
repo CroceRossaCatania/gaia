@@ -81,6 +81,6 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
                 <?php }?>
         </table>
         <hr/>
-        <h3>Costo complessivo manutenzioni: <?= $costo; ?> €</h3>
+        <h3>Costo complessivo manutenzioni: <?= soldi($costo); ?> €</h3>
     </div>
 </div>

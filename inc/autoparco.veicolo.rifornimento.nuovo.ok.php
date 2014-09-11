@@ -27,16 +27,6 @@ if ( isset($_GET['mod']) ){
 	$veicolo = $_GET['id'];
 	$veicolo = Veicolo::id($veicolo);
 	$ultimorifornimento = $veicolo->ultimorifornimento();
-	echo "Km: ", $_POST['inputKm'], " Data: ", $data;
-	echo "<br/> Prima: ";
-	echo $veicolo->primaRifornimento($data,$_POST['inputKm'])->km, " - Data: ", $veicolo->primaRifornimento($_POST['inputKm'])->data;
-	echo "<br/>";
-	echo "Dopo: ";
-    echo $veicolo->dopoRifornimento($data,$_POST['inputKm'])->km, " - Data: ", $veicolo->dopoRifornimento($_POST['inputKm'])->data;
-    echo "<br/>";
-    echo "Valido: ";
-    echo $veicolo->validaRifornimento($data,$_POST['inputKm']);
-    exit();
 
 	if ( !$veicolo->validaRifornimento($data,$_POST['inputKm'])){ 
 		redirect('autoparco.veicolo.rifornimento.nuovo&old&id='.$veicolo);

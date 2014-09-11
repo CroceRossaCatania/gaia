@@ -85,7 +85,7 @@ class Veicolo extends Entita {
             WHERE
                 veicolo = :veicolo
             AND
-                tipo != :tipo
+                tipo <> :tipo
             ORDER BY
                 tIntervento DESC");
         $q->bindValue(':tipo', MAN_REVISIONE);
@@ -155,8 +155,9 @@ class Veicolo extends Entita {
     }
 
     /**
-     * Valida rifornimento
-     * @return true or false se rifornimento valido
+     * Ritorna il rifornimento appena precedente al chilometraggio fornito
+     * @param int $km               Chilometraggio
+     * @return Rifornimento|false   Il Rifornimento o False se nessuno presente
      */
     public function primaRifornimento($km) {
         global $db;
@@ -168,22 +169,25 @@ class Veicolo extends Entita {
             WHERE
                 veicolo = :veicolo
             AND
-                km > :km
+                km < :km
             ORDER BY
-                km ASC");
+                km DESC
+            LIMIT 0,1");
         $q->bindParam(':km', $km);
         $q->bindParam(':veicolo', $this);
         $q->execute();
-        $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = Rifornimento::id($k[0]);
+        $k = $q->fetch(PDO::FETCH_NUM);
+        if ( $k ) {
+            return Rifornimento::id($k[0]);
+        } else {
+            return false;
         }
-        return $r[0];
     }
 
     /**
-     * Valida rifornimento
-     * @return true or false se rifornimento valido
+     * Ritorna il rifornimento appena successivo al chilometraggio fornito
+     * @param int $km               Chilometraggio
+     * @return Rifornimento|false   Il Rifornimento o False se nessuno presente
      */
     public function dopoRifornimento($km) {
         global $db;
@@ -195,17 +199,19 @@ class Veicolo extends Entita {
             WHERE
                 veicolo = :veicolo
             AND
-                km < :km
+                km > :km
             ORDER BY
-                km DESC");
+                km ASC
+            LIMIT 0,1");
         $q->bindParam(':km', $km);
         $q->bindParam(':veicolo', $this);
         $q->execute();
-        $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = Rifornimento::id($k[0]);
+        $k = $q->fetch(PDO::FETCH_NUM);
+        if ( $k ) {
+            return Rifornimento::id($k[0]);
+        } else {
+            return false;
         }
-        return $r[0];
     }
 
     /**
@@ -215,10 +221,22 @@ class Veicolo extends Entita {
     public function validaRifornimento($data, $km) {
         $prima = $this->primaRifornimento($km);
         $dopo  = $this->dopoRifornimento($km);
-        if ( ( $prima && $km > $prima->km && $data >= $prima->data ) || ( $dopo && $km < $dopo->km && $data <= $dopo->data ) ){
-            return true;
-        }else{
-            return false;
-        }
+        return (
+            (
+                !$prima or  
+                ( 
+                    $prima and $prima->km <= $km  
+                    and $prima->data <= $data 
+                )
+            ) 
+            and
+            (
+                !$dopo or 
+                ( 
+                    $dopo and $dopo->km >= $km 
+                    and $dopo->data >= $data 
+                )
+            )
+        );
     }
 }

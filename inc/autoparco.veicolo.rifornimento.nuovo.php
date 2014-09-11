@@ -86,7 +86,7 @@ if ( isset($_GET['mod']) ){
                 <td><?= $riforni->km; ?></td>
                 <td><?= date('d/m/Y', $riforni->data); ?></td>
                 <td><?= $riforni->litri; ?></td>
-                <td><?= $riforni->costo; ?></td>
+                <td>€ <?= soldi($riforni->costo); ?></td>
             </tr>
           <?php } ?>  
         </table>
