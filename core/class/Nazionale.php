@@ -17,10 +17,13 @@ class Nazionale extends GeoPolitica {
         return $this->nome;
     }
 
-    public function estensione() {
+    public function estensione($soloComitati = true) {
         $r = [];
-        foreach  ( $this->regionali() as $l ) {
-            $r = array_merge($l->estensione(), $r);
+        if(!$soloComitati) {
+            $r[] = $this;
+        }
+        foreach ( $this->regionali() as $l ) {
+            $r = array_merge($l->estensione($soloComitati), $r);
         }
         return array_unique($r);
     }
