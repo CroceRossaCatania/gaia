@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2012 Alfio Emanuele Fresta
+ * ©2013 Croce Rossa Italiana
  */
 
 class Geocoder {

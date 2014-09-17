@@ -52,11 +52,7 @@ if ( !$consenso ){ ?>
 if (isset($_GET['rimandaPrivatizzazione'])) {
     $sessione->rimandaPrivatizzazione = true;
 }
-/* deadline stop gaia
-if (isset($_GET['rimandaDeadline'])) {
-    $sessione->deadline = time();
-}
-*/
+
 if ($consenso && !$me->email ) { redirect('nuovaAnagraficaContatti'); }
 if ($consenso && !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
 
@@ -69,29 +65,7 @@ if ($consenso) {
         }
     }
 }
-/* modale deadline gaia
-if ((!$sessione->deadline || ($sessione->deadline + GIORNO) < time()) && $consenso) {
-    ?>
-    <div class="modal fade automodal">
-        <div class="modal-header">
-            <h3 class="text-success"><i class="icon-important-sign"></i> Rallentamenti sviluppo portale Gaia</h3>
-        </div>
-        <div class="modal-body">
-            Per favore trova un momento per leggere il comunicato degli sviluppatori 
-            e della squadra di supporto di Gaia riguardante le problematiche che stanno 
-            ostacolando lo sviluppo del sistema e che stanno causando rallentamenti e malfunzionamenti.
-        </div>
-        <div class="modal-footer">
-            <a href="?p=utente.me&rimandaDeadline" class="btn">
-                <i class="icon-remove"></i> Non ora
-            </a>
-            <a href="?p=comunicato" class="btn btn-success">
-                <i class="icon-ok"></i> Leggi il comunicato
-            </a>
-        </div>
-    </div>
-<?php }
-*/
+
 if (!$sessione->rimandaPrivatizzazione && $consenso) {
     foreach($me->comitatiPresidenzianti() as $comitato) {
         $p = $comitato->unPresidente();
@@ -290,25 +264,25 @@ if(false && $consenso && !$sessione->barcode) { ?>
 
     <!-- BLOCCO NON MENU -->
     <div class="span9">
-        <h2><span class="muted">Ciao </span>
-            <?= $me->nome; ?>
+        <h2><span class="muted">Ciao, </span>
+            <?php if ($me->admin()){ ?> <span class="muted">Admin</span> 
+            <?php } elseif ($me->presiede()){ ?><span class="muted">Presidente</span> 
+            <?php } echo $me->nome; ?>.
         </h2>
 
         <div class="row-fluid">
             <div class="span8">
-                <?php /*
-                blocco informativo deadline
                 <div class="alert alert-block alert-error">
                     <div class="row-fluid">
                         <h4><i class="icon-ok"></i> Ciao <?php echo $me->nome ?></h4>
                         <p>Per favore prendi qualche minuti di tempo, se non lo hai già fatto,
                         per leggere un importante comunicato da parte degli sviluppatori di Gaia.</p>
-                        <a href="?p=comunicato" class="btn">
+                        <a href="?p=public.comunicato" class="btn">
                             Leggi il comunicato
+                            <span class="badge badge-warning">Nuovo!</span>
                         </a> 
                     </div>
                 </div>
-                */ ?>
                 <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
                 <div class="alert alert-success">
                     <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
@@ -431,13 +405,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     <p>Ricordati di caricare i tuoi documenti dalla sezione <strong>Documenti</strong>.</p>
                 </div>
 
-                <?php } /*
-                if ( !$attenzione && $me->comitatiDiCompetenza() ) { ?>
-                <div class="alert alert-block alert-warning">
-                    <h4><i class="icon-warning-sign"></i> Dov'è finito il pannello presidente?</h4>
-                    <p>Nel menù di sinistra, alla voce <strong>Presidente</strong>.</p>
-                </div>
-                <?php } */?>
+                <?php } ?>
             </div>
 
             <!-- PANNELLO ULTIME EMAIL -->

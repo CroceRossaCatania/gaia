@@ -14,7 +14,7 @@ if (file_exists('upload/setup/manutenzione')) {
 $_stopwatch = microtime(true);
 
 require('./core.inc.php');
-
+    
 /* Attiva la gestione degli errori */
 set_error_handler('gestore_errori');
 
@@ -47,7 +47,7 @@ $p = $_GET['p'];
 if (!$p) { $p = 'home'; }
 $_f = "./inc/$p.php";
 if ( !file_exists($_f) ) {
-    $_f = "./inc/errore.404.php";
+	$_f = "./inc/errore.404.php";
 }
 
 /*
@@ -73,8 +73,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
     <!-- JS e CSS compressi -->
-    <link href="/assets/min/20140816/build/build.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="/assets/min/20140816/build/build.js"></script>
+    <link href="/assets/min/20140917/build/build.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="/assets/min/20140917/build/build.js"></script>
 
     <!--[if IE]>
         <link href="css/main-ie.css" rel="stylesheet" media="screen">
@@ -364,123 +364,121 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
             </div><!-- /.carousel -->
             <?php } ?>
 
-            <div class="container">
+                                           
+          </div>
+        </div>
+    </div>
+    </div>
 
-                <?php
+    
+    <div class="container">
 
-                /* Qui si include la pagina */ 
-                require($_f);
+<?php
 
-                ?>
-                <hr />
+	/* Qui si include la pagina */
+	require($_f);
+	
+?>
+      <hr />
 
-                <div class="footer row-fluid">
+      <div class="footer row-fluid">
                     <div class="span6">
                         <p><span class="muted">Progetto Gaia</span> <br />
                             &copy;2014 <strong>Croce Rossa Italiana</strong>
                         </p>
                     </div>
-                    <div class="span6 allinea-destra">
-                        <a href="/">Torna alla home</a> &middot;
-                        <a href="?p=public.about">Informazioni su Gaia</a> &middot;
-                        <a href="docs/Guida.pdf?ref=footer"><strong>Guida in PDF</strong></a> &middot;
-                        <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaia.cri.it"><?php } ?>Supporto</a><br />
-                            Croce Rossa. <strong>Persone in prima persona.</strong>
-                        </div>
-                    </div>
+      	<div class="span6 allinea-destra">
+	        <a href="/">Torna alla home</a> &middot;
+	        <a href="?p=public.about">Informazioni su Gaia</a> &middot;
+	        <a href="docs/Guida.pdf?ref=footer"><strong>Guida in PDF</strong></a> &middot;
+	        <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaia.cri.it"><?php } ?>Supporto</a><br />
+	        Croce Rossa. <strong>Persone in prima persona.</strong>
+   		  </div>
+      </div>
 
-                </div> <!-- /container -->
+    </div> <!-- /container -->
+    
+    <?php if ( $_carica_selettore ) {
+        include './inc/part/utente.selettore.php';
+    } ?>
+    
+    <?php if ( $_carica_selettore_comitato ) {
+        include './inc/part/comitato.selettore.php';
+    } ?>
 
-                <?php if ( $_carica_selettore ) {
-                    include './inc/part/utente.selettore.php';
-                } ?>
+    <?php if ( $me && $me->admin && !$me->admin() ) { ?>
+    <!-- ADMIN MODE NON ATTIVATA -->
+      <div id="adminMode" class="modal hide fade" role="dialog">
+        <div class="modal-header">
+          <h3>
+            <i class="icon-github-alt icon-large"></i>
+            Stai per entrare nella Admin Mode
+          </h3>
+        </div>
+        <div class="modal-body">
+          <p>Entrando nella modalità amministratore entrerai in contatto con una grande mole
+             di dati sensibili di persone che ti hanno indirettamente dato la loro fiducia.</p>
+          <p>
+             &mdash;
+              <strong class="text-success">
+                Per questo ti chiediamo di rinnovare la tua promessa.
+              </strong>
+          </p>
+          <h4 class="text-error">Tieni in mente tre cose</h4>
+          <ol>
+            <li>Rispetta la privacy degli altri;</li>
+            <li>Pensa sempre prima di scrivere e cliccare;</li>
+            <li><em>Da grandi poteri derivano grandi responsabilità</em>.</li>
+          </ol>
+          <p class="text-info">
+            <i class="icon-time"></i>
+            Rimarrai in modalità admin fino al Logout
+          </p>
 
-                <?php if ( $_carica_selettore_comitato ) {
-                    include './inc/part/comitato.selettore.php';
-                } ?>
+        </div>
+        <div class="modal-footer">
+          <a href="#" data-dismiss="modal" class="btn">Annulla</a>
+          <a href="?p=admin.mode" class="btn btn-danger">
+            <i class="icon-ok"></i>
+            Okay, lo prometto
+          </a>
+        </div>
+      </div>
+      <?php } ?>
+    
+    <!-- Statistiche -->
+	<script type="text/javascript">
+	  var _paq = _paq || [];
+	  _paq.push(["trackPageView"]);
+	  _paq.push(["enableLinkTracking"]);
+	  (function() {
+	    var u = "https://statsgaiacri.alacriter.co.uk/";
+	    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+	    _paq.push(["setSiteId", "1"]);
+	    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+	    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+    <!-- Fine codice statistiche -->
 
-                <?php if ( $me && $me->admin && !$me->admin() ) { ?>
-                <!-- ADMIN MODE NON ATTIVATA -->
-                <div id="adminMode" class="modal hide fade" role="dialog">
-                    <div class="modal-header">
-                        <h3>
-                            <i class="icon-github-alt icon-large"></i>
-                            Stai per entrare nella Admin Mode
-                        </h3>
-                    </div>
-                    <div class="modal-body">
-                        <p>Entrando nella modalità amministratore entrerai in contatto con una grande mole
-                            di dati sensibili di persone che ti hanno indirettamente dato la loro fiducia.</p>
-                            <p>
-                                &mdash;
-                                <strong class="text-success">
-                                    Per questo ti chiediamo di rinnovare la tua promessa.
-                                </strong>
-                            </p>
-                            <h4 class="text-error">Tieni in mente tre cose</h4>
-                            <ol>
-                                <li>Rispetta la privacy degli altri;</li>
-                                <li>Pensa sempre prima di scrivere e cliccare;</li>
-                                <li><em>Da grandi poteri derivano grandi responsabilità</em>.</li>
-                            </ol>
-                            <p class="text-info">
-                                <i class="icon-time"></i>
-                                Rimarrai in modalità admin fino al Logout
-                            </p>
+    <!-- DEBUG. Q: <?php echo $db->numQuery; ?>; M: <?php echo ceil(memory_get_peak_usage()/1024); ?> kB; T: <?php echo round(microtime(true)-$_stopwatch, 6); ?>s -->
+    <!-- CHAT SUPPORTO --><div class="hidden-phone" id="swifttagcontainer866f2l0ph4"><div id="proactivechatcontainer866f2l0ph4"></div><div style="display: inline;" id="swifttagdatacontainer866f2l0ph4"></div></div> <script type="text/javascript">var swiftscriptelem866f2l0ph4=document.createElement("script");swiftscriptelem866f2l0ph4.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "866f2l0ph4"; var swifttagurl866f2l0ph4="https://supporto.giovanicri.it/visitor/index.php?/Gaia/LiveChat/HTML/SiteBadge/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPTg2NmYybDBwaDQmdmVyc2lvbj00LjYyLjAuNDM5NCZwcm9kdWN0PUZ1c2lvbiZmaWx0ZXJkZXBhcnRtZW50aWQ9NTAmcm91dGVjaGF0c2tpbGxpZD00JmFsZXJ0WzBdWzBdPSZhbGVydFswXVsxXT0mc2l0ZWJhZGdlY29sb3I9d2hpdGUmYmFkZ2VsYW5ndWFnZT1lbiZiYWRnZXRleHQ9bGl2ZWNoYXQmb25saW5lY29sb3I9IzE1ZDkxNSZvbmxpbmVjb2xvcmhvdmVyPSM1Y2U1NWMmb25saW5lY29sb3Jib3JkZXI9IzBmOTgwZiZvZmZsaW5lY29sb3I9I2Y3MDAwMCZvZmZsaW5lY29sb3Job3Zlcj0jZmE0ZDRkJm9mZmxpbmVjb2xvcmJvcmRlcj0jYWQwMDAwJmF3YXljb2xvcj0jZjJmMjA4JmF3YXljb2xvcmhvdmVyPSNmNmY2NTMmYXdheWNvbG9yYm9yZGVyPSNhOWE5MDYmYmFja3Nob3J0bHljb2xvcj0jZjJmMjA4JmJhY2tzaG9ydGx5Y29sb3Job3Zlcj0jZjZmNjUzJmJhY2tzaG9ydGx5Y29sb3Jib3JkZXI9I2E5YTkwNiZjdXN0b21vbmxpbmU9JmN1c3RvbW9mZmxpbmU9JmN1c3RvbWF3YXk9JmN1c3RvbWJhY2tzaG9ydGx5PQo5MWE3NmQxYWVmZGYxZGQzMDIwMTFjZDZiMGMxMTNiZmE5MGU3Yjkx";setTimeout("swiftscriptelem866f2l0ph4.src=swifttagurl866f2l0ph4;document.getElementById('swifttagcontainer866f2l0ph4').appendChild(swiftscriptelem866f2l0ph4);",1);</script><!-- END TAG CODE - DO NOT EDIT! -->
+    <!-- FUSION TAG    --><div class="hidden-phone" id="proactivechatcontainerafechw6ctt"></div><div id="swifttagcontainerafechw6ctt" style="display: none;"><div id="swifttagdatacontainerafechw6ctt"></div></div> <script type="text/javascript">var swiftscriptelemafechw6ctt=document.createElement("script");swiftscriptelemafechw6ctt.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "afechw6ctt"; var swifttagurlafechw6ctt="https://supporto.giovanicri.it/visitor/index.php?/LiveChat/HTML/Monitoring/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPWFmZWNodzZjdHQmdmVyc2lvbj00LjU4LjAuMzY1MCZwcm9kdWN0PUZ1c2lvbiZjdXN0b21vbmxpbmU9JmN1c3RvbW9mZmxpbmU9JmN1c3RvbWF3YXk9JmN1c3RvbWJhY2tzaG9ydGx5PQo0ODFmZjE5NjZhOTY3ZDVhNzY0OTZkMmQ1MTdmMmEyZTU4NGQ4OGE0";setTimeout("swiftscriptelemafechw6ctt.src=swifttagurlafechw6ctt;document.getElementById('swifttagcontainerafechw6ctt').appendChild(swiftscriptelemafechw6ctt);",1);</script><!-- END FUSION TAG CODE - DO NOT EDIT! -->
+  
 
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#" data-dismiss="modal" class="btn">Annulla</a>
-                            <a href="?p=admin.mode" class="btn btn-danger">
-                                <i class="icon-ok"></i>
-                                Okay, lo prometto
-                            </a>
-                        </div>
-                    </div>
-                    <?php } ?>
-
-
-                    <?php if(!$conf['debug']) { ?>
-                    <!-- Statistiche -->
-                    <script type="text/javascript">
-                        var _paq = _paq || [];
-                        _paq.push(["trackPageView"]);
-                        _paq.push(["enableLinkTracking"]);
-                        (function() {
-                            var u = "https://statsgaiacri.alacriter.co.uk/";
-                            _paq.push(["setTrackerUrl", u+"piwik.php"]);
-                            _paq.push(["setSiteId", "1"]);
-                            var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
-                            g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
-                        })();
-                    </script>
-                    <!-- Fine codice statistiche -->
-
-
-                    <!-- Google Analytics -->
-                    <script>
-                        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-                        ga('create', 'UA-51942737-1', 'cri.it');
-                        ga('send', 'pageview');
-
-                    </script>
-                                        
-                    <!-- CHAT SUPPORTO --><div class="hidden-phone" id="swifttagcontainer866f2l0ph4"><div id="proactivechatcontainer866f2l0ph4"></div><div style="display: inline;" id="swifttagdatacontainer866f2l0ph4"></div></div> <script type="text/javascript">var swiftscriptelem866f2l0ph4=document.createElement("script");swiftscriptelem866f2l0ph4.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "866f2l0ph4"; var swifttagurl866f2l0ph4="https://supporto.giovanicri.it/visitor/index.php?/Gaia/LiveChat/HTML/SiteBadge/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPTg2NmYybDBwaDQmdmVyc2lvbj00LjYyLjAuNDM5NCZwcm9kdWN0PUZ1c2lvbiZmaWx0ZXJkZXBhcnRtZW50aWQ9NTAmcm91dGVjaGF0c2tpbGxpZD00JmFsZXJ0WzBdWzBdPSZhbGVydFswXVsxXT0mc2l0ZWJhZGdlY29sb3I9d2hpdGUmYmFkZ2VsYW5ndWFnZT1lbiZiYWRnZXRleHQ9bGl2ZWNoYXQmb25saW5lY29sb3I9IzE1ZDkxNSZvbmxpbmVjb2xvcmhvdmVyPSM1Y2U1NWMmb25saW5lY29sb3Jib3JkZXI9IzBmOTgwZiZvZmZsaW5lY29sb3I9I2Y3MDAwMCZvZmZsaW5lY29sb3Job3Zlcj0jZmE0ZDRkJm9mZmxpbmVjb2xvcmJvcmRlcj0jYWQwMDAwJmF3YXljb2xvcj0jZjJmMjA4JmF3YXljb2xvcmhvdmVyPSNmNmY2NTMmYXdheWNvbG9yYm9yZGVyPSNhOWE5MDYmYmFja3Nob3J0bHljb2xvcj0jZjJmMjA4JmJhY2tzaG9ydGx5Y29sb3Job3Zlcj0jZjZmNjUzJmJhY2tzaG9ydGx5Y29sb3Jib3JkZXI9I2E5YTkwNiZjdXN0b21vbmxpbmU9JmN1c3RvbW9mZmxpbmU9JmN1c3RvbWF3YXk9JmN1c3RvbWJhY2tzaG9ydGx5PQo5MWE3NmQxYWVmZGYxZGQzMDIwMTFjZDZiMGMxMTNiZmE5MGU3Yjkx";setTimeout("swiftscriptelem866f2l0ph4.src=swifttagurl866f2l0ph4;document.getElementById('swifttagcontainer866f2l0ph4').appendChild(swiftscriptelem866f2l0ph4);",1);</script><!-- END TAG CODE - DO NOT EDIT! -->
-                    <!-- FUSION TAG    --><div class="hidden-phone" id="proactivechatcontainerafechw6ctt"></div><div id="swifttagcontainerafechw6ctt" style="display: none;"><div id="swifttagdatacontainerafechw6ctt"></div></div> <script type="text/javascript">var swiftscriptelemafechw6ctt=document.createElement("script");swiftscriptelemafechw6ctt.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "afechw6ctt"; var swifttagurlafechw6ctt="https://supporto.giovanicri.it/visitor/index.php?/LiveChat/HTML/Monitoring/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPWFmZWNodzZjdHQmdmVyc2lvbj00LjU4LjAuMzY1MCZwcm9kdWN0PUZ1c2lvbiZjdXN0b21vbmxpbmU9JmN1c3RvbW9mZmxpbmU9JmN1c3RvbWF3YXk9JmN1c3RvbWJhY2tzaG9ydGx5PQo0ODFmZjE5NjZhOTY3ZDVhNzY0OTZkMmQ1MTdmMmEyZTU4NGQ4OGE0";setTimeout("swiftscriptelemafechw6ctt.src=swifttagurlafechw6ctt;document.getElementById('swifttagcontainerafechw6ctt').appendChild(swiftscriptelemafechw6ctt);",1);</script><!-- END FUSION TAG CODE - DO NOT EDIT! -->
-
-                    <?php } ?>
-
-                    <?php if ($conf['debug'] || isset($_GET['debug'])) { ?>
-                    <!-- DEBUG. Q: <?php echo $db->numQuery; ?>; M: <?php echo ceil(memory_get_peak_usage()/1024); ?> kB; T: <?php echo round(microtime(true)-$_stopwatch, 6); ?>s -->
-                    <!-- CACHE. GET: <?php echo Cache::$count; ?> -->
-                    <?php } ?>
-
-                </body>
-                </html><?php 
-                ob_end_flush(); 
-                header("Content-length: " . ob_get_length()); 
-                ob_end_flush();
+    <!-- Google Analytics -->
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	  ga('create', 'UA-51942737-1', 'cri.it');
+	  ga('require', 'displayfeatures');
+	  ga('send', 'pageview');
+	</script>
+	
+  </body>
+</html><?php
+ob_end_flush(); 
+header("Content-length: " . ob_get_length()); 
+ob_end_flush();

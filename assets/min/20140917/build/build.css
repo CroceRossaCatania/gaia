@@ -935,7 +935,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .brand{padding:10px 15px 0 0!important;margin:0 0 0 0!important;}.altoCento{height:60px!important;}
 .paddingSopra{padding-top:5px;}.boxRicerca{height:28px!important;font-size:18px!important;padding-left:10px!important;}
 .enorme{font-size:48px!important;}.allinea-destra{text-align:right!important;}.allinea-sinistra{text-align:left!important;}
-.allinea-centro{text-align:center!important;}.perContinuare{padding-left:60px;}.hero-unit{background-image:url('../../../img/sfondoherounit.jpg');}
+.allinea-centro{text-align:center!important;}.perContinuare{padding-left:60px;}.hero-unit{background-image:url('../../../../../../img/sfondoherounit.jpg');}
 .sf3{text-shadow:1px 1px 0 white;padding-bottom:0;}.scritta-cri{color:#c00!important;}
 .scritta-gaia{color:#000!important;}.hero-unit p,.hero-unit h1{text-shadow:1px 2px 1px #333;color:white;}
 .loginBoxContainer{position:relative;top:-250px;margin-bottom:-250px;z-index:8;}
@@ -970,7 +970,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .inputCommento{border:1px #D3D7D8 solid;background:#fff;}#navigatoreMobile{text-align:center;}
 #navigatoreMobileSelect{font-weight:bold;margin:auto;}.aspiranti_contatore{font-size:8.5em;line-height:1em;text-shadow:3px 3px 0 white;}
 .aspiranti_descrizione{font-size:2em;text-transform:uppercase;}.quote_contatore{font-size:6.5em;line-height:1em;text-shadow:3px 3px 0 white;}
-.compila-prima-riga td{border-top:2px dashed #888!important;}.fc{direction:ltr;text-align:left;}
+.compila-prima-riga td{border-top:2px dashed #888!important;}.modal{overflow-y:visible;}
+.modal .modal-body{max-height:420px;overflow-y:auto;}.modal.fade.in{top:5%;}.fc{direction:ltr;text-align:left;}
 .fc table{border-collapse:collapse;border-spacing:0;}html .fc,.fc table{font-size:1em;}
 .fc td,.fc th{padding:0;vertical-align:top;}.fc-header td{white-space:nowrap;}.fc-header-left{width:25%;text-align:left;}
 .fc-header-center{text-align:center;}.fc-header-right{width:25%;text-align:right;}

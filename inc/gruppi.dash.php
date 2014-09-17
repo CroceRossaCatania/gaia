@@ -148,7 +148,6 @@ foreach ($gruppi as $gruppo){
                 </tr>
     <?php
         foreach($g as $volontario){
-            $gp = AppartenenzaGruppo::filtra([['volontario',$volontario->id],['gruppo',$gruppo->id]]);
     ?>
                     <tr>
                         <td><?= $volontario->cognome; ?>      </td>
@@ -162,7 +161,7 @@ foreach ($gruppi as $gruppo){
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>
                                 <?php if ( $modificabile || $me->admin() || $me->gruppiDiCompetenza()){ ?>
-                                    <a class="btn btn-small btn-danger" href="?p=gruppo.utente.espelli&id=<?= $gp[0]; ?>" title="Espelli dal gruppo" onclick="return confirm('Sei davvero sicuro di voler espellere il volontario dal gruppo?');">
+                                    <a class="btn btn-small btn-danger" href="?p=gruppo.utente.espelli&id=<?= $volontario->gruppoAttuale($gruppo)->id; ?>" title="Espelli dal gruppo" onclick="return confirm('Sei davvero sicuro di voler espellere il volontario dal gruppo?');">
                                         <i class="icon-ban-circle"></i> Espelli dal gruppo
                                     </a>
                                     <a class="btn btn-small btn-info" href="?p=gruppo.utente.report&id=<?= $volontario->id; ?>" title="Report turni">

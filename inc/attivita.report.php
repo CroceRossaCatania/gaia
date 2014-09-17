@@ -25,7 +25,15 @@ $t->intestazione([
 ]);
 
 /*
- * 2. Per ogni turno, creo il resoconto
+ * 2. Creo un resoconto dettagliato con partecipanti
+ */
+$r = new Excel();
+$r->intestazione([
+    "Attività", "Nome turno", "Inizio", "Fine", "Elenco Partecipanti"
+]);
+
+/*
+ * 3. Per ogni turno, creo il resoconto
  */
 $i = 0;
 foreach ( $a->turni() as $turno ) {
@@ -45,6 +53,8 @@ foreach ( $a->turni() as $turno ) {
     $f->intestazione([
        "Nome", "Cognome", "D. Nascita", "Email", "Cellulare", "Firma"
     ]);
+
+    $ri = '';
     foreach ( $partecipazioni as $p ) {
         $v = $p->volontario();
         $f->aggiungiRiga([
@@ -54,14 +64,27 @@ foreach ( $a->turni() as $turno ) {
             $v->email,
             $v->cellulare()
         ]);
+        $ri .= '<li>' . $v->nomeCompleto() . ' (' . $v->cellulare() . ")</li>";
     }
+
+    $r->aggiungiRiga([
+        $a->nome,
+        $turno->nome,
+        $turno->inizio()->format('d-m-Y H:i'),
+        $turno->fine()  ->format('d-m-Y H:i'),
+        "<ul>{$ri}</ul>"
+    ], true);
+
     $f->genera("{$i}. {$turno->nome}, {$turno->inizio()->format('d-m-Y H.i')}.xls");
     $zip->aggiungi($f);
     
 }
 
-$t->genera("0. -- Elenco dei turni.xls");
+$t->genera("0. Elenco dei turni.xls");
 $zip->aggiungi($t);
+
+$r->generaHTML("0. Elenco dei turni con partecipanti.html");
+$zip->aggiungi($r);
 
 $ora = new DT;
 $zip->comprimi("Attivita {$a->nome} aggiornata al {$ora->format('d-m-Y H.i')}.zip");

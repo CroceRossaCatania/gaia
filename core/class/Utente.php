@@ -292,10 +292,6 @@ class Utente extends Persona {
                 if($_p->validaPerAnzianita(PERSONA)) {
                     return $_p;
                 }
-            } elseif ($this->stato == ASPIRANTE) {
-                if($_p->validaPerAnzianita(ASPIRANTE)) {
-                    return $_p;
-                }
             }
         }
         return null;
@@ -345,7 +341,7 @@ class Utente extends Persona {
             $app = [$app];
         }
         if ( $this->admin() ) {
-            return $this->comitatiDiCompetenza($soloComitati);
+            return $this->comitatiDiCompetenza();
         }
         $r = [];
         foreach ( $app as $k ) {
@@ -789,8 +785,7 @@ class Utente extends Persona {
                 ['volontario',  $this->id]
             ], 'timestamp DESC');
         }
-    }
-    
+    }    
     
     public function trasferimenti($stato = null) {
         if ( $stato ) {
@@ -1250,7 +1245,7 @@ class Utente extends Persona {
         if($this->presidenziante() || in_array($this->delegazioneAttuale()->applicazione, [APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
             $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO]);
             foreach ($comitati as $comitato){
-                if($altroutente->in($comitato)){
+               	if($altroutente->in($comitato)){
                     return PRIVACY_RISTRETTA;
                 }
             }
@@ -1502,7 +1497,7 @@ class Utente extends Persona {
         return null;        
     }
 
-    public function trasformaInVolontario(Utente $trasformatore) {
+	public function trasformaInVolontario(Utente $trasformatore) {
         if(!$this->stato == ASPIRANTE) {
             return false;
         }
@@ -1521,7 +1516,8 @@ class Utente extends Persona {
         return true;
     }
 
-	/* Se volontario è IV
+    /** 
+     * Se volontario è IV
      * @return true se iv
      */
     public function iv() {
@@ -1532,7 +1528,8 @@ class Utente extends Persona {
             }
     }
 
-    /* Se volontario è CM
+    /**
+     * Se volontario è CM
      * @return true se CM
      */
     public function cm() {
@@ -1542,6 +1539,7 @@ class Utente extends Persona {
                 return false;
             }
     }
+
     /*
      * Funzione che non funziona correttamente
      */
@@ -1572,6 +1570,10 @@ class Utente extends Persona {
 
     }
 
+    /**
+     * Funzione per la cancellazione di un utente su gaia
+     *
+     */
     public function cancellaUtente(){
         $t = Utente::id($this);
 
@@ -1601,11 +1603,20 @@ class Utente extends Persona {
                 $_f->referente = $c->unPresidente();
             }
 
+            /* Presidente per autorizzazioni ad utente da cancellare */
             $f = Autorizzazione::filtra([
                 ['volontario', $t]
                 ]);
             foreach($f as $_f){
                 $_f->volontario = $c->unPresidente();
+            }
+
+            /* Presidente per firme ad utente da cancellare */
+            $f = Autorizzazione::filtra([
+                ['pFirma', $t]
+                ]);
+            foreach($f as $_f){
+                $_f->pFirma = $c->unPresidente();
             }
 
             if($c) {
@@ -1616,6 +1627,91 @@ class Utente extends Persona {
                     $_f->referente = $c->unPresidente();
                 }
             }
+
+            $f = CorsoBase::filtra([
+              ['direttore', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->direttore = $c->unPresidente();
+            }
+
+            $f = Coturno::filtra([
+              ['pMonta', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->pMonta = $c->unPresidente();
+            }
+
+            $f = Coturno::filtra([
+              ['pSmonta', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->pSmonta = $c->unPresidente();
+            }
+
+            $f = Delegato::filtra([
+                ['pConferma', $t]
+            ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
+            $f = Estensione::filtra([
+              ['pConferma', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
+            $f = AppartenenzaGruppo::filtra([
+              ['pNega', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->pNega = $c->unPresidente();
+            }
+
+            $f = Partecipazione::filtra([
+                ['pConferma', $t]
+            ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
+            $f = PartecipazioneBase::filtra([
+                ['pConferma', $t]
+            ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
+            $f = Quota::filtra([
+                ['pConferma', $_app]
+                ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
+            $f = Riserva::filtra([
+              ['pConferma', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
+            $f = TitoloPersonale::filtra([
+              ['pConferma', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
+            $f = Trasferimento::filtra([
+              ['pConferma', $t]
+              ]);
+            foreach ($f as $_f) {
+                $_f->pConferma = $c->unPresidente();
+            }
+
         }
 
         // roba generica
@@ -1632,6 +1728,13 @@ class Utente extends Persona {
           ]);
         foreach($f as $_f){
             $_f->dimettiReferente();
+        }
+
+        $f = Aspirante::filtra([
+          ['utente', $t]
+          ]);
+        foreach($f as $_f){
+            $_f->cancella();
         }
 
         $f = Commento::filtra([
@@ -1690,7 +1793,21 @@ class Utente extends Persona {
             $_f->cancella();
         }
 
+        $f = Like::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
         $f = Partecipazione::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = PartecipazioneBase::filtra([
           ['volontario', $t]
           ]);
         foreach ($f as $_f) {
@@ -1739,6 +1856,13 @@ class Utente extends Persona {
             $_f->cancella();
         }
 
+        $f = Validazione::filtra([
+          ['volontario', $t]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
         // roba legata a tutte le appartenenza
 
         foreach($app as $_app) {
@@ -1761,7 +1885,7 @@ class Utente extends Persona {
         return;
     }
 
-	/*
+	/**
      * Ritorna il File del Tesserino del Volontario, se esistente
      * @return bool(false)|File     Il tesserino del volontario, false altrimenti
      */
@@ -1806,5 +1930,61 @@ class Utente extends Persona {
             return $t->utente();
         }
         return null;
+    }
+
+	/**
+     * Appone un Like (PIACE o NON_PIACE) ad un oggetto
+     * @param Entita $oggetto       L'oggetto al quale apporre il like
+     * @param int $tipo             Costante tra PIACE e NON_PIACE
+     * @return bool                 True o False
+     * @throws Exception            Se tipo non valido
+     */
+    public function apponiLike(Entita $oggetto, $tipo = PIACE) {
+        if ( $e = $this->appostoLike($oggetto) ) {
+            $e->cancella();
+        }
+        $l = new Like();
+        if ( $tipo !== PIACE && $tipo !== NON_PIACE ) {
+            throw new Errore(1020);
+        }
+        $l->tipo        = $tipo;
+        $l->oggetto     = $oggetto->oid();
+        $l->timestamp   = time();
+        $l->volontario  = $this->id;
+        return true;
+    }
+
+    /**
+     * Appone un Like PIACE ad un oggetto
+     * @param Entita $oggetto       L'oggetto al quale apporre il like
+     * @return bool                 True o False
+     */
+    public function apponiMiPiace(Entita $oggetto) {
+        return $this->apponiLike($oggetto, PIACE);
+    }
+
+    /**
+     * Appone un Like NON_PIACE ad un oggetto
+     * @param Entita $oggetto       L'oggetto al quale apporre il like
+     * @return bool                 True o False
+     */
+    public function apponiNonMiPiace(Entita $oggetto) {
+        return $this->apponiLike($oggetto, NON_PIACE);
+    }
+
+    /**
+     * Ritorna un Like se apposto dall'utente ad un oggetto
+     * @param Entita $oggetto       L'oggetto da controllare
+     * @return bool|Like            False se nessun like trovato o il Like in questione
+     */
+    public function appostoLike(Entita $oggetto) {
+        if ( $r = Like::filtra([
+            ['volontario',  $this->id],
+            ['oggetto',     $oggetto->oid()]
+        ])) {
+            return $r[0];
+        } else {
+            return false;
+        }
     }
 }

@@ -52,74 +52,119 @@ $log = date('d-m-Y H:i:s') . " CRONJOB INIZIATO\n{$logS}";
 // =========== INIZIO CRONJOB GIORNALIERO
 function cronjobGiornaliero()  {
     global $log, $db, $cache;
+    
+    $ok = true;
 
     /* === 0. PERSISTE LA CACHE SU DISCO */
-    if ( $cache ) {
-        $cache->save();
-    }
-    $log .= "Persiste la cache di Redis sul disco\n";
+    cronjobEsegui(
+        "Persistere la cache di Redis su disco",
+        function() use ($cache) {
+            if ( $cache ) {
+                $cache->save();
+            }
+            return true;
+        },
+        $log, $ok
+    );
+    
+    cronjobEsegui(
+        "Cancellare file scaduti da disco e database",
+        function() {
+            $n = 0;
+            foreach ( File::scaduti() as $f ) {
+                $f->cancella(); $n++;
+            }
+            return "Cancellati $n file scaduti";
+        },
+        $log, $ok
+    );
+    
+    cronjobEsegui(
+        "Autorizzare estensioni dopo 30gg, con notifica ai volontari",
+        function() {
+            $n = 0;
+            foreach (Estensione::daAutorizzare() as $e) {
+                $e->auto(); $n++;
+            }
+            return "Concesse $n estensioni";
+        },
+        $log, $ok
+    );
+    
+    cronjobEsegui(
+        "Terminare estensioni",
+        function() {
+            $n = 0;
+            foreach (Estensione::daChiudere() as $e) {
+                $e->termina(); $n++;
+            }
+            return "Chiuse $n estensioni";
+        },
+        $log, $ok
+    );
+    
+    cronjobEsegui(
+        "Autorizzare trasferimenti dopo 30gg, notifica e chiusura sospesi e turni",
+        function() {
+            $n = 0;
+            foreach (Trasferimento::daAutorizzare() as $t) {
+                $t->auto(); $n++;
+            }
+            return "Autorizzati $n trasferimenti";
+        },
+        $log, $ok
+    );
+    
+    cronjobEsegui(
+        "Autorizzare riserve dopo 30gg",
+        function() {
+            $n = 0;
+            foreach (Riserva::daAutorizzare() as $r) {
+                $r->auto(); $n++;
+            }
+            return "Autorizzate $n riserve";
+        },
+        $log, $ok
+    );
+    
+    cronjobEsegui(
+        "Pulitura e fix delle attività",
+        function() {
+            $n = 0;
+            $n = Attivita::pulizia();
+            return "Fix di $n attività";
+        },
+        $log, $ok
+    );
+    
+    cronjobEsegui(
+        "Rigenerazione albero dei comitati",
+        function() {
+            GeoPolitica::rigeneraAlbero();
+            return true;
+        },
+        $log, $ok
+    );
 
-    /* === 1. CANCELLA FILE SCADUTI DA DISCO E DATABASE */
-    $n = 0;
-    foreach ( File::scaduti() as $f ) {
-        $f->cancella(); $n++;
-    }
-    $log .= "Cancellati $n file scaduti\n";
-
-
-    /* === 2. CANCELLA SESSIONI SCADUTE DA DATABASE */
-    // Rimosso, ora sessioni sta in redis...
-
-    /* === 3. AUTORIZZO ESTENSIONI DOPO 30 GG E NOTIFICO AL VOLONTARIO*/
-    $n = 0;
-    foreach (Estensione::daAutorizzare() as $e) {
-        $e->auto(); $n++;
-    }
-    $log .= "Concesse $n estensioni\n";
-
-
-    /* === 4. TERMINO ESTENSIONI */
-    $n = 0;
-    foreach (Estensione::daChiudere() as $e) {
-        $e->termina(); $n++;
-    }
-    $log .= "Chiuse $n estensioni\n";
-
-
-    /* === 5. AUTORIZZO TRASFERIMENTI DOPO 30GG - NOTIFICO E CHIUDO SOSPESI E TURNI */
-    $n = 0;
-    foreach (Trasferimento::daAutorizzare() as $t) {
-        $t->auto(); $n++;
-    }
-    $log .= "Autorizzati $n trasferimenti\n";
-
-
-    /* === 6. DIMETTO DOPO 1 ANNO DI RISEVA SENZA RIENTRO */
-
-
-    /* === 7. AUTORIZZO RISERVE DOPO 30GG */
-    $n = 0;
-    foreach (Riserva::daAutorizzare() as $r) {
-        $r->auto(); $n++;
-    }
-    $log .= "Autorizzate $n riserve\n";
-
-    /* === 8. PULITURA E FIX ATTIVITA' */
-    $n = 0;
-    $n = Attivita::pulizia();
-    $log .= "Fix di $n attività\n";
-
-    /* === 9. RIGENERO L'ALBERO DEI COMITATI */
-    GeoPolitica::rigeneraAlbero();
-    $log .= "Rigenerato l'albero dei comitati\n";
-
-    /* === 10. CHIUDE LE VALIDAZIONI SCADUTE */
-    Validazione::chiudi();
-    $log .= "Chiuse le validazioni scadute\n";
-
-    /* === 11. RIMUOVE ERRORI VECCHI DI UNA SETTIMANA */
-    $n = MErrore::pulisci();
-    $log .= "Cancellati log di {$n} errori in database\n";
+    cronjobEsegui(
+        "Chiusura validazioni scadute",
+        function() {
+            Validazione::chiudi();
+            return true;
+        },
+        $log, $ok
+    );
+    
+    cronjobEsegui(
+        "Rimozione errori vecchi di una settimana",
+        function() {
+            $n = MErrore::pulisci();
+            return "Cancellati log di {$n} errori in database";
+        },
+        $log, $ok
+    );
+    
+    return $ok;
     
 };
 // =========== FINE CRONJOB GIORNALIERO
@@ -128,116 +173,145 @@ function cronjobGiornaliero()  {
 // =========== INIZIO CRONJOB SETTIMANALE
 function cronjobSettimanale() {
     global $log, $db;
+    
+    $ok = true;
+    
+    cronjobEsegui(
+        "Invio reminder patenti CRI in scadenza nei prossimi 15gg",
+        function() {
+            $patenti = TitoloPersonale::inScadenza(2700, 2709, 15); // Minimo id titolo, Massimo id titolo, Giorni
+            $n = 0;
+            $giaInsultati = [];
+            foreach ( $patenti as $patente ) {
+                $_v = $patente->volontario();
+                if ( in_array($_v->id, $giaInsultati ) ) {
+                    continue; // Il prossimo...
+                }
+                $giaInsultati[] = $_v->id;
+                $m = new Email('patenteScadenza', 'Avviso patente CRI in scadenza');
+                $m->a           = $_v;
+                $m->_NOME       = $_v->nome;
+                $m->_SCADENZA   = date('d-m-Y', $patente->fine);
+                $m->invia();
+                $n++;
+            }
+            return "Inviate $n notifiche di scadenza patente";
+        },
+        $log, $ok
+    );
+    
+    cronjobEsegui(
+        "Invio reminder patenti civili in scadenza nei prossimi 15gg",
+        function() {
+            $patenti = TitoloPersonale::inScadenza(70, 77, 15); // Minimo id titolo, Massimo id titolo, Giorni
+            $n = 0;
+            $giaInsultati = [];
+            foreach ( $patenti as $patente ) {
+                $_v = $patente->volontario();
+                if ( in_array($_v->id, $giaInsultati ) ) {
+                    continue; // Il prossimo...
+                }
+                $giaInsultati[] = $_v->id;
+                $m = new Email('patenteScadenzaCivile', 'Avviso patente Civile in scadenza');
+                $m->a = $_v;
+                $m->_NOME = $_v->nome;
+                $m->_SCADENZA = date('d-m-Y', $patente->fine);
+                $m->invia();
+                $n++;
+            }
+            return "Inviate $n notifiche di scadenza patente civili";
+        },
+        $log, $ok
+    );
 
-    /* === 1. PATENTI CRI IN SCADENZA */
-    /* Le patenti in scadenza tra qui e 15 gg */
-    $patenti = TitoloPersonale::inScadenza(2700, 2709, 15); // Minimo id titolo, Massimo id titolo, Giorni
-    $n = 0;
-    $giaInsultati = [];
-    foreach ( $patenti as $patente ) {
-        $_v = $patente->volontario();
-        if ( in_array($_v->id, $giaInsultati ) ) {
-            continue; // Il prossimo...
-        }
-        $giaInsultati[] = $_v->id;
-        $m = new Email('patenteScadenza', 'Avviso patente CRI in scadenza');
-        $m->a           = $_v;
-        $m->_NOME       = $_v->nome;
-        $m->_SCADENZA   = date('d-m-Y', $patente->fine);
-        $m->invia();
-        $n++;
-    }
-    $log .= "Inviate $n notifiche di scadenza patente\n";
+    cronjobEsegui(
+        "Invio del riepilogo per i presidenti",
+        function() {
+            $n = 0;
+            foreach ( Comitato::elenco() as $comitato ) {
+                $a = count($comitato->appartenenzePendenti());
+                $b = count($comitato->titoliPendenti());    
+                $z = $a + $b;
+                if ( $z == 0 ) { continue; }
+                foreach ( $comitato->volontariPresidenti() as $presidente ) {
+                    $m = new Email('riepilogoPresidente', "Promemoria: Ci sono {$c} azioni in sospeso");
+                    $m->a       = $presidente;
+                    $m->_NOME       = $presidente->nomeCompleto();
+                    $m->_COMITATO   = $comitato->nomeCompleto();
+                    $m->_APPPENDENTI= $a;
+                    $m->_TITPENDENTI= $b;
+                    $m->invia();
+                    $n++;
+                }
+            }  
+            return "Inviati $n promemoria ai presidenti";
+        },
+        $log, $ok
+    );
 
-    /* === 2. PATENTI CRI IN SCADENZA */
-    /* Patenti civili in scadenza da qui a 15 giorni*/
-    $patenti = TitoloPersonale::inScadenza(70, 77, 15); // Minimo id titolo, Massimo id titolo, Giorni
-    $n = 0;
-    $giaInsultati = [];
-    foreach ( $patenti as $patente ) {
-        $_v = $patente->volontario();
-        if ( in_array($_v->id, $giaInsultati ) ) {
-            continue; // Il prossimo...
-        }
-        $giaInsultati[] = $_v->id;
-        $m = new Email('patenteScadenzaCivile', 'Avviso patente Civile in scadenza');
-        $m->a = $_v;
-        $m->_NOME = $_v->nome;
-        $m->_SCADENZA = date('d-m-Y', $patente->fine);
-        $m->invia();
-        $n++;
-    }
-    $log .= "Inviate $n notifiche di scadenza patente civili\n";
-
-    /* === 3. RIEPILOGO PRESIDENTE */
-    $n = 0;
-    foreach ( Comitato::elenco() as $comitato ) {
-        $a = count($comitato->appartenenzePendenti());
-        $b = count($comitato->titoliPendenti());    
-        $z = $a + $b;
-        if ( $z == 0 ) { continue; }
-        foreach ( $comitato->volontariPresidenti() as $presidente ) {
-            $m = new Email('riepilogoPresidente', "Promemoria: Ci sono {$c} azioni in sospeso");
-            $m->a       = $presidente;
-            $m->_NOME       = $presidente->nomeCompleto();
-            $m->_COMITATO   = $comitato->nomeCompleto();
-            $m->_APPPENDENTI= $a;
-            $m->_TITPENDENTI= $b;
-            $m->invia();
-            $n++;
-        }
-    }
-    $log .= "Inviati $n promemoria ai presidenti\n";
-
-
-    /* === 4. REMINDER 1 ANNO DI RISERVA TRA POCHI GG */
-    $n = 0;
-    foreach (Riserva::inScadenza() as $r) {
-        $n++;
-        $m = new Email('promemoriaScadenzaRiserva', "Promemoria: Riserva in scadenza tra pochi giorni");
-        $m->a           = $r->volontario();
-        $m->_NOME       = $r->volontario()->nome;
-        $m->_SCADENZA   = date('d-m-Y', $r->fine);
-        $m->invia();
-    }
-    $log .= "Notificate $n riserve in scadenza\n";
-
-
-    /* === 5. REMINDER SCADENZA ESTENSIONE TRA POCHI GG */
-    $n = 0;
-    foreach (Estensione::inScadenza() as $e) {
-        $n++;
-        $m = new Email('promemoriaScadenzaEstensione', "Promemoria: Estensione in scadenza tra pochi giorni");
-        $m->a           = $e->volontario();
-        $m->_NOME       = $e->volontario()->nome;
-        $m->_COMITATO   = $e->appartenenza()->comitato()->nomeCompleto();
-        $m->_SCADENZA   = date('d-m-Y', $e->appartenenza()->fine);
-        $m->invia();
-    }
-    $log .= "Notificate $n estensioni in scadenza\n";
+    cronjobEsegui(
+        "Invio reminder anniversario riserva a breve",
+        function() {
+            $n = 0;
+            foreach (Riserva::inScadenza() as $r) {
+                $n++;
+                $m = new Email('promemoriaScadenzaRiserva', "Promemoria: Riserva in scadenza tra pochi giorni");
+                $m->a           = $r->volontario();
+                $m->_NOME       = $r->volontario()->nome;
+                $m->_SCADENZA   = date('d-m-Y', $r->fine);
+                $m->invia();
+            }
+            return "Notificate $n riserve in scadenza";
+        },
+        $log, $ok
+    );
+    
+    cronjobEsegui(
+        "Invio reminder scadenza estensione a breve",
+        function() {
+            $n = 0;
+            foreach (Estensione::inScadenza() as $e) {
+                $n++;
+                $m = new Email('promemoriaScadenzaEstensione', "Promemoria: Estensione in scadenza tra pochi giorni");
+                $m->a           = $e->volontario();
+                $m->_NOME       = $e->volontario()->nome;
+                $m->_COMITATO   = $e->appartenenza()->comitato()->nomeCompleto();
+                $m->_SCADENZA   = date('d-m-Y', $e->appartenenza()->fine);
+                $m->invia();
+            }
+            return "Notificate $n estensioni in scadenza";
+        },
+        $log, $ok
+    );
+    
+    return $ok;
 
 };
 // =========== FINE CRONJOB SETTIMANALE
 
 // Vera e propria esecuzione del cronjob...
-cronjobGiornaliero();
+$ok = true;
+$ok &= cronjobGiornaliero();
 if ( $settimanale ) {
-    cronjobSettimanale();
+    $ok &= cronjobSettimanale();
     file_put_contents('upload/log/cronjob.settimanale.timestamp', $ora);
 }
 
 /* FINE CRONJOB */
 $end = microtime(true);
-$tempo = $end - $start;
-$log .= "FINE (eseguito in {$tempo} secondi)\n";
+$tempo = round($end - $start, 4);
+$log .= "[FINE] Cronjob eseguito in {$tempo} secondi.\n";
 
+if ( !$ok ) {
+    $log .= "[:(] Nel log sono stati rilevati errori.\n";
+}
 /* Stampa il log a video */
-echo "<pre>$log</pre>";
+echo "<pre>{$log}</pre>";
 
 /* Appende il file al log */
 file_put_contents('upload/log/cronjob.txt', "\n" . $log, FILE_APPEND);
 
 /* Invia per email il log */
-$m = new Email('mailTestolibero', 'Report cronjob');
+$m = new Email('mailTestolibero', ($ok ? 'REPORT cronjob' : 'ERRORE nel cronjob'));
 $m->_TESTO = nl2br($log);
 $m->invia();

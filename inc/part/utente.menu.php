@@ -57,6 +57,12 @@ if ( $presidente || ($me && $me->delegazioneAttuale()->applicazione == APP_OBIET
     ];
 }
 
+if ( $presidente || ($me && $me->delegazioneAttuale()->applicazione == APP_AUTOPARCO)) {
+    $menu[''] += [
+        'autoparco.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Autoparco'
+    ];
+}
+
 $nap = count($me->autorizzazioniPendenti());
 if ( $nap ) {
     $menu['Da fare'] += [
