@@ -547,6 +547,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
     <a class="btn btn-small" target="_new" href="?p=us.quote.visualizza&id=<?php echo $u->id; ?>">
       <i class="icon-money"></i> Storico quote
     </a>
+    <br/>
     <a class="btn btn-small" target="_new" href="?p=presidente.incarichi.visualizza&id=<?php echo $u->id; ?>">
       <i class="icon-briefcase"></i> Storico incarichi
     </a>
