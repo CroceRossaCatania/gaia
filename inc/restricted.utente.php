@@ -100,31 +100,23 @@ $t = TitoloPersonale::filtra([['volontario',$u]]);
             </div>
         </div>    
     </div>
-    <?php if ( $u->storicoDelegazioni()) { ?>
+    <?php if ( $u->delegazioni()) { ?>
     <div class="span6">
         <h2>
             <i class="icon-briefcase muted"></i>
-            Incarichi
+            Incarichi attuali
             </h2>    
     </div>
     <div class="span6">
         <table class="table table-bordered table-striped">
             <thead>
-                <th>Stato</th>
                 <th>Ruolo</th>
                 <th>Comitato</th>
                 <th>Inizio</th>
                 <th>Fine</th>
             </thead>
-            <?php foreach ( $u->storicoDelegazioni() as $app ) { ?>
-                <tr<?php if ($app->fine >= time() || $app->fine == 0 ) { ?> class="success"<?php } ?>>
-                    <td>
-                        <?php if ($app->fine >= time() || $app->fine == 0 ) { ?>
-                            Attuale
-                            <?php } else { ?>
-                            Passato
-                            <?php } ?>
-                    </td>
+            <?php foreach ( $u->delegazioni() as $app ) { ?>
+                <tr>
                     <td>
                         <?php switch ( $app->applicazione ) { 
                             case APP_PRESIDENTE:
