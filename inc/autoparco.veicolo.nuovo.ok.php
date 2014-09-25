@@ -72,6 +72,9 @@ if (!$libretto){
     $stato                      = $_POST['inputStato'];
     $t->stato                   = $stato;
     $t->intervalloRevisione     = $_POST['inputintervalloRevisione'];
+    $t->selettiva               = $_POST['inputSelettiva'];
+    $t->telepass                = $_POST['inputTelepass'];
+    $t->card                    = $_POST['inputCard'];
 
     if ( $stato == VEI_FUORIUSO ) {
         $t->tFuoriuso = time();

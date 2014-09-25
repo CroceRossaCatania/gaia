@@ -254,6 +254,34 @@ if ( $veicolo ){
         </div>
         <div class="span12">
             <hr/>
+            <h3>Informazioni aggiuntive</h3>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="control-group">
+                    <label class="control-label" for="inputTelepass">Numero Telepass</label>
+                    <div class="controls">
+                        <input class="input-large" type="text" value="<?= $veicolo->telepass; ?>" name="inputTelepass" id="inputTelepass" <?php if ($x) { ?> readonly <?php } ?>>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputCard">Card rifornimento</label>
+                    <div class="controls">
+                        <input class="input-large" type="text" value="<?= $veicolo->card; ?>" name="inputCard" id="inputCard" <?php if ($x) { ?> readonly <?php } ?>>
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="control-group">
+                    <label class="control-label" for="inputSelettiva">Selettiva radio</label>
+                    <div class="controls">
+                        <input class="input-large" type="text" value="<?= $veicolo->selettiva; ?>" name="inputSelettiva" id="inputSelettiva" <?php if ($x) { ?> readonly <?php } ?>>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span12">
+            <hr/>
             <h3>Intervallo revisione</h3>
             <?php if ($x) { ?> 
                 <div class="control-group">
