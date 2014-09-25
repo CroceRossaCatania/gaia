@@ -45,11 +45,27 @@ class CorsoBase extends GeoEntita {
     }
 
     /**
+     * Ritorna la data di inizio del corso base
+     * @return DT
+     */
+    public function inizioDate() {
+        return $this->inizio;
+    }
+
+    /**
      * Ritorna la data dell'esame
      * @return DT
      */
     public function fine() {
         return DT::daTimestamp($this->tEsame);
+    }
+
+    /**
+     * Ritorna la data dell'esame
+     * @return DT
+     */
+    public function fineDate() {
+        return $this->tEsame;
     }
 
     /**

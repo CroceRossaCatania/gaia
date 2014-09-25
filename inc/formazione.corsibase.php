@@ -84,10 +84,10 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                             <?php echo $corso->luogo; ?>
                             <br />
                             Data inizio:
-                            <?php echo $corso->inizio()->inTesto(false); ?>
+                            <?php echo date('d/m/Y H:i', $corso->inizioDate()); ?>
                             <br />
                             Data esame:
-                            <?php echo $corso->fine()->inTesto(false); ?>
+                            <?php echo date('d/m/Y H:i', $corso->fineDate()); ?>
                             <br />
                             <?php if ( $corso->direttore ) { ?>
                             Direttore: 

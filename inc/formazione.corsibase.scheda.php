@@ -604,8 +604,18 @@ $(document).ready( function() {
         <!-- ELENCHI FINE CORSO -->
         
         <div class="row-fluid">
-            <div class="span12">
+            <div class="span6">
                 <h3><i class="icon-group"></i> Esiti corso</h3>
+            </div>
+            <div class="span6 allinea-destra">
+                <div class="btn-group">
+                    <a class="btn btn-small btn-success" href="?p=formazione.corsibase.verbale&id=<?= $corso->id; ?>" title="Verbale">
+                        <i class="icon-paste"></i> Verbale esame
+                    </a>
+                    <a class="btn btn-small" href="?p=formazione.corsibase.excel&concluso&id=<?= $corso->id; ?>" title="Excel">
+                        <i class="icon-download"></i> Scarica come foglio excel
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -639,10 +649,15 @@ $(document).ready( function() {
                         <td>
                             <?= $conf['partecipazioneBase'][$p->stato]; ?>
                         </td>
-                        <td width="15%">
-                            <a href="<?= "?p=profilo.controllo&id={$iscritto->id}" ?>" class="btn" target="_new" title="Dettagli">
-                                <i class="icon-eye-open"></i> Dettagli
-                            </a>
+                        <td width="13%">
+                            <div class="btn-group-vertical">
+                                <a href="<?= "?p=profilo.controllo&id={$iscritto->id}" ?>" class="btn btn-small" target="_new" title="Dettagli">
+                                    <i class="icon-eye-open"></i> Dettagli
+                                </a>
+                                <a href="<?= "?p=profilo.controllo&id={$iscritto->id}" ?>" class="btn bn-small btn-info" target="_new" title="Dettagli">
+                                    <i class="icon-file-alt"></i> Scheda
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 <?php } ?>
