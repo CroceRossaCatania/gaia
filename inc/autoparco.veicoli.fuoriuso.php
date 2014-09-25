@@ -40,7 +40,7 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
         <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
     </div> 
 <?php } ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <br/>
 <div class="row-fluid">
     <div class="span4">
