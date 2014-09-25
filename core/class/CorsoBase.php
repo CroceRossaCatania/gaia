@@ -45,8 +45,8 @@ class CorsoBase extends GeoEntita {
     }
 
     /**
-     * Ritorna la data di inizio del corso base
-     * @return DT
+     * Ritorna la data di inizio del corso base in epoch time
+     * @return int
      */
     public function inizioDate() {
         return $this->inizio;
@@ -61,8 +61,8 @@ class CorsoBase extends GeoEntita {
     }
 
     /**
-     * Ritorna la data dell'esame
-     * @return DT
+     * Ritorna la data dell'esame in epoch time
+     * @return int
      */
     public function fineDate() {
         return $this->tEsame;

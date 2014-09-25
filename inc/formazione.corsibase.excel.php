@@ -76,7 +76,11 @@ if ( isset($_GET['preiscrizioni'])){
 
 }elseif ( isset($_GET['concluso'])){
 
-    $part = $corso->partecipazioni(ISCR_CONFERMATA);
+    $part = $corso->partecipazioni();
+    foreach ( $part as $p ) { 
+        if(!$p->haConclusoCorso()) { continue; }
+        $iscritto = $p->utente(); 
+    }
 
         $excel->intestazione([
             'Nome',
@@ -100,10 +104,12 @@ if ( isset($_GET['preiscrizioni'])){
                 date('d/m/Y', $iscritto->dataNascita),
                 $iscritto->comuneNascita,
                 $iscritto->email,
-                $iscritto->cellulare
+                $iscritto->cellulare,
+                date ('d/m/Y', $iscritto->tAttestato),
+                $conf['partecipazioneBase'][$p->stato]
                 ]);
         }
 
-    $excel->genera('Aspiranti iscritti.xls');
+    $excel->genera('Esiti iscritti.xls');
     $excel->download();
 }

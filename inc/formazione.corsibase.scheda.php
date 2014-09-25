@@ -610,7 +610,10 @@ $(document).ready( function() {
             <div class="span6 allinea-destra">
                 <div class="btn-group">
                     <a class="btn btn-small btn-success" href="?p=formazione.corsibase.verbale&id=<?= $corso->id; ?>" title="Verbale">
-                        <i class="icon-paste"></i> Verbale esame
+                        <i class="icon-paste"></i> Verbale e schede esame
+                    </a>
+                    <a class="btn btn-small btn-primary" href="?p=formazione.corsibase.attestati&id=<?= $corso->id; ?>" title="Attestati">
+                        <i class="icon-certificate"></i> Attestati
                     </a>
                     <a class="btn btn-small" href="?p=formazione.corsibase.excel&concluso&id=<?= $corso->id; ?>" title="Excel">
                         <i class="icon-download"></i> Scarica come foglio excel
@@ -633,7 +636,7 @@ $(document).ready( function() {
                 $part = $corso->partecipazioni();
 
                 foreach ( $part as $p ) { 
-                    if(!$p->haConclusoCorso()) {continue; }
+                    if(!$p->haConclusoCorso()) { continue; }
                     $iscritto = $p->utente(); 
 
                     ?>
@@ -649,13 +652,16 @@ $(document).ready( function() {
                         <td>
                             <?= $conf['partecipazioneBase'][$p->stato]; ?>
                         </td>
-                        <td width="13%">
+                        <td width="15%">
                             <div class="btn-group-vertical">
                                 <a href="<?= "?p=profilo.controllo&id={$iscritto->id}" ?>" class="btn btn-small" target="_new" title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>
-                                <a href="<?= "?p=profilo.controllo&id={$iscritto->id}" ?>" class="btn bn-small btn-info" target="_new" title="Dettagli">
+                                <a href="<?= "?p=formazione.corsobase.scheda&id={$iscritto->id}" ?>" class="btn bn-small btn-info" target="_new" title="Dettagli">
                                     <i class="icon-file-alt"></i> Scheda
+                                </a>
+                                <a href="<?= "?p=formazione.corsobase.attestato&id={$iscritto->id}" ?>" class="btn bn-small btn-primary" target="_new" title="Dettagli">
+                                    <i class="icon-certificate"></i> Attestato
                                 </a>
                             </div>
                         </td>
