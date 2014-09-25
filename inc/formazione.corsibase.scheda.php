@@ -657,10 +657,10 @@ $(document).ready( function() {
                                 <a href="<?= "?p=profilo.controllo&id={$iscritto->id}" ?>" class="btn btn-small" target="_new" title="Dettagli">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>
-                                <a href="<?= "?p=formazione.corsobase.scheda&id={$iscritto->id}" ?>" class="btn bn-small btn-info" target="_new" title="Dettagli">
-                                    <i class="icon-file-alt"></i> Scheda
+                                <a href="<?= "?p=formazione.corsibase.valutazione&id={$iscritto->id}&corso={$corso->id}" ?>" class="btn bn-small btn-info" target="_new" title="Dettagli">
+                                    <i class="icon-file-alt"></i> Valutazione
                                 </a>
-                                <a href="<?= "?p=formazione.corsobase.attestato&id={$iscritto->id}" ?>" class="btn bn-small btn-primary" target="_new" title="Dettagli">
+                                <a href="<?= "?p=formazione.corsibase.attestato&id={$iscritto->id}" ?>" class="btn bn-small btn-primary" target="_new" title="Dettagli">
                                     <i class="icon-certificate"></i> Attestato
                                 </a>
                             </div>
