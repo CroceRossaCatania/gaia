@@ -41,7 +41,7 @@ $admin = $me->admin();
           <div class="control-group">
             <label class="control-label" for="inputNome">Nome autoparco</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" name="inputNome" id="inputNome" value="<?= $autoparco->nome; ?>" required <?php if ( !$admin ) { ?> readonly <?php } ?>>
+              <input type="text" class="input-xlarge" name="inputNome" id="inputNome" value="<?= $autoparco->nome; ?>" required >
             </div>
           </div>
           
