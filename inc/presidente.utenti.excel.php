@@ -261,7 +261,8 @@ if(isset($_GET['dimessi'])){
         'Cell. Servizio',
         'Data ingresso CRI',
         'N. Quota',
-        'Data versamento'
+        'Data versamento',
+        'Importo'
         ]);
 
     foreach ( $c->quoteSi($anno, MEMBRO_ORDINARIO) as $v ) {
@@ -284,7 +285,8 @@ if(isset($_GET['dimessi'])){
             $v->cellulareServizio,
             $v->ingresso()->format("d/m/Y"),
             $v->quota($anno)->progressivo(),
-            $v->quota($anno)->dataPagamento()->format("d/m/Y")
+            $v->quota($anno)->dataPagamento()->format("d/m/Y"),
+            $v->quota($anno)->quota
             ]);
         
     }
@@ -325,7 +327,8 @@ if(isset($_GET['dimessi'])){
         'Cell. Servizio',
         'Data ingresso CRI',
         'N. Quota',
-        'Data versamento'
+        'Data versamento',
+        'Importo'
         ]);
 
     foreach ( $c->quoteSi($anno) as $v ) {
@@ -349,7 +352,8 @@ if(isset($_GET['dimessi'])){
             $v->cellulareServizio,
             $v->ingresso()->format("d/m/Y"),
             $v->quota($anno)->progressivo(),
-            $v->quota($anno)->dataPagamento()->format("d/m/Y")
+            $v->quota($anno)->dataPagamento()->format("d/m/Y"),
+            $v->quota($anno)->quota
             ]);
         
     }
