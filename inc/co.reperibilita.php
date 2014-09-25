@@ -50,7 +50,7 @@ paginaApp([APP_CO , APP_PRESIDENTE , APP_OBIETTIVO]);
         <th>Azione</th>
     </thead>
 <?php
-$comitati= $me->comitatiApp ([ APP_CO, APP_PRESIDENTE , APP_OBIETTIVO ]);
+$comitati= $me->comitatiApp ([ APP_CO, APP_PRESIDENTE , APP_OBIETTIVO ], true);
 foreach($comitati as $comitato){
     foreach($comitato->reperibili() as $_t){
         $_v = $_t->volontario();
@@ -59,8 +59,8 @@ foreach($comitati as $comitato){
         <?php if ($_t->attuale()) { ?>
         <td><?php echo $_v->nome; ?></td>
         <td><?php echo $_v->cognome; ?></td>
-        <td><?php echo date('d-m-Y H:i', $_t->inizio); ?></td>
-        <td><?php echo date('d-m-Y H:i', $_t->fine); ?></td>
+        <td><?php echo date('d/m/Y H:i', $_t->inizio); ?></td>
+        <td><?php echo date('d/m/Y H:i', $_t->fine); ?></td>
         <td><?php echo $_t->attivazione; ?> min</td>
         <td><?php echo $_t->comitato()->nomeCompleto(); ?></td>
         <td><?php echo $_v->cellulare; ?></td>

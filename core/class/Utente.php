@@ -341,7 +341,7 @@ class Utente extends Persona {
             $app = [$app];
         }
         if ( $this->admin() ) {
-            return $this->comitatiDiCompetenza();
+            return $this->comitatiDiCompetenza($soloComitati);
         }
         $r = [];
         foreach ( $app as $k ) {
