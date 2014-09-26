@@ -6,28 +6,37 @@
 
 paginaPrivata();
 
-controllaParametri(array('id','corso'), 'errore.fatale');
+if (isset($_GET['single'])){
+    controllaParametri(array('id','corso'), 'errore.fatale');
 
-$iscritto = $_GET['id'];
-$corso = $_GET['corso'];
+    $iscritto = $_GET['id'];
+    $corso = $_GET['corso'];
 
-$iscritto = Utente::id($iscritto);
-$corso = CorsoBase::id($corso);
+    $iscritto = Utente::id($iscritto);
+    $corso = CorsoBase::id($corso);
 
-$pb = PartecipazioneBase::filtra([
-    ['volontario', $iscritto],
-    ['corsoBase', $corso],
-    ['stato', ISCR_SUPERATO]
-    ]);
+    $f = $corso->generaAttestato($iscritto);
+    $f->download();
 
-$pb = $pb[0];
+}else{
 
-$p = new PDF('attestato', 'Attestato.pdf');
-$p->_COMITATO     = $corso->organizzatore()->nomeCompleto();
-$p->_CF           = $iscritto->codiceFiscale;
-$p->_VOLONTARIO   = $iscritto->nomeCompleto();
-$p->_DATAESAME    = date('d/m/Y', $pb->tAttestato);
-$p->_DATA         = date('d/m/Y', time());
-$p->_LUOGO        = $corso->organizzatore()->comune;
-$f = $p->salvaFile();
-$f->download();
+    controllaParametri(array('id'), 'errore.fatale');
+
+    $corso = $_GET['id'];
+
+    $corso = CorsoBase::id($corso);
+
+    $zip = new Zip();
+
+    foreach($corso->partecipazioni(ISCR_SUPERATO) as $pb){
+
+        $iscritto = $pb->utente();
+        $f = $corso->generaAttestato($iscritto);
+        $zip->aggiungi($f);
+
+    }
+
+    $zip->comprimi("Attestati corso base.zip");
+    $zip->download();
+
+}

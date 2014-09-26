@@ -249,4 +249,30 @@ class CorsoBase extends GeoEntita {
 
     }
 
+    /**
+     * Genera attestato, sulla base del corso e del volontario
+     *
+     * @return file 
+     */
+    public function generaAttestato($iscritto) {
+        $pb = PartecipazioneBase::filtra([
+                ['volontario', $iscritto],
+                ['corsoBase', $this],
+                ['stato', ISCR_SUPERATO]
+            ]);
+
+        $pb = $pb[0];
+
+        $p = new PDF('attestato', 'Attestato.pdf');
+        $p->_COMITATO     = $this->organizzatore()->nomeCompleto();
+        $p->_CF           = $iscritto->codiceFiscale;
+        $p->_VOLONTARIO   = $iscritto->nomeCompleto();
+        $p->_DATAESAME    = date('d/m/Y', $pb->tAttestato);
+        $p->_DATA         = date('d/m/Y', time());
+        $p->_LUOGO        = $this->organizzatore()->comune;
+        $f = $p->salvaFile();
+        
+        return $f;
+    }
+
 }
