@@ -271,7 +271,7 @@ class CorsoBase extends GeoEntita {
         $p->_DATAESAME    = date('d/m/Y', $pb->tAttestato);
         $p->_DATA         = date('d/m/Y', time());
         $p->_LUOGO        = $this->organizzatore()->comune;
-        $f = $p->salvaFile();
+        $f = $p->salvaFile(null,true);
 
         return $f;
     }
@@ -363,7 +363,7 @@ class CorsoBase extends GeoEntita {
         $p->_EXTRAUNO     = $extra1;
         $p->_EXTRADUE     = $extra2;
         $p->_CANDIDATO    = $candidato;
-        $f = $p->salvaFile();
+        $f = $p->salvaFile(null,true);
         return $f;
     }
 }
