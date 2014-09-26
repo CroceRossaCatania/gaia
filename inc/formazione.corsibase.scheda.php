@@ -660,7 +660,7 @@ $(document).ready( function() {
                                 <a href="<?= "?p=formazione.corsibase.valutazione&id={$iscritto->id}&corso={$corso->id}" ?>" class="btn bn-small btn-info" target="_new" title="Dettagli">
                                     <i class="icon-file-alt"></i> Scheda
                                 </a>
-                                <a href="<?= "?p=formazione.corsibase.attestato&id={$iscritto->id}" ?>" class="btn bn-small btn-primary" target="_new" title="Dettagli">
+                                <a href="<?= "?p=formazione.corsibase.attestato&id={$iscritto->id}&corso={$corso->id}" ?>" class="btn bn-small btn-primary" target="_new" title="Dettagli">
                                     <i class="icon-certificate"></i> Attestato
                                 </a>
                             </div>
