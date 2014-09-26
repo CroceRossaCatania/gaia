@@ -255,6 +255,7 @@ class CorsoBase extends GeoEntita {
      * @return file 
      */
     public function generaAttestato($iscritto) {
+
         $pb = PartecipazioneBase::filtra([
                 ['volontario', $iscritto],
                 ['corsoBase', $this],
@@ -271,8 +272,98 @@ class CorsoBase extends GeoEntita {
         $p->_DATA         = date('d/m/Y', time());
         $p->_LUOGO        = $this->organizzatore()->comune;
         $f = $p->salvaFile();
-        
+
         return $f;
     }
 
+    /**
+     * Genera scheda valutazione, sulla base del corso e del volontario
+     *
+     * @return file 
+     */
+    public function generaScheda($iscritto) {
+        
+        $pb = PartecipazioneBase::filtra([
+            ['volontario', $iscritto],
+            ['corsoBase', $this],
+            ['stato', ISCR_SUPERATO]
+            ]);
+
+        $pb = array_merge( $pb, PartecipazioneBase::filtra([
+            ['volontario', $iscritto],
+            ['corsoBase', $this],
+            ['stato', ISCR_BOCCIATO]
+            ]));
+
+        $pb = array_unique($pb);
+        $pb = $pb[0];
+
+        /* costruisco i testi del pdf secondo regolamento */
+        if ($pb->p1){
+            $p1 = "Positivo";
+        }else{
+            $p1 = "Negativo";
+        }
+
+        if ($pb->p2){
+            $p2 = "Positivo";
+        }else{
+            $p2 = "Negativo";
+        }
+
+        if ( $pb->stato==ISCR_SUPERATO ){
+
+            $idoneo = "Idoneo";
+
+        }else{
+
+            $idoneo = "Non Idoneo";
+
+        }
+
+        /* Appongo eventuali X */
+        $extra1 = null;
+        $extra2 = null;
+
+        if ($pb->e1){
+
+            $extra1 = "X";
+
+        }
+
+        if ($pb->e2){
+
+            $extra2 = "X";
+
+        }
+
+        /*testi con sesso già inserito */
+        if ($iscritto->sesso==UOMO){
+
+            $candidato = "il candidato";
+
+        }else{
+
+            $candidato = "la candidata";
+
+        }
+
+        $p = new PDF('schedabase', 'Scheda valutazione.pdf');
+        $p->_COMITATO     = $this->organizzatore()->nomeCompleto();
+        $p->_VERBALENUM   = $this->progressivo();
+        $p->_DATAESAME    = date('d/m/Y', $pb->tAttestato);
+        $p->_UNOESITO     = $p1;
+        $p->_ARGUNO       = $pb->a1;
+        $p->_DUEESITO     = $p2;
+        $p->_ARGDUE       = $pb->a2;
+        $p->_NOMECOMPLETO = $iscritto->nomeCompleto();
+        $p->_LUOGONASCITA = $iscritto->comuneNascita;
+        $p->_DATANASCITA  = date('d/m/Y', $iscritto->dataNascita);
+        $p->_IDONETA      = $idoneo;
+        $p->_EXTRAUNO     = $extra1;
+        $p->_EXTRADUE     = $extra2;
+        $p->_CANDIDATO    = $candidato;
+        $f = $p->salvaFile();
+        return $f;
+    }
 }
