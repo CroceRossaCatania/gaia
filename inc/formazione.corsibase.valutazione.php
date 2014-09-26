@@ -44,8 +44,8 @@ if ($pb->p2){
 $p = new PDF('schedabase', 'Scheda valutazione.pdf');
 $p->_COMITATO     = $corso->organizzatore()->nomeCompleto();
 $p->_SCHEDANUM    = "scheda";
-$p->_VERBALENUM   = "scheda";
-$p->_DATAESAME    = $pb->tAttestato;
+$p->_VERBALENUM   = $corso->progressivo();
+$p->_DATAESAME    = date('d/m/Y', $pb->tAttestato);
 $p->_UNOESITO     = $p1;
 $p->_DUEESITO     = $p2;
 $p->_NOMECOMPLETO = $iscritto->nomeCompleto();
