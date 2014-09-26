@@ -30,15 +30,15 @@ $pb = array_unique($pb);
 $pb = $pb[0];
 
 if ($pb->p1){
-	$p1 = "Idoneo";
+	$p1 = "Positivo";
 }else{
-	$p1 = "Non idoneo";
+	$p1 = "Negativo";
 }
 
 if ($pb->p2){
-	$p2 = "Idoneo";
+	$p2 = "Positivo";
 }else{
-	$p2 = "Non idoneo";
+	$p2 = "Negativo";
 }
 
 $p = new PDF('schedabase', 'Scheda valutazione.pdf');

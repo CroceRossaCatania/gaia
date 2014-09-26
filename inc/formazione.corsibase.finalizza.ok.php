@@ -32,6 +32,8 @@ foreach($part as $p) {
                 $p->cAttestato = $me;
                 $p->p1 = $_POST["p1_{$p->id}"];
                 $p->p2 = $_POST["p2_{$p->id}"];
+                $p->a1 = $_POST["arg_p1_{$p->id}"];
+                $p->a2 = $_POST["arg_p2_{$p->id}"];
                 if(isset($_POST["extra_1_{$p->id}"])) {
                     $p->e1 = $_POST["extra_1_{$p->id}"];
                 }
@@ -45,6 +47,7 @@ foreach($part as $p) {
                 $p->tAttestato = time();
                 $p->cAttestato = $me;
                 $p->p1 = $_POST["p1_{$p->id}"];
+                $p->a1 = $_POST["arg_p1_{$p->id}"];
                 $p->e2 = $_POST["extra_2_{$p->id}"];
                 $p->utente()->trasformaInVolontario($me);
 

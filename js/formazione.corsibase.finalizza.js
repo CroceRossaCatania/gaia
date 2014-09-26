@@ -17,6 +17,8 @@ $(document).ready( function() {
         $('#riga_' + id).removeClass('warning');
         $('#opt_non_' + id).hide();
         $('#opt_p1_' + id).fadeIn('slow');
+        $('#arg_p1_' + id).fadeIn('slow');
+        $('#arg_p2_' + id).fadeIn('slow');
         $('#opt_p2_' + id).fadeIn('slow');
         $('#opt_p3_' + id).fadeIn('slow');
         }
@@ -134,10 +136,14 @@ $(document).ready( function() {
         $('#opt_p1_' + id).removeClass('error');
         $('#opt_p2_' + id).removeClass('error');
         $('#opt_p3_' + id).removeClass('error');
+        $('#arg_p1_' + id).removeClass('error');
+        $('#arg_p2_' + id).removeClass('error');
         $('#riga_' + id).addClass('success');
         $('#opt_p1_' + id).addClass('success');
         $('#opt_p2_' + id).addClass('success');
         $('#opt_p3_' + id).addClass('success');
+        $('#arg_p1_' + id).addClass('success');
+        $('#arg_p2_' + id).addClass('success');
         data[id] = true;
         if(Object.keys(data).every(function(k){ return data[k] })){
           $('#pulsantone').show();
@@ -160,11 +166,15 @@ $(document).ready( function() {
         $('#opt_p1_' + id).removeClass('error');
         $('#opt_p2_' + id).removeClass('error');
         $('#opt_p3_' + id).removeClass('error');
+        $('#arg_p1_' + id).removeClass('error');
+        $('#arg_p2_' + id).removeClass('error');
         $('#tdex1_' + id).addClass('muted');
         $('#riga_' + id).addClass('success');
         $('#opt_p1_' + id).addClass('success');
         $('#opt_p2_' + id).addClass('success');
         $('#opt_p3_' + id).addClass('success');
+        $('#arg_p1_' + id).addClass('success');
+        $('#arg_p2_' + id).addClass('success');
         data[id] = true;
         if(Object.keys(data).every(function(k){ return data[k] })){
           $('#pulsantone').show();
@@ -182,10 +192,14 @@ $(document).ready( function() {
         $('#opt_p1_' + id).removeClass('success');
         $('#opt_p2_' + id).removeClass('success');
         $('#opt_p3_' + id).removeClass('success');
+        $('#arg_p1_' + id).removeClass('success');
+        $('#arg_p2_' + id).removeClass('success');
         $('#riga_' + id).addClass('error');
         $('#opt_p1_' + id).addClass('error');
         $('#opt_p2_' + id).addClass('error');
         $('#opt_p3_' + id).addClass('error');
+        $('#arg_p1_' + id).addClass('error');
+        $('#arg_p2_' + id).addClass('error');
       }
       if($("#cf1_" + id).is(':checked') && ($("#ct2_" + id).is(':checked') || $("#cf2_" + id).is(':checked'))){
         data[id] = true;
@@ -206,10 +220,14 @@ $(document).ready( function() {
         $('#opt_p1_' + id).removeClass('error');
         $('#opt_p2_' + id).removeClass('error');
         $('#opt_p3_' + id).removeClass('error');
+        $('#arg_p1_' + id).removeClass('error');
+        $('#arg_p2_' + id).removeClass('error');
         $('#riga_' + id).addClass('success');
         $('#opt_p1_' + id).addClass('success');
         $('#opt_p2_' + id).addClass('success');
         $('#opt_p3_' + id).addClass('success');
+        $('#arg_p1_' + id).addClass('success');
+        $('#arg_p2_' + id).addClass('success');
         data[id] = true;
         if(Object.keys(data).every(function(k){ return data[k] })){
           $('#pulsantone').show();
@@ -235,10 +253,14 @@ $(document).ready( function() {
         $('#opt_p1_' + id).removeClass('success');
         $('#opt_p2_' + id).removeClass('success');
         $('#opt_p3_' + id).removeClass('success');
+        $('#arg_p1_' + id).removeClass('success');
+        $('#arg_p2_' + id).removeClass('success');
         $('#riga_' + id).addClass('error');
         $('#opt_p1_' + id).addClass('error');
         $('#opt_p2_' + id).addClass('error');
         $('#opt_p3_' + id).addClass('error');
+        $('#arg_p1_' + id).addClass('error');
+        $('#arg_p2_' + id).addClass('error');
       }
       if(($("#ct1_" + id).is(':checked') || $("#cf1_" + id).is(':checked')) && $("#cf2_" + id).is(':checked')){
         data[id] = true;
