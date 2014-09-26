@@ -32,7 +32,7 @@ class PDF {
     
     /**
      * @param Comitato default null, se passato inserisce footer con intestazione
-     * @param White default null, se passato rimuove footer e riduce margini
+     * @param White default null, l'header può essere integrato nel modello
      */
     public function salvaFile($comitato=null,$white=null) {
         global $conf, $sessione;
@@ -42,14 +42,14 @@ class PDF {
             $this->_CF         = $comitato->locale()->cf(true);
             $footer     = file_get_contents('./core/conf/pdf/footerComitato.html');
         }elseif( $white ){
-            $footer     = file_get_contents('./core/conf/pdf/footerStretto.html');
+            $footer     = null;
         }else{
             $this->_MARCA_TEMPORALE = date('d-m-Y H:i');
             $this->_VERSIONE_GAIA = $conf['version'];
             $footer     = file_get_contents('./core/conf/pdf/footer.html');
         }
         if ( $white ){
-            $header     = file_get_contents('./core/conf/pdf/headerStretto.html');
+            $header     = null;
         }else{
             $header     = file_get_contents('./core/conf/pdf/header.html');
         }
