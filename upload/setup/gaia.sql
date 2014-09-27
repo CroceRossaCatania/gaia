@@ -164,6 +164,7 @@ CREATE TABLE IF NOT EXISTS `corsibase` (
   `descrizione` text,
   `stato` int(11) DEFAULT NULL,
   `aggiornamento` varchar(64) DEFAULT NULL,
+  `tEsame` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `organizzatore` (`organizzatore`),
   KEY `direttore` (`direttore`),

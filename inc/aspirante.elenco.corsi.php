@@ -25,7 +25,6 @@ if ( !($a = Aspirante::daVolontario($me)) )
 
 		<?php } ?>
 
-
 	    <div class="row-fluid">
 			<div class="span12">
 

@@ -1536,7 +1536,7 @@ class Utente extends Persona {
         $app = $this->appartenenzaAttuale();
         $ora = time();
         $comitato = $app->comitato;
-        $app->fine = $time;
+        $app->fine = $ora;
         $this->stato = VOLONTARIO;
         $nuovaApp = new Appartenenza();
         $nuovaApp->volontario = $this;
