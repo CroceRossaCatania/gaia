@@ -71,6 +71,14 @@ $(document).ready(function() {
 
 <div class="">
 
+    <?php if ( isset($_GET['indirizzoBase']) ) { ?>
+    <div class="alert alert-error">
+        <i class="icon-warning-sign"></i> <strong>Indirizzo Mancante</strong> &mdash;
+        Per poter attivare un corso base su questa struttura è necessario che venga 
+        inserito un indirizzo valido.
+    </div>
+    <?php } ?>
+
     <?php if ( isset($_GET['ok']) ) { ?>
     <div class="alert alert-success">
         <i class="icon-ok"></i> <strong>Modifiche salvate</strong> &mdash;

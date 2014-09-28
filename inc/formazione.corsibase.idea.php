@@ -16,6 +16,10 @@ $c = GeoPolitica::daOid($c);
 
 proteggiClasse($c, $me);
 
+if(!$c->haPosizione()){
+  redirect("presidente.comitato&oid={$c->oid()}&indirizzoBase");
+}
+
 ?>
 <form action="?p=formazione.corsibase.idea.ok" method="POST">
 
