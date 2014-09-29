@@ -21,7 +21,7 @@ if ( isset($_GET['mod']) ){
 $c->nome        =   normalizzaNome($_POST['inputNome']);
 $c->telefono    =   maiuscolo($_POST['inputTelefono']);
 
-if ( !isset($_GET['mod']) || $me->admin() ){
+if ( $me->admin() && !isset($_GET['mod']) ){
 	$comitato = $_POST['inputComitato'];
 	$comitato = GeoPolitica::daOid($comitato);
 
