@@ -276,15 +276,15 @@ class CorsoBase extends GeoEntita {
     public function generaScheda($iscritto) {
         
         $pb = PartecipazioneBase::filtra([
-            ['volontario', $iscritto],
-            ['corsoBase', $this],
-            ['stato', ISCR_SUPERATO]
+                ['volontario', $iscritto],
+                ['corsoBase', $this],
+                ['stato', ISCR_SUPERATO]
             ]);
 
         $pb = array_merge( $pb, PartecipazioneBase::filtra([
-            ['volontario', $iscritto],
-            ['corsoBase', $this],
-            ['stato', ISCR_BOCCIATO]
+                ['volontario', $iscritto],
+                ['corsoBase', $this],
+                ['stato', ISCR_BOCCIATO]
             ]));
 
         $pb = array_unique($pb);
