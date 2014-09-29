@@ -15,8 +15,15 @@ if (isset($_GET['single'])){
     $iscritto = Utente::id($iscritto);
     $corso = CorsoBase::id($corso);
 
-    $f = $corso->generaAttestato($iscritto);
-    $f->download();
+    if (PartecipazioneBase::filtra([['volontario', $iscritto],
+            ['corsoBase', $this],
+            ['stato', ISCR_SUPERATO]
+            ])){
+        
+        $f = $corso->generaAttestato($iscritto);
+        $f->download();
+    
+    }
 
 }else{
 

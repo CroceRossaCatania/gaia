@@ -660,9 +660,11 @@ $(document).ready( function() {
                                 <a href="<?= "?p=formazione.corsibase.valutazione&id={$iscritto->id}&corso={$corso->id}&single" ?>" class="btn bn-small btn-info" target="_new" title="Dettagli">
                                     <i class="icon-file-alt"></i> Scheda
                                 </a>
-                                <a href="<?= "?p=formazione.corsibase.attestato&id={$iscritto->id}&corso={$corso->id}&single" ?>" class="btn bn-small btn-primary" target="_new" title="Dettagli">
-                                    <i class="icon-certificate"></i> Attestato
-                                </a>
+                                <?php if ( $p->stato == ISCR_SUPERATO ) { ?>
+                                    <a href="<?= "?p=formazione.corsibase.attestato&id={$iscritto->id}&corso={$corso->id}&single" ?>" class="btn bn-small btn-primary" target="_new" title="Dettagli">
+                                        <i class="icon-certificate"></i> Attestato
+                                    </a>
+                                <?php } ?>
                             </div>
                         </td>
                     </tr>
