@@ -6,44 +6,23 @@
 
 paginaPrivata();
 
-if (isset($_GET['single'])){
-    controllaParametri(array('id','corso'), 'errore.fatale');
 
-    $iscritto = $_GET['id'];
-    $corso = $_GET['corso'];
+controllaParametri(array('id','corso'), 'errore.fatale');
 
-    $iscritto = Utente::id($iscritto);
-    $corso = CorsoBase::id($corso);
+$iscritto = $_GET['id'];
+$corso = $_GET['corso'];
 
-    if (PartecipazioneBase::filtra([['volontario', $iscritto],
-            ['corsoBase', $this],
-            ['stato', ISCR_SUPERATO]
-            ])){
-        
-        $f = $corso->generaAttestato($iscritto);
-        $f->download();
+$iscritto = Utente::id($iscritto);
+$corso = CorsoBase::id($corso);
+
+if (PartecipazioneBase::filtra([['volontario', $iscritto],
+        ['corsoBase', $corso],
+        ['stato', ISCR_SUPERATO]
+        ])){
     
-    }
-
-}else{
-
-    controllaParametri(array('id'), 'errore.fatale');
-
-    $corso = $_GET['id'];
-
-    $corso = CorsoBase::id($corso);
-
-    $zip = new Zip();
-
-    foreach($corso->partecipazioni(ISCR_SUPERATO) as $pb){
-
-        $iscritto = $pb->utente();
-        $f = $corso->generaAttestato($iscritto);
-        $zip->aggiungi($f);
-
-    }
-
-    $zip->comprimi("Attestati corso base.zip");
-    $zip->download();
+    $f = $corso->generaAttestato($iscritto);
+    $f->download();
 
 }
+
+redirect('formazione.corsibase.scheda&id='.$corso);

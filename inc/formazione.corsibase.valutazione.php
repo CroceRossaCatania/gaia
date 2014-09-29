@@ -32,7 +32,9 @@ if ( isset($_GET['single'])) {
 
         $iscritto = $pb->utente();
         $f = $corso->generaScheda($iscritto);
+        $a = $corso->generaAttestato($iscritto);
         $zip->aggiungi($f);
+        $zip->aggiungi($a);
 
     }
 

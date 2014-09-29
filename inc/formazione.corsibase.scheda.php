@@ -610,10 +610,7 @@ $(document).ready( function() {
             <div class="span6 allinea-destra">
                 <div class="btn-group">
                     <a class="btn btn-small btn-success" href="?p=formazione.corsibase.valutazione&id=<?= $corso->id; ?>" title="Verbale">
-                        <i class="icon-paste"></i> Verbale e schede esame
-                    </a>
-                    <a class="btn btn-small btn-primary" href="?p=formazione.corsibase.attestato&id=<?= $corso->id; ?>" title="Attestati">
-                        <i class="icon-certificate"></i> Attestati
+                        <i class="icon-paste"></i> Attestati, Verbale e schede esame
                     </a>
                     <a class="btn btn-small" href="?p=formazione.corsibase.excel&concluso&id=<?= $corso->id; ?>" title="Excel">
                         <i class="icon-download"></i> Scarica come foglio excel
@@ -661,7 +658,7 @@ $(document).ready( function() {
                                     <i class="icon-file-alt"></i> Scheda
                                 </a>
                                 <?php if ( $p->stato == ISCR_SUPERATO ) { ?>
-                                    <a href="<?= "?p=formazione.corsibase.attestato&id={$iscritto->id}&corso={$corso->id}&single" ?>" class="btn bn-small btn-primary" target="_new" title="Dettagli">
+                                    <a href="<?= "?p=formazione.corsibase.attestato&id={$iscritto->id}&corso={$corso->id}" ?>" class="btn bn-small btn-primary" target="_new" title="Dettagli">
                                         <i class="icon-certificate"></i> Attestato
                                     </a>
                                 <?php } ?>
