@@ -9,6 +9,8 @@ class Fototessera extends Entita {
     protected static
             $_t     = 'fototessera',
             $_dt    = null;
+
+    use EntitaCache;
     
     public function utente() {
         return Utente::id($this->utente);

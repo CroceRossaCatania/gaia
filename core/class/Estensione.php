@@ -9,6 +9,8 @@ class Estensione extends Entita {
     protected static
         $_t  = 'estensioni',
         $_dt = null;
+
+    use EntitaCache;
     
     public function volontario() {
         return Volontario::id($this->volontario);

@@ -10,6 +10,8 @@ class Veicolo extends Entita {
         $_t     = 'veicoli',
         $_dt    = 'dettagliVeicolo';
 
+    use EntitaCache;
+
     /**
      * Ritorna oggetto volontario che ha dichiarato fuoriuso
      * @return Volontatario

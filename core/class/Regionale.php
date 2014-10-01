@@ -10,6 +10,8 @@ class Regionale extends GeoPolitica {
         $_t  = 'regionali',
         $_dt = 'datiRegionali';
 
+    use EntitaCache;
+
     public static 
         $_ESTENSIONE = EST_REGIONALE;
 

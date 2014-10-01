@@ -9,6 +9,8 @@ class Commento extends Entita {
     protected static
         $_t  = 'commenti',
         $_dt = null;
+
+    use EntitaCache;
         
     public function volontario() {
         return Volontario::id($this->volontario);

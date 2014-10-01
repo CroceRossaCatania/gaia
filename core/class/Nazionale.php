@@ -10,6 +10,8 @@ class Nazionale extends GeoPolitica {
         $_t  = 'nazionali',
         $_dt = 'datiNazionali';
 
+    use EntitaCache;
+
     public static 
         $_ESTENSIONE = EST_NAZIONALE;
 

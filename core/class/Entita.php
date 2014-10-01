@@ -6,6 +6,12 @@
 
 /**
  * Rappresenta una Entita generica nel database
+ *
+ * COME CREARE UNA NUOVA ENTITA':
+ * 1. Creare una nuova classe che estende Entita (extends Entita)
+ * 2. Dichiarare il nome della tabella principale (protected static $_t = 'nome_tabella';)
+ * 3. Dichiarare il nome della tabella secondaria (protected static $_dt = 'secondaria'; / protected static $_dt = null;)
+ * 4. Aggiungere il trait "EntitaCache" o "EntitaNoCache" (use EntitaCache; / use EntitaNoCache;)
  */
 abstract class Entita {
     
@@ -15,12 +21,6 @@ abstract class Entita {
 
     public
             $_v         = [];
-
-    /**
-     * L'oggetto puo' essere rappresentato in cache?
-     */
-    protected static $_cacheable    = true;
-    protected static $_versione     = -1;
     
     /**
      * Il nome della tabella in database 

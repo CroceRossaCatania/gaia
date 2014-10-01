@@ -11,6 +11,8 @@ class TesserinoRichiesta extends Entita {
         $_t     = 'tesserinoRichiesta',
         $_dt    = null;
 
+    use EntitaCache;
+
     public function data() {
         return DT::daTimestamp($this->tRichiesta);
     }

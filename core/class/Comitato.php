@@ -10,6 +10,8 @@ class Comitato extends GeoPolitica {
         $_t  = 'comitati',
         $_dt = 'datiComitati';
 
+    use EntitaCache;
+
     public static 
         $_ESTENSIONE = EST_UNITA;
 

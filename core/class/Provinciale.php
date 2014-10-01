@@ -9,6 +9,8 @@ class Provinciale extends GeoPolitica {
     protected static
         $_t  = 'provinciali',
         $_dt = 'datiProvinciali';
+
+    use EntitaCache;
     
     public static 
         $_ESTENSIONE = EST_PROVINCIALE;

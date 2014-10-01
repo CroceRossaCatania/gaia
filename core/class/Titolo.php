@@ -10,6 +10,8 @@ class Titolo extends Entita {
     protected static
         $_t     = 'titoli',
         $_dt    = null;
+
+    use EntitaCache;
     
     public static function cerca($stringa, $tipo = -1) {
         $tipo = (int) $tipo;

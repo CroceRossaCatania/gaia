@@ -10,6 +10,8 @@ class Partecipazione extends Entita {
         $_t  = 'partecipazioni',
         $_dt = null;
 
+    use EntitaCache;
+
     public function volontario() {
         return Volontario::id($this->volontario);
     }

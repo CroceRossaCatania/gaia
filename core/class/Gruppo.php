@@ -5,6 +5,8 @@ class Gruppo extends Entita {
     protected static
         $_t  = 'gruppi',
         $_dt = null;
+
+    use EntitaCache;
     
     public function comitato() {
         return GeoPolitica::daOid($this->comitato);

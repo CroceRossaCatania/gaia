@@ -9,6 +9,8 @@ class Quota extends Entita {
     protected static
         $_t  = 'quote',
         $_dt = null;
+
+    use EntitaCache;
     
     public function volontario() {
         return Volontario::id($this->appartenenza()->volontario());

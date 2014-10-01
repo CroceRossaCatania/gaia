@@ -9,6 +9,8 @@ class Delegato extends Entita {
     protected static
         $_t  = 'delegati',
         $_dt = null;
+
+    use EntitaCache;
     
     public function volontario() {
         return Volontario::id($this->volontario);
