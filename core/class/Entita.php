@@ -47,8 +47,9 @@ abstract class Entita {
     public function __construct ( $id = null, $caricaDati = false ) {
         global $db, $cache, $conf;
 
-        if ( static::$_versione == -1 )
-            static::_caricaVersione();
+        if ( static::$_versione == -1 ) {
+            static::_caricaVersione();            
+        }
 
         $this->db = $db;
         if ( static::$_cacheable ) {
@@ -427,8 +428,7 @@ abstract class Entita {
             $this->cache->set(static::_chiave($this->id . ':' . $_nome, false), $r);
         }
         return $r;
-    }
-    
+    }    
 
     public function __set ( $_nome, $_valore ) {
         global $conf;
@@ -440,6 +440,10 @@ abstract class Entita {
             $q->bindParam(':id', $this->id);
             $q->execute();
             $this->_v[$_nome] = $_valore;
+            if ( $this->cache ) {
+                $this->cache->set(static::_chiave($this->id . ':___campi', false), serialize($this->_v));
+            }
+
         } else {
             /* Proprietà collegata */
             if ( $_valore === null ) {
@@ -476,6 +480,7 @@ abstract class Entita {
         if ( $this->cache ) {
             $this->cache->set(static::_chiave($this->id . ':' . $_nome, false), $_valore);
             static::_invalidaCacheQuery();
+
         }
     }
     
@@ -542,6 +547,8 @@ abstract class Entita {
         static::$_versione = (int) $cache->get(
             chiave('versione_cache:' . static::$_t)
         );
+        $n = rand(1, 99999);
+        header("X-Caricato-Numero-{$n}-" . static::$_t . ": " . static::$_versione);
     }
 
     /**
@@ -550,10 +557,10 @@ abstract class Entita {
      */
     protected static function _incrementaVersione() {
         global $cache;
-        if ( !static::$_cacheable ) 
+        if ( !static::$_cacheable ) {
             return -1;
-        static::$_versione++;
-        $cache->incr(
+        }
+        static::$_versione = (int) $cache->incr(
             chiave('versione_cache:' . static::$_t)
         );
     }
@@ -567,8 +574,10 @@ abstract class Entita {
     protected static function _chiave($suffisso, $conVersione = true) {
         $c = chiave('e:' . static::$_t);
         if ( $conVersione )
-            $c .= ':' . static::$_versione;
+            $c .= ':' . (int) static::$_versione;
         $c .= ':' . $suffisso;
+        $n = rand(1, 999999);
+        header("X-Debug-V-{$n}-" . static::$_t . ": Servito numero di versione (" . (int) static::$_versione . ")");
         return $c;
     }
 

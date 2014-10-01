@@ -4,6 +4,10 @@
  * (c)2014 Croce Rossa Italiana
  */
 
+
+// Creazione dell'hash del database
+$conf['db_hash'] = substr( md5($conf['database']['dns']), 2, 8);
+
 /* Connetto alla cache */
 if (!class_exists('Redis') )
     die("ERRORE: Estensione PHP per Redis non disponibile.\n");
