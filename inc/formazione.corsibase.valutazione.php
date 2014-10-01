@@ -28,15 +28,34 @@ if ( isset($_GET['single'])) {
 
     $zip = new Zip();
 
+    $tabella = '<table border="1" style="width:100%">
+                    <tbody>
+                        <tr>
+                            <td align="center"><b>Cognome e Nome</b></td>
+                            <td align="center"><b>Luogo di nascita</b></td>
+                            <td align="center"><b>Data di nascita</b></td>
+                            <td align="center"><b>Esito</b></td>
+                        </tr>';
+
     foreach($corso->partecipazioni(ISCR_SUPERATO) as $pb){
 
         $iscritto = $pb->utente();
+        $dataNascita = date('d/m/Y', $iscritto->dataNascita);
+        $esito = $conf['partecipazioneBase'][$pb->stato];
+        $tabella .= "<tr>
+                        <td>{$iscritto->nomeCompleto()}</td>
+                        <td>{$iscritto->comuneNascita}</td>
+                        <td>{$dataNascita}</td>
+                        <td>{$esito}</td>
+                    </tr>";
+
         $f = $corso->generaScheda($iscritto);
         $a = $corso->generaAttestato($iscritto);
         $zip->aggiungi($f);
         $zip->aggiungi($a);
-
     }
+
+    $tabella.= "</tbody></table>";
 
     $p = new PDF('verbaleEsame', 'Verbale esame.pdf');
     $p->_COMITATO   = $corso->organizzatore()->nomeCompleto();
@@ -49,6 +68,7 @@ if ( isset($_GET['single'])) {
     $p->_NUMASP     = $corso->numIscritti();
     $p->_NONIDONEI  = count($corso->partecipazioni(ISCR_BOCCIATO));
     $p->_IDONEI     = count($corso->partecipazioni(ISCR_SUPERATO));
+    $p->_TABELLA    = $tabella;
     $f = $p->salvaFile(null,true);
     $zip->aggiungi($f);
 
