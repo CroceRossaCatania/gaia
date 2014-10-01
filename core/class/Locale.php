@@ -18,8 +18,12 @@ class Locale extends GeoPolitica {
         return $this->nome;
     }
     
-    public function estensione() {
-        return $this->comitati();
+    public function estensione($soloComitati = true) {
+        $r = [];
+        if(!$soloComitati) {
+            $r[] = $this;
+        }
+        return array_merge($r, $this->comitati());
     }
 
     public function figli() {

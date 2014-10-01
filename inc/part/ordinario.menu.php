@@ -22,11 +22,11 @@ $menu += [
     ]];
 $menu += [
     'Comunicazioni' =>  [
-        'utente.email'     =>   '<i class="icon-envelope-alt"></i> Email',
-        'utente.cellulare' =>   '<i class="icon-phone"></i> Cellulare'
+        'utente.email'      =>   '<i class="icon-envelope-alt"></i> Email',
+        'utente.contatti'   =>   '<i class="icon-phone"></i> Cellulare'
     ],
     'Impostazioni' =>  [
-        'utente.password'     =>   '<i class="icon-key"></i> Password'
+        'utente.password'   =>   '<i class="icon-key"></i> Password'
     ],
     'Statistiche' =>  [
         'utente.statistiche.volontari'     =>   '<i class="icon-puzzle-piece"></i> Volontari'

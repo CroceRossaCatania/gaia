@@ -5,16 +5,22 @@
  */
 
 paginaAdmin();
-$parametri = array('inputNome', 'inputTipo');
-controllaParametri($parametri, 'admin.titolo.nuovo&err');
+controllaParametri(['inputNome'], 'admin.titolo.nuovo&err');
+
+if ( !isset($_POST['inputTipo']) ) {
+	die("Parametro tipo mancante, qualcosa e' andato storto.\n");
+}
+
 $x = Titolo::by('nome', $_POST['inputNome']);
+
 if (!$x){
     $t = new Titolo();
-    $t->tipo = $_POST['inputTipo'];
+    $t->tipo = (int) $_POST['inputTipo'];
     $t->nome = maiuscolo( $_POST['inputNome'] );
 
     redirect('admin.titoli&new');
-}else{
+    
+} else {
     
     redirect('admin.titoli&dup');
     

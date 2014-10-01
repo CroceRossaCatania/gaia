@@ -105,7 +105,8 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
             'Cell. Servizio',
             'Data ingresso CRI',
             'N. Quota',
-            'Data versamento'
+            'Data versamento',
+            'Importo'
             ]);
     }else{
         $excel->intestazione([
@@ -303,7 +304,8 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->cellulareServizio,
                 $v->ingresso()->format("d/m/Y"),
                 $v->quota($anno)->progressivo(),
-                $v->quota($anno)->dataPagamento()->format("d/m/Y")
+                $v->quota($anno)->dataPagamento()->format("d/m/Y"),
+                $v->quota($anno)->quota
                 ]);
 
         }
@@ -339,7 +341,8 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->cellulareServizio,
                 $v->ingresso()->format("d/m/Y"),
                 $v->quota($anno)->progressivo(),
-                $v->quota($anno)->dataPagamento()->format("d/m/Y")
+                $v->quota($anno)->dataPagamento()->format("d/m/Y"),
+                $v->quota($anno)->quota
                 ]);
 
         }

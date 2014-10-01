@@ -449,26 +449,9 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
         </div>
       </div>
       <?php } ?>
-    
-    <!-- Statistiche -->
-	<script type="text/javascript">
-	  var _paq = _paq || [];
-	  _paq.push(["trackPageView"]);
-	  _paq.push(["enableLinkTracking"]);
-	  (function() {
-	    var u = "https://statsgaiacri.alacriter.co.uk/";
-	    _paq.push(["setTrackerUrl", u+"piwik.php"]);
-	    _paq.push(["setSiteId", "1"]);
-	    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
-	    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
-	  })();
-	</script>
-    <!-- Fine codice statistiche -->
 
     <!-- DEBUG. Q: <?php echo $db->numQuery; ?>; M: <?php echo ceil(memory_get_peak_usage()/1024); ?> kB; T: <?php echo round(microtime(true)-$_stopwatch, 6); ?>s -->
     <!-- CHAT SUPPORTO --><div class="hidden-phone" id="swifttagcontainerusy8sk1zn9"><div id="proactivechatcontainerusy8sk1zn9"></div><div style="display: inline;" id="swifttagdatacontainerusy8sk1zn9"></div></div> <script type="text/javascript">var swiftscriptelemusy8sk1zn9=document.createElement("script");swiftscriptelemusy8sk1zn9.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "usy8sk1zn9"; var swifttagurlusy8sk1zn9="https://helpdesk.cri.it/visitor/index.php?/Default/LiveChat/HTML/SiteBadge/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPXVzeThzazF6bjkmdmVyc2lvbj00LjY2LjImcHJvZHVjdD1mdXNpb24mZmlsdGVyZGVwYXJ0bWVudGlkPTUwJnJvdXRlY2hhdHNraWxsaWQ9Myw0JnZhcmlhYmxlWzBdWzBdPSZ2YXJpYWJsZVswXVsxXT0mYWxlcnRbMF1bMF09JmFsZXJ0WzBdWzFdPSZzaXRlYmFkZ2Vjb2xvcj13aGl0ZSZiYWRnZWxhbmd1YWdlPWVuJmJhZGdldGV4dD1saXZlY2hhdCZvbmxpbmVjb2xvcj0jMWRjZjFkJm9ubGluZWNvbG9yaG92ZXI9IzYxZGU2MSZvbmxpbmVjb2xvcmJvcmRlcj0jMTQ5MTE0Jm9mZmxpbmVjb2xvcj0jZmYwMDAwJm9mZmxpbmVjb2xvcmhvdmVyPSNmZjRkNGQmb2ZmbGluZWNvbG9yYm9yZGVyPSNiMzAwMDAmYXdheWNvbG9yPSNmNWQ5MjMmYXdheWNvbG9yaG92ZXI9I2Y5ZTU2NiZhd2F5Y29sb3Jib3JkZXI9I2FjOTgxOSZiYWNrc2hvcnRseWNvbG9yPSNlYjk2MDMmYmFja3Nob3J0bHljb2xvcmhvdmVyPSNmMmI2NGYmYmFja3Nob3J0bHljb2xvcmJvcmRlcj0jYTU2OTAyJmN1c3RvbW9ubGluZT0mY3VzdG9tb2ZmbGluZT0mY3VzdG9tYXdheT0mY3VzdG9tYmFja3Nob3J0bHk9CjRkZDc2OTgyZWQ2NzBmMGM4NjkyYjNlZDQ4M2Y3MmRhNDA5MjEyYWQ=";setTimeout("swiftscriptelemusy8sk1zn9.src=swifttagurlusy8sk1zn9;document.getElementById('swifttagcontainerusy8sk1zn9').appendChild(swiftscriptelemusy8sk1zn9);",1);</script><!-- FINE CODICE TAG - NON MODIFICARE! -->
-   
-  
 
     <!-- Google Analytics -->
 	<script>
