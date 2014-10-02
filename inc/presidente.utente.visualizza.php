@@ -538,16 +538,22 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
   </div>
   <div class="span12 allinea-centro">
 
-    <a class="btn" target="_new" href="?p=presidente.riserva.storico&id=<?php echo $u->id; ?>">
+    <a class="btn btn-small" target="_new" href="?p=presidente.riserva.storico&id=<?php echo $u->id; ?>">
       <i class="icon-pause"></i> Storico riserve
     </a>
-    <a class="btn" target="_new" href="?p=presidente.appartenenze.storico&id=<?php echo $u->id; ?>">
+    <a class="btn btn-small" target="_new" href="?p=presidente.appartenenze.storico&id=<?php echo $u->id; ?>">
       <i class="icon-time"></i> Storico appartenenze
     </a>
-    <a class="btn" target="_new" href="?p=us.quote.visualizza&id=<?php echo $u->id; ?>">
+    <a class="btn btn-small" target="_new" href="?p=us.quote.visualizza&id=<?php echo $u->id; ?>">
       <i class="icon-money"></i> Storico quote
     </a>
-
+    <br/>
+    <a class="btn btn-small" target="_new" href="?p=presidente.incarichi.visualizza&id=<?php echo $u->id; ?>">
+      <i class="icon-briefcase"></i> Storico incarichi
+    </a>
+    <a class="btn btn-small" target="_new" href="?p=presidente.utente.turni&id=<?php echo $u->id; ?>">
+      <i class="icon-list"></i> Storico turni
+    </a>
   </div>
 </div>
 

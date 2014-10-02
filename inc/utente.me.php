@@ -74,12 +74,11 @@ if ($consenso) {
     ?>
     <div class="modal fade automodal">
         <div class="modal-header">
-            <h3 class="text-success"><i class="icon-important-sign"></i> Rallentamenti sviluppo portale Gaia</h3>
+            <h3 class="text-success"><i class="icon-important-sign"></i> <b>Risoluzione</b> delle problematiche recenti sul portale Gaia</h3>
         </div>
         <div class="modal-body">
-            Per favore trova un momento per leggere il comunicato degli sviluppatori 
-            e della squadra di supporto di Gaia riguardante le problematiche che stanno 
-            ostacolando lo sviluppo del sistema e che stanno causando rallentamenti e malfunzionamenti.
+            Per favore trova un momento per leggere il comunicato dello staff di Gaia 
+            riguardante la <b>risoluzione</b> delle problematiche che hanno ostacolato lo sviluppo del sistema.
         </div>
         <div class="modal-footer">
             <a href="?p=utente.me&rimandaDeadline" class="btn">
@@ -303,8 +302,9 @@ if(false && $consenso && !$sessione->barcode) { ?>
                         <h4><i class="icon-ok"></i> Ciao <?php echo $me->nome ?></h4>
                         <p>Per favore prendi qualche minuti di tempo, se non lo hai già fatto,
                         per leggere un importante comunicato da parte degli sviluppatori di Gaia.</p>
-                        <a href="?p=comunicato" class="btn">
+                        <a href="?p=public.comunicato" class="btn">
                             Leggi il comunicato
+                            <span class="badge badge-warning">Nuovo!</span>
                         </a> 
                     </div>
                 </div>

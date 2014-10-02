@@ -6,7 +6,7 @@
 
 paginaAdmin();
 
-$elenco = $me->comitatiDiCompetenza();
+$elenco = $me->comitatiDiCompetenza(true);
 foreach ( $elenco as $unit ){
     $t[] = $unit->regionale();
 }
