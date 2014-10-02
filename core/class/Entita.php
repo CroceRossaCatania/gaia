@@ -547,8 +547,6 @@ abstract class Entita {
         static::$_versione = (int) $cache->get(
             chiave('versione_cache:' . static::$_t)
         );
-        $n = rand(1, 99999);
-        header("X-Caricato-Numero-{$n}-" . static::$_t . ": " . static::$_versione);
     }
 
     /**
@@ -576,8 +574,6 @@ abstract class Entita {
         if ( $conVersione )
             $c .= ':' . (int) static::$_versione;
         $c .= ':' . $suffisso;
-        $n = rand(1, 999999);
-        header("X-Debug-V-{$n}-" . static::$_t . ": Servito numero di versione (" . (int) static::$_versione . ")");
         return $c;
     }
 
