@@ -69,7 +69,7 @@ caricare la fototessera entrando nella scheda <strong>Dettagli</strong>.
                 <th>Nome</th>
                 <th>C. Fiscale</th>
                 <th>Data Ingresso</th>
-                <th>Tesserino</th>
+                <!--<th>Tesserino</th>-->
                 <th>Azioni</th>
             </thead>
 
