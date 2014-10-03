@@ -262,7 +262,7 @@ $(document).ready( function() {
                     foreach ( $lezioni as $lezione ) { ?>
                         <tr class="<?= $lezione->passata() ? ( $lezione->presente($me) ? 'success' : 'error' ) : 'info'; ?>">
                             <td><?= $lezione->nome; ?></td>
-                            <td><?= $lezione->inizio()->inTesto(); ?></td>
+                            <td><?= $lezione->inizio()->inTesto(false); ?></td>
                             <td><?= $lezione->inizio()->format('H:i'); ?></td>
                             <td><?= $lezione->fine()->format('H:i'); ?></td>
                         </tr>
