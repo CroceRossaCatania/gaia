@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 /* Modalità manutenzione */
@@ -255,7 +255,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li class="nav-header">Elenchi</li>
-                                            <li><a href="?p=admin.ricerca"><i class="icon-search"></i> Cerca Utente</a></li> 
+                                            <li><a href="?p=admin.ricerca.utenti"><i class="icon-search"></i> Cerca Utente</a></li> 
+                                            <li><a href="?p=admin.ricerca.attivita"><i class="icon-calendar"></i> Cerca Attività</a></li> 
                                             <li><a href="?p=admin.presidenti"><i class="icon-list"></i> Presidenti</a></li>
                                             <li><a href="?p=admin.delegati"><i class="icon-list"></i> Delegati</a></li>
                                             <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
