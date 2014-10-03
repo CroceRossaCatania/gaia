@@ -7,7 +7,7 @@
 paginaAnonimo();
 caricaSelettore();
 
-controllaParametri(array('id'));
+controllaParametri(['id']);
 
 $corso = CorsoBase::id($_GET['id']);
 
@@ -65,14 +65,12 @@ $(document).ready( function() {
                     <i class="icon-edit"></i>
                     Modifica
                 </a>
-                <?php } 
 
-                /*  NIENTE LEZIONI PER ORA
                 <a href="?p=formazione.corsibase.lezioni&id=<?= $corso ?>" class="btn btn-primary btn-large">
-                    <i class="icon-calendar"></i> Lezioni
+                    <i class="icon-calendar"></i> Gestisci Lezioni
                 </a>
-                */
-                ?>
+
+                <?php } ?>
                 <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://gaia.cri.it/index.php?p=formazione.corsibase.scheda&id={$corso->id}"); ?>" target="_blank">
                     <i class="icon-facebook-sign"></i> Condividi
                 </a>
@@ -239,12 +237,47 @@ $(document).ready( function() {
         <?php } ?>
 
         <div class="row-fluid">
-            <div class="span12" style="max-height: 500px; padding-right: 10px; overflow-y: auto;">
+            <div class="span7" style="max-height: 500px; padding-right: 10px; overflow-y: auto;">
                 <h3>
                     <i class="icon-info-sign"></i>
                     Ulteriori informazioni
                 </h3>
                 <?php echo nl2br($corso->descrizione); ?>
+            </div>
+            <div class="span5">
+                <h3>
+                    <i class="icon-calendar"></i>
+                    Lezioni
+                </h3>
+                <table class="table table-condensed table-striped">
+                    <thead>
+                        <th>Nome</th>
+                        <th>Data</th>
+                        <th>Inizio</th>
+                        <th>Fine</th>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $lezioni = $corso->lezioni();
+                    foreach ( $lezioni as $lezione ) { ?>
+                        <tr class="<?= $lezione->passata() ? ( $lezione->presente($me) ? 'success' : 'error' ) : 'info'; ?>">
+                            <td><?= $lezione->nome; ?></td>
+                            <td><?= $lezione->inizio()->inTesto(); ?></td>
+                            <td><?= $lezione->inizio()->format('H:i'); ?></td>
+                            <td><?= $lezione->fine()->format('H:i'); ?></td>
+                        </tr>
+                    <?php }
+                    if (!$lezioni) { ?>
+                    <tr class="warning">
+                        <td colspan="4">
+                            <i class="icon-warning-sign"></i>
+                            Informazioni sulle lezioni non ancora disponibili.
+                            Controlla pi&ugrave; tardi.
+                        </td>
+                    </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
             </div>
         </div>
         <hr />

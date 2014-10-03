@@ -161,14 +161,6 @@ class CorsoBase extends GeoEntita {
     }
 
     /**
-     * Elenco delle lezioni di un corso base
-     * @return Lezioni array di lezioni
-     */
-    public function lezioni() {
-        return [];
-    }
-
-    /**
      * True se il corso è attivo e non iniziato
      * @return bool     stato del cors
      */
@@ -244,7 +236,9 @@ class CorsoBase extends GeoEntita {
         foreach($p as $_p) {
             $_p->cancella();
         }
-
+        foreach ( $this->lezioni() as $l ) {
+            $l->cancella();
+        }
         parent::cancella();
 
     }
@@ -358,4 +352,16 @@ class CorsoBase extends GeoEntita {
         $f = $p->salvaFile(null,true);
         return $f;
     }
+
+
+    /**
+     * Ritorna l'elenco di lezioni del Corso Base
+     * @return array(Lezione)
+     */
+    public function lezioni() {
+        return Lezione::filtra([
+            ['corso', $this->id]
+        ], 'inizio ASC');
+    }
+
 }
