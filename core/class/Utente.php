@@ -1131,11 +1131,21 @@ class Utente extends Persona {
     }
 
     /**
+     * Restituisce l'elenco dei corsi base a cui ho richiesto partecipazione
+     * @return PartecipazioneBase elenco dei corsi a cui mi sono rpeiscritto o iscritto 
+     */
+    public function corsiBase() {
+        return PartecipazioneBase::filtra([
+            ['volontario', $this->id]
+            ]);
+    }
+
+    /**
      * Restituisce l'elenco dei corsi base di cui sono direttore e devo completare
      * @return CorsoBase    elenco dei corsi diretti da completare
      */
     public function corsiBaseDirettiDaCompletare() {
-        return CorsoBase::filtra([
+        return PartecipazioneBase::filtra([
             ['direttore',   $this->id],
             ['stato',       CORSO_S_DACOMPLETARE]
         ]);

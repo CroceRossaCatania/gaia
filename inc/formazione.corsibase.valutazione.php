@@ -37,6 +37,8 @@ if ( isset($_GET['single'])) {
                             <td align="center"><b>Esito</b></td>
                         </tr>';
 
+    $x = 0;
+
     foreach($corso->partecipazioni(ISCR_SUPERATO) as $pb){
 
         $iscritto = $pb->utente();
@@ -49,8 +51,20 @@ if ( isset($_GET['single'])) {
                         <td>{$esito}</td>
                     </tr>";
 
-        $f = $corso->generaScheda($iscritto);
-        $a = $corso->generaAttestato($iscritto);
+        if ( isset($_GET['iscritto']) && $x == 0 ) {
+
+            $iscritto = Volontario::id($_GET['iscritto']);
+            $f = $corso->generaScheda($iscritto);
+            $a = $corso->generaAttestato($iscritto);
+            $x++;
+
+        }elseif( $x == 0 ){
+
+            $f = $corso->generaScheda($iscritto);
+            $a = $corso->generaAttestato($iscritto);
+
+        }
+
         $zip->aggiungi($f);
         $zip->aggiungi($a);
     }
