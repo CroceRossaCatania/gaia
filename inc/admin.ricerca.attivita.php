@@ -16,12 +16,12 @@ paginaModale();
     <div class="modal-body">
       <?php if(isset($_GET['no'])) { ?>
         <div class="alert alert-danger">
-        <h4><i class="icon-warning-sign"></i> ID o nome non presenti</h4>
+        <h4><i class="icon-warning-sign"></i> ID o Nome non presenti</h4>
         </div>
       <?php } ?>
       <div class="row-fluid">
         <div class="span4 centrato">
-          <label class="control-label" for="input">ID/nome</label>
+          <label class="control-label" for="input">ID/Nome</label>
         </div>
         <div class="span8">
           <input class="input-medium" type="text" name="input" id="input" autofocus required>

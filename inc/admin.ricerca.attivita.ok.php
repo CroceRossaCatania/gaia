@@ -9,6 +9,12 @@ controllaParametri(array('input'), 'admin.ricerca.attivita&err');
 
 $attivita = Attivita::by('id', $_POST['input']);
 
+if($attivita){
+
+	redirect('attivita.scheda&id='.$attivita);
+
+}
+
 if(!$attivita){
 
 	$attivita = Attivita::filtra([['nome', "%{$_POST['input']}%", OP_LIKE]]);
@@ -18,7 +24,7 @@ if(!$attivita){
 if(!$attivita){
 
 	redirect('admin.ricerca.utenti&no');
-		
+
 }
 
 ?>
