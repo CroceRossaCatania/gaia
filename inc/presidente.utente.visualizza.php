@@ -636,9 +636,9 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
     <a class="btn" target="_new" href="?p=us.quote.visualizza&id=<?php echo $u->id; ?>">
       <i class="icon-money"></i> Quote
     </a>
-    <a class="btn" target="_new" href="?p=us.tesserino.storico&id=<?php echo $u->id; ?>">
+    <!--<a class="btn" target="_new" href="?p=us.tesserino.storico&id=<?php echo $u->id; ?>">
       <i class="icon-barcode"></i> Tesserini
-    </a>
+    </a>-->
   </div>
 </div>
 
