@@ -26,7 +26,7 @@ class Estensione extends Entita {
     }
 
     public function provenienza() {
-        return $this->cProvenienza->comitato();
+        return Comitato::id($this->cProvenienza);
     }
 
     public function presaInCarico() {
