@@ -19,7 +19,7 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
 <div class="row-fluid">
     <?php if ( isset($_GET['del']) ) { ?>
         <div class="alert alert-danger">
-            <i class="icon-save"></i> <strong>Manutenzione cancellata</strong>.
+            <i class="icon-trash"></i> <strong>Manutenzione cancellata</strong>.
             La manutenzione è stata cancellata con successo.
         </div>
     <?php } ?>

@@ -6,7 +6,7 @@
 
 paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
 
-controllaParametri(array('id'), 'autoparco.veicoli&err');
+controllaParametri(['id'], 'autoparco.veicoli&err');
 
 $manutenzione = $_GET['id'];
 $manutenzione = Manutenzione::id($manutenzione);

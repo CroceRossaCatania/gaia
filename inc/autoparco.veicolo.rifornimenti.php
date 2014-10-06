@@ -16,6 +16,12 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
 <script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
 <br/>
 <div class="row-fluid">
+    <?php if ( isset($_GET['del']) ) { ?>
+        <div class="alert alert-danger">
+            <i class="icon-trash"></i> <strong>Rifornimento cancellato</strong>.
+            Il rifornimento è stato cancellato con successo.
+        </div>
+    <?php } ?>
     <div class="span4">
         <h2>
             <i class="icon-credit-card"></i>
@@ -69,6 +75,9 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
                         <td>
                             <a  href="?p=autoparco.veicolo.rifornimento.nuovo&id=<?= $rifornimento->id; ?>&mod" title="Modifica rifornimenti veicolo" class="btn btn-small btn-info">
                                 <i class="icon-edit"></i> Modifica
+                            </a>
+                            <a  onClick="return confirm('Vuoi veramente cancellare questo rifornimento ?');" href="?p=autoparco.veicolo.rifornimento.cancella&id=<?= $rifornimento->id; ?>" title="Cancella rifornimento" class="btn btn-small btn-danger">
+                                <i class="icon-trash"></i> Cancella
                             </a>
                         </td>
                     </tr>
