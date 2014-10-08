@@ -1,5 +1,6 @@
 body {
     padding-bottom: 40px;
+    font-family: 'Telex';
 }
 
 
@@ -205,8 +206,7 @@ body {
     }
     
     #rollerComitati {
-        font-size: larger;
-        color: #333;
+        font-size: x-large;
         font-weight: bold;
     }
 
@@ -402,3 +402,14 @@ body {
     border-top: 2px dashed #888 !important;
 }
 
+.blocco-con-sfondo {
+  padding: 60px 20px;
+  margin: 0px -20px;
+  text-shadow: 0px 0px 2px white, 0px 0px 4px white, 0px 0px 1px white;
+  font-size: larger;
+}
+
+.blocco-con-sfondo h3 {
+  color: white;
+  text-shadow: 0px 0px 3px black, 0px 0px 5px black, 0px 0px 2px black;
+}
