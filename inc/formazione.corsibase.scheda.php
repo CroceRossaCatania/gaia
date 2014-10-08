@@ -245,10 +245,21 @@ $(document).ready( function() {
                 <?php echo nl2br($corso->descrizione); ?>
             </div>
             <div class="span5">
-                <h3>
-                    <i class="icon-calendar"></i>
-                    Lezioni
-                </h3>
+                <div class="span6">
+                    <h3>
+                        <i class="icon-calendar"></i>
+                        Lezioni
+                    </h3>
+                </div>
+                <div class="span6 allinea-destra">
+                    <?php if ( $corso->modificabileDa($me) ){ ?>
+                        <div class="btn-group">
+                            <a class="btn btn-small" href="?p=formazione.corsibase.foglifirma&id=<?= $corso->id; ?>" title="Fogli firma">
+                                <i class="icon-download"></i> Scarica fogli firma
+                            </a>
+                        </div>
+                    <?php } ?>
+                </div>
                 <table class="table table-condensed table-striped">
                     <thead>
                         <th>Nome</th>
