@@ -42,11 +42,11 @@ if (!$corso->haPosizione()) {
             Presta molta attenzione quando inserisci i <strong> dettagli del corso </strong>:</br>
             <ul>
                 <li>queste informazioni sono fondamentali per gli aspiranti che vogliono frequentare
-                un corso base per volontari CRI nella zona in cui il corso si svolge, fornisci loro
+                un corso base per volontari CRI nella zona in cui il corso si svolge; fornisci loro
                 tutte le indicazioni che ritieni possano essere utili;</li>
                 <li>Queste informazioni saranno rese pubbliche ed accessibili a chiunque: <strong>evita</strong>
-                di inserire dati personali, numeri di telefono privati o informazioni che vorresti fossero divulgate;</li>
-                <li>Agli aspiranti volontari che si registrano verranno fornite in le informazioni per 
+                di inserire dati personali, numeri di telefono privati o informazioni che non vorresti fossero divulgate;</li>
+                <li>Agli aspiranti volontari che si registrano verranno fornite le informazioni per 
                 contattare il direttore del corso in caso necessità;</li>
                 <li>Non è possibile modificare la data di inizio di corsi già considerati iniziati.</li>
             </ul>
