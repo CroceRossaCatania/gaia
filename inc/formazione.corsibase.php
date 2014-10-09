@@ -107,7 +107,7 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                         
                         <td style="width: 20%;">
                             <?php if (in_array($corso->organizzatore(), $mieiComitati) || $me->admin()){ ?>
-                            <a href="?p=formazione.corsibase.direttore.nuovo&id=<?= $corso->id; ?>">
+                            <a href="?p=formazione.corsibase.direttore&id=<?= $corso->id; ?>">
                                 <i class="icon-pencil"></i> 
                                 cambia direttore
                             </a>
