@@ -62,6 +62,11 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
         <i class="icon-warning-sign"></i> <strong>Veicolo fuori uso</strong>.
         Non puoi registrare ulteriori informazioni su veicoli dichiarati fuori uso
     </div>
+<?php }elseif ( isset($_GET['gia']) ) { ?>
+    <div class="alert alert-error">
+        <i class="icon-warning-sign"></i> <strong>Collocazione già registrata</strong>.
+        Il veicolo si trova già dove hai specificato
+    </div>
 <?php } ?>
 <?php if (isset($_GET['err'])) { ?>
     <div class="alert alert-block alert-error">
