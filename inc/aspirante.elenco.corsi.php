@@ -79,10 +79,10 @@ if ( !($a = Aspirante::daVolontario($me)) )
                         </td>
                         
                         <td style="width: 20%;">
-                            <?php // da sistemare
+                            <?php 
                             ?>
-                            <a href="?p=utente.email.nuova&id=<?php echo $corso->id; ?>">
-                                <i class="icon-edit"></i> Manda email al referente
+                            <a href="?p=utente.email.nuova&id=<?= $corso->direttore()->id; ?>">
+                                <i class="icon-edit"></i> Manda email al direttore
                             </a>
                             <br />
                             <a href="?p=formazione.corsibase.scheda&id=<?php echo $corso->id; ?>">
