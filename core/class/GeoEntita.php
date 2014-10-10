@@ -109,7 +109,8 @@ abstract class GeoEntita extends Entita {
             $prefisso = "{$prefisso}.";
         }
         $punto = "GeomFromText(\"POINT({$x} {$y})\")";
-        return " SQRT(POW(ABS(X({$prefisso}geo)-X({$punto})),2)+POW(ABS(Y({$prefisso}geo)-Y({$punto})),2)) ";
+        //return " SQRT(POW(ABS(X({$prefisso}geo)-X({$punto})),2)+POW(ABS(Y({$prefisso}geo)-Y({$punto})),2)) ";
+        return " st_distance(point({$x},{$y}), {$prefisso}geo) ";
     }
 
     /**

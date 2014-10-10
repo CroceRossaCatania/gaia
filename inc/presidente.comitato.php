@@ -162,7 +162,13 @@ $(document).ready(function() {
             </li>
             <?php } */?>
 
-            
+            <li>
+                <a data-toggle="tab" href="#corsibase">
+                    <i class='icon-leaf'></i>
+                    Corsi Base
+                </a>
+            </li>
+
             <?php
                 foreach ( $_daGestire as $_gestione => $_estensioni ) {
 
@@ -524,13 +530,16 @@ $(document).ready(function() {
             </div>
             
             <!-- Tab: Corsi base -->
-            <?php /*
             <div class="tab-pane"           id="corsibase">
                 <h4>Corsi base</h4>
                 <p>Per questo comitato, sono stati organizzati e pubblicati un totale di <strong><?php echo count($c->corsiBase(true)); ?> corsi base</strong>.</p>
-                <p>Per gestire i corsi base, vai alla pagina di <a href="?p=formazione.corsibase">Gestione dei corsi base</a>.</p>
+                <p>Per gestire i corsi base esistenti ed attivarne di nuovi, vai alla pagina di <a href="?p=formazione.corsibase">Gestione dei corsi base</a>.</p>
+                <hr />
+                <h4><i class="icon-warning-sign"></i> Domanda formativa dell'area</h4>
+                <p>Nella zona del Comitato, <strong>sono presenti <big><?= Aspirante::numChePassanoPer($c); ?> aspiranti</big> interessati ad entrare in Croce Rossa</strong>.</p>
+                <p>In caso di attivazione di un Corso Base su Gaia, questi volontari verranno automaticamente informati dal sistema,
+                   ed invitati periodicamente a considerare le varie opzioni formative attive sul territorio circostante.</p>
             </div>
-            */ ?>
             
             <?php            
             $i = 0;
