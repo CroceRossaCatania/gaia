@@ -21,6 +21,12 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
     <div class="modal-body">
       <div class="row-fluid">
         <div class="control-group">
+          <label class="control-label" for="inputData">Data</label>
+          <div class="controls">
+              <input class="input-medium" type="text" name="inputData" id="inputData" required>
+          </div>
+        </div>
+        <div class="control-group">
           <label class="control-label" for="inputAutoparco">Comitato</label>
           <div class="controls">
             <select class="input-large" id="inputAutoparco" name="inputAutoparco" required>
