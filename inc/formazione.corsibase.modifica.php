@@ -74,7 +74,11 @@ if (!$corso->haPosizione()) {
         
         <p>
             <strong>Direttore</strong><br />
-            <?php echo $corso->direttore()->nomeCompleto(); ?>
+            <?= 
+                $corso->direttore() 
+                    ? $corso->direttore()->nomeCompleto() 
+                    : "<i class='icon-warning-sign'></i> Nessun direttore selezionato"; 
+            ?>
         </p>
         
         <p>
