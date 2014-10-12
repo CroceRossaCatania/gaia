@@ -72,16 +72,29 @@ class Aspirante extends GeoCirco {
      * Ottiene i corsi base nelle vicinanze
      * @return CorsoBase     array di corsi base
     */
+//    public function corsiBase() {
+//        $corsiBase = [];
+//        foreach($this->comitati() as $c) {
+//            foreach($c->corsiBase(false) as $corso) {
+//                if ($corso->stato == CORSO_S_ATTIVO)
+//                    $corsiBase[] = $corso;
+//            }
+//        }
+//        return $corsiBase;
+//    }
+
     public function corsiBase() {
-        $corsiBase = [];
-        foreach($this->comitati() as $c) {
-            foreach($c->corsiBase(false) as $corso) {
-                if ($corso->stato == CORSO_S_ATTIVO)
-                    $corsiBase[] = $corso;
+        $corsiBase = CorsoBase::contenutiIn($this);
+        $r = [];
+        foreach($corsiBase as $c) {
+            if ($c->futuro()) {
+                $r[] = $c;
             }
         }
-        return $corsiBase;
+        return $r;
     }
+
+
 
     /**
      * Ottiene il numero dei corsi base nelle vicinanze
