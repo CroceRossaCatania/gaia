@@ -37,12 +37,13 @@ if($corso->stato == CORSO_S_DACOMPLETARE){
     $aspiranti = $corso->potenzialiAspiranti();
 
     foreach($aspiranti as $aspirante) {
+        $utente = $aspirante->utente();
         $m = new Email('corsoBaseAttivato', 'Nuovo Corso per Volontari CRI');
-        $m->a = $aspirante;
-        $m->_ASPIRANTE = $aspirante->nome;
+        $m->a = $utente;
+        $m->_ASPIRANTE = $utente->nome;
         $m->_DESCRIZIONE = $corso->descrizione;
         $m->_COMITATO = $corso->organizzatore()->nomeCompleto();
-        $m->_INIZIO = $data->inTesto();
+        $m->_INIZIO = $corso->inizio()->inTesto();
         $m->accoda();
     }
 }
