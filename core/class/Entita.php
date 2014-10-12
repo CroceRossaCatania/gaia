@@ -182,6 +182,10 @@ abstract class Entita {
         global $db, $conf, $cache;
         $entita = get_called_class();
 
+        if ( static::$_versione == -1 ) {
+            static::_caricaVersione();            
+        }
+
         if ( $_order ) {
             $_order = 'ORDER BY ' . $_order;
         }
@@ -482,6 +486,7 @@ abstract class Entita {
             static::_invalidaCacheQuery();
 
         }
+
     }
     
     /**
