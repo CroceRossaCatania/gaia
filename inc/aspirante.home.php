@@ -34,7 +34,9 @@ if (!$iscritto && !$a)
     </div>
     <div class="span9">
 
-		<h2>Ciao, <?php echo $me->nome; ?>.</h2>
+		<h2><span class="muted">Ciao </span>
+            <?= $me->nome; ?>
+        </h2>
 		<?php if(isset($_GET['err'])) { ?>
 			<div class="alert alert-block alert-error">
             <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
