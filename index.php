@@ -150,6 +150,11 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                             <li><a href="?p=utente.password"><i class="icon-key"></i> Modifica password</a></li>
                                             <li class="divider"></li>
                                             <li><a href="?p=logout"><i class="icon-remove"></i> Esci</a></li>
+                                            <?php if ( $me->admin && $me->admin() ) { ?>
+                                                <!-- ADMIN MODE  ATTIVATA... -->
+                                                <li><a href="?p=admin.mode.exit"><i class="icon-thumbs-down-alt "></i> Torna quello di una volta</a></i>
+                                                </a>
+                                            <?php } ?>
                                         </ul>
                                     </div>
 
@@ -301,12 +306,6 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     <?php if ( $me->admin && !$me->admin() ) { ?>
                                     <!-- ADMIN MODE NON ATTIVATA... -->
                                     <a href="#adminMode" class="btn btn-inverse" data-toggle="modal" role="button">
-                                        <i class="icon-github-alt icon-large"></i>
-                                    </a>
-                                    <?php } 
-                                    if ( $me->admin && $me->admin() ) { ?>
-                                    <!-- ADMIN MODE  ATTIVATA... -->
-                                    <a href="?p=admin.mode.exit" class="btn btn-inverse hidden-phone">
                                         <i class="icon-github-alt icon-large"></i>
                                     </a>
                                     <?php } ?>                        
