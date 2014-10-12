@@ -290,12 +290,12 @@ if(false && $consenso && !$sessione->barcode) { ?>
 
     <!-- BLOCCO NON MENU -->
     <div class="span9">
-        <h2><span class="muted">Ciao </span>
-            <?= $me->nome; ?>
-        </h2>
 
         <div class="row-fluid">
             <div class="span8">
+                <h2><span class="muted">Ciao </span>
+                    <?= $me->nome; ?>
+                </h2>
                 <?php /*
                 blocco informativo deadline
                 <div class="alert alert-block alert-error">
