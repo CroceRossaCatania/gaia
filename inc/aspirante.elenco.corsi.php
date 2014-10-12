@@ -81,7 +81,7 @@ if ( !($a = Aspirante::daVolontario($me)) )
                         <td style="width: 20%;">
                             <?php 
                             ?>
-                            <a href="?p=utente.email.nuova&id=<?= $corso->direttore()->id; ?>">
+                            <a href="?p=utente.mail.nuova&id=<?= $corso->direttore()->id; ?>">
                                 <i class="icon-edit"></i> Manda email al direttore
                             </a>
                             <br />
