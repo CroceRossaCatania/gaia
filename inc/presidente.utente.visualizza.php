@@ -54,19 +54,20 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
     <?php 
       if ($hoPotere && !$u->email) { ?>
-      
       <div class="row-fluid">
-       <div class="span12">
-       <div class="alert alert-block alert-info">
-       <h3><i class="icon-user"></i> Attivazione account</h3>
-       <p>L'account di <?php echo $u->nome ?> su Gaia <strong>non è ancora attivo</strong> e quindi non può
-       ricevere informazioni e non può partecipare alle attività. Per attivare un account basta inserire l'indirizzo email
-       del volontario.</p>
-       <br>
-       <a class="btn btn-info btn-large" data-toggle="modal" data-target="#attiva_account"> Attiva account</a>
+        <div class="span12">
+          <div class="alert alert-block alert-info">
+            <h3><i class="icon-user"></i> Attivazione account</h3>
+            <p>
+              L'account di <?php echo $u->nome ?> su Gaia <strong>non è ancora attivo</strong> e quindi non può
+              ricevere informazioni e non può partecipare alle attività. Per attivare un account basta inserire l'indirizzo email
+              del volontario.
+            </p>
+            <br/>
+            <a class="btn btn-info btn-large" data-toggle="modal" data-target="#attiva_account"> Attiva account</a>
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
 
     <!-- inizio modale -->
 
@@ -129,29 +130,28 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
       <!--Visualizzazione e modifica avatar utente e tesserino -->
       <?php if ($attivo) { ?>
-      <div class="tabbable">
-        <ul class="nav nav-tabs">
-          <li <?php if(!$ctess) echo "class=\"active\" " ; ?> ><a href="#tab_avatar" data-toggle="tab">Avatar</a></li>
-          <li <?php if($ctess) echo "class=\"active\" " ; ?>><a href="#tab_tesserino" data-toggle="tab">Tesserino</a></li>
-        </ul>
-        <div class="tab-content">
-          <div class="tab-pane <?php if(!$ctess) echo "active" ; ?>" id="tab_avatar">
-
-            <div class="row-fluid">
-              <div class="span6 allinea-centro">
-                <?php if ( isset($_GET['aok']) ) { ?>
-                <div class="alert alert-success">
-                  <i class="icon-ok"></i> Fotografia modificata!
+        <div class="tabbable">
+          <ul class="nav nav-tabs">
+            <li <?php if(!$ctess) echo "class=\"active\" " ; ?> ><a href="#tab_avatar" data-toggle="tab">Avatar</a></li>
+            <li <?php if($ctess) echo "class=\"active\" " ; ?>><a href="#tab_tesserino" data-toggle="tab">Tesserino</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane <?php if(!$ctess) echo "active" ; ?>" id="tab_avatar">
+              <div class="row-fluid">
+                <div class="span6 allinea-centro">
+                  <?php if ( isset($_GET['aok']) ) { ?>
+                    <div class="alert alert-success">
+                      <i class="icon-ok"></i> Fotografia modificata!
+                    </div>
+                  <?php } elseif ( isset($_GET['aerr']) ) { ?>
+                    <div class="alert alert-error">
+                      <i class="icon-warning-sign"></i>
+                      <strong>Errore</strong> &mdash; File non selezionato, troppo grande o non valido.
+                    </div>
+                  <?php } ?>
+                  <img src="<?php echo $u->avatar()->img(20); ?>" class="img-polaroid" />
+                  <br/><br/>
                 </div>
-                <?php } elseif ( isset($_GET['aerr']) ) { ?>
-                <div class="alert alert-error">
-                  <i class="icon-warning-sign"></i>
-                  <strong>Errore</strong> &mdash; File non selezionato, troppo grande o non valido.
-                </div>
-                <?php } ?>
-                <img src="<?php echo $u->avatar()->img(20); ?>" class="img-polaroid" />
-                <br/><br/>
-              </div>
               <div class="span5 allinea-sinistra"> 
                 <br/>
                 <form id="caricaFoto" action="?p=utente.avatar.ok&id=<?php echo $u; ?>&pre" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
@@ -172,19 +172,19 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
             <div class="row-fluid">
               <div class="span6 allinea-centro">
                 <?php if ( isset($_GET['tessok']) ) { ?>
-                <div class="alert alert-success">
-                  <i class="icon-ok"></i> Fototessera modificata!
-                </div>
+                  <div class="alert alert-success">
+                    <i class="icon-ok"></i> Fototessera modificata!
+                  </div>
                 <?php } elseif ( isset($_GET['tesserr']) ) { ?>
-                <div class="alert alert-error">
-                  <i class="icon-warning-sign"></i>
-                  <strong>Errore</strong> &mdash; File non selezionato, troppo grande o non valido.
-                </div>
+                  <div class="alert alert-error">
+                    <i class="icon-warning-sign"></i>
+                    <strong>Errore</strong> &mdash; File non selezionato, troppo grande o non valido.
+                  </div>
                 <?php } 
                 if ($u->fototessera()) { ?>
                   <img src="<?php echo $u->fototessera()->img(20); ?>" class="img-polaroid" />
                 <?php } else { ?>
-                  <p><br />Fototessera non caricata</p>
+                  <p><br/>Fototessera non caricata</p>
                 <?php } 
                 $foto = $u->fototessera();
                 ?>
@@ -208,27 +208,24 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
                 </div>
                 <?php } 
                 if(!$foto || $foto->approvata()) { ?>
-                <form id="caricaFoto" action="?p=presidente.utente.fototessera.ok&id=<?php echo $u; ?>" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
-                  <p>Per modificare la foto del tesserino:</p>
-                  <p>1. <strong>Scegli</strong>: <input type="file" name="fototessera" required /></p>
-                  <p>2. <strong>Clicca</strong>:<br />
-                  <button type="submit" class="btn btn-block btn-success">
-                    <i class="icon-save"></i> Salva la fototessera
-                  </button></p>
-                </form>
+                  <form id="caricaFoto" action="?p=presidente.utente.fototessera.ok&id=<?php echo $u; ?>" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
+                    <p>Per modificare la foto del tesserino:</p>
+                    <p>1. <strong>Scegli</strong>: <input type="file" name="fototessera" required /></p>
+                    <p>2. <strong>Clicca</strong>:<br />
+                    <button type="submit" class="btn btn-block btn-success">
+                      <i class="icon-save"></i> Salva la fototessera
+                    </button></p>
+                  </form>
                 <?php } ?>
                 <br/>
               </div>
             </div>
-
           </div>
         </div>
       </div> 
       <?php } ?>
       <!-- Fine visualizzazione e modifica avatar utente e tesserino -->
-
-      </div>
-
+    </div>
 
     <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $id; ?>" method="POST">
       <hr />
@@ -248,12 +245,12 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <label class="control-label" for="inputSesso">Sesso</label>
         <div class="controls">
           <?php if(!$admin){?> <input class="input-mini" type="text" name="inpuSesso" id="inpuSesso" readonly value="<?php echo $conf['sesso'][$u->sesso]; ?>"> <?php }else{ ?>
-          <select class="input-small" id="inputSesso" name="inputSesso" required>
-            <?php
-            foreach ( $conf['sesso'] as $numero => $tipo ) { ?>
-            <option value="<?php echo $numero; ?>" <?php if ( $numero == $u->sesso ) { ?>selected<?php } ?>><?php echo $tipo; ?></option>
-            <?php } ?>
-          </select>  
+            <select class="input-small" id="inputSesso" name="inputSesso" required>
+              <?php
+                foreach ( $conf['sesso'] as $numero => $tipo ) { ?>
+                  <option value="<?php echo $numero; ?>" <?php if ( $numero == $u->sesso ) { ?>selected<?php } ?>><?php echo $tipo; ?></option>
+              <?php } ?>
+            </select>  
           <?php } ?>
         </div>
       </div>
@@ -261,7 +258,6 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <label class="control-label" for="inputCodiceFiscale">Codice Fiscale</label>
         <div class="controls">
           <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale"  <?php if(!$admin){?> readonly <?php } ?> value="<?php echo $u->codiceFiscale; ?>">
-
         </div>
       </div>
       <div class="control-group">
@@ -327,13 +323,13 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
        </div>
      </div>
      <?php if($attivo) { ?>
-     <div class="control-group input-prepend">
-       <label class="control-label" for="inputCellulareServizio">Cellulare Servizio</label>
-       <div class="controls">
-         <span class="add-on">+39</span>
-         <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCellulareServizio" pattern="[0-9]{9,11}" />
+       <div class="control-group input-prepend">
+         <label class="control-label" for="inputCellulareServizio">Cellulare Servizio</label>
+         <div class="controls">
+           <span class="add-on">+39</span>
+           <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCellulareServizio" pattern="[0-9]{9,11}" />
+         </div>
        </div>
-     </div>
      <?php } ?>
      <div class="control-group">
       <label class="control-label" for="inputConsenso">Consenso dati personali</label>
@@ -341,7 +337,6 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
        <input value="<?php if($u->consenso()){ echo "Acquisito";}else{ echo "Non Acquisito"; } ?>"  type="text" id="inputConsenso" name="inputConsenso" readonly/>
      </div>
    </div>
-
    <div class="control-group">
       <label class="control-label" for="ultimoAccesso">Ultimo Accesso a Gaia</label>
       <div class="controls">
@@ -350,7 +345,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
    </div>
 
    <?php if($admin) { ?>
-   <div class="control-group">
+      <div class="control-group">
         <label class="control-label" for="inputStato">Stato</label>
         <div class="controls">
           <select class="input-medium" id="inputStato" name="inputStato" required>
@@ -377,17 +372,17 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         </div>
       </div>
    <?php if($hoPotere) { ?>
-   <hr />
-   <div class="form-actions">
-     <div class="btn-group">
-      <button type="submit" class="btn btn-success btn-large">
-        <i class="icon-save"></i>
-        Salva modifiche
-      </button>
-    </div>
-  </div>
-  <?php } ?>
-</form>    
+      <hr />
+      <div class="form-actions">
+       <div class="btn-group">
+          <button type="submit" class="btn btn-success btn-large">
+            <i class="icon-save"></i>
+            Salva modifiche
+          </button>
+        </div>
+      </div>
+    <?php } ?>
+  </form>    
 </div>
 <!--Visualizzazione e modifica appartenenze utente -->
 <div class="span6">
@@ -566,53 +561,52 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <th>Azioni</th>
       </thead>
       <?php 
-      if($u->stato == VOLONTARIO) {
-        $appartenenze = $u->appartenenzeAttuali();
-      } else {
-        $appartenenze = $u->appartenenzeAttuali(MEMBRO_ORDINARIO);
-      }
+        if($u->stato == VOLONTARIO) {
+          $appartenenze = $u->appartenenzeAttuali();
+        } else {
+          $appartenenze = $u->appartenenzeAttuali(MEMBRO_ORDINARIO);
+        }
 
       foreach ( $appartenenze as $app ) { ?>
-      <tr class="success">
-        <td>
-          <strong><?php echo $conf['membro'][$app->stato]; ?></strong>
-        </td>
+        <tr class="success">
+          <td>
+            <strong><?php echo $conf['membro'][$app->stato]; ?></strong>
+          </td>
 
-        <td>
-          <?php echo $app->comitato()->nomeCompleto(); ?>
-        </td>
+          <td>
+            <?php echo $app->comitato()->nomeCompleto(); ?>
+          </td>
 
-        <td>
-          <i class="icon-calendar muted"></i>
-          <?php echo $app->inizio()->inTesto(false); ?>
-        </td>
+          <td>
+            <i class="icon-calendar muted"></i>
+            <?php echo $app->inizio()->inTesto(false); ?>
+          </td>
 
-        <td>
-          <?php if ($app->fine) { ?>
-          <i class="icon-time muted"></i>
-          <?php echo $app->fine()->inTesto(false); ?>
-          <?php } else { ?>
-          <i class="icon-question-sign muted"></i>
-          Indeterminato
-          <?php } ?>
-        </td>
-
-        <td>
-
-          <div class="btn-group">
-            <?php if($hoPotere) { ?>
-            <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
-              <i class="icon-edit"></i>
-            </a>
-            <?php } if($me->admin()){ ?>
-            <a onClick="return confirm('Vuoi veramente cancellare questa appartenenza ?');" href="?p=us.appartenenza.cancella&a=<?php echo $app; ?>" title="Cancella appartenenza" class="btn btn-small btn-danger">
-              <i class="icon-trash"></i>
-            </a>
+          <td>
+            <?php if ($app->fine) { ?>
+            <i class="icon-time muted"></i>
+            <?php echo $app->fine()->inTesto(false); ?>
+            <?php } else { ?>
+            <i class="icon-question-sign muted"></i>
+            Indeterminato
             <?php } ?>
-          </div>
-        </td>
+          </td>
 
-      </tr>
+          <td>
+
+            <div class="btn-group">
+              <?php if($hoPotere) { ?>
+              <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
+                <i class="icon-edit"></i>
+              </a>
+              <?php } if($me->admin()){ ?>
+              <a onClick="return confirm('Vuoi veramente cancellare questa appartenenza ?');" href="?p=us.appartenenza.cancella&a=<?php echo $app; ?>" title="Cancella appartenenza" class="btn btn-small btn-danger">
+                <i class="icon-trash"></i>
+              </a>
+              <?php } ?>
+            </div>
+          </td>
+        </tr>
       <?php } ?>
 
     </table>
@@ -643,48 +637,43 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <i class="icon-certificate"></i> Storico corsi base
       </a>
     <?php } ?>
-	<a class="btn btn-small" target="_new" href="?p=presidente.incarichi.visualizza&id=<?php echo $u->id; ?>">
-      <i class="icon-briefcase"></i> Storico incarichi
-    </a>
-    <a class="btn btn-small" target="_new" href="?p=presidente.utente.turni&id=<?php echo $u->id; ?>">
-      <i class="icon-list"></i> Storico turni
-    </a>
+      <a class="btn btn-small" target="_new" href="?p=presidente.incarichi.visualizza&id=<?php echo $u->id; ?>">
+        <i class="icon-briefcase"></i> Storico incarichi
+      </a>
+      <a class="btn btn-small" target="_new" href="?p=presidente.utente.turni&id=<?php echo $u->id; ?>">
+        <i class="icon-list"></i> Storico turni
+      </a>
+    </div>
   </div>
-</div>
-
-
 
 <!--Visualizzazione e modifica titoli utente-->
 <?php $titoli = $conf['titoli']; ?>
-<div class="span6">
-  <?php if ( isset($_GET['gia'] ) ) { ?>
-  <div class="alert alert-error">
-    <i class="icon-warning-sign"></i>
-    <strong>Errore</strong> &mdash; Non puoi inserire lo stesso titolo o qualifica due volte.
-  </div>
-  <?php } ?>
-  <h4><i class="icon-list muted"></i> Curriculum </h4>
-  <div id="step1">
-  <?php if($hoPotere) { ?>
-    <div class="alert alert-block alert-success" <?php if ($titoli[2]) { ?>data-richiediDate<?php } ?>>
-      
-      <div class="row-fluid">
-        <span class="span3">
-          <label for="cercaTitolo">
-            <span style="font-size: larger;">
-              <i class="icon-search"></i>
-              <strong>Cerca</strong>
-            </span>
-          </label>
-
-        </span>
-        <span class="span9">
-          <input type="text" autofocus required id="cercaTitolo" placeholder="Inserisci un titolo..." class="span12" />
-        </span>
+  <div class="span6">
+    <?php if ( isset($_GET['gia'] ) ) { ?>
+      <div class="alert alert-error">
+        <i class="icon-warning-sign"></i>
+        <strong>Errore</strong> &mdash; Non puoi inserire lo stesso titolo o qualifica due volte.
       </div>
+    <?php } ?>
+    <h4><i class="icon-list muted"></i> Curriculum </h4>
+    <div id="step1">
+    <?php if($hoPotere) { ?>
+      <div class="alert alert-block alert-success" <?php if ($titoli[2]) { ?>data-richiediDate<?php } ?>>
+        <div class="row-fluid">
+          <span class="span3">
+            <label for="cercaTitolo">
+              <span style="font-size: larger;">
+                <i class="icon-search"></i>
+                <strong>Cerca</strong>
+              </span>
+            </label>
 
-
-    </div>
+          </span>
+          <span class="span9">
+            <input type="text" autofocus required id="cercaTitolo" placeholder="Inserisci un titolo..." class="span12" />
+          </span>
+        </div>
+      </div>
     <?php } ?>
 
     <table class="table table-striped table-condensed table-bordered" id="risultatiRicerca" style="display: none;">
@@ -696,7 +685,6 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
       </tbody>
     </table>
-
   </div>
 
   <div id="step2" style="display: none;">
@@ -755,68 +743,65 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
             </button>
           </div>
         </div>
-
       </div>
-
     </div> 
+
     <table class="table table-striped">
       <?php foreach ( $t as $titolo ) { ?>
-      <tr <?php if (!$titolo->tConferma) { ?>class="warning"<?php } ?>>
-        <td>
-          <?php if ($titolo->tConferma) { ?>
-          <abbr title="Confermato: <?php echo date('d-m-Y H:i', $titolo->tConferma); ?>">
-            <i class="icon-ok"></i>
-          </abbr>
+        <tr <?php if (!$titolo->tConferma) { ?>class="warning"<?php } ?>>
+          <td>
+            <?php if ($titolo->tConferma) { ?>
+            <abbr title="Confermato: <?php echo date('d-m-Y H:i', $titolo->tConferma); ?>">
+              <i class="icon-ok"></i>
+            </abbr>
+            <?php } else { ?>
+            <abbr title="Pendente">
+              <i class="icon-time"></i>
+            </abbr>
+            <?php } ?> 
+
+            <strong><?php echo $titolo->titolo()->nome; ?></strong><br />
+            <small><?php echo $conf['titoli'][$titolo->titolo()->tipo][0]; ?></small>
+          </td>
+          <?php if ( $titolo->inizio ) { ?>
+          <td><small>
+            <i class="icon-calendar muted"></i>
+            <?php echo date('d-m-Y', $titolo->inizio); ?>
+
+            <?php if ( $titolo->fine ) { ?>
+            <br />
+            <i class="icon-time muted"></i>
+            <?php echo date('d-m-Y', $titolo->fine); ?>
+            <?php } ?>
+            <?php if ( $titolo->luogo ) { ?>
+            <br />
+            <i class="icon-road muted"></i>
+            <?php echo $titolo->luogo; ?>
+            <?php } ?>
+            <?php if ( $titolo->codice ) { ?>
+            <br />
+            <i class="icon-barcode muted"></i>
+            <?php echo $titolo->codice; ?>
+            <?php } ?>
+          </small></td>
           <?php } else { ?>
-          <abbr title="Pendente">
-            <i class="icon-time"></i>
-          </abbr>
-          <?php } ?> 
+          <td>&nbsp;</td>
+          <?php } ?>
 
-          <strong><?php echo $titolo->titolo()->nome; ?></strong><br />
-          <small><?php echo $conf['titoli'][$titolo->titolo()->tipo][0]; ?></small>
-        </td>
-        <?php if ( $titolo->inizio ) { ?>
-        <td><small>
-          <i class="icon-calendar muted"></i>
-          <?php echo date('d-m-Y', $titolo->inizio); ?>
-
-          <?php if ( $titolo->fine ) { ?>
-          <br />
-          <i class="icon-time muted"></i>
-          <?php echo date('d-m-Y', $titolo->fine); ?>
-          <?php } ?>
-          <?php if ( $titolo->luogo ) { ?>
-          <br />
-          <i class="icon-road muted"></i>
-          <?php echo $titolo->luogo; ?>
-          <?php } ?>
-          <?php if ( $titolo->codice ) { ?>
-          <br />
-          <i class="icon-barcode muted"></i>
-          <?php echo $titolo->codice; ?>
-          <?php } ?>
-        </small></td>
-        <?php } else { ?>
-        <td>&nbsp;</td>
-        <?php } ?>
-
-        <td>
-          <?php if($hoPotere) { ?>
-          <div class="btn-group">
-            <a href="?p=presidente.titolo.modifica&t=<?php echo $titolo->id; ?>&v=<?php echo $u->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
-              <i class="icon-edit"></i>
-            </a>
-            <a onclick="return confirm('Cancellare il titolo utente?');" href="?p=utente.titolo.cancella&id=<?php echo $titolo->id; ?>&pre" title="Cancella il titolo" class="btn btn-small btn-danger">
-              <i class="icon-trash"></i>
-            </a>
-          </div>
-          <?php } ?>
-        </td>
-      </tr>
+          <td>
+            <?php if($hoPotere) { ?>
+            <div class="btn-group">
+              <a href="?p=presidente.titolo.modifica&t=<?php echo $titolo->id; ?>&v=<?php echo $u->id; ?>" title="Modifica il titolo" class="btn btn-small btn-info">
+                <i class="icon-edit"></i>
+              </a>
+              <a onclick="return confirm('Cancellare il titolo utente?');" href="?p=utente.titolo.cancella&id=<?php echo $titolo->id; ?>&pre" title="Cancella il titolo" class="btn btn-small btn-danger">
+                <i class="icon-trash"></i>
+              </a>
+            </div>
+            <?php } ?>
+          </td>
+        </tr>
       <?php } ?>
     </table>
   </div>
 </div>
-
-
