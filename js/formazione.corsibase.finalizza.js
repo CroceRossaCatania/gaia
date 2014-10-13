@@ -60,6 +60,8 @@ $(document).ready( function() {
         $('#opt_p1_' + id).hide();
         $('#opt_p2_' + id).hide();
         $('#opt_p3_' + id).hide();
+        $('#arg_p1_' + id).hide();
+        $('#arg_p2_' + id).hide();
         $('#opt_non_' + id).fadeOut('fast');
         data[id] = true;
         if(Object.keys(data).every(function(k){ return data[k] })){
