@@ -116,8 +116,6 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
     <?php } ?>
 
-    <?php if ($attivo) { ?>
-
     <!--Visualizzazione e modifica avatar utente-->
     <div class="span12">
       <h3><i class="icon-edit muted"></i> Anagrafica</h3>
