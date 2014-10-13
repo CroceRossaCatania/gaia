@@ -431,12 +431,6 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     <p>Ricordati di caricare i tuoi documenti dalla sezione <strong>Documenti</strong>.</p>
                 </div>
 
-                <?php }
-                if ( !$attenzione && $me->comitatiDiCompetenza() ) { ?>
-                <div class="alert alert-block alert-warning">
-                    <h4><i class="icon-warning-sign"></i> Dov'è finito il pannello presidente?</h4>
-                    <p>Nel menù di sinistra, alla voce <strong>Presidente</strong>.</p>
-                </div>
                 <?php } ?>
             </div>
 
