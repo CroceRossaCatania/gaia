@@ -309,6 +309,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                         </a> 
                     </div>
                 </div>
+                */ ?>
                 <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
                 <div class="alert alert-success">
                     <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
@@ -340,7 +341,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     <p>Inserisci titoli, patenti, certificazioni e competenze dalla sezione curriculum.</p>        
                     <p><a href="?p=utente.titoli&t=0" class="btn btn-large"><i class="icon-ok"></i> Clicca qui per iniziare</a></p>
                 </div> 
-                <?php } elseif (!$me->ordinario()) { ?>
+                <?php } if (!$me->ordinario()) { ?>
                 <div class="alert alert-block alert-success">
                     <div class="row-fluid">
                         <span class="span7">
