@@ -341,7 +341,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     <p>Inserisci titoli, patenti, certificazioni e competenze dalla sezione curriculum.</p>        
                     <p><a href="?p=utente.titoli&t=0" class="btn btn-large"><i class="icon-ok"></i> Clicca qui per iniziare</a></p>
                 </div> 
-                <?php } if (!$me->ordinario()) { ?>
+                <?php } elseif (!$me->ordinario()) { ?>
                 <div class="alert alert-block alert-success">
                     <div class="row-fluid">
                         <span class="span7">
