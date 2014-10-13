@@ -309,6 +309,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                         </a> 
                     </div>
                 </div>
+                */ ?>
                 <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
                 <div class="alert alert-success">
                     <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
