@@ -38,7 +38,7 @@ paginaPubblica();
                     </div>
                     
                     <p>Organizziamo continuamente corsi base per gli aspiranti volontari.</p>
-                    <p>Il volontariato in Croce Rossa ti cambierà la vita, <a href="javascript:" onclick="window.open('/inc/public.scopriperche.php', 'ScopriPerche', 'width=600, height=500, resizable, status, scrollbars=1, location');"><i class="icon-link"></i> scopri perché</a>.</p>
+                    <p>Il volontariato in Croce Rossa ti cambierà la vita, <a href="http://www.cri.it/diventavolontario" target="_new" ><i class="icon-link"></i> scopri perché</a>.</p>
                     <p>Clicca sul pulsante qui sopra: verrai richiamato da un volontario ed informato sul prossimo corso base a te vicino.</p>
                     <p>&nbsp;</p>
 
