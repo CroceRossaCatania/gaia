@@ -395,7 +395,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
       	<div class="span6 allinea-destra">
 	        <a href="/">Torna alla home</a> &middot;
 	        <a href="?p=public.about">Informazioni su Gaia</a> &middot;
-	        <a href="docs/Guida.pdf?ref=footer"><strong>Guida in PDF</strong></a> &middot;
+	        <a href="http://wiki.gaia.cri.it"><strong>Guida</strong></a> &middot;
 	        <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaia.cri.it"><?php } ?>Supporto</a><br />
 	        Croce Rossa. <strong>Persone in prima persona.</strong>
    		  </div>
