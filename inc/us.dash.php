@@ -105,7 +105,9 @@ if(!$me->admin()) {
                     <li class="active"><a href="#elenchi" data-toggle="tab">Elenchi</a></li>
                     <li><a href="#volontari" data-toggle="tab">Volontari</a></li>
                     <li><a href="#quote" data-toggle="tab">Amministrazione</a></li>
-                    <li><a href="#referenti" data-toggle="tab">Referenti</a></li>
+                    <?php if ($me->delegazioneAttuale()->applicazione != APP_SOCI) { ?>
+                        <li><a href="#referenti" data-toggle="tab">Referenti</a></li>
+                    <?php } ?>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="elenchi">
@@ -241,6 +243,8 @@ if(!$me->admin()) {
                             </div>
                         </div>
                     </div>
+                    <?php 
+                    if ($me->delegazioneAttuale()->applicazione != APP_SOCI) { ?>
                     <div class="tab-pane" id="referenti">
                         <div class="row-fluid">
                             <div class="span6">
@@ -268,6 +272,7 @@ if(!$me->admin()) {
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
                 </div>        
             </div>
         </div>
