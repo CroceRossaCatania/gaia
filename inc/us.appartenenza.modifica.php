@@ -46,6 +46,23 @@ $v = $app->volontario;
                     <input id="dataFine" class="span12" name="dataFine" type="text"  value="<?php if ($app->fine == 0) echo('Indeterminato'); else echo(date('d/m/Y', $app->fine)); ?>" readonly />
                 </div>
             </div>
+            <?php if($me->admin()){ ?>
+            <div class="row-fluid">
+                <div class="span4 centrato">
+                    <label for="inputStato"><i class="icon-fire-extinguisher"></i> Stato</label>
+                </div>
+                <div class="control-group span8">
+                    <div class="controls">
+                        <select name="stato" class="span12">
+                            <?php
+                            foreach ($conf['membro'] as $const => $fName) {?>
+                                <option value='<?= $const; ?>' <?php if($app->stato == $const){echo ("selected='selected'");} ?> > <?= $fName; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
             <div class="row-fluid">
                 <div class="span4 centrato">
                     <label for="inputComitato"><i class="icon-home"></i> Comitato</label>

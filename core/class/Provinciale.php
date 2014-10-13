@@ -22,7 +22,7 @@ class Provinciale extends GeoPolitica {
         if(!$soloComitati) {
             $r[] = $this;
         }
-        foreach  ( $this->locali() as $l ) {
+        foreach ( $this->locali() as $l ) {
             $r = array_merge($l->estensione($soloComitati), $r);
         }
         return array_unique($r);

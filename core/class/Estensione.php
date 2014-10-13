@@ -23,7 +23,7 @@ class Estensione extends Entita {
         return $this->appartenenza()->comitato();
     }
 
-    public function provenienzaa() {
+    public function provenienza() {
         return $this->cProvenienza->comitato();
     }
 
@@ -192,7 +192,7 @@ class Estensione extends Entita {
         $traunmese = time() + MESE;
         foreach ($e as $_e) {
             if ($_e->appartenenza()->fine < $traunmese)
-                $r[] = $_ris;
+                $r[] = $_e;
         }
         return $r;
     }

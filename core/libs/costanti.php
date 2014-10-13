@@ -253,11 +253,11 @@ define('TITOLO_CRI',            4);
 $conf['titoli'] = [
 	/*
 	num =>  [denominazione,		       verifica, data,  data_obbl] */
-	TITOLO_PERSONALE	=>	['Competenza personale',	false,	false,	false],
+	TITOLO_PERSONALE	    =>	['Competenza personale',	false,	false,	false],
 	TITOLO_PATENTE_CIVILE	=>	['Patente Civile',             	false,	true,	false],
-	TITOLO_PATENTE_CRI	=>	['Patente CRI',             	true,	true,	true],
-	TITOLO_STUDIO   	=>	['Titolo di studio',		false,  true,   false],
-	TITOLO_CRI       	=>	['Titolo di Croce Rossa',	true,	true,	false]
+	TITOLO_PATENTE_CRI	    =>	['Patente CRI',             	true,	true,	true],
+	TITOLO_STUDIO   	    =>	['Titolo di studio',		false,  true,   false],
+	TITOLO_CRI       	    =>	['Titolo di Croce Rossa',	true,	true,	false]
 ];
 
 
@@ -278,23 +278,23 @@ define('PROSSIMA_SCADENZA', 0);
  * ===================================
  */
 define('APP_ATTIVITA',      10);
-// define('APP_PROTOCOLLO',    20);
 define('APP_PRESIDENTE',    30);
 define('APP_OBIETTIVO',     40);
 define('APP_CO',            50);
 define('APP_SOCI',          60);
 define('APP_PATENTI',       70);
 define('APP_FORMAZIONE',    80);
+define('APP_AUTOPARCO',     90);
 
 $conf['applicazioni'] = [
     APP_ATTIVITA    =>  "Attività",
-    // APP_PROTOCOLLO  =>  "Protocollo",
+    APP_AUTOPARCO   =>  "Autoparco",
     APP_PRESIDENTE  =>  "Presidente",
     APP_OBIETTIVO   =>  "Obiettivo strategico",
     APP_CO          =>  "Centrale Operativa",
     APP_SOCI        =>  "Ufficio Soci",
-    APP_PATENTI     => "Ufficio Patenti",
-    APP_FORMAZIONE  => "Resp. Formazione"
+    APP_PATENTI     =>  "Ufficio Patenti",
+    APP_FORMAZIONE  =>  "Resp. Formazione"
 ];
 
 /*
@@ -430,6 +430,7 @@ $conf['riserve'] = [
  */
 define('DIM_VOLONTARIE', 10);
 define('DIM_TURNO',      20);
+define('DIM_RISERVA',    25);
 define('DIM_QUOTA',      30);
 define('DIM_RADIAZIONE', 40);
 define('DIM_DECEDUTO',   50);
@@ -437,6 +438,7 @@ define('DIM_DECEDUTO',   50);
 $conf['dimissioni'] = [
     DIM_VOLONTARIE  =>  'Dimissioni Volontarie',
     DIM_TURNO       =>  'Mancato svolgimento turno',
+    DIM_RISERVA     =>  'Mancato rientro da riserva',
     DIM_QUOTA       =>  'Mancato versamente quota annuale',
     DIM_RADIAZIONE  =>  'Radiazione da Croce Rossa Italiana',
     DIM_DECEDUTO    =>  'Decesso'
@@ -462,22 +464,6 @@ define('CO_SMONTA',      20);
 $conf['coturni'] = [
     CO_MONTA        =>  'In turno',
     CO_SMONTA       =>  'Smontato'
-];
-
-/*
- * ===================================
- * =========== VEICOLI ===============
- * ===================================
- */
-
-define('VE_TRASPORTO',       10);
-define('VE_OPERATIVI',      20);
-define('VE_SOCCORSO',       30);
-
-$conf['veicoli'] = [
-    VE_TRASPORTO        =>  'Ciclomotore',
-    VE_OPERATIVI       =>  'Motoveicolo',
-    VE_SOCCORSO        =>  'Autoveicolo'
 ];
 
 /*
@@ -769,3 +755,58 @@ $conf['tesseriniStatoBreve'] = [
 
 define('ORIENTAMENTO_ORIZZONTALE',        'landscape');
 define('ORIENTAMENTO_VERTICALE',          'portrait');
+
+
+/*
+ * ===================================
+ * =========== VEICOLI ===============
+ * ===================================
+ */
+define('VEI_ATTIVO',       10);
+define('VEI_FUORIUSO',     20);
+
+$conf['vei_stato'] = [
+    VEI_ATTIVO        =>  "Attivo",
+    VEI_FUORIUSO      =>  "Fuori uso"
+];
+
+/*
+ * ===================================
+ * ======= VEICOLI MANUTENZIONE ======
+ * ===================================
+ */
+define('MAN_ORDINARIA',      10);
+define('MAN_STRAORDINARIA',  20);
+define('MAN_REVISIONE',      30);
+
+$conf['man_tipo'] = [
+    MAN_ORDINARIA      =>  "Manutenzione Ordinaria",
+    MAN_STRAORDINARIA  =>  "Manutenzione Straordinaria",
+    MAN_REVISIONE      =>  "Revisione Veicolo"
+];
+
+/*
+ * ===================================
+ * ======= INTERVALLI REVISIONE ======
+ * ===================================
+ */
+define('REV_ANNO',      31556926); 
+define('REV_DUEANNI',   63113852);
+
+$conf['rev_intervallo'] = [
+    REV_ANNO      =>  "1 Anno",
+    REV_DUEANNI   =>  "2 Anni"
+];
+
+/*
+ * ============ LIKE  ================
+ * ===================================
+ */
+
+define('PIACE',        0);
+define('NON_PIACE',    1);
+
+$conf['like'] = [
+    PIACE      =>  'Mi piace', 
+    NON_PIACE  =>  'Non mi piace'
+];  

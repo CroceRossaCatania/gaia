@@ -19,18 +19,15 @@ class Excel extends File {
         $this->righe[] = $array;
     }
     
-    public function genera($nome) {
-
-        global $conf;
-
+    public function genera($nome, $conBordo = false) {
         $this->nome = $nome;
         $this->mime = 'application/vnd.ms-excel';
         
         $s  = "<meta charset='utf-8'>";
         $s .= "<head><style>.excel-text{ mso-number-format: \"\@\"; } </style></head>";
-        $s .= '<table border="0">';
+        $s .= "<table border='{$conBordo}'>";
         $s .= '<thead>';
-        foreach ( $this->intestazione as $int) {
+        foreach ( $this->intestazione as $int ) {
             $s .= "<th class='excel-text'><strong>{$int}</strong></th>";
         }
         $s .= '</thead>';
@@ -39,7 +36,7 @@ class Excel extends File {
             $s .= '<tr>';
             foreach ( $riga as $cont ) {
                 $s .= '<td style="min-width: 200px;" class="excel-text">';
-                $s .= htmlentities($cont);
+                $s .= $cont;
                 $s .= '</td>';
             }
             $s .= '</tr>';
@@ -47,6 +44,11 @@ class Excel extends File {
         $s  .= '</tbody>';
         $s  .= '</table>';
         file_put_contents($this->percorso(), $s);
+    }
+
+    public function generaHTML($nome) {
+        $this->genera($nome, true);
+        $this->mime = 'text/html';
     }
     
 }

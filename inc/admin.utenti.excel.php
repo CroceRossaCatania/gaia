@@ -105,7 +105,8 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
             'Cell. Servizio',
             'Data ingresso CRI',
             'N. Quota',
-            'Data versamento'
+            'Data versamento',
+            'Importo'
             ]);
     }else{
         $excel->intestazione([
@@ -153,34 +154,32 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
 
         }
         $excel->genera("Volontari dimessi {$c->nome}.xls");
-    }elseif(isset($_GET['giovani'])){
-        foreach ( $c->membriAttuali() as $v ) {
-            $t = time()-GIOVANI;
-            if ($t <=  $v->dataNascita){
-                $i++; 
-                $excel->aggiungiRiga([
-                    $i,
-                    $v->nome,
-                    $v->cognome,
-                    date('d/m/Y', $v->dataNascita),
-                    $v->comuneNascita,
-                    $v->provinciaNascita,
-                    $v->codiceFiscale,
-                    $v->indirizzo,
-                    $v->civico,
-                    $v->comuneResidenza,
-                    $v->CAPResidenza,
-                    $v->provinciaResidenza,
-                    $v->email,
-                    $v->emailServizio,
-                    $v->cellulare,
-                    $v->cellulareServizio,
-                    $v->ingresso()->format("d/m/Y")
-                    ]);
 
-            }
+    }elseif(isset($_GET['giovani'])){
+        foreach ( $c->membriGiovani() as $v ) {
+            $i++; 
+            $excel->aggiungiRiga([
+                $i,
+                $v->nome,
+                $v->cognome,
+                date('d/m/Y', $v->dataNascita),
+                $v->comuneNascita,
+                $v->provinciaNascita,
+                $v->codiceFiscale,
+                $v->indirizzo,
+                $v->civico,
+                $v->comuneResidenza,
+                $v->CAPResidenza,
+                $v->provinciaResidenza,
+                $v->email,
+                $v->emailServizio,
+                $v->cellulare,
+                $v->cellulareServizio,
+                $v->ingresso()->format("d/m/Y")
+                ]);
         }
         $excel->genera("Volontari giovani {$c->nome}.xls");
+
     }elseif(isset($_GET['eleatt'])){
         $time = $_GET['time'];
         $time = DT::daTimestamp($time);
@@ -209,6 +208,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
             
         }
         $excel->genera("Elettorato attivo {$c->nome}.xls");
+
     }elseif(isset($_GET['elepass'])){
         $time = $_GET['time'];
         $time = DT::daTimestamp($time);
@@ -237,6 +237,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
             
         }
         $excel->genera("Elettorato passivo {$c->nome}.xls");
+
     }elseif(isset($_GET['quoteno'])){
         $questanno = $anno = date('Y');
         if (!isset($_GET['anno'])) {
@@ -271,6 +272,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
 
         }
         $excel->genera("Volontari mancato pagamento quota {$c->nome}.xls");
+        
     }elseif(isset($_GET['quotesi'])){
         $questanno = $anno = date('Y');
         if (!isset($_GET['anno'])) {
@@ -302,7 +304,8 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->cellulareServizio,
                 $v->ingresso()->format("d/m/Y"),
                 $v->quota($anno)->progressivo(),
-                $v->quota($anno)->dataPagamento()->format("d/m/Y")
+                $v->quota($anno)->dataPagamento()->format("d/m/Y"),
+                $v->quota($anno)->quota
                 ]);
 
         }
@@ -338,7 +341,8 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->cellulareServizio,
                 $v->ingresso()->format("d/m/Y"),
                 $v->quota($anno)->progressivo(),
-                $v->quota($anno)->dataPagamento()->format("d/m/Y")
+                $v->quota($anno)->dataPagamento()->format("d/m/Y"),
+                $v->quota($anno)->quota
                 ]);
 
         }

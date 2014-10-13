@@ -22,7 +22,7 @@ class Nazionale extends GeoPolitica {
         if(!$soloComitati) {
             $r[] = $this;
         }
-        foreach  ( $this->regionali() as $l ) {
+        foreach ( $this->regionali() as $l ) {
             $r = array_merge($l->estensione($soloComitati), $r);
         }
         return array_unique($r);

@@ -43,7 +43,7 @@ if ( $sessione->inGenerazioneEstensione) {
 
         /* Richiesta per all'attuale presidente */
         $m = new Email('richiestaEstensione.presidente', 'Richiesta estensione di ' . $me->nomeCompleto());
-        $m->a = $capp->unPresidente();
+        $m->a = $capp->primoPresidente();
         $m->_NOME       = $me->nomeCompleto();
         $m->_COMITATO   = $cest->nomeCompleto();
         $m->_TIME = date('d/m/Y', $e->timestamp);
@@ -52,7 +52,7 @@ if ( $sessione->inGenerazioneEstensione) {
         
         /* Richiesta per conoscenza al nuovo presidente */
         $m = new Email('richiestaEstensione.cc', 'Richiesta estensione in arrivo a: ' . $e->comitato()->nome);
-        $m->a = $cest->unPresidente();
+        $m->a = $cest->primoPresidente();
         $m->_NOME       = $me->nomeCompleto();
         $m->_COMITATO   = $cest->nomeCompleto();
         $m->_USCENTE = $capp->nomeCompleto();

@@ -9,7 +9,26 @@ paginaAdmin();
 $minimo  = ( !empty($_GET['minimo']) ? (int) $_GET['minimo'] : 1 );
 $massimo = ( !empty($_GET['massimo']) ? (int) $_GET['massimo'] : ERRORIAMICHEVOLI_MINIMO );
 $limite  = ( !empty($_GET['limite']) ? (int) $_GET['limite'] : 500 );
+if (!empty($_GET['ricErr'])){
 
+//ricerca su tutti gli errori appartenenti ad una richieste o sessione
+$errori = MErrore::find([
+	'livello'=> [
+		'$gte' => $minimo,
+		'$lte' => $massimo,
+	],
+	'$or' =>
+		[
+			['sessione' => $_GET['ricErr']],
+			['richiesta' => $_GET['ricErr']]
+		]
+])->sort([
+	'_id' => -1
+])->limit($limite);
+
+} else {
+
+//ricerca su tutti gli errori
 $errori = MErrore::find([
 	'livello'=> [
 		'$gte' => $minimo,
@@ -19,6 +38,7 @@ $errori = MErrore::find([
 	'_id' => -1
 ])->limit($limite);
 
+}
 ?>
 
 <div class="row-fluid">
@@ -32,7 +52,7 @@ $errori = MErrore::find([
 			<div class="input-append">
 				<input type="text" name="id" placeholder="Codice errore..." class="input-medium" required />
 				<button type="submit" class="btn">
-					<i class="icon-search"></i> Cerca per codice
+					<i class="icon-search"></i> Cerca per id o codice
 				</button>
 			</div>
 		</form>
@@ -49,7 +69,9 @@ $errori = MErrore::find([
 	<div class="span9">
 		<form action="/" method="GET">
 			<input type="hidden" name="p" value="admin.errori" />
-				Per pagina:
+				Sessione/Richiesta:
+				<input type="text" name="ricErr" placeholder="Richiesta o Sessione"  value="<?= $_GET['ricErr']; ?>"/>
+				&mdash; Risultati per pagina: &nbsp;
 				<input type="number" min="20" max="50000" name="limite" required value="<?= $limite; ?>" />
 				<br />
 				Minimo livello (<a href="http://www.php.net/manual/en/errorfunc.constants.php" target="_new">ref.</a>):

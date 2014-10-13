@@ -1,8 +1,8 @@
 <?php
 
 /*
-* ©2013 Croce Rossa Italiana
-*/
+ * ©2013 Croce Rossa Italiana
+ */
 
 /* Modalità manutenzione */
 if (file_exists('upload/setup/manutenzione')) {
@@ -47,12 +47,12 @@ $p = $_GET['p'];
 if (!$p) { $p = 'home'; }
 $_f = "./inc/$p.php";
 if ( !file_exists($_f) ) {
-    $_f = "./inc/errore.404.php";
+	$_f = "./inc/errore.404.php";
 }
 
 /*
-* Titolo e descrizione se non ridefiniti
-*/
+ * Titolo e descrizione se non ridefiniti
+ */
 $_titolo        = 'Progetto Gaia - Croce Rossa Italiana';
 $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi velocemente, più trasparente ed aperta a tutti';
 
@@ -78,32 +78,33 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <link href="css/main.css"               rel="stylesheet" media="screen">
     <link href="css/fullcalendar.css"       rel="stylesheet" media="screen">
     <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.min.css" rel="stylesheet" media="screen">
-<!--[if IE]>
-<link href="css/main-ie.css" rel="stylesheet" media="screen">
-<![endif]-->
-<!--[if IE 7]>
-<link rel="stylesheet" href="css/font-awesome-ie7.min.css">
-<![endif]-->
+    <!--[if IE]>
+        <link href="css/main-ie.css" rel="stylesheet" media="screen">
+    <![endif]-->
+    <!--[if IE 7]>
+      <link rel="stylesheet" href="css/font-awesome-ie7.min.css">
+    <![endif]-->
 
-<!-- JS -->
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"        ></script>
-<script type="text/javascript" src="js/modernizr.custom.03290.js"                   ></script>
-<script type="text/javascript" src="js/bootstrap.min.js"                            ></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"   ></script>
-<script type="text/javascript" src="js/jquery.timepicker.js"                        ></script>
-<script type="text/javascript" src="js/fullcalendar.min.js"                         ></script>
-<script type="text/javascript" src="js/jquery.cookie.js"                            ></script>
-<script type="text/javascript" src="js/app.js"                                      ></script>
-<script type="text/javascript" src="js/ui.datepicker-it.js"                         ></script>
-<script type="text/javascript" src="js/tinymce/tinymce.min.js"                      ></script>
-<script type="text/javascript" src="js/polychart2.standalone.js"                    ></script>
-<?php if (file_exists('js/'. $p . '.js')) { /* Javascript dinamico */ ?>
-<script type="text/javascript" src="js/<?php echo $p; ?>.js"></script>
-<?php } ?>
+    <!-- JS -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"        ></script>
+    <script type="text/javascript" src="js/modernizr.custom.03290.js"                   ></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"                            ></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"   ></script>
+    <script type="text/javascript" src="js/jquery.timepicker.js"                        ></script>
+    <script type="text/javascript" src="js/fullcalendar.min.js"                         ></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"                            ></script>
+    <script type="text/javascript" src="js/app.js"                                      ></script>
+    <script type="text/javascript" src="js/ui.datepicker-it.js"                         ></script>
+    <script type="text/javascript" src="js/tinymce/tinymce.min.js"                      ></script>
+    <script type="text/javascript" src="js/polychart2.standalone.js"                    ></script>
+    <?php if (file_exists('js/'. $p . '.js')) { /* Javascript dinamico */ ?>
+        <script type="text/javascript" src="js/<?php echo $p; ?>.js"></script>
+    <?php } ?>
 
-</head>
-<body>
+  </head>
+  <body>
     <div class="navbar-wrapper">
+        <
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -121,7 +122,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             <li><a href="index.php"><i class="icon-home"></i> Home</a></li>
                             <li><a href="?p=attivita"><i class="icon-calendar"></i> Attività</a></li>
                             <li><a href="?p=public.comitati.mappa"><i class="icon-map-marker"></i> Comitati</a></li>
-                            <?php /* 
+                            <li><a href="?p=public.formazione"><i class="icon-desktop"></i> Formazione</a></li>
+							<?php /* 
 
                             VERIFICA TESSERINO MOMENTANEAMENTE TOLTA 
 
@@ -400,7 +402,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                     <div class="span6 allinea-destra">
                         <a href="/">Torna alla home</a> &middot;
                         <a href="?p=public.about">Informazioni su Gaia</a> &middot;
-                        <a href="docs/Guida.pdf?ref=footer"><strong>Guida in PDF</strong></a> &middot;
+	        			<a href="http://wiki.gaia.cri.it"><strong>Guida</strong></a> &middot;
                         <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaia.cri.it"><?php } ?>Supporto</a><br />
                             Croce Rossa. <strong>Persone in prima persona.</strong>
                         </div>
@@ -457,38 +459,27 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                     <?php } ?>
 
 
-                    <?php if(!$conf['debug']) { ?>
-                    <!-- Statistiche -->
-                    <script type="text/javascript">
-                        var _paq = _paq || [];
-                        _paq.push(["trackPageView"]);
-                        _paq.push(["enableLinkTracking"]);
-                        (function() {
-                            var u = "https://statsgaiacri.alacriter.co.uk/";
-                            _paq.push(["setTrackerUrl", u+"piwik.php"]);
-                            _paq.push(["setSiteId", "1"]);
-                            var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
-                            g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
-                        })();
-                    </script>
+
+
                     <!-- Fine codice statistiche -->
 
                     <!-- DEBUG. Q: <?php echo $db->numQuery; ?>; M: <?php echo ceil(memory_get_peak_usage()/1024); ?> kB; T: <?php echo round(microtime(true)-$_stopwatch, 6); ?>s -->
-                    <!-- CHAT SUPPORTO --><div class="hidden-phone" id="swifttagcontainer866f2l0ph4"><div id="proactivechatcontainer866f2l0ph4"></div><div style="display: inline;" id="swifttagdatacontainer866f2l0ph4"></div></div> <script type="text/javascript">var swiftscriptelem866f2l0ph4=document.createElement("script");swiftscriptelem866f2l0ph4.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "866f2l0ph4"; var swifttagurl866f2l0ph4="https://supporto.giovanicri.it/visitor/index.php?/Gaia/LiveChat/HTML/SiteBadge/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPTg2NmYybDBwaDQmdmVyc2lvbj00LjYyLjAuNDM5NCZwcm9kdWN0PUZ1c2lvbiZmaWx0ZXJkZXBhcnRtZW50aWQ9NTAmcm91dGVjaGF0c2tpbGxpZD00JmFsZXJ0WzBdWzBdPSZhbGVydFswXVsxXT0mc2l0ZWJhZGdlY29sb3I9d2hpdGUmYmFkZ2VsYW5ndWFnZT1lbiZiYWRnZXRleHQ9bGl2ZWNoYXQmb25saW5lY29sb3I9IzE1ZDkxNSZvbmxpbmVjb2xvcmhvdmVyPSM1Y2U1NWMmb25saW5lY29sb3Jib3JkZXI9IzBmOTgwZiZvZmZsaW5lY29sb3I9I2Y3MDAwMCZvZmZsaW5lY29sb3Job3Zlcj0jZmE0ZDRkJm9mZmxpbmVjb2xvcmJvcmRlcj0jYWQwMDAwJmF3YXljb2xvcj0jZjJmMjA4JmF3YXljb2xvcmhvdmVyPSNmNmY2NTMmYXdheWNvbG9yYm9yZGVyPSNhOWE5MDYmYmFja3Nob3J0bHljb2xvcj0jZjJmMjA4JmJhY2tzaG9ydGx5Y29sb3Job3Zlcj0jZjZmNjUzJmJhY2tzaG9ydGx5Y29sb3Jib3JkZXI9I2E5YTkwNiZjdXN0b21vbmxpbmU9JmN1c3RvbW9mZmxpbmU9JmN1c3RvbWF3YXk9JmN1c3RvbWJhY2tzaG9ydGx5PQo5MWE3NmQxYWVmZGYxZGQzMDIwMTFjZDZiMGMxMTNiZmE5MGU3Yjkx";setTimeout("swiftscriptelem866f2l0ph4.src=swifttagurl866f2l0ph4;document.getElementById('swifttagcontainer866f2l0ph4').appendChild(swiftscriptelem866f2l0ph4);",1);</script><!-- END TAG CODE - DO NOT EDIT! -->
-                    <!-- FUSION TAG    --><div class="hidden-phone" id="proactivechatcontainerafechw6ctt"></div><div id="swifttagcontainerafechw6ctt" style="display: none;"><div id="swifttagdatacontainerafechw6ctt"></div></div> <script type="text/javascript">var swiftscriptelemafechw6ctt=document.createElement("script");swiftscriptelemafechw6ctt.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "afechw6ctt"; var swifttagurlafechw6ctt="https://supporto.giovanicri.it/visitor/index.php?/LiveChat/HTML/Monitoring/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPWFmZWNodzZjdHQmdmVyc2lvbj00LjU4LjAuMzY1MCZwcm9kdWN0PUZ1c2lvbiZjdXN0b21vbmxpbmU9JmN1c3RvbW9mZmxpbmU9JmN1c3RvbWF3YXk9JmN1c3RvbWJhY2tzaG9ydGx5PQo0ODFmZjE5NjZhOTY3ZDVhNzY0OTZkMmQ1MTdmMmEyZTU4NGQ4OGE0";setTimeout("swiftscriptelemafechw6ctt.src=swifttagurlafechw6ctt;document.getElementById('swifttagcontainerafechw6ctt').appendChild(swiftscriptelemafechw6ctt);",1);</script><!-- END FUSION TAG CODE - DO NOT EDIT! -->
+                    
+                    <?php if(!$conf['debug']) { ?>
+    					<!-- CHAT SUPPORTO --><div class="hidden-phone" id="swifttagcontainerusy8sk1zn9"><div id="proactivechatcontainerusy8sk1zn9"></div><div style="display: inline;" id="swifttagdatacontainerusy8sk1zn9"></div></div> <script type="text/javascript">var swiftscriptelemusy8sk1zn9=document.createElement("script");swiftscriptelemusy8sk1zn9.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "usy8sk1zn9"; var swifttagurlusy8sk1zn9="https://helpdesk.cri.it/visitor/index.php?/Default/LiveChat/HTML/SiteBadge/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPXVzeThzazF6bjkmdmVyc2lvbj00LjY2LjImcHJvZHVjdD1mdXNpb24mZmlsdGVyZGVwYXJ0bWVudGlkPTUwJnJvdXRlY2hhdHNraWxsaWQ9Myw0JnZhcmlhYmxlWzBdWzBdPSZ2YXJpYWJsZVswXVsxXT0mYWxlcnRbMF1bMF09JmFsZXJ0WzBdWzFdPSZzaXRlYmFkZ2Vjb2xvcj13aGl0ZSZiYWRnZWxhbmd1YWdlPWVuJmJhZGdldGV4dD1saXZlY2hhdCZvbmxpbmVjb2xvcj0jMWRjZjFkJm9ubGluZWNvbG9yaG92ZXI9IzYxZGU2MSZvbmxpbmVjb2xvcmJvcmRlcj0jMTQ5MTE0Jm9mZmxpbmVjb2xvcj0jZmYwMDAwJm9mZmxpbmVjb2xvcmhvdmVyPSNmZjRkNGQmb2ZmbGluZWNvbG9yYm9yZGVyPSNiMzAwMDAmYXdheWNvbG9yPSNmNWQ5MjMmYXdheWNvbG9yaG92ZXI9I2Y5ZTU2NiZhd2F5Y29sb3Jib3JkZXI9I2FjOTgxOSZiYWNrc2hvcnRseWNvbG9yPSNlYjk2MDMmYmFja3Nob3J0bHljb2xvcmhvdmVyPSNmMmI2NGYmYmFja3Nob3J0bHljb2xvcmJvcmRlcj0jYTU2OTAyJmN1c3RvbW9ubGluZT0mY3VzdG9tb2ZmbGluZT0mY3VzdG9tYXdheT0mY3VzdG9tYmFja3Nob3J0bHk9CjRkZDc2OTgyZWQ2NzBmMGM4NjkyYjNlZDQ4M2Y3MmRhNDA5MjEyYWQ=";setTimeout("swiftscriptelemusy8sk1zn9.src=swifttagurlusy8sk1zn9;document.getElementById('swifttagcontainerusy8sk1zn9').appendChild(swiftscriptelemusy8sk1zn9);",1);</script><!-- FINE CODICE TAG - NON MODIFICARE! -->
 
+		                <!-- Google Analytics -->
+		                <script>
+		                    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		                        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-                    <!-- Google Analytics -->
-                    <script>
-                        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		                    ga('create', 'UA-51942737-1', 'cri.it');
+		  					ga('require', 'displayfeatures');
+		                    ga('send', 'pageview');
 
-                        ga('create', 'UA-51942737-1', 'cri.it');
-                        ga('send', 'pageview');
-
-                    </script>
+		                </script>
                     <?php } ?>
                 </body>
                 </html><?php 

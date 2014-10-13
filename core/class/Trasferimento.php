@@ -45,15 +45,16 @@ class Trasferimento extends Entita {
         global $sessione;    
         $v = $this->volontario();
 
-        $this->tCOnferma = time();
+        $this->tConferma = time();
         $this->pConferma = $sessione->utente();
         $this->negazione = $motivo;
+        $this->stato     = TRASF_NEGATO;
 
         /* rimetto a posto l'appartenenza attuale */
 
         $a = Appartenenza::id($this->appartenenza);
         $a->timestamp = time();
-        $a->stato     = TRASF_NEGATO;
+        $a->stato     = MEMBRO_TRASF_NEGATO;
         $a->conferma  = $this->pConferma;    
         $a->inizio = time();
         $a->fine = time();

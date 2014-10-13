@@ -303,12 +303,12 @@ if(false && $consenso && !$sessione->barcode) { ?>
                         <h4><i class="icon-ok"></i> Ciao <?php echo $me->nome ?></h4>
                         <p>Per favore prendi qualche minuti di tempo, se non lo hai già fatto,
                         per leggere un importante comunicato da parte degli sviluppatori di Gaia.</p>
-                        <a href="?p=comunicato" class="btn">
+                        <a href="?p=public.comunicato" class="btn">
                             Leggi il comunicato
+                            <span class="badge badge-warning">Nuovo!</span>
                         </a> 
                     </div>
                 </div>
-                */ ?>
                 <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
                 <div class="alert alert-success">
                     <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>

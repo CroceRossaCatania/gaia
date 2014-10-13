@@ -116,6 +116,9 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
     <?php } ?>
 
+    if ($attivo) { ?>
+
+    <!--Visualizzazione e modifica avatar utente-->
     <div class="span12">
       <h3><i class="icon-edit muted"></i> Anagrafica</h3>
 
@@ -642,9 +645,12 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <i class="icon-certificate"></i> Storico corsi base
       </a>
     <?php } ?>
-    <!--<a class="btn" target="_new" href="?p=us.tesserino.storico&id=<?php echo $u->id; ?>">
-      <i class="icon-barcode"></i> Tesserini
-    </a>-->
+	<a class="btn btn-small" target="_new" href="?p=presidente.incarichi.visualizza&id=<?php echo $u->id; ?>">
+      <i class="icon-briefcase"></i> Storico incarichi
+    </a>
+    <a class="btn btn-small" target="_new" href="?p=presidente.utente.turni&id=<?php echo $u->id; ?>">
+      <i class="icon-list"></i> Storico turni
+    </a>
   </div>
 </div>
 

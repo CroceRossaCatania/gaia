@@ -402,3 +402,20 @@ body {
     border-top: 2px dashed #888 !important;
 }
 
+/**
+* Issue #1018 (https://github.com/CroceRossaCatania/gaia/issues/1018)
+* Modali senza scroll in bassa risoluzione
+*
+* Adottata soluzione: http://stackoverflow.com/questions/9899676/twitter-bootstrap-scrollable-modal
+* ma, invece di modificare bootstrap.css, ripristinato default CSS overflow-y per .modal
+*/
+.modal {
+  overflow-y: visible;
+}
+.modal .modal-body {
+  max-height: 420px;
+  overflow-y: auto;
+}
+.modal.fade.in {
+  top: 5%;
+}

@@ -9,9 +9,8 @@ controllaParametri(array('comitato'), 'presidente.utenti&errGen');
 
 $c = $_GET['comitato'];
 $c = Comitato::id($c);
-$i=0;
+$i = 0;
 paginaApp([APP_SOCI , APP_PRESIDENTE, APP_OBIETTIVO], [$c]);
-
 
 if(isset($_GET['dimessi'])){
     
@@ -61,7 +60,7 @@ if(isset($_GET['dimessi'])){
         'Cell. Servizio'
         ]);
 
-    foreach ( $c->membriGiovani as $v ) {
+    foreach ( $c->membriGiovani() as $v ) {
         $excel->aggiungiRiga([
             $v->nome,
             $v->cognome,
@@ -248,11 +247,22 @@ if(isset($_GET['dimessi'])){
         'N.',
         'Nome',
         'Cognome',
-        'C. Fiscale',
         'Data Nascita',
         'Luogo Nascita',
         'Provincia Nascita',
-        'Ingresso in CRI'
+        'C. Fiscale',
+        'Indirizzo Res.',
+        'Civico',
+        'Comune Res.',
+        'Cap Res.',
+        'Provincia Res.',
+        'eMail',
+        'Cellulare',
+        'Cell. Servizio',
+        'Data ingresso CRI',
+        'N. Quota',
+        'Data versamento',
+        'Importo'
         ]);
 
     foreach ( $c->quoteSi($anno, MEMBRO_ORDINARIO) as $v ) {
@@ -261,11 +271,22 @@ if(isset($_GET['dimessi'])){
             $i,
             $v->nome,
             $v->cognome,
-            $v->codiceFiscale,
             date('d/m/Y', $v->dataNascita),
             $v->comuneNascita,
             $v->provinciaNascita,
-            $v->ingresso()->format("d/m/Y")
+            $v->codiceFiscale,
+            $v->indirizzo,
+            $v->civico,
+            $v->comuneResidenza,
+            $v->CAPResidenza,
+            $v->provinciaResidenza,
+            $v->email,
+            $v->cellulare,
+            $v->cellulareServizio,
+            $v->ingresso()->format("d/m/Y"),
+            $v->quota($anno)->progressivo(),
+            $v->quota($anno)->dataPagamento()->format("d/m/Y"),
+            $v->quota($anno)->quota
             ]);
         
     }
@@ -291,11 +312,23 @@ if(isset($_GET['dimessi'])){
         'N.',
         'Nome',
         'Cognome',
-        'C. Fiscale',
         'Data Nascita',
         'Luogo Nascita',
         'Provincia Nascita',
-        'Ingresso in CRI'
+        'C. Fiscale',
+        'Indirizzo Res.',
+        'Civico',
+        'Comune Res.',
+        'Cap Res.',
+        'Provincia Res.',
+        'eMail',
+        'eMail Servizio',
+        'Cellulare',
+        'Cell. Servizio',
+        'Data ingresso CRI',
+        'N. Quota',
+        'Data versamento',
+        'Importo'
         ]);
 
     foreach ( $c->quoteSi($anno) as $v ) {
@@ -304,11 +337,23 @@ if(isset($_GET['dimessi'])){
             $i,
             $v->nome,
             $v->cognome,
-            $v->codiceFiscale,
             date('d/m/Y', $v->dataNascita),
             $v->comuneNascita,
             $v->provinciaNascita,
-            $v->ingresso()->format("d/m/Y")
+            $v->codiceFiscale,
+            $v->indirizzo,
+            $v->civico,
+            $v->comuneResidenza,
+            $v->CAPResidenza,
+            $v->provinciaResidenza,
+            $v->email,
+            $v->emailServizio,
+            $v->cellulare,
+            $v->cellulareServizio,
+            $v->ingresso()->format("d/m/Y"),
+            $v->quota($anno)->progressivo(),
+            $v->quota($anno)->dataPagamento()->format("d/m/Y"),
+            $v->quota($anno)->quota
             ]);
         
     }
@@ -419,6 +464,34 @@ if(isset($_GET['dimessi'])){
 
     }
     $excel->genera("Volontari estesi.xls");
+    $excel->download();
+    
+}elseif(isset($_GET['estensione'])){
+    $excel = new Excel();
+    
+    $excel->intestazione([
+        'Nome',
+        'Cognome',
+        'C. Fiscale',
+        'Data Nascita',
+        'Luogo Nascita',
+        'Provincia Nascita'
+        ]);
+    $estensione = $c->membriInEstensione();
+    foreach ( $estensione as $e ) {
+        $v = $e->volontario();
+
+        $excel->aggiungiRiga([
+            $v->nome,
+            $v->cognome,
+            $v->codiceFiscale,
+            date('d/m/Y', $v->dataNascita),
+            $v->comuneNascita,
+            $v->provinciaNascita
+            ]);
+
+    }
+    $excel->genera("Volontari in estensione.xls");
     $excel->download();
     
 }elseif(isset($_GET['trasferiti'])){
