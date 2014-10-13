@@ -250,6 +250,17 @@ class CorsoBase extends GeoEntita {
      */
     public function generaAttestato($iscritto) {
 
+        $sesso = null;
+        if ( $iscritto->sesso == UOMO ){
+
+            $sesso = "Volontario";
+
+        }else{
+
+            $sesso = "Volontaria";
+
+        }
+
         $p = new PDF('attestato', 'Attestato.pdf');
         $p->_COMITATO     = $this->organizzatore()->nomeCompleto();
         $p->_CF           = $iscritto->codiceFiscale;
@@ -257,6 +268,7 @@ class CorsoBase extends GeoEntita {
         $p->_DATAESAME    = date('d/m/Y', $this->tEsame);
         $p->_DATA         = date('d/m/Y', time());
         $p->_LUOGO        = $this->organizzatore()->comune;
+        $p->_VOLON        = $sesso;
         $f = $p->salvaFile(null,true);
 
         return $f;
