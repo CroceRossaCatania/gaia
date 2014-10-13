@@ -116,7 +116,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
     <?php } ?>
 
-    if ($attivo) { ?>
+    <?php if ($attivo) { ?>
 
     <!--Visualizzazione e modifica avatar utente-->
     <div class="span12">
