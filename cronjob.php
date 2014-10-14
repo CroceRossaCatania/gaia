@@ -296,7 +296,7 @@ function cronjobSettimanale() {
                 WHERE   utente NOT IN (
                     SELECT  volontario
                     FROM    partecipazioniBase
-                    WHERE   stato = 40
+                    WHERE   stato >= 10
                 )
                 AND         ST_DISTANCE( corsibase.geo, aspiranti.geo ) < aspiranti.raggio
                 GROUP BY    aspiranti.utente
