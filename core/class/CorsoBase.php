@@ -11,7 +11,7 @@ class CorsoBase extends GeoEntita {
 
     protected static
         $_t  = 'corsibase',
-        $_dt = null;
+        $_dt = 'dettagliCorsibase';
 
     /**
      * Genera il codice numerico progressivo del corso sulla base dell'anno attuale
