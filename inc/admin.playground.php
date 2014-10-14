@@ -20,6 +20,7 @@ var_dump($r_a->contiene($p_ct));		// 0
 var_dump($r_a->contiene($r_ct));		// 0
 
 
+var_dump($nazionale->dominioComune($r_a));
 
 
 ?>

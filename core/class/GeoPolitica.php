@@ -178,12 +178,12 @@ abstract class GeoPolitica extends GeoEntita {
      */
     public function dominioComune( GeoPolitica $g ) {
 
-        if ( $this->_ESTENSIONE == $g->_ESTENSIONE ) {
+        if ( static::$_ESTENSIONE == $g::$_ESTENSIONE ) {
             // Le due sono dello stesso livello.
-            if ( $this == $g ) { return $this; }
+            if ( $this->oid() == $g->oid() ) { return $this; }
             return false;
 
-        } elseif ( $this->_ESTENSIONE > $g->_ESTENSIONE ) {
+        } elseif ( static::$_ESTENSIONE > $g::$_ESTENSIONE ) {
             // Questa e' superiore
             $maggiore = $this;
             $minore   = $g;
