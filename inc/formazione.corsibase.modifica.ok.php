@@ -36,6 +36,12 @@ if ( isset($_POST['inputDataattivazione']) && (!$corso->finito() || $me->admin()
     $corso->opAttivazione   = $_POST['inputOpattivazione'];
 }
 
+if ( isset($_POST['inputDataconvocazione']) && (!$corso->finito() || $me->admin())) {
+    $data = DT::daFormato($_POST['inputDataconvocazione'], 'd/m/Y');
+    $corso->dataConvocazione = $data->getTimestamp();
+    $corso->opConvocazione   = $_POST['inputOpconvocazione'];
+}
+
 if($corso->stato == CORSO_S_DACOMPLETARE){
 
     $corso->stato = CORSO_S_ATTIVO;

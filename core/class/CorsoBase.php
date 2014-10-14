@@ -397,4 +397,17 @@ class CorsoBase extends GeoEntita {
         }
     }
 
+    /**
+     * Ritorna la data della convocazione della commissione esaminatrice
+     * Ritorna null se data assente
+     * @return DT
+     */
+    public function dataConvocazione() {
+        if ( $this->dataAttivazione ){
+            return DT::daTimestamp($this->dataConvocazione)->format('d/m/Y'); 
+        }else{
+            return null;
+        }
+    }
+
 }

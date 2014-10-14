@@ -114,17 +114,31 @@ if (!$corso->haPosizione()) {
                 } ?> 
         </p>
         <p>
-            <strong>O.P. attivazione / Data</strong><br />
+            <strong>O.P. Attivazione / Data</strong><br />
                 <?php if(!$corso->finito() || $me->admin()) { ?>
                     <input class="input-small" type="text" name="inputOpattivazione" id="inputOpattivazione" value="<?php echo $corso->opAttivazione; ?>" />
                      / 
                     <input class="input-small" type="text" name="inputDataattivazione" id="inputDataattivazione" value="<?php echo $corso->dataAttivazione() ?>" />
                 <?php } else {
-                    echo $corso->opAttivazione ;
-                    echo($corso->dataAttivazione());
+                    echo "O.P. ";
+                    echo $corso->opAttivazione;
+                    echo " del ";
+                    echo $corso->dataAttivazione();
                 } ?> 
         </p>
-        
+        <p>
+            <strong>O.P. Convocazione Commissione / Data</strong><br />
+                <?php if(!$corso->finito() || $me->admin()) { ?>
+                    <input class="input-small" type="text" name="inputOpconvocazione" id="inputOpconvocazione" value="<?php echo $corso->opConvocazione; ?>" />
+                     / 
+                    <input class="input-small" type="text" name="inputDataconvocazione" id="inputDataconvocazione" value="<?php echo $corso->dataConvocazione() ?>" />
+                <?php } else {
+                    echo "O.P. ";
+                    echo $corso->opConvocazione;
+                    echo " del ";
+                    echo $corso->dataConvocazione();
+                } ?> 
+        </p>
         
     </div>
     

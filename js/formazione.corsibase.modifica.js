@@ -18,4 +18,8 @@ $(document).ready( function() {
         defaultTimezone: '+0100'
     });
 
+    $("#inputDataattivazione").datepicker({ maxDate: 0 });
+
+    $("#inputDataconvocazione").datepicker({ maxDate: 0 });
+
 });
