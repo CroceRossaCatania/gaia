@@ -34,7 +34,11 @@ foreach($corso->lezioni() as $lezione){
 
     $tabella.= "</tbody></table>";
 
-    $p = new PDF('fogliofirmelezione', 'Firme lezione.pdf');
+    $nome  = "Firme lezione ";
+    $nome .= $lezione->nome;
+    $nome .= ".pdf";
+
+    $p = new PDF('fogliofirmelezione', $nome);
     $p->_COMITATO   = $corso->organizzatore()->nomeCompleto();
     $p->_LEZIONE    = $lezione->nome;
     $p->_DATA       = date('d/m/Y', $lezione->inizio);
