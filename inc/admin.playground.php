@@ -7,35 +7,17 @@ paginaAdmin();
 <pre>
 <?php
 
-$query = "
-			SELECT 	aspiranti.utente,
-					COUNT(corsibase.geo),
-					aspiranti.id
-			FROM  	aspiranti, corsibase
-			WHERE  	utente NOT IN (
-			    SELECT 	volontario
-			    FROM	partecipazioniBase
-			    WHERE	stato = 40
-			)
-			AND 		ST_DISTANCE( corsibase.geo, aspiranti.geo ) < aspiranti.raggio
-			GROUP BY	aspiranti.utente
-";
-$query = $db->query($query);
-while ( $r = $query->fetch(PDO::FETCH_NUM) ) {
-	try {
-		$u = Utente::id($r[0]);
-	} catch ( Errore $e ) {
-		$a = Aspirante::id($r[2]);
-		$a->cancella();
-		continue;
-	}
-	$y = $u->comuneResidenza;
-	$u = $u->nomeCompleto();
-	echo "{$u} ({$y}) ha {$r[1]} corsi nelle vicinanze...\n";
-}
+$nazionale = Nazionale::id(1);
+$r_ct  	   = Regionale::id(1);
+$p_ct 	   = Provinciale::id(1);
+$r_a 	   = Regionale::id(2);
 
-
-
+var_dump($nazionale->contiene($r_ct));	// 1
+var_dump($r_ct->contiene($p_ct));		// 1
+var_dump($p_ct->contiene($r_ct));		// 0
+var_dump($r_ct->contiene($r_ct));		// 1
+var_dump($r_a->contiene($p_ct));		// 0
+var_dump($r_a->contiene($r_ct));		// 0
 
 
 
