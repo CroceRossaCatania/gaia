@@ -261,7 +261,11 @@ class CorsoBase extends GeoEntita {
 
         }
 
-        $p = new PDF('attestato', 'Attestato.pdf');
+        $file  = "Attestato ";
+        $file .= $iscritto->nomeCompleto();
+        $file .= ".pdf";
+
+        $p = new PDF('attestato', $file);
         $p->_COMITATO     = $this->organizzatore()->nomeCompleto();
         $p->_CF           = $iscritto->codiceFiscale;
         $p->_VOLONTARIO   = $iscritto->nomeCompleto();
@@ -346,7 +350,11 @@ class CorsoBase extends GeoEntita {
 
         }
 
-        $p = new PDF('schedabase', 'Scheda valutazione.pdf');
+        $file  = "Scheda valutazione ";
+        $file .= $iscritto->nomeCompleto();
+        $file .= ".pdf";
+
+        $p = new PDF('schedabase', $file);
         $p->_COMITATO     = $this->organizzatore()->nomeCompleto();
         $p->_VERBALENUM   = $this->progressivo();
         $p->_DATAESAME    = date('d/m/Y', $this->tEsame);
