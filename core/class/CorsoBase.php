@@ -384,4 +384,17 @@ class CorsoBase extends GeoEntita {
         ], 'inizio ASC');
     }
 
+    /**
+     * Ritorna la data dell'attivazione del corso se presente
+     * Ritorna null se data assente
+     * @return DT
+     */
+    public function dataAttivazione() {
+        if ( $this->dataAttivazione ){
+            return DT::daTimestamp($this->dataAttivazione)->format('d/m/Y'); 
+        }else{
+            return null;
+        }
+    }
+
 }

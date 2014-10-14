@@ -100,7 +100,7 @@ if (!$corso->haPosizione()) {
         <p>
             <strong>Data inizio</strong><br />
                 <?php if(!$corso->iniziato() || $me->admin()) { ?>
-                <input type="text" name="inputDataInizio" id="inputDataInizio" value="<?php echo $corso->inizio()->format('d/m/Y H:i')?>" required />
+                    <input type="text" name="inputDataInizio" id="inputDataInizio" value="<?php echo $corso->inizio()->format('d/m/Y H:i')?>" required />
                 <?php } else {
                     echo($corso->inizio()->format('d/m/Y H:i'));
                 } ?> 
@@ -108,9 +108,20 @@ if (!$corso->haPosizione()) {
         <p>
             <strong>Data esame</strong><br />
                 <?php if(!$corso->finito() || $me->admin()) { ?>
-                <input type="text" name="inputDataEsame" id="inputDataEsame" value="<?php echo $corso->fine()->format('d/m/Y H:i')?>" required />
+                    <input type="text" name="inputDataEsame" id="inputDataEsame" value="<?php echo $corso->fine()->format('d/m/Y H:i')?>" required />
                 <?php } else {
                     echo($corso->fine()->format('d/m/Y H:i'));
+                } ?> 
+        </p>
+        <p>
+            <strong>O.P. attivazione / Data</strong><br />
+                <?php if(!$corso->finito() || $me->admin()) { ?>
+                    <input class="input-small" type="text" name="inputOpattivazione" id="inputOpattivazione" value="<?php echo $corso->opAttivazione; ?>" />
+                     / 
+                    <input class="input-small" type="text" name="inputDataattivazione" id="inputDataattivazione" value="<?php echo $corso->dataAttivazione() ?>" />
+                <?php } else {
+                    echo $corso->opAttivazione ;
+                    echo($corso->dataAttivazione());
                 } ?> 
         </p>
         
