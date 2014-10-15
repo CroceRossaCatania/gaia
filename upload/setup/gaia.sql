@@ -441,6 +441,27 @@ CREATE TABLE IF NOT EXISTS `gruppiPersonali` (
   KEY `comitato` (`comitato`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `lezioni` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) DEFAULT NULL,
+  `inizio` int(11) DEFAULT NULL,
+  `fine` int(11) DEFAULT NULL,
+  `corso` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `inizio` (`inizio`),
+  KEY `corso` (`corso`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `lezioni_assenze` (
+  `id` int(11) NOT NULL,
+  `lezione` int(11) DEFAULT NULL,
+  `utente` int(11) DEFAULT NULL,
+  `pConferma` int(11) DEFAULT NULL,
+  `tConferma` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lezione` (`lezione`,`utente`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE IF NOT EXISTS `locali` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
