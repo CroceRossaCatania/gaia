@@ -115,7 +115,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                     </a>
                     <a class="brand" href="?">
                         <img src="./img/logoCroceSemplice.png" />
-                        &nbsp;<span class="scritta-cri">Croce Rossa Italiana</span><span class="hidden-phone">&nbsp;|&nbsp;Gaia</span>
+                        &nbsp;<span class="scritta-cri">Croce Rossa Italiana</span><span class="hidden-phone scritta-gaia">&nbsp;|&nbsp;Gaia</span>
                     </a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
@@ -334,7 +334,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                         </div>
                     </div>
                     <div class="item">
-                        <img src="./img/foto5.jpg" alt="">
+                        <img src="./img/foto6.png" alt="">
                         <div class="container">
                             <div class="carousel-caption">
                                 <h1>Persone in Prima Persona</h1>

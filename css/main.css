@@ -68,10 +68,11 @@ body {
 
 .scritta-cri {
     color: rgb(204,0,0) !important;
+    font-family: "arial" !important;
 }
 
 .scritta-gaia {
-    color: rgb(0,0,0) !important;
+    font-family: "arial" !important;
 }
 
 .hero-unit p, .hero-unit h1 {
