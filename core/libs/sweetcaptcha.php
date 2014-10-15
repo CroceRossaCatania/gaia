@@ -38,7 +38,7 @@ class Sweetcaptcha {
   private $secret;
   private $path;
   
-  const API_URL = 'sweetcaptcha.com';
+  const API_URL = 'www.sweetcaptcha.com';
   const API_PORT = 80;
   
   function __construct($appid, $key, $secret, $path) {
