@@ -45,11 +45,12 @@ if ( $_POST['inputDataconvocazione'] && (!$corso->finito() || $me->admin())) {
 if($corso->stato == CORSO_S_DACOMPLETARE){
 
     $corso->stato = CORSO_S_ATTIVO;
-
     $aspiranti = $corso->potenzialiAspiranti();
-
     foreach($aspiranti as $aspirante) {
         $utente = $aspirante->utente();
+        if ( !$utente ) {
+            $aspirante->cancella();
+        }
         $m = new Email('corsoBaseAttivato', 'Nuovo Corso per Volontari CRI');
         $m->a = $utente;
         $m->_ASPIRANTE = $utente->nome;
