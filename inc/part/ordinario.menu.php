@@ -18,16 +18,10 @@ $menu += [
 $menu += [ 
     'Socio'    =>  [
         'utente.anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
-        'utente.storico'    =>  '<i class="icon-time"></i> Storico'        
+        'utente.storico'    =>  '<i class="icon-time"></i> Storico',
+        'utente.posta'     =>   '<i class="icon-envelope-alt"></i> Posta'      
     ]];
 $menu += [
-    'Comunicazioni' =>  [
-        'utente.email'      =>   '<i class="icon-envelope-alt"></i> Email',
-        'utente.contatti'   =>   '<i class="icon-phone"></i> Cellulare'
-    ],
-    'Impostazioni' =>  [
-        'utente.password'   =>   '<i class="icon-key"></i> Password'
-    ],
     'Statistiche' =>  [
         'utente.statistiche.volontari'     =>   '<i class="icon-puzzle-piece"></i> Volontari'
 //        'utente.statistiche.attivita'     =>   '<i class="icon-weibo"></i> Attività'

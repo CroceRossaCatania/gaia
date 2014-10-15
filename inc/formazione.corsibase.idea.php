@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -15,6 +15,10 @@ $c = $_GET['c'];
 $c = GeoPolitica::daOid($c);
 
 proteggiClasse($c, $me);
+
+if(!$c->haPosizione()){
+  redirect("presidente.comitato&oid={$c->oid()}&indirizzoBase");
+}
 
 ?>
 <form action="?p=formazione.corsibase.idea.ok" method="POST">

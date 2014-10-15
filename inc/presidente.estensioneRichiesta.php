@@ -4,7 +4,7 @@
  * ©2012 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 controllaParametri(array('id'), 'presidente.estensione&err');
 

@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 $parametri = array('id', 'numprotocollo', 'dataprotocollo');
 controllaParametri($parametri, 'presidente.trasferimento&err');

@@ -52,11 +52,11 @@ if ( !$consenso ){ ?>
 if (isset($_GET['rimandaPrivatizzazione'])) {
     $sessione->rimandaPrivatizzazione = true;
 }
-
+/* deadline stop gaia
 if (isset($_GET['rimandaDeadline'])) {
     $sessione->deadline = time();
 }
-
+*/
 if ($consenso && !$me->email ) { redirect('nuovaAnagraficaContatti'); }
 if ($consenso && !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
 
@@ -69,16 +69,17 @@ if ($consenso) {
         }
     }
 }
-
-/*if ((!$sessione->deadline || ($sessione->deadline + GIORNO) < time()) && $consenso) {
+/* modale deadline gaia
+if ((!$sessione->deadline || ($sessione->deadline + GIORNO) < time()) && $consenso) {
     ?>
     <div class="modal fade automodal">
         <div class="modal-header">
-            <h3 class="text-success"><i class="icon-important-sign"></i> <b>Risoluzione</b> delle problematiche recenti sul portale Gaia</h3>
+            <h3 class="text-success"><i class="icon-important-sign"></i> Rallentamenti sviluppo portale Gaia</h3>
         </div>
         <div class="modal-body">
-            Per favore trova un momento per leggere il comunicato dello staff di Gaia 
-            riguardante la <b>risoluzione</b> delle problematiche che hanno ostacolato lo sviluppo del sistema.
+            Per favore trova un momento per leggere il comunicato degli sviluppatori 
+            e della squadra di supporto di Gaia riguardante le problematiche che stanno 
+            ostacolando lo sviluppo del sistema e che stanno causando rallentamenti e malfunzionamenti.
         </div>
         <div class="modal-footer">
             <a href="?p=utente.me&rimandaDeadline" class="btn">
@@ -89,8 +90,8 @@ if ($consenso) {
             </a>
         </div>
     </div>
-<?php } */
-
+<?php }
+*/
 if (!$sessione->rimandaPrivatizzazione && $consenso) {
     foreach($me->comitatiPresidenzianti() as $comitato) {
         $p = $comitato->unPresidente();
@@ -289,14 +290,14 @@ if(false && $consenso && !$sessione->barcode) { ?>
 
     <!-- BLOCCO NON MENU -->
     <div class="span9">
-        <h2><span class="muted">Ciao, </span>
-            <?php if ($me->admin()){ ?> <span class="muted">Admin</span> 
-            <?php } elseif ($me->presiede()){ ?><span class="muted">Presidente</span> 
-            <?php } echo $me->nome; ?>.
-        </h2>
 
         <div class="row-fluid">
             <div class="span8">
+                <h2><span class="muted">Ciao </span>
+                    <?= $me->nome; ?>
+                </h2>
+                <?php /*
+                blocco informativo deadline
                 <div class="alert alert-block alert-error">
                     <div class="row-fluid">
                         <h4><i class="icon-ok"></i> Ciao <?php echo $me->nome ?></h4>
@@ -308,6 +309,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                         </a> 
                     </div>
                 </div>
+                */ ?>
                 <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
                 <div class="alert alert-success">
                     <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
@@ -430,25 +432,25 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     <p>Ricordati di caricare i tuoi documenti dalla sezione <strong>Documenti</strong>.</p>
                 </div>
 
-                <?php }
-                if ( !$attenzione && $me->comitatiDiCompetenza() ) { ?>
-                <div class="alert alert-block alert-warning">
-                    <h4><i class="icon-warning-sign"></i> Dov'è finito il pannello presidente?</h4>
-                    <p>Nel menù di sinistra, alla voce <strong>Presidente</strong>.</p>
-                </div>
                 <?php } ?>
             </div>
 
             <!-- PANNELLO ULTIME EMAIL -->
             <div class="span4">
-                <h4><i class="icon-time"></i> Ultime comunicazioni</h4>
-                
-                <div
-                    data-posta      ="true"
-                    data-direzione  ="ingresso"
-                    data-perPagina  ="5"
-                    data-mini       ="true"
-                ></div>
+                <div class="row-fluid">
+                    <h4><i class="icon-time"></i> Ultime comunicazioni</h4>
+                    
+                    <div
+                        data-posta      ="true"
+                        data-direzione  ="ingresso"
+                        data-perPagina  ="5"
+                        data-mini       ="true"
+                    ></div>
+                </div>
+                <div class="row-fluid">
+                    <a class="twitter-timeline" href="https://twitter.com/progettogaiacri/gaia-update" data-widget-id="441278779487305729">Tweets from https://twitter.com/progettogaiacri/gaia-update</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                </div>
             </div>
         </div>
     </div>

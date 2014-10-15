@@ -129,6 +129,7 @@ function paginaCorsoBase( $corsoBase = null ) {
             or  (bool) $sessione->utente()->presiede()
             or  (bool) $sessione->utente()->delegazioni(APP_FORMAZIONE)
             or  (bool) $sessione->utente()->corsiBaseDiGestione()
+            or  (bool) $sessione->utente()->corsiBaseDiretti()
         )
     ) {
         redirect('errore.permessi');
@@ -156,7 +157,8 @@ function paginaPresidenziale( $comitato = null, $attivita = null) {
 
 function menuVolontario() {
     global $me;
-    if ( $me && $me->stato == ASPIRANTE ) {
+    $iscritto = (bool) $me->partecipazioniBase(ISCR_CONFERMATA);
+    if ( $me && $me->stato == ASPIRANTE && !$iscritto) {
         menuAspirante();
         return;
     }elseif($me && ($me->ordinario() || $me->ordinariodimesso())){

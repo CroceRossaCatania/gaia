@@ -10,6 +10,8 @@ menuElenchiVolontari(
     "?p=utente.mail.nuova&ordinaricom"
 );
 
+$admin = $me->admin();
+
 ?>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
@@ -26,110 +28,64 @@ menuElenchiVolontari(
             <h4><i class="icon-exclamation-sign"></i> Socio Ordinario dimesso</h4>
             <p>Il Socio Ordinario è stato dimesso con successo.</p>
         </div>
-<?php } elseif ( isset($_GET['err']) )  { ?>
-        <div class="alert alert-block alert-error">
-            <h4><i class="icon-exclamation-sign"></i> Qualcosa non ha funzionato</h4>
-            <p>L'operazione che hai tentato di eseguire non è andata a buon fine. Per favore riprova.</p>
-        </div>
-<?php } elseif ( isset($_GET['attivo']) )  { ?>
+<?php }elseif ( isset($_GET['iscritto']) )  { ?>
         <div class="alert alert-block alert-success">
-            <h4><i class="icon-exclamation-sign"></i> Socio Ordinario attivato</h4>
-            <p>Il Socio Ordinario è passato a Socio Attivo con successo.</p>
+            <h4><i class="icon-exclamation-sign"></i> Socio Ordinario iscritto al corso base</h4>
+            <p>Il Socio Ordinario è iscritto con successo al corso base.</p>
+        </div>
+<?php }elseif ( isset($_GET['err']) )  { ?>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-warning-sign"></i> Qualcosa non ha funzionato</h4>
+            <p>L'operazione che hai tentato di eseguire non è andata a buon fine, riprova per favore.</p>
+        </div>
+<?php }elseif ( isset($_GET['noCorsi']) )  { ?>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-warning-sign"></i> Nessun corso base attivo</h4>
+            <p>Al momento non ci sono corsi base attivi sul comitato e sulle unità territoriali.</p>
+        </div>
+<?php }elseif ( isset($_GET['gia']) )  { ?>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-warning-sign"></i> Il volonario risulta già iscritto</h4>
+            <p>Il volontario che hai selezionato risulta già iscritto ad un corso base.</p>
         </div>
 <?php } ?>
     
 <div class="row-fluid">
    <div class="span12">
-            
-       <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
-            <thead>
-                <th>Cognome</th>
-                <th>Nome</th>
-                <th>Nascita</th>
-                <th>C. Fiscale</th>
-                <th>Data Ingresso</th>
-                <th>Azioni</th>
-            </thead>
-        <?php
-        $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
-        $admin = $me->admin();
-        foreach($elenco as $comitato) {
-            $t = $comitato->membriOrdinari();
-            ?>
-            
-            <tr class="success">
-                <td colspan="8" class="grassetto">
-                    <?php echo $comitato->nomeCompleto(); ?>
-                    <span class="label label-warning">
-                        <?php echo $comitato->numMembriOrdinari(); ?>
-                    </span>
-                    <a class="btn btn-success btn-small pull-right" href="?p=utente.mail.nuova&ordinariunit&id=<?php echo $comitato->id; ?>">
-                           <i class="icon-envelope"></i> Invia mail
-                    </a>
-                    <a class="btn btn-small pull-right" 
-                       href="?p=presidente.utenti.excel&ordinari&comitato=<?php echo $comitato->id; ?>"
-                       data-attendere="Generazione...">
-                            <i class="icon-download"></i> scarica come foglio excel
-                    </a>
-                </td>
-            </tr>
-            
-            <?php
-            foreach ( $t as $_v ) {
-                $id = $_v->id;
-            ?>
-                <tr>
-                    <td><?php echo $_v->cognome; ?></td>
-                    <td><?php echo $_v->nome; ?></td>
-                    <td>
-                        <?php echo date('d/m/Y', $_v->dataNascita); ?>, 
-                        <?php echo $_v->comuneNascita; ?>
-                        <span class="muted">
-                            <?php echo $_v->provinciaNascita; ?>
-                        </span>
-                    </td>
-                    <td><?php echo $_v->codiceFiscale; ?></td>
-                    <td>
-                        <?php echo $_v->ingresso()->format("d/m/Y"); ?>
-                    </td>
-                    <td>
-                        <div class="btn-group">
-                            <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $id; ?>" title="Dettagli">
-                                <i class="icon-eye-open"></i> Dettagli
-                            </a>
-                            <a class="btn btn-small btn-info" href="?p=presidente.soci.ordinari.attiva&id=<?php echo $id; ?>" title="Attiva">
-                                <i class="icon-star"></i> Attiva
-                            </a>                          
-                            <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&ordinario&id=<?php echo $id; ?>" title="Dimetti Volontario">
-                                <i class="icon-ban-circle"></i> Dimetti
-                            </a>
-                            <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $id; ?>" title="Invia Mail">
-                                <i class="icon-envelope"></i>
-                            </a>
-                            <?php if ($admin) { ?>
-                            <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id=<?php echo $id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
-                                <i class="icon-trash"></i> Cancella
-                            </a>
-                            <a class="btn btn-small btn-primary" href="?p=admin.beuser&id=<?php echo $id; ?>" title="Log in">
-                                <i class="icon-key"></i>
-                            </a> 
-                            <a class="btn btn-small btn-primary" href="?p=admin.password.nuova&id=<?php echo $id; ?>" title="Cambia password">
-                                <i class="icon-eraser"></i>
-                            </a>
-                            <?php } ?>
-                        </div>
-                   </td>
-                </tr>
-                
-               
-       
-        <?php 
-        }
-        }
-        ?>
-
+        <div class="nascosto" id="azioniElenco">     
+            <div class="btn-group">
+                <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" title="Dettagli" target="_new">
+                    <i class="icon-eye-open"></i> Dettagli
+                </a> 
+                <a class="btn btn-small btn-info {iscriviBase}" href="?p=formazione.corsibase.iscrizione.ordinario&id={id}" title="Iscrivi a corso base">
+                    <i class="icon-flag"></i> Iscrivi a corso
+                </a> 
+                <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&ordinario&id={id}" title="Dimetti Volontario">
+                    <i class="icon-ban-circle"></i> Dimetti
+                </a>
+                <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id={id}" title="Invia Mail">
+                    <i class="icon-envelope"></i>
+                </a>
+                <?php if ($admin) { ?>
+                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id={id}" title="Cancella Utente" class="btn btn-small btn-warning">
+                    <i class="icon-trash"></i> Cancella
+                </a>
+                <a class="btn btn-small btn-primary" href="?p=admin.beuser&id={id}" title="Log in">
+                    <i class="icon-key"></i>
+                </a> 
+                <a class="btn btn-small btn-primary" href="?p=admin.password.nuova&id={id}" title="Cambia password">
+                    <i class="icon-eraser"></i>
+                </a>
+                <?php } ?>
+            </div>
+        </div>
+        <table
+        data-volontari="elenco"
+        data-perpagina="30"
+        data-azioni="#azioniElenco"
+        data-stato="<?= MEMBRO_ORDINARIO ?>"
+        <?php if(!$me->admin()) echo("data-comitati=\"{$me->delegazioneAttuale()->comitato()->oid()}\""); ?>
+        />
         </table>
-       
     </div>
-    
 </div>

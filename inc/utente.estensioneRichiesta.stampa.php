@@ -60,6 +60,7 @@ if ( $sessione->inGenerazioneEstensione) {
         $m->allega($f);
         $m->accoda();
        
+        
     redirect('utente.estensione&ok');
 } else {
     

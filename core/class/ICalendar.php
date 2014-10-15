@@ -55,5 +55,59 @@ END:VEVENT
 END:VCALENDAR\n";
 
         file_put_contents($this->percorso(), utf8_encode($s));
-    }    
+    }
+
+    public function generaCorsoBase($corso) {
+
+        global $sessione;
+
+        $corso = CorsoBase::id($corso);
+        $dir = $corso->direttore();
+        $c = $corso->organizzatore();
+        $name = ''.date('Ymd_THis', $corso->inizio).'_'.$corso->id.'_.ics';
+        $fine = (string) (((int) $corso->inizio) + 5400);
+
+        /* Strutturo il file */
+        $this->autore  = $sessione->utente;
+        $this->nome    = $name;
+        $this->mime    = 'text/calendar; charset=utf-8; method=REQUEST';
+
+        /* Inserisco le informazioni */
+        $s = "BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Croce Rossa Italiana//Progetto GAIA//IT
+METHOD:REQUEST
+BEGIN:VTIMEZONE
+TZID:Europe/Rome
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:".date('Ymd\THis', time())."
+DTSTART;TZID=Europe/Rome:".date('Ymd\THis', $corso->inizio)."
+DTEND;TZID=Europe/Rome:".date('Ymd\THis', $fine)."
+SUMMARY:".$corso->nome()."
+LOCATION:".$corso->luogo."
+UID:".$corso->id."
+DESCRIPTION:\nCorso organizzato da ".$c->nomeCompleto().",
+dettagli: ".strip_tags($corso->descrizione)."
+ORGANIZER;CN=\"".$dir->nomeCompleto()."\":mailto:".$dir->email."
+END:VEVENT
+END:VCALENDAR\n";
+
+        file_put_contents($this->percorso(), utf8_encode($s));
+    }
+
 }

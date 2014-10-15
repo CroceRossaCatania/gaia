@@ -11,6 +11,10 @@ class PDF {
             $sostituzioni = [],
             $modello = '',
             $nome = 'File';
+
+    public
+        $orientamento   = ORIENTAMENTO_VERTICALE,
+        $formato        = 'a4';
        
     public function __construct ( $modello, $nome ) {
         global $db;
@@ -26,19 +30,29 @@ class PDF {
         $this->sostituzioni[$nome] = $valore;
     }
     
-    public function salvaFile($comitato=null) {
+    /**
+     * @param Comitato default null, se passato inserisce footer con intestazione
+     * @param White default null, l'header può essere integrato nel modello
+     */
+    public function salvaFile($comitato=null,$white=null) {
         global $conf, $sessione;
         if($comitato){
             $this->_INDIRIZZO  = $comitato->locale()->formattato;
             $this->_PIVA       = $comitato->locale()->piva(true);
             $this->_CF         = $comitato->locale()->cf(true);
             $footer     = file_get_contents('./core/conf/pdf/footerComitato.html');
+        }elseif( $white ){
+            $footer     = null;
         }else{
             $this->_MARCA_TEMPORALE = date('d-m-Y H:i');
             $this->_VERSIONE_GAIA = $conf['version'];
             $footer     = file_get_contents('./core/conf/pdf/footer.html');
         }
-        $header     = file_get_contents('./core/conf/pdf/header.html');
+        if ( $white ){
+            $header     = null;
+        }else{
+            $header     = file_get_contents('./core/conf/pdf/header.html');
+        }
         $corpo      = file_get_contents('./core/conf/pdf/modelli/' . $this->modello . '.html');
         $corpo  = $header . $corpo . $footer;
         foreach ( $this->sostituzioni as $nome => $valore ) {
@@ -54,6 +68,7 @@ class PDF {
 
         $dompdf = new DOMPDF();
         $dompdf->load_html($corpo);
+        $dompdf->set_paper($this->formato, $this->orientamento);
         $dompdf->render();
         
         $f = new File();

@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 $admin = (bool) $me->admin();
 
 ?>
@@ -39,6 +39,11 @@ $admin = (bool) $me->admin();
             <i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.
            Qualcosa nella procedura di approvazione non ha funzionato, per favore, riprova.
         </div>
+<?php } if (isset($_GET['giaprot'])) { ?>
+<div class="alert alert-block alert-error">
+    <h4><i class="icon-warning-sign"></i> <strong>Richiesta già protocollata</strong>.</h4>
+    <p>Non è possibile protocollare la stessa richiesta più volte.</p>
+</div> 
 <?php } ?>
 <br/>
 <div class="row-fluid">
@@ -68,7 +73,7 @@ $admin = (bool) $me->admin();
         <th>Azione</th>
     </thead>
 <?php
-$comitati= $me->comitatiDiCompetenza();
+$comitati= $me->comitatiApp([APP_SOCI, APP_PRESIDENTE]);
 foreach($comitati as $comitato){
     $e = Estensione::filtra([['stato',EST_INCORSO],['cProvenienza', $comitato]]);
     foreach ($e as $_e){
@@ -83,21 +88,25 @@ foreach($comitati as $comitato){
         <td><?php echo $_e->comitato()->nomeCompleto(); ?></td>
         <?php if($_e->protNumero){ ?>
         <td>
-            <?php if ($modificabile || $admin) { ?>
-            <div class="btn-group">
-                <a class="btn btn-success" href="?p=presidente.estensione.ok&id=<?php echo $_e->id; ?>&si">
-                    <i class="icon-ok"></i> Conferma
-                </a>
-                <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare estensione a questo utente ?');" href="?p=presidente.estensioneNegata&id=<?php echo $_e->id; ?>">
-                    <i class="icon-ban-circle"></i> Nega
-                </a>
-                <?php if ($admin) { ?>
-                    <a class="btn btn-danger" href="?p=admin.estensione.cancella&id=<?php echo $_e->id; ?>">
-                        <i class="icon-trash"></i> 
+            <?php if ($modificabile || $admin) { 
+                if($me->presidenziante()) { ?>
+                <div class="btn-group">
+                    <a class="btn btn-success" href="?p=presidente.estensione.ok&id=<?php echo $_e->id; ?>&si">
+                        <i class="icon-ok"></i> Conferma
                     </a>
-                <?php } ?>
-            </div>
-            <?php } ?>
+                    <a class="btn btn-danger" onClick="return confirm('Vuoi veramente negare estensione a questo utente ?');" href="?p=presidente.estensioneNegata&id=<?php echo $_e->id; ?>">
+                        <i class="icon-ban-circle"></i> Nega
+                    </a>
+                    <?php if ($admin) { ?>
+                        <a class="btn btn-danger" href="?p=admin.estensione.cancella&id=<?php echo $_e->id; ?>">
+                            <i class="icon-trash"></i> 
+                        </a>
+                    <?php } ?>
+                </div>
+                <?php } else { ?>
+                    In attesa di autorizzazione da parte del Presidente
+                <?php }
+                } ?>
         <?php }else{ ?>
         <td>   
             <div class="btn-group">

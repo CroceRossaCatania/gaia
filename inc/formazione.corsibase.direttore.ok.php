@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -24,7 +24,8 @@ $m->_NOME       = $direttore->nome;
 $m->_ATTIVITA   = $corsoBase->nome();
 $m->_COMITATO   = $corsoBase->organizzatore()->nomeCompleto();
 $m->a = $referente;
-$m->invia();
+$m->accoda();
+
 
 if ( $me->id == $direttore->id ) {
     redirect('formazione.corsibase.modifica&id=' . $corsoBase->id);

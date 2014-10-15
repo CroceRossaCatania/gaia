@@ -3,23 +3,183 @@
 <HEAD>
 	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
 	<TITLE></TITLE>
-	<META NAME="GENERATOR" CONTENT="LibreOffice 3.6  (Linux)">
-	<META NAME="AUTHOR" CONTENT="Federico ">
-	<META NAME="CREATED" CONTENT="20130620;23484600">
-	<META NAME="CHANGEDBY" CONTENT="Federico ">
-	<META NAME="CHANGED" CONTENT="20130620;23534800">
 	<STYLE TYPE="text/css">
-	
-		body { padding-left: 1cm; padding-right: 1cm; padding-top: 1.4cm; padding-bottom: 1cm; background-size: 100% 100%; }
-		P { margin-bottom: 0.21cm; direction: ltr; color: #000000; widows: 2; orphans: 2 }
-                                .fronte {
-                                            width: 8.4cm;
-                                            }           
+		
+		body {
+			padding: 0cm 0cm 0cm 0cm;
+		}
+		@page { margin: 0px; }
+		body { margin: 0px; }
+
+		.fronte, .retro {
+			padding: 0cm 0cm 0cm 0cm;
+			margin: auto;
+			width: 100%;
+			position: relative;
+		}		
+
+		#fronte_img, #retro_img {
+			/* Dimensioni standard ISO/IEC 7810 */
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0cm;
+			left: 0cm;
+		}
+
+		.fronte {
+			text-align: left;
+		}
+
+		.retro {
+			text-align: right;
+		}
+
+		.testo-intestazione,
+		.avatar,
+		#barcode
+			{
+			display: block;
+			float: left;
+			position: absolute;	
+			font-family: "Arial";
+			font-size: 10pt;	
+		}
+
+		.testo-nome,
+		.testo-cognome,
+		.testo-cf,
+		.testo-ingresso
+			{
+			display: block;
+			float: left;
+			position: absolute;	
+			font-weight: bold;
+			font-family: "Arial";
+			font-size: 6pt;	
+		}
+
+		.testo-volontario,
+			{
+			display: block;
+			float: left;
+			position: absolute;	
+			font-family: "Arial";
+			font-size: 10pt;
+			font-weight: bold;
+			color: rgb(123, 121, 121);
+			width: 2.10cm;
+		}
+
+		.testo-comitato,
+		.testo-scadenza
+			{
+			display: block;
+			float: left;
+			position: absolute;	
+			font-family: "Arial Italic";
+			font-size: 4pt;
+			font-style: italic;
+		}
+
+		.testo-nome {
+			top:  4.10cm;
+			left: 0.50cm;
+		}
+
+		.testo-cognome {
+			top:  4.70cm;
+			left: 0.50cm;
+		}
+
+		.testo-cf {
+			left: 2.80cm;
+			top : 2.45cm;
+		}
+
+		.testo-intestazione {
+			right: 2.40cm;
+			top : 0.80cm;
+			font-weight: bold;
+			font-size: 7.056pt;
+			text-align: right;
+		}
+
+		.testo-ingresso {
+			top: 2.95cm;
+			left: 2.80cm;
+		}
+
+		.testo-comitato {
+			top: 3.18cm;
+			left: 1.30cm;
+		}
+
+		.testo-scadenza {
+			top: 3.45cm;
+			left: 7.20cm;
+		}
+
+		.testo-volontario {
+			top: 2.00cm;
+			right: 0.80cm;
+		}
+
+		.avatar 	{
+			right: 0.55cm;
+			top : 2.45cm;
+			width: 2.30cm;
+			height: 2.45cm;
+			border: 1px solid black;
+		}
+
+		#barcode {
+			left: 0.55cm;
+			top : 3.40cm;
+			width:  4.93cm;
+			height: 1.6cm;
+			position: absolute;
+		}
+
+		#barcode img {
+			width:  4.93cm;
+			height: 1.6cm;
+		}
+
+		#footer_pdf {
+			display: none;
+		}
+
+
 	</STYLE>
 </HEAD>
 <BODY LANG="it-IT">
+
+	<!-- Fronte -->
     <div class="fronte">
-        <img src="./img/tesserino_fronte.jpg" alt="">
+        <img id="fronte_img" src="./img/tesserino/FronteGaiaTestC.jpg" alt="FRONTE" />
+        <span class="testo-volontario"		>_VOLONTARIO</span>
+        <span class="testo-nome"		>_NOME</span>
+        <span class="testo-cognome"		>_COGNOME</span>
+        <span class="testo-cf"		>_CODICEFISCALE</span>
+        <img class="avatar" src="_AVATAR" />
+        <span class="testo-intestazione">_INTESTAZIONE</span>
+        <span class="testo-ingresso">_INGRESSO</span>
     </div>
+
+    <!-- Interruzione di pagina -->
+    <div style="page-break-before: always;"></div>
+
+    <!-- Retro  -->
+    <div class="retro">
+        <img id="retro_img" src="./img/tesserino/RetroGaiaTest.jpg" alt="RETRO" />
+        <span class="testo-comitato"		>_COMITATO</span>.
+        <span class="testo-scadenza"		>_SCADENZA</span>
+        <div id="barcode" alt="barcode">
+        	<img src="_BARCODE" />
+        </div>
+
+    </div>
+
 </BODY>
 </HTML>

@@ -107,20 +107,6 @@ define('ATTIVITA_PUBBLICA',		1);
 
 /*
  * ===================================
- * ========STATO ATTIVITA ============
- * ===================================
- */
-
-define('ATT_CHIUSA',      0);
-define('ATT_APERTA',     10);
-
-$conf['attivita_stato'] = [
-    ATT_CHIUSA     =>  'Attività chiusa',
-    ATT_APERTA     =>  'Attività attiva'
-];
-
-/*
- * ===================================
  * =========== AUTORIZZAZIONE ========
  * ===================================
  */
@@ -193,6 +179,19 @@ $conf['avatar'] = [
     80  =>  [750,   750]
 ];
 
+/*
+ * ===================================
+ * =========== FOTOTESSERA ===========
+ * ===================================
+ */
+
+/* Avatar, dimensioni */
+$conf['fototessera'] = [
+    10  =>  [75,    75],
+    20  =>  [150,   150],
+    80  =>  [750,   750]
+];
+
 
 /*
  * ===================================
@@ -231,6 +230,14 @@ define('ESPLORA_SOLO_FOGLIE',   2);
 
 /*
  * ===================================
+ * ========= FOTOTESSERA =============
+ * ===================================
+ */
+define('FOTOTESSERA_PENDING',         0);
+define('FOTOTESSERA_OK',             10);
+
+/*
+ * ===================================
  * =========== TITOLI ================
  * ===================================
  */
@@ -253,6 +260,8 @@ $conf['titoli'] = [
 	TITOLO_CRI       	    =>	['Titolo di Croce Rossa',	true,	true,	false]
 ];
 
+
+
 /*
  * ===================================
  * =========== FINE APP. =============
@@ -261,6 +270,7 @@ $conf['titoli'] = [
 
 /* 0 => Nessuna scadenza! */
 define('PROSSIMA_SCADENZA', 0);
+
 
 /*
  * ===================================
@@ -664,6 +674,7 @@ $conf['corso_stato'] = [
  */
 
 define('ISCR_ANNULLATA',       0);
+define('ISCR_NEGATA',          5);
 define('ISCR_ABBANDONO',      10);
 define('ISCR_RICHIESTA',      20);
 define('ISCR_CONFERMATA',     30);
@@ -672,6 +683,7 @@ define('ISCR_BOCCIATO',       50);
 
 $conf['partecipazioneBase'] = [
     ISCR_ANNULLATA      =>  'Annullata', 
+    ISCR_NEGATA         =>  'Negata',
     ISCR_ABBANDONO      =>  'Abbandonato', 
     ISCR_RICHIESTA      =>  'Preiscritto', 
     ISCR_CONFERMATA     =>  'Iscritto',
@@ -687,6 +699,63 @@ $conf['partecipazioneBase'] = [
 
 define('POSTA_INGRESSO',        0);
 define('POSTA_USCITA',          1);
+
+
+/*
+ * ===================================
+ * ==== TESSERINO TIPO RICHIESTA =====
+ * ===================================
+ */
+
+define('RILASCIO',          0);
+define('RINNOVO',          10);
+define('DUPLICATO',        20);
+
+$conf['tesseriniTipo'] = [
+    RILASCIO        =>  'Rilascio', 
+    RINNOVO         =>  'Rinnovo',
+    DUPLICATO       =>  'Duplicato', 
+];  
+
+
+/*
+ * ===================================
+ * ==== TESSERINO STATO RICHIESTA ====
+ * ===================================
+ */
+
+define('RIFIUTATO',           0);
+define('RICHIESTO',          10);
+define('STAMPATO',           20);
+define('SPEDITO_CASA',       30);
+define('SPEDITO_COMITATO',   40);
+
+$conf['tesseriniStato'] = [
+    RIFIUTATO           =>  'Richiesta di stampa rifiutata', 
+    RICHIESTO           =>  'Richiesta in attesa di essere lavorata',
+    STAMPATO            =>  'Tesserino emesso', 
+    SPEDITO_CASA        =>  'Tesserino inviato al domicilio', 
+    SPEDITO_COMITATO    =>  'Tesserino inviato al comitato', 
+];  
+
+$conf['tesseriniStatoBreve'] = [
+    RIFIUTATO           =>  'Rifiutato', 
+    RICHIESTO           =>  'Richiesto',
+    STAMPATO            =>  'Emesso', 
+    SPEDITO_CASA        =>  'Emesso', 
+    SPEDITO_COMITATO    =>  'Emesso', 
+];  
+
+
+/*
+ * ===================================
+ * ======== ORIENTAMENTO PDF =========
+ * ===================================
+ */
+
+define('ORIENTAMENTO_ORIZZONTALE',        'landscape');
+define('ORIENTAMENTO_VERTICALE',          'portrait');
+
 
 /*
  * ===================================

@@ -506,7 +506,9 @@ class APIServer {
                 
             }
         }
-        return $aut;
+        return [ 
+                    'id' => $aut 
+                ];
     }
     
     private function api_scansione() {
@@ -550,6 +552,32 @@ class APIServer {
 
         if ($this->par['stato']) {
             $r->stato = $this->par['stato'];
+        } elseif ($this->par['stato'] === 0) {
+            $r->stato = 0;
+        }
+
+        if ($this->par['statoPersona']) {
+            $r->statoPersona = $this->par['statoPersona'];
+        } elseif ($this->par['statoPersona'] === 0) {
+            $r->statoPersona = 0;
+        } else {
+            $r->statoPersona = false;
+        }
+
+        if ($this->par['passato']) {
+            $r->passato = true;
+        }
+
+        if ($this->par['giovane']) {
+            $r->giovane = true;
+        }
+
+        if ($this->par['infermiera']) {
+            $r->infermiera = true;
+        }
+
+        if ($this->par['militare']) {
+            $r->militare = true;
         }
 
         // versione modificata per #867
@@ -642,6 +670,59 @@ class APIServer {
 
     }
 
+
+    private function api_corsobase_accetta() {
+        $this->richiedi(['id']);
+        $me = $this->richiediLogin();
+        $part = PartecipazioneBase::id($this->par['id']);
+        $corsoBase = $part->corsoBase();
+        if (!$corsoBase->modificabileDa($me)) {
+            return [
+                'ok' => false
+            ];
+        }
+        if ( $part->stato == ISCR_RICHIESTA ) {
+            
+            if ( $this->par['iscr'] ) {
+                $part->concedi($this->par['com']);
+
+                $cal = new ICalendar();
+                $cal->generaCorsoBase($corsoBase);
+                             
+                $m = new Email('corsoBaseAmmesso', "Ammesso al {$corsoBase->nome()}" );
+                $m->a               = $part->utente();
+                $m->da              = $corsoBase->direttore();
+                $m->_NOME           = $part->utente()->nome;
+                $m->_CORSO          = $corso->nome();
+                $m->_DIRETTORE      = $part->utente()->nomeCompleto();
+                $m->_CELLDIRETTORE  = $part->utente()->cellulare();
+                $m->allega($cal);
+                $m->invia();               
+                
+            } else {
+                $part->nega();
+
+                /* da fare email
+                                    
+                $m = new Email('autorizzazioneNegata', "Autorizzazione NEGATA: {$attivita->nome}, {$turno->nome}" );
+                $m->a = $aut->partecipazione()->volontario();
+                $m->da = $attivita->referente();
+                $m->_NOME       = $aut->partecipazione()->volontario()->nome;
+                $m->_ATTIVITA   = $attivita->nome;
+                $m->_TURNO      = $turno->nome;
+                $m->_DATA       = $turno->inizio()->format('d-m-Y H:i');
+                $m->_LUOGO      = $attivita->luogo;
+                $m->_MOTIVO     = $this->par['motivo'];
+                $m->invia();
+                
+                */
+
+            }
+        }
+        return ['id' => $corsoBase->id];
+    }
+
+
     private function api_like() {
         global $conf;
         $this->richiedi(['oggetto']);
@@ -674,5 +755,6 @@ class APIServer {
         }
         return $r;
     }
+
         
 }

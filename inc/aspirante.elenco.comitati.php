@@ -63,9 +63,7 @@ if ( !($a = Aspirante::daVolontario($me)) )
                         </td>
                         
                         <td style="width: 20%;">
-                            <a href="?p=formazione.corsibase.modifica&id=<?php echo $corso->id; ?>">
-                                <i class="icon-edit"></i> Manda email
-                            </a>
+                            <?php echo($c->email);?>
                             <br />      
                         </td>
                         

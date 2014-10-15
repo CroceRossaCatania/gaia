@@ -283,6 +283,45 @@ function cronjobSettimanale() {
         },
         $log, $ok
     );
+
+    cronjobEsegui(
+        "Controllo aspiranti, promemoria e cancellazione",
+        function() {
+            $n = $c = 0;
+            $query = "
+                SELECT  aspiranti.utente,
+                        COUNT(corsibase.geo),
+                        aspiranti.id
+                FROM    aspiranti, corsibase
+                WHERE   utente NOT IN (
+                    SELECT  volontario
+                    FROM    partecipazioniBase
+                    WHERE   stato >= 10
+                )
+                AND         ST_DISTANCE( corsibase.geo, aspiranti.geo ) < aspiranti.raggio
+                GROUP BY    aspiranti.utente
+            ";
+            $query = $db->query($query);
+            while ( $r = $query->fetch(PDO::FETCH_NUM) ) {
+                try {
+                    $u = Utente::id($r[0]);
+                } catch ( Errore $e ) {
+                    $c++;
+                    $a = Aspirante::id($r[2]);
+                    $a->cancella();
+                    continue;
+                }
+                $n++;
+                $m = new Email('promemoriaCorsiBase', "Entra in CRI: Ci sono {$r[1]} Corsi Base vicino a te");
+                $m->a           = $u;
+                $m->_NOME       = $u->nome;
+                $m->_NUMERO     = $r[1];
+                $m->accoda();
+            }
+            return "Inviati {$n} promemoria ad Aspiranti, cancellati {$c} aspiranti invalidi";
+        },
+        $log, $ok
+    );
     
     return $ok;
 

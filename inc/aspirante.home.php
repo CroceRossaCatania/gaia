@@ -5,26 +5,47 @@ paginaPrivata();
 if ( $me->stato != ASPIRANTE )
 	redirect('utente.me');
 
+$iscritto = false;
+$corso = $me->partecipazioniBase(ISCR_CONFERMATA); 
+if($corso) {
+	$iscritto = true;
+	$corso = $corso[0];
+
+} else {
+	$a = Aspirante::daVolontario($me);
+	$a->trovaRaggioMinimo();
+}
+
+
 // Se non ho ancora registrato il mio essere aspirante
-if ( !($a = Aspirante::daVolontario($me)) )
+if (!$iscritto && !$a)
 	redirect('aspirante.registra');
 
-$a->trovaRaggioMinimo();
 ?>
 <div class="row-fluid">
     <div class="span3">
-        <?php menuAspirante(); ?>
+        <?php if($iscritto) {
+        		menuOrdinario();
+        	} else {
+        		menuAspirante();
+        	} 
+        ?>
+
     </div>
     <div class="span9">
 
-		<h2>Ciao, <?php echo $me->nome; ?>.</h2>
+		<h2><span class="muted">Ciao </span>
+            <?= $me->nome; ?>
+        </h2>
 		<?php if(isset($_GET['err'])) { ?>
 			<div class="alert alert-block alert-error">
             <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
             <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
         	</div> 
 
-		<?php } ?>
+		<?php } 
+
+		if(!$iscritto) { ?>
 
 		<div class="alert alert-block alert-info">
 			<p><i class="icon-info-sign"></i> Riceverai notifica per email (<?php echo $me->email; ?>) 
@@ -67,6 +88,21 @@ $a->trovaRaggioMinimo();
 	    	</div>
 
 	    </div>
+
+	    <?php } else { ?>
+	    	<div class="row-fluid">
+            	<div class="hero-unit" >
+                	<h1><i class="icon-flag"></i> Complimenti, sei iscritto ad un Corso per Volontari! </h1>
+                	<br />
+                	<p>Ora non ti resta che presentarti presso il luogo indicato per lo svolgimento
+                	delle lezioni. Se hai bisogno di maggiori informazioni 
+                	accedi alla scheda corso.</p>
+                	<a href="?p=formazione.corsibase.scheda&id=<?= $corso->corsoBase; ?>" class="btn btn-large btn-info">
+                		Scheda corso
+                	</a>
+            	</div>
+        	</div>
+	    <?php }?>
 		    	
 
     </div>
