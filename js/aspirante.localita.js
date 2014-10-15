@@ -1,5 +1,5 @@
-var mappa = null;
-
+var mappa     = null;
+var prossimo  = false;
 $(document).ready( function() {
    
    /* Ricerca */
@@ -7,20 +7,26 @@ $(document).ready( function() {
       
       $("#quiRisultati").html("<div class='alert alert-info'><i class='icon-spin icon-spinner'></i> <strong>Ricerca in corso...</strong></div>")
 
-      api('geocoding', { query: $("#ricercaLuogo").val() }, function(x) {
-         
-         if ( x.risposta.length > 0 ){
-             $("#quiRisultati").html('');
-             for (var i in x.risposta) {
-                 $("#quiRisultati").append("<div data-x='" + x.risposta[i].lat +"' data-y='" + x.risposta[i].lng + "' class='mLocalita'>" + x.risposta[i].formattato + "</div>");
-                 
-                 
-             }
-             attivaAscoltatori();
-         } else {
-             $("#quiRisultati").html("<div class='alert alert-error'><i class='icon-warning-sign'></i> Nessun risultato trovato.</div>")
-         }
-      });
+      if ( prossimo ) {
+        clearTimeout(prossimo);
+      }
+      prossimo = setTimeout(function() {
+
+        api('geocoding', { query: $("#ricercaLuogo").val() }, function(x) {
+           
+           if ( x.risposta.length > 0 ){
+               $("#quiRisultati").html('');
+               for (var i in x.risposta) {
+                   $("#quiRisultati").append("<div data-x='" + x.risposta[i].lat +"' data-y='" + x.risposta[i].lng + "' class='mLocalita'>" + x.risposta[i].formattato + "</div>");
+                   
+               }
+               attivaAscoltatori();
+           } else {
+               $("#quiRisultati").html("<div class='alert alert-error'><i class='icon-warning-sign'></i> Nessun risultato trovato.</div>")
+           }
+        });
+
+      }, 1000);
        
    });
    
