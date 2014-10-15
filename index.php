@@ -77,7 +77,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <link href="css/font-awesome.min.css"   rel="stylesheet" media="screen">
     <link href="css/main.css"               rel="stylesheet" media="screen">
     <link href="css/fullcalendar.css"       rel="stylesheet" media="screen">
-    <link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
     <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.min.css" rel="stylesheet" media="screen">
     <!--[if IE]>
         <link href="css/main-ie.css" rel="stylesheet" media="screen">
