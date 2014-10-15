@@ -28,7 +28,7 @@ if ( isset($_GET['tipo'] ) ) {
         <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
             <h2>Ciao, volontario. <span class="muted">Croce Rossa si rinnova.</span></h2>
         <?php } else { ?>
-            <h2>Ciao, aspirante. <span class="muted">Croce Rossa si rinnova.</span></h2>
+            <h2>Ciao, aspirante Volontario. <span class="muted">Croce Rossa si rinnova.</span></h2>
         <?php } ?>
         <hr />
     </div>
