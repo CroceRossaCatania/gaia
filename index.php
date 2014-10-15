@@ -124,14 +124,9 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             <li><a href="?p=attivita"><i class="icon-calendar"></i> Attività</a></li>
                             <li><a href="?p=public.comitati.mappa"><i class="icon-map-marker"></i> Comitati</a></li>
                             <li><a href="?p=public.formazione"><i class="icon-desktop"></i> Formazione</a></li>
-							<?php /* 
-
-                            VERIFICA TESSERINO MOMENTANEAMENTE TOLTA 
-
-                            if(!$me) { ?>
+							<?php if(!$me) { ?>
                             <li><a href="?p=public.tesserino"><i class="icon-credit-card"></i> Verifica tesserino</a></li>
-                            <?php } */
-                            ?>
+                            <?php } ?>
                         </ul>  
                         <?php
                         if ( $me ) { ?>

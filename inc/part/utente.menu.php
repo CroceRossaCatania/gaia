@@ -103,7 +103,7 @@ if ($me && $me->unComitato()) {
             'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti',
             'utente.riserva'  =>  '<i class="icon-pause"></i> Riserva',
             'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica'
-            //'public.tesserino'  =>  '<i class="icon-credit-card"></i> Verifica Tesserino'  
+            'public.tesserino'  =>  '<i class="icon-credit-card"></i> Verifica Tesserino'  
         ]];
 }
 $menu += [
