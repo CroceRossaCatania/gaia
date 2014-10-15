@@ -266,7 +266,7 @@ class CorsoBase extends GeoEntita {
         $file .= ".pdf";
 
         $p = new PDF('attestato', $file);
-        $p->_COMITATO     = $this->organizzatore()->nomeCompleto();
+        $p->_COMITATO     = maiuscolo($this->organizzatore()->nomeCompleto());
         $p->_CF           = $iscritto->codiceFiscale;
         $p->_VOLONTARIO   = $iscritto->nomeCompleto();
         $p->_DATAESAME    = date('d/m/Y', $this->tEsame);

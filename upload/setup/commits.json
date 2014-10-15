@@ -1,0 +1,2167 @@
+[
+  {
+    "sha": "72385eefc8bf2f096d9db16f58595f758ddf4925",
+    "commit": {
+      "author": {
+        "name": "Federico D'Urso",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-31T11:22:43Z"
+      },
+      "committer": {
+        "name": "Federico D'Urso",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-31T11:22:43Z"
+      },
+      "message": "Merge pull request #1298 from CroceRossaCatania/gruppi\n\nCancellazione del gruppo cancella anche appartenenze al gruppo",
+      "tree": {
+        "sha": "77199479b794dcc23970232506ed4d4dabd5a8dc",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/77199479b794dcc23970232506ed4d4dabd5a8dc"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/72385eefc8bf2f096d9db16f58595f758ddf4925",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/72385eefc8bf2f096d9db16f58595f758ddf4925",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/72385eefc8bf2f096d9db16f58595f758ddf4925",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/72385eefc8bf2f096d9db16f58595f758ddf4925/comments",
+    "author": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "e1c04ea409e2aa1b236488cd2274688cf0fda8a5",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/e1c04ea409e2aa1b236488cd2274688cf0fda8a5",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/e1c04ea409e2aa1b236488cd2274688cf0fda8a5"
+      },
+      {
+        "sha": "9d937e545673d6c92dc24f27f823ed048fb0fa4a",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/9d937e545673d6c92dc24f27f823ed048fb0fa4a",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/9d937e545673d6c92dc24f27f823ed048fb0fa4a"
+      }
+    ]
+  },
+  {
+    "sha": "9d937e545673d6c92dc24f27f823ed048fb0fa4a",
+    "commit": {
+      "author": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-31T11:21:24Z"
+      },
+      "committer": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-31T11:21:24Z"
+      },
+      "message": "La cancella zione del gruppo cancella anche appartenenze al gruppo stesso fix #1297",
+      "tree": {
+        "sha": "77199479b794dcc23970232506ed4d4dabd5a8dc",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/77199479b794dcc23970232506ed4d4dabd5a8dc"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/9d937e545673d6c92dc24f27f823ed048fb0fa4a",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/9d937e545673d6c92dc24f27f823ed048fb0fa4a",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/9d937e545673d6c92dc24f27f823ed048fb0fa4a",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/9d937e545673d6c92dc24f27f823ed048fb0fa4a/comments",
+    "author": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "e1c04ea409e2aa1b236488cd2274688cf0fda8a5",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/e1c04ea409e2aa1b236488cd2274688cf0fda8a5",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/e1c04ea409e2aa1b236488cd2274688cf0fda8a5"
+      }
+    ]
+  },
+  {
+    "sha": "e1c04ea409e2aa1b236488cd2274688cf0fda8a5",
+    "commit": {
+      "author": {
+        "name": "Alfio Emanuele",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-28T18:47:15Z"
+      },
+      "committer": {
+        "name": "Alfio Emanuele",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-28T18:47:15Z"
+      },
+      "message": "Merge pull request #1293 from CroceRossaCatania/issue1277\n\nFix #1277, email termine riserva",
+      "tree": {
+        "sha": "86aea54b8fe4248d77f7ffc18ef6d658c5349c1b",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/86aea54b8fe4248d77f7ffc18ef6d658c5349c1b"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/e1c04ea409e2aa1b236488cd2274688cf0fda8a5",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/e1c04ea409e2aa1b236488cd2274688cf0fda8a5",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/e1c04ea409e2aa1b236488cd2274688cf0fda8a5",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/e1c04ea409e2aa1b236488cd2274688cf0fda8a5/comments",
+    "author": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "b618f60209b4736f46a663e70ca4dc545e943bc1",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/b618f60209b4736f46a663e70ca4dc545e943bc1",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/b618f60209b4736f46a663e70ca4dc545e943bc1"
+      },
+      {
+        "sha": "44a4af97df60ecc08e80431e7fc18e9914617a2c",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/44a4af97df60ecc08e80431e7fc18e9914617a2c",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/44a4af97df60ecc08e80431e7fc18e9914617a2c"
+      }
+    ]
+  },
+  {
+    "sha": "44a4af97df60ecc08e80431e7fc18e9914617a2c",
+    "commit": {
+      "author": {
+        "name": "Alfio Emanuele Fresta",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-28T18:45:23Z"
+      },
+      "committer": {
+        "name": "Alfio Emanuele Fresta",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-28T18:45:23Z"
+      },
+      "message": "Fix #1277, email termine riserva",
+      "tree": {
+        "sha": "fe8515dfade9a4bbd40f42f5a7b3d5c6d501071f",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/fe8515dfade9a4bbd40f42f5a7b3d5c6d501071f"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/44a4af97df60ecc08e80431e7fc18e9914617a2c",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/44a4af97df60ecc08e80431e7fc18e9914617a2c",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/44a4af97df60ecc08e80431e7fc18e9914617a2c",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/44a4af97df60ecc08e80431e7fc18e9914617a2c/comments",
+    "author": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "1ede0d09793ae392313b73c09eef2e43009a613f",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/1ede0d09793ae392313b73c09eef2e43009a613f",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/1ede0d09793ae392313b73c09eef2e43009a613f"
+      }
+    ]
+  },
+  {
+    "sha": "b618f60209b4736f46a663e70ca4dc545e943bc1",
+    "commit": {
+      "author": {
+        "name": "Federico D'Urso",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-28T18:35:29Z"
+      },
+      "committer": {
+        "name": "Federico D'Urso",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-28T18:35:29Z"
+      },
+      "message": "Merge pull request #1270 from CroceRossaCatania/vari\n\nNuova 404 e bugfix estensioni",
+      "tree": {
+        "sha": "4cef8b9b6fbd002943a45b060c67e97714a53d36",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/4cef8b9b6fbd002943a45b060c67e97714a53d36"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/b618f60209b4736f46a663e70ca4dc545e943bc1",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/b618f60209b4736f46a663e70ca4dc545e943bc1",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/b618f60209b4736f46a663e70ca4dc545e943bc1",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/b618f60209b4736f46a663e70ca4dc545e943bc1/comments",
+    "author": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "1ede0d09793ae392313b73c09eef2e43009a613f",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/1ede0d09793ae392313b73c09eef2e43009a613f",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/1ede0d09793ae392313b73c09eef2e43009a613f"
+      },
+      {
+        "sha": "f4c092a0e2a7634da1fa4f42a9c56b545e79e347",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/f4c092a0e2a7634da1fa4f42a9c56b545e79e347",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/f4c092a0e2a7634da1fa4f42a9c56b545e79e347"
+      }
+    ]
+  },
+  {
+    "sha": "f4c092a0e2a7634da1fa4f42a9c56b545e79e347",
+    "commit": {
+      "author": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-28T18:30:02Z"
+      },
+      "committer": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-28T18:30:02Z"
+      },
+      "message": "Merge branch 'master' into vari",
+      "tree": {
+        "sha": "4cef8b9b6fbd002943a45b060c67e97714a53d36",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/4cef8b9b6fbd002943a45b060c67e97714a53d36"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/f4c092a0e2a7634da1fa4f42a9c56b545e79e347",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/f4c092a0e2a7634da1fa4f42a9c56b545e79e347",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/f4c092a0e2a7634da1fa4f42a9c56b545e79e347",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/f4c092a0e2a7634da1fa4f42a9c56b545e79e347/comments",
+    "author": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "331444919a404f30b51b1d12855c0634faf1aa11",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/331444919a404f30b51b1d12855c0634faf1aa11",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/331444919a404f30b51b1d12855c0634faf1aa11"
+      },
+      {
+        "sha": "1ede0d09793ae392313b73c09eef2e43009a613f",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/1ede0d09793ae392313b73c09eef2e43009a613f",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/1ede0d09793ae392313b73c09eef2e43009a613f"
+      }
+    ]
+  },
+  {
+    "sha": "1ede0d09793ae392313b73c09eef2e43009a613f",
+    "commit": {
+      "author": {
+        "name": "Alfio Emanuele",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-28T18:18:50Z"
+      },
+      "committer": {
+        "name": "Alfio Emanuele",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-28T18:18:50Z"
+      },
+      "message": "Merge pull request #1291 from CroceRossaCatania/issue1279\n\nFix #1279, modifica gruppi da parte di non-presidenti",
+      "tree": {
+        "sha": "e98a5742ea279b7f5c75ae2aa8f9d8fa18d8802c",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/e98a5742ea279b7f5c75ae2aa8f9d8fa18d8802c"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/1ede0d09793ae392313b73c09eef2e43009a613f",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/1ede0d09793ae392313b73c09eef2e43009a613f",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/1ede0d09793ae392313b73c09eef2e43009a613f",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/1ede0d09793ae392313b73c09eef2e43009a613f/comments",
+    "author": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "9eb40137c33539e9ae9a123b469c256f68345e44",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/9eb40137c33539e9ae9a123b469c256f68345e44",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/9eb40137c33539e9ae9a123b469c256f68345e44"
+      },
+      {
+        "sha": "05fc810771d1115f4c83f87875530040c7bd5796",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/05fc810771d1115f4c83f87875530040c7bd5796",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/05fc810771d1115f4c83f87875530040c7bd5796"
+      }
+    ]
+  },
+  {
+    "sha": "05fc810771d1115f4c83f87875530040c7bd5796",
+    "commit": {
+      "author": {
+        "name": "Alfio Emanuele Fresta",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-28T18:17:14Z"
+      },
+      "committer": {
+        "name": "Alfio Emanuele Fresta",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-28T18:17:14Z"
+      },
+      "message": "Fix #1279, modifica gruppi da parte di non-presidenti",
+      "tree": {
+        "sha": "e98a5742ea279b7f5c75ae2aa8f9d8fa18d8802c",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/e98a5742ea279b7f5c75ae2aa8f9d8fa18d8802c"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/05fc810771d1115f4c83f87875530040c7bd5796",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/05fc810771d1115f4c83f87875530040c7bd5796",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/05fc810771d1115f4c83f87875530040c7bd5796",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/05fc810771d1115f4c83f87875530040c7bd5796/comments",
+    "author": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "7467025e4e9b28dbcdbed1d4ed995d2cf13faf98",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/7467025e4e9b28dbcdbed1d4ed995d2cf13faf98",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/7467025e4e9b28dbcdbed1d4ed995d2cf13faf98"
+      }
+    ]
+  },
+  {
+    "sha": "9eb40137c33539e9ae9a123b469c256f68345e44",
+    "commit": {
+      "author": {
+        "name": "Alfio Emanuele",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-28T18:03:58Z"
+      },
+      "committer": {
+        "name": "Alfio Emanuele",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-28T18:03:58Z"
+      },
+      "message": "Merge pull request #1290 from CroceRossaCatania/issue1280\n\nFix #1280, impaginazione PDF riserva",
+      "tree": {
+        "sha": "2b7aea9b5cff4bd59acbb9e539469f70214be6e8",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/2b7aea9b5cff4bd59acbb9e539469f70214be6e8"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/9eb40137c33539e9ae9a123b469c256f68345e44",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/9eb40137c33539e9ae9a123b469c256f68345e44",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/9eb40137c33539e9ae9a123b469c256f68345e44",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/9eb40137c33539e9ae9a123b469c256f68345e44/comments",
+    "author": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "ea0040febd2468e3088c43d9b6d32cfc2d759f15",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/ea0040febd2468e3088c43d9b6d32cfc2d759f15",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/ea0040febd2468e3088c43d9b6d32cfc2d759f15"
+      },
+      {
+        "sha": "7467025e4e9b28dbcdbed1d4ed995d2cf13faf98",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/7467025e4e9b28dbcdbed1d4ed995d2cf13faf98",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/7467025e4e9b28dbcdbed1d4ed995d2cf13faf98"
+      }
+    ]
+  },
+  {
+    "sha": "7467025e4e9b28dbcdbed1d4ed995d2cf13faf98",
+    "commit": {
+      "author": {
+        "name": "Alfio Emanuele Fresta",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-28T17:57:04Z"
+      },
+      "committer": {
+        "name": "Alfio Emanuele Fresta",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-28T17:57:04Z"
+      },
+      "message": "Fix #1280, impaginazione PDF riserva",
+      "tree": {
+        "sha": "2b7aea9b5cff4bd59acbb9e539469f70214be6e8",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/2b7aea9b5cff4bd59acbb9e539469f70214be6e8"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/7467025e4e9b28dbcdbed1d4ed995d2cf13faf98",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/7467025e4e9b28dbcdbed1d4ed995d2cf13faf98",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/7467025e4e9b28dbcdbed1d4ed995d2cf13faf98",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/7467025e4e9b28dbcdbed1d4ed995d2cf13faf98/comments",
+    "author": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "ea0040febd2468e3088c43d9b6d32cfc2d759f15",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/ea0040febd2468e3088c43d9b6d32cfc2d759f15",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/ea0040febd2468e3088c43d9b6d32cfc2d759f15"
+      }
+    ]
+  },
+  {
+    "sha": "ea0040febd2468e3088c43d9b6d32cfc2d759f15",
+    "commit": {
+      "author": {
+        "name": "Federico D'Urso",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-28T05:51:13Z"
+      },
+      "committer": {
+        "name": "Federico D'Urso",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-28T05:51:13Z"
+      },
+      "message": "Merge pull request #1271 from CroceRossaCatania/danni-collaterali\n\nGli Admin hanno i superpoteri",
+      "tree": {
+        "sha": "807328a5ad4ff0a460b716e389441a6b364c69eb",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/807328a5ad4ff0a460b716e389441a6b364c69eb"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/ea0040febd2468e3088c43d9b6d32cfc2d759f15",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/ea0040febd2468e3088c43d9b6d32cfc2d759f15",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/ea0040febd2468e3088c43d9b6d32cfc2d759f15",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/ea0040febd2468e3088c43d9b6d32cfc2d759f15/comments",
+    "author": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "a875e7d263ca37b1b70da86e02921826c5f5207a",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/a875e7d263ca37b1b70da86e02921826c5f5207a",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/a875e7d263ca37b1b70da86e02921826c5f5207a"
+      },
+      {
+        "sha": "20bd1b80326d76952d29df03208dc5d04f94e180",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/20bd1b80326d76952d29df03208dc5d04f94e180",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/20bd1b80326d76952d29df03208dc5d04f94e180"
+      }
+    ]
+  },
+  {
+    "sha": "20bd1b80326d76952d29df03208dc5d04f94e180",
+    "commit": {
+      "author": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-27T21:12:49Z"
+      },
+      "committer": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-27T21:12:49Z"
+      },
+      "message": "Merge branch 'master' into danni-collaterali",
+      "tree": {
+        "sha": "807328a5ad4ff0a460b716e389441a6b364c69eb",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/807328a5ad4ff0a460b716e389441a6b364c69eb"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/20bd1b80326d76952d29df03208dc5d04f94e180",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/20bd1b80326d76952d29df03208dc5d04f94e180",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/20bd1b80326d76952d29df03208dc5d04f94e180",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/20bd1b80326d76952d29df03208dc5d04f94e180/comments",
+    "author": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "051cba8ce52d3dbd8d191654c94294c0ff7eefaf",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/051cba8ce52d3dbd8d191654c94294c0ff7eefaf",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/051cba8ce52d3dbd8d191654c94294c0ff7eefaf"
+      },
+      {
+        "sha": "a875e7d263ca37b1b70da86e02921826c5f5207a",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/a875e7d263ca37b1b70da86e02921826c5f5207a",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/a875e7d263ca37b1b70da86e02921826c5f5207a"
+      }
+    ]
+  },
+  {
+    "sha": "a875e7d263ca37b1b70da86e02921826c5f5207a",
+    "commit": {
+      "author": {
+        "name": "Federico D'Urso",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-25T20:44:17Z"
+      },
+      "committer": {
+        "name": "Federico D'Urso",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-25T20:44:17Z"
+      },
+      "message": "Aggiunto http",
+      "tree": {
+        "sha": "c9bd9469d83d170b44abe7cad76e4a4465e8d32e",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/c9bd9469d83d170b44abe7cad76e4a4465e8d32e"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/a875e7d263ca37b1b70da86e02921826c5f5207a",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/a875e7d263ca37b1b70da86e02921826c5f5207a",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/a875e7d263ca37b1b70da86e02921826c5f5207a",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/a875e7d263ca37b1b70da86e02921826c5f5207a/comments",
+    "author": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "dbfa21e7ccc32370c76b1caf45db7a1e26eff583",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/dbfa21e7ccc32370c76b1caf45db7a1e26eff583",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/dbfa21e7ccc32370c76b1caf45db7a1e26eff583"
+      }
+    ]
+  },
+  {
+    "sha": "dbfa21e7ccc32370c76b1caf45db7a1e26eff583",
+    "commit": {
+      "author": {
+        "name": "Federico D'Urso",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-25T20:34:20Z"
+      },
+      "committer": {
+        "name": "Federico D'Urso",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-25T20:34:20Z"
+      },
+      "message": "Nuovo phpmyadmin",
+      "tree": {
+        "sha": "3d730c13734b5b515446ada3eae6be630fcc8376",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/3d730c13734b5b515446ada3eae6be630fcc8376"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/dbfa21e7ccc32370c76b1caf45db7a1e26eff583",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/dbfa21e7ccc32370c76b1caf45db7a1e26eff583",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/dbfa21e7ccc32370c76b1caf45db7a1e26eff583",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/dbfa21e7ccc32370c76b1caf45db7a1e26eff583/comments",
+    "author": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "79c552122e535fa13955add87bd4ecd1d9294bdf",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/79c552122e535fa13955add87bd4ecd1d9294bdf",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/79c552122e535fa13955add87bd4ecd1d9294bdf"
+      }
+    ]
+  },
+  {
+    "sha": "331444919a404f30b51b1d12855c0634faf1aa11",
+    "commit": {
+      "author": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-19T14:55:33Z"
+      },
+      "committer": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-19T14:55:33Z"
+      },
+      "message": "Aggiunta motivazione dimissione per mancato rientro riserva fix #1273",
+      "tree": {
+        "sha": "5226ba97497f0b6c24f00afe3e2c7c80d7ef8437",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/5226ba97497f0b6c24f00afe3e2c7c80d7ef8437"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/331444919a404f30b51b1d12855c0634faf1aa11",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/331444919a404f30b51b1d12855c0634faf1aa11",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/331444919a404f30b51b1d12855c0634faf1aa11",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/331444919a404f30b51b1d12855c0634faf1aa11/comments",
+    "author": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "5f23d9094824474847eaa8c44ca2ffd531ebe05b",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/5f23d9094824474847eaa8c44ca2ffd531ebe05b",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/5f23d9094824474847eaa8c44ca2ffd531ebe05b"
+      }
+    ]
+  },
+  {
+    "sha": "5f23d9094824474847eaa8c44ca2ffd531ebe05b",
+    "commit": {
+      "author": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-19T14:48:25Z"
+      },
+      "committer": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-19T14:48:25Z"
+      },
+      "message": "Merge branch 'master' into vari",
+      "tree": {
+        "sha": "c220189a17f71fc0493b330d5087a4a5a78580ad",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/c220189a17f71fc0493b330d5087a4a5a78580ad"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/5f23d9094824474847eaa8c44ca2ffd531ebe05b",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/5f23d9094824474847eaa8c44ca2ffd531ebe05b",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/5f23d9094824474847eaa8c44ca2ffd531ebe05b",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/5f23d9094824474847eaa8c44ca2ffd531ebe05b/comments",
+    "author": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "8eb347fa4ef5b51214264e59897883e6940ca6b8",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/8eb347fa4ef5b51214264e59897883e6940ca6b8",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/8eb347fa4ef5b51214264e59897883e6940ca6b8"
+      },
+      {
+        "sha": "79c552122e535fa13955add87bd4ecd1d9294bdf",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/79c552122e535fa13955add87bd4ecd1d9294bdf",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/79c552122e535fa13955add87bd4ecd1d9294bdf"
+      }
+    ]
+  },
+  {
+    "sha": "79c552122e535fa13955add87bd4ecd1d9294bdf",
+    "commit": {
+      "author": {
+        "name": "Paolo Giustiniani",
+        "email": "paolo.giustiniani@cri.it",
+        "date": "2014-08-19T12:24:43Z"
+      },
+      "committer": {
+        "name": "Paolo Giustiniani",
+        "email": "paolo.giustiniani@cri.it",
+        "date": "2014-08-19T12:24:43Z"
+      },
+      "message": "Merge pull request #1278 from CroceRossaCatania/livechat-nuovocodice\n\nAggiornamento codice live chat",
+      "tree": {
+        "sha": "1d62e2bf9120f6d06ecc0497106dc7589c6e35ce",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/1d62e2bf9120f6d06ecc0497106dc7589c6e35ce"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/79c552122e535fa13955add87bd4ecd1d9294bdf",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/79c552122e535fa13955add87bd4ecd1d9294bdf",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/79c552122e535fa13955add87bd4ecd1d9294bdf",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/79c552122e535fa13955add87bd4ecd1d9294bdf/comments",
+    "author": {
+      "login": "PaoloGiustiniani",
+      "id": 5071623,
+      "avatar_url": "https://avatars.githubusercontent.com/u/5071623?v=2",
+      "gravatar_id": "8d5694524004ff7480e288777113a62c",
+      "url": "https://api.github.com/users/PaoloGiustiniani",
+      "html_url": "https://github.com/PaoloGiustiniani",
+      "followers_url": "https://api.github.com/users/PaoloGiustiniani/followers",
+      "following_url": "https://api.github.com/users/PaoloGiustiniani/following{/other_user}",
+      "gists_url": "https://api.github.com/users/PaoloGiustiniani/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/PaoloGiustiniani/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/PaoloGiustiniani/subscriptions",
+      "organizations_url": "https://api.github.com/users/PaoloGiustiniani/orgs",
+      "repos_url": "https://api.github.com/users/PaoloGiustiniani/repos",
+      "events_url": "https://api.github.com/users/PaoloGiustiniani/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/PaoloGiustiniani/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "PaoloGiustiniani",
+      "id": 5071623,
+      "avatar_url": "https://avatars.githubusercontent.com/u/5071623?v=2",
+      "gravatar_id": "8d5694524004ff7480e288777113a62c",
+      "url": "https://api.github.com/users/PaoloGiustiniani",
+      "html_url": "https://github.com/PaoloGiustiniani",
+      "followers_url": "https://api.github.com/users/PaoloGiustiniani/followers",
+      "following_url": "https://api.github.com/users/PaoloGiustiniani/following{/other_user}",
+      "gists_url": "https://api.github.com/users/PaoloGiustiniani/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/PaoloGiustiniani/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/PaoloGiustiniani/subscriptions",
+      "organizations_url": "https://api.github.com/users/PaoloGiustiniani/orgs",
+      "repos_url": "https://api.github.com/users/PaoloGiustiniani/repos",
+      "events_url": "https://api.github.com/users/PaoloGiustiniani/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/PaoloGiustiniani/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "c33e722ceecb3c3cfb804dcc6fb29dbefff90843",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/c33e722ceecb3c3cfb804dcc6fb29dbefff90843",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/c33e722ceecb3c3cfb804dcc6fb29dbefff90843"
+      },
+      {
+        "sha": "896b982d3be2b17e0e36bb4693c6aa02c5e3307a",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/896b982d3be2b17e0e36bb4693c6aa02c5e3307a",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/896b982d3be2b17e0e36bb4693c6aa02c5e3307a"
+      }
+    ]
+  },
+  {
+    "sha": "896b982d3be2b17e0e36bb4693c6aa02c5e3307a",
+    "commit": {
+      "author": {
+        "name": "Paolo Giustiniani",
+        "email": "paolo.giustiniani@cri.it",
+        "date": "2014-08-19T12:24:02Z"
+      },
+      "committer": {
+        "name": "Paolo Giustiniani",
+        "email": "paolo.giustiniani@cri.it",
+        "date": "2014-08-19T12:24:02Z"
+      },
+      "message": "Aggiornamento codice live chat\n\n#1274",
+      "tree": {
+        "sha": "1d62e2bf9120f6d06ecc0497106dc7589c6e35ce",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/1d62e2bf9120f6d06ecc0497106dc7589c6e35ce"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/896b982d3be2b17e0e36bb4693c6aa02c5e3307a",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/896b982d3be2b17e0e36bb4693c6aa02c5e3307a",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/896b982d3be2b17e0e36bb4693c6aa02c5e3307a",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/896b982d3be2b17e0e36bb4693c6aa02c5e3307a/comments",
+    "author": {
+      "login": "PaoloGiustiniani",
+      "id": 5071623,
+      "avatar_url": "https://avatars.githubusercontent.com/u/5071623?v=2",
+      "gravatar_id": "8d5694524004ff7480e288777113a62c",
+      "url": "https://api.github.com/users/PaoloGiustiniani",
+      "html_url": "https://github.com/PaoloGiustiniani",
+      "followers_url": "https://api.github.com/users/PaoloGiustiniani/followers",
+      "following_url": "https://api.github.com/users/PaoloGiustiniani/following{/other_user}",
+      "gists_url": "https://api.github.com/users/PaoloGiustiniani/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/PaoloGiustiniani/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/PaoloGiustiniani/subscriptions",
+      "organizations_url": "https://api.github.com/users/PaoloGiustiniani/orgs",
+      "repos_url": "https://api.github.com/users/PaoloGiustiniani/repos",
+      "events_url": "https://api.github.com/users/PaoloGiustiniani/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/PaoloGiustiniani/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "PaoloGiustiniani",
+      "id": 5071623,
+      "avatar_url": "https://avatars.githubusercontent.com/u/5071623?v=2",
+      "gravatar_id": "8d5694524004ff7480e288777113a62c",
+      "url": "https://api.github.com/users/PaoloGiustiniani",
+      "html_url": "https://github.com/PaoloGiustiniani",
+      "followers_url": "https://api.github.com/users/PaoloGiustiniani/followers",
+      "following_url": "https://api.github.com/users/PaoloGiustiniani/following{/other_user}",
+      "gists_url": "https://api.github.com/users/PaoloGiustiniani/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/PaoloGiustiniani/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/PaoloGiustiniani/subscriptions",
+      "organizations_url": "https://api.github.com/users/PaoloGiustiniani/orgs",
+      "repos_url": "https://api.github.com/users/PaoloGiustiniani/repos",
+      "events_url": "https://api.github.com/users/PaoloGiustiniani/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/PaoloGiustiniani/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "c33e722ceecb3c3cfb804dcc6fb29dbefff90843",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/c33e722ceecb3c3cfb804dcc6fb29dbefff90843",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/c33e722ceecb3c3cfb804dcc6fb29dbefff90843"
+      }
+    ]
+  },
+  {
+    "sha": "051cba8ce52d3dbd8d191654c94294c0ff7eefaf",
+    "commit": {
+      "author": {
+        "name": "Angelo",
+        "email": "angelolupo94@gmail.com",
+        "date": "2014-08-16T16:36:16Z"
+      },
+      "committer": {
+        "name": "Angelo",
+        "email": "angelolupo94@gmail.com",
+        "date": "2014-08-16T16:36:16Z"
+      },
+      "message": "rimossi spazi in eccesso",
+      "tree": {
+        "sha": "54e7308d9c0ab8ff16c95bd16394c741461894fe",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/54e7308d9c0ab8ff16c95bd16394c741461894fe"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/051cba8ce52d3dbd8d191654c94294c0ff7eefaf",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/051cba8ce52d3dbd8d191654c94294c0ff7eefaf",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/051cba8ce52d3dbd8d191654c94294c0ff7eefaf",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/051cba8ce52d3dbd8d191654c94294c0ff7eefaf/comments",
+    "author": {
+      "login": "AngeloLupo",
+      "id": 1773740,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1773740?v=2",
+      "gravatar_id": "c9cd854995e79c6f5008e6dd59f9fd16",
+      "url": "https://api.github.com/users/AngeloLupo",
+      "html_url": "https://github.com/AngeloLupo",
+      "followers_url": "https://api.github.com/users/AngeloLupo/followers",
+      "following_url": "https://api.github.com/users/AngeloLupo/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AngeloLupo/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AngeloLupo/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AngeloLupo/subscriptions",
+      "organizations_url": "https://api.github.com/users/AngeloLupo/orgs",
+      "repos_url": "https://api.github.com/users/AngeloLupo/repos",
+      "events_url": "https://api.github.com/users/AngeloLupo/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AngeloLupo/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "AngeloLupo",
+      "id": 1773740,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1773740?v=2",
+      "gravatar_id": "c9cd854995e79c6f5008e6dd59f9fd16",
+      "url": "https://api.github.com/users/AngeloLupo",
+      "html_url": "https://github.com/AngeloLupo",
+      "followers_url": "https://api.github.com/users/AngeloLupo/followers",
+      "following_url": "https://api.github.com/users/AngeloLupo/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AngeloLupo/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AngeloLupo/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AngeloLupo/subscriptions",
+      "organizations_url": "https://api.github.com/users/AngeloLupo/orgs",
+      "repos_url": "https://api.github.com/users/AngeloLupo/repos",
+      "events_url": "https://api.github.com/users/AngeloLupo/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AngeloLupo/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "fc8278b20904d155f16c939581f86e09945891e9",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/fc8278b20904d155f16c939581f86e09945891e9",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/fc8278b20904d155f16c939581f86e09945891e9"
+      }
+    ]
+  },
+  {
+    "sha": "fc8278b20904d155f16c939581f86e09945891e9",
+    "commit": {
+      "author": {
+        "name": "Angelo",
+        "email": "angelolupo94@gmail.com",
+        "date": "2014-08-16T16:33:40Z"
+      },
+      "committer": {
+        "name": "Angelo",
+        "email": "angelolupo94@gmail.com",
+        "date": "2014-08-16T16:33:40Z"
+      },
+      "message": "Cambio stato appartenenze",
+      "tree": {
+        "sha": "270d0bc5c2212d633c88ab69dfa34f450b229407",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/270d0bc5c2212d633c88ab69dfa34f450b229407"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/fc8278b20904d155f16c939581f86e09945891e9",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/fc8278b20904d155f16c939581f86e09945891e9",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/fc8278b20904d155f16c939581f86e09945891e9",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/fc8278b20904d155f16c939581f86e09945891e9/comments",
+    "author": {
+      "login": "AngeloLupo",
+      "id": 1773740,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1773740?v=2",
+      "gravatar_id": "c9cd854995e79c6f5008e6dd59f9fd16",
+      "url": "https://api.github.com/users/AngeloLupo",
+      "html_url": "https://github.com/AngeloLupo",
+      "followers_url": "https://api.github.com/users/AngeloLupo/followers",
+      "following_url": "https://api.github.com/users/AngeloLupo/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AngeloLupo/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AngeloLupo/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AngeloLupo/subscriptions",
+      "organizations_url": "https://api.github.com/users/AngeloLupo/orgs",
+      "repos_url": "https://api.github.com/users/AngeloLupo/repos",
+      "events_url": "https://api.github.com/users/AngeloLupo/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AngeloLupo/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "AngeloLupo",
+      "id": 1773740,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1773740?v=2",
+      "gravatar_id": "c9cd854995e79c6f5008e6dd59f9fd16",
+      "url": "https://api.github.com/users/AngeloLupo",
+      "html_url": "https://github.com/AngeloLupo",
+      "followers_url": "https://api.github.com/users/AngeloLupo/followers",
+      "following_url": "https://api.github.com/users/AngeloLupo/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AngeloLupo/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AngeloLupo/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AngeloLupo/subscriptions",
+      "organizations_url": "https://api.github.com/users/AngeloLupo/orgs",
+      "repos_url": "https://api.github.com/users/AngeloLupo/repos",
+      "events_url": "https://api.github.com/users/AngeloLupo/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AngeloLupo/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "c6f335b7e1b75b6b549496df28d214dd7be87240",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/c6f335b7e1b75b6b549496df28d214dd7be87240",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/c6f335b7e1b75b6b549496df28d214dd7be87240"
+      }
+    ]
+  },
+  {
+    "sha": "8eb347fa4ef5b51214264e59897883e6940ca6b8",
+    "commit": {
+      "author": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-16T15:10:18Z"
+      },
+      "committer": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-16T15:10:18Z"
+      },
+      "message": "Le cose con il giusto nome",
+      "tree": {
+        "sha": "233dbf2fcae1c181dc97f3701a3e07f44c3259e4",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/233dbf2fcae1c181dc97f3701a3e07f44c3259e4"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/8eb347fa4ef5b51214264e59897883e6940ca6b8",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/8eb347fa4ef5b51214264e59897883e6940ca6b8",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/8eb347fa4ef5b51214264e59897883e6940ca6b8",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/8eb347fa4ef5b51214264e59897883e6940ca6b8/comments",
+    "author": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "ba1da9550316d7794001c00aad574f2ab71237a7",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/ba1da9550316d7794001c00aad574f2ab71237a7",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/ba1da9550316d7794001c00aad574f2ab71237a7"
+      }
+    ]
+  },
+  {
+    "sha": "ba1da9550316d7794001c00aad574f2ab71237a7",
+    "commit": {
+      "author": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-16T15:09:35Z"
+      },
+      "committer": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-16T15:09:35Z"
+      },
+      "message": "Permette negazioen trasferimenti seriamente fix #1212",
+      "tree": {
+        "sha": "9af6c163c5b47de83d7e962d34ad5bb51f0642cd",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/9af6c163c5b47de83d7e962d34ad5bb51f0642cd"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/ba1da9550316d7794001c00aad574f2ab71237a7",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/ba1da9550316d7794001c00aad574f2ab71237a7",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/ba1da9550316d7794001c00aad574f2ab71237a7",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/ba1da9550316d7794001c00aad574f2ab71237a7/comments",
+    "author": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "66ff7ea71fb9c103b967ff7c7de3c15df596e4ab",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/66ff7ea71fb9c103b967ff7c7de3c15df596e4ab",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/66ff7ea71fb9c103b967ff7c7de3c15df596e4ab"
+      }
+    ]
+  },
+  {
+    "sha": "66ff7ea71fb9c103b967ff7c7de3c15df596e4ab",
+    "commit": {
+      "author": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-16T08:52:02Z"
+      },
+      "committer": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-16T08:52:02Z"
+      },
+      "message": "Sistemazione estensioni fix #1244 fix #1136\n\nRisolve l'errore delle estensioni",
+      "tree": {
+        "sha": "8c1668534a12b5742fecaa71c7a4c2dc3b878282",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/8c1668534a12b5742fecaa71c7a4c2dc3b878282"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/66ff7ea71fb9c103b967ff7c7de3c15df596e4ab",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/66ff7ea71fb9c103b967ff7c7de3c15df596e4ab",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/66ff7ea71fb9c103b967ff7c7de3c15df596e4ab",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/66ff7ea71fb9c103b967ff7c7de3c15df596e4ab/comments",
+    "author": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "ca475fd2db316b97ca08dd35ad645a62e230f690",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/ca475fd2db316b97ca08dd35ad645a62e230f690",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/ca475fd2db316b97ca08dd35ad645a62e230f690"
+      }
+    ]
+  },
+  {
+    "sha": "ca475fd2db316b97ca08dd35ad645a62e230f690",
+    "commit": {
+      "author": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-15T19:37:47Z"
+      },
+      "committer": {
+        "name": "Federico",
+        "email": "ico88@hotmail.com",
+        "date": "2014-08-15T19:37:47Z"
+      },
+      "message": "Rinnovata pagina 404 fix #1256",
+      "tree": {
+        "sha": "09b7d7193fe994ddfc004925cc153a10203d59f5",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/09b7d7193fe994ddfc004925cc153a10203d59f5"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/ca475fd2db316b97ca08dd35ad645a62e230f690",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/ca475fd2db316b97ca08dd35ad645a62e230f690",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/ca475fd2db316b97ca08dd35ad645a62e230f690",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/ca475fd2db316b97ca08dd35ad645a62e230f690/comments",
+    "author": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "ico88",
+      "id": 3149018,
+      "avatar_url": "https://avatars.githubusercontent.com/u/3149018?v=2",
+      "gravatar_id": "59a09f8a2b7095b02b88f427909e5e57",
+      "url": "https://api.github.com/users/ico88",
+      "html_url": "https://github.com/ico88",
+      "followers_url": "https://api.github.com/users/ico88/followers",
+      "following_url": "https://api.github.com/users/ico88/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ico88/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ico88/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ico88/subscriptions",
+      "organizations_url": "https://api.github.com/users/ico88/orgs",
+      "repos_url": "https://api.github.com/users/ico88/repos",
+      "events_url": "https://api.github.com/users/ico88/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ico88/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "c33e722ceecb3c3cfb804dcc6fb29dbefff90843",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/c33e722ceecb3c3cfb804dcc6fb29dbefff90843",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/c33e722ceecb3c3cfb804dcc6fb29dbefff90843"
+      }
+    ]
+  },
+  {
+    "sha": "c33e722ceecb3c3cfb804dcc6fb29dbefff90843",
+    "commit": {
+      "author": {
+        "name": "Alfio Emanuele",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-14T22:32:06Z"
+      },
+      "committer": {
+        "name": "Alfio Emanuele",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-14T22:32:06Z"
+      },
+      "message": "Merge pull request #1268 from CroceRossaCatania/cronjob\n\nCronjob migliorato e fail-safe",
+      "tree": {
+        "sha": "c654dc9e68c25898ad04003b6bf0723ffccf077c",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/c654dc9e68c25898ad04003b6bf0723ffccf077c"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/c33e722ceecb3c3cfb804dcc6fb29dbefff90843",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/c33e722ceecb3c3cfb804dcc6fb29dbefff90843",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/c33e722ceecb3c3cfb804dcc6fb29dbefff90843",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/c33e722ceecb3c3cfb804dcc6fb29dbefff90843/comments",
+    "author": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "f2937c3c4b29798868096969fe3b5670c66e191b",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/f2937c3c4b29798868096969fe3b5670c66e191b",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/f2937c3c4b29798868096969fe3b5670c66e191b"
+      },
+      {
+        "sha": "37e7e65d3aaa7b21aec60626f758ca29d0e2cc51",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/37e7e65d3aaa7b21aec60626f758ca29d0e2cc51",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/37e7e65d3aaa7b21aec60626f758ca29d0e2cc51"
+      }
+    ]
+  },
+  {
+    "sha": "37e7e65d3aaa7b21aec60626f758ca29d0e2cc51",
+    "commit": {
+      "author": {
+        "name": "Alfio Emanuele Fresta",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-14T22:26:50Z"
+      },
+      "committer": {
+        "name": "Alfio Emanuele Fresta",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-14T22:26:50Z"
+      },
+      "message": "Fix #1263",
+      "tree": {
+        "sha": "499940cbb3bf529d9f31616770a320196fbd0609",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/499940cbb3bf529d9f31616770a320196fbd0609"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/37e7e65d3aaa7b21aec60626f758ca29d0e2cc51",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/37e7e65d3aaa7b21aec60626f758ca29d0e2cc51",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/37e7e65d3aaa7b21aec60626f758ca29d0e2cc51",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/37e7e65d3aaa7b21aec60626f758ca29d0e2cc51/comments",
+    "author": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "c6f335b7e1b75b6b549496df28d214dd7be87240",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/c6f335b7e1b75b6b549496df28d214dd7be87240",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/c6f335b7e1b75b6b549496df28d214dd7be87240"
+      }
+    ]
+  },
+  {
+    "sha": "f2937c3c4b29798868096969fe3b5670c66e191b",
+    "commit": {
+      "author": {
+        "name": "Alfio Emanuele",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-14T19:50:54Z"
+      },
+      "committer": {
+        "name": "Alfio Emanuele",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-14T19:50:54Z"
+      },
+      "message": "Merge pull request #1267 from CroceRossaCatania/issue1266\n\nRicerca errori per codice o richiesta",
+      "tree": {
+        "sha": "a37104da239e43606759daf9b04476024b9dbb2d",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/a37104da239e43606759daf9b04476024b9dbb2d"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/f2937c3c4b29798868096969fe3b5670c66e191b",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/f2937c3c4b29798868096969fe3b5670c66e191b",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/f2937c3c4b29798868096969fe3b5670c66e191b",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/f2937c3c4b29798868096969fe3b5670c66e191b/comments",
+    "author": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "c6f335b7e1b75b6b549496df28d214dd7be87240",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/c6f335b7e1b75b6b549496df28d214dd7be87240",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/c6f335b7e1b75b6b549496df28d214dd7be87240"
+      },
+      {
+        "sha": "ae3949035e215ffbd725d4b798952e1171094806",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/ae3949035e215ffbd725d4b798952e1171094806",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/ae3949035e215ffbd725d4b798952e1171094806"
+      }
+    ]
+  },
+  {
+    "sha": "ae3949035e215ffbd725d4b798952e1171094806",
+    "commit": {
+      "author": {
+        "name": "Angelo",
+        "email": "angelolupo94@gmail.com",
+        "date": "2014-08-14T19:43:31Z"
+      },
+      "committer": {
+        "name": "Angelo",
+        "email": "angelolupo94@gmail.com",
+        "date": "2014-08-14T19:43:31Z"
+      },
+      "message": "rimosso codice debug",
+      "tree": {
+        "sha": "a37104da239e43606759daf9b04476024b9dbb2d",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/a37104da239e43606759daf9b04476024b9dbb2d"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/ae3949035e215ffbd725d4b798952e1171094806",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/ae3949035e215ffbd725d4b798952e1171094806",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/ae3949035e215ffbd725d4b798952e1171094806",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/ae3949035e215ffbd725d4b798952e1171094806/comments",
+    "author": {
+      "login": "AngeloLupo",
+      "id": 1773740,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1773740?v=2",
+      "gravatar_id": "c9cd854995e79c6f5008e6dd59f9fd16",
+      "url": "https://api.github.com/users/AngeloLupo",
+      "html_url": "https://github.com/AngeloLupo",
+      "followers_url": "https://api.github.com/users/AngeloLupo/followers",
+      "following_url": "https://api.github.com/users/AngeloLupo/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AngeloLupo/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AngeloLupo/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AngeloLupo/subscriptions",
+      "organizations_url": "https://api.github.com/users/AngeloLupo/orgs",
+      "repos_url": "https://api.github.com/users/AngeloLupo/repos",
+      "events_url": "https://api.github.com/users/AngeloLupo/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AngeloLupo/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "AngeloLupo",
+      "id": 1773740,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1773740?v=2",
+      "gravatar_id": "c9cd854995e79c6f5008e6dd59f9fd16",
+      "url": "https://api.github.com/users/AngeloLupo",
+      "html_url": "https://github.com/AngeloLupo",
+      "followers_url": "https://api.github.com/users/AngeloLupo/followers",
+      "following_url": "https://api.github.com/users/AngeloLupo/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AngeloLupo/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AngeloLupo/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AngeloLupo/subscriptions",
+      "organizations_url": "https://api.github.com/users/AngeloLupo/orgs",
+      "repos_url": "https://api.github.com/users/AngeloLupo/repos",
+      "events_url": "https://api.github.com/users/AngeloLupo/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AngeloLupo/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "dbebeadd34638536ecfbc5e45cead0fe0fb523d2",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/dbebeadd34638536ecfbc5e45cead0fe0fb523d2",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/dbebeadd34638536ecfbc5e45cead0fe0fb523d2"
+      }
+    ]
+  },
+  {
+    "sha": "dbebeadd34638536ecfbc5e45cead0fe0fb523d2",
+    "commit": {
+      "author": {
+        "name": "Angelo",
+        "email": "angelolupo94@gmail.com",
+        "date": "2014-08-14T19:39:00Z"
+      },
+      "committer": {
+        "name": "Angelo",
+        "email": "angelolupo94@gmail.com",
+        "date": "2014-08-14T19:39:00Z"
+      },
+      "message": "fix #1266, ricerca per codice, sessione e richiesta",
+      "tree": {
+        "sha": "7008659ea5ce59f2ec6447f2744fab9a00538837",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/7008659ea5ce59f2ec6447f2744fab9a00538837"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/dbebeadd34638536ecfbc5e45cead0fe0fb523d2",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/dbebeadd34638536ecfbc5e45cead0fe0fb523d2",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/dbebeadd34638536ecfbc5e45cead0fe0fb523d2",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/dbebeadd34638536ecfbc5e45cead0fe0fb523d2/comments",
+    "author": {
+      "login": "AngeloLupo",
+      "id": 1773740,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1773740?v=2",
+      "gravatar_id": "c9cd854995e79c6f5008e6dd59f9fd16",
+      "url": "https://api.github.com/users/AngeloLupo",
+      "html_url": "https://github.com/AngeloLupo",
+      "followers_url": "https://api.github.com/users/AngeloLupo/followers",
+      "following_url": "https://api.github.com/users/AngeloLupo/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AngeloLupo/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AngeloLupo/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AngeloLupo/subscriptions",
+      "organizations_url": "https://api.github.com/users/AngeloLupo/orgs",
+      "repos_url": "https://api.github.com/users/AngeloLupo/repos",
+      "events_url": "https://api.github.com/users/AngeloLupo/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AngeloLupo/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "AngeloLupo",
+      "id": 1773740,
+      "avatar_url": "https://avatars.githubusercontent.com/u/1773740?v=2",
+      "gravatar_id": "c9cd854995e79c6f5008e6dd59f9fd16",
+      "url": "https://api.github.com/users/AngeloLupo",
+      "html_url": "https://github.com/AngeloLupo",
+      "followers_url": "https://api.github.com/users/AngeloLupo/followers",
+      "following_url": "https://api.github.com/users/AngeloLupo/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AngeloLupo/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AngeloLupo/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AngeloLupo/subscriptions",
+      "organizations_url": "https://api.github.com/users/AngeloLupo/orgs",
+      "repos_url": "https://api.github.com/users/AngeloLupo/repos",
+      "events_url": "https://api.github.com/users/AngeloLupo/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AngeloLupo/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "c6f335b7e1b75b6b549496df28d214dd7be87240",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/c6f335b7e1b75b6b549496df28d214dd7be87240",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/c6f335b7e1b75b6b549496df28d214dd7be87240"
+      }
+    ]
+  },
+  {
+    "sha": "c6f335b7e1b75b6b549496df28d214dd7be87240",
+    "commit": {
+      "author": {
+        "name": "Alfio Emanuele",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-04T16:20:02Z"
+      },
+      "committer": {
+        "name": "Alfio Emanuele",
+        "email": "alfio.emanuele.f@gmail.com",
+        "date": "2014-08-04T16:20:02Z"
+      },
+      "message": "Merge pull request #1260 from AngeloLupo/master\n\nFix #1257",
+      "tree": {
+        "sha": "084102f82486af630cdaf22a02ffdbae9addb4ae",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/trees/084102f82486af630cdaf22a02ffdbae9addb4ae"
+      },
+      "url": "https://api.github.com/repos/CroceRossaCatania/gaia/git/commits/c6f335b7e1b75b6b549496df28d214dd7be87240",
+      "comment_count": 0
+    },
+    "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/c6f335b7e1b75b6b549496df28d214dd7be87240",
+    "html_url": "https://github.com/CroceRossaCatania/gaia/commit/c6f335b7e1b75b6b549496df28d214dd7be87240",
+    "comments_url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/c6f335b7e1b75b6b549496df28d214dd7be87240/comments",
+    "author": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "AlfioEmanueleFresta",
+      "id": 621062,
+      "avatar_url": "https://avatars.githubusercontent.com/u/621062?v=2",
+      "gravatar_id": "ccd7d12972a5141f52a2104bb40acaa0",
+      "url": "https://api.github.com/users/AlfioEmanueleFresta",
+      "html_url": "https://github.com/AlfioEmanueleFresta",
+      "followers_url": "https://api.github.com/users/AlfioEmanueleFresta/followers",
+      "following_url": "https://api.github.com/users/AlfioEmanueleFresta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/AlfioEmanueleFresta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/AlfioEmanueleFresta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/AlfioEmanueleFresta/subscriptions",
+      "organizations_url": "https://api.github.com/users/AlfioEmanueleFresta/orgs",
+      "repos_url": "https://api.github.com/users/AlfioEmanueleFresta/repos",
+      "events_url": "https://api.github.com/users/AlfioEmanueleFresta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/AlfioEmanueleFresta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "f9466313cd5a4c8d596900b7a0cc86ff19c56e79",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/f9466313cd5a4c8d596900b7a0cc86ff19c56e79",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/f9466313cd5a4c8d596900b7a0cc86ff19c56e79"
+      },
+      {
+        "sha": "09447b9c0aa25cac0cfdc13ca5e6b55ce3c9554d",
+        "url": "https://api.github.com/repos/CroceRossaCatania/gaia/commits/09447b9c0aa25cac0cfdc13ca5e6b55ce3c9554d",
+        "html_url": "https://github.com/CroceRossaCatania/gaia/commit/09447b9c0aa25cac0cfdc13ca5e6b55ce3c9554d"
+      }
+    ]
+  }
+]
