@@ -450,7 +450,7 @@ CREATE TABLE IF NOT EXISTS `lezioni` (
   PRIMARY KEY (`id`),
   KEY `inizio` (`inizio`),
   KEY `corso` (`corso`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `lezioni_assenze` (
   `id` int(11) NOT NULL,
@@ -460,7 +460,7 @@ CREATE TABLE IF NOT EXISTS `lezioni_assenze` (
   `tConferma` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `lezione` (`lezione`,`utente`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `locali` (
   `id` int(11) NOT NULL,
