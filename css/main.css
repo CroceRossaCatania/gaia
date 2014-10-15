@@ -1,5 +1,6 @@
 body {
     padding-bottom: 40px;
+    font-family: 'Telex';
 }
 
 
@@ -67,10 +68,11 @@ body {
 
 .scritta-cri {
     color: rgb(204,0,0) !important;
+    font-family: "arial" !important;
 }
 
 .scritta-gaia {
-    color: rgb(0,0,0) !important;
+    font-family: "arial" !important;
 }
 
 .hero-unit p, .hero-unit h1 {
@@ -205,8 +207,7 @@ body {
     }
     
     #rollerComitati {
-        font-size: larger;
-        color: #333;
+        font-size: x-large;
         font-weight: bold;
     }
 
@@ -412,10 +413,23 @@ body {
 .modal {
   overflow-y: visible;
 }
+
 .modal .modal-body {
   max-height: 420px;
   overflow-y: auto;
 }
 .modal.fade.in {
   top: 5%;
+}
+
+.blocco-con-sfondo {
+  padding: 60px 20px;
+  margin: 0px -20px;
+  text-shadow: 0px 0px 2px white, 0px 0px 4px white, 0px 0px 1px white;
+  font-size: larger;
+}
+
+.blocco-con-sfondo h3 {
+  color: white;
+  text-shadow: 0px 0px 3px black, 0px 0px 5px black, 0px 0px 2px black;
 }
