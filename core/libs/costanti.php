@@ -107,6 +107,20 @@ define('ATTIVITA_PUBBLICA',		1);
 
 /*
  * ===================================
+ * ========STATO ATTIVITA ============
+ * ===================================
+ */
+
+define('ATTIVITA_CHIUSA',      0);
+define('ATTIVITA_APERTA',     10);
+
+$conf['attivita_stato'] = [
+    ATT_CHIUSA     =>  'Attività chiusa',
+    ATT_APERTA     =>  'Attività attiva'
+];
+
+/*
+ * ===================================
  * =========== AUTORIZZAZIONE ========
  * ===================================
  */
