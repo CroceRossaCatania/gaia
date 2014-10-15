@@ -135,8 +135,8 @@ richiediComitato();
                         <td colspan="4">
                             <a id="mostraTuttiTurni" class="btn btn-block">
                                 <i class="icon-info-sign"></i>
-                                Ci sono <span id="numTurniNascosti"></span> turni passati nascoste.
-                                <strong>Clicca per mostrare i turni passati nascoste.</strong>
+                                Ci sono <span id="numTurniNascosti"></span> turni passati nascosti.
+                                <strong>Clicca per mostrare i turni passati nascosti.</strong>
                             </a>
                         </td>
                     </tr>     
