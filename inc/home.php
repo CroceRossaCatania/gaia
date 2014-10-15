@@ -133,7 +133,7 @@ paginaPubblica();
             <h3>&Egrave; arrivato Gaia per Android.</h3>
 
             <a href="https://play.google.com/store/apps/details?id=it.gaiacri.mobile">
-                <img src="http://developer.android.com/images/brand/it_generic_rgb_wo_45.png" 
+                <img src="https://developer.android.com/images/brand/it_generic_rgb_wo_45.png" 
                      alt="Applicazione Gaia per Android disponibile sul Play Store di Google" />
             </a>
 
