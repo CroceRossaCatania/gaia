@@ -397,12 +397,15 @@ if (isset($_GET['unit'])) {
         $v = array_merge($v, $comitato->membriOrdinari());
     }
     if(!$v) { redirect('utente.me&nodest'); }
-    $m = new Email('mailTestolibero', ''.$oggetto);
-    $m->da = $me; 
-    $m->a = $volontari;
-    $m->_TESTO = $testo;
-    $m->accoda();
-
+    foreach ($v as $_v){
+        if ($_v->email){
+            $m = new Email('mailTestolibero', ''.$oggetto);
+            $m->da = $me; 
+            $m->a = $_v;
+            $m->_TESTO = $testo;
+            $m->accoda();
+        }
+    }
 } elseif(isset($_GET['ordinariunit'])) {
     $c = $_GET['id'];
     $c = Comitato::id($c);
