@@ -398,13 +398,15 @@ if (isset($_GET['unit'])) {
     }
     if(!$v) { redirect('utente.me&nodest'); }
     foreach ($v as $_v){
-        if ($_v->email){
-            $m = new Email('mailTestolibero', ''.$oggetto);
-            $m->da = $me; 
-            $m->a = $_v;
-            $m->_TESTO = $testo;
-            $m->accoda();
-        }
+        try {
+              $m = new Email('mailTestolibero', ''.$oggetto);
+              $m->da = $me; 
+              $m->a = $_v; 
+              $m->_TESTO = $testo;
+              $m->accoda();
+            } catch ( Errore $e ) {
+              // Questo volontario non ha email, non faccio niente...
+            }
     }
 } elseif(isset($_GET['ordinariunit'])) {
     $c = $_GET['id'];
