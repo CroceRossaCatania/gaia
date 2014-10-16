@@ -23,7 +23,7 @@ $m = new Email('direttoreCorsoBase', 'Direttore Corso Base');
 $m->_NOME       = $direttore->nome;
 $m->_ATTIVITA   = $corsoBase->nome();
 $m->_COMITATO   = $corsoBase->organizzatore()->nomeCompleto();
-$m->a = $referente;
+$m->a = $direttore;
 $m->accoda();
 
 

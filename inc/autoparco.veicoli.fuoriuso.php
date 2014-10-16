@@ -99,9 +99,6 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                                     <i class="icon-credit-card"></i> Rifornimento
                                 </a>
                                 <?php if ( $me->admin() ){ ?>
-                                    <a  href="?p=autoparco.veicolo.modifica&id=<?= $veicolo->id; ?>" title="Modifica Veicolo" class="btn btn-small btn-info">
-                                        <i class="icon-edit"></i> Modifica
-                                    </a>
                                     <a  onClick="return confirm('Vuoi veramente cancellare questo veicolo ?');" href="?p=autoparco.veicolo.cancella&id=<?= $veicolo->id; ?>" title="Cancella Veicolo" class="btn btn-small btn-danger">
                                         <i class="icon-trash"></i> Cancella
                                     </a>
