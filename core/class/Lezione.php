@@ -13,7 +13,7 @@ class Lezione extends Entita {
 		$_t		= 'lezioni',
 		$_dt 	= null;
 
-	//use EntitaCache;
+	use EntitaCache;
 
 	/**
 	 * Ritorna il Corso collegato alla lezione
