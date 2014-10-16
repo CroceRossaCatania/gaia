@@ -50,13 +50,15 @@ $(document).ready( function() {
 <?php } ?>
 
 <div class="row-fluid">
-    <div class="span3">
-        <?php menuVolontario(); ?>
+    <?php if (!$anonimo ){ ?>
+        <div class="span3">
+            <?php menuVolontario(); ?>
+        </div>
 
-
-    </div>
-
-    <div class="span9">
+        <div class="span9">
+    <?php }else{ ?>
+        <div class="span12">
+    <?php } ?>
         <div class="row-fluid">
 
             <div class="span8 btn-group">
