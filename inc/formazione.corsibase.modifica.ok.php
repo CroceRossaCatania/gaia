@@ -30,19 +30,33 @@ if ( isset($_POST['inputDataEsame']) && (!$corso->finito() || $me->admin())) {
     }
 }
 
+if ( $_POST['inputDataattivazione'] && (!$corso->finito() || $me->admin())) {
+    $data = DT::daFormato($_POST['inputDataattivazione'], 'd/m/Y');
+    $corso->dataAttivazione = $data->getTimestamp();
+    $corso->opAttivazione   = $_POST['inputOpattivazione'];
+}
+
+if ( $_POST['inputDataconvocazione'] && (!$corso->finito() || $me->admin())) {
+    $data = DT::daFormato($_POST['inputDataconvocazione'], 'd/m/Y');
+    $corso->dataConvocazione = $data->getTimestamp();
+    $corso->opConvocazione   = $_POST['inputOpconvocazione'];
+}
+
 if($corso->stato == CORSO_S_DACOMPLETARE){
 
     $corso->stato = CORSO_S_ATTIVO;
-
     $aspiranti = $corso->potenzialiAspiranti();
-
     foreach($aspiranti as $aspirante) {
+        $utente = $aspirante->utente();
+        if ( !$utente ) {
+            $aspirante->cancella();
+        }
         $m = new Email('corsoBaseAttivato', 'Nuovo Corso per Volontari CRI');
-        $m->a = $aspirante;
-        $m->_ASPIRANTE = $aspirante->nome;
+        $m->a = $utente;
+        $m->_ASPIRANTE = $utente->nome;
         $m->_DESCRIZIONE = $corso->descrizione;
-        $m->_COMITATO = $comitato->nomeCompleto();
-        $m->_INIZIO = $data->inTesto();
+        $m->_COMITATO = $corso->organizzatore()->nomeCompleto();
+        $m->_INIZIO = $corso->inizio()->inTesto();
         $m->accoda();
     }
 }

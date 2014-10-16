@@ -288,6 +288,8 @@ $conf['titoli'] = [
 	TITOLO_CRI       	    =>	['Titolo di Croce Rossa',	true,	true,	false]
 ];
 
+
+
 /*
  * ===================================
  * =========== FINE APP. =============
@@ -296,6 +298,7 @@ $conf['titoli'] = [
 
 /* 0 => Nessuna scadenza! */
 define('PROSSIMA_SCADENZA', 0);
+
 
 /*
  * ===================================
@@ -318,8 +321,8 @@ $conf['applicazioni'] = [
     APP_OBIETTIVO   =>  "Obiettivo strategico",
     APP_CO          =>  "Centrale Operativa",
     APP_SOCI        =>  "Ufficio Soci",
-    APP_PATENTI     => "Ufficio Patenti",
-    APP_FORMAZIONE  => "Resp. Formazione"
+    APP_PATENTI     =>  "Ufficio Patenti",
+    APP_FORMAZIONE  =>  "Resp. Formazione"
 ];
 
 /*
@@ -725,6 +728,7 @@ $conf['partecipazioneBase'] = [
 define('POSTA_INGRESSO',        0);
 define('POSTA_USCITA',          1);
 
+
 /*
  * ===================================
  * ==== TESSERINO TIPO RICHIESTA =====
@@ -740,6 +744,7 @@ $conf['tesseriniTipo'] = [
     RINNOVO         =>  'Rinnovo',
     DUPLICATO       =>  'Duplicato', 
 ];  
+
 
 /*
  * ===================================
@@ -769,6 +774,7 @@ $conf['tesseriniStatoBreve'] = [
     SPEDITO_COMITATO    =>  'Emesso', 
 ];  
 
+
 /*
  * ===================================
  * ======== ORIENTAMENTO PDF =========
@@ -777,6 +783,7 @@ $conf['tesseriniStatoBreve'] = [
 
 define('ORIENTAMENTO_ORIZZONTALE',        'landscape');
 define('ORIENTAMENTO_VERTICALE',          'portrait');
+
 
 /*
  * ===================================

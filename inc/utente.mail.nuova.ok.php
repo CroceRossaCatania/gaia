@@ -397,12 +397,17 @@ if (isset($_GET['unit'])) {
         $v = array_merge($v, $comitato->membriOrdinari());
     }
     if(!$v) { redirect('utente.me&nodest'); }
-    $m = new Email('mailTestolibero', ''.$oggetto);
-    $m->da = $me; 
-    $m->a = $volontari;
-    $m->_TESTO = $testo;
-    $m->accoda();
-
+    foreach ($v as $_v){
+        try {
+              $m = new Email('mailTestolibero', ''.$oggetto);
+              $m->da = $me; 
+              $m->a = $_v; 
+              $m->_TESTO = $testo;
+              $m->accoda();
+            } catch ( Errore $e ) {
+              // Questo volontario non ha email, non faccio niente...
+            }
+    }
 } elseif(isset($_GET['ordinariunit'])) {
     $c = $_GET['id'];
     $c = Comitato::id($c);

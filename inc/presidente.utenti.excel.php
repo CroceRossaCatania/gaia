@@ -247,11 +247,22 @@ if(isset($_GET['dimessi'])){
         'N.',
         'Nome',
         'Cognome',
-        'C. Fiscale',
         'Data Nascita',
         'Luogo Nascita',
         'Provincia Nascita',
-        'Ingresso in CRI'
+        'C. Fiscale',
+        'Indirizzo Res.',
+        'Civico',
+        'Comune Res.',
+        'Cap Res.',
+        'Provincia Res.',
+        'eMail',
+        'Cellulare',
+        'Cell. Servizio',
+        'Data ingresso CRI',
+        'N. Quota',
+        'Data versamento',
+        'Importo'
         ]);
 
     foreach ( $c->quoteSi($anno, MEMBRO_ORDINARIO) as $v ) {
@@ -260,11 +271,22 @@ if(isset($_GET['dimessi'])){
             $i,
             $v->nome,
             $v->cognome,
-            $v->codiceFiscale,
             date('d/m/Y', $v->dataNascita),
             $v->comuneNascita,
             $v->provinciaNascita,
-            $v->ingresso()->format("d/m/Y")
+            $v->codiceFiscale,
+            $v->indirizzo,
+            $v->civico,
+            $v->comuneResidenza,
+            $v->CAPResidenza,
+            $v->provinciaResidenza,
+            $v->email,
+            $v->cellulare,
+            $v->cellulareServizio,
+            $v->ingresso()->format("d/m/Y"),
+            $v->quota($anno)->progressivo(),
+            $v->quota($anno)->dataPagamento()->format("d/m/Y"),
+            $v->quota($anno)->quota
             ]);
         
     }
@@ -290,11 +312,23 @@ if(isset($_GET['dimessi'])){
         'N.',
         'Nome',
         'Cognome',
-        'C. Fiscale',
         'Data Nascita',
         'Luogo Nascita',
         'Provincia Nascita',
-        'Ingresso in CRI'
+        'C. Fiscale',
+        'Indirizzo Res.',
+        'Civico',
+        'Comune Res.',
+        'Cap Res.',
+        'Provincia Res.',
+        'eMail',
+        'eMail Servizio',
+        'Cellulare',
+        'Cell. Servizio',
+        'Data ingresso CRI',
+        'N. Quota',
+        'Data versamento',
+        'Importo'
         ]);
 
     foreach ( $c->quoteSi($anno) as $v ) {
@@ -303,11 +337,23 @@ if(isset($_GET['dimessi'])){
             $i,
             $v->nome,
             $v->cognome,
-            $v->codiceFiscale,
             date('d/m/Y', $v->dataNascita),
             $v->comuneNascita,
             $v->provinciaNascita,
-            $v->ingresso()->format("d/m/Y")
+            $v->codiceFiscale,
+            $v->indirizzo,
+            $v->civico,
+            $v->comuneResidenza,
+            $v->CAPResidenza,
+            $v->provinciaResidenza,
+            $v->email,
+            $v->emailServizio,
+            $v->cellulare,
+            $v->cellulareServizio,
+            $v->ingresso()->format("d/m/Y"),
+            $v->quota($anno)->progressivo(),
+            $v->quota($anno)->dataPagamento()->format("d/m/Y"),
+            $v->quota($anno)->quota
             ]);
         
     }

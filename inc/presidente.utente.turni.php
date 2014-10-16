@@ -22,14 +22,8 @@ $v = Volontario::id($v);
         <p>Volontario: <strong><?= $v->nomeCompleto(); ?></strong></p>
     </div>
             
-            <div class="span3">
-                <div class="btn-group btn-group-vertical span12">
-                    <a href="?p=presidente.turni.zero" class="btn btn-block">
-                        <i class="icon-reply"></i>
-                        Torna indietro
-                    </a>
-                </div>
-            </div>
+        <div class="span3">
+        </div>
     
     <div class="span4 allinea-destra">
         <div class="input-prepend">

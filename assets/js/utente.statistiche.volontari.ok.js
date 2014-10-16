@@ -1,18 +1,18 @@
 function volontari(datiComitato){
   var jsondata = [
-  {"età": '14 - 17', maschi: 0, femmine: 0},
-  {"età": '18 - 31', maschi: 0, femmine: 0},
-  {"età": '32 - 44', maschi: 0, femmine: 0},
-  {"età": '45 - 54', maschi: 0, femmine: 0},
-  {"età": '55 - 64', maschi: 0, femmine: 0},
-  {"età": '65+',     maschi: 0, femmine: 0}
+  {"età": '14 - 17', uomini: 0, donne: 0},
+  {"età": '18 - 31', uomini: 0, donne: 0},
+  {"età": '32 - 44', uomini: 0, donne: 0},
+  {"età": '45 - 54', uomini: 0, donne: 0},
+  {"età": '55 - 64', uomini: 0, donne: 0},
+  {"età": '65+',     uomini: 0, donne: 0}
   ];
 
   function sceglisesso(sesso, arpos) {
     switch (sesso) {
-      case 'M': jsondata[arpos]['maschi']++;
+      case 'M': jsondata[arpos]['uomini']++;
                 break;
-      case 'F': jsondata[arpos]['femmine']++;
+      case 'F': jsondata[arpos]['donne']++;
                 break;
     };
   }
@@ -47,13 +47,13 @@ function volontari(datiComitato){
 
 
   polyjs.chart({
-    title: 'Maschi',
+    title: 'uomini',
     dom: 'graficosx',
     layer: {
         data: polyjs.data({data: jsondata}),
         type: 'bar',
         x: 'età',
-        y: 'maschi',
+        y: 'uomini',
         color: { const: 'blue' }
     },
     guide: {
@@ -62,13 +62,13 @@ function volontari(datiComitato){
     }
   });
   polyjs.chart({
-    title: 'Femmine',
+    title: 'donne',
     dom: 'graficodx',
     layer: {
         data: polyjs.data({data: jsondata}),
         type: 'bar',
         x: 'età',
-        y: 'femmine',
+        y: 'donne',
         color: { const: 'pink' }
     },
     guide: {

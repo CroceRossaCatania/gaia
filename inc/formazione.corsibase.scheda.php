@@ -7,7 +7,7 @@
 paginaAnonimo();
 caricaSelettore();
 
-controllaParametri(array('id'));
+controllaParametri(['id']);
 
 $corso = CorsoBase::id($_GET['id']);
 
@@ -50,13 +50,15 @@ $(document).ready( function() {
 <?php } ?>
 
 <div class="row-fluid">
-    <div class="span3">
-        <?php menuVolontario(); ?>
+    <?php if (!$anonimo ){ ?>
+        <div class="span3">
+            <?php menuVolontario(); ?>
+        </div>
 
-
-    </div>
-
-    <div class="span9">
+        <div class="span9">
+    <?php }else{ ?>
+        <div class="span12">
+    <?php } ?>
         <div class="row-fluid">
 
             <div class="span8 btn-group">
@@ -65,14 +67,12 @@ $(document).ready( function() {
                     <i class="icon-edit"></i>
                     Modifica
                 </a>
-                <?php } 
 
-                /*  NIENTE LEZIONI PER ORA
                 <a href="?p=formazione.corsibase.lezioni&id=<?= $corso ?>" class="btn btn-primary btn-large">
-                    <i class="icon-calendar"></i> Lezioni
+                    <i class="icon-calendar"></i> Gestisci Lezioni
                 </a>
-                */
-                ?>
+
+                <?php } ?>
                 <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://gaia.cri.it/index.php?p=formazione.corsibase.scheda&id={$corso->id}"); ?>" target="_blank">
                     <i class="icon-facebook-sign"></i> Condividi
                 </a>
@@ -239,12 +239,58 @@ $(document).ready( function() {
         <?php } ?>
 
         <div class="row-fluid">
-            <div class="span12" style="max-height: 500px; padding-right: 10px; overflow-y: auto;">
+            <div class="span7" style="max-height: 500px; padding-right: 10px; overflow-y: auto;">
                 <h3>
                     <i class="icon-info-sign"></i>
                     Ulteriori informazioni
                 </h3>
                 <?php echo nl2br($corso->descrizione); ?>
+            </div>
+            <div class="span5">
+                <div class="span6">
+                    <h3>
+                        <i class="icon-calendar"></i>
+                        Lezioni
+                    </h3>
+                </div>
+                <div class="span6 allinea-destra">
+                    <?php if ( $corso->modificabileDa($me) ){ ?>
+                        <div class="btn-group">
+                            <a class="btn btn-small" href="?p=formazione.corsibase.foglifirma&id=<?= $corso->id; ?>" title="Fogli firma">
+                                <i class="icon-download"></i> Scarica fogli firma
+                            </a>
+                        </div>
+                    <?php } ?>
+                </div>
+                <table class="table table-condensed table-striped">
+                    <thead>
+                        <th>Nome</th>
+                        <th>Data</th>
+                        <th>Inizio</th>
+                        <th>Fine</th>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $lezioni = $corso->lezioni();
+                    foreach ( $lezioni as $lezione ) { ?>
+                        <tr class="<?= $lezione->passata() ? ( $lezione->presente($me) ? 'success' : 'error' ) : 'info'; ?>">
+                            <td><?= $lezione->nome; ?></td>
+                            <td><?= $lezione->inizio()->inTesto(false); ?></td>
+                            <td><?= $lezione->inizio()->format('H:i'); ?></td>
+                            <td><?= $lezione->fine()->format('H:i'); ?></td>
+                        </tr>
+                    <?php }
+                    if (!$lezioni) { ?>
+                    <tr class="warning">
+                        <td colspan="4">
+                            <i class="icon-warning-sign"></i>
+                            Informazioni sulle lezioni non ancora disponibili.
+                            Controlla pi&ugrave; tardi.
+                        </td>
+                    </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
             </div>
         </div>
         <hr />
@@ -604,8 +650,18 @@ $(document).ready( function() {
         <!-- ELENCHI FINE CORSO -->
         
         <div class="row-fluid">
-            <div class="span12">
+            <div class="span6">
                 <h3><i class="icon-group"></i> Esiti corso</h3>
+            </div>
+            <div class="span6 allinea-destra">
+                <div class="btn-group">
+                    <a class="btn btn-small btn-success" href="?p=formazione.corsibase.valutazione&id=<?= $corso->id; ?>" title="Verbale">
+                        <i class="icon-paste"></i> Attestati, Verbale e schede esame
+                    </a>
+                    <a class="btn btn-small" href="?p=formazione.corsibase.excel&concluso&id=<?= $corso->id; ?>" title="Excel">
+                        <i class="icon-download"></i> Scarica come foglio excel
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -623,7 +679,7 @@ $(document).ready( function() {
                 $part = $corso->partecipazioni();
 
                 foreach ( $part as $p ) { 
-                    if(!$p->haConclusoCorso()) {continue; }
+                    if(!$p->haConclusoCorso()) { continue; }
                     $iscritto = $p->utente(); 
 
                     ?>
@@ -640,9 +696,19 @@ $(document).ready( function() {
                             <?= $conf['partecipazioneBase'][$p->stato]; ?>
                         </td>
                         <td width="15%">
-                            <a href="<?= "?p=profilo.controllo&id={$iscritto->id}" ?>" class="btn" target="_new" title="Dettagli">
-                                <i class="icon-eye-open"></i> Dettagli
-                            </a>
+                            <div class="btn-group-vertical">
+                                <a href="<?= "?p=profilo.controllo&id={$iscritto->id}" ?>" class="btn btn-small" target="_new" title="Dettagli">
+                                    <i class="icon-eye-open"></i> Dettagli
+                                </a>
+                                <a href="<?= "?p=formazione.corsibase.valutazione&id={$iscritto->id}&corso={$corso->id}&single" ?>" class="btn bn-small btn-info" target="_new" title="Dettagli">
+                                    <i class="icon-file-alt"></i> Scheda
+                                </a>
+                                <?php if ( $p->stato == ISCR_SUPERATO ) { ?>
+                                    <a href="<?= "?p=formazione.corsibase.attestato&id={$iscritto->id}&corso={$corso->id}" ?>" class="btn bn-small btn-primary" target="_new" title="Dettagli">
+                                        <i class="icon-certificate"></i> Attestato
+                                    </a>
+                                <?php } ?>
+                            </div>
                         </td>
                     </tr>
                 <?php } ?>

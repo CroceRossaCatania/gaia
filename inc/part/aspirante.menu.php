@@ -10,12 +10,12 @@ $menu = [];
 
 $menu += [
     '' => [
-        'aspirante.home'         =>  '<i class="icon-bolt"></i> Benvenuto'
+        'aspirante.home'     =>  '<i class="icon-bolt"></i> Benvenuto'
     ],
     'Aspirante'    =>  [
-        'utente.anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
+        'utente.anagrafica'  =>  '<i class="icon-edit"></i> Anagrafica',
         'aspirante.localita' => '<i class="icon-map-marker"></i> Dove ti trovi?',
-        'utente.posta'     =>   '<i class="icon-envelope-alt"></i> Posta'
+        'utente.posta'       =>   '<i class="icon-envelope-alt"></i> Posta'
     
     ]
 ];

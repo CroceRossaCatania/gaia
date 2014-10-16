@@ -939,4 +939,70 @@ class Comitato extends GeoPolitica {
         }
         return $r;
     }
+
+    /**
+     * Se l'unità è principale utilizza i dati del livello superiore
+     * altrimenti usa la funzione standard
+     */
+    public function haPosizione() {
+        if ($this->principale) {
+            return $this->superiore()->haPosizione();
+        }
+        parent::haPosizione();
+    }
+
+    /**
+     * Se l'unità è principale utilizza i dati del livello superiore
+     * altrimenti usa la funzione standard
+     */
+    public function linkMappa() {
+        if ($this->principale) {
+            return $this->superiore()->linkMappa();
+        }
+        parent::linkMappa();
+    }
+
+    /**
+     * Se l'unità è principale utilizza i dati del livello superiore
+     * altrimenti usa la funzione standard
+     */
+    public function coordinate() {
+        if ($this->principale) {
+            return $this->superiore()->coordinate();
+        }
+        parent::coordinate();
+    }
+    
+    /**
+     * Se l'unità è principale utilizza i dati del livello superiore
+     * altrimenti usa la funzione standard
+     */
+    public function latlng() {
+        if ($this->principale) {
+            return $this->superiore()->latlng();
+        }
+        parent::latlng();
+    }
+    
+    /**
+     * Se l'unità è principale utilizza i dati del livello superiore
+     * altrimenti usa la funzione standard
+     */
+    public function localizzaCoordinate($x, $y) {
+        if ($this->principale) {
+            return $this->superiore()->localizzaCoordinate($x, $y);
+        }
+        parent::localizzaCoordinate($x, $y);
+    }
+    
+    /**
+     * Se l'unità è principale utilizza i dati del livello superiore
+     * altrimenti usa la funzione standard
+     */
+    public function localizzaStringa($stringa) {
+        if ($this->principale) {
+            return $this->superiore()->localizzaStringa($stringa);
+        }
+        parent::localizzaStringa($stringa);
+    }
 }

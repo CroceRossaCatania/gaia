@@ -73,4 +73,43 @@ if ( isset($_GET['preiscrizioni'])){
 
     $excel->genera('Aspiranti iscritti.xls');
     $excel->download();
+
+}elseif ( isset($_GET['concluso'])){
+
+    $part = $corso->partecipazioni();
+    foreach ( $part as $p ) { 
+        if(!$p->haConclusoCorso()) { continue; }
+        $iscritto = $p->utente(); 
+    }
+
+        $excel->intestazione([
+            'Nome',
+            'Cognome',
+            'C. Fiscale',
+            'Data Nascita',
+            'Luogo Nascita',
+            'eMail',
+            'Cellulare',
+            'Data esame',
+            'Esito'
+            ]);
+        
+        foreach ( $part as $p ) { 
+            $iscritto = $p->utente();
+
+            $excel->aggiungiRiga([
+                $iscritto->nome,
+                $iscritto->cognome,
+                $iscritto->codiceFiscale,
+                date('d/m/Y', $iscritto->dataNascita),
+                $iscritto->comuneNascita,
+                $iscritto->email,
+                $iscritto->cellulare,
+                date ('d/m/Y', $iscritto->tAttestato),
+                $conf['partecipazioneBase'][$p->stato]
+                ]);
+        }
+
+    $excel->genera('Esiti iscritti.xls');
+    $excel->download();
 }

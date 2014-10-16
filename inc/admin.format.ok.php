@@ -51,7 +51,7 @@ if(isset($_POST['ordinario'])){
             continue;
         }
 
-        if (isset($_POST['cancellaCsv'])) {
+        if (isset($_POST['cancellaCsv']) && $v) {
             $v->cancellaUtente();
             continue;
         }

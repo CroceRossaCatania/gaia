@@ -15,7 +15,7 @@ if ( $veicolo ){
     /* Mica posso vedere o modificare i veicoli di altri */
     proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
 
-    if ( $veicolo->stato == VEI_FUORIUSO ) {
+    if ( $veicolo->stato == VEI_FUORIUSO || !$me->admin() ) {
         $x=1;
     }
 }
@@ -249,6 +249,34 @@ if ( $veicolo ){
                 <label class="control-label" for="inputRegime">Regime del motore <b>(U.2)</b></label>
                 <div class="controls">
                     <input class="input-large" type="text" value="<?= $veicolo->regime; ?>" name="inputRegime" id="inputRegime" placeholder="3500" required <?php if ($x) { ?> readonly <?php } ?>>
+                </div>
+            </div>
+        </div>
+        <div class="span12">
+            <hr/>
+            <h3>Informazioni aggiuntive</h3>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="control-group">
+                    <label class="control-label" for="inputTelepass">Numero Telepass</label>
+                    <div class="controls">
+                        <input class="input-large" type="text" value="<?= $veicolo->telepass; ?>" name="inputTelepass" id="inputTelepass" <?php if ($x) { ?> readonly <?php } ?>>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputCard">Card rifornimento</label>
+                    <div class="controls">
+                        <input class="input-large" type="text" value="<?= $veicolo->card; ?>" name="inputCard" id="inputCard" <?php if ($x) { ?> readonly <?php } ?>>
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="control-group">
+                    <label class="control-label" for="inputSelettiva">Selettiva radio</label>
+                    <div class="controls">
+                        <input class="input-large" type="text" value="<?= $veicolo->selettiva; ?>" name="inputSelettiva" id="inputSelettiva" <?php if ($x) { ?> readonly <?php } ?>>
+                    </div>
                 </div>
             </div>
         </div>

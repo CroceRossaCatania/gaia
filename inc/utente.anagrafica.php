@@ -67,7 +67,7 @@ if(isset($_GET['tessok']) || isset($_GET['tesserr'])) {
             <div class="control-group">
               <label class="control-label" for="inputDataNascita">Data di Nascita</label>
               <div class="controls">
-                <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" readonly value="<?php echo date('d-m-Y', $me->dataNascita); ?>">
+                <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" readonly value="<?php echo date('d/m/Y', $me->dataNascita); ?>">
                 <acronym title="Per modificare, contatta supporto@gaia.cri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
 
               </div>

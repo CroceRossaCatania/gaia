@@ -292,6 +292,10 @@ class Utente extends Persona {
                 if($_p->validaPerAnzianita(PERSONA)) {
                     return $_p;
                 }
+            } elseif ($this->stato == ASPIRANTE) {
+                if($_p->validaPerAnzianita(ASPIRANTE)) {
+                    return $_p;
+                }
             }
         }
         return null;
@@ -725,7 +729,8 @@ class Utente extends Persona {
                 $this->comitatiApp([
                     APP_PRESIDENTE,
                     APP_SOCI,
-                    APP_OBIETTIVO
+                    APP_OBIETTIVO,
+                    APP_AUTOPARCO
                 ], false),
                 $this->geopoliticheAttivitaReferenziate(),
                 $this->geopoliticheGruppiReferenziati  (),
@@ -785,7 +790,8 @@ class Utente extends Persona {
                 ['volontario',  $this->id]
             ], 'timestamp DESC');
         }
-    }    
+    }
+    
     
     public function trasferimenti($stato = null) {
         if ( $stato ) {
@@ -990,9 +996,10 @@ class Utente extends Persona {
     }
     
     
-    public function attivitaReferenziate() {
+    public function attivitaReferenziate($apertura = ATT_APERTA) {
         return Attivita::filtra([
-            ['referente',   $this->id]
+            ['referente',   $this->id],
+            ['apertura', $apertura]
         ], 'nome ASC');
     }
 
@@ -1056,22 +1063,19 @@ class Utente extends Persona {
         return array_unique($r);
     }
     
-    public function attivitaAreeDiCompetenza() {
+    public function attivitaAreeDiCompetenza($apertura = ATT_APERTA) {
         $r = [];
         foreach ( $this->areeDiCompetenza() as $area ) {
-            $r = array_merge($r, $area->attivita());
+            $r = array_merge($r, $area->attivita($apertura));
         }
         $r = array_unique($r);
         return $r;
     }
     
-    public function attivitaDiGestione() {
-        if ( $this->admin() ) {
-            return [];
-        }
-        $a = array_merge($this->attivitaReferenziate(), $this->attivitaAreeDiCompetenza());
+    public function attivitaDiGestione($apertura = ATT_APERTA) {
+        $a = array_merge($this->attivitaReferenziate($apertura), $this->attivitaAreeDiCompetenza($apertura));
         foreach ( $this->comitatiDiCompetenza() as $c ) {
-            $a = array_merge($a, $c->attivita());
+            $a = array_merge($a, $c->attivita($apertura));
         }
         return array_unique($a);
     }
@@ -1095,6 +1099,16 @@ class Utente extends Persona {
     public function corsiBaseDiretti() {
         return CorsoBase::filtra([
             ['direttore', $this->id]
+            ]);
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi base a cui ho richiesto partecipazione
+     * @return PartecipazioneBase elenco dei corsi a cui mi sono rpeiscritto o iscritto 
+     */
+    public function corsiBase() {
+        return PartecipazioneBase::filtra([
+            ['volontario', $this->id]
             ]);
     }
 
@@ -1497,14 +1511,14 @@ class Utente extends Persona {
         return null;        
     }
 
-	public function trasformaInVolontario(Utente $trasformatore) {
+    public function trasformaInVolontario(Utente $trasformatore) {
         if(!$this->stato == ASPIRANTE) {
             return false;
         }
         $app = $this->appartenenzaAttuale();
         $ora = time();
         $comitato = $app->comitato;
-        $app->fine = $time;
+        $app->fine = $ora;
         $this->stato = VOLONTARIO;
         $nuovaApp = new Appartenenza();
         $nuovaApp->volontario = $this;
@@ -1987,4 +2001,5 @@ class Utente extends Persona {
             return false;
         }
     }
+
 }

@@ -41,7 +41,7 @@ class Excel extends File {
         foreach ( $this->righe as $riga ) {
             $s .= '<tr>';
             foreach ( $riga as $cont ) {
-                $s .= '<td style="min-width: 200px;">';
+                $s .= '<td style="min-width: 200px;" class="excel-text">';
                 $s .= $cont;
                 $s .= '</td>';
             }

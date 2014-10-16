@@ -193,6 +193,7 @@ CREATE TABLE IF NOT EXISTS `corsibase` (
   `descrizione` text,
   `stato` int(11) DEFAULT NULL,
   `aggiornamento` varchar(64) DEFAULT NULL,
+  `tEsame` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `organizzatore` (`organizzatore`),
   KEY `direttore` (`direttore`),
@@ -297,6 +298,13 @@ CREATE TABLE IF NOT EXISTS `dettagliAutoparco` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `dettagliComitato` (
+  `id` varchar(128) NOT NULL DEFAULT '',
+  `nome` varchar(32) NOT NULL DEFAULT '',
+  `valore` text,
+  PRIMARY KEY (`id`,`nome`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `dettagliCorsibase` (
   `id` varchar(128) NOT NULL DEFAULT '',
   `nome` varchar(32) NOT NULL DEFAULT '',
   `valore` text,
@@ -432,6 +440,27 @@ CREATE TABLE IF NOT EXISTS `gruppiPersonali` (
   KEY `volontario` (`volontario`),
   KEY `comitato` (`comitato`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `lezioni` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) DEFAULT NULL,
+  `inizio` int(11) DEFAULT NULL,
+  `fine` int(11) DEFAULT NULL,
+  `corso` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `inizio` (`inizio`),
+  KEY `corso` (`corso`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `lezioni_assenze` (
+  `id` int(11) NOT NULL,
+  `lezione` int(11) DEFAULT NULL,
+  `utente` int(11) DEFAULT NULL,
+  `pConferma` int(11) DEFAULT NULL,
+  `tConferma` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lezione` (`lezione`,`utente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `locali` (
   `id` int(11) NOT NULL,

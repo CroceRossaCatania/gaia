@@ -62,6 +62,11 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
         <i class="icon-warning-sign"></i> <strong>Veicolo fuori uso</strong>.
         Non puoi registrare ulteriori informazioni su veicoli dichiarati fuori uso
     </div>
+<?php }elseif ( isset($_GET['gia']) ) { ?>
+    <div class="alert alert-error">
+        <i class="icon-warning-sign"></i> <strong>Collocazione già registrata</strong>.
+        Il veicolo si trova già dove hai specificato
+    </div>
 <?php } ?>
 <?php if (isset($_GET['err'])) { ?>
     <div class="alert alert-block alert-error">
@@ -107,7 +112,6 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
             <thead>
                 <th>Targa</th>
                 <th>Destinazione ed uso</th>
-                <!--<th>Km Attuali</th>-->
                 <th>Consumo Medio [l/100km]</th>
                 <th>Collocazione</th>
                 <th>Fermo tecnico</th>
@@ -121,7 +125,6 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                     <tr>
                         <td><?= $veicolo->targa; ?></td>
                         <td><?= $veicolo->uso; ?></td>
-                        <!--<td><?= "in sviluppo"; ?></td>-->
                         <td><?= $veicolo->consumoMedio(); ?></td>
                         <td><?= $veicolo->collocazione(); ?></td>
                         <td><?= $veicolo->fermoTecnicoDettagli(); ?></td>

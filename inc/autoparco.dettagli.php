@@ -41,7 +41,7 @@ $admin = $me->admin();
           <div class="control-group">
             <label class="control-label" for="inputNome">Nome autoparco</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" name="inputNome" id="inputNome" value="<?= $autoparco->nome; ?>" required <?php if ( !$admin ) { ?> readonly <?php } ?>>
+              <input type="text" class="input-xlarge" name="inputNome" id="inputNome" value="<?= $autoparco->nome; ?>" required >
             </div>
           </div>
           
@@ -55,7 +55,7 @@ $admin = $me->admin();
             <div class="control-group">
               <label class="control-label" for="inputComitato">Comitato</label>
               <div class="controls">
-                <input class="input-xlarge" type="text" name="inputComitato" id="inputComitato" value="<?= GeoPolitica::daOid($autoparco->comitato)->nomeCompleto(); ?>" <?php if ( !$admin ) { ?> readonly <?php } ?>>
+                <input class="input-xlarge" type="text" name="inputComitato" id="inputComitato" value="<?= GeoPolitica::daOid($autoparco->comitato)->nomeCompleto(); ?>" readonly>
               </div>
           </div>
           <?php }else{ ?>
@@ -65,7 +65,7 @@ $admin = $me->admin();
                   <select class="input-xlarge" id="inputComitato" name="inputComitato" required>
                       <?php
                       foreach ( $me->comitatiApp ([ APP_AUTOPARCO, APP_PRESIDENTE ]) as $comitato ) { ?>
-                          <option value="<?= $comitato->oid(); ?>"><?= $comitato->nomeCompleto(); ?></option>
+                          <option value="<?= $comitato->oid(); ?>" <?php if ( $comitato->oid() == $autoparco->comitato ) { ?>selected<?php } ?>><?= $comitato->nomeCompleto(); ?></option>
                       <?php } ?>
                   </select>   
                 </div>

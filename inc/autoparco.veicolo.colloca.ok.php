@@ -21,8 +21,10 @@ foreach ( $collocazioni as $collocazione ){
 $collocazioni = Collocazione::filtra([['veicolo', $veicolo],['fine', null]]);
 
 if ( $collocazioni ){
+  $inizio = @DateTime::createFromFormat('d/m/Y H:i', $_POST['inputData']);
+  $inizio = @$inizio->getTimestamp();
   $collocazione = Collocazione::id($collocazioni[0]);
-  $collocazione->fine = time();
+  $collocazione->fine = $inizio;
   $collocazione->pFine = $me;
   $collocazione->tFine = time();
 
@@ -30,7 +32,7 @@ if ( $collocazioni ){
 
   $collocazione->veicolo = $veicolo;
   $collocazione->autoparco = $autoparco;
-  $collocazione->inizio = time();
+  $collocazione->inizio = $inizio;
   $collocazione->pConferma = $me;
   $collocazione->tConferma = time();
 
@@ -39,9 +41,11 @@ if ( $collocazioni ){
 
 $collocazione = new Collocazione();
 
+$inizio = @DateTime::createFromFormat('d/m/Y H:i', $_POST['inputData']);
+$inizio = @$inizio->getTimestamp();
 $collocazione->veicolo = $veicolo;
 $collocazione->autoparco = $autoparco;
-$collocazione->inizio = time();
+$collocazione->inizio = $inizio;
 $collocazione->pConferma = $me;
 $collocazione->tConferma = time();
 

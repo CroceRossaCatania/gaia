@@ -79,6 +79,16 @@ $part = $corso->partecipazioni(ISCR_CONFERMATA);
                             </label>
                         </td>
                     </tr>
+                    <tr class="nascosto" id="arg_p1_<?= $p->id; ?>">
+                        <td colspan="1">
+                           Argomenti: 
+                        </td>
+                        <td colspan="3">
+                            <label class="controls">
+                                <input class="arg_p1_<?= $p->id; ?>" type="text" name="arg_p1_<?= $p->id; ?>" placeholder="Es: Storia della CRI, DIU">
+                            </label>
+                        </td>
+                    </tr>
                     <tr class="nascosto" id="opt_p2_<?= $p->id; ?>">
                         <td colspan="2">
                            Parte 2: Gesti e manovre salvavita 
@@ -95,6 +105,16 @@ $part = $corso->partecipazioni(ISCR_CONFERMATA);
                                 <input class="p2_<?= $p->id; ?>" type="radio" name="p2_<?= $p->id; ?>" id="cf2_<?= $p->id; ?>"
                                 value="0" >
                                 Negativo
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="nascosto" id="arg_p2_<?= $p->id; ?>">
+                        <td colspan="1">
+                           Argomenti: 
+                        </td>
+                        <td colspan="3">
+                            <label class="controls">
+                                <input class="arg_p2_<?= $p->id; ?>" type="text" name="arg_p2_<?= $p->id; ?>" placeholder="Es: BLS, colpo di calore">
                             </label>
                         </td>
                     </tr>

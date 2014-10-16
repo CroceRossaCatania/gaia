@@ -42,11 +42,11 @@ if (!$corso->haPosizione()) {
             Presta molta attenzione quando inserisci i <strong> dettagli del corso </strong>:</br>
             <ul>
                 <li>queste informazioni sono fondamentali per gli aspiranti che vogliono frequentare
-                un corso base per volontari CRI nella zona in cui il corso si svolge, fornisci loro
+                un corso base per volontari CRI nella zona in cui il corso si svolge; fornisci loro
                 tutte le indicazioni che ritieni possano essere utili;</li>
                 <li>Queste informazioni saranno rese pubbliche ed accessibili a chiunque: <strong>evita</strong>
-                di inserire dati personali, numeri di telefono privati o informazioni che vorresti fossero divulgate;</li>
-                <li>Agli aspiranti volontari che si registrano verranno fornite in le informazioni per 
+                di inserire dati personali, numeri di telefono privati o informazioni che non vorresti fossero divulgate;</li>
+                <li>Agli aspiranti volontari che si registrano verranno fornite le informazioni per 
                 contattare il direttore del corso in caso necessità;</li>
                 <li>Non è possibile modificare la data di inizio di corsi già considerati iniziati.</li>
             </ul>
@@ -74,7 +74,11 @@ if (!$corso->haPosizione()) {
         
         <p>
             <strong>Direttore</strong><br />
-            <?php echo $corso->direttore()->nomeCompleto(); ?>
+            <?= 
+                $corso->direttore() 
+                    ? $corso->direttore()->nomeCompleto() 
+                    : "<i class='icon-warning-sign'></i> Nessun direttore selezionato"; 
+            ?>
         </p>
         
         <p>
@@ -96,7 +100,7 @@ if (!$corso->haPosizione()) {
         <p>
             <strong>Data inizio</strong><br />
                 <?php if(!$corso->iniziato() || $me->admin()) { ?>
-                <input type="text" name="inputDataInizio" id="inputDataInizio" value="<?php echo $corso->inizio()->format('d/m/Y H:i')?>" required />
+                    <input type="text" name="inputDataInizio" id="inputDataInizio" value="<?php echo $corso->inizio()->format('d/m/Y H:i')?>" required />
                 <?php } else {
                     echo($corso->inizio()->format('d/m/Y H:i'));
                 } ?> 
@@ -104,12 +108,37 @@ if (!$corso->haPosizione()) {
         <p>
             <strong>Data esame</strong><br />
                 <?php if(!$corso->finito() || $me->admin()) { ?>
-                <input type="text" name="inputDataEsame" id="inputDataEsame" value="<?php echo $corso->fine()->format('d/m/Y H:i')?>" required />
+                    <input type="text" name="inputDataEsame" id="inputDataEsame" value="<?php echo $corso->fine()->format('d/m/Y H:i')?>" required />
                 <?php } else {
                     echo($corso->fine()->format('d/m/Y H:i'));
                 } ?> 
         </p>
-        
+        <p>
+            <strong>O.P. Attivazione / Data</strong><br />
+                <?php if(!$corso->finito() || $me->admin()) { ?>
+                    <input class="input-small" type="text" name="inputOpattivazione" id="inputOpattivazione" value="<?php echo $corso->opAttivazione; ?>" />
+                     / 
+                    <input class="input-small" type="text" name="inputDataattivazione" id="inputDataattivazione" value="<?php echo $corso->dataAttivazione() ?>" />
+                <?php } else {
+                    echo "O.P. ";
+                    echo $corso->opAttivazione;
+                    echo " del ";
+                    echo $corso->dataAttivazione();
+                } ?> 
+        </p>
+        <p>
+            <strong>O.P. Convocazione Commissione / Data</strong><br />
+                <?php if(!$corso->finito() || $me->admin()) { ?>
+                    <input class="input-small" type="text" name="inputOpconvocazione" id="inputOpconvocazione" value="<?php echo $corso->opConvocazione; ?>" />
+                     / 
+                    <input class="input-small" type="text" name="inputDataconvocazione" id="inputDataconvocazione" value="<?php echo $corso->dataConvocazione() ?>" />
+                <?php } else {
+                    echo "O.P. ";
+                    echo $corso->opConvocazione;
+                    echo " del ";
+                    echo $corso->dataConvocazione();
+                } ?> 
+        </p>
         
     </div>
     

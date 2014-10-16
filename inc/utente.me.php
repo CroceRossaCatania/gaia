@@ -264,14 +264,14 @@ if(false && $consenso && !$sessione->barcode) { ?>
 
     <!-- BLOCCO NON MENU -->
     <div class="span9">
-        <h2><span class="muted">Ciao, </span>
-            <?php if ($me->admin()){ ?> <span class="muted">Admin</span> 
-            <?php } elseif ($me->presiede()){ ?><span class="muted">Presidente</span> 
-            <?php } echo $me->nome; ?>.
-        </h2>
 
         <div class="row-fluid">
             <div class="span8">
+                <h2><span class="muted">Ciao </span>
+                    <?= $me->nome; ?>
+                </h2>
+                <?php /*
+                blocco informativo deadline
                 <div class="alert alert-block alert-error">
                     <div class="row-fluid">
                         <h4><i class="icon-ok"></i> Ciao <?php echo $me->nome ?></h4>
@@ -283,6 +283,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                         </a> 
                     </div>
                 </div>
+                */ ?>
                 <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
                 <div class="alert alert-success">
                     <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
