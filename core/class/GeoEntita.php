@@ -25,6 +25,7 @@ abstract class GeoEntita extends Entita {
         $q->bindParam(':id', $this->id);
         $q->execute();
         if ( $r = $q->fetch(PDO::FETCH_NUM) ) {
+            var_dump($r);
             return [$r[0], $r[1]];
         } else {
             return [false, false];
@@ -195,6 +196,9 @@ abstract class GeoEntita extends Entita {
     public function linkMappa() {
         $n = urlencode($this->luogo);
         $c = $this->coordinate();
+        var_dump($this->coordinate());
+        var_dump($this->luogo);
+        echo("c: {$n}");
         $c = $c[0] . ',' . $c[1];
         return "http://maps.google.com/?q={$n}@{$c}";
     }
