@@ -8,7 +8,7 @@ paginaAdmin();
 
 set_time_limit (0);
 
-$t = Volontario::elenco();
+$t = Utente::filtra([['stato', ASPIRANTE, OP_NLIKE]]);
 ?>
 <script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -39,7 +39,7 @@ $t = Volontario::elenco();
     <div class="span4 allinea-destra">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>
-            <input autofocus required id="cercaUtente" placeholder="Cerca Aspiranti..." type="text">
+            <input autofocus required id="cercaUtente" placeholder="Cerca Limbo..." type="text">
         </div>
     </div>
     </div> 

@@ -48,6 +48,7 @@ define('ETAMINIMA', 441504000);
  */
 define('OP_EQ',     '='); 
 define('OP_LIKE',   'LIKE');
+define('OP_NLIKE',  'NOT LIKE');
 define('OP_LT',     '<');
 define('OP_LTE',    '<=');
 define('OP_GT',     '>');
