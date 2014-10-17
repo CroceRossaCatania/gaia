@@ -860,32 +860,14 @@ class Comitato extends GeoPolitica {
     }
      
     public function coTurni() {
-        global $db;
-        $q = $db->prepare("
-            SELECT
-                turni.id
-            FROM
-                attivita, turni
-            WHERE
-                attivita.comitato = :comitato
-            AND
-                attivita.stato = :stato
-            AND
-                turni.attivita = attivita.id
-            AND
-                turni.inizio <= :inizio
-            ORDER BY
-                turni.inizio ASC");
+        $attivita = Attivita::filtra([['comitato', $this->oid()],['stato', ATT_STATO_OK]]);
+        $turni = [];
         $inizio = time()+3600;
-        $q->bindValue(':inizio', $inizio);
-        $q->bindValue(':stato', ATT_STATO_OK);
-        $q->bindParam(':comitato', $this->oid());
-        $q->execute();
-        $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = Turno::id($k[0]);
+        foreach ( $attivita as $att ){
+            $turni = array_merge($turni, Turno::filtra([['attivita', $att],['inizio',$inizio,OP_LTE]]));
         }
-            return $r;
+        $turni = array_unique($turni);
+        return $turni;
     }
 
     /**
