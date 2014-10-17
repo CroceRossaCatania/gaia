@@ -14,11 +14,15 @@ $comitato = GeoPolitica::daOid($comitato);
 
 proteggiClasse($comitato, $me);
 
+$data = DT::daFormato('d/m/Y H:i', $_POST['inputDataInizio']);
+if (!$data) {
+	redirect('formazione.corsibase&err');
+}
+
+
 $corsoBase                   = new CorsoBase();
 $corsoBase->stato            = CORSO_S_DACOMPLETARE;
 $corsoBase->organizzatore    = $comitato->oid();
-$data                        = DT::createFromFormat('d/m/Y H:i', $_POST['inputDataInizio']);
-$data                        = $data;
 $corsoBase->inizio           = $data->getTimestamp();
 $corsoBase->tEsame           = (int) $corsoBase->inizio + MESE;
 $corsoBase->anno             = $data->format('Y');
