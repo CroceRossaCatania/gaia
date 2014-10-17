@@ -183,6 +183,9 @@ if(isset($_GET['tessok']) || isset($_GET['tesserr'])) {
                 if ($me->fototessera()) { ?>
                   <img src="<?php echo $me->fototessera()->img(20); ?>" class="img-polaroid" />
                 <?php } else { ?>
+                  <div class="alert alert-info">
+                    <p><i class="icon-warning-sign"></i> Le funzionalita' dei tesserini non sono ancora state rilasciate, ma puoi gia' caricare la tua fototessera</p>
+                  </div>
                   <p><br />Fototessera non caricata</p>
                 <?php } ?>
                 <br/>
