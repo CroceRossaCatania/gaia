@@ -13,8 +13,7 @@ $comitato = $_POST['comitato'];
 $comitato = GeoPolitica::daOid($comitato);
 
 proteggiClasse($comitato, $me);
-
-$data = DT::daFormato('d/m/Y H:i', $_POST['inputDataInizio']);
+$data = DT::daFormato($_POST['inputDataInizio'], 'd/m/Y H:i');
 if (!$data) {
 	redirect('formazione.corsibase&err');
 }
@@ -32,4 +31,4 @@ $corsoBase->assegnaProgressivo();
 
 redirect('formazione.corsibase.direttore&id=' . $corsoBase->id);
 
-?>
+
