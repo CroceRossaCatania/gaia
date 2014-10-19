@@ -1385,37 +1385,51 @@ class Utente extends Persona {
                             );
         $comitatiGestiti = array_unique($comitatiGestiti);
         
+        // se sei persona o aspirante devo capire meglio da dove vieni
         if ($this->stato == PERSONA || $this->stato == ASPIRANTE) {
+            // la funzione dimesso mi dice il tipo di dimissione (int)
+            // in ogni caso se hai dimissioni voglio prendere l'ultimo comitato buono
             $d = $this->dimesso();
             // il secondo check è perchè MEMBRO_DIMESSO è 0
             if($d || $d === MEMBRO_DIMESSO) {
                 $c = $this->ultimaAppartenenza($d)->comitato();
             } else {
+                // altrimenti se un ordinario
                 $c = $this->unComitato(MEMBRO_ORDINARIO);
             }
         } else {
-            $c = $this->unComitato(MEMBRO_PENDENTE);
+            // altrimenti hai stato VOLONTARIO e devo capire se sei pendente o no
+            $c = $this->unComitato();
+            if (!$c) {
+                // se non è zuppa è pan bagnato (si spera)
+                $c = $this->unComitato(MEMBRO_PENDENTE);
+            }
         }
         
+        // se alla fine dello spaghetti code qua sopra risulti essere qualcosa
+        // allora verifico se ti posso toccacciare
+
         if($c) {
             if(($c instanceof Comitato && in_array($c->locale(), $comitatiGestiti) )
             || in_array($c, $comitatiGestiti)) {
             return true;
             }
-        }
-        /* Il foreach seguente serve per risolvere 
-         * temporaneamente i problemi di permessi
-         * fino alla corretta implementazione di copernico
-         * #970
-         */
-        foreach ($comitatiGestiti as $com) {
-            if ($c instanceof Comitato && $c->locale()->nome == $com->nome) {
-                return true;
+            /* Il foreach seguente serve per risolvere 
+             * temporaneamente i problemi di permessi
+             * fino alla corretta implementazione di copernico
+             * #970
+             */
+            foreach ($comitatiGestiti as $com) {
+                if ($c instanceof Comitato && $c->locale()->nome == $com->nome) {
+                    return true;
+                }
+                if ($c->nome == $com->nome) {
+                    return true;
+                }
             }
-            if ($c->nome == $com->nome) {
-                return true;
-            }
         }
+
+        // se non sei niente
         return false;
     }
 
