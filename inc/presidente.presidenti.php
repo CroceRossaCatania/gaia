@@ -15,7 +15,7 @@ if (!$admin && $d->estensione == EST_UNITA) {
     redirect('errore.permessi&cattivo');
 }
 
-$comitato = $_GET['id'];
+$comitato = $_GET['comitato'];
 
 if ($admin) {
     $comitato = Nazionale::elenco()[0];
