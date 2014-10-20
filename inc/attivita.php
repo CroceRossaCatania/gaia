@@ -6,7 +6,7 @@
 
 paginaAnonimo();
 
-if ( $me instanceof Anonimo ) { 
+if ( $me instanceof Anonimo || $me->stato == ASPIRANTE ) { 
     // Gli anonimi vengono riportati alla mappa!
     redirect('public.attivita.mappa');
 }
