@@ -118,6 +118,9 @@ if(isset($_GET['delegati'])){
     }
     $ramo = new RamoGeoPolitico($comitato, ESPLORA_RAMI, EST_LOCALE);
     foreach ( $ramo as $com ) {
+        if($com->superiore() && $com->superiore()->nomeCompleto() == $com->nomeCompleto()) {
+            continue;
+        }
         $v = $com->unPresidente();
         if($v) {
             $excel->aggiungiRiga([
