@@ -20,12 +20,13 @@ $corso->stato = CORSO_S_ATTIVO;
 $aspiranti = $corso->potenzialiAspiranti();
 $r = [];
 foreach($aspiranti as $aspirante) {
-    $utente = $aspirante->utente();
-    if ( !$utente ) {
+    try {
+        $utente = $aspirante->utente();
+    } catch (Exception $e) {
         $aspirante->cancella();
-    } else {
-        $r[] = $utente;
+        continue;
     }
+    $r[] = $utente;
 }
 
 foreach ($r as $utente) {
