@@ -33,6 +33,9 @@ if(!$c->haPosizione()){
         <div class="alert alert-info">
           <i class="icon-pencil"></i> <strong>Alcuni campi sono obbligatori</strong>.
           <p>I campi contrassegnati dall'asterisco (*) sono obbligatori. </p>
+          <p>Ti consigliamo di inserire in questo campo la data in cui verrà effettuata
+          la <strong>presentazione</strong> del Corso. Questa data sarà comunicata
+          agli <strong>aspiranti della tua zona</strong> come data di inizio del corso.</p>
         </div>
         <p><strong>Organizzatore</strong><br />
             <?php echo $c->nomeCompleto(); ?></p>
