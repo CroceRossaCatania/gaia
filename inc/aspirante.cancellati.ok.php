@@ -17,6 +17,7 @@ $m->_UTENTE = $utente->nome;
 $m->invia();
 
 $a->cancella();
+$utente->cancella();
 $sessione->cancella();
 
 redirect('');
