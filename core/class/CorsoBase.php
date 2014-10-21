@@ -105,7 +105,7 @@ class CorsoBase extends GeoEntita {
      * @return bool
      */
     public function daCompletare() {
-        return (bool) $this->stato == CORSO_S_DACOMPLETARE; 
+        return (bool) ($this->stato == CORSO_S_DACOMPLETARE); 
     }
 
     /**

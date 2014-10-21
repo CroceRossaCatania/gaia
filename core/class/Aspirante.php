@@ -19,7 +19,7 @@ class Aspirante extends GeoCirco {
      * @return Utente
      */
     public function utente() {
-    	return Utente::id($this->utente);
+    	return Utente::by('id', $this->utente);
     }
 
     /**

@@ -60,7 +60,6 @@ $(document).ready( function() {
         <div class="span12">
     <?php } ?>
         <div class="row-fluid">
-
             <div class="span8 btn-group">
                 <?php if ( $corso->modificabileDa($me) && !$corso->concluso()) { ?>
                 <a href="?p=formazione.corsibase.modifica&id=<?php echo $corso->id; ?>" class="btn btn-large btn-info">
