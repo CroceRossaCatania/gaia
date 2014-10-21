@@ -93,4 +93,15 @@ class Aspirante extends GeoCirco {
         return count($this->corsiBase());
     }
 
+    /**
+     * Esegue la cancellazione dell'aspirante
+     * e dell'utente collegato
+     */
+    public function cancella() {
+        $utente = $this->utente();
+        if ($utente)
+            $utente->cancella();
+        parent::cancella();
+    }
+
 }

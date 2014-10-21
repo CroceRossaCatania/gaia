@@ -152,6 +152,9 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
                                             <li><a href="?p=utente.contatti"><i class="icon-phone"></i> Modifica contatti</a></li>
                                             <li><a href="?p=utente.password"><i class="icon-key"></i> Modifica password</a></li>
+                                            <?php if ( $me->stato == ASPIRANTE ) { ?>
+                                            <li><a href="?p=aspirante.cancellati"><i class="icon-remove-sign"></i> Cancellati</a></li>
+                                            <?php } ?>
                                             <li class="divider"></li>
                                             <li><a href="?p=logout"><i class="icon-remove"></i> Esci</a></li>
                                             <?php if ( $me->admin && $me->admin() ) { ?>
