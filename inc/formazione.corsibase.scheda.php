@@ -67,15 +67,22 @@ $(document).ready( function() {
                     <i class="icon-edit"></i>
                     Modifica
                 </a>
+                <?php if($corso->daCompletare()) { ?>
+                    <a href="?p=formazione.corsibase.email.aspiranti&id=<?= $corso ?>" class="btn btn-success btn-large">
+                        <i class="icon-flag-checkered"></i> Attiva Corso
+                    </a>
+                <?php } ?>
 
                 <a href="?p=formazione.corsibase.lezioni&id=<?= $corso ?>" class="btn btn-primary btn-large">
                     <i class="icon-calendar"></i> Gestisci Lezioni
                 </a>
 
                 <?php } ?>
+                <?php if(!$corso->daCompletare()) { ?>
                 <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://gaia.cri.it/index.php?p=formazione.corsibase.scheda&id={$corso->id}"); ?>" target="_blank">
                     <i class="icon-facebook-sign"></i> Condividi
                 </a>
+                <?php } ?>
             </div>
             <div class="span4 allinea-destra">
                 <span class="muted">
@@ -85,6 +92,15 @@ $(document).ready( function() {
             </div>
         </div>
         <hr />
+        <?php if ( $corso->modificabileDa($me) && $corso->daCompletare()) { ?>
+            <div class="alert alert-block">
+                <h4><i class="icon-warning-sign"></i> <strong>Questo corso non è ancora attivo!</strong></h4>
+                <p>Per attivare il corso premi su <strong><i class="icon-flag-checkered"></i> Attiva Corso</strong>
+                e invia ai futuri aspiranti un'email in cui li informi dell'attivazione del corso. Fino a che
+                non effettuerai questa operazione nessuno si potrà iscrivere al corso e il corso non sarà
+                visibile ai potenziali aspiranti.</p>
+            </div> 
+        <?php } ?>
         <?php if (isset($_GET['err'])) { ?>
             <div class="alert alert-block alert-error">
                 <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>

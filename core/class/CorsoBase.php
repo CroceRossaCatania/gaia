@@ -101,6 +101,14 @@ class CorsoBase extends GeoEntita {
     }
 
     /**
+     * Controlla se il corso e' da completare (email non mandata)
+     * @return bool
+     */
+    public function daCompletare() {
+        return (bool) $this->stato == CORSO_S_DACOMPLETARE; 
+    }
+
+    /**
      * Ottiene l'elenco di aspiranti nella zona
      * (non deve essere visibile da nessuno!)
      * @return array(Aspirante)

@@ -42,6 +42,11 @@ if ( $_POST['inputDataconvocazione'] && (!$corso->finito() || $me->admin())) {
     $corso->opConvocazione   = $_POST['inputOpconvocazione'];
 }
 
+if ( $_POST['inputInvioEmail'] ) {
+    redirect('formazione.corsibase.email.aspiranti&id=' . $corso->id);
+}
+
+/*
 if($corso->stato == CORSO_S_DACOMPLETARE){
 
     $corso->stato = CORSO_S_ATTIVO;
@@ -60,5 +65,6 @@ if($corso->stato == CORSO_S_DACOMPLETARE){
         $m->accoda();
     }
 }
+*/
 
 redirect('formazione.corsibase.scheda&id=' . $corso->id);
