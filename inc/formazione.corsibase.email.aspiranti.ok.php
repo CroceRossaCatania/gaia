@@ -31,6 +31,7 @@ foreach($aspiranti as $aspirante) {
 foreach ($r as $utente) {
     $m = new Email('corsoBaseAttivato', 'Nuovo Corso per Volontari CRI');
     $m->a = $utente;
+    $m->da = $corso->direttore();
     $m->_ASPIRANTE = $utente->nome;
     $m->_DESCRIZIONE = $corso->descrizione;
     $m->_COMITATO = $corso->organizzatore()->nomeCompleto();
