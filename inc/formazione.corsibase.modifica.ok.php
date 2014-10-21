@@ -56,7 +56,7 @@ if($corso->stato == CORSO_S_DACOMPLETARE){
         $m->_ASPIRANTE = $utente->nome;
         $m->_DESCRIZIONE = $corso->descrizione;
         $m->_COMITATO = $corso->organizzatore()->nomeCompleto();
-        $m->_INIZIO = $corso->inizio()->inTesto();
+        $m->_INIZIO = $corso->inizio()->inTesto(true, false);
         $m->accoda();
     }
 }
