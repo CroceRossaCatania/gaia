@@ -131,6 +131,7 @@ if(isset($_GET['tessok']) || isset($_GET['tesserr'])) {
     </div>
     
     <div class="span3 allinea-centro">
+      <?php if($me->stato != ASPIRANTE) { ?>
         <h3>Fotografia</h3>
         <div class="tabbable">
           <ul class="nav nav-tabs">
@@ -219,6 +220,6 @@ if(isset($_GET['tessok']) || isset($_GET['tesserr'])) {
             </div>
           </div>
         </div>
-        
+       <?php } ?> 
     </div>
 </div>
