@@ -113,6 +113,7 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                 <th>Targa</th>
                 <th>Destinazione ed uso</th>
                 <th>Consumo Medio [l/100km]</th>
+                <th>Comitato</th>
                 <th>Collocazione</th>
                 <th>Fermo tecnico</th>
                 <th>Azioni</th>
@@ -127,6 +128,7 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                         <td><?= $veicolo->targa; ?></td>
                         <td><?= $veicolo->uso; ?></td>
                         <td><?= $veicolo->consumoMedio(); ?></td>
+                        <td><?= $veicolo->comitato(); ?></td>
                         <td><?= $veicolo->collocazione(); ?></td>
                         <td><?= $veicolo->fermoTecnicoDettagli(); ?></td>
                         <td>

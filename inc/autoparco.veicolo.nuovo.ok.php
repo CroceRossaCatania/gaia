@@ -35,8 +35,8 @@ if (!$libretto){
     $t->targa                   = maiuscolo($_POST['inputTarga']);
     $t->libretto                = maiuscolo( $_POST['inputLibretto'] );
     $t->telaio                  = $_POST['inputTelaio'];
-    $primaImmatricolazione = @DateTime::createFromFormat('d/m/Y', $_POST['inputPrimaImmatricolazione']);
-	$primaImmatricolazione = @$primaImmatricolazione->getTimestamp();
+    $primaImmatricolazione      = @DateTime::createFromFormat('d/m/Y', $_POST['inputPrimaImmatricolazione']);
+	$primaImmatricolazione      = @$primaImmatricolazione->getTimestamp();
     $t->primaImmatricolazione   = $primaImmatricolazione;
     $t->cognome                 = maiuscolo( $_POST['inputCognome'] );
     $t->nome                    = maiuscolo( $_POST['inputNome'] );
@@ -53,8 +53,8 @@ if (!$libretto){
     $t->marca                   = $_POST['inputMarca'];
     $t->tipo                    = $_POST['inputTipo'];
     $t->massa                   = $_POST['inputMaxMassa'];
-    $immatricolazione = @DateTime::createFromFormat('d/m/Y', $_POST['inputPrimaImmatricolazione']);
-	$immatricolazione = @$immatricolazione->getTimestamp();
+    $immatricolazione           = @DateTime::createFromFormat('d/m/Y', $_POST['inputPrimaImmatricolazione']);
+	$immatricolazione           = @$immatricolazione->getTimestamp();
     $t->immatricolazione        = $immatricolazione;
     $t->categoria               = $_POST['inputCategoria'];
     $t->uso                     = $_POST['inputUso'];

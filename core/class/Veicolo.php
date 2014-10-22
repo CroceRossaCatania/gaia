@@ -241,4 +241,22 @@ class Veicolo extends Entita {
             )
         );
     }
+
+    /**
+     * Ritorna comitato
+     * @return nome comitato o testo nessun comitato
+     */
+    public function comitato() {
+        $comitato = $this->comitato;
+        if ( $comitato ){
+
+            $comitato = GeoPolitica::daOid($comitato);
+            return $comitato->nomeCompleto();
+
+        }else{
+
+            return "Nessun Comitato";
+
+        }
+    }
 }
