@@ -131,7 +131,7 @@ if(isset($_GET['tessok']) || isset($_GET['tesserr'])) {
     </div>
     
     <div class="span3 allinea-centro">
-      <?php if($me->stato != ASPIRANTE) { ?>
+      <?php if($me->appartenenzaAttuale()) { ?>
         <h3>Fotografia</h3>
         <div class="tabbable">
           <ul class="nav nav-tabs">

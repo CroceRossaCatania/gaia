@@ -132,6 +132,14 @@ $(document).ready( function() {
                 <p>La preiscrizione al corso è stata effettuata con successo.</p>
             </div> 
         <?php } ?>
+        <?php if (isset($_GET['ammesso'])) { ?>
+            <div class="alert alert-block alert-success">
+                <h4><i class="icon-ok"></i> <strong>Operazione andata a buon fine</strong>.</h4>
+                <p>Hai ammesso un aspirante Volontario al Corso, ricorda che ora è un Socio
+                Ordinario della Croce Rossa Italiana ed è necessario registrare il pagamento
+                della quota.</p>
+            </div> 
+        <?php } ?>
         <?php if (isset($_GET['verbok'])) { ?>
             <div class="alert alert-block alert-success">
                 <h4><i class="icon-ok"></i> <strong>Verbale compilato correttamente</strong>.</h4>
