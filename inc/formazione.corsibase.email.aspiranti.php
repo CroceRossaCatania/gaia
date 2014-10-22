@@ -11,6 +11,10 @@ controllaParametri(['id']);
 $corso = CorsoBase::id($_GET['id']);
 paginaCorsoBase($corso);
 
+if (!$corso->haPosizione()) {
+    redirect('formazione.corsibase.localita&id=' . $corso->id);
+}
+
 if (!$corso->daCompletare()) {
     redirect("formazione.corsibase.scheda&id={$corso}");
 }

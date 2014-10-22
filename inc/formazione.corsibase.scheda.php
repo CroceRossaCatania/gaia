@@ -66,7 +66,7 @@ $(document).ready( function() {
                     <i class="icon-edit"></i>
                     Modifica
                 </a>
-                <?php if($corso->daCompletare()) { ?>
+                <?php if($corso->daCompletare() && $corso->haPosizione()) { ?>
                     <a href="?p=formazione.corsibase.email.aspiranti&id=<?= $corso ?>" class="btn btn-success btn-large">
                         <i class="icon-flag-checkered"></i> Attiva Corso
                     </a>
@@ -91,7 +91,15 @@ $(document).ready( function() {
             </div>
         </div>
         <hr />
-        <?php if ( $corso->modificabileDa($me) && $corso->daCompletare()) { ?>
+        <?php if ( $corso->modificabileDa($me) && !$corso->haPosizione()) { ?>
+            <div class="alert alert-block">
+                <h4><i class="icon-warning-sign"></i> <strong>Non hai indicato dove si svolge il corso!</strong></h4>
+                <p>Per inserire queste informazioni premi su <strong><i class="icon-edit"></i> Modifica</strong>
+                e scegli il luogo da indicare come sede del corso. Fino a che
+                non effettuerai questa operazione nessuno si potrà iscrivere al corso e il corso non sarà
+                visibile ai potenziali aspiranti.</p>
+            </div> 
+        <?php } elseif ( $corso->modificabileDa($me) && $corso->daCompletare()) { ?>
             <div class="alert alert-block">
                 <h4><i class="icon-warning-sign"></i> <strong>Questo corso non è ancora attivo!</strong></h4>
                 <p>Per attivare il corso premi su <strong><i class="icon-flag-checkered"></i> Attiva Corso</strong>
