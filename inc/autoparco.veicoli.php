@@ -118,7 +118,8 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                 <th>Azioni</th>
             </thead>
             <?php
-            $comitati = $me->comitatiApp([APP_PRESIDENTE,APP_AUTOPARCO],false);
+            $comitati = $me->entitaDelegazioni();
+            $comitati = new RamoGeoPolitico($comitati);
             foreach ( $comitati as $comitato ){
                 foreach(Veicolo::filtra([['comitato', $comitato->oid()],['stato', VEI_ATTIVO]],'targa ASC') as $veicolo){
                     ?>
