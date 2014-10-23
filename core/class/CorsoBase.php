@@ -162,6 +162,8 @@ class CorsoBase extends GeoEntita {
     }
 
     public function progressivo() {
+        if ( !$this->progressivo )
+            $this->assegnaProgressivo();
         if($this->progressivo) {
             return 'BASE-'.$this->anno.'/'.$this->progressivo;
         }

@@ -28,7 +28,7 @@ $ramo = new RamoGeoPolitico($start);
 $corsi = [];
 
 foreach($ramo as $c) {
-    $corso = $c->corsiBase(false);
+    $corso = $c->corsiBase(false, true);
     $corsi = array_merge($corsi, $corso);
 }
 
