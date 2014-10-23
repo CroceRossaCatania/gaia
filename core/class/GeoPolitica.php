@@ -70,7 +70,7 @@ abstract class GeoPolitica extends GeoEntita {
         $rr = [];
         foreach ( $r as $_r ) {
             if ( $_r->futuro() )
-                $rr[] = $_c;
+                $rr[] = $_r;
         }
         return $rr;
     }
