@@ -16,7 +16,7 @@ class CorsoBase extends GeoEntita {
     /**
      * Genera il codice numerico progressivo del corso sulla base dell'anno attuale
      *
-     * @return int|bool(false) $progressivo     Il codice progressivo, false altrimenti 
+     * @return int|false $progressivo     Il codice progressivo, false altrimenti 
      */
     public function assegnaProgressivo() {
         if ($this->progressivo) {
@@ -111,7 +111,7 @@ class CorsoBase extends GeoEntita {
     /**
      * Ottiene l'elenco di aspiranti nella zona
      * (non deve essere visibile da nessuno!)
-     * @return array(Aspirante)
+     * @return Aspirante[]
      */
     public function potenzialiAspiranti() {
     	return Aspirante::chePassanoPer($this);
@@ -143,6 +143,10 @@ class CorsoBase extends GeoEntita {
         return false;
     }
 
+    /**
+     * Informa se un corso è modificabile da un determianto utente
+     * @return bool 
+     */
     public function modificabileDa(Utente $u) {
         return (bool) (
                 $u->id == $this->direttore
@@ -150,10 +154,18 @@ class CorsoBase extends GeoEntita {
         );
     }
 
+    /**
+     * Informa se un corso è cancellabile da un determianto utente
+     * @return bool 
+     */
     public function cancellabileDa(Utente $u) {
         return (bool) in_array($this, $u->corsiBaseDiGestione());
     }
 
+    /**
+     * Restituisce il direttore di un corso
+     * @return Volontario 
+     */
     public function direttore() {
         if ($this->direttore) {
             return Volontario::id($this->direttore);    
@@ -161,6 +173,11 @@ class CorsoBase extends GeoEntita {
         return null;
     }
 
+    /**
+     * Restituisce il progressivo del corso in questione, se
+     * mancante lo genera
+     * @return string|false 
+     */
     public function progressivo() {
         if ( !$this->progressivo )
             $this->assegnaProgressivo();
@@ -179,6 +196,10 @@ class CorsoBase extends GeoEntita {
             and $this->stato == CORSO_S_ATTIVO);
     }
 
+    /**
+     * Verfica se un utente è iscritto o no al corso
+     * @return bool
+     */
     public function iscritto(Utente $u) {
         $p = PartecipazioneBase::filtra([
             ['volontario', $u->id],
@@ -255,8 +276,7 @@ class CorsoBase extends GeoEntita {
 
     /**
      * Genera attestato, sulla base del corso e del volontario
-     *
-     * @return file 
+     * @return PDF 
      */
     public function generaAttestato($iscritto) {
 
@@ -290,8 +310,7 @@ class CorsoBase extends GeoEntita {
 
     /**
      * Genera scheda valutazione, sulla base del corso e del volontario
-     *
-     * @return file 
+     * @return PDF 
      */
     public function generaScheda($iscritto) {
         
@@ -386,7 +405,7 @@ class CorsoBase extends GeoEntita {
 
     /**
      * Ritorna l'elenco di lezioni del Corso Base
-     * @return array(Lezione)
+     * @return Lezione[]
      */
     public function lezioni() {
         return Lezione::filtra([
