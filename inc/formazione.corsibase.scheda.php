@@ -174,6 +174,7 @@ $(document).ready( function() {
                         <?php echo $corso->luogo; ?>
                     </a>
                 </h4>
+                <?php if ($me) {?> Codice corso: <?php echo $corso->progressivo(); } ?>
             </div>
         </div>
         <hr />

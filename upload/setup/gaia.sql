@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `corsibase` (
   `organizzatore` varchar(32) DEFAULT NULL,
   `direttore` varchar(32) DEFAULT NULL,
   `inizio` varchar(64) DEFAULT NULL,
-  `progressivo` varchar(64) DEFAULT NULL,
+  `progressivo` int(11) DEFAULT NULL,
   `anno` VARCHAR(8) NULL DEFAULT NULL,
   `geo` point NOT NULL,
   `descrizione` text,
