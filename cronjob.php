@@ -286,7 +286,7 @@ function cronjobSettimanale() {
 
     cronjobEsegui(
         "Controllo aspiranti, promemoria e cancellazione",
-        function() {
+        function() use ($db) {
             $n = $c = 0;
             $query = "
                 SELECT  aspiranti.utente,
