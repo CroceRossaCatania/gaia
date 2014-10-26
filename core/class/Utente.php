@@ -2002,4 +2002,27 @@ class Utente extends Persona {
         }
     }
 
+    /**
+     * Logga azioni dentro /log/admin
+     * @return int true or false esito del log
+     */
+    public function loggaAzioni() {
+        if($this->admin()){
+            $file  = './log/admin/azioni.log';
+        }else{
+            $file  = './log/presidenti/azioni.log';
+        }
+        $dati  = file_get_contents($file);
+        $dati .= "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        $dati .= " - [";
+        $dati .= $this;
+        $dati .= "] ";
+        $dati .= $this->nomeCompleto();
+        $dati .= " - ";
+        $dati .= date('d/m/Y H:i',time());
+        $dati .= "\n";
+        file_put_contents($file, $dati);
+        return;
+    }
+
 }
