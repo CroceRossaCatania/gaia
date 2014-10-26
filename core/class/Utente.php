@@ -2003,8 +2003,7 @@ class Utente extends Persona {
     }
 
     /**
-     * Logga azioni dentro /log/admin
-     * @return int true or false esito del log
+     * Logga azioni
      */
     public function loggaAzioni() {
         if($this->admin()){
