@@ -397,10 +397,17 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         href="?p=admin.utente.cancella&id=<?php echo $id; ?>" class="btn btn-danger">
         <i class="icon-trash"></i> Cancella
       </a>
-      <a onClick="return confirm('Vuoi veramente far diventare un ordinario questo utente?');" 
-        href="?p=admin.ordinarizza&id=<?= $id; ?>" class="btn btn-warning">
-        <i class="icon-hand-down"></i> Ordinarizza
-      </a>
+      <?php if($attivo) { ?>
+        <a onClick="return confirm('Vuoi veramente far diventare un ordinario questo utente?');" 
+          href="?p=admin.ordinarizza&id=<?= $id; ?>" class="btn btn-warning">
+          <i class="icon-hand-down"></i> Ordinarizza
+        </a>
+      <?php } else { ?>
+        <a onClick="return confirm('Vuoi veramente far diventare un volontario questo utente?');" 
+          href="?p=admin.volontarizza&id=<?= $id; ?>" class="btn btn-warning">
+          <i class="icon-hand-up"></i> Volontarizza
+        </a>
+      <?php } ?>
       <a class="btn btn-primary" href="?p=admin.beuser&id=<?= $id; ?>" title="Log in">
         <i class="icon-key"></i> Login
       </a>

@@ -5,7 +5,6 @@ $(document).ready( function() {
            var a2 = $(e).data('accetta');
            var motivo = '';
            var com = '';
-           var corso = '';
            if ( a2 == 0 ) {
               motivo = prompt("Motiva la negazione dell'iscrizione la corso");
               if ( motivo.legth < 3 ) {
@@ -20,13 +19,12 @@ $(document).ready( function() {
                id:      a1,
                iscr:    a2,
                motivo:  motivo,
-               com:     com,
-               corso:   corso
+               com:     com
            }, function(x) {
               if (a2 == 0) {
                 $(e).parents('tr').hide(500);
               } else {
-                window.location = '?p=formazione.corsibase.scheda&id='+ x.risposta.id;
+                window.location = '?p=formazione.corsibase.scheda&ammesso&id='+ x.risposta.id;
               }
            });
            return true;

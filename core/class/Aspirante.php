@@ -76,7 +76,7 @@ class Aspirante extends GeoCirco {
         $corsiBase = CorsoBase::contenutiIn($this);
         $r = [];
         foreach($corsiBase as $c) {
-            if ($c->futuro()) {
+            if ($c->accettaIscrizioni()) {
                 $r[] = $c;
             }
         }

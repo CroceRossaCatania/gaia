@@ -18,6 +18,10 @@ if (!$data) {
 	redirect('formazione.corsibase&err');
 }
 
+if ($data->getTimestamp() < time() && !$me->admin()) {
+	redirect('formazione.corsibase&err');
+}
+
 
 $corsoBase                   = new CorsoBase();
 $corsoBase->stato            = CORSO_S_DACOMPLETARE;

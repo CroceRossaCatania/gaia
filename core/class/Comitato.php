@@ -946,7 +946,7 @@ class Comitato extends GeoPolitica {
         if ($this->principale) {
             return $this->superiore()->haPosizione();
         }
-        parent::haPosizione();
+        return parent::haPosizione();
     }
 
     /**
