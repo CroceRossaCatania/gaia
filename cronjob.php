@@ -299,6 +299,8 @@ function cronjobSettimanale() {
                     WHERE   stato >= 10
                 )
                 AND         ST_DISTANCE( corsibase.geo, aspiranti.geo ) < aspiranti.raggio
+                AND         corsibase.stato = 30
+                AND         corsibase.inizio >= UNIX_TIMESTAMP()
                 GROUP BY    aspiranti.utente
             ";
             $query = $db->query($query);
