@@ -33,7 +33,6 @@ function controllaBrowser() {
 
 function paginaApp($app, $comitati = []) {
     global $sessione;
-    $sessione->utente()->loggaAzioni();
     paginaPrivata();
     if ( $sessione->utente()->admin() ) {
         return true;
@@ -80,7 +79,6 @@ function paginaPubblica() {
 function paginaAdmin() {
     paginaPrivata();
     global $sessione;
-    $sessione->utente()->loggaAzioni();
     if ( !$sessione->utente()->admin || $sessione->adminMode == '') {
         redirect('errore.permessi');
     }
