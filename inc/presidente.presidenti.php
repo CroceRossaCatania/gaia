@@ -15,7 +15,7 @@ if (!$admin && $d->estensione == EST_UNITA) {
     redirect('errore.permessi&cattivo');
 }
 
-$comitato = $_GET['id'];
+$comitato = $_GET['comitato'];
 
 if ($admin) {
     $comitato = Nazionale::elenco()[0];
@@ -58,7 +58,10 @@ $ramo = new RamoGeoPolitico($comitato, ESPLORA_RAMI, EST_LOCALE);
                         <th>Azioni</th>
                     </thead>
                     <?php
-                    foreach($ramo as $com) { ?>
+                    foreach($ramo as $com) { 
+                        if($com->superiore() && $com->superiore()->nomeCompleto() == $com->nomeCompleto()) {
+                            continue;
+                        } ?>
                         <tr class="success">
                             <td colspan="4" class="grassetto">
                                 <?php echo $com->nomeCompleto(); ?>
@@ -66,21 +69,26 @@ $ramo = new RamoGeoPolitico($comitato, ESPLORA_RAMI, EST_LOCALE);
                         </tr>
                         <?php 
                         $v = $com->unPresidente();
-                        if($v) {
-                         ?>
-                        <tr>
-                            <td><img width="50" height="50" src="<?php echo $v->avatar()->img(10); ?>" class="img-polaroid" /></td>
-                            <td><?= $v->nome; ?></td>
-                            <td><?= $v->cognome; ?></td>
-                            <td>
-                                <div class="btn-group">
-                                    <a class="btn btn-small" href="?p=profilo.controllo&id=<?= $v->id; ?>" title="Dettagli">
-                                    <i class="icon-eye-open"></i> Dettagli
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php }} ?>
+                        if($v) { ?>
+                            <tr>
+                                <td><img width="50" height="50" src="<?php echo $v->avatar()->img(10); ?>" class="img-polaroid" /></td>
+                                <td><?= $v->nome; ?></td>
+                                <td><?= $v->cognome; ?></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a class="btn btn-small" href="?p=profilo.controllo&id=<?= $v->id; ?>" title="Dettagli">
+                                        <i class="icon-eye-open"></i> Dettagli
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                    <?php 
+                        } else { ?>
+                            <tr>
+                                <td colspan="4">Nessun presidente nominato</td>
+                            </tr>
+                        <?php }
+                    } ?>
                 </table>
             </div>
         </div>

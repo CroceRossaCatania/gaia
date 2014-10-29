@@ -7,12 +7,21 @@
 caricaSelettore();
 controllaParametri(['id']);
 
+$admin = $me->admin();
+
 $corso = CorsoBase::id($_GET['id']);
 if (!$corso->modificabileDa($me)) {
 	redirect("formazione.corsibase.scheda&id={$_GET['id']}");
 }
 
 ?>
+<?php if ( isset($_GET['date']) ) { ?>
+<div class="alert alert-error">
+    <i class="icon-warning-sign"></i> <strong>Data non valida</strong>.
+    Hai inserito una data non valida. Non possono essere modificate date passate, per correggere
+    contatta il supporto.
+</div>
+<?php } ?>
 <a href="?p=formazione.corsibase.scheda&id=<?= $_GET['id'] ?>" class="btn btn-small btn-primary">
 	<i class="icon-reply"></i> Torna alla Scheda del Corso
 </a>
@@ -42,14 +51,16 @@ if (!$corso->modificabileDa($me)) {
 				 placeholder="Nome della lezione" required maxlength="64" />
 			</td>
 			<td>
-				<input class="dti" name="inizio_<?= $lezione->id; ?>" required 
+				<input type="text" class="<?php if ($admin) echo "dtia"; elseif ($lezione->inizio()->getTimestamp() > time()) echo "dti"; ?>" name="inizio_<?= $lezione->id; ?>" required 
 				 value="<?= $lezione->inizio()->format('d/m/Y H:i'); ?>"
-				 placeholder="Inizio della lezione" />
+				 placeholder="Inizio della lezione" 
+				 <?php if (!$admin && $lezione->inizio()->getTimestamp() < time()) echo "readonly" ?>/>
 			</td>
 			<td>
-				<input class="dti" name="fine_<?= $lezione->id; ?>" required 
+				<input type="text" class="<?php if ($admin) echo "dtia"; elseif ($lezione->fine()->getTimestamp() > time()) echo "dti"; ?>" name="fine_<?= $lezione->id; ?>" required 
 				 value="<?= $lezione->fine()->format('d/m/Y H:i'); ?>"
-				 placeholder="Fine della lezione" />
+				 placeholder="Fine della lezione" 
+				 <?php if (!$admin && $lezione->fine()->getTimestamp() < time()) echo "readonly" ?>/>
 			</td>
 			<td>
 				<?php 

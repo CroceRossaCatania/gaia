@@ -38,7 +38,7 @@ class DT extends DateTime {
         return $this->getTimestamp();
     }
     
-    public function inTesto($conOra = true) {
+    public function inTesto($conOra = true, $conArticolo = false) {
         $mesi = [false, 'gen', 'feb', 'mar', 'apr', 'mag', 'giu',
                 'lug', 'ago', 'set', 'ott', 'nov', 'dic'];
         $base = new DT();
@@ -65,7 +65,11 @@ class DT extends DateTime {
                 $giorno = 'dopodomani';
                 break;
             default:
-                $giorno = $this->format('d');
+                $giorno = '';
+                if ($conArticolo) {
+                    $giorno .= 'il ';
+                }
+                $giorno .= $this->format('d');
                 $m = (int) $this->format('m');
                 $giorno .= ' ' . $mesi[$m] . ' ';
                 $giorno .= $this->format('Y');
