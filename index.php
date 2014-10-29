@@ -129,12 +129,13 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             <?php } ?>
                         </ul>  
                         <?php
-                        if ( $me ) { ?>
+                        if ( $me ) { 
+                            $admin = $me->admin(); ?>
                             <div class="pull-right paddingSopra">
 
                                 <div class="btn-group">
                                     <a class="btn btn-danger" href="?p=utente.me">
-                                        <i class="icon-user icon-large"></i>&nbsp;
+                                        <i class="<?php if ($admin) { ?> icon-github-alt <?php } else{ ?> icon-user <?php } ?> icon-large"></i>&nbsp;
                                         Ciao <strong><?php echo $me->nome; ?></strong></a>
                                         <button class="btn dropdown-toggle btn-danger" data-toggle="dropdown">
                                             <span class="caret"></span>
@@ -146,6 +147,9 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
                                             <li><a href="?p=utente.contatti"><i class="icon-phone"></i> Modifica contatti</a></li>
                                             <li><a href="?p=utente.password"><i class="icon-key"></i> Modifica password</a></li>
+                                            <?php if ( $me->stato == ASPIRANTE ) { ?>
+                                            <li><a href="?p=aspirante.cancellati"><i class="icon-remove-sign"></i> Cancellati</a></li>
+                                            <?php } ?>
                                             <li class="divider"></li>
                                             <li><a href="?p=logout"><i class="icon-remove"></i> Esci</a></li>
                                             <?php if ( $me->admin && $me->admin() ) { ?>
@@ -157,16 +161,17 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     </div>
 
 
-                                    <?php if ( $me->admin() || $me->presiede() ) { ?>
+                                    <?php 
+                                    if ( $me->admin() || $me->presiede() ) { ?>
                                     <div class="btn-group">
                                         <?php
                                         /* Conto le notifiche */
                                         $_n     =   $_n_titoli = $_n_app = $_n_trasf = $_n_ris = $_n_est = 0;
-                                        $_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
-                                        $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
-                                        $_n     +=  $_n_trasf  = $me->numTrasfPending   ([APP_PRESIDENTE]);
-                                        $_n     +=  $_n_ris    = $me->numRisPending     ([APP_PRESIDENTE, APP_SOCI]);
-                                        $_n     +=  $_n_est    = $me->numEstPending     ([APP_PRESIDENTE]);
+                                        $_n     +=  $_n_titoli = (!$admin) ? $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]) : 0;
+                                        $_n     +=  $_n_app    = (!$admin) ?$me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]) : 0;
+                                        $_n     +=  $_n_trasf  = (!$admin) ?$me->numTrasfPending   ([APP_PRESIDENTE]) : 0;
+                                        $_n     +=  $_n_ris    = (!$admin) ?$me->numRisPending     ([APP_PRESIDENTE, APP_SOCI]) : 0;
+                                        $_n     +=  $_n_est    = (!$admin) ?$me->numEstPending     ([APP_PRESIDENTE]) : 0;
                                         ?>
                                         <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
                                             <i class="icon-asterisk"></i>

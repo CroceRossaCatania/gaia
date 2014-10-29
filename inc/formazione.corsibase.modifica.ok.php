@@ -42,23 +42,8 @@ if ( $_POST['inputDataconvocazione'] && (!$corso->finito() || $me->admin())) {
     $corso->opConvocazione   = $_POST['inputOpconvocazione'];
 }
 
-if($corso->stato == CORSO_S_DACOMPLETARE){
-
-    $corso->stato = CORSO_S_ATTIVO;
-    $aspiranti = $corso->potenzialiAspiranti();
-    foreach($aspiranti as $aspirante) {
-        $utente = $aspirante->utente();
-        if ( !$utente ) {
-            $aspirante->cancella();
-        }
-        $m = new Email('corsoBaseAttivato', 'Nuovo Corso per Volontari CRI');
-        $m->a = $utente;
-        $m->_ASPIRANTE = $utente->nome;
-        $m->_DESCRIZIONE = $corso->descrizione;
-        $m->_COMITATO = $corso->organizzatore()->nomeCompleto();
-        $m->_INIZIO = $corso->inizio()->inTesto();
-        $m->accoda();
-    }
+if ( $_POST['inputInvioEmail'] ) {
+    redirect('formazione.corsibase.email.aspiranti&id=' . $corso->id);
 }
 
 redirect('formazione.corsibase.scheda&id=' . $corso->id);

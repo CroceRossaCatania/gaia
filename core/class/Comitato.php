@@ -946,7 +946,7 @@ class Comitato extends GeoPolitica {
         if ($this->principale) {
             return $this->superiore()->haPosizione();
         }
-        parent::haPosizione();
+        return parent::haPosizione();
     }
 
     /**
@@ -957,7 +957,7 @@ class Comitato extends GeoPolitica {
         if ($this->principale) {
             return $this->superiore()->linkMappa();
         }
-        parent::linkMappa();
+        return parent::linkMappa();
     }
 
     /**
@@ -968,7 +968,7 @@ class Comitato extends GeoPolitica {
         if ($this->principale) {
             return $this->superiore()->coordinate();
         }
-        parent::coordinate();
+        return parent::coordinate();
     }
     
     /**
@@ -979,7 +979,7 @@ class Comitato extends GeoPolitica {
         if ($this->principale) {
             return $this->superiore()->latlng();
         }
-        parent::latlng();
+        return parent::latlng();
     }
     
     /**
@@ -990,7 +990,7 @@ class Comitato extends GeoPolitica {
         if ($this->principale) {
             return $this->superiore()->localizzaCoordinate($x, $y);
         }
-        parent::localizzaCoordinate($x, $y);
+        return parent::localizzaCoordinate($x, $y);
     }
     
     /**
@@ -1001,6 +1001,6 @@ class Comitato extends GeoPolitica {
         if ($this->principale) {
             return $this->superiore()->localizzaStringa($stringa);
         }
-        parent::localizzaStringa($stringa);
+        return parent::localizzaStringa($stringa);
     }
 }

@@ -12,13 +12,16 @@ $c = GeoPolitica::daOid($c);
 
 paginaApp([APP_PRESIDENTE], $c);
 
-$c->nome        =   normalizzaNome($_POST['inputNome']);
+// non dobbiamo permettere modifiche del nome del comitato
+// $c->nome        =   normalizzaNome($_POST['inputNome']);
 $c->telefono    =   maiuscolo($_POST['inputTelefono']);
 $c->email       =   minuscolo($_POST['inputEmail']);
 $c->fax         =   maiuscolo($_POST['inputFax']);
 if (!$c instanceof Comitato) {
-	$c->piva 		=   $_POST['inputPIVA'];
-	$c->cf 			=   $_POST['inputCF'];
+	if(!$c->cf() || $me->admin())
+		$c->cf 			=   $_POST['inputCF'];
+	if(!$c->piva() || $me->admin())
+		$c->piva 		=   $_POST['inputPIVA'];
 }
 
 $ricerca  = $_POST['inputIndirizzo'] . ', ';
@@ -39,4 +42,4 @@ $c->formattato  = $r->formattato;
 
 $c->localizzaStringa($c->formattato);
 
-redirect('utente.me');
+redirect("presidente.wizard&oid={$c->oid()}&ok");

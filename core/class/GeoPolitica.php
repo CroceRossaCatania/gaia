@@ -51,7 +51,7 @@ abstract class GeoPolitica extends GeoEntita {
      * @param bool $storico Opzionale. Ritornare anche i passati? Default true.
      * @return array(CorsoBase) Lista di corsi base organizzati
      */
-    public function corsiBase ( $storico = true ) {
+    public function corsiBase ( $storico = true, $inCorso = false ) {
         $c = CorsoBase::filtra([
             ['organizzatore',  $this->oid()]
         ]);
@@ -60,11 +60,19 @@ abstract class GeoPolitica extends GeoEntita {
             return $c; 
 
         $r = [];
-        foreach ( $c as $_c ) {
-            if ( $_c->futuro() )
-                $r[] = $_c;
+        foreach ($c as $_c) {
+            if ( !$_c->finito() )
+                $r[] = $_c; 
         }
-        return $r;
+        if ( $inCorso ) 
+            return $r;
+
+        $rr = [];
+        foreach ( $r as $_r ) {
+            if ( $_r->futuro() )
+                $rr[] = $_r;
+        }
+        return $rr;
     }
     
     /*

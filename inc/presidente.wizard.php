@@ -43,16 +43,23 @@ proteggiClasse($c, $me);
       <p>I dati contrassegnati da asterisco (*) sono obbligatori.</p>
       <p>Per favore, completa immediatamente i dettagli per <strong><?php echo $c->nome; ?></strong>. <strong>Potrai modificarli in seguito.</strong></p>
       <p><i><i class="icon-warning-sign"></i> Non potrai usare altre funzioni di Gaia fino al completamento delle schede delle tue unità territoriali.</i></p>
-    </div>
-    <?php } ?>
-    <div class="alert alert-block alert-info">
-      <h4><i class="icon-warning-sign"></i> Codice Fiscale e Partita IVA</h4>
-      <p>Fai molta attenzione nell'inserire Codice Fiscale e Partita IVA in quanto una volta inseriti
-      non potrai modificarli manualmente. In caso di errore nell'inserimento manda una email a 
-      supporto@gaia.cri.it per richiederne la correzione.</p>
-      <p>Se il tuo Comitato ha il solo Codice Fiscale e non la  Partita IVA inserisci solamente il Codice Fiscale, 
-      non inserire dati errati nel campo della Partita IVA.
-    </div>
+  </div>
+  <?php } ?>
+  <?php if ( isset($_GET['ok'] ) ) { ?>
+  <div class="alert alert-success">
+    <strong><i class="icon-save"></i> Dati salvati correttamente</strong>. I dati che hai inserito sono stati 
+    salvati nel sistema.
+    
+  </div>
+  <?php } ?>
+  <div class="alert alert-block alert-info">
+    <h4><i class="icon-warning-sign"></i> Codice Fiscale e Partita IVA</h4>
+    <p>Fai molta attenzione nell'inserire Codice Fiscale e Partita IVA in quanto una volta inseriti
+    non potrai modificarli manualmente. In caso di errore nell'inserimento manda una email a 
+    supporto@gaia.cri.it per richiederne la correzione.</p>
+    <p>Se il tuo Comitato ha il solo Codice Fiscale e non la  Partita IVA inserisci solamente il Codice Fiscale, 
+    non inserire dati errati nel campo della Partita IVA.
+  </div>
 
     
 

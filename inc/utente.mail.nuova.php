@@ -62,7 +62,8 @@ $t = Utente::by('id',$f);
             || isset($_GET['estensione'])
             || isset($_GET['riserva']) 
             || isset($_GET['zeroturnicom']) 
-            || isset($_GET['zeroturniunit']) ) { 
+            || isset($_GET['zeroturniunit'])
+            || isset($_GET['ordinaricom'])) { 
             ?>
             <div class="control-group">
               <label class="control-label" for="inputV">Destinatari</label>
@@ -82,13 +83,13 @@ $t = Utente::by('id',$f);
             <div class="control-group">
               <label class="control-label" for="inputOggetto">Oggetto</label>
               <div class="controls">
-                <input type="text" class="span6" name="inputOggetto" id="inputOggetto" required>
+                <input type="text" class="span6" name="inputOggetto" id="inputOggetto" placeholder="Inserire qui l'oggetto della mail" required>
               </div>
             </div>
             <div class="control-group">
             <label class="control-label" for="inputTesto">Testo</label>
             <div class="controls">
-              <textarea rows="10" class="input-xxlarge conEditor" type="text" id="inputTesto" name="inputTesto" placeholder="Inserisci il testo della tua mail qui..."></textarea>
+              <textarea rows="10" class="input-xlarge conEditor" type="text" id="inputTesto" name="inputTesto" placeholder="Inserisci il testo della tua mail qui..."></textarea>
             </div>
           </div>
             <div class="form-actions">

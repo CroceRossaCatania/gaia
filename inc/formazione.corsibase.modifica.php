@@ -114,6 +114,12 @@ if (!$corso->haPosizione()) {
                 } ?> 
         </p>
         <p>
+            <strong>Invia email ad aspiranti</strong><br />
+                <input type="checkbox" value="true" name="inputInvioEmail" 
+                    <?php if(!$corso->daCompletare()) { ?> disabled="true" checked="false" <?php } ?>
+                /> 
+        </p>
+        <p>
             <strong>O.P. Attivazione / Data</strong><br />
                 <?php if(!$corso->finito() || $me->admin()) { ?>
                     <input class="input-small" type="text" name="inputOpattivazione" id="inputOpattivazione" value="<?php echo $corso->opAttivazione; ?>" />
