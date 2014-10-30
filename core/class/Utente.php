@@ -532,6 +532,10 @@ class Utente extends Persona {
         foreach ( TitoloPersonale::filtra([['volontario',$this]]) as $g ) {
             $g->cancella();
         }
+        // 14. Provvedimenti
+        foreach ( $this->storicoProvvedimenti() as $g ) {
+            $g->cancella();
+        }
         parent::cancella();
     }
     
@@ -2046,7 +2050,17 @@ class Utente extends Persona {
         }
     }
 
-    /*
+    /**
+     * Elenca storico dei provvedimenti di un volontario
+     * @return Provvedimento|array
+     */
+    public function storicoProvvedimenti() {
+        return Provvedimento::filtra([
+            ['volontario', $this->id]
+        ], 'INIZIO DESC');
+    }
+
+    /**
      * Dimette un volontario
      * @param $motivo, motivazione di dimissione
      * @param $info default NULL, informazioni aggiuntive sulla dimissione
