@@ -24,9 +24,7 @@ $geoComitato = GeoPolitica::daOid($a->comitato);
 
 $modificabile = $a->modificabileDa($me);
 if ( $modificabile ) {
-    $dominio = $geoComitato->dominioComune(
-        $me->delegazioneAttuale()->comitato()
-    );
+    $dominio = $me->dominioCompetenzaAttivita($a);
 }
 
 $_titolo = $a->nome . ' - Attività CRI su Gaia';

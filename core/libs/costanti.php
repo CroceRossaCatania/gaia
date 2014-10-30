@@ -502,28 +502,6 @@ $conf['est_obj'] = [
 
 /*
  * ===================================
- * ====== CONVERSIONI ESTENSIONE =====
- * ===================================
- */
-
-$conf['est_geopolitica2attivita'] = [
-    EST_UNITA       =>  ATT_VIS_UNITA,
-    EST_LOCALE      =>  ATT_VIS_LOCALE,
-    EST_PROVINCIALE =>  ATT_VIS_PROVINCIALE,
-    EST_REGIONALE   =>  ATT_VIS_REGIONALE,
-    EST_NAZIONALE   =>  ATT_VIS_NAZIONALE     
-];
-
-$conf['est_attivita2geopolitica'] = [
-    ATT_VIS_UNITA       =>  EST_UNITA,
-    ATT_VIS_LOCALE      =>  EST_LOCALE,
-    ATT_VIS_PROVINCIALE =>  EST_PROVINCIALE,
-    ATT_VIS_REGIONALE   =>  EST_REGIONALE,
-    ATT_VIS_NAZIONALE   =>  EST_NAZIONALE     
-];
-
-/*
- * ===================================
  * =========== ELEZIONI ==============
  * ===================================
  */
@@ -846,3 +824,27 @@ $conf['like'] = [
     PIACE      =>  'Mi piace', 
     NON_PIACE  =>  'Non mi piace'
 ];  
+
+
+/*
+ * ===================================
+ * ====== CONVERSIONI ESTENSIONE =====
+ * ===================================
+ */
+
+$conf['est_geopolitica2attivita'] = [
+    EST_UNITA       =>  ATT_VIS_UNITA,
+    EST_LOCALE      =>  ATT_VIS_LOCALE,
+    EST_PROVINCIALE =>  ATT_VIS_PROVINCIALE,
+    EST_REGIONALE   =>  ATT_VIS_REGIONALE,
+    EST_NAZIONALE   =>  ATT_VIS_VOLONTARI     
+];
+
+$conf['est_attivita2geopolitica'] = [
+    ATT_VIS_UNITA       =>  EST_UNITA,
+    ATT_VIS_LOCALE      =>  EST_LOCALE,
+    ATT_VIS_PROVINCIALE =>  EST_PROVINCIALE,
+    ATT_VIS_REGIONALE   =>  EST_REGIONALE,
+    ATT_VIS_VOLONTARI   =>  EST_NAZIONALE,
+    ATT_VIS_PUBBLICA    =>  EST_NAZIONALE     
+];
