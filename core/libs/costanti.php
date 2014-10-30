@@ -824,3 +824,21 @@ $conf['like'] = [
     PIACE      =>  'Mi piace', 
     NON_PIACE  =>  'Non mi piace'
 ];  
+
+/*
+ * ===================================
+ * =========== PROVVEDIMENTI =========
+ * ===================================
+ */
+
+define('PROVV_RICHIAMO',    10);
+define('PROVV_AMMONIZIONE', 20);
+define('PROVV_SOSPENSIONE', 30);
+define('PROVV_ESPULSIONE',  40);
+
+$conf['provvedimenti'] = [
+    PROVV_RICHIAMO      =>  'Richiamo verbale',
+    PROVV_AMMONIZIONE   =>  'Ammonizione scritta',
+    PROVV_SOSPENSIONE   =>  'Sospensione',
+    PROVV_ESPULSIONE    =>  'Espulsione'
+];

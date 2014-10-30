@@ -18,7 +18,7 @@ if ( @$fine->getTimestamp() < @$inizio->getTimestamp() ) {
 }
 
 $v = Volontario::id($_POST['inputVolontario']);
-$m = $_POST['inputMotivo'];
+$motivo = $_POST['inputMotivo'];
 
 /*Avvio la procedura*/
 
@@ -26,7 +26,7 @@ $p = new Provvedimento();
 $p->volontario   = $v->id;
 $p->tipo         = $_POST['inputTipo'];
 $p->appartenenza = $v->appartenenzaAttuale();
-$p->motivo       = $m;    
+$p->motivo       = $motivo;    
 $p->pConferma    = $me;
 $p->tConferma    = time();
 $p->protNumero   = $_POST['protNum']; 
@@ -60,7 +60,7 @@ if ( $_POST['protData'] ) {
 
 if ($_POST['inputTipo'] == PROVV_ESPULSIONE){
     //dimissione automatica del volontario
-    $v->dimettiVolontario(DIM_ESPULSIONE, $m, $me, $p->inizio);
+    $v->dimettiVolontario(DIM_ESPULSIONE, $motivo, $me, $p->inizio);
 }
 
 redirect('us.dash&provok');
