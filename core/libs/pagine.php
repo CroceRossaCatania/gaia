@@ -142,7 +142,6 @@ function paginaModale() {
 
 function paginaPresidenziale( $comitato = null, $attivita = null) {
     global $sessione;
-    $sessione->utente()->loggaAzioni();
     paginaPrivata();
     if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin() ) {
         redirect('utente.me');
