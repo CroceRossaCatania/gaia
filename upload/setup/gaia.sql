@@ -560,6 +560,21 @@ CREATE TABLE IF NOT EXISTS `provinciali` (
   SPATIAL KEY `geo` (`geo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `provvedimenti` (
+  `id` int(11) NOT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `appartenenza` varchar(16) DEFAULT NULL,
+  `motivo` varchar(255) DEFAULT NULL,
+  `inizio` varchar(64) DEFAULT NULL,
+  `fine` varchar(64) DEFAULT NULL,
+  `protData` varchar(64) DEFAULT NULL,
+  `protNumero` varchar(16) DEFAULT NULL,
+  `pConferma` varchar(16) DEFAULT NULL,
+  `tConferma` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `volontario` (`volontario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `quote` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `appartenenza` varchar(16) DEFAULT NULL,
