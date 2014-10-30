@@ -107,7 +107,7 @@ paginaPrivata();
                                 <ol>
                                     <li>
                                         <p>
-                                            <strong>Seleziona il file</strong> in formato <strong>JPG</strong> dal tuo computer:<br />
+                                            <strong>Seleziona il file</strong> in formato <strong>JPG,PNG</strong> dal tuo computer:<br />
                                              <input type="file" name="file" />
                                         </p>
                                     </li>
@@ -153,7 +153,7 @@ paginaPrivata();
                                 <ol>
                                     <li>
                                         <p>
-                                            <strong>Seleziona il file</strong> in formato <strong>JPG</strong> dal tuo computer:<br />
+                                            <strong>Seleziona il file</strong> in formato <strong>JPG,PNG</strong> dal tuo computer:<br />
                                              <input type="file" name="file" />
                                         </p>
                                     </li>
