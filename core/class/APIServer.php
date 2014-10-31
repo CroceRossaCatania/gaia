@@ -684,7 +684,7 @@ class APIServer {
         if ( $part->stato == ISCR_RICHIESTA ) {
             
             if ( $this->par['iscr'] ) {
-                $part->concedi($this->par['com']);
+                $part->concedi($this->par['com'], $me);
 
                 $cal = new ICalendar();
                 $cal->generaCorsoBase($corsoBase);
@@ -701,7 +701,7 @@ class APIServer {
                 $m->invia();               
                 
             } else {
-                $part->nega();
+                $part->nega($me);
                 $motivo = $this->par['motivo'];                 
                 $m = new Email('corsoBaseNonAmmesso', "Non ammesso al {$corsoBase->nome()}" );
                 $m->a               = $part->utente();
