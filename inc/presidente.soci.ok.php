@@ -135,6 +135,10 @@ caricare la fototessera entrando nella scheda <strong>Dettagli</strong>.
                             <a class="btn btn-small btn-info" href="?p=us.tesserini.chiedi.ok&id=<?= $_v ?>" title="Richiedi tesserino">
                                 <i class="icon-credit-card"></i> Tesserino
                             </a>
+                        <?php }elseif($tesseratore && $tesserino){ ?>
+                            <a class="btn btn-small btn-info" href="?p=us.tesserini.duplicato.ok&id=<?= $_v ?>" title="Richiedi duplicato tesserino">
+                                <i class="icon-credit-card"></i> Duplicato tesserino
+                            </a>
                         <?php } ?>
                    </td>
                 </tr>
