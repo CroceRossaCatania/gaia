@@ -47,8 +47,9 @@ if (!$iscritto && !$a)
                     <h1><i class="icon-flag"></i> Complimenti, sei preiscritto ad un Corso per Volontari! </h1>
                     <br />
                     <p>Ora non ti resta che presentarti presso il luogo indicato per lo svolgimento
-                    delle lezioni. Se hai bisogno di maggiori informazioni 
-                    accedi alla scheda corso.</p>
+                    delle lezioni.</p>
+                    <p>Quando inizierà il corso ti verrà richiesto di diventere Socio della Croce Rossa Italiana,
+                    per avere maggiori dettagli premi il pulsante qui sotto.</p>
                     <a href="?p=formazione.corsibase.scheda&id=<?= $corsoBase->corsoBase; ?>" class="btn btn-large btn-info">
                         Scheda corso
                     </a>

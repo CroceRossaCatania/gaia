@@ -251,6 +251,26 @@ $(document).ready( function() {
         <hr />
         <?php } ?>
 
+        <?php if($corso->iscritto($me)) { ?>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="alert alert-info">
+                    Per partecipare effettivamente ad un Corso per Volontari della Croce Rossa dei diventare un <strong>Socio Ordinario</strong>.
+                    Durante la presentazione del corso ti verranno fornite tutte le informazioni utili al riguardo. Per renderti
+                    più facili le cose puoi trovare qui di seguito alcuni documenti molto importati. Ti verrà richiesto
+                    di <strong>leggere e sottoscrivere</strong> questi documenti quando compilerai il modulo di iscrizione:
+                    <ul>
+                        <li><a href="docs/regolamento_volontari.pdf">
+                         Regolamento dei Volontari della Croce Rossa</a></li>
+                        <li><a href="docs/codice_condotta.pdf">
+                         Codice di Condotta del personale della Croce Rossa</a></li>
+                    </ul>
+                    Qualora qualcosa non ti fosse chiaro non esitare a contattare il direttore del corso per maggiori informazioni.
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+
         <?php if($puoPartecipare && !$iscritto) { ?>
         <div class="row-fluid">
             <?php if ($corso->accettaIscrizioni() && !$corso->iscritto($me)) { ?>
