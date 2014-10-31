@@ -51,7 +51,7 @@ class PartecipazioneBase extends Entita {
                 $a->fine        = PROSSIMA_SCADENZA;
                 $a->timestamp   = time();
                 $a->stato       = MEMBRO_ORDINARIO;
-                $a->conferma    = $essione->utente()->id();
+                $a->conferma    = $sessione->utente()->id();
             }
             return true;
         }

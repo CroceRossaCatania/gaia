@@ -694,6 +694,7 @@ class APIServer {
                 $m->da              = $corsoBase->direttore();
                 $m->_NOME           = $part->utente()->nome;
                 $m->_CORSO          = $corsoBase->nome();
+                $m->_DATA           = $corsoBase->inizio()->inTesto(false, true);
                 $m->_DIRETTORE      = $corsoBase->direttore()->nomeCompleto();
                 $m->_CELLDIRETTORE  = $corsoBase->direttore()->cellulare();
                 $m->allega($cal);
