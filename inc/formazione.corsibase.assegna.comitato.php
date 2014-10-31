@@ -15,6 +15,10 @@ $u = Utente::id($_GET['asp']);
 
 paginaCorsoBase($corso);
 
+if(!$corso->iniziato()) {
+    redirect("formazione.corsibase.scheda&id={$corso}&err");
+}
+
 $comitati = new RamoGeoPolitico($comitato, ESPLORA_SOLO_FOGLIE, EST_UNITA);
 ?>
 

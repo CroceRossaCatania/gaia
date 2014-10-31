@@ -415,6 +415,21 @@ $(document).ready( function() {
                 </div>
             </div>
         </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <?php if(!$corso->iniziato()) { ?>
+                    <div class="alert alert-info">
+                    <strong><i class="icon-warning-sign"></i> Non puoi ancora accettare le preiscrizioni.</strong>
+                    Solo dopo la data di inizio del corso ti sarà possibile accettare le preiscrizioni la corso.
+                    Questa scelta è dovuta al fatto che <strong>accettare una periscrizione</strong> significa iscrivere l'aspirante
+                    Volontario nel ruolo di <strong>Socio Ordinario del Comitato</strong>. Questo lo potrai fare solamente quando
+                    la persona si sarà presentata al corso e ti avrà fornito la modulistica che serve. Puoi in
+                    ogni caso iniziare a prendere contatti con l'aspirante Volontario.
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+
 
         <div class="row-fluid">
             <table class="table table-striped table-bordered" id="tabellaUtenti">
@@ -444,6 +459,7 @@ $(document).ready( function() {
                             <?= $conf['partecipazioneBase'][$p->stato]; ?>
                         </td>
                         <td width="15%">
+                            <?php if($corso->iniziato()) { ?>
                             <div class="btn-group btn-group-vertical">
                                 <a href="<?= "?p=formazione.corsibase.assegna.comitato&id={$p->id}&asp={$iscritto->id}" ?>" class="btn btn-success">
                                     <i class="icon-ok"></i> Accetta
@@ -452,6 +468,7 @@ $(document).ready( function() {
                                     <i class="icon-remove"></i> Rifiuta
                                 </a>
                             </div>
+                            <?php } ?>
                         </td>
                     </tr>
                 <?php } ?>
