@@ -693,21 +693,22 @@ class APIServer {
                 $m->a               = $part->utente();
                 $m->da              = $corsoBase->direttore();
                 $m->_NOME           = $part->utente()->nome;
-                $m->_CORSO          = $corso->nome();
-                $m->_DIRETTORE      = $part->utente()->nomeCompleto();
-                $m->_CELLDIRETTORE  = $part->utente()->cellulare();
+                $m->_CORSO          = $corsoBase->nome();
+                $m->_DIRETTORE      = $corsoBase->direttore()->nomeCompleto();
+                $m->_CELLDIRETTORE  = $corsoBase->direttore()->cellulare();
                 $m->allega($cal);
                 $m->invia();               
                 
             } else {
                 $part->nega();
-                                    
+                $motivo = $this->par['motivo'];                 
                 $m = new Email('corsoBaseNonAmmesso', "Non ammesso al {$corsoBase->nome()}" );
                 $m->a               = $part->utente();
                 $m->da              = $corsoBase->direttore();
                 $m->_NOME           = $part->utente()->nome;
-                $m->_CORSO          = $corso->nome();
-                $m->_DIRETTORE      = $part->utente()->nomeCompleto();
+                $m->_MOTIVO         = $motivo;
+                $m->_CORSO          = $corsoBase->nome();
+                $m->_DIRETTORE      = $corsoBase->direttore()->nomeCompleto();
                 $m->invia();    
                 
             }
