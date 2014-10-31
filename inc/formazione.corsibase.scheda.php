@@ -261,9 +261,11 @@ $(document).ready( function() {
             <div class="span6">
                 <button class="btn btn-large btn-block btn-primary disabled">Preiscrizione effettuata</button>
             </div>
-            <div class="span6">
-                <a href="?p=formazione.corsibase.iscrizione.cancella.ok&id=<?php echo $corso->id ; ?>" class="btn btn-large btn-block btn-danger">Cancella Preiscrizione</a>
-            </div>
+                <?php if($corso->futuro()) { ?>
+                <div class="span6">
+                    <a href="?p=formazione.corsibase.iscrizione.cancella.ok&id=<?php echo $corso->id ; ?>" class="btn btn-large btn-block btn-danger">Cancella Preiscrizione</a>
+                </div>
+                <?php } ?>
             <?php } ?>
         <div>
         <?php } elseif($iscritto) { ?>
