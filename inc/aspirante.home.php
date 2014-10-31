@@ -60,7 +60,7 @@ if (!$iscritto && !$a)
             <div class="alert alert-block alert-info">
                 <p><i class="icon-info-sign"></i> Hai più di una preiscrizione, <a href="?p=aspirante.preiscrizioni">controlla qui</a>. 
                 Ricorda che potrai svolgere
-                sono un corso, se ci sono preiscrizioni che non ti interessano cancellale, altrimenti quando
+                solo un corso, se ci sono preiscrizioni che non ti interessano cancellale, altrimenti quando
                 inizierai un corso le altre preiscrizini verrano automaticamente rimosse dal sistema.</p>
             </div>
 

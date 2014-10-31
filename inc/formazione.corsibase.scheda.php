@@ -442,7 +442,7 @@ $(document).ready( function() {
                 <?php if(!$corso->iniziato()) { ?>
                     <div class="alert alert-info">
                     <strong><i class="icon-warning-sign"></i> Non puoi ancora accettare le preiscrizioni.</strong>
-                    Solo dopo la data di inizio del corso ti sarà possibile accettare le preiscrizioni la corso.
+                    Solo dopo la data di inizio del corso ti sarà possibile accettare le preiscrizioni al corso.
                     Questa scelta è dovuta al fatto che <strong>accettare una periscrizione</strong> significa iscrivere l'aspirante
                     Volontario nel ruolo di <strong>Socio Ordinario del Comitato</strong>. Questo lo potrai fare solamente quando
                     la persona si sarà presentata al corso e ti avrà fornito la modulistica che serve. Puoi in
