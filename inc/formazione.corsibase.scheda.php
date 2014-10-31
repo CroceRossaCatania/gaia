@@ -255,7 +255,7 @@ $(document).ready( function() {
         <div class="row-fluid">
             <div class="span12">
                 <div class="alert alert-info">
-                    Per partecipare effettivamente ad un Corso per Volontari della Croce Rossa dei diventare un <strong>Socio Ordinario</strong>.
+                    Per partecipare effettivamente ad un Corso per Volontari della Croce Rossa devi diventare un <strong>Socio Ordinario</strong>.
                     Durante la presentazione del corso ti verranno fornite tutte le informazioni utili al riguardo. Per renderti
                     più facili le cose puoi trovare qui di seguito alcuni documenti molto importati. Ti verrà richiesto
                     di <strong>leggere e sottoscrivere</strong> questi documenti quando compilerai il modulo di iscrizione:
