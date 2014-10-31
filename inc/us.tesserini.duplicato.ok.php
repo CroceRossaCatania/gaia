@@ -46,13 +46,16 @@ $ora = time();
 
 $t = new TesserinoRichiesta();
 $t->volontario 	= $v;
-$t->tipo 		= RILASCIO;
+$t->tipo 		= DUPLICATO;
 $t->stato 		= RICHIESTO;
 $t->pRichiesta 	= $me;
 $t->tRichiesta 	= $ora;
 $t->timestamp 	= $ora;
 $t->struttura	= $v->unComitato()->regionale()->oid();
 
-// bisogna inserire invio email a volontario
+$m = new Email('tesserinoDuplicato', 'Richiesta duplicato tesserino effettuata');
+$m->a 			= $v;
+$m->_NOME       = $v->nomeCompleto();
+$m->accoda();
 
 redirect('presidente.soci.ok&tok');
