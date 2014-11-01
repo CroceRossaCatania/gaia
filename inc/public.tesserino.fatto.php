@@ -22,8 +22,6 @@ if ($u) {
     $t = TesserinoRichiesta::by('codice', $num);
     if ( $t->valido() ){
         $verificato = true;
-    }else{
-        $verificato = false;
     }
     $l = strlen($cogn);
     $r = rand(1, $l);
