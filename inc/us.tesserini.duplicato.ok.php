@@ -40,6 +40,9 @@ if(!$me->fototessera() || $me->fototessera()->stato == FOTOTESSERA_PENDING) {
 	redirect('presidente.soci.ok&nofoto');
 }
 
+/* Invalido precedente */
+
+
 /* Creo la richiesta vera a propria */
 
 $ora = time();

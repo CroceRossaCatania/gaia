@@ -19,7 +19,12 @@ $verificato = false;
 //if($u && $u->appartenenzaAttuale()) {
 if ($u) {
     $cogn = $u->cognome;
-    $verificato = true;
+    $t = TesserinoRichiesta::by('codice', $num);
+    if ( $t->valido() ){
+        $verificato = true;
+    }else{
+        $verificato = false;
+    }
     $l = strlen($cogn);
     $r = rand(1, $l);
     $c = strtoupper(substr($cogn, $r-1, 1));

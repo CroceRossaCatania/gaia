@@ -743,6 +743,7 @@ define('RICHIESTO',          10);
 define('STAMPATO',           20);
 define('SPEDITO_CASA',       30);
 define('SPEDITO_COMITATO',   40);
+define('INVALIDATO',         50);
 
 $conf['tesseriniStato'] = [
     RIFIUTATO           =>  'Richiesta di stampa rifiutata', 
@@ -750,6 +751,7 @@ $conf['tesseriniStato'] = [
     STAMPATO            =>  'Tesserino emesso', 
     SPEDITO_CASA        =>  'Tesserino inviato al domicilio', 
     SPEDITO_COMITATO    =>  'Tesserino inviato al comitato', 
+    INVALIDATO          =>  'Tesserino invalidato',
 ];  
 
 $conf['tesseriniStatoBreve'] = [
@@ -758,6 +760,7 @@ $conf['tesseriniStatoBreve'] = [
     STAMPATO            =>  'Emesso', 
     SPEDITO_CASA        =>  'Emesso', 
     SPEDITO_COMITATO    =>  'Emesso', 
+    INVALIDATO          =>  'Invalidato',
 ];  
 
 
