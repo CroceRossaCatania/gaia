@@ -111,11 +111,11 @@ if (!$corso->modificabileDa($me)) {
 			 placeholder="Nome della nuova lezione" required maxlength="64" />
 		</td>
 		<td>
-			<input class="dti" name="inizio" required 
+			<input class="<?php if ($admin) echo "dtia"; else echo "dti"; ?>" name="inizio" required 
 			 placeholder="Inizio della lezione" />
 		</td>
 		<td>
-			<input class="dti" name="fine" required 
+			<input class="<?php if ($admin) echo "dtia"; else echo "dti"; ?>" name="fine" required 
 			 placeholder="Fine della lezione" />
 		</td>
 		<td colspan="2">

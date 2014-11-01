@@ -251,6 +251,26 @@ $(document).ready( function() {
         <hr />
         <?php } ?>
 
+        <?php if($corso->iscritto($me)) { ?>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="alert alert-info">
+                    Per partecipare effettivamente ad un Corso per Volontari della Croce Rossa devi diventare un <strong>Socio Ordinario</strong>.
+                    Durante la presentazione del corso ti verranno fornite tutte le informazioni utili al riguardo. Per renderti
+                    più facili le cose puoi trovare qui di seguito alcuni documenti molto importati. Ti verrà richiesto
+                    di <strong>leggere e sottoscrivere</strong> questi documenti quando compilerai il modulo di iscrizione:
+                    <ul>
+                        <li><a href="docs/regolamento_volontari.pdf">
+                         Regolamento dei Volontari della Croce Rossa</a></li>
+                        <li><a href="docs/codice_condotta.pdf">
+                         Codice di Condotta del personale della Croce Rossa</a></li>
+                    </ul>
+                    Qualora qualcosa non ti fosse chiaro non esitare a contattare il direttore del corso per maggiori informazioni.
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+
         <?php if($puoPartecipare && !$iscritto) { ?>
         <div class="row-fluid">
             <?php if ($corso->accettaIscrizioni() && !$corso->iscritto($me)) { ?>
@@ -261,9 +281,11 @@ $(document).ready( function() {
             <div class="span6">
                 <button class="btn btn-large btn-block btn-primary disabled">Preiscrizione effettuata</button>
             </div>
-            <div class="span6">
-                <a href="?p=formazione.corsibase.iscrizione.cancella.ok&id=<?php echo $corso->id ; ?>" class="btn btn-large btn-block btn-danger">Cancella Preiscrizione</a>
-            </div>
+                <?php if($corso->futuro()) { ?>
+                <div class="span6">
+                    <a href="?p=formazione.corsibase.iscrizione.cancella.ok&id=<?php echo $corso->id ; ?>" class="btn btn-large btn-block btn-danger">Cancella Preiscrizione</a>
+                </div>
+                <?php } ?>
             <?php } ?>
         <div>
         <?php } elseif($iscritto) { ?>
@@ -415,6 +437,21 @@ $(document).ready( function() {
                 </div>
             </div>
         </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <?php if(!$corso->iniziato()) { ?>
+                    <div class="alert alert-info">
+                    <strong><i class="icon-warning-sign"></i> Non puoi ancora accettare le preiscrizioni.</strong>
+                    Solo dopo la data di inizio del corso ti sarà possibile accettare le preiscrizioni al corso.
+                    Questa scelta è dovuta al fatto che <strong>accettare una periscrizione</strong> significa iscrivere l'aspirante
+                    Volontario nel ruolo di <strong>Socio Ordinario del Comitato</strong>. Questo lo potrai fare solamente quando
+                    la persona si sarà presentata al corso e ti avrà fornito la modulistica che serve. Puoi in
+                    ogni caso iniziare a prendere contatti con l'aspirante Volontario.
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+
 
         <div class="row-fluid">
             <table class="table table-striped table-bordered" id="tabellaUtenti">
@@ -444,6 +481,7 @@ $(document).ready( function() {
                             <?= $conf['partecipazioneBase'][$p->stato]; ?>
                         </td>
                         <td width="15%">
+                            <?php if($corso->iniziato()) { ?>
                             <div class="btn-group btn-group-vertical">
                                 <a href="<?= "?p=formazione.corsibase.assegna.comitato&id={$p->id}&asp={$iscritto->id}" ?>" class="btn btn-success">
                                     <i class="icon-ok"></i> Accetta
@@ -452,6 +490,7 @@ $(document).ready( function() {
                                     <i class="icon-remove"></i> Rifiuta
                                 </a>
                             </div>
+                            <?php } ?>
                         </td>
                     </tr>
                 <?php } ?>
