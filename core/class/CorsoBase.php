@@ -152,8 +152,13 @@ class CorsoBase extends GeoEntita {
     public function modificabileDa(Utente $u) {
         return (bool) (
                 $u->id == $this->direttore
-            ||  in_array($this, $u->corsiBaseDiGestione())
+            ||  in_array($this->id, 
+                    array_map(function($x) {
+                        return $x->id;
+                    }, $u->corsiBaseDiGestione())
+                )
         );
+
     }
 
     /**

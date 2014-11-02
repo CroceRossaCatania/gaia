@@ -1087,9 +1087,10 @@ class Utente extends Persona {
     public function corsiBaseDiGestione() {
         $a = $this->corsiBaseDiretti();
         foreach ( $this->comitatiApp([APP_PRESIDENTE, APP_FORMAZIONE], false) as $c ) {
-            $a = array_merge($a, $c->CorsiBase());
+            $a = array_merge($a, $c->corsiBase());
         }
-        return array_unique($a);
+        $a = array_unique($a);
+        return $a;
     }
 
     /**

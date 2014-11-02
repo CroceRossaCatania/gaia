@@ -121,16 +121,8 @@ function paginaCorsoBase( $corsoBase = null ) {
          ( 
             ( $corsoBase instanceof CorsoBase )
             and
-            !$corsoBase->modificabileDa($sessione->utente())
+            !($corsoBase->modificabileDa($sessione->utente()))
          )
-            or
-         !(
-                (bool) $sessione->utente()->admin()
-            or  (bool) $sessione->utente()->presiede()
-            or  (bool) $sessione->utente()->delegazioni(APP_FORMAZIONE)
-            or  (bool) $sessione->utente()->corsiBaseDiGestione()
-            or  (bool) $sessione->utente()->corsiBaseDiretti()
-        )
     ) {
         redirect('errore.permessi');
     }
