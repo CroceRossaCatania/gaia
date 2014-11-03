@@ -1330,7 +1330,7 @@ class Utente extends Persona {
         return PRIVACY_PUBBLICA;
     }
 
-	/*
+	/**
      * @return età utente
      */
     public function eta(){
@@ -1339,7 +1339,7 @@ class Utente extends Persona {
         return $ora-$anno;
     }
 
-    /*
+    /**
      * @return bool restituisce true se oggi è il compleanno dell'utente
      */
     public function compleanno(){
@@ -1350,7 +1350,7 @@ class Utente extends Persona {
         }
     }
 
-    /*
+    /**
      * @return true se se si è in una situazione in cui le appartenenze assegnate hanno senso.
      * Anche se la gestione del false non è fatta in maniera corretta nella pagina.
      */
@@ -1368,7 +1368,7 @@ class Utente extends Persona {
         return false;
     }
 
-    /*
+    /**
      * Verifica se un altro utente ha permessi in scrittura su me
      * @return bool modifica o non modifica
      * @param $altroUtente il modificatore
@@ -1433,7 +1433,7 @@ class Utente extends Persona {
         return false;
     }
 
-    /*
+    /**
      * Controlla la riammissibilità entro l'anno solare di un volontario
      * @return true se volontario riammissibile false se non riammissibile
      */
@@ -1459,7 +1459,7 @@ class Utente extends Persona {
         return true;
     }
 
-    /*
+    /**
      * Visualizza ultimo accesso dell'utente
      * @return recentemente<5gg, 5gg< ultimo mese <30gg, piu di un mese >30gg
      */
@@ -1942,7 +1942,7 @@ class Utente extends Persona {
         return;
     }
 
-	/*
+	/**
      * Ritorna il File del Tesserino del Volontario, se esistente
      * @return bool(false)|File     Il tesserino del volontario, false altrimenti
      */
@@ -1953,7 +1953,7 @@ class Utente extends Persona {
         return false;
     }
 
-    /*
+    /**
      * Ottiene codice ultimo tesserino valido volontario (codicePubblico) 
      * @return bool(false)|string Codice se presente, alternativamente false
      */
@@ -1969,12 +1969,11 @@ class Utente extends Persona {
      * @return RichiestaTesserino|bool(false)   RichiestaTesserino se presente, false altrimenti
      */
     public function tesserinoRichiesta() {
-        $r = [];
         $t = TesserinoRichiesta::filtra([
             ['volontario', $this]
             ]);
         foreach($t as $_t) {
-            if ($_t->stato != RIFIUTATO) {
+            if ($_t->stato != RIFIUTATO || $_t->stato != INVALIDATO) {
                 return $_t;
             }
         }
@@ -2044,6 +2043,21 @@ class Utente extends Persona {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Invalida Tesserino del Volontario, se esistente
+     * @return bool     Il true se invalidato, false altrimenti
+     */
+    public function invalidaTesserino($motivo) {
+        $r = $this->tesserinoRichiesta();
+        if ( $r && $r->haCodice() ) {
+            $tesserino = TesserinoRichiesta::id($r);
+            $tesserino->motivo = $motivo;
+            $tesserino->stato  = INVALIDATO;
+            return true;
+        }
+        return false;
     }
 
 }

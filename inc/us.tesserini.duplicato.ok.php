@@ -29,10 +29,18 @@ if(!$app || !in_array($app->comitato()->id, $elenco)) {
 }
 
 /* Verifico esistenza di un tesserino valido e che la richiesta di duplicato non sia già stata fatta */
-//modificare da qui
-$t = $v->tesserinoRichiesta();
 
-if($t) {
+$gia = false;
+$t = TesserinoRichiesta::filtra([
+    ['volontario', $v]
+    ]);
+foreach($t as $tesserino) {
+    if ($tesserino->stato < SPEDITO_CASA ||  $tesserino->stato == INVALIDATO) {
+         $gia = true;
+    }
+}
+
+if($gia) {
 	redirect('presidente.soci.ok&gia');
 }
 
@@ -41,24 +49,30 @@ if(!$me->fototessera() || $me->fototessera()->stato == FOTOTESSERA_PENDING) {
 }
 
 /* Invalido precedente */
-
+$motivo = "Richiesto duplicato";
+$tesserino = $v->invalidaTesserino($motivo);
 
 /* Creo la richiesta vera a propria */
 
 $ora = time();
 
-$t = new TesserinoRichiesta();
-$t->volontario 	= $v;
-$t->tipo 		= DUPLICATO;
-$t->stato 		= RICHIESTO;
-$t->pRichiesta 	= $me;
-$t->tRichiesta 	= $ora;
-$t->timestamp 	= $ora;
-$t->struttura	= $v->unComitato()->regionale()->oid();
+if ( $tesserino ){
 
-$m = new Email('tesserinoDuplicato', 'Richiesta duplicato tesserino effettuata');
-$m->a 			= $v;
-$m->_NOME       = $v->nomeCompleto();
-$m->accoda();
+	$t = new TesserinoRichiesta();
+	$t->volontario 	= $v;
+	$t->tipo 		= DUPLICATO;
+	$t->stato 		= RICHIESTO;
+	$t->pRichiesta 	= $me;
+	$t->tRichiesta 	= $ora;
+	$t->timestamp 	= $ora;
+	$t->struttura	= $v->unComitato()->regionale()->oid();
 
-redirect('presidente.soci.ok&tok');
+	$m = new Email('tesserinoDuplicato', 'Richiesta duplicato tesserino effettuata');
+	$m->a 			= $v;
+	$m->_NOME       = $v->nomeCompleto();
+	$m->accoda();
+
+	redirect('presidente.soci.ok&tok');
+}
+
+redirect('presidente.soci.ok&tdupko');

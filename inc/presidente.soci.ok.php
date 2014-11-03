@@ -29,34 +29,42 @@ $chiedeTesserini = ($admin || $me->delegazioneAttuale()->estensione < EST_REGION
 
 
 if(isset($_GET['nofoto'])) { ?>
-    <div class="alert alert-block alert-error">
-        <h4><i class="icon-exclamation-sign"></i> Impossibile generare il tesserino</h4>
-        <p>Per poter generare il tesserino è necessario che l'utente abbia una fototessera caricata e approvata.</p>
-    </div>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-exclamation-sign"></i> Impossibile generare il tesserino</h4>
+            <p>Per poter generare il tesserino è necessario che l'utente abbia una fototessera caricata e approvata.</p>
+        </div>
     <?php } elseif (isset($_GET['err'])) { ?>
-    <div class="alert alert-block alert-error">
-        <h4><i class="icon-exclamation-sign"></i> Qualcosa non ha funzionato</h4>
-        <p>L'operazione che hai tentato di eseguire non è andata a buon fine. Per favore riprova.</p>
-    </div>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-exclamation-sign"></i> Qualcosa non ha funzionato</h4>
+            <p>L'operazione che hai tentato di eseguire non è andata a buon fine. Per favore riprova.</p>
+        </div>
     <?php } elseif (isset($_GET['gia'])) { ?>
-    <div class="alert alert-block alert-error">
-        <h4><i class="icon-exclamation-sign"></i> Richiesta già effettuata</h4>
-        <p>Non è possibile effettuare più richieste di tesserino per lo stesso volontario.</p>
-    </div>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-exclamation-sign"></i> Richiesta già effettuata</h4>
+            <p>Non è possibile effettuare più richieste di tesserino per lo stesso volontario.</p>
+        </div>
     <?php } elseif (isset($_GET['tok'])) { ?>
-    <div class="alert alert-block alert-success">
-        <h4><i class="icon-exclamation-sign"></i> Richiesta effettuata con successo</h4>
-        <p>La tua richiesta di stampa del tesserino è stata correttamente presa in carico.</p>
-    </div>
-    <?php }
-
-?>
+        <div class="alert alert-block alert-success">
+            <h4><i class="icon-exclamation-sign"></i> Richiesta effettuata con successo</h4>
+            <p>La tua richiesta di stampa del tesserino è stata correttamente presa in carico.</p>
+        </div>
+    <?php } elseif (isset($_GET['tdupko'])) { ?>
+        <div class="alert alert-block alert-error">
+            <h4><i class="icon-exclamation-sign"></i> Impossibile richiedere duplicato</h4>
+            <p>La tua richiesta di duplicato del tesserino non è stata presa in caricoin quanto non esiste un tesserino da duplicare.</p>
+        </div>
+    <?php } elseif (isset($_GET['tdupok'])) { ?>
+        <div class="alert alert-block alert-success">
+            <h4><i class="icon-exclamation-sign"></i> Richiesta duplicato effettuata con successo</h4>
+            <p>La tua richiesta di stampa del duplicato del tesserino è stata correttamente presa in carico.</p>
+        </div>
+    <?php } ?>
 
 <div class="alert alert-block alert-info">
-<i class="icon-info-sign"></i> La richiesta di tesserino per un volontario può essere effettuata premendo sul pulsante <strong>Tesserino</strong>
-presente nella sezione azioni. <br />
-Il pulsante è presente per i soli soci attivi solamente per i quali la fototessera è stata caricata. È possibile
-caricare la fototessera entrando nella scheda <strong>Dettagli</strong>.
+    <i class="icon-info-sign"></i> La richiesta di tesserino per un volontario può essere effettuata premendo sul pulsante <strong>Tesserino</strong>
+    presente nella sezione azioni. <br />
+    Il pulsante è presente per i soli soci attivi solamente per i quali la fototessera è stata caricata. È possibile
+    caricare la fototessera entrando nella scheda <strong>Dettagli</strong>.
 </div>
   
 <div class="row-fluid">
@@ -127,17 +135,16 @@ caricare la fototessera entrando nella scheda <strong>Dettagli</strong>.
                                 <i class="icon-envelope"></i>
                             </a>
                         </div>
-                        <?php if($tesseratore) { ?>
-                            <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?= $_v ?>" title="Tesserino">
-                                <i class="icon-credit-card"></i> Tesserino
-                            </a>
-                        <?php } if(!$ordinario && $inQuestoComitato && $modifica && $chiedeTesserini && !$tesserino && $fotot) { ?>
+                        <?php if(!$ordinario && $inQuestoComitato && $modifica && $chiedeTesserini && !$tesserino && $fotot) { ?>
                             <a class="btn btn-small btn-info" href="?p=us.tesserini.chiedi.ok&id=<?= $_v ?>" title="Richiedi tesserino">
                                 <i class="icon-credit-card"></i> Tesserino
-                            </a>
-                        <?php }elseif($tesseratore && $tesserino){ ?>
+                            </a>                            
+                        <?php }elseif($tesseratore && $tesserino && $tesserino->stato > SPEDITO_CASA){ ?>
                             <a class="btn btn-small btn-info" href="?p=us.tesserini.duplicato.ok&id=<?= $_v ?>" title="Richiedi duplicato tesserino">
                                 <i class="icon-credit-card"></i> Duplicato tesserino
+                            </a>
+                            <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?= $_v ?>" title="Tesserino">
+                                <i class="icon-credit-card"></i> Tesserino
                             </a>
                         <?php } ?>
                    </td>

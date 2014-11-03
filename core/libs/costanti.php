@@ -16,7 +16,7 @@ define('DONNA', 0);
 /* Definizioni in stringa */
 $conf['sesso'] = [
     UOMO     =>  'Uomo',
-    DONNA       =>  'Donna'
+    DONNA    =>  'Donna'
 ];
 
 /* Tipologie/stati delle persone */

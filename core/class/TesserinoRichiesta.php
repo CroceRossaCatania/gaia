@@ -27,7 +27,7 @@ class TesserinoRichiesta extends Entita {
         return Utente::id($this->volontario);
     }
 
-    /*
+    /**
      * Genera il nuovo tesserino su base della richiesta
      * Nota: necessariafototessara
      * @return bool(false)|File     Il tesserino del volontario, o false in caso di fallimento
@@ -36,14 +36,17 @@ class TesserinoRichiesta extends Entita {
         $utente = $this->utente();
 
         // Verifica l'assegnazione di un codice al tesserino
-        if (true || !$this->haCodice() )
+        if ( !$this->haCodice() ){
             $codice = $this->assegnaCodice();
+        }else{
+            $codice = $this->codice;
+        }
 
         if (!$utente->fototessera() || $utente->fototessera()->stato == FOTOTESSERA_PENDING)
             return false;
 
         $f = new PDF('tesserini', "Tesserino_{$codice}.pdf");
-        $f->formato         = 'cr80';
+        $f->formato         =  'cr80';
         $f->orientamento    = ORIENTAMENTO_ORIZZONTALE;
         $f->_NOME           = $utente->nome;
         $f->_COGNOME        = $utente->cognome;
@@ -73,7 +76,7 @@ class TesserinoRichiesta extends Entita {
     }
 
 
-    /*
+    /**
      * Controlla se il tesserino ha un codice assegnato
      * @return bool
      */
@@ -81,7 +84,7 @@ class TesserinoRichiesta extends Entita {
         return (bool) $this->codice;
     }
 
-    /*
+    /**
      * Genera un nuovo codice e lo salva sulla richiesta tesserino
      * Disclaimer: SOVRASCRIVE EVENTUALI CODICI PRESENTI!
      * @return string Codice generato
