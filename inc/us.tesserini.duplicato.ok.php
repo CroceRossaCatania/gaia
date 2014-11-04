@@ -30,13 +30,13 @@ if(!$app || !in_array($app->comitato()->id, $elenco)) {
 
 /* Verifico esistenza di un tesserino valido e che la richiesta di duplicato non sia già stata fatta */
 
-$gia = false;
+$gia = true;
 $t = TesserinoRichiesta::filtra([
     ['volontario', $v]
     ]);
 foreach($t as $tesserino) {
-    if ($tesserino->stato < SPEDITO_CASA ||  $tesserino->stato == INVALIDATO) {
-         $gia = true;
+    if ($tesserino->stato < INVALIDATO &&  $tesserino->stato != RIFIUTATO) {
+         $gia = false;
     }
 }
 

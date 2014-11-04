@@ -119,9 +119,6 @@ in lavorate.</p>
                         <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?php echo $tesserino->id; ?>" title="Stampa Tesserino">
                             <i class="icon-credit-card"></i> Tesserino
                         </a>
-                        <a class="btn btn-small btn-success" href="?p=us.tesserini.aggiorna&id=<?php echo $tesserino->id; ?>" title="Lavora Pratica">
-                            <i class="icon-gears"></i> Lavora pratica
-                        </a>
                         <?php } if($admin) { ?>
                             <a class="btn btn-small btn-danger" href="?p=admin.tesserini.cancella&id=<?php echo $tesserino->id; ?>" title="Cancella Pratica">
                                 <i class="icon-trash"></i>

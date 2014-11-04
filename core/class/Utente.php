@@ -1980,6 +1980,14 @@ class Utente extends Persona {
         return false;
     }
 
+    /**
+     * Ritorna storico richieste del tesserino per il volontario
+     * @return RichiestaTesserino|bool(false)   RichiestaTesserino se presente, false altrimenti
+     */
+    public function storicoTesserinoRichiesta() {
+        return TesserinoRichiesta::filtra([['volontario', $this]], 'tRichiesta DESC');
+    }
+
     public static function daCodicePubblico($codice) {
         $t = TesserinoRichiesta::by('codice', $codice);
         if($t && $t->utente()) {
