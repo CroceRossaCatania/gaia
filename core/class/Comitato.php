@@ -21,7 +21,7 @@ class Comitato extends GeoPolitica {
      */ 
     public function __get ($_nome) {
         $nonSovrascrivere = ['id', 'nome', 'principale', 'locale'];
-        if ( parent::__get('principale') && !in_array($_nome, $nonSovrascrivere) ) {
+        if ( parent::__get('principale') && !contiene($_nome, $nonSovrascrivere) ) {
             return $this->locale()->{$_nome};
         }
         return parent::__get($_nome);

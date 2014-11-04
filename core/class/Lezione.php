@@ -37,7 +37,7 @@ class Lezione extends Entita {
 	 * @param bool 
 	 */
 	public function assente(Utente $u) {
-		return in_array($u, $this->assenti());
+		return contiene($u, $this->assenti());
 	}
 
 	public function presente(Utente $u) {

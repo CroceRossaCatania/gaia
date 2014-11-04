@@ -82,8 +82,8 @@ class Attivita extends GeoEntita {
         return (bool) (
                 $u->id == $this->referente
             ||  $u->admin 
-            ||  in_array($this->area, $u->areeDiCompetenza())
-            ||  in_array($this, $u->attivitaDiGestione())
+            ||  contiene($this->area, $u->areeDiCompetenza())
+            ||  contiene($this, $u->attivitaDiGestione())
         );
     }
     

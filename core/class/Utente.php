@@ -434,7 +434,7 @@ class Utente extends Persona {
     }
     
     public function miCompete(Comitato $c) {
-        return (bool) in_array($c, $this->comitatiDiCompetenza());
+        return (bool) contiene($c, $this->comitatiDiCompetenza());
     }
 
     public function commenti ( $limita = null ) {
@@ -723,7 +723,7 @@ class Utente extends Persona {
             return true;
         }
 
-        return (bool) in_array(
+        return (bool) contiene(
             $g,
             array_merge(
                 $this->comitatiApp([
@@ -1257,7 +1257,7 @@ class Utente extends Persona {
         if($this->admin()) {
             return PRIVACY_RISTRETTA;
         }
-        if($this->presidenziante() || in_array($this->delegazioneAttuale()->applicazione, [APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
+        if($this->presidenziante() || contiene($this->delegazioneAttuale()->applicazione, [APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
             $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO]);
             foreach ($comitati as $comitato){
                	if($altroutente->in($comitato)){
@@ -1282,7 +1282,7 @@ class Utente extends Persona {
             $a = $this->attivitaReferenziate();
             $partecipazioni = $altroutente->partecipazioni(PART_OK);
             foreach( $partecipazioni as $p ){
-                if (in_array($p->attivita(), $a)) {
+                if (contiene($p->attivita(), $a)) {
                     return PRIVACY_RISTRETTA;
                 }
             }
@@ -1292,7 +1292,7 @@ class Utente extends Persona {
             $c = $this->corsiBaseDiretti();
             $partecipazioni = $altroutente->partecipazioniBase();
             foreach ($partecipazioni as $p) {
-                if(in_array($p->corsoBase(), $c)) {
+                if(contiene($p->corsoBase(), $c)) {
                     return PRIVACY_RISTRETTA;
                 }
             }
@@ -1381,8 +1381,8 @@ class Utente extends Persona {
         // allora verifico se ti posso toccacciare
 
         if($c) {
-            if(($c instanceof Comitato && in_array($c->locale(), $comitatiGestiti) )
-            || in_array($c, $comitatiGestiti)) {
+            if(($c instanceof Comitato && contiene($c->locale(), $comitatiGestiti) )
+            || contiene($c, $comitatiGestiti)) {
             return true;
             }
             /* Il foreach seguente serve per risolvere 
@@ -1423,7 +1423,7 @@ class Utente extends Persona {
 
         // controllo tipo dimissione
         $dimissione = Dimissione::by('appartenenza', $app);
-        if(!in_array($dimissione->motivo, [DIM_TURNO, DIM_QUOTA])) {
+        if(!contiene($dimissione->motivo, [DIM_TURNO, DIM_QUOTA])) {
             return false;
         }
 

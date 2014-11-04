@@ -60,7 +60,7 @@ class Gruppo extends Entita {
         return (bool) (
             $this->referente()->id == $id
             or $utente->admin()
-            or in_array($this, $utente->gruppiDiCompetenza())
+            or contiene($this, $utente->gruppiDiCompetenza())
             ); 
     }
     
