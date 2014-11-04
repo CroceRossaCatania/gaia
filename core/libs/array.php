@@ -15,7 +15,7 @@
  */
 function contiene($ago, $pagliaio) {
 	if ( ! $ago instanceOf Entita )
-		return in_array($ago, $paiaio);
+		return in_array($ago, $pagliaio);
 	if ( !is_array($pagliaio) ) 
 		return false;
 	$oid = $ago->oid();
