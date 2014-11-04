@@ -93,7 +93,7 @@ abstract class Entita {
      * Ottiene un singolo elemento per un parametro univoco
      * @param string $_nome Il nome del parametro
      * @param string $_valore Il suo valore
-     * @return static|bool(false) Un elemento o false
+     * @return static|false Un elemento o false
      */
     public static function by($_nome, $_valore) {
         $r = static::filtra([[$_nome, $_valore]], 'id LIMIT 0,1');

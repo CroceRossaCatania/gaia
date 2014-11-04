@@ -1916,7 +1916,7 @@ class Utente extends Persona {
 
 	/**
      * Ritorna il File del Tesserino del Volontario, se esistente
-     * @return bool(false)|File     Il tesserino del volontario, false altrimenti
+     * @return false|File     Il tesserino del volontario, false altrimenti
      */
     public function tesserino() {
         $r = $this->tesserinoRichiesta();
@@ -1927,7 +1927,7 @@ class Utente extends Persona {
 
     /*
      * Ottiene codice ultimo tesserino valido volontario (codicePubblico) 
-     * @return bool(false)|string Codice se presente, alternativamente false
+     * @return false|string Codice se presente, alternativamente false
      */
     public function codicePubblico() {
         $r = $this->tesserinoRichiesta();
@@ -1938,7 +1938,7 @@ class Utente extends Persona {
 
     /**
      * Ritorna eventuale richiesta del tesserino per il volontario
-     * @return RichiestaTesserino|bool(false)   RichiestaTesserino se presente, false altrimenti
+     * @return RichiestaTesserino|false   RichiestaTesserino se presente, false altrimenti
      */
     public function tesserinoRichiesta() {
         $r = [];
