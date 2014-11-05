@@ -7,7 +7,7 @@ $(document).ready( function() {
            var com = '';
            if ( a2 == 0 ) {
               motivo = prompt("Motiva la negazione dell'iscrizione la corso");
-              if ( motivo.legth < 3 ) {
+              if ( motivo.length < 3 ) {
                 alert("Inserisci una motivazione valida");
                 return false;
               }

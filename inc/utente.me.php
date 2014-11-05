@@ -123,6 +123,33 @@ if (!$sessione->rimandaPrivatizzazione && $consenso) {
     }
 }
 
+// C'è il webinar!!!
+if (!$sessione->rimandaPrivatizzazione && $consenso && $me->presidenziante() && !$me->admin) { ?>
+    <div class="modal fade automodal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3><i class="icon-bullhorn"></i> La formazione online continua...</h3>
+        </div>
+        <div class="modal-body">
+            <p>Hai dubbi su una determinata funzionalità di <i>GAIA</i>? Partecipa ai nostri webinar online!
+                A breve tratteremo i seguenti argomenti:</p>
+            <p>
+            <ul>
+                <li>martedì 4 novembre alle 21.00: <i>Gestione del corso base e dell'aspirante</i></li>
+            </ul>
+            </p>
+            <p>Cliccando su <strong>Maggiori dettagli</strong> potri accedere alla pagina dedicata
+            alla formazione e iscriverti all'incontro online.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Non ora</button>
+            <a href="?p=public.formazione" class="btn btn-primary">
+                <i class="icon-asterisk"></i> Maggiori dettagli
+            </a>
+        </div>
+    </div>
+<?php }
+
 /* Noi siamo cattivi >:) */
 // redirect('curriculum');
 
@@ -137,6 +164,7 @@ if ($consenso && $rf) {
     <!-- BLOCCO ATTIVITA DA COMPLETARE -->
     <div class="modal fade automodal">
         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3 class="text-error"><i class="icon-warning-sign"></i> Attività da completare</h3>
         </div>
         <div class="modal-body">
@@ -167,7 +195,7 @@ if ($consenso && $rf) {
             </p>
         </div>
         <div class="modal-footer">
-            <a href="?p=attivita.gestione" class="btn">Non ora</a>
+            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Non ora</button>
             <a href="?p=attivita.modifica&id=<?php echo $attivita->id; ?>" class="btn btn-primary">
                 <i class="icon-asterisk"></i> Vai all'attività
             </a>
@@ -186,6 +214,7 @@ if ($consenso && $cb && !$rf) {
 
     <div class="modal fade automodal">
         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3 class="text-error"><i class="icon-warning-sign"></i> Corso Base da Completare</h3>
         </div>
         <div class="modal-body">
@@ -215,7 +244,7 @@ if ($consenso && $cb && !$rf) {
             </p>
         </div>
         <div class="modal-footer">
-            <a href="?p=formazione.corsibase" class="btn">Non ora</a>
+            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Non ora</button>
             <a href="?p=formazione.corsibase.modifica&id=<?php echo $corsoBase->id; ?>" class="btn btn-primary">
                 <i class="icon-asterisk"></i> Vai al corso
             </a>
