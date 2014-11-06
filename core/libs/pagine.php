@@ -261,3 +261,18 @@ function proteggiClasse(Entita $e, Utente $utente) {
     redirect('errore.permessi');
 }
 
+
+/**
+ * Da un nome alla transazione con API di New Relic, se disponibili
+ * @param string    Nome della transazione
+ * @param string    Prefisso della transazione
+ * @return bool     Transazione rinominata con successo?
+ */
+function nomeTransazione($nome, $prefisso = 'nd') {
+    if ( !function_exists('newrelic_name_transaction') )
+        return false;
+    $nome = str_replace(':', '.', $nome);
+    $nome = "{$prefisso}:{$nome}";
+    newrelic_name_transaction($nome);
+    return true;
+}
