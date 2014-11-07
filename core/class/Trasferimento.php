@@ -178,6 +178,8 @@ class Trasferimento extends Entita {
             }
         }
 
+        /* Chiudo eventuale richiesta di tesserini o invalido l'attuale */
+
         /* Posso chiudere definitivamente la vecchia appartenenza */
 
         $a->timestamp = time();
