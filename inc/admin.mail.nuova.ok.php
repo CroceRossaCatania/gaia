@@ -19,11 +19,15 @@ if(isset($_GET['pres'])){
 	$i =0;
 
 	foreach($presidenti as $presidente){
-	    $m = new Email('mailTestolibero', ''.$oggetto);
-	    $m->a = $presidente;
-	    $m->_TESTO = $testo;
-	    $m->invia();    
-	    $i++;
+		try{
+		    $m = new Email('mailTestolibero', ''.$oggetto);
+		    $m->a = $presidente;
+		    $m->_TESTO = $testo;
+		    $m->invia();    
+		    $i++;
+		} catch (Exception $e) {
+			
+		}
 	}
 
 	$a = new Annunci();
