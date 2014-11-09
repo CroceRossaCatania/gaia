@@ -14,7 +14,7 @@ class Ricerca {
         $query          = null,
         $pagina         = 1,
         $perPagina      = 30,
-        $stato          = MEMBRO_VOLONTARIO,
+        $stato          = [MEMBRO_VOLONTARIO, MEMBRO_ESTESO],
         $statoPersona   = false,
         $passato        = false,
         $giovane        = false,
