@@ -8,7 +8,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $admin = (bool) $me->admin();
 
-if (!$admin && !$me->delegazioneAttuale()->estensione > EST_PROVINCIALE) {
+if (!$admin && !($me->delegazioneAttuale()->estensione > EST_PROVINCIALE)) {
     redirect('errore.permessi&cattivo');
 }
 
@@ -82,12 +82,22 @@ if(!$admin) {
         <h4><i class="icon-ok"></i> Stampa registrata</h4>
         <p>La registrazione della stampa del tesserino è avvenuta con successo.</p>
     </div>
+    <?php } elseif (isset($_GET['spedito'])) { ?>
+    <div class="alert alert-block alert-success">
+        <h4><i class="icon-ok"></i> Spedizione registrata</h4>
+        <p>La registrazione della spedizione del tesserino è avvenuta con successo.</p>
+    </div>
     <?php } 
 ?>
 
 <div class="alert alert-block alert-info">
 <p><i class="icon-info-sign"></i> In questa pagina sono presenti tutte le richieste di emissione di <strong>tesserini</strong>
- per <strong>volontari</strong> lavorate.</p>
+per <strong>soci ordinari</strong> in corso di lavorazione.</p>
+<p> Per procedere alla stampa di un tesserino premi il pulsante <strong>tesserino</strong> che ti permette di scaricare
+un file in formato <strong>PDF</strong> con dimensioni secondo lo standard <strong>CR-80</strong>.</p>
+<p> Per ogni tesserino è importante indicare tramite il pulsante <strong>Lavora pratica</strong> quando il tesserino è stato
+stampato e quando il tesserino è stato effettivamente inviato al volontario. Se per qualche motivo non ti è possibile
+emettere il tesserino potrai registrare questa informazione.</p>
 </div>
   
 <div class="row-fluid">
@@ -113,7 +123,7 @@ if(!$admin) {
             ]);
         }
         foreach($elenco as $tesserino) {
-            if ($tesserino->praticaAperta()) {continue; }
+            if(!$tesserino->praticaApertaOrdinario()) { continue; }
             $v = $tesserino->utente();
             ?>
 
@@ -137,6 +147,9 @@ if(!$admin) {
                         <?php if($tesserino->stato != RIFIUTATO || $admin) { ?>
                         <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?php echo $tesserino->id; ?>" title="Stampa Tesserino">
                             <i class="icon-credit-card"></i> Tesserino
+                        </a>
+                        <a class="btn btn-small btn-success" href="?p=us.tesserini.aggiorna&id=<?php echo $tesserino->id; ?>" title="Lavora Pratica">
+                            <i class="icon-gears"></i> Lavora pratica
                         </a>
                         <?php } if($admin) { ?>
                             <a class="btn btn-small btn-danger" href="?p=admin.tesserini.cancella&id=<?php echo $tesserino->id; ?>" title="Cancella Pratica">

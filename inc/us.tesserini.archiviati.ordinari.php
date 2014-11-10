@@ -87,7 +87,7 @@ if(!$admin) {
 
 <div class="alert alert-block alert-info">
 <p><i class="icon-info-sign"></i> In questa pagina sono presenti tutte le richieste di emissione di <strong>tesserini</strong>
- per <strong>volontari</strong> lavorate.</p>
+ per <strong>soci ordinari</strong> lavorate.</p>
 </div>
   
 <div class="row-fluid">
@@ -113,11 +113,9 @@ if(!$admin) {
             ]);
         }
         foreach($elenco as $tesserino) {
-            if ($tesserino->praticaAperta()) {continue; }
+            if ($tesserino->praticaApertaOrdinario()) {continue; }
             $v = $tesserino->utente();
             ?>
-
-            
 
             <tr>
                 <td><?php echo $v->cognome; ?></td>

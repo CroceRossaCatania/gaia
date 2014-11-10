@@ -24,10 +24,29 @@ if(!$admin) {
         </h2>
     </div>
 
-    <div class="span4">
-        <a class="btn btn-block" href="?p=us.tesserini.archiviati" title="Pratiche archiviate">
-            <i class="icon-reply"></i> Pratiche archiviate
-        </a>
+    <div class="span4 allinea-centro">
+        <div class="btn-group">
+            <a class="btn dropdown-toggle btn-success" data-toggle="dropdown">
+                <i class="icon-list"></i>
+                Volontari   
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="?p=us.tesserini"><i class="icon-folder-open"></i> Pratiche aperte</a></li>
+                <li><a href="?p=us.tesserini.archiviati"><i class="icon-folder-close"></i> Pratiche archiviate</a></li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown">
+                <i class="icon-list"></i>
+                Soci Ordinari
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="?p=us.tesserini.ordinari"><i class="icon-folder-open"></i> Pratiche aperte</a></li>
+                <li><a href="?p=us.tesserini.archiviati.ordinari"><i class="icon-folder-close"></i> Pratiche archiviate</a></li>
+            </ul>
+        </div>
     </div>
     
     <div class="span4 allinea-destra">
@@ -73,7 +92,7 @@ if(!$admin) {
 
 <div class="alert alert-block alert-info">
 <p><i class="icon-info-sign"></i> In questa pagina sono presenti tutte le richieste di emissione di <strong>tesserini</strong>
-in corso di lavorazione.</p>
+per <strong>volontari</strong> in corso di lavorazione.</p>
 <p> Per procedere alla stampa di un tesserino premi il pulsante <strong>tesserino</strong> che ti permette di scaricare
 un file in formato <strong>PDF</strong> con dimensioni secondo lo standard <strong>CR-80</strong>.</p>
 <p> Per ogni tesserino è importante indicare tramite il pulsante <strong>Lavora pratica</strong> quando il tesserino è stato

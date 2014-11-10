@@ -29,7 +29,7 @@ class TesserinoRichiesta extends Entita {
 
     /**
      * Genera il nuovo tesserino su base della richiesta
-     * Nota: necessariafototessara
+     * Nota: necessaria fototessera
      * @return bool(false)|File     Il tesserino del volontario, o false in caso di fallimento
      */
     public function generaTesserino() {
@@ -64,7 +64,7 @@ class TesserinoRichiesta extends Entita {
         $f->_AVATAR     = $utente->fototessera()->file(20);
         $f->_INGRESSO   = $utente->ingresso()->format('d/m/Y');
         $f->_CODICE     = $codice;
-        $scadenza = $this->timestamp + (7 * ANNO);
+        $scadenza = $this->timestamp + (5 * ANNO);
         $f->_SCADENZA   = date('m/Y', $scadenza);
 
         $barcode = new Barcode;
@@ -75,6 +75,48 @@ class TesserinoRichiesta extends Entita {
         return $f->salvaFile();
     }
 
+    /**
+     * Genera il nuovo tesserino per il socio ordinario sulla base della richiesta
+     * @return bool(false)|File     Il tesserino del volontario, o false in caso di fallimento
+     */
+    public function generaTesserinoOrdinario() {
+        $utente = $this->utente();
+
+        // Verifica l'assegnazione di un codice al tesserino
+        if ( !$this->haCodice() ){
+            $codice = $this->assegnaCodice();
+        }else{
+            $codice = $this->codice;
+        }
+
+        $f = new PDF('tesseriniordinari', "Tesserino_{$codice}.pdf");
+        $f->formato         =  'cr80';
+        $f->orientamento    = ORIENTAMENTO_ORIZZONTALE;
+        $f->_NOME           = $utente->nome;
+        $f->_COGNOME        = $utente->cognome;
+        $f->_CODICEFISCALE  = $utente->codiceFiscale;
+        $f->_COMITATO       = $utente->unComitato()->formattato;
+
+        $int = "Croce Rossa Italiana<br />{$utente->unComitato()->locale()->nome}";
+        $f->_INTESTAZIONE = $int;
+        
+        $socio = 'SOCIA';
+        if ( $utente->sesso == UOMO )
+            $socio = 'SOCIO';
+        $f->_SOCIO = $socio;
+
+        $f->_INGRESSO   = $utente->ingresso()->format('d/m/Y');
+        $f->_CODICE     = $codice;
+        $scadenza = $this->timestamp + (5 * ANNO);
+        $f->_SCADENZA   = date('m/Y', $scadenza);
+
+        $barcode = new Barcode;
+        $barcode->genera($codice);
+
+        $f->_BARCODE    = $barcode->percorso();
+
+        return $f->salvaFile();
+    }
 
     /**
      * Controlla se il tesserino ha un codice assegnato
@@ -106,6 +148,19 @@ class TesserinoRichiesta extends Entita {
     public function praticaAperta() {
         return (bool) ($this->stato == RICHIESTO || $this->stato == STAMPATO);
     }
+
+    /**
+     * Controlla se la pratica di generazione del tesserino per soci ordinari è aperta
+     * @return bool Stato della pratica
+     */
+    public function praticaApertaOrdinario() {
+        if ( $this->utente()->ordinario() && ($this->stato == RICHIESTO || $this->stato == STAMPATO)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
      /**
      * Controlla se un tesserino è valido
      * @return bool Stato del tesserino
@@ -124,6 +179,6 @@ class TesserinoRichiesta extends Entita {
             return false;
         }
         return true;
-     }
+    }
 
 }
