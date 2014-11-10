@@ -532,6 +532,10 @@ class Utente extends Persona {
         foreach ( TitoloPersonale::filtra([['volontario',$this]]) as $g ) {
             $g->cancella();
         }
+        // 14. PartecipazioniBase
+        foreach ( PartecipazioneBase::filtra([['volontario', $this]]) as $g) {
+            $g->cancella();
+        }
         parent::cancella();
     }
     
