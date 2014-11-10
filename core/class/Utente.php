@@ -2017,4 +2017,56 @@ class Utente extends Persona {
         }
     }
 
+    /**
+     * Ritorna il dominio di competenza massima nei confronti di un'attivita'
+     *
+     * es. 1: se sono delegato area provinciale e l'attivita' e' locale, ottengo comitato locale
+     * es. 2: se non sono nulla, ritorno false
+     * es. 3: se sono referente attivita, ritorno comitato organizzatore (NON estensione)
+     * @param Attivita $attivita        L'attivita in questione
+     * @return GeoPolitica|bool(false)  Il dominio risultante o false se non ho superpoteri
+     */
+    public function dominioCompetenzaAttivita(Attivita $attivita) {
+        if ( !$attivita->modificabileDa($this) ) {
+            return false;
+        }
+
+        $pool           = [];
+        $organizzatore  = $attivita->comitato();
+
+        // Referente attivita?
+        if ($attivita->referente == $this->id) {
+            $pool[] = $organizzatore;
+        }
+
+        // Delegato d'area?
+        foreach ( $this->areeDiCompetenza() as $a ) {
+            $ac = $a->comitato();
+            if ( $ac->contiene($organizzatore) )
+                $pool[] = $ac;
+        }
+
+        // Comitati di competenza
+        foreach ( $this->comitatiDiCompetenza() as $a ) {
+            if ( $a->contiene($organizzatore) ) 
+                $pool[] = $a;
+        }
+
+        // Ottiene comitato piu' grande nel pool
+        $massimo = array_reduce($pool, function($a, $b) {
+            if ( $a === null )
+                return $b;
+            if ( $a::$_ESTENSIONE > $b::$_ESTENSIONE ) {
+                return $a;
+            } else {
+                return $b;
+            }
+        }, null);
+
+        // Il risultato e' il dominio comune tra la visibilita' dell'attivita'
+        // ed il mio potere piu' grande...
+        return $attivita->visibilita()->dominioComune($massimo);
+
+    } 
+
 }

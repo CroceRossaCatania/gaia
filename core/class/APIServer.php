@@ -684,7 +684,7 @@ class APIServer {
         if ( $part->stato == ISCR_RICHIESTA ) {
             
             if ( $this->par['iscr'] ) {
-                $part->concedi($this->par['com']);
+                $part->concedi($this->par['com'], $me);
 
                 $cal = new ICalendar();
                 $cal->generaCorsoBase($corsoBase);
@@ -693,30 +693,25 @@ class APIServer {
                 $m->a               = $part->utente();
                 $m->da              = $corsoBase->direttore();
                 $m->_NOME           = $part->utente()->nome;
-                $m->_CORSO          = $corso->nome();
-                $m->_DIRETTORE      = $part->utente()->nomeCompleto();
-                $m->_CELLDIRETTORE  = $part->utente()->cellulare();
+                $m->_CORSO          = $corsoBase->nome();
+                $m->_DATA           = $corsoBase->inizio()->inTesto(false, true);
+                $m->_DIRETTORE      = $corsoBase->direttore()->nomeCompleto();
+                $m->_CELLDIRETTORE  = $corsoBase->direttore()->cellulare();
                 $m->allega($cal);
                 $m->invia();               
                 
             } else {
-                $part->nega();
-
-                /* da fare email
-                                    
-                $m = new Email('autorizzazioneNegata', "Autorizzazione NEGATA: {$attivita->nome}, {$turno->nome}" );
-                $m->a = $aut->partecipazione()->volontario();
-                $m->da = $attivita->referente();
-                $m->_NOME       = $aut->partecipazione()->volontario()->nome;
-                $m->_ATTIVITA   = $attivita->nome;
-                $m->_TURNO      = $turno->nome;
-                $m->_DATA       = $turno->inizio()->format('d-m-Y H:i');
-                $m->_LUOGO      = $attivita->luogo;
-                $m->_MOTIVO     = $this->par['motivo'];
-                $m->invia();
+                $part->nega($me);
+                $motivo = $this->par['motivo'];                 
+                $m = new Email('corsoBaseNonAmmesso', "Non ammesso al {$corsoBase->nome()}" );
+                $m->a               = $part->utente();
+                $m->da              = $corsoBase->direttore();
+                $m->_NOME           = $part->utente()->nome;
+                $m->_MOTIVO         = $motivo;
+                $m->_CORSO          = $corsoBase->nome();
+                $m->_DIRETTORE      = $corsoBase->direttore()->nomeCompleto();
+                $m->invia();    
                 
-                */
-
             }
         }
         return ['id' => $corsoBase->id];

@@ -40,10 +40,13 @@ class PartecipazioneBase extends Entita {
         return false;
     }
 
-    public function concedi($com = null) {
-        global $sessione;
-        if($this->aggiorna(ISCR_CONFERMATA)) {
-            $u = $this->utente();
+    public function concedi($com = null, $operatore=null) {
+        if(!$operatore) {
+            global $sessione;
+            $operatore = $sessione->utente();
+        }
+        $u = $this->utente();
+        if($this->aggiorna(ISCR_CONFERMATA, $operatore)) {
 
             if($com && !$u->appartenenzaAttuale(MEMBRO_ORDINARIO)){
                 $a = new Appartenenza();
@@ -53,23 +56,25 @@ class PartecipazioneBase extends Entita {
                 $a->fine        = PROSSIMA_SCADENZA;
                 $a->timestamp   = time();
                 $a->stato       = MEMBRO_ORDINARIO;
-                $a->conferma    = $essione->utente()->id();
+                $a->conferma    = $operatore;
             }
             return true;
         }
         return false;
     }
     
-    public function nega() {
-        return $this->aggiorna(ISCR_NEGATA);
+    public function nega($operatore=null) {
+        return $this->aggiorna(ISCR_NEGATA, $operatore);
     }
 
-    public function aggiorna( $s = ISCR_CONFERMATA ) {
-        global $sessione;
-        $u = $sessione->utente;
+    public function aggiorna( $s = ISCR_CONFERMATA, $operatore=null ) {
+        if(!$operatore) {
+            global $sessione;
+            $operatore = $sessione->utente();
+        }
         if($this->stato == ISCR_RICHIESTA){
             $this->stato = (int) $s;
-            $this->pConferma = $u;
+            $this->pConferma = $operatore;
             $this->tConferma = time();
             return true;
         }

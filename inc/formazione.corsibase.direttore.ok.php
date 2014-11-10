@@ -20,10 +20,11 @@ $direttore = Volontario::id($id);
 $corsoBase->direttore    = $direttore;
 
 $m = new Email('direttoreCorsoBase', 'Direttore Corso Base');
+$m->a = $direttore;
+$m->da = $me;
 $m->_NOME       = $direttore->nome;
 $m->_ATTIVITA   = $corsoBase->nome();
 $m->_COMITATO   = $corsoBase->organizzatore()->nomeCompleto();
-$m->a = $direttore;
 $m->accoda();
 
 
