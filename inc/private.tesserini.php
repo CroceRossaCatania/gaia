@@ -24,10 +24,11 @@ paginaPrivata();
                     <p> In questa pagina sono presenti alcune informazioni relative ai tesserini: </p>
                     <ul>
                         <li>
-                            Il tesserino potrà essere richiesto unicamente tramite la piattaforma GAIA, già adottata con O.P. n. 345 del 03 ottobre 2013 quale gestionale unico dell’Associazione.
+                            Il tesserino potrà essere richiesto unicamente tramite la piattaforma GAIA, 
+                            già adottata con O.P. n. 345 del 03 ottobre 2013 quale gestionale unico dell’Associazione.
                         </li> 
                         <li>
-                            Ogni Comitato Regionale dovrà stampare, a titolo gratuito o oneroso (il costo del singolo 
+                            Ogni Comitato Regionale dovrà stampare, a titolo gratuito od oneroso (il costo del singolo 
                             tesserino per il Comitato Locale non potrà comunque superare un quarto della quota da versare 
                             per il mantenimento della qualifica del socio attivo) i tesserini dei Soci iscritti a GAIA del proprio 
                             territorio di competenza entro tre mesi dall’approvazione del presente promemoria.
@@ -71,7 +72,7 @@ paginaPrivata();
                             Finchè si è soci
                         </li>
                         <li>
-                            Finchè non mi trasferisco ad altro comtato
+                            Finchè al trasferimento in altro comtato
                         </li>
                 </div>
             </div>
