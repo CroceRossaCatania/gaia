@@ -4,6 +4,8 @@
  * ©2013 Croce Rossa Italiana
  */
 
+set_time_limit(0);
+
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 if (isset($_POST['inputData'])) {
@@ -115,7 +117,7 @@ if(isset($_GET['nofoto'])) { ?>
                     <td><?php echo $_v->nome; ?></td>
                     <td><?php echo $_v->codiceFiscale; ?></td>
                     <td>
-                        <?php echo $_v->ingresso()->format("d/m/Y"); ?>
+                        <?php if ( $_v->ingresso() ){ echo $_v->ingresso()->format("d/m/Y"); } else { echo "<br><i>Errore data ingresso</i></br>"; } ?>
                     </td>
                     <td>
                         <?php 

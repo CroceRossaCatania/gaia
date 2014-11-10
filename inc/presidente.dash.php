@@ -10,7 +10,7 @@ paginaPresidenziale();
 
 $comitati = $me->unitaDiCompetenza();
 
-if ( $sessione->attenzione == false ){
+if ( /*$sessione->attenzione == false */ false){
     $sessione->attenzione = true;
     ?>
     <div class="modal fade automodal">
