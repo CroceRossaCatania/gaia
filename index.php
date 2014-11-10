@@ -49,6 +49,7 @@ $_f = "./inc/$p.php";
 if ( !file_exists($_f) ) {
 	$_f = "./inc/errore.404.php";
 }
+nomeTransazione($p, 'web');
 
 /*
  * Titolo e descrizione se non ridefiniti

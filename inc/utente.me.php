@@ -122,7 +122,7 @@ if (!$sessione->rimandaPrivatizzazione && $consenso) {
     <?php }
     }
 }
-
+/*
 // C'è il webinar!!!
 if (!$sessione->rimandaPrivatizzazione && $consenso && $me->presidenziante() && !$me->admin) { ?>
     <div class="modal fade automodal">
@@ -149,7 +149,7 @@ if (!$sessione->rimandaPrivatizzazione && $consenso && $me->presidenziante() && 
         </div>
     </div>
 <?php }
-
+*/
 /* Noi siamo cattivi >:) */
 // redirect('curriculum');
 
