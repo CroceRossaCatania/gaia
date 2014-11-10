@@ -9,6 +9,8 @@ class File extends Entita {
     public static
             $_t     = 'file',
             $_dt    = null;
+
+    use EntitaCache;
     
     public function autore() {
         return Utente::id($this->autore);

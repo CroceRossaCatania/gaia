@@ -15,7 +15,12 @@ class Excel extends File {
         $this->intestazione = $array;
     }
     
-    public function aggiungiRiga( $array ) {
+    public function aggiungiRiga( $array, $html = false ) {
+        if ( !$html ) {
+            foreach ( $array as $colonna ) {
+                $colonna = htmlentities($colonna);
+            }
+        }
         $this->righe[] = $array;
     }
     
@@ -23,6 +28,7 @@ class Excel extends File {
         $this->nome = $nome;
         $this->mime = 'application/vnd.ms-excel';
         
+        $conBordo = (int) $conBordo;
         $s  = "<meta charset='utf-8'>";
         $s .= "<head><style>.excel-text{ mso-number-format: \"\@\"; } </style></head>";
         $s .= "<table border='{$conBordo}'>";

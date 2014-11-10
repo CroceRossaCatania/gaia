@@ -10,6 +10,8 @@ class Attivita extends GeoEntita {
         $_t  = 'attivita',
         $_dt = 'dettagliAttivita';
 
+    use EntitaCache;
+
     public function comitato() {
         if ( $this->comitato ) {
             return GeoPolitica::daOid($this->comitato);
@@ -79,8 +81,9 @@ class Attivita extends GeoEntita {
     public function modificabileDa(Utente $u) {
         return (bool) (
                 $u->id == $this->referente
-            ||  in_array($this->area, $u->areeDiCompetenza())
-            ||  in_array($this, $u->attivitaDiGestione())
+            ||  $u->admin 
+            ||  contiene($this->area, $u->areeDiCompetenza())
+            ||  contiene($this, $u->attivitaDiGestione())
         );
     }
     

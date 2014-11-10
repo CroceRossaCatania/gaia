@@ -15,7 +15,7 @@ if ( $veicolo ){
     /* Mica posso vedere o modificare i veicoli di altri */
     proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
 
-    if ( $veicolo->stato == VEI_FUORIUSO || !$me->admin() ) {
+    if ( $veicolo->stato == VEI_FUORIUSO ) {
         $x=1;
     }
 }

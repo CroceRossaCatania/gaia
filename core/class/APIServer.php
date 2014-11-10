@@ -717,8 +717,7 @@ class APIServer {
         return ['id' => $corsoBase->id];
     }
 
-
-    private function api_like() {
+	private function api_like() {
         global $conf;
         $this->richiedi(['oggetto']);
         $oggetto = Entita::daOid($this->par['oggetto']);
@@ -750,6 +749,5 @@ class APIServer {
         }
         return $r;
     }
-
         
 }

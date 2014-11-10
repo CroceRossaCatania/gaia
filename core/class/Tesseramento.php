@@ -11,6 +11,8 @@ class Tesseramento extends Entita {
         $_t     = 'tesseramenti',
         $_dt    = null;
 
+    use EntitaCache;
+
     public function inizio() {
         return DT::daTimestamp($this->inizio);
     }

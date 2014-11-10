@@ -5,8 +5,11 @@
  */
 
 class Annunci extends Entita {
-        protected static
-            $_t  = 'annunci',
-            $_dt = null;
+
+    protected static
+        $_t  = 'annunci',
+        $_dt = null;
+
+    use EntitaCache;
         
 }

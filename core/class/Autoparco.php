@@ -9,5 +9,7 @@ class Autoparco extends GeoEntita {
 	protected static
         $_t     = 'autoparchi',
         $_dt    = 'dettagliAutoparco';
+
+    use EntitaCache;
     
 }

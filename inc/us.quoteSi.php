@@ -7,7 +7,7 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">

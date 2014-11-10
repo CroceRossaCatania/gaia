@@ -8,7 +8,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 ?>
 
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['app']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-ok"></i> <strong>Appartenenza confermata</strong>.

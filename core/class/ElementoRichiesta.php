@@ -5,16 +5,19 @@
  */
 
 class ElementoRichiesta extends Entita {
-        protected static
-            $_t  = 'elementiRichieste',
-            $_dt = null;
-        
-        public function titolo() {
-            return Titolo::id($this->titolo);
-        }
+	
+    protected static
+        $_t  = 'elementiRichieste',
+        $_dt = null;
 
-     	public function richiesta() {
-            return new RichiestaTurno($this->richiesta);
-        }
+    use EntitaCache;
+    
+    public function titolo() {
+        return Titolo::id($this->titolo);
+    }
+
+ 	public function richiesta() {
+        return new RichiestaTurno($this->richiesta);
+    }
 
 }

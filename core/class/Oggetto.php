@@ -6,8 +6,10 @@
 
 class Oggetto extends Entita {
     
-        protected static
-            $_t  = 'oggetto',
-            $_dt = 'dettagliOggetto';
-        
+    protected static
+        $_t  = 'oggetto',
+        $_dt = 'dettagliOggetto';
+
+    use EntitaCache;
+    
 }

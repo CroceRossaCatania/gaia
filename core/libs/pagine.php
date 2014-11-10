@@ -121,9 +121,9 @@ function paginaCorsoBase( $corsoBase = null ) {
          ( 
             ( $corsoBase instanceof CorsoBase )
             and
-            !$corsoBase->modificabileDa($sessione->utente())
+            !($corsoBase->modificabileDa($sessione->utente()))
          )
-            or
+          or
          !(
                 (bool) $sessione->utente()->admin()
             or  (bool) $sessione->utente()->presiede()
@@ -142,7 +142,7 @@ function paginaModale() {
 
 function paginaPresidenziale( $comitato = null, $attivita = null) {
     global $sessione;
-        paginaPrivata();
+    paginaPrivata();
     if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin() ) {
         redirect('utente.me');
     }
