@@ -784,7 +784,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
             '</tr>'
         );
     }
-    _render_utenti(); // Render mittenti e destinatari
+    _render_utenti(true); // Render mittenti e destinatari
     //_tabella_sblocca_input(input);
 }
 
