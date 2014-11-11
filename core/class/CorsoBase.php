@@ -150,13 +150,14 @@ class CorsoBase extends GeoEntita {
      * @return bool 
      */
     public function modificabileDa(Utente $u) {
-        return (bool) (
+        if($u->admin()) return true;
+        return (bool) (!$this->concluso() && (
                 $u->id == $this->direttore
             ||  contiene($this->id, 
                     array_map(function($x) {
                         return $x->id;
                     }, $u->corsiBaseDiGestione())
-                )
+                ))
         );
 
     }

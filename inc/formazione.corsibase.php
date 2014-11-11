@@ -108,25 +108,20 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                         </td>
                         
                         <td style="width: 20%;">
-                            <?php if (in_array($corso->organizzatore(), $mieiComitati) || $me->admin()){ ?>
+                            <?php if ((!$corso->concluso() 
+                                        && in_array($corso->organizzatore(), $mieiComitati)) 
+                                    || $me->admin()){ ?>
                             <a href="?p=formazione.corsibase.direttore&id=<?= $corso->id; ?>">
                                 <i class="icon-pencil"></i> 
                                 cambia direttore
                             </a>
                             <br />
-                            <?php } ?>
+                            <?php } 
+                            if(!$corso->concluso()) {?>
                             <a href="?p=formazione.corsibase.modifica&id=<?php echo $corso->id; ?>">
                                 <i class="icon-edit"></i> modifica corso
                             </a>
-                            <?php /*  
-
-                            NIENTE LEZIONI AL MOMENTO!
-
-                            <br />
-                            <a href="?p=formazione.corsibase.lezioni&id=<?php echo $corso->id; ?>">
-                                <i class="icon-plus"></i> lezioni
-                            </a>
-                            <?php */ 
+                            <?php }
 
                             if ((in_array($corso->organizzatore(), $mieiComitati) && $corso->cancellabile())
                                         or $me->admin()){ ?>
