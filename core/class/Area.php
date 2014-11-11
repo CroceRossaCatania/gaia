@@ -5,6 +5,8 @@ class Area extends Entita {
     protected static
         $_t  = 'aree',
         $_dt = null;
+
+    use EntitaCache;
     
     public function comitato() {
         return GeoPolitica::daOid($this->comitato);

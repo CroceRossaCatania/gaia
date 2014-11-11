@@ -10,7 +10,7 @@ controllaParametri(array('idTitolo'), 'presidente.titoli&err');
 
 $f= Titolo::id($_POST['idTitolo']);
 ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <br/>
 <div class="row-fluid">
     <div class="span5">

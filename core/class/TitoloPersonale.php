@@ -8,9 +8,11 @@
 class TitoloPersonale extends Entita {
     
     public static
-        $_t     = 'titoliPersonali',
-        $_dt    = null;
-    
+        $_t         = 'titoliPersonali',
+        $_dt        = null;
+
+    use EntitaCache;
+
     public function confermato() {
         return (bool) $this->tConferma;
     }

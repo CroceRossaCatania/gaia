@@ -53,7 +53,8 @@ $(window).ready( function () {
     })
     
     $("#navigatoreMobileSelect").change( _navigatore_mobile );
-    
+
+    tinyMCE.baseURL = "/assets/js/tinymce/";
     tinymce.init({
         selector:   "textarea.conEditor",
         language:   'it',
@@ -692,10 +693,10 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td><strong>' + ogg + '</strong><br />{nomeCompleto}</td>' +
                     '</tr>'
                 );
-                persona      = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '">{nomeCompleto}</span>';
+                persona      = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '" data-conAvatar="false">{nomeCompleto}</span>';
             }
 
-            destinatario = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '">{nomeCompleto}</span>';
+            destinatario = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '" data-conAvatar="false">{nomeCompleto}</span>';
             if ( email.invio.terminato ) {
                 destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + stampaDataOra(new Date(email.invio.terminato * 1000)) + ')';
             } else {
@@ -760,7 +761,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
 
 
                 );
-                _render_utenti();
+                _render_utenti(true);
                 _render_modali();
             } else {
                 window.location = 'https://gaia.cri.it/?p=utente.posta&id=' + email.id;
@@ -867,16 +868,21 @@ function _render_like_singolo(oggetto, dati) {
 /**
  * Rendering utenti 
  */
-function _render_utenti() {
+function _render_utenti( senzaAvatar ) {
     var riassunto = [];
     var richieste = [];
+
+    var conAvatar = (senzaAvatar === undefined);
     $("[data-utente]").each( function(i, e) {
         var id = $(e).data('utente')
         $(e).attr('data-contenuto', $(e).html());
+        var tConAvatar = conAvatar;
+        if ($(e).data('conAvatar') !== undefined)
+            tConAvatar = ($(e).data('conAvatar') == true);
         riassunto.push({elemento: e, id: id});
         richieste.push({
             metodo      : 'utente',
-            parametri   : {id: id}
+            parametri   : {id: id, conAvatar: tConAvatar}
         });
     });
 
@@ -893,7 +899,9 @@ function _render_utente(elemento, dati) {
     testo = testo.replace(/{nome}/gi,            dati.nome);
     testo = testo.replace(/{cognome}/gi,         dati.cognome);
     testo = testo.replace(/{nomeCompleto}/gi,    dati.nomeCompleto);
-    testo = testo.replace(/{avatar}/gi,          dati.avatar["20"]);
+    if ( dati.hasOwnProperty('avatar') ) {
+        testo = testo.replace(/{avatar}/gi,          dati.avatar["20"]);
+    }
     $(elemento).removeAttr('data-utente');
     $(elemento).html(testo);
 }

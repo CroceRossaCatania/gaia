@@ -76,18 +76,18 @@ if ( $nap ) {
 if ($me && ($me->attivitaDiGestione() || $me->comitatiAreeDiCompetenza() || $me->attivitaReferenziate())) {
     $menu += [
         'Attività'      =>  [
-            'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
-            'attivita.storico'  =>  '<i class="icon-list"></i> Miei turni',
-            'attivita.gestione'  =>  '<i class="icon-star"></i> Gestisci attività',
-            'utente.gruppo'  =>  '<i class="icon-group"></i> Gruppi',
+            'attivita'             =>  '<i class="icon-calendar"></i> Calendario',
+            'attivita.storico'     =>  '<i class="icon-list"></i> Miei turni',
+            'attivita.gestione'    =>  '<i class="icon-star"></i> Gestisci attività',
+            'utente.gruppo'        =>  '<i class="icon-group"></i> Gruppi',
             'utente.reperibilita'  =>  '<i class="icon-thumbs-up"></i> Reperibilità'
         ]];
 } else {
     $menu += [
         'Attività'      =>  [
-            'attivita'  =>  '<i class="icon-calendar"></i> Calendario',
-            'attivita.storico'  =>  '<i class="icon-list"></i> Miei turni',
-            'utente.gruppo'  =>  '<i class="icon-group"></i> Gruppi',
+            'attivita'             =>  '<i class="icon-calendar"></i> Calendario',
+            'attivita.storico'     =>  '<i class="icon-list"></i> Miei turni',
+            'utente.gruppo'        =>  '<i class="icon-group"></i> Gruppi',
             'utente.reperibilita'  =>  '<i class="icon-thumbs-up"></i> Reperibilità'
         ]];
 }
@@ -96,16 +96,16 @@ $menu += [
         'utente.anagrafica' =>  '<i class="icon-edit"></i> Anagrafica',
         'utente.storico'    =>  '<i class="icon-time"></i> Storico',
         'utente.documenti'  =>  '<i class="icon-folder-open"></i> Documenti',
-        'utente.posta'     =>   '<i class="icon-envelope-alt"></i> Posta'           
+        'utente.posta'      =>  '<i class="icon-envelope-alt"></i> Posta'           
     ]];
 if ($me && $me->unComitato()) {
     $menu += [
         'Segreteria'      =>  [
-            'utente.estensione'  =>  '<i class="icon-random"></i> Estensioni',
-            'utente.trasferimento'  =>  '<i class="icon-arrow-right"></i> Trasferimenti',
-            'utente.riserva'  =>  '<i class="icon-pause"></i> Riserva',
+            'utente.estensione'        =>  '<i class="icon-random"></i> Estensioni',
+            'utente.trasferimento'     =>  '<i class="icon-arrow-right"></i> Trasferimenti',
+            'utente.riserva'           =>  '<i class="icon-pause"></i> Riserva',
             'utente.rubricaReferenti'  =>  '<i class="icon-book"></i> Rubrica'
-            //'public.tesserino'  =>  '<i class="icon-credit-card"></i> Verifica Tesserino'  
+            /*'public.tesserino'  =>  '<i class="icon-credit-card"></i> Verifica Tesserino' */
         ]];
 }
 $menu += [
@@ -118,7 +118,7 @@ $menu += [
     ],
     'Statistiche' =>  [
         'utente.statistiche.volontari'     =>   '<i class="icon-puzzle-piece"></i> Volontari'
-//        'utente.statistiche.attivita'     =>   '<i class="icon-weibo"></i> Attività'
+//        'utente.statistiche.attivita'    =>   '<i class="icon-weibo"></i> Attività'
     ]
 ];
 

@@ -152,7 +152,12 @@ class APIServer {
     private function api_utente() {
         $this->richiedi(['id']);
         $u = Utente::id($this->par['id']);
-        return $u->toJSON();
+
+        $conAvatar = true;
+        if ( isset($this->par['conAvatar']) )
+            $conAvatar = (bool) $this->par['conAvatar'];
+
+        return $u->toJSON($conAvatar);
     }
 
     /**
@@ -717,8 +722,7 @@ class APIServer {
         return ['id' => $corsoBase->id];
     }
 
-
-    private function api_like() {
+	private function api_like() {
         global $conf;
         $this->richiedi(['oggetto']);
         $oggetto = Entita::daOid($this->par['oggetto']);
@@ -750,6 +754,5 @@ class APIServer {
         }
         return $r;
     }
-
         
 }

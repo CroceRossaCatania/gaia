@@ -9,6 +9,8 @@ class Documento extends Entita {
     protected static
             $_t     = 'documenti',
             $_dt    = null;
+
+    use EntitaCache;
     
     public function utente() {
         return Utente::id($this->utente);

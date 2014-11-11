@@ -10,6 +10,8 @@ class Locale extends GeoPolitica {
         $_t  = 'locali',
         $_dt = 'datiLocali';
 
+    use EntitaCache;
+
     public static 
         $_ESTENSIONE = EST_LOCALE;
 

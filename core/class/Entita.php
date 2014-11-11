@@ -6,18 +6,21 @@
 
 /**
  * Rappresenta una Entita generica nel database
+ *
+ * COME CREARE UNA NUOVA ENTITA':
+ * 1. Creare una nuova classe che estende Entita (extends Entita)
+ * 2. Dichiarare il nome della tabella principale (protected static $_t = 'nome_tabella';)
+ * 3. Dichiarare il nome della tabella secondaria (protected static $_dt = 'secondaria'; / protected static $_dt = null;)
+ * 4. Aggiungere il trait "EntitaCache" o "EntitaNoCache" (use EntitaCache; / use EntitaNoCache;)
  */
 abstract class Entita {
     
     protected
             $db         = null,
-            $cache      = null,
-            $_v         = [];
+            $cache      = null;
 
-    /**
-     * L'oggetto puo' essere rappresentato in cache?
-     */
-    protected static $_cacheable = true;
+    public
+            $_v         = [];
     
     /**
      * Il nome della tabella in database 
@@ -39,21 +42,32 @@ abstract class Entita {
      * L'ID dell'oggetto caricato 
      */
     public          $id;
+
     
-    public function __construct ( $id = null ) {
+    public function __construct ( $id = null, $caricaDati = false ) {
         global $db, $cache, $conf;
+
+        if ( static::$_versione == -1 ) {
+            static::_caricaVersione();            
+        }
+
         $this->db = $db;
         if ( static::$_cacheable ) {
             $this->cache = $cache;
         }
+
+        if ( $caricaDati !== false ) {
+            $this->id = $id;
+            $this->_v = $caricaDati;
+            return;
+        }
+
         /* Check esistenza */
-        if ( self::_esiste($id) ) {
+        if ( self::_esiste($id, $this->_v) ) {
             /* Scaricamento */
             $this->id = $id;
-            if ( $this->cache ) {
-                if ( $this->_v = unserialize( $this->cache->get( $conf['db_hash'] . static::$_t . ':' . $id . ':___campi') ) ) {
-                    return;
-                }
+            if ( $this->_v ) {
+                return;
             }
             $q = $this->db->prepare("
                 SELECT * FROM ". static::$_t ." WHERE id = :id");
@@ -61,7 +75,7 @@ abstract class Entita {
             $q->execute();
             $this->_v = $q->fetch(PDO::FETCH_ASSOC);
             if ( $this->cache ) {
-                $this->cache->set($conf['db_hash'] . static::$_t . ':' . $id . ':___campi', serialize($this->_v));
+                $this->cache->set(static::_chiave($id . ':___campi', false), serialize($this->_v));
             }
         } elseif ( $id === null ) {
             /* Creazione nuovo */
@@ -79,7 +93,7 @@ abstract class Entita {
      * Ottiene un singolo elemento per un parametro univoco
      * @param string $_nome Il nome del parametro
      * @param string $_valore Il suo valore
-     * @return static|bool(false) Un elemento o false
+     * @return static|false Un elemento o false
      */
     public static function by($_nome, $_valore) {
         $r = static::filtra([[$_nome, $_valore]], 'id LIMIT 0,1');
@@ -111,14 +125,10 @@ abstract class Entita {
      */
     public static function _cacheQuery($hash, $valori) {
         global $cache, $conf;
-        $r = [];
-        foreach ( $valori as $valore ) {
-            $r[] = $valore->oid();
-        }
-        $r = json_encode($r);
-        $cache->set  ($conf['db_hash'] . static::$_t . ':query:' . $hash, $r);
-        $cache->rPush($conf['db_hash'] . static::$_t . ':lista_query', $hash);
-        $cache->incr ($conf['db_hash'] . static::$_t . ':num_query');
+        $r = serialize($valori);
+        $cache->set  ( static::_chiave('query:' . $hash) , $r);
+        $cache->rPush( static::_chiave('lista_query'), $hash);
+        $cache->incr ( static::_chiave('num_query') );
         return true;
     }
 
@@ -129,7 +139,7 @@ abstract class Entita {
      */
     public static function _numQueryCache() {
         global $cache, $conf;
-        return (int) $cache->get($conf['db_hash'] . static::$_t . ':num_query');
+        return (int) $cache->get( static::_chiave('num_query') );
     }
     
     /**
@@ -139,10 +149,10 @@ abstract class Entita {
      */
     public static function _ottieniQuery($hash) {
         global $cache, $conf;
-        if ( $r = $cache->get($conf['db_hash'] . static::$_t . ':query:' . $hash) ) {
+        if ( $r = $cache->get( static::_chiave('query:' . $hash) ) ) {
             $k = [];
-            foreach ( json_decode($r) as $j ) {
-                $k[] = Entita::daOid($j);
+            foreach ( unserialize($r) as $j ) {
+                $k[] = new static($j['id'], $j);
             }
             return $k;
         } else {
@@ -157,15 +167,10 @@ abstract class Entita {
         global $cache, $conf;
         if ( !$cache ) { return false; }
         
-        // Popping senza pieta' (ed in tempo O(1)...)
-        while ($hash = $cache->rPop($conf['db_hash'] . static::$_t . ':lista_query')) {
-            $cache->delete($conf['db_hash'] . static::$_t . ':query:' . $hash);
-        }
-        
-        $cache->delete($conf['db_hash'] . static::$_t . ':num_query');
+        static::_incrementaVersione();
         return true;
     }
-    
+
     /**
      * Cerca oggetti con le corrispondenze specificate
      *
@@ -177,14 +182,17 @@ abstract class Entita {
         global $db, $conf, $cache;
         $entita = get_called_class();
 
+        if ( static::$_versione == -1 ) {
+            static::_caricaVersione();            
+        }
+
         if ( $_order ) {
             $_order = 'ORDER BY ' . $_order;
         }
 
         $where = static::preparaCondizioni($_array, 'WHERE');
 
-        $query = "
-            SELECT id FROM ". static::$_t . " $where $_order";
+        $query = "SELECT * FROM ". static::$_t . " $where $_order";
         
         /*
          * Controlla se la query è già in cache
@@ -194,20 +202,21 @@ abstract class Entita {
             $hash = md5($query);
             $r = static::_ottieniQuery($hash);
             if ( $r !== false  ) {
-                $cache->incr($conf['db_hash'] . '__re');
+                $cache->incr( chiave('__re') );
                 return $r;
             }
         }
         
         $q = $db->prepare($query);
         $q->execute();
-        $t = [];
-        while ( $r = $q->fetch(PDO::FETCH_NUM) ) {
-            $t[] = new $entita($r[0]);
+        $t = $c = [];
+        while ( $r = $q->fetch(PDO::FETCH_ASSOC) ) {
+            $t[] = new $entita($r['id'], $r);
+            $c[] = $r;
         }
         
         if ( $cache && static::$_cacheable ) {
-            static::_cacheQuery($hash, $t);
+            static::_cacheQuery($hash, $c);
         }
         
         return $t;
@@ -247,14 +256,25 @@ abstract class Entita {
         if (!$_array) { return ' '; }
         $_condizioni = [];
         foreach ( $_array as $_elem ) {
+            
             if ( $_elem[1] === null ) {
                 $_condizioni[] = "{$_elem[0]} IS NULL OR {$_elem[0]} = 0";
+
             } else {
-                if ( is_int($_elem[1]) ) {
-                    $_condizioni[] = "{$_elem[0]} = {$_elem[1]}";
+
+                if ( isset($_elem[2]) && $_elem[2] != OP_EQ )
+                    $op = $_elem[2];
+                else
+                    $op = OP_EQ;
+
+                if ( $op == OP_SQL ) {
+                    $_condizioni[] = "{$_elem[0]}";
+                } else if ( is_int($_elem[1]) || is_float($_elem[2]) ) {
+                    $_condizioni[] = "{$_elem[0]} {$op} {$_elem[1]}";
                 } else {
-                    $_condizioni[] = "{$_elem[0]} = '{$_elem[1]}'";
+                    $_condizioni[] = "{$_elem[0]} {$op} '{$_elem[1]}'";
                 }
+
             }
         }
         $stringa = implode(' AND ', $_condizioni);
@@ -283,7 +303,6 @@ abstract class Entita {
     public static function cercaFulltext($query, $campi, $limit = 20, $altroWhere = '') {
         global $db;
         $entita = get_called_class();
-        //var_dump(count($campi), str_word_count($campi[0]));
         if (count($campi) == 1 AND str_word_count($query) == 1) {
             $stringa = " WHERE {$campi[0]} LIKE :stringa";
             $query = '%' . $query . '%';
@@ -315,11 +334,11 @@ abstract class Entita {
      * @param mixed $id     L'ID dell'oggetto da verificare
      * @return bool         Esistenza dell'oggetto
      */
-    public static function _esiste ( $id = null ) {
+    public static function _esiste ( $id = null, &$scaricaDati = null ) {
         if (!$id) { return false; }
         global $db, $cache, $conf;
         if ($cache && static::$_cacheable) {
-            if ( $cache->get($conf['db_hash'] . static::$_t . ':' . $id) ) {
+            if ( $scaricaDati = unserialize($cache->get( static::_chiave($id . ':___campi', false) )) ) {
                 return true;
             }
         }
@@ -328,9 +347,6 @@ abstract class Entita {
         $q->bindParam(':id', $id);
         $q->execute();
         $y = (bool) $q->fetch(PDO::FETCH_NUM);
-        if ($y && static::$_cacheable && $cache) {
-            $cache->set($conf['db_hash'] . static::$_t . ':' . $id, 'true');
-        }
         return $y;
     }
     
@@ -384,22 +400,21 @@ abstract class Entita {
     
     public function __get ( $_nome ) {
         global $conf;
-        if ( $this->cache ) {
-            $r = $this->cache->get($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome);
-            if ( $r !== null && $r !== false && $r !== '' ) {
-                return $r;
-            }
-        }
-        if (array_key_exists($_nome, $this->_v) ) {
+
+        if (array_key_exists($_nome, $this->_v)) {
             /* Proprietà interna */
-            $q = $this->db->prepare("
-                SELECT $_nome FROM ". static::$_t ." WHERE id = :id");
-            $q->bindParam(':id', $this->id);
-            $q->execute();
-            $r = $q->fetch(PDO::FETCH_NUM);
-            $r = $r[0];
+            return $this->_v[$_nome];
 
         } else {
+
+            if ( $this->cache ) {
+                $r = $this->cache->get( static::_chiave($this->id . ':' . $_nome, false) );
+                if ( $r !== null && $r !== false && $r !== '' ) {
+                    $this->_v[$_nome] = $r;
+                    return $r;
+                }
+            }
+
             /* Proprietà collegata */
             $q = $this->db->prepare("
                 SELECT valore FROM ". static::$_dt ." WHERE id = :id AND nome = :nome");
@@ -414,11 +429,10 @@ abstract class Entita {
             }
         }
         if ( $this->cache ) {
-            $this->cache->set($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome, $r);
+            $this->cache->set(static::_chiave($this->id . ':' . $_nome, false), $r);
         }
         return $r;
-    }
-    
+    }    
 
     public function __set ( $_nome, $_valore ) {
         global $conf;
@@ -430,6 +444,10 @@ abstract class Entita {
             $q->bindParam(':id', $this->id);
             $q->execute();
             $this->_v[$_nome] = $_valore;
+            if ( $this->cache ) {
+                $this->cache->set(static::_chiave($this->id . ':___campi', false), serialize($this->_v));
+            }
+
         } else {
             /* Proprietà collegata */
             if ( $_valore === null ) {
@@ -464,9 +482,11 @@ abstract class Entita {
 
         }
         if ( $this->cache ) {
-            $this->cache->set($conf['db_hash'] . static::$_t . ':' . $this->id . ':' . $_nome, $_valore);
+            $this->cache->set(static::_chiave($this->id . ':' . $_nome, false), $_valore);
             static::_invalidaCacheQuery();
+
         }
+
     }
     
     /**
@@ -481,7 +501,7 @@ abstract class Entita {
         $q->execute();
         if ( $this->cache ) {
             static::_invalidaCacheQuery();
-            $this->cache->delete($conf['db_hash'] . static::$_t . ':' . $this->id);
+            $this->cache->delete( static::_chiave($this->id, false) );
         }
     }
     
@@ -522,6 +542,47 @@ abstract class Entita {
     }
 
     /**
+     * Carica il numero di versione per questa Entita dalla cache
+     * @return int Numero di versione
+     */
+    protected static function _caricaVersione() {
+        global $cache;
+        if ( !static::$_cacheable ) 
+            return -1;
+        static::$_versione = (int) $cache->get(
+            chiave('versione_cache:' . static::$_t)
+        );
+    }
+
+    /**
+     * Incrementa versione della cache per questa Entita 
+     * @return int Nuovo numero di versione
+     */
+    protected static function _incrementaVersione() {
+        global $cache;
+        if ( !static::$_cacheable ) {
+            return -1;
+        }
+        static::$_versione = (int) $cache->incr(
+            chiave('versione_cache:' . static::$_t)
+        );
+    }
+
+    /**
+     * Ottiene il nome di chiave con o senza numero di versione
+     * @param string $suffisso Il suffisso della chiave
+     * @param bool $conVersione Includere il numero di versione?
+     * @return string La chiave completa
+     */
+    protected static function _chiave($suffisso, $conVersione = true) {
+        $c = chiave('e:' . static::$_t);
+        if ( $conVersione )
+            $c .= ':' . (int) static::$_versione;
+        $c .= ':' . $suffisso;
+        return $c;
+    }
+
+	/**
      * Ottiene numero di mi piace/ non mi piace per l'oggetto
      * @param int $tipo Uno tra costanti PIACE / NON_PIACE
      * @return int Numero di mi piace o non mi piace 
@@ -551,5 +612,4 @@ abstract class Entita {
     public function nonMiPiace() {
         return $this->like(NON_PIACE);
     }
-
 }

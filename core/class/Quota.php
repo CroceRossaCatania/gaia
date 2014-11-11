@@ -9,6 +9,8 @@ class Quota extends Entita {
     protected static
         $_t  = 'quote',
         $_dt = null;
+
+    use EntitaCache;
     
     public function volontario() {
         return Volontario::id($this->appartenenza()->volontario());
@@ -29,7 +31,7 @@ class Quota extends Entita {
     /**
      * Genera il codice numerico progressivo della quota sulla base dell'anno attuale
      *
-     * @return int|bool(false) $progressivo     Il codice progressivo, false altrimenti 
+     * @return int|false $progressivo     Il codice progressivo, false altrimenti 
      */
     public function assegnaProgressivo() {
         if ($this->progressivo) {

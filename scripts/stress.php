@@ -4,7 +4,7 @@
  * ©2014 Croce Rossa Italiana
  */
 
-require 'core.inc.php';
+require '../core.inc.php';
 
 if ( php_sapi_name() !== 'cli' )
 	die('Non puoi invocare lo stress test via webserver.');
@@ -30,7 +30,7 @@ if ( $argv[1] == 'esegui' ) {
 	$cache->set('test_worker_terminati', 0);
 	$cache->set('test_totale_tempo',   0.0);
 
-	$stress  = file('./upload/setup/stress.txt');
+	$stress  = file('../upload/setup/stress.txt');
 	$nstress = count($stress);
 	echo "- Dizionario caricato con {$nstress} vocaboli\n";
 

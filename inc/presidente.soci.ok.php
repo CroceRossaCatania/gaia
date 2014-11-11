@@ -52,12 +52,12 @@ if(isset($_GET['nofoto'])) { ?>
 
 ?>
 
-<div class="alert alert-block alert-info">
+<!--<div class="alert alert-block alert-info">
 <i class="icon-info-sign"></i> La richiesta di tesserino per un volontario può essere effettuata premendo sul pulsante <strong>Tesserino</strong>
 presente nella sezione azioni. <br />
 Il pulsante è presente per i soli soci attivi solamente per i quali la fototessera è stata caricata. È possibile
 caricare la fototessera entrando nella scheda <strong>Dettagli</strong>.
-</div>
+</div>-->
   
 <div class="row-fluid">
    <div class="span12">
@@ -69,7 +69,7 @@ caricare la fototessera entrando nella scheda <strong>Dettagli</strong>.
                 <th>Nome</th>
                 <th>C. Fiscale</th>
                 <th>Data Ingresso</th>
-                <th>Tesserino</th>
+                <!--<th>Tesserino</th>-->
                 <th>Azioni</th>
             </thead>
 
@@ -109,7 +109,7 @@ caricare la fototessera entrando nella scheda <strong>Dettagli</strong>.
                     <td>
                         <?php echo $_v->ingresso()->format("d/m/Y"); ?>
                     </td>
-                    <td>
+                    <!--<td>
                         <?php 
                         if($tesserino) {
                             echo("{$conf['tesseriniStatoBreve'][$tesserino->stato]} il {$tesserino->data()->format('d/m/y')}");
@@ -117,7 +117,7 @@ caricare la fototessera entrando nella scheda <strong>Dettagli</strong>.
                             echo("Non richiesto");
                         }
                         ?>
-                    </td>
+                    </td>-->
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
@@ -127,6 +127,7 @@ caricare la fototessera entrando nella scheda <strong>Dettagli</strong>.
                                 <i class="icon-envelope"></i>
                             </a>
                         </div>
+                        <!--
                         <?php if($tesseratore) { ?>
                         <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?= $_v ?>" title="Tesserino">
                             <i class="icon-credit-card"></i> Tesserino
@@ -135,7 +136,7 @@ caricare la fototessera entrando nella scheda <strong>Dettagli</strong>.
                         <a class="btn btn-small btn-info" href="?p=us.tesserini.chiedi.ok&id=<?= $_v ?>" title="Richiedi tesserino">
                             <i class="icon-credit-card"></i> Tesserino
                         </a>
-                        <?php } ?>
+                        <?php } ?>-->
                    </td>
                 </tr>
         <?php }
