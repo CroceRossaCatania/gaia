@@ -693,10 +693,10 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<td><strong>' + ogg + '</strong><br />{nomeCompleto}</td>' +
                     '</tr>'
                 );
-                persona      = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '">{nomeCompleto}</span>';
+                persona      = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '" data-conAvatar="false">{nomeCompleto}</span>';
             }
 
-            destinatario = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '">{nomeCompleto}</span>';
+            destinatario = '<i class="icon-user"></i> <span data-utente="' + email.destinatari[0].id + '" data-conAvatar="false">{nomeCompleto}</span>';
             if ( email.invio.terminato ) {
                 destinatario += ' (<i class="icon-ok text-success"></i> inviato: ' + stampaDataOra(new Date(email.invio.terminato * 1000)) + ')';
             } else {
@@ -876,10 +876,13 @@ function _render_utenti( senzaAvatar ) {
     $("[data-utente]").each( function(i, e) {
         var id = $(e).data('utente')
         $(e).attr('data-contenuto', $(e).html());
+        var tConAvatar = conAvatar;
+        if ($(e).data('conAvatar') !== undefined)
+            tConAvatar = ($(e).data('conAvatar') == true);
         riassunto.push({elemento: e, id: id});
         richieste.push({
             metodo      : 'utente',
-            parametri   : {id: id, conAvatar: conAvatar}
+            parametri   : {id: id, conAvatar: tConAvatar}
         });
     });
 
