@@ -372,8 +372,8 @@ class CorsoBase extends GeoEntita {
         }
 
         /* Appongo eventuali X */
-        $extra1 = null;
-        $extra2 = null;
+        $extra1 = "_";
+        $extra2 = "_";
 
         if ($pb->e1){
 
@@ -412,6 +412,7 @@ class CorsoBase extends GeoEntita {
         $p->_ARGDUE       = $pb->a2;
         $p->_NOMECOMPLETO = $iscritto->nomeCompleto();
         $p->_LUOGONASCITA = $iscritto->comuneNascita;
+        $p->_CF           = $iscritto->codiceFiscale;
         $p->_DATANASCITA  = date('d/m/Y', $iscritto->dataNascita);
         $p->_IDONETA      = $idoneo;
         $p->_EXTRAUNO     = $extra1;
