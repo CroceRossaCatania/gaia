@@ -275,6 +275,18 @@ class CorsoBase extends GeoEntita {
     }
 
     /**
+     * Se il corso base è attivo e non ci sono partecipanti
+     * allora è cancellabile
+     * @return bool
+     */
+    public function cancellabile() {
+        if ($this->stato == CORSO_S_DACOMPLETARE) {
+            return true;
+        }
+        return (bool) ($this->stato == CORSO_S_ATTIVO && $this->numIscritti() == 0);
+    }
+
+    /**
      * Genera attestato, sulla base del corso e del volontario
      * @return PDF 
      */

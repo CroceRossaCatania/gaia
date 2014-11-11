@@ -99,6 +99,8 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                             <?php } ?>
                             <br />
                             Codice corso: <?php echo($corso->progressivo());?>
+                            <br />
+                            Numero iscritti: <?php echo($corso->numIscritti());?>
                         </td>
                 
                         <td style="width: 15%;">
@@ -126,7 +128,7 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                             </a>
                             <?php */ 
 
-                            if ((in_array($corso->organizzatore(), $mieiComitati) && $corso->stato == CORSO_S_DACOMPLETARE)
+                            if ((in_array($corso->organizzatore(), $mieiComitati) && $corso->cancellabile())
                                         or $me->admin()){ ?>
                             <br />
                             <a onClick="return confirm('Vuoi veramente cancellare questo corso base ?');" href="?p=formazione.corsibase.cancella.ok&id=<?php echo $corso->id; ?>">
