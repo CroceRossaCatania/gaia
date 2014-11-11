@@ -177,14 +177,19 @@ class Utente extends Persona {
         return false;
     }
     
-    public function toJSON() {
-        return [
+    public function toJSON($conAvatar = true) {
+        $utente = [
             'id'            =>  $this->id,
             'nome'          =>  $this->nome,
             'cognome'       =>  $this->cognome,
-            'nomeCompleto'  =>  $this->nomeCompleto(),
-            'avatar'        =>  $this->avatar()->URL()
+            'nomeCompleto'  =>  $this->nomeCompleto()
         ];
+        if ( $conAvatar ) {
+            $utente = array_merge($utente, [
+                'avatar'        =>  $this->avatar()->URL()
+            ]);
+        }
+        return $utente;
     }
 
             
