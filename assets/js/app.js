@@ -53,7 +53,8 @@ $(window).ready( function () {
     })
     
     $("#navigatoreMobileSelect").change( _navigatore_mobile );
-    
+
+    tinyMCE.baseURL = "/assets/js/tinymce/";
     tinymce.init({
         selector:   "textarea.conEditor",
         language:   'it',
