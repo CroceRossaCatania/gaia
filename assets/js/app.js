@@ -760,7 +760,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
 
 
                 );
-                _render_utenti();
+                _render_utenti(true);
                 _render_modali();
             } else {
                 window.location = 'https://gaia.cri.it/?p=utente.posta&id=' + email.id;
@@ -867,16 +867,18 @@ function _render_like_singolo(oggetto, dati) {
 /**
  * Rendering utenti 
  */
-function _render_utenti() {
+function _render_utenti( senzaAvatar ) {
     var riassunto = [];
     var richieste = [];
+
+    var conAvatar = (senzaAvatar == undefined);
     $("[data-utente]").each( function(i, e) {
         var id = $(e).data('utente')
         $(e).attr('data-contenuto', $(e).html());
         riassunto.push({elemento: e, id: id});
         richieste.push({
             metodo      : 'utente',
-            parametri   : {id: id}
+            parametri   : {id: id, conAvatar: conAvatar}
         });
     });
 
@@ -893,7 +895,9 @@ function _render_utente(elemento, dati) {
     testo = testo.replace(/{nome}/gi,            dati.nome);
     testo = testo.replace(/{cognome}/gi,         dati.cognome);
     testo = testo.replace(/{nomeCompleto}/gi,    dati.nomeCompleto);
-    testo = testo.replace(/{avatar}/gi,          dati.avatar["20"]);
+    if ( dati.hasOwnProperty('avatar') ) {
+        testo = testo.replace(/{avatar}/gi,          dati.avatar["20"]);
+    }
     $(elemento).removeAttr('data-utente');
     $(elemento).html(testo);
 }

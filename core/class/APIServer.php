@@ -152,7 +152,12 @@ class APIServer {
     private function api_utente() {
         $this->richiedi(['id']);
         $u = Utente::id($this->par['id']);
-        return $u->toJSON();
+
+        $conAvatar = true;
+        if ( isset($this->par['conAvatar']) )
+            $conAvatar = (bool) $this->par['conAvatar'];
+
+        return $u->toJSON($conAvatar);
     }
 
     /**
