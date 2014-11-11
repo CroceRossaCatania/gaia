@@ -15,7 +15,8 @@ $(document).ready( function() {
     	minuteText: 'Minuti',
     	currentText: 'Ora',
     	closeText: 'Ok',
-        defaultTimezone: '+0100'
+        defaultTimezone: '+0100',
+        minDate: new Date()
     });
 
     $("#inputDataattivazione").datepicker({ maxDate: 0 });
