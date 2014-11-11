@@ -22,7 +22,7 @@ if(!$corso->iniziato()) {
 $comitati = new RamoGeoPolitico($comitato, ESPLORA_SOLO_FOGLIE, EST_UNITA);
 ?>
 
-<script type="text/javascript"><?php require './js/formazione.corsibase.scheda.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/formazione.corsibase.scheda.js'; ?></script>
 <div class="modal fade automodal">
     <div class="modal-header">
         <h3><i class="icon-group muted"></i> Stai iscrivendo <?= $u->nome; ?> come Socio Ordinario</h3>
