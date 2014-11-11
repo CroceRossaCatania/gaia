@@ -871,7 +871,7 @@ function _render_utenti( senzaAvatar ) {
     var riassunto = [];
     var richieste = [];
 
-    var conAvatar = (senzaAvatar == undefined);
+    var conAvatar = (senzaAvatar === undefined);
     $("[data-utente]").each( function(i, e) {
         var id = $(e).data('utente')
         $(e).attr('data-contenuto', $(e).html());

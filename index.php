@@ -74,8 +74,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
     <!-- JS e CSS compressi -->
-    <link href="/assets/min/20141016/build/build.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="/assets/min/20141016/build/build.js"></script>
+    <link href="/assets/min/20141111/build/build.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="/assets/min/20141111/build/build.js"></script>
 
 	<!-- Font -->
     <link href='https://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
