@@ -49,10 +49,6 @@ $(document).ready( function() {
 </script>
 <?php } ?>
 
-<?php
-echo("as:{$corso->concluso()}");
-echo("sd:{$corso->modificabileDa($me)}");
-?>
 <div class="row-fluid">
     <?php if (!$anonimo ){ ?>
         <div class="span3">
