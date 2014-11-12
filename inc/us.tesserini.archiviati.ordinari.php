@@ -106,10 +106,10 @@ if(!$admin) {
 
         <?php
         if ($admin) {
-            $elenco = TesserinoRichiesta::filtra([
+            $elenco = TesserinoRichiesta::elenco([
                 ['stato', STAMPATO, OP_GT],
                 ['stato', RIFIUTATO]
-                ]);
+            ]);
         } else {
             $elenco = TesserinoRichiesta::filtra([
                 ['struttura', $comitato->oid()],
@@ -117,9 +117,9 @@ if(!$admin) {
                 ['stato', RIFIUTATO]
             ]);
         }
-        
+
         foreach($elenco as $tesserino) {
-            if (!$tesserino->utente()->ultimaAppartenenza(MEMBRO_ORDINARIO)) {continue; }
+            if ($tesserino->praticaApertaOrdinario()) {continue; }
             $v = $tesserino->utente();
             ?>
 
