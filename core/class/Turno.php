@@ -9,6 +9,8 @@ class Turno extends Entita {
     protected static
         $_t  = 'turni',
         $_dt = null;
+
+    use EntitaCache;
     
     public function attivita() {
         return Attivita::id($this->attivita);

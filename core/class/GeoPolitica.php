@@ -182,7 +182,7 @@ abstract class GeoPolitica extends GeoEntita {
      * - Se le due GeoPolitiche risiedono su di un ramo comune, ritorna la GeoPolitica inferiore
      * - Se le due GeoPolitiche risiedono su rami differenti, ritorna FALSE
      * @param GeoPolitica $g                La seconda GeoPolitica
-     * @return bool(false)|GeoPolitica      Il dominio comune
+     * @return false|GeoPolitica      Il dominio comune
      */
     public function dominioComune( GeoPolitica $g ) {
 

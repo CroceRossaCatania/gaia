@@ -43,6 +43,21 @@ define('ETAMINIMA', 441504000);
 
 /*
  * ===================================
+ * ============ ENTITA ===============
+ * ===================================
+ */
+define('OP_EQ',     '='); 
+define('OP_LIKE',   'LIKE');
+define('OP_NLIKE',  'NOT LIKE');
+define('OP_LT',     '<');
+define('OP_LTE',    '<=');
+define('OP_GT',     '>');
+define('OP_GTE',    '>=');
+define('OP_NE',     '<>');
+define('OP_SQL',    'YOU_SHOULD_NOT_SEE_ME_IN_A_QUERY');
+
+/*
+ * ===================================
  * =========== APPARTENENZE ==========
  * ===================================
  */

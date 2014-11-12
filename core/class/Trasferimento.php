@@ -7,8 +7,10 @@
 class Trasferimento extends Entita {
 
     protected static
-    $_t  = 'trasferimenti',
-    $_dt = null;
+        $_t  = 'trasferimenti',
+        $_dt = null;
+
+    use EntitaCache;
     
     public function volontario() {
         return Volontario::id($this->volontario);

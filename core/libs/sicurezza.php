@@ -54,13 +54,17 @@ function proteggiVeicoli( $veicolo, $app = [APP_PRESIDENTE] ) {
     global $me;
     if ( $me->admin() ) { return true; }
 
-    $comitati = $me->comitatiApp($app,false);
+    $comitati = $me->entitaDelegazioni();
+    $comitati = new RamoGeoPolitico($comitati);
+    $array = [];
+    foreach ( $comitati as $x ) {
+      $array[] = $x->oid();
+    }
     $comitato = $veicolo->comitato;
-    $comitato = GeoPolitica::daOid($comitato);
-    if (in_array($comitato, $comitati)) {
+    if (in_array($comitato, $array)) {
         return true;
     }
-
+    
     redirect('errore.permessi&cattivo');
 }
 

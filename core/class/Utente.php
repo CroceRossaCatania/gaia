@@ -177,14 +177,19 @@ class Utente extends Persona {
         return false;
     }
     
-    public function toJSON() {
-        return [
+    public function toJSON($conAvatar = true) {
+        $utente = [
             'id'            =>  $this->id,
             'nome'          =>  $this->nome,
             'cognome'       =>  $this->cognome,
-            'nomeCompleto'  =>  $this->nomeCompleto(),
-            'avatar'        =>  $this->avatar()->URL()
+            'nomeCompleto'  =>  $this->nomeCompleto()
         ];
+        if ( $conAvatar ) {
+            $utente = array_merge($utente, [
+                'avatar'        =>  $this->avatar()->URL()
+            ]);
+        }
+        return $utente;
     }
 
             
@@ -245,30 +250,18 @@ class Utente extends Persona {
     }
     
     public function appartenenzeAttuali($tipo = MEMBRO_ESTESO) {
-        $q = $this->db->prepare("
-            SELECT
-                appartenenza.id
-            FROM
-                appartenenza
-            WHERE
-                stato >= :tipo
-            AND
-                volontario = :me
-            AND
+        $ora = time();
+        $r = Appartenenza::filtra([
+            ['stato',       $tipo,   OP_GTE],
+            ['volontario',  $this->id],
+            ["
                 ( appartenenza.fine < 1
                  OR
-                appartenenza.fine > :ora 
+                appartenenza.fine > {$ora} 
                  OR
-                appartenenza.fine IS NULL)");
-        $q->bindParam(':tipo', $tipo);
-        $ora = time();
-        $q->bindParam(':ora',  $ora);
-        $q->bindParam(':me', $this->id);
-        $q->execute();
-        $r = [];
-        while ( $x = $q->fetch(PDO::FETCH_NUM ) ) {
-            $r[] = Appartenenza::id($x[0]);
-        }
+                appartenenza.fine IS NULL)
+            ", true, OP_SQL]
+        ]);
         return $r;
     }
     
@@ -287,26 +280,7 @@ class Utente extends Persona {
     }
     
     public function numeroAppartenenzeAttuali($tipo = MEMBRO_VOLONTARIO) {
-        $q = $this->db->prepare("
-            SELECT
-                COUNT( appartenenza.id )
-            FROM
-                appartenenza
-            WHERE
-                stato >= :tipo
-            AND
-                volontario = :me
-            AND
-                ( appartenenza.fine < 1 
-                 OR
-                appartenenza.fine > :ora )");
-        $q->bindParam(':tipo', $tipo);
-        $q->bindParam(':me', $this->id);
-        $ora = time();
-        $q->bindParam(':ora',  $ora);
-        $q->execute();
-        $q = $q->fetch(PDO::FETCH_NUM);
-        return $q[0];
+        return count($this->appartenenzeAttuali());
     }
     
     public function primaAppartenenza() {
@@ -465,7 +439,7 @@ class Utente extends Persona {
     }
     
     public function miCompete(Comitato $c) {
-        return (bool) in_array($c, $this->comitatiDiCompetenza());
+        return (bool) contiene($c, $this->comitatiDiCompetenza());
     }
 
     public function commenti ( $limita = null ) {
@@ -754,7 +728,7 @@ class Utente extends Persona {
             return true;
         }
 
-        return (bool) in_array(
+        return (bool) contiene(
             $g,
             array_merge(
                 $this->comitatiApp([
@@ -987,7 +961,8 @@ class Utente extends Persona {
             }
             
         } else {
-            
+            if ( $this->admin() )
+                return [];
             $r = [];
             foreach ( $this->comitatiDiCompetenza() as $c ) {
                 $r = array_merge($r, $c->aree());
@@ -1117,9 +1092,10 @@ class Utente extends Persona {
     public function corsiBaseDiGestione() {
         $a = $this->corsiBaseDiretti();
         foreach ( $this->comitatiApp([APP_PRESIDENTE, APP_FORMAZIONE], false) as $c ) {
-            $a = array_merge($a, $c->CorsiBase());
+            $a = array_merge($a, $c->corsiBase());
         }
-        return array_unique($a);
+        $a = array_unique($a);
+        return $a;
     }
 
     /**
@@ -1286,10 +1262,10 @@ class Utente extends Persona {
         if($this->admin()) {
             return PRIVACY_RISTRETTA;
         }
-        if($this->presidenziante() || in_array($this->delegazioneAttuale()->applicazione, [APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
+        if($this->presidenziante() || contiene($this->delegazioneAttuale()->applicazione, [APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO])){
             $comitati = $this->comitatiApp([APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO]);
             foreach ($comitati as $comitato){
-                if($altroutente->in($comitato)){
+               	if($altroutente->in($comitato)){
                     return PRIVACY_RISTRETTA;
                 }
             }
@@ -1311,7 +1287,7 @@ class Utente extends Persona {
             $a = $this->attivitaReferenziate();
             $partecipazioni = $altroutente->partecipazioni(PART_OK);
             foreach( $partecipazioni as $p ){
-                if (in_array($p->attivita(), $a)) {
+                if (contiene($p->attivita(), $a)) {
                     return PRIVACY_RISTRETTA;
                 }
             }
@@ -1321,7 +1297,7 @@ class Utente extends Persona {
             $c = $this->corsiBaseDiretti();
             $partecipazioni = $altroutente->partecipazioniBase();
             foreach ($partecipazioni as $p) {
-                if(in_array($p->corsoBase(), $c)) {
+                if(contiene($p->corsoBase(), $c)) {
                     return PRIVACY_RISTRETTA;
                 }
             }
@@ -1410,8 +1386,8 @@ class Utente extends Persona {
         // allora verifico se ti posso toccacciare
 
         if($c) {
-            if(($c instanceof Comitato && in_array($c->locale(), $comitatiGestiti) )
-            || in_array($c, $comitatiGestiti)) {
+            if(($c instanceof Comitato && contiene($c->locale(), $comitatiGestiti) )
+            || contiene($c, $comitatiGestiti)) {
             return true;
             }
             /* Il foreach seguente serve per risolvere 
@@ -1452,7 +1428,7 @@ class Utente extends Persona {
 
         // controllo tipo dimissione
         $dimissione = Dimissione::by('appartenenza', $app);
-        if(!in_array($dimissione->motivo, [DIM_TURNO, DIM_QUOTA])) {
+        if(!contiene($dimissione->motivo, [DIM_TURNO, DIM_QUOTA])) {
             return false;
         }
 
@@ -1574,7 +1550,8 @@ class Utente extends Persona {
         return true;
     }
 
-	/* Se volontario è IV
+    /** 
+     * Se volontario è IV
      * @return true se iv
      */
     public function iv() {
@@ -1944,7 +1921,7 @@ class Utente extends Persona {
 
 	/**
      * Ritorna il File del Tesserino del Volontario, se esistente
-     * @return bool(false)|File     Il tesserino del volontario, false altrimenti
+     * @return false|File     Il tesserino del volontario, false altrimenti
      */
     public function tesserino() {
         $r = $this->tesserinoRichiesta();
@@ -1955,7 +1932,7 @@ class Utente extends Persona {
 
     /**
      * Ottiene codice ultimo tesserino valido volontario (codicePubblico) 
-     * @return bool(false)|string Codice se presente, alternativamente false
+     * @return false|string Codice se presente, alternativamente false
      */
     public function codicePubblico() {
         $r = $this->tesserinoRichiesta();
@@ -1966,7 +1943,7 @@ class Utente extends Persona {
 
     /**
      * Ritorna eventuale richiesta del tesserino per il volontario
-     * @return RichiestaTesserino|bool(false)   RichiestaTesserino se presente, false altrimenti
+     * @return RichiestaTesserino|false   RichiestaTesserino se presente, false altrimenti
      */
     public function tesserinoRichiesta() {
         $t = TesserinoRichiesta::filtra([
@@ -1996,8 +1973,7 @@ class Utente extends Persona {
         return null;
     }
 
-
-    /**
+	/**
      * Appone un Like (PIACE o NON_PIACE) ad un oggetto
      * @param Entita $oggetto       L'oggetto al quale apporre il like
      * @param int $tipo             Costante tra PIACE e NON_PIACE

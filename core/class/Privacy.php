@@ -9,6 +9,8 @@ class Privacy extends Entita {
     protected static
         $_t  = 'privacy',
         $_dt = null;
+
+    use EntitaCache;
     
  	public function __call( $parametro, $altrui ) {
  

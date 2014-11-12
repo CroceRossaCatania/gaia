@@ -9,6 +9,8 @@ class Avatar extends Entita {
     protected static
             $_t     = 'avatar',
             $_dt    = null;
+
+    use EntitaCache;
     
     public function utente() {
         return Utente::id($this->utente);

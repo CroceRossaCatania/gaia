@@ -13,7 +13,7 @@ class AssenzaLezione extends Entita {
 		$_t		= 'lezioni_assenze',
 		$_dt 	= null;
 
-	//use EntitaCache;
+	use EntitaCache;
 
 	/**
 	 * Ritorna la lezione collegata all'assenza

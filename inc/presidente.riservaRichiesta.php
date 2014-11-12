@@ -12,7 +12,7 @@ $t = $_GET['id'];
 $t = Riserva::id($t);
 $_v = $t->volontario();
 ?>
-<script type="text/javascript"><?php require './js/presidente.trasferimentoRichiesta.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.trasferimentoRichiesta.js'; ?></script>
 <div class="row-fluid">
     <div class="span12">
         <div class="row-fluid">

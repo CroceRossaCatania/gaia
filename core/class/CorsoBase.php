@@ -13,6 +13,8 @@ class CorsoBase extends GeoEntita {
         $_t  = 'corsibase',
         $_dt = 'dettagliCorsibase';
 
+    use EntitaCache;
+
     /**
      * Genera il codice numerico progressivo del corso sulla base dell'anno attuale
      *
@@ -150,8 +152,13 @@ class CorsoBase extends GeoEntita {
     public function modificabileDa(Utente $u) {
         return (bool) (
                 $u->id == $this->direttore
-            ||  in_array($this, $u->corsiBaseDiGestione())
+            ||  contiene($this->id, 
+                    array_map(function($x) {
+                        return $x->id;
+                    }, $u->corsiBaseDiGestione())
+                )
         );
+
     }
 
     /**
@@ -159,7 +166,7 @@ class CorsoBase extends GeoEntita {
      * @return bool 
      */
     public function cancellabileDa(Utente $u) {
-        return (bool) in_array($this, $u->corsiBaseDiGestione());
+        return (bool) contiene($this, $u->corsiBaseDiGestione());
     }
 
     /**

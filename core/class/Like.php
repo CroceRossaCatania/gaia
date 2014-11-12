@@ -8,9 +8,9 @@ class Like extends Entita {
     
     protected static
         $_t         = 'mipiace',
-        $_dt        = null,
-        $_cacheable = false;    // Risorsa modificata in modo intenso, 
-                                // quindi la cache su Redis e' inutile.
+        $_dt        = null;
+
+    use EntitaNoCache;
         
     /**
      * Ottiene il volontario collegato all'oggetto like

@@ -74,7 +74,7 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
         <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
     </div> 
 <?php } ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <br/>
 <div class="row-fluid">
     <div class="span4">
@@ -113,12 +113,14 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                 <th>Targa</th>
                 <th>Destinazione ed uso</th>
                 <th>Consumo Medio [l/100km]</th>
+                <th>Comitato</th>
                 <th>Collocazione</th>
                 <th>Fermo tecnico</th>
                 <th>Azioni</th>
             </thead>
             <?php
-            $comitati = $me->comitatiApp([APP_PRESIDENTE,APP_AUTOPARCO],false);
+            $comitati = $me->entitaDelegazioni();
+            $comitati = new RamoGeoPolitico($comitati);
             foreach ( $comitati as $comitato ){
                 foreach(Veicolo::filtra([['comitato', $comitato->oid()],['stato', VEI_ATTIVO]],'targa ASC') as $veicolo){
                     ?>
@@ -126,6 +128,7 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                         <td><?= $veicolo->targa; ?></td>
                         <td><?= $veicolo->uso; ?></td>
                         <td><?= $veicolo->consumoMedio(); ?></td>
+                        <td><?= $veicolo->comitato(); ?></td>
                         <td><?= $veicolo->collocazione(); ?></td>
                         <td><?= $veicolo->fermoTecnicoDettagli(); ?></td>
                         <td>
