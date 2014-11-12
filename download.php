@@ -5,6 +5,7 @@
  */
 
 require('./core.inc.php');
+ignoraTransazione();
 
 $f = $_GET['id'];
 if (!$f) { die('Specificare ID del file da scaricare.'); }

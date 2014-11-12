@@ -34,6 +34,16 @@ $sessione = new Sessione($sid);
 /* Crea eventuale oggetto $me */
 $me = $sessione->utente();
 
+/* Registra dati transazione */
+if ( $me->admin ) {
+    ignoraTransazione();
+} else {
+    $identificato = (bool) ($me && $me->id);
+    registraParametroTransazione('login', (int) $identificato);
+    if ( $identificato )
+        registraParametroTransazione('uid', $me->id);
+}
+
 /* Aggiorna la sessione con i miei dati... */
 $sessione->ip       = $_SERVER['REMOTE_ADDR'];
 $sessione->agent    = $_SERVER['HTTP_USER_AGENT'];
