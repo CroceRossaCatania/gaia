@@ -276,3 +276,25 @@ function nomeTransazione($nome, $prefisso = 'nd') {
     newrelic_name_transaction($nome);
     return true;
 }
+
+/**
+ * Ignora la transazione su New Relic, se possibile
+ * @return void
+ */
+function ignoraTransazione() {
+    if ( function_exists('newrelic_ignore_transaction') )
+        newrelic_ignore_transaction();
+}
+
+/**
+ * Registra parametro per la transazione su New Relic, se possibile
+ * @param string    Nome del parametro
+ * @param string    Valore del parametro
+ * @return bool     Parametro registrato con successo?
+ */
+function registraParametroTransazione($nome, $valore) {
+    if ( !function_exists('newrelic_add_custom_parameter') )
+        return false;
+    newrelic_add_custom_parameter($nome, $valore);
+    return true;
+}
