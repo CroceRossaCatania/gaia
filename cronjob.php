@@ -8,6 +8,7 @@
 
 require './core.inc.php';
 set_time_limit(0);
+ignoraTransazione();
 
 /*
  * ====== SICUREZZA ======

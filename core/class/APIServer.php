@@ -30,6 +30,14 @@ class APIServer {
         $sessione = $this->sessione;
 
         $this->chiave = APIKey::by('chiave', $chiave);
+
+        $identificato = (bool) $this->sessione->utente;
+        if ( $identificato ) {
+            registraParametroTransazione('uid', $this->sessione->utente );
+        }
+        registraParametroTransazione('login', (int) $identificato );
+
+
     }
 
     /**
@@ -223,7 +231,11 @@ class APIServer {
         $cA = Turno::neltempo($inizio, $fine);
         $searchPuoPart = [];
         $r = [];
-        if (!$this->sessione->utente()){
+        $utente = $this->sessione->utente();
+        if ( $utente->admin ) {
+            ignoraTransazione();
+        }
+        if (!$utente){
             $mioGeoComitato = null;
         } else {
             $mioGeoComitatoOid = $this->sessione->utente()->unComitato()->oid();
