@@ -136,7 +136,7 @@ emettere il tesserino potrai registrare questa informazione.</p>
                 <td><?php echo $v->nome; ?></td>
                 <td><?php echo $v->codiceFiscale; ?></td>
                 <td>
-                    <?php echo $v->unComitato()->nome; ?>
+                    <?php echo $v->unComitato(MEMBRO_ORDINARIO)->nomeCompleto(); ?>
                 </td>
                 <td>
                     <?= "{$conf['tesseriniStatoBreve'][$tesserino->stato]} il {$tesserino->data()->format('d/m/Y')}" ?>

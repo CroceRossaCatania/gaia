@@ -72,7 +72,11 @@ if($t->stato == RICHIESTO) { ?>
 </form>
 
 <?php } elseif ($t->stato == STAMPATO) {
-$c = $u->unComitato();
+    if ( $u->volontario()){
+        $c = $u->unComitato();
+    }else{
+        $c = $u->unComitato(MEMBRO_ORDINARIO);
+    }
 ?>
 <form action="?p=us.tesserini.invia.ok" method="POST">
     <input type="hidden" name="id" value="<?php echo $t->id; ?>" />
@@ -82,10 +86,10 @@ $c = $u->unComitato();
             <h3><i class="icon-credit-card"></i> Stampa del tesserino</h3>
         </div>
         <div class="modal-body">
-            <p><strong>Procedura per la spedizione del tesserino di <?= $u->nomeCompleto() ?></strong></p>
+            <p><strong>Procedura per la spedizione del tesserino di <?= $u->nomeCompleto(); ?></strong></p>
                 <label class="radio">
                     <input type="radio" name="spedizione" value="1" id="comitato" checked>
-                    Spedito presso il <strong><?= $c->nomeCompleto() ?></strong> sito in <?= $c->formattato; ?>
+                    Spedito presso il <strong><?= $c->nomeCompleto(); ?></strong> sito in <?= $c->formattato; ?>
                 </label>
                 <label class="radio">
                     <input type="radio" name="spedizione" value="0" id="casa">
