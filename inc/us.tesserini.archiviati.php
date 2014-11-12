@@ -112,12 +112,11 @@ if(!$admin) {
                 ['struttura', $comitato->oid()]
             ]);
         }
+
         foreach($elenco as $tesserino) {
             if ($tesserino->praticaAperta()) {continue; }
             $v = $tesserino->utente();
             ?>
-
-            
 
             <tr>
                 <td><?php echo $v->cognome; ?></td>

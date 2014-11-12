@@ -116,14 +116,20 @@ emettere il tesserino potrai registrare questa informazione.</p>
 
         <?php
         if ($admin) {
-            $elenco = TesserinoRichiesta::elenco();
+            $elenco = TesserinoRichiesta::filtra([
+                ['stato', RIFIUTATO, OP_GT],
+                ['stato', SPEDITO_CASA, OP_LT]
+            ]);
         } else {
             $elenco = TesserinoRichiesta::filtra([
-                ['struttura', $comitato->oid()]
+                ['struttura', $comitato->oid()],
+                ['stato', RIFIUTATO, OP_GT],
+                ['stato', SPEDITO_CASA, OP_LT]
             ]);
         }
+
         foreach($elenco as $tesserino) {
-            if(!$tesserino->praticaAperta()) { continue; }
+            if ($tesserino->utente()->ultimaAppartenenza(MEMBRO_ORDINARIO)) {continue; }
             $v = $tesserino->utente();
             ?>
 

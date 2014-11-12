@@ -15,7 +15,7 @@ if (!$admin && !($me->delegazioneAttuale()->estensione > EST_PROVINCIALE)) {
 if(!$admin) {
     $comitato = $me->delegazioneAttuale()->comitato();
 } ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <div class="row-fluid">
     <div class="span4">
         <h2>
@@ -116,14 +116,19 @@ emettere il tesserino potrai registrare questa informazione.</p>
 
         <?php
         if ($admin) {
-            $elenco = TesserinoRichiesta::elenco();
+            $elenco = TesserinoRichiesta::elenco([
+                ['stato', RIFIUTATO, OP_GT],
+                ['stato', SPEDITO_CASA, OP_LT]
+            ]);
         } else {
             $elenco = TesserinoRichiesta::filtra([
-                ['struttura', $comitato->oid()]
+                ['struttura', $comitato->oid()],
+                ['stato', RIFIUTATO, OP_GT],
+                ['stato', SPEDITO_CASA, OP_LT]
             ]);
         }
         foreach($elenco as $tesserino) {
-            if(!$tesserino->praticaApertaOrdinario()) { continue; }
+            if (!$tesserino->utente()->ultimaAppartenenza(MEMBRO_ORDINARIO)) {continue; }
             $v = $tesserino->utente();
             ?>
 

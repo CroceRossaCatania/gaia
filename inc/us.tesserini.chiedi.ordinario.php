@@ -18,11 +18,11 @@ $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
 if(!$v->modificabileDa($me)) {
 	redirect('errore.permessi&cattivo');
 }
-
+/*
 if($v->volontario()) {
 	redirect('errore.permessi&cattivo');
 }
-
+*/
 $app = $v->appartenenzaAttuale();
 if(!$app || !in_array($app->comitato()->id, $elenco)) {
 	redirect('errore.permessi&cattivo');

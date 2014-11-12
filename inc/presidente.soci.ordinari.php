@@ -10,7 +10,10 @@ menuElenchiVolontari(
     "?p=utente.mail.nuova&ordinaricom"
 );
 
-$admin = $me->admin();
+$admin = (bool) $me->admin();
+
+$tesseratore = ($admin || $me->delegazioneAttuale()->estensione > EST_PROVINCIALE) ? true : false;
+$chiedeTesserini = ($admin || $me->delegazioneAttuale()->estensione < EST_REGIONALE) ? true : false;
 
 ?>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -79,6 +82,9 @@ $admin = $me->admin();
                 </a> 
                 <a class="btn btn-small btn-info {iscriviBase}" href="?p=formazione.corsibase.iscrizione.ordinario&id={id}" title="Iscrivi a corso base">
                     <i class="icon-flag"></i> Iscrivi a corso
+                </a>
+                <a class="btn btn-small btn-info" href="?p=us.tesserini.chiedi.ordinario&id={id}" title="Tesserino">
+                    <i class="icon-credit-card"></i> Tesserino
                 </a>
                 <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&ordinario&id={id}" title="Dimetti Volontario">
                     <i class="icon-ban-circle"></i> Dimetti
