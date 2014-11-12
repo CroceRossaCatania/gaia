@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
@@ -18,6 +18,9 @@ if (!$v->modificabileDa($me)) {
 $attuale = $v->appartenenzaAttuale();
 $comitato = $attuale->comitato();
 $motivo = $conf['dimissioni'][$_POST['motivo']];
+
+/* Invalido il suo tesserino */
+$v->invalidaTesserino($motivo);
 
 /* Avviso il volontario */
 if($_POST['motivo'] != DIM_DECEDUTO) {

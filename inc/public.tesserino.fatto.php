@@ -16,12 +16,14 @@ $u = Utente::daCodicePubblico($num);
 
 
 $verificato = false;
+$ordinario = false;
 //if($u && $u->appartenenzaAttuale()) {
 if ($u) {
     $cogn = $u->cognome;
     $t = TesserinoRichiesta::by('codice', $num);
     if ( $t->valido() ){
         $verificato = true;
+        $ordinario = $t->utente()->ordinario();
     }
     $l = strlen($cogn);
     $r = rand(1, $l);
@@ -44,9 +46,9 @@ if ($u) {
             <div class="span8 offset2"
                 <div class="item active altoCento">
                     <?php if($verificato) { ?>
-                        <img class="altoCentro" src="./img/esempio_fronte_ok.png" alt="tesserino verificato">
+                        <img class="altoCentro" src="./img/tesserino/FronteAttivoEsempioOK.jpg" alt="tesserino verificato">
                     <?php } else { ?>
-                        <img class="altoCentro" src="./img/esempio_fronte_no.png" alt="tesserino non verificato">
+                        <img class="altoCentro" src="./img/tesserino/FronteAttivoEsempioNO.jpg" alt="tesserino non verificato">
                     <?php } ?>
             </div>
         </div>

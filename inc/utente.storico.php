@@ -183,7 +183,7 @@ paginaPrivata();
                     <td><?= "{$conf['tesseriniStatoBreve'][$_q->stato]} il {$_q->data()->format('d/m/y')}"; if ( $_q->stato == INVALIDATO ) { echo " per "; echo $_q->motivo; } ?></td>
                     <td>
                         <?php if($_q->stato > STAMPATO && $_q->stato != INVALIDATO){ ?>
-                            <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?= $_q ?>" title="Tesserino">
+                            <a class="btn btn-small btn-info" href="?p=utente.tesserino.anteprima&id=<?= $_q ?>" title="Tesserino">
                                 <i class="icon-credit-card"></i> Tesserino
                             </a>
                         <?php } ?>
