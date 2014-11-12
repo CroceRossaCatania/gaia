@@ -154,7 +154,7 @@ class TesserinoRichiesta extends Entita {
      * @return bool Stato della pratica
      */
     public function praticaApertaOrdinario() {
-        if ( $this->utente()->ordinario() && ($this->stato == RICHIESTO || $this->stato == STAMPATO)){
+        if (($this->stato > RIFIUTATO && $this->stato != INVALIDATO ) && $this->utente()->ultimaAppartenenza(MEMBRO_ORDINARIO)){
             return true;
         }else{
             return false;
