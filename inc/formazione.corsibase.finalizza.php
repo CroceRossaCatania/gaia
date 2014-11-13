@@ -31,7 +31,13 @@ $part = $corso->partecipazioni(ISCR_CONFERMATA);
             Compilazione verbale Corso Base
         </h2>
         <div class="row-fluid">
-            <form method="POST" action="?p=formazione.corsibase.finalizza.ok" class="form-horizontal">
+            <div class="alert alert-panel alert-warning nascosto" id="messaggio">
+                <strong><i class="icon-warning-sign"></i> Presta molta attenzione!</strong>
+                I dati non sono ancora stati salvati, ti preghiamo di perdere ancora qualche minuti
+                per rileggeri ed essere <b>veramente sicuro</b> di ciò che stai facendo. Una volta
+                effettuata questa operazione non sarà possibile apportare correzione in caso di errore.
+            </div>
+            <form method="POST" action="?p=formazione.corsibase.finalizza.ok" class="form-horizontal" id="verbale">
             <input type="hidden" name="id" value="<?php echo $corso->id; ?>" />
             <table class="table">
                 <?php 
@@ -147,10 +153,17 @@ $part = $corso->partecipazioni(ISCR_CONFERMATA);
                     </tr>
                 <?php } ?>
             </table>
-            <button type="submit" class="btn btn-success btn-block nascosto" id="pulsantone">
-                <i class="icon-check"></i> Salva verbale
+            <button type="submit" class="btn btn-success btn-large btn-block nascosto" id="salva">
+                Salva verbale
             </button>
             </form>
+            <a href="?p=formazione.corsibase.finalizza&id=<?= $_GET['id'] ?>" 
+                class="btn btn-danger btn-large btn-block nascosto" id="annulla" type="button">
+                Ricompila verbale
+            </a>
+            <button class="btn btn-success btn-block nascosto" id="pulsantone">
+                <i class="icon-check"></i> Salva verbale
+            </button>
         </div>
     </div>
 </div>

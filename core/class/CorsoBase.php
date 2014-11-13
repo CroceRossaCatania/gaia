@@ -150,6 +150,7 @@ class CorsoBase extends GeoEntita {
      * @return bool 
      */
     public function modificabileDa(Utente $u) {
+        if($u->admin()) return true;
         return (bool) (
                 $u->id == $this->direttore
             ||  contiene($this->id, 
@@ -282,6 +283,18 @@ class CorsoBase extends GeoEntita {
     }
 
     /**
+     * Se il corso base è attivo e non ci sono partecipanti
+     * allora è cancellabile
+     * @return bool
+     */
+    public function cancellabile() {
+        if ($this->stato == CORSO_S_DACOMPLETARE) {
+            return true;
+        }
+        return (bool) ($this->stato == CORSO_S_ATTIVO && $this->numIscritti() == 0);
+    }
+
+    /**
      * Genera attestato, sulla base del corso e del volontario
      * @return PDF 
      */
@@ -360,8 +373,8 @@ class CorsoBase extends GeoEntita {
         }
 
         /* Appongo eventuali X */
-        $extra1 = null;
-        $extra2 = null;
+        $extra1 = "_";
+        $extra2 = "_";
 
         if ($pb->e1){
 
@@ -400,6 +413,7 @@ class CorsoBase extends GeoEntita {
         $p->_ARGDUE       = $pb->a2;
         $p->_NOMECOMPLETO = $iscritto->nomeCompleto();
         $p->_LUOGONASCITA = $iscritto->comuneNascita;
+        $p->_CF           = $iscritto->codiceFiscale;
         $p->_DATANASCITA  = date('d/m/Y', $iscritto->dataNascita);
         $p->_IDONETA      = $idoneo;
         $p->_EXTRAUNO     = $extra1;

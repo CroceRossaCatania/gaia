@@ -5,22 +5,21 @@ paginaPrivata();
 if ( $me->stato != ASPIRANTE )
     redirect('utente.me');
 
+$a = Aspirante::daVolontario($me);
+
+// Se non ho ancora registrato il mio essere aspirante
+// però faccio questa cosa PRIMA del raggio minimo
+if (!$a)
+    redirect('aspirante.registra');
+
+$a->trovaRaggioMinimo();
+
 $iscritto = false;
 $corso = $me->partecipazioniBase(ISCR_RICHIESTA); 
 if($corso) {
     $iscritto = true;
     $corsoBase = $corso[0];
-
 }
-
-$a = Aspirante::daVolontario($me);
-$a->trovaRaggioMinimo();
-
-
-
-// Se non ho ancora registrato il mio essere aspirante
-if (!$iscritto && !$a)
-    redirect('aspirante.registra');
 
 ?>
 <div class="row-fluid">
