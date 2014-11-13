@@ -67,7 +67,23 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                         </th>
                     </thead>
 
-                    <?php foreach ( $me->corsiBaseDiGestione() as $corso ) { ?>
+                    <?php 
+                    if($me->admin()) {
+                        $corsi = CorsoBase::elenco();
+                    } else {
+                        $corsi = $me->corsiBaseDiGestione();
+                    }
+
+
+                    foreach ( $corsi as $corso ) {
+
+                        // autorisolutore problemi dei direttori mancanti 
+                        $direttore = $corso->direttore();
+                        if (!$direttore) {
+                            $corso->stato = CORSO_S_DACOMPLETARE;
+                        }
+
+                        ?>
 
                     <tr>
 
@@ -92,13 +108,15 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                             <?php if ( $corso->direttore ) { ?>
                             Direttore: 
                             <a href="?p=profilo.controllo&id=<?php echo $corso->direttore()->id; ?>" target="_new">
-                                <?php echo $corso->direttore()->nomeCompleto(); ?>
+                                <?php echo $direttore->nomeCompleto(); ?>
                             </a>
                             <?php } else { ?>
                             <i class="icon-warning-sign"></i> Nessun referente
                             <?php } ?>
                             <br />
                             Codice corso: <?php echo($corso->progressivo());?>
+                            <br />
+                            Numero iscritti: <?php echo($corso->numIscritti());?>
                         </td>
                 
                         <td style="width: 15%;">
@@ -106,27 +124,22 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                         </td>
                         
                         <td style="width: 20%;">
-                            <?php if (in_array($corso->organizzatore(), $mieiComitati) || $me->admin()){ ?>
+                            <?php if ((!$corso->concluso() 
+                                        && in_array($corso->organizzatore(), $mieiComitati)) 
+                                    || $me->admin()){ ?>
                             <a href="?p=formazione.corsibase.direttore&id=<?= $corso->id; ?>">
                                 <i class="icon-pencil"></i> 
                                 cambia direttore
                             </a>
+                            <?php } 
+                            if(!$corso->concluso()) {?>
                             <br />
-                            <?php } ?>
                             <a href="?p=formazione.corsibase.modifica&id=<?php echo $corso->id; ?>">
                                 <i class="icon-edit"></i> modifica corso
                             </a>
-                            <?php /*  
+                            <?php }
 
-                            NIENTE LEZIONI AL MOMENTO!
-
-                            <br />
-                            <a href="?p=formazione.corsibase.lezioni&id=<?php echo $corso->id; ?>">
-                                <i class="icon-plus"></i> lezioni
-                            </a>
-                            <?php */ 
-
-                            if ((in_array($corso->organizzatore(), $mieiComitati) && $corso->stato == CORSO_S_DACOMPLETARE)
+                            if ((in_array($corso->organizzatore(), $mieiComitati) && $corso->cancellabile())
                                         or $me->admin()){ ?>
                             <br />
                             <a onClick="return confirm('Vuoi veramente cancellare questo corso base ?');" href="?p=formazione.corsibase.cancella.ok&id=<?php echo $corso->id; ?>">

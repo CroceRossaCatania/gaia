@@ -4,12 +4,13 @@
 * ©2014 Croce Rossa Italiana
 */
 
-caricaSelettore();
+paginaPrivata();
 controllaParametri(['id']);
 
 $admin = $me->admin();
 
 $corso = CorsoBase::id($_GET['id']);
+paginaCorsoBase($corso);
 if (!$corso->modificabileDa($me)) {
 	redirect("formazione.corsibase.scheda&id={$_GET['id']}");
 }
@@ -22,7 +23,13 @@ if (!$corso->modificabileDa($me)) {
     contatta il supporto.
 </div>
 <?php } ?>
-<a href="?p=formazione.corsibase.scheda&id=<?= $_GET['id'] ?>" class="btn btn-small btn-primary">
+<?php if ( isset($_GET['assenze']) ) { ?>
+<div class="alert alert-success">
+    <i class="icon-save"></i> <strong>Dati salvati</strong>.
+    Le assenze sono state correttamente registrate.
+</div>
+<?php } ?>
+<a href="?p=formazione.corsibase.scheda&id=<?= $corso ?>" class="btn btn-small btn-primary">
 	<i class="icon-reply"></i> Torna alla Scheda del Corso
 </a>
 
@@ -76,7 +83,7 @@ if (!$corso->modificabileDa($me)) {
 					(<a title="Rimuovi assenza" href="?p=formazione.corsibase.lezioni.assenze.cancella&id=<?= $assenza->id; ?>" data-conferma="Sicuro di voler rimuovere questa assenza?"><i class="icon-remove"></i></a>),
 					<?php
 				} ?>
-				<br /><a data-selettore="true" data-input="assenti_<?= $lezione->id; ?>" data-multi="true" data-autosubmit="true"
+				<br /><a href="?p=formazione.corsibase.assenza&id=<?= $lezione->id ?>"
 				   class="btn btn-mini btn-block">
 				   <i class="icon-plus"></i> Registra assenze
 			   	</a>

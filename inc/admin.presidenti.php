@@ -81,6 +81,8 @@ foreach ( $presidenti as $presidente ) {
     
     // Carico il volontario in memoria
     $_v = $presidente->volontario();
+
+    $comitato = $presidente->comitato();
     
     ?>
     <tr>
@@ -89,8 +91,8 @@ foreach ( $presidenti as $presidente ) {
         <td><?php echo $_v->codiceFiscale; ?></td>
         <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
         <td><?php echo $_v->comuneNascita; ?></td>
-        <td><strong><?php echo $presidente->comitato()->nomeCompleto(); ?></strong></td>
-        <td><strong><?php echo $conf['est_obj'][$presidente->comitato()->_estensione()]; ?></strong></td>
+        <td><strong><?php echo $comitato->nomeCompleto(); ?></strong></td>
+        <td><strong><?php echo $conf['est_obj'][$comitato->_estensione()]; ?></strong></td>
         <td>
             <a class="btn btn-danger btn-mini" onClick="return confirm('Vuoi veramente dimettere <?php echo addslashes($_v->nomeCompleto()); ?> da presidente?');" href="?p=admin.presidente.dimetti&id=<?php echo $presidente->id; ?>">
                 Dimetti

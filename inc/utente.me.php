@@ -227,6 +227,49 @@ if ($consenso && $cb && !$rf) {
 
 <?php } 
 
+/* Blocco per presidenti con corsi senza direttore */
+
+
+$cs = $me->corsiBaseSenzaDirettore();
+if ($consenso && $cs && !$cb && !$rf) {
+    $attenzione = true;
+    $corsoBase = $cs[0];
+    ?>
+
+    <div class="modal fade automodal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="text-error"><i class="icon-warning-sign"></i> Corso Base da Completare</h3>
+        </div>
+        <div class="modal-body">
+            <p>Hai attivato un corso base ma non ne hai ancora selezionato il direttore:</p>
+            <hr />
+            <p class="allinea-centro">
+                <strong><?php echo $corsoBase->nome(); ?></strong>
+                <br />
+                <span class="muted">
+                    Organizzatore: <?php echo $corsoBase->organizzatore()->nomeCompleto(); ?>
+                </span>
+            </p>
+            <hr />
+            <h4>Completa i dettagli del corso</h4>
+
+            <p class="text-error">
+                <i class="icon-info-sign"></i> Non appena verranno avrai nominato
+                il direttore del corso questa persona potrà inserire tutte le informazioni
+                necessarie e rendere visibile in corso ai futuri aspiranti.
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Non ora</button>
+            <a href="?p=formazione.corsibase.direttore&id=<?php echo $corsoBase->id; ?>" class="btn btn-primary">
+                <i class="icon-asterisk"></i> Vai al corso
+            </a>
+        </div>
+    </div>  
+
+<?php } 
+
 /* Blocco blocco appartenenza non valida */
 
 if ( $consenso && !$me->appartenenzaValida() ) { ?>

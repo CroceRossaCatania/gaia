@@ -82,6 +82,7 @@ class APIServer {
                 'data'          =>  (new DT())->toJSON()
             ],
             'tempo'    => round(( microtime(true) - $start ), 6),
+            'q'        => $this->db->numQuery,
             'sessione' => $this->sessione->toJSON(),
             'risposta' => $r
         ];
@@ -238,14 +239,14 @@ class APIServer {
         if (!$utente){
             $mioGeoComitato = null;
         } else {
-            $mioGeoComitatoOid = $this->sessione->utente()->unComitato()->oid();
+            $mioGeoComitatoOid = $utente->unComitato()->oid();
             $mioGeoComitato = GeoPolitica::daOid($mioGeoComitatoOid);
         }
         foreach  ( $cA as $turno ) {
             $attivita = $turno->attivita();
             $idAttivita = ''.$attivita->id;
             if(!isset($searchPuoPart[$idAttivita])) {
-                $searchPuoPart[$idAttivita] = $attivita->puoPartecipare($this->sessione->utente());
+                $searchPuoPart[$idAttivita] = $attivita->puoPartecipare($utente);
             }
             if ( !$searchPuoPart[$idAttivita] ) {
                 continue;
