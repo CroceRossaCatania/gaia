@@ -47,7 +47,7 @@ abstract class Entita {
     public function __construct ( $id = null, $caricaDati = false ) {
         global $db, $cache, $conf;
 
-        if ( static::$_versione == -1 ) {
+        if ( false && static::$_versione == -1 ) {
             static::_caricaVersione();            
         }
 
@@ -198,7 +198,7 @@ abstract class Entita {
          * Controlla se la query è già in cache
          */
         $hash = null;
-        if ( false && $cache && $cache && static::$_cacheable ) {
+        if ( false && $cache && static::$_cacheable ) {
             $hash = md5($query);
             $r = static::_ottieniQuery($hash);
             if ( $r !== false  ) {
@@ -215,7 +215,7 @@ abstract class Entita {
             $c[] = $r;
         }
         
-        if ( false && $cache && $cache && static::$_cacheable ) {
+        if ( false && $cache && static::$_cacheable ) {
             static::_cacheQuery($hash, $c);
         }
         
@@ -337,17 +337,26 @@ abstract class Entita {
     public static function _esiste ( $id = null, &$scaricaDati = null ) {
         if (!$id) { return false; }
         global $db, $cache, $conf;
-        if ($cache && static::$_cacheable) {
+        if (false && $cache && static::$_cacheable) {
             if ( $scaricaDati = unserialize($cache->get( static::_chiave($id . ':___campi', false) )) ) {
                 return true;
             }
         }
-        $q = $db->prepare("
-            SELECT id FROM ". static::$_t ." WHERE id = :id");
+
+        if ( $scaricaDati === null ) 
+            $q = $db->prepare("SELECT id FROM ". static::$_t ." WHERE id = :id");
+        else
+            $q = $db->prepare("SELECT * FROM ". static::$_t ." WHERE id = :id");
+
+        
         $q->bindParam(':id', $id);
         $q->execute();
-        $y = (bool) $q->fetch(PDO::FETCH_NUM);
-        return $y;
+
+        if ( $scaricaDati === null )
+            return (bool) $q->fetch(PDO::FETCH_NUM);
+        
+        $scaricaDati = $q->fetch(PDO::FETCH_ASSOC);
+        return (bool) $scaricaDati;
     }
     
     /**
