@@ -67,7 +67,23 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                         </th>
                     </thead>
 
-                    <?php foreach ( $me->corsiBaseDiGestione() as $corso ) { ?>
+                    <?php 
+                    if($me->admin()) {
+                        $corsi = CorsoBase::elenco();
+                    } else {
+                        $corso = $me->corsiBaseDiGestione();
+                    }
+
+
+                    foreach ( $corsi as $corso ) {
+
+                        // autorisolutore problemi dei direttori mancanti 
+                        $direttore = $corso->direttore();
+                        if (!$direttore) {
+                            $corso->stato = CORSO_S_DACOMPLETARE;
+                        }
+
+                        ?>
 
                     <tr>
 
@@ -92,7 +108,7 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                             <?php if ( $corso->direttore ) { ?>
                             Direttore: 
                             <a href="?p=profilo.controllo&id=<?php echo $corso->direttore()->id; ?>" target="_new">
-                                <?php echo $corso->direttore()->nomeCompleto(); ?>
+                                <?php echo $direttore->nomeCompleto(); ?>
                             </a>
                             <?php } else { ?>
                             <i class="icon-warning-sign"></i> Nessun referente
@@ -115,9 +131,9 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                                 <i class="icon-pencil"></i> 
                                 cambia direttore
                             </a>
-                            <br />
                             <?php } 
                             if(!$corso->concluso()) {?>
+                            <br />
                             <a href="?p=formazione.corsibase.modifica&id=<?php echo $corso->id; ?>">
                                 <i class="icon-edit"></i> modifica corso
                             </a>
