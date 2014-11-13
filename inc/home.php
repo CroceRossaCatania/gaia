@@ -58,7 +58,7 @@ paginaPubblica();
         <h3>&egrave; su Gaia.</h3>
     </div>
     <div class="span6">
-        <h3><?= 1240; //Comitato::conta(); ?> unit&agrave; territoriali sono gi&agrave; su Gaia.</h3>
+        <h3><?= Comitato::conta(); ?> unit&agrave; territoriali sono gi&agrave; su Gaia.</h3>
         <p class="grassetto" id=""></p>
         <p>
             <a href="?p=public.comitati.mappa" class="btn btn-large">

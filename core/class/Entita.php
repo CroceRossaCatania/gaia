@@ -228,7 +228,7 @@ abstract class Entita {
      * @param array $_array     La query associativa di ricerca
      * @return int              Numero di risultati
      */
-    public static function conta($_array) {
+    public static function conta($_array = []) {
         global $db, $conf, $cache;
         $entita = get_called_class();
 
