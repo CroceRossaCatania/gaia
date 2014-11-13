@@ -72,7 +72,7 @@ paginaPubblica();
     <script type="text/javascript">
         comitati = <?php
         $c = [];
-        foreach ( Comitato::elenco() as $k ) {
+        foreach ( Locale::elenco() as $k ) {
             $c[] = $k->nomeCompleto();
         }
         echo json_encode($c);

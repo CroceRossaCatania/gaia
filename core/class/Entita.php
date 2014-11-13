@@ -212,7 +212,8 @@ abstract class Entita {
         $t = $c = [];
         while ( $r = $q->fetch(PDO::FETCH_ASSOC) ) {
             $t[] = new $entita($r['id'], $r);
-            $c[] = $r;
+            if ( false )
+                $c[] = $r;
         }
         
         if ( false && $cache && static::$_cacheable ) {
