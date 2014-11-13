@@ -32,7 +32,7 @@ if (!$libretto){
         $t->comitato            = $me->delegazioneAttuale()->comitato()->oid();
     }
 
-    $t->targa                   = maiuscolo($_POST['inputTarga']);
+    $t->targa                   = str_replace(' ','',maiuscolo($_POST['inputTarga']));
     $t->libretto                = maiuscolo( $_POST['inputLibretto'] );
     $t->telaio                  = $_POST['inputTelaio'];
     $primaImmatricolazione      = @DateTime::createFromFormat('d/m/Y', $_POST['inputPrimaImmatricolazione']);
