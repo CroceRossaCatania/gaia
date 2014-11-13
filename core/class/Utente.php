@@ -1132,6 +1132,23 @@ class Utente extends Persona {
             ['stato',       CORSO_S_DACOMPLETARE]
         ]);
     }
+
+    /**
+     * Restituisce l'elenco dei corsi base in cui non è stato messo il direttore
+     * @return CorsoBase    elenco dei corsi senza direttore
+     */
+    public function corsiBaseSenzaDirettore() {
+        if ($this->admin())
+            return null;
+
+        $corsi = $this->corsiBaseDiGestione();
+        $r = [];
+        foreach ( $corsi as $corso ) {
+            if (!$corso->direttore())
+                $r[] = $corso;
+        }
+        return $r;
+    }
     
     public function cellulare() {
         if($this->cellulareServizio){
