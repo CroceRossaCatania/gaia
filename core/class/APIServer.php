@@ -238,14 +238,14 @@ class APIServer {
         if (!$utente){
             $mioGeoComitato = null;
         } else {
-            $mioGeoComitatoOid = $this->sessione->utente()->unComitato()->oid();
+            $mioGeoComitatoOid = $utente->unComitato()->oid();
             $mioGeoComitato = GeoPolitica::daOid($mioGeoComitatoOid);
         }
         foreach  ( $cA as $turno ) {
             $attivita = $turno->attivita();
             $idAttivita = ''.$attivita->id;
             if(!isset($searchPuoPart[$idAttivita])) {
-                $searchPuoPart[$idAttivita] = $attivita->puoPartecipare($this->sessione->utente());
+                $searchPuoPart[$idAttivita] = $attivita->puoPartecipare($utente);
             }
             if ( !$searchPuoPart[$idAttivita] ) {
                 continue;
