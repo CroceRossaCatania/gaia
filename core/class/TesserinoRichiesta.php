@@ -53,7 +53,7 @@ class TesserinoRichiesta extends Entita {
         $f->_NOME           = $utente->nome;
         $f->_COGNOME        = $utente->cognome;
         $f->_CODICEFISCALE  = $utente->codiceFiscale;
-        $f->_COMITATO       = $utente->unComitato()->formattato;
+        $f->_COMITATO       = $utente->unComitato()->locale()->formattato;
 
         $int = "Croce Rossa Italiana<br />{$utente->unComitato()->locale()->nome}";
         $f->_INTESTAZIONE = $int;
@@ -97,9 +97,9 @@ class TesserinoRichiesta extends Entita {
         $f->_NOME           = $utente->nome;
         $f->_COGNOME        = $utente->cognome;
         $f->_CODICEFISCALE  = $utente->codiceFiscale;
-        $f->_COMITATO       = $utente->unComitato()->formattato;
+        $f->_COMITATO       = $utente->unComitato(MEMBRO_ORDINARIO)->locale()->formattato;
 
-        $int = "Croce Rossa Italiana<br />{$utente->unComitato()->locale()->nome}";
+        $int = "Croce Rossa Italiana<br />{$utente->unComitato(MEMBRO_ORDINARIO)->locale()->nome}";
         $f->_INTESTAZIONE = $int;
         
         $socio = 'SOCIA';

@@ -45,8 +45,10 @@ if ($u) {
         <div class="row-fluid">
             <div class="span8 offset2"
                 <div class="item active altoCento">
-                    <?php if($verificato) { ?>
+                    <?php if($verificato && !$ordinario) { ?>
                         <img class="altoCentro" src="./img/tesserino/FronteAttivoEsempioOK.jpg" alt="tesserino verificato">
+                    <?php } elseif($verificato & $ordinario) { ?>
+                        <img class="altoCentro" src="./img/tesserino/FronteOrdinarioEsempioOK.jpg" alt="tesserino verificato">
                     <?php } else { ?>
                         <img class="altoCentro" src="./img/tesserino/FronteAttivoEsempioNO.jpg" alt="tesserino non verificato">
                     <?php } ?>

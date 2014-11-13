@@ -59,18 +59,6 @@
 			font-size: 6pt;	
 		}
 
-		.testo-volontario,
-			{
-			display: block;
-			float: left;
-			position: absolute;	
-			font-family: "Arial";
-			font-size: 10pt;
-			font-weight: bold;
-			color: rgb(123, 121, 121);
-			width: 2.10cm;
-		}
-
 		.testo-comitato,
 		.testo-scadenza
 			{
@@ -83,17 +71,17 @@
 		}
 
 		.testo-nome {
-			top:  4.10cm;
-			left: 0.50cm;
+			top:  4.00cm;
+			right: 0.50cm;
 		}
 
 		.testo-cognome {
 			top:  4.70cm;
-			left: 0.50cm;
+			right: 0.50cm;
 		}
 
 		.testo-cf {
-			left: 2.80cm;
+			right: 0.50cm;
 			top : 2.45cm;
 		}
 
@@ -106,8 +94,8 @@
 		}
 
 		.testo-ingresso {
-			top: 2.95cm;
-			left: 2.80cm;
+			top: 3.25cm;
+			right: 0.50cm;
 		}
 
 		.testo-comitato {
@@ -117,7 +105,7 @@
 
 		.testo-scadenza {
 			top: 3.45cm;
-			left: 7.20cm;
+			left: 5.65cm;
 		}
 
 		.testo-volontario {
@@ -150,7 +138,6 @@
 	<!-- Fronte -->
     <div class="fronte">
         <img id="fronte_img" src="./img/tesserino/FronteOrdinario.jpg" alt="FRONTE" />
-        <span class="testo-volontario"		>_SOCIO</span>
         <span class="testo-nome"		>_NOME</span>
         <span class="testo-cognome"		>_COGNOME</span>
         <span class="testo-cf"		>_CODICEFISCALE</span>
@@ -165,7 +152,7 @@
     <div class="retro">
         <img id="retro_img" src="./img/tesserino/RetroOrdinario.jpg" alt="RETRO" />
         <span class="testo-comitato"		>_COMITATO</span>.
-        <span class="testo-scadenza"		>_SCADENZA</span>
+        <span class="testo-scadenza"		> <i>Data di scadenza:</i> _SCADENZA</span>
         <div id="barcode" alt="barcode">
         	<img src="_BARCODE" />
         </div>

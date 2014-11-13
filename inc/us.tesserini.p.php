@@ -9,7 +9,11 @@ controllaParametri(['id'], 'us.dash&err');
 
 $t = $_GET['id'];
 $t = TesserinoRichiesta::id($t);
-$t->generaTesserino()->anteprima();
+if ( $t->utente()->ordinario()){
+	$t->generaTesserinoOrdinario()->anteprima();
+}else{
+	$t->generaTesserino()->anteprima();
+}
 
 redirect('presidente.soci.ok&nofoto');
 
