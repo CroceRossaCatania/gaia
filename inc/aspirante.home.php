@@ -14,14 +14,12 @@ if($corso) {
 }
 
 $a = Aspirante::daVolontario($me);
-$a->trovaRaggioMinimo();
-
-
 
 // Se non ho ancora registrato il mio essere aspirante
 if (!$iscritto && !$a)
     redirect('aspirante.registra');
 
+$a->trovaRaggioMinimo();
 ?>
 <div class="row-fluid">
     <div class="span3">
