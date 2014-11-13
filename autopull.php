@@ -6,6 +6,8 @@
 
 require 'core.inc.php';
 
+ignoraTransazione();
+
 /* Controlla che l'autopull sia attivo */
 if (!$conf['autopull']['abilitato']) {
     die('Autopull disabilitato da configurazione.');

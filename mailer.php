@@ -22,6 +22,8 @@ $time = date('d-m-Y H:i:s');
 // Carica configurazione
 require 'core.inc.php';
 
+ignoraTransazione();
+
 // Controlla che il server di cache sia vivo
 if ( !$cache ) {
 	echo "#{$task}, {$time}: Server di cache morto!\n";

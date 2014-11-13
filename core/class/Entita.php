@@ -52,7 +52,7 @@ abstract class Entita {
         }
 
         $this->db = $db;
-        if ( static::$_cacheable ) {
+        if ( false && static::$_cacheable ) {
             $this->cache = $cache;
         }
 
@@ -182,7 +182,7 @@ abstract class Entita {
         global $db, $conf, $cache;
         $entita = get_called_class();
 
-        if ( static::$_versione == -1 ) {
+        if ( $cache && static::$_versione == -1 ) {
             static::_caricaVersione();            
         }
 
@@ -198,7 +198,7 @@ abstract class Entita {
          * Controlla se la query è già in cache
          */
         $hash = null;
-        if ( $cache && static::$_cacheable ) {
+        if ( $cache && $cache && static::$_cacheable ) {
             $hash = md5($query);
             $r = static::_ottieniQuery($hash);
             if ( $r !== false  ) {
@@ -215,7 +215,7 @@ abstract class Entita {
             $c[] = $r;
         }
         
-        if ( $cache && static::$_cacheable ) {
+        if ( $cache && $cache && static::$_cacheable ) {
             static::_cacheQuery($hash, $c);
         }
         
