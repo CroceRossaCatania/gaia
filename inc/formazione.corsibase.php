@@ -71,7 +71,7 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                     if($me->admin()) {
                         $corsi = CorsoBase::elenco();
                     } else {
-                        $corso = $me->corsiBaseDiGestione();
+                        $corsi = $me->corsiBaseDiGestione();
                     }
 
 
