@@ -29,8 +29,6 @@ if ($u) {
     $r = rand(1, $l);
     $c = strtoupper(substr($cogn, $r-1, 1));
 } 
-
-
 ?>
 
 <div class="row-fluid">

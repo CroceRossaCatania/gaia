@@ -18,8 +18,12 @@ if(!$me->admin() && $me->delegazioneAttuale()->comitato() != $t->struttura()) {
     redirect('errore.permessi&cattivo');
 }
 
-if(isset($_GET['ordinario'])){
+$ordinario = null;
+$annulla = "?p=us.tesserini";
 
+if(isset($_GET['ordinario'])){
+    $ordinario = "&ordinario";
+    $annulla = "?p=us.tesserini.ordinari";
 }
 
 if($t->stato == RICHIESTO) { ?>
@@ -66,7 +70,7 @@ if($t->stato == RICHIESTO) { ?>
             </p>
         </div>
         <div class="modal-footer">
-            <a href="?p=us.tesserini" class="btn">Annulla</a>
+            <a href="<?= $annulla; ?>" class="btn">Annulla</a>
             <button type="submit" class="btn btn-success">
                 <i class="icon-asterisk"></i> Aggiorna lavorazione
             </button>
@@ -75,10 +79,10 @@ if($t->stato == RICHIESTO) { ?>
 </form>
 
 <?php } elseif ($t->stato == STAMPATO) {
-    if ( $u->volontario()){
-        $c = $u->unComitato();
+    if ( $u->ordinario()){
+        $c = $u->unComitato(MEMBRO_ORDINARIO)->locale();
     }else{
-        $c = $u->unComitato(MEMBRO_ORDINARIO);
+        $c = $u->unComitato()->locale();
     }
 ?>
 <form action="?p=us.tesserini.invia.ok" method="POST">
@@ -110,7 +114,7 @@ if($t->stato == RICHIESTO) { ?>
             </p>
         </div>
         <div class="modal-footer">
-            <a href="?p=us.tesserini" class="btn">Annulla</a>
+            <a href="<?= $annulla; ?>" class="btn">Annulla</a>
             <button type="submit" class="btn btn-success">
                 <i class="icon-asterisk"></i> Aggiorna lavorazione
             </button>
