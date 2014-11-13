@@ -125,6 +125,8 @@ if(isset($_GET['nofoto'])) { ?>
                             echo("{$conf['tesseriniStatoBreve'][$tesserino->stato]} il {$tesserino->data()->format('d/m/y')}");
                         } elseif(!$ordinario && $inQuestoComitato) {
                             echo("Non richiesto");
+                        } elseif( $ordinario && $inQuestoComitato) {
+                            echo("Non richiesto ordinario");
                         }
                         ?>
                     </td>
@@ -141,6 +143,10 @@ if(isset($_GET['nofoto'])) { ?>
                             <a class="btn btn-small btn-info" href="?p=us.tesserini.chiedi.ok&id=<?= $_v ?>" title="Richiedi tesserino">
                                 <i class="icon-credit-card"></i> Tesserino
                             </a>                            
+                        <?php }elseif($ordinario && $inQuestoComitato && $modifica && $chiedeTesserini && !$tesserino) { ?>
+                            <a class="btn btn-small btn-info" href="?p=us.tesserini.chiedi.ordinario&id=<?= $_v ?>" title="Richiedi tesserino">
+                                <i class="icon-credit-card"></i> Tesserino
+                            </a> 
                         <?php }elseif($tesseratore && $tesserino && $tesserino->stato > STAMPATO){ ?>
                             <a class="btn btn-small btn-info" href="?p=us.tesserini.duplicato.ok&id=<?= $_v ?>" title="Richiedi duplicato tesserino">
                                 <i class="icon-credit-card"></i> Duplicato tesserino

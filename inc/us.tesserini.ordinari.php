@@ -150,7 +150,7 @@ emettere il tesserino potrai registrare questa informazione.</p>
                         <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?php echo $tesserino->id; ?>" title="Stampa Tesserino">
                             <i class="icon-credit-card"></i> Tesserino
                         </a>
-                        <a class="btn btn-small btn-success" href="?p=us.tesserini.aggiorna&id=<?php echo $tesserino->id; ?>" title="Lavora Pratica">
+                        <a class="btn btn-small btn-success" href="?p=us.tesserini.aggiorna&id=<?php echo $tesserino->id; ?>&ordinario" title="Lavora Pratica">
                             <i class="icon-gears"></i> Lavora pratica
                         </a>
                         <?php } if($admin) { ?>

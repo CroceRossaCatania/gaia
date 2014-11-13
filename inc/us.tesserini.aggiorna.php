@@ -18,6 +18,9 @@ if(!$me->admin() && $me->delegazioneAttuale()->comitato() != $t->struttura()) {
     redirect('errore.permessi&cattivo');
 }
 
+if(isset($_GET['ordinario'])){
+
+}
 
 if($t->stato == RICHIESTO) { ?>
 <form action="?p=us.tesserini.stampa.ok" method="POST">

@@ -53,4 +53,4 @@ $m->a 			= $v;
 $m->_NOME       = $v->nomeCompleto();
 $m->accoda();
 
-redirect('presidente.soci.ordinari&tok');
+redirect('presidente.soci.ok&tok');

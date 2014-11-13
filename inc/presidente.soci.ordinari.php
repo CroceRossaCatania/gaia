@@ -12,9 +12,6 @@ menuElenchiVolontari(
 
 $admin = (bool) $me->admin();
 
-$tesseratore = ($admin || $me->delegazioneAttuale()->estensione > EST_PROVINCIALE) ? true : false;
-$chiedeTesserini = ($admin || $me->delegazioneAttuale()->estensione < EST_REGIONALE) ? true : false;
-
 ?>
 <?php if ( isset($_GET['ok']) ) { ?>
     <div class="alert alert-success">
@@ -46,30 +43,10 @@ $chiedeTesserini = ($admin || $me->delegazioneAttuale()->estensione < EST_REGION
         <h4><i class="icon-warning-sign"></i> Nessun corso base attivo</h4>
         <p>Al momento non ci sono corsi base attivi sul comitato e sulle unità territoriali.</p>
     </div>
-<?php } elseif (isset($_GET['tesgia'])) { ?>
-    <div class="alert alert-block alert-error">
-        <h4><i class="icon-exclamation-sign"></i> Richiesta già effettuata</h4>
-        <p>Non è possibile effettuare più richieste di tesserino per lo stesso volontario.</p>
-    </div>
 <?php }elseif ( isset($_GET['gia']) )  { ?>
     <div class="alert alert-block alert-error">
         <h4><i class="icon-warning-sign"></i> Il volontario risulta già iscritto</h4>
         <p>Il volontario che hai selezionato risulta già iscritto ad un corso base.</p>
-    </div>
-<?php } elseif (isset($_GET['tok'])) { ?>
-    <div class="alert alert-block alert-success">
-        <h4><i class="icon-exclamation-sign"></i> Richiesta effettuata con successo</h4>
-        <p>La tua richiesta di stampa del tesserino è stata correttamente presa in carico.</p>
-    </div>
-<?php } elseif (isset($_GET['tdupko'])) { ?>
-    <div class="alert alert-block alert-error">
-        <h4><i class="icon-exclamation-sign"></i> Impossibile richiedere duplicato</h4>
-        <p>La tua richiesta di duplicato del tesserino non è stata presa in caricoin quanto non esiste un tesserino da duplicare.</p>
-    </div>
-<?php } elseif (isset($_GET['tdupok'])) { ?>
-    <div class="alert alert-block alert-success">
-        <h4><i class="icon-exclamation-sign"></i> Richiesta duplicato effettuata con successo</h4>
-        <p>La tua richiesta di stampa del duplicato del tesserino è stata correttamente presa in carico.</p>
     </div>
 <?php } ?>
     
@@ -82,9 +59,6 @@ $chiedeTesserini = ($admin || $me->delegazioneAttuale()->estensione < EST_REGION
                 </a> 
                 <a class="btn btn-small btn-info {iscriviBase}" href="?p=formazione.corsibase.iscrizione.ordinario&id={id}" title="Iscrivi a corso base">
                     <i class="icon-flag"></i> Iscrivi a corso
-                </a>
-                <a class="btn btn-small btn-info" href="?p=us.tesserini.chiedi.ordinario&id={id}" title="Tesserino">
-                    <i class="icon-credit-card"></i> Tesserino
                 </a>
                 <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&ordinario&id={id}" title="Dimetti Volontario">
                     <i class="icon-ban-circle"></i> Dimetti
