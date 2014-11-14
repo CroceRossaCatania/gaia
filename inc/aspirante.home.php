@@ -5,6 +5,44 @@ paginaPrivata(false);
 if ( $me->stato != ASPIRANTE )
     redirect('utente.me');
 
+$consenso = $me->consenso();
+if ( !$consenso ){ ?>
+<div class="modal fade automodal">
+    <div class="modal-header">
+        <h3 class="text-success"><i class="icon-cog"></i> Aggiornamento condizioni d'uso di Gaia!</h3>
+    </div>
+    <div class="modal-body">
+        <p>Ciao <strong><?php echo $me->nome; ?></strong>, Gaia ha aggiornato le sue condizioni d'uso.</p>
+        <p>È importante per noi che tu sia informato riguardo le finalità di questo portale e riguardo
+            a come vengono trattati i tuoi dati. Per fare ciò hai due possibilità: </p>
+        <ul>
+            <li>Leggi la pagina delle <a href="?p=public.privacy" target="_new"> <i>condizioni d'uso</i></a> ; </li>
+            <li>Apri una nuova finestra del browser. Digita gaia.cri.it, clicca <i>informazioni</i> in fondo alla pagina e poi <i>condizioni d'uso</i>.</li>
+        </ul>
+        <p>Ti raccomandiamo di leggere con attenzione il documento perché contiene importanti 
+            informazioni su come i tuoi dati sono gestiti.</p>
+        <p>Se hai letto premi il pulsante "Ho letto!". Verrai indirizzato ad una pagina
+            in cui potrai dare il consenso e gestire le informazioni che ti riguardano.</p>
+        <p>Se non sei d'accordo premi il pulsante "Logout": non ti sarà possibile utilizzare i servizi offerti dal portale fino
+            a che non accetterai le condizioni d'uso. </p>
+        <p>Le condizioni d'uso resteranno valide fino all'entrata in vigore della versione aggiornata. Quando ciò
+            accradrà verrai subito informato.</p>
+        <p>Grazie per la fiducia, <br />
+        Lo staff di Gaia</p>
+    </div>
+    <div class="modal-footer">
+        <a href="?p=logout" class="btn">
+            <i class="icon-remove"></i>
+            Logout
+        </a>
+        <a href="?p=utente.privacy&first" class="btn btn-success">
+            <i class="icon-ok"></i>
+            Ho letto!
+        </a>
+    </div>
+</div>
+<?php } 
+
 $a = Aspirante::daVolontario($me);
 
 $iscritto = false;
