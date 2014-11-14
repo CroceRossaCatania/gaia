@@ -1,6 +1,6 @@
 <?php
 
-paginaPrivata();
+paginaPrivata(false);
 
 if ( $me->stato != ASPIRANTE )
     redirect('utente.me');
