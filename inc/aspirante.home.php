@@ -69,7 +69,11 @@ if ($a) {
 ?>
 <div class="row-fluid">
     <div class="span3">
-        <?php menuAspirante(); ?>
+        <?php if($corsoBaseConfermato) {
+                menuOrdinario(); 
+            } else {
+                menuAspirante();
+            } ?>
 
     </div>
     <div class="span9">
