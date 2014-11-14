@@ -96,7 +96,7 @@ if ($a) {
                     <br />
                     <p>Ora non ti resta che presentarti presso il luogo indicato per lo svolgimento
                     delle lezioni che puoi vedere premendo il pulsante presente qui sotto.</p>
-                    <a href="?p=formazione.corsibase.scheda&id=<?= $corsoBaseConfermato ?>" class="btn btn-large btn-info">
+                    <a href="?p=formazione.corsibase.scheda&id=<?= $corsoBaseConfermato->corsoBase ?>" class="btn btn-large btn-info">
                         Scheda corso
                     </a>
                 </div>
@@ -110,7 +110,7 @@ if ($a) {
                     delle lezioni.</p>
                     <p>Quando inizierà il corso ti verrà richiesto di diventere Socio della Croce Rossa Italiana,
                     per avere maggiori dettagli premi il pulsante qui sotto.</p>
-                    <a href="?p=formazione.corsibase.scheda&id=<?= $corsoBaseRichiesto ?>" class="btn btn-large btn-info">
+                    <a href="?p=formazione.corsibase.scheda&id=<?= $corsoBaseRichiesto->corsoBase ?>" class="btn btn-large btn-info">
                         Scheda corso
                     </a>
                 </div>
