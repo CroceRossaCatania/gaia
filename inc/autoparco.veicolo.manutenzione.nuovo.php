@@ -6,14 +6,28 @@
 
 paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
 controllaParametri(['id'], 'autoparco.veicoli&err');
-$veicolo = $_GET['id'];
-$veicolo = Veicolo::id($veicolo);
 
-if ( $veicolo->fuoriuso() ){
-  redirect('autoparco.veicoli&giaFuori');
+$mod = null;
+
+if(isset($_GET['mod'])){
+    $mod = "&mod";
+    $manutenzione = Manutenzione::id($_GET['man']);
+    $veicolo = $manutenzione->id;
+    if($manutenzione->veicolo()->fuoriuso()){
+        redirect('autoparco.veicoli&giaFuori');
+    }
+}else{
+    $veicolo = $_GET['id'];
+    $veicolo = Veicolo::id($veicolo);
+    proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
+    if ( $veicolo->fuoriuso() ){
+        redirect('autoparco.veicoli&giaFuori');
+    }
 }
 
-proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
+
+
+
 
 ?>
 <div class="row-fluid">
@@ -23,7 +37,7 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
             <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
         </div> 
     <?php } ?>
-    <h2><i class="icon-wrench muted"></i> Registra nuova manutenzione</h2>
+    <h2><i class="icon-wrench muted"></i> <?php if(isset($_GET['mod']){?>Registra nuova<?php }else{?>Modifica<?php} ?> manutenzione</h2>
     <div class="alert alert-block alert-info ">
         <div class="row-fluid">
             <span class="span12">
@@ -45,7 +59,7 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
         </div>
     </div>           
 </div>
-<form class="form-horizontal" action="?p=autoparco.veicolo.manutenzione.nuovo.ok&id=<?= $veicolo; ?>" method="POST">
+<form class="form-horizontal" action="?p=autoparco.veicolo.manutenzione.nuovo.ok&id=<?= $veicolo; ?><?= $mod; ?>" method="POST">
     <div class="row-fluid">
         <div class="span6">
             <h3>Manutenzione</h3>
@@ -54,7 +68,7 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
                 <div class="controls">
                     <select class="input-large" id="inputTipo" name="inputTipo"  required class="disabled">
                     <?php foreach ( $conf['man_tipo'] as $numero => $gruppo ) { ?>
-                        <option value="<?php echo $numero; ?>"><?php echo $gruppo; ?></option>
+                        <option <?php if($manutenzione->tipo == $numero){echo "selected";} ?> value="<?php echo $numero; ?>"><?php echo $gruppo; ?></option>
                     <?php } ?>
                     </select>   
                 </div>
@@ -62,19 +76,19 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
             <div class="control-group">
                 <label class="control-label" for="inputKm">Km</label>
                 <div class="controls">
-                    <input class="input-large" type="text" name="inputKm" id="inputKm" placeholder="151000" required>
+                    <input class="input-large" type="text" name="inputKm" id="inputKm" placeholder="151000" value="<?= $manutenzione->km; ?>" required>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputData">Data</label>
                 <div class="controls">
-                    <input class="input-medium" type="text" name="inputData" id="inputData" required>
+                    <input class="input-medium" type="text" name="inputData" id="inputData" required value="<?php if ($manutenzione) echo date('d/m/Y', $manutenzione->data); ?>">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputDescrizione">Descrizione</label>
                 <div class="controls">
-                    <textarea rows="7" class="input-xlarge" name="inputDescrizione" id="inputDescrizione" required></textarea>
+                    <textarea rows="7" class="input-xlarge" name="inputDescrizione" id="inputDescrizione" required value="<?= $manutenzione->intervento; ?>"></textarea>
                 </div>
             </div>
         </div>
@@ -83,20 +97,20 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
             <div class="control-group">
                 <label class="control-label" for="inputAzienda">Azienda</b></label>
                 <div class="controls">
-                    <input class="input-large" type="text" name="inputAzienda" id="inputAzienda" placeholder="Autoriparato"s>
+                    <input class="input-large" type="text" name="inputAzienda" id="inputAzienda" placeholder="Autoriparato" value="<?= $manutenzione->azienda; ?>">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputFattura">Numero fattura</label>
                 <div class="controls">
-                    <input class="input-small" type="text" name="inputFattura" id="inputFattura" placeholder="1752/14">
+                    <input class="input-small" type="text" name="inputFattura" id="inputFattura" placeholder="1752/14" value="<?= $manutenzione->fattura; ?>">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputCosto">Costo </label>
                 <div class="controls">
                     <div class="input-append">
-                        <input class="span6" type="number" name="inputCosto" id="inputCosto" step="0.01" placeholder="3300,00"><span class="add-on"><i class="icon-euro"></i></span>
+                        <input class="span6" type="number" name="inputCosto" id="inputCosto" step="0.01" placeholder="3300,00" value="<?= $manutenzione->costo; ?>"><span class="add-on"><i class="icon-euro"></i></span>
                     </div>
                 </div>
             </div>

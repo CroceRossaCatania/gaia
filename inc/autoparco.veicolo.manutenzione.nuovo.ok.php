@@ -7,12 +7,17 @@
 paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
 
 controllaParametri(['id'], 'autoparco.veicoli&err');
-$veicolo = $_GET['id'];
-$veicolo = Veicolo::id($veicolo);
 
-$manutenzione = new Manutenzione();
+if(!isset($_GET['mod'])){
+	$veicolo = $_GET['id'];
+	$veicolo = Veicolo::id($veicolo);
+	$manutenzione = new Manutenzione();
+	$manutenzione->veicolo = $veicolo->id;
+}else{
+	$manutenzione = Manutenzione::id($_GET['id']);
+	$veicolo = $manutenzione->veicolo();
+}
 
-$manutenzione->veicolo = $veicolo->id;
 $manutenzione->intervento = $_POST['inputDescrizione'];
 
 $tIntervento = @DateTime::createFromFormat('d/m/Y', $_POST['inputData']);
