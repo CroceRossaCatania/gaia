@@ -22,7 +22,7 @@ if($corsoConfermato) {
 
 // Se non ho ancora registrato il mio essere aspirante
 // però faccio questa cosa PRIMA del raggio minimo
-if (!$a && !$iscitto)
+if (!$a && !$iscritto)
     redirect('aspirante.registra');
 
 if ($a) {
