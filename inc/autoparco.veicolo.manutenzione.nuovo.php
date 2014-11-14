@@ -37,7 +37,7 @@ if(isset($_GET['mod'])){
             <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
         </div> 
     <?php } ?>
-    <h2><i class="icon-wrench muted"></i> <?php if(isset($_GET['mod']){?>Registra nuova<?php }else{?>Modifica<?php} ?> manutenzione</h2>
+    <h2><i class="icon-wrench muted"></i> <?php if(isset($_GET['mod'])){?>Registra nuova<?php }else{?>Modifica<?php } ?> manutenzione</h2>
     <div class="alert alert-block alert-info ">
         <div class="row-fluid">
             <span class="span12">
@@ -82,7 +82,7 @@ if(isset($_GET['mod'])){
             <div class="control-group">
                 <label class="control-label" for="inputData">Data</label>
                 <div class="controls">
-                    <input class="input-medium" type="text" name="inputData" id="inputData" required value="<?php if ($manutenzione) echo date('d/m/Y', $manutenzione->data); ?>">
+                    <input class="input-medium" type="text" name="inputData" id="inputData" required value="<?php if ($manutenzione) {echo date('d/m/Y', $manutenzione->data); }?>">
                 </div>
             </div>
             <div class="control-group">

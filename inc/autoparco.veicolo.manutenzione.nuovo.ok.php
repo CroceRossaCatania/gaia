@@ -36,7 +36,7 @@ $manutenzione->costo = $costo;
 $manutenzione->fattura = $_POST['inputFattura'];
 $manutenzione->azienda = $_POST['inputAzienda'];
 
-if ( $veicolo->fermoTecnico() ){
+if($veicolo->fermoTecnico()){
 	$fermotecnico = Fermotecnico::id($veicolo->fermoTecnico());
 	$fermotecnico->fine  = time();
 	$fermotecnico->pFine = $me;
