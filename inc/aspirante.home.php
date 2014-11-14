@@ -7,20 +7,27 @@ if ( $me->stato != ASPIRANTE )
 
 $a = Aspirante::daVolontario($me);
 
-// Se non ho ancora registrato il mio essere aspirante
-// però faccio questa cosa PRIMA del raggio minimo
-if (!$a)
-    redirect('aspirante.registra');
-
-$a->trovaRaggioMinimo();
-
 $iscritto = false;
 $corso = $me->partecipazioniBase(ISCR_RICHIESTA); 
 if($corso) {
     $iscritto = true;
-    $corsoBase = $corso[0];
+    $corsoBaseRichiesto = $corso[0];
 }
 
+$corsoConfermato = $me->partecipazioniBase(ISCR_CONFERMATA);
+if($corsoConfermato) {
+    $iscritto = true;
+    $corsoBaseConfermato = $corsoConfermato[0];
+}
+
+// Se non ho ancora registrato il mio essere aspirante
+// però faccio questa cosa PRIMA del raggio minimo
+if (!$a && !$iscitto)
+    redirect('aspirante.registra');
+
+if ($a) {
+    $a->trovaRaggioMinimo();
+}
 ?>
 <div class="row-fluid">
     <div class="span3">
@@ -40,7 +47,19 @@ if($corso) {
 
         <?php } ?>
 
-        <?php if($iscritto) { ?>
+        <?php if ($iscritto && $corsoBaseConfermato) { ?>
+            <div class="row-fluid">
+                <div class="hero-unit" >
+                    <h1><i class="icon-flag"></i> Complimenti, sei iscritto ad un Corso per Volontari! </h1>
+                    <br />
+                    <p>Ora non ti resta che presentarti presso il luogo indicato per lo svolgimento
+                    delle lezioni che puoi vedere premendo il pulsante presente qui sotto.</p>
+                    <a href="?p=formazione.corsibase.scheda&id=<?= $corsoBaseConfermato ?>" class="btn btn-large btn-info">
+                        Scheda corso
+                    </a>
+                </div>
+            </div>
+        <?php } elseif($iscritto && $corsoBaseRichiesto) { ?>
             <div class="row-fluid">
                 <div class="hero-unit" >
                     <h1><i class="icon-flag"></i> Complimenti, sei preiscritto ad un Corso per Volontari! </h1>
@@ -49,13 +68,13 @@ if($corso) {
                     delle lezioni.</p>
                     <p>Quando inizierà il corso ti verrà richiesto di diventere Socio della Croce Rossa Italiana,
                     per avere maggiori dettagli premi il pulsante qui sotto.</p>
-                    <a href="?p=formazione.corsibase.scheda&id=<?= $corsoBase->corsoBase; ?>" class="btn btn-large btn-info">
+                    <a href="?p=formazione.corsibase.scheda&id=<?= $corsoBaseRichiesto ?>" class="btn btn-large btn-info">
                         Scheda corso
                     </a>
                 </div>
             </div>
         <?php }?>
-        <?php if(count($corso) > 1) { ?>
+        <?php if(count($corsoBaseRichiesto) > 1) { ?>
             <div class="alert alert-block alert-info">
                 <p><i class="icon-info-sign"></i> Hai più di una preiscrizione, <a href="?p=aspirante.preiscrizioni">controlla qui</a>. 
                 Ricorda che potrai svolgere
@@ -65,7 +84,7 @@ if($corso) {
 
         <?php } ?>
 
-
+        <?php if(!$corsoBaseConfermato) { ?>
 
         <div class="alert alert-block alert-info">
             <p><i class="icon-info-sign"></i> Riceverai notifica per email (<?php echo $me->email; ?>) 
@@ -107,7 +126,9 @@ if($corso) {
                 </div>
             </div>
 
-        </div>      
+        </div> 
+
+        <?php } ?>     
 
     </div>
 </div>
