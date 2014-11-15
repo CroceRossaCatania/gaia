@@ -11,7 +11,7 @@ $f = $_GET['id'];
 $v = Utente::id($f);
 
 /* Verifico di poter lavorare sull'utente */
-/*
+
 proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
 $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
 
@@ -19,7 +19,7 @@ if(!$v->modificabileDa($me)) {
 	redirect('errore.permessi&cattivo');
 }
 
-if($v->volontario()) {
+if(!$v->ordinario()) {
 	redirect('errore.permessi&cattivo');
 }
 
@@ -29,12 +29,12 @@ if(!$app || !in_array($app->comitato()->id, $elenco)) {
 }
 
 /* Verifico che la richiesta non sia già stata fatta */
-/*$t = $v->tesserinoRichiesta();
+$t = $v->tesserinoRichiesta();
 
 if($t) {
 	redirect('presidente.soci.ordinari&tesgia');
 }
-*/
+
 /* Creo la richiesta vera a propria */
 
 $ora = time();
