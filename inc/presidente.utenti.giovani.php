@@ -12,6 +12,8 @@ menuElenchiVolontari(
 
 $admin = (bool) $me->admin();
 
+$d = $me->delegazioneAttuale();
+
 ?>
 <?php if ( isset($_GET['ok']) ) { ?>
     <div class="alert alert-success">
@@ -34,9 +36,15 @@ $admin = (bool) $me->admin();
    <div class="span12">  
         <div class="nascosto" id="azioniElenco">
             <div class="btn-group">
-                <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" target="_new" title="Dettagli">
-                    <i class="icon-eye-open"></i> Dettagli
-                </a>
+                <?php if ( $d->dominio == 5 ){ ?>
+                    <a class="btn btn-small" href="?p=profilo.controllo&id={id}" target="_new" title="Dettagli">
+                        <i class="icon-eye-open"></i> Dettagli
+                    </a>
+                <?php }else{ ?>
+                    <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" target="_new" title="Dettagli">
+                        <i class="icon-eye-open"></i> Dettagli
+                    </a>
+                <?php } ?>
                 <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id={id}" title="Invia Mail">
                     <i class="icon-envelope"></i>
                 </a>
