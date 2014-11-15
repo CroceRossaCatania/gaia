@@ -147,6 +147,10 @@ if(isset($_GET['nofoto'])) { ?>
                             <a class="btn btn-small btn-info" href="?p=us.tesserini.chiedi.ordinario&id=<?= $_v ?>" title="Richiedi tesserino">
                                 <i class="icon-credit-card"></i> Tesserino
                             </a> 
+                        <?php }elseif($ordinario && $tesseratore && $tesserino && $tesserino->stato > STAMPATO) { ?>
+                            <a class="btn btn-small btn-info" href="?p=us.tesserini.duplicato.ordinario&id=<?= $_v ?>" title="Richiedi tesserino">
+                                <i class="icon-credit-card"></i> Duplicato tesserino
+                            </a> 
                         <?php }elseif($tesseratore && $tesserino && $tesserino->stato > STAMPATO){ ?>
                             <a class="btn btn-small btn-info" href="?p=us.tesserini.duplicato.ok&id=<?= $_v ?>" title="Richiedi duplicato tesserino">
                                 <i class="icon-credit-card"></i> Duplicato tesserino
