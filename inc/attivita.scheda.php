@@ -406,7 +406,7 @@ $(document).ready( function() {
                                                         <i class="icon-trash" ></i> Rimuovi volontario
                                                     </a>
                                                     <?php } ?>
-                                                    <?php if( $modificabile && $apertura ){ ?>
+                                                    <?php if( $modificabile ){ ?>
                                                     <a class="btn btn-small btn-danger" href="?p=attivita.modifica.volontario.assente&v=<?= $v->id; ?>&turno=<?= $turno; ?>">
                                                         <i class="icon-remove" ></i> Volontario assente
                                                     </a>

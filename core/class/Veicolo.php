@@ -65,7 +65,7 @@ class Veicolo extends Entita {
      * @return timestamp o null
      */
     public function ultimaRevisione() {
-        $revisione = Manutenzione::filtra([['veicolo', $this],['tipo', MAN_REVISIONE]], 'tIntervento ASC');
+        $revisione = Manutenzione::filtra([['veicolo', $this],['tipo', MAN_REVISIONE]], 'tIntervento DESC');
         if ( $revisione ){
             return $revisione[0]->tIntervento;
         }else{
