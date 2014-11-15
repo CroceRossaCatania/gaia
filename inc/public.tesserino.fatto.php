@@ -16,7 +16,8 @@ $u = Utente::daCodicePubblico($num);
 
 
 $verificato = false;
-$ordinario = false;
+$ordinario  = false;
+$volontario = "volontario";
 //if($u && $u->appartenenzaAttuale()) {
 if ($u) {
     $cogn = $u->cognome;
@@ -24,6 +25,8 @@ if ($u) {
     if ( $t->valido() ){
         $verificato = true;
         $ordinario = $t->utente()->ordinario();
+        if ( $ordinario )
+            $volontario = "socio ordinario";
     }
     $l = strlen($cogn);
     $r = rand(1, $l);
@@ -62,8 +65,8 @@ if ($u) {
                     <p>
                     <ul>
                         <!-- mettere roba per ordinario -->
-                        <li>La lettera in posizione <strong><?= $r ?></strong> del cognome del volontario è <strong><?= $c ?></strong></li>
-                        <li>Il tesserino appartiene ad un Volontario della Croce Rossa</li>
+                        <li>La lettera in posizione <strong><?= $r ?></strong> del cognome del <?= $volontario; ?> è <strong><?= $c ?></strong></li>
+                        <li>Il tesserino appartiene ad un <?= $volontario; ?> della Croce Rossa</li>
                         <li>Il Volontario è in regola con la quota associativa</li>
                         <li>L'immagine a fianco è di esempio e non si riferisce al tesserino che stai verificando</li>
                     </ul>
