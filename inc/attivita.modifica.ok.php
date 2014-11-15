@@ -6,6 +6,8 @@ $id = $_POST['id'];
 $a = Attivita::id($id);
 paginaAttivita($a);
 
+$errori = [];
+
 if ( isset($_POST['inputNome']) ) {
     $a->nome            = normalizzaTitolo($_POST['inputNome']);
     $a->descrizione     = $_POST['inputDescrizione'];
@@ -16,9 +18,17 @@ if ( isset($_POST['inputNome']) ) {
 $turni = $a->turni();
 foreach ( $turni as $t ) {
     if ( !isset($_POST["{$t->id}_nome"]) ) { continue; }
+    $dinizio = DT::createFromFormat('d/m/Y H:i', $_POST["{$t->id}_inizio"]);
+    $dfine = DT::createFromFormat('d/m/Y H:i', $_POST["{$t->id}_fine"]);
+
+    if($dinizio >= $dfine){
+        $errori[] = $_POST["{$t->id}_nome"];
+        continue;
+    }
+
     $t->nome            = normalizzaTitolo($_POST["{$t->id}_nome"]);
-    $inizio             = DT::createFromFormat('d/m/Y H:i', $_POST["{$t->id}_inizio"]);
-    $fine               = DT::createFromFormat('d/m/Y H:i', $_POST["{$t->id}_fine"]);
+    $inizio             = $dinizio;
+    $fine               = $dfine;
     $prenotazione       = DT::createFromFormat('d/m/Y H:i', $_POST["{$t->id}_prenotazione"]);
     $t->inizio          = $inizio->getTimestamp();
     $t->fine            = $fine->getTimestamp();
@@ -56,4 +66,8 @@ switch ( $_POST['azione'] ) {
     
 }
 
-redirect('attivita.scheda&id=' . $a->id);
+if(empty($errori)){
+    redirect('attivita.scheda&id=' . $a->id);
+}else{
+    redirect('attivita.scheda&id=' . $a->id .'&errori='.json_encode($errori));
+}
