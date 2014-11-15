@@ -147,7 +147,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
                                             <li><a href="?p=utente.contatti"><i class="icon-phone"></i> Modifica contatti</a></li>
                                             <li><a href="?p=utente.password"><i class="icon-key"></i> Modifica password</a></li>
-                                            <?php if ( $me->stato == ASPIRANTE ) { ?>
+                                            <?php if ( $me->stato == ASPIRANTE && !$me->partecipazioniBase(ISCR_CONFERMATA)) { ?>
                                             <li><a href="?p=aspirante.cancellati"><i class="icon-remove-sign"></i> Cancellati</a></li>
                                             <?php } ?>
                                             <li class="divider"></li>

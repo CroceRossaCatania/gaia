@@ -1,30 +1,79 @@
 <?php
 
-paginaPrivata();
+paginaPrivata(false);
 
 if ( $me->stato != ASPIRANTE )
     redirect('utente.me');
 
+$consenso = $me->consenso();
+if ( !$consenso ){ ?>
+<div class="modal fade automodal">
+    <div class="modal-header">
+        <h3 class="text-success"><i class="icon-cog"></i> Aggiornamento condizioni d'uso di Gaia!</h3>
+    </div>
+    <div class="modal-body">
+        <p>Ciao <strong><?php echo $me->nome; ?></strong>, Gaia ha aggiornato le sue condizioni d'uso.</p>
+        <p>È importante per noi che tu sia informato riguardo le finalità di questo portale e riguardo
+            a come vengono trattati i tuoi dati. Per fare ciò hai due possibilità: </p>
+        <ul>
+            <li>Leggi la pagina delle <a href="?p=public.privacy" target="_new"> <i>condizioni d'uso</i></a> ; </li>
+            <li>Apri una nuova finestra del browser. Digita gaia.cri.it, clicca <i>informazioni</i> in fondo alla pagina e poi <i>condizioni d'uso</i>.</li>
+        </ul>
+        <p>Ti raccomandiamo di leggere con attenzione il documento perché contiene importanti 
+            informazioni su come i tuoi dati sono gestiti.</p>
+        <p>Se hai letto premi il pulsante "Ho letto!". Verrai indirizzato ad una pagina
+            in cui potrai dare il consenso e gestire le informazioni che ti riguardano.</p>
+        <p>Se non sei d'accordo premi il pulsante "Logout": non ti sarà possibile utilizzare i servizi offerti dal portale fino
+            a che non accetterai le condizioni d'uso. </p>
+        <p>Le condizioni d'uso resteranno valide fino all'entrata in vigore della versione aggiornata. Quando ciò
+            accradrà verrai subito informato.</p>
+        <p>Grazie per la fiducia, <br />
+        Lo staff di Gaia</p>
+    </div>
+    <div class="modal-footer">
+        <a href="?p=logout" class="btn">
+            <i class="icon-remove"></i>
+            Logout
+        </a>
+        <a href="?p=utente.privacy&first" class="btn btn-success">
+            <i class="icon-ok"></i>
+            Ho letto!
+        </a>
+    </div>
+</div>
+<?php } 
+
 $a = Aspirante::daVolontario($me);
-
-// Se non ho ancora registrato il mio essere aspirante
-// però faccio questa cosa PRIMA del raggio minimo
-if (!$a)
-    redirect('aspirante.registra');
-
-$a->trovaRaggioMinimo();
 
 $iscritto = false;
 $corso = $me->partecipazioniBase(ISCR_RICHIESTA); 
 if($corso) {
     $iscritto = true;
-    $corsoBase = $corso[0];
+    $corsoBaseRichiesto = $corso[0];
 }
 
+$corsoConfermato = $me->partecipazioniBase(ISCR_CONFERMATA);
+if($corsoConfermato) {
+    $iscritto = true;
+    $corsoBaseConfermato = $corsoConfermato[0];
+}
+
+// Se non ho ancora registrato il mio essere aspirante
+// però faccio questa cosa PRIMA del raggio minimo
+if (!$a && !$iscritto)
+    redirect('aspirante.registra');
+
+if ($a) {
+    $a->trovaRaggioMinimo();
+}
 ?>
 <div class="row-fluid">
     <div class="span3">
-        <?php menuAspirante(); ?>
+        <?php if($corsoBaseConfermato) {
+                menuOrdinario(); 
+            } else {
+                menuAspirante();
+            } ?>
 
     </div>
     <div class="span9">
@@ -40,7 +89,19 @@ if($corso) {
 
         <?php } ?>
 
-        <?php if($iscritto) { ?>
+        <?php if ($iscritto && $corsoBaseConfermato) { ?>
+            <div class="row-fluid">
+                <div class="hero-unit" >
+                    <h1><i class="icon-flag"></i> Complimenti, sei iscritto ad un Corso per Volontari! </h1>
+                    <br />
+                    <p>Ora non ti resta che presentarti presso il luogo indicato per lo svolgimento
+                    delle lezioni che puoi vedere premendo il pulsante presente qui sotto.</p>
+                    <a href="?p=formazione.corsibase.scheda&id=<?= $corsoBaseConfermato->corsoBase ?>" class="btn btn-large btn-info">
+                        Scheda corso
+                    </a>
+                </div>
+            </div>
+        <?php } elseif($iscritto && $corsoBaseRichiesto) { ?>
             <div class="row-fluid">
                 <div class="hero-unit" >
                     <h1><i class="icon-flag"></i> Complimenti, sei preiscritto ad un Corso per Volontari! </h1>
@@ -49,13 +110,13 @@ if($corso) {
                     delle lezioni.</p>
                     <p>Quando inizierà il corso ti verrà richiesto di diventere Socio della Croce Rossa Italiana,
                     per avere maggiori dettagli premi il pulsante qui sotto.</p>
-                    <a href="?p=formazione.corsibase.scheda&id=<?= $corsoBase->corsoBase; ?>" class="btn btn-large btn-info">
+                    <a href="?p=formazione.corsibase.scheda&id=<?= $corsoBaseRichiesto->corsoBase ?>" class="btn btn-large btn-info">
                         Scheda corso
                     </a>
                 </div>
             </div>
         <?php }?>
-        <?php if(count($corso) > 1) { ?>
+        <?php if(count($corsoBaseRichiesto) > 1) { ?>
             <div class="alert alert-block alert-info">
                 <p><i class="icon-info-sign"></i> Hai più di una preiscrizione, <a href="?p=aspirante.preiscrizioni">controlla qui</a>. 
                 Ricorda che potrai svolgere
@@ -65,7 +126,7 @@ if($corso) {
 
         <?php } ?>
 
-
+        <?php if(!$corsoBaseConfermato) { ?>
 
         <div class="alert alert-block alert-info">
             <p><i class="icon-info-sign"></i> Riceverai notifica per email (<?php echo $me->email; ?>) 
@@ -107,7 +168,9 @@ if($corso) {
                 </div>
             </div>
 
-        </div>      
+        </div> 
+
+        <?php } ?>     
 
     </div>
 </div>

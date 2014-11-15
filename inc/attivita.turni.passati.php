@@ -143,6 +143,11 @@ $(document).ready( function() {
                                                         <i class="icon-trash" ></i> Rimuovi volontario
                                                     </a>
                                                     <?php } ?>
+                                                    <?php if( $modificabile){ ?>
+                                                    <a class="btn btn-small btn-danger" href="?p=attivita.modifica.volontario.assente&v=<?= $v->id; ?>&turno=<?= $turno; ?>">
+                                                        <i class="icon-trash" ></i> Volontario assente
+                                                    </a>
+                                                    <?php } ?>
                                                 </li>
                                                 <?php } ?>
                                             </ul>

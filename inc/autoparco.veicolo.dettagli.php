@@ -21,7 +21,7 @@ if ( $veicolo ){
 }
 
 ?>
-<script type="text/javascript"><?php require './js/autoparco.veicolo.nuovo.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/autoparco.veicolo.nuovo.js'; ?></script>
 <div class="row-fluid">
     <?php if (isset($_GET['err'])) { ?>
         <div class="alert alert-block alert-error">
