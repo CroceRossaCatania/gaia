@@ -92,6 +92,11 @@ paginaPrivata();
         </div>
         <?php } else { ?>
         <h2><i class="icon-plus-sign-alt muted"></i> Titoli CRI</h2>
+        <div class="alert alert-block alert-error">
+                    <h4><i class="icon-warning-sign"></i>Attenzione: revisione dei titoli in corso</h4>
+                    <p>I titoli CRI sono momentaneamente incompleti data la revisione di tutti i percorsi formativi in atto a livello nazionale.
+                    <p> Ti preghiamo di pazientare fino a che il processo non sarà concluso. </p>   </p>     
+                </div> 
         <div class="alert alert-block alert-success">
             <div class="row-fluid">
                 <span class="span7">
