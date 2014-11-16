@@ -31,7 +31,7 @@ paginaPubblica();
             	<h2>Vuoi entrare in Croce Rossa?</h2>
                     <h3 class="muted">Partecipa al prossimo corso base.</h3>
                     <div class="well">
-                        <a href="?p=riconoscimento&tipo=aspirante" class="btn btn-large btn-danger btn-block">
+                        <a href="?p=riconoscimento&tipo=aspirante" class="btn btn-large btn-info btn-block">
                             <i class="icon-hand-right"></i>
                             Iscriviti al prossimo corso base
                         </a>
