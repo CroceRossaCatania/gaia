@@ -684,7 +684,8 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
-    /*
+    /**
+     * Restituisce elenco volontari in possesso di un dato titolo
      * @param $titoli Array di elementi Titolo
      */
     public function ricercaMembriTitoli( $titoli = [], $stato = MEMBRO_ESTESO ) {
