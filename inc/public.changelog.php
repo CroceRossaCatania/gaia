@@ -131,7 +131,8 @@ $_titolo = 'Aggiornamenti, novit&agrave; e miglioramenti';
 				<i class="icon-envelope-alt"></i>
 				feedback@gaia.cri.it
 			</a>
-			<p><strong><i class="icon-warning-sign"></i>Se hai bisogno di aiuto, scrivi invece a </strong></p>
+			<p></p>
+			<p><strong>Se hai bisogno di aiuto, scrivi invece a </strong></p>
 			<a class="btn btn-large btn-success btn-block" href="mailto:supporto@gaia.cri.it?subject=Richiesta+di+Supporto">
 				<i class="icon-envelope-alt"></i>
 				supporto@gaia.cri.it
