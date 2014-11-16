@@ -130,6 +130,13 @@ richiediComitato();
                             <br>
                             <?php
                             break;
+                            case APP_AUTOPARCO:
+                            ?>
+                            <strong>Delegato</strong> Autoparco
+                            (<?php echo $_d->comitato()->nomeCompleto(); ?>)
+                            <br>
+                            <?php
+                            break;
 
                         }} ?>
                     </td>
