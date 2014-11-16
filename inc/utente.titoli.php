@@ -75,6 +75,12 @@ paginaPrivata();
         <?php } elseif ($t == 3) { ?>
         <h2><i class="icon-beaker muted"></i> Titoli di Studio</h2>
         <div class="alert alert-block alert-error">
+                    <h4><i class="icon-warning-sign"></i> Attenzione: revisione dei titoli in corso</h4>
+                    <p>I titoli di studio sono momentaneamente incompleti per essere allineati con i titoli attualmente riconosciuti a livello statale (ISTAT).
+                    <p>Ti preghiamo di pazientare fino a che il processo non sarà concluso. </p>   </p>     
+                </div> 
+                
+        <div class="alert alert-block alert-error">
             <div class="row-fluid">
                 <span class="span7">
                     <h4>Quali titoli di studio hai conseguito ?</h4>
@@ -93,9 +99,9 @@ paginaPrivata();
         <?php } else { ?>
         <h2><i class="icon-plus-sign-alt muted"></i> Titoli CRI</h2>
         <div class="alert alert-block alert-error">
-                    <h4><i class="icon-warning-sign"></i>Attenzione: revisione dei titoli in corso</h4>
+                    <h4><i class="icon-warning-sign"></i> Attenzione: revisione dei titoli in corso</h4>
                     <p>I titoli CRI sono momentaneamente incompleti data la revisione di tutti i percorsi formativi in atto a livello nazionale.
-                    <p> Ti preghiamo di pazientare fino a che il processo non sarà concluso. </p>   </p>     
+                    <p>Ti preghiamo di pazientare fino a che il processo non sarà concluso. </p>   </p>     
                 </div> 
         <div class="alert alert-block alert-success">
             <div class="row-fluid">
