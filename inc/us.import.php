@@ -51,7 +51,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 <p>Per i volontari inseriti senza indicazione dell'indirizzo e-mail non verrà generato l'account e non potranno accedere direttamente al sito.</p>
                 <p>Non è possibile censire più volontari con la medesima e-mail.</p>
                 <p><strong>Attenzione non sarà possibile successivamente fare import parziale dei dati.</strong></p>
-                <p>La prego di restituire il file così compilato all’indirizzo email supporto@gaia.cri.it e dalla casella di posta di comitato @cri.it</p>
+                <p>La prego di restituire il file così compilato all’indirizzo email  del <a href="?p=utente.supporto"><i class="icon-envelope"></i> supporto@gaia.cri.it</a> dalla casella di posta di comitato @cri.it</p>
                 <!--<hr/>-->
             </div>
             <br/>
