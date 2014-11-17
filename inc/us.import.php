@@ -5,6 +5,7 @@
  */
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
+
 ?>
 
 <div class="row-fluid">
@@ -24,8 +25,8 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 in excel da compilare e spedire al supporto che provvederà all'importazione. 
                 <ul>
                     <br/>
-                    <li><a href="https://gaia.cri.it/upload/docs/import/csv_volontari.xls"><i class="icon-list"></i> Format Volontari</a></li> <p><strong>Il file è per i soli volontari</strong></p>
-                    <li><a href="https://gaia.cri.it/upload/docs/import/csv_ordinari.xls"><i class="icon-list"></i> Format Ordinari</a></li> <p><strong>Il file è per i soli soci ordinari</strong></p>
+                    <li><a onclick="return confirm('Ho compreso le regole per la corretta compilazione');" href="https://gaia.cri.it/upload/docs/import/csv_volontari.xls"><i class="icon-list"></i> Format Volontari</a></li> <p><strong>Il file è per i soli volontari</strong></p>
+                    <li><a onclick="return confirm('Ho compreso le regole per la corretta compilazione');" href="https://gaia.cri.it/upload/docs/import/csv_ordinari.xls"><i class="icon-list"></i> Format Ordinari</a></li> <p><strong>Il file è per i soli soci ordinari</strong></p>
                 </ul>
                 <br/>Ecco le <strong>regole</strong> da rispettare per gli import:
                 <ul>
@@ -51,8 +52,38 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 <p>Non è possibile censire più volontari con la medesima e-mail.</p>
                 <p><strong>Attenzione non sarà possibile successivamente fare import parziale dei dati.</strong></p>
                 <p>La prego di restituire il file così compilato all’indirizzo email supporto@gaia.cri.it e dalla casella di posta di comitato @cri.it</p>
-                <br/> 
+                <hr/>
             </div>
+            <br/>
+            <h2>
+                <i class="icon-bolt muted"></i>
+                Verifica il tuo file
+            </h2>
+            <br/>
+            <!--
+            <form class="form-horizontal" action="?p=us.import.verifica.ok" method="POST" enctype="multipart/form-data">
+                <div class="control-group">
+                    <label class="control-label" for="inputCSV">File CSV</label>
+                    <div class="controls">
+                        <input type="file" id="inputCSV" name="inputCSV">
+                    </div>
+                </div>
+                <div class="form-actions btn-group span12">
+                    <div class="span6">
+                        <button type="submit" class="btn btn-block btn-info">
+                            <i class="icon-bolt"></i>
+                            Verifica il tuo file volontari prima dell'invio
+                        </button>
+                    </div>
+                    <div class="span6">
+                        <button name="ordinario" type="submit" class="btn btn-block btn-primary">
+                            <i class="icon-bolt"></i>
+                            Verifica il tuo file Soci ordinari prima dell'invio
+                        </button>
+                    </div>
+                </div>
+            </form>
+            -->
         </div>
     </div>
 </div>
