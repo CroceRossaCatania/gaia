@@ -14,7 +14,7 @@ $v = $_GET['v'];
 $tp = TitoloPersonale::id($t);
 $r = $tp->titolo()->tipo;
 ?>
-<script type="text/javascript"><?php require './js/utente.titolo.modifica.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/utente.titolo.modifica.js'; ?></script>
 <form action="?p=presidente.titolo.modifica.ok&t=<?php echo $t; ?>&v=<?php echo $v; ?>" method="POST">
   <div class="modal fade automodal">
     <div class="modal-header">
