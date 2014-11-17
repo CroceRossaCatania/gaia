@@ -52,15 +52,15 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 <p>Non è possibile censire più volontari con la medesima e-mail.</p>
                 <p><strong>Attenzione non sarà possibile successivamente fare import parziale dei dati.</strong></p>
                 <p>La prego di restituire il file così compilato all’indirizzo email supporto@gaia.cri.it e dalla casella di posta di comitato @cri.it</p>
-                <hr/>
+                <!--<hr/>-->
             </div>
             <br/>
+            <!--
             <h2>
                 <i class="icon-bolt muted"></i>
                 Verifica il tuo file
             </h2>
             <br/>
-            <!--
             <form class="form-horizontal" action="?p=us.import.verifica.ok" method="POST" enctype="multipart/form-data">
                 <div class="control-group">
                     <label class="control-label" for="inputCSV">File CSV</label>
