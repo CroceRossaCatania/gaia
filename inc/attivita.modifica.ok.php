@@ -66,8 +66,8 @@ switch ( $_POST['azione'] ) {
     
 }
 
-if(empty($errori)){
-    redirect('attivita.scheda&id=' . $a->id);
-}else{
-    redirect('attivita.scheda&id=' . $a->id .'&errori='.json_encode($errori));
+if(!empty($errori)){
+    $sessione->errori = json_encode($errori);    
 }
+
+redirect('attivita.scheda&id=' . $a->id);

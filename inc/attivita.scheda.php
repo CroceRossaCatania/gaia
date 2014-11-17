@@ -68,14 +68,16 @@ $(document).ready( function() {
                     <h4>Gruppo di lavoro creato con successo &mdash; <?php echo date('d-m-Y H:i:s'); ?></h4>
                 </div>
             <?php } ?>
-            <?php if (isset($_GET['errori'])) { 
-                $errori = json_decode($_GET['errori']);
+            <?php if ($sessione->errori) { 
+                $errori = json_decode($sessione->errori);
                 foreach ($errori as $errore) { ?>
                     <div class='alert alert-block alert-danger'>
                         <h4>Il turno <?= $errore; ?> e' stato creato, ma la data di fine e' antecedente a quella di inzio</h4>
                         <h5>Per favore correggi le date!</h5>
                     </div>
-            <?php } } ?>
+            <?php } } 
+            $sessione->errori = null;
+            ?>
 
 
             <div class="span8 btn-group">
