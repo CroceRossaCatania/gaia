@@ -28,12 +28,31 @@ if($t->stato != RICHIESTO) {
 // mancano le email?
 if($_POST["stampa"] == true) {
     $t->stato = STAMPATO;
+    //Email stampato
 } else {
     if(!isset($_POST["inputMotivo"])) {
         redirect("us.tesserini.aggiorna&id={$t}&mot");
     }
+    
     $t->stato = RIFIUTATO;
     $t->motivo = $_POST["inputMotivo"];
+
+    //Email tesserino rifiutato e motivo, avviso utente
+    $m = new Email('richiestaTesserinoNegataUtente', 'Richiesta tesserino negata');
+	$m->da      	= $me;
+	$m->a       	= $u;
+	$m->_NOME   	= $u->nome;
+	$m->_MOTIVO 	= $_POST["inputMotivo"]);
+	$m->accoda();
+
+	//Email tesserino rifiutato e motivo, avviso presidente
+    $m = new Email('richiestaTesserinoNegataPresidente', 'Richiesta tesserino negata');
+	$m->da      	= $me;
+	$m->a       	= $u->appartenenzaAttuale()->comitato()->primoPresidente();
+	$m->_NOME   	= $u->nomeCompleto();
+	$m->_MOTIVO 	= $_POST["inputMotivo"]);
+	$m->accoda();
+
 }
 
 $t->pConferma = $me;
