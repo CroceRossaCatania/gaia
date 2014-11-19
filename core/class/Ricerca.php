@@ -60,7 +60,6 @@ class Ricerca {
 
         $query = $this->generaQueryNonPreparata();
 
-        $this->query = $query;
         $qConta = $this->creaContoQuery($query);
         $qConta = $db->query($qConta);
         $qConta = $qConta->fetch(PDO::FETCH_NUM);
