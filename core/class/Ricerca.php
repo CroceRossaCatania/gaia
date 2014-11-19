@@ -60,6 +60,7 @@ class Ricerca {
 
         $query = $this->generaQueryNonPreparata();
 
+        $this->query = $query;
         $qConta = $this->creaContoQuery($query);
         $qConta = $db->query($qConta);
         $qConta = $qConta->fetch(PDO::FETCH_NUM);
@@ -120,6 +121,10 @@ class Ricerca {
             $stato = (int) $stato;
             $pStato = "= {$stato}";
         } else {
+            $stato = array_map(function($x) {
+                // Solo stati interi son permessi!
+                return (int) $x;
+            }, $stato);
             $stato = implode(',', $stato);
             $pStato = "IN ($stato)";
         }

@@ -627,7 +627,8 @@ class APIServer {
             'pagina'    =>  $r->pagina,
             'pagine'    =>  $r->pagine,
             'perPagina' =>  $r->perPagina,
-            'risultati' =>  $risultati
+            'risultati' =>  $risultati,
+            'query'     =>  $r->query
         ];
         return $risposta;
 
