@@ -31,7 +31,7 @@ if($p) {
     $iscritto = true;
 }
 
-if(!$corso->direttore()) {
+if(!$me->admin() && !$corso->direttore()) {
     redirect("formazione.corsibase.direttore&id={$corso->id}");
 }
 

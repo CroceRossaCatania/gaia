@@ -14,6 +14,8 @@ class Aspirante extends GeoCirco {
         $_t  = 'aspiranti',
         $_dt = 'aspiranti_dettagli';
 
+    use EntitaCache;
+
     /**
      * Ottiene l'utente collegato all'oggetto aspirante
      * @return Utente

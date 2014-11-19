@@ -52,11 +52,7 @@ if ( !$consenso ){ ?>
 if (isset($_GET['rimandaPrivatizzazione'])) {
     $sessione->rimandaPrivatizzazione = true;
 }
-/* deadline stop gaia
-if (isset($_GET['rimandaDeadline'])) {
-    $sessione->deadline = time();
-}
-*/
+
 if ($consenso && !$me->email ) { redirect('nuovaAnagraficaContatti'); }
 if ($consenso && !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
 
@@ -69,29 +65,7 @@ if ($consenso) {
         }
     }
 }
-/* modale deadline gaia
-if ((!$sessione->deadline || ($sessione->deadline + GIORNO) < time()) && $consenso) {
-    ?>
-    <div class="modal fade automodal">
-        <div class="modal-header">
-            <h3 class="text-success"><i class="icon-important-sign"></i> Rallentamenti sviluppo portale Gaia</h3>
-        </div>
-        <div class="modal-body">
-            Per favore trova un momento per leggere il comunicato degli sviluppatori 
-            e della squadra di supporto di Gaia riguardante le problematiche che stanno 
-            ostacolando lo sviluppo del sistema e che stanno causando rallentamenti e malfunzionamenti.
-        </div>
-        <div class="modal-footer">
-            <a href="?p=utente.me&rimandaDeadline" class="btn">
-                <i class="icon-remove"></i> Non ora
-            </a>
-            <a href="?p=comunicato" class="btn btn-success">
-                <i class="icon-ok"></i> Leggi il comunicato
-            </a>
-        </div>
-    </div>
-<?php }
-*/
+
 if (!$sessione->rimandaPrivatizzazione && $consenso) {
     foreach($me->comitatiPresidenzianti() as $comitato) {
         $p = $comitato->unPresidente();
@@ -246,6 +220,49 @@ if ($consenso && $cb && !$rf) {
         <div class="modal-footer">
             <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Non ora</button>
             <a href="?p=formazione.corsibase.modifica&id=<?php echo $corsoBase->id; ?>" class="btn btn-primary">
+                <i class="icon-asterisk"></i> Vai al corso
+            </a>
+        </div>
+    </div>  
+
+<?php } 
+
+/* Blocco per presidenti con corsi senza direttore */
+
+
+$cs = $me->corsiBaseSenzaDirettore();
+if ($consenso && $cs && !$cb && !$rf) {
+    $attenzione = true;
+    $corsoBase = $cs[0];
+    ?>
+
+    <div class="modal fade automodal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="text-error"><i class="icon-warning-sign"></i> Corso Base da Completare</h3>
+        </div>
+        <div class="modal-body">
+            <p>Hai attivato un corso base ma non ne hai ancora selezionato il direttore:</p>
+            <hr />
+            <p class="allinea-centro">
+                <strong><?php echo $corsoBase->nome(); ?></strong>
+                <br />
+                <span class="muted">
+                    Organizzatore: <?php echo $corsoBase->organizzatore()->nomeCompleto(); ?>
+                </span>
+            </p>
+            <hr />
+            <h4>Completa i dettagli del corso</h4>
+
+            <p class="text-error">
+                <i class="icon-info-sign"></i> Non appena verranno avrai nominato
+                il direttore del corso questa persona potrà inserire tutte le informazioni
+                necessarie e rendere visibile in corso ai futuri aspiranti.
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Non ora</button>
+            <a href="?p=formazione.corsibase.direttore&id=<?php echo $corsoBase->id; ?>" class="btn btn-primary">
                 <i class="icon-asterisk"></i> Vai al corso
             </a>
         </div>

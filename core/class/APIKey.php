@@ -15,9 +15,11 @@
  */
 class APIKey extends Entita {
 
+    use EntitaCache;
+
     protected static
-        $_t  = 'api_chiavi',
-        $_dt = null;
+        $_t         = 'api_chiavi',
+        $_dt        = null;
 
     public function aggiorna() {
     	global $cache;

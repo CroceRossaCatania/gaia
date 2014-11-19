@@ -9,6 +9,8 @@ class Reperibilita extends Entita {
     protected static
         $_t  = 'reperibilita',
         $_dt = null;
+
+    use EntitaCache;
     
     public function volontario() {
         return Volontario::id($this->volontario);

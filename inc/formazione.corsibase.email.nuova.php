@@ -22,8 +22,8 @@ paginaCorsoBase($corso);
       <h4><i class="icon-question-sign"></i> Pronto a mandare la mail ?</h4>
       <p>Modulo per l'invio mail agli utenti di Gaia</p>
     </div>
-    <?php if (isset($_GET['iscrizione'])) { ?><form class="form-horizontal" action="?p=formazione.corsibase.email.nuova.ok&iscrizioni&id=<?= $corso->id; ?>" method="POST">
-    <?php }elseif (isset($_GET['preiscrizione'])) { ?><form class="form-horizontal" action="?p=formazione.corsibase.email.nuova.ok&preiscrizioni&id=<?= $corso->id; ?>" method="POST">
+    <?php if (isset($_GET['iscrizioni'])) { ?><form class="form-horizontal" action="?p=formazione.corsibase.email.nuova.ok&iscrizioni&id=<?= $corso->id; ?>" method="POST">
+    <?php }elseif (isset($_GET['preiscrizioni'])) { ?><form class="form-horizontal" action="?p=formazione.corsibase.email.nuova.ok&preiscrizioni&id=<?= $corso->id; ?>" method="POST">
     <?php } ?>
       <div class="control-group">
         <label class="control-label" for="inputV">Destinatari</label>

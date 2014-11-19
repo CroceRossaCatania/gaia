@@ -10,6 +10,8 @@ class Autorizzazione extends Entita {
         $_t  = 'autorizzazioni',
         $_dt = null;
 
+    use EntitaCache;
+
     public function partecipazione() {
         return Partecipazione::id($this->partecipazione);
     }

@@ -41,7 +41,7 @@ $(document).ready( function() {
         $('#arg_p2_' + id).hide();
         $('#opt_non_' + id).fadeIn('slow');
         data[id] = true;
-        if(Object.keys(data).every(function(k){ return data[k] })){
+        if(Object.keys(data).every(function(k){ return data[k]; })){
           $('#pulsantone').show();
         } else {
           $('#pulsantone').hide();
@@ -66,7 +66,7 @@ $(document).ready( function() {
         $('#arg_p2_' + id).hide();
         $('#opt_non_' + id).fadeOut('fast');
         data[id] = true;
-        if(Object.keys(data).every(function(k){ return data[k] })){
+        if(Object.keys(data).every(function(k){ return data[k]; })){
           $('#pulsantone').show();
         } else {
           $('#pulsantone').hide();
@@ -101,7 +101,7 @@ $(document).ready( function() {
           $('#opt_p2_' + id).addClass('success');
           $('#opt_p3_' + id).addClass('success');
           data[id] = true;
-          if(Object.keys(data).every(function(k){ return data[k] })){
+          if(Object.keys(data).every(function(k){ return data[k]; })){
             $('#pulsantone').show();
           } else {
            $('#pulsantone').hide();
@@ -117,7 +117,7 @@ $(document).ready( function() {
         $('#tdex1_' + id).removeClass('muted');
         $('#extra_1_' + id).removeAttr('disabled');
         data[id] = false;
-        if(Object.keys(data).every(function(k){ return data[k] })){
+        if(Object.keys(data).every(function(k){ return data[k]; })){
           $('#pulsantone').show();
         } else {
          $('#pulsantone').hide();
@@ -149,7 +149,7 @@ $(document).ready( function() {
         $('#arg_p1_' + id).addClass('success');
         $('#arg_p2_' + id).addClass('success');
         data[id] = true;
-        if(Object.keys(data).every(function(k){ return data[k] })){
+        if(Object.keys(data).every(function(k){ return data[k]; })){
           $('#pulsantone').show();
         } else {
           $('#pulsantone').hide();
@@ -158,7 +158,7 @@ $(document).ready( function() {
       // ...e parte 2 non superata
       if($("#ct1_" + id).is(':checked') && $("#cf2_" + id).is(':checked')) {
         data[id] = true;
-        if(Object.keys(data).every(function(k){ return data[k] })){
+        if(Object.keys(data).every(function(k){ return data[k]; })){
           $('#pulsantone').show();
         } else {
           $('#pulsantone').hide();
@@ -180,7 +180,7 @@ $(document).ready( function() {
         $('#arg_p1_' + id).addClass('success');
         $('#arg_p2_' + id).addClass('success');
         data[id] = true;
-        if(Object.keys(data).every(function(k){ return data[k] })){
+        if(Object.keys(data).every(function(k){ return data[k]; })){
           $('#pulsantone').show();
         } else {
           $('#pulsantone').hide();
@@ -207,7 +207,7 @@ $(document).ready( function() {
       }
       if($("#cf1_" + id).is(':checked') && ($("#ct2_" + id).is(':checked') || $("#cf2_" + id).is(':checked'))){
         data[id] = true;
-        if(Object.keys(data).every(function(k){ return data[k] })){
+        if(Object.keys(data).every(function(k){ return data[k]; })){
           $('#pulsantone').show();
         } else {
           $('#pulsantone').hide();
@@ -233,7 +233,7 @@ $(document).ready( function() {
         $('#arg_p1_' + id).addClass('success');
         $('#arg_p2_' + id).addClass('success');
         data[id] = true;
-        if(Object.keys(data).every(function(k){ return data[k] })){
+        if(Object.keys(data).every(function(k){ return data[k]; })){
           $('#pulsantone').show();
         } else {
           $('#pulsantone').hide();
@@ -241,7 +241,7 @@ $(document).ready( function() {
       }
       if(($("#ct1_" + id).is(':checked') || $("#cf1_" + id).is(':checked')) && $("#ct2_" + id).is(':checked')) {
         data[id] = true;
-        if(Object.keys(data).every(function(k){ return data[k] })){
+        if(Object.keys(data).every(function(k){ return data[k]; })){
           $('#pulsantone').show();
         } else {
           $('#pulsantone').hide();
@@ -268,12 +268,28 @@ $(document).ready( function() {
       }
       if(($("#ct1_" + id).is(':checked') || $("#cf1_" + id).is(':checked')) && $("#cf2_" + id).is(':checked')){
         data[id] = true;
-        if(Object.keys(data).every(function(k){ return data[k] })){
+        if(Object.keys(data).every(function(k){ return data[k]; })){
           $('#pulsantone').show();
         } else {
           $('#pulsantone').hide();
         }
       }
     });
-  });       
+  });
+
+  $('#pulsantone').click(function(){
+    $(this).fadeOut('slow');
+    $('#messaggio').fadeIn('slow');
+    $('#salva').fadeIn('slow');
+    $('#annulla').fadeIn('slow');
+    $('#annulla').addClass('bottone-lungo');
+    $('input[type=text]').prop('disabled', true);
+    $('input[type=radio]').prop('disabled', true);
+    $('input[type=checkbox]').prop('disabled', true);
+  });
+  $('#verbale').submit(function(){
+    $('input[type=text]').prop('disabled', false);
+    $('input[type=radio]').prop('disabled', false);
+    $('input[type=checkbox]').prop('disabled', false);
+  });
 });

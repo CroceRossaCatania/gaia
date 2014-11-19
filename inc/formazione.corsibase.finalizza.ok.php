@@ -40,6 +40,14 @@ foreach($part as $p) {
                 $p->utente()->trasformaInVolontario($me);
 
                 // mandare email superamento
+                if($p->utente()->email()) {
+                    $m = new Email('superatoCorsoBase', 'Corso base superato!');
+                    $m->a           = $p->utente();
+                    $m->da          = $me;
+                    $m->_NOME       = $p->utente()->nome;
+                    $m->_CORSO      = $corso->nome();
+                    $m->accoda();
+                }
             } elseif($_POST["p1_{$p->id}"] && $_POST["extra_2_{$p->id}"]) {
                 //parte 1 superata e parte 2 da non fare
 
@@ -52,6 +60,14 @@ foreach($part as $p) {
                 $p->utente()->trasformaInVolontario($me);
 
                 // mandare email superamento
+                if($p->utente()->email()) {
+                    $m = new Email('superatoCorsoBase', 'Corso base superato!');
+                    $m->a           = $p->utente();
+                    $m->da          = $me;
+                    $m->_NOME       = $p->utente()->nome;
+                    $m->_CORSO      = $corso->nome();
+                    $m->accoda();
+                }
             } else {
                 //esame non passato
 
@@ -61,6 +77,14 @@ foreach($part as $p) {
                 $p->utente()->stato = PERSONA;
 
                 // mandare email non superamento
+                if($p->utente()->email()) {
+                    $m = new Email('nonSuperatoCorsoBase', 'Corso base non superato');
+                    $m->a           = $p->utente();
+                    $m->da          = $me;
+                    $m->_NOME       = $p->utente()->nome;
+                    $m->_CORSO      = $corso->nome();
+                    $m->accoda();
+                }
             }
         } elseif($ammissione == 2) {
             // non ammesso
@@ -74,6 +98,15 @@ foreach($part as $p) {
             $p->utente()->stato = PERSONA;
 
             // mandare email non ammissione
+            if($p->utente()->email()) {
+                $m = new Email('nonAmmessoCorsoBase', 'Corso base non superato');
+                $m->a           = $p->utente();
+                $m->da          = $me;
+                $m->_NOME       = $p->utente()->nome;
+                $m->_CORSO      = $corso->nome();
+                $m->_MOTIVO     = $motivo;
+                $m->accoda();
+            }
 
         } elseif($ammissione == 3) {
             // assente
@@ -87,6 +120,14 @@ foreach($part as $p) {
             $p->utente()->stato = PERSONA;
 
             // mandare email assenza
+            if($p->utente()->email()) {
+                $m = new Email('assenteCorsoBase', 'Corso base non superato');
+                $m->a           = $p->utente();
+                $m->da          = $me;
+                $m->_NOME       = $p->utente()->nome;
+                $m->_CORSO      = $corso->nome();
+                $m->accoda();
+            }
 
         }
     } else {

@@ -10,6 +10,8 @@ class PartecipazioneBase extends Entita {
         $_t  = 'partecipazioniBase',
         $_dt = 'datiPartecipazioniBase';
 
+    use EntitaCache;
+
     public function utente() {
         return Utente::id($this->volontario);
     }

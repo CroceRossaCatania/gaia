@@ -28,7 +28,7 @@ if (isset($_GET['unit'])) {
     $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
     $v = [];
     foreach($elenco as $comitato) {
-        $v = array_merge($v, $comitato->membriAttuali(MEMBRO_VOLONTARIO));
+        $v = array_merge($v, $comitato->membriAttuali());
     }
     if(!$v) { redirect('utente.me&nodest'); }
     $m = new Email('mailTestolibero', $oggetto);

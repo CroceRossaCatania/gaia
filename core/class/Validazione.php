@@ -10,6 +10,8 @@ class Validazione extends Entita {
         $_t  = 'validazioni',
         $_dt = null;
 
+    use EntitaCache;
+
     /**
      * Verifica se una validazione è già esistente
      * @param string $codice la codifica della validazione

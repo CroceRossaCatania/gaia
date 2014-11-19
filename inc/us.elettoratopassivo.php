@@ -11,7 +11,7 @@ controllaParametri(array('inputData'), 'presidente.utenti&err');
 $time = DT::createFromFormat('d/m/Y', $_GET['inputData']);
 $tstamp = $time->getTimestamp();
 ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <br/>
 <div class="row-fluid">
     <div class="span5 allinea-sinistra">

@@ -1,14 +1,14 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 paginaAdmin();
 paginaModale();
 ?>
 
-<form class="form-horizontal" action="?p=admin.ricerca.ok" method="POST">
+<form class="form-horizontal" action="?p=admin.ricerca.utenti.ok" method="POST">
   <div class="modal fade automodal">
     <div class="modal-header">
       <h3><i class="icon-search"></i> Cerca Utente per CF, ID o email</h3>

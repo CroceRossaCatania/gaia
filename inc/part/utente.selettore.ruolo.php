@@ -29,7 +29,7 @@ if (count($d) == 0) {
 }
 
 $r = $sessione->ambito;
-$ruolo = "Seleziona ruolo";
+$ruolo = "<span class='badge badge-important'><i class='icon-warning-sign'></i></span> Seleziona ruolo";
 if($r) {
     $attuale = Delegato::id($r);
     $g = GeoPolitica::daOid($attuale->comitato);

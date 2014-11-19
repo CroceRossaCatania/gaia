@@ -15,13 +15,13 @@ if ( $veicolo ){
     /* Mica posso vedere o modificare i veicoli di altri */
     proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
 
-    if ( $veicolo->stato == VEI_FUORIUSO || !$me->admin() ) {
+    if ( $veicolo->stato == VEI_FUORIUSO ) {
         $x=1;
     }
 }
 
 ?>
-<script type="text/javascript"><?php require './js/autoparco.veicolo.nuovo.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/autoparco.veicolo.nuovo.js'; ?></script>
 <div class="row-fluid">
     <?php if (isset($_GET['err'])) { ?>
         <div class="alert alert-block alert-error">
