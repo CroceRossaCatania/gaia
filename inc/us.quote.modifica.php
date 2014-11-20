@@ -19,7 +19,7 @@ if (!$t = Tesseramento::by('anno', $q->anno)) {
 }
 $quotaMin = $attivo ? $t->attivo : $t->ordinario;
 ?>
-<script type="text/javascript"><?php require './js/us.quote.nuova.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/us.quote.nuova.js'; ?></script>
 <form action="?p=us.quote.modifica.ok" method="POST">
   <input type="hidden" name="id" value="<?= $id; ?>" />
   <div class="modal fade automodal">

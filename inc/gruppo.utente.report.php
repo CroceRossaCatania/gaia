@@ -10,7 +10,7 @@ controllaParametri(array('id'), 'gruppi.dash&err');
 $id = $_GET['id'];
 
 ?>
-<script type="text/javascript"><?php require './js/obiettivo.report.reperibilita.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/obiettivo.report.reperibilita.js'; ?></script>
 <div class="row-fluid">
 	<form class="form-horizontal" action="?p=gruppo.utente.report.ok&id=<?php echo $id; ?>" method="POST">
 		<div class="span12">

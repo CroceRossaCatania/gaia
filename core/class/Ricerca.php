@@ -14,7 +14,7 @@ class Ricerca {
         $query          = null,
         $pagina         = 1,
         $perPagina      = 30,
-        $stato          = MEMBRO_VOLONTARIO,
+        $stato          = [MEMBRO_VOLONTARIO, MEMBRO_ESTESO],
         $statoPersona   = false,
         $passato        = false,
         $giovane        = false,
@@ -120,6 +120,10 @@ class Ricerca {
             $stato = (int) $stato;
             $pStato = "= {$stato}";
         } else {
+            $stato = array_map(function($x) {
+                // Solo stati interi son permessi!
+                return (int) $x;
+            }, $stato);
             $stato = implode(',', $stato);
             $pStato = "IN ($stato)";
         }

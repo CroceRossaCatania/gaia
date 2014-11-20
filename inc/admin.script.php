@@ -109,6 +109,10 @@ paginaAdmin();
                 <i class="icon-user"></i>
                 Fix appartenenze
             </a>
+            <a href="?p=admin.fix.veicoli" class="btn btn-large btn-info">
+                <i class="icon-thumbs-down"></i>
+                Fix spazi nei veicoli
+            </a>
         </div>
     </div>
 </div>
