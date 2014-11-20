@@ -21,8 +21,10 @@ paginaModale();
            <ol>
                <li>
                    <a data-selettore="true" data-input="inputVolontario"
-                 class="btn btn-inverse btn-small">
-                  Seleziona un volontario... <i class="icon-pencil"></i>
+                      data-stato="<?= MEMBRO_VOLONTARIO; ?>"
+                      class="btn btn-inverse btn-small">
+                        Seleziona un volontario... 
+                        <i class="icon-pencil"></i>
                     </a><p></p>
                </li>
                <li>
