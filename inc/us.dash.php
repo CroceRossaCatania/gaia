@@ -233,12 +233,18 @@ if(!$me->admin()) {
                             </div>
                             <div class="span6">
                                 <div class="row-fluid">
-                                    <?php if ($me->admin() || ($me->delegazioneAttuale()->estensione > EST_PROVINCIALE)) { ?>
-                                    <a href="?p=us.tesserini" class="btn btn-block">
-                                        <i class="icon-credit-card"></i>
-                                        Tesserini
-                                    </a>
-                                    <?php } ?>
+                                    <div class="btn-group btn-group-vertical span12">
+                                        <?php if ($me->admin() || ($me->delegazioneAttuale()->estensione > EST_PROVINCIALE)) { ?>
+                                            <a href="?p=us.tesserini" class="btn btn-block">
+                                                <i class="icon-credit-card"></i>
+                                                Tesserini
+                                            </a>
+                                        <?php } ?>
+                                        <a href="?p=presidente.fototessere.pending" class="btn btn-block">
+                                            <i class="icon-instagram"></i>
+                                            Fototessere in attesa
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
