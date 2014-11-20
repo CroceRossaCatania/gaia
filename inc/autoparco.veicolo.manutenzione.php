@@ -82,6 +82,9 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
                                 <a  href="?p=autoparco.veicolo.manutenzione.dettagli&id=<?= $manutenzione->id; ?>" title="Visualizza dettagli manutenzione" class="btn btn-small">
                                     <i class="icon-eye-open"></i> Dettagli
                                 </a>
+                                <a  onClick="return confirm('Vuoi veramente cancellare questa manutenzione ?');" href="?p=autoparco.veicolo.manutenzione.cancella&id=<?= $manutenzione->id; ?>" title="Cancella manutenzione" class="btn btn-small btn-danger">
+                                    <i class="icon-trash"></i> Cancella
+                                </a>
                             </div>
                         </td>
                     </tr>
