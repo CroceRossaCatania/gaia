@@ -86,6 +86,7 @@ class Attivita extends GeoEntita {
     
     public function puoPartecipare($v) {
         if (!$v) { return true; }
+        if ($v->provvedimento()->tipo == PROVV_SOSPENSIONE){ return false;}
 
         $geoComitato = GeoPolitica::daOid($this->comitato);
         if ( $this->referente == $v->id || $v->admin() || $geoComitato->unPresidente()->id == $v->id ) {

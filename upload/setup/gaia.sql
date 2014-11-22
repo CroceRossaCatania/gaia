@@ -562,6 +562,7 @@ CREATE TABLE IF NOT EXISTS `provinciali` (
 
 CREATE TABLE IF NOT EXISTS `provvedimenti` (
   `id` int(11) NOT NULL,
+  `tipo` varchar(8) NULL,
   `volontario` varchar(16) DEFAULT NULL,
   `appartenenza` varchar(16) DEFAULT NULL,
   `motivo` varchar(255) DEFAULT NULL,

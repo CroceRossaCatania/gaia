@@ -310,5 +310,70 @@ paginaPrivata();
             </table>
         </div>
         <?php } ?>
+
+        <?php if ( $me->storicoProvvedimenti() ) { ?>
+            <div class="row-fluid">
+                <h2>
+                    <i class="icon-legal muted"></i>
+                    Provvedimenti
+                </h2>
+                
+            </div>
+
+            <div class="row-fluid">
+                
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <th>Stato</th>
+                        <th>Tipo</th>
+                        <th>Comitato</th>
+                        <th>Inizio</th>
+                        <th>Fine</th>           
+                        <th>Motivo</th>
+                    </thead>
+                    
+                    <?php foreach ( $me->storicoProvvedimenti() as $prov ) { ?>
+                        <tr<?php if ( $prov->fine >= time() || $prov->fine == 0 ) { ?> class="success"<?php } ?>>
+                            <td>
+                                <?php if ($prov->fine >= time() || $prov->fine == 0 ) { ?>
+                                    Attuale
+                                <?php } else { ?>
+                                    Passato
+                                <?php } ?>
+                            </td>
+                                    
+                            <td>
+                                <?= $conf['provvedimenti'][$prov->tipo]; ?>
+                            </td>
+
+                            <td>
+                                <?= $prov->comitato()->nomeCompleto(); ?>
+                            </td>
+
+                            <td>
+                                <i class="icon-calendar muted"></i>
+                                <?= date('d/m/Y', $prov->inizio); ?>
+                            </td>
+                            
+                            <td>
+                                <?php if ($prov->fine) { ?>
+                                    <i class="icon-time muted"></i>
+                                    <?= date('d/m/Y',$prov->fine); ?>
+                                <?php } else { ?>
+                                    <i class="icon-question-sign muted"></i>
+                                    Indeterminato
+                                <?php } ?>
+                            </td>
+
+                            <td>
+                                <?= $prov->motivo; ?>
+                            </td>
+
+                        </tr>
+                    <?php } ?>
+                
+                </table>
+            </div>
+        <?php } ?>
     </div>
 </div>

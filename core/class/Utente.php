@@ -2061,6 +2061,20 @@ class Utente extends Persona {
     }
 
     /**
+     * Se sotto provvedimento
+     * @return bool true o false
+     */
+    public function provvedimento() {
+        $provvedimenti = $this->storicoProvvedimenti();
+        foreach ( $provvedimenti as $provvedimento ){
+            if ( $provvedimento->attuale()){
+                return $provvedimento;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Dimette un volontario
      * @param $motivo, motivazione di dimissione
      * @param $info default NULL, informazioni aggiuntive sulla dimissione
