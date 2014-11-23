@@ -43,6 +43,11 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
             <span class="add-on"><i class="icon-search"></i></span>
             <input autofocus required id="cercaUtente" placeholder="Cerca Rifornimento..." type="text">
         </div>
+        <div class="btn-group">
+            <a class="btn btn-primary" href="?p=autoparco.veicolo.rifornimenti.excel&id=<?= $veicolo; ?>">
+                <i class="icon-download"></i> Scarica Excel Rifornimenti
+            </a>
+        </div>
     </div>  
     <br/>
 </div>
@@ -73,9 +78,14 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
                         <td><?= $rifornimento->costo; ?></td>
                         <td><?= $rifornimento->volontario()->nomeCompleto(); ?></td>
                         <td>
-                            <a  href="?p=autoparco.veicolo.rifornimento.nuovo&id=<?= $rifornimento->id; ?>&mod" title="Modifica rifornimenti veicolo" class="btn btn-small btn-info">
-                                <i class="icon-edit"></i> Modifica
-                            </a>
+                            <div class="btn-group">
+                                <a  href="?p=autoparco.veicolo.rifornimento.nuovo&id=<?= $rifornimento->id; ?>&mod" title="Modifica rifornimenti veicolo" class="btn btn-small btn-info">
+                                    <i class="icon-edit"></i> Modifica
+                                </a>
+                                <a  href="?p=autoparco.veicolo.rifornimento.pdf&id=<?= $rifornimento->id; ?>&mod" title="Scarica dettagli rifornimento" class="btn btn-small btn-primary">
+                                    <i class="icon-download"></i> PDF
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 <?php } ?>
