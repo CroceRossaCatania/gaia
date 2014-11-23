@@ -173,7 +173,7 @@ $t = array_merge($senzaAppartenenza(), $appartenenzaAttualeNegata());
     <div class="row-fluid">
         <div class="span12">
             <h2>
-                Abbiamo <?= count($totale); ?> cose nel limbo...                
+                Abbiamo <?= count($t); ?> cose nel limbo...                
             </h2>
         </div>
     </div>
