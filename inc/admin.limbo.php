@@ -8,7 +8,28 @@ paginaAdmin();
 
 set_time_limit (0);
 
-$t = Utente::filtra([['stato', ASPIRANTE, OP_NLIKE]]);
+$senzaAppartenenza = function() use ($db) {
+    $q = $db->query("SELECT 
+            anagrafica.*
+        FROM 
+            anagrafica
+        LEFT JOIN
+            appartenenza
+        ON anagrafica.id = appartenenza.volontario
+        WHERE anagrafica.stato <> 1
+        GROUP BY anagrafica.id
+        HAVING 
+            COUNT(appartenenza.id) = 0
+        ");
+    $r = [];
+    while ( $x = $q->fetch(PDO::FETCH_ASSOC) ) {
+        $r[] = new Utente($x['id'], $x);
+    }
+    return $r;
+};
+
+$t = $senzaAppartenenza();
+//$t = Utente::filtra([['stato', ASPIRANTE, OP_NLIKE]]);
 ?>
 <script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -91,8 +112,8 @@ $t = Utente::filtra([['stato', ASPIRANTE, OP_NLIKE]]);
         <?php
         $totale = 0;
         foreach($t as $_v) {
-            $appartenenze = $_v->numAppartenenzeTotali();
-            if($appartenenze == 0 || $_v->appartenenzaAttuale()->stato == MEMBRO_APP_NEGATA){
+            //$appartenenze = $_v->numAppartenenzeTotali();
+            //if($appartenenze == 0 || $_v->appartenenzaAttuale()->stato == MEMBRO_APP_NEGATA){
             $totale++;
             ?>
                 <tr>
@@ -126,7 +147,7 @@ $t = Utente::filtra([['stato', ASPIRANTE, OP_NLIKE]]);
                 
                
        
-        <?php }}
+        <?php }//}
         ?>
 
         
