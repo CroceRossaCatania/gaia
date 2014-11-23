@@ -1327,13 +1327,26 @@ class Utente extends Persona {
         return PRIVACY_PUBBLICA;
     }
 
-	/*
+	/**
+     * Ritorna l'età di un utente
      * @return età utente
      */
     public function eta(){
-        $anno = date('Y', $this->dataNascita);
-        $ora = date('Y', time());
-        return $ora-$anno;
+        $now = time();
+        $timestamp = $this->dataNascita;
+        
+        $yearDiff   = date("Y", $now) - date("Y", $timestamp);
+        $monthDiff  = date("m", $now) - date("m", $timestamp);
+        $dayDiff    = date("d", $now) - date("d", $timestamp);
+     
+        if ($monthDiff < 0)
+            $yearDiff--;
+        elseif (($monthDiff == 0) && ($dayDiff < 0))
+            $yearDiff--;
+     
+        $result = intval($yearDiff);
+     
+        return $result;
     }
 
     /*
