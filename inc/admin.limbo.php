@@ -6,9 +6,49 @@ paginaAdmin();
  * ©2013 Croce Rossa Italiana
  */
 
-set_time_limit (0);
+$senzaAppartenenza = function() use ($db) {
+    $q = $db->query("
+        SELECT 
+            anagrafica.*
+        FROM 
+            anagrafica
+        LEFT JOIN
+            appartenenza
+        ON anagrafica.id = appartenenza.volontario
+        WHERE anagrafica.stato <> 1
+        GROUP BY anagrafica.id
+        HAVING 
+            COUNT(appartenenza.id) = 0
+        ");
+    $r = [];
+    while ( $x = $q->fetch(PDO::FETCH_ASSOC) ) {
+        $r[] = new Utente($x['id'], $x);
+    }
+    return $r;
+};
 
-$t = Utente::filtra([['stato', ASPIRANTE, OP_NLIKE]]);
+$appartenenzaAttualeNegata = function() use ($db) {
+    $q = $db->query("
+        SELECT 
+            anagrafica.*,
+            appartenenza.stato as ast
+        FROM 
+            anagrafica
+        LEFT JOIN
+            appartenenza
+        ON anagrafica.id = appartenenza.volontario
+        GROUP BY anagrafica.id
+        HAVING ast = 3
+        ");
+    $r = [];
+    while ( $x = $q->fetch(PDO::FETCH_ASSOC) ) {
+        $r[] = new Utente($x['id'], $x);
+    }
+    return $r;
+};
+
+$t = array_merge($senzaAppartenenza(), $appartenenzaAttualeNegata());
+
 ?>
 <script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -89,11 +129,7 @@ $t = Utente::filtra([['stato', ASPIRANTE, OP_NLIKE]]);
                 <th>Azioni</th>
             </thead>
         <?php
-        $totale = 0;
         foreach($t as $_v) {
-            $appartenenze = $_v->numAppartenenzeTotali();
-            if($appartenenze == 0 || $_v->appartenenzaAttuale()->stato == MEMBRO_APP_NEGATA){
-            $totale++;
             ?>
                 <tr>
                     <td><?php echo $_v->nome; ?></td>
@@ -126,7 +162,7 @@ $t = Utente::filtra([['stato', ASPIRANTE, OP_NLIKE]]);
                 
                
        
-        <?php }}
+        <?php }//}
         ?>
 
         
@@ -137,7 +173,7 @@ $t = Utente::filtra([['stato', ASPIRANTE, OP_NLIKE]]);
     <div class="row-fluid">
         <div class="span12">
             <h2>
-                Abbiamo <?php echo $totale; ?> cose nel limbo...                
+                Abbiamo <?= count($totale); ?> cose nel limbo...                
             </h2>
         </div>
     </div>
