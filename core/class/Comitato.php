@@ -988,4 +988,45 @@ class Comitato extends GeoPolitica {
         }
         return parent::localizzaStringa($stringa);
     }
+
+    /**
+     * Elenco di titoli personali in scadenza entro 30gg
+     * @return TitoliPersonali
+     */
+    public function titoliScadenza($area) {
+        $q = $this->db->prepare("
+            SELECT 
+                titoliPersonali.id
+            FROM
+                titoliPersonali, appartenenza, titoli
+            WHERE
+                titoliPersonali.volontario = appartenenza.volontario
+            AND
+                titoliPersonali.pConferma IS NULL
+            AND
+                appartenenza.comitato = :comitato
+            AND
+                (appartenenza.fine >= :ora
+                 OR appartenenza.fine is NULL
+                 OR appartenenza.fine = 0)
+            AND
+                titoliPersonali.fine > :ora 
+            AND
+                titoliPersonali.fine < :trenta 
+            AND 
+                titoliPersonali.titolo = titoli.id
+            AND
+                titoli.area = :area ");
+        $q->bindValue(':ora', time());
+        $trenta = time()+(GIORNO*30);
+        $q->bindValue(':trenta', $trenta);
+        $q->bindParam(':comitato', $this->id);
+        $q->bindParam(':area', $area);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = TitoloPersonale::id($k[0]);
+        }
+        return $r;
+    }
 }

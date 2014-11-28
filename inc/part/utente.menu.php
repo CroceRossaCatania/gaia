@@ -65,6 +65,13 @@ if ( $presidente || ($me && $me->delegazioneAttuale()->applicazione == APP_AUTOP
     ];
 }
 
+if ( $presidente || 
+     ($me && $me->delegazioneAttuale()->applicazione == APP_FORMAZIONE)) {
+    $menu[''] += [
+        'formazione.dash'   =>  '<span class="badge badge-success">&nbsp;</span> Formazione'
+    ];
+}
+
 $nap = count($me->autorizzazioniPendenti());
 if ( $nap ) {
     $menu['Da fare'] += [

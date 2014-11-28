@@ -181,6 +181,14 @@ CREATE TABLE IF NOT EXISTS `commenti` (
   KEY `attivita` (`attivita`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `competenze` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) DEFAULT NULL,
+  `tipo` varchar(8) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  FULLTEXT KEY `nome` (`nome`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
 CREATE TABLE IF NOT EXISTS `corsibase` (
   `id` int(11) NOT NULL,
   `luogo` varchar(255) DEFAULT NULL,
@@ -538,6 +546,14 @@ CREATE TABLE IF NOT EXISTS `partecipazioniBase` (
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `patenti` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) DEFAULT NULL,
+  `tipo` varchar(8) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  FULLTEXT KEY `nome` (`nome`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `privacy` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `volontario` varchar(16) DEFAULT NULL,
@@ -686,6 +702,7 @@ CREATE TABLE IF NOT EXISTS `titoli` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
   `tipo` varchar(8) DEFAULT NULL,
+  `area` varchar(8) DEFAULT NULL,
   PRIMARY KEY (`id`),
   FULLTEXT KEY `nome` (`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -693,6 +710,7 @@ CREATE TABLE IF NOT EXISTS `titoli` (
 CREATE TABLE IF NOT EXISTS `titoliPersonali` (
   `id` int(11) NOT NULL,
   `volontario` varchar(16) DEFAULT NULL,
+  `stato` int(11) DEFAULT NULL,
   `titolo` varchar(16) DEFAULT NULL,
   `inizio` varchar(64) DEFAULT NULL,
   `fine` varchar(64) DEFAULT NULL,

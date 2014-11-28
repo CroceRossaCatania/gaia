@@ -863,3 +863,17 @@ $conf['est_attivita2geopolitica'] = [
     ATT_VIS_VOLONTARI   =>  EST_NAZIONALE,
     ATT_VIS_PUBBLICA    =>  EST_NAZIONALE     
 ];
+
+/*
+ * ===================================
+ * ========== STATO TITOLI ===========
+ * ===================================
+ */
+
+define('NON_OPERATIVO',  0);
+define('ATTIVO',        10);
+
+$conf['stato_titoli'] = [
+    NON_OPERATIVO  =>  'Non Operativo', 
+    ATTIVO         =>  'Attivo'
+];  
