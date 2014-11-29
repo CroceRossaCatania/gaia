@@ -342,20 +342,6 @@ if(false && $consenso && !$sessione->barcode) { ?>
                 <h2><span class="muted">Ciao </span>
                     <?= $me->nome; ?>
                 </h2>
-                <?php /*
-                blocco informativo deadline
-                <div class="alert alert-block alert-error">
-                    <div class="row-fluid">
-                        <h4><i class="icon-ok"></i> Ciao <?php echo $me->nome ?></h4>
-                        <p>Per favore prendi qualche minuti di tempo, se non lo hai già fatto,
-                        per leggere un importante comunicato da parte degli sviluppatori di Gaia.</p>
-                        <a href="?p=public.comunicato" class="btn">
-                            Leggi il comunicato
-                            <span class="badge badge-warning">Nuovo!</span>
-                        </a> 
-                    </div>
-                </div>
-                */ ?>
                 <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
                 <div class="alert alert-success">
                     <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
@@ -381,12 +367,29 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     <h4><i class="icon-warning-sign"></i> <strong>Nessun destinatario valido</strong>.</h4>
                     <p>L'email che stavi inviando non può essere spedita.</p>
                 </div> 
-                <?php } if (!$me->wizard) { $attenzione = true;  ?>
+                <?php } 
+                // blocco JUMP 
+                ?>
+                <div class="alert alert-block alert-info">
+                    <div class="row-fluid">
+                        <div class="span9">
+                            <h4>Ciao, hai già saputo che dal 12 al 14 dicembre si terrà <strong>Jump14</strong> a Roma?</h4>
+                            <p>Per ogni comitato sono disponibili 7 posti. Ti aspettiamo! 
+                            Info su <a href="http://cri.it/jump14" target="_blank"><i class="icon-link"></i> cri.it/jump14</a>.</p>
+                        </div>
+                        <div class="span3">
+                            <a href="http://cri.it/jump14" target="_blank"><img src="img/jump14_logo_small_400.png" /></a>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                // fine blocco jump
+                if (!$me->wizard) { $attenzione = true;  ?>
                 <div class="alert alert-block alert-error">
                     <h4><i class="icon-warning-sign"></i> Completa il tuo profilo</h4>
                     <p>Inserisci titoli, patenti, certificazioni e competenze dalla sezione curriculum.</p>        
                     <p><a href="?p=utente.titoli&t=0" class="btn btn-large"><i class="icon-ok"></i> Clicca qui per iniziare</a></p>
-                </div> 
+                </div>
                 <?php } elseif (!$me->ordinario()) { ?>
                 <div class="alert alert-block alert-success">
                     <div class="row-fluid">
