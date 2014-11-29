@@ -373,7 +373,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                 <div class="alert alert-block alert-info">
                     <div class="row-fluid">
                         <div class="span9">
-                            <h4>Ciao, hai già saputo che dal 12 al 14 dicembre si terrà <strong>Jump14</strong> a Roma?</h4>
+                            <h4>Hai già saputo che dal 12 al 14 dicembre si terrà <strong>Jump14</strong> a Roma?</h4>
                             <p>Per ogni comitato sono disponibili 7 posti. Ti aspettiamo! 
                             Info su <a href="http://cri.it/jump14" target="_blank"><i class="icon-link"></i> cri.it/jump14</a>.</p>
                         </div>
