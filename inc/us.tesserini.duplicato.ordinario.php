@@ -19,7 +19,8 @@ if(!$v->modificabileDa($me)) {
 	redirect('errore.permessi&cattivo');
 }
 
-if(!$v->ordinario()) {
+/* Al momento oscurato ordinario */
+if($v->ordinario()) {
 	redirect('errore.permessi&cattivo');
 }
 

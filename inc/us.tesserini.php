@@ -36,7 +36,7 @@ if(!$admin) {
                 <li><a href="?p=us.tesserini.archiviati"><i class="icon-folder-close"></i> Pratiche archiviate</a></li>
             </ul>
         </div>
-        <div class="btn-group">
+        <!--<div class="btn-group">
             <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown">
                 <i class="icon-list"></i>
                 Soci Ordinari
@@ -46,7 +46,7 @@ if(!$admin) {
                 <li><a href="?p=us.tesserini.ordinari"><i class="icon-folder-open"></i> Pratiche aperte</a></li>
                 <li><a href="?p=us.tesserini.archiviati.ordinari"><i class="icon-folder-close"></i> Pratiche archiviate</a></li>
             </ul>
-        </div>
+        </div>-->
     </div>
     
     <div class="span4 allinea-destra">
