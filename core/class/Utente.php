@@ -1996,14 +1996,11 @@ class Utente extends Persona {
      */
     public function tesserinoRichiesta() {
         $t = TesserinoRichiesta::filtra([
-            ['volontario', $this]
-            ]);
-        foreach($t as $_t) {
-            if ($_t->stato != RIFIUTATO || $_t->stato != INVALIDATO) {
-                return $_t;
-            }
-        }
-        return false;
+            ['volontario',      $this],
+            ['stato',           RIFIUTATO,  OP_NE],
+            ['stato',           INVALIDATO, OP_NE]
+        ]);
+        return $t ? $t[0] : false;
     }
 
     /**
