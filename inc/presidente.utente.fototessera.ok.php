@@ -22,8 +22,8 @@ if(isset($_GET['ok'])) {
         /* Avviso volontario */
         $m = new Email('fototesseraOk', 'Fototessera confermata');
         $m->da      = $me; 
-        $m->a       = $u->volontario();
-        $m->_NOME   = $a->volontario()->nome;
+        $m->a       = $u;
+        $m->_NOME   = $u->nome;
         $m->invia();
 
         redirect('presidente.utente.visualizza&tessappr&id=' . $a);
@@ -38,8 +38,8 @@ if(isset($_GET['no'])) {
         /* Avviso volontario */
         $m = new Email('fototesseraNo', 'Fototessera negata');
         $m->da      = $me; 
-        $m->a       = $u->volontario();
-        $m->_NOME   = $a->volontario()->nome;
+        $m->a       = $u;
+        $m->_NOME   = $u->nome;
         $m->invia();
 
         redirect('presidente.utente.visualizza&tessappr&id=' . $a);
