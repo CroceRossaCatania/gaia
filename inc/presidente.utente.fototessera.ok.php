@@ -18,6 +18,14 @@ $f = $u->fototessera();
 if(isset($_GET['ok'])) {
     if($f && !$f->approvata()) {
         $f->approva();
+
+        /* Avviso volontario */
+        $m = new Email('fototesseraOk', 'Fototessera confermata');
+        $m->da      = $me; 
+        $m->a       = $u->volontario();
+        $m->_NOME   = $a->volontario()->nome;
+        $m->invia();
+
         redirect('presidente.utente.visualizza&tessappr&id=' . $a);
     }
     redirect('presidente.utente.visualizza&err&id=' . $a);
@@ -26,6 +34,14 @@ if(isset($_GET['ok'])) {
 if(isset($_GET['no'])) {
     if($f && !$f->approvata()) {
         $f->cancella();
+
+        /* Avviso volontario */
+        $m = new Email('fototesseraNo', 'Fototessera negata');
+        $m->da      = $me; 
+        $m->a       = $u->volontario();
+        $m->_NOME   = $a->volontario()->nome;
+        $m->invia();
+
         redirect('presidente.utente.visualizza&tessappr&id=' . $a);
     }
     redirect('presidente.utente.visualizza&err&id=' . $a);

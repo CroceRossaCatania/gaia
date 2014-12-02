@@ -231,8 +231,9 @@ function cronjobSettimanale() {
             $n = 0;
             foreach ( Comitato::elenco() as $comitato ) {
                 $a = count($comitato->appartenenzePendenti());
-                $b = count($comitato->titoliPendenti());    
-                $z = $a + $b;
+                $b = count($comitato->titoliPendenti());   
+                $c = count($comitato->fototesserePendenti()); 
+                $z = $a + $b + $c;
                 if ( $z == 0 ) { continue; }
                 foreach ( $comitato->volontariPresidenti() as $presidente ) {
                     $m = new Email('riepilogoPresidente', "Promemoria: Ci sono {$c} azioni in sospeso");
@@ -241,6 +242,7 @@ function cronjobSettimanale() {
                     $m->_COMITATO   = $comitato->nomeCompleto();
                     $m->_APPPENDENTI= $a;
                     $m->_TITPENDENTI= $b;
+                    $m->_FOTPENDENTI= $c;
                     $m->invia();
                     $n++;
                 }
