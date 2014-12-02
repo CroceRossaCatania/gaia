@@ -60,11 +60,10 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 <hr />
 <table class="table table-striped" id="tabellaUtenti">
     <thead>
+        <th>Anteprima</th>
         <th>Nome</th>
         <th>Cognome</th>
         <th>Codice Fiscale</th>
-        <th>Data di Nascita</th>
-        <th>Luogo di Nascita</th>
         <th>Comitato</th>
         <th>Azione</th>
     </thead>
@@ -75,12 +74,11 @@ foreach($comitati as $comitato) {
     foreach ( $comitato->fototesserePendenti() as $_v ) {
  ?>
     <tr>
-        <td><?php echo $_v->nome; ?></td>
-        <td><?php echo $_v->cognome; ?></td>
-        <td><?php echo $_v->codiceFiscale; ?></td>
-        <td><?php echo date('d/m/Y', $_v->dataNascita); ?></td> 
-        <td><?php echo $_v->comuneNascita; ?></td>
-        <td><?php echo $comitato->nomeCompleto(); ?></td>
+        <td><img src="<?= $_v->fototessera()->img(10); ?>" class="img-polaroid" /></td>
+        <td><?= $_v->nome; ?></td>
+        <td><?= $_v->cognome; ?></td>
+        <td><?= $_v->codiceFiscale; ?></td>
+        <td><?= $comitato->nomeCompleto(); ?></td>
         <td>
             <div class="btn-group">
                 <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" target="_new" title="Dettagli">
