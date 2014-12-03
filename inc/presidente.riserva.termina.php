@@ -1,12 +1,12 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
-controllaParametri(array('id'), 'presidente.riserva&err');
+controllaParametri(['id'], 'presidente.riserva&err');
 
 $t = $_GET['id'];
 $t = Riserva::id($t);
