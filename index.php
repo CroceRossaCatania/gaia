@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 /* Modalità manutenzione */
@@ -34,6 +34,16 @@ $sessione = new Sessione($sid);
 /* Crea eventuale oggetto $me */
 $me = $sessione->utente();
 
+/* Registra dati transazione */
+if ( $me->admin ) {
+    ignoraTransazione();
+} else {
+    $identificato = (bool) ($me && $me->id);
+    registraParametroTransazione('login', (int) $identificato);
+    if ( $identificato )
+        registraParametroTransazione('uid', $me->id);
+}
+
 /* Aggiorna la sessione con i miei dati... */
 $sessione->ip       = $_SERVER['REMOTE_ADDR'];
 $sessione->agent    = $_SERVER['HTTP_USER_AGENT'];
@@ -49,6 +59,7 @@ $_f = "./inc/$p.php";
 if ( !file_exists($_f) ) {
 	$_f = "./inc/errore.404.php";
 }
+nomeTransazione($p, 'web');
 
 /*
  * Titolo e descrizione se non ridefiniti
@@ -58,10 +69,10 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
 ?><!DOCTYPE html>
 <html>
-<head prefix="og: http://ogp.me/ns#">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <head prefix="og: http://ogp.me/ns#">
+  	<meta charset="utf-8" />
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>{_titolo}</title>
     <meta property="og:url" content="http://gaia.cri.it/?p=<?= $p ?>">
     <meta property="og:title" content="{_titolo}">
@@ -72,14 +83,14 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <meta name="author" content="Progetto Gaia - Croce Rossa Italiana">
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
-    <!-- CSS -->
-    <link href="css/bootstrap.min.css"      rel="stylesheet" media="screen">
-    <link href="css/font-awesome.min.css"   rel="stylesheet" media="screen">
-    <link href="css/main.css"               rel="stylesheet" media="screen">
-    <link href="css/fullcalendar.css"       rel="stylesheet" media="screen">
+    <!-- JS e CSS compressi -->
+    <link href="/assets/min/20141112/build/build.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="/assets/min/20141112/build/build.js"></script>
+
+	<!-- Font -->
     <link href='https://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
-    <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.min.css" rel="stylesheet" media="screen">
-    <!--[if IE]>
+    
+	<!--[if IE]>
         <link href="css/main-ie.css" rel="stylesheet" media="screen">
     <![endif]-->
     <!--[if IE 7]>
@@ -87,19 +98,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <![endif]-->
 
     <!-- JS -->
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"        ></script>
-    <script type="text/javascript" src="js/modernizr.custom.03290.js"                   ></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"                            ></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"   ></script>
-    <script type="text/javascript" src="js/jquery.timepicker.js"                        ></script>
-    <script type="text/javascript" src="js/fullcalendar.min.js"                         ></script>
-    <script type="text/javascript" src="js/jquery.cookie.js"                            ></script>
-    <script type="text/javascript" src="js/app.js"                                      ></script>
-    <script type="text/javascript" src="js/ui.datepicker-it.js"                         ></script>
-    <script type="text/javascript" src="js/tinymce/tinymce.min.js"                      ></script>
-    <script type="text/javascript" src="js/polychart2.standalone.js"                    ></script>
-    <?php if (file_exists('js/'. $p . '.js')) { /* Javascript dinamico */ ?>
-        <script type="text/javascript" src="js/<?php echo $p; ?>.js"></script>
+    <?php if (file_exists('assets/js/'. $p . '.js')) { /* Javascript dinamico */ ?>
+        <script type="text/javascript" src="/assets/js/<?php echo $p; ?>.js"></script>
     <?php } ?>
 
   </head>
@@ -147,7 +147,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
                                             <li><a href="?p=utente.contatti"><i class="icon-phone"></i> Modifica contatti</a></li>
                                             <li><a href="?p=utente.password"><i class="icon-key"></i> Modifica password</a></li>
-                                            <?php if ( $me->stato == ASPIRANTE ) { ?>
+                                            <?php if ( $me->stato == ASPIRANTE && !$me->partecipazioniBase(ISCR_CONFERMATA)) { ?>
                                             <li><a href="?p=aspirante.cancellati"><i class="icon-remove-sign"></i> Cancellati</a></li>
                                             <?php } ?>
                                             <li class="divider"></li>
@@ -281,13 +281,15 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li class="nav-header">Elenchi</li>
-                                            <li><a href="?p=admin.ricerca"><i class="icon-search"></i> Cerca Utente</a></li> 
+                                            <li><a href="?p=admin.ricerca.utenti"><i class="icon-search"></i> Cerca Utente</a></li> 
+                                            <li><a href="?p=admin.ricerca.attivita"><i class="icon-calendar"></i> Cerca Attività</a></li> 
                                             <li><a href="?p=admin.presidenti"><i class="icon-list"></i> Presidenti</a></li>
                                             <li><a href="?p=admin.delegati"><i class="icon-list"></i> Delegati</a></li>
                                             <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
                                             <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li> 
                                             <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
                                             <li><a href="?p=admin.limbo"><i class="icon-meh"></i> Limbo</a></li> 
+                                            <li><a href="?p=admin.aspiranti"><i class="icon-meh"></i> Aspiranti</a></li> 
                                             <li><a href="?p=admin.double"><i class="icon-superscript"></i> Double</a></li>
                                             <li><a href="?p=admin.tesseramento"><i class="icon-eur"></i> Tesseramento</a></li>
                                             <li class="nav-header">Report & Co</li>

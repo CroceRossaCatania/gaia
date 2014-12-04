@@ -30,6 +30,14 @@ class APIServer {
         $sessione = $this->sessione;
 
         $this->chiave = APIKey::by('chiave', $chiave);
+
+        $identificato = (bool) $this->sessione->utente;
+        if ( $identificato ) {
+            registraParametroTransazione('uid', $this->sessione->utente );
+        }
+        registraParametroTransazione('login', (int) $identificato );
+
+
     }
 
     /**
@@ -74,6 +82,7 @@ class APIServer {
                 'data'          =>  (new DT())->toJSON()
             ],
             'tempo'    => round(( microtime(true) - $start ), 6),
+            'q'        => $this->db->numQuery,
             'sessione' => $this->sessione->toJSON(),
             'risposta' => $r
         ];
@@ -152,7 +161,12 @@ class APIServer {
     private function api_utente() {
         $this->richiedi(['id']);
         $u = Utente::id($this->par['id']);
-        return $u->toJSON();
+
+        $conAvatar = true;
+        if ( isset($this->par['conAvatar']) )
+            $conAvatar = (bool) $this->par['conAvatar'];
+
+        return $u->toJSON($conAvatar);
     }
 
     /**
@@ -218,17 +232,21 @@ class APIServer {
         $cA = Turno::neltempo($inizio, $fine);
         $searchPuoPart = [];
         $r = [];
-        if (!$this->sessione->utente()){
+        $utente = $this->sessione->utente();
+        if ( $utente->admin ) {
+            ignoraTransazione();
+        }
+        if (!$utente){
             $mioGeoComitato = null;
         } else {
-            $mioGeoComitatoOid = $this->sessione->utente()->unComitato()->oid();
+            $mioGeoComitatoOid = $utente->unComitato()->oid();
             $mioGeoComitato = GeoPolitica::daOid($mioGeoComitatoOid);
         }
         foreach  ( $cA as $turno ) {
             $attivita = $turno->attivita();
             $idAttivita = ''.$attivita->id;
             if(!isset($searchPuoPart[$idAttivita])) {
-                $searchPuoPart[$idAttivita] = $attivita->puoPartecipare($this->sessione->utente());
+                $searchPuoPart[$idAttivita] = $attivita->puoPartecipare($utente);
             }
             if ( !$searchPuoPart[$idAttivita] ) {
                 continue;
@@ -684,7 +702,7 @@ class APIServer {
         if ( $part->stato == ISCR_RICHIESTA ) {
             
             if ( $this->par['iscr'] ) {
-                $part->concedi($this->par['com']);
+                $part->concedi($this->par['com'], $me);
 
                 $cal = new ICalendar();
                 $cal->generaCorsoBase($corsoBase);
@@ -693,37 +711,31 @@ class APIServer {
                 $m->a               = $part->utente();
                 $m->da              = $corsoBase->direttore();
                 $m->_NOME           = $part->utente()->nome;
-                $m->_CORSO          = $corso->nome();
-                $m->_DIRETTORE      = $part->utente()->nomeCompleto();
-                $m->_CELLDIRETTORE  = $part->utente()->cellulare();
+                $m->_CORSO          = $corsoBase->nome();
+                $m->_DATA           = $corsoBase->inizio()->inTesto(false, true);
+                $m->_DIRETTORE      = $corsoBase->direttore()->nomeCompleto();
+                $m->_CELLDIRETTORE  = $corsoBase->direttore()->cellulare();
                 $m->allega($cal);
                 $m->invia();               
                 
             } else {
-                $part->nega();
-
-                /* da fare email
-                                    
-                $m = new Email('autorizzazioneNegata', "Autorizzazione NEGATA: {$attivita->nome}, {$turno->nome}" );
-                $m->a = $aut->partecipazione()->volontario();
-                $m->da = $attivita->referente();
-                $m->_NOME       = $aut->partecipazione()->volontario()->nome;
-                $m->_ATTIVITA   = $attivita->nome;
-                $m->_TURNO      = $turno->nome;
-                $m->_DATA       = $turno->inizio()->format('d-m-Y H:i');
-                $m->_LUOGO      = $attivita->luogo;
-                $m->_MOTIVO     = $this->par['motivo'];
-                $m->invia();
+                $part->nega($me);
+                $motivo = $this->par['motivo'];                 
+                $m = new Email('corsoBaseNonAmmesso', "Non ammesso al {$corsoBase->nome()}" );
+                $m->a               = $part->utente();
+                $m->da              = $corsoBase->direttore();
+                $m->_NOME           = $part->utente()->nome;
+                $m->_MOTIVO         = $motivo;
+                $m->_CORSO          = $corsoBase->nome();
+                $m->_DIRETTORE      = $corsoBase->direttore()->nomeCompleto();
+                $m->invia();    
                 
-                */
-
             }
         }
         return ['id' => $corsoBase->id];
     }
 
-
-    private function api_like() {
+	private function api_like() {
         global $conf;
         $this->richiedi(['oggetto']);
         $oggetto = Entita::daOid($this->par['oggetto']);
@@ -755,6 +767,5 @@ class APIServer {
         }
         return $r;
     }
-
         
 }

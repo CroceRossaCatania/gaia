@@ -102,6 +102,13 @@ function generaStringaCasuale(  $caratteri = 10,
     return $codice;
 }
 
+/**
+ * Formatta un numero come monetario (italiano)
+ *
+ * es. 14.4 -> "14,40"
+ * @param float $cifra  Il numero
+ * @return string       Il numero in formato monetario
+ */
 function soldi($cifra) {
     return number_format($cifra, 2, ',', '.');
 }

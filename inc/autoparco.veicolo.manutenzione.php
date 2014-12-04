@@ -21,7 +21,7 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
     </div>
 <?php } ?>
 
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <br/>
 <div class="row-fluid">
     <div class="span4">

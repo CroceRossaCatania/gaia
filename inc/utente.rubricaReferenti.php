@@ -8,7 +8,7 @@ paginaPrivata();
 richiediComitato();
 
 ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <div class="row-fluid">
     <div class="span3">
         <?php        menuVolontario(); ?>
@@ -126,6 +126,13 @@ richiediComitato();
                             case APP_CO:
                             ?>
                             <strong>Delegato</strong> Centrale Operativa
+                            (<?php echo $_d->comitato()->nomeCompleto(); ?>)
+                            <br>
+                            <?php
+                            break;
+                            case APP_AUTOPARCO:
+                            ?>
+                            <strong>Delegato</strong> Autoparco
                             (<?php echo $_d->comitato()->nomeCompleto(); ?>)
                             <br>
                             <?php

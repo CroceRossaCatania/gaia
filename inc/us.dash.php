@@ -243,12 +243,12 @@ if(!$me->admin()) {
                             </div>
                             <div class="span6">
                                 <div class="row-fluid">
-                                    <?php if ($me->admin() || ($me->delegazioneAttuale()->estensione > EST_PROVINCIALE)) { ?>
+                                    <?php /* if ($me->admin() || ($me->delegazioneAttuale()->estensione > EST_PROVINCIALE)) { ?>
                                     <a href="?p=us.tesserini" class="btn btn-block">
                                         <i class="icon-credit-card"></i>
                                         Tesserini
                                     </a>
-                                    <?php } ?>
+                                    <?php } */ ?>
                                 </div>
                             </div>
                         </div>

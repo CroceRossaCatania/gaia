@@ -10,6 +10,8 @@ class Collocazione extends Entita {
         $_t     = 'collocazioneVeicoli',
         $_dt    =  null;
 
+    use EntitaCache;
+
     /**
      * Ritorna true se attuale
      * @return True or False

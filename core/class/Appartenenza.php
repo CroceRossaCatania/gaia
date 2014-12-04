@@ -8,6 +8,8 @@ class Appartenenza extends Entita {
         protected static
             $_t  = 'appartenenza',
             $_dt = null;
+
+        use EntitaCache;
         
         /**
          * Richiede l'appartenenza mettendo come stato membro pendente

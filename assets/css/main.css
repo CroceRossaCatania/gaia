@@ -57,7 +57,7 @@ body {
 }
 
 .hero-unit {
-        background-image: url('../img/sfondoherounit.jpg');
+        background-image: url('../../img/sfondoherounit.jpg');
 }
 
 .sf3 {
@@ -418,6 +418,7 @@ body {
   max-height: 420px;
   overflow-y: auto;
 }
+
 .modal.fade.in {
   top: 5%;
 }
@@ -432,4 +433,8 @@ body {
 .blocco-con-sfondo h3 {
   color: white;
   text-shadow: 0px 0px 3px black, 0px 0px 5px black, 0px 0px 2px black;
+}
+
+.bottone-lungo {
+  display: block !important;
 }

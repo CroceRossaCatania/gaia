@@ -9,7 +9,9 @@ paginaPrivata(false);
 if ( !$me->consenso() ) {
 	$me->consenso = time();
 }
-
-redirect('utente.privacy');
+if ($me->stato == VOLONTARIO) {
+	redirect('utente.privacy');
+}
+redirect('utente.me');
 
 ?>

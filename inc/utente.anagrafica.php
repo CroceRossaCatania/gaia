@@ -159,7 +159,7 @@ if(isset($_GET['tessok']) || isset($_GET['tesserr'])) {
                 <?php if($a!=1){ ?>
                 <form id="caricaFoto" action="?p=utente.avatar.ok" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
                   <p>Per modificare la foto:</p>
-                  <p>1. <strong>Scegli</strong>: <input type="file" name="avatar" required /></p>
+                  <p>1. <strong>Scegli</strong> un file <strong>JPG,PNG</strong>: <input type="file" name="avatar" required /></p>
                   <p>2. <strong>Clicca</strong>:<br />
                   <button type="submit" class="btn btn-block btn-success">
                     <i class="icon-save"></i> Salva la foto
@@ -201,7 +201,7 @@ if(isset($_GET['tessok']) || isset($_GET['tesserr'])) {
                 if(!$foto || !$foto->approvata()) { ?>
                 <form id="caricaFoto" action="?p=utente.fototessera.ok" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
                   <p>Per modificare la foto del tesserino:</p>
-                  <p>1. <strong>Scegli</strong>: <input type="file" name="fototessera" required /></p>
+                  <p>1. <strong>Scegli</strong> un file <strong>JPG,PNG</strong>: <input type="file" name="fototessera" required /></p>
                   <p>2. <strong>Clicca</strong>:<br />
                   <button type="submit" class="btn btn-block btn-success">
                     <i class="icon-save"></i> Salva la fototessera

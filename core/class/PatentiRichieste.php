@@ -9,6 +9,8 @@ class Patentirichieste extends Entita {
     protected static
         $_t  = 'patentiRichieste',
         $_dt = null;
+
+    use EntitaCache;
     
     public function volontario() {
         return Volontario::id($this->appartenenza()->volontario());

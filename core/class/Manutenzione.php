@@ -10,6 +10,8 @@ class Manutenzione extends Entita {
         $_t     = 'manutenzioni',
         $_dt    = null;
 
+    use EntitaCache;
+
     /**
      * Ritorna veicolo
      * @return Object Veicolo

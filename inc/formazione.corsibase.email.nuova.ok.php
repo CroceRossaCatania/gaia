@@ -11,6 +11,9 @@ if (isset($_POST['inputDestinatario'])) {
     $v = utente::id($id);
 }
 
+$corso = CorsoBase::id($_GET['id']);
+paginaCorsoBase($corso);
+
 $oggetto= $_POST['inputOggetto']; 
 $testo = $_POST['inputTesto'];
 

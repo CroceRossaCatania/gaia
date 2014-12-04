@@ -11,6 +11,8 @@ class TesserinoRichiesta extends Entita {
         $_t     = 'tesserinoRichiesta',
         $_dt    = null;
 
+    use EntitaCache;
+
     public function data() {
         return DT::daTimestamp($this->tRichiesta);
     }
@@ -30,7 +32,7 @@ class TesserinoRichiesta extends Entita {
     /*
      * Genera il nuovo tesserino su base della richiesta
      * Nota: necessariafototessara
-     * @return bool(false)|File     Il tesserino del volontario, o false in caso di fallimento
+     * @return false|File     Il tesserino del volontario, o false in caso di fallimento
      */
     public function generaTesserino() {
         $utente = $this->utente();

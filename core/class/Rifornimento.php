@@ -10,6 +10,8 @@ class Rifornimento extends Entita {
         $_t     = 'rifornimento',
         $_dt    =  null;
 
+    use EntitaCache;
+
     /**
      * Ritorna veicolo
      * @return Veicolo

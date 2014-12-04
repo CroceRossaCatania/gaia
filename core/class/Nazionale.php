@@ -10,6 +10,8 @@ class Nazionale extends GeoPolitica {
         $_t  = 'nazionali',
         $_dt = 'datiNazionali';
 
+    use EntitaCache;
+
     public static 
         $_ESTENSIONE = EST_NAZIONALE;
 
@@ -22,7 +24,7 @@ class Nazionale extends GeoPolitica {
         if(!$soloComitati) {
             $r[] = $this;
         }
-        foreach ( $this->regionali() as $l ) {
+        foreach  ( $this->regionali() as $l ) {
             $r = array_merge($l->estensione($soloComitati), $r);
         }
         return array_unique($r);

@@ -43,6 +43,21 @@ define('ETAMINIMA', 441504000);
 
 /*
  * ===================================
+ * ============ ENTITA ===============
+ * ===================================
+ */
+define('OP_EQ',     '='); 
+define('OP_LIKE',   'LIKE');
+define('OP_NLIKE',  'NOT LIKE');
+define('OP_LT',     '<');
+define('OP_LTE',    '<=');
+define('OP_GT',     '>');
+define('OP_GTE',    '>=');
+define('OP_NE',     '<>');
+define('OP_SQL',    'YOU_SHOULD_NOT_SEE_ME_IN_A_QUERY');
+
+/*
+ * ===================================
  * =========== APPARTENENZE ==========
  * ===================================
  */
@@ -824,6 +839,30 @@ $conf['like'] = [
     PIACE      =>  'Mi piace', 
     NON_PIACE  =>  'Non mi piace'
 ];  
+
+
+/*
+ * ===================================
+ * ====== CONVERSIONI ESTENSIONE =====
+ * ===================================
+ */
+
+$conf['est_geopolitica2attivita'] = [
+    EST_UNITA       =>  ATT_VIS_UNITA,
+    EST_LOCALE      =>  ATT_VIS_LOCALE,
+    EST_PROVINCIALE =>  ATT_VIS_PROVINCIALE,
+    EST_REGIONALE   =>  ATT_VIS_REGIONALE,
+    EST_NAZIONALE   =>  ATT_VIS_VOLONTARI     
+];
+
+$conf['est_attivita2geopolitica'] = [
+    ATT_VIS_UNITA       =>  EST_UNITA,
+    ATT_VIS_LOCALE      =>  EST_LOCALE,
+    ATT_VIS_PROVINCIALE =>  EST_PROVINCIALE,
+    ATT_VIS_REGIONALE   =>  EST_REGIONALE,
+    ATT_VIS_VOLONTARI   =>  EST_NAZIONALE,
+    ATT_VIS_PUBBLICA    =>  EST_NAZIONALE     
+];
 
 /*
  * ===================================
