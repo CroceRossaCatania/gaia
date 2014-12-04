@@ -6,9 +6,49 @@ paginaAdmin();
  * ©2013 Croce Rossa Italiana
  */
 
-set_time_limit (0);
+$senzaAppartenenza = function() use ($db) {
+    $q = $db->query("
+        SELECT 
+            anagrafica.*
+        FROM 
+            anagrafica
+        LEFT JOIN
+            appartenenza
+        ON anagrafica.id = appartenenza.volontario
+        WHERE anagrafica.stato <> 1
+        GROUP BY anagrafica.id
+        HAVING 
+            COUNT(appartenenza.id) = 0
+        ");
+    $r = [];
+    while ( $x = $q->fetch(PDO::FETCH_ASSOC) ) {
+        $r[] = new Utente($x['id'], $x);
+    }
+    return $r;
+};
 
-$t = Utente::filtra([['stato', ASPIRANTE, OP_NLIKE]]);
+$appartenenzaAttualeNegata = function() use ($db) {
+    $q = $db->query("
+        SELECT 
+            anagrafica.*,
+            appartenenza.stato as ast
+        FROM 
+            anagrafica
+        LEFT JOIN
+            appartenenza
+        ON anagrafica.id = appartenenza.volontario
+        GROUP BY anagrafica.id
+        HAVING ast = 3
+        ");
+    $r = [];
+    while ( $x = $q->fetch(PDO::FETCH_ASSOC) ) {
+        $r[] = new Utente($x['id'], $x);
+    }
+    return $r;
+};
+
+$t = array_merge($senzaAppartenenza(), $appartenenzaAttualeNegata());
+
 ?>
 <script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
@@ -80,7 +120,7 @@ $t = Utente::filtra([['stato', ASPIRANTE, OP_NLIKE]]);
     
 <div class="row-fluid">
    <div class="span12">
-       <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
+       <table class="table table-condensed" id="tabellaUtenti">
             <thead>
                 <th>Nome</th>
                 <th>Cognome</th>
@@ -89,11 +129,7 @@ $t = Utente::filtra([['stato', ASPIRANTE, OP_NLIKE]]);
                 <th>Azioni</th>
             </thead>
         <?php
-        $totale = 0;
         foreach($t as $_v) {
-            $appartenenze = $_v->numAppartenenzeTotali();
-            if($appartenenze == 0 || $_v->appartenenzaAttuale()->stato == MEMBRO_APP_NEGATA){
-            $totale++;
             ?>
                 <tr>
                     <td><?php echo $_v->nome; ?></td>
@@ -101,32 +137,30 @@ $t = Utente::filtra([['stato', ASPIRANTE, OP_NLIKE]]);
                     <td><?php echo $_v->codiceFiscale; ?></td>
                     <td><?php echo $conf['statoPersona'][$_v->stato]; ?></td>
                     <td>
-                        <div class="btn-group">
-                            <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
-                                <i class="icon-eye-open"></i> Dettagli
-                            </a>
-                            <?php if ($_v->email) {?>
-                            <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
-                                <i class="icon-envelope"></i>
-                            </a>
-                            <?php } ?>
-                            <a class="btn btn-small btn-primary" href="?p=admin.stato.modifica&id=<?php echo $_v->id; ?>" title="Cambia stato">
-                                <i class="icon-random"></i> Cambia stato
-                            </a>
-                            <a class="btn btn-small btn-info" href="?p=admin.limbo.comitato.nuovo&id=<?php echo $_v->id; ?>" title="Assegna a Comitato" target="_new">
-                                    <i class="icon-arrow-right"></i> Assegna a Comitato
-                            </a>
-                            <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.limbo.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente" class="btn btn-small btn-warning">
-                            <i class="icon-trash"></i> Cancella
-                            </a>
+                        <a href="?p=presidente.utente.visualizza&id=<?php echo $_v->id; ?>" title="Dettagli">
+                            <i class="icon-eye-open"></i> Dettagli
+                        </a> | 
+                        <?php if ($_v->email) {?>
+                        <a href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
+                            <i class="icon-envelope"></i> Mail
+                        </a> | 
+                        <?php } ?>
+                        <a  href="?p=admin.stato.modifica&id=<?php echo $_v->id; ?>" title="Cambia stato">
+                            <i class="icon-random"></i> Cambia stato
+                        </a> | 
+                        <a  href="?p=admin.limbo.comitato.nuovo&id=<?php echo $_v->id; ?>" title="Assegna a Comitato" target="_new">
+                                <i class="icon-arrow-right"></i> Assegna a Comitato
+                        </a> | 
+                        <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.limbo.cancella&id=<?php echo $_v->id; ?>" title="Cancella Utente">
+                        <i class="icon-trash"></i> Cancella
+                        </a>
                             
-                        </div>
                    </td>
                 </tr>
                 
                
        
-        <?php }}
+        <?php }//}
         ?>
 
         
@@ -137,7 +171,7 @@ $t = Utente::filtra([['stato', ASPIRANTE, OP_NLIKE]]);
     <div class="row-fluid">
         <div class="span12">
             <h2>
-                Abbiamo <?php echo $totale; ?> cose nel limbo...                
+                Abbiamo <?= count($t); ?> cose nel limbo...                
             </h2>
         </div>
     </div>

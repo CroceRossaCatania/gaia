@@ -1327,13 +1327,26 @@ class Utente extends Persona {
         return PRIVACY_PUBBLICA;
     }
 
-	/*
+	/**
+     * Ritorna l'età di un utente
      * @return età utente
      */
     public function eta(){
-        $anno = date('Y', $this->dataNascita);
-        $ora = date('Y', time());
-        return $ora-$anno;
+        $now = time();
+        $timestamp = $this->dataNascita;
+        
+        $yearDiff   = date("Y", $now) - date("Y", $timestamp);
+        $monthDiff  = date("m", $now) - date("m", $timestamp);
+        $dayDiff    = date("d", $now) - date("d", $timestamp);
+     
+        if ($monthDiff < 0)
+            $yearDiff--;
+        elseif (($monthDiff == 0) && ($dayDiff < 0))
+            $yearDiff--;
+     
+        $result = intval($yearDiff);
+     
+        return $result;
     }
 
     /*
@@ -1552,15 +1565,29 @@ class Utente extends Persona {
         return null;        
     }
 
+    /**
+     * Trasforma un Utente Aspirante in Volontario
+     *
+     * - Crea appartenenza presso il comitato di tipo MEMBRO_VOLONTARIO
+     * - Elimina oggetto Aspirante collegato
+     *
+     * @param Utente $trasformatore     Colui che autorizza la trasformazione
+     * @return bool                     Trasformazione effettuata?
+     */
     public function trasformaInVolontario(Utente $trasformatore) {
-        if(!$this->stato == ASPIRANTE) {
+        if ($this->stato != ASPIRANTE)
             return false;
-        }
+    
         $app = $this->appartenenzaAttuale();
+
         $ora = time();
         $comitato = $app->comitato;
         $app->fine = $ora;
         $this->stato = VOLONTARIO;
+
+        if ( $aspirante = Aspirante::daVolontario($this) )
+            $aspirante->cancella();
+
         $nuovaApp = new Appartenenza();
         $nuovaApp->volontario = $this;
         $nuovaApp->comitato = $comitato;
@@ -1568,6 +1595,7 @@ class Utente extends Persona {
         $nuovaApp->inizio = $ora;
         $nuovaApp->timestamp = time();
         $nuovaApp->comferma = $trasformatore;
+
         return true;
     }
 
