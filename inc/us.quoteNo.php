@@ -113,7 +113,7 @@ $admin = (bool) $me->admin();
     <div class="alert alert-info">
     <p><i class="icon-warning-sign"></i> È possibile registrare i pagamenti solo se 
     il <strong>Codice Fiscale</strong> e la <strong>Partita Iva</strong> sono stati inseriti.<br />
-    L'inserimento deve essere effettuato dal presidente del comitato nella scermata di inserimento
+    L'inserimento deve essere effettuato dal presidente del comitato nella schermata di inserimento
     dei dati del comitato.</p>
     </div>
 </div>

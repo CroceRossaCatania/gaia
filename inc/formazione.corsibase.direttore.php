@@ -8,7 +8,6 @@ controllaParametri(array('id'));
 $id = $_GET['id'];
 $corsoBase = CorsoBase::id($id);
 
-
 paginaPrivata();
 paginaCorsoBase($corsoBase);
 caricaSelettore();

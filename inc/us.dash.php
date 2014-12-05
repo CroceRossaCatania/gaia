@@ -121,10 +121,10 @@ if(!$me->admin()) {
                                     buon fine. <a href="?p=utente.supporto"><i class="icon-envelope"></i> Contatta il supporto</a> e spiega il 
                                     problema così che sia possibile risolvere la situazione.
                                     <br />
-                                    Per caricare i volontari o i soci ordinari del tuo comitato in blocco sono disponibili dei format
-                                    in excel da compilare e spedire al supporto che provvederà all'importazione. Non caricare i volontari
-                                    uno ad uno: <a href="?p=utente.supporto"><i class="icon-envelope"></i> contatta il supporto</a> e ti 
-                                    forniranno tutte le indicazioni per caricare in massa volontari e soci ordinari.
+                                    <a href="?p=us.import" class="btn btn-block btn-info">
+                                        <i class="icon-list"></i>
+                                        Voglio importare i miei soci in massa
+                                    </a>
                                 </div>
                                 <hr />
                                 <div class="row-fluid">
@@ -233,12 +233,18 @@ if(!$me->admin()) {
                             </div>
                             <div class="span6">
                                 <div class="row-fluid">
-                                    <?php /* if ($me->admin() || ($me->delegazioneAttuale()->estensione > EST_PROVINCIALE)) { ?>
-                                    <a href="?p=us.tesserini" class="btn btn-block">
-                                        <i class="icon-credit-card"></i>
-                                        Tesserini
-                                    </a>
-                                    <?php } */ ?>
+                                    <div class="btn-group btn-group-vertical span12">
+                                        <?php if ($me->admin() || ($me->delegazioneAttuale()->estensione > EST_PROVINCIALE)) { ?>
+                                            <a href="?p=us.tesserini" class="btn btn-block">
+                                                <i class="icon-credit-card"></i>
+                                                Tesserini
+                                            </a>
+                                        <?php } ?>
+                                        <a href="?p=presidente.fototessere.pending" class="btn btn-block">
+                                            <i class="icon-instagram"></i>
+                                            Fototessere in attesa
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
