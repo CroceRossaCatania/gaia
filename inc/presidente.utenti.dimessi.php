@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
@@ -46,12 +46,12 @@ menuElenchiVolontari(
                     <i class="icon-eye-open"></i> Riammetti
                 </a>
                 <?php if ($admin) { ?>
-                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id={id}" title="Cancella Utente" class="btn btn-small btn-warning">
-                    <i class="icon-trash"></i> Cancella
-                </a>
-                <a class="btn btn-small btn-primary" href="?p=admin.beuser&id={id}" title="Log in">
-                    <i class="icon-key"></i>
-                </a> 
+                    <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id={id}" title="Cancella Utente" class="btn btn-small btn-warning">
+                        <i class="icon-trash"></i> Cancella
+                    </a>
+                    <a class="btn btn-small btn-primary" href="?p=admin.beuser&id={id}" title="Log in">
+                        <i class="icon-key"></i>
+                    </a> 
                 <?php } ?>
             </div>
         </div>
