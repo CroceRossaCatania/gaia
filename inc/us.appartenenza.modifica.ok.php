@@ -26,7 +26,7 @@ if ( $_POST['dataInizio'] ) {
 if ( $_POST['dataFine'] && $me->admin()) {
     $fine = @DateTime::createFromFormat('d/m/Y', $_POST['dataFine']);
     if ( $fine ) {
-        $fine = @$fine->getTimestamp();
+        $fine = $fine->getTimestamp();
         $app->fine = $fine;
     } else {
         $app->fine = 0;
