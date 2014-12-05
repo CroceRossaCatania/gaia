@@ -42,7 +42,7 @@ if($_POST["stampa"] == true) {
 	$m->da      	= $me;
 	$m->a       	= $u;
 	$m->_NOME   	= $u->nome;
-	$m->_MOTIVO 	= $_POST["inputMotivo"]);
+	$m->_MOTIVO 	= $_POST["inputMotivo"];
 	$m->accoda();
 
 	//Email tesserino rifiutato e motivo, avviso presidente
@@ -50,7 +50,7 @@ if($_POST["stampa"] == true) {
 	$m->da      	= $me;
 	$m->a       	= $u->appartenenzaAttuale()->comitato()->primoPresidente();
 	$m->_NOME   	= $u->nomeCompleto();
-	$m->_MOTIVO 	= $_POST["inputMotivo"]);
+	$m->_MOTIVO 	= $_POST["inputMotivo"];
 	$m->accoda();
 
 }
