@@ -41,7 +41,11 @@ if ( $sessione->inGenerazioneTrasferimento) {
             $m->_TIME = date('d/m/Y', $t->timestamp);
             $m->allega($f);
             $m->accoda();
+        }catch(Exception $e){
+            
+        }
 
+        try{
             /* Richiesta all'attuale presidente */
             $m = new Email('richiestaTrasferimento.presidente', 'Richiesta trasferimento di ' . $me->nomeCompleto());
             $m->a = $cout->unPresidente();
@@ -50,7 +54,11 @@ if ( $sessione->inGenerazioneTrasferimento) {
             $m->_TIME = date('d/m/Y', $t->timestamp);
             $m->allega($f);
             $m->accoda();
+        }catch(Exception $e){
             
+        }
+        
+        try{
             /* Richiesta per conoscenza al nuovo presidente */
             $m = new Email('richiestaTrasferimento.cc', 'Richiesta trasferimento in arrivo a: ' . $t->comitato()->nome);
             $m->a = $t->comitato()->unPresidente();
@@ -61,7 +69,7 @@ if ( $sessione->inGenerazioneTrasferimento) {
             $m->allega($f);
             $m->accoda();
         }catch(Exception $e){
-            
+
         }
        
         
