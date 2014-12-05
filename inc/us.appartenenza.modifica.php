@@ -43,7 +43,7 @@ $v = $app->volontario;
                     <label for="dataFine"><i class="icon-time"></i> Scadenza</label>
                 </div>
                 <div class="span8">
-                    <input id="dataFine" class="span12" name="dataFine" type="text"  value="<?php if ($app->fine == 0) echo('Indeterminato'); else echo(date('d/m/Y', $app->fine)); ?>" <?php if(!$me->admin()){ ?> readonly <?php } ?> />
+                    <input id="dataFine" class="span12" name="dataFine" type="text"  value="<?= !$app->fine ? "Indeterminato" : date('d/m/Y', $app->fine); ?>" <?php if(!$me->admin()){ ?> readonly <?php } ?> />
                 </div>
             </div>
             <?php if($me->admin()){ ?>
