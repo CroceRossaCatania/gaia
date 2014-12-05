@@ -11,7 +11,7 @@ $parametri = array('inputComitato', 'inputMotivo');
 controllaParametri($parametri);
 
 $c   = $_POST['inputComitato'];
-$gia = Trasferimento::([['volontario', $me],['stato', TRASF_INCORSO]])
+$gia = Trasferimento::([['volontario', $me],['stato', TRASF_INCORSO]]);
 if ( !$c ) { 
     redirect('utente.trasferimento');
 }
