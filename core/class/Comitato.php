@@ -1004,4 +1004,24 @@ class Comitato extends GeoPolitica {
         return $filtrato;
     }
 
+    /**
+     * Tesserini in attesa di essere riconsegnati
+     * @param comitato
+     * @return Utente array
+     */
+    public function tesseriniNonRiconsegnati() {
+        $filtrato = [];
+        foreach( $this->membriDimessi() as $u ) {
+            $t = TesserinoRichiesta::filtra([
+                ['volontario',      $u],
+                ['stato',           INVALIDATO]],
+                'tConferma DESC'
+            );
+            $t = $t[0];
+            if ( !$t || $t->pRiconsegnato ) { continue; }
+            $filtrato[] = $u;
+        }
+        return $filtrato;
+    }
+
 }

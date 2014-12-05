@@ -240,6 +240,10 @@ if(!$me->admin()) {
                                                 Tesserini
                                             </a>
                                         <?php } ?>
+                                        <a href="?p=us.tesserini.noRiconsegnati" class="btn btn-block btn-warning">
+                                            <i class="icon-credit-card"></i>
+                                            Tesserini non riconsegnati
+                                        </a>
                                         <a href="?p=presidente.fototessere.pending" class="btn btn-block">
                                             <i class="icon-instagram"></i>
                                             Fototessere in attesa

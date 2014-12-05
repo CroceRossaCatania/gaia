@@ -11,7 +11,7 @@ controllaParametri(array('id','motivo','info'), 'presidente.utenti&errGen');
 $v = Utente::id($_GET['id']);
 
 if ( !$v->ordinario() )
-  $v = Volontario::id($v);
+  $v = Volontario::id($_GET['id']);
 
 proteggiDatiSensibili($v, [APP_SOCI , APP_PRESIDENTE]);
 if (!$v->modificabileDa($me)) {
