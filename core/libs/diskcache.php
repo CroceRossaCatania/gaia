@@ -13,6 +13,7 @@ define('DISKCACHE_DEFAULT',	900); // Durata cache
  * @param string 	$nomeFile 	Il nome del file in cache
  * @param callable  $funzione 	La funzione che ritorna il valore da mettere in cache
  * @param int 		$scadenza	(Opzionale) La durata della cache
+ * @return string 	Il contenuto in cache oppure ottenuto dalla funzione
  */
 function diskCache($nomeFile, $callable, $durata = DISKCACHE_DEFAULT) {
 	$file = DISKCACHE_BASE . "cache_{$nomeFile}";
