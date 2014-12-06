@@ -11,9 +11,9 @@
  */
 
 define('GITHUB_REPO', 				'CroceRossaCatania/gaia');		// Repo GitHub
-define('PULL_REQUEST_FILE',			'./upload/setup/pulls.json');	// Cache file
+define('PULL_REQUEST_FILE',			'pulls.json');	// Cache file
 define('PULL_REQUEST_FILE_CACHE',	3600);							// Durata cache
-define('COMMITS_FILE',				'./upload/setup/commits.json');	// Cache file
+define('COMMITS_FILE',				'commits.json');	// Cache file
 define('COMMITS_FILE_CACHE',		900);							// Durata cache
 
 /**
@@ -64,12 +64,11 @@ function ordinaPullRequest($a, $b) {
  * @return JSONObject|false JSON decodificato o false in caso di fallimento
  */
 function ottieniPullRequest() {
-	if ( is_readable(PULL_REQUEST_FILE) &&
-	 filemtime(PULL_REQUEST_FILE) > time() - PULL_REQUEST_FILE_CACHE ) {
-		$contenuto = file_get_contents(PULL_REQUEST_FILE);
-	} else {
-		$contenuto = scaricaPullRequest();
-	}
+	$contenuto = diskCache(
+		PULL_REQUEST_FILE,
+		'scaricaPullRequest',
+		PULL_REQUEST_FILE_CACHE
+	);
 	$contenuto = json_decode($contenuto);
 	usort($contenuto, 'ordinaPullRequest');
 	return $contenuto;
@@ -81,12 +80,12 @@ function ottieniPullRequest() {
  * @return JSONObject|false JSON decodificato o false in caso di fallimento
  */
 function ottieniCommit() {
-	if ( is_readable(COMMITS_FILE) &&
-	 filemtime(COMMITS_FILE) > time() - COMMITS_FILE_CACHE ) {
-		$contenuto = file_get_contents(COMMITS_FILE);
-	} else {
-		$contenuto = scaricaCommit();
-	}
+	$contenuto = diskCache(
+		COMMITS_FILE,
+		'scaricaCommit',
+		COMMITS_FILE_CACHE
+	);
+
 	$contenuto = json_decode($contenuto);
 	return $contenuto;
 }
