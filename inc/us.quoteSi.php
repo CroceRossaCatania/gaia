@@ -222,7 +222,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 $("#c_quote")       .text("<?= $n; ?>");
                 $("#c_benemeriti")  .text("<?= $ben; ?>");
                 $("#c_incasso")     .html("<?= soldi($totale); ?> &euro;");
-            })();
+            });
         </script>
     </div>
     
