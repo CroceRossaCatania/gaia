@@ -100,7 +100,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     <div class="span6 allinea-centro">
         <div class="well">
             <i class="icon-money"></i> Attualmente sono stati raccolti<br />
-            <span class="quote_contatore" id="c_incasso">...</span> &eur;
+            <span class="quote_contatore" id="c_incasso">...</span>
             <br />
             <span class="aspiranti_descrizione">DAL TESSERAMENTO</span>
         </div>
@@ -217,12 +217,12 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         </table>
 
         <script type="text/javascript">
-            $(document).load( function() {
+            $(function() {
                 // Aggiorna i contatori...
                 $("#c_quote")       .text("<?= $n; ?>");
                 $("#c_benemeriti")  .text("<?= $ben; ?>");
-                $("#c_incasso")     .text("<?= soldi($totale); ?>");
-            });
+                $("#c_incasso")     .html("<?= soldi($totale); ?> &euro;");
+            })();
         </script>
     </div>
     
