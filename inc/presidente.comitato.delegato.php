@@ -16,7 +16,7 @@ $persona = $_POST['persona'];
 $persona = Volontario::id($persona);
 
 $app        = (int) $_POST['applicazione'];
-$app_nome   = $conf['applicazioni'][$app];
+$appnome   = $conf['applicazioni'][$app];
 
 /*
  * Crea il nuovo delegato...
@@ -47,12 +47,12 @@ $d->volontario      = $persona->id;
 /*
  * Invia la mail di notifica
  */
-$m = new Email('delegatoGenerico', "{$app_nome} in {$c->nomeCompleto()}");
+$m = new Email('delegatoGenerico', "{$appnome} in {$c->nomeCompleto()}");
 $m->da  = $me;
 $m->a   = $d->volontario();
 $m->_NOME           = $d->volontario()->nome;
 $m->_VOLONTARIO     = $me->nomeCompleto();
-$m->_APPLICAZIONE   = $app_nome;
+$m->_APPLICAZIONE   = $appnome;
 $m->_COMITATO       = $c->nomeCompleto();
 $m->invia();
 
