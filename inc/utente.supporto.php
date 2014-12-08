@@ -24,10 +24,11 @@ caricaSelettore();
     <h4><i class="icon-question-sign"></i> Hai bisogno di assistenza?</h4>
     <?php if($me->presiede()){?>
     <p>Siamo qui per aiutare. </p>
-    <p>Puoi contattarci allo <i class="icon-phone"></i><strong> +39 0692928574</strong>, attenzione questo numero è riservato solo a voi Presidenti pertanto vi invitiamo a non diffonderlo tra i volontari del vostro Comitato. </p>
+    <!--<p>Puoi contattarci allo <i class="icon-phone"></i><strong> +39 0692928574</strong>, attenzione questo numero è riservato solo a voi Presidenti pertanto vi invitiamo a non diffonderlo tra i volontari del vostro Comitato. </p>
     <p>Ti ricordiamo che questa tipologia di assistenza telefonica nasce per aiutare gli utenti nell'utilizzo di GAIA.</p>
-    <p>Qualsiasi <strong>modifica</strong> dei dati presenti in Gaia dovrà avvenire mediante supporto ticket e <strong>NON</strong> tramite telefono!</p>
-    <p>Oppure con questo modulo potete richiedere supporto per Gaia.</p>
+    <p>Qualsiasi <strong>modifica</strong> dei dati presenti in Gaia dovrà avvenire mediante supporto ticket e <strong>NON</strong> tramite telefono!</p>-->
+    <p>Il servizio di assistenza telefonica è temporaneamente sospeso</p>
+    <p>Attraverso questo modulo potrai entrare in contatto con il nostro canale di supporto.</p>
     <?php }else{ ?>
     <p>Siamo qui per aiutare. Con questo modulo puoi richiedere supporto per Gaia.</p>
     <?php } ?>
