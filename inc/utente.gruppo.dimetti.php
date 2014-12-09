@@ -22,7 +22,7 @@ if($g == 1)
 
 $t = AppartenenzaGruppo::id($t);
 
-if ( $me != $t->volontario() )
+if ( $me->id != $t->volontario()->id )
 	redirect('errore.permessi');
 	
 $t->fine = time();
