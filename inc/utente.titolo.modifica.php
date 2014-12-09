@@ -58,7 +58,7 @@ $r = $tp->titolo()->tipo;
         </div>
       <?php } ?>
       <?php if ( $r == TITOLO_PATENTE_CRI ) { 
-        if ( $tp->confermato() || $me != $tp->volontario())
+        if ( $tp->confermato() || $me->id != $tp->volontario()->id)
             redirect('errore.permessi'); ?>
       <div class="row-fluid">
         <div class="span4 centrato">
