@@ -85,10 +85,10 @@ foreach($comitati as $comitato) {
                     <i class="icon-eye-open"></i> Dettagli
                 </a>
                 <?php if($_v->modificabileDa($me)) {?>    
-                    <a class="btn btn-success btn-small" href="?p=presidente.utente.fototessera.ok&id=<?php echo $_v->id; ?>&ok">
+                    <a class="btn btn-success btn-small" href="?p=presidente.utente.fototessera.ok&id=<?= $_v->id; ?>&ok">
                         <i class="icon-ok"></i> Conferma
                     </a>
-                    <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente negare appartenenza a questo utente ?');" href="?p=ppresidente.utente.fototessera.ok&id=<?php echo $_v->id; ?>&no">
+                    <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente negare appartenenza a questo utente ?');" href="?p=presidente.utente.fototessera.ok&id=<?= $_v->id; ?>&no">
                         <i class="icon-ban-circle"></i> Nega
                     </a>
                 <?php } ?>
