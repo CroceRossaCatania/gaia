@@ -1,4 +1,9 @@
 <?php  
+
+/*
+ * ©2014 Croce Rossa Italiana
+ */
+
 paginaPrivata();
 
 controllaParametri(array('t'));
@@ -31,25 +36,30 @@ $r = $tp->titolo()->tipo;
         </div>
       </div>
       <?php } ?>
-      <?php if ( $r == TITOLO_CRI ) { ?>
-      <div class="row-fluid">
-        <div class="span4 centrato">
-          <label for="luogo"><i class="icon-road"></i> Luogo</label>
+      <?php if ( $r == TITOLO_CRI ) { 
+        if ( $tp->confermato() || $me->id != $tp->volontario()->id)
+            redirect('errore.permessi'); 
+          ?>
+        <div class="row-fluid">
+          <div class="span4 centrato">
+            <label for="luogo"><i class="icon-road"></i> Luogo</label>
+          </div>
+          <div class="span8">
+            <input id="luogo" class="span12" name="luogo" type="text"  value="<?php echo $tp->luogo; ?>" />
+          </div>
         </div>
-        <div class="span8">
-          <input id="luogo" class="span12" name="luogo" type="text"  value="<?php echo $tp->luogo; ?>" />
+        <div class="row-fluid">
+          <div class="span4 centrato">
+            <label for="codice"><i class="icon-barcode"></i> Codice</label>
+          </div>
+          <div class="span8">
+            <input id="codice" class="span12" name="codice" type="text" value="<?php echo $tp->codice; ?>" />
+          </div>
         </div>
-      </div>
-      <div class="row-fluid">
-        <div class="span4 centrato">
-          <label for="codice"><i class="icon-barcode"></i> Codice</label>
-        </div>
-        <div class="span8">
-          <input id="codice" class="span12" name="codice" type="text" value="<?php echo $tp->codice; ?>" />
-        </div>
-      </div>
       <?php } ?>
-      <?php if ( $r == TITOLO_PATENTE_CRI ) { ?>
+      <?php if ( $r == TITOLO_PATENTE_CRI ) { 
+        if ( $tp->confermato() || $me->id != $tp->volontario()->id)
+            redirect('errore.permessi'); ?>
       <div class="row-fluid">
         <div class="span4 centrato">
           <label for="codice"><i class="icon-barcode"></i> N. Patente</label>
