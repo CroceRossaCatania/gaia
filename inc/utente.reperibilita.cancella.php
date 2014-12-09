@@ -12,7 +12,7 @@ $t = $_GET['id'];
 
 $t = Reperibilita::id($t);
 
-if ( $me != $t->volontario() )
+if ( $me->id != $t->volontario()->id )
 	redirect('errore.permessi');
 
 $t->fine    = time();
