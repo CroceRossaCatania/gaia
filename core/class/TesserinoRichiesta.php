@@ -171,7 +171,7 @@ class TesserinoRichiesta extends Entita {
         if (!$this->haCodice()) {
             return false;
         }
-        if($this->stato < SPEDITO_CASA) {
+        if($this->stato < STAMPATO) {
             return false;
         }
         if($this->stato > SPEDITO_COMITATO) {
