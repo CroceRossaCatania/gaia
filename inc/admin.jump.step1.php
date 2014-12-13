@@ -29,6 +29,7 @@ sort($volontari);
 	$inesistenti	= 0;
 	$duplicati 		= 0;
 	$nofoto 		= 0;
+	$richiesta 		= 0;
 	$esistenti 		= [];
 
 	foreach ( $volontari as $v ) { 
@@ -62,6 +63,12 @@ sort($volontari);
 		if ( !$f ) {
 			$saltati++;
 			$nofoto++;
+			continue;
+		}
+
+		if ( $r && $_POST['salta'] ) {
+			$saltati++;
+			$richiesta++;
 			continue;
 		}
 
@@ -106,6 +113,7 @@ sort($volontari);
 	<strong><?= $saltati; ?></strong> saltati, tra cui:<br />
 	<strong><?= $duplicati; ?></strong> CF duplicati,<br />
 	<strong><?= $inesistenti; ?></strong> non esistenti,<br />
+	<strong><?= $richiesta; ?></strong> non esistenti,<br />
 	<strong><?= $nofoto; ?></strong> senza fototessera.<br />
 </big>
 

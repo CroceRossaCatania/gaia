@@ -19,6 +19,11 @@ caricaSelettore();
 	Inserisci un codice fiscale per riga<br />
     <textarea name="volontari" rows="10" cols="400"></textarea><br />
 
+    <label>
+    	<input type="checkbox" name="salta" checked="checked" />
+    	Salta volontari con richiesta presente
+	</label><br />
+	
     <button type="submit" class="btn btn-primary">
     	Cerca i volontari
 	</button>
