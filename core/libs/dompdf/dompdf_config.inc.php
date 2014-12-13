@@ -242,7 +242,7 @@ def("DOMPDF_DEFAULT_FONT", "serif");
  *
  * @var int
  */
-def("DOMPDF_DPI", 300);
+def("DOMPDF_DPI", 600);
 
 /**
  * Enable inline PHP

@@ -180,6 +180,10 @@ class Trasferimento extends Entita {
             }
         }
 
+        /* Chiudo eventuale richiesta di tesserini o invalido l'attuale */
+        $motivo = "Trasferimento presso altro comitato";
+        $v->invalidaTesserino($motivo);
+
         /* Posso chiudere definitivamente la vecchia appartenenza */
 
         $a->timestamp = time();

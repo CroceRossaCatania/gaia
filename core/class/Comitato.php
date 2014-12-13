@@ -988,4 +988,40 @@ class Comitato extends GeoPolitica {
         }
         return parent::localizzaStringa($stringa);
     }
+
+    /**
+     * Fototessere in attesa
+     * @param comitato
+     * @return Utente array
+     */
+    public function fototesserePendenti() {
+        $filtrato = [];
+        foreach( $this->membriAttuali(MEMBRO_VOLONTARIO) as $u ) {
+            if ( !$u->fototessera() ) { continue; }
+            if ( $u->fototessera()->approvata() ) { continue; }
+            $filtrato[] = $u;
+        }
+        return $filtrato;
+    }
+
+    /**
+     * Tesserini in attesa di essere riconsegnati
+     * @param comitato
+     * @return Utente array
+     */
+    public function tesseriniNonRiconsegnati() {
+        $filtrato = [];
+        foreach( $this->membriDimessi() as $u ) {
+            $t = TesserinoRichiesta::filtra([
+                ['volontario',      $u],
+                ['stato',           INVALIDATO]],
+                'tConferma DESC'
+            );
+            $t = $t[0];
+            if ( !$t || $t->pRiconsegnato ) { continue; }
+            $filtrato[] = $u;
+        }
+        return $filtrato;
+    }
+
 }

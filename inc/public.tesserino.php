@@ -65,7 +65,7 @@
         <div class="row-fluid">
             <div class="span8 offset2"
                 <div class="item active altoCento">
-                    <img class="altoCentro" src="./img/esempio_retro.png" alt="esempio retro">
+                    <img class="altoCentro" src="./img/tesserino/RetroAttivoEsempio.jpg" alt="esempio retro">
             </div>
         </div>
     </div>

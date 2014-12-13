@@ -185,7 +185,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
                   <img src="<?php echo $u->fototessera()->img(20); ?>" class="img-polaroid" />
                 <?php } else { ?>
                   <div class="alert alert-info">
-                    <p><i class="icon-warning-sign"></i> Le funzionalita' dei tesserini non sono ancora state rilasciate, ma puoi gia' caricare la fototessera.</a></p>
+                    <p><i class="icon-warning-sign"></i> Potrai caricare foto in formato jpg o png. Ricordati che la foto deve rispettare gli standard riportati <i class="icon-link"></i><a href="#" target="_new"> qui</a></a></p>
                   </div>
                   <p><br/>Fototessera non caricata</p>
                 <?php } 

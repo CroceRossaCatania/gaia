@@ -692,6 +692,8 @@ CREATE TABLE IF NOT EXISTS `tesserinoRichiesta` (
   `tConferma` varchar(64) DEFAULT NULL,
   `motivo` text,
   `struttura` varchar(64) DEFAULT NULL,
+  `pRiconsegnato` int(11) DEFAULT NULL,
+  `tRiconsegnato` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `volontario` (`volontario`),
   KEY `struttura` (`struttura`),

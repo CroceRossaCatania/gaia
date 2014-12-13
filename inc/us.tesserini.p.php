@@ -9,7 +9,12 @@ controllaParametri(['id'], 'us.dash&err');
 
 $t = $_GET['id'];
 $t = TesserinoRichiesta::id($t);
-$t->generaTesserino()->anteprima();
+
+if ( isset($_GET['download']) ) {
+	$t->generaTesserino()->download();
+} else {
+	$t->generaTesserino()->anteprima();
+}
 
 redirect('presidente.soci.ok&nofoto');
 

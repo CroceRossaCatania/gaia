@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
@@ -39,19 +39,19 @@ menuElenchiVolontari(
    <div class="span12">
         <div class="nascosto" id="azioniElenco">
             <div class="btn-group">
-                <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" target="_new" title="Dettagli">
-                    <i class="icon-eye-open"></i> Dettagli
-                </a>
                 <a class="btn btn-small btn-warning {riammissibile}" href="?p=us.utente.riammetti&id={id}" title="Riammetti">
                     <i class="icon-eye-open"></i> Riammetti
                 </a>
                 <?php if ($admin) { ?>
-                <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id={id}" title="Cancella Utente" class="btn btn-small btn-warning">
-                    <i class="icon-trash"></i> Cancella
-                </a>
-                <a class="btn btn-small btn-primary" href="?p=admin.beuser&id={id}" title="Log in">
-                    <i class="icon-key"></i>
-                </a> 
+                    <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" target="_new" title="Dettagli">
+                        <i class="icon-eye-open"></i> Dettagli
+                    </a>
+                    <a  onClick="return confirm('Vuoi veramente cancellare questo utente ?');" href="?p=admin.utente.cancella&id={id}" title="Cancella Utente" class="btn btn-small btn-warning">
+                        <i class="icon-trash"></i> Cancella
+                    </a>
+                    <a class="btn btn-small btn-primary" href="?p=admin.beuser&id={id}" title="Log in">
+                        <i class="icon-key"></i>
+                    </a> 
                 <?php } ?>
             </div>
         </div>
