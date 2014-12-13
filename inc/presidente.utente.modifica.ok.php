@@ -72,6 +72,10 @@ if ($me->admin()) {
         redirect('presidente.utente.visualizza&email&id='.$_GET['t']);
     }
 
+    if ( $p->codiceFiscale != $codiceFiscale )
+        if ( Utente::by('codiceFiscale', $codiceFiscale) )
+            redirect('presidente.utente.visualizza&cf&id='.$_GET['t']);
+
     $p->nome            = $nome;
     $p->cognome         = $cognome;
     $p->sesso           = ($sesso) ? UOMO : DONNA;
