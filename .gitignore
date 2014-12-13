@@ -35,6 +35,9 @@ upload/setup/lock
 # Roba scaricata temporaneamente
 upload/setup/*.json
 
+# Tutta la cache 
+upload/setup/cache_*
+
 # Autopull
 upload/setup/autopull
 

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -15,18 +15,19 @@ $g = $me->contaGruppi();
 
 /* Se appartengo solo ad un gruppo non dimetto
  */
-if($g == 1){
-    
-    redirect('utente.gruppo&last');
-    
-}               
+if($g == 1)
+    redirect('utente.gruppo&last');             
 
 /*Se non sono appartenente allora avvio la procedura*/
 
-        $t = AppartenenzaGruppo::id($t);
-        $t->fine = time();
-        $t->motivazione = "Abbandono spontaneo del gruppo";
-        $t->tNega = time();
-        $t->pNega = $me;
-        
-        redirect('utente.gruppo&del');
+$t = AppartenenzaGruppo::id($t);
+
+if ( $me->id != $t->volontario()->id )
+	redirect('errore.permessi');
+	
+$t->fine = time();
+$t->motivazione = "Abbandono spontaneo del gruppo";
+$t->tNega = time();
+$t->pNega = $me;
+
+redirect('utente.gruppo&del');

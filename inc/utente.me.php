@@ -370,7 +370,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                 <?php } 
                 // blocco JUMP 
                 ?>
-                <div class="alert alert-block alert-info">
+                <!--<div class="alert alert-block alert-info">
                     <div class="row-fluid">
                         <div class="span9">
                             <h4>Hai già saputo che dal 12 al 14 dicembre si terrà <strong>Jump14</strong> a Roma?</h4>
@@ -381,7 +381,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                             <a href="http://cri.it/jump14" target="_blank"><img src="img/jump14_logo_small_400.png" /></a>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <?php
                 // fine blocco jump
                 if (!$me->wizard) { $attenzione = true;  ?>
