@@ -56,7 +56,7 @@ $(document).ready(function() {
 				return false;
 			}
 			$("#nome").text(x.risposta.nomeCompleto).removeClass('text-error');
-			$("#avatar").attr('href', x.risposta.avatar[20]).show();
+			$("#avatar").attr('href', x.risposta.volontario.avatar[20]).show();
 
 		});
 
