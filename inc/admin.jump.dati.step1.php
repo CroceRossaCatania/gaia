@@ -16,7 +16,7 @@ $r = [];
 <table class="table table-condensed">
 	<tbody>
 		<?php
-		foreach ( $_POST['volontari'] as $codice ) { 
+		foreach ( explode("\n", $_POST['volontari']) as $codice ) { 
 			$codice = maiuscolo($codice);
 			if ( !$codice ) { continue; }
 			$v = Utente::daCodicePubblico($codice);
