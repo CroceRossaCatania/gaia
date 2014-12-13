@@ -63,7 +63,7 @@ class TesserinoRichiesta extends Entita {
             $volontario = 'VOLONTARIO';
         $f->_VOLONTARIO = $volontario;
 
-        $f->_AVATAR     = $utente->fototessera()->file(20);
+        $f->_AVATAR     = $utente->fototessera()->file(80);
         $f->_INGRESSO   = $utente->ingresso()->format('d/m/Y');
         $f->_CODICE     = $codice;
         $scadenza = $this->timestamp + (5 * ANNO);
