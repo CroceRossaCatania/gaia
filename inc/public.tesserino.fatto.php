@@ -32,13 +32,13 @@ if ($u) {
     $r = rand(1, $l);
     $c = strtoupper(substr($cogn, $r-1, 1));
     echo "<!-- Con Utente ";
-    var_dump($t); var_dump($u); var_dump($t->valido());
-    echo " -->"
+    var_dump($t); var_dump($u); var_dump($t);
+    echo " -->";
 
 } else {
     echo "<!-- Nessun Utente ";
     var_dump($_POST);
-    echo " -->"
+    echo " -->";
 }
 ?>
 
