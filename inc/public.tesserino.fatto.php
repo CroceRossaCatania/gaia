@@ -31,7 +31,15 @@ if ($u) {
     $l = strlen($cogn);
     $r = rand(1, $l);
     $c = strtoupper(substr($cogn, $r-1, 1));
-} 
+    echo "<!-- Con Utente ";
+    var_dump($t, $u, $t->valido());
+    echo " -->"
+
+} else {
+    echo "<!-- Nessun Utente ";
+    var_dump($_POST);
+    echo " -->"
+}
 ?>
 
 <div class="row-fluid">
