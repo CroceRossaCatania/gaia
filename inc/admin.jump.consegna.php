@@ -55,7 +55,7 @@ $(document).ready(function() {
 				$("#avatar").removeClass('nascosto').hide();
 				return false;
 			}
-			$("#nome").text(x.risposta.nomeCompleto).removeClass('text-error');
+			$("#nome").text(x.risposta.volontario.nomeCompleto).removeClass('text-error');
 			$("#avatar").attr('href', x.risposta.volontario.avatar[20]).show();
 
 		});
