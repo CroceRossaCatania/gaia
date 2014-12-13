@@ -28,6 +28,7 @@ sort($volontari);
 	$saltati 		= 0;
 	$inesistenti	= 0;
 	$duplicati 		= 0;
+	$nofoto 		= 0;
 	$esistenti 		= [];
 
 	foreach ( $volontari as $v ) { 
@@ -58,6 +59,12 @@ sort($volontari);
 		$r = $v->tesserinoRichiesta();
 		$f = $v->fototessera();
 
+		if ( !$f ) {
+			$saltati++;
+			$nofoto++;
+			continue;
+		}
+
 		?>
 
 		<tr>
@@ -66,8 +73,7 @@ sort($volontari);
 			<td><?= $v->nomeCompleto(); ?></td>
 			<td><?= $r ? $conf['tesseriniStato'][$r->stato] : "NON RICHIESTO"; ?></td>
 			<td style="font-weight: bold;">
-				<?php
-				if ( $f ) { ?>
+			
 
 					<?php if ( !$f->approvata() ) { ?>
 
@@ -86,11 +92,7 @@ sort($volontari);
 
 					<?php } ?>
 
-				<?php } else { ?>
-
-					<i class="icon-remove text-error"></i> Fototessera non caricata
-
-				<?php } ?>
+		
 			</td>
 		</tr>
 
@@ -104,6 +106,7 @@ sort($volontari);
 	<strong><?= $saltati; ?></strong> saltati, tra cui:<br />
 	<strong><?= $duplicati; ?></strong> CF duplicati,<br />
 	<strong><?= $inesistenti; ?></strong> non esistenti,<br />
+	<strong><?= $nofoto; ?></strong> senza fototessera.<br />
 </big>
 
 <hr />
