@@ -12,7 +12,7 @@ class Barcode extends File {
         $larghezza  = 2,
         $altezza    = 100,
         $testo      = true,
-        $tipo       = 'ean13';
+        $tipo       = 'code128';
 
     public function genera($codice) {
 
