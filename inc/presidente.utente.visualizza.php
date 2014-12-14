@@ -48,7 +48,12 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.
         L'operazione che hai tentato di eseguire non è andata a buon fine. Per favore riprova
       </div>
-    <?php }?>
+    <?php } elseif(isset($_GET['cf'])) {?>
+      <div class="alert alert-danger">
+        <i class="icon-warning-sign"></i> <strong>Codice Fiscale già presente</strong>.
+        Il codice fiscale che vorresti inserire risulta già presente
+      </div>
+    <?php } ?>
 
     <!-- Attivazione account -->
 
