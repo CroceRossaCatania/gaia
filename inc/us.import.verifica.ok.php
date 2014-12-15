@@ -50,10 +50,11 @@ if(isset($_POST['ordinario'])){
             }else{
                 echo "Errore data ingresso";
             }
+
             /* Controlla se esiste già! */
 
             if ( $p = Persona::by('codiceFiscale', $codiceFiscale) ) {
-                echo(' cf duplicato :( <br>');
+                echo(' Persona gia su Gaia! <br>');
                 continue;
             }
 

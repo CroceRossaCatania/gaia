@@ -55,7 +55,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 <!--<hr/>-->
             </div>
             <br/>
-            <!--
+            <br/>
             <h2>
                 <i class="icon-bolt muted"></i>
                 Verifica il tuo file
@@ -72,18 +72,17 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     <div class="span6">
                         <button type="submit" class="btn btn-block btn-info">
                             <i class="icon-bolt"></i>
-                            Verifica il tuo file volontari prima dell'invio
+                            Verifica il tuo file volontari
                         </button>
                     </div>
                     <div class="span6">
                         <button name="ordinario" type="submit" class="btn btn-block btn-primary">
                             <i class="icon-bolt"></i>
-                            Verifica il tuo file Soci ordinari prima dell'invio
+                            Verifica il tuo file Soci ordinari
                         </button>
                     </div>
                 </div>
             </form>
-            -->
         </div>
     </div>
 </div>
