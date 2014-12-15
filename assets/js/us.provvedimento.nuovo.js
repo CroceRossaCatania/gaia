@@ -24,5 +24,7 @@ if ( $("#datafine").length > 0 ) {
                      }
                 }); 
            }
-$("#protData").datepicker();
+$("#protData").datepicker({
+    maxDate: new Date()
+});
 });

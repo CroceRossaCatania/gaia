@@ -5,6 +5,8 @@ class Provvedimento extends Entita {
     protected static
         $_t  = 'provvedimenti',
         $_dt = null;
+
+    use EntitaCache;
     
     public function volontario() {
         return Volontario::id($this->volontario);
