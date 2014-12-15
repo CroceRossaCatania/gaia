@@ -186,7 +186,7 @@ if(isset($_GET['tessok']) || isset($_GET['tesserr'])) {
                 <?php } else { ?>
                   <div class="alert alert-info">
                     <!-- Manca link alle norme ICAO nostre standard -->
-                    <p><i class="icon-warning-sign"></i> Potrai caricare foto in formato jpg o png. Ricordati che la foto deve rispettare gli standard riportati <i class="icon-link"></i><a href="#" target="_new"> qui</a></p>
+                    <p><i class="icon-warning-sign"></i> Potrai caricare foto in formato jpg o png. Ricordati che la foto deve rispettare gli standard riportati <i class="icon-link"></i><a href="http://wiki.gaia.cri.it/index.php?title=Manuale_del_Volontario#Norme_generali" target="_new"> qui</a></p>
                   </div>
                   <p><br />Fototessera non caricata</p>
                 <?php } ?>
