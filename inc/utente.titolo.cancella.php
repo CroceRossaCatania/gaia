@@ -12,11 +12,14 @@ $t = $_GET['id'];
 $t = TitoloPersonale::id($t);
 $v = $t->volontario();
 
-if ( $me != $v )
-	redirect('errore.permessi');
-
 $tipo = $t->titolo()->tipo;
-$t->cancella();
+
+if ( $v->modificabileDa($me) || $me == $v->id ) {
+	$t->cancella();
+}else{
+	redirect('errore.permessi');
+}
+
 
 if(isset($_GET['pre'])){
     redirect('presidente.utente.visualizza&id='.$v->id);

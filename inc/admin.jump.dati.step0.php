@@ -14,15 +14,10 @@ caricaSelettore();
 <h3>Jump &mdash; Step 0</h3>
 <h4>Selezione dei volontari</h4>
 
-<form action="?p=admin.jump.step1" method="POST">
+<form action="?p=admin.jump.dati.step1" method="POST">
 
-	Inserisci un codice fiscale per riga<br />
+	Inserisci un codice tesserino<br />
     <textarea name="volontari" rows="10" cols="400"></textarea><br />
-
-    <label>
-    	<input type="checkbox" name="salta" checked="checked" />
-    	Salta volontari con richiesta presente
-	</label><br />
 	
     <button type="submit" class="btn btn-primary">
     	Cerca i volontari

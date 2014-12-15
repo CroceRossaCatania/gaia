@@ -105,7 +105,7 @@ if ( isset($_GET['preiscrizioni'])){
                 $iscritto->comuneNascita,
                 $iscritto->email,
                 $iscritto->cellulare,
-                date ('d/m/Y', $iscritto->tAttestato),
+                date ('d/m/Y', $iscritto->tEsame),
                 $conf['partecipazioneBase'][$p->stato]
                 ]);
         }
