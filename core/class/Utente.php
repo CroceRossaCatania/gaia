@@ -132,11 +132,9 @@ class Utente extends Persona {
     
     public function admin() {
         global $sessione;
-        if ( $this->admin && $sessione->adminMode ) {
-            return true;
-        } else {
-            return false;
-        }
+        return ( $this->admin 
+            && $sessione->utente == $this->id 
+            && $sessione->adminMode );
     }
     
     public function titoli() {
