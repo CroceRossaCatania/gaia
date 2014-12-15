@@ -60,6 +60,11 @@ if(isset($_POST['ordinario'])){
 
             /* Imposta la data di nascita */
             $dnascita   = DateTime::createFromFormat('d/m/Y', $riga[2]);
+            if ( !$dnascita ){
+                echo "Errore data di nascita";
+                continue;
+            }
+
             $dnascita   = $dnascita->getTimestamp();
                 
             /* Verifica i vari dati... */
@@ -82,7 +87,7 @@ if(isset($_POST['ordinario'])){
             echo normalizzaNome($xyz[0]);
                     
             if ( isset($xyz[1]) ) {
-                echo "provincia nascita: ", maiuscolo ( str_replace(')', '', $xyz[1] ) );
+                echo " provincia nascita: ", maiuscolo ( str_replace(')', '', $xyz[1] ) );
             }
 
             $p->indirizzo           = normalizzaNome($riga[5]);
@@ -100,7 +105,7 @@ if(isset($_POST['ordinario'])){
             $app = null;
             $pres = null;
 
-            echo "comitato:", Comitato::by('nome', $riga[15]);
+            echo " comitato:", Comitato::by('nome', $riga[15]);
 
             if ($riga[16] == '') {
                 $riserva = false;    
