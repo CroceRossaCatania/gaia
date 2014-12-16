@@ -82,6 +82,16 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
             <i class="icon-truck muted"></i>
             Veicoli
         </h2>
+        <select class="selectpicker" id="select">
+        <option>Filtra per comitato</option>
+        <?php
+            $comitati = $me->entitaDelegazioni();
+            $comitati = new RamoGeoPolitico($comitati);
+            foreach ($comitati as $comitato) {
+                echo "<option value=\"".str_replace(' ', '', $comitato->nome)."\">{$comitato->nome}</option>";
+            }
+        ?>
+        </select>
     </div>
 
     <div class="span4">
@@ -119,12 +129,11 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                 <th>Azioni</th>
             </thead>
             <?php
-            $comitati = $me->entitaDelegazioni();
-            $comitati = new RamoGeoPolitico($comitati);
+            
             foreach ( $comitati as $comitato ){
                 foreach(Veicolo::filtra([['comitato', $comitato->oid()],['stato', VEI_ATTIVO]],'targa ASC') as $veicolo){
                     ?>
-                    <tr>
+                    <tr class="<?php echo(str_replace(' ', '', $comitato->nome)); ?> comitato" >
                         <td><?= $veicolo->targa; ?></td>
                         <td><?= $veicolo->uso; ?></td>
                         <td><?= $veicolo->consumoMedio(); ?></td>
