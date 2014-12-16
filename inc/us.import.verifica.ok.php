@@ -39,33 +39,32 @@ if(isset($_POST['ordinario'])){
             $rigasuexcel++;
 
             if ($ordinario){
-                $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[12]);
+                if ( !DT::controlloData($riga[12]) )
+                    echo "<b>Errore!</b> data ingresso non corretta <br/>";
+                    continue;
             }else{
-                $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[14]);
+                if ( !DT::controlloData($riga[14]) )
+                    echo "<b>Errore!</b> data ingresso non corretta <br/>";
+                    continue;
             }
 
             if ( $dingresso && $dingresso->getTimestamp() < (time()-(ANNO*150))){
-                echo " Data ingresso antecedente a 150 anni - NON IMPORTABILE!!! <br/>";
+                echo "<b>Errore!</b> Data ingresso antecedente a 150 anni <br/>";
                 continue;
-            }else{
-                echo "Errore data ingresso";
             }
 
             /* Controlla se esiste già! */
 
             if ( $p = Persona::by('codiceFiscale', $codiceFiscale) ) {
-                echo(' Persona gia su Gaia! <br>');
+                echo('<b>Errore!</b> Persona gia su Gaia! <br/>');
                 continue;
             }
 
             /* Imposta la data di nascita */
-            $dnascita   = DateTime::createFromFormat('d/m/Y', $riga[2]);
-            if ( !$dnascita ){
-                echo "Errore data di nascita";
+            if ( !DT::controlloData($riga[2]) ){
+                echo "<b>Errore!</b> data di nascita non corretta  <br/>";
                 continue;
             }
-
-            $dnascita   = $dnascita->getTimestamp();
                 
             /* Verifica i vari dati... */
             echo(' verifico! '.$riga[0].' '.$riga[1]);
