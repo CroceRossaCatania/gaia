@@ -11,6 +11,7 @@ controllaParametri($parametri, 'us.dash&err');
 
 if ( DT::controlloData($_POST['datainizio']) && 
      DT::controlloData($_POST['datafine']) &&
+     DT::controlloData($_POST['protData']) ) {
  $inizio   = DateTime::createFromFormat('d/m/Y', $_POST['datainizio']);
  $fine     = DateTime::createFromFormat('d/m/Y', $_POST['datafine']);
  $protData = DateTime::createFromFormat('d/m/Y', $_POST['protData']);
