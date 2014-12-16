@@ -81,7 +81,13 @@ if(!$me->admin()) {
                     <h4><i class="icon-ok"></i> <strong>Email inviata con successo</strong>.</h4>
                     <p>L'email che hai inviato è stata inserita in coda di invio e al più presto sarà recapitata.</p>
                 </div> 
-            <?php } ?>         
+            <?php } ?>    
+            <?php if ( isset($_GET['date']) ) { ?>
+                <div class="alert alert-error">
+                    <i class="icon-warning-sign"></i> <strong>Le date specificate non sono corrette</strong>.
+                    Una delle date inserite non è nel formato corretto ( gg/mm/aaaa ) riprova facendo attenzione
+                </div>
+            <?php } ?>     
             <div class="span12">
                 <h3>Ufficio Soci</h3>
             </div>

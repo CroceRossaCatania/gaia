@@ -9,14 +9,16 @@ paginaApp([APP_SOCI, APP_PRESIDENTE]);
 $parametri = array('inputVolontario', 'datainizio', 'datafine', 'inputMotivo', 'protNum', 'protData', 'inputTipo');
 controllaParametri($parametri, 'us.dash&err');
 
-if ( controlloData($_POST['datainizio']) )
+if ( DT::controlloData($_POST['datainizio']) && 
+     DT::controlloData($_POST['datafine']) &&
  $inizio   = DateTime::createFromFormat('d/m/Y', $_POST['datainizio']);
-
-if ( controlloData($_POST['datafine']) )
  $fine     = DateTime::createFromFormat('d/m/Y', $_POST['datafine']);
-
-if ( controlloData($_POST['protData']) )
  $protData = DateTime::createFromFormat('d/m/Y', $_POST['protData']);
+
+}else{
+
+    redirect('us.dash&date');
+}
 
 if ( @$fine->getTimestamp() < @$inizio->getTimestamp() ) {
     redirect('us.dash&date');
