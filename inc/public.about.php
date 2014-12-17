@@ -56,11 +56,11 @@
 </div>
 
 <div class="span4">
-    <h2><i class="icon-heart-empty"></i> Aiuto</h2>
+    <h2><i class="icon-question-sign"></i> Aiuto</h2>
     
-    <p><a href="docs/Guida.pdf?ref=info" class="btn btn-large btn-primary btn-block">
+    <p><a href="http//wiki.gaia.cri.it" class="btn btn-large btn-primary btn-block">
         <i class="icon-download icon-large"></i>
-        Scarica la Guida in PDF di Gaia
+        Hai già letto il nostro WIKI?
     </a></p>
     
     <p>Oppure contattaci per email a <a href="mailto:supporto@gaia.cri.it"><i class="icon-envelope-alt"></i> supporto@gaia.cri.it</a>.</p>
