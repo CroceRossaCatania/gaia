@@ -18,6 +18,13 @@ if(!$me->admin() && $me->delegazioneAttuale()->comitato() != $t->struttura()) {
     redirect('errore.permessi&cattivo');
 }
 
+$ordinario = null;
+$annulla = "?p=us.tesserini";
+
+if(isset($_GET['ordinario'])){
+    $ordinario = "&ordinario";
+    $annulla = "?p=us.tesserini.ordinari";
+}
 
 if($t->stato == RICHIESTO) { ?>
 <form action="?p=us.tesserini.stampa.ok" method="POST">
@@ -63,7 +70,7 @@ if($t->stato == RICHIESTO) { ?>
             </p>
         </div>
         <div class="modal-footer">
-            <a href="?p=us.tesserini" class="btn">Annulla</a>
+            <a href="<?= $annulla; ?>" class="btn">Annulla</a>
             <button type="submit" class="btn btn-success">
                 <i class="icon-asterisk"></i> Aggiorna lavorazione
             </button>
@@ -72,7 +79,11 @@ if($t->stato == RICHIESTO) { ?>
 </form>
 
 <?php } elseif ($t->stato == STAMPATO) {
-$c = $u->unComitato();
+    if ( $u->ordinario()){
+        $c = $u->unComitato(MEMBRO_ORDINARIO)->locale();
+    }else{
+        $c = $u->unComitato()->locale();
+    }
 ?>
 <form action="?p=us.tesserini.invia.ok" method="POST">
     <input type="hidden" name="id" value="<?php echo $t->id; ?>" />
@@ -82,10 +93,10 @@ $c = $u->unComitato();
             <h3><i class="icon-credit-card"></i> Stampa del tesserino</h3>
         </div>
         <div class="modal-body">
-            <p><strong>Procedura per la spedizione del tesserino di <?= $u->nomeCompleto() ?></strong></p>
+            <p><strong>Procedura per la spedizione del tesserino di <?= $u->nomeCompleto(); ?></strong></p>
                 <label class="radio">
                     <input type="radio" name="spedizione" value="1" id="comitato" checked>
-                    Spedito presso il <strong><?= $c->nomeCompleto() ?></strong> sito in <?= $c->formattato; ?>
+                    Spedito presso il <strong><?= $c->nomeCompleto(); ?></strong> sito in <?= $c->formattato; ?>
                 </label>
                 <label class="radio">
                     <input type="radio" name="spedizione" value="0" id="casa">
@@ -103,7 +114,7 @@ $c = $u->unComitato();
             </p>
         </div>
         <div class="modal-footer">
-            <a href="?p=us.tesserini" class="btn">Annulla</a>
+            <a href="<?= $annulla; ?>" class="btn">Annulla</a>
             <button type="submit" class="btn btn-success">
                 <i class="icon-asterisk"></i> Aggiorna lavorazione
             </button>

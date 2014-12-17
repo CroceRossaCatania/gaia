@@ -8,7 +8,6 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 ?>
 <script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-save"></i> <strong>Quota registrata</strong>.
@@ -91,7 +90,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
         <div class="well">
             <i class="icon-certificate"></i> Ad oggi sono state pagate<br />
-            <span class="quote_contatore"> {{quote}}</span>
+            <span class="quote_contatore" id="c_quote">...</span>
             <br />
             <span class="aspiranti_descrizione">QUOTE</span>
         </div>
@@ -101,7 +100,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     <div class="span6 allinea-centro">
         <div class="well">
             <i class="icon-money"></i> Attualmente sono stati raccolti<br />
-            <span class="quote_contatore"> {{incasso}} €</span>
+            <span class="quote_contatore" id="c_incasso">...</span>
             <br />
             <span class="aspiranti_descrizione">DAL TESSERAMENTO</span>
         </div>
@@ -110,7 +109,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     <div class="span3 allinea-centro">
         <div class="well">
             <i class="icon-thumbs-up-alt"></i> Attualmente sono presenti<br />
-            <span class="quote_contatore"> {{benemeriti}}</span>
+            <span class="quote_contatore" id="c_benemeriti">...</span>
             <br />
             <span class="aspiranti_descrizione">SOSTENITORI</span>
         </div>
@@ -216,9 +215,15 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         ?>
 
         </table>
-        <input type="hidden" ng-model="quote" ng-init="quote= '<?php echo $n; ?>'">
-        <input type="hidden" ng-model="benemeriti" ng-init="benemeriti= '<?php echo $ben; ?>'">
-        <input type="hidden" ng-model="incasso" ng-init="incasso= '<?php echo soldi($totale); ?>'">
+
+        <script type="text/javascript">
+            $(function() {
+                // Aggiorna i contatori...
+                $("#c_quote")       .text("<?= $n; ?>");
+                $("#c_benemeriti")  .text("<?= $ben; ?>");
+                $("#c_incasso")     .html("<?= soldi($totale); ?> &euro;");
+            });
+        </script>
     </div>
     
 </div>

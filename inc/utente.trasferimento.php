@@ -15,22 +15,28 @@ caricaSelettoreComitato();
     </div>
     <div class="span9">
         <?php if ( isset($_GET['ok']) ) { ?>
-        <div class="alert alert-success">
-            <i class="icon-save"></i> <strong>Richiesta inviata</strong>.
-            La richiesta è stata inviata con successo.
-        </div>
+          <div class="alert alert-success">
+              <i class="icon-save"></i> <strong>Richiesta inviata</strong>.
+              La richiesta è stata inviata con successo.
+          </div>
         <?php } 
         if ( isset($_GET['e']) ) { ?>
-        <div class="alert alert-error">
-            <i class="icon-warning-sign"></i>
-            <strong>Errore</strong> &mdash; Appartieni già a questo Comitato.
-        </div>
+          <div class="alert alert-error">
+              <i class="icon-warning-sign"></i>
+              <strong>Errore</strong> &mdash; Appartieni già a questo Comitato.
+          </div>
+        <?php }
+        if ( isset($_GET['gia']) ) { ?>
+          <div class="alert alert-error">
+              <i class="icon-warning-sign"></i>
+              <strong>Errore</strong> &mdash; Esiste già una richiesta di trasferimento in corso.
+          </div>
         <?php } 
         if ( isset($_GET['ann']) ) { ?>
-        <div class="alert alert-success">
-            <i class="icon-save"></i> <strong>Richiesta annullata</strong>.
-            La richiesta è stata annullata con successo.
-        </div>
+          <div class="alert alert-success">
+              <i class="icon-save"></i> <strong>Richiesta annullata</strong>.
+              La richiesta è stata annullata con successo.
+          </div>
         <?php } 
         $i=0;
         $x=0;

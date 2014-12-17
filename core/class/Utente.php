@@ -132,11 +132,9 @@ class Utente extends Persona {
     
     public function admin() {
         global $sessione;
-        if ( $this->admin && $sessione->adminMode ) {
-            return true;
-        } else {
-            return false;
-        }
+        return ( $this->admin 
+            && $sessione->utente == $this->id 
+            && $sessione->adminMode );
     }
     
     public function titoli() {
@@ -1349,7 +1347,7 @@ class Utente extends Persona {
         return $result;
     }
 
-    /*
+    /**
      * @return bool restituisce true se oggi è il compleanno dell'utente
      */
     public function compleanno(){
@@ -1360,7 +1358,7 @@ class Utente extends Persona {
         }
     }
 
-    /*
+    /**
      * @return true se se si è in una situazione in cui le appartenenze assegnate hanno senso.
      * Anche se la gestione del false non è fatta in maniera corretta nella pagina.
      */
@@ -1378,7 +1376,7 @@ class Utente extends Persona {
         return false;
     }
 
-    /*
+    /**
      * Verifica se un altro utente ha permessi in scrittura su me
      * @return bool modifica o non modifica
      * @param $altroUtente il modificatore
@@ -1443,7 +1441,7 @@ class Utente extends Persona {
         return false;
     }
 
-    /*
+    /**
      * Controlla la riammissibilità entro l'anno solare di un volontario
      * @return true se volontario riammissibile false se non riammissibile
      */
@@ -1469,7 +1467,7 @@ class Utente extends Persona {
         return true;
     }
 
-    /*
+    /**
      * Visualizza ultimo accesso dell'utente
      * @return recentemente<5gg, 5gg< ultimo mese <30gg, piu di un mese >30gg
      */
@@ -1979,7 +1977,7 @@ class Utente extends Persona {
         return false;
     }
 
-    /*
+    /**
      * Ottiene codice ultimo tesserino valido volontario (codicePubblico) 
      * @return false|string Codice se presente, alternativamente false
      */
@@ -1995,16 +1993,20 @@ class Utente extends Persona {
      * @return RichiestaTesserino|false   RichiestaTesserino se presente, false altrimenti
      */
     public function tesserinoRichiesta() {
-        $r = [];
         $t = TesserinoRichiesta::filtra([
-            ['volontario', $this]
-            ]);
-        foreach($t as $_t) {
-            if ($_t->stato != RIFIUTATO) {
-                return $_t;
-            }
-        }
-        return false;
+            ['volontario',      $this],
+            ['stato',           RIFIUTATO,  OP_NE],
+            ['stato',           INVALIDATO, OP_NE]
+        ]);
+        return $t ? $t[0] : false;
+    }
+
+    /**
+     * Ritorna storico richieste del tesserino per il volontario
+     * @return RichiestaTesserino|bool(false)   RichiestaTesserino se presente, false altrimenti
+     */
+    public function storicoTesserinoRichiesta() {
+        return TesserinoRichiesta::filtra([['volontario', $this]], 'tRichiesta DESC');
     }
 
     public static function daCodicePubblico($codice) {
@@ -2072,6 +2074,21 @@ class Utente extends Persona {
     }
 
     /**
+     * Invalida Tesserino del Volontario, se esistente
+     * @return bool     Il true se invalidato, false altrimenti
+     */
+    public function invalidaTesserino($motivo) {
+        $r = $this->tesserinoRichiesta();
+        if ( $r && $r->haCodice() ) {
+            $tesserino = TesserinoRichiesta::id($r);
+            $tesserino->motivo = $motivo;
+            $tesserino->stato  = INVALIDATO;
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Ritorna il dominio di competenza massima nei confronti di un'attivita'
      *
      * es. 1: se sono delegato area provinciale e l'attivita' e' locale, ottengo comitato locale
@@ -2120,7 +2137,6 @@ class Utente extends Persona {
         // Il risultato e' il dominio comune tra la visibilita' dell'attivita'
         // ed il mio potere piu' grande...
         return $attivita->visibilita()->dominioComune($massimo);
-
-    } 
+    }
 
 }

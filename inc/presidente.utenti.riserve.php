@@ -61,6 +61,9 @@ menuElenchiVolontari(
                                     <a class="btn btn-small btn-primary" target="_new" href="?p=presidente.riserva.storico&id=<?php echo $_v->id; ?>">
                                         <i class="icon-time"></i> Storico riserve
                                     </a>
+                                    <a class="btn btn-small btn-warning" href="?p=presidente.riserva.termina&id=<?php echo $riserva->id; ?>">
+                                        <i class="icon-time"></i> Termina riserva
+                                    </a>
                                     <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id=<?php echo $_v->id; ?>" title="Invia Mail">
                                         <i class="icon-envelope"></i>
                                     </a>
