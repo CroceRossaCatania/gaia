@@ -9,6 +9,8 @@ class File extends Entita {
     public static
             $_t     = 'file',
             $_dt    = null;
+
+    use EntitaCache;
     
     public function autore() {
         return Utente::id($this->autore);
@@ -53,6 +55,15 @@ class File extends Entita {
         header('Location: ./download.php?id=' . $this->id );
         exit(0);
     }
+
+    public function url() {
+        return './download.php?anteprima&id=' . $this->id;
+    }
+    
+    public function anteprima() {
+        header('Location: ./download.php?anteprima&id=' . $this->id );
+        exit(0);
+    }
     
     public static function scaduti() {
         global $db;
@@ -73,4 +84,17 @@ class File extends Entita {
         }
         parent::cancella();
     }
+
+    /**
+     * Appende la stringa "?t=123456" per evitare caching, se richiesto
+     * @param bool $nocache Ritornare stringa?
+     * @return string Querystring nocache se richiesta
+     */
+    public static function noCacheQueryString($nocache = true) {
+        if ( $nocache ) 
+            return "?t=" . time();
+        else
+            return "";
+    }
+    
 }

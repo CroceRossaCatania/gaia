@@ -45,6 +45,15 @@ paginaAdmin();
                 <i class="icon-wrench"></i>
                 Fix attività
             </a>
+            <hr/>          
+            <div class="alert alert-danger">
+                <strong>Script per manutenzione aspiranti</strong>
+                <p>Ricalcola il raggio minimo per ogni aspirante in database</p>
+            </div>
+            <a href="?p=admin.script.aspiranti" data-attendere="Lasciami fare." class="btn btn-large btn-danger">
+                <i class="icon-wrench"></i>
+                Fix aspiranti
+            </a>
             <hr/>
             <div class="alert alert-warning">
                 <strong>Script per cancellazione comitati </strong>
@@ -99,6 +108,10 @@ paginaAdmin();
             <a href="?p=admin.appartenenze" class="btn btn-large btn-info">
                 <i class="icon-user"></i>
                 Fix appartenenze
+            </a>
+            <a href="?p=admin.fix.veicoli" class="btn btn-large btn-info">
+                <i class="icon-thumbs-down"></i>
+                Fix spazi nei veicoli
             </a>
         </div>
     </div>

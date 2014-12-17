@@ -13,7 +13,13 @@ $veicolo = Veicolo::id($veicolo);
 proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
 
 ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<?php if ( isset($_GET['del']) ) { ?>
+    <div class="alert alert-danger">
+        <i class="icon-trash"></i> <strong>Rifornimento cancellato</strong>.
+        Il rifornimento è stato cancellato con successo.
+    </div>
+<?php } ?>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <br/>
 <div class="row-fluid">
     <div class="span4">

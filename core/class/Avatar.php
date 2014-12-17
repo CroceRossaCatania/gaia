@@ -9,6 +9,8 @@ class Avatar extends Entita {
     protected static
             $_t     = 'avatar',
             $_dt    = null;
+
+    use EntitaCache;
     
     public function utente() {
         return Utente::id($this->utente);
@@ -61,12 +63,13 @@ class Avatar extends Entita {
     /**
      * Ritorna sempre una immagine all'avatar o placeholder
      */
-    public function img( $dimensione ) {
-        if ( is_readable( $this->file($dimensione) ) ) {
-            return $this->file($dimensione);
-        } else {
+    public function img( $dimensione, $nocache = true ) {
+        if ( is_readable( $this->file($dimensione) ) )
+            return $this->file($dimensione)
+                    . File::noCacheQueryString($nocache);
+        else
             return "./upload/avatar/placeholder/$dimensione.jpg";
-        }
+        
     }
 
     /**

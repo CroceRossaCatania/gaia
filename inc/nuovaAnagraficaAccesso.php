@@ -44,7 +44,7 @@ if ($sessione->utente()->unComitato(SOGLIA_APPARTENENZE)) {
     <?php if (isset($_GET['data'])) { ?>
         <div class="alert alert-block alert-error">
             <h4>Data di ingresso in Croce Rossa errata</h4>
-            <p>La data di inggresso in Croce Rossa che hai inserito non è corretta.</p>
+            <p>La data di ingresso in Croce Rossa che hai inserito non è corretta.</p>
             <p>Il formato corretto della data di ingresso è gg/mm/aaaa.</p>
         </div>
       <?php } ?>

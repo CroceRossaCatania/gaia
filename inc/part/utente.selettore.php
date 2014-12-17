@@ -20,6 +20,9 @@ var stato = '';
               stato = false;
             } else {
               stato = $(e).data('stato');
+              if ( typeof stato === 'string' ) {
+                stato = stato.split(",");
+              }
             } 
 
             $(e).click( function() {

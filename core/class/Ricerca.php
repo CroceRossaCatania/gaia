@@ -14,7 +14,12 @@ class Ricerca {
         $query          = null,
         $pagina         = 1,
         $perPagina      = 30,
-        $stato          = MEMBRO_VOLONTARIO,
+        $stato          = [MEMBRO_VOLONTARIO, MEMBRO_ESTESO],
+        $statoPersona   = false,
+        $passato        = false,
+        $giovane        = false,
+        $infermiera     = false,
+        $militare       = false,
         $ordine         = [
             'pertinenza             DESC',
             'comitati.nome          ASC',
@@ -79,10 +84,15 @@ class Ricerca {
         global $db;
 
         $this->ottimizzaDominio();
-        $dominio    = $this->_dominio;
-        $query      = $this->query;
-        $stato      = $this->stato;
-        $ora        = (int) time();
+        $dominio        = $this->_dominio;
+        $query          = $this->query;
+        $stato          = $this->stato;
+        $statoPersona   = $this->statoPersona;
+        $passato        = $this->passato;
+        $giovane        = $this->giovane;
+        $infermiera     = $this->infermiera;
+        $militare       = $this->militare;
+        $ora            = (int) time();
 
         if ( $dominio == '*' ) {
             $pDominio = '';
@@ -110,27 +120,82 @@ class Ricerca {
             $stato = (int) $stato;
             $pStato = "= {$stato}";
         } else {
+            $stato = array_map(function($x) {
+                // Solo stati interi son permessi!
+                return (int) $x;
+            }, $stato);
             $stato = implode(',', $stato);
             $pStato = "IN ($stato)";
+        }
+
+        if (!$passato) {
+            $pPassato = "
+                    AND     ( 
+                                appartenenza.fine  IS NULL 
+                             OR appartenenza.fine  =   0
+                             OR appartenenza.fine  >=  {$ora}
+                        ) ";
+        } else {
+            $pPassato = ' ';
+        }
+
+        $pGiovane = ' ';
+        $extraFrom = ' ';
+
+        if ($giovane) {
+            $data = time() - GIOVANI;
+            $pGiovane = "
+                AND anagrafica.id = dettagliPersona.id
+                AND dettagliPersona.nome = 'dataNascita'
+                AND dettagliPersona.valore > {$data} ";
+            $extraFrom = ", dettagliPersona";
+        }
+
+        if (!$statoPersona && $statoPersona !== 0) {
+            $pStatoPersona = ' ';
+        } elseif(!is_array($statoPersona) || $statoPersona === 0) {
+            $statoPersona = (int) $statoPersona;
+            $pStatoPersona = " AND anagrafica.stato = {$statoPersona} ";
+        } else {
+            $statoPersona = implode(',', $statoPersona);
+            $pStatoPersona = " AND anagrafica.stato IN ($statoPersona)";
+        }
+
+        if($infermiera) {
+            $pInfermiera = "
+                AND anagrafica.id = dettagliPersona.id
+                AND dettagliPersona.nome = 'iv'
+                AND dettagliPersona.valore = 'on'
+            ";
+            $extraFrom = ", dettagliPersona";
+        }
+
+        if($militare) {
+            $pMilitare = "
+                AND anagrafica.id = dettagliPersona.id
+                AND dettagliPersona.nome = 'cm'
+                AND dettagliPersona.valore = 'on'
+            ";
+            $extraFrom = ", dettagliPersona";
         }
 
         $query = "
             SELECT
                 anagrafica.id, {$pPertinenza}
             FROM
-                anagrafica, appartenenza, comitati
+                anagrafica, appartenenza, comitati {$extraFrom}
             WHERE
                         anagrafica.id           =   appartenenza.volontario
+                        {$pStatoPersona}
+                        {$pGiovane}
+                        {$pInfermiera}
+                        {$pMilitare}
                 AND     appartenenza.comitato   =   comitati.id
                 AND     appartenenza.stato      {$pStato}
                 AND     appartenenza.inizio     <=  {$ora}
-                AND     ( 
-                            appartenenza.fine  IS NULL 
-                         OR appartenenza.fine  =   0
-                         OR appartenenza.fine  >=  {$ora}
-                    )
-                {$pDominio}
-                {$pRicerca}   
+                        {$pPassato}
+                        {$pDominio}
+                        {$pRicerca}   
             GROUP BY    anagrafica.id
 
         ";

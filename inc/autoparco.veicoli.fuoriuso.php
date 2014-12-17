@@ -40,7 +40,7 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
         <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
     </div> 
 <?php } ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <br/>
 <div class="row-fluid">
     <div class="span4">
@@ -99,9 +99,6 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                                     <i class="icon-credit-card"></i> Rifornimento
                                 </a>
                                 <?php if ( $me->admin() ){ ?>
-                                    <a  href="?p=autoparco.veicolo.modifica&id=<?= $veicolo->id; ?>" title="Modifica Veicolo" class="btn btn-small btn-info">
-                                        <i class="icon-edit"></i> Modifica
-                                    </a>
                                     <a  onClick="return confirm('Vuoi veramente cancellare questo veicolo ?');" href="?p=autoparco.veicolo.cancella&id=<?= $veicolo->id; ?>" title="Cancella Veicolo" class="btn btn-small btn-danger">
                                         <i class="icon-trash"></i> Cancella
                                     </a>

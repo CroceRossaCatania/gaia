@@ -9,6 +9,8 @@ class Estensione extends Entita {
     protected static
         $_t  = 'estensioni',
         $_dt = null;
+
+    use EntitaCache;
     
     public function volontario() {
         return Volontario::id($this->volontario);
@@ -24,7 +26,7 @@ class Estensione extends Entita {
     }
 
     public function provenienza() {
-        return $this->cProvenienza->comitato();
+        return Comitato::id($this->cProvenienza);
     }
 
     public function presaInCarico() {

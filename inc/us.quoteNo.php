@@ -10,7 +10,7 @@ $d = $me->delegazioneAttuale();
 $admin = (bool) $me->admin();
 
 ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-save"></i> <strong>Quota registrata</strong>.
@@ -113,7 +113,7 @@ $admin = (bool) $me->admin();
     <div class="alert alert-info">
     <p><i class="icon-warning-sign"></i> È possibile registrare i pagamenti solo se 
     il <strong>Codice Fiscale</strong> e la <strong>Partita Iva</strong> sono stati inseriti.<br />
-    L'inserimento deve essere effettuato dal presidente del comitato nella scermata di inserimento
+    L'inserimento deve essere effettuato dal presidente del comitato nella schermata di inserimento
     dei dati del comitato.</p>
     </div>
 </div>

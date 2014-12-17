@@ -10,6 +10,8 @@ class AppartenenzaGruppo extends Entita {
             $_t  = 'gruppiPersonali',
             $_dt = null;
 
+        use EntitaCache;
+
         public function appartenenza() {
         return Appartenenza::id($this->appartenenza);
     }

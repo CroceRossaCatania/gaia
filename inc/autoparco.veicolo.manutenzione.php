@@ -14,7 +14,14 @@ $veicolo = Veicolo::id($veicolo);
 proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
 
 ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<?php if ( isset($_GET['del']) ) { ?>
+    <div class="alert alert-danger">
+        <i class="icon-trash"></i> <strong>Manutenzione cancellata</strong>.
+        La manutenzione è stata cancellata con successo.
+    </div>
+<?php } ?>
+
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <br/>
 <div class="row-fluid">
     <div class="span4">
@@ -74,6 +81,9 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
                             <div class="btn-group">
                                 <a  href="?p=autoparco.veicolo.manutenzione.dettagli&id=<?= $manutenzione->id; ?>" title="Visualizza dettagli manutenzione" class="btn btn-small">
                                     <i class="icon-eye-open"></i> Dettagli
+                                </a>
+                                <a  onClick="return confirm('Vuoi veramente cancellare questa manutenzione ?');" href="?p=autoparco.veicolo.manutenzione.cancella&id=<?= $manutenzione->id; ?>" title="Cancella manutenzione" class="btn btn-small btn-danger">
+                                    <i class="icon-trash"></i> Cancella
                                 </a>
                             </div>
                         </td>

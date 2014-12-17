@@ -16,7 +16,7 @@ define('DONNA', 0);
 /* Definizioni in stringa */
 $conf['sesso'] = [
     UOMO     =>  'Uomo',
-    DONNA       =>  'Donna'
+    DONNA    =>  'Donna'
 ];
 
 /* Tipologie/stati delle persone */
@@ -40,6 +40,21 @@ define('GIORNO',        86400);
 define('DUEGIORNI',    172800);
 define('ETAMINIMA', 441504000);
 
+
+/*
+ * ===================================
+ * ============ ENTITA ===============
+ * ===================================
+ */
+define('OP_EQ',     '='); 
+define('OP_LIKE',   'LIKE');
+define('OP_NLIKE',  'NOT LIKE');
+define('OP_LT',     '<');
+define('OP_LTE',    '<=');
+define('OP_GT',     '>');
+define('OP_GTE',    '>=');
+define('OP_NE',     '<>');
+define('OP_SQL',    'YOU_SHOULD_NOT_SEE_ME_IN_A_QUERY');
 
 /*
  * ===================================
@@ -193,6 +208,19 @@ $conf['avatar'] = [
     80  =>  [750,   750]
 ];
 
+/*
+ * ===================================
+ * =========== FOTOTESSERA ===========
+ * ===================================
+ */
+
+/* Avatar, dimensioni */
+$conf['fototessera'] = [
+    10  =>  [75,    75],
+    20  =>  [150,   150],
+    80  =>  [750,   750]
+];
+
 
 /*
  * ===================================
@@ -231,6 +259,14 @@ define('ESPLORA_SOLO_FOGLIE',   2);
 
 /*
  * ===================================
+ * ========= FOTOTESSERA =============
+ * ===================================
+ */
+define('FOTOTESSERA_PENDING',         0);
+define('FOTOTESSERA_OK',             10);
+
+/*
+ * ===================================
  * =========== TITOLI ================
  * ===================================
  */
@@ -253,6 +289,8 @@ $conf['titoli'] = [
 	TITOLO_CRI       	    =>	['Titolo di Croce Rossa',	true,	true,	false]
 ];
 
+
+
 /*
  * ===================================
  * =========== FINE APP. =============
@@ -261,6 +299,7 @@ $conf['titoli'] = [
 
 /* 0 => Nessuna scadenza! */
 define('PROSSIMA_SCADENZA', 0);
+
 
 /*
  * ===================================
@@ -664,6 +703,7 @@ $conf['corso_stato'] = [
  */
 
 define('ISCR_ANNULLATA',       0);
+define('ISCR_NEGATA',          5);
 define('ISCR_ABBANDONO',      10);
 define('ISCR_RICHIESTA',      20);
 define('ISCR_CONFERMATA',     30);
@@ -672,6 +712,7 @@ define('ISCR_BOCCIATO',       50);
 
 $conf['partecipazioneBase'] = [
     ISCR_ANNULLATA      =>  'Annullata', 
+    ISCR_NEGATA         =>  'Negata',
     ISCR_ABBANDONO      =>  'Abbandonato', 
     ISCR_RICHIESTA      =>  'Preiscritto', 
     ISCR_CONFERMATA     =>  'Iscritto',
@@ -687,6 +728,66 @@ $conf['partecipazioneBase'] = [
 
 define('POSTA_INGRESSO',        0);
 define('POSTA_USCITA',          1);
+
+
+/*
+ * ===================================
+ * ==== TESSERINO TIPO RICHIESTA =====
+ * ===================================
+ */
+
+define('RILASCIO',          0);
+define('RINNOVO',          10);
+define('DUPLICATO',        20);
+
+$conf['tesseriniTipo'] = [
+    RILASCIO        =>  'Rilascio', 
+    RINNOVO         =>  'Rinnovo',
+    DUPLICATO       =>  'Duplicato', 
+];  
+
+
+/*
+ * ===================================
+ * ==== TESSERINO STATO RICHIESTA ====
+ * ===================================
+ */
+
+define('RIFIUTATO',           0);
+define('RICHIESTO',          10);
+define('STAMPATO',           20);
+define('SPEDITO_CASA',       30);
+define('SPEDITO_COMITATO',   40);
+define('INVALIDATO',         50);
+
+$conf['tesseriniStato'] = [
+    RIFIUTATO           =>  'Richiesta di stampa rifiutata', 
+    RICHIESTO           =>  'Richiesta in attesa di essere lavorata',
+    STAMPATO            =>  'Tesserino emesso', 
+    SPEDITO_CASA        =>  'Tesserino inviato al domicilio', 
+    SPEDITO_COMITATO    =>  'Tesserino inviato al comitato', 
+    INVALIDATO          =>  'Tesserino invalidato',
+];  
+
+$conf['tesseriniStatoBreve'] = [
+    RIFIUTATO           =>  'Rifiutato', 
+    RICHIESTO           =>  'Richiesto',
+    STAMPATO            =>  'Emesso', 
+    SPEDITO_CASA        =>  'Emesso', 
+    SPEDITO_COMITATO    =>  'Emesso', 
+    INVALIDATO          =>  'Invalidato',
+];  
+
+
+/*
+ * ===================================
+ * ======== ORIENTAMENTO PDF =========
+ * ===================================
+ */
+
+define('ORIENTAMENTO_ORIZZONTALE',        'landscape');
+define('ORIENTAMENTO_VERTICALE',          'portrait');
+
 
 /*
  * ===================================
@@ -741,3 +842,27 @@ $conf['like'] = [
     PIACE      =>  'Mi piace', 
     NON_PIACE  =>  'Non mi piace'
 ];  
+
+
+/*
+ * ===================================
+ * ====== CONVERSIONI ESTENSIONE =====
+ * ===================================
+ */
+
+$conf['est_geopolitica2attivita'] = [
+    EST_UNITA       =>  ATT_VIS_UNITA,
+    EST_LOCALE      =>  ATT_VIS_LOCALE,
+    EST_PROVINCIALE =>  ATT_VIS_PROVINCIALE,
+    EST_REGIONALE   =>  ATT_VIS_REGIONALE,
+    EST_NAZIONALE   =>  ATT_VIS_VOLONTARI     
+];
+
+$conf['est_attivita2geopolitica'] = [
+    ATT_VIS_UNITA       =>  EST_UNITA,
+    ATT_VIS_LOCALE      =>  EST_LOCALE,
+    ATT_VIS_PROVINCIALE =>  EST_PROVINCIALE,
+    ATT_VIS_REGIONALE   =>  EST_REGIONALE,
+    ATT_VIS_VOLONTARI   =>  EST_NAZIONALE,
+    ATT_VIS_PUBBLICA    =>  EST_NAZIONALE     
+];

@@ -8,7 +8,7 @@ paginaPrivata();
 
 controllaParametri(array('id'));
 
-$id = $_POST['id'];
+$id  = $_POST['id'];
 $est = Estensione::id($id);
 $est->termina();
 

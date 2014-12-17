@@ -18,7 +18,7 @@ if($quota->annullata()) {
 }
 
 $attivo = false;
-if ($v->stato == VOLONTARIO) {
+if ($quota->appartenenza()->statoSocio() == VOLONTARIO) {
   $attivo = true;
 }
 if (!$t = Tesseramento::by('anno', $quota->anno)) {
@@ -39,7 +39,7 @@ $p->_ID         = $quota->progressivo();
 $p->_NOME       = $v->nome;
 $p->_COGNOME    = $v->cognome;
 $p->_FISCALE    = $v->codiceFiscale;
-$p->_IMPORTO    = soldi($quota->quota - ($quota->quota - $quotaMin));
+$p->_IMPORTO    = soldi($quotaMin);
 $p->_QUOTA      = $quota->causale;
 if (($quota->quota - $quotaMin) > 0) {
 	$p->_OFFERTA = $quota->offerta;

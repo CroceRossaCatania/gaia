@@ -12,11 +12,13 @@ if ( isset($_GET['chiuse']) ){
 
     $apertura = ATT_CHIUSA;
     $chiusa   = true;
+    $plurale = "attività aperte";
 
 }else{
 
     $apertura = ATT_APERTA;
     $redirect = "&chiuse";
+    $plurale = "attività chiuse";
 }
 
 ?>
@@ -158,7 +160,7 @@ if ( isset($_GET['chiuse']) ){
                             <td colspan="4">
                                 <a data-attendere="Attendere..." href="?p=attivita.gestione<?= $redirect; ?>" class="btn btn-block">
                                     <i class="icon-info-sign"></i>
-                                    Ci sono <?= $conf['attivita_stato'][$apertura]; ?>.
+                                    Ci sono <?= $plurale; ?>.
                                     <strong>Clicca per mostrarle.</strong>
                                 </a>
                             </td>

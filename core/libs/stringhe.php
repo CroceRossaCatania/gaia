@@ -7,12 +7,14 @@
 /**
  * Ritorna una stringa normalizzata come nome (maiuscole e niente spazi di troppo)
  * @param string Una stringa
- * @return string La stringa normalizzata
+ * @return string La stringa normalizzata.
  */
 function normalizzaNome( $stringa ) {
     $stringa = trim($stringa);
     $stringa = strtolower($stringa);
+    $stringa = str_replace("'","' ",$stringa);
     $stringa = ucwords($stringa);
+    $stringa = str_replace("' ","'",$stringa); 
     return $stringa;
 }
 
@@ -72,12 +74,10 @@ function generaStringaCasuale(  $caratteri = 10,
             $codice = "";
             $i = 0; 
             while ($i < $caratteri) { 
-
                 // prende un carattere casuale per creare il codice e lo accoda
                 $char = substr($dizionario, mt_rand(0, $maxlength-1), 1);
                 $codice .= $char;
                 $i++;
-
             }
         /* controllo: $controllo_esistenza[0]::$controllo_esistenza[1]($codice)
          * se TRUE allora rigenera
@@ -102,6 +102,13 @@ function generaStringaCasuale(  $caratteri = 10,
     return $codice;
 }
 
+/**
+ * Formatta un numero come monetario (italiano)
+ *
+ * es. 14.4 -> "14,40"
+ * @param float $cifra  Il numero
+ * @return string       Il numero in formato monetario
+ */
 function soldi($cifra) {
     return number_format($cifra, 2, ',', '.');
 }

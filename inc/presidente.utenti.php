@@ -45,7 +45,12 @@ menuElenchiVolontari(
         <h4><i class="icon-exclamation-sign"></i> Inserite email differenti</h4>
         <p>Probabilmente hai sbagliato a digitare l'email dell'utente. L'attivazione dell'account non è andata a buon fine.</p>
     </div>
-    <?php } elseif(isset($_GET['emailGia'])) { ?>
+    <?php } elseif(isset($_GET['nofoto'])) { ?>
+    <div class="alert alert-block alert-error">
+        <h4><i class="icon-exclamation-sign"></i> Impossibile generare il tesserino</h4>
+        <p>Per poter generare il tesserino è necessario che l'utente abbia una fototessera caricata e approvata.</p>
+    </div>
+    <?php }elseif(isset($_GET['emailGia'])) { ?>
     <div class="alert alert-block alert-error">
         <h4><i class="icon-exclamation-sign"></i> L'utente è già attivo.</h4>
         <p>L'utente chi hai cercato di attivare risulta già attivo su Gaia. Per maggiori informazioni contatta il supporto.</p>
@@ -64,9 +69,6 @@ menuElenchiVolontari(
                 <a class="btn btn-small" href="?p=presidente.utente.visualizza&id={id}" target="_new" title="Dettagli">
                     <i class="icon-eye-open"></i> Dettagli
                 </a>
-                <!--<a class="btn btn-small btn-info" href="?p=us.tesserini.p&id={id}" title="Stampa tesserino">
-                    <i class="icon-barcode"></i> Tesserino
-                </a>-->
                 <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&id={id}" title="Dimetti Volontario">
                     <i class="icon-ban-circle"></i> Dimetti
                 </a>

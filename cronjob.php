@@ -8,6 +8,7 @@
 
 require './core.inc.php';
 set_time_limit(0);
+ignoraTransazione();
 
 /*
  * ====== SICUREZZA ======
@@ -230,8 +231,9 @@ function cronjobSettimanale() {
             $n = 0;
             foreach ( Comitato::elenco() as $comitato ) {
                 $a = count($comitato->appartenenzePendenti());
-                $b = count($comitato->titoliPendenti());    
-                $z = $a + $b;
+                $b = count($comitato->titoliPendenti());   
+                $c = count($comitato->fototesserePendenti()); 
+                $z = $a + $b + $c;
                 if ( $z == 0 ) { continue; }
                 foreach ( $comitato->volontariPresidenti() as $presidente ) {
                     $m = new Email('riepilogoPresidente', "Promemoria: Ci sono {$c} azioni in sospeso");
@@ -240,6 +242,7 @@ function cronjobSettimanale() {
                     $m->_COMITATO   = $comitato->nomeCompleto();
                     $m->_APPPENDENTI= $a;
                     $m->_TITPENDENTI= $b;
+                    $m->_FOTPENDENTI= $c;
                     $m->invia();
                     $n++;
                 }
@@ -280,6 +283,47 @@ function cronjobSettimanale() {
                 $m->invia();
             }
             return "Notificate $n estensioni in scadenza";
+        },
+        $log, $ok
+    );
+
+    cronjobEsegui(
+        "Controllo aspiranti, promemoria e cancellazione",
+        function() use ($db) {
+            $n = $c = 0;
+            $query = "
+                SELECT  aspiranti.utente,
+                        COUNT(corsibase.geo),
+                        aspiranti.id
+                FROM    aspiranti, corsibase
+                WHERE   utente NOT IN (
+                    SELECT  volontario
+                    FROM    partecipazioniBase
+                    WHERE   stato >= 10
+                )
+                AND         ST_DISTANCE( corsibase.geo, aspiranti.geo ) < aspiranti.raggio
+                AND         corsibase.stato = 30
+                AND         corsibase.inizio >= UNIX_TIMESTAMP()
+                GROUP BY    aspiranti.utente
+            ";
+            $query = $db->query($query);
+            while ( $r = $query->fetch(PDO::FETCH_NUM) ) {
+                try {
+                    $u = Utente::id($r[0]);
+                } catch ( Errore $e ) {
+                    $c++;
+                    $a = Aspirante::id($r[2]);
+                    $a->cancella();
+                    continue;
+                }
+                $n++;
+                $m = new Email('promemoriaCorsiBase', "Entra in CRI: Ci sono {$r[1]} Corsi Base vicino a te");
+                $m->a           = $u;
+                $m->_NOME       = $u->nome;
+                $m->_NUMERO     = $r[1];
+                $m->accoda();
+            }
+            return "Inviati {$n} promemoria ad Aspiranti, cancellati {$c} aspiranti invalidi";
         },
         $log, $ok
     );

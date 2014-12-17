@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 /* Modalità manutenzione */
@@ -14,7 +14,7 @@ if (file_exists('upload/setup/manutenzione')) {
 $_stopwatch = microtime(true);
 
 require('./core.inc.php');
-    
+
 /* Attiva la gestione degli errori */
 set_error_handler('gestore_errori');
 
@@ -34,6 +34,16 @@ $sessione = new Sessione($sid);
 /* Crea eventuale oggetto $me */
 $me = $sessione->utente();
 
+/* Registra dati transazione */
+if ( $me->admin ) {
+    ignoraTransazione();
+} else {
+    $identificato = (bool) ($me && $me->id);
+    registraParametroTransazione('login', (int) $identificato);
+    if ( $identificato )
+        registraParametroTransazione('uid', $me->id);
+}
+
 /* Aggiorna la sessione con i miei dati... */
 $sessione->ip       = $_SERVER['REMOTE_ADDR'];
 $sessione->agent    = $_SERVER['HTTP_USER_AGENT'];
@@ -49,6 +59,7 @@ $_f = "./inc/$p.php";
 if ( !file_exists($_f) ) {
 	$_f = "./inc/errore.404.php";
 }
+nomeTransazione($p, 'web');
 
 /*
  * Titolo e descrizione se non ridefiniti
@@ -58,22 +69,28 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
 ?><!DOCTYPE html>
 <html>
-  <head>
+  <head prefix="og: http://ogp.me/ns#">
   	<meta charset="utf-8" />
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>{_titolo}</title>
+    <meta property="og:url" content="http://gaia.cri.it/?p=<?= $p ?>">
+    <meta property="og:title" content="{_titolo}">
+    <meta property="og:site_name" content="Progetto Gaia - Croce Rossa Italiana">
+    <meta property="og:description" content="{_descrizione}">
+    <meta property="og:image" content="http://gaia.cri.it/img/Emblema_CRI.png"/>
     <meta name="description" content="{_descrizione}">
     <meta name="author" content="Progetto Gaia - Croce Rossa Italiana">
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
-    <!-- CSS -->
-    <link href="css/bootstrap.min.css"      rel="stylesheet" media="screen">
-    <link href="css/font-awesome.min.css"   rel="stylesheet" media="screen">
-    <link href="css/main.css"               rel="stylesheet" media="screen">
-    <link href="css/fullcalendar.css"       rel="stylesheet" media="screen">
-    <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.min.css" rel="stylesheet" media="screen">
-    <!--[if IE]>
+    <!-- JS e CSS compressi -->
+    <link href="/assets/min/20141112/build/build.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="/assets/min/20141112/build/build.js"></script>
+
+	<!-- Font -->
+    <link href='https://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
+    
+	<!--[if IE]>
         <link href="css/main-ie.css" rel="stylesheet" media="screen">
     <![endif]-->
     <!--[if IE 7]>
@@ -81,391 +98,394 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <![endif]-->
 
     <!-- JS -->
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"        ></script>
-    <script type="text/javascript" src="js/modernizr.custom.03290.js"                   ></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"                            ></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"   ></script>
-    <script type="text/javascript" src="js/jquery.timepicker.js"                        ></script>
-    <script type="text/javascript" src="js/fullcalendar.min.js"                         ></script>
-    <script type="text/javascript" src="js/jquery.cookie.js"                            ></script>
-    <script type="text/javascript" src="js/app.js"                                      ></script>
-    <script type="text/javascript" src="js/ui.datepicker-it.js"                         ></script>
-    <script type="text/javascript" src="js/tinymce/tinymce.min.js"                      ></script>
-    <script type="text/javascript" src="js/polychart2.standalone.js"                    ></script>
-    <?php if (file_exists('js/'. $p . '.js')) { /* Javascript dinamico */ ?>
-        <script type="text/javascript" src="js/<?php echo $p; ?>.js"></script>
+    <?php if (file_exists('assets/js/'. $p . '.js')) { /* Javascript dinamico */ ?>
+        <script type="text/javascript" src="/assets/js/<?php echo $p; ?>.js"></script>
     <?php } ?>
 
   </head>
   <body>
     <div class="navbar-wrapper">
-      <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-          <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </a>
-            <a class="brand" href="?">
-            	<img src="./img/logoTop.png" />
-            	&nbsp; <span class="muted">Croce Rossa Italiana</span> <span class="hidden-phone">&nbsp; «Gaia» </span>
-            </a>
-            <div class="nav-collapse collapse">
-              <ul class="nav">
-                <li><a href="index.php"><i class="icon-home"></i> Home</a></li>
-                <li><a href="?p=attivita"><i class="icon-calendar"></i> Attività</a></li>
-                <li><a href="?p=public.comitati.mappa"><i class="icon-map-marker"></i> Comitati</a></li>
-              </ul>  
-            <?php
-            if ( $me ) { 
-            ?>
-			<div class="pull-right paddingSopra">
-			  
-                          <div class="btn-group">
-                            <a class="btn btn-danger" href="?p=utente.me">
-                                  <i class="icon-user icon-large"></i>&nbsp;
-                                  Ciao, <strong><?php echo $me->nome; ?></strong></a>
-                            <button class="btn dropdown-toggle btn-danger" data-toggle="dropdown">
-                                  <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <?php if ( $me->stato == VOLONTARIO ) { ?>
-                                  <li><a href="?p=utente.anagrafica"><i class="icon-edit"></i> Anagrafica</a></li>
-                                  <li><a href="?p=utente.privacy"><i class="icon-cog"></i> Privacy</a></li>
-                                  <li><a href="?p=utente.contatti"><i class="icon-phone"></i> Modifica contatti</a></li>
-                                  <li class="divider"></li>
-                                <?php } ?>
+        
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="?">
+                        <img src="./img/logoCroceSemplice.png" />
+                        &nbsp;<span class="scritta-cri">Croce Rossa Italiana</span><span class="hidden-phone scritta-gaia">&nbsp;|&nbsp;Gaia</span>
+                    </a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li><a href="index.php"><i class="icon-home"></i> Home</a></li>
+                            <li><a href="?p=attivita"><i class="icon-calendar"></i> Attività</a></li>
+                            <li><a href="?p=public.comitati.mappa"><i class="icon-map-marker"></i> Comitati</a></li>
+                            <li><a href="?p=public.formazione"><i class="icon-desktop"></i> Formazione</a></li>
+							<?php if(!$me) { ?>
+                            <li><a href="?p=public.tesserino"><i class="icon-credit-card"></i> Verifica tesserino</a></li>
+                            <?php } ?>
+                        </ul>  
+                        <?php
+                        if ( $me ) { 
+                            $admin = $me->admin(); ?>
+                            <div class="pull-right paddingSopra">
 
-                                  <li><a href="?p=logout"><i class="icon-remove"></i> Esci</a></li>
-                            </ul>
-                          </div>
-                            
-                            
-                            <?php if ( $me->admin() || $me->presiede() ) { ?>
-                            <div class="btn-group">
-                                <?php
-                                    /* Conto le notifiche */
-                                    $_n     =   $_n_titoli = $_n_app = $_n_trasf = $_n_ris = $_n_est = 0;
-                                    $_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
-                                    $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
-                                    $_n     +=  $_n_trasf  = $me->numTrasfPending   ([APP_PRESIDENTE]);
-                                    $_n     +=  $_n_ris    = $me->numRisPending     ([APP_PRESIDENTE, APP_SOCI]);
-                                    $_n     +=  $_n_est    = $me->numEstPending     ([APP_PRESIDENTE]);
-                                   ?>
-                                <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
-                                    <i class="icon-asterisk"></i>
-                                    <strong>Presidente</strong>
-                                    <?php if ( $_n ) { ?>
-                                        <span class="badge badge-warning">
-                                            <?php echo $_n; ?>
-                                        </span>
+                                <div class="btn-group">
+                                    <a class="btn btn-danger" href="?p=utente.me">
+                                        <i class="<?php if ($admin) { ?> icon-github-alt <?php } else{ ?> icon-user <?php } ?> icon-large"></i>&nbsp;
+                                        Ciao <strong><?php echo $me->nome; ?></strong></a>
+                                        <button class="btn dropdown-toggle btn-danger" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <?php if ( $me->stato == VOLONTARIO ) { ?>
+                                            <li><a href="?p=utente.privacy"><i class="icon-cog"></i> Privacy</a></li>
+                                            <?php } ?>
+
+                                            <li><a href="?p=utente.contatti"><i class="icon-phone"></i> Modifica contatti</a></li>
+                                            <li><a href="?p=utente.password"><i class="icon-key"></i> Modifica password</a></li>
+                                            <?php if ( $me->stato == ASPIRANTE && !$me->partecipazioniBase(ISCR_CONFERMATA)) { ?>
+                                            <li><a href="?p=aspirante.cancellati"><i class="icon-remove-sign"></i> Cancellati</a></li>
+                                            <?php } ?>
+                                            <li class="divider"></li>
+                                            <li><a href="?p=logout"><i class="icon-remove"></i> Esci</a></li>
+                                            <?php if ( $me->admin && $me->admin() ) { ?>
+                                                <!-- ADMIN MODE  ATTIVATA... -->
+                                                <li><a href="?p=admin.mode.exit"><i class="icon-thumbs-down-alt "></i> Torna quello di una volta</a></i>
+                                                </a>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+
+
+                                    <?php 
+                                    if ( $me->admin() || $me->presiede() ) { ?>
+                                    <div class="btn-group">
+                                        <?php
+                                        /* Conto le notifiche */
+                                        $_n     =   $_n_titoli = $_n_app = $_n_trasf = $_n_ris = $_n_est = 0;
+                                        $_n     +=  $_n_titoli = (!$admin) ? $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]) : 0;
+                                        $_n     +=  $_n_app    = (!$admin) ?$me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]) : 0;
+                                        $_n     +=  $_n_trasf  = (!$admin) ?$me->numTrasfPending   ([APP_PRESIDENTE]) : 0;
+                                        $_n     +=  $_n_ris    = (!$admin) ?$me->numRisPending     ([APP_PRESIDENTE, APP_SOCI]) : 0;
+                                        $_n     +=  $_n_est    = (!$admin) ?$me->numEstPending     ([APP_PRESIDENTE]) : 0;
+                                        ?>
+                                        <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
+                                            <i class="icon-asterisk"></i>
+                                            <strong>Presidente</strong>
+                                            <?php if ( $_n ) { ?>
+                                            <span class="badge badge-warning">
+                                                <?php echo $_n; ?>
+                                            </span>
+                                            <?php } ?>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+
+                                            <li class="nav-header">Da fare</li>
+
+                                            <li>
+                                                <a href="?p=presidente.titoli">
+                                                    <i class="icon-star"></i>
+                                                    Titoli in attesa
+                                                    <?php if ( $_n_titoli ) { ?>
+                                                    <span class="badge badge-warning">
+                                                        <?php echo $_n_titoli; ?>
+                                                    </span>
+                                                    <?php } ?>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="?p=presidente.appartenenzepending">
+                                                    <i class="icon-group"></i>
+                                                    Appartenenze in attesa
+                                                    <?php if ( $_n_app ) { ?>
+                                                    <span class="badge badge-warning">
+                                                        <?php echo $_n_app; ?>
+                                                    </span>
+                                                    <?php } ?>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="?p=presidente.estensione">
+                                                    <i class="icon-random"></i>
+                                                    Estensioni in attesa
+                                                    <?php if ( $_n_est ) { ?>
+                                                    <span class="badge badge-warning">
+                                                        <?php echo $_n_est; ?>
+                                                    </span>
+                                                    <?php } ?>
+                                                </a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="?p=presidente.trasferimento">
+                                                    <i class="icon-arrow-right"></i>
+                                                    Trasferimenti in attesa
+                                                    <?php if ( $_n_trasf ) { ?>
+                                                    <span class="badge badge-warning">
+                                                        <?php echo $_n_trasf; ?>
+                                                    </span>
+                                                    <?php } ?>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="?p=presidente.riserva">
+                                                    <i class="icon-pause"></i>
+                                                    Riserve in attesa
+                                                    <?php if ( $_n_ris ) { ?>
+                                                    <span class="badge badge-warning">
+                                                        <?php echo $_n_ris; ?>
+                                                    </span>
+                                                    <?php } ?>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-header">Volontari</li>
+
+                                            <li>
+                                                <a href="?p=presidente.utenti">
+                                                    <i class="icon-list"></i>
+                                                    Elenco volontari
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="?p=presidente.supervisione">
+                                                    <i class="icon-eye-close"></i>
+                                                    Supervisione
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="?p=presidente.titoli.ricerca">
+                                                    <i class="icon-search"></i>
+                                                    Ricerca volontari per titoli
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                     <?php } ?>
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                   
-                                    <li class="nav-header">Da fare</li>
-                                    
-                                    <li>
-                                        <a href="?p=presidente.titoli">
-                                            <i class="icon-star"></i>
-                                            Titoli in attesa
-                                            <?php if ( $_n_titoli ) { ?>
-                                                <span class="badge badge-warning">
-                                                    <?php echo $_n_titoli; ?>
-                                                </span>
-                                            <?php } ?>
-                                        </a>
-                                    </li>
-                                    
-                                    <li>
-                                        <a href="?p=presidente.appartenenzepending">
-                                            <i class="icon-group"></i>
-                                            Appartenenze in attesa
-                                            <?php if ( $_n_app ) { ?>
-                                                <span class="badge badge-warning">
-                                                    <?php echo $_n_app; ?>
-                                                </span>
-                                            <?php } ?>
-                                        </a>
-                                    </li>
 
-                                    <li>
-                                        <a href="?p=presidente.estensione">
-                                            <i class="icon-random"></i>
-                                            Estensioni in attesa
-                                            <?php if ( $_n_est ) { ?>
-                                                <span class="badge badge-warning">
-                                                    <?php echo $_n_est; ?>
-                                                </span>
-                                            <?php } ?>
-                                        </a>
-                                    </li>
-                                    
 
-                                    <li>
-                                        <a href="?p=presidente.trasferimento">
-                                            <i class="icon-arrow-right"></i>
-                                            Trasferimenti in attesa
-                                            <?php if ( $_n_trasf ) { ?>
-                                                <span class="badge badge-warning">
-                                                    <?php echo $_n_trasf; ?>
-                                                </span>
-                                            <?php } ?>
-                                        </a>
-                                    </li>
-                                    
-                                    <li>
-                                        <a href="?p=presidente.riserva">
-                                            <i class="icon-pause"></i>
-                                            Riserve in attesa
-                                            <?php if ( $_n_ris ) { ?>
-                                                <span class="badge badge-warning">
-                                                    <?php echo $_n_ris; ?>
-                                                </span>
-                                            <?php } ?>
-                                        </a>
-                                    </li>
-                                    
-                                    <li class="nav-header">Volontari</li>
-                                
-                                    <li>
-                                        <a href="?p=presidente.utenti">
-                                            <i class="icon-list"></i>
-                                            Elenco volontari
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="?p=presidente.supervisione">
-                                            <i class="icon-eye-close"></i>
-                                            Supervisione
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="?p=presidente.titoli.ricerca">
-                                            <i class="icon-search"></i>
-                                            Ricerca volontari per titoli
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <?php } ?>
+                                    <?php if ( $me->admin() ) { ?>
+                                    <div class="btn-group">
+                                        <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
+                                            <i class="icon-wrench icon-large"></i>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-header">Elenchi</li>
+                                            <li><a href="?p=admin.ricerca.utenti"><i class="icon-search"></i> Cerca Utente</a></li> 
+                                            <li><a href="?p=admin.ricerca.attivita"><i class="icon-calendar"></i> Cerca Attività</a></li> 
+                                            <li><a href="?p=admin.presidenti"><i class="icon-list"></i> Presidenti</a></li>
+                                            <li><a href="?p=admin.delegati"><i class="icon-list"></i> Delegati</a></li>
+                                            <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
+                                            <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li> 
+                                            <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
+                                            <li><a href="?p=admin.limbo"><i class="icon-meh"></i> Limbo</a></li> 
+                                            <li><a href="?p=admin.aspiranti"><i class="icon-meh"></i> Aspiranti</a></li> 
+                                            <li><a href="?p=admin.double"><i class="icon-superscript"></i> Double</a></li>
+                                            <li><a href="?p=admin.tesseramento"><i class="icon-eur"></i> Tesseramento</a></li>
+                                            <li class="nav-header">Report & Co</li>
+                                            <li><a href="?p=admin.report"><i class="icon-copy"></i> Report</a></li>  
+                                            <li><a href="?p=admin.report.comitati.excel"><i class="icon-building"></i> Excel Comitati</a></li>  
+                                            <li><a href="?p=admin.format"><i class="icon-upload"></i> Carica format</a></li> 
+                                            <li class="nav-header">Avanzate</li>
+                                            <li><a href="?p=admin.buttafuori" data-conferma="Butti fuori tutti da Gaia?"><i class="icon-frown"></i> Butta fuori</a></li> 
+                                            <li><a href="?p=admin.script"><i class="icon-stackexchange"></i> Script</a></li> 
+                                            <li><a href="?p=admin.reset.comitati"><i class="icon-fire"></i> Reset Comitati</a></li>
+                                            <li><a href="?p=admin.cache"><i class="icon-cloud"></i> Cache</a></li>
+                                            <li><a href="?p=admin.mongodb"><i class="icon-heart"></i> Mongo</a></li>  
+                                            <li><a href="?p=admin.chiavi"><i class="icon-code"></i> API Keys</a></li>
+                                            <li><a href="?p=admin.errori"><i class="icon-bug"></i> Bugs</a></li>    
+                                        </ul>
+                                    </div>
+                                    <?php } ?>
 
-            
-                            <?php if ( $me->admin() ) { ?>
-                            <div class="btn-group">
-                                <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
-                                    <i class="icon-wrench icon-large"></i>
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-header">Elenchi</li>
-                                    <li><a href="?p=admin.ricerca"><i class="icon-search"></i> Cerca Utente</a></li> 
-                                    <li><a href="?p=admin.presidenti"><i class="icon-list"></i> Presidenti</a></li>
-                                    <li><a href="?p=admin.delegati"><i class="icon-list"></i> Delegati</a></li>
-                                    <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
-                                    <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li> 
-                                    <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
-                                    <li><a href="?p=admin.limbo"><i class="icon-meh"></i> Limbo</a></li> 
-                                    <li><a href="?p=admin.double"><i class="icon-superscript"></i> Double</a></li>
-                                    <li><a href="?p=admin.tesseramento"><i class="icon-eur"></i> Tesseramento</a></li>
-                                    <li class="nav-header">Report & Co</li>
-                                    <li><a href="?p=admin.report"><i class="icon-copy"></i> Report</a></li>  
-                                    <li><a href="?p=admin.report.comitati.excel"><i class="icon-building"></i> Excel Comitati</a></li>  
-                                    <li><a href="?p=admin.format"><i class="icon-upload"></i> Carica format</a></li> 
-                                    <li class="nav-header">Avanzate</li>
-                                    <li><a href="?p=admin.buttafuori" data-conferma="Butti fuori tutti da Gaia?"><i class="icon-frown"></i> Butta fuori</a></li> 
-                                    <li><a href="?p=admin.script"><i class="icon-stackexchange"></i> Script</a></li> 
-                                    <li><a href="?p=admin.reset.comitati"><i class="icon-fire"></i> Reset Comitati</a></li>
-                                    <li><a href="?p=admin.cache"><i class="icon-cloud"></i> Cache</a></li>
-                                    <li><a href="?p=admin.mongodb"><i class="icon-heart"></i> Mongo</a></li>  
-                                    <li><a href="?p=admin.chiavi"><i class="icon-code"></i> API Keys</a></li>
-                                    <li><a href="?p=admin.errori"><i class="icon-bug"></i> Bugs</a></li>    
-                                </ul>
-                            </div>
-                            <?php } ?>
-
-                            <?php if ( $me->admin) {
-                                if(!$me->admin() ) { ?>
-                                <!-- ADMIN MODE NON ATTIVATA... -->
-                                <a href="#adminMode" class="btn btn-inverse hidden-phone" data-toggle="modal" role="button">
-                                    <i class="icon-github-alt icon-large"></i>
-                                </a>
+                                    <?php if ( $me->admin && !$me->admin() ) { ?>
+                                    <!-- ADMIN MODE NON ATTIVATA... -->
+                                    <a href="#adminMode" class="btn btn-inverse" data-toggle="modal" role="button">
+                                        <i class="icon-github-alt icon-large"></i>
+                                    </a>
+                                    <?php } ?>                        
+                                </div>
                                 <?php } else { ?>
-                                <!-- ADMIN MODE  ATTIVATA... -->
-                                <a href="?p=admin.mode.exit" class="btn btn-inverse hidden-phone">
-                                    <span class="icon-stack">
-                                        <i class="icon-github-alt"></i>
-                                        <i class="icon-ban-circle icon-stack-base text-error"></i>
-                                    </span>
-                                </a>
-                            <?php }} ?>
-
-                                           
-			</div>
-			<?php } else { ?>
-            <div class="paddingSopra pull-right">
-            	<a class="btn btn-danger" href="?p=login">
-            		<strong>Accedi</strong>
-            		<i class="icon-key"></i>
-            	</a>
+                                <div class="paddingSopra pull-right">
+                                    <a class="btn btn-danger" href="?p=login">
+                                        <strong>Accedi</strong>
+                                        <i class="icon-key"></i>
+                                    </a>
+                                </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <?php  if ( $p == 'home' ) { ?>
+            <div id="caroselloHome" class="carousel slide">
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="./img/foto4.jpg" alt="">
+                        <div class="container">
+                            <div class="carousel-caption">
+                                <h1>Reinventiamo Croce Rossa</h1>
+                                <p class="lead">Facciamola nuova, più efficiente e trasparente</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="./img/foto6.png" alt="">
+                        <div class="container">
+                            <div class="carousel-caption">
+                                <h1>Persone in Prima Persona</h1>
+                                <p class="lead">Grazie al nuovo obiettivo trasparenza, vedi cosa sta facendo Croce Rossa attorno a te</p>
+                                <p class="lead">
+                                    <div class="btn-group">
+                                        <a href="?p=public.attivita.mappa" class="btn btn-large btn-info">
+                                            <i class="icon-globe"></i> Mappa delle attività
+                                        </a>
+                                        <a href="?p=public.comitati.mappa" class="btn btn-large btn-primary">
+                                            <i class="icon-map-marker"></i> Mappa delle Sedi CRI
+                                        </a>
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="./img/foto3.jpg" alt="">
+                        <div class="container">
+                            <div class="carousel-caption">
+                                <h1>Prendi parte alla rivoluzione</h1>
+                                <p class="lead">diventando un volontario di Croce Rossa. È semplice.</p>
+                                <a class="btn btn-large btn-warning" href="?p=riconoscimento&tipo=aspirante">Informati per il prossimo corso base</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#caroselloHome" data-slide="prev">&lsaquo;</a>
+                <a class="right carousel-control" href="#caroselloHome" data-slide="next">&rsaquo;</a>
+            </div><!-- /.carousel -->
+            <?php } else { ?>
+            <div id="caroselloHome" class="carousel slide">
+                <div class="carousel-inner">
+                    <div class="item active altoCento">
+                        <img class="altoCento" src="./img/noSlide_cri.png" alt="">
+                        <div class="container">
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.carousel -->
             <?php } ?>
-            </div>
-          </div>
-        </div>
-    </div>
-    </div>
 
-    <?php if ( $p == 'home' ) { ?>
-    <div id="caroselloHome" class="carousel slide">
-      <div class="carousel-inner">
-        <div class="item active">
-          <img src="./img/foto4.jpg" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Reinventiamo Croce Rossa</h1>
-              <p class="lead">Facciamola nuova, più efficiente e trasparente</p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="./img/foto5.jpg" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Persone in Prima Persona</h1>
-              <p class="lead">Grazie al nuovo obiettivo trasparenza, vedi cosa sta facendo Croce Rossa attorno a te</p>
-              <p class="lead">
-              <div class="btn-group">
-                  <a href="?p=public.attivita.mappa" class="btn btn-large btn-info">
-                      <i class="icon-globe"></i> Mappa delle attività
-                  </a>
-                  <a href="?p=public.comitati.mappa" class="btn btn-large btn-primary">
-                      <i class="icon-map-marker"></i> Mappa delle Sedi CRI
-                  </a>
-              </div>
-            </p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="./img/foto3.jpg" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Prendi parte alla rivoluzione</h1>
-              <p class="lead">diventando un volontario di Croce Rossa. È semplice.</p>
-              <a class="btn btn-large btn-warning" href="?p=riconoscimento&tipo=aspirante">Informati per il prossimo corso base</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <a class="left carousel-control" href="#caroselloHome" data-slide="prev">&lsaquo;</a>
-      <a class="right carousel-control" href="#caroselloHome" data-slide="next">&rsaquo;</a>
-    </div><!-- /.carousel -->
-    <?php } else { ?>
-    <div id="caroselloHome" class="carousel slide">
-      <div class="carousel-inner">
-        <div class="item active altoCento">
-          <img class="altoCento" src="./img/noSlide_cri.png" alt="">
-          <div class="container">
-          </div>
-        </div>
-      </div>
-    </div><!-- /.carousel -->
-    <?php } ?>
-    
-    <div class="container">
+            <div class="container<?= ( $p == 'home' ) ? '-fluid' : ''; ?> ">
 
-<?php
+                <?php
 
-	/* Qui si include la pagina */
-	require($_f);
-	
-?>
-      <hr />
+                /* Qui si include la pagina */ 
+                require($_f);
 
-      <div class="footer row-fluid">
+                ?>
+                <hr />
+
+                <div class="footer row-fluid">
                     <div class="span6">
                         <p><span class="muted">Progetto Gaia</span> <br />
                             &copy;2014 <strong>Croce Rossa Italiana</strong>
                         </p>
                     </div>
-      	<div class="span6 allinea-destra">
-	        <a href="/">Torna alla home</a> &middot;
-	        <a href="?p=public.about">Informazioni su Gaia</a> &middot;
-	        <a href="docs/Guida.pdf?ref=footer"><strong>Guida in PDF</strong></a> &middot;
-	        <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaia.cri.it"><?php } ?>Supporto</a><br />
-	        Croce Rossa. <strong>Persone in prima persona.</strong>
-   		  </div>
-      </div>
+                    <div class="span6 allinea-destra">
+                        <a href="/">Torna alla home</a> &middot;
+                        <a href="?p=public.about">Informazioni su Gaia</a> &middot;
+	        			<a href="http://wiki.gaia.cri.it"><strong>Guida</strong></a> &middot;
+                        <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaia.cri.it"><?php } ?>Supporto</a><br />
+                            Croce Rossa. <strong>Persone in prima persona.</strong>
+                        </div>
+                    </div>
 
-    </div> <!-- /container -->
-    
-    <?php if ( $_carica_selettore ) {
-        include './inc/part/utente.selettore.php';
-    } ?>
-    
-    <?php if ( $_carica_selettore_comitato ) {
-        include './inc/part/comitato.selettore.php';
-    } ?>
+                </div> <!-- /container -->
 
-    <?php if ( $me && $me->admin && !$me->admin() ) { ?>
-    <!-- ADMIN MODE NON ATTIVATA -->
-      <div id="adminMode" class="modal hide fade" role="dialog">
-        <div class="modal-header">
-          <h3>
-            <i class="icon-github-alt icon-large"></i>
-            Stai per entrare nella Admin Mode
-          </h3>
-        </div>
-        <div class="modal-body">
-          <p>Entrando nella modalità amministratore entrerai in contatto con una grande mole
-             di dati sensibili di persone che ti hanno indirettamente dato la loro fiducia.</p>
-          <p>
-             &mdash;
-              <strong class="text-success">
-                Per questo ti chiediamo di rinnovare la tua promessa.
-              </strong>
-          </p>
-          <h4 class="text-error">Tieni in mente tre cose</h4>
-          <ol>
-            <li>Rispetta la privacy degli altri;</li>
-            <li>Pensa sempre prima di scrivere e cliccare;</li>
-            <li><em>Da grandi poteri derivano grandi responsabilità</em>.</li>
-          </ol>
-          <p class="text-info">
-            <i class="icon-time"></i>
-            Rimarrai in modalità admin fino al Logout
-          </p>
+                <?php if ( $_carica_selettore ) {
+                    include './inc/part/utente.selettore.php';
+                } ?>
 
-        </div>
-        <div class="modal-footer">
-          <a href="#" data-dismiss="modal" class="btn">Annulla</a>
-          <a href="?p=admin.mode" class="btn btn-danger">
-            <i class="icon-ok"></i>
-            Okay, lo prometto
-          </a>
-        </div>
-      </div>
-      <?php } ?>
+                <?php if ( $_carica_selettore_comitato ) {
+                    include './inc/part/comitato.selettore.php';
+                } ?>
 
-    <!-- DEBUG. Q: <?php echo $db->numQuery; ?>; M: <?php echo ceil(memory_get_peak_usage()/1024); ?> kB; T: <?php echo round(microtime(true)-$_stopwatch, 6); ?>s -->
-    <!-- CHAT SUPPORTO --><div class="hidden-phone" id="swifttagcontainerusy8sk1zn9"><div id="proactivechatcontainerusy8sk1zn9"></div><div style="display: inline;" id="swifttagdatacontainerusy8sk1zn9"></div></div> <script type="text/javascript">var swiftscriptelemusy8sk1zn9=document.createElement("script");swiftscriptelemusy8sk1zn9.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "usy8sk1zn9"; var swifttagurlusy8sk1zn9="https://helpdesk.cri.it/visitor/index.php?/Default/LiveChat/HTML/SiteBadge/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPXVzeThzazF6bjkmdmVyc2lvbj00LjY2LjImcHJvZHVjdD1mdXNpb24mZmlsdGVyZGVwYXJ0bWVudGlkPTUwJnJvdXRlY2hhdHNraWxsaWQ9Myw0JnZhcmlhYmxlWzBdWzBdPSZ2YXJpYWJsZVswXVsxXT0mYWxlcnRbMF1bMF09JmFsZXJ0WzBdWzFdPSZzaXRlYmFkZ2Vjb2xvcj13aGl0ZSZiYWRnZWxhbmd1YWdlPWVuJmJhZGdldGV4dD1saXZlY2hhdCZvbmxpbmVjb2xvcj0jMWRjZjFkJm9ubGluZWNvbG9yaG92ZXI9IzYxZGU2MSZvbmxpbmVjb2xvcmJvcmRlcj0jMTQ5MTE0Jm9mZmxpbmVjb2xvcj0jZmYwMDAwJm9mZmxpbmVjb2xvcmhvdmVyPSNmZjRkNGQmb2ZmbGluZWNvbG9yYm9yZGVyPSNiMzAwMDAmYXdheWNvbG9yPSNmNWQ5MjMmYXdheWNvbG9yaG92ZXI9I2Y5ZTU2NiZhd2F5Y29sb3Jib3JkZXI9I2FjOTgxOSZiYWNrc2hvcnRseWNvbG9yPSNlYjk2MDMmYmFja3Nob3J0bHljb2xvcmhvdmVyPSNmMmI2NGYmYmFja3Nob3J0bHljb2xvcmJvcmRlcj0jYTU2OTAyJmN1c3RvbW9ubGluZT0mY3VzdG9tb2ZmbGluZT0mY3VzdG9tYXdheT0mY3VzdG9tYmFja3Nob3J0bHk9CjRkZDc2OTgyZWQ2NzBmMGM4NjkyYjNlZDQ4M2Y3MmRhNDA5MjEyYWQ=";setTimeout("swiftscriptelemusy8sk1zn9.src=swifttagurlusy8sk1zn9;document.getElementById('swifttagcontainerusy8sk1zn9').appendChild(swiftscriptelemusy8sk1zn9);",1);</script><!-- FINE CODICE TAG - NON MODIFICARE! -->
+                <?php if ( $me && $me->admin && !$me->admin() ) { ?>
+                <!-- ADMIN MODE NON ATTIVATA -->
+                <div id="adminMode" class="modal hide fade" role="dialog">
+                    <div class="modal-header">
+                        <h3>
+                            <i class="icon-github-alt icon-large"></i>
+                            Stai per entrare nella Admin Mode
+                        </h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>Entrando nella modalità amministratore entrerai in contatto con una grande mole
+                            di dati sensibili di persone che ti hanno indirettamente dato la loro fiducia.</p>
+                            <p>
+                                &mdash;
+                                <strong class="text-success">
+                                    Per questo ti chiediamo di rinnovare la tua promessa.
+                                </strong>
+                            </p>
+                            <h4 class="text-error">Tieni in mente tre cose</h4>
+                            <ol>
+                                <li>Rispetta la privacy degli altri;</li>
+                                <li>Pensa sempre prima di scrivere e cliccare;</li>
+                                <li><em>Da grandi poteri derivano grandi responsabilità</em>.</li>
+                            </ol>
+                            <p class="text-info">
+                                <i class="icon-time"></i>
+                                Rimarrai in modalità admin fino al Logout
+                            </p>
 
-    <!-- Google Analytics -->
-	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-	  ga('create', 'UA-51942737-1', 'cri.it');
-	  ga('require', 'displayfeatures');
-	  ga('send', 'pageview');
-	</script>
-	
-  </body>
-</html><?php
-ob_end_flush(); 
-header("Content-length: " . ob_get_length()); 
-ob_end_flush();
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" data-dismiss="modal" class="btn">Annulla</a>
+                            <a href="?p=admin.mode" class="btn btn-danger">
+                                <i class="icon-ok"></i>
+                                Okay, lo prometto
+                            </a>
+                        </div>
+                    </div>
+                    <?php } ?>
+
+
+
+
+                    <!-- Fine codice statistiche -->
+
+                    <!-- DEBUG. Q: <?php echo $db->numQuery; ?>; M: <?php echo ceil(memory_get_peak_usage()/1024); ?> kB; T: <?php echo round(microtime(true)-$_stopwatch, 6); ?>s -->
+                    
+                    <?php if(!$conf['debug']) { ?>
+    					<!-- CHAT SUPPORTO --><div class="hidden-phone" id="swifttagcontainerusy8sk1zn9"><div id="proactivechatcontainerusy8sk1zn9"></div><div style="display: inline;" id="swifttagdatacontainerusy8sk1zn9"></div></div> <script type="text/javascript">var swiftscriptelemusy8sk1zn9=document.createElement("script");swiftscriptelemusy8sk1zn9.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "usy8sk1zn9"; var swifttagurlusy8sk1zn9="https://helpdesk.cri.it/visitor/index.php?/Default/LiveChat/HTML/SiteBadge/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPXVzeThzazF6bjkmdmVyc2lvbj00LjY2LjImcHJvZHVjdD1mdXNpb24mZmlsdGVyZGVwYXJ0bWVudGlkPTUwJnJvdXRlY2hhdHNraWxsaWQ9Myw0JnZhcmlhYmxlWzBdWzBdPSZ2YXJpYWJsZVswXVsxXT0mYWxlcnRbMF1bMF09JmFsZXJ0WzBdWzFdPSZzaXRlYmFkZ2Vjb2xvcj13aGl0ZSZiYWRnZWxhbmd1YWdlPWVuJmJhZGdldGV4dD1saXZlY2hhdCZvbmxpbmVjb2xvcj0jMWRjZjFkJm9ubGluZWNvbG9yaG92ZXI9IzYxZGU2MSZvbmxpbmVjb2xvcmJvcmRlcj0jMTQ5MTE0Jm9mZmxpbmVjb2xvcj0jZmYwMDAwJm9mZmxpbmVjb2xvcmhvdmVyPSNmZjRkNGQmb2ZmbGluZWNvbG9yYm9yZGVyPSNiMzAwMDAmYXdheWNvbG9yPSNmNWQ5MjMmYXdheWNvbG9yaG92ZXI9I2Y5ZTU2NiZhd2F5Y29sb3Jib3JkZXI9I2FjOTgxOSZiYWNrc2hvcnRseWNvbG9yPSNlYjk2MDMmYmFja3Nob3J0bHljb2xvcmhvdmVyPSNmMmI2NGYmYmFja3Nob3J0bHljb2xvcmJvcmRlcj0jYTU2OTAyJmN1c3RvbW9ubGluZT0mY3VzdG9tb2ZmbGluZT0mY3VzdG9tYXdheT0mY3VzdG9tYmFja3Nob3J0bHk9CjRkZDc2OTgyZWQ2NzBmMGM4NjkyYjNlZDQ4M2Y3MmRhNDA5MjEyYWQ=";setTimeout("swiftscriptelemusy8sk1zn9.src=swifttagurlusy8sk1zn9;document.getElementById('swifttagcontainerusy8sk1zn9').appendChild(swiftscriptelemusy8sk1zn9);",1);</script><!-- FINE CODICE TAG - NON MODIFICARE! -->
+
+		                <!-- Google Analytics -->
+		                <script>
+		                    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		                        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		                    ga('create', 'UA-51942737-1', 'cri.it');
+		  					ga('require', 'displayfeatures');
+		                    ga('send', 'pageview');
+
+		                </script>
+                    <?php } ?>
+                </body>
+                </html><?php 
+                ob_end_flush(); 
+                header("Content-length: " . ob_get_length()); 
+                ob_end_flush();

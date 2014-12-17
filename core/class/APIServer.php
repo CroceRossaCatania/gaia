@@ -30,6 +30,14 @@ class APIServer {
         $sessione = $this->sessione;
 
         $this->chiave = APIKey::by('chiave', $chiave);
+
+        $identificato = (bool) $this->sessione->utente;
+        if ( $identificato ) {
+            registraParametroTransazione('uid', $this->sessione->utente );
+        }
+        registraParametroTransazione('login', (int) $identificato );
+
+
     }
 
     /**
@@ -74,6 +82,7 @@ class APIServer {
                 'data'          =>  (new DT())->toJSON()
             ],
             'tempo'    => round(( microtime(true) - $start ), 6),
+            'q'        => $this->db->numQuery,
             'sessione' => $this->sessione->toJSON(),
             'risposta' => $r
         ];
@@ -152,7 +161,12 @@ class APIServer {
     private function api_utente() {
         $this->richiedi(['id']);
         $u = Utente::id($this->par['id']);
-        return $u->toJSON();
+
+        $conAvatar = true;
+        if ( isset($this->par['conAvatar']) )
+            $conAvatar = (bool) $this->par['conAvatar'];
+
+        return $u->toJSON($conAvatar);
     }
 
     /**
@@ -218,17 +232,21 @@ class APIServer {
         $cA = Turno::neltempo($inizio, $fine);
         $searchPuoPart = [];
         $r = [];
-        if (!$this->sessione->utente()){
+        $utente = $this->sessione->utente();
+        if ( $utente->admin ) {
+            ignoraTransazione();
+        }
+        if (!$utente){
             $mioGeoComitato = null;
         } else {
-            $mioGeoComitatoOid = $this->sessione->utente()->unComitato()->oid();
+            $mioGeoComitatoOid = $utente->unComitato()->oid();
             $mioGeoComitato = GeoPolitica::daOid($mioGeoComitatoOid);
         }
         foreach  ( $cA as $turno ) {
             $attivita = $turno->attivita();
             $idAttivita = ''.$attivita->id;
             if(!isset($searchPuoPart[$idAttivita])) {
-                $searchPuoPart[$idAttivita] = $attivita->puoPartecipare($this->sessione->utente());
+                $searchPuoPart[$idAttivita] = $attivita->puoPartecipare($utente);
             }
             if ( !$searchPuoPart[$idAttivita] ) {
                 continue;
@@ -506,7 +524,9 @@ class APIServer {
                 
             }
         }
-        return $aut;
+        return [ 
+                    'id' => $aut 
+                ];
     }
     
     private function api_scansione() {
@@ -550,6 +570,32 @@ class APIServer {
 
         if ($this->par['stato']) {
             $r->stato = $this->par['stato'];
+        } elseif ($this->par['stato'] === 0) {
+            $r->stato = 0;
+        }
+
+        if ($this->par['statoPersona']) {
+            $r->statoPersona = $this->par['statoPersona'];
+        } elseif ($this->par['statoPersona'] === 0) {
+            $r->statoPersona = 0;
+        } else {
+            $r->statoPersona = false;
+        }
+
+        if ($this->par['passato']) {
+            $r->passato = true;
+        }
+
+        if ($this->par['giovane']) {
+            $r->giovane = true;
+        }
+
+        if ($this->par['infermiera']) {
+            $r->infermiera = true;
+        }
+
+        if ($this->par['militare']) {
+            $r->militare = true;
         }
 
         // versione modificata per #867
@@ -642,7 +688,54 @@ class APIServer {
 
     }
 
-    private function api_like() {
+
+    private function api_corsobase_accetta() {
+        $this->richiedi(['id']);
+        $me = $this->richiediLogin();
+        $part = PartecipazioneBase::id($this->par['id']);
+        $corsoBase = $part->corsoBase();
+        if (!$corsoBase->modificabileDa($me)) {
+            return [
+                'ok' => false
+            ];
+        }
+        if ( $part->stato == ISCR_RICHIESTA ) {
+            
+            if ( $this->par['iscr'] ) {
+                $part->concedi($this->par['com'], $me);
+
+                $cal = new ICalendar();
+                $cal->generaCorsoBase($corsoBase);
+                             
+                $m = new Email('corsoBaseAmmesso', "Ammesso al {$corsoBase->nome()}" );
+                $m->a               = $part->utente();
+                $m->da              = $corsoBase->direttore();
+                $m->_NOME           = $part->utente()->nome;
+                $m->_CORSO          = $corsoBase->nome();
+                $m->_DATA           = $corsoBase->inizio()->inTesto(false, true);
+                $m->_DIRETTORE      = $corsoBase->direttore()->nomeCompleto();
+                $m->_CELLDIRETTORE  = $corsoBase->direttore()->cellulare();
+                $m->allega($cal);
+                $m->invia();               
+                
+            } else {
+                $part->nega($me);
+                $motivo = $this->par['motivo'];                 
+                $m = new Email('corsoBaseNonAmmesso', "Non ammesso al {$corsoBase->nome()}" );
+                $m->a               = $part->utente();
+                $m->da              = $corsoBase->direttore();
+                $m->_NOME           = $part->utente()->nome;
+                $m->_MOTIVO         = $motivo;
+                $m->_CORSO          = $corsoBase->nome();
+                $m->_DIRETTORE      = $corsoBase->direttore()->nomeCompleto();
+                $m->invia();    
+                
+            }
+        }
+        return ['id' => $corsoBase->id];
+    }
+
+	private function api_like() {
         global $conf;
         $this->richiedi(['oggetto']);
         $oggetto = Entita::daOid($this->par['oggetto']);
@@ -674,5 +767,27 @@ class APIServer {
         }
         return $r;
     }
+
+    private function api_tesserino_stato() {
+        $this->richiedi(['codice', 'stato']);
+        $me = $this->richiediLogin();
+        if ( !$me->admin )
+            return [
+                'ok'    =>  false
+            ];
+        $r = TesserinoRichiesta::by('codice', $this->par['codice']);
+        if ( !$r ) 
+            return [
+                'ok'    =>  false
+            ];
+        $r->pConferma = $me->id;
+        $r->tConferma = time();
+        $r->stato     = $this->par['stato'];
+        return [
+            'ok'            =>  true,
+            'volontario'    =>  $r->utente()->toJSON(true)
+        ];
+    }
+
         
 }

@@ -53,10 +53,6 @@ if (isset($_GET['rimandaPrivatizzazione'])) {
     $sessione->rimandaPrivatizzazione = true;
 }
 
-if (isset($_GET['rimandaDeadline'])) {
-    $sessione->deadline = time();
-}
-
 if ($consenso && !$me->email ) { redirect('nuovaAnagraficaContatti'); }
 if ($consenso && !$me->password && $sessione->tipoRegistrazione = VOLONTARIO ) { redirect('nuovaAnagraficaAccesso'); }
 
@@ -69,27 +65,6 @@ if ($consenso) {
         }
     }
 }
-
-/*if ((!$sessione->deadline || ($sessione->deadline + GIORNO) < time()) && $consenso) {
-    ?>
-    <div class="modal fade automodal">
-        <div class="modal-header">
-            <h3 class="text-success"><i class="icon-important-sign"></i> <b>Risoluzione</b> delle problematiche recenti sul portale Gaia</h3>
-        </div>
-        <div class="modal-body">
-            Per favore trova un momento per leggere il comunicato dello staff di Gaia 
-            riguardante la <b>risoluzione</b> delle problematiche che hanno ostacolato lo sviluppo del sistema.
-        </div>
-        <div class="modal-footer">
-            <a href="?p=utente.me&rimandaDeadline" class="btn">
-                <i class="icon-remove"></i> Non ora
-            </a>
-            <a href="?p=comunicato" class="btn btn-success">
-                <i class="icon-ok"></i> Leggi il comunicato
-            </a>
-        </div>
-    </div>
-<?php } */
 
 if (!$sessione->rimandaPrivatizzazione && $consenso) {
     foreach($me->comitatiPresidenzianti() as $comitato) {
@@ -121,7 +96,34 @@ if (!$sessione->rimandaPrivatizzazione && $consenso) {
     <?php }
     }
 }
-
+/*
+// C'è il webinar!!!
+if (!$sessione->rimandaPrivatizzazione && $consenso && $me->presidenziante() && !$me->admin) { ?>
+    <div class="modal fade automodal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3><i class="icon-bullhorn"></i> La formazione online continua...</h3>
+        </div>
+        <div class="modal-body">
+            <p>Hai dubbi su una determinata funzionalità di <i>GAIA</i>? Partecipa ai nostri webinar online!
+                A breve tratteremo i seguenti argomenti:</p>
+            <p>
+            <ul>
+                <li>martedì 4 novembre alle 21.00: <i>Gestione del corso base e dell'aspirante</i></li>
+            </ul>
+            </p>
+            <p>Cliccando su <strong>Maggiori dettagli</strong> potri accedere alla pagina dedicata
+            alla formazione e iscriverti all'incontro online.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Non ora</button>
+            <a href="?p=public.formazione" class="btn btn-primary">
+                <i class="icon-asterisk"></i> Maggiori dettagli
+            </a>
+        </div>
+    </div>
+<?php }
+*/
 /* Noi siamo cattivi >:) */
 // redirect('curriculum');
 
@@ -136,6 +138,7 @@ if ($consenso && $rf) {
     <!-- BLOCCO ATTIVITA DA COMPLETARE -->
     <div class="modal fade automodal">
         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3 class="text-error"><i class="icon-warning-sign"></i> Attività da completare</h3>
         </div>
         <div class="modal-body">
@@ -166,7 +169,7 @@ if ($consenso && $rf) {
             </p>
         </div>
         <div class="modal-footer">
-            <a href="?p=attivita.gestione" class="btn">Non ora</a>
+            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Non ora</button>
             <a href="?p=attivita.modifica&id=<?php echo $attivita->id; ?>" class="btn btn-primary">
                 <i class="icon-asterisk"></i> Vai all'attività
             </a>
@@ -185,6 +188,7 @@ if ($consenso && $cb && !$rf) {
 
     <div class="modal fade automodal">
         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3 class="text-error"><i class="icon-warning-sign"></i> Corso Base da Completare</h3>
         </div>
         <div class="modal-body">
@@ -214,8 +218,51 @@ if ($consenso && $cb && !$rf) {
             </p>
         </div>
         <div class="modal-footer">
-            <a href="?p=formazione.corsibase" class="btn">Non ora</a>
+            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Non ora</button>
             <a href="?p=formazione.corsibase.modifica&id=<?php echo $corsoBase->id; ?>" class="btn btn-primary">
+                <i class="icon-asterisk"></i> Vai al corso
+            </a>
+        </div>
+    </div>  
+
+<?php } 
+
+/* Blocco per presidenti con corsi senza direttore */
+
+
+$cs = $me->corsiBaseSenzaDirettore();
+if ($consenso && $cs && !$cb && !$rf) {
+    $attenzione = true;
+    $corsoBase = $cs[0];
+    ?>
+
+    <div class="modal fade automodal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="text-error"><i class="icon-warning-sign"></i> Corso Base da Completare</h3>
+        </div>
+        <div class="modal-body">
+            <p>Hai attivato un corso base ma non ne hai ancora selezionato il direttore:</p>
+            <hr />
+            <p class="allinea-centro">
+                <strong><?php echo $corsoBase->nome(); ?></strong>
+                <br />
+                <span class="muted">
+                    Organizzatore: <?php echo $corsoBase->organizzatore()->nomeCompleto(); ?>
+                </span>
+            </p>
+            <hr />
+            <h4>Completa i dettagli del corso</h4>
+
+            <p class="text-error">
+                <i class="icon-info-sign"></i> Non appena verranno avrai nominato
+                il direttore del corso questa persona potrà inserire tutte le informazioni
+                necessarie e rendere visibile in corso ai futuri aspiranti.
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Non ora</button>
+            <a href="?p=formazione.corsibase.direttore&id=<?php echo $corsoBase->id; ?>" class="btn btn-primary">
                 <i class="icon-asterisk"></i> Vai al corso
             </a>
         </div>
@@ -289,25 +336,12 @@ if(false && $consenso && !$sessione->barcode) { ?>
 
     <!-- BLOCCO NON MENU -->
     <div class="span9">
-        <h2><span class="muted">Ciao, </span>
-            <?php if ($me->admin()){ ?> <span class="muted">Admin</span> 
-            <?php } elseif ($me->presiede()){ ?><span class="muted">Presidente</span> 
-            <?php } echo $me->nome; ?>.
-        </h2>
 
         <div class="row-fluid">
             <div class="span8">
-                <div class="alert alert-block alert-error">
-                    <div class="row-fluid">
-                        <h4><i class="icon-ok"></i> Ciao <?php echo $me->nome ?></h4>
-                        <p>Per favore prendi qualche minuti di tempo, se non lo hai già fatto,
-                        per leggere un importante comunicato da parte degli sviluppatori di Gaia.</p>
-                        <a href="?p=public.comunicato" class="btn">
-                            Leggi il comunicato
-                            <span class="badge badge-warning">Nuovo!</span>
-                        </a> 
-                    </div>
-                </div>
+                <h2><span class="muted">Ciao </span>
+                    <?= $me->nome; ?>
+                </h2>
                 <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
                 <div class="alert alert-success">
                     <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
@@ -333,12 +367,29 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     <h4><i class="icon-warning-sign"></i> <strong>Nessun destinatario valido</strong>.</h4>
                     <p>L'email che stavi inviando non può essere spedita.</p>
                 </div> 
-                <?php } if (!$me->wizard) { $attenzione = true;  ?>
+                <?php } 
+                // blocco JUMP 
+                ?>
+                <!--<div class="alert alert-block alert-info">
+                    <div class="row-fluid">
+                        <div class="span9">
+                            <h4>Hai già saputo che dal 12 al 14 dicembre si terrà <strong>Jump14</strong> a Roma?</h4>
+                            <p>Per ogni comitato sono disponibili 7 posti. Ti aspettiamo! 
+                            Info su <a href="http://cri.it/jump14" target="_blank"><i class="icon-link"></i> cri.it/jump14</a>.</p>
+                        </div>
+                        <div class="span3">
+                            <a href="http://cri.it/jump14" target="_blank"><img src="img/jump14_logo_small_400.png" /></a>
+                        </div>
+                    </div>
+                </div>-->
+                <?php
+                // fine blocco jump
+                if (!$me->wizard) { $attenzione = true;  ?>
                 <div class="alert alert-block alert-error">
                     <h4><i class="icon-warning-sign"></i> Completa il tuo profilo</h4>
                     <p>Inserisci titoli, patenti, certificazioni e competenze dalla sezione curriculum.</p>        
                     <p><a href="?p=utente.titoli&t=0" class="btn btn-large"><i class="icon-ok"></i> Clicca qui per iniziare</a></p>
-                </div> 
+                </div>
                 <?php } elseif (!$me->ordinario()) { ?>
                 <div class="alert alert-block alert-success">
                     <div class="row-fluid">
@@ -430,25 +481,25 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     <p>Ricordati di caricare i tuoi documenti dalla sezione <strong>Documenti</strong>.</p>
                 </div>
 
-                <?php }
-                if ( !$attenzione && $me->comitatiDiCompetenza() ) { ?>
-                <div class="alert alert-block alert-warning">
-                    <h4><i class="icon-warning-sign"></i> Dov'è finito il pannello presidente?</h4>
-                    <p>Nel menù di sinistra, alla voce <strong>Presidente</strong>.</p>
-                </div>
                 <?php } ?>
             </div>
 
             <!-- PANNELLO ULTIME EMAIL -->
             <div class="span4">
-                <h4><i class="icon-time"></i> Ultime comunicazioni</h4>
-                
-                <div
-                    data-posta      ="true"
-                    data-direzione  ="ingresso"
-                    data-perPagina  ="5"
-                    data-mini       ="true"
-                ></div>
+                <div class="row-fluid">
+                    <h4><i class="icon-time"></i> Ultime comunicazioni</h4>
+                    
+                    <div
+                        data-posta      ="true"
+                        data-direzione  ="ingresso"
+                        data-perPagina  ="5"
+                        data-mini       ="true"
+                    ></div>
+                </div>
+                <div class="row-fluid">
+                    <a class="twitter-timeline" href="https://twitter.com/progettogaiacri/gaia-update" data-widget-id="441278779487305729">Tweets from https://twitter.com/progettogaiacri/gaia-update</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                </div>
             </div>
         </div>
     </div>

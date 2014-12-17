@@ -10,6 +10,8 @@ class Comitato extends GeoPolitica {
         $_t  = 'comitati',
         $_dt = 'datiComitati';
 
+    use EntitaCache;
+
     public static 
         $_ESTENSIONE = EST_UNITA;
 
@@ -19,7 +21,7 @@ class Comitato extends GeoPolitica {
      */ 
     public function __get ($_nome) {
         $nonSovrascrivere = ['id', 'nome', 'principale', 'locale'];
-        if ( parent::__get('principale') && !in_array($_nome, $nonSovrascrivere) ) {
+        if ( parent::__get('principale') && !contiene($_nome, $nonSovrascrivere) ) {
             return $this->locale()->{$_nome};
         }
         return parent::__get($_nome);
@@ -682,7 +684,8 @@ class Comitato extends GeoPolitica {
         return $r;
     }
     
-    /*
+    /**
+     * Restituisce elenco volontari in possesso di un dato titolo
      * @param $titoli Array di elementi Titolo
      */
     public function ricercaMembriTitoli( $titoli = [], $stato = MEMBRO_ESTESO ) {
@@ -858,32 +861,14 @@ class Comitato extends GeoPolitica {
     }
      
     public function coTurni() {
-        global $db;
-        $q = $db->prepare("
-            SELECT
-                turni.id
-            FROM
-                attivita, turni
-            WHERE
-                attivita.comitato = :comitato
-            AND
-                attivita.stato = :stato
-            AND
-                turni.attivita = attivita.id
-            AND
-                turni.inizio <= :inizio
-            ORDER BY
-                turni.inizio ASC");
+        $attivita = Attivita::filtra([['comitato', $this->oid()],['stato', ATT_STATO_OK]]);
+        $turni = [];
         $inizio = time()+3600;
-        $q->bindValue(':inizio', $inizio);
-        $q->bindValue(':stato', ATT_STATO_OK);
-        $q->bindParam(':comitato', $this->oid());
-        $q->execute();
-        $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = Turno::id($k[0]);
+        foreach ( $attivita as $att ){
+            $turni = array_merge($turni, Turno::filtra([['attivita', $att],['inizio',$inizio,OP_LTE]]));
         }
-            return $r;
+        $turni = array_unique($turni);
+        return $turni;
     }
 
     /**
@@ -937,4 +922,106 @@ class Comitato extends GeoPolitica {
         }
         return $r;
     }
+
+    /**
+     * Se l'unità è principale utilizza i dati del livello superiore
+     * altrimenti usa la funzione standard
+     */
+    public function haPosizione() {
+        if ($this->principale) {
+            return $this->superiore()->haPosizione();
+        }
+        return parent::haPosizione();
+    }
+
+    /**
+     * Se l'unità è principale utilizza i dati del livello superiore
+     * altrimenti usa la funzione standard
+     */
+    public function linkMappa() {
+        if ($this->principale) {
+            return $this->superiore()->linkMappa();
+        }
+        return parent::linkMappa();
+    }
+
+    /**
+     * Se l'unità è principale utilizza i dati del livello superiore
+     * altrimenti usa la funzione standard
+     */
+    public function coordinate() {
+        if ($this->principale) {
+            return $this->superiore()->coordinate();
+        }
+        return parent::coordinate();
+    }
+    
+    /**
+     * Se l'unità è principale utilizza i dati del livello superiore
+     * altrimenti usa la funzione standard
+     */
+    public function latlng() {
+        if ($this->principale) {
+            return $this->superiore()->latlng();
+        }
+        return parent::latlng();
+    }
+    
+    /**
+     * Se l'unità è principale utilizza i dati del livello superiore
+     * altrimenti usa la funzione standard
+     */
+    public function localizzaCoordinate($x, $y) {
+        if ($this->principale) {
+            return $this->superiore()->localizzaCoordinate($x, $y);
+        }
+        return parent::localizzaCoordinate($x, $y);
+    }
+    
+    /**
+     * Se l'unità è principale utilizza i dati del livello superiore
+     * altrimenti usa la funzione standard
+     */
+    public function localizzaStringa($stringa) {
+        if ($this->principale) {
+            return $this->superiore()->localizzaStringa($stringa);
+        }
+        return parent::localizzaStringa($stringa);
+    }
+
+    /**
+     * Fototessere in attesa
+     * @param comitato
+     * @return Utente array
+     */
+    public function fototesserePendenti() {
+        $filtrato = [];
+        foreach( $this->membriAttuali(MEMBRO_VOLONTARIO) as $u ) {
+            if ( !$u->fototessera() ) { continue; }
+            if ( $u->fototessera()->approvata() ) { continue; }
+            $filtrato[] = $u;
+        }
+        return $filtrato;
+    }
+
+    /**
+     * Tesserini in attesa di essere riconsegnati
+     * @param comitato
+     * @return Utente array
+     */
+    public function tesseriniNonRiconsegnati() {
+        $filtrato = [];
+        foreach( $this->membriDimessi() as $u ) {
+            $t = TesserinoRichiesta::filtra([
+                ['volontario',      $u],
+                ['stato',           INVALIDATO]],
+                'tConferma DESC'
+            );
+            $t = $t[0];
+            if ( !$t || $t->pRiconsegnato ) { continue; }
+            $filtrato[] = $u;
+        }
+        return $filtrato;
+    }
+
 }

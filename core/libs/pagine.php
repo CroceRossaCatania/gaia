@@ -121,14 +121,15 @@ function paginaCorsoBase( $corsoBase = null ) {
          ( 
             ( $corsoBase instanceof CorsoBase )
             and
-            !$corsoBase->modificabileDa($sessione->utente())
+            !($corsoBase->modificabileDa($sessione->utente()))
          )
-            or
+          or
          !(
                 (bool) $sessione->utente()->admin()
             or  (bool) $sessione->utente()->presiede()
             or  (bool) $sessione->utente()->delegazioni(APP_FORMAZIONE)
             or  (bool) $sessione->utente()->corsiBaseDiGestione()
+            or  (bool) $sessione->utente()->corsiBaseDiretti()
         )
     ) {
         redirect('errore.permessi');
@@ -141,7 +142,7 @@ function paginaModale() {
 
 function paginaPresidenziale( $comitato = null, $attivita = null) {
     global $sessione;
-        paginaPrivata();
+    paginaPrivata();
     if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin() ) {
         redirect('utente.me');
     }
@@ -156,7 +157,8 @@ function paginaPresidenziale( $comitato = null, $attivita = null) {
 
 function menuVolontario() {
     global $me;
-    if ( $me && $me->stato == ASPIRANTE ) {
+    $iscritto = (bool) $me->partecipazioniBase(ISCR_CONFERMATA);
+    if ( $me && $me->stato == ASPIRANTE && !$iscritto) {
         menuAspirante();
         return;
     }elseif($me && ($me->ordinario() || $me->ordinariodimesso())){
@@ -259,3 +261,40 @@ function proteggiClasse(Entita $e, Utente $utente) {
     redirect('errore.permessi');
 }
 
+
+/**
+ * Da un nome alla transazione con API di New Relic, se disponibili
+ * @param string    Nome della transazione
+ * @param string    Prefisso della transazione
+ * @return bool     Transazione rinominata con successo?
+ */
+function nomeTransazione($nome, $prefisso = 'nd') {
+    if ( !function_exists('newrelic_name_transaction') )
+        return false;
+    $nome = str_replace(':', '.', $nome);
+    $nome = "{$prefisso}:{$nome}";
+    newrelic_name_transaction($nome);
+    return true;
+}
+
+/**
+ * Ignora la transazione su New Relic, se possibile
+ * @return void
+ */
+function ignoraTransazione() {
+    if ( function_exists('newrelic_ignore_transaction') )
+        newrelic_ignore_transaction();
+}
+
+/**
+ * Registra parametro per la transazione su New Relic, se possibile
+ * @param string    Nome del parametro
+ * @param string    Valore del parametro
+ * @return bool     Parametro registrato con successo?
+ */
+function registraParametroTransazione($nome, $valore) {
+    if ( !function_exists('newrelic_add_custom_parameter') )
+        return false;
+    newrelic_add_custom_parameter($nome, $valore);
+    return true;
+}

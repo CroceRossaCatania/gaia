@@ -13,6 +13,11 @@ $a = Attivita::id($_GET['id']);
 
 $geoComitato = GeoPolitica::daOid($a->comitato);
 
+$modificabile = $a->modificabileDa($me);
+if ( $modificabile ) {
+    $dominio = $me->dominioCompetenzaAttivita($a);
+}
+
 if ( isset($_GET['riapri']) ) { ?>
 <script type='text/javascript'>
 $(document).ready( function() {
@@ -39,7 +44,7 @@ $(document).ready( function() {
                     <h2><i class="icon-time"></i> Elenco turni dell'Attività</h2>
                 </div>
                 <div class="span4">
-                    <?php if ( $a->modificabileDa($me) ) { ?>
+                    <?php if ( $modificabile ) { ?>
                     <a href="?p=attivita.report&id=<?php echo $a->id; ?>" class="btn btn-large btn-block btn-primary" data-attendere="Generazione in corso...">
                         <i class="icon-download-alt"></i> Scarica report excel
                     </a>
@@ -92,7 +97,7 @@ $(document).ready( function() {
                             <strong>Volontari: <?php echo count($accettate); ?></strong><br />
                             Min. <?php echo $turno->minimo; ?> &mdash; Max. <?php echo $turno->massimo; ?><br />
                             <a data-toggle="modal" data-target="#turno_<?php echo $turno->id; ?>"><i class="icon-list"></i> Vedi tutti i volontari</a>
-                            <?php if ( $a->modificabileDa($me) ) { ?>
+                            <?php if ( $modificabile ) { ?>
                             (<a data-toggle="modal" data-target="#turno_<?php echo $turno->id; ?>"><i class="icon-plus"></i> Aggiungi</a>)
                             <?php } ?>
 
@@ -128,21 +133,26 @@ $(document).ready( function() {
                                                         echo "</span>";
                                                         ?>
                                                     </a>
-                                                    <?php if( $me->delegazioni(APP_CO) && $a->modificabileDa($me) && $potere){ ?>
+                                                    <?php if( $me->delegazioni(APP_CO) && $modificabile && $potere){ ?>
                                                     <a class="btn btn-small" href="?p=attivita.poteri&v=<?= $v->id; ?>&turno=<?= $turno; ?>">
                                                         <i class="icon-rocket" ></i> Conferisci poteri
                                                     </a>
                                                     <?php } ?>
-                                                    <?php if( $a->modificabileDa($me) && $turno->fine >= time() && $turno->inizio >= time() ){ ?>
+                                                    <?php if( $modificabile && $turno->fine >= time() && $turno->inizio >= time() ){ ?>
                                                     <a class="btn btn-small btn-danger" href="?p=attivita.modifica.volontario.rimuovi&v=<?= $v->id; ?>&turno=<?= $turno; ?>">
                                                         <i class="icon-trash" ></i> Rimuovi volontario
+                                                    </a>
+                                                    <?php } ?>
+                                                    <?php if( $modificabile){ ?>
+                                                    <a class="btn btn-small btn-danger" href="?p=attivita.modifica.volontario.assente&v=<?= $v->id; ?>&turno=<?= $turno; ?>">
+                                                        <i class="icon-trash" ></i> Volontario assente
                                                     </a>
                                                     <?php } ?>
                                                 </li>
                                                 <?php } ?>
                                             </ul>
 
-                                            <?php if ( $a->modificabileDa($me) ) { ?>
+                                            <?php if ( $modificabile ) { ?>
 
                                             <hr />
                                             <?php
@@ -181,14 +191,14 @@ $(document).ready( function() {
                                             <?php } ?>
                                         </div>
                                         <div class="span5">
-                                            <?php if ( $a->modificabileDa($me) ) { ?>
+                                            <?php if ( $modificabile ) { ?>
                                             <form action="?p=attivita.modifica.volontari.aggiungi&id=<?php echo $a->id; ?>" method="POST">
                                                 <input type="hidden" name="turno" value="<?php echo $turno->id; ?>" />
                                                 <a data-selettore="true" 
                                                    data-input="volontari" 
                                                    data-autosubmit="true" 
                                                    data-multi="true" 
-                                                   data-comitati="<?php echo $a->comitato; ?>"
+                                                   data-comitati="<?php echo $dominio->oid(); ?>"
                                                    class="btn btn-block btn-primary btn-large btn-success">
                                                     <i class="icon-plus"></i>
                                                     Aggiungi volontari

@@ -103,6 +103,7 @@ richiediComitato();
                   <span class="span7">
                     <h4>Vuoi transitare nel ruolo di riserva ?</h4>
                     <p>Con questo modulo puoi richiedere il transito nel ruolo di riserva</p>
+                    <p>Specifica il motivo di tale scelta</p>
                     <p>Seleziona il periodo in cui vuoi stare nel ruolo di riserva.</p>
                   </span>
                 </div>
@@ -126,7 +127,7 @@ richiediComitato();
               <div class="control-group">
                 <label class="control-label" for="inputMotivo">Motivazione </label>
                 <div class="controls">
-                  <input class="span8" type="text" name="inputMotivo" id="motivo" placeholder="es.: Motivi Personali" required>
+                  <input class="span8" type="text" name="inputMotivo" id="motivo" placeholder="es.: Motivi di salute" required>
                 </div>
               </div>
               <div class="control-group">

@@ -10,6 +10,8 @@ class Partecipazione extends Entita {
         $_t  = 'partecipazioni',
         $_dt = null;
 
+    use EntitaCache;
+
     public function volontario() {
         return Volontario::id($this->volontario);
     }
@@ -129,7 +131,6 @@ class Partecipazione extends Entita {
             
             // Al mio...
             
-            /* HOTFIX TEMPORANEO 
             $a = new Autorizzazione();
             $a->partecipazione = $this->id;
             $a->volontario     = $this->volontario()->appartenenzaAttuale()->comitato()->primoPresidente()->id;
@@ -145,7 +146,6 @@ class Partecipazione extends Entita {
             $m->_TURNO       = $this->turno()->nome;
             $m->_DATA        = $a->timestamp()->format('d-m-Y H:i');
             $m->invia();
-            */
              
         }
         

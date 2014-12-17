@@ -4,11 +4,22 @@
  * ©2014 Croce Rossa Italiana
  */
 
+/**
+ * @property    integer     id 
+ * @property    string      chiave  
+ * @property    integer     oggi    
+ * @property    integer     limite  
+ * @property    string      email   
+ * @property    string      nome    
+ * @property    integer     attiva
+ */
 class APIKey extends Entita {
 
+    use EntitaCache;
+
     protected static
-        $_t  = 'api_chiavi',
-        $_dt = null;
+        $_t         = 'api_chiavi',
+        $_dt        = null;
 
     public function aggiorna() {
     	global $cache;

@@ -34,7 +34,7 @@ class Geocoder {
             $n = new GeocoderResult();
             foreach ( $r->address_components as $ac ) {
                 foreach ( $res as $pr => $va ) {
-                    if ( in_array($va[0], $ac->types) ) {
+                    if ( contiene($va[0], $ac->types) ) {
                         $n->{$pr} = $ac->{$va[1]};
                     }
                 } 

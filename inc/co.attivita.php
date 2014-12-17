@@ -83,34 +83,31 @@ paginaApp([APP_CO , APP_PRESIDENTE]);
         $comitati = $me->comitatiApp ([ APP_CO, APP_PRESIDENTE ]);
         foreach($comitati as $comitato){
             $turni = $comitato->coTurni();
-                    foreach($turni as $turno){
-                        $z=true;
-                        $x=true;
-                        $partecipanti = $turno->partecipazioniStato(AUT_OK);
-                        foreach ($partecipanti as $partecipante){ 
-                            $partecipante = $partecipante->volontario();
-                            $m = Coturno::filtra([['volontario', $partecipante],['turno',$turno]]); 
-                            if ( $turno->fine >= $f || ($m[0]->pMonta && !$m[0]->pSmonta) ) {
-                                $attivita = $turno->attivita();
-                                if($x){ 
-                                    $x=false; ?> 
-                                    <tr class="primary">
-                                        <td colspan="4" class="grassetto">
+                foreach($turni as $turno){
+                    $z = true;
+                    $x = true;
+                    $partecipanti = $turno->partecipazioniStato(AUT_OK);
+                    foreach ($partecipanti as $partecipante){ 
+                        $partecipante = $partecipante->volontario();
+                        $m = Coturno::filtra([['volontario', $partecipante],['turno',$turno]]); 
+                        if ( $turno->fine >= $f || ($m[0]->pMonta && !$m[0]->pSmonta) ) {
+                            $attivita = $turno->attivita();
+                            if($x){ 
+                                $x = false; ?> 
+                                <tr class="primary">
+                                    <td colspan="4" class="grassetto">
                                         <?php echo $attivita->nome ," - Referente: " , $attivita->referente()->nomeCompleto() , " Cell: ", $attivita->referente()->cellulare(); ?>
-                                        </td>
-                                    </tr>
-                                    <?php 
-                                    } 
-                                    if ($z){
-                                    ?>
-                                <tr class="info">
+                                    </td>
+                                </tr>
+                            <?php }
+                                if ($z){ ?>
+                                    <tr class="info">
                                        <td><?php echo $turno->nome; ?></td>
                                        <td><?php echo date('d-m-Y H:i', $turno->inizio); ?></td>
                                        <td><?php echo date('d-m-Y H:i', $turno->fine); ?></td>
-                                </tr>
+                                    </tr>
                                     <?php $z=false;
-                                    
-                                    } ?>
+                                } ?>
                                 <tr class="<?php if(!$m[0]->pSmonta && !$m[0]->stato == CO_MONTA){ ?> warning <?php }elseif($m[0]->stato == CO_MONTA){ ?> success <?php }else{ ?> error <?php } ?>">
                                    <td><?php echo $partecipante->nomeCompleto(); ?></td>
                                    <td><?php echo $partecipante->cellulare(); ?></td>

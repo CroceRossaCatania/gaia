@@ -19,9 +19,11 @@ paginaModale();
            <p> Con questo modulo potrai mettere in riserva un volontario</p>
            <ol>
                <li>
-                    <a data-selettore="true" data-input="inputVolontario"
-                 class="btn btn-inverse btn-small">
-                  Seleziona un volontario... <i class="icon-pencil"></i>
+                   <a data-selettore="true" data-input="inputVolontario"
+                      data-stato="<?= MEMBRO_VOLONTARIO; ?>"
+                      class="btn btn-inverse btn-small">
+                        Seleziona un volontario... 
+                        <i class="icon-pencil"></i>
                     </a><p></p>
                </li>
                <li><input class="input-large allinea-sinistra" type="text" name="datainizio" id="datainizio" placeholder="Inserisci data di inizio riserva" autocomplete="off" required></li>

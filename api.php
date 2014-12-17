@@ -44,6 +44,9 @@ if ( empty($corpo->metodo) ) {
 	$metodo = (string) $corpo->metodo;
 }
 
+// Dai un nome alla transazione
+nomeTransazione($metodo, 'api');
+
 // Crea la sessione API
 $api = new APIServer($key, $sid);
 

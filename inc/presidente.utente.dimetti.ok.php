@@ -1,14 +1,17 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 controllaParametri(array('id','motivo','info'), 'presidente.utenti&errGen');
 
-$v = Volontario::id($_GET['id']);
+$v = Utente::id($_GET['id']);
+
+if ( !$v->ordinario() )
+  $v = Volontario::id($_GET['id']);
 
 proteggiDatiSensibili($v, [APP_SOCI , APP_PRESIDENTE]);
 if (!$v->modificabileDa($me)) {
@@ -18,6 +21,9 @@ if (!$v->modificabileDa($me)) {
 $attuale = $v->appartenenzaAttuale();
 $comitato = $attuale->comitato();
 $motivo = $conf['dimissioni'][$_POST['motivo']];
+
+/* Invalido il suo tesserino */
+$v->invalidaTesserino($motivo);
 
 /* Avviso il volontario */
 if($_POST['motivo'] != DIM_DECEDUTO) {
@@ -30,113 +36,137 @@ if($_POST['motivo'] != DIM_DECEDUTO) {
   $m->invia();
 }
 
-/* Creo la dimissione */                
-$d = new Dimissione();
-$d->volontario      = $v->id;
-$d->appartenenza    = $attuale;
-$d->comitato        = $comitato;
-$d->motivo = $_POST['motivo'];
-$d->info = $_POST['info'];
-$d->tConferma = time();
-$d->pConferma = $me;
+if ( $v->ordinario() ){
 
-/* Evitiamo di lasciare compiti a chi non è più in CRI */
-$f = Area::filtra([
-  ['responsabile', $v]
-  ]);
-foreach($f as $_f){
-    $_f->dimettiReferente();
-}
+  /* Creo la dimissione */                
+  $d = new Dimissione();
+  $d->volontario      = $v->id;
+  $d->appartenenza    = $attuale;
+  $d->comitato        = $comitato;
+  $d->motivo = $_POST['motivo'];
+  $d->info = $_POST['info'];
+  $d->tConferma = time();
+  $d->pConferma = $me;
 
-$f = Attivita::filtra([
-  ['referente', $v]
-  ]);
-foreach($f as $_f){
-    $_f->referente = $comitato->unPresidente();
-}
+  /* Chiudo l'appartenenza e declasso a persona */
+  $ora = time();
+  $comitato = $attuale->comitato;
+  $attuale->fine = $ora;
+  $attuale->stato = MEMBRO_ORDINARIO_DIMESSO;
+  $v->stato = PERSONA;
+  $v->admin=null;
 
-$f = Autorizzazione::filtra([
-  ['volontario', $v]
-  ]);
-foreach($f as $_f){
-    $_f->volontario = $comitato->unPresidente();
-}
+}else{
 
-$f = Gruppo::filtra([
-  ['referente', $v]
-  ]);
-foreach($f as $_f){
-    $_f->referente = $comitato->unPresidente();
-}
+  /* Creo la dimissione */                
+  $d = new Dimissione();
+  $d->volontario      = $v->id;
+  $d->appartenenza    = $attuale;
+  $d->comitato        = $comitato;
+  $d->motivo = $_POST['motivo'];
+  $d->info = $_POST['info'];
+  $d->tConferma = time();
+  $d->pConferma = $me;
 
-$f = AppartenenzaGruppo::filtra([
-  ['volontario', $v]
-  ]);
-foreach ($f as $_f) {
-    $_f->cancella();
-}
-
-$f = Reperibilita::filtra([
-  ['volontario', $v]
-  ]);
-foreach ($f as $_f) {
-    $_f->fine = time();
-}
-
-$f = Estensione::filtra([
-  ['volontario', $v]
-  ]);
-foreach ($f as $_f) {
-  if($_f->stato == EST_OK || $_f->stato == EST_AUTO){
-    $_f->termina();
-  }elseif($_f->stato == EST_INCORSO){
-    $_f->nega($motivo);
+  /* Evitiamo di lasciare compiti a chi non è più in CRI */
+  $f = Area::filtra([
+    ['responsabile', $v]
+    ]);
+  foreach($f as $_f){
+      $_f->dimettiReferente();
   }
-}
 
-$f = Riserva::filtra([
-  ['volontario', $v]
-  ]);
-foreach ($f as $_f) {
-  if($_f->stato == RISERVA_OK || $_f->stato == RISERVA_AUTO){
-    $_f->termina();
-  }elseif($_f->stato == RISERVA_INCORSO){
-    $_f->nega($motivo);
+  $f = Attivita::filtra([
+    ['referente', $v]
+    ]);
+  foreach($f as $_f){
+      $_f->referente = $comitato->unPresidente();
   }
-}
 
-$f = Trasferimento::filtra([
-  ['volontario', $v]
-  ]);
-foreach ($f as $_f) {
-  if($_f->stato == TRASF_INCORSO){
-    $_f->nega($motivo);
+  $f = Autorizzazione::filtra([
+    ['volontario', $v]
+    ]);
+  foreach($f as $_f){
+      $_f->volontario = $comitato->unPresidente();
   }
-}
 
-$p = Partecipazione::filtra([
-  ['volontario', $v]
-]);
-foreach ($p as $_p) {
-  if ( $_p->turno()->futuro() && $_p->turno()->attivita()->comitato() == $c->id) {
-    $_p->cancella();
+  $f = Gruppo::filtra([
+    ['referente', $v]
+    ]);
+  foreach($f as $_f){
+      $_f->referente = $comitato->unPresidente();
   }
-}
 
-$f = Delegato::filtra([
-  ['volontario', $v]
+  $f = AppartenenzaGruppo::filtra([
+    ['volontario', $v]
+    ]);
+  foreach ($f as $_f) {
+      $_f->cancella();
+  }
+
+  $f = Reperibilita::filtra([
+    ['volontario', $v]
+    ]);
+  foreach ($f as $_f) {
+      $_f->fine = time();
+  }
+
+  $f = Estensione::filtra([
+    ['volontario', $v]
+    ]);
+  foreach ($f as $_f) {
+    if($_f->stato == EST_OK || $_f->stato == EST_AUTO){
+      $_f->termina();
+    }elseif($_f->stato == EST_INCORSO){
+      $_f->nega($motivo);
+    }
+  }
+
+  $f = Riserva::filtra([
+    ['volontario', $v]
+    ]);
+  foreach ($f as $_f) {
+    if($_f->stato == RISERVA_OK || $_f->stato == RISERVA_AUTO){
+      $_f->termina();
+    }elseif($_f->stato == RISERVA_INCORSO){
+      $_f->nega($motivo);
+    }
+  }
+
+  $f = Trasferimento::filtra([
+    ['volontario', $v]
+    ]);
+  foreach ($f as $_f) {
+    if($_f->stato == TRASF_INCORSO){
+      $_f->nega($motivo);
+    }
+  }
+
+  $p = Partecipazione::filtra([
+    ['volontario', $v]
   ]);
-foreach ($f as $_f) {
-  $_f->fine = $fine;
-}
+  foreach ($p as $_p) {
+    if ( $_p->turno()->futuro() && $_p->turno()->attivita()->comitato() == $c->id) {
+      $_p->cancella();
+    }
+  }
 
-/* Chiudo l'appartenenza e declasso a persona */
-$ora = time();
-$comitato = $attuale->comitato;
-$attuale->fine = $ora;
-$attuale->stato = MEMBRO_DIMESSO;
-$v->stato = PERSONA;
-$v->admin=null;
+  $f = Delegato::filtra([
+    ['volontario', $v]
+    ]);
+  foreach ($f as $_f) {
+    $_f->fine = $fine;
+  }
+
+  /* Chiudo l'appartenenza e declasso a persona */
+  $ora = time();
+  $comitato = $attuale->comitato;
+  $attuale->fine = $ora;
+  $attuale->stato = MEMBRO_DIMESSO;
+  $v->stato = PERSONA;
+  $v->admin=null;
+
+}
 
 /* Se dimissioni volontarie e l'ha chiesto lo lascio ordinario */
 

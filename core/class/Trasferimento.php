@@ -7,8 +7,10 @@
 class Trasferimento extends Entita {
 
     protected static
-    $_t  = 'trasferimenti',
-    $_dt = null;
+        $_t  = 'trasferimenti',
+        $_dt = null;
+
+    use EntitaCache;
     
     public function volontario() {
         return Volontario::id($this->volontario);
@@ -178,6 +180,10 @@ class Trasferimento extends Entita {
             }
         }
 
+        /* Chiudo eventuale richiesta di tesserini o invalido l'attuale */
+        $motivo = "Trasferimento presso altro comitato";
+        $v->invalidaTesserino($motivo);
+
         /* Posso chiudere definitivamente la vecchia appartenenza */
 
         $a->timestamp = time();
@@ -237,7 +243,7 @@ class Trasferimento extends Entita {
         $v = $this->volontario();
 
         $destinatari = [$v, $this->comitato()->unPresidente(), $v->unComitato()->unPresidente()];
-        $m = new Email('richiestaTrasferimentoAnnullamento', 'Annullata richiesta estensione');          
+        $m = new Email('richiestaTrasferimentoAnnullamento', 'Annullata richiesta trasferimento');          
         $m->a = $destinatari;
         $m->_NOME = $v->nomeCompleto();
         $m->_COMITATO = $this->comitato()->nomeCompleto();

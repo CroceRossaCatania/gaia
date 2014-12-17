@@ -10,6 +10,8 @@ class Fermotecnico extends Entita {
         $_t     = 'fermotecnico',
         $_dt    =  null;
 
+    use EntitaCache;
+
     /**
      * Ritorna true se attuale
      * @return bool True or False

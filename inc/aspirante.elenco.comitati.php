@@ -41,10 +41,10 @@ if ( !($a = Aspirante::daVolontario($me)) )
                         <th>
                             Telefono
                         </th>
-
+                        <!--
                         <th>
                             Azione
-                        </th>
+                        </th>-->
                     </thead>
 
                     <?php foreach ( $a->comitati() as $c ) { ?>
@@ -61,14 +61,12 @@ if ( !($a = Aspirante::daVolontario($me)) )
                         <td style="width: 15%;">
                             <?php echo($c->telefono);?>
                         </td>
-                        
+                        <!--
                         <td style="width: 20%;">
-                            <a href="?p=formazione.corsibase.modifica&id=<?php echo $corso->id; ?>">
-                                <i class="icon-edit"></i> Manda email
-                            </a>
+                            <?php echo($c->email);?>
                             <br />      
                         </td>
-                        
+                        -->
                     </tr>
 
                     <?php } ?>

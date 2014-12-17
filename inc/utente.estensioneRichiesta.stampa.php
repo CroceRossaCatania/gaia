@@ -50,7 +50,7 @@ if ( $sessione->inGenerazioneEstensione) {
         $m->allega($f);
         $m->accoda();
         
-        /* Richiesta per conoscenza al nuovo presidente */
+         /* Richiesta per conoscenza al nuovo presidente */
         $m = new Email('richiestaEstensione.cc', 'Richiesta estensione in arrivo a: ' . $e->comitato()->nome);
         $m->a = $cest->primoPresidente();
         $m->_NOME       = $me->nomeCompleto();
@@ -60,6 +60,7 @@ if ( $sessione->inGenerazioneEstensione) {
         $m->allega($f);
         $m->accoda();
        
+        
     redirect('utente.estensione&ok');
 } else {
     

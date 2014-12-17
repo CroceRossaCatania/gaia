@@ -30,17 +30,18 @@ class Excel extends File {
         
         $conBordo = (int) $conBordo;
         $s  = "<meta charset='utf-8'>";
+        $s .= "<head><style>.excel-text{ mso-number-format: \"\@\"; } </style></head>";
         $s .= "<table border='{$conBordo}'>";
         $s .= '<thead>';
         foreach ( $this->intestazione as $int ) {
-            $s .= "<th><strong>{$int}</strong></th>";
+            $s .= "<th class='excel-text'><strong>{$int}</strong></th>";
         }
         $s .= '</thead>';
         $s .= '<tbody>';
         foreach ( $this->righe as $riga ) {
             $s .= '<tr>';
             foreach ( $riga as $cont ) {
-                $s .= '<td style="min-width: 200px;">';
+                $s .= '<td style="min-width: 200px;" class="excel-text">';
                 $s .= $cont;
                 $s .= '</td>';
             }

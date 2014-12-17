@@ -1,7 +1,7 @@
 <?php
 
 /**
- * (c)2014 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
  
 $_titolo = 'Aggiornamenti, novit&agrave; e miglioramenti';
@@ -121,7 +121,7 @@ $_titolo = 'Aggiornamenti, novit&agrave; e miglioramenti';
 	<div class="span4">
 
 		<div class="alert alert-block alert-success">
-			<h4><i class="icon-comments"></i> Feedback</h4>
+			<h4><i class="icon-comments"></i> Feedback & Supporto</h4>
 			<p>Crediamo davvero nella collaborazione, infatti, come parte fondamentale del processo di sviluppo,
 			   durante le riunioni di progettazione, ci fermiamo sempre un momento per leggere e 
 			   prendere in considerazione il feedback ricevuto dagli utenti.</p>
@@ -131,11 +131,12 @@ $_titolo = 'Aggiornamenti, novit&agrave; e miglioramenti';
 				<i class="icon-envelope-alt"></i>
 				feedback@gaia.cri.it
 			</a>
-			<p style="font-size: smaller;">
-				<i class="icon-warning-sign"></i> 
-				Se hai bisogno di aiuto, scrivi invece a 
-				<a href="mailto:supporto@gaia.cri.it">supporto@gaia.cri.it</a>.
-			</p>
+			<p></p>
+			<p><strong>Se hai bisogno di aiuto, scrivi invece a </strong></p>
+			<a class="btn btn-large btn-success btn-block" href="mailto:supporto@gaia.cri.it?subject=Richiesta+di+Supporto">
+				<i class="icon-envelope-alt"></i>
+				supporto@gaia.cri.it
+			</a>
 		</div>
 
 		<div class="alert alert-block alert-info">

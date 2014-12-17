@@ -37,6 +37,16 @@ if(isset($_POST['ordinario'])){
         echo('['.$rigasuexcel.']: '.$codiceFiscale);
         $rigasuexcel++;
 
+        if ($ordinario){
+            $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[12]);
+        }else{
+            $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[14]);
+        }
+
+        if ( $dingresso->getTimestamp() < (time()-(ANNO*150))){
+            echo " Data ingresso antecedente a 150 anni - NON CARICATO!!! <br/>";
+            continue;
+        }
         /* Controlla se esiste già! */
 
         $v = Volontario::by('codiceFiscale', $codiceFiscale);
@@ -51,7 +61,7 @@ if(isset($_POST['ordinario'])){
             continue;
         }
 
-        if (isset($_POST['cancellaCsv'])) {
+        if (isset($_POST['cancellaCsv']) && $v) {
             $v->cancellaUtente();
             continue;
         }

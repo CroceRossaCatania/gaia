@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 paginaPrivata();
@@ -25,7 +25,7 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                 </h2>
             </div>
             <div class="span5">  
-                <?php if ( $me->presidenziante() ) { ?>
+                <?php if ( $me->presidenziante() || $me->admin()) { ?>
                 <a href="?p=formazione.corsibase.idea" class="btn btn-large btn-block btn-success">
                     <i class="icon-plus-sign"></i>
                     Attiva nuovo Corso Base
@@ -38,9 +38,15 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
 		<div class="row-fluid">
             <div class="span12">
                 <?php if (isset($_GET['err'])) { ?>
-                <div class="alert alert-block alert-error">
+                <div class="alert alert-block alert-danger">
                     <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
                     <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
+                </div> 
+                <?php } ?> 
+                <?php if (isset($_GET['cancellato'])) { ?>
+                <div class="alert alert-block alert-success">
+                    <h4><i class="icon-save"></i> <strong>Corso base cancellato</strong>.</h4>
+                    <p>L'operazione hai eseguito è andata a buon fine.</p>
                 </div> 
                 <?php } ?> 
                 <table class="table table-striped table-bordered">
@@ -61,7 +67,23 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                         </th>
                     </thead>
 
-                    <?php foreach ( $me->corsiBaseDiGestione() as $corso ) { ?>
+                    <?php 
+                    if($me->admin()) {
+                        $corsi = CorsoBase::elenco();
+                    } else {
+                        $corsi = $me->corsiBaseDiGestione();
+                    }
+
+
+                    foreach ( $corsi as $corso ) {
+
+                        // autorisolutore problemi dei direttori mancanti 
+                        $direttore = $corso->direttore();
+                        if (!$direttore) {
+                            $corso->stato = CORSO_S_DACOMPLETARE;
+                        }
+
+                        ?>
 
                     <tr>
 
@@ -78,18 +100,23 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                             <?php echo $corso->luogo; ?>
                             <br />
                             Data inizio:
-                            <?php echo $corso->inizio()->inTesto(false); ?>
+                            <?php echo date('d/m/Y H:i', $corso->inizioDate()); ?>
+                            <br />
+                            Data esame:
+                            <?php echo date('d/m/Y H:i', $corso->fineDate()); ?>
                             <br />
                             <?php if ( $corso->direttore ) { ?>
-                            Referente: 
+                            Direttore: 
                             <a href="?p=profilo.controllo&id=<?php echo $corso->direttore()->id; ?>" target="_new">
-                                <?php echo $corso->direttore()->nomeCompleto(); ?>
+                                <?php echo $direttore->nomeCompleto(); ?>
                             </a>
                             <?php } else { ?>
                             <i class="icon-warning-sign"></i> Nessun referente
                             <?php } ?>
                             <br />
                             Codice corso: <?php echo($corso->progressivo());?>
+                            <br />
+                            Numero iscritti: <?php echo($corso->numIscritti());?>
                         </td>
                 
                         <td style="width: 15%;">
@@ -97,20 +124,28 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
                         </td>
                         
                         <td style="width: 20%;">
-                            <?php if (in_array($corso->organizzatore(), $mieiComitati) || $me->admin()){ ?>
-                            <a href="?p=formazione.corsibase.direttore.nuovo&id=<?= $corso->id; ?>">
+                            <?php if ((!$corso->concluso() 
+                                        && in_array($corso->organizzatore(), $mieiComitati)) 
+                                    || $me->admin()){ ?>
+                            <a href="?p=formazione.corsibase.direttore&id=<?= $corso->id; ?>">
                                 <i class="icon-pencil"></i> 
-                                cambia referente
+                                cambia direttore
                             </a>
+                            <?php } 
+                            if(!$corso->concluso()) {?>
                             <br />
-                            <?php } ?>
                             <a href="?p=formazione.corsibase.modifica&id=<?php echo $corso->id; ?>">
                                 <i class="icon-edit"></i> modifica corso
                             </a>
+                            <?php }
+
+                            if ((in_array($corso->organizzatore(), $mieiComitati) && $corso->cancellabile())
+                                        or $me->admin()){ ?>
                             <br />
-                            <a href="?p=formazione.corsibase.lezioni&id=<?php echo $corso->id; ?>">
-                                <strong><i class="icon-plus"></i> lezioni</strong>
-                            </a>        
+                            <a onClick="return confirm('Vuoi veramente cancellare questo corso base ?');" href="?p=formazione.corsibase.cancella.ok&id=<?php echo $corso->id; ?>">
+                                <i class="icon-remove"></i> cancella
+                            </a>
+                            <?php } ?>
                         </td>
                         
                     </tr>

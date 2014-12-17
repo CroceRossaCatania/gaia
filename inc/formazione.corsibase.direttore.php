@@ -1,19 +1,17 @@
 <?php
 
 /*
- * ©2013 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
-paginaPrivata();
-caricaSelettore();
-paginaModale();
-
 controllaParametri(array('id'));
-
 $id = $_GET['id'];
 $corsoBase = CorsoBase::id($id);
 
+paginaPrivata();
 paginaCorsoBase($corsoBase);
+caricaSelettore();
+paginaModale();
 
 ?>
 <form action="?p=formazione.corsibase.direttore.ok" method="POST">
@@ -46,14 +44,8 @@ paginaCorsoBase($corsoBase);
                  class="btn btn-inverse btn-block btn-large">
                   Seleziona un volontario... <i class="icon-pencil"></i>
               </a>
-          
+          </p>
         </div>
-        <!-- <div class="modal-footer">
-          <a href="?p=attivita" class="btn">Annulla</a>
-          <button type="submit" class="btn btn-primary">
-              <i class="icon-asterisk"></i> Crea attività
-          </button>
-        </div> -->
 </div>
     
 </form>

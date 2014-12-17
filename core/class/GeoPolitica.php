@@ -51,7 +51,7 @@ abstract class GeoPolitica extends GeoEntita {
      * @param bool $storico Opzionale. Ritornare anche i passati? Default true.
      * @return array(CorsoBase) Lista di corsi base organizzati
      */
-    public function corsiBase ( $storico = true ) {
+    public function corsiBase ( $storico = true, $inCorso = false ) {
         $c = CorsoBase::filtra([
             ['organizzatore',  $this->oid()]
         ]);
@@ -60,11 +60,19 @@ abstract class GeoPolitica extends GeoEntita {
             return $c; 
 
         $r = [];
-        foreach ( $c as $_c ) {
-            if ( $_c->futuro() )
-                $r[] = $_c;
+        foreach ($c as $_c) {
+            if ( !$_c->finito() )
+                $r[] = $_c; 
         }
-        return $r;
+        if ( $inCorso ) 
+            return $r;
+
+        $rr = [];
+        foreach ( $r as $_r ) {
+            if ( $_r->futuro() )
+                $rr[] = $_r;
+        }
+        return $rr;
     }
     
     /*
@@ -136,16 +144,14 @@ abstract class GeoPolitica extends GeoEntita {
     
     /*
      * Ritorna se questa entità sovrasta/contiene un'altra GeoPolitica
-     * a un livello qualsiasi di profondità, esplorando ricorsivamente
+     * a un livello qualsiasi di profondità, risalendo l'albero
      */
     public function contiene( GeoPolitica $comitato ) {
         if ( $this->oid() == $comitato->oid() ) { return true; } // contengo me stesso
-        foreach ( $this->figli() as $figlio ) {
-            if ( 
-                    $comitato->oid() == $figlio->oid()
-                    or
-                    $figlio->contiene($comitato)
-                    ) {
+        $attuale = $comitato;
+        while ( ! $attuale instanceOf Nazionale ) {
+            $attuale = $attuale->superiore();
+            if ( $attuale->oid() == $this->oid() ) {
                 return true;
             }
         }
@@ -167,6 +173,40 @@ abstract class GeoPolitica extends GeoEntita {
                 return true;
             }
         }
+        return false;
+
+    }
+
+    /**
+     * Calcola il dominio comune tra la GeoPolitica attuale ed una seconda fornita
+     * - Se le due GeoPolitiche risiedono su di un ramo comune, ritorna la GeoPolitica inferiore
+     * - Se le due GeoPolitiche risiedono su rami differenti, ritorna FALSE
+     * @param GeoPolitica $g                La seconda GeoPolitica
+     * @return false|GeoPolitica      Il dominio comune
+     */
+    public function dominioComune( GeoPolitica $g ) {
+
+        if ( static::$_ESTENSIONE == $g::$_ESTENSIONE ) {
+            // Le due sono dello stesso livello.
+            if ( $this->oid() == $g->oid() ) { return $this; }
+            return false;
+
+        } elseif ( static::$_ESTENSIONE > $g::$_ESTENSIONE ) {
+            // Questa e' superiore
+            $maggiore = $this;
+            $minore   = $g;
+
+        } else {
+            // Questa e' inferiore
+            $maggiore = $g;
+            $minore   = $this;
+
+        }
+
+        if ( $maggiore->contiene($minore) ) {
+            return $minore;
+        }
+
         return false;
 
     }

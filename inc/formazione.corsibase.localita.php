@@ -1,5 +1,9 @@
 <?php
 
+/*
+* ©2014 Croce Rossa Italiana
+*/
+
 paginaPrivata();
 
 controllaParametri(array('id'), 'formazione.corsibase&err');

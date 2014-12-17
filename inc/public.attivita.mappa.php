@@ -14,13 +14,12 @@
     </h2>
   </div>
   <div class="span4 allinea-centro">
-    <span>
-      <i class="icon-info-sign"></i> Attività svolte nell'ultimo mese.<br />
-      <a href="?p=attivita" class="btn btn-block btn-inverse">
-        <i class="icon-calendar"></i>
-        Vedi le attività sul calendario
-      </a>
-    </span>
+    <div class="alert alert-success" style="margin-bottom: 5px;">
+      <i class="icon-time"></i> Attività svolte nell'ultimo mese.
+    </div>
+    <div class="alert alert-info">
+      <i class="icon-calendar"></i> Per la vista calendario, <a href="?p=login"><strong>accedi a Gaia</strong>.</a>
+    </div>
   </div>
   
 </div>

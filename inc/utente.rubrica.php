@@ -8,7 +8,7 @@ paginaPrivata();
 
 ?>
 
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <div class="row-fluid">
     <div class="span3">
         <?php menuVolontario(); ?>
@@ -63,9 +63,13 @@ paginaPrivata();
                 <th>Email</th>
             </thead>
             <?php 
-            $comitato = $me->unComitato();
-            $volontari = $comitato->locale()->tuttiVolontari();
-
+            $appartenenze = $me->appartenenzeAttuali();
+            $volontari = [];
+            foreach ( $appartenenze as $appartenenza ) {
+               $volontari = array_merge($volontari,$appartenenza->comitato()->locale()->tuttiVolontari());
+               $volontari = array_unique($volontari); 
+            }
+            
             foreach ( $volontari as $_v ) {
                     if($_v->privacy()->contatti($me)) {
                         $id = $_v->id;

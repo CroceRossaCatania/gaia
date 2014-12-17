@@ -4,11 +4,11 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 $admin = (bool) $me->admin();
 
 ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['ok']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-save"></i> <strong>Riserva Approvata</strong>.
@@ -38,7 +38,12 @@ $admin = (bool) $me->admin();
         <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
         <p>L'operazione che stavi tentando di eseguire non è andata a buon fine. Per favore riprova.</p>
     </div> 
-<?php } ?>
+<?php } if (isset($_GET['giaprot'])) { ?>
+<div class="alert alert-block alert-error">
+    <h4><i class="icon-warning-sign"></i> <strong>Richiesta già protocollata</strong>.</h4>
+    <p>Non è possibile protocollare la stessa richiesta più volte.</p>
+</div> 
+<?php }?>
 <br/>
 <div class="row-fluid">
     <div class="span8">
@@ -68,7 +73,7 @@ $admin = (bool) $me->admin();
         <th>Azione</th>
     </thead>
 <?php
-$comitati= $me->unitaDiCompetenza();
+$comitati= $me->comitatiApp([APP_SOCI, APP_PRESIDENTE]);
 foreach($comitati as $comitato){
     foreach($comitato->riserve(RISERVA_INCORSO) as $_t){
         $_v = $_t->volontario();
@@ -92,12 +97,10 @@ foreach($comitati as $comitato){
                 </small>
         </td>
         
-        <?php if($_t->protNumero){ ?>
         <td>
+        <?php if($_t->protNumero){ ?>
+            <?php if($me->presidenziante()) { ?>
             <div class="btn-group">
-                <a class="btn btn-primary" target="_new" href="?p=presidente.riserva.storico&id=<?php echo $_v->id; ?>">
-                    <i class="icon-time"></i> Riserve
-                </a>
                 <a class="btn btn-success" href="?p=presidente.riserva.ok&id=<?php echo $_t->id; ?>&si">
                     <i class="icon-ok"></i> Conferma
                 </a>
@@ -110,8 +113,11 @@ foreach($comitati as $comitato){
                     </a>
                 <?php } ?>
             </div>
-        <?php }else{ ?>
-        <td>   
+            <?php } else { ?>
+                In attesa di autorizzazione da parte del Presidente
+            <?php }
+                
+        }else{ ?>  
             <div class="btn-group">
                 <a class="btn btn-info" href="?p=presidente.riservaRichiesta.stampa&id=<?php echo $_t->id; ?>">
                     <i class="icon-print"></i> Stampa richiesta

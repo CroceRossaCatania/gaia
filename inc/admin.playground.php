@@ -7,16 +7,13 @@ paginaAdmin();
 <pre>
 <?php
 
-echo(1/0);
 
-$a = funzionechenonesiste();
-
-
-
-
-
-
-
+$com	   = Comitato::id(56);
+echo $com->nomeCompleto();
+echo "<br />";
+echo $com->principale;
+echo "<br />";
+echo $com->linkMappa();
 
 
 ?>
