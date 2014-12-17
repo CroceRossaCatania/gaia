@@ -56,10 +56,10 @@
 </div>
 
 <div class="span4">
-    <h2><i class="icon-question-sign"></i> Aiuto</h2>
+    <h2><i class="icon-heart-empty"></i> Aiuto</h2>
     
-    <p><a href="http//wiki.gaia.cri.it" class="btn btn-large btn-primary btn-block">
-        <i class="icon-download icon-large"></i>
+    <p><a href="http://wiki.gaia.cri.it" class="btn btn-large btn-primary btn-block">
+        <i class="icon-question-sign"></i>
         Hai già letto il nostro WIKI?
     </a></p>
     
