@@ -20,7 +20,7 @@ if ( !$consenso ){ ?>
     <div class="modal-body">
         <p>Ciao <strong><?php echo $me->nome; ?></strong>, Gaia ha aggiornato le sue condizioni d'uso.</p>
         <p>È importante per noi che tu sia informato riguardo le finalità di questo portale e riguardo
-            a come vengono trattati i tuoi dati. Per fare ciò hai due possibilità: </p>
+            a come vengono trattati i tuoi dajuti. Per fare ciò hai due possibilità: </p>
         <ul>
             <li>Leggi la pagina delle <a href="?p=public.privacy" target="_new"> <i>condizioni d'uso</i></a> ; </li>
             <li>Apri una nuova finestra del browser. Digita gaia.cri.it, clicca <i>informazioni</i> in fondo alla pagina e poi <i>condizioni d'uso</i>.</li>
@@ -370,7 +370,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                 <?php } 
                 // blocco JUMP 
                 ?>
-                <!--<div class="alert alert-block alert-info">
+                <div class="alert alert-block alert-info">
                     <div class="row-fluid">
                         <div class="span9">
                             <h4><strong>Formazione online:</strong>tesserini!</h4>
@@ -380,7 +380,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                         </div>
                       
                     </div>
-                </div>-->
+                </div>
                 <?php
                 // fine blocco jump
                 if (!$me->wizard) { $attenzione = true;  ?>
