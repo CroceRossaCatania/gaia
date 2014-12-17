@@ -63,10 +63,10 @@ class Fototessera extends Entita {
     /**
      * Ritorna immagine solo se presente
      */
-    public function img( $dimensione ) {
-        if ( is_readable( $this->file($dimensione) ) ) {
-            return $this->file($dimensione);
-        }
+    public function img( $dimensione, $nocache = true ) {
+        if ( is_readable( $this->file($dimensione) ) )
+            return $this->file($dimensione)
+                    . File::noCacheQueryString($nocache);
         return null;
     }
 
