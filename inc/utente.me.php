@@ -372,12 +372,12 @@ if(false && $consenso && !$sessione->barcode) { ?>
                 ?>
                 <div class="alert alert-block alert-info">
                     <div class="row-fluid">
-                        <div class="span9">
-                            <h4><strong>Formazione online:</strong>tesserini!</h4>
+                        
+                            <h4><strong>Formazione online sui tesserini!</strong></h4>
                             <p>Il giorno 19/12/2014 alle ore 15.30 ci sarà il <strong>primo</strong> appuntamento di formazione sull'utilizzo di questa nuova funzionalità!. 
                             L'evento è principalmente destinato agli uffici soci dei comitati. </a></p>
                             <p>Per poter partecipare è necessario iscriversi <a href="https://attendee.gotowebinar.com/register/103686508739557377">cliccando qui.</a></p>
-                        </div>
+                        
                       
                     </div>
                 </div>
