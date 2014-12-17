@@ -373,13 +373,12 @@ if(false && $consenso && !$sessione->barcode) { ?>
                 <!--<div class="alert alert-block alert-info">
                     <div class="row-fluid">
                         <div class="span9">
-                            <h4>Hai già saputo che dal 12 al 14 dicembre si terrà <strong>Jump14</strong> a Roma?</h4>
-                            <p>Per ogni comitato sono disponibili 7 posti. Ti aspettiamo! 
-                            Info su <a href="http://cri.it/jump14" target="_blank"><i class="icon-link"></i> cri.it/jump14</a>.</p>
+                            <h4><strong>Formazione online:</strong>tesserini!</h4>
+                            <p>Il giorno 19/12/2014 alle ore 15.30 ci sarà il <strong>primo</strong> appuntamento di formazione sull'utilizzo di questa nuova funzionalità!. 
+                            L'evento è principalmente destinato agli uffici soci dei comitati. </a></p>
+                            <p>Per poter partecipare è necessario iscriversi <a href="https://attendee.gotowebinar.com/register/103686508739557377">cliccando qui.</a></p>
                         </div>
-                        <div class="span3">
-                            <a href="http://cri.it/jump14" target="_blank"><img src="img/jump14_logo_small_400.png" /></a>
-                        </div>
+                      
                     </div>
                 </div>-->
                 <?php
