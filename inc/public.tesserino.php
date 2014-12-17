@@ -39,6 +39,7 @@
                     <input type="text" id="inputNum" name="inputNum" required autofocus />
                 </div>
             </div>
+            <?php if ( !$me || !$me->admin() ) { ?> 
             <div class="control-group">
                 <label class="control-label" for="inputValida"> 
                 </label>
@@ -49,6 +50,7 @@
                     <?php captcha_mostra(); ?>
                 </div>
             </div>
+            <?php } ?>
             <div class="control-group">
                 <div class="controls">
                     <button type="submit" class="btn btn-large btn-primary">
@@ -65,7 +67,7 @@
         <div class="row-fluid">
             <div class="span8 offset2"
                 <div class="item active altoCento">
-                    <img class="altoCentro" src="./img/esempio_retro.png" alt="esempio retro">
+                    <img class="altoCentro" src="./img/tesserino/RetroAttivoEsempio.jpg" alt="esempio retro">
             </div>
         </div>
     </div>

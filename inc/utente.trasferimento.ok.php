@@ -10,10 +10,17 @@ richiediComitato();
 $parametri = array('inputComitato', 'inputMotivo');
 controllaParametri($parametri);
 
-$c = $_POST['inputComitato'];
+$c   = $_POST['inputComitato'];
+
+$gia = Trasferimento::filtra([['volontario', $me],['stato', TRASF_INCORSO]]);
 if ( !$c ) { 
     redirect('utente.trasferimento');
 }
+
+if ( $gia ){ 
+    redirect('utente.trasferimento&gia');
+}
+
 $m = $_POST['inputMotivo'];
 
 /* Cerco appartenenze al comitato specificato */

@@ -24,10 +24,29 @@ if(!$admin) {
         </h2>
     </div>
 
-    <div class="span4">
-        <a class="btn btn-block" href="?p=us.tesserini" title="Pratiche aperte">
-            Pratiche aperte <i class="icon-share-alt"></i>
-        </a>
+    <div class="span4 allinea-centro">
+        <div class="btn-group">
+            <a class="btn dropdown-toggle btn-success" data-toggle="dropdown">
+                <i class="icon-list"></i>
+                Volontari   
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="?p=us.tesserini"><i class="icon-folder-open"></i> Pratiche aperte</a></li>
+                <li><a href="?p=us.tesserini.archiviati"><i class="icon-folder-close"></i> Pratiche archiviate</a></li>
+            </ul>
+        </div>
+        <!--<div class="btn-group">
+            <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown">
+                <i class="icon-list"></i>
+                Soci Ordinari
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="?p=us.tesserini.ordinari"><i class="icon-folder-open"></i> Pratiche aperte</a></li>
+                <li><a href="?p=us.tesserini.archiviati.ordinari"><i class="icon-folder-close"></i> Pratiche archiviate</a></li>
+            </ul>
+        </div>-->
     </div>
     
     <div class="span4 allinea-destra">
@@ -68,7 +87,7 @@ if(!$admin) {
 
 <div class="alert alert-block alert-info">
 <p><i class="icon-info-sign"></i> In questa pagina sono presenti tutte le richieste di emissione di <strong>tesserini</strong>
-in lavorate.</p>
+ per <strong>volontari</strong> lavorate.</p>
 </div>
   
 <div class="row-fluid">
@@ -93,12 +112,11 @@ in lavorate.</p>
                 ['struttura', $comitato->oid()]
             ]);
         }
+
         foreach($elenco as $tesserino) {
             if ($tesserino->praticaAperta()) {continue; }
             $v = $tesserino->utente();
             ?>
-
-            
 
             <tr>
                 <td><?php echo $v->cognome; ?></td>
@@ -118,9 +136,6 @@ in lavorate.</p>
                         <?php if($tesserino->stato != RIFIUTATO || $admin) { ?>
                         <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?php echo $tesserino->id; ?>" title="Stampa Tesserino">
                             <i class="icon-credit-card"></i> Tesserino
-                        </a>
-                        <a class="btn btn-small btn-success" href="?p=us.tesserini.aggiorna&id=<?php echo $tesserino->id; ?>" title="Lavora Pratica">
-                            <i class="icon-gears"></i> Lavora pratica
                         </a>
                         <?php } if($admin) { ?>
                             <a class="btn btn-small btn-danger" href="?p=admin.tesserini.cancella&id=<?php echo $tesserino->id; ?>" title="Cancella Pratica">

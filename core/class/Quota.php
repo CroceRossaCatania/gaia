@@ -13,7 +13,7 @@ class Quota extends Entita {
     use EntitaCache;
     
     public function volontario() {
-        return Volontario::id($this->appartenenza()->volontario());
+        return $this->appartenenza()->volontario();
     }
     
     public function appartenenza() {

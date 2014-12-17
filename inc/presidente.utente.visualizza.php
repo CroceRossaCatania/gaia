@@ -48,7 +48,12 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         <i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.
         L'operazione che hai tentato di eseguire non è andata a buon fine. Per favore riprova
       </div>
-    <?php }?>
+    <?php } elseif(isset($_GET['cf'])) {?>
+      <div class="alert alert-danger">
+        <i class="icon-warning-sign"></i> <strong>Codice Fiscale già presente</strong>.
+        Il codice fiscale che vorresti inserire risulta già presente
+      </div>
+    <?php } ?>
 
     <!-- Attivazione account -->
 
@@ -185,7 +190,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
                   <img src="<?php echo $u->fototessera()->img(20); ?>" class="img-polaroid" />
                 <?php } else { ?>
                   <div class="alert alert-info">
-                    <p><i class="icon-warning-sign"></i> Le funzionalita' dei tesserini non sono ancora state rilasciate, ma puoi gia' caricare la fototessera.</a></p>
+                    <p><i class="icon-warning-sign"></i> Potrai caricare foto in formato jpg o png. Ricordati che la foto deve rispettare gli standard riportati <i class="icon-link"></i><a href="http://wiki.gaia.cri.it/index.php?title=Manuale_del_Volontario#Norme_generali" target="_new"> qui</a></a></p>
                   </div>
                   <p><br/>Fototessera non caricata</p>
                 <?php } 

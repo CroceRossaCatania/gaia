@@ -34,6 +34,13 @@ if(!DT::controlloData($_POST['inputDataIngresso'])){
 	redirect('nuovaAnagraficaAccesso&data');
 }
 
+/*
+ * Non puoi essere entrato più di 150 anni fa
+ */
+if ( $inizio->getTimestamp() < (time()-(ANNO*150))){
+	redirect('nuovaAnagraficaAccesso&data');
+}
+
 $gia = Appartenenza::filtra([
 	['volontario', $sessione->utente()->id],
 	['comitato', $comitato->id]

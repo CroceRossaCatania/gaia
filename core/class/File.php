@@ -84,4 +84,17 @@ class File extends Entita {
         }
         parent::cancella();
     }
+
+    /**
+     * Appende la stringa "?t=123456" per evitare caching, se richiesto
+     * @param bool $nocache Ritornare stringa?
+     * @return string Querystring nocache se richiesta
+     */
+    public static function noCacheQueryString($nocache = true) {
+        if ( $nocache ) 
+            return "?t=" . time();
+        else
+            return "";
+    }
+    
 }

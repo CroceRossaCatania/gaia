@@ -4,7 +4,7 @@
  * ©2014 Croce Rossa Italiana
  */
 
-if ( !captcha_controlla($_POST['sckey'], $_POST['scvalue']) ) {
+if ( (!$me || !$me->admin()) && !captcha_controlla($_POST['sckey'], $_POST['scvalue']) ) {
     redirect('validaTesserino&captcha');
 }
 
@@ -16,16 +16,23 @@ $u = Utente::daCodicePubblico($num);
 
 
 $verificato = false;
+$ordinario  = false;
+$volontario = "volontario";
 //if($u && $u->appartenenzaAttuale()) {
 if ($u) {
     $cogn = $u->cognome;
-    $verificato = true;
+    $t = TesserinoRichiesta::by('codice', $num);
+    if ( $t->valido() ){
+        $verificato = true;
+        $ordinario = $t->utente()->ordinario();
+        if ( $ordinario )
+            $volontario = "socio ordinario";
+    }
     $l = strlen($cogn);
     $r = rand(1, $l);
     $c = strtoupper(substr($cogn, $r-1, 1));
-} 
 
-
+}
 ?>
 
 <div class="row-fluid">
@@ -40,10 +47,12 @@ if ($u) {
         <div class="row-fluid">
             <div class="span8 offset2"
                 <div class="item active altoCento">
-                    <?php if($verificato) { ?>
-                        <img class="altoCentro" src="./img/esempio_fronte_ok.png" alt="tesserino verificato">
+                    <?php if($verificato && !$ordinario) { ?>
+                        <img class="altoCentro" src="./img/tesserino/FronteAttivoEsempioOK.jpg" alt="tesserino verificato">
+                    <?php } elseif($verificato & $ordinario) { ?>
+                        <img class="altoCentro" src="./img/tesserino/FronteOrdinarioEsempioOK.jpg" alt="tesserino verificato">
                     <?php } else { ?>
-                        <img class="altoCentro" src="./img/esempio_fronte_no.png" alt="tesserino non verificato">
+                        <img class="altoCentro" src="./img/tesserino/FronteAttivoEsempioNO.jpg" alt="tesserino non verificato">
                     <?php } ?>
             </div>
         </div>
@@ -57,8 +66,8 @@ if ($u) {
                     <p>
                     <ul>
                         <!-- mettere roba per ordinario -->
-                        <li>La lettera in posizione <strong><?= $r ?></strong> del cognome del volontario è <strong><?= $c ?></strong></li>
-                        <li>Il tesserino appartiene ad un Volontario della Croce Rossa</li>
+                        <li>La lettera in posizione <strong><?= $r ?></strong> del cognome del <?= $volontario; ?> è <strong><?= $c ?></strong></li>
+                        <li>Il tesserino appartiene ad un <?= $volontario; ?> della Croce Rossa</li>
                         <li>Il Volontario è in regola con la quota associativa</li>
                         <li>L'immagine a fianco è di esempio e non si riferisce al tesserino che stai verificando</li>
                     </ul>

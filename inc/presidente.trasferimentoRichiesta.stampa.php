@@ -31,34 +31,46 @@ $f = $p->salvaFile();
 
 if ( $sessione->inGenerazioneTrasferimento) {
     $sessione->inGenerazioneTrasferimento = null;
-    
-        /* Richiesta all'utente */
-        $m = new Email('richiestaTrasferimento', 'Richiesta trasferimento: ' . $t->comitato()->nome);
-        $m->a = $me;
-        $m->_NOME       = $me->nome;
-        $m->_COMITATO   = $t->comitato()->nomeCompleto();
-        $m->_TIME = date('d/m/Y', $t->timestamp);
-        $m->allega($f);
-        $m->accoda();
-
-        /* Richiesta all'attuale presidente */
-        $m = new Email('richiestaTrasferimento.presidente', 'Richiesta trasferimento di ' . $me->nomeCompleto());
-        $m->a = $cout->unPresidente();
-        $m->_NOME       = $me->nomeCompleto();
-        $m->_COMITATO   = $cin->nomeCompleto();
-        $m->_TIME = date('d/m/Y', $t->timestamp);
-        $m->allega($f);
-        $m->accoda();
         
-        /* Richiesta per conoscenza al nuovo presidente */
-        $m = new Email('richiestaTrasferimento.cc', 'Richiesta trasferimento in arrivo a: ' . $t->comitato()->nome);
-        $m->a = $t->comitato()->unPresidente();
-        $m->_NOME       = $me->nomeCompleto();
-        $m->_COMITATO   = $t->comitato()->nomeCompleto();
-        $m->_USCENTE = $cout->nomeCompleto();
-        $m->_TIME = date('d/m/Y', $t->timestamp);
-        $m->allega($f);
-        $m->accoda();
+        try{
+            /* Richiesta all'utente */
+            $m = new Email('richiestaTrasferimento', 'Richiesta trasferimento: ' . $t->comitato()->nome);
+            $m->a = $me;
+            $m->_NOME       = $me->nome;
+            $m->_COMITATO   = $t->comitato()->nomeCompleto();
+            $m->_TIME = date('d/m/Y', $t->timestamp);
+            $m->allega($f);
+            $m->accoda();
+        }catch(Exception $e){
+            
+        }
+
+        try{
+            /* Richiesta all'attuale presidente */
+            $m = new Email('richiestaTrasferimento.presidente', 'Richiesta trasferimento di ' . $me->nomeCompleto());
+            $m->a = $cout->unPresidente();
+            $m->_NOME       = $me->nomeCompleto();
+            $m->_COMITATO   = $cin->nomeCompleto();
+            $m->_TIME = date('d/m/Y', $t->timestamp);
+            $m->allega($f);
+            $m->accoda();
+        }catch(Exception $e){
+            
+        }
+        
+        try{
+            /* Richiesta per conoscenza al nuovo presidente */
+            $m = new Email('richiestaTrasferimento.cc', 'Richiesta trasferimento in arrivo a: ' . $t->comitato()->nome);
+            $m->a = $t->comitato()->unPresidente();
+            $m->_NOME       = $me->nomeCompleto();
+            $m->_COMITATO   = $t->comitato()->nomeCompleto();
+            $m->_USCENTE = $cout->nomeCompleto();
+            $m->_TIME = date('d/m/Y', $t->timestamp);
+            $m->allega($f);
+            $m->accoda();
+        }catch(Exception $e){
+
+        }
        
         
     redirect('utente.trasferimento&ok');

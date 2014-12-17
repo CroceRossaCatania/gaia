@@ -64,6 +64,11 @@ $p->cellulareServizio   = $cells;
 $password     		= $_POST['inputPassword'];
 $sessione->utente()->cambiaPassword($password);
 
+/* Tutto è andato a buon fine cancello sessioni */
+$sessione->email 	= null;
+$sessione->email2 	= null;
+$sessione->cell 	= null;
+$sessione->cells 	= null;
 
 if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
     redirect('nuovaAnagraficaAccesso');
@@ -73,5 +78,5 @@ $m = new Email('registrazioneAspirante', 'Grazie futuro volontario');
 $m->a     = $sessione->utente();
 $m->_NOME = $sessione->utente()->nome;
 $m->invia();
-redirect('aspirante.registra');
 
+redirect('aspirante.registra');
