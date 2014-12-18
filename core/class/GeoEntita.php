@@ -206,13 +206,13 @@ abstract class GeoEntita extends Entita {
     public function donazioniPendenti() {
         $q = $this->db->prepare("
             SELECT 
-                donazioniPersonali.*
+                donazioni_personali.*
             FROM
-                donazioniPersonali, appartenenza
+                donazioni_personali, appartenenza
             WHERE
-                donazioniPersonali.volontario = appartenenza.volontario
+                donazioni_personali.volontario = appartenenza.volontario
             AND
-                donazioniPersonali.pConferma IS NULL
+                donazioni_personali.pConferma IS NULL
             AND
                 appartenenza.comitato = :comitato");
         $q->bindParam(':comitato', $this->oid());
@@ -230,10 +230,10 @@ abstract class GeoEntita extends Entita {
      */
     public function meritiPendenti() {
         $q = $this->db->prepare("
-            SELECT  donazioniMerito.*
-            FROM    donazioniMerito, appartenenza
-            WHERE   ( donazioniMerito.tConferma < 1 OR donazioniMerito.tConferma IS NULL )
-            AND     donazioniMerito.volontario = appartenenza.volontario
+            SELECT  donazioni_meriti.*
+            FROM    donazioni_meriti, appartenenza
+            WHERE   ( donazioni_meriti.tConferma < 1 OR donazioni_meriti.tConferma IS NULL )
+            AND     donazioni_meriti.volontario = appartenenza.volontario
             AND     appartenenza.comitato  IN
                 ( :comitato )");
         $q->bindParam(':comitato', $this->id);
@@ -242,8 +242,6 @@ abstract class GeoEntita extends Entita {
             $r[] = new DonazioneMerito($k['id'], $k);
         }
         return $r;
-    }
-    
+    }    
 
-    
 }
