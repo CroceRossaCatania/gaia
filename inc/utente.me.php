@@ -377,9 +377,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                         <div class="span9">
                             <h4>Aperta la call per l'help desk di GAIA</h4>
                                 <p>Gaia continua a crescere, adesso ha bisogno anche di te!</p> 
-                                <p>Dalla sua nascita, oramai tre anni orsono, GAIA ha avuto come obbiettivo quello di lasciare al volontario più tempo da impiegare verso i vulnerabili liberandolo da tanta inutile burocrazia.
-                                Lo staff che si prende cura di Gaia si è impegnato con trasparenza e professionalità affinché venisse adottata dal maggior numero possibile di Comitati e Volontari. E così è stato: dalle decine di unità dei primissimi tempi siamo balzati ora a quasi <strong>1300</strong> comitati e rispettivi volontari. Un tale interesse va però curato costantemente affinchè risponda sempre meglio alle esigenze.
-                                L’esperienza d’uso di Gaia deve essere funzionale e migliorativa della vita associativa. Per far questo, affiancando il lavoro degli sviluppatori, ogni giorno c’è chi si occupa di venire incontro ai dubbi ed alle difficoltà degli utenti. 
+                                <p>Siamo alla ricerca di personale helpdesk da inserire nel nostro team di <strong>1° livello</strong></p>
                                 Vuoi essere dei nostri? <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24760" target="_blank"><i class="icon-link"></i> clicca qui per tutte le informazioni</a>.</p>
                         </div>
                         <div class="span3">
