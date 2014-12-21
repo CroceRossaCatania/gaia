@@ -7,7 +7,7 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 ?>
-<script type="text/javascript"><?php require './js/presidente.utenti.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <?php if ( isset($_GET['err']) ) { ?>
 <div class="alert alert-danger">
     <h4><i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.</h4>
@@ -79,7 +79,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                         
                         <br />
                         <i class="icon-road muted"></i>
-			<?php echo DonazioneSedi::by('id',$_t->luogo)->provincia.' - '.DonazioneSedi::by('id',$_t->luogo)->nome; ?>
+			<?php echo DonazioneSede::by('id',$_t->luogo)->provincia.' - '.DonazioneSede::by('id',$_t->luogo)->nome; ?>
                         
                     </small></td>
                     <td>  

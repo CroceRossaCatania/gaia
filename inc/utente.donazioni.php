@@ -83,7 +83,7 @@ paginaPrivata();
 <select id="luogo" name="luogo" class="span12" required>
 	<option selected="selected" disabled=""></option>
 	<?php
-	foreach(DonazioneSedi::filtra([['tipo', $d]]) as $value){
+	foreach(DonazioneSede::filtra([['tipo', $d]]) as $value){
 		echo "<option value=\"".$value."\">".$value->provincia.' - '.$value->nome."</option>";
 	}
 ?>
@@ -123,7 +123,7 @@ Aggiungi la donazione
 <?php echo date('d-m-Y', $donazione->data); ?>
 <br />
 <i class="icon-road muted"></i>
-<?php echo DonazioneSedi::by('id',$donazione->luogo)->provincia.' - '.DonazioneSedi::by('id',$donazione->luogo)->nome; ?>
+<?php echo DonazioneSede::by('id',$donazione->luogo)->provincia.' - '.DonazioneSede::by('id',$donazione->luogo)->nome; ?>
 <br />
 </small></td>
 <td>

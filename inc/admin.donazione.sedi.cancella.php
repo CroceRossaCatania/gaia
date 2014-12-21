@@ -7,7 +7,7 @@
 paginaAdmin();
 controllaParametri(array('id'), 'admin.donazioni.sedi&err');
 $t = $_GET['id'];
-$f = DonazioneSedi::id($t);
+$f = DonazioneSede::id($t);
 $f->cancella();
 
 redirect('admin.donazioni.sedi&del');

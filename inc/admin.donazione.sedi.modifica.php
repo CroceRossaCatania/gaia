@@ -7,7 +7,7 @@
 paginaAdmin();
 controllaParametri(array('id'), 'admin.donazioni.sedi&err');
 $t = $_GET['id'];
-$f = DonazioneSedi::id($t);
+$f = DonazioneSede::id($t);
 ?>
 <div class="row-fluid">
     <h2><i class="icon-chevron-right muted"></i> Modifica Donazione sede</h2>

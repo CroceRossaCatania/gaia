@@ -70,7 +70,7 @@ paginaAdmin();
             <th>Azioni</th>
         </thead>
         <?php
-        foreach(DonazioneSedi::elenco('nome ASC') as $c){
+        foreach(DonazioneSede::elenco('nome ASC') as $c){
             ?>
             <tr>
                 <td><?php echo $c->nome; ?></td>

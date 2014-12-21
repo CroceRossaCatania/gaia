@@ -8,7 +8,7 @@ paginaAdmin();
 controllaParametri(array('id'), 'admin.donazioni.sedi&err');
 $t = $_GET['id'];
 
-$t = DonazioneSedi::id($t);
+$t = DonazioneSede::id($t);
 $t->tipo = $_POST['inputTipo'];
 $t->nome = $_POST['inputNome'];
 $t->provincia = $_POST['inputProvincia'];

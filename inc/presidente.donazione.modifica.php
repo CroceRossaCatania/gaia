@@ -14,7 +14,7 @@ $v = $_GET['v'];
 $tp = DonazionePersonale::id($t);
 $r = $tp->donazione()->tipo;
 ?>
-<script type="text/javascript"><?php require './js/utente.donazione.modifica.js'; ?></script>
+<script type="text/javascript"><?php require './assets/js/utente.donazione.modifica.js'; ?></script>
 <form action="?p=presidente.donazione.modifica.ok&t=<?php echo $t; ?>&v=<?php echo $v; ?>" method="POST">
 <!-- presidente.titolo.modifica.ok -->
   <div class="modal fade automodal">
@@ -38,7 +38,7 @@ $r = $tp->donazione()->tipo;
 <select id="luogo" name="luogo" class="span12" required>
 	<option selected="selected" disabled=""></option>
 	<?php
-	foreach(DonazioneSedi::filtra([['tipo', $r]]) as $value){
+	foreach(DonazioneSede::filtra([['tipo', $r]]) as $value){
 		echo "<option value=\"".$value."\"";
 		if($tp->luogo == $value->id) echo " selected";
 		echo ">".$value->provincia.' - '.$value->nome."</option>";

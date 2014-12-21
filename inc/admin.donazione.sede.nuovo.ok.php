@@ -5,10 +5,10 @@
  */
 
 paginaAdmin();
-$x = DonazioneSedi::by('nome', $_POST['inputNome']);
+$x = DonazioneSede::by('nome', $_POST['inputNome']);
 if (!$x){
 
-    $t = new DonazioneSedi();
+    $t = new DonazioneSede();
     $t->tipo = $_POST['inputTipo'];
     $t->nome = $_POST['inputNome'];
     $t->provincia = $_POST['inputProvincia'];
