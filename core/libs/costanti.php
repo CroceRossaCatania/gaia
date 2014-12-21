@@ -873,13 +873,11 @@ $conf['est_attivita2geopolitica'] = [
  * ===================================
  */
 
-define('PROVV_RICHIAMO',    10);
-define('PROVV_AMMONIZIONE', 20);
-define('PROVV_SOSPENSIONE', 30);
-define('PROVV_ESPULSIONE',  40);
+define('PROVV_AMMONIZIONE', 10);
+define('PROVV_SOSPENSIONE', 20);
+define('PROVV_ESPULSIONE',  30);
 
 $conf['provvedimenti'] = [
-    PROVV_RICHIAMO      =>  'Richiamo verbale',
     PROVV_AMMONIZIONE   =>  'Ammonizione scritta',
     PROVV_SOSPENSIONE   =>  'Sospensione',
     PROVV_ESPULSIONE    =>  'Espulsione'
