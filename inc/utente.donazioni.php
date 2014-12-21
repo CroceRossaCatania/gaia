@@ -21,7 +21,7 @@ paginaPrivata();
 <h2><i class="icon-beaker muted"></i> Donazioni di sangue</h2>
 <div class="alert alert-block alert-error">
 <div class="row-fluid">
-<span class="span7">
+<span class="span12">
 <h4>Anche tu doni il sangue ?</h4>
 <p>Con questo modulo potrai inserire e tenere sotto controllo le tue donazioni!</p>
 <p>Seleziona la data, il tipo di donazione effettuata e dove hai donato.</p>
