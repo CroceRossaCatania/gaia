@@ -381,7 +381,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                                 Vuoi essere dei nostri? <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24760" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
                         </div>
                         <div class="span3">
-                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24760" target="_blank"><img src="http://www.cri.it/flex/tmp/imgResized/T-6dd10e38f076baa8dbaa4d8e499adc7c-100x100.png" /></a>
+                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24760" target="_blank"><img src="https://cloud.githubusercontent.com/assets/5071623/5541651/f65ff864-8adb-11e4-8a48-0606388b5870.png" /></a>
                         </div>
                     </div>
                 </div>
