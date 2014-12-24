@@ -6,9 +6,6 @@
 
 paginaPrivata();
 
-controllaParametri(array('id'));
-
-$t = $_GET['id'];
 if ( count($me->comitati()) > 1 ) {
    $c = $_POST['inputComitato'];
 }else{
@@ -34,11 +31,10 @@ if ( !$inizio || !$fine || $inizio > $fine ){
 }
 
 $t = new Reperibilita();
-$t->comitato = $c;
-$t->volontario = $me;
-$t->inizio  = $inizio;
-$t->fine    = $fine;
+$t->comitato    = $c;
+$t->volontario  = $me->id;
+$t->inizio      = $inizio;
+$t->fine        = $fine;
 $t->attivazione = $_POST['attivazione'];
-redirect('utente.reperibilita&ok');
 
-?>
+redirect('utente.reperibilita&ok');

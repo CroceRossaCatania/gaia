@@ -82,7 +82,7 @@ paginaPrivata();
                     </div>
                     
                     <div class="row-fluid">
-                        <form class="form-horizontal" action="?p=utente.reperibilita.ok&id=<?php echo $me->id; ?>" method="POST">
+                        <form class="form-horizontal" action="?p=utente.reperibilita.ok" method="POST">
                             <?php if ( count($me->comitati()) > 1 ) { ?>
                             <div class="control-group">
                                 <label class="control-label" for="inputComitato">Comitato</label>
@@ -176,7 +176,7 @@ paginaPrivata();
                             
                             <?php if ($app->attuale()) { ?>
                             <td>
-                                <a class="btn btn-danger" href="?p=utente.reperibilita.cancella&id=<?php echo $app->id; ?>">
+                                <a class="btn btn-danger btn-small" href="?p=utente.reperibilita.cancella&id=<?php echo $app->id; ?>">
                                     <i class="icon-ban-circle"></i>
                                     Rimuovi disponibilità
                                 </a>
