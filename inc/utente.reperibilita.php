@@ -13,10 +13,22 @@ paginaPrivata();
     </div>
     <div class="span9">
         <?php if ( isset($_GET['ok']) ) { ?>
-        <div class="alert alert-success">
-            <i class="icon-save"></i> <strong>Reperibilità inviata</strong>.
-            Grazie della disponibilità! Verrai contattato dalla Centrale Operativa in caso di necessità.
-        </div>
+            <div class="alert alert-success">
+                <i class="icon-save"></i> <strong>Reperibilità inviata</strong>.
+                Grazie della disponibilità! Verrai contattato dalla Centrale Operativa in caso di necessità.
+            </div>
+        <?php } ?>
+        <?php if ( isset($_GET['comitato']) ) { ?>
+            <div class="alert alert-danger">
+                <i class="icon-ban-circle"></i> <strong>Comitato mancante</strong>.
+                Non risulta nessun comitato selezionato.
+            </div>
+        <?php } ?>
+        <?php if ( isset($_GET['comitato']) ) { ?>
+            <div class="alert alert-danger">
+                <i class="icon-ban-circle"></i> <strong>Errore date</strong>.
+                Le date e gli orari inseriti non sono nel formato corretto.
+            </div>
         <?php } ?>
         <?php 
         $i=0;
