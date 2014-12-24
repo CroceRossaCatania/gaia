@@ -9,18 +9,6 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 ?>
 
 <script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
-<?php if ( isset($_GET['app']) ) { ?>
-        <div class="alert alert-success">
-            <i class="icon-ok"></i> <strong>Appartenenza confermata</strong>.
-            L'appartenenza è stata confermata con successo.
-        </div>
-<?php } ?>
-<?php if ( isset($_GET['neg']) ) { ?>
-        <div class="alert alert-danger">
-            <i class="icon-warning-sign"></i> <strong>Appartenenza negata</strong>.
-           L'appartenenza è stata negata.
-        </div>
-<?php } ?>
 <?php if ( isset($_GET['err']) ) { ?>
         <div class="alert alert-danger">
             <i class="icon-warning-sign"></i> <strong>Qualcosa non ha funzionato</strong>.
@@ -88,7 +76,7 @@ foreach($comitati as $comitato) {
                     <a class="btn btn-success btn-small" href="?p=presidente.utente.fototessera.ok&id=<?= $_v->id; ?>&ok">
                         <i class="icon-ok"></i> Conferma
                     </a>
-                    <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente negare appartenenza a questo utente ?');" href="?p=presidente.utente.fototessera.ok&id=<?= $_v->id; ?>&no">
+                    <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente negare la fototessera a questo utente ?');" href="?p=presidente.utente.fototessera.ok&id=<?= $_v->id; ?>&no">
                         <i class="icon-ban-circle"></i> Nega
                     </a>
                 <?php } ?>
