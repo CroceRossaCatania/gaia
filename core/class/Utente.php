@@ -2204,7 +2204,7 @@ class Utente extends Persona {
         $attuale->fine = time();
         $attuale->stato = MEMBRO_DIMESSO;
         $v->stato = PERSONA;
-        $v->admin=null;
+        $v->admin = null;
         return;
     }
 
