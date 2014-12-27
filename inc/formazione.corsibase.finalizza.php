@@ -33,9 +33,9 @@ $part = $corso->partecipazioni(ISCR_CONFERMATA);
         <div class="row-fluid">
             <div class="alert alert-panel alert-warning nascosto" id="messaggio">
                 <strong><i class="icon-warning-sign"></i> Presta molta attenzione!</strong>
-                I dati non sono ancora stati salvati, ti preghiamo di perdere ancora qualche minuti
+                I dati non sono ancora stati salvati, ti preghiamo di perdere ancora qualche minuto
                 per rileggeri ed essere <b>veramente sicuro</b> di ciò che stai facendo. Una volta
-                effettuata questa operazione non sarà possibile apportare correzione in caso di errore.
+                effettuata questa operazione non sarà possibile apportare correzioni in caso di errore.
             </div>
             <form method="POST" action="?p=formazione.corsibase.finalizza.ok" class="form-horizontal" id="verbale">
             <input type="hidden" name="id" value="<?php echo $corso->id; ?>" />
