@@ -139,11 +139,11 @@ if(isset($_GET['nofoto'])) { ?>
                                 <i class="icon-envelope"></i>
                             </a>
                         </div>
-                        <?php if(!$ordinario && $inQuestoComitato && $modifica && $chiedeTesserini && !$tesserino && $fotot) { ?>
+                        <?php if(!$ordinario && $inQuestoComitato && $modifica && $chiedeTesserini && !$tesserino && $fotot && $fototessera ) { ?>
                             <a class="btn btn-small btn-info" href="?p=us.tesserini.chiedi.ok&id=<?= $_v ?>" title="Richiedi tesserino">
                                 <i class="icon-credit-card"></i> Richiedi tesserino
                             </a>                            
-                        <?php } elseif(!$ordinario && $inQuestoComitato && $modifica && $chiedeTesserini && !$tesserino && $fotot && $tesserino->stato > STAMPATO){ ?>
+                        <?php } elseif(!$ordinario && $inQuestoComitato && $modifica && $chiedeTesserini && !$tesserino && $fotot && $fototessera && $tesserino->stato > STAMPATO){ ?>
                             <a class="btn btn-small btn-info" href="?p=us.tesserini.duplicato.ok&id=<?= $_v ?>" title="Richiedi duplicato tesserino">
                                 <i class="icon-credit-card"></i> Duplicato tesserino
                             </a>
