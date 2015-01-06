@@ -130,7 +130,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
             ]);
     }
     if(isset($_GET['dimessi'])){
-        foreach ( $c->membriDimessi as $v ) {
+        foreach ( $c->membriDimessi() as $v ) {
             $i++; 
             $excel->aggiungiRiga([
                 $i,

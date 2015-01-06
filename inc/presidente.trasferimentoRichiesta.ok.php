@@ -37,7 +37,7 @@ try{
 	$m->_NUM = $a->protNumero;
 	$m->invia();
 }catch(Exception $e){
-
+	
 }
 
 redirect('presidente.trasferimento&prot');   
