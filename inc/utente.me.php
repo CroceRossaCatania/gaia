@@ -459,6 +459,15 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     </div>
                 <?php } 
 
+                /* Utente con provvedimento */
+
+                if($me->provvedimento()){ ?>
+                    <div class="alert alert-block">
+                        <h4><i class="icon-legal"></i> Provvedimento in corso</h4>
+                        <p>Sei sottoposto ad un provvedimento disciplinare, ottieni maggiori informazioni consultando il tuo storico.</p>
+                    </div>
+                <?php } 
+
                 /* Presto iscriviti ad un gruppo! */
 
                 if ( $me->comitati() && $me->gruppiDisponibili() ) { 

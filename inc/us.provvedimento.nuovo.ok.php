@@ -71,6 +71,18 @@ if ($_POST['inputTipo'] == PROVV_ESPULSIONE){
     $v->dimettiVolontario(DIM_ESPULSIONE, $motivo, $me, $p->inizio);
 }
 
-redirect('us.dash&provok');
+try{
+    $m = new Email('provvedimento', 'Provvedimento disciplinare');
+    $m->da             = $me;
+    $m->a              = $v;
+    $m->_NOME          = $v->nomeCompleto();
+    $m->_PROVVEDIMENTO = $conf['provvedimenti'][$_POST['inputTipo']];
+    $m->_MOTIVO        = $motivo;
+    $m->_DATA          = $p->inizio;
+    $m->_PROTNUM       = $p->protNumero;
+    $m->invia();
+}catch (Exception $e){
 
-?>
+}
+
+redirect('us.dash&provok');
