@@ -29,4 +29,17 @@ $(document).ready( function() {
     $("#protData").datepicker({
         maxDate: new Date()
     });
+
+    var selettoreTipologia = "#inputTipo";  // ID del selettore
+    var tipologiePositive  = [10, 20];      // Lista valori POSITIVI
+    var scomparireNegativo = "#dataFine";   // Cosa far scomparire in NEGATIVO
+
+    $(selettoreTipologia).change(function() {
+        if ($(selettoreTipologia).val() == -1) {
+         $(scomparireNegativo).hide(); 
+        } else {
+         $(scomparireNegativo).show(); 
+        }
+    });
+
 });

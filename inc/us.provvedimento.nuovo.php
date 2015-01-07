@@ -30,7 +30,7 @@ paginaModale();
                         <select class="input-large" id="inputTipo" name="inputTipo">
                             <?php
                             foreach ( $conf['provvedimenti'] as $numero => $tipo ) { ?>
-                            <option value="<?php echo $numero; ?>"><?php echo $tipo; ?></option>
+                                <option value="<?php echo $numero; ?>"><?php echo $tipo; ?></option>
                             <?php } ?>
                         </select>   
                     </div>
