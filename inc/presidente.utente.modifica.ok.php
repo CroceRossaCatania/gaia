@@ -49,12 +49,21 @@ $p->timestamp           = time();
  * Non si può far parte di IV e CM contemporaneamente
  */
 
-if ( !(isset($_POST['inputIV']) && isset($_POST['inputCM']))) {
-    if( $p->sesso == DONNA){
+if ( (!$_POST['inputIV'] && $_POST['inputCM']) || ($_POST['inputIV'] && !$_POST['inputCM']) ) {
+    $x=0;
+    if ( $_POST['inputIV'] && $p->sesso == DONNA ){
         $p->iv = $_POST['inputIV'];
+        $x++;
     }
-    $p->cm = $_POST['inputCM'];
 
+    if( $_POST['inputCM'] && $p->sesso == UOMO){
+        $p->cm = $_POST['inputCM'];
+        $x++;
+    }
+
+    if ( $x == 0 ){
+        redirect('presidente.utente.visualizza&sesso&id='.$id);
+    }
 }
 
 if ($me->admin()) {
@@ -83,4 +92,4 @@ if ($me->admin()) {
     $p->stato           = $stato;
 }
 
-redirect('presidente.utente.visualizza&ok&id='.$_GET['t']);
+redirect('presidente.utente.visualizza&ok&id='.$id);

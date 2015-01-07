@@ -20,7 +20,7 @@ if ( !$consenso ){ ?>
     <div class="modal-body">
         <p>Ciao <strong><?php echo $me->nome; ?></strong>, Gaia ha aggiornato le sue condizioni d'uso.</p>
         <p>È importante per noi che tu sia informato riguardo le finalità di questo portale e riguardo
-            a come vengono trattati i tuoi dati. Per fare ciò hai due possibilità: </p>
+            a come vengono trattati i tuoi dajuti. Per fare ciò hai due possibilità: </p>
         <ul>
             <li>Leggi la pagina delle <a href="?p=public.privacy" target="_new"> <i>condizioni d'uso</i></a> ; </li>
             <li>Apri una nuova finestra del browser. Digita gaia.cri.it, clicca <i>informazioni</i> in fondo alla pagina e poi <i>condizioni d'uso</i>.</li>
@@ -370,18 +370,35 @@ if(false && $consenso && !$sessione->barcode) { ?>
                 <?php } 
                 // blocco JUMP 
                 ?>
-                <!--<div class="alert alert-block alert-info">
+                
+                
+                <div class="alert alert-block alert-info">
                     <div class="row-fluid">
                         <div class="span9">
-                            <h4>Hai già saputo che dal 12 al 14 dicembre si terrà <strong>Jump14</strong> a Roma?</h4>
-                            <p>Per ogni comitato sono disponibili 7 posti. Ti aspettiamo! 
-                            Info su <a href="http://cri.it/jump14" target="_blank"><i class="icon-link"></i> cri.it/jump14</a>.</p>
+                            <h4>Aperta la call per l'help desk di GAIA</h4>
+                                <p>Gaia continua a crescere, adesso ha bisogno anche di te!</p> 
+                                <p>Siamo alla ricerca di personale helpdesk da inserire nel nostro team di <strong>1° livello</strong>.</p>
+                                Vuoi essere dei nostri? <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24760" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
                         </div>
                         <div class="span3">
-                            <a href="http://cri.it/jump14" target="_blank"><img src="img/jump14_logo_small_400.png" /></a>
+                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24760" target="_blank"><img src="/img/pulsantehelp.png" /></a>
                         </div>
                     </div>
+                </div>
+                <!-- BLOCCO SENZA IMMAGINE
+                <div class="alert alert-block alert-info">
+                    <div class="row-fluid">
+                        
+                            <h4><strong>Formazione online sui tesserini!</strong></h4>
+                            <p>Il giorno 19/12/2014 alle ore 15.30 ci sarà il <strong>primo</strong> appuntamento di formazione sull'utilizzo di questa nuova funzionalità!.</p> 
+                             <p>L'evento è principalmente destinato agli uffici soci dei comitati. </a></p>
+                             
+                            <p><a href="https://attendee.gotowebinar.com/register/103686508739557377" class="btn btn-large"><i class="icon-ok"></i> Iscriviti subito!</a></p>
+
+                      
+                    </div>
                 </div>-->
+                
                 <?php
                 // fine blocco jump
                 if (!$me->wizard) { $attenzione = true;  ?>

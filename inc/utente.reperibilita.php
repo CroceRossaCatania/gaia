@@ -13,10 +13,22 @@ paginaPrivata();
     </div>
     <div class="span9">
         <?php if ( isset($_GET['ok']) ) { ?>
-        <div class="alert alert-success">
-            <i class="icon-save"></i> <strong>Reperibilità inviata</strong>.
-            Grazie della disponibilità! Verrai contattato dalla Centrale Operativa in caso di necessità.
-        </div>
+            <div class="alert alert-success">
+                <i class="icon-save"></i> <strong>Reperibilità inviata</strong>.
+                Grazie della disponibilità! Verrai contattato dalla Centrale Operativa in caso di necessità.
+            </div>
+        <?php } ?>
+        <?php if ( isset($_GET['comitato']) ) { ?>
+            <div class="alert alert-danger">
+                <i class="icon-ban-circle"></i> <strong>Comitato mancante</strong>.
+                Non risulta nessun comitato selezionato.
+            </div>
+        <?php } ?>
+        <?php if ( isset($_GET['comitato']) ) { ?>
+            <div class="alert alert-danger">
+                <i class="icon-ban-circle"></i> <strong>Errore date</strong>.
+                Le date e gli orari inseriti non sono nel formato corretto.
+            </div>
         <?php } ?>
         <?php 
         $i=0;
@@ -70,7 +82,7 @@ paginaPrivata();
                     </div>
                     
                     <div class="row-fluid">
-                        <form class="form-horizontal" action="?p=utente.reperibilita.ok&id=<?php echo $me->id; ?>" method="POST">
+                        <form class="form-horizontal" action="?p=utente.reperibilita.ok" method="POST">
                             <?php if ( count($me->comitati()) > 1 ) { ?>
                             <div class="control-group">
                                 <label class="control-label" for="inputComitato">Comitato</label>
@@ -164,7 +176,7 @@ paginaPrivata();
                             
                             <?php if ($app->attuale()) { ?>
                             <td>
-                                <a class="btn btn-danger" href="?p=utente.reperibilita.cancella&id=<?php echo $app->id; ?>">
+                                <a class="btn btn-danger btn-small" href="?p=utente.reperibilita.cancella&id=<?php echo $app->id; ?>">
                                     <i class="icon-ban-circle"></i>
                                     Rimuovi disponibilità
                                 </a>
