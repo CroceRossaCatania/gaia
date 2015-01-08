@@ -375,6 +375,19 @@ if(false && $consenso && !$sessione->barcode) { ?>
                 <div class="alert alert-block alert-info">
                     <div class="row-fluid">
                         <div class="span9">
+                            <h4>Aperta la call per i ruoli tecnici in GAIA</h4>
+                                <p>Gaia continua a crescere, adesso ha bisogno anche di te!</p> 
+                                <p>Siamo alla ricerca di: <strong>Sviluppatori Web (tutte le tecnologie), Analisti, Web Designer e molto altro</strong>.</p>
+                                Regalati un'esperienza di Volontariato tutta nuova. <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
+                        </div>
+                        <div class="span3">
+                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_blank"><img src="/img/ruolitecnici.png" /></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-block alert-info">
+                    <div class="row-fluid">
+                        <div class="span9">
                             <h4>Aperta la call per l'help desk di GAIA</h4>
                                 <p>Gaia continua a crescere, adesso ha bisogno anche di te!</p> 
                                 <p>Siamo alla ricerca di personale helpdesk da inserire nel nostro team di <strong>1° livello</strong>.</p>
