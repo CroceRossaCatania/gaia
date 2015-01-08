@@ -13,8 +13,11 @@ $c = $_POST['inputComitato'];
 if ( !$c ) { 
     redirect('utente.estensione');
 }
-$m = $_POST['inputMotivo'];
 
+$m = $_POST['inputMotivo'];
+if ( !$m ){
+	redirect('utente.estensione&motivo');
+}
 /* Cerco appartenenze al comitato specificato */
 $f = Appartenenza::filtra([
   ['volontario',    $me],
