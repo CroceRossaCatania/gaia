@@ -35,7 +35,7 @@ caricaSelettoreComitato();
         if ( isset($_GET['motivo']) ) { ?>
           <div class="alert alert-error">
               <i class="icon-warning-sign"></i>
-              <strong>Errore</strong> &mdash; Non è stato specificato il motivo dell'estensione.
+              <strong>Errore</strong> &mdash; Non è stato specificato il motivo dell'estensione o il Comitato.
           </div>
         <?php }
 
