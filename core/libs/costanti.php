@@ -109,6 +109,22 @@ $conf['membro'] = [
     MEMBRO_APP_NEGATA           =>  'Appartenenza negata'
 ];
 
+/* Le tipologie di appartenenza che non sono valide (non vere appartenenze) */
+$conf['membro_invalido'] = [
+    MEMBRO_TRASF_NEGATO,
+    MEMBRO_TRASF_ANN,
+    MEMBRO_TRASF_IN_CORSO,
+    MEMBRO_PENDENTE,
+    MEMBRO_EST_PENDENTE,
+    MEMBRO_APP_NEGATA
+];
+
+/* Le tipologie di appartenenza che rappresentano dimissione da CRI */
+$conf['membro_dimesso'] = [
+    MEMBRO_ORDINARIO_DIMESSO,
+    MEMBRO_DIMESSO
+];
+
 
 /*
  * ===================================

@@ -596,92 +596,72 @@ class Comitato extends GeoPolitica {
         return [$this];
     }
     
-    public function quoteSi($anno , $stato=MEMBRO_VOLONTARIO) {
-        $statiPossibili = [MEMBRO_VOLONTARIO, MEMBRO_DIMESSO, MEMBRO_TRASFERITO]; 
-        if($stato == MEMBRO_ORDINARIO) {
-            $statiPossibili = [MEMBRO_ORDINARIO, MEMBRO_ORDINARIO_DIMESSO];
-        }
-        $stati = implode(',', $statiPossibili);
+    /**
+     * Ottiene elenco dei potenziali soci del comitato in un dato anno, al solo uso di
+     * successiva verifica del pagamento della quota o meno nell'anno - NESSUN altro uso!
+     * @param int $anno     Opzionale. Anno di riferimento. Default anno attuale.
+     * @return array(Utente)
+     */
+    public function potenzialiSoci($anno = false) {
+        global $conf;
+        $anno       = $anno ? (int) $anno : (int) date('Y');
+        $minimo     = (DT::createFromFormat('d/m/Y H:i', "1/1/{$anno} 00:00"));
+        $minimo     = $minimo->getTimestamp();
+        $massimo    = (DT::createFromFormat('d/m/Y H:i', "31/12/{$anno} 23:59")); 
+        $massimo    = $massimo->getTimestamp();
+        $daIgnorare = implode(', ', $conf['membro_invalido']);
         $q = $this->db->prepare("
-            SELECT  
-                anagrafica.id
-            FROM    
-                appartenenza, anagrafica
-            WHERE
-                appartenenza.comitato = :comitato
-            AND
-                anagrafica.id = appartenenza.volontario
-            AND
-                appartenenza.stato IN ( ". $stati ." )
-            AND
-                ( anagrafica.id IN 
-                    ( SELECT
-                            appartenenza.volontario
-                        FROM
-                            quote, appartenenza
-                        WHERE
-                            quote.appartenenza = appartenenza.id
-                        AND
-                            quote.anno = :anno
-                        AND 
-                            quote.pAnnullata IS NULL
-                    )
-                )
-            ORDER BY
-              anagrafica.cognome     ASC,
-              anagrafica.nome  ASC");
-        $q->bindParam(':comitato',  $this->id);
-        $q->bindValue(':anno',    $anno);
+            SELECT  anagrafica.id
+            FROM    appartenenza, anagrafica
+            WHERE   appartenenza.comitato = :comitato
+            AND     anagrafica.id = appartenenza.comitato 
+            AND     appartenenza.stato NOT IN ({$daIgnorare})
+            AND     appartenenza.inizio BETWEEN :minimo AND :massimo
+            AND (
+                        appartenenza.fine IS NULL
+                    OR  appartenenza.fine BETWEEN :minimo AND :massimo
+            )
+        ");
+        $q->bindParam(':comitato', $this->id);
+        $q->bindParam(':minimo',   $minimo);
+        $q->bindParam(':massimo',  $massimo);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = Volontario::id($k[0]);
+            $r[] = Utente::id($k[0]);
+        }
+        return $r;
+    }
+
+    /**
+     * Ritorna tutti i Soci Attivi (coloro che han pagato la Quota Associativa)
+     * che son stati appartenenti in un dato anno a questo comitato 
+     * @param int $anno     Opzionale. Anno di riferimento. Default anno attuale.
+     * @return array(Utente)
+     */
+    public function quoteSi($anno = false) {
+        $r = [];
+        foreach ( $this->potenzialiSoci($anno) as $p ) {
+            if ( $p->socioAttivo() )
+                $r[] = $p;
         }
         return $r;
     }
     
-     public function quoteNo($anno , $stato=MEMBRO_VOLONTARIO) {
-        $q = $this->db->prepare("
-            SELECT 
-                anagrafica.id 
-            FROM    
-                anagrafica, appartenenza 
-            WHERE         
-                anagrafica.id = appartenenza.volontario 
-            AND
-                appartenenza.comitato = :comitato
-            AND
-                appartenenza.stato = :stato
-            AND 
-                ( appartenenza.fine < 1 OR appartenenza.fine > :ora OR appartenenza.fine IS NULL)
-            AND 
-                ( anagrafica.id NOT IN 
-                    ( SELECT 
-                            appartenenza.volontario 
-                        FROM 
-                            quote, appartenenza
-                        WHERE
-                            quote.appartenenza = appartenenza.id 
-                        AND
-                            anno = :anno
-                        AND
-                            pAnnullata IS NULL
-                    )
-                ) 
-                
-            ORDER BY
-                anagrafica.cognome     ASC,
-                anagrafica.nome  ASC");
-        $q->bindParam(':comitato',  $this->id);
-        $q->bindParam(':ora',  time());
-        $q->bindParam(':anno', $anno);
-        $q->bindParam(':stato', $stato);
-        $q->execute();
+    /**
+     * Ritorna tutti i Soci NON Attivi (coloro che, pur passibili, non hanno pagato la Quota Associativa)
+     * che son stati appartenenti in un dato anno a questo comitato 
+     * @param int $anno     Opzionale. Anno di riferimento. Default anno attuale.
+     * @return array(Utente)
+     */
+    public function quoteNo($anno = false) {
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = Volontario::id($k[0]);
+        foreach ( $this->potenzialiSoci($anno) as $p ) {
+            if ( $p->socioNonAttivo() )
+                $r[] = $p;
         }
         return $r;
+
     }
     
     /**
