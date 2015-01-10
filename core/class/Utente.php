@@ -2188,13 +2188,15 @@ class Utente extends Persona {
         return ( empty($a) ? false : true );
     }   
 
+
     /**
-     * Ritorna se il socio e' attivo (passibile al pagamento quota e con una quota associativa versata)
+     * Ritorna, se il socio e' attivo (passibile al pagamento quota e con una quota associativa versata),
+     * la quota che e' stata versata dal socio
      *
      * @param int $anno                 (Opzionale) Anno di riferimento. Default = Anno attuale
-     * @return bool                     Volontario socio attivo.
+     * @return Quota|bool(false)        Quota o false.
      */
-    public function socioAttivo($anno = false) {
+    public function quotaSocioAttivo($anno = false) {
         $a         = $this->appartenenzePassibiliQuota($anno);
         $anno      = $anno ? (int) $anno : (int) date('Y');
 
@@ -2207,18 +2209,31 @@ class Utente extends Persona {
 
             $q = Quota::filtra([
                 ['appartenenza',    $_a->id],
-                ['anno',            $anno]
+                ['anno',            $anno],
+                ['pAnnullata',      false,   OP_NNULL]
             ]);
 
             // Se esiste, allora son socio attivo
             if ( $q )
-                return true;
+                return $q;
 
         }
 
         // Non abbiam trovato niente, peccato!
         return false;
 
+
+    }
+    
+    /**
+     * Ritorna se il socio e' attivo (passibile al pagamento quota e con una quota associativa versata)
+     *
+     * @param int $anno                 (Opzionale) Anno di riferimento. Default = Anno attuale
+     * @return bool                     Volontario socio attivo.
+     */
+    public function socioAttivo($anno = false) {
+        $q  = $this->quotaSocioAttivo($anno);
+        return ( $q ? true : false );
     }    
 
     /**

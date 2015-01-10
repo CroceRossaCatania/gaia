@@ -254,6 +254,7 @@ abstract class Entita {
      * @return string Stringa SQL
      */
     public static function preparaCondizioni($_array, $prefisso = 'AND') {
+        global $conf;
         if (!$_array) { return ' '; }
         $_condizioni = [];
         foreach ( $_array as $_elem ) {
@@ -268,7 +269,7 @@ abstract class Entita {
                 else
                     $op = OP_EQ;
 
-                if ( $op == OP_SQL ) {
+                if ( in_array($op, $conf['op_unari']) ) {
                     $_condizioni[] = "{$_elem[0]}";
                 } else if ( is_int($_elem[1]) || is_float($_elem[2]) ) {
                     $_condizioni[] = "{$_elem[0]} {$op} {$_elem[1]}";
