@@ -8,9 +8,10 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 $_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
 $_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
 if(!$me->admin()) {
-    $_n_trasf  = $me->numTrasfPending   ([APP_PRESIDENTE, APP_SOCI]);
-    $_n_ris    = $me->numRisPending     ([APP_PRESIDENTE, APP_SOCI]);
-    $_n_est    = $me->numEstPending     ([APP_PRESIDENTE, APP_SOCI]);
+    $_n_trasf  = $me->numTrasfPending       ([APP_PRESIDENTE, APP_SOCI]);
+    $_n_ris    = $me->numRisPending         ([APP_PRESIDENTE, APP_SOCI]);
+    $_n_est    = $me->numEstPending         ([APP_PRESIDENTE, APP_SOCI]);
+    $_n_foto   = $me->numFototesserePending ([APP_PRESIDENTE, APP_SOCI]);
 }
 
 ?>
@@ -246,7 +247,7 @@ if(!$me->admin()) {
                                         </a>
                                         <a href="?p=presidente.fototessere.pending" class="btn btn-block">
                                             <i class="icon-instagram"></i>
-                                            Fototessere in attesa
+                                            Fototessere in attesa <span class="badge badge-important"><?= $_n_foto; ?></span>
                                         </a>
                                     </div>
                                 </div>
