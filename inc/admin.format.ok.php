@@ -190,10 +190,10 @@ if(isset($_POST['ordinario'])){
                 }
                 echo(' APPARTENENZA GENERATA');
 
-                if ($riga[16] == '') {
-                    $riserva = false;    
-                } else {
+                if ( !empty($riga[16]) && !empty($riga[17]) ) {
                     $riserva = true;    
+                } else {
+                    $riserva = false;    
                 }
                 
                 if ($riserva && !$ordinario){
