@@ -54,7 +54,12 @@ define('OP_LTE',    '<=');
 define('OP_GT',     '>');
 define('OP_GTE',    '>=');
 define('OP_NE',     '<>');
+define('OP_NULL',   'IS NULL');
+define('OP_NNULL',  'IS NOT NULL');
 define('OP_SQL',    'YOU_SHOULD_NOT_SEE_ME_IN_A_QUERY');
+
+// Definisce gli operatori unari (senza complemento oggetto)
+$conf['op_unari'] = [OP_SQL, OP_NULL, OP_NNULL];
 
 /*
  * ===================================
