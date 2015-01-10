@@ -42,6 +42,7 @@ paginaPrivata();
         <div class="alert alert-warning alert-block">
                     <h4><i class="icon-warning-sign"></i> Nota bene</h4>
                     <p>Questa è la password che <strong>utilizzi per accedere</strong>.</p>
+                    <p>Scegli una password che abbia tra 8 e 15 caratteri e usa, se possibile, lettere maiuscole, minuscole e numeri.</p>
                 </div>
 
         <div class="row-fluid">
