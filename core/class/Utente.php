@@ -625,16 +625,17 @@ class Utente extends Persona {
             FROM    fototessera, appartenenza
             WHERE   fototessera.stato = :stato
             AND     fototessera.utente = appartenenza.volontario
-            AND     ( appartenenza.fine < 1 
+            AND     ( appartenenza.fine = 0 
                     OR
                     appartenenza.fine > :ora 
                     OR 
                     appartenenza.fine is NULL)
+            AND     appartenenza.stato = :tipo
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
-        $ora = time();
-        $q->bindParam(':ora', $ora);
+        $q->bindValue(':ora', time());
         $q->bindValue(':stato', FOTOTESSERA_PENDING );
+        $q->bindValue(':tipo', MEMBRO_VOLONTARIO );
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
