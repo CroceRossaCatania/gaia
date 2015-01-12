@@ -132,11 +132,9 @@ class Utente extends Persona {
     
     public function admin() {
         global $sessione;
-        if ( $this->admin && $sessione->adminMode ) {
-            return true;
-        } else {
-            return false;
-        }
+        return ( $this->admin 
+            && $sessione->utente == $this->id 
+            && $sessione->adminMode );
     }
     
     public function titoli() {
@@ -615,6 +613,29 @@ class Utente extends Persona {
         $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $ora = time();
         $q->bindParam(':ora', $ora);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+
+    public function numFototesserePending( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma( $app );
+        $q = $this->db->prepare("
+            SELECT  COUNT(fototessera.id)
+            FROM    fototessera, appartenenza
+            WHERE   fototessera.stato = :stato
+            AND     fototessera.utente = appartenenza.volontario
+            AND     ( appartenenza.fine = 0 
+                    OR
+                    appartenenza.fine > :ora 
+                    OR 
+                    appartenenza.fine is NULL)
+            AND     appartenenza.stato = :tipo
+            AND     appartenenza.comitato  IN
+                ( {$comitati} )");
+        $q->bindValue(':ora', time());
+        $q->bindValue(':stato', FOTOTESSERA_PENDING );
+        $q->bindValue(':tipo', MEMBRO_VOLONTARIO );
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];

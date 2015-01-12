@@ -354,6 +354,20 @@ $(document).ready( function() {
             </div>
         </div>
         <hr />
+        <?php if ( $anonimo ) { ?>
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <center><h2>Vuoi entrare in Croce Rossa?</h2></center>
+                    <div class="well">
+                        <a href="?p=riconoscimento&tipo=aspirante" class="btn btn-large btn-primary btn-block">
+                            <i class="icon-hand-right"></i>
+                            Iscriviti al corso base
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
 
         <?php if ( !$corso->concluso() && $corso->modificabileDa($me) ) { ?>
 
