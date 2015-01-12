@@ -1186,12 +1186,11 @@ class Utente extends Persona {
     }
     
     public function giovane() {
-        $u = time()-GIOVANI;
-        if($u <=  $this->dataNascita){
+        if( $this->eta() <= GIOVANI ){
             return true;
-            }else{
-                return false;
-            }
+        }else{
+            return false;
+        }
     }
     
     public function gruppiDiCompetenza( $app = [ APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO ] ) {
