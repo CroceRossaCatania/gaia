@@ -17,7 +17,7 @@ $m->da      	= $me;
 $m->a       	= $volontario;
 $m->_NOME   	= $volontario->nome;
 $m->_COMMENTO 	= $f->commento;
-$m->_REFERENTE 	= $me;
+$m->_REFERENTE 	= $me->nomeCompleto();
 $m->accoda();
 
 foreach( $n as $_n){
@@ -29,5 +29,3 @@ $a = $f->attivita;
 $f->cancella();
 
 redirect('attivita.scheda&id=' . $a);
-
-?>
