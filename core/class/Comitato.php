@@ -600,28 +600,39 @@ class Comitato extends GeoPolitica {
      * Ottiene elenco dei potenziali soci del comitato in un dato anno, al solo uso di
      * successiva verifica del pagamento della quota o meno nell'anno - NESSUN altro uso!
      * @param int $anno     Opzionale. Anno di riferimento. Default anno attuale.
+     * @
      * @return array(Utente)
      */
-    public function potenzialiSoci($anno = false) {
+    public function potenzialiSoci($anno = false, $stato = MEMBRO_VOLONTARIO) {
         global $conf;
         $anno       = $anno ? (int) $anno : (int) date('Y');
         $minimo     = (DT::createFromFormat('d/m/Y H:i', "1/1/{$anno} 00:00"));
         $minimo     = $minimo->getTimestamp();
         $massimo    = (DT::createFromFormat('d/m/Y H:i', "31/12/{$anno} 23:59")); 
         $massimo    = $massimo->getTimestamp();
-        $daIgnorare = implode(', ', $conf['membro_invalido']);
+
+        if ( !is_array($stato) )
+            $stato = [$stato];
+
+        foreach ( $stato as &$s )
+            $s = (int) $s;
+
+        $stato = implode(', ', $stato);
+        
         $q = $this->db->prepare("
             SELECT  anagrafica.id
             FROM    appartenenza, anagrafica
             WHERE   appartenenza.comitato = :comitato
-            AND     anagrafica.id = appartenenza.comitato 
-            AND     appartenenza.stato NOT IN ({$daIgnorare})
+            AND     anagrafica.id = appartenenza.volontario 
+            AND     appartenenza.stato IN ({$stato})
             AND     appartenenza.inizio BETWEEN :minimo AND :massimo
             AND (
                         appartenenza.fine IS NULL
+                    OR  appartenenza.fine = 0
                     OR  appartenenza.fine BETWEEN :minimo AND :massimo
             )
         ");
+
         $q->bindParam(':comitato', $this->id);
         $q->bindParam(':minimo',   $minimo);
         $q->bindParam(':massimo',  $massimo);
@@ -639,9 +650,9 @@ class Comitato extends GeoPolitica {
      * @param int $anno     Opzionale. Anno di riferimento. Default anno attuale.
      * @return array(Utente)
      */
-    public function quoteSi($anno = false) {
+    public function quoteSi($anno = false, $stato = MEMBRO_VOLONTARIO) {
         $r = [];
-        foreach ( $this->potenzialiSoci($anno) as $p ) {
+        foreach ( $this->potenzialiSoci($anno, $stato) as $p ) {
             if ( $p->socioAttivo() )
                 $r[] = $p;
         }
@@ -654,9 +665,9 @@ class Comitato extends GeoPolitica {
      * @param int $anno     Opzionale. Anno di riferimento. Default anno attuale.
      * @return array(Utente)
      */
-    public function quoteNo($anno = false) {
+    public function quoteNo($anno = false, $stato = MEMBRO_VOLONTARIO) {
         $r = [];
-        foreach ( $this->potenzialiSoci($anno) as $p ) {
+        foreach ( $this->potenzialiSoci($anno, $stato) as $p ) {
             if ( $p->socioNonAttivo() )
                 $r[] = $p;
         }
