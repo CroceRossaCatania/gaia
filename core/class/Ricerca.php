@@ -143,7 +143,7 @@ class Ricerca {
         $extraFrom = ' ';
 
         if ($giovane) {
-            $data = time() - GIOVANI;
+            $data = time() - (GIOVANI*ANNO);
             $pGiovane = "
                 AND anagrafica.id = dettagliPersona.id
                 AND dettagliPersona.nome = 'dataNascita'
