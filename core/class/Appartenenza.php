@@ -169,4 +169,22 @@ class Appartenenza extends Entita {
             return null;
         }
 
+        /**
+         * Ritorna se l'appartenenza e' stata valida in un momento tra MINIMO e MASSIMO
+         * @return bool    
+         */
+        public function validoTra(DT $minimo, DT $massimo) {
+            return (
+                (
+                    $this->inizio() < $minimo AND (
+                        !$this->fine OR $this->fine() > $minimo
+                    )
+                ) OR (
+                    $this->inizio() < $massimo AND (
+                        !$this->fine OR $this->fine() < $massimo
+                    )
+                )
+            );
+        }
+
 }

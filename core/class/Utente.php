@@ -2151,6 +2151,7 @@ class Utente extends Persona {
         global $conf;
         $anno       = $anno ? (int) $anno : (int) date('Y');
         $minimo     = DT::createFromFormat('d/m/Y H:i', "1/1/{$anno} 00:00"); 
+        $massimo    = DT::createFromFormat('d/m/Y H:i', "31/12/{$anno} 23:59"); 
         $r = [];
 
         // Applica algoritmo pubblicato su 
@@ -2158,7 +2159,7 @@ class Utente extends Persona {
         foreach ( $this->storico() as $appartenenza ) {
 
             // Se appartenenza fuori contesto temporale, termina esecuzione
-            if ($appartenenza->inizio() < $minimo)
+            if (!$appartenenza->validoTra($minimo, $massimo))
                 break;
 
             // Se non appartenenza valida, ignora
@@ -2197,7 +2198,9 @@ class Utente extends Persona {
      * @return Quota|bool(false)        Quota o false.
      */
     public function quotaSocioAttivo($anno = false) {
+
         $a         = $this->appartenenzePassibiliQuota($anno);
+
         $anno      = $anno ? (int) $anno : (int) date('Y');
 
         // Se non ho appartenenze in $anno, non sono attivo
