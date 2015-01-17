@@ -1084,7 +1084,7 @@ class Comitato extends GeoPolitica {
         $estensioni = Estensione::filtra([
             ['cProvenienza', $this]
         ]);
-        foreach( $estensioni as $stensione ){
+        foreach( $estensioni as $estensione ){
             try{
                 $appartenenza = $estensione->appartenenza();
                 $appartenenza->cancella();
@@ -1112,7 +1112,7 @@ class Comitato extends GeoPolitica {
 
         /* Cancello appartenenze */
         $appartenenze = Appartenenza::filtra([['comitato', $this]]);
-        foreach ( $appartenenzze as $appa ){
+        foreach ( $appartenenze as $appa ){
             $riserve = Riserva::filtra([['appartenenza', $appa]]);
             foreach( $riserve as $riserva ){
                 $riserva->cancella();
@@ -1130,7 +1130,8 @@ class Comitato extends GeoPolitica {
             $appa->cancella();
         }
         
-        $this->oid()->cancella();
+        $geo = Geopolitica::daOid($this->oid());
+        $geo->cancella();
         parent::cancella();
     }
 

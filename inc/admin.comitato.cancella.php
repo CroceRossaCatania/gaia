@@ -18,11 +18,13 @@ if( $t->_estensione() != EST_UNITA ) {
 	redirect('admin.comitati&del');
 }
 
+$t = Comitato::id($t);
+
 $app = Appartenenza::filtra([['comitato', $t]]);
 
 foreach ( $app as $appa ){
 
-	if (Quota::filtra(['appartenenza', $appa]))
+	if (Quota::filtra([['appartenenza', $appa]]))
 		redirect('admin.comitati&quota');
 
 	if ( $appa->stato == MEMBRO_VOLONTARIO )
