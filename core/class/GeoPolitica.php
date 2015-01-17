@@ -393,9 +393,12 @@ abstract class GeoPolitica extends GeoEntita {
      * @param GeoPolitica
      */
     public function cancella(){
+
+        $oid = $this->oid();
+
         /* Cancello autoparchi e veicoli ad esso associati li passo al nazionale */
         $autoparchi = Autoparco::filtra([
-          ['comitato', $this]
+          ['comitato', $oid]
         ]);
         foreach($autoparchi as $autoparco){
             $collocazioni = Collocazione::filtra([['autoparco', $autoparco]]);
@@ -409,7 +412,7 @@ abstract class GeoPolitica extends GeoEntita {
 
         /* Cancello i corsi base */
         $corsibase = CorsoBase::filtra([
-          ['comitato', $this]
+          ['comitato', $oid]
         ]);
         foreach($corsibase as $corsobase){
             $lezioni = Lezione::filtra([['corso', $corsobase]]);
@@ -428,7 +431,7 @@ abstract class GeoPolitica extends GeoEntita {
 
         /* Cancello i delegati */
         $delegati = Delegato::filtra([
-            ['comitato', $this]
+            ['comitato', $oid]
         ]);
         foreach( $delegati as $delegato ){
             $delegato->cancella();
@@ -436,7 +439,7 @@ abstract class GeoPolitica extends GeoEntita {
 
         /* Cancello i gruppi */
         $gruppi = Gruppo::filtra([
-            ['comitato', $this]
+            ['comitato', $oid]
         ]);
         foreach( $gruppi as $gruppo ){
             $gruppo->cancella();
@@ -444,7 +447,7 @@ abstract class GeoPolitica extends GeoEntita {
 
         /* Assegno veicoli a nazionale */
         $veicoli = Veicolo::filtra([
-          ['comitato', $this]
+          ['comitato', $oid]
         ]);
         foreach($veicoli as $veicolo){
             $veicolo->comitato = "Nazionale:1";

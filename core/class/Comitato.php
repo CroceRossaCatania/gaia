@@ -1130,8 +1130,6 @@ class Comitato extends GeoPolitica {
             $appa->cancella();
         }
         
-        $geo = Geopolitica::daOid($this->oid());
-        $geo->cancella();
         parent::cancella();
     }
 
