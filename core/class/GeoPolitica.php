@@ -75,7 +75,7 @@ abstract class GeoPolitica extends GeoEntita {
         return $rr;
     }
     
-    /*
+    /**
      * Ottiene il livello di estensione (costante EST_UNITA, EST_LOCALE, ecc)
      */
     public function _estensione() {
@@ -386,6 +386,71 @@ abstract class GeoPolitica extends GeoEntita {
             ['comitato',    $this->oid()]
         ], 'nome ASC');
         return $g;
+    }
+
+    /**
+     * Cancella Geopolitica
+     * @param GeoPolitica
+     */
+    public function cancella(){
+        /* Cancello autoparchi e veicoli ad esso associati li passo al nazionale */
+        $autoparchi = Autoparco::filtra([
+          ['comitato', $this]
+        ]);
+        foreach($autoparchi as $autoparco){
+            $collocazioni = Collocazione::filtra([['autoparco', $autoparco]]);
+
+            foreach ( $collocazioni as $collocazione ){
+                $collocazione->cancella();
+            }
+
+            $auoparco->cancella();
+        }
+
+        /* Cancello i corsi base */
+        $corsibase = CorsoBase::filtra([
+          ['comitato', $this]
+        ]);
+        foreach($corsibase as $corsobase){
+            $lezioni = Lezione::filtra([['corso', $corsobase]]);
+            foreach( $lezioni as $lezione ){
+                $assenze = AssenzaLezione::filtra([['lezione', $lezione]]);
+                foreach( $assenze as $assenza ){
+                    $assenza->cancella();
+                }
+            }
+            $partecipazioni = PartecipazioneBase::filtra([['corsoBase', $corsobase]]);
+            foreach($partecipazioni as $partecipazione){
+                $partecipazione->cancella();
+            }
+            $corsobase->cancella();
+        }
+
+        /* Cancello i delegati */
+        $delegati = Delegato::filtra([
+            ['comitato', $this]
+        ]);
+        foreach( $delegati as $delegato ){
+            $delegato->cancella();
+        }
+
+        /* Cancello i gruppi */
+        $gruppi = Gruppo::filtra([
+            ['comitato', $this]
+        ]);
+        foreach( $gruppi as $gruppo ){
+            $gruppo->cancella();
+        }
+
+        /* Assegno veicoli a nazionale */
+        $veicoli = Veicolo::filtra([
+          ['comitato', $this]
+        ]);
+        foreach($veicoli as $veicolo){
+            $veicolo->comitato = "Nazionale:1";
+        }
+
+        parent::cancella();
     }
     
 }
