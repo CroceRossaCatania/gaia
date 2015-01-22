@@ -19,9 +19,6 @@ if (!$corso->modificabileDa($me)) {
 $utente = Utente::id($_GET['id']);
 
 ?>
-<a href="?p=formazione.corsibase.scheda&id=<?= $corso ?>" class="btn btn-small btn-primary">
-	<i class="icon-reply"></i> Torna alla Scheda del Corso
-</a>
 
 <h2 class="allinea-centro text-success"><i class="icon-calendar"></i> Elenco assenze</h2>
 <h3 class="allinea-centro"><?= $utente->nomeCompleto(); ?></h3>
