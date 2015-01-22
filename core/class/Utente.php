@@ -1352,21 +1352,10 @@ class Utente extends Persona {
      * @return età utente
      */
     public function eta(){
-        $now = time();
-        $timestamp = $this->dataNascita;
-        
-        $yearDiff   = date("Y", $now) - date("Y", $timestamp);
-        $monthDiff  = date("m", $now) - date("m", $timestamp);
-        $dayDiff    = date("d", $now) - date("d", $timestamp);
-     
-        if ($monthDiff < 0)
-            $yearDiff--;
-        elseif (($monthDiff == 0) && ($dayDiff < 0))
-            $yearDiff--;
-     
-        $result = intval($yearDiff);
-     
-        return $result;
+        $ora = new DateTime();
+        $tim = DT::daTimestamp($this->dataNascita);
+        $dif = $ora->diff($tim);
+        return (int) $dif->y;
     }
 
     /**

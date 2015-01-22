@@ -11,6 +11,10 @@ ob_start('ob_gzhandler');
 
 // Imposta la risposta in JSON
 header('Content-type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+header('Access-Control-Max-Age: 1000');
+header('Access-Control-Allow-Headers: Content-Type, Content-Range, Content-Disposition, Content-Description');
 
 // Ottiene il corpo della richiesta
 $corpo = file_get_contents('php://input');

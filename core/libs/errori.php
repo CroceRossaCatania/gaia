@@ -76,20 +76,22 @@ function gestore_errori(
 		$_id_richiesta = md5(microtime() . rand(500, 999));
 	$codice = sha1(microtime() . rand(10000, 99999));
 
-	$e->codice 		= $codice;
-	$e->richiesta 	= $_id_richiesta;
-	$e->livello		= $livello;
-	$e->timestamp	= (int) time();
-	$e->messaggio 	= $messaggio;
-	$e->file 		= $file;
-	$e->linea 		= (int) $linea;
-	$e->ambiente 	= [
-		'server'		=>	$_SERVER,
-		'get'			=>	$_GET,
-		'post'			=>	$_POST
-	];
-	$e->sessione 	= $sessione->id;
-	$e->utente 		= $me->id;
+	$e->update([
+		'codice' 		=> $codice,
+		'richiesta' 	=> $_id_richiesta,
+		'livello'		=> $livello,
+		'timestamp'		=> (int) time(),
+		'messaggio' 	=> $messaggio,
+		'file' 			=> $file,
+		'linea' 		=> (int) $linea,
+		'ambiente' 		=> [
+			'server'		=>	$_SERVER,
+			'get'			=>	$_GET,
+			'post'			=>	$_POST
+		],
+		'sessione' 		=> $sessione->id,
+		'utente' 		=> $me->id
+	]);
 
 	// Salta redirect nel caso di modalita' debug
 	if ( $conf['debug'] )

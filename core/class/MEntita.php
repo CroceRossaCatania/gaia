@@ -115,12 +115,21 @@ abstract class MEntita {
 	}
 
 	public function __set( $_name, $_value ) {
+		$this->update([
+			$_name	=> $_value
+		]);
+	}
+
+	/**
+	 * Allows updating multiple properties for the document 
+	 * at the same time. Upsert (insert when not found) is false.
+	 * @param array()	Associative array: property => new value. Can contain nested documents.
+	 */
+	public function update($set = []) {
 		$this->collection->update(
 			['_id' 	=> $this->_objectId],
 			[
-				'$set' => [
-					$_name	=> $_value
-				]
+				'$set' => $set
 			],
 			[
 				'upsert'	=>	false
