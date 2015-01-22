@@ -1,7 +1,7 @@
 <?php
 
 /**
- * (c)2014 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 
 /**
