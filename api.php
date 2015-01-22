@@ -11,6 +11,7 @@ ob_start('ob_gzhandler');
 
 // Imposta la risposta in JSON
 header('Content-type: application/json');
+header('Access-Control-Allow-Origin: *');
 
 // Ottiene il corpo della richiesta
 $corpo = file_get_contents('php://input');
