@@ -78,8 +78,8 @@ paginaPubblica();
               </div>
           <?php } elseif ( isset($_GET['captcha']) ) { ?>
               <div class="alert alert-error">
-                  <strong>Indovinello non completato</strong>.<br />
-                  Per favore risolvi l'indovinello che trovi qui sotto per accedere.
+                  <strong>Conferma non valida</strong>.<br />
+                  Per favore prova nuovamente a completare la sfida visuale (conferma di non essere un robot).
               </div>
           <?php } else { ?>
               <p>&nbsp;</p>
@@ -102,9 +102,7 @@ paginaPubblica();
               
             </label>
             <div class="controls <?php if (isset($_GET['captcha'])) { ?>alert alert-error <?php } ?>">
-              <i class="icon-lock"></i> Per favore completa l'indovinello:<br /><br />
-              <p class="hidden-desktop"><i class="icon-tablet"></i> Stai usando un tablet o uno smartphone e non riesci a trascinare? 
-              Clicca sulla casella contenente la risposta corretta!</p>
+              <i class="icon-lock"></i> Per favore conferma:<br /><br />
               <?php captcha_mostra(); ?>
             </div>
           </div>
@@ -113,7 +111,7 @@ paginaPubblica();
           
           <div class="control-group">
             <div class="controls">
-              <button type="submit" class="btn btn-large btn-primary">
+              <button type="submit" class="btn btn-large btn-primary" data-aspetta-captcha="true">
                   <i class="icon-ok"></i>
                   Accedi
               </button>
