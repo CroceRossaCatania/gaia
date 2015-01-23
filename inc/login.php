@@ -113,7 +113,7 @@ paginaPubblica();
           
           <div class="control-group">
             <div class="controls">
-              <button type="submit" class="btn btn-large btn-primary">
+              <button type="submit" class="btn btn-large btn-primary" data-aspetta-captcha="true">
                   <i class="icon-ok"></i>
                   Accedi
               </button>
