@@ -801,11 +801,11 @@ class Utente extends Persona {
             return Partecipazione::filtra([
                 ['volontario',  $this->id],
                 ['stato',       $stato]
-            ], 'timestamp DESC');
+            ], 'id DESC');
         } else {
             return Partecipazione::filtra([
                 ['volontario',  $this->id]
-            ], 'timestamp DESC');
+            ], 'id DESC');
         }
     }
 
