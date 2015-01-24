@@ -18,14 +18,12 @@ if($u->stato != PERSONA) {
 $app = $u->appartenenzaAttuale();
 $comitato = $app->comitato;
 
-if ( $_POST['dataInizio'] ) {
-    $inizio = DateTime::createFromFormat('d/m/Y', $_POST['dataInizio']);
-    if ( $inizio ) {
-        $inizio = $inizio->getTimestamp();
-        $app->fine = $inizio;
-    } else {
-        $app->fine = 0;
-    }
+$inizio = DateTime::createFromFormat('d/m/Y', $_POST['dataInizio']);
+if ( $inizio ) {
+    $inizio = $inizio->getTimestamp();
+    $app->fine = $inizio;
+} else {
+    $app->fine = 0;
 }
 
 $u->stato = VOLONTARIO;
