@@ -19,9 +19,9 @@ $app = $u->appartenenzaAttuale();
 $comitato = $app->comitato;
 
 if ( $_POST['dataInizio'] ) {
-    $inizio = @DateTime::createFromFormat('d/m/Y', $_POST['dataInizio']);
+    $inizio = DateTime::createFromFormat('d/m/Y', $_POST['dataInizio']);
     if ( $inizio ) {
-        $inizio = @$inizio->getTimestamp();
+        $inizio = $inizio->getTimestamp();
         $app->fine = $inizio;
     } else {
         $app->fine = 0;
