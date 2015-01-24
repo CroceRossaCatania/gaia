@@ -23,7 +23,7 @@ if ( $inizio ) {
     $inizio = $inizio->getTimestamp();
     $app->fine = $inizio;
 } else {
-    $app->fine = 0;
+    $app->fine = time();
 }
 
 $u->stato = VOLONTARIO;
