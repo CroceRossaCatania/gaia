@@ -385,6 +385,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                         </div>
                     </div>
                 </div>
+                <!--
                 <div class="alert alert-block alert-info">
                     <div class="row-fluid">
                         <div class="span9">
@@ -392,12 +393,13 @@ if(false && $consenso && !$sessione->barcode) { ?>
                                 <p>Gaia continua a crescere, adesso ha bisogno anche di te!</p> 
                                 <p>Siamo alla ricerca di personale helpdesk da inserire nel nostro team di <strong>1° livello</strong>.</p>
                                 Vuoi essere dei nostri? <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24760" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
-                        </div>
-                        <div class="span3">
+                                  </div>
+                                <div class="span3">
                             <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24760" target="_blank"><img src="/img/pulsantehelp.png" /></a>
                         </div>
                     </div>
                 </div>
+                -->
                 <!-- BLOCCO SENZA IMMAGINE
                 <div class="alert alert-block alert-info">
                     <div class="row-fluid">
