@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ©2014 Croce Rossa Italiana
+ * ©2015 Croce Rossa Italiana
  */
 
 paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
