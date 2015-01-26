@@ -617,6 +617,29 @@ class Utente extends Persona {
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
     }
+
+    public function numFototesserePending( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma( $app );
+        $q = $this->db->prepare("
+            SELECT  COUNT(fototessera.id)
+            FROM    fototessera, appartenenza
+            WHERE   fototessera.stato = :stato
+            AND     fototessera.utente = appartenenza.volontario
+            AND     ( appartenenza.fine = 0 
+                    OR
+                    appartenenza.fine > :ora 
+                    OR 
+                    appartenenza.fine is NULL)
+            AND     appartenenza.stato = :tipo
+            AND     appartenenza.comitato  IN
+                ( {$comitati} )");
+        $q->bindValue(':ora', time());
+        $q->bindValue(':stato', FOTOTESSERA_PENDING );
+        $q->bindValue(':tipo', MEMBRO_VOLONTARIO );
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
     
     public function documento($tipo = DOC_CARTA_IDENTITA) {
         $d = Documento::filtra([
@@ -778,11 +801,11 @@ class Utente extends Persona {
             return Partecipazione::filtra([
                 ['volontario',  $this->id],
                 ['stato',       $stato]
-            ], 'timestamp DESC');
+            ], 'id DESC');
         } else {
             return Partecipazione::filtra([
                 ['volontario',  $this->id]
-            ], 'timestamp DESC');
+            ], 'id DESC');
         }
     }
 
@@ -1163,12 +1186,11 @@ class Utente extends Persona {
     }
     
     public function giovane() {
-        $u = time()-GIOVANI;
-        if($u <=  $this->dataNascita){
+        if( $this->eta() <= GIOVANI ){
             return true;
-            }else{
-                return false;
-            }
+        }else{
+            return false;
+        }
     }
     
     public function gruppiDiCompetenza( $app = [ APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO ] ) {
@@ -1330,21 +1352,10 @@ class Utente extends Persona {
      * @return età utente
      */
     public function eta(){
-        $now = time();
-        $timestamp = $this->dataNascita;
-        
-        $yearDiff   = date("Y", $now) - date("Y", $timestamp);
-        $monthDiff  = date("m", $now) - date("m", $timestamp);
-        $dayDiff    = date("d", $now) - date("d", $timestamp);
-     
-        if ($monthDiff < 0)
-            $yearDiff--;
-        elseif (($monthDiff == 0) && ($dayDiff < 0))
-            $yearDiff--;
-     
-        $result = intval($yearDiff);
-     
-        return $result;
+        $ora = new DateTime();
+        $tim = DT::daTimestamp($this->dataNascita);
+        $dif = $ora->diff($tim);
+        return (int) $dif->y;
     }
 
     /**

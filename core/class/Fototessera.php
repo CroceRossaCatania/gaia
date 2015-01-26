@@ -105,7 +105,8 @@ class Fototessera extends Entita {
     }
 
     public function approva() {
-        $this->stato = FOTOTESSERA_OK;
+        $this->stato     = FOTOTESSERA_OK;
+        $this->timestamp = time();
     }
 
 }

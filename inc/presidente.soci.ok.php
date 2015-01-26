@@ -109,7 +109,7 @@ if(isset($_GET['nofoto'])) { ?>
                 $ordinario = (bool) $_v->ordinario();
                 $app = $_v->appartenenzaAttuale();
                 $fotot = $_v->fototessera();
-                $fototessera = ($fotot && $fotot->stato == FOTOTESSERA_PENDING) ? true : false;
+                $fototessera = ($fotot && $fotot->stato == FOTOTESSERA_OK) ? true : false;
                 $inQuestoComitato = ($app && $app->comitato()->id == $comitato->id) ? true : false;
             ?>
                 <tr>
@@ -139,10 +139,18 @@ if(isset($_GET['nofoto'])) { ?>
                                 <i class="icon-envelope"></i>
                             </a>
                         </div>
-                        <?php if(!$ordinario && $inQuestoComitato && $modifica && $chiedeTesserini && !$tesserino && $fotot) { ?>
+                        <?php if(!$ordinario && $inQuestoComitato && $modifica && $chiedeTesserini && !$tesserino && $fototessera ) { ?>
                             <a class="btn btn-small btn-info" href="?p=us.tesserini.chiedi.ok&id=<?= $_v ?>" title="Richiedi tesserino">
-                                <i class="icon-credit-card"></i> Tesserino
+                                <i class="icon-credit-card"></i> Richiedi tesserino
                             </a>                            
+                        <?php } elseif(!$ordinario && $inQuestoComitato && $modifica && $chiedeTesserini && $tesserino && $fototessera && $tesserino->stato > STAMPATO ){ ?>
+                            <a class="btn btn-small btn-info" href="?p=us.tesserini.duplicato.ok&id=<?= $_v ?>" title="Richiedi duplicato tesserino">
+                                <i class="icon-credit-card"></i> Duplicato tesserino
+                            </a>
+                        <?php } if($tesseratore && $tesserino && $tesserino->stato > STAMPATO){ ?>
+                            <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?= $tesserino ?>" title="Tesserino">
+                                <i class="icon-credit-card"></i> Tesserino
+                            </a>
                         <?php } /* elseif($ordinario && $inQuestoComitato && $modifica && $chiedeTesserini && !$tesserino) { ?>
                             <a class="btn btn-small btn-info" href="?p=us.tesserini.chiedi.ordinario&id=<?= $_v ?>" title="Richiedi tesserino">
                                 <i class="icon-credit-card"></i> Tesserino
@@ -151,14 +159,7 @@ if(isset($_GET['nofoto'])) { ?>
                             <a class="btn btn-small btn-info" href="?p=us.tesserini.duplicato.ordinario&id=<?= $_v ?>" title="Richiedi tesserino">
                                 <i class="icon-credit-card"></i> Duplicato tesserino
                             </a> 
-                        <?php } */elseif($tesseratore && $tesserino && $tesserino->stato > STAMPATO){ ?>
-                            <a class="btn btn-small btn-info" href="?p=us.tesserini.duplicato.ok&id=<?= $_v ?>" title="Richiedi duplicato tesserino">
-                                <i class="icon-credit-card"></i> Duplicato tesserino
-                            </a>
-                            <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?= $tesserino ?>" title="Tesserino">
-                                <i class="icon-credit-card"></i> Tesserino
-                            </a>
-                        <?php } ?>
+                        <?php } */ ?>
                    </td>
                 </tr>
         <?php }

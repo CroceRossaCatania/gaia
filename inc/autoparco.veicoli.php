@@ -82,7 +82,30 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
             <i class="icon-truck muted"></i>
             Veicoli
         </h2>
+        <select class="selectpicker" id="select">
+        <option value="Filtra per comitato">Filtra per comitato</option>
+        <?php
+            $comitati = $me->entitaDelegazioni();
+            $comitati = new RamoGeoPolitico($comitati);
+            foreach ($comitati as $comitato) {
+                echo "<option value=\"".$comitato->id."\">{$comitato->nome}</option>";
+            }
+        ?>
+        </select>
+        <select class="selectpicker" id="select2">
+        <option value="Filtra per autoparco">Filtra per autoparco</option>
+        <?php
+
+            foreach ($comitati as $comitato) {
+                $g = Autoparco::filtra([['comitato',    $comitato->oid()]], 'nome ASC');
+                foreach ($g as $autoparco) {
+                    echo "<option class='option ".$comitato->locale."' value=\"".str_replace('.', '',str_replace(' ', '', $autoparco->nome))."\">{$autoparco->nome}</option>";
+                }
+            }
+        ?>
+        </select>
     </div>
+
 
     <div class="span4">
         <div class="btn-group btn-group-vertical span12">
@@ -116,21 +139,22 @@ paginaApp([APP_AUTOPARCO , APP_PRESIDENTE]);
                 <th>Comitato</th>
                 <th>Collocazione</th>
                 <th>Fermo tecnico</th>
+                <th>Tipo</th>
                 <th>Azioni</th>
             </thead>
             <?php
-            $comitati = $me->entitaDelegazioni();
-            $comitati = new RamoGeoPolitico($comitati);
+            
             foreach ( $comitati as $comitato ){
                 foreach(Veicolo::filtra([['comitato', $comitato->oid()],['stato', VEI_ATTIVO]],'targa ASC') as $veicolo){
                     ?>
-                    <tr>
+                    <tr class="<?php echo($comitato->id).' '.str_replace('.', '',str_replace(' ', '', $veicolo->collocazione())) ; ?> comitato" >
                         <td><?= $veicolo->targa; ?></td>
                         <td><?= $veicolo->uso; ?></td>
                         <td><?= $veicolo->consumoMedio(); ?></td>
                         <td><?= $veicolo->comitato(); ?></td>
                         <td><?= $veicolo->collocazione(); ?></td>
                         <td><?= $veicolo->fermoTecnicoDettagli(); ?></td>
+                        <td><?= $veicolo->categoria; ?></td>
                         <td>
                             <div class="btn-group">
                                 <a  href="?p=autoparco.veicolo.dettagli&id=<?= $veicolo->id; ?>" title="Visualizza dettagli veicolo" class="btn btn-small">

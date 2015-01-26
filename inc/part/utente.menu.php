@@ -25,9 +25,10 @@ if ( $me && ($me->admin() || $me->delegazioneAttuale()->applicazione == APP_PRES
 }
 
 if ($me && (!$me->admin() && $me->delegazioneAttuale()->applicazione == APP_SOCI)) {
-$_n     =   $_n_titoli = $_n_app = 0;
-$_n     +=  $_n_titoli = $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]);
-$_n     +=  $_n_app    = $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]);
+$_n     =   $_n_titoli = $_n_app = $_n_foto = 0;
+$_n     +=  $_n_titoli = $me->numTitoliPending      ([APP_PRESIDENTE, APP_SOCI]);
+$_n     +=  $_n_app    = $me->numAppPending         ([APP_PRESIDENTE, APP_SOCI]);
+$_n     +=  $_n_foto   = $me->numFototesserePending ([APP_PRESIDENTE, APP_SOCI]);
 
     $menu[''] += [
         'us.dash'   =>  '<span class="badge badge-success">'.$_n.'</span> Ufficio Soci'
