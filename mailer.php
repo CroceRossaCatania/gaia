@@ -41,7 +41,7 @@ $cache->set        ('gaia:mailer:lock', true);
 $cache->setTimeout ('gaia:mailer:lock', 120);
 
 // Ottieni cursore alle prossime email da inviare
-$coda = MEmail::inCoda()->limit($conf['batch_size']);
+$coda = MEmail::inCoda($conf['batch_size']);
 
 $ok = true;
 
@@ -52,9 +52,6 @@ foreach ( $coda as $_comunicazione ) {
 	set_time_limit(600);
 
 	$time = date('d-m-Y H:i:s');
-
-	// Instanzia oggetto
-	$_comunicazione = MEmail::object($_comunicazione);
 
 	try {
 		// Tenta l'invio della comunicazione
