@@ -37,7 +37,7 @@ class ERicerca {
         $perPagina = (int) $this->perPagina;
 
         $numQ = $db->prepare("SELECT COUNT(id) {$query}");
-        $risQ = $db->prepare("SELECT * {$query} LIMIT {$offset}, {$perPagina}");
+        $risQ = $db->prepare("SELECT * {$query} ORDER BY {$this->ordine} LIMIT {$offset}, {$perPagina}");
         $numQ->bindValue(':casella', $this->casella);
         $risQ->bindValue(':casella', $this->casella);
         $numQ->execute();
