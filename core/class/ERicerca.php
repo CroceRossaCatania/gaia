@@ -33,7 +33,7 @@ class ERicerca {
 
         $query = $this->generaQuery();
 
-        $offset = max((($pagina - 1) * $perPagina), 0);
+        $offset = max((($this->pagina - 1) * $this->perPagina), 0);
         $perPagina = (int) $this->perPagina;
 
         $numQ = $db->prepare("SELECT COUNT(id) {$query}");
