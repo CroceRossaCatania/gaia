@@ -5,7 +5,7 @@
  */
 
 // Carica configurazione
-require 'core.inc.php';
+require '../core.inc.php';
 
 ignoraTransazione();
 
