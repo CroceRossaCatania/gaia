@@ -37,12 +37,47 @@ Formato di un record
 	]
 }
 
+EMAIL
+id 					varchar(127) PRIMARY KEY,
+invio_iniziato		bigint		 INDEX,
+invio_terminato		bigint		 INDEX,
+mittente_id			int 		 INDEX,
+oggetto 			varchar(255)	  ,
+corpo 				text 			  ,
+timestamp 			bigint 		 INDEX,
+
+EMAIL_ALLEGATI
+email 				varchar(127) PRIMARY KEY,
+allegato_id 		varchar(64) 		 ,
+allegato_nome 		varchar(255)
+
+
+EMAIL_DESTINATARI
+email   	varchar(127) 	INDEX,
+dest 		int 			INDEX,
+inviato 	bigint 			INDEX,
+ok 			boolean				 ,
+errore  	varchar(255)		 ,
+
 */
 
 /**
- * Rappresenta una email salvata in storico (db mongo)
+ * Rappresenta una email salvata in storico (db mysql)
  */
-class MEmail extends MEntita {
+class MEmail extends Entita {
+
+    use EntitaNoCache;
+
+    protected static
+        $_t         = 'email',
+        $_dt        = null;
+
+
+	protected function generaId() {
+		return sha1(
+			microtime() . rand(10000, 99999)
+		);
+	}
 
 	/** 
 	 * Imposta errore di invio al destinatario con ID
@@ -57,42 +92,38 @@ class MEmail extends MEntita {
 	 * @param $destinatario_id ID del destinatario
 	 */
 	protected function _stato_invio($destinatario_id, $ok = false, $messaggio = null) {
+		global $db;
+
+		$inviato	=	(int) time();
+
 		if ( $ok ) {
-			$n = [
-				'id'		=>	$destinatario_id,
-				'inviato'	=>	(int) time(),
-				'ok'		=>	true
-			];
+			$ok		=	true;
+			$errore	=	"";
 		} else {
-			$n = [
-				'id'		=>	$destinatario_id,
-				'inviato'	=>	(int) time(),
-				'ok'		=>	false,
-				'errore'	=>	$messaggio
-			];
+			$ok		=	false;
+			$errore	=	$messaggio;
 		}
-		$this->collection->update(
-			[
-				'_id' 				=> $this->_objectId,
-				'destinatari.id'	=> $destinatario_id
-			],
-			[
-				'$set' => [
-					'destinatari.$' => $n
-				]
-			]
-		);
+
+		$q = $db->prepare(
+			"UPDATE email_destinatari SET 
+				inviato = :inviato, ok = :ok, errore = :errore
+			  WHERE 
+			  	email = :email AND dest = :dest");
+		$q->bindParam(':inviato', 	$inviato,	PDO::PARAM_INT);
+		$q->bindParam(':ok', 		$ok,		PDO::PARAM_INT);
+		$q->bindParam(':errore',	$errore);
+		$q->bindParam(':email',		$this->id);
+		$q->bindParam(':dest',		$destinatario_id, PDO::PARAM_INT);
+		return $q->execute();
 	}
 
 	/**
 	 * Imposta inizio invio email 
 	 */
 	protected function _inizia_invio() {
-		if ( !$this->invio['iniziato'] ) {
-			$this->invio = [
-				'iniziato' 	=>	(int)	time(),
-				'terminato'	=>	false
-			];
+		if ( !$this->invio_iniziato ) {
+			$this->invio_iniziato  = (int) time();
+			$this->invio_terminato = false;
 		}
 	}
 
@@ -100,12 +131,34 @@ class MEmail extends MEntita {
 	 * Imposta email terminata di inviare
 	 */
 	protected function _termina_invio() {
-		if ( !$this->invio['terminato'] ) {
-			$this->invio = [
-				'iniziato' 	=>	$this->invio['iniziato'],
-				'terminato'	=>	(int) time()
-			];
+		if ( !$this->invio_terminato ) {
+			$this->invio_iniziato 	=	$this->invio_iniziato;
+			$this->invio_terminato	=	(int) time();
 		}
+	}
+
+	public function destinatari() {
+		global $db;
+		$q = "SELECT *, email as id FROM email_destinatari WHERE email = :id";
+		$q = $db->prepare($q);
+		$q->bindParam(':id', $this->id);
+		$q->execute();
+		if ( !$q ) {
+			return false;
+		}
+		return $q->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function allegati() {
+		global $db;
+		$q = "SELECT * FROM email_allegati WHERE email = :id";
+		$q = $db->prepare($q);
+		$q->bindParam(':id', $this->id);
+		$q->execute();
+		if ( !$q ) {
+			return [];
+		}
+		return $q->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	/**
@@ -123,8 +176,8 @@ class MEmail extends MEntita {
 		$y->FromName	= 'Croce Rossa Italiana';
 
 		// Configurazione del mittente
-		if ( $this->mittente ) {
-			$u = Utente::id($this->mittente['id']);
+		if ( $this->mittente_id ) {
+			$u = Utente::id($this->mittente_id);
 			$y->addReplyTo($u->email(), $u->nomeCompleto());
 
 		} else {
@@ -140,10 +193,10 @@ class MEmail extends MEntita {
 		$y->CharSet 	= 'UTF-8';
 
 		// Configurazione degli allegati
-		foreach ( $this->allegati as $allegato ) {
+		foreach ( $this->allegati() as $allegato ) {
 			try {
 				// Cerca file dell'allegato...
-				$a = File::id($allegato['id']);
+				$a = File::id($allegato['allegato_id']);
 			} catch ( Errore $e ) {
 				// Se allegato mancante, salta...
 				continue;
@@ -160,7 +213,9 @@ class MEmail extends MEntita {
 		$riuscito = false;
 
 		// Se non ci sono destinatari...
-		if ( !(bool)$this->destinatari ) {
+
+		$destinatari = $this->destinatari();
+		if ( !(bool)$destinatari ) { 
 			$y->AddAddress(
 				'supporto@gaia.cri.it',
 				'Supporto Gaia'
@@ -172,16 +227,16 @@ class MEmail extends MEntita {
 			$riuscito = true;
 
 			// Per ogni destinatario...
-			foreach ( $this->destinatari as $dest ) {
+			foreach ( $destinatari as $dest ) {
 
 				// Salta se gia' inviato!
 				if ( $dest['inviato'] && $dest['ok'] )
 					continue;
 
-				$utente = Utente::id($dest['id']);
+				$utente = Utente::id($dest['dest']);
 				// Destinatario non esistente
 				if ( !$utente ) {
-					$this->_errore_invio($dest['id']);
+					$this->_errore_invio($dest['dest']);
 					continue;
 				}
 
@@ -190,11 +245,9 @@ class MEmail extends MEntita {
 					$utente->email,
 					$utente->nomeCompleto()
 				);
-				
 				$stato = $y->send();
-
 				$this->_stato_invio(
-					$dest['id'],
+					$dest['dest'],
 					$stato,
 					$y->ErrorInfo
 				);
@@ -215,6 +268,51 @@ class MEmail extends MEntita {
 
 		return $riuscito;
 
+	}
+
+	/**
+	 * Ritorna il messaggio in formato JSON
+	 * Se $filtraDestinatario e' impostato, rimuove tutti i 
+	 * destinatari meno che quello passato come argomento
+	 * @param false|id 			Filtra destinatario?
+	 * @return array associativo nestato
+	 */
+	public function toJSON($filtraDestinatario = false) {
+	
+		$destinatari = $this->destinatari();
+		if ( $destinatari ) {
+			foreach  ( $destinatari as $i => &$_d ) {
+				$_d['id'] = $_d['dest'];
+				if ( $filtraDestinatario && $_d['id'] != $filtraDestinatario ) {
+					unset($destinatari[$i]);
+				}
+			}
+		}
+
+		$allegati = $this->allegati();
+		foreach ( $allegati as $i => &$k ) {
+			$k['id'] 	= $k['allegato_id'];
+			$k['nome'] 	= $k['allegato_nome'];
+		}
+
+		$mittente = $this->mittente_id ?
+			[ 'id' => $this->mittente_id ]
+			: false;
+
+		return [
+			'_id'		=>	$this->id,
+			'id'		=>	$this->id,
+			'oggetto'	=>	$this->oggetto,
+			'timestamp'	=>	$this->timestamp,
+			'invio' 	=> [
+				'iniziato'	=>	$this->invio_iniziato,
+				'terminato' =>	$this->invio_terminato
+			],
+			'mittente'		=> $mittente,
+			'destinatari' 	=> $destinatari,
+			'corpo'		=> $this->corpo,
+			'allegati'	=> $this->allegati()
+		];
 	}
 
 	/**
@@ -248,15 +346,14 @@ class MEmail extends MEntita {
 	}
 
 	/**
-	 * Ottiene il MongoCursor alle email ancora da inviare...
-	 * @return MongoCursor Cursore alle email ancora da inviare
+	 * Ottiene le email ancora da inviare...
+	 * @return array(MEmail) Email ancora da inviare
 	 */
-	public static function inCoda() {
-		return static::find([
-			'invio.terminato'	=>	false
-		])->sort([
-			'timestamp' => 1
-		]);
+	public static function inCoda( $limit = false ) {
+		$l = $limit ? " LIMIT 0, " . ((int) $limit) : "";
+		return static::filtra([
+			['invio_terminato', null, OP_ISNULL]
+		], "timestamp DESC {$l}");
 	}
 
 }
