@@ -148,3 +148,4 @@ echo "{$n} comunicazioni:\n";
 echo "- {$j} email processate\n";
 echo " - {$l} allegati processati.\n";
 echo "- {$dup} comunicazioni saltate (esistenti)\n";
+echo "- {$old} comunicazioni saltate (vecchie)\n";
