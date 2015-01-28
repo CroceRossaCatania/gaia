@@ -287,6 +287,7 @@ class MEmail extends Entita {
 					unset($destinatari[$i]);
 				}
 			}
+			$destinatari = array_values($destinatari);
 		}
 
 		$allegati = $this->allegati();
