@@ -20,7 +20,7 @@ class ERicerca {
 
         // Ordine di default: timestamp decrescente
         // ref. http://docs.mongodb.org/manual/reference/object-id/
-        $ordine         = 'id DESC';
+        $ordine         = 'timestamp DESC';
 
 
     /**

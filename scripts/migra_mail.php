@@ -31,9 +31,7 @@ $n = $e->count();
 echo "trovate {$n}.\n";
 
 $inQ = $db->prepare("INSERT INTO email (id, invio_iniziato, invio_terminato, mittente_id, oggetto, corpo, timestamp) VALUES (:id, :invio_iniziato, :invio_terminato, :mittente_id, :oggetto, :corpo, :timestamp)");
-
 $deQ = $db->prepare("INSERT INTO email_destinatari (email, dest, inviato, ok, errore) VALUES (:email, :dest, :inviato, :ok, :errore)");
-
 $alQ = $db->prepare("INSERT INTO email_allegati (email, allegato_id, allegato_nome) VALUES (:email, :allegato_id, :allegato_nome)");
 
 
@@ -74,8 +72,8 @@ foreach ( $e as $m ) {
 	$inQ->bindValue(':invio_iniziato',	$iniziato, PDO::PARAM_INT);
 	$inQ->bindValue(':invio_terminato',	$terminato, PDO::PARAM_INT);
 
-	$mittente = $m['invio']['mittente'] ? 
-		$m['invio']['mittente']['id'] : 
+	$mittente = $m['mittente'] ? 
+		$m['mittente']['id'] : 
 		null;
 
 	$inQ->bindValue(':mittente_id',	$mittente, PDO::PARAM_INT);
@@ -148,3 +146,4 @@ echo "{$n} comunicazioni:\n";
 echo "- {$j} email processate\n";
 echo " - {$l} allegati processati.\n";
 echo "- {$dup} comunicazioni saltate (esistenti)\n";
+echo "- {$old} comunicazioni saltate (vecchie)\n";
