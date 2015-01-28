@@ -375,7 +375,7 @@ CREATE TABLE IF NOT EXISTS `email` (
 
 CREATE TABLE IF NOT EXISTS `email_allegati` (
   `email` varchar(127) NOT NULL,
-  `allegato_id` int(11) DEFAULT NULL,
+  `allegato_id` varchar(64) DEFAULT NULL,
   `allegato_nome` varchar(255) DEFAULT NULL,
   KEY `email` (`email`),
   KEY `allegato_id` (`allegato_id`)

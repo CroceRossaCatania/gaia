@@ -48,7 +48,7 @@ timestamp 			bigint 		 INDEX,
 
 EMAIL_ALLEGATI
 email 				varchar(127) PRIMARY KEY,
-allegato_id 		int 		 ,
+allegato_id 		varchar(64) 		 ,
 allegato_nome 		varchar(255)
 
 
