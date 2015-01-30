@@ -820,7 +820,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <?php } ?>
     </table>
   </div>
-</div>
+
 
 <!--Visualizzazione e modifica donazioni utente-->
 <?php $donazioni = $conf['donazioni']; ?>
@@ -943,7 +943,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <?php } ?>
     </table>
 
-
+	</div>
   </div>
 </div>
 
