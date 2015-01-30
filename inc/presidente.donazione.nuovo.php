@@ -1,12 +1,10 @@
 <?php
-
+print_r("ci arriva?");die;
 /*
  * ©2013 Croce Rossa Italiana
  */
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
-
-$admin = $me->admin();
 
 $parametri = array('idDonazione', 'id');
 controllaParametri($parametri, 'presidente.donazioni&err');
