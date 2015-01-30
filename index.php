@@ -56,6 +56,9 @@ $_carica_selettore_comitato     = false;
 $p = $_GET['p'];
 if (!$p) { $p = 'home'; }
 $_f = "./inc/$p.php";
+if($p != "presidente.utente.visualizza"){
+echo $p."<br>";
+echo $_f."<br>";}
 if ( !file_exists($_f) ) {
 	$_f = "./inc/errore.404.php";
 }
