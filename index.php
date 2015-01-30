@@ -391,7 +391,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                 <?php
 
                 /* Qui si include la pagina */ 
-				echo $_f;
+				if($_f != "./inc/presidente.utente.visualizza"){
+				echo $_f;die;}
                 require($_f);
 
                 ?>
