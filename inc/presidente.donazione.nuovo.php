@@ -3,12 +3,12 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
-
+print_r($_REQUEST);die;
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $parametri = array('idDonazione', 'id');
 controllaParametri($parametri, 'presidente.donazioni&err');
-print_r($_REQUEST);die;
+
 $id = $_POST['idDonazione'];
 $f = $_GET['id']; 
 $v= Volontario::id($f);
