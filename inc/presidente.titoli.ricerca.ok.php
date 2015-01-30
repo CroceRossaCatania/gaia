@@ -5,7 +5,7 @@
  */
 
 paginaApp([ APP_OBIETTIVO , APP_PRESIDENTE , APP_SOCI ]);
-echo "1";die;
+
 controllaParametri(array('idTitolo'), 'presidente.titoli&err');
 
 $f= Titolo::id($_POST['idTitolo']);

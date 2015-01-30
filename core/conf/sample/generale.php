@@ -5,7 +5,7 @@
  */
 
 /* Modalità debug */
-$conf['debug']  =   false;
+$conf['debug']  =   true;
 
 $conf['versione']			= 1.1;
 $conf['nome']				= 'Gaia';

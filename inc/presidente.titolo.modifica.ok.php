@@ -5,7 +5,7 @@
  */
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
-echo "2";die;
+
 $parametri = array('t', 'v');
 controllaParametri($parametri, 'presidente.titoli&err');
 
