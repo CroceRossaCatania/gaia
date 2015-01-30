@@ -11,6 +11,8 @@ class DonazionePersonale extends Entita {
         $_t     = 'donazioni_personali',
         $_dt    = null;
     
+    use EntitaCache;
+    
     public function confermato() {
         return (bool) $this->tConferma;
     }
