@@ -3,7 +3,7 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
-print_r($_REQUEST);die;
+print_r($_POST);exit;
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $parametri = array('idDonazione', 'id');
