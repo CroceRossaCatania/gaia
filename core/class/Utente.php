@@ -805,11 +805,11 @@ class Utente extends Persona {
             return Partecipazione::filtra([
                 ['volontario',  $this->id],
                 ['stato',       $stato]
-            ], 'timestamp DESC');
+            ], 'id DESC');
         } else {
             return Partecipazione::filtra([
                 ['volontario',  $this->id]
-            ], 'timestamp DESC');
+            ], 'id DESC');
         }
     }
 
@@ -1190,12 +1190,11 @@ class Utente extends Persona {
     }
     
     public function giovane() {
-        $u = time()-GIOVANI;
-        if($u <=  $this->dataNascita){
+        if( $this->eta() <= GIOVANI ){
             return true;
-            }else{
-                return false;
-            }
+        }else{
+            return false;
+        }
     }
     
     public function gruppiDiCompetenza( $app = [ APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO ] ) {
@@ -1357,21 +1356,10 @@ class Utente extends Persona {
      * @return età utente
      */
     public function eta(){
-        $now = time();
-        $timestamp = $this->dataNascita;
-        
-        $yearDiff   = date("Y", $now) - date("Y", $timestamp);
-        $monthDiff  = date("m", $now) - date("m", $timestamp);
-        $dayDiff    = date("d", $now) - date("d", $timestamp);
-     
-        if ($monthDiff < 0)
-            $yearDiff--;
-        elseif (($monthDiff == 0) && ($dayDiff < 0))
-            $yearDiff--;
-     
-        $result = intval($yearDiff);
-     
-        return $result;
+        $ora = new DateTime();
+        $tim = DT::daTimestamp($this->dataNascita);
+        $dif = $ora->diff($tim);
+        return (int) $dif->y;
     }
 
     /**

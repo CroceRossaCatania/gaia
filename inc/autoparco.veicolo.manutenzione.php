@@ -45,11 +45,16 @@ proteggiVeicoli($veicolo, [APP_AUTOPARCO, APP_PRESIDENTE]);
             <span class="add-on"><i class="icon-search"></i></span>
             <input autofocus required id="cercaUtente" placeholder="Cerca Manutenzione..." type="text">
         </div>
-        <?php if ( $veicolo->stato == VEI_ATTIVO ){ ?>
-            <a class="btn btn-success" href="?p=autoparco.veicolo.manutenzione.nuovo&id=<?= $veicolo; ?>">
-                <i class="icon-plus"></i> Aggiungi Manutenzione
+        <div class="btn-group">
+            <a class="btn btn-primary" href="?p=autoparco.veicolo.manutenzioni.excel&id=<?= $veicolo; ?>">
+                <i class="icon-plus"></i> Scarica Excel Manutenzioni
             </a>
-        <?php } ?>
+            <?php if ( $veicolo->stato == VEI_ATTIVO ){ ?>
+                <a class="btn btn-success" href="?p=autoparco.veicolo.manutenzione.nuovo&id=<?= $veicolo; ?>">
+                    <i class="icon-plus"></i> Aggiungi Manutenzione
+                </a>
+            <?php } ?>
+        </div>
     </div>  
     <br/>
 </div>

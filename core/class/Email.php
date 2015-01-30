@@ -75,10 +75,8 @@ class Email {
                     continue;
                 }
 
-                $d[] = [
-                    'id'        =>  (int) $k->id,
-                    'inviato'   =>  false
-                ];
+                $d[] = (int) $k->id;
+
             }
 
             if ( empty($d) ) 
@@ -102,9 +100,7 @@ class Email {
      */
     protected function _costruisci_mittente() {
         if ( $this->da ) {
-            return [
-                'id'    =>  (int)  ( (string) $this->da )
-            ];
+            return (int) ( (string) $this->da );
         } else {
             return false;
         }
@@ -161,16 +157,47 @@ class Email {
         }
 
         $x = new MEmail;
-        $x->timestamp   = (int) time();
-        $x->oggetto     = $this->oggetto;
-        $x->corpo       = $this->_costruisci_corpo();
-        $x->mittente    = $this->_costruisci_mittente();
-        $x->allegati    = $this->_costruisci_allegati();
-        $x->destinatari = $this->_costruisci_destinatari();
-        $x->invio       = [
-            'iniziato'  =>  false,
-            'terminato' =>  false
-        ];
+        $x->timestamp       = (int) time();
+        $x->oggetto         = $this->oggetto;
+        $x->corpo           = $this->_costruisci_corpo();
+        $x->mittente_id     = $this->_costruisci_mittente();
+        // invio.iniziato  <= null
+        // invio.terminato <= null
+
+        global $db;
+        $db->beginTransaction();    // Group transaction
+
+        $d = $this->_costruisci_destinatari();
+        if ( $d ) {
+            $q = $db->prepare("
+                INSERT INTO email_destinatari
+                    (email, dest, ok)
+                VALUES
+                    (:email, :dest, :ok)");
+            $q->bindParam(':email', $x->id);
+            $q->bindValue(':ok',    false,      PDO::PARAM_INT);
+            foreach ( $d as $_d ) {
+                $q->bindValue(':dest', $_d, PDO::PARAM_INT);
+                $q->execute();
+            }
+
+        }
+
+        $a = $this->_costruisci_allegati();
+        $q = $db->prepare("
+            INSERT INTO email_allegati 
+                (email, allegato_id, allegato_nome)
+            VALUES
+                (:email, :aid, :anome)");
+        $q->bindParam(':email', $x->id);
+        foreach ( $a as $_a ) {
+            $q->bindValue(':aid', $_a['id'], PDO::PARAM_INT);
+            $q->bindValue(':anome', $_a['nome']);
+            $q->execute();
+        }
+
+        $db->commit();          // Commit the transaction
+
         return $x;
 
     }
