@@ -301,6 +301,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                             <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
                                             <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li> 
                                             <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
+											<li><a href="?p=admin.donazioni"><i class="icon-beaker"></i> Donazioni</a></li>
+											<li><a href="?p=admin.donazioni.sedi"><i class="icon-road"></i> Donazioni sedi</a></li>
                                             <li><a href="?p=admin.limbo"><i class="icon-meh"></i> Limbo</a></li> 
                                             <li><a href="?p=admin.aspiranti"><i class="icon-meh"></i> Aspiranti</a></li> 
                                             <li><a href="?p=admin.double"><i class="icon-superscript"></i> Double</a></li>
