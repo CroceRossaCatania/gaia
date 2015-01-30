@@ -6,14 +6,14 @@
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
-$parametri = array('inputVolontario', 'datainizio', 'datafine', 'inputMotivo', 'protNum', 'protData', 'inputTipo');
+$parametri = array('inputVolontario', 'dataInizio', 'dataFine', 'inputMotivo', 'protNum', 'protData', 'inputTipo');
 controllaParametri($parametri, 'us.dash&err');
 
-if ( DT::controlloData($_POST['datainizio']) && 
-     DT::controlloData($_POST['datafine']) &&
+if ( DT::controlloData($_POST['dataInizio']) && 
+     DT::controlloData($_POST['dataFine']) &&
      DT::controlloData($_POST['protData']) ) {
- $inizio   = DateTime::createFromFormat('d/m/Y', $_POST['datainizio']);
- $fine     = DateTime::createFromFormat('d/m/Y', $_POST['datafine']);
+ $inizio   = DateTime::createFromFormat('d/m/Y', $_POST['dataInizio']);
+ $fine     = DateTime::createFromFormat('d/m/Y', $_POST['dataFine']);
  $protData = DateTime::createFromFormat('d/m/Y', $_POST['protData']);
 
 }else{
@@ -39,7 +39,7 @@ $p->pConferma    = $me;
 $p->tConferma    = time();
 $p->protNumero   = $_POST['protNum']; 
 
-if ( $_POST['datainizio'] ) {
+if ( $_POST['dataInizio'] ) {
     if ( $inizio ) {
         $inizio = @$inizio->getTimestamp();
         $p->inizio = $inizio;
@@ -48,7 +48,7 @@ if ( $_POST['datainizio'] ) {
     }
 }
 
-if ( $_POST['datafine'] ) {
+if ( $_POST['dataFine'] ) {
     if ( $fine ) {
         $fine = @$fine->getTimestamp();
         $p->fine = $fine;
