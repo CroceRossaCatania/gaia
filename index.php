@@ -54,6 +54,7 @@ $_carica_selettore_comitato     = false;
 
 /* Pagina da visualizzare */
 $p = $_GET['p'];
+echo $p;die;
 if (!$p) { $p = 'home'; }
 $_f = "./inc/$p.php";
 if ( !file_exists($_f) ) {
