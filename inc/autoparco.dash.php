@@ -94,7 +94,7 @@ $numAttivi = $numVeicoli - $numFermotecnico;
                 <?php if ( $manutenzioni ) { ?>
                     <div class="alert alert-danger">
                         <i class="icon-exclamation"></i> <strong>Attenzione mancata manutenzione</strong>.
-                        <p>I seguenti veicoli non vengono manutentati da un anno: </p>
+                        <p>I seguenti veicoli non vengono manutentati da un anno o più: </p>
                         <?php foreach ( $manutenzioni as $manutenzione ){
                             echo "<b>", $manutenzione->targa, "</b> - Ultima manutenzione: ", date('d/m/Y', $manutenzione->ultimaManutenzione()), "<br/>";
                         } ?>
