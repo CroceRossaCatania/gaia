@@ -570,9 +570,9 @@ abstract class Entita {
      */
     protected static function _incrementaVersione() {
         global $cache;
-        //if ( !static::$_cacheable ) {
+        if ( !static::$_cacheable ) {
             return -1;
-        //}
+        }
         static::$_versione = (int) $cache->incr(
             chiave('versione_cache:' . static::$_t)
         );
