@@ -859,7 +859,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
   </div>
 
   <div id="step2Donazione" style="display: none;">
-    <form action='?p=presidente.donazione.nuovo&id=<?php echo $u->id; ?>' method="POST">
+    <form action="?p=presidente.donazione.nuovo&id=<?php echo $u->id; ?>" method="POST">
       <input type="hidden" name="idDonazione" id="idDonazione" />
       <div class="alert alert-block alert-success">
         <div class="row-fluid">
