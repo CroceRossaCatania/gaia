@@ -1,5 +1,5 @@
 <?php
-print_r("ci arriva?");die;
+
 /*
  * ©2013 Croce Rossa Italiana
  */
