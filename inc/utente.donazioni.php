@@ -83,7 +83,7 @@ paginaPrivata();
 <select id="luogo" name="luogo" class="span12" required>
 	<option selected="selected" disabled=""></option>
 	<?php
-	foreach(DonazioneSede::filtra([['tipo', $d]]) as $value){
+	foreach(DonazioneSede::filtra([['tipo', $d]],'provincia') as $value){
 		echo "<option value=\"".$value."\">".$value->provincia.' - '.$value->nome."</option>";
 	}
 ?>

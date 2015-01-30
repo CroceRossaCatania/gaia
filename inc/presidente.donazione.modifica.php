@@ -38,7 +38,7 @@ $r = $tp->donazione()->tipo;
 <select id="luogo" name="luogo" class="span12" required>
 	<option selected="selected" disabled=""></option>
 	<?php
-	foreach(DonazioneSede::filtra([['tipo', $r]]) as $value){
+	foreach(DonazioneSede::filtra([['tipo', $r]].'provincia') as $value){
 		echo "<option value=\"".$value."\"";
 		if($tp->luogo == $value->id) echo " selected";
 		echo ">".$value->provincia.' - '.$value->nome."</option>";

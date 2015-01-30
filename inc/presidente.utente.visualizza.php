@@ -878,7 +878,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 							<select id="ospedale" name="ospedale" class="span12" required>
 								<option selected="selected" disabled=""></option>
 								<?php
-								foreach(DonazioneSede::elenco() as $value){
+								foreach(DonazioneSede::elenco('provincia ASC') as $value){
 									echo "<option value=\"".$value."\">".$value->provincia.' - '.$value->nome."</option>";
 								}
 								?>
