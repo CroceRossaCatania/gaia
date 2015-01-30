@@ -207,7 +207,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
               <div class="span5 allinea-sinistra"> 
                 <br/>
                 <?php 
-                if($foto && !$foto->approvata()) { ?>
+                if( $foto && !$foto->approvata() && $u->modificabileDa($me) ) { ?>
                   <div class="alert alert-warning">
                     <p><i class="icon-spinner"></i> Fototessera in attesa di approvazione </p>
                   </div>
