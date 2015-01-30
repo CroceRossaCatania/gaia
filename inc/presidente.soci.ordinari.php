@@ -60,6 +60,10 @@ $admin = (bool) $me->admin();
                 <a class="btn btn-small btn-info {iscriviBase}" href="?p=formazione.corsibase.iscrizione.ordinario&id={id}" title="Iscrivi a corso base">
                     <i class="icon-flag"></i> Iscrivi a corso
                 </a>
+                <a onClick="return confirm('Vuoi veramente far diventare un volontario questo utente?');" 
+                  href="?p=presidente.utente.volontarizza&id={id}" class="btn btn-warning btn-small">
+                  <i class="icon-hand-up"></i> Volontarizza
+                </a>
                 <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&ordinario&id={id}" title="Dimetti Volontario">
                     <i class="icon-ban-circle"></i> Dimetti
                 </a>
