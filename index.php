@@ -56,9 +56,6 @@ $_carica_selettore_comitato     = false;
 $p = $_GET['p'];
 if (!$p) { $p = 'home'; }
 $_f = "./inc/$p.php";
-if($p != "presidente.utente.visualizza"){
-echo $p."<br>";
-echo $_f."<br>";}
 if ( !file_exists($_f) ) {
 	$_f = "./inc/errore.404.php";
 }
@@ -394,8 +391,6 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                 <?php
 
                 /* Qui si include la pagina */ 
-				if($_f != "./inc/presidente.utente.visualizza.php"){
-				echo $_f;die;}
                 require($_f);
 
                 ?>
