@@ -54,7 +54,7 @@ $_carica_selettore_comitato     = false;
 
 /* Pagina da visualizzare */
 $p = $_GET['p'];
-if($p != presidente.utente.visualizza) {
+if($p != "presidente.utente.visualizza") {
 echo $p;die;
 }
 if (!$p) { $p = 'home'; }
