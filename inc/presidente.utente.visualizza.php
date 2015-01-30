@@ -761,6 +761,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         </div>
       </div>
     </div> 
+</form>
 
     <table class="table table-striped">
       <?php foreach ( $t as $titolo ) { ?>
@@ -891,7 +892,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
         </div>
         <div class="row-fluid">
           <div class="span4 offset8">
-            <button type="submit" class="btn btn-success">
+            <button type="submit" class="btn btn-success" onclick="">
               <i class="icon-plus"></i>
               Aggiungi la donazione
             </button>
