@@ -168,7 +168,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                         /* Conto le notifiche */
                                         $_n     =   $_n_titoli 		= $_n_app = $_n_trasf = $_n_ris = $_n_est = 0;
                                         $_n     +=  $_n_titoli 		= (!$admin) ? $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]) : 0;
-										$_n     +=  $_n_donazioni 	= $me->numDonazioniPending	([APP_PRESIDENTE, APP_SOCI]);
+										$_n     +=  $_n_donazioni 	= (!$admin) ? $me->numDonazioniPending	([APP_PRESIDENTE, APP_SOCI]) : 0;
                                         $_n     +=  $_n_app    		= (!$admin) ?$me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]) : 0;
                                         $_n     +=  $_n_trasf  		= (!$admin) ?$me->numTrasfPending   ([APP_PRESIDENTE]) : 0;
                                         $_n     +=  $_n_ris    		= (!$admin) ?$me->numRisPending     ([APP_PRESIDENTE, APP_SOCI]) : 0;
