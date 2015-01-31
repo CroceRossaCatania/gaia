@@ -4,7 +4,7 @@
  * ©2014 Croce Rossa Italiana
  */
 
-/* Modalità manutenzione */l
+/* Modalità manutenzione */
 if (file_exists('upload/setup/manutenzione')) {
     header('HTTP/1.1 307 Temporary Redirect');
     header('Location: docs/manutenzione.html');
