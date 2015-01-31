@@ -4,7 +4,7 @@
  * ©2014 Croce Rossa Italiana
  */
 
-/* Modalità manutenzione */
+/* Modalità manutenzione */l
 if (file_exists('upload/setup/manutenzione')) {
     header('HTTP/1.1 307 Temporary Redirect');
     header('Location: docs/manutenzione.html');
@@ -472,7 +472,11 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                     <!-- DEBUG. Q: <?php echo $db->numQuery; ?>; M: <?php echo ceil(memory_get_peak_usage()/1024); ?> kB; T: <?php echo round(microtime(true)-$_stopwatch, 6); ?>s -->
                     
                     <?php if(!$conf['debug']) { ?>
-    					<!-- CHAT SUPPORTO --><div class="hidden-phone" id="swifttagcontainerusy8sk1zn9"><div id="proactivechatcontainerusy8sk1zn9"></div><div style="display: inline;" id="swifttagdatacontainerusy8sk1zn9"></div></div> <script type="text/javascript">var swiftscriptelemusy8sk1zn9=document.createElement("script");swiftscriptelemusy8sk1zn9.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "usy8sk1zn9"; var swifttagurlusy8sk1zn9="https://helpdesk.cri.it/visitor/index.php?/Default/LiveChat/HTML/SiteBadge/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPXVzeThzazF6bjkmdmVyc2lvbj00LjY2LjImcHJvZHVjdD1mdXNpb24mZmlsdGVyZGVwYXJ0bWVudGlkPTUwJnJvdXRlY2hhdHNraWxsaWQ9Myw0JnZhcmlhYmxlWzBdWzBdPSZ2YXJpYWJsZVswXVsxXT0mYWxlcnRbMF1bMF09JmFsZXJ0WzBdWzFdPSZzaXRlYmFkZ2Vjb2xvcj13aGl0ZSZiYWRnZWxhbmd1YWdlPWVuJmJhZGdldGV4dD1saXZlY2hhdCZvbmxpbmVjb2xvcj0jMWRjZjFkJm9ubGluZWNvbG9yaG92ZXI9IzYxZGU2MSZvbmxpbmVjb2xvcmJvcmRlcj0jMTQ5MTE0Jm9mZmxpbmVjb2xvcj0jZmYwMDAwJm9mZmxpbmVjb2xvcmhvdmVyPSNmZjRkNGQmb2ZmbGluZWNvbG9yYm9yZGVyPSNiMzAwMDAmYXdheWNvbG9yPSNmNWQ5MjMmYXdheWNvbG9yaG92ZXI9I2Y5ZTU2NiZhd2F5Y29sb3Jib3JkZXI9I2FjOTgxOSZiYWNrc2hvcnRseWNvbG9yPSNlYjk2MDMmYmFja3Nob3J0bHljb2xvcmhvdmVyPSNmMmI2NGYmYmFja3Nob3J0bHljb2xvcmJvcmRlcj0jYTU2OTAyJmN1c3RvbW9ubGluZT0mY3VzdG9tb2ZmbGluZT0mY3VzdG9tYXdheT0mY3VzdG9tYmFja3Nob3J0bHk9CjRkZDc2OTgyZWQ2NzBmMGM4NjkyYjNlZDQ4M2Y3MmRhNDA5MjEyYWQ=";setTimeout("swiftscriptelemusy8sk1zn9.src=swifttagurlusy8sk1zn9;document.getElementById('swifttagcontainerusy8sk1zn9').appendChild(swiftscriptelemusy8sk1zn9);",1);</script><!-- FINE CODICE TAG - NON MODIFICARE! -->
+    					<!-- CHAT SUPPORTO -->
+    					
+    					<div id="swifttagcontainer7nxkd9vwdw"><div id="proactivechatcontainer7nxkd9vwdw"></div><div style="display: inline;" id="swifttagdatacontainer7nxkd9vwdw"></div></div> <script type="text/javascript">var swiftscriptelem7nxkd9vwdw=document.createElement("script");swiftscriptelem7nxkd9vwdw.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "7nxkd9vwdw"; var swifttagurl7nxkd9vwdw="https://helpdesk.cri.it/visitor/index.php?/Gaia/LiveChat/HTML/SiteBadge/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPTdueGtkOXZ3ZHcmdmVyc2lvbj00LjY4LjEmcHJvZHVjdD1mdXNpb24mZmlsdGVyZGVwYXJ0bWVudGlkPTUwJnJvdXRlY2hhdHNraWxsaWQ9Myw0JnNpdGViYWRnZWNvbG9yPXdoaXRlJmJhZGdlbGFuZ3VhZ2U9ZW4mYmFkZ2V0ZXh0PWxpdmVoZWxwJm9ubGluZWNvbG9yPSMxYWEzMWEmb25saW5lY29sb3Job3Zlcj0jNWZiZjVmJm9ubGluZWNvbG9yYm9yZGVyPSMxMjcyMTImb2ZmbGluZWNvbG9yPSNmZjAwMDAmb2ZmbGluZWNvbG9yaG92ZXI9I2ZmNGQ0ZCZvZmZsaW5lY29sb3Jib3JkZXI9I2IzMDAwMCZhd2F5Y29sb3I9I2VlZmYwMCZhd2F5Y29sb3Job3Zlcj0jZjRmZjRkJmF3YXljb2xvcmJvcmRlcj0jYTdiMzAwJmJhY2tzaG9ydGx5Y29sb3I9I2ZmNzcwMCZiYWNrc2hvcnRseWNvbG9yaG92ZXI9I2ZmYTA0ZCZiYWNrc2hvcnRseWNvbG9yYm9yZGVyPSNiMzUzMDAmY3VzdG9tb25saW5lPSZjdXN0b21vZmZsaW5lPSZjdXN0b21hd2F5PSZjdXN0b21iYWNrc2hvcnRseT0KODMxODAxYmRmNWY0N2VmYzQ4YjFiNzZlMjhlYWFmNmRhOGVlNWEwNw==";setTimeout("swiftscriptelem7nxkd9vwdw.src=swifttagurl7nxkd9vwdw;document.getElementById('swifttagcontainer7nxkd9vwdw').appendChild(swiftscriptelem7nxkd9vwdw);",1);</script>
+    					
+    					<!-- FINE CODICE TAG - NON MODIFICARE! -->
 
 		                <!-- Google Analytics -->
 		                <script>
