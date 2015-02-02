@@ -161,16 +161,18 @@ class Email {
         }
 
         $x = new MEmail;
-        $x->timestamp   = (int) time();
-        $x->oggetto     = $this->oggetto;
-        $x->corpo       = $this->_costruisci_corpo();
-        $x->mittente    = $this->_costruisci_mittente();
-        $x->allegati    = $this->_costruisci_allegati();
-        $x->destinatari = $this->_costruisci_destinatari();
-        $x->invio       = [
-            'iniziato'  =>  false,
-            'terminato' =>  false
-        ];
+        $x->update([
+            'timestamp'   => (int) time(),
+            'oggetto'     => $this->oggetto,
+            'corpo'       => $this->_costruisci_corpo(),
+            'mittente'    => $this->_costruisci_mittente(),
+            'allegati'    => $this->_costruisci_allegati(),
+            'destinatari' => $this->_costruisci_destinatari(),
+            'invio'       => [
+                'iniziato'  =>  false,
+                'terminato' =>  false
+            ]
+        ]);
         return $x;
 
     }

@@ -354,6 +354,20 @@ $(document).ready( function() {
             </div>
         </div>
         <hr />
+        <?php if ( $anonimo ) { ?>
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <center><h2>Vuoi entrare in Croce Rossa?</h2></center>
+                    <div class="well">
+                        <a href="?p=riconoscimento&tipo=aspirante" class="btn btn-large btn-primary btn-block">
+                            <i class="icon-hand-right"></i>
+                            Iscriviti al corso base
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
 
         <?php if ( !$corso->concluso() && $corso->modificabileDa($me) ) { ?>
 
@@ -403,13 +417,18 @@ $(document).ready( function() {
                             <?= $conf['partecipazioneBase'][$p->stato]; ?>
                         </td>
                         <td width="15%">
-                            <a href="<?= "?p=profilo.controllo&id={$iscritto->id}" ?>" class="btn" target="_new" title="Dettagli">
-                                <i class="icon-eye-open"></i> Dettagli
-                            </a>
+                            <div class="btn-group btn-group-vertical">
+                                <a href="<?= "?p=profilo.controllo&id={$iscritto->id}" ?>" class="btn" target="_new" title="Dettagli">
+                                    <i class="icon-eye-open"></i> Dettagli
+                                </a>
+                                <a href="<?= "?p=formazione.corsibase.utente.assenze&corso={$corso}&id={$iscritto->id}" ?>" class="btn" target="_new" title="Dettagli">
+                                    <i class="icon-calendar"></i> Assenze
+                                </a>
+                            </div>
                             <?php if ($me && $me->admin()) { ?>
                                 <form action="?p=formazione.corsibase.disiscrivi.ok" method="POST" >
                                     <input type="hidden" name="iscritto" value="<?= $p ?>" class="btn">
-                                    <button type="submit" class="btn btn-danger" title="delete">
+                                    <button type="submit" class="btn btn-danger btn-small" title="delete">
                                         <i class="icon-trash"></i>
                                     </button>
                                 </form>
@@ -570,5 +589,4 @@ $(document).ready( function() {
         <?php } ?>
     </div>
 </div>
-
 

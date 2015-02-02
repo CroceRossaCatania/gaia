@@ -5,77 +5,39 @@
  */
 
 /*
- * Libreria SweetCaptcha e ReCaptcha
- * /
-
-/*
- * Genera e mostra il captcha all'interno di un FORM
+ * Libreria RECAPTCHA
  */
-function recaptcha_mostra() {
-    global $conf;
-    if ( !isset($conf['recaptcha']) )
-        die('Errore: Configurazione captcha mancante.');
-    echo <<<RECAPTCHA
-         <script type="text/javascript"
-                   src="https://www.google.com/recaptcha/api/challenge?k={$conf['recaptcha']['public_key']}">
-                </script>
-                <noscript>
-                   <iframe src="https://www.google.com/recaptcha/api/noscript?k={$conf['recaptcha']['public_key']}"
-                       height="300" width="500" frameborder="0"></iframe><br>
-                   <textarea name="recaptcha_challenge_field" rows="3" cols="40">
-                   </textarea> 
-                   <input type="hidden" name="recaptcha_response_field"
-                       value="manual_challenge">
-                </noscript>
-RECAPTCHA;
-    return;
-}
-
-/*
- * Controlla la validita' del form ricevuto via POST
- * @return bool Valido o meno
- */
-function recaptcha_controlla() {
-    global $conf;
-    if ( !isset($conf['recaptcha']) )
-        die('Errore: Configurazione captcha mancante.');
-    $result = http_post(
-        'http://www.google.com/recaptcha/api/verify',
-        [
-            'privatekey'    =>  $conf['recaptcha']['private_key'],
-            'remoteip'      =>  $_SERVER['REMOTE_ADDR'],
-            'challenge'     =>  $_POST['recaptcha_challenge_field'],
-            'response'      =>  $_POST['recaptcha_response_field'],
-        ]
-    );
-    $result = explode("\n", $result);
-    if ( $result[0] == 'true' ) {
-        return true;
-    }
-    return false;
-}
-
 
 function captcha_mostra() {
-    global $sweetcaptcha, $conf;
+    global $conf;
     if ($conf['debug']) {
         echo '<p>Captcha disattivo in modalita\' debug.';
         return true;
     }
-    echo $sweetcaptcha->get_html() ;
+    echo "<div class='g-recaptcha' data-sitekey='{$conf['recaptcha']['public_key']}' data-callback='cc'></div>";
 }
 
-function captcha_controlla($sckey, $scvalue) {
-    global $sweetcaptcha, $conf;
+function captcha_controlla($risposta = false) {
+    global $conf;
+
+    if ( !$risposta ) {
+        $risposta = $_REQUEST['g-recaptcha-response'];
+    }
 
     // In debug, ritorna sempre OK
     if ($conf['debug'])
         return true;
 
-    if (isset($sckey) 
-        and isset($scvalue) 
-        and $sweetcaptcha->check(array('sckey' => $sckey, 'scvalue' => $scvalue)) == "true") {
-        return true;
+    $key        = $conf['recaptcha']['private_key'];
+    $risposta   = urlencode($risposta);
+    $ip         = urlencode($_SERVER['REMOTE_ADDR']);
+    $url = "https://www.google.com/recaptcha/api/siteverify?secret={$key}&response={$risposta}&remoteip={$ip}";
+
+    $r = file_get_contents($url);
+    if ( !$r ) {
+        return false;
     }
-    return false;
+
+    $r = json_decode($r);
+    return $r->success;
 }

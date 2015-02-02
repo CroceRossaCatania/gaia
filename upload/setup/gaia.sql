@@ -405,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `file` (
 CREATE TABLE IF NOT EXISTS `fototessera` (
   `id` int(11) NOT NULL,
   `utente` varchar(64) DEFAULT NULL,
-  `timestamp` varchar(8) DEFAULT NULL,
+  `timestamp` varchar(16) DEFAULT NULL,
   `stato` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `utente` (`utente`)
