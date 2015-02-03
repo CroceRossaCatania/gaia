@@ -625,17 +625,17 @@ class Comitato extends GeoPolitica {
             WHERE   appartenenza.comitato = :comitato
             AND     anagrafica.id = appartenenza.volontario 
             AND     appartenenza.stato IN ({$stato})
-            AND     appartenenza.inizio BETWEEN :minimo AND :massimo
+            AND     appartenenza.inizio <= :massimo
             AND (
                         appartenenza.fine IS NULL
                     OR  appartenenza.fine = 0
-                    OR  appartenenza.fine BETWEEN :minimo AND :massimo
+                    OR  appartenenza.fine > :minimo
             )
         ");
 
-        $q->bindParam(':comitato', $this->id);
-        $q->bindParam(':minimo',   $minimo);
-        $q->bindParam(':massimo',  $massimo);
+        $q->bindParam(':comitato', $this->id, PDO::PARAM_INT);
+        $q->bindParam(':minimo',   $minimo, PDO::PARAM_INT);
+        $q->bindParam(':massimo',  $massimo, PDO::PARAM_INT);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
@@ -653,10 +653,12 @@ class Comitato extends GeoPolitica {
     public function quoteSi($anno = false, $stato = MEMBRO_VOLONTARIO) {
         $r = [];
         $soci = $this->potenzialiSoci($anno, $stato);
+        echo count($soci) . " potenziali soci\n";
         foreach ( $soci as $p ) {
-            if ( $p->socioAttivo() )
+            if ( $p->socioAttivo($anno) )
                 $r[] = $p;
         }
+        echo "di questi " . count($r) . " si";
         return $r;
     }
     
@@ -669,7 +671,7 @@ class Comitato extends GeoPolitica {
     public function quoteNo($anno = false, $stato = MEMBRO_VOLONTARIO) {
         $r = [];
         foreach ( $this->potenzialiSoci($anno, $stato) as $p ) {
-            if ( $p->socioNonAttivo() )
+            if ( $p->socioNonAttivo($anno) )
                 $r[] = $p;
         }
         return $r;
