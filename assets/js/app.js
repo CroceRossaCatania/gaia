@@ -47,6 +47,8 @@ $(window).ready( function () {
     _render_modali();
     _render_like();
 
+    disabilita_campi_captcha();
+
     $('.automodal').modal({ keyboard: false, backdrop: 'static' });
     $('.alCambioSalva').change( function () {
         $(this).parents('form').submit();
@@ -88,6 +90,25 @@ $(document).ready( function() {
   });
  
 });
+
+function disabilita_campi_captcha() {
+    $("[data-aspetta-captcha]").each(function(i,e){
+        $(e).addClass('disabled');
+        $(e).attr('disabled', 'disabled');
+    });
+}
+
+/**
+ * Questa funzione viene chiamata non appena il captcha
+ * viene completato. tutti gli oggetti con data-aspetta-captcha
+ * vengono abilitati 
+ */
+function cc() {
+    $("[data-aspetta-captcha]").each(function(i,e){
+        $(e).removeClass('disabled');
+        $(e).removeAttr('disabled');
+    });
+}
 
 /* Test di funzionamento in HTML5 e caricamento dei polyfill */
 Modernizr.load([

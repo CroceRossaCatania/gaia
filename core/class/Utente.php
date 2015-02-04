@@ -508,6 +508,10 @@ class Utente extends Persona {
         foreach ( PartecipazioneBase::filtra([['volontario', $this]]) as $g) {
             $g->cancella();
         }
+		// 15. Provvedimenti
+        foreach ( $this->storicoProvvedimenti() as $g ) {
+            $g->cancella();
+        }
         parent::cancella();
     }
     
@@ -801,11 +805,11 @@ class Utente extends Persona {
             return Partecipazione::filtra([
                 ['volontario',  $this->id],
                 ['stato',       $stato]
-            ], 'timestamp DESC');
+            ], 'id DESC');
         } else {
             return Partecipazione::filtra([
                 ['volontario',  $this->id]
-            ], 'timestamp DESC');
+            ], 'id DESC');
         }
     }
 
@@ -2085,21 +2089,159 @@ class Utente extends Persona {
     }
 
     /**
-     * Invalida Tesserino del Volontario, se esistente
-     * @return bool     Il true se invalidato, false altrimenti
+     * Dimette un volontario
+     * @param $motivo, motivazione di dimissione
+     * @param $info default NULL, informazioni aggiuntive sulla dimissione
      */
-    public function invalidaTesserino($motivo) {
-        $r = $this->tesserinoRichiesta();
-        if ( $r && $r->haCodice() ) {
-            $tesserino = TesserinoRichiesta::id($r);
-            $tesserino->motivo = $motivo;
-            $tesserino->stato  = INVALIDATO;
-            return true;
+    public function dimettiVolontario($motivo, $info=NULL, $chi) {
+        $quando = time();
+        $v = $this->volontario();
+        $attuale = $v->appartenenzaAttuale();
+        $comitato = $attuale->comitato();
+        $motivazione = $conf['dimissioni'][$motivo];
+
+        /* Avviso il volontario */
+        $m = new Email('dimissionevolontario', 'Dimissione Volontario: ' . $v->nomeCompleto());
+        $m->da      = $chi;
+        $m->a       = $v;
+        $m->_NOME   = $v->nome;
+        $m->_MOTIVO = $motivazione;
+        $m->_INFO   = $info;
+        $m->invia();
+
+        /* Creo la dimissione */                
+        $d = new Dimissione();
+        $d->volontario      = $v->id;
+        $d->appartenenza    = $attuale;
+        $d->comitato        = $comitato;
+        $d->motivo = $motivo;
+        $d->info = $info;
+        $d->tConferma = time();
+        $d->pConferma = $chi;
+
+        /* Evitiamo di lasciare compiti a chi non è più in CRI */
+        $f = Area::filtra([
+          ['responsabile', $v]
+          ]);
+        foreach($f as $_f){
+            $_f->dimettiReferente();
+        }
+
+        $f = Attivita::filtra([
+          ['referente', $v]
+          ]);
+        foreach($f as $_f){
+            $_f->referente = $comitato->unPresidente();
+        }
+
+        $f = Autorizzazione::filtra([
+          ['volontario', $v]
+          ]);
+        foreach($f as $_f){
+            $_f->volontario = $comitato->unPresidente();
+        }
+
+        $f = Gruppo::filtra([
+          ['referente', $v]
+          ]);
+        foreach($f as $_f){
+            $_f->referente = $comitato->unPresidente();
+        }
+
+        $f = AppartenenzaGruppo::filtra([
+          ['volontario', $v]
+          ]);
+        foreach ($f as $_f) {
+            $_f->cancella();
+        }
+
+        $f = Reperibilita::filtra([
+          ['volontario', $v]
+          ]);
+        foreach ($f as $_f) {
+            $_f->fine = time();
+        }
+
+        $f = Estensione::filtra([
+          ['volontario', $v]
+          ]);
+        foreach ($f as $_f) {
+          if($_f->stato == EST_OK || $_f->stato == EST_AUTO){
+            $_f->termina();
+          }elseif($_f->stato == EST_INCORSO){
+            $_f->nega($motivazione);
+          }
+        }
+
+        $f = Riserva::filtra([
+          ['volontario', $v]
+          ]);
+        foreach ($f as $_f) {
+          if($_f->stato == RISERVA_OK || $_f->stato == RISERVA_AUTO){
+            $_f->termina();
+          }elseif($_f->stato == RISERVA_INCORSO){
+            $_f->nega($motivazione);
+          }
+        }
+
+        $f = Trasferimento::filtra([
+          ['volontario', $v]
+          ]);
+        foreach ($f as $_f) {
+          if($_f->stato == TRASF_INCORSO){
+            $_f->nega($motivazione);
+          }
+        }
+
+        $p = Partecipazione::filtra([
+          ['volontario', $v]
+        ]);
+        foreach ($p as $_p) {
+          if ( $_p->turno()->futuro() && $_p->turno()->attivita()->comitato() == $c->id) {
+            $_p->cancella();
+          }
+        }
+
+        $f = Delegato::filtra([
+          ['volontario', $v]
+          ]);
+        foreach ($f as $_f) {
+          $_f->fine = $fine;
+        }
+
+        /* Chiudo l'appartenenza e declasso a persona */
+        $attuale->fine = time();
+        $attuale->stato = MEMBRO_DIMESSO;
+        $v->stato = PERSONA;
+        $v->admin = null;
+        return;
+    }
+
+	/**
+     * Elenca storico dei provvedimenti di un volontario
+     * @return Provvedimento|array
+     */
+    public function storicoProvvedimenti() {
+        return Provvedimento::filtra([
+            ['volontario', $this->id]
+        ], 'INIZIO DESC');
+    }
+
+
+    /**
+     * Se sotto provvedimento
+     * @return bool true o false
+     */
+    public function provvedimento() {
+        $provvedimenti = $this->storicoProvvedimenti();
+        foreach ( $provvedimenti as $provvedimento ){
+            if ( $provvedimento->attuale()){
+                return $provvedimento;
+            }
         }
         return false;
     }
-
-    /**
+	/**
      * Ritorna il dominio di competenza massima nei confronti di un'attivita'
      *
      * es. 1: se sono delegato area provinciale e l'attivita' e' locale, ottengo comitato locale
@@ -2148,6 +2290,6 @@ class Utente extends Persona {
         // Il risultato e' il dominio comune tra la visibilita' dell'attivita'
         // ed il mio potere piu' grande...
         return $attivita->visibilita()->dominioComune($massimo);
-    }
+    } 
 
 }

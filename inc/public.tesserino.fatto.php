@@ -4,7 +4,7 @@
  * ©2014 Croce Rossa Italiana
  */
 
-if ( (!$me || !$me->admin()) && !captcha_controlla($_POST['sckey'], $_POST['scvalue']) ) {
+if ( (!$me || !$me->admin()) && !captcha_controlla() ) {
     redirect('validaTesserino&captcha');
 }
 

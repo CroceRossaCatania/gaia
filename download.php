@@ -21,7 +21,9 @@ if ( $f->mime )
 header("Content-Description: File Transfer");
 header("X-Debug: " . str_replace("\n", "-", print_r($f, true)));
 
-if ( !isset($_GET['anteprima']) )
-	header("Content-Disposition: attachment; filename=\"{$f->nome}\"");
+if ( !isset($_GET['anteprima']) ) {
+	$filename = nomefile($f->nome);
+	header("Content-Disposition: attachment; filename=\"{$filename}\"");
+}
 
 readfile($f->percorso());

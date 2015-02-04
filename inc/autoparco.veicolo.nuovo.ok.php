@@ -53,7 +53,7 @@ if (!$libretto){
     $t->marca                   = $_POST['inputMarca'];
     $t->tipo                    = $_POST['inputTipo'];
     $t->massa                   = $_POST['inputMaxMassa'];
-    $immatricolazione           = @DateTime::createFromFormat('d/m/Y', $_POST['inputPrimaImmatricolazione']);
+    $immatricolazione           = @DateTime::createFromFormat('d/m/Y', $_POST['inputImmatricolazione']);
 	$immatricolazione           = @$immatricolazione->getTimestamp();
     $t->immatricolazione        = $immatricolazione;
     $t->categoria               = $_POST['inputCategoria'];

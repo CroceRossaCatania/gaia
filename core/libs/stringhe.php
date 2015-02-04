@@ -112,3 +112,15 @@ function generaStringaCasuale(  $caratteri = 10,
 function soldi($cifra) {
     return number_format($cifra, 2, ',', '.');
 }
+
+/**
+ * Formata una stringa come nome file
+ */
+function nomefile($stringa) {
+    $stringa = trim($stringa);
+    $stringa = str_replace("..", ".", $stringa);
+    $stringa = str_replace(":", "-", $stringa);
+    $stringa = str_replace("~", "-", $stringa);
+    $stringa = str_replace('"', '\"', $stringa);
+    return $stringa;
+}
