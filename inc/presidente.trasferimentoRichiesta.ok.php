@@ -27,6 +27,7 @@ $a->protNumero = $_POST['numprotocollo'];
 $protData = @DateTime::createFromFormat('d/m/Y', $_POST['dataprotocollo']);
 $protData = @$protData->getTimestamp();
 $a->protData = $protData;
+
 try{
 	$m = new Email('richiestaTrasferimentoprot', 'Richiesta trasferimento Protocollata: ' . $a->comitato()->nome);
 	$m->a = $a->volontario();

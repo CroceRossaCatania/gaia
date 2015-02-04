@@ -663,6 +663,9 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <a class="btn btn-small" target="_new" href="?p=presidente.utente.turni&id=<?php echo $u->id; ?>">
         <i class="icon-list"></i> Storico turni
       </a>
+      <a class="btn btn-small" target="_new" href="?p=presidente.utente.provvedimenti&id=<?php echo $u->id; ?>">
+        <i class="icon-legal"></i> Storico provvedimenti
+      </a>
     </div>
   </div>
 
