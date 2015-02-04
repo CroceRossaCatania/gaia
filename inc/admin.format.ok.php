@@ -31,7 +31,43 @@ if(isset($_POST['ordinario'])){
     $rigasuexcel = 0;
 
     while ( $riga = fgetcsv($file, 0, ';') ) {
+
         set_time_limit(0);
+
+        if (isset($_POST['trasferisci']) ) {
+            $codiceFiscale = maiuscolo($riga[0]);
+            echo('['.$rigasuexcel.']: '.$codiceFiscale);
+            $rigasuexcel++;
+
+            $v = Volontario::by('codiceFiscale', $codiceFiscale);
+            
+            if (!$v){
+                echo " Volontario non presente!<br/>";
+                continue;
+            }
+
+            echo " Trasferisco";
+            $app = $v->appartenenzaAttuale();
+
+            $comitato = Comitato::by('nome', $riga[1]);
+
+            if (!$app){
+                echo " Nessuna appartenenza attuale<br/>";
+                continue;
+            }
+
+            if (!$comitato){
+                echo " Comitato inesistente!<br/>";
+                continue;
+            }
+
+            $app->comitato = $comitato->id;
+            echo " Trasferimento effettuato <br/>";
+            $h++;
+            continue;
+            
+        }
+        
         /* Scarica il codice fiscale... */
         $codiceFiscale = maiuscolo($riga[4]);
         echo('['.$rigasuexcel.']: '.$codiceFiscale);
