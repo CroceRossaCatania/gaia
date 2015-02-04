@@ -28,6 +28,7 @@ proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
                 <thead>
                     <th>Stato</th>
                     <th>Comitato</th>
+                    <th>Tipo</th>
                     <th>Inizio</th>
                     <th>Fine</th>
                     <th>Prot. Num.</th>
@@ -47,6 +48,10 @@ proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
                         
                         <td>
                             <?= $prov->comitato()->nomeCompleto(); ?>
+                        </td>
+
+                        <td>
+                            <?= $conf['provvedimenti'][$prov->tipo]; ?>
                         </td>
                                 
                         <td>
