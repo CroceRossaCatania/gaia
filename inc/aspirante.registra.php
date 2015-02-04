@@ -1,5 +1,9 @@
 <?php
 
+/*
+* ©2015 Croce Rossa Italiana
+*/
+
 paginaPrivata();
 
 if ( $me->stato != ASPIRANTE || Aspirante::daVolontario($me) )

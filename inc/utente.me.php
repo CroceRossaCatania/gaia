@@ -6,12 +6,14 @@
 
 paginaPrivata(false);
 
-if ( $me->stato == ASPIRANTE )
+$consenso = $me->consenso();
+
+if ( $me->stato == ASPIRANTE && $consenso )
     redirect('aspirante.home');
 
 /* Inizio sezione modali */
 
-$consenso = $me->consenso();
+
 if ( !$consenso ){ ?>
 <div class="modal fade automodal">
     <div class="modal-header">
