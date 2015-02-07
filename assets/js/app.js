@@ -93,6 +93,9 @@ $(document).ready( function() {
 
 function disabilita_campi_captcha() {
     $("[data-aspetta-captcha]").each(function(i,e){
+        if ( DEBUG ) {
+            return;
+        }
         $(e).addClass('disabled');
         $(e).attr('disabled', 'disabled');
     });
