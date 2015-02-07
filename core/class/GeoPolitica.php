@@ -397,61 +397,19 @@ abstract class GeoPolitica extends GeoEntita {
         $oid = $this->oid();
 
         /* Cancello autoparchi e veicoli ad esso associati li passo al nazionale */
-        $autoparchi = Autoparco::filtra([
-          ['comitato', $oid]
-        ]);
-        foreach($autoparchi as $autoparco){
-            $collocazioni = Collocazione::filtra([['autoparco', $autoparco]]);
-
-            foreach ( $collocazioni as $collocazione ){
-                $collocazione->cancella();
-            }
-
-            $auoparco->cancella();
-        }
+        Autoparco::cancellaTutti([['comitato', $oid]]);
 
         /* Cancello i corsi base */
-        $corsibase = CorsoBase::filtra([
-          ['comitato', $oid]
-        ]);
-        foreach($corsibase as $corsobase){
-            $lezioni = Lezione::filtra([['corso', $corsobase]]);
-            foreach( $lezioni as $lezione ){
-                $assenze = AssenzaLezione::filtra([['lezione', $lezione]]);
-                foreach( $assenze as $assenza ){
-                    $assenza->cancella();
-                }
-            }
-            $partecipazioni = PartecipazioneBase::filtra([['corsoBase', $corsobase]]);
-            foreach($partecipazioni as $partecipazione){
-                $partecipazione->cancella();
-            }
-            $corsobase->cancella();
-        }
-
+        CorsoBase::cancellaTutti([['comitato', $oid]]);
+        
         /* Cancello i delegati */
-        $delegati = Delegato::filtra([
-            ['comitato', $oid]
-        ]);
-        foreach( $delegati as $delegato ){
-            $delegato->cancella();
-        }
+        Delegato::cancellaTutti([['comitato', $oid]]);
 
         /* Cancello i gruppi */
-        $gruppi = Gruppo::filtra([
-            ['comitato', $oid]
-        ]);
-        foreach( $gruppi as $gruppo ){
-            $gruppo->cancella();
-        }
+        Gruppo::cancellaTutti([['comitato', $oid]]);
 
         /* Assegno veicoli a nazionale */
-        $veicoli = Veicolo::filtra([
-          ['comitato', $oid]
-        ]);
-        foreach($veicoli as $veicolo){
-            $veicolo->comitato = "Nazionale:1";
-        }
+        Veicolo::cancellaTutti([['comitato', $oid]]);
 
         parent::cancella();
     }
