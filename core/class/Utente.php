@@ -2099,6 +2099,7 @@ class Utente extends Persona {
         $attuale = $v->appartenenzaAttuale();
         $comitato = $attuale->comitato();
         $motivazione = $conf['dimissioni'][$motivo];
+        $fine = time();
 
         /* Avviso il volontario */
         $m = new Email('dimissionevolontario', 'Dimissione Volontario: ' . $v->nomeCompleto());
@@ -2159,7 +2160,7 @@ class Utente extends Persona {
           ['volontario', $v]
           ]);
         foreach ($f as $_f) {
-            $_f->fine = time();
+            $_f->fine = $fine;
         }
 
         $f = Estensione::filtra([
@@ -2210,7 +2211,7 @@ class Utente extends Persona {
         }
 
         /* Chiudo l'appartenenza e declasso a persona */
-        $attuale->fine = time();
+        $attuale->fine = $fine;
         $attuale->stato = MEMBRO_DIMESSO;
         $v->stato = PERSONA;
         $v->admin = null;
