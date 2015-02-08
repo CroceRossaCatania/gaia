@@ -621,7 +621,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
                 </a>
                 <?php if ( $app->stato == MEMBRO_ESTESO ){ ?>
                   <a href="?p=utente.estensione.termina&id=<?php echo $app; ?>" title="Termina estensione" class="btn btn-small btn-danger">
-                    <i class="icon-ban-circle"></i>
+                    <i class="icon-stop"></i>
                   </a>
                 <?php } ?>
               <?php } if($me->admin()){ ?>
