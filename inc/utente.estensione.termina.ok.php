@@ -19,4 +19,3 @@ $m = new Email('estensioneTermina', 'Termine estensione: ' . $est->comitato()->n
     $m->invia();
 
 redirect('utente.storico&ester');
-?>

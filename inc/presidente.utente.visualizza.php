@@ -616,9 +616,14 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
             <div class="btn-group">
               <?php if($hoPotere) { ?>
-              <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
-                <i class="icon-edit"></i>
-              </a>
+                <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
+                  <i class="icon-edit"></i>
+                </a>
+                <?php if ( $app->stato == MEMBRO_ESTESO ){ ?>
+                  <a href="?p=utente.estensione.termina&id=<?php echo $app; ?>" title="Termina estensione" class="btn btn-small btn-danger">
+                    <i class="icon-ban-circle"></i>
+                  </a>
+                <?php } ?>
               <?php } if($me->admin()){ ?>
               <a onClick="return confirm('Vuoi veramente cancellare questa appartenenza ?');" href="?p=us.appartenenza.cancella&a=<?php echo $app; ?>" title="Cancella appartenenza" class="btn btn-small btn-danger">
                 <i class="icon-trash"></i>
