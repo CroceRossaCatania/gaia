@@ -2032,6 +2032,21 @@ class Utente extends Persona {
         return null;
     }
 
+     /**
+     * Invalida Tesserino del Volontario, se esistente
+     * @return bool     Il true se invalidato, false altrimenti
+     */
+    public function invalidaTesserino($motivo) {
+        $r = $this->tesserinoRichiesta();
+        if ( $r && $r->haCodice() ) {
+            $tesserino = TesserinoRichiesta::id($r);
+            $tesserino->motivo = $motivo;
+            $tesserino->stato  = INVALIDATO;
+           return true;
+        }
+        return false;
+    }
+
 	/**
      * Appone un Like (PIACE o NON_PIACE) ad un oggetto
      * @param Entita $oggetto       L'oggetto al quale apporre il like
