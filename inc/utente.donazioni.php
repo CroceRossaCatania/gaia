@@ -88,7 +88,7 @@ paginaPrivata();
 		</select>
 		</div>
 	</div>
-<?php print_r(DonazioneSede::filtraDistinctSedi('provincia',[['regione','Sicilia']]);?>
+<?php print_r(DonazioneSede::filtraDistinctSedi('provincia',[['regione','Sicilia']]));?>
 	<div id="provincia" class="row-fluid" style="display: none;">
 		<div class="span4 centrato">
 		<label for="sedeProvincia"><i class="icon-road"></i> Provincia</label>
