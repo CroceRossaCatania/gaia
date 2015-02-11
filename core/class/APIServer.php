@@ -769,7 +769,7 @@ class APIServer {
     }
 
 	/**
-     * Ricerca titoli per nome
+     * Ricerca sedi donazioni per visibilita
      */    
     private function api_donazionesedi_cerca() {
         $t = [];

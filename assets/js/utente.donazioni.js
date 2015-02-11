@@ -21,9 +21,11 @@ $(document).ready( function() {
 			req:     "regione",
 			res:     "provincia"
 		}, function(x) {
+			alert("ok");
 			alert(x);
 			$("#provincia").show(500);
 		});
+		alert("ok2");
 	});
 
 	$("#sedeProvincia").on('change', function(){
