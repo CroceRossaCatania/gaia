@@ -103,14 +103,7 @@ paginaPrivata();
 		<label for="sedeCitta"><i class="icon-road"></i> Città</label>
 		</div>
 		<div class="span8">
-		<select id="sedeCitta" name="sedeCitta" class="span12" required>
-			<option selected="selected" disabled=""></option>
-			<?php
-			foreach(DonazioneSede::filtraDistinctSedi('citta') as $value){
-				echo "<option value=\"".$value."\">".$value."</option>";
-			}
-			?>
-		</select>
+		<select id="sedeCitta" name="sedeCitta" class="span12" required></select>
 		</div>
 	</div>
 
@@ -119,14 +112,7 @@ paginaPrivata();
 		<label for="sede"><i class="icon-road"></i> Ospedale</label>
 		</div>
 		<div class="span8">
-		<select id="sede" name="sede" class="span12" required>
-			<option selected="selected" disabled=""></option>
-			<?php
-			foreach(DonazioneSede::filtraDistinctSedi('nome') as $key => $value){
-				echo "<option value=\"".$key."\">".$value."</option>";
-			}
-			?>
-		</select>
+		<select id="sede" name="sede" class="span12" required></select>
 		</div>
 	</div>
 

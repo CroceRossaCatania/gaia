@@ -773,8 +773,8 @@ class APIServer {
      */    
     private function api_donazionesedi_cerca() {
 		$t = [];
-        foreach ( DonazioneSede::filtraDistinctSedi($this->par['res'],[[$this->par['req'],$this->par['query']]]) as $value ) {
-            $t[] = $value;
+        foreach ( DonazioneSede::filtraDistinctSedi($this->par['res'],[[$this->par['req'],$this->par['query']]]) as $key => $value ) {
+			$t[$key] = $value;
         }
         return $t;
     }
