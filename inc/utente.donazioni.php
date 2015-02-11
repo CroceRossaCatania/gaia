@@ -57,7 +57,7 @@ paginaPrivata();
 </div>
 
 </div>
-
+<?php print_r(DonazioneSede::getLocationSedi('provincia'));?>
 </div>
 <div id="step2" style="display: none;">
 <form action='?p=utente.donazione.nuovo' method="POST">
@@ -83,10 +83,10 @@ paginaPrivata();
 <select id="luogo" name="luogo" class="span12" required>
 	<option selected="selected" disabled=""></option>
 	<?php
-	foreach(DonazioneSede::filtra([['tipo', $d]],'provincia') as $value){
+	/*foreach(DonazioneSede::getLocationSedi('provincia') as $value){
 		echo "<option value=\"".$value."\">".$value->provincia.' - '.$value->nome."</option>";
-	}
-?>
+	}*/
+	?>
 </select>
 </div>
 </div>
