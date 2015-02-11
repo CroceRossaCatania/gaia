@@ -62,7 +62,7 @@ paginaPrivata();
 	<input type="hidden" name="idDonazione" id="idDonazione" />
 	<div class="alert alert-block alert-success">
 	<div class="row-fluid">
-	<h4><i class="icon-question-sign"></i> Quando hai donato...</h4>
+	<h4><i class="icon-question-sign"></i> Quando e dove hai donato...</h4>
 	</div>
 	<hr />
 	<div class="row-fluid">
