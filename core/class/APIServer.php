@@ -771,7 +771,7 @@ class APIServer {
 	/**
      * Ricerca titoli per nome
      */    
-    private function api_donazioneSedi_cerca() {
+    private function api_donazionesedi_cerca() {
         $t = [];
         foreach ( DonazioneSede::filtraDistinctSedi($this->par['res'],[[$this->par['req'],$this->par['query']]]) as $value ) {
             $t[] = $value;
