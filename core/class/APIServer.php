@@ -772,7 +772,7 @@ class APIServer {
      * Ricerca sedi donazioni per visibilita
      */    
     private function api_donazionesedi_cerca() {
-        $t = [];
+		$t = [];
         foreach ( DonazioneSede::filtraDistinctSedi($this->par['res'],[[$this->par['req'],$this->par['query']]]) as $value ) {
             $t[] = $value;
         }

@@ -88,13 +88,7 @@ paginaPrivata();
 		</select>
 		</div>
 	</div>
-<?php 
-$t = [];
-foreach ( DonazioneSede::filtraDistinctSedi('provincia',[['regione',"Sicilia"]]) as $value ) {
-            $t[] = $value;
-        }
-print_r($t);
-?>
+
 	<div id="provincia" class="row-fluid" style="display: none;">
 		<div class="span4 centrato">
 		<label for="sedeProvincia"><i class="icon-road"></i> Provincia</label>

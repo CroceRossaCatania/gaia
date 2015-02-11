@@ -13,7 +13,7 @@ class DonazioneSede extends Entita {
 
     use EntitaCache;
     
-	public function filtraDistinctSedi( $_dettaglio, $_where = null ) {
+	public static function filtraDistinctSedi( $_dettaglio, $_where = null ) {
 		global $db, $conf, $cache;
 
         if ( false && $cache && static::$_versione == -1 ) {
