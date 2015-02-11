@@ -8,8 +8,13 @@ $(document).ready( function() {
 				$("#step2").show(500);
 				$("#data").datepicker({ maxDate: 0 });
 			});
-		} else {
+		} /*else {
         		$("#step2 form").submit();
-	    	}
+	    	}*/
 	});
+
+	$("#sedeRegione").on('change', function(){
+		$("#provincia").show(500);
+	});
+
 });

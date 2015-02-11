@@ -33,72 +33,87 @@ paginaPrivata();
 <?php $donazioni = $conf['donazioni'][$d]; ?>
 
 <div id="step1">
-<div class="alert alert-block alert-success" <?php if ($donazioni[2]) { ?>data-richiediDate<?php } ?>>
-<div class="row-fluid">
-<span class="span3">
-<label for="cercaDonazione">
-<span style="font-size: larger;">
-<i class="icon-search"></i>
-<strong>Aggiungi</strong>
-</span>
-</label>
+	<div class="alert alert-block alert-success" <?php if ($donazioni[2]) { ?>data-richiediDate<?php } ?>>
+	<div class="row-fluid">
+	<span class="span3">
+	<label for="cercaDonazione">
+	<span style="font-size: larger;">
+	<i class="icon-search"></i>
+	<strong>Aggiungi</strong>
+	</span>
+	</label>
 
-</span>
-<span class="span9">
-<select id="tipo" name="tipo" class="span12" required>
-	<option selected="selected" disabled=""></option>
-	<?php
-	foreach(Donazione::filtra([['tipo', $d]]) as $value){
-		echo "<option value=\"".$value."\">".$value->nome."</option>";
-	}
-	?>
-</select>
-</span>
-</div>
-
-</div>
-
+	</span>
+	<span class="span9">
+	<select id="tipo" name="tipo" class="span12" required>
+		<option selected="selected" disabled=""></option>
+		<?php
+		foreach(Donazione::filtra([['tipo', $d]]) as $value){
+			echo "<option value=\"".$value."\">".$value->nome."</option>";
+		}
+		?>
+	</select>
+	</span>
+	</div>
+	</div>
 </div>
 <div id="step2" style="display: none;">
-<form action='?p=utente.donazione.nuovo' method="POST">
-<input type="hidden" name="idDonazione" id="idDonazione" />
-<div class="alert alert-block alert-success">
-<div class="row-fluid">
-<h4><i class="icon-question-sign"></i> Quando hai donato...</h4>
-</div>
-<hr />
-<div class="row-fluid">
-<div class="span4 centrato">
-<label for="data"><i class="icon-calendar"></i> Data donazione</label>
-</div>
-<div class="span8">
-<input id="data" class="span12" name="data" type="text" <?php if ($donazioni[3]) { ?>required<?php } ?> value="" />
-</div>
-</div>
-<div class="row-fluid">
-<div class="span4 centrato">
-<label for="luogo"><i class="icon-road"></i> Provincia</label>
-</div>
-<div class="span8">
-<select id="luogo" name="luogo" class="span12" required>
-	<option selected="selected" disabled=""></option>
-	<?php
-	foreach(DonazioneSede::getLocationSedi('regione') as $value){
-		echo "<option value=\"".$value."\">".$value."</option>";
-	}
-	?>
-</select>
-</div>
-</div>
-<div class="row-fluid">
-<div class="span4 offset8">
-<button type="submit" class="btn btn-success">
-<i class="icon-plus"></i>
-Aggiungi la donazione
-</button>
-</div>
-</div>
-</div>
+	<form action='?p=utente.donazione.nuovo' method="POST">
+	<input type="hidden" name="idDonazione" id="idDonazione" />
+	<div class="alert alert-block alert-success">
+	<div class="row-fluid">
+	<h4><i class="icon-question-sign"></i> Quando hai donato...</h4>
+	</div>
+	<hr />
+	<div class="row-fluid">
+	<div class="span4 centrato">
+	<label for="data"><i class="icon-calendar"></i> Data donazione</label>
+	</div>
+	<div class="span8">
+	<input id="data" class="span12" name="data" type="text" <?php if ($donazioni[3]) { ?>required<?php } ?> value="" />
+	</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span4 centrato">
+		<label for="sedeRegione"><i class="icon-road"></i> Regione</label>
+		</div>
+		<div class="span8">
+		<select id="sedeRegione" name="sedeRegione" class="span12" required>
+			<option selected="selected" disabled=""></option>
+			<?php
+			foreach(DonazioneSede::getLocationSedi('regione') as $value){
+				echo "<option value=\"".$value."\">".$value."</option>";
+			}
+			?>
+		</select>
+		</div>
+	</div>
+
+	<div id="provincia" class="row-fluid" style="display: none;">
+		<div class="span4 centrato">
+		<label for="sedeProvincia"><i class="icon-road"></i> Provincia</label>
+		</div>
+		<div class="span8">
+		<select id="sedeProvincia" name="sedeProvincia" class="span12" required>
+			<option selected="selected" disabled=""></option>
+			<?php
+			foreach(DonazioneSede::getLocationSedi('provincia') as $value){
+				echo "<option value=\"".$value."\">".$value."</option>";
+			}
+			?>
+		</select>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+	<div class="span4 offset8">
+	<button type="submit" class="btn btn-success">
+	<i class="icon-plus"></i>
+	Aggiungi la donazione
+	</button>
+	</div>
+	</div>
+	</div>
 </div>
 <div class="row-fluid">
 <div class="span12">
