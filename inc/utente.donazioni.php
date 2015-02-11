@@ -57,7 +57,7 @@ paginaPrivata();
 </div>
 
 </div>
-<?php print_r(DonazioneSede::getLocationSedi('provincia'));?>
+
 </div>
 <div id="step2" style="display: none;">
 <form action='?p=utente.donazione.nuovo' method="POST">
@@ -69,7 +69,7 @@ paginaPrivata();
 <hr />
 <div class="row-fluid">
 <div class="span4 centrato">
-<label for="data"><i class="icon-calendar"></i> Donazione</label>
+<label for="data"><i class="icon-calendar"></i> Data donazione</label>
 </div>
 <div class="span8">
 <input id="data" class="span12" name="data" type="text" <?php if ($donazioni[3]) { ?>required<?php } ?> value="" />
@@ -77,15 +77,15 @@ paginaPrivata();
 </div>
 <div class="row-fluid">
 <div class="span4 centrato">
-<label for="luogo"><i class="icon-road"></i> Ospedale</label>
+<label for="luogo"><i class="icon-road"></i> Provincia</label>
 </div>
 <div class="span8">
 <select id="luogo" name="luogo" class="span12" required>
 	<option selected="selected" disabled=""></option>
 	<?php
-	/*foreach(DonazioneSede::getLocationSedi('provincia') as $value){
-		echo "<option value=\"".$value."\">".$value->provincia.' - '.$value->nome."</option>";
-	}*/
+	foreach(DonazioneSede::getLocationSedi('regione') as $value){
+		echo "<option value=\"".$value."\">".$value."</option>";
+	}
 	?>
 </select>
 </div>
