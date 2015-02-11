@@ -7,17 +7,6 @@
 paginaPubblica();
 controllaBrowser();
 
-/* Registra sulla sessione il tipo della registrazione! */
-if ( isset($_GET['tipo'] ) ) {
-    if ($_GET['tipo'] == 'volontario') {
-        $sessione->tipoRegistrazione = VOLONTARIO;
-    }
-    elseif ($_GET['tipo'] == 'aspirante') {
-        $sessione->tipoRegistrazione = ASPIRANTE;
-    }
-} elseif ( !$sessione->tipoRegistrazione) {
-    $sessione->tipoRegistrazione = VOLONTARIO;
-}
 ?>
 
 <div class="modal fade automodal">
