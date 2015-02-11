@@ -90,7 +90,7 @@ paginaPrivata();
 	</div>
 <?php 
 $t = [];
-foreach ( DonazioneSede::filtraDistinctSedi('regione',[[,"Sicilia"]]) as $value ) {
+foreach ( DonazioneSede::filtraDistinctSedi('provincia',[['regione',"Sicilia"]]) as $value ) {
             $t[] = $value;
         }
 print_r($t);
