@@ -15,7 +15,6 @@ class DonazioneSede extends Entita {
     
 	public function getLocationSedi( $dettaglio ) {
 		global $db, $conf, $cache;
-        $entita = get_called_class();
 
         if ( false && $cache && static::$_versione == -1 ) {
             static::_caricaVersione();            
@@ -37,9 +36,19 @@ class DonazioneSede extends Entita {
         }
         
         $q = $db->prepare($query);
-        $r = $q->execute();
+        $q->execute();
+        $t = $c = [];
+        while ( $r = $q->fetch(PDO::FETCH_ASSOC) ) {
+            $t[] = $r[$dettaglio];
+            if ( false )
+                $c[] = $r;
+        }
         
-        return $r;
+        if ( false && $cache && static::$_cacheable ) {
+            static::_cacheQuery($hash, $c);
+        }
+        
+        return $t;
     }
 
     public function cancella() {
