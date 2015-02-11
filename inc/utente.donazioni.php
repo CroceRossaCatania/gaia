@@ -94,14 +94,7 @@ paginaPrivata();
 		<label for="sedeProvincia"><i class="icon-road"></i> Provincia</label>
 		</div>
 		<div class="span8">
-		<select id="sedeProvincia" name="sedeProvincia" class="span12" required>
-			<option selected="selected" disabled=""></option>
-			<?php
-			foreach(DonazioneSede::filtraDistinctSedi('provincia') as $value){
-				echo "<option value=\"".$value."\">".$value."</option>";
-			}
-			?>
-		</select>
+		<select id="sedeProvincia" name="sedeProvincia" class="span12" required></select>
 		</div>
 	</div>
 

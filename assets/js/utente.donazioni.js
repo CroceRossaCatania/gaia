@@ -24,8 +24,7 @@ $(document).ready( function() {
 			res:     "provincia"
 		}, function(x) {
 			for (i in x.risposta) {
-				alert(i);
-				$('#mySelect').append('<option value="'+i+'">'+i+'</option>');
+				$('#mySelect').append('<option value="'+x.risposta[i]+'">'+x.risposta[i]+'</option>');
 			}
 			$("#provincia").show(500);
         });
