@@ -14,7 +14,24 @@ $(document).ready( function() {
 	});
 
 	$("#sedeRegione").on('change', function(){
-		$("#provincia").show(500);
+		var query = $("#sedeRegione").val();
+
+		api('donazioneSedi:cerca', {
+            query:   query,
+			req:     "regione",
+			res:     "provincia"
+		}, function(x) {
+			alert(x);
+			$("#provincia").show(500);
+		});
+	});
+
+	$("#sedeProvincia").on('change', function(){
+		$("#citta").show(500);
+	});
+
+	$("#sedeCitta").on('change', function(){
+		$("#ospedale").show(500);
 	});
 
 });

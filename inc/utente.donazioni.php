@@ -81,7 +81,7 @@ paginaPrivata();
 		<select id="sedeRegione" name="sedeRegione" class="span12" required>
 			<option selected="selected" disabled=""></option>
 			<?php
-			foreach(DonazioneSede::getLocationSedi('regione') as $value){
+			foreach(DonazioneSede::filtraDistinctSedi('regione') as $value){
 				echo "<option value=\"".$value."\">".$value."</option>";
 			}
 			?>
@@ -97,8 +97,40 @@ paginaPrivata();
 		<select id="sedeProvincia" name="sedeProvincia" class="span12" required>
 			<option selected="selected" disabled=""></option>
 			<?php
-			foreach(DonazioneSede::getLocationSedi('provincia') as $value){
+			foreach(DonazioneSede::filtraDistinctSedi('provincia') as $value){
 				echo "<option value=\"".$value."\">".$value."</option>";
+			}
+			?>
+		</select>
+		</div>
+	</div>
+
+	<div id="citta" class="row-fluid" style="display: none;">
+		<div class="span4 centrato">
+		<label for="sedeCitta"><i class="icon-road"></i> Città</label>
+		</div>
+		<div class="span8">
+		<select id="sedeCitta" name="sedeCitta" class="span12" required>
+			<option selected="selected" disabled=""></option>
+			<?php
+			foreach(DonazioneSede::filtraDistinctSedi('citta') as $value){
+				echo "<option value=\"".$value."\">".$value."</option>";
+			}
+			?>
+		</select>
+		</div>
+	</div>
+
+	<div id="ospedale" class="row-fluid" style="display: none;">
+		<div class="span4 centrato">
+		<label for="sede"><i class="icon-road"></i> Ospedale</label>
+		</div>
+		<div class="span8">
+		<select id="sede" name="sede" class="span12" required>
+			<option selected="selected" disabled=""></option>
+			<?php
+			foreach(DonazioneSede::filtraDistinctSedi('nome') as $key => $value){
+				echo "<option value=\"".$key."\">".$value."</option>";
 			}
 			?>
 		</select>

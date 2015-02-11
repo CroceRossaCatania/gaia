@@ -13,14 +13,18 @@ class DonazioneSede extends Entita {
 
     use EntitaCache;
     
-	public function getLocationSedi( $dettaglio ) {
+	public function filtraDistinctSedi( $_dettaglio, $_where = null ) {
 		global $db, $conf, $cache;
 
         if ( false && $cache && static::$_versione == -1 ) {
             static::_caricaVersione();            
         }
 
-        $query = "SELECT DISTINCT $dettaglio FROM ". static::$_t;
+		if ( $_where ) {
+            $_where = static::preparaCondizioni($_where, 'WHERE');
+        }
+
+        $query = "SELECT DISTINCT $_dettaglio, id FROM ". static::$_t . " $_where ORDER BY $_dettaglio";
         
         /*
          * Controlla se la query è già in cache
@@ -39,7 +43,7 @@ class DonazioneSede extends Entita {
         $q->execute();
         $t = $c = [];
         while ( $r = $q->fetch(PDO::FETCH_ASSOC) ) {
-            $t[] = $r[$dettaglio];
+            $t[] = $r[$_dettaglio];
             if ( false )
                 $c[] = $r;
         }

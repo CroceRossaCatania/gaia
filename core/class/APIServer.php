@@ -768,26 +768,15 @@ class APIServer {
         return $r;
     }
 
-    private function api_tesserino_stato() {
-        $this->richiedi(['codice', 'stato']);
-        $me = $this->richiediLogin();
-        if ( !$me->admin )
-            return [
-                'ok'    =>  false
-            ];
-        $r = TesserinoRichiesta::by('codice', $this->par['codice']);
-        if ( !$r ) 
-            return [
-                'ok'    =>  false
-            ];
-        $r->pConferma = $me->id;
-        $r->tConferma = time();
-        $r->stato     = $this->par['stato'];
-        return [
-            'ok'            =>  true,
-            'volontario'    =>  $r->utente()->toJSON(true)
-        ];
+	/**
+     * Ricerca titoli per nome
+     */    
+    private function api_donazioneSedi_cerca() {
+        $t = [];
+        foreach ( DonazioneSede::filtraDistinctSedi($this->par['res'],[[$this->par['req'],$this->par['query']]]) as $value ) {
+            $t[] = $value;
+        }
+        return $t;
     }
 
-        
 }
