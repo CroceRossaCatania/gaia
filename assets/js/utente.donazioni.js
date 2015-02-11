@@ -15,7 +15,7 @@ $(document).ready( function() {
 
 	$("#sedeRegione").on('change', function(){
 		$("#provincia").hide();
-		$('#provincia').empty();
+		$('#sedeProvincia').empty();
 
 		var query = $("#sedeRegione").val();
 		api('donazionesedi:cerca', {
@@ -24,7 +24,7 @@ $(document).ready( function() {
 			res:     "provincia"
 		}, function(x) {
 			for (i in x.risposta) {
-				$('#mySelect').append('<option value="'+x.risposta[i]+'">'+x.risposta[i]+'</option>');
+				$('#sedeProvincia').append('<option value="'+x.risposta[i]+'">'+x.risposta[i]+'</option>');
 			}
 			$("#provincia").show(500);
         });
