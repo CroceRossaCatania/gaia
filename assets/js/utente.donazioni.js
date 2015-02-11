@@ -16,14 +16,14 @@ $(document).ready( function() {
 	$("#sedeRegione").on('change', function(){
 		var query = $("#sedeRegione").val();
 		
-		alert(api('donazionesedi:cerca', {
+		api('donazionesedi:cerca', {
             query:   query,
 			req:     "regione",
 			res:     "provincia"
-		}, function() {
+		}, function(x) {
 			
 			$("#provincia").show(500);
-		});)
+		});
 		
 	});
 

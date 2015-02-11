@@ -133,6 +133,7 @@ function _aggiorna_chiSono() {
  
 var _cache = {}; 
 function api(metodo, dati, callback, cache) {
+	alert(metodo);
     if ( cache === undefined ) {
         // Standard, non cache
         $.post(
