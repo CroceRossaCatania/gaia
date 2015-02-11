@@ -24,7 +24,7 @@ class DonazioneSede extends Entita {
             $_where = static::preparaCondizioni($_where, 'WHERE');
         }
 
-        $query = "SELECT DISTINCT($_dettaglio), id FROM ". static::$_t . " $_where ORDER BY $_dettaglio";
+        $query = "SELECT $_dettaglio, id FROM ". static::$_t . " $_where ORDER BY $_dettaglio GROUP BY $_dettaglio";
         
         /*
          * Controlla se la query è già in cache
