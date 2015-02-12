@@ -15,8 +15,11 @@ if ( count($p) ) {
 }
 
 $p->sangue_gruppo   = normalizzaNome($_POST['sede']);
-$p->fattore_rh = $_POST['inputFattoreRH'] ? normalizzaNome($_POST['inputFattoreRH']) : 0;
-$p->fanotipo_rh = $_POST['inputFenotipoRH'] ? normalizzaNome($_POST['inputFenotipoRH']) : 0;
-$p->kell = $_POST['inputKell'] ? normalizzaNome($_POST['inputKell']) : 0;
+$fattore_rh = $_POST['inputFattoreRH'] ? $_POST['inputFattoreRH'] : 0;
+$p->fattore_rh = normalizzaNome($fattore_rh);
+$fanotipo_rh = $_POST['inputFenotipoRH'] ? $_POST['inputFenotipoRH'] : 0;
+$p->fanotipo_rh = normalizzaNome($fanotipo_rh);
+$kell = $_POST['inputKell'] ? $_POST['inputKell'] : 0;
+$p->kell = normalizzaNome($kell);
 
-redirect('utente.donazioni&d=' . $t->tipo);
+redirect('utente.donazioni&okd=' . $t->tipo);
