@@ -117,6 +117,29 @@ paginaPrivata();
 					</select>
 				</div>
 			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputCodiceSIT">Codice SIT</label>
+				<div class="controls">
+					<input type="text" class="input-small" name="inputCodiceSIT" id="inputCodiceSIT" value="<?php if(count($anagrafica) AND $anagrafica[0]->codice_sit) echo $anagrafica[0]->codice_sit; ?>">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputSedeSIT">Sede SIT</label>
+				<div class="controls">
+					<select id="inputSedeSIT" name="inputSedeSIT">
+						<option selected="selected"></option>
+						<?php
+						/*foreach($conf['anagrafica_donatore']['sangue_gruppo'] as $key => $value){
+							if ( $value !== null ) {
+								echo "<option value=\"".$key."\"";
+								if(count($anagrafica) AND $anagrafica[0]->sangue_gruppo == $key) echo " selected";
+								echo ">".$value."</option>";
+							}
+						}*/
+						?>
+					</select>
+				</div>
+			</div>
 			<div class="form-actions">
 				<?php if($a!=1){ ?>
 					<button type="submit" class="btn btn-success btn-large">
