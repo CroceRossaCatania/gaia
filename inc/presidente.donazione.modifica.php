@@ -13,6 +13,7 @@ $t = $_GET['t'];
 $v = $_GET['v'];  
 $tp = DonazionePersonale::id($t);
 $r = $tp->donazione()->tipo;
+$l = DonazioneSede::id($tp->luogo);
 ?>
 <script type="text/javascript"><?php require './assets/js/utente.donazione.modifica.js'; ?></script>
 <form action="?p=presidente.donazione.modifica.ok&t=<?php echo $t; ?>&v=<?php echo $v; ?>" method="POST">
@@ -32,21 +33,72 @@ $r = $tp->donazione()->tipo;
       </div>
       <div class="row-fluid">
         <div class="span4 centrato">
-          <label for="luogo"><i class="icon-road"></i> Sede</label>
+          <label for="sedeRegione">Regione</label>
         </div>
         <div class="span8">
-<select id="luogo" name="luogo" class="span12" required>
-	<option selected="selected" disabled=""></option>
-	<?php
-	foreach(DonazioneSede::filtra([['tipo', $r]].'provincia') as $value){
-		echo "<option value=\"".$value."\"";
-		if($tp->luogo == $value->id) echo " selected";
-		echo ">".$value->provincia.' - '.$value->nome."</option>";
-	}
-?>
-</select>
+			<select id="sedeRegione" name="sedeRegione" class="span12" required>
+				<?php
+				foreach(DonazioneSede::filtraDistinctSedi('regione') as $value){
+					echo "<option value=\"".$value."\"";
+					if($l->regione == $value) echo " selected";
+					echo ">".$value."</option>";
+				}
+				?>
+			</select>
         </div>
       </div>
+
+		<div id="provincia" class="row-fluid">
+			<div class="span4 centrato">
+			<label for="sedeProvincia">Provincia</label>
+			</div>
+			<div class="span8">
+			<select id="sedeProvincia" name="sedeProvincia" class="span12" required>
+				<?php
+				foreach(DonazioneSede::filtraDistinctSedi('provincia',[['regione',$l->regione]]) as $value){
+					echo "<option value=\"".$value."\"";
+					if($l->provincia == $value) echo " selected";
+					echo ">".$value."</option>";
+				}
+				?>
+			</select>
+			</div>
+		</div>
+
+		<div id="citta" class="row-fluid">
+			<div class="span4 centrato">
+			<label for="sedeCitta">Citt&agrave;</label>
+			</div>
+			<div class="span8">
+			<select id="sedeCitta" name="sedeCitta" class="span12" required>
+				<?php
+				foreach(DonazioneSede::filtraDistinctSedi('citta',[['provincia',$l->provincia]]) as $value){
+					echo "<option value=\"".$value."\"";
+					if($l->citta == $value) echo " selected";
+					echo ">".$value."</option>";
+				}
+				?>
+			</select>
+			</div>
+		</div>
+
+		<div id="ospedale" class="row-fluid">
+			<div class="span4 centrato">
+			<label for="sede"><i class="icon-road"></i> Ospedale</label>
+			</div>
+			<div class="span8">
+			<select id="sede" name="sede" class="span12" required>
+				<?php
+				foreach(DonazioneSede::filtraDistinctSedi('nome',[['citta',$l->citta]]) as $key => $value){
+					echo "<option value=\"".$key."\"";
+					if($tp->luogo == $key) echo " selected";
+					echo ">".$value."</option>";
+				}
+				?>
+			</select>
+			</div>
+		</div>
+
     </div>
     <div class="modal-footer">
       <a href="?p=presidente.utente.visualizza&id=<?php echo $v; ?>" class="btn">Annulla</a>

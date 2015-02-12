@@ -23,7 +23,7 @@ $p->donazione      = $tp;
         $data = @$data->getTimestamp();
         $p->data = $data;
 
-$p->luogo = normalizzaNome($_POST['luogo']);
+$p->luogo = normalizzaNome($_POST['sede']);
 
 $p->tConferma = time();
 $p->pConferma = $me->id;

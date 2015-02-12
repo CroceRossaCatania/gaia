@@ -20,6 +20,6 @@ $data = @DateTime::createFromFormat('d/m/Y', $_POST['data']);
 $data = @$data->getTimestamp();
 $p->data = $data;
 
-$p->luogo = normalizzaNome($_POST['luogo']);
+$p->luogo = normalizzaNome($_POST['sede']);
 
 redirect('utente.donazioni&d=' . $tp->tipo);
