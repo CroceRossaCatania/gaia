@@ -7,7 +7,7 @@ $d = $_GET['d'];
 $tp = DonazionePersonale::id($d);
 $r = $tp->donazione()->tipo;
 $l = DonazioneSede::id($tp->luogo);
-print_r($l);die;
+
 $donazioni = $conf['donazioni'][$d];
 ?>
 <form action="?p=utente.donazione.modifica.ok&d=<?php echo $d; ?>" method="POST">
@@ -30,14 +30,11 @@ $donazioni = $conf['donazioni'][$d];
         </div>
         <div class="span8">
 			<select id="sedeRegione" name="sedeRegione" class="span12" required>
-				<option selected="selected" disabled=""></option>
 				<?php
 				foreach(DonazioneSede::filtraDistinctSedi('regione') as $value){
-echo "<option value=\"".$value."\"";
-		if($tp->luogo == $value) echo " selected";
-		echo ">".$value->provincia.' - '.$value->nome."</option>";
-
-					echo "<option value=\"".$value."\">".$value."</option>";
+					echo "<option value=\"".$value."\"";
+					if($l->regione == $value) echo " selected";
+					echo ">".$value."</option>";
 				}
 				?>
 			</select>
@@ -49,7 +46,15 @@ echo "<option value=\"".$value."\"";
 			<label for="sedeProvincia">Provincia</label>
 			</div>
 			<div class="span8">
-			<select id="sedeProvincia" name="sedeProvincia" class="span12" required></select>
+			<select id="sedeProvincia" name="sedeProvincia" class="span12" required>
+				<?php
+				foreach(DonazioneSede::filtraDistinctSedi('provincia',[['regione',$l->regione]]) as $value){
+					echo "<option value=\"".$value."\"";
+					if($l->provincia == $value) echo " selected";
+					echo ">".$value."</option>";
+				}
+				?>
+			</select>
 			</div>
 		</div>
 
@@ -58,7 +63,15 @@ echo "<option value=\"".$value."\"";
 			<label for="sedeCitta">Città</label>
 			</div>
 			<div class="span8">
-			<select id="sedeCitta" name="sedeCitta" class="span12" required></select>
+			<select id="sedeCitta" name="sedeCitta" class="span12" required>
+				<?php
+				foreach(DonazioneSede::filtraDistinctSedi('citta',[['provincia',$l->provincia]]) as $value){
+					echo "<option value=\"".$value."\"";
+					if($l->citta == $value) echo " selected";
+					echo ">".$value."</option>";
+				}
+				?>
+			</select>
 			</div>
 		</div>
 
@@ -69,12 +82,10 @@ echo "<option value=\"".$value."\"";
 			<div class="span8">
 			<select id="sede" name="sede" class="span12" required>
 				<?php
-				foreach(DonazioneSede::filtraDistinctSedi('regione') as $value){
-echo "<option value=\"".$value."\"";
-		if($tp->luogo == $value) echo " selected";
-		echo ">".$value->provincia.' - '.$value->nome."</option>";
-
-					echo "<option value=\"".$value."\">".$value."</option>";
+				foreach(DonazioneSede::filtraDistinctSedi('nome',[['citta',$l->citta]]) as $key => $value){
+					echo "<option value=\"".$key."\"";
+					if($tp->luogo == $key) echo " selected";
+					echo ">".$value."</option>";
 				}
 				?>
 			</select>
