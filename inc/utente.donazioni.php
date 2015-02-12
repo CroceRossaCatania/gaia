@@ -33,7 +33,7 @@ paginaPrivata();
 <?php $anagrafica = DonazioneAnagrafica::filtra([['volontario',$me->id]]); 
 print_r($anagrafica);
 echo "<br><br>";
-print_r($anagrafica->sangue_gruppo);
+print_r($anagrafica[0]->sangue_gruppo);
 die;
 ?>
 
