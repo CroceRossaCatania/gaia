@@ -859,7 +859,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 				<input type="hidden" name="idDonazione" id="idDonazione" />
 				<div class="alert alert-block alert-success">
 					<div class="row-fluid">
-						<h4><i class="icon-question-sign"></i> Quando hai donato...</h4>
+						<h4><i class="icon-question-sign"></i> Quando e dove ha donato...</h4>
 					</div>
 					<hr />
 					<div class="row-fluid">
@@ -872,19 +872,47 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 					</div>
 					<div class="row-fluid">
 						<div class="span4 centrato">
-							<label for="ospedale"><i class="icon-road"></i> Sede</label>
+							<label for="sedeRegione">Regione</label>
 						</div>
 						<div class="span8">
-							<select id="ospedale" name="ospedale" class="span12" required>
+							<select id="sedeRegione" name="sedeRegione" class="span12" required>
 								<option selected="selected" disabled=""></option>
 								<?php
-								foreach(DonazioneSede::elenco('provincia ASC') as $value){
-									echo "<option value=\"".$value."\">".$value->provincia.' - '.$value->nome."</option>";
+								foreach(DonazioneSede::filtraDistinctSedi('regione') as $value){
+									echo "<option value=\"".$value."\">".$value."</option>";
 								}
 								?>
 							</select>
 						</div>
 					</div>
+
+					<div id="provincia" class="row-fluid" style="display: none;">
+						<div class="span4 centrato">
+						<label for="sedeProvincia">Provincia</label>
+						</div>
+						<div class="span8">
+						<select id="sedeProvincia" name="sedeProvincia" class="span12" required></select>
+						</div>
+					</div>
+
+					<div id="citta" class="row-fluid" style="display: none;">
+						<div class="span4 centrato">
+						<label for="sedeCitta">Città</label>
+						</div>
+						<div class="span8">
+						<select id="sedeCitta" name="sedeCitta" class="span12" required></select>
+						</div>
+					</div>
+
+					<div id="ospedale" class="row-fluid" style="display: none;">
+						<div class="span4 centrato">
+						<label for="sede"><i class="icon-road"></i> Ospedale</label>
+						</div>
+						<div class="span8">
+						<select id="sede" name="sede" class="span12" required></select>
+						</div>
+					</div>
+
 					<div class="row-fluid">
 						<div class="span4 offset8">
 							<button type="submit" class="btn btn-success" onclick="">
