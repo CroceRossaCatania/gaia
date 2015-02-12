@@ -37,19 +37,6 @@ $("#inputDataNascita").datepicker();
 				$("#step2Donazione").show(500);
 				$("#data").datepicker({ maxDate: 0 });
 			});
-		} else {
-        		$("#step2Donazione form").submit();
-	    	}
-	});
-
-	$("#tipo").on('change', function(){
-		$("#idDonazione").val(this.value);
-    
-		if ( $("[data-richiediDate]").length > 0 ) {
-        		$("#step1Donazione").hide('fade', 500, function() {
-				$("#step2Donazione").show(500);
-				$("#data").datepicker({ maxDate: 0 });
-			});
 		}
 	});
 
@@ -112,6 +99,7 @@ $("#inputDataNascita").datepicker();
 			$("#ospedale").show(500);
         });
 	});
+
 });
 
 function aggiungiTitolo (idTitolo) {
