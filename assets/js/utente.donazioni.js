@@ -27,9 +27,9 @@ $(document).ready( function() {
 			req:     "regione",
 			res:     "provincia"
 		}, function(x) {
-			for (i in x.risposta) {
-				$('#sedeProvincia').append('<option value="'+x.risposta[i]+'">'+x.risposta[i]+'</option>');
-			}
+			$.each( x.risposta, function( index, value ){
+				$('#sedeProvincia').append('<option value="'+value+'">'+value+'</option>');
+			});
 			$("#provincia").show(500);
         });
 	});
@@ -46,9 +46,12 @@ $(document).ready( function() {
 			req:     "provincia",
 			res:     "citta"
 		}, function(x) {
-			for (i in x.risposta) {
+			$.each( x.risposta, function( index, value ){
+				$('#sedeCitta').append('<option value="'+value+'">'+value+'</option>');
+			});
+			/*for (i in x.risposta) {
 				$('#sedeCitta').append('<option value="'+x.risposta[i]+'">'+x.risposta[i]+'</option>');
-			}
+			}*/
 			$("#citta").show(500);
         });
 	});
@@ -63,9 +66,9 @@ $(document).ready( function() {
 			req:     "citta",
 			res:     "nome"
 		}, function(x) {
-			for (i in x.risposta) {
-				$('#sede').append('<option value="'+x.risposta[i]+'">'+x.risposta[i]+'</option>');
-			}
+			$.each( x.risposta, function( index, value ){
+				$('#sede').append('<option value="'+index+'">'+value+'</option>');
+			});
 			$("#citta").show(500);
         });
 	});
