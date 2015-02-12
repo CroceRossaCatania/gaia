@@ -8,7 +8,10 @@ paginaPrivata();
 
 controllaParametri(array('inputSangueGruppo'));
 
-$p = new DonazioneAnagrafica();
+$p = DonazioneAnagrafica::filtra([['volontario',$me->id]]);
+if ( $p )
+	$p = new DonazioneAnagrafica();
+
 $p->volontario  = $me->id;
 $p->sangue_gruppo   = normalizzaNome($_POST['sede']);
 $inputFattoreRH = $_POST['inputFattoreRH'] ? normalizzaNome($_POST['inputFattoreRH']) : null;
