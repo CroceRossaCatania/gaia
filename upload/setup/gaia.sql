@@ -359,7 +359,26 @@ CREATE TABLE IF NOT EXISTS `donazioni` (
   FULLTEXT KEY `nome` (`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `donazioni_personali` (
+CREATE TABLE IF NOT EXISTS `donazioniAnagrafica` (
+  `id` int(11) NOT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `sangue_gruppo` int(3) DEFAULT NULL,
+  `fattore_rh` int(3) DEFAULT NULL,
+  `fenotipo_rh` int(3) DEFAULT NULL,
+  `kell` int(3) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `donazioniMerito` (
+  `id` int(11) NOT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `donazione` varchar(16) DEFAULT NULL,
+  `merito` varchar(64) DEFAULT NULL,
+  `tConferma` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `donazioniPersonale` (
   `id` int(11) NOT NULL,
   `volontario` varchar(16) DEFAULT NULL,
   `donazione` varchar(16) DEFAULT NULL,
@@ -370,21 +389,12 @@ CREATE TABLE IF NOT EXISTS `donazioni_personali` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `donazioni_sedi` (
+CREATE TABLE IF NOT EXISTS `donazioniSede` (
   `id` int(11) NOT NULL,
   `provincia` varchar(128) DEFAULT NULL,
   `regione` varchar(128) DEFAULT NULL,
   `nome` text,
   `tipo` varchar(8) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `donazioni_meriti` (
-  `id` int(11) NOT NULL,
-  `volontario` varchar(16) DEFAULT NULL,
-  `donazione` varchar(16) DEFAULT NULL,
-  `merito` varchar(64) DEFAULT NULL,
-  `tConferma` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

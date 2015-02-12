@@ -8,7 +8,7 @@
 class DonazioneMerito extends Entita {
     
     public static
-        $_t     = 'donazioni_meriti',
+        $_t     = 'donazioniMerito',
         $_dt    = null;
         
     use EntitaCache;
