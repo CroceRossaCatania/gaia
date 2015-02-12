@@ -43,7 +43,7 @@ class DonazioneSede extends Entita {
         $q->execute();
         $t = $c = [];
         while ( $r = $q->fetch(PDO::FETCH_ASSOC) ) {
-            $t[$r['id'] = $r[$_dettaglio];
+            $t[$r['id']] = $r[$_dettaglio];
             if ( false )
                 $c[] = $r;
         }
