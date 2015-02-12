@@ -27,6 +27,7 @@ $(document).ready( function() {
 			req:     "regione",
 			res:     "provincia"
 		}, function(x) {
+			$('#sedeProvincia').append('<option selected="selected" disabled=""></option>');
 			$.each( x.risposta, function( index, value ){
 				$('#sedeProvincia').append('<option value="'+value+'">'+value+'</option>');
 			});
@@ -46,12 +47,10 @@ $(document).ready( function() {
 			req:     "provincia",
 			res:     "citta"
 		}, function(x) {
+			$('#sedeCitta').append('<option selected="selected" disabled=""></option>');
 			$.each( x.risposta, function( index, value ){
 				$('#sedeCitta').append('<option value="'+value+'">'+value+'</option>');
 			});
-			/*for (i in x.risposta) {
-				$('#sedeCitta').append('<option value="'+x.risposta[i]+'">'+x.risposta[i]+'</option>');
-			}*/
 			$("#citta").show(500);
         });
 	});
@@ -66,10 +65,11 @@ $(document).ready( function() {
 			req:     "citta",
 			res:     "nome"
 		}, function(x) {
+			$('#sede').append('<option selected="selected" disabled=""></option>');
 			$.each( x.risposta, function( index, value ){
 				$('#sede').append('<option value="'+index+'">'+value+'</option>');
 			});
-			$("#citta").show(500);
+			$("#sede").show(500);
         });
 	});
 
