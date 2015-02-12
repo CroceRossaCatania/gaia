@@ -30,6 +30,10 @@ paginaPrivata();
 </div>
 <?php } //elseif ($d == 1) { } ?>
 
+<?php 
+print_r($me);die;
+$anagrafica = DonazioniAnagrafica::filtra([['volontario',$tp->luogo]]); ?>
+
 <div class="row-fluid">
 	<div class="span12">
 		<h3><i class="icon-edit muted"></i> Anagrafica donatore</h3>
