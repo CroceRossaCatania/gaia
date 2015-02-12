@@ -58,7 +58,7 @@ paginaPrivata();
 						foreach($conf['anagrafica_donatore']['sangue_gruppo'] as $key => $value){
 							if ( $value !== null ) {
 								echo "<option value=\"".$key."\"";
-								if($anagrafica AND $anagrafica->sangue_gruppo == $key) echo " selected";
+								if(count($anagrafica) AND $anagrafica->sangue_gruppo == $key) echo " selected";
 								echo ">".$value."</option>";
 							}
 						}
@@ -75,7 +75,7 @@ paginaPrivata();
 						foreach($conf['anagrafica_donatore']['fattore_rh'] as $key => $value){
 							if ( $value !== null ) {
 								echo "<option value=\"".$key."\"";
-								if($anagrafica AND $anagrafica->fattore_rh == $key) echo " selected";
+								if(count($anagrafica) AND $anagrafica->fattore_rh == $key) echo " selected";
 								echo ">".$value."</option>";
 							}
 						}
@@ -92,7 +92,7 @@ paginaPrivata();
 						foreach($conf['anagrafica_donatore']['fanotipo_rh'] as $key => $value){
 							if ( $value !== null ) {
 								echo "<option value=\"".$key."\"";
-								if($anagrafica AND $anagrafica->fanotipo_rh == $key) echo " selected";
+								if(count($anagrafica) AND $anagrafica->fanotipo_rh == $key) echo " selected";
 								echo ">".$value."</option>";
 							}
 						}
@@ -109,7 +109,7 @@ paginaPrivata();
 						foreach($conf['anagrafica_donatore']['kell'] as $key => $value){
 							if ( $value !== null ) {
 								echo "<option value=\"".$key."\"";
-								if($anagrafica AND $anagrafica->kell == $key) echo " selected";
+								if(count($anagrafica) AND $anagrafica->kell == $key) echo " selected";
 								echo ">".$value."</option>";
 							}
 						}
