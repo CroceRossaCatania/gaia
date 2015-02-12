@@ -7,7 +7,7 @@
 paginaPrivata();
 
 controllaParametri(array('idDonazione'));
-
+print_r($_POST);die;
 $id = $_POST['idDonazione'];
 
 $t = Donazione::id($id);

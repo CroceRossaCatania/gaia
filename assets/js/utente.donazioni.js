@@ -8,9 +8,7 @@ $(document).ready( function() {
 				$("#step2").show(500);
 				$("#data").datepicker({ maxDate: 0 });
 			});
-		} /*else {
-        		$("#step2 form").submit();
-	    	}*/
+		}
 	});
 
 	$("#sedeRegione").on('change', function(){

@@ -75,7 +75,7 @@ paginaPrivata();
 	</div>
 	<div class="row-fluid">
 		<div class="span4 centrato">
-		<label for="sedeRegione"><i class="icon-road"></i> Regione</label>
+		<label for="sedeRegione">Regione</label>
 		</div>
 		<div class="span8">
 		<select id="sedeRegione" name="sedeRegione" class="span12" required>
@@ -91,7 +91,7 @@ paginaPrivata();
 
 	<div id="provincia" class="row-fluid" style="display: none;">
 		<div class="span4 centrato">
-		<label for="sedeProvincia"><i class="icon-road"></i> Provincia</label>
+		<label for="sedeProvincia">Provincia</label>
 		</div>
 		<div class="span8">
 		<select id="sedeProvincia" name="sedeProvincia" class="span12" required></select>
@@ -100,7 +100,7 @@ paginaPrivata();
 
 	<div id="citta" class="row-fluid" style="display: none;">
 		<div class="span4 centrato">
-		<label for="sedeCitta"><i class="icon-road"></i> Città</label>
+		<label for="sedeCitta">Città</label>
 		</div>
 		<div class="span8">
 		<select id="sedeCitta" name="sedeCitta" class="span12" required></select>
