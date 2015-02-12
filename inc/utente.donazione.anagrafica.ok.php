@@ -14,7 +14,7 @@ if ( !count($p) ) {
 	$p->volontario  = $me;
 }
 
-$p->sangue_gruppo   = normalizzaNome($_POST['sede']);
+$p->sangue_gruppo   = normalizzaNome($_POST['inputSangueGruppo']);
 $fattore_rh = $_POST['inputFattoreRH'] ? $_POST['inputFattoreRH'] : 0;
 $p->fattore_rh = normalizzaNome($fattore_rh);
 $fanotipo_rh = $_POST['inputFenotipoRH'] ? $_POST['inputFenotipoRH'] : 0;
