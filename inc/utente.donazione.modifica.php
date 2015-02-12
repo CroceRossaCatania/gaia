@@ -60,7 +60,7 @@ $donazioni = $conf['donazioni'][$d];
 
 		<div id="citta" class="row-fluid">
 			<div class="span4 centrato">
-			<label for="sedeCitta">Città</label>
+			<label for="sedeCitta">Citt&agrave;</label>
 			</div>
 			<div class="span8">
 			<select id="sedeCitta" name="sedeCitta" class="span12" required>
