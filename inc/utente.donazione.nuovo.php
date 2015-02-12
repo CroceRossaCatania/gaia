@@ -7,7 +7,7 @@
 paginaPrivata();
 
 controllaParametri(array('idDonazione'));
-print_r($_POST);die;
+
 $id = $_POST['idDonazione'];
 
 $t = Donazione::id($id);
@@ -20,7 +20,7 @@ $data = @DateTime::createFromFormat('d/m/Y', $_POST['data']);
 $data = @$data->getTimestamp();
 $p->data = $data;
 
-$p->luogo = normalizzaNome($_POST['luogo']);
+$p->luogo = normalizzaNome($_POST['sede']);
 
 if ( !$conf['donazioni'][$t->tipo][1] ) {
     $p->tConferma = time();
