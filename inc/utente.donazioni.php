@@ -30,12 +30,7 @@ paginaPrivata();
 </div>
 <?php } //elseif ($d == 1) { } ?>
 
-<?php $anagrafica = DonazioneAnagrafica::filtra([['volontario',$me->id]]); 
-print_r($anagrafica);
-echo "<br><br>";
-print_r($anagrafica[0]->sangue_gruppo);
-die;
-?>
+<?php $anagrafica = DonazioneAnagrafica::filtra([['volontario',$me->id]]); ?>
 
 <div class="row-fluid">
 	<div class="span12">
@@ -63,7 +58,7 @@ die;
 						foreach($conf['anagrafica_donatore']['sangue_gruppo'] as $key => $value){
 							if ( $value !== null ) {
 								echo "<option value=\"".$key."\"";
-								if(count($anagrafica) AND $anagrafica->sangue_gruppo == $key) echo " selected";
+								if(count($anagrafica) AND $anagrafica[0]->sangue_gruppo == $key) echo " selected";
 								echo ">".$value."</option>";
 							}
 						}
@@ -80,7 +75,7 @@ die;
 						foreach($conf['anagrafica_donatore']['fattore_rh'] as $key => $value){
 							if ( $value !== null ) {
 								echo "<option value=\"".$key."\"";
-								if(count($anagrafica) AND $anagrafica->fattore_rh == $key) echo " selected";
+								if(count($anagrafica) AND $anagrafica[0]->fattore_rh == $key) echo " selected";
 								echo ">".$value."</option>";
 							}
 						}
@@ -97,7 +92,7 @@ die;
 						foreach($conf['anagrafica_donatore']['fanotipo_rh'] as $key => $value){
 							if ( $value !== null ) {
 								echo "<option value=\"".$key."\"";
-								if(count($anagrafica) AND $anagrafica->fanotipo_rh == $key) echo " selected";
+								if(count($anagrafica) AND $anagrafica[0]->fanotipo_rh == $key) echo " selected";
 								echo ">".$value."</option>";
 							}
 						}
@@ -114,7 +109,7 @@ die;
 						foreach($conf['anagrafica_donatore']['kell'] as $key => $value){
 							if ( $value !== null ) {
 								echo "<option value=\"".$key."\"";
-								if(count($anagrafica) AND $anagrafica->kell == $key) echo " selected";
+								if(count($anagrafica) AND $anagrafica[0]->kell == $key) echo " selected";
 								echo ">".$value."</option>";
 							}
 						}

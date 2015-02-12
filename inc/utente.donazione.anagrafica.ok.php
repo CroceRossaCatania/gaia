@@ -12,6 +12,8 @@ $p = DonazioneAnagrafica::filtra([['volontario',$me->id]]);
 if ( !count($p) ) {
 	$p = new DonazioneAnagrafica();
 	$p->volontario  = $me;
+} else {
+	$p = $p[0];
 }
 
 $p->sangue_gruppo   = normalizzaNome($_POST['inputSangueGruppo']);
