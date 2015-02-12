@@ -5,7 +5,7 @@
  * 
  */
 
-class DonazioniAnagrafica extends Entita {
+class DonazioneAnagrafica extends Entita {
     
     protected static
         $_t     = 'donazioniAnagrafica',

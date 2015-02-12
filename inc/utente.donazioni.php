@@ -30,7 +30,7 @@ paginaPrivata();
 </div>
 <?php } //elseif ($d == 1) { } ?>
 
-<?php $anagrafica = DonazioniAnagrafica::filtra([['volontario',$me->id]]); ?>
+<?php $anagrafica = DonazioneAnagrafica::filtra([['volontario',$me->id]]); ?>
 
 <div class="row-fluid">
 	<div class="span12">
