@@ -63,20 +63,22 @@ paginaAdmin();
  <div class="span12">
      <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
         <thead>
-            <th>Nome</th>
-            <th>Tipo</th>
+			<th>Tipo</th>
+			<th>Regione</th>
             <th>Provincia</th>
-            <th>Regione</th>
+            <th>Citta</th>
+			<th>Ospedale</th>
             <th>Azioni</th>
         </thead>
         <?php
         foreach(DonazioneSede::elenco('provincia ASC') as $c){
             ?>
             <tr>
-                <td><?php echo $c->nome; ?></td>
-                <td><?php echo($conf['donazioni'][$c->tipo][0]); ?></td>
+				<td><?php echo($conf['donazioni'][$c->tipo][0]); ?></td>
+				<td><?php echo $c->regione; ?></td>
                 <td><?php echo $c->provincia; ?></td>
-                <td><?php echo $c->regione; ?></td>
+                <td><?php echo $c->citta; ?></td>
+				<td><?php echo $c->nome; ?></td>
                 <td>
                     <div class="btn-group">
                         <a  onClick="return confirm('Vuoi veramente cancellare questa sede ?');" href="?p=admin.donazione.sedi.cancella&id=<?php echo $c->id; ?>" title="Cancella sede" class="btn btn-small btn-warning">
