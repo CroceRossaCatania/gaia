@@ -69,7 +69,7 @@ $(document).ready( function() {
 			$.each( x.risposta, function( index, value ){
 				$('#sede').append('<option value="'+index+'">'+value+'</option>');
 			});
-			$("#sede").show(500);
+			$("#ospedale").show(500);
         });
 	});
 
