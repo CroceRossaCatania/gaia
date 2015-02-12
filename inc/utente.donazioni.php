@@ -30,6 +30,13 @@ paginaPrivata();
 </div>
 <?php } //elseif ($d == 1) { } ?>
 
+<div class="row-fluid">
+	<div class="span12">
+	<h3><i class="icon-list muted"></i> Anagrafica donatore</h3>
+
+	</div>
+</div>
+
 <?php $donazioni = $conf['donazioni'][$d]; ?>
 
 <div id="step1">

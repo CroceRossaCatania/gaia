@@ -301,6 +301,51 @@ $conf['titoli'] = [
 /* Tipologie di donazioni */
 define('DONAZIONE_SANGUE',      0);
 
+/* Anagrafica donatore */
+
+/* Gruppo Sanguigno */
+$conf['anagrafica_donatore']['sangue_gruppo'] = [
+	'0',
+    'A',
+	'B',
+	'AB'
+];
+
+/* Fattore RH */
+$conf['anagrafica_donatore']['fattore_rh'] = [
+	'Positivo',
+    'Negativo'
+];
+
+/* Fenotipo RH */
+$conf['anagrafica_donatore']['fanotipo_rh'] = [
+	'CCDee',
+    'ccDEE',
+	'CcDee',
+	'ccDEe',
+	'ccDee',
+	'CCDEE',
+	'CCDEe',
+	'CcDEE',
+	'CcDEe',
+	'Ccddee',
+	'CCddee',
+	'ccddEe',
+	'ccddEE',
+	'ccddee',
+	'CcddEe'
+];
+
+/* Kell */
+$conf['anagrafica_donatore']['kell'] = [
+	'K+k+',
+    'K+k-',
+	'K-k+',
+	'Kp(a+b+)',
+	'Kp(a-b+)'
+];
+
+
 $conf['tipiDonazioni'] = [
     'Donazione di sangue'
 ];
