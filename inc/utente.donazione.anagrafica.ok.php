@@ -9,6 +9,7 @@ paginaPrivata();
 controllaParametri(array('inputSangueGruppo'));
 
 $p = DonazioneAnagrafica::filtra([['volontario',$me->id]]);
+print_r($p);die;
 if ( $p ) {
 	$p = new DonazioneAnagrafica();
 	$p->volontario  = $me->id;
