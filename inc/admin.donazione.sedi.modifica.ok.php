@@ -10,9 +10,10 @@ $t = $_GET['id'];
 
 $t = DonazioneSede::id($t);
 $t->tipo = $_POST['inputTipo'];
-$t->nome = $_POST['inputNome'];
-$t->provincia = $_POST['inputProvincia'];
 $t->regione = $_POST['inputRegione'];
+$t->provincia = $_POST['inputProvincia'];
+$t->citta = $_POST['inputCitta'];
+$t->nome = $_POST['inputNome'];
    
 redirect('admin.donazioni.sedi&mod');
 
