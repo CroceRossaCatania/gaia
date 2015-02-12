@@ -31,7 +31,7 @@ paginaPrivata();
 <?php } //elseif ($d == 1) { } ?>
 
 <?php 
-print_r($me);die;
+print_r($me->id);die;
 $anagrafica = DonazioniAnagrafica::filtra([['volontario',$tp->luogo]]); ?>
 
 <div class="row-fluid">
