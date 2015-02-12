@@ -9,9 +9,9 @@ paginaPrivata();
 controllaParametri(array('inputSangueGruppo'));
 
 $p = DonazioneAnagrafica::filtra([['volontario',$me->id]]);
-if ( count($p) ) {
+if ( !count($p) ) {
 	$p = new DonazioneAnagrafica();
-	$p->volontario  = $me->id;
+	$p->volontario  = $me;
 }
 
 $p->sangue_gruppo   = normalizzaNome($_POST['sede']);
@@ -22,4 +22,4 @@ $p->fanotipo_rh = normalizzaNome($fanotipo_rh);
 $kell = $_POST['inputKell'] ? $_POST['inputKell'] : 0;
 $p->kell = normalizzaNome($kell);
 
-redirect('utente.donazioni&okd=' . $t->tipo);
+redirect('utente.donazioni&ok&d=' . $t->tipo);
