@@ -30,9 +30,7 @@ paginaPrivata();
 </div>
 <?php } //elseif ($d == 1) { } ?>
 
-<?php 
-print_r($me->id);die;
-$anagrafica = DonazioniAnagrafica::filtra([['volontario',$tp->luogo]]); ?>
+<?php $anagrafica = DonazioniAnagrafica::filtra([['volontario',$me->id]]); ?>
 
 <div class="row-fluid">
 	<div class="span12">
@@ -58,7 +56,9 @@ $anagrafica = DonazioniAnagrafica::filtra([['volontario',$tp->luogo]]); ?>
 						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['sangue_gruppo'] as $key => $value){
-							echo "<option value=\"".$key."\">".$value."</option>";
+							echo "<option value=\"".$key."\"";
+							if($anagrafica AND $anagrafica->sangue_gruppo == $key) echo " selected";
+							echo ">".$value."</option>";
 						}
 						?>
 					</select>
@@ -71,7 +71,9 @@ $anagrafica = DonazioniAnagrafica::filtra([['volontario',$tp->luogo]]); ?>
 						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['fattore_rh'] as $key => $value){
-							echo "<option value=\"".$key."\">".$value."</option>";
+							echo "<option value=\"".$key."\"";
+							if($anagrafica AND $anagrafica->fattore_rh == $key) echo " selected";
+							echo ">".$value."</option>";
 						}
 						?>
 					</select>
@@ -84,7 +86,9 @@ $anagrafica = DonazioniAnagrafica::filtra([['volontario',$tp->luogo]]); ?>
 						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['fanotipo_rh'] as $key => $value){
-							echo "<option value=\"".$key."\">".$value."</option>";
+							echo "<option value=\"".$key."\"";
+							if($anagrafica AND $anagrafica->fanotipo_rh == $key) echo " selected";
+							echo ">".$value."</option>";
 						}
 						?>
 					</select>
@@ -97,7 +101,9 @@ $anagrafica = DonazioniAnagrafica::filtra([['volontario',$tp->luogo]]); ?>
 						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['kell'] as $key => $value){
-							echo "<option value=\"".$key."\">".$value."</option>";
+							echo "<option value=\"".$key."\"";
+							if($anagrafica AND $anagrafica->kell == $key) echo " selected";
+							echo ">".$value."</option>";
 						}
 						?>
 					</select>
