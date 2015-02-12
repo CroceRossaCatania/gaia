@@ -89,7 +89,7 @@ paginaPrivata();
 			<div class="control-group">
 				<label class="control-label" for="inputKell">Kell</label>
 				<div class="controls">
-					<select id="inputKell" name="inputKell" class="span12">
+					<select id="inputKell" name="inputKell">
 						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['kell'] as $key => $value){
