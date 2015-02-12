@@ -50,7 +50,7 @@ paginaPrivata();
 			<div class="control-group">
 				<label class="control-label" for="inputNome">Gruppo Sanguigno</label>
 				<div class="controls">
-					<select id="inputSangueGruppo" name="inputSangueGruppo" class="span12" required>
+					<select id="inputSangueGruppo" name="inputSangueGruppo" required>
 						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['sangue_gruppo'] as $key => $value){
@@ -63,7 +63,7 @@ paginaPrivata();
 			<div class="control-group">
 				<label class="control-label" for="inputFattoreRH">Fattore RH</label>
 				<div class="controls">
-					<select id="inputFattoreRH" name="inputFattoreRH" class="span12">
+					<select id="inputFattoreRH" name="inputFattoreRH">
 						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['fattore_rh'] as $key => $value){
@@ -76,7 +76,7 @@ paginaPrivata();
 			<div class="control-group">
 				<label class="control-label" for="inputFenotipoRH">Fenotipo RH</label>
 				<div class="controls">
-					<select id="inputFenotipoRH" name="inputFenotipoRH" class="span12">
+					<select id="inputFenotipoRH" name="inputFenotipoRH">
 						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['fanotipo_rh'] as $key => $value){
