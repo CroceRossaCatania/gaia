@@ -53,11 +53,14 @@ paginaPrivata();
 				<label class="control-label" for="inputSangueGruppo">Gruppo Sanguigno</label>
 				<div class="controls">
 					<select id="inputSangueGruppo" name="inputSangueGruppo" required>
+						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['sangue_gruppo'] as $key => $value){
-							echo "<option value=\"".$key."\"";
-							if($anagrafica AND $anagrafica->sangue_gruppo == $key) echo " selected";
-							echo ">".$value."</option>";
+							if ( $value !== null ) {
+								echo "<option value=\"".$key."\"";
+								if($anagrafica AND $anagrafica->sangue_gruppo == $key) echo " selected";
+								echo ">".$value."</option>";
+							}
 						}
 						?>
 					</select>
@@ -67,11 +70,14 @@ paginaPrivata();
 				<label class="control-label" for="inputFattoreRH">Fattore RH</label>
 				<div class="controls">
 					<select id="inputFattoreRH" name="inputFattoreRH">
+						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['fattore_rh'] as $key => $value){
-							echo "<option value=\"".$key."\"";
-							if($anagrafica AND $anagrafica->fattore_rh == $key) echo " selected";
-							echo ">".$value."</option>";
+							if ( $value !== null ) {
+								echo "<option value=\"".$key."\"";
+								if($anagrafica AND $anagrafica->fattore_rh == $key) echo " selected";
+								echo ">".$value."</option>";
+							}
 						}
 						?>
 					</select>
@@ -81,11 +87,14 @@ paginaPrivata();
 				<label class="control-label" for="inputFenotipoRH">Fenotipo RH</label>
 				<div class="controls">
 					<select id="inputFenotipoRH" name="inputFenotipoRH">
+						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['fanotipo_rh'] as $key => $value){
-							echo "<option value=\"".$key."\"";
-							if($anagrafica AND $anagrafica->fanotipo_rh == $key) echo " selected";
-							echo ">".$value."</option>";
+							if ( $value !== null ) {
+								echo "<option value=\"".$key."\"";
+								if($anagrafica AND $anagrafica->fanotipo_rh == $key) echo " selected";
+								echo ">".$value."</option>";
+							}
 						}
 						?>
 					</select>
@@ -95,11 +104,14 @@ paginaPrivata();
 				<label class="control-label" for="inputKell">Kell</label>
 				<div class="controls">
 					<select id="inputKell" name="inputKell">
+						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['kell'] as $key => $value){
-							echo "<option value=\"".$key."\"";
-							if($anagrafica AND $anagrafica->kell == $key) echo " selected";
-							echo ">".$value."</option>";
+							if ( $value !== null ) {
+								echo "<option value=\"".$key."\"";
+								if($anagrafica AND $anagrafica->kell == $key) echo " selected";
+								echo ">".$value."</option>";
+							}
 						}
 						?>
 					</select>
