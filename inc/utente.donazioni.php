@@ -53,7 +53,6 @@ paginaPrivata();
 				<label class="control-label" for="inputSangueGruppo">Gruppo Sanguigno</label>
 				<div class="controls">
 					<select id="inputSangueGruppo" name="inputSangueGruppo" required>
-						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['sangue_gruppo'] as $key => $value){
 							echo "<option value=\"".$key."\"";
@@ -68,7 +67,6 @@ paginaPrivata();
 				<label class="control-label" for="inputFattoreRH">Fattore RH</label>
 				<div class="controls">
 					<select id="inputFattoreRH" name="inputFattoreRH">
-						<option selected="selected"></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['fattore_rh'] as $key => $value){
 							echo "<option value=\"".$key."\"";
@@ -83,7 +81,6 @@ paginaPrivata();
 				<label class="control-label" for="inputFenotipoRH">Fenotipo RH</label>
 				<div class="controls">
 					<select id="inputFenotipoRH" name="inputFenotipoRH">
-						<option selected="selected"></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['fanotipo_rh'] as $key => $value){
 							echo "<option value=\"".$key."\"";
@@ -98,7 +95,6 @@ paginaPrivata();
 				<label class="control-label" for="inputKell">Kell</label>
 				<div class="controls">
 					<select id="inputKell" name="inputKell">
-						<option selected="selected"></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['kell'] as $key => $value){
 							echo "<option value=\"".$key."\"";
