@@ -32,8 +32,82 @@ paginaPrivata();
 
 <div class="row-fluid">
 	<div class="span12">
-	<h3><i class="icon-list muted"></i> Anagrafica donatore</h3>
+		<h3><i class="icon-edit muted"></i> Anagrafica donatore</h3>
+		<?php if ( isset($_GET['ok']) ) { ?>
+			<div class="alert alert-success">
+				<i class="icon-save"></i> <strong>Salvato</strong>.
+				Le modifiche richieste sono state memorizzate con successo.
+			</div>
+		<?php } else { ?>
+			<div class="alert alert-block alert-info">
+				<h4><i class="icon-question-sign"></i> Qualcosa è sbagliato?</h4>
+				<p>Se qualche informazione è errata e non riesci a modificarla,
+					<a href="?p=utente.supporto"><i class="icon-envelope-alt"></i> clicca qui </a> per ricevere supporto.</p>
+			</div>
+		<?php } ?>
 
+		<form class="form-horizontal" action="?p=utente.donazione.anagrafica.ok" method="POST">
+			<div class="control-group">
+				<label class="control-label" for="inputNome">Gruppo Sanguigno</label>
+				<div class="controls">
+					<select id="inputSangueGruppo" name="inputSangueGruppo" class="span12" required>
+						<option selected="selected" disabled=""></option>
+						<?php
+						foreach($conf['anagrafica_donatore']['sangue_gruppo'] as $key => $value){
+							echo "<option value=\"".$key."\">".$value."</option>";
+						}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputFattoreRH">Fattore RH</label>
+				<div class="controls">
+					<select id="inputFattoreRH" name="inputFattoreRH" class="span12">
+						<option selected="selected" disabled=""></option>
+						<?php
+						foreach($conf['anagrafica_donatore']['fattore_rh'] as $key => $value){
+							echo "<option value=\"".$key."\">".$value."</option>";
+						}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputFenotipoRH">Fenotipo RH</label>
+				<div class="controls">
+					<select id="inputFenotipoRH" name="inputFenotipoRH" class="span12">
+						<option selected="selected" disabled=""></option>
+						<?php
+						foreach($conf['anagrafica_donatore']['fanotipo_rh'] as $key => $value){
+							echo "<option value=\"".$key."\">".$value."</option>";
+						}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputKell">Kell</label>
+				<div class="controls">
+					<select id="inputKell" name="inputKell" class="span12">
+						<option selected="selected" disabled=""></option>
+						<?php
+						foreach($conf['anagrafica_donatore']['kell'] as $key => $value){
+							echo "<option value=\"".$key."\">".$value."</option>";
+						}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="form-actions">
+				<?php if($a!=1){ ?>
+					<button type="submit" class="btn btn-success btn-large">
+						<i class="icon-save"></i>
+						Salva modifiche
+					</button>
+			   <?php }?>
+			</div>
+		</form>
 	</div>
 </div>
 
