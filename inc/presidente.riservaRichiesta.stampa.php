@@ -31,22 +31,30 @@ $f = $p->salvaFile();
 if ( $sessione->inGenerazioneRiserva) {
     $sessione->inGenerazioneRiserva = null;
     
-    /* Richiesta all'utente */
-    $m = new Email('richiestaRiserva', 'Richiesta riserva');
-    $m->a       = $me;
-    $m->_NOME   = $me->nome;
-    $m->_TIME   = date('d/m/Y', $t->timestamp);
-    $m->allega($f);
-    $m->accoda();
+    try{
+        /* Richiesta all'utente */
+        $m = new Email('richiestaRiserva', 'Richiesta riserva');
+        $m->a       = $me;
+        $m->_NOME   = $me->nome;
+        $m->_TIME   = date('d/m/Y', $t->timestamp);
+        $m->allega($f);
+        $m->accoda();
+    }catch(Exception $e){
 
-    /* Richiesta all'utente */
-    $m = new Email('richiestaRiserva.presidente', 'Richiesta riserva da ' . $me->nomeCompleto);
-    $m->a       = $c->unPresidente();
-    $m->_NOME   = $me->nomeCompleto();
-    $m->_MOTIVO = $t->motivo;
-    $m->_TIME   = date('d/m/Y', $t->timestamp);
-    $m->allega($f);
-    $m->accoda();
+    }
+
+    try{
+        /* Richiesta al presidente */
+        $m = new Email('richiestaRiserva.presidente', 'Richiesta riserva da ' . $me->nomeCompleto);
+        $m->a       = $c->unPresidente();
+        $m->_NOME   = $me->nomeCompleto();
+        $m->_MOTIVO = $t->motivo;
+        $m->_TIME   = date('d/m/Y', $t->timestamp);
+        $m->allega($f);
+        $m->accoda();
+    }catch(Exception $e){
+        
+    }
           
     redirect('utente.riserva&ok');
 } else {
