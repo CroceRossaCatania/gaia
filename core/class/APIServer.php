@@ -788,7 +788,7 @@ class APIServer {
         } else {
             $c = "Nessun Comitato Regionale";
         }
-        $r = [
+        return [
             'ok'            =>  true,
             'volontario'    =>  $r->utente()->toJSON(true),
             'regionale'     =>  $c
