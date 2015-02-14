@@ -783,10 +783,17 @@ class APIServer {
         $r->pConferma = $me->id;
         $r->tConferma = time();
         $r->stato     = $this->par['stato'];
-        return [
+        if ( $a = $r->utente()->ultimaAppartenenza() ) {
+            $c = $a->comitato()->superiore()->superiore()->superiore()->nomeCompleto();
+        } else {
+            $c = "Nessun Comitato Regionale";
+        }
+        $r = [
             'ok'            =>  true,
-            'volontario'    =>  $r->utente()->toJSON(true)
+            'volontario'    =>  $r->utente()->toJSON(true),
+            'regionale'     =>  $c
         ];
+
     }
 
         
