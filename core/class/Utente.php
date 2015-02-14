@@ -1046,7 +1046,8 @@ class Utente extends Persona {
     public function attivitaReferenziateDaCompletare() {
         return Attivita::filtra([
             ['referente',   $this->id],
-            ['stato',       ATT_STATO_BOZZA]
+            ['stato',       ATT_STATO_BOZZA],
+            ['apertura', ATT_APERTA]
         ]);
     }
 
