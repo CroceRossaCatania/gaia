@@ -12,4 +12,8 @@ class Autoparco extends GeoEntita {
 
     use EntitaCache;
     
+    public function cancella() {
+    	Collocazione::cancellaTutti([['autoparco', $this]]);
+    	parent::cancella();
+    }
 }

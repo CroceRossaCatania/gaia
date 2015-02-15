@@ -81,9 +81,7 @@ class Lezione extends Entita {
 	}
 
 	public function cancella() {
-		foreach ( $this->assenze() as $a ) {
-			$a->cancella();
-		}
+		AssenzaLezione::cancellaTutti([['lezione', $this->id]]);
 		parent::cancella();
 	}
 
