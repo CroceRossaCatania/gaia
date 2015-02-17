@@ -130,7 +130,7 @@ $password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
 $p->cambiaPassword($password);
 
 /* Invia la mail */
-$m = new Email('registrazioneVolontario', 'Benvenuto su Gaia');
+$m = new Email('registrazioneVolontarioUS', 'Benvenuto su Gaia');
 $m->a = $p;
 $m->_NOME       = $p->nome;
 $m->_PASSWORD   = $password;
