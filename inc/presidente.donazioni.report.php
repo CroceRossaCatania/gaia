@@ -26,7 +26,6 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 			$regioni[$sede->regione]["plasma"] = $regioni[$sede->regione]["plasma"]+ DonazionePersonale::conta([["donazione","3"],["luogo",$sede->id]]);
 			$regioni[$sede->regione]["multicomponenti"] = $regioni[$sede->regione]["multicomponenti"] + DonazionePersonale::conta([["donazione","4"],["donazione","5"],["donazione","6"],["donazione","7"],["donazione","8"],["donazione","9"],["donazione","10"],["luogo",$sede->id]]);
 		}
-		print_r($regioni);die;
 		?>
         <table class="table table-striped table-bordered" id="tabellaUtenti">
             <thead>
@@ -37,23 +36,12 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             </thead>
             <?php 
 			
-			foreach(DonazioneSede::filtraDistinctSedi('regione') as $key => $value){
-				
-				?>
+			foreach($regioni as $regione => $valori){ ?>
 				<tr>
-                    <td><?php echo $value; ?></td>
-                    <td><?php
-						$sangueIntero = DonazionePersonale::conta([["donazione","2"],["luogo",$key]]);
-						echo $sangueIntero ? $sangueIntero : "-";
-						?></td>
-                    <td><?php
-						$plasma = DonazionePersonale::conta([["donazione","3"],["luogo",$key]]);
-						echo $plasma ? $plasma : "-";
-						?></td>
-                    <td><?php
-						$multicomponenti = DonazionePersonale::conta([["donazione","4"],["donazione","5"],["donazione","6"],["donazione","7"],["donazione","8"],["donazione","9"],["donazione","10"],["luogo",$key]]);
-						echo $multicomponenti ? $multicomponenti : "-";
-						?></td>
+                    <td><?php echo $regione; ?></td>
+                    <td><?php echo $valori["sangueIntero"] ? $valori["sangueIntero"] : "-"; ?></td>
+                    <td><?php echo $valori["plasma"] ? $valori["plasma"] : "-"; ?></td>
+                    <td><?php echo $valori["multicomponenti"] ? $valori["multicomponenti"] : "-"; ?></td>
 				</tr>
 				<?php
 			}
