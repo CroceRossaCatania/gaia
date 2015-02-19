@@ -31,13 +31,13 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             </thead>
             <?php 
 			foreach(DonazioneSede::elenco("regione") as $sede){
-				print_r($sede);
+				
 				?>
 				<tr>
-                    <td><?php echo $sede[0]->regione; ?></td>
-                    <td><?php echo $sede[0]->provincia; ?></td>
-                    <td><?php echo $sede[0]->citta; ?></td>
-                    <td><?php echo $sede[0]->nome; ?></td>
+                    <td><?php echo $sede->regione; ?></td>
+                    <td><?php echo $sede->provincia; ?></td>
+                    <td><?php echo $sede->citta; ?></td>
+                    <td><?php echo $sede->nome; ?></td>
                     <td></td>
                     <td></td>
                     <td></td>
