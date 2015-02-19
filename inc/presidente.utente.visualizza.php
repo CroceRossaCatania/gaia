@@ -827,11 +827,13 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 	<?php $donazioni = $conf['donazioni']; ?>
 	<div class="span6">
 		<h4><i class="icon-list muted"></i> Donazioni </h4>
-		<form class="form-horizontal" action="?p=utente.donazione.anagrafica.ok" method="POST">
+
+		<?php $anagrafica = DonazioneAnagrafica::filtra([['volontario',$me->id]]); ?>
+		<form class="form-horizontal" action="?p=presidente.donazione.anagrafica.ok&id=<?php echo $u->id; ?>" method="POST">
 			<div class="control-group">
 				<label class="control-label" for="inputSangueGruppo">Gruppo Sanguigno</label>
 				<div class="controls">
-					<select id="inputSangueGruppo" name="inputSangueGruppo" required>
+					<select id="inputSangueGruppo" name="inputSangueGruppo" required <?php if(!$admin){?> readonly <?php } ?>>
 						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['sangue_gruppo'] as $key => $value){
@@ -848,7 +850,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 			<div class="control-group">
 				<label class="control-label" for="inputFattoreRH">Fattore RH</label>
 				<div class="controls">
-					<select id="inputFattoreRH" name="inputFattoreRH">
+					<select id="inputFattoreRH" name="inputFattoreRH" <?php if(!$admin){?> readonly <?php } ?>>
 						<option selected="selected"></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['fattore_rh'] as $key => $value){
@@ -865,7 +867,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 			<div class="control-group">
 				<label class="control-label" for="inputFenotipoRH">Fenotipo RH</label>
 				<div class="controls">
-					<select id="inputFenotipoRH" name="inputFenotipoRH">
+					<select id="inputFenotipoRH" name="inputFenotipoRH" <?php if(!$admin){?> readonly <?php } ?>>
 						<option selected="selected"></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['fanotipo_rh'] as $key => $value){
@@ -882,7 +884,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 			<div class="control-group">
 				<label class="control-label" for="inputKell">Kell</label>
 				<div class="controls">
-					<select id="inputKell" name="inputKell">
+					<select id="inputKell" name="inputKell" <?php if(!$admin){?> readonly <?php } ?>>
 						<option selected="selected"></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['kell'] as $key => $value){
@@ -909,7 +911,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 			<div class="control-group">
 				<label class="control-label" for="inputSedeSIT">Regione Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITRegione" name="inputSedeSITRegione">
+					<select id="inputSedeSITRegione" name="inputSedeSITRegione" <?php if(!$admin){?> readonly <?php } ?>>
 						<option selected="selected"></option>
 						<?php
 						foreach(DonazioneSede::filtraDistinctSedi('regione') as $value){
@@ -924,7 +926,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 			<div id="SedeSITProvincia" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
 				<label class="control-label" for="inputSedeSIT">Provincia Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITProvincia" name="inputSedeSITProvincia">
+					<select id="inputSedeSITProvincia" name="inputSedeSITProvincia" <?php if(!$admin){?> readonly <?php } ?>>
 					<?php
 					if($sedeSIT !== false){
 						foreach(DonazioneSede::filtraDistinctSedi("provincia",[["regione",$sedeSIT->regione]]) as $value){
@@ -940,7 +942,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 			<div id="SedeSITCitta" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
 				<label class="control-label" for="inputSedeSIT">Città Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITCitta" name="inputSedeSITCitta">
+					<select id="inputSedeSITCitta" name="inputSedeSITCitta" <?php if(!$admin){?> readonly <?php } ?>>
 					<?php
 					if($sedeSIT !== false){
 						foreach(DonazioneSede::filtraDistinctSedi("citta",[["provincia",$sedeSIT->provincia]]) as $value){
@@ -956,7 +958,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 			<div id="SedeSITOspedale" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
 				<label class="control-label" for="inputSedeSIT">Ospedale Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSIT" name="inputSedeSIT">
+					<select id="inputSedeSIT" name="inputSedeSIT" <?php if(!$admin){?> readonly <?php } ?>>
 					<?php
 					if($sedeSIT !== false){
 						foreach(DonazioneSede::filtraDistinctSedi("nome",[["citta",$sedeSIT->citta]]) as $key => $value){
@@ -969,15 +971,18 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 					</select>
 				</div>
 			</div>
-			<div class="form-actions">
-				<?php if($a!=1){ ?>
-					<button type="submit" class="btn btn-success btn-large">
-						<i class="icon-save"></i>
-						Salva modifiche
-					</button>
-			   <?php }?>
-			</div>
+			<?php if($admin){?>
+				<div class="form-actions">
+					<?php if($a!=1){ ?>
+						<button type="submit" class="btn btn-success btn-large">
+							<i class="icon-save"></i>
+							Salva modifiche
+						</button>
+					<?php }?>
+				</div>
+			<?php } ?>
 		</form>
+
 		<div id="step1Donazione">
 			<?php if($hoPotere) { ?>
 				<div class="alert alert-block alert-success" <?php if ($donazioni[2]) { ?>data-richiediDate<?php } ?>>      
