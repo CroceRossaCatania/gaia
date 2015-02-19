@@ -67,7 +67,7 @@ paginaAdmin();
 			<th>Regione</th>
             <th>Provincia</th>
             <th>Citta</th>
-			<th>Ospedale</th>
+			<th>Unit&agrave; di raccolta</th>
             <th>Azioni</th>
         </thead>
         <?php
