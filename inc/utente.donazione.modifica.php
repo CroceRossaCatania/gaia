@@ -77,7 +77,7 @@ $donazioni = $conf['donazioni'][$d];
 
 		<div id="ospedale" class="row-fluid">
 			<div class="span4 centrato">
-			<label for="sede"><i class="icon-road"></i> Ospedale</label>
+			<label for="sede"><i class="icon-road"></i> Unità di raccolta</label>
 			</div>
 			<div class="span8">
 			<select id="sede" name="sede" class="span12" required>

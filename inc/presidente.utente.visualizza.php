@@ -956,7 +956,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 				</div>
 			</div>
 			<div id="SedeSITOspedale" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
-				<label class="control-label" for="inputSedeSIT">Ospedale Sede SIT</label>
+				<label class="control-label" for="inputSedeSIT">Unità di raccolta</label>
 				<div class="controls">
 					<select id="inputSedeSIT" name="inputSedeSIT" <?php if(!$admin){?> readonly <?php } ?>>
 					<?php
@@ -1062,7 +1062,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
 					<div id="ospedale" class="row-fluid" style="display: none;">
 						<div class="span4 centrato">
-						<label for="sede"><i class="icon-road"></i> Ospedale</label>
+						<label for="sede"><i class="icon-road"></i> Unità di raccolta</label>
 						</div>
 						<div class="span8">
 						<select id="sede" name="sede" class="span12" required></select>
