@@ -20,7 +20,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 <br/>
 <div class="row-fluid">
     <div class="span8">
-        <h3>Per Ospedale</h3>
+        <h4>Per Ospedale</h4>
     </div>   
 </div>
 <hr />
