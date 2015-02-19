@@ -126,7 +126,6 @@ paginaPrivata();
 
 			<?php
 			$sedeSIT = (count($anagrafica) AND $anagrafica[0]->sede_sit) ? new DonazioneSede($anagrafica[0]->sede_sit) : false;
-			print_r($sedeSIT);
 			?>
 			<div class="control-group">
 				<label class="control-label" for="inputSedeSIT">Regione Sede SIT</label>
@@ -136,29 +135,59 @@ paginaPrivata();
 						<?php
 						foreach(DonazioneSede::filtraDistinctSedi('regione') as $value){
 							echo "<option value=\"".$value."\"";
-							
+							if(($sedeSIT !== false) AND ($sedeSIT->regione == $value)) echo " selected";
 							echo ">".$value."</option>";
 						}
 						?>
 					</select>
 				</div>
 			</div>
-			<div id="SedeSITProvincia" class="control-group" style="display: none;">
+			<div id="SedeSITProvincia" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
 				<label class="control-label" for="inputSedeSIT">Provincia Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITProvincia" name="inputSedeSITProvincia"></select>
+					<select id="inputSedeSITProvincia" name="inputSedeSITProvincia">
+					<?php
+					if($sedeSIT !== false){
+						foreach(DonazioneSede::filtraDistinctSedi("provincia",[["regione",$sedeSIT->regione]]) as $value){
+							echo "<option value=\"".$value."\"";
+							if($sedeSIT->provincia == $value) echo " selected";
+							echo ">".$value."</option>";
+						}
+					}
+					?>
+					</select>
 				</div>
 			</div>
-			<div id="SedeSITCitta" class="control-group" style="display: none;">
+			<div id="SedeSITCitta" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
 				<label class="control-label" for="inputSedeSIT">Città Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITCitta" name="inputSedeSITCitta"></select>
+					<select id="inputSedeSITCitta" name="inputSedeSITCitta">
+					<?php
+					if($sedeSIT !== false){
+						foreach(DonazioneSede::filtraDistinctSedi("citta",[["provincia",$sedeSIT->provincia]]) as $value){
+							echo "<option value=\"".$value."\"";
+							if($sedeSIT->citta == $value) echo " selected";
+							echo ">".$value."</option>";
+						}
+					}
+					?>
+					</select>
 				</div>
 			</div>
-			<div id="SedeSITOspedale" class="control-group" style="display: none;">
+			<div id="SedeSITOspedale" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
 				<label class="control-label" for="inputSedeSIT">Ospedale Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSIT" name="inputSedeSIT"></select>
+					<select id="inputSedeSIT" name="inputSedeSIT">
+					<?php
+					if($sedeSIT !== false){
+						foreach(DonazioneSede::filtraDistinctSedi("nome",[["citta",$sedeSIT->citta]]) as $key => $value){
+							echo "<option value=\"".$key."\"";
+							if($anagrafica[0]->sede_sit == $key) echo " selected";
+							echo ">".$value."</option>";
+						}
+					}
+					?>
+					</select>
 				</div>
 			</div>
 			<div class="form-actions">
