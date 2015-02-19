@@ -141,7 +141,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     <div class="span8">
         <h2>
             <i class="icon-copy muted"></i>
-            Report donazioni per Ospadale
+            Report donazioni per Ospedale
         </h2>
     </div>   
 </div>
