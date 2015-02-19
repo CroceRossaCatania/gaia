@@ -38,9 +38,18 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     <td><?php echo $sede->provincia; ?></td>
                     <td><?php echo $sede->citta; ?></td>
                     <td><?php echo $sede->nome; ?></td>
-                    <td><?php echo DonazionePersonale::conta([["donazione","2"],["luogo",$sede->id]]);?></td>
-                    <td><?php echo DonazionePersonale::conta([["donazione","3"],["luogo",$sede->id]]);?></td>
-                    <td><?php echo DonazionePersonale::conta([["donazione","4"],["donazione","5"],["donazione","6"],["donazione","7"],["donazione","8"],["donazione","9"],["donazione","10"],["luogo",$sede->id]]);?></td>
+                    <td><?php
+						$sangueIntero = DonazionePersonale::conta([["donazione","2"],["luogo",$sede->id]]);
+						echo $sangueIntero ? $sangueIntero : "-";
+						?></td>
+                    <td><?php
+						$plasma = DonazionePersonale::conta([["donazione","3"],["luogo",$sede->id]]);
+						echo $plasma ? $plasma : "-";
+						?></td>
+                    <td><?php
+						$multicomponenti = DonazionePersonale::conta([["donazione","4"],["donazione","5"],["donazione","6"],["donazione","7"],["donazione","8"],["donazione","9"],["donazione","10"],["luogo",$sede->id]]);
+						echo $multicomponenti ? $multicomponenti : "-";
+						?></td>
 				</tr>
 				<?php
 			}
