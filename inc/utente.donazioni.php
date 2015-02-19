@@ -123,21 +123,42 @@ paginaPrivata();
 					<input type="text" class="input-small" name="inputCodiceSIT" id="inputCodiceSIT" value="<?php if(count($anagrafica) AND $anagrafica[0]->codice_sit) echo $anagrafica[0]->codice_sit; ?>">
 				</div>
 			</div>
+
+			<?php
+			$sedeSIT = (count($anagrafica) AND $anagrafica[0]->sede_sit) ? new DonazioneSede($anagrafica[0]->sede_sit) : false;
+			print_r($sedeSIT);
+			?>
 			<div class="control-group">
-				<label class="control-label" for="inputSedeSIT">Sede SIT</label>
+				<label class="control-label" for="inputSedeSIT">Regione Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSIT" name="inputSedeSIT">
+					<select id="inputSedeSITRegione" name="inputSedeSITRegione" class="span12">
 						<option selected="selected"></option>
 						<?php
-						/*foreach($conf['anagrafica_donatore']['sangue_gruppo'] as $key => $value){
-							if ( $value !== null ) {
-								echo "<option value=\"".$key."\"";
-								if(count($anagrafica) AND $anagrafica[0]->sangue_gruppo == $key) echo " selected";
-								echo ">".$value."</option>";
-							}
-						}*/
+						foreach(DonazioneSede::filtraDistinctSedi('regione') as $value){
+							echo "<option value=\"".$value."\"";
+							
+							echo ">".$value."</option>";
+						}
 						?>
 					</select>
+				</div>
+			</div>
+			<div id="SedeSITProvincia" class="control-group" style="display: none;">
+				<label class="control-label" for="inputSedeSIT">Provincia Sede SIT</label>
+				<div class="controls">
+					<select id="inputSedeSITProvincia" name="inputSedeSITProvincia" class="span12"></select>
+				</div>
+			</div>
+			<div id="SedeSITCitta" class="control-group" style="display: none;">
+				<label class="control-label" for="inputSedeSIT">Città Sede SIT</label>
+				<div class="controls">
+					<select id="inputSedeSITCitta" name="inputSedeSITCitta" class="span12"></select>
+				</div>
+			</div>
+			<div id="SedeSITOspedale" class="control-group" style="display: none;">
+				<label class="control-label" for="inputSedeSIT">Ospedale Sede SIT</label>
+				<div class="controls">
+					<select id="inputSedeSIT" name="inputSedeSIT" class="span12"></select>
 				</div>
 			</div>
 			<div class="form-actions">

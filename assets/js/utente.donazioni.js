@@ -1,5 +1,66 @@
 $(document).ready( function() {
-    
+
+	$("#inputSedeSITRegione").on('change', function(){
+		$("#SedeSITProvincia").hide();
+		$("#SedeSITCitta").hide();
+		$("#SedeSITOspedale").hide();
+		$('#inputSedeSITProvincia').empty();
+		$('#inputSedeSITCitta').empty();
+		$('#inputSedeSIT').empty();
+
+		var query = $("#inputSedeSITRegione").val();
+		api('donazionesedi:cerca', {
+			query:   query,
+			req:     "regione",
+			res:     "provincia"
+		}, function(x) {
+			$('#inputSedeSITProvincia').append('<option selected="selected" disabled=""></option>');
+			$.each( x.risposta, function( index, value ){
+				$('#inputSedeSITProvincia').append('<option value="'+value+'">'+value+'</option>');
+			});
+			$("#SedeSITProvincia").show(500);
+        });
+	});
+
+	$("#inputSedeSITProvincia").on('change', function(){
+		$("#SedeSITCitta").hide();
+		$("#SedeSITOspedale").hide();
+		$('#inputSedeSITCitta').empty();
+		$('#inputSedeSIT').empty();
+
+		var query = $(this).val();
+		api('donazionesedi:cerca', {
+			query:   query,
+			req:     "provincia",
+			res:     "citta"
+		}, function(x) {
+			$('#inputSedeSITCitta').append('<option selected="selected" disabled=""></option>');
+			$.each( x.risposta, function( index, value ){
+				$('#inputSedeSITCitta').append('<option value="'+value+'">'+value+'</option>');
+			});
+			$("#SedeSITCitta").show(500);
+        });
+	});
+
+	$("#inputSedeSITCitta").on('change', function(){
+		$("#SedeSITOspedale").hide();
+		$('#inputSedeSIT').empty();
+
+		var query = $(this).val();
+		api('donazionesedi:cerca', {
+			query:   query,
+			req:     "citta",
+			res:     "nome"
+		}, function(x) {
+			$('#inputSedeSIT').append('<option selected="selected" disabled=""></option>');
+			$.each( x.risposta, function( index, value ){
+				$('#inputSedeSIT').append('<option value="'+index+'">'+value+'</option>');
+			});
+			$("#SedeSITOspedale").show(500);
+        });
+	});
+
+
 	$("#tipo").on('change', function(){
 		$("#idDonazione").val(this.value);
     
