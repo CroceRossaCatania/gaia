@@ -827,6 +827,157 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 	<?php $donazioni = $conf['donazioni']; ?>
 	<div class="span6">
 		<h4><i class="icon-list muted"></i> Donazioni </h4>
+		<form class="form-horizontal" action="?p=utente.donazione.anagrafica.ok" method="POST">
+			<div class="control-group">
+				<label class="control-label" for="inputSangueGruppo">Gruppo Sanguigno</label>
+				<div class="controls">
+					<select id="inputSangueGruppo" name="inputSangueGruppo" required>
+						<option selected="selected" disabled=""></option>
+						<?php
+						foreach($conf['anagrafica_donatore']['sangue_gruppo'] as $key => $value){
+							if ( $value !== null ) {
+								echo "<option value=\"".$key."\"";
+								if(count($anagrafica) AND $anagrafica[0]->sangue_gruppo == $key) echo " selected";
+								echo ">".$value."</option>";
+							}
+						}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputFattoreRH">Fattore RH</label>
+				<div class="controls">
+					<select id="inputFattoreRH" name="inputFattoreRH">
+						<option selected="selected"></option>
+						<?php
+						foreach($conf['anagrafica_donatore']['fattore_rh'] as $key => $value){
+							if ( $value !== null ) {
+								echo "<option value=\"".$key."\"";
+								if(count($anagrafica) AND $anagrafica[0]->fattore_rh == $key) echo " selected";
+								echo ">".$value."</option>";
+							}
+						}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputFenotipoRH">Fenotipo RH</label>
+				<div class="controls">
+					<select id="inputFenotipoRH" name="inputFenotipoRH">
+						<option selected="selected"></option>
+						<?php
+						foreach($conf['anagrafica_donatore']['fanotipo_rh'] as $key => $value){
+							if ( $value !== null ) {
+								echo "<option value=\"".$key."\"";
+								if(count($anagrafica) AND $anagrafica[0]->fanotipo_rh == $key) echo " selected";
+								echo ">".$value."</option>";
+							}
+						}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputKell">Kell</label>
+				<div class="controls">
+					<select id="inputKell" name="inputKell">
+						<option selected="selected"></option>
+						<?php
+						foreach($conf['anagrafica_donatore']['kell'] as $key => $value){
+							if ( $value !== null ) {
+								echo "<option value=\"".$key."\"";
+								if(count($anagrafica) AND $anagrafica[0]->kell == $key) echo " selected";
+								echo ">".$value."</option>";
+							}
+						}
+						?>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputCodiceSIT">Codice SIT</label>
+				<div class="controls">
+					<input type="text" class="input-small" name="inputCodiceSIT" id="inputCodiceSIT" value="<?php if(count($anagrafica) AND $anagrafica[0]->codice_sit) echo $anagrafica[0]->codice_sit; ?>">
+				</div>
+			</div>
+
+			<?php
+			$sedeSIT = (count($anagrafica) AND $anagrafica[0]->sede_sit) ? new DonazioneSede($anagrafica[0]->sede_sit) : false;
+			?>
+			<div class="control-group">
+				<label class="control-label" for="inputSedeSIT">Regione Sede SIT</label>
+				<div class="controls">
+					<select id="inputSedeSITRegione" name="inputSedeSITRegione">
+						<option selected="selected"></option>
+						<?php
+						foreach(DonazioneSede::filtraDistinctSedi('regione') as $value){
+							echo "<option value=\"".$value."\"";
+							if(($sedeSIT !== false) AND ($sedeSIT->regione == $value)) echo " selected";
+							echo ">".$value."</option>";
+						}
+						?>
+					</select>
+				</div>
+			</div>
+			<div id="SedeSITProvincia" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
+				<label class="control-label" for="inputSedeSIT">Provincia Sede SIT</label>
+				<div class="controls">
+					<select id="inputSedeSITProvincia" name="inputSedeSITProvincia">
+					<?php
+					if($sedeSIT !== false){
+						foreach(DonazioneSede::filtraDistinctSedi("provincia",[["regione",$sedeSIT->regione]]) as $value){
+							echo "<option value=\"".$value."\"";
+							if($sedeSIT->provincia == $value) echo " selected";
+							echo ">".$value."</option>";
+						}
+					}
+					?>
+					</select>
+				</div>
+			</div>
+			<div id="SedeSITCitta" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
+				<label class="control-label" for="inputSedeSIT">Città Sede SIT</label>
+				<div class="controls">
+					<select id="inputSedeSITCitta" name="inputSedeSITCitta">
+					<?php
+					if($sedeSIT !== false){
+						foreach(DonazioneSede::filtraDistinctSedi("citta",[["provincia",$sedeSIT->provincia]]) as $value){
+							echo "<option value=\"".$value."\"";
+							if($sedeSIT->citta == $value) echo " selected";
+							echo ">".$value."</option>";
+						}
+					}
+					?>
+					</select>
+				</div>
+			</div>
+			<div id="SedeSITOspedale" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
+				<label class="control-label" for="inputSedeSIT">Ospedale Sede SIT</label>
+				<div class="controls">
+					<select id="inputSedeSIT" name="inputSedeSIT">
+					<?php
+					if($sedeSIT !== false){
+						foreach(DonazioneSede::filtraDistinctSedi("nome",[["citta",$sedeSIT->citta]]) as $key => $value){
+							echo "<option value=\"".$key."\"";
+							if($anagrafica[0]->sede_sit == $key) echo " selected";
+							echo ">".$value."</option>";
+						}
+					}
+					?>
+					</select>
+				</div>
+			</div>
+			<div class="form-actions">
+				<?php if($a!=1){ ?>
+					<button type="submit" class="btn btn-success btn-large">
+						<i class="icon-save"></i>
+						Salva modifiche
+					</button>
+			   <?php }?>
+			</div>
+		</form>
 		<div id="step1Donazione">
 			<?php if($hoPotere) { ?>
 				<div class="alert alert-block alert-success" <?php if ($donazioni[2]) { ?>data-richiediDate<?php } ?>>      
