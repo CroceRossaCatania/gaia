@@ -38,9 +38,9 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     <td><?php echo $sede->provincia; ?></td>
                     <td><?php echo $sede->citta; ?></td>
                     <td><?php echo $sede->nome; ?></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><?php echo DonazionePersonale::conta([["donazione","2"],["luogo",$sede->id]]);?></td>
+                    <td><?php echo DonazionePersonale::conta([["donazione","3"],["luogo",$sede->id]]);?></td>
+                    <td><?php echo DonazionePersonale::conta([["donazione","4"],["donazione","5"],["donazione","6"],["donazione","7"],["donazione","8"],["donazione","9"],["donazione","10"],["luogo",$sede->id]]);?></td>
 				</tr>
 				<?php
 			}
