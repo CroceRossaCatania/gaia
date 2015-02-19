@@ -395,6 +395,8 @@ CREATE TABLE IF NOT EXISTS `donazioniSede` (
   `regione` varchar(128) DEFAULT NULL,
   `nome` text,
   `tipo` varchar(8) DEFAULT NULL,
+  `latitudine` varchar(25) DEFAULT NULL,
+  `longitudine` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
