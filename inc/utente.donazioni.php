@@ -131,7 +131,7 @@ paginaPrivata();
 			<div class="control-group">
 				<label class="control-label" for="inputSedeSIT">Regione Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITRegione" name="inputSedeSITRegione" class="span12">
+					<select id="inputSedeSITRegione" name="inputSedeSITRegione">
 						<option selected="selected"></option>
 						<?php
 						foreach(DonazioneSede::filtraDistinctSedi('regione') as $value){
@@ -146,19 +146,19 @@ paginaPrivata();
 			<div id="SedeSITProvincia" class="control-group" style="display: none;">
 				<label class="control-label" for="inputSedeSIT">Provincia Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITProvincia" name="inputSedeSITProvincia" class="span12"></select>
+					<select id="inputSedeSITProvincia" name="inputSedeSITProvincia"></select>
 				</div>
 			</div>
 			<div id="SedeSITCitta" class="control-group" style="display: none;">
 				<label class="control-label" for="inputSedeSIT">Città Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITCitta" name="inputSedeSITCitta" class="span12"></select>
+					<select id="inputSedeSITCitta" name="inputSedeSITCitta"></select>
 				</div>
 			</div>
 			<div id="SedeSITOspedale" class="control-group" style="display: none;">
 				<label class="control-label" for="inputSedeSIT">Ospedale Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSIT" name="inputSedeSIT" class="span12"></select>
+					<select id="inputSedeSIT" name="inputSedeSIT"></select>
 				</div>
 			</div>
 			<div class="form-actions">
