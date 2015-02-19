@@ -16,7 +16,6 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
         </h2>
     </div>   
 </div>
-<hr />
 		<?php
 		$regioni = [];
 		foreach(DonazioneSede::elenco("regione") as $sede){
@@ -47,8 +46,97 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 			}
 			?>
             </table>
-
+<hr />
 <br/>
+
+<div class="row-fluid">
+    <div class="span8">
+        <h2>
+            <i class="icon-copy muted"></i>
+            Report donazioni per Provincia
+        </h2>
+    </div>   
+</div>
+		<?php
+		$provincie = [];
+		foreach(DonazioneSede::elenco("regione") as $sede){
+			if(!array_key_exists($sede->provincia, $provincie)) { $provincie[$sede->provincia] = ["regione","sangueIntero","plasma","multicomponenti"]; $provincie[$sede->provincia]["regione"] = $sede->regione; }
+
+			$provincie[$sede->provincia]["sangueIntero"] = $provincie[$sede->provincia]["sangueIntero"] + DonazionePersonale::conta([["donazione","2"],["luogo",$sede->id]]);
+			$provincie[$sede->provincia]["plasma"] = $provincie[$sede->provincia]["plasma"]+ DonazionePersonale::conta([["donazione","3"],["luogo",$sede->id]]);
+			$provincie[$sede->provincia]["multicomponenti"] = $provincie[$sede->provincia]["multicomponenti"] + DonazionePersonale::conta([["donazione","4"],["donazione","5"],["donazione","6"],["donazione","7"],["donazione","8"],["donazione","9"],["donazione","10"],["luogo",$sede->id]]);
+		}
+		?>
+        <table class="table table-striped table-bordered" id="tabellaUtenti">
+            <thead>
+                <th>Regione</th>
+				<th>Provincia</th>
+                <th>Sangue Intero</th>
+				<th>Plasma</th>
+				<th>Multicomponenti</th>
+            </thead>
+            <?php 
+			
+			foreach($provincie as $provincia => $valori){ ?>
+				<tr>
+					<td><?php echo $valori["regione"]; ?></td>
+                    <td><?php echo $provincia; ?></td>
+                    <td><?php echo $valori["sangueIntero"] ? $valori["sangueIntero"] : "-"; ?></td>
+                    <td><?php echo $valori["plasma"] ? $valori["plasma"] : "-"; ?></td>
+                    <td><?php echo $valori["multicomponenti"] ? $valori["multicomponenti"] : "-"; ?></td>
+				</tr>
+				<?php
+			}
+			?>
+            </table>
+<hr />
+<br/>
+
+<div class="row-fluid">
+    <div class="span8">
+        <h2>
+            <i class="icon-copy muted"></i>
+            Report donazioni per Città
+        </h2>
+    </div>   
+</div>
+		<?php
+		$citta = [];
+		foreach(DonazioneSede::elenco("regione") as $sede){
+			if(!array_key_exists($sede->citta, $citta)) { $citta[$sede->citta] = ["regione","sangueIntero","plasma","multicomponenti"]; $citta[$sede->citta]["regione"] = $sede->regione; $citta[$sede->citta]["provincia"] = $sede->provincia; }
+
+			$citta[$sede->citta]["sangueIntero"] = $citta[$sede->citta]["sangueIntero"] + DonazionePersonale::conta([["donazione","2"],["luogo",$sede->id]]);
+			$citta[$sede->citta]["plasma"] = $citta[$sede->citta]["plasma"]+ DonazionePersonale::conta([["donazione","3"],["luogo",$sede->id]]);
+			$citta[$sede->citta]["multicomponenti"] = $citta[$sede->citta]["multicomponenti"] + DonazionePersonale::conta([["donazione","4"],["donazione","5"],["donazione","6"],["donazione","7"],["donazione","8"],["donazione","9"],["donazione","10"],["luogo",$sede->id]]);
+		}
+		?>
+        <table class="table table-striped table-bordered" id="tabellaUtenti">
+            <thead>
+                <th>Regione</th>
+				<th>Provincia</th>
+				<th>Città</th>
+                <th>Sangue Intero</th>
+				<th>Plasma</th>
+				<th>Multicomponenti</th>
+            </thead>
+            <?php 
+			
+			foreach($citta as $city => $valori){ ?>
+				<tr>
+					<td><?php echo $valori["regione"]; ?></td>
+					<td><?php echo $valori["provincia"]; ?></td>
+                    <td><?php echo $city; ?></td>
+                    <td><?php echo $valori["sangueIntero"] ? $valori["sangueIntero"] : "-"; ?></td>
+                    <td><?php echo $valori["plasma"] ? $valori["plasma"] : "-"; ?></td>
+                    <td><?php echo $valori["multicomponenti"] ? $valori["multicomponenti"] : "-"; ?></td>
+				</tr>
+				<?php
+			}
+			?>
+            </table>
+<hr />
+<br/>
+
 <div class="row-fluid">
     <div class="span8">
         <h2>
