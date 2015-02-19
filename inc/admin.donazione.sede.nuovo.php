@@ -55,7 +55,7 @@ paginaAdmin()
         </div>
     </div>
 	<div class="control-group">
-        <label class="control-label" for="inputNome">Ospedale </label>
+        <label class="control-label" for="inputNome">Unit&agrave; di raccolta </label>
         <div class="controls">
         <input class="input-xxlarge" type="text" name="inputNome" id="inputNome" value="" required>
         </div>

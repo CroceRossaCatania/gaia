@@ -141,7 +141,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     <div class="span8">
         <h2>
             <i class="icon-copy muted"></i>
-            Report donazioni per Ospedale
+            Report donazioni per Unit&agrave; di raccolta
         </h2>
     </div>   
 </div>
@@ -151,7 +151,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 <th>Regione</th>
                 <th>Provincia</th>
                 <th>Città</th>
-				<th>Ospedale</th>
+				<th>Unit&agrave; di raccolta</th>
                 <th>Sangue Intero</th>
 				<th>Plasma</th>
 				<th>Multicomponenti</th>
