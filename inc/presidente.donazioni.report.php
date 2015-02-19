@@ -30,7 +30,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
 				<th>Multicomponenti</th>
             </thead>
             <?php 
-			foreach(DonazioneSedi::filtra() as $sede){
+			foreach(DonazioneSede::filtra() as $sede){
 				?>
 				<tr>
                     <td><?php echo $sede[0]->regione; ?></td>
