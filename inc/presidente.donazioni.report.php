@@ -31,6 +31,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             </thead>
             <?php 
 			foreach(DonazioneSede::elenco("regione") as $sede){
+				print_r($sede);
 				?>
 				<tr>
                     <td><?php echo $sede[0]->regione; ?></td>
