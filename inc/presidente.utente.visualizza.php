@@ -11,6 +11,7 @@ controllaParametri(array('id'), 'presidente.utenti&errGen');
 $id = $_GET['id']; 
 $u = Utente::id($id);
 $hoPotere = $u->modificabileDa($me);
+print_r($hoPotere);die;
 $t  = TitoloPersonale::filtra([['volontario', $u]]);
 $do = DonazionePersonale::filtra([['volontario', $u]]);
 $admin = $me->admin();
