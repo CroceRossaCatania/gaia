@@ -11,15 +11,12 @@ controllaParametri(array('id'), 'presidente.utenti&errGen');
 
 $id = $_GET['id']; 
 $u = Utente::id($id);
-
-if ($me->iVeGotThePower() && !$me->delegazioneAttuale()->applicazione == APP_OBIETTIVO) {
-	$hoPotere = $u->modificabileDa($me);
-	$t  = TitoloPersonale::filtra([['volontario', $u]]);
-	$admin = $me->admin();
-	if ($u->stato == PERSONA) {
-		$attivo = false;
-	}
+$hoPotere = $u->modificabileDa($me);
+$admin = $me->admin();
+if ($u->stato == PERSONA) {
+	$attivo = false;
 }
+$t  = TitoloPersonale::filtra([['volontario', $u]]);
 $do = DonazionePersonale::filtra([['volontario', $u]]);
 
 //proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
