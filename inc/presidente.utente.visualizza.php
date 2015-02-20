@@ -12,9 +12,7 @@ controllaParametri(array('id'), 'presidente.utenti&errGen');
 $id = $_GET['id']; 
 $u = Utente::id($id);
 
-$IveGotThePower = ( $me && ($me->admin() || $me->delegazioneAttuale()->applicazione == APP_PRESIDENTE ) || (!$me->admin() && $me->delegazioneAttuale()->applicazione == APP_SOCI) || ($me->delegazioneAttuale()->applicazione == APP_OBIETTIVO)) ? true : false;
-
-if ($IveGotThePower && !$me->delegazioneAttuale()->applicazione == APP_OBIETTIVO) {
+if ($me->iVeGotThePower() && !$me->delegazioneAttuale()->applicazione == APP_OBIETTIVO) {
 	$hoPotere = $u->modificabileDa($me);
 	$t  = TitoloPersonale::filtra([['volontario', $u]]);
 	$admin = $me->admin();
@@ -25,8 +23,6 @@ if ($IveGotThePower && !$me->delegazioneAttuale()->applicazione == APP_OBIETTIVO
 $do = DonazionePersonale::filtra([['volontario', $u]]);
 
 //proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
-proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE,APP_OBIETTIVO]);
-die;
 ?>
 <!--Visualizzazione e modifica anagrafica utente-->
 <div class="row-fluid">
@@ -831,9 +827,7 @@ die;
 
 
 	<!--Visualizzazione e modifica donazioni utente-->
-	<?php 
-
-	$donazioni = $conf['donazioni']; ?>
+	<?php $donazioni = $conf['donazioni']; ?>
 	<div class="span6">
 		<h4><i class="icon-list muted"></i> Donazioni </h4>
 
@@ -842,7 +836,7 @@ die;
 			<div class="control-group">
 				<label class="control-label" for="inputSangueGruppo">Gruppo Sanguigno</label>
 				<div class="controls">
-					<select id="inputSangueGruppo" name="inputSangueGruppo" required <?php if(!$admin){?> readonly <?php } ?>>
+					<select id="inputSangueGruppo" name="inputSangueGruppo" required <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
 						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['sangue_gruppo'] as $key => $value){
@@ -859,7 +853,7 @@ die;
 			<div class="control-group">
 				<label class="control-label" for="inputFattoreRH">Fattore RH</label>
 				<div class="controls">
-					<select id="inputFattoreRH" name="inputFattoreRH" <?php if(!$admin){?> readonly <?php } ?>>
+					<select id="inputFattoreRH" name="inputFattoreRH" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
 						<option selected="selected"></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['fattore_rh'] as $key => $value){
@@ -876,7 +870,7 @@ die;
 			<div class="control-group">
 				<label class="control-label" for="inputFenotipoRH">Fenotipo RH</label>
 				<div class="controls">
-					<select id="inputFenotipoRH" name="inputFenotipoRH" <?php if(!$admin){?> readonly <?php } ?>>
+					<select id="inputFenotipoRH" name="inputFenotipoRH" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
 						<option selected="selected"></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['fanotipo_rh'] as $key => $value){
@@ -893,7 +887,7 @@ die;
 			<div class="control-group">
 				<label class="control-label" for="inputKell">Kell</label>
 				<div class="controls">
-					<select id="inputKell" name="inputKell" <?php if(!$admin){?> readonly <?php } ?>>
+					<select id="inputKell" name="inputKell" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
 						<option selected="selected"></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['kell'] as $key => $value){
@@ -910,7 +904,7 @@ die;
 			<div class="control-group">
 				<label class="control-label" for="inputCodiceSIT">Codice SIT</label>
 				<div class="controls">
-					<input type="text" class="input-small" name="inputCodiceSIT" id="inputCodiceSIT" value="<?php if(count($anagrafica) AND $anagrafica[0]->codice_sit) echo $anagrafica[0]->codice_sit; ?>">
+					<input type="text" class="input-small" name="inputCodiceSIT" id="inputCodiceSIT" value="<?php if(count($anagrafica) AND $anagrafica[0]->codice_sit) echo $anagrafica[0]->codice_sit; ?>" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
 				</div>
 			</div>
 
@@ -920,7 +914,7 @@ die;
 			<div class="control-group">
 				<label class="control-label" for="inputSedeSIT">Regione Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITRegione" name="inputSedeSITRegione" <?php if(!$admin){?> readonly <?php } ?>>
+					<select id="inputSedeSITRegione" name="inputSedeSITRegione" <?php if(!$me->iVeGotThePower){?> readonly <?php } ?>>
 						<option selected="selected"></option>
 						<?php
 						foreach(DonazioneSede::filtraDistinctSedi('regione') as $value){
@@ -935,7 +929,7 @@ die;
 			<div id="SedeSITProvincia" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
 				<label class="control-label" for="inputSedeSIT">Provincia Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITProvincia" name="inputSedeSITProvincia" <?php if(!$admin){?> readonly <?php } ?>>
+					<select id="inputSedeSITProvincia" name="inputSedeSITProvincia" <?php if(!$me->iVeGotThePower){?> readonly <?php } ?>>
 					<?php
 					if($sedeSIT !== false){
 						foreach(DonazioneSede::filtraDistinctSedi("provincia",[["regione",$sedeSIT->regione]]) as $value){
@@ -951,7 +945,7 @@ die;
 			<div id="SedeSITCitta" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
 				<label class="control-label" for="inputSedeSIT">Città Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITCitta" name="inputSedeSITCitta" <?php if(!$admin){?> readonly <?php } ?>>
+					<select id="inputSedeSITCitta" name="inputSedeSITCitta" <?php if(!$me->iVeGotThePower){?> readonly <?php } ?>>
 					<?php
 					if($sedeSIT !== false){
 						foreach(DonazioneSede::filtraDistinctSedi("citta",[["provincia",$sedeSIT->provincia]]) as $value){
@@ -967,7 +961,7 @@ die;
 			<div id="SedeSITOspedale" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
 				<label class="control-label" for="inputSedeSIT">Unit&agrave; di raccolta</label>
 				<div class="controls">
-					<select id="inputSedeSIT" name="inputSedeSIT" <?php if(!$admin){?> readonly <?php } ?>>
+					<select id="inputSedeSIT" name="inputSedeSIT" <?php if(!$me->iVeGotThePower){?> readonly <?php } ?>>
 					<?php
 					if($sedeSIT !== false){
 						foreach(DonazioneSede::filtraDistinctSedi("nome",[["citta",$sedeSIT->citta]]) as $key => $value){
@@ -980,7 +974,7 @@ die;
 					</select>
 				</div>
 			</div>
-			<?php if($admin){?>
+			<?php if($me->iVeGotThePower){?>
 				<div class="form-actions">
 					<?php if($a!=1){ ?>
 						<button type="submit" class="btn btn-success btn-large">
@@ -993,7 +987,7 @@ die;
 		</form>
 
 		<div id="step1Donazione">
-			<?php if($hoPotere) { ?>
+			<?php if($me->iVeGotThePower) { ?>
 				<div class="alert alert-block alert-success" <?php if ($donazioni[2]) { ?>data-richiediDate<?php } ?>>      
 					<div class="row-fluid">
 						<span class="span3">
@@ -1115,7 +1109,7 @@ die;
 						<?php echo DonazioneSede::by('id',$donazione->luogo)->provincia.' - '.DonazioneSede::by('id',$donazione->luogo)->nome; ?>
 					</small></td>
 				<td>
-					<?php if($hoPotere) { ?>
+					<?php if($me->iVeGotThePower) { ?>
 						<div class="btn-group">
 							<a href="?p=presidente.donazione.modifica&t=<?php echo $donazione->id; ?>&v=<?php echo $u->id; ?>" title="Modifica la donazione" class="btn btn-small btn-info">
 								<i class="icon-edit"></i>
