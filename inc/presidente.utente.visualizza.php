@@ -23,9 +23,10 @@ if ($IveGotThePower && !$me->delegazioneAttuale()->applicazione == APP_OBIETTIVO
 	}
 }
 $do = DonazionePersonale::filtra([['volontario', $u]]);
-die;
+
 //proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE,APP_OBIETTIVO]);
+die;
 ?>
 <!--Visualizzazione e modifica anagrafica utente-->
 <div class="row-fluid">
