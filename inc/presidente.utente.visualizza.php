@@ -5,7 +5,7 @@
  */
 
 //paginaApp([APP_SOCI, APP_PRESIDENTE]);
-paginaApp([APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO]);
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 controllaParametri(array('id'), 'presidente.utenti&errGen');
 
@@ -25,7 +25,7 @@ if ($IveGotThePower && !$me->delegazioneAttuale()->applicazione == APP_OBIETTIVO
 $do = DonazionePersonale::filtra([['volontario', $u]]);
 
 //proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
-proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE,APP_OBIETTIVO]);
+proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 ?>
 <!--Visualizzazione e modifica anagrafica utente-->
 <div class="row-fluid">
