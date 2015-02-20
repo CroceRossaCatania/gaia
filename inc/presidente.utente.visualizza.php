@@ -5,7 +5,7 @@
  */
 
 //paginaApp([APP_SOCI, APP_PRESIDENTE]);
-paginaApp([APP_SOCI, APP_PRESIDENTE]);
+paginaApp([APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO]);
 
 controllaParametri(array('id'), 'presidente.utenti&errGen');
 
@@ -13,7 +13,7 @@ $id = $_GET['id'];
 $u = Utente::id($id);
 
 $IveGotThePower = ( $me && ($me->admin() || $me->delegazioneAttuale()->applicazione == APP_PRESIDENTE ) || (!$me->admin() && $me->delegazioneAttuale()->applicazione == APP_SOCI) || ($me->delegazioneAttuale()->applicazione == APP_OBIETTIVO)) ? true : false;
-
+die;
 if ($IveGotThePower && !$me->delegazioneAttuale()->applicazione == APP_OBIETTIVO) {
 	$hoPotere = $u->modificabileDa($me);
 	$t  = TitoloPersonale::filtra([['volontario', $u]]);
@@ -25,7 +25,7 @@ if ($IveGotThePower && !$me->delegazioneAttuale()->applicazione == APP_OBIETTIVO
 $do = DonazionePersonale::filtra([['volontario', $u]]);
 
 //proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
-proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
+proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE,APP_OBIETTIVO]);
 ?>
 <!--Visualizzazione e modifica anagrafica utente-->
 <div class="row-fluid">
