@@ -914,7 +914,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 			<div class="control-group">
 				<label class="control-label" for="inputSedeSIT">Regione Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITRegione" name="inputSedeSITRegione" <?php if(!$me->iVeGotThePower){?> readonly <?php } ?>>
+					<select id="inputSedeSITRegione" name="inputSedeSITRegione" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
 						<option selected="selected"></option>
 						<?php
 						foreach(DonazioneSede::filtraDistinctSedi('regione') as $value){
@@ -929,7 +929,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 			<div id="SedeSITProvincia" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
 				<label class="control-label" for="inputSedeSIT">Provincia Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITProvincia" name="inputSedeSITProvincia" <?php if(!$me->iVeGotThePower){?> readonly <?php } ?>>
+					<select id="inputSedeSITProvincia" name="inputSedeSITProvincia" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
 					<?php
 					if($sedeSIT !== false){
 						foreach(DonazioneSede::filtraDistinctSedi("provincia",[["regione",$sedeSIT->regione]]) as $value){
@@ -945,7 +945,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 			<div id="SedeSITCitta" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
 				<label class="control-label" for="inputSedeSIT">Città Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITCitta" name="inputSedeSITCitta" <?php if(!$me->iVeGotThePower){?> readonly <?php } ?>>
+					<select id="inputSedeSITCitta" name="inputSedeSITCitta" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
 					<?php
 					if($sedeSIT !== false){
 						foreach(DonazioneSede::filtraDistinctSedi("citta",[["provincia",$sedeSIT->provincia]]) as $value){
@@ -961,7 +961,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 			<div id="SedeSITOspedale" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
 				<label class="control-label" for="inputSedeSIT">Unit&agrave; di raccolta</label>
 				<div class="controls">
-					<select id="inputSedeSIT" name="inputSedeSIT" <?php if(!$me->iVeGotThePower){?> readonly <?php } ?>>
+					<select id="inputSedeSIT" name="inputSedeSIT" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
 					<?php
 					if($sedeSIT !== false){
 						foreach(DonazioneSede::filtraDistinctSedi("nome",[["citta",$sedeSIT->citta]]) as $key => $value){
@@ -974,7 +974,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 					</select>
 				</div>
 			</div>
-			<?php if($me->iVeGotThePower){?>
+			<?php if($me->iVeGotThePower()){?>
 				<div class="form-actions">
 					<?php if($a!=1){ ?>
 						<button type="submit" class="btn btn-success btn-large">
@@ -987,7 +987,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 		</form>
 
 		<div id="step1Donazione">
-			<?php if($me->iVeGotThePower) { ?>
+			<?php if($me->iVeGotThePower()) { ?>
 				<div class="alert alert-block alert-success" <?php if ($donazioni[2]) { ?>data-richiediDate<?php } ?>>      
 					<div class="row-fluid">
 						<span class="span3">
@@ -1109,7 +1109,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 						<?php echo DonazioneSede::by('id',$donazione->luogo)->provincia.' - '.DonazioneSede::by('id',$donazione->luogo)->nome; ?>
 					</small></td>
 				<td>
-					<?php if($me->iVeGotThePower) { ?>
+					<?php if($me->iVeGotThePower()) { ?>
 						<div class="btn-group">
 							<a href="?p=presidente.donazione.modifica&t=<?php echo $donazione->id; ?>&v=<?php echo $u->id; ?>" title="Modifica la donazione" class="btn btn-small btn-info">
 								<i class="icon-edit"></i>
