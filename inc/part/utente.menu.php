@@ -121,7 +121,7 @@ $menu += [
 		'utente.donazioni&d=0' => '<i class="icon-beaker"></i> Sangue'
 	]];
 if ( $me->iVeGotThePower() ) {
-	$menu['Donazioni'] += [ 'donazioni.report' => '<i class="icon-beaker"></i> Report' ];
+	$menu['Donazioni'] += [ 'donazioni.report' => '<i class="icon-copy"></i> Report' ];
 }
 $menu += [
     'Statistiche'   => [
