@@ -13,9 +13,7 @@ $u = Utente::id($id);
 $hoPotere = $u->modificabileDa($me);
 $t  = TitoloPersonale::filtra([['volontario', $u]]);
 $do = DonazionePersonale::filtra([['volontario', $u]]);
-print_r($me);die;
 $admin = $me->admin();
-$attivo = true;
 if ($u->stato == PERSONA) {
   $attivo = false;
 }
