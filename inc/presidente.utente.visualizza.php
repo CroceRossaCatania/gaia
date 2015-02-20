@@ -4,7 +4,6 @@
  * ©2013 Croce Rossa Italiana
  */
 
-//paginaApp([APP_SOCI, APP_PRESIDENTE]);
 paginaApp([APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO]);
 
 controllaParametri(array('id'), 'presidente.utenti&errGen');

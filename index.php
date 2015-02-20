@@ -281,15 +281,6 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                                     Ricerca volontari per titoli
                                                 </a>
                                             </li>
-
-											<li class="nav-header">Report</li>
-
-                                            <li>
-                                                <a href="?p=presidente.donazioni.report">
-                                                    <i class="icon-copy"></i>
-                                                    Donazioni
-                                                </a>
-                                            </li>
                                         </ul>
                                     </div>
                                     <?php } ?>
