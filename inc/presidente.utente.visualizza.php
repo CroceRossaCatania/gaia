@@ -4,22 +4,28 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI, APP_PRESIDENTE]);
+//paginaApp([APP_SOCI, APP_PRESIDENTE]);
+paginaApp([APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO]);
 
 controllaParametri(array('id'), 'presidente.utenti&errGen');
 
 $id = $_GET['id']; 
 $u = Utente::id($id);
-$hoPotere = $u->modificabileDa($me);
-print_r($hoPotere);die;
-$t  = TitoloPersonale::filtra([['volontario', $u]]);
-$do = DonazionePersonale::filtra([['volontario', $u]]);
-$admin = $me->admin();
-if ($u->stato == PERSONA) {
-  $attivo = false;
-}
 
-proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
+$IveGotThePower = ( $me && ($me->admin() || $me->delegazioneAttuale()->applicazione == APP_PRESIDENTE ) || (!$me->admin() && $me->delegazioneAttuale()->applicazione == APP_SOCI) || ($me->delegazioneAttuale()->applicazione == APP_OBIETTIVO)) ? true : false;
+
+if ($IveGotThePower && !$me->delegazioneAttuale()->applicazione == APP_OBIETTIVO) {
+	$hoPotere = $u->modificabileDa($me);
+	$t  = TitoloPersonale::filtra([['volontario', $u]]);
+	$admin = $me->admin();
+	if ($u->stato == PERSONA) {
+		$attivo = false;
+	}
+}
+$do = DonazionePersonale::filtra([['volontario', $u]]);
+
+//proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
+proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE,APP_OBIETTIVO]);
 ?>
 <!--Visualizzazione e modifica anagrafica utente-->
 <div class="row-fluid">
@@ -824,7 +830,9 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
 
 	<!--Visualizzazione e modifica donazioni utente-->
-	<?php $donazioni = $conf['donazioni']; ?>
+	<?php 
+
+	$donazioni = $conf['donazioni']; ?>
 	<div class="span6">
 		<h4><i class="icon-list muted"></i> Donazioni </h4>
 
@@ -1122,4 +1130,4 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 		</table>
 	</div>
   </div>
-</div>
+<!--</div>-->
