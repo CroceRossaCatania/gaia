@@ -31,7 +31,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     <div class="span5 allinea-sinistra">
         <h2>
             <i class="icon-group muted"></i>
-            Quote Pagate (attivi)
+            Quote Registrate (attivi)
         </h2>
     </div>
             
@@ -40,7 +40,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <div class="btn-group">
                 <a class="btn dropdown-toggle btn-success" data-toggle="dropdown">
                     <i class="icon-ok"></i>
-                    Quote Pagate   
+                    Quote Registrate   
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
@@ -89,7 +89,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     <div class="span3 allinea-centro">
 
         <div class="well">
-            <i class="icon-certificate"></i> Ad oggi sono state pagate<br />
+            <i class="icon-certificate"></i> Ad oggi sono state registrate<br />
             <span class="quote_contatore" id="c_quote">...</span>
             <br />
             <span class="aspiranti_descrizione">QUOTE</span>
@@ -169,10 +169,14 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <?php
             foreach ( $t as $_v ) {
                 $n++;
+
+                $q = $_v->quotaSocioAttivo($anno);
+
+                // Controlla se la quota e' del mio comitato
+                $quotaMia = $q->comitato()->id == $comitato->id;
             ?>
-                <tr>
+                <tr class="<?= !$quotaMia ? 'warning' : ''; ?>">
                     <td><?php
-                            $q = $_v->quotaSocioAttivo($anno);
                             echo $q->progressivo();
                         ?>
                     </td>
@@ -181,15 +185,29 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                     <td><?php echo $_v->codiceFiscale; ?></td>
                     
                     <td>
+
+                        <?php if ( !$quotaMia ) { ?>
+                            <acronym class="text-error" title="Questa quota &egrave; stata pagata presso il <?= $q->comitato()->nomeCompleto(); ?>. Non &egrave; inclusa nel totale.">
+                        <?php } ?>
+
                         <?php 
-                            $totale += (float) $q->quota;
+
+                            if ( $quotaMia )
+                               $totale += (float) $q->quota;
+
                             if ($q->benemerita()) { 
                                 $ben++;
                                 echo('€ ' . soldi($q->quota)); ?>
                                 <i class="icon-thumbs-up-alt"></i> Sostenitore
                             <?php    } else { 
                                 echo('€ ' . soldi($q->quota));
-                             }?>
+                             }
+                             ?>
+
+                         <?php if ( !$quotaMia ) { ?>
+                             <i class="icon-warning-sign"></i>
+                            </acronym>
+                         <?php } ?>
                     </td>
                     <td><?php echo $q->dataPagamento()->inTesto(false); ?></td>
 

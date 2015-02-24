@@ -3,7 +3,6 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
-paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 controllaParametri(array('id'), 'us.dash&err');
 
@@ -11,7 +10,17 @@ $id = $_GET['id'];
 $quota = Quota::id($id);
 $v = $quota->volontario();
 
-proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
+if ( ! (
+		$me->puoLeggereDati($quota->comitato(), [APP_SOCI, APP_PRESIDENTE]) or 
+			(
+				$v->appartenenzaAttuale() &&
+				$me->puoLeggereDati($v->appartenenzaAttuale()->comitato())
+			)
+		)
+	) {
+	
+	redirect("errore.permessi&cattivo");
+}
 
 if($quota->annullata()) {
     redirect('us.quote.visualizza&annullata&id='.$u->id);

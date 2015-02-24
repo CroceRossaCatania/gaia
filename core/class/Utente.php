@@ -751,7 +751,7 @@ class Utente extends Persona {
      * @param GeoPolitica $g la geopolitica contenente i volontari
      * @return bool
      */
-    public function puoLeggereDati(GeoPolitica $g) {
+    public function puoLeggereDati(GeoPolitica $g, $app = [APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO, APP_AUTOPARCO]) {
         if ( $this->admin ) { // ->admin e non ->admin() di proposito
                               // in quanto questa roba viene usata in API
             return true;
@@ -760,12 +760,7 @@ class Utente extends Persona {
         return (bool) contiene(
             $g,
             array_merge(
-                $this->comitatiApp([
-                    APP_PRESIDENTE,
-                    APP_SOCI,
-                    APP_OBIETTIVO,
-                    APP_AUTOPARCO
-                ], false),
+                $this->comitatiApp($app, false),
                 $this->geopoliticheAttivitaReferenziate(),
                 $this->geopoliticheGruppiReferenziati  (),
                 $this->comitatiAreeDiCompetenza        ()
