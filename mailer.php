@@ -22,23 +22,26 @@ $time = date('d-m-Y H:i:s');
 // Carica configurazione
 require 'core.inc.php';
 
-ignoraTransazione();
+define('VERBOSE', true);
 
-// Controlla che il server di cache sia vivo
-if ( !$cache ) {
-	echo "#{$task}, {$time}: Server di cache morto!\n";
-	exit(1);
-}
+// Lockfile
+define('LOCKFILE', 	'upload/log/mail.lock');
+function lock() 	{ file_put_contents(LOCKFILE, time()); }
+function unlock() 	{ file_put_contents(LOCKFILE, 0); }
+function locked() 	{ return (bool) file_exists(LOCKFILE) && file_get_contents(LOCKFILE); }
+
+ignoraTransazione();
 
 // Controlla se ci sono sessioni avviate
 // e termina ritornando stato 0 (OK)
-if ( $cache->get("gaia:mailer:lock") )
+if ( locked() ) {
+	echo "#{$task}, {$time} ha provato a partire, ma ha trovato un file di lock.\n";
 	exit(0);
+}
 
+echo "#{$task}, {$time} sta partendo, ha creato un file di lock.\n";
 // Imposta flag di esecuzione (non voglio)
-// script contemporanei a questo, timeout 2 minuti
-$cache->set        ('gaia:mailer:lock', true);
-$cache->setTimeout ('gaia:mailer:lock', 120);
+lock();
 
 // Ottieni cursore alle prossime email da inviare
 $coda = MEmail::inCoda($conf['batch_size']);
@@ -56,8 +59,8 @@ foreach ( $coda as $_comunicazione ) {
 	try {
 		// Tenta l'invio della comunicazione
 		if ( !$stato = (int) $_comunicazione->invia( function() use ($cache) {
-			// Evita il timeout per altri 5 secondi
-			$cache->setTimeout('gaia:mailer:lock', 15);
+
+			echo "#{$task}, {$time} inviato un messaggio per {$_comunicazione}\n";
 
 		}) ) {
 			echo "#{$task}, {$time}: Invio non riuscito," .
@@ -76,7 +79,8 @@ foreach ( $coda as $_comunicazione ) {
 }
 
 // Ok, rilascia blocco invio
-$cache->delete('gaia:mailer:lock');
+echo "#{$task}, {$time} ha terminato, rilascia il file di lock.\n";
+unlock();
 
 // Termina con lo stato corretto
 exit((int) !$ok);
