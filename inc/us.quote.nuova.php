@@ -89,7 +89,7 @@ $quotaMin = $attivo ? $t->attivo : $t->ordinario;
     </div>
     <div class="modal-footer">
       <a href="?p=us.quoteNo" class="btn">Annulla</a>
-      <button type="submit" class="btn btn-primary">
+      <button type="submit" class="btn btn-primary" data-attendere="Registrazione...">
         <i class="icon-list"></i> Registra quota
       </button>
     </div>
