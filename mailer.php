@@ -58,7 +58,7 @@ foreach ( $coda as $_comunicazione ) {
 
 	try {
 		// Tenta l'invio della comunicazione
-		if ( !$stato = (int) $_comunicazione->invia( function() use ($cache) {
+		if ( !$stato = (int) $_comunicazione->invia( function() use ($cache, $task, $time, $_comunicazione) {
 
 			echo "#{$task}, {$time} inviato un messaggio per {$_comunicazione}\n";
 
