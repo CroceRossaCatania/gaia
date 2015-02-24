@@ -153,7 +153,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 ?>
             
             <tr class="success">
-                <td colspan="7" class="grassetto">
+                <td colspan="8" class="grassetto">
                     <?php echo $comitato->nomeCompleto(); ?>
                     <span class="label label-warning">
                         <?php echo count($t); ?>
