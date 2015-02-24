@@ -38,7 +38,22 @@ class Quota extends Entita {
             return false;
         }
         $anno = $this->anno;
-        $progressivo = $this->generaProgressivo('progressivo', [["anno", $anno]]);
+        $locale = (int) $this->comitato()->locale()->id;
+        $progressivo = $this->generaProgressivo(
+            'progressivo', [
+                ["anno", $anno],
+                [
+                    "appartenenza IN 
+                        (
+                            SELECT id FROM appartenenza WHERE comitato IN 
+                            (
+                                SELECT id FROM comitati WHERE locale = {$locale}
+                            )
+                        )
+                    ", false, OP_SQL
+                ]
+            ]
+        );
         $this->progressivo = $progressivo;
         return $progressivo;
     }
