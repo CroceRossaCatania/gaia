@@ -256,8 +256,8 @@ class MEmail extends Entita {
 
 				$y->ClearAllRecipients();
 
-				if ( is_callable($callable) )
-					call_user_func($callable);
+				if ( is_callable($callback) )
+					call_user_func($callback);
 
 			}
 
