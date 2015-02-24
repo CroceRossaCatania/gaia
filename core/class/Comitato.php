@@ -653,12 +653,10 @@ class Comitato extends GeoPolitica {
     public function quoteSi($anno = false, $stato = MEMBRO_VOLONTARIO) {
         $r = [];
         $soci = $this->potenzialiSoci($anno, $stato);
-        echo count($soci) . " potenziali soci\n";
         foreach ( $soci as $p ) {
             if ( $p->socioAttivo($anno) )
                 $r[] = $p;
         }
-        echo "di questi " . count($r) . " si";
         return $r;
     }
     

@@ -2369,12 +2369,13 @@ class Utente extends Persona {
      */
     public function quotaSocioAttivo($anno = false) {
 
+        $anno      = $anno ? (int) $anno : (int) date('Y');
         $a         = $this->appartenenzePassibiliQuota($anno);
 
-        $anno      = $anno ? (int) $anno : (int) date('Y');
+
 
         // Se non ho appartenenze in $anno, non sono attivo
-        if ( empty($a) )
+        if ( empty($a) ) 
             return false;
 
         // Per ogni appartenenza, cerca almeno una Quota
@@ -2383,12 +2384,14 @@ class Utente extends Persona {
             $q = Quota::filtra([
                 ['appartenenza',    $_a->id],
                 ['anno',            $anno],
-                ['pAnnullata',      false,   OP_NNULL]
+                ['pAnnullata',      false,   OP_NULL]
             ]);
 
+
             // Se esiste, allora son socio attivo
-            if ( $q )
-                return $q;
+            if ( $q ) {
+                return $q[0];
+            }
 
         }
 
