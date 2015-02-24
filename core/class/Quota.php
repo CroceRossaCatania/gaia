@@ -31,10 +31,11 @@ class Quota extends Entita {
     /**
      * Genera il codice numerico progressivo della quota sulla base dell'anno attuale
      *
+     * @param bool $forza       Default false. Se vero, riesegue la numerazione.
      * @return int|false $progressivo     Il codice progressivo, false altrimenti 
      */
-    public function assegnaProgressivo() {
-        if ($this->progressivo) {
+    public function assegnaProgressivo($forza = false) {
+        if (!$forza && $this->progressivo) {
             return false;
         }
         $anno = (int) $this->anno;
