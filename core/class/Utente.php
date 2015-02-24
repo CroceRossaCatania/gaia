@@ -2383,7 +2383,7 @@ class Utente extends Persona {
             $q = Quota::filtra([
                 ['appartenenza',    $_a->id],
                 ['anno',            $anno],
-                ['pAnnullata',      false,   OP_NULL]
+                ['pAnnullata',      false, OP_NULL]
             ]);
 
 

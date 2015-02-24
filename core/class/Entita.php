@@ -284,11 +284,9 @@ abstract class Entita {
                 else
                     $op = OP_EQ;
 
-                if ( $op == OP_SQL ) {
-                    $op = '';
-                }
-
                 if ( in_array($op, $conf['op_unari']) ) {
+                    if ( $op == OP_SQL )
+                        $op = '';
                     $_condizioni[] = "{$_elem[0]} {$op}";
                 } else if ( is_int($_elem[1]) || is_float($_elem[2]) ) {
                     $_condizioni[] = "{$_elem[0]} {$op} {$_elem[1]}";

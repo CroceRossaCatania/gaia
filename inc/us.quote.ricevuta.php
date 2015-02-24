@@ -11,8 +11,6 @@ $id = $_GET['id'];
 $quota = Quota::id($id);
 $v = $quota->volontario();
 
-var_dump($v);
-die();
 proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
 
 if($quota->annullata()) {
