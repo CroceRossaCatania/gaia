@@ -89,7 +89,21 @@ define('MEMBRO_MODERATORE',        50);
 define('MEMBRO_DIPENDENTE',        60);
 define('MEMBRO_PRESIDENTE',        70);
 
+/**
+ * Quando guardo a posteri un'appartenenza, e cerco un *CHIAVE*,
+ * in realta' devo guardare per uno in *VALORI*
+ */
+$conf['appartenenze_posteri'] = [
+    MEMBRO_VOLONTARIO => [
+        MEMBRO_VOLONTARIO,
+        MEMBRO_DIMESSO,
+        MEMBRO_TRASFERITO,
+    ],
 
+    MEMBRO_ORDINARIO => [
+        MEMBRO_ORDINARIO
+    ]
+];
 
 /* Definizioni in stringa */
 $conf['membro'] = [

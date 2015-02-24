@@ -611,15 +611,19 @@ class Comitato extends GeoPolitica {
         $massimo    = (DT::createFromFormat('d/m/Y H:i', "31/12/{$anno} 23:59")); 
         $massimo    = $massimo->getTimestamp();
 
-        if ( !is_array($stato) )
-            $stato = [$stato];
+        if ( !is_array($stato) ) {
+            if ( array_key_exists($stato, $conf['appartenenze_posteri']) ) 
+                $stato = $conf['appartenenze_posteri'][$stato];
+            else
+                $stato = [$stato];
+        }
 
         foreach ( $stato as &$s )
             $s = (int) $s;
 
         $stato = implode(', ', $stato);
         
-        $q = $this->db->prepare("
+        $query = "
             SELECT  anagrafica.id
             FROM    appartenenza, anagrafica
             WHERE   appartenenza.comitato = :comitato
@@ -631,7 +635,8 @@ class Comitato extends GeoPolitica {
                     OR  appartenenza.fine = 0
                     OR  appartenenza.fine > :minimo
             )
-        ");
+        ";
+        $q = $this->db->prepare($query);
 
         $q->bindParam(':comitato', $this->id, PDO::PARAM_INT);
         $q->bindParam(':minimo',   $minimo, PDO::PARAM_INT);

@@ -2330,7 +2330,7 @@ class Utente extends Persona {
 
             // Se appartenenza fuori contesto temporale, termina esecuzione
             if (!$appartenenza->validoTra($minimo, $massimo))
-                break;
+                continue;
 
             // Se non appartenenza valida, ignora
             if (in_array($appartenenza->stato, $conf['membro_invalido']))
@@ -2338,7 +2338,7 @@ class Utente extends Persona {
 
             // Se appartenenza terminata con dimissione, termina esecuzione
             if (in_array($appartenenza->stato, $conf['membro_dimesso']))
-                break;
+                continue;
 
             // In tutti gli altri casi, appartenenza legittima, passibile a pagamento quota per l'A.A.
             $r[] = $appartenenza;
@@ -2371,7 +2371,6 @@ class Utente extends Persona {
 
         $anno      = $anno ? (int) $anno : (int) date('Y');
         $a         = $this->appartenenzePassibiliQuota($anno);
-
 
 
         // Se non ho appartenenze in $anno, non sono attivo
