@@ -207,7 +207,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
               <div class="span5 allinea-sinistra"> 
                 <br/>
                 <?php 
-                if($foto && !$foto->approvata()) { ?>
+                if( $foto && !$foto->approvata() && $u->modificabileDa($me) ) { ?>
                   <div class="alert alert-warning">
                     <p><i class="icon-spinner"></i> Fototessera in attesa di approvazione </p>
                   </div>
@@ -375,13 +375,13 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <div class="control-group">
         <label class="control-label">Infermiera Volontaria</label>
         <div class="controls">
-          <input type="checkbox" <?php if($u->iv){ ?> checked <?php } ?> id="inputIV" name="inputIV" <?php if(!$me->admin() && $u->iv || $u->cm && !$hoPotere){?> readonly <?php } ?>>
+          <input type="checkbox" <?php if($u->iv){ ?> checked <?php } ?> id="inputIV" name="inputIV" <?php if(!$hoPotere){?> readonly <?php } ?>>
         </div>
       </div>
       <div class="control-group">
         <label class="control-label">Corpo Militare volontario</label>
         <div class="controls">
-          <input type="checkbox" <?php if($u->cm){ ?> checked <?php } ?> id="inputCM" name="inputCM" <?php if(!$me->admin() && $u->iv || $u->cm && !$hoPotere){?> readonly <?php } ?>>
+          <input type="checkbox" <?php if($u->cm){ ?> checked <?php } ?> id="inputCM" name="inputCM" <?php if(!$hoPoteres){?> readonly <?php } ?>>
         </div>
       </div>
    <?php if($hoPotere) { ?>
@@ -616,9 +616,14 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 
             <div class="btn-group">
               <?php if($hoPotere) { ?>
-              <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
-                <i class="icon-edit"></i>
-              </a>
+                <a href="?p=us.appartenenza.modifica&a=<?php echo $app; ?>" title="Modifica appartenenza" class="btn btn-small btn-info">
+                  <i class="icon-edit"></i>
+                </a>
+                <?php if ( $app->stato == MEMBRO_ESTESO ){ ?>
+                  <a href="?p=utente.estensione.termina&id=<?php echo $app; ?>" title="Termina estensione" class="btn btn-small btn-danger">
+                    <i class="icon-stop"></i>
+                  </a>
+                <?php } ?>
               <?php } if($me->admin()){ ?>
               <a onClick="return confirm('Vuoi veramente cancellare questa appartenenza ?');" href="?p=us.appartenenza.cancella&a=<?php echo $app; ?>" title="Cancella appartenenza" class="btn btn-small btn-danger">
                 <i class="icon-trash"></i>
@@ -662,6 +667,9 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       </a>
       <a class="btn btn-small" target="_new" href="?p=presidente.utente.turni&id=<?php echo $u->id; ?>">
         <i class="icon-list"></i> Storico turni
+      </a>
+      <a class="btn btn-small" target="_new" href="?p=presidente.utente.provvedimenti&id=<?php echo $u->id; ?>">
+        <i class="icon-legal"></i> Storico provvedimenti
       </a>
     </div>
   </div>

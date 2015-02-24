@@ -27,6 +27,7 @@ paginaAdmin();
 	<div class="span6" style="text-align: center; padding-top: 20px;">
 		
 		<h1 id="nome"></h1>
+		<h3 id="regionale"></h3>
 		<img class="nascosto" id="avatar" />
 
 	</div>
@@ -52,10 +53,12 @@ $(document).ready(function() {
 		}, function(x) {
 			if ( !x.risposta.ok ) {
 				$("#nome").text("Tesserino non valido").addClass('text-error');
+				$("#regionale").text("N/A").addClass('text-error');
 				$("#avatar").removeClass('nascosto').hide();
 				return false;
 			}
 			$("#nome").text(x.risposta.volontario.nomeCompleto).removeClass('text-error');
+			$("#regionale").text(x.risposta.regionale).removeClass('text-error');
 			$("#avatar").attr('src', x.risposta.volontario.avatar[20]).show();
 
 		});

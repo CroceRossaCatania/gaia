@@ -358,6 +358,40 @@ CREATE TABLE IF NOT EXISTS `elementiRichieste` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `email` (
+  `id` varchar(127) NOT NULL,
+  `invio_iniziato` bigint(20) DEFAULT NULL,
+  `invio_terminato` bigint(20) DEFAULT NULL,
+  `mittente_id` int(11) DEFAULT NULL,
+  `oggetto` varchar(255) DEFAULT NULL,
+  `corpo` text,
+  `timestamp` bigint(20) DEFAULT NULL,
+  PRIMARY KEY `id` (`id`),
+  KEY `invio_iniziato` (`invio_iniziato`),
+  KEY `invio_terminato` (`invio_terminato`),
+  KEY `mittente_id` (`mittente_id`),
+  KEY `timestamp` (`timestamp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `email_allegati` (
+  `email` varchar(127) NOT NULL,
+  `allegato_id` varchar(64) DEFAULT NULL,
+  `allegato_nome` varchar(255) DEFAULT NULL,
+  KEY `email` (`email`),
+  KEY `allegato_id` (`allegato_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `email_destinatari` (
+  `email` varchar(127) NOT NULL,
+  `dest` int(11) DEFAULT NULL,
+  `inviato` bigint(20) DEFAULT NULL,
+  `ok` tinyint(4) DEFAULT NULL,
+  `errore` varchar(255) DEFAULT NULL,
+  KEY `email` (`email`),
+  KEY `dest` (`dest`),
+  KEY `inviato` (`inviato`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `estensioni` (
   `id` int(11) NOT NULL,
   `stato` varchar(16) DEFAULT NULL,
@@ -559,6 +593,22 @@ CREATE TABLE IF NOT EXISTS `provinciali` (
   KEY `regionale` (`regionale`),
   SPATIAL KEY `geo` (`geo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `provvedimenti` (
+  `id` int(11) NOT NULL,
+  `tipo` varchar(8) DEFAULT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `appartenenza` varchar(16) DEFAULT NULL,
+  `motivo` varchar(255) DEFAULT NULL,
+  `inizio` varchar(64) DEFAULT NULL,
+  `fine` varchar(64) DEFAULT NULL,
+  `protData` varchar(64) DEFAULT NULL,
+  `protNumero` varchar(16) DEFAULT NULL,
+  `pConferma` varchar(16) DEFAULT NULL,
+  `tConferma` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `volontario` (`volontario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `quote` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

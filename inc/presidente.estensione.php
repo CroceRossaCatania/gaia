@@ -89,7 +89,7 @@ foreach($comitati as $comitato){
         <?php if($_e->protNumero){ ?>
         <td>
             <?php if ($modificabile || $admin) { 
-                if($me->presidenziante()) { ?>
+                if($me->presidenziante() || $admin) { ?>
                 <div class="btn-group">
                     <a class="btn btn-success" href="?p=presidente.estensione.ok&id=<?php echo $_e->id; ?>&si">
                         <i class="icon-ok"></i> Conferma

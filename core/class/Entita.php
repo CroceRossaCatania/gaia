@@ -224,6 +224,21 @@ abstract class Entita {
     }
 
     /**
+     * Cancella tutti gli elementi che soddisfano delle condizioni
+     * USARE CON MOLTA CAUTELA - NON USARE MAI SENZA CONDIZIONI CHE MUORE TUTTO
+     * @param $_array   Condizioni di ricerca
+     * @return  int     Numero di elementi cancellati
+     */
+    public static function cancellaTutti($_array = []) {
+        $n = 0;
+        foreach ( static::filtra($_array) as $i ) {
+            $n++;
+            $i->cancella();
+        }
+        return $n;
+    }
+
+    /**
      * Conta oggetti con le corrispondenze specificate
      *
      * @param array $_array     La query associativa di ricerca

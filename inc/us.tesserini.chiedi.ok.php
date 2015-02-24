@@ -35,7 +35,7 @@ if($t) {
 	redirect('presidente.soci.ok&gia');
 }
 
-if(!$me->fototessera() || $me->fototessera()->stato == FOTOTESSERA_PENDING) {
+if(!$v->fototessera() || $v->fototessera()->stato == FOTOTESSERA_PENDING) {
 	redirect('presidente.soci.ok&nofoto');
 }
 

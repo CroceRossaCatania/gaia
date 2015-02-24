@@ -6,12 +6,14 @@
 
 paginaPrivata(false);
 
-if ( $me->stato == ASPIRANTE )
+$consenso = $me->consenso();
+
+if ( $me->stato == ASPIRANTE && $consenso )
     redirect('aspirante.home');
 
 /* Inizio sezione modali */
 
-$consenso = $me->consenso();
+
 if ( !$consenso ){ ?>
 <div class="modal fade automodal">
     <div class="modal-header">
@@ -471,6 +473,15 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     <div class="alert alert-block">
                         <h4><i class="icon-pause"></i> In riserva</h4>
                         <p>Sei nel ruolo di riserva fino al  <strong><?php echo date('d/m/Y', $r->fine); ?></strong>.</p>
+                    </div>
+                <?php } 
+
+                /* Utente con provvedimento */
+
+                if($me->provvedimento()){ ?>
+                    <div class="alert alert-block">
+                        <h4><i class="icon-legal"></i> Provvedimento in corso</h4>
+                        <p>Sei sottoposto ad un provvedimento disciplinare, ottieni maggiori informazioni consultando il tuo storico.</p>
                     </div>
                 <?php } 
 

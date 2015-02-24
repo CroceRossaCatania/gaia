@@ -887,3 +887,19 @@ $conf['est_attivita2geopolitica'] = [
     ATT_VIS_VOLONTARI   =>  EST_NAZIONALE,
     ATT_VIS_PUBBLICA    =>  EST_NAZIONALE     
 ];
+
+/*
+ * ===================================
+ * =========== PROVVEDIMENTI =========
+ * ===================================
+ */
+
+define('PROVV_AMMONIZIONE', 10);
+define('PROVV_SOSPENSIONE', 20);
+define('PROVV_ESPULSIONE',  30);
+
+$conf['provvedimenti'] = [
+    PROVV_AMMONIZIONE   =>  'Ammonizione scritta',
+    PROVV_SOSPENSIONE   =>  'Sospensione',
+    PROVV_ESPULSIONE    =>  'Espulsione'
+];

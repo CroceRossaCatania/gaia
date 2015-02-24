@@ -9,7 +9,7 @@ paginaPubblica();
             	<h2>Già volontario? </h2>
                     <h3 class="muted">Registrati su Gaia.</h3>
                     <div class="well">
-                        <a href="?p=riconoscimento&tipo=volontario" class="btn btn-large btn-success btn-block">
+                        <a href="?p=conferma&tipo=volontario" class="btn btn-large btn-success btn-block">
                             <i class="icon-user"></i>
                             Registrati ora
                         </a>

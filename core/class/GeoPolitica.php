@@ -75,7 +75,7 @@ abstract class GeoPolitica extends GeoEntita {
         return $rr;
     }
     
-    /*
+    /**
      * Ottiene il livello di estensione (costante EST_UNITA, EST_LOCALE, ecc)
      */
     public function _estensione() {
@@ -386,6 +386,32 @@ abstract class GeoPolitica extends GeoEntita {
             ['comitato',    $this->oid()]
         ], 'nome ASC');
         return $g;
+    }
+
+    /**
+     * Cancella Geopolitica
+     * @param GeoPolitica
+     */
+    public function cancella(){
+
+        $oid = $this->oid();
+
+        /* Cancello autoparchi e veicoli ad esso associati li passo al nazionale */
+        Autoparco::cancellaTutti([['comitato', $oid]]);
+
+        /* Cancello i corsi base */
+        CorsoBase::cancellaTutti([['comitato', $oid]]);
+        
+        /* Cancello i delegati */
+        Delegato::cancellaTutti([['comitato', $oid]]);
+
+        /* Cancello i gruppi */
+        Gruppo::cancellaTutti([['comitato', $oid]]);
+
+        /* Assegno veicoli a nazionale */
+        Veicolo::cancellaTutti([['comitato', $oid]]);
+
+        parent::cancella();
     }
     
 }

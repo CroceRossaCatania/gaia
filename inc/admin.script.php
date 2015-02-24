@@ -109,10 +109,17 @@ paginaAdmin();
                 <i class="icon-user"></i>
                 Fix appartenenze
             </a>
+            <hr/>
+            <div class="alert alert-success">
+                <strong>Script per rimozione spazi nelle targhe</strong>
+                <p>Questo script rimuove le gli spazi nelle targhe</p>
+            </div>
             <a href="?p=admin.fix.veicoli" class="btn btn-large btn-info">
                 <i class="icon-thumbs-down"></i>
                 Fix spazi nei veicoli
             </a>
         </div>
+
+        
     </div>
 </div>

@@ -1018,4 +1018,113 @@ class Comitato extends GeoPolitica {
         return $filtrato;
     }
 
+    /**
+     * Cancella il comitato con tutte le sue dipendenze
+     * @param comitato
+     */
+    public function cancella(){
+
+        /* Cancello aree e responsabili */
+        $aree = Area::filtra([
+          ['comitato', $this]
+        ]);
+        foreach($aree as $area){
+            $area->cancella();
+        }
+
+        /* Cancello le attività */
+        $attivita = Attivita::filtra([
+          ['comitato', $this]
+        ]);
+        foreach($attivita as $att){
+            $turni = Turno::filtra([['attivita', $att]]);
+            foreach ( $turni as $turno ){
+                $partecipazioni = Partecipazione::filtra([['turno', $turno]]);
+                foreach( $partecipazioni as $partecipazione ){
+                    $autorizzazioni = Autorizzazione::filtra([['partecipazione', $partecipazione]]);
+                    foreach( $autorizzazioni as $autorizzazione ){
+                        $autorizzazione->cancella();
+                    }
+                    $partecipazione->cancella();
+                }
+                $coturni = Coturno::filtra([['turno', $turno]]);
+                foreach( $coturni as $coturno ){
+                    $coturno->cancella();
+                }
+                $turno->cancella();
+            }
+            $mipiaci = Like::filtra([['oggetto', $att->oid()]]);
+            foreach( $mipiaci as $mipiace ){
+                $mipiace->cancella();
+            }
+            $att->cancella();
+        }
+
+        /* Cancello le dimissioni */
+        $dimissioni = Dimissione::filtra([
+            ['comitato', $this]
+        ]);
+        foreach( $dimissioni as $dimissione ){
+            try{
+                $appartenenza = $dimissione->appartenenza();
+                $appartenenza->cancella();
+            }catch(Exception $e){
+
+            }
+            $dimissione->cancella();
+        }
+
+        /* Cancello le dimissioni */
+        $estensioni = Estensione::filtra([
+            ['cProvenienza', $this]
+        ]);
+        foreach( $estensioni as $estensione ){
+            try{
+                $appartenenza = $estensione->appartenenza();
+                $appartenenza->cancella();
+            }catch(Exception $e){
+
+            }
+            $estensione->cancella();
+        }
+
+        /* Cancello i gruppi personali */
+        $appgruppi = AppartenenzaGruppo::filtra([
+            ['comitato', $this]
+        ]);
+        foreach( $appgruppi as $appgruppo ){
+            $appgruppo->cancella();
+        }
+
+        /* Cancello reperibilità */
+        $reperibilita = Reperibilita::filtra([
+          ['comitato', $t]
+        ]);
+        foreach($reperibilita as $reperibile){
+            $reperibile->cancella();
+        }
+
+        /* Cancello appartenenze */
+        $appartenenze = Appartenenza::filtra([['comitato', $this]]);
+        foreach ( $appartenenze as $appa ){
+            $riserve = Riserva::filtra([['appartenenza', $appa]]);
+            foreach( $riserve as $riserva ){
+                $riserva->cancella();
+            }
+
+            $estensioni = Estensione::filtra([['appartenenza', $appa]]);
+            foreach( $estensioni as $estensione ){
+                $estensione->cancella();
+            }
+
+            $trasferimenti = Trasferimento::filtra([['appartenenza', $appa]]);
+            foreach( $trasferimenti as $trasferimento ){
+                $trasferimento->cancella();
+            }
+            $appa->cancella();
+        }
+        
+        parent::cancella();
+    }
+
 }
