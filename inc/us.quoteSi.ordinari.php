@@ -174,7 +174,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             ?>
                 <tr>
                     <td><?php
-                            $q = $_v->quota($anno);
+                            $q = $_v->quotaSocioAttivo($anno);
                             echo $q->progressivo();
                         ?>
                     </td>

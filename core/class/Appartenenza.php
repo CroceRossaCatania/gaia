@@ -181,7 +181,7 @@ class Appartenenza extends Entita {
                     )
                 ) OR (
                     $this->inizio() < $massimo AND (
-                        !$this->fine OR $this->fine() < $massimo
+                        !$this->fine OR $this->fine() > $minimo
                     )
                 )
             );

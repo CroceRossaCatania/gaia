@@ -2329,8 +2329,9 @@ class Utente extends Persona {
         foreach ( $this->storico() as $appartenenza ) {
 
             // Se appartenenza fuori contesto temporale, termina esecuzione
-            if (!$appartenenza->validoTra($minimo, $massimo))
+            if (!$appartenenza->validoTra($minimo, $massimo)) {
                 continue;
+            }
 
             // Se non appartenenza valida, ignora
             if (in_array($appartenenza->stato, $conf['membro_invalido']))
@@ -2371,7 +2372,6 @@ class Utente extends Persona {
 
         $anno      = $anno ? (int) $anno : (int) date('Y');
         $a         = $this->appartenenzePassibiliQuota($anno);
-
 
         // Se non ho appartenenze in $anno, non sono attivo
         if ( empty($a) ) 
