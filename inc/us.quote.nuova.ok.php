@@ -48,6 +48,7 @@ foreach ($gia as $_g) {
 		redirect('us.quoteNo&gia');
 }
 
+
 $time = DT::createFromFormat('d/m/Y', $_POST['inputData']);
 
 $q = new Quota();
@@ -104,6 +105,6 @@ $m->a 		= $v;
 $m->da 		= $me;
 $m->_NOME 	= $v->nome;
 $m->allega($f);
-$m->invia();
+$m->accoda();
 
 redirect('us.quoteNo&ok');

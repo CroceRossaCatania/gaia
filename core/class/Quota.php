@@ -37,8 +37,25 @@ class Quota extends Entita {
         if ($this->progressivo) {
             return false;
         }
-        $anno = $this->anno;
-        $progressivo = $this->generaProgressivo('progressivo', [["anno", $anno]]);
+        $anno = (int) $this->anno;
+        $locale = (int) $this->comitato()->locale()->id;
+
+        $q = "SELECT MAX(progressivo) FROM 
+                quote, appartenenza, comitati
+              WHERE 
+                    anno = {$anno}
+                AND quote.appartenenza = appartenenza.id
+                AND appartenenza.comitato = comitati.id
+                AND comitati.locale = {$locale}";
+        $q = $this->db->prepare($q);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+
+        if ($r) 
+            $progressivo = (int) $r[0] + 1;
+        else
+            $progressivo = 1;
+
         $this->progressivo = $progressivo;
         return $progressivo;
     }
