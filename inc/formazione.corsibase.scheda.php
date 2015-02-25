@@ -35,6 +35,9 @@ if(!$me->admin() && !$corso->direttore()) {
     redirect("formazione.corsibase.direttore&id={$corso->id}");
 }
 
+$part = $corso->partecipazioni(ISCR_CONFERMATA);
+
+
 
 $_titolo = $corso->nome . 'Corso Base CRI su Gaia';
 $_descrizione = $corso->luogo
@@ -243,11 +246,20 @@ $(document).ready( function() {
         </div>
         <hr />
         <?php if($corso->modificabileDa($me) && $corso->finito() && !$corso->concluso()) { ?>
-        <div class="row-fluid">
-            <a href="?p=formazione.corsibase.finalizza&id=<?= $corso->id ?>" class="btn btn-block btn-success btn-large">
-                <i class="icon-flag-checkered"></i> Genera verbale e chiudi corso
-            </a>
-        </div>
+
+            <?php if ( $part ) { ?>
+                <div class="row-fluid">
+                    <a href="?p=formazione.corsibase.finalizza&id=<?= $corso->id ?>" class="btn btn-block btn-success btn-large">
+                        <i class="icon-flag-checkered"></i> Genera verbale e chiudi corso
+                    </a>
+                </div>
+            <?php } else { ?>
+                <div class="row-fluid alert-block alert">
+                    <h4><i class="icon-info-sign"></i> Questo corso non &egrave; finalizzabile</h4>
+                    <p>Nonostante il corso sia concluso, nessun iscritto &egrave; stato confermato, quindi non &egrave; possibile generarne il verbale.</p>
+                </div>
+
+            <?php } ?>
         <hr />
         <?php } ?>
 
@@ -400,7 +412,6 @@ $(document).ready( function() {
                     <th>Azione</th>
                 </thead>
                 <?php 
-                $part = $corso->partecipazioni(ISCR_CONFERMATA);
 
                 foreach ( $part as $p ) { 
                     $iscritto = $p->utente(); ?>
