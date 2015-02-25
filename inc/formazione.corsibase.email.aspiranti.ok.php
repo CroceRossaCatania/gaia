@@ -30,6 +30,10 @@ foreach($aspiranti as $aspirante) {
 }
 
 foreach ($r as $utente) {
+
+    // Ref #1908
+    if ( $utente->stato != ASPIRANTE ) { continue; }
+    
     $m = new Email('corsoBaseAttivato', 'Nuovo Corso per Volontari CRI');
     $m->a = $utente;
     $m->da = $corso->direttore();
