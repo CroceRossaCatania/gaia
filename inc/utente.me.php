@@ -373,7 +373,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                 // blocco JUMP 
                 ?>
                 
-                
+                <!--
                 <div class="alert alert-block alert-info">
                     <div class="row-fluid">
                         <div class="span9">
@@ -387,6 +387,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                         </div>
                     </div>
                 </div>
+                -->
                 <!--
                 <div class="alert alert-block alert-info">
                     <div class="row-fluid">
