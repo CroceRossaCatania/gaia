@@ -23,9 +23,9 @@ paginaAdmin();
     <span>
         <h4>File format</h4>
         <ul>
-            <li><a href="https://gaia.cri.it/upload/docs/import/csv_volontari.xls"><i class="icon-list"></i> Format Volontari</a></li>
-            <li><a href="https://gaia.cri.it/upload/docs/import/csv_ordinari.xls"><i class="icon-list"></i> Format Ordinari</a></li>
-            <li><a href="https://gaia.cri.it/upload/docs/import/csv_trasferimento.xls"><i class="icon-list"></i> Format Trasferimento</a></li>
+            <li><a href="https://gaia.cri.it/assets/docs/import/csv_volontari.xls"><i class="icon-list"></i> Format Volontari</a></li>
+            <li><a href="https://gaia.cri.it/assets/docs/import/csv_ordinari.xls"><i class="icon-list"></i> Format Ordinari</a></li>
+            <li><a href="https://gaia.cri.it/assets/docs/import/csv_trasferimento.xls"><i class="icon-list"></i> Format Trasferimento</a></li>
             
         </ul>
     </span>
