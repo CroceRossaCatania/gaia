@@ -11,6 +11,7 @@ $mieAree = $me->areeDiCompetenza();
 if ( isset($_GET['chiuse']) ){
 
     $apertura = ATT_CHIUSA;
+    $aperture = ATT_APERTA;
     $chiusa   = true;
     $plurale = "attività aperte";
 
