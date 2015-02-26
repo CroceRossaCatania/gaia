@@ -11,12 +11,14 @@ $mieAree = $me->areeDiCompetenza();
 if ( isset($_GET['chiuse']) ){
 
     $apertura = ATT_CHIUSA;
+    $aperture = ATT_APERTA;
     $chiusa   = true;
     $plurale = "attività aperte";
 
 }else{
 
     $apertura = ATT_APERTA;
+    $aperture = ATT_CHIUSA;
     $redirect = "&chiuse";
     $plurale = "attività chiuse";
 }
@@ -155,7 +157,7 @@ if ( isset($_GET['chiuse']) ){
 
                     <?php } ?>
                     <?php 
-                    if( $me->attivitaDiGestione($apertura) ){ ?>
+                    if( $me->attivitaDiGestione($aperture) ){ ?>
                         <tr>
                             <td colspan="4">
                                 <a data-attendere="Attendere..." href="?p=attivita.gestione<?= $redirect; ?>" class="btn btn-block">
