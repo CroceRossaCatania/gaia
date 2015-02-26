@@ -722,6 +722,7 @@ class Utente extends Persona {
         }
         return $r;
     }
+    
     /**
      * Restituisce i comitati che mi competono per una determinata delega
      * @return array di geopolitiche
