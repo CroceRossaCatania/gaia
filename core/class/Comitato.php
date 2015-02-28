@@ -596,92 +596,89 @@ class Comitato extends GeoPolitica {
         return [$this];
     }
     
-    public function quoteSi($anno , $stato=MEMBRO_VOLONTARIO) {
-        $statiPossibili = [MEMBRO_VOLONTARIO, MEMBRO_DIMESSO, MEMBRO_TRASFERITO]; 
-        if($stato == MEMBRO_ORDINARIO) {
-            $statiPossibili = [MEMBRO_ORDINARIO, MEMBRO_ORDINARIO_DIMESSO];
+    /**
+     * Ottiene elenco dei potenziali soci del comitato in un dato anno, al solo uso di
+     * successiva verifica del pagamento della quota o meno nell'anno - NESSUN altro uso!
+     * @param int $anno     Opzionale. Anno di riferimento. Default anno attuale.
+     * @
+     * @return array(Utente)
+     */
+    public function potenzialiSoci($anno = false, $stato = MEMBRO_VOLONTARIO) {
+        global $conf;
+        $anno       = $anno ? (int) $anno : (int) date('Y');
+        $minimo     = (DT::createFromFormat('d/m/Y H:i', "1/1/{$anno} 00:00"));
+        $minimo     = $minimo->getTimestamp();
+        $massimo    = (DT::createFromFormat('d/m/Y H:i', "31/12/{$anno} 23:59")); 
+        $massimo    = $massimo->getTimestamp();
+
+        if ( !is_array($stato) ) {
+            if ( array_key_exists($stato, $conf['appartenenze_posteri']) ) 
+                $stato = $conf['appartenenze_posteri'][$stato];
+            else
+                $stato = [$stato];
         }
-        $stati = implode(',', $statiPossibili);
-        $q = $this->db->prepare("
-            SELECT  
-                anagrafica.id
-            FROM    
-                appartenenza, anagrafica
-            WHERE
-                appartenenza.comitato = :comitato
-            AND
-                anagrafica.id = appartenenza.volontario
-            AND
-                appartenenza.stato IN ( ". $stati ." )
-            AND
-                ( anagrafica.id IN 
-                    ( SELECT
-                            appartenenza.volontario
-                        FROM
-                            quote, appartenenza
-                        WHERE
-                            quote.appartenenza = appartenenza.id
-                        AND
-                            quote.anno = :anno
-                        AND 
-                            quote.pAnnullata IS NULL
-                    )
-                )
-            ORDER BY
-              anagrafica.cognome     ASC,
-              anagrafica.nome  ASC");
-        $q->bindParam(':comitato',  $this->id);
-        $q->bindValue(':anno',    $anno);
+
+        foreach ( $stato as &$s )
+            $s = (int) $s;
+
+        $stato = implode(', ', $stato);
+        
+        $query = "
+            SELECT  anagrafica.id
+            FROM    appartenenza, anagrafica
+            WHERE   appartenenza.comitato = :comitato
+            AND     anagrafica.id = appartenenza.volontario 
+            AND     appartenenza.stato IN ({$stato})
+            AND     appartenenza.inizio <= :massimo
+            AND (
+                        appartenenza.fine IS NULL
+                    OR  appartenenza.fine = 0
+                    OR  appartenenza.fine > :minimo
+            )
+        ";
+        $q = $this->db->prepare($query);
+
+        $q->bindParam(':comitato', $this->id, PDO::PARAM_INT);
+        $q->bindParam(':minimo',   $minimo, PDO::PARAM_INT);
+        $q->bindParam(':massimo',  $massimo, PDO::PARAM_INT);
         $q->execute();
         $r = [];
         while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = Volontario::id($k[0]);
+            $r[] = Utente::id($k[0]);
+        }
+        return $r;
+    }
+
+    /**
+     * Ritorna tutti i Soci Attivi (coloro che han pagato la Quota Associativa)
+     * che son stati appartenenti in un dato anno a questo comitato 
+     * @param int $anno     Opzionale. Anno di riferimento. Default anno attuale.
+     * @return array(Utente)
+     */
+    public function quoteSi($anno = false, $stato = MEMBRO_VOLONTARIO) {
+        $r = [];
+        $soci = $this->potenzialiSoci($anno, $stato);
+        foreach ( $soci as $p ) {
+            if ( $p->socioAttivo($anno) )
+                $r[] = $p;
         }
         return $r;
     }
     
-     public function quoteNo($anno , $stato=MEMBRO_VOLONTARIO) {
-        $q = $this->db->prepare("
-            SELECT 
-                anagrafica.id 
-            FROM    
-                anagrafica, appartenenza 
-            WHERE         
-                anagrafica.id = appartenenza.volontario 
-            AND
-                appartenenza.comitato = :comitato
-            AND
-                appartenenza.stato = :stato
-            AND 
-                ( appartenenza.fine < 1 OR appartenenza.fine > :ora OR appartenenza.fine IS NULL)
-            AND 
-                ( anagrafica.id NOT IN 
-                    ( SELECT 
-                            appartenenza.volontario 
-                        FROM 
-                            quote, appartenenza
-                        WHERE
-                            quote.appartenenza = appartenenza.id 
-                        AND
-                            anno = :anno
-                        AND
-                            pAnnullata IS NULL
-                    )
-                ) 
-                
-            ORDER BY
-                anagrafica.cognome     ASC,
-                anagrafica.nome  ASC");
-        $q->bindParam(':comitato',  $this->id);
-        $q->bindParam(':ora',  time());
-        $q->bindParam(':anno', $anno);
-        $q->bindParam(':stato', $stato);
-        $q->execute();
+    /**
+     * Ritorna tutti i Soci NON Attivi (coloro che, pur passibili, non hanno pagato la Quota Associativa)
+     * che son stati appartenenti in un dato anno a questo comitato 
+     * @param int $anno     Opzionale. Anno di riferimento. Default anno attuale.
+     * @return array(Utente)
+     */
+    public function quoteNo($anno = false, $stato = MEMBRO_VOLONTARIO) {
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = Volontario::id($k[0]);
+        foreach ( $this->potenzialiSoci($anno, $stato) as $p ) {
+            if ( $p->socioNonAttivo($anno) )
+                $r[] = $p;
         }
         return $r;
+
     }
     
     /**

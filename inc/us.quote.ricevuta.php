@@ -3,7 +3,6 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
-paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 controllaParametri(array('id'), 'us.dash&err');
 
@@ -11,7 +10,17 @@ $id = $_GET['id'];
 $quota = Quota::id($id);
 $v = $quota->volontario();
 
-proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
+if ( ! (
+		$me->puoLeggereDati($quota->comitato(), [APP_SOCI, APP_PRESIDENTE]) or 
+			(
+				$v->appartenenzaAttuale() &&
+				$me->puoLeggereDati($v->appartenenzaAttuale()->comitato())
+			)
+		)
+	) {
+	
+	redirect("errore.permessi&cattivo");
+}
 
 if($quota->annullata()) {
     redirect('us.quote.visualizza&annullata&id='.$u->id);
@@ -51,8 +60,6 @@ if (($quota->quota - $quotaMin) > 0) {
 $p->_TOTALE     = soldi($quota->quota);
 $p->_LUOGO      = $quota->comitato()->locale()->comune;
 $p->_DATA       = $quota->dataPagamento()->format('d/m/Y');
-$p->_CHINOME    = $quota->conferma()->nomeCompleto();
-$p->_CHICF      = $quota->conferma()->codiceFiscale;
 $f = $p->salvaFile($quota->comitato());  
 $f->download();
 

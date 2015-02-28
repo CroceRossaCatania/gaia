@@ -54,7 +54,12 @@ define('OP_LTE',    '<=');
 define('OP_GT',     '>');
 define('OP_GTE',    '>=');
 define('OP_NE',     '<>');
+define('OP_NULL',   'IS NULL');
+define('OP_NNULL',  'IS NOT NULL');
 define('OP_SQL',    'YOU_SHOULD_NOT_SEE_ME_IN_A_QUERY');
+
+// Definisce gli operatori unari (senza complemento oggetto)
+$conf['op_unari'] = [OP_SQL, OP_NULL, OP_NNULL];
 
 /*
  * ===================================
@@ -84,7 +89,21 @@ define('MEMBRO_MODERATORE',        50);
 define('MEMBRO_DIPENDENTE',        60);
 define('MEMBRO_PRESIDENTE',        70);
 
+/**
+ * Quando guardo a posteri un'appartenenza, e cerco un *CHIAVE*,
+ * in realta' devo guardare per uno in *VALORI*
+ */
+$conf['appartenenze_posteri'] = [
+    MEMBRO_VOLONTARIO => [
+        MEMBRO_VOLONTARIO,
+        MEMBRO_DIMESSO,
+        MEMBRO_TRASFERITO,
+    ],
 
+    MEMBRO_ORDINARIO => [
+        MEMBRO_ORDINARIO
+    ]
+];
 
 /* Definizioni in stringa */
 $conf['membro'] = [
@@ -107,6 +126,22 @@ $conf['membro'] = [
     MEMBRO_DIMESSO              =>  'Dimesso',
     MEMBRO_EST_TERMINATA        =>  'Estensione terminata',
     MEMBRO_APP_NEGATA           =>  'Appartenenza negata'
+];
+
+/* Le tipologie di appartenenza che non sono valide (non vere appartenenze) */
+$conf['membro_invalido'] = [
+    MEMBRO_TRASF_NEGATO,
+    MEMBRO_TRASF_ANN,
+    MEMBRO_TRASF_IN_CORSO,
+    MEMBRO_PENDENTE,
+    MEMBRO_EST_PENDENTE,
+    MEMBRO_APP_NEGATA
+];
+
+/* Le tipologie di appartenenza che rappresentano dimissione da CRI */
+$conf['membro_dimesso'] = [
+    MEMBRO_ORDINARIO_DIMESSO,
+    MEMBRO_DIMESSO
 ];
 
 

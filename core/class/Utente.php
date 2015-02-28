@@ -752,7 +752,7 @@ class Utente extends Persona {
      * @param GeoPolitica $g la geopolitica contenente i volontari
      * @return bool
      */
-    public function puoLeggereDati(GeoPolitica $g) {
+    public function puoLeggereDati(GeoPolitica $g, $app = [APP_PRESIDENTE, APP_SOCI, APP_OBIETTIVO, APP_AUTOPARCO]) {
         if ( $this->admin ) { // ->admin e non ->admin() di proposito
                               // in quanto questa roba viene usata in API
             return true;
@@ -761,12 +761,7 @@ class Utente extends Persona {
         return (bool) contiene(
             $g,
             array_merge(
-                $this->comitatiApp([
-                    APP_PRESIDENTE,
-                    APP_SOCI,
-                    APP_OBIETTIVO,
-                    APP_AUTOPARCO
-                ], false),
+                $this->comitatiApp($app, false),
                 $this->geopoliticheAttivitaReferenziate(),
                 $this->geopoliticheGruppiReferenziati  (),
                 $this->comitatiAreeDiCompetenza        ()
@@ -2309,5 +2304,118 @@ class Utente extends Persona {
         // ed il mio potere piu' grande...
         return $attivita->visibilita()->dominioComune($massimo);
     } 
+
+
+    /**
+     * Ritorna l'elenco di appartenenze passibili al pagamento di una quota in un dato anno
+     * Se il volontario e' dimesso o non passibile al pagamento della quota, ritorna array vuoto
+     * 
+     * @param int $anno                 (Opzionale) Anno di riferimento. Default = Anno attuale
+     * @return array(Appartenenza)      Lista di appartenenze. Se non passibile, lista vuota.
+     */
+    public function appartenenzePassibiliQuota($anno = false) {
+        global $conf;
+        $anno       = $anno ? (int) $anno : (int) date('Y');
+        $minimo     = DT::createFromFormat('d/m/Y H:i', "1/1/{$anno} 00:00"); 
+        $massimo    = DT::createFromFormat('d/m/Y H:i', "31/12/{$anno} 23:59"); 
+        $r = [];
+
+        // Applica algoritmo pubblicato su 
+        // https://github.com/CroceRossaCatania/gaia/issues/1218#issuecomment-69459905
+        foreach ( $this->storico() as $appartenenza ) {
+
+            // Se appartenenza fuori contesto temporale, termina esecuzione
+            if (!$appartenenza->validoTra($minimo, $massimo)) {
+                continue;
+            }
+
+            // Se non appartenenza valida, ignora
+            if (in_array($appartenenza->stato, $conf['membro_invalido']))
+                continue;
+
+            // Se appartenenza terminata con dimissione, termina esecuzione
+            if (in_array($appartenenza->stato, $conf['membro_dimesso']))
+                continue;
+
+            // In tutti gli altri casi, appartenenza legittima, passibile a pagamento quota per l'A.A.
+            $r[] = $appartenenza;
+
+        }
+
+        return $r;
+    }
+
+    /**
+     * Ritorna se il volontario e' passibile al pagamento di una Quota assiciativa in un dato anno
+     *
+     * @param int $anno                 (Opzionale) Anno di riferimento. Default = Anno attuale
+     * @return bool                     Volontario passibile di pagamento quota.
+     */
+    public function passibilePagamentoQuota($anno = false) {
+        $a = $this->appartenenzePassibiliQuota($anno);
+        return ( empty($a) ? false : true );
+    }   
+
+
+    /**
+     * Ritorna, se il socio e' attivo (passibile al pagamento quota e con una quota associativa versata),
+     * la quota che e' stata versata dal socio
+     *
+     * @param int $anno                 (Opzionale) Anno di riferimento. Default = Anno attuale
+     * @return Quota|bool(false)        Quota o false.
+     */
+    public function quotaSocioAttivo($anno = false) {
+
+        $anno      = $anno ? (int) $anno : (int) date('Y');
+        $a         = $this->appartenenzePassibiliQuota($anno);
+
+        // Se non ho appartenenze in $anno, non sono attivo
+        if ( empty($a) ) 
+            return false;
+
+        // Per ogni appartenenza, cerca almeno una Quota
+        foreach ( $a as $_a ) {
+
+            $q = Quota::filtra([
+                ['appartenenza',    $_a->id],
+                ['anno',            $anno],
+                ['pAnnullata',      false, OP_NULL]
+            ]);
+
+
+            // Se esiste, allora son socio attivo
+            if ( $q ) {
+                return $q[0];
+            }
+
+        }
+
+        // Non abbiam trovato niente, peccato!
+        return false;
+
+
+    }
+    
+    /**
+     * Ritorna se il socio e' attivo (passibile al pagamento quota e con una quota associativa versata)
+     *
+     * @param int $anno                 (Opzionale) Anno di riferimento. Default = Anno attuale
+     * @return bool                     Volontario socio attivo.
+     */
+    public function socioAttivo($anno = false) {
+        $q  = $this->quotaSocioAttivo($anno);
+        return ( $q ? true : false );
+    }    
+
+    /**
+     * Ritorna se il socio e' NON attivo (passibile al pagamento quota e con nessuna quota associativa versata)
+     *
+     * @param int $anno                 (Opzionale) Anno di riferimento. Default = Anno attuale
+     * @return bool                     Volontario socio NON attivo.
+     */
+    public function socioNonAttivo($anno = false) {
+        return $this->passibilePagamentoQuota($anno) & !$this->socioAttivo($anno);
+    }
+
 
 }

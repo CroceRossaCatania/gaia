@@ -138,6 +138,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 <th>Codice Fiscale</th>
                 <th>Importo</th>
                 <th>Data Pagamento</th>
+                <th>Pagamento effettuato</th>
                 <th>Azioni</th>
             </thead>
         <?php
@@ -155,7 +156,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 ?>
             
             <tr class="success">
-                <td colspan="7" class="grassetto">
+                <td colspan="8" class="grassetto">
                     <?php echo $comitato->nomeCompleto(); ?>
                     <span class="label label-warning">
                         <?php echo count($t); ?>
@@ -174,7 +175,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             ?>
                 <tr>
                     <td><?php
-                            $q = $_v->quota($anno);
+                            $q = $_v->quotaSocioAttivo($anno);
                             echo $q->progressivo();
                         ?>
                     </td>
@@ -194,6 +195,8 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                              }?>
                     </td>
                     <td><?php echo $q->dataPagamento()->inTesto(false); ?></td>
+
+                    <td><?= $q->conferma()->nomeCompleto(); ?></td>
 
                     <td>
                         <div class="btn-group">
