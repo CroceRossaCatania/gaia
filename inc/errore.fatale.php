@@ -37,11 +37,11 @@ header('HTTP/1.1 500 Internal Server Error');
 
 	<h3 class="text-warning">
 		<i class="icon-cogs"></i>
-		Gli sviluppatori sono stati avvisati del problema.
+		Abbiamo annotato i dettagli.
 	</h3>
 	<p>
 		L'errore &egrave; stato registrato dal Sistema di Gestione degli Errori &mdash; con tutti i dettagli del caso.<br />
-		Gaia ha inoltre avvisato automaticamente gli sviluppatori, che indagheranno sul problema.
+		Potranno essere utili agli Sviluppatori se decideranno di indagare sul problema in seguito ad una segnalazione.
 	</p>
 
 	<p>&nbsp;</p>
