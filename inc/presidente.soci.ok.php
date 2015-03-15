@@ -113,6 +113,19 @@ if(isset($_GET['nofoto'])) { ?>
                 $inQuestoComitato = ($app && $app->comitato()->id == $comitato->id) ? true : false;
                 $haPosizione = $comitato->locale()->haPosizione();
             ?>
+
+                <?php if ( !$haPosizione ) { ?>
+                <tr>
+                    <td class="error" colspan="6">
+                        <h4>Impossibile richiedere il tesserino per questi Volontari</h4>
+                        <p><strong>La scheda del Comitato non &egrave; completa. Non &egrave; stato inserito l'indirizzo del Comitato.</strong></p>
+                        <p>&Egrave; necessario che il Presidente aggiunga i dettagli mancanti affinch&eacute; possano essere riportati sul retro
+                           del tesserino generato.</p>
+                        <p>Una volta inserito l'indirizzo il Comitato verr&agrave; inoltre mostrato nella Mappa dei Comitati per il pubblico.</p> 
+                    </td>
+                </tr>
+                <?php } ?>
+                
                 <tr>
                     <td><?php echo $_v->cognome; ?></td>
                     <td><?php echo $_v->nome; ?></td>
