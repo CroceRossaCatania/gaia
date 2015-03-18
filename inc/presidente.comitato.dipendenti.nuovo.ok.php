@@ -20,7 +20,7 @@ $codiceFiscale  = $_POST['inputCodiceFiscale'];
 $codiceFiscale  = maiuscolo($codiceFiscale);
 $email      	= minuscolo($_POST['inputEmail']);
 
-$indietro = "presidente.comitato.dipendneti.nuovo&applicazione={$app}&comitato={$oid}";
+$indietro = "presidente.comitato.dipendenti.nuovo&applicazione={$app}&comitato={$oid}";
 
 /* Controlli */
 /* Cerca anomalie nel formato del codice fiscale */
