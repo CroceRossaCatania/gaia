@@ -2344,6 +2344,16 @@ class Utente extends Persona {
             // In tutti gli altri casi, appartenenza legittima, passibile a pagamento quota per l'A.A.
             $r[] = $appartenenza;
 
+            // Se ho registrato una quota per questa appartenenza, le appartenenze
+            // precedenti non sono passibili di quota.
+            if ( Quota::conta([
+                ['appartenenza',    $appartenenza->id],
+                ['anno',            $anno],
+                ['pAnnullata',      false, OP_NULL]
+            ]) ) {
+                break;
+            }
+
         }
 
         return $r;
