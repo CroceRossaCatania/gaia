@@ -85,6 +85,10 @@ abstract class GeoPolitica extends GeoEntita {
     public function presidenti() {
         return $this->delegati(APP_PRESIDENTE);
     }
+
+    public function permettiTrasferimentiUS() {
+        return (bool) $this->trasferimentiUS;
+    }
     
     public function volontariPresidenti() {
         $del = $this->delegati(APP_PRESIDENTE);

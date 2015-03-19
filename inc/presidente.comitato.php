@@ -562,6 +562,21 @@ $(document).ready(function() {
                         di <strong><?= $_nome; ?></strong> per il <strong><?= $c->nomeCompleto(); ?></strong>.
                     </div>
 
+                    <?php
+                    if($_gestione == APP_SOCI){
+                        if($c->permettiTrasferimentiUS()){
+                            ?>
+                            <a class="btn btn-success btn-block" href="?p=presidente.comitato.trasferimentiUS&oid=<?= $c->oid(); ?>">I Delegati ufficio soci possono approvare e negare le richieste di trasferimento. Clicca qui per cambiare.</a>
+                            <?php
+                        }else{
+                            ?>
+                            <a class="btn btn-danger btn-block" href="?p=presidente.comitato.trasferimentiUS&oid=<?= $c->oid(); ?>">I Delegati ufficio soci non possono approvare e negare le richieste di trasferimento. Clicca qui per cambiare.</a>
+                            <?php
+                        }
+                    }
+                        
+
+                    ?>
                         
                     <h4>Volontari con accesso alle funzioni di <?php echo $_nome; ?></h4>
                     
