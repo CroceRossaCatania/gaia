@@ -2418,4 +2418,25 @@ class Utente extends Persona {
     }
 
 
+    /**
+     * Conta tutti le possibili provenienze delel iscrizioni su gaia aspiranti
+     */
+    public static function conoscenza(){
+        global $db, $conf;
+        $q = $db->prepare("
+        SELECT 
+            valore, 
+        COUNT(valore) 
+        FROM dettagliPersona 
+        WHERE nome='conosciuto' 
+        GROUP BY valore
+        ");
+        $q->execute();
+        while ( $r = $q->fetch(PDO::FETCH_NUM) ) { 
+            $opzione = $r[0];
+            $numero = $r[1];
+            echo "{$conf['conoscenza'][$opzione]} scelto {$numero} volte.<br/>";
+        }
+    }
+
 }
