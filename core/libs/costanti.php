@@ -917,3 +917,22 @@ $conf['provvedimenti'] = [
     PROVV_SOSPENSIONE   =>  'Sospensione',
     PROVV_ESPULSIONE    =>  'Espulsione'
 ];
+
+/*
+ * ===================================
+ * =========== CONOSCENZA ============
+ * ===================================
+ */
+
+define('AMICO',      1);
+define('PUBBLICITA', 10);
+define('EXPO',       20);
+define('SOCIAL',     30);
+
+/* Definizioni in stringa */
+$conf['conoscenza'] = [
+    AMICO       =>  'Amico',
+    PUBBLICITA  =>  'Pubblicità',
+    EXPO        =>  'Expo 2015',
+    SOCIAL      =>  'Social Network'
+];

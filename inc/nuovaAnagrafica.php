@@ -162,6 +162,16 @@ if ( ($p->password) ) {
                 </div>
             </div>
             <div class="control-group">
+                <label class="control-label" for="inputConoscenza">Come ci hai conosciuto ? * </label>
+                <div class="controls">
+                    <select name="inputConoscenza" class="input-medium" required>
+                        <?php foreach ($conf['conoscenza'] as $numero => $tipo) { ?>
+                            <option value="<?php echo $numero; ?>"><?= $tipo; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
                 <label class="checkbox" for="inputConsenso">
                     <input type="checkbox" id="inputConsenso" name="inputConsenso" required>Acconsento al trattamento sui dati personali nel rispetto delle attuali <a href="#" onclick="window.open('/inc/public.privacy.php', 'disclaimer', 'width=600, height=500, resizable, status, scrollbars=1, location');return false;"><i class="icon-link"></i>normative vigenti</a>.
                 </label>
