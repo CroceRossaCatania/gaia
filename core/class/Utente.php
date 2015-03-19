@@ -2333,6 +2333,10 @@ class Utente extends Persona {
             if (in_array($appartenenza->stato, $conf['membro_invalido']))
                 continue;
 
+            // Se non appartenenza valida scopo quota, ignora
+            if (in_array($appartenenza->stato, $conf['membro_nonquota']))
+                continue;
+
             // Se appartenenza terminata con dimissione, termina esecuzione
             if (in_array($appartenenza->stato, $conf['membro_dimesso']))
                 continue;
