@@ -1345,6 +1345,16 @@ class Utente extends Persona {
             }
 
         }
+
+        if ( $altroutente->dipendenteComitato &&
+            in_array(
+                $altroutente->dipendenteComitato,
+                $this->comitatiApp([APP_PRESIDENTE, APP_SOCI], false)
+            )
+        ) {
+            return PRIVACY_RISTRETTA;
+        }
+
         return PRIVACY_PUBBLICA;
     }
 
@@ -1447,6 +1457,16 @@ class Utente extends Persona {
                     return true;
                 }
             }
+        }
+
+        // Dipendente
+        if ( $this->dipendenteComitato &&
+            in_array(
+                $this->dipendenteComitato,
+                $altroUtente->comitatiApp([APP_PRESIDENTE, APP_SOCI], false)
+            )
+        ) {
+            return true;
         }
 
         // se non sei niente
