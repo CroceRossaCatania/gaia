@@ -87,7 +87,7 @@ paginaApp([APP_SOCI, APP_PRESIDENTE]);
                 <?php 
                 if($v->modificabileDa($me)) {
                     if($_t->protNumero){ 
-                        if($me->presidenziante() || $me->delegazioneAttuale()->comitato()->permettiTrasferimentiUS() ) { ?>
+                        if($me->presidenziante() || ($me->delegazioneAttuale() && $me->delegazioneAttuale()->comitato()->permettiTrasferimentiUS()) ) { ?>
                         <div class="btn-group">
                             <a class="btn btn-success" href="?p=presidente.trasferimento.ok&id=<?php echo $_t->id; ?>&si">
                                 <i class="icon-ok"></i> Conferma
