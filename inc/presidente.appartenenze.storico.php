@@ -14,15 +14,6 @@ proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
 
 ?>
 
-<pre>
-<?php 
-    foreach($v->appartenenzePassibiliQuota() as $k) {
-        var_dump($k);
-        var_dump($conf['membro'][$k->stato]);
-    } 
-?>
-</pre>
-
 <div class="row-fluid">
     <div class="span12">
         <div class="row-fluid">
