@@ -112,9 +112,7 @@ if(!$gia){
 	$a = new Appartenenza();
 	$a->volontario  = $p->id;
 	$a->comitato    = $comitato;
-	$inizio 		= DT::createFromFormat('d/m/Y', $_POST['inputDataQuota']);
-	$inizio 		= $inizio->getTimestamp();
-	$a->inizio      = $inizio;
+	$a->inizio      = $dataQuota->getTimestamp();
 	$a->fine        = PROSSIMA_SCADENZA;
 	$a->timestamp 	= time();
 	$a->stato     	= MEMBRO_ORDINARIO;
@@ -127,7 +125,7 @@ $quotaMin = $t->ordinario;
 
 $q = new Quota();
 $q->appartenenza 	= $a;
-$q->timestamp 		= time();
+$q->timestamp 		= $dataQuota->getTimestamp();
 $q->tConferma 		= time();
 $q->pConferma 		= $me;
 $q->anno 			= $anno;
