@@ -11,7 +11,9 @@ controllaParametri(array('id'));
 $v = $_GET['id'];
 $v = Volontario::id($v);
 proteggiDatiSensibili($v, [APP_SOCI, APP_PRESIDENTE]);
+
 ?>
+
 <div class="row-fluid">
     <div class="span12">
         <div class="row-fluid">

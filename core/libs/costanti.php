@@ -135,7 +135,15 @@ $conf['membro_invalido'] = [
     MEMBRO_TRASF_IN_CORSO,
     MEMBRO_PENDENTE,
     MEMBRO_EST_PENDENTE,
-    MEMBRO_APP_NEGATA
+    MEMBRO_APP_NEGATA,
+    MEMBRO_EST_ANN
+
+];
+
+/* Appartenenze, oltre a membro_invalido, non valide ai fini della quota associativa */
+$conf['membro_nonquota'] = [
+    MEMBRO_ESTESO,
+    MEMBRO_EST_TERMINATA,
 ];
 
 /* Le tipologie di appartenenza che rappresentano dimissione da CRI */
