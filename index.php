@@ -453,7 +453,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     Per questo ti chiediamo di rinnovare la tua promessa.
                                 </strong>
                             </p>
-                            <h4 class="text-error">Tieni in mente tre cose</h4>
+                            <h4 class="text-error">Presta molta attenzione alle indicazioni</h4>
                             <ol>
                                 <li>Rispetta la privacy degli altri;</li>
                                 <li>Pensa sempre prima di scrivere e cliccare;</li>
@@ -493,7 +493,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     Per questo ti chiediamo di rinnovare la tua promessa.
                                 </strong>
                             </p>
-                            <h4 class="text-error">Tieni in mente alcune cose</h4>
+                            <h4 class="text-error"><?php echo $me->nome; ?>, leggi con attenzione questi punti:</h4>
                             <ol>
                                 <li>Rispetta la privacy degli altri;</li>
                                 <li>Pensa sempre prima di scrivere e cliccare;</li>
