@@ -512,7 +512,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             	<p>
                                 <p>Gli amministratori saranno in grado di verificare ogni operazioni da te effettuata (ricerca,modifica,etc)</p>
                                 <p></p>
-                                <p><strong>Il mancato rispetto di queste indicazioni comporterà la revoca dei permessi che ti sono stati delegati con conseguente esplusione dal centro di supporto</strong></p>
+                                <p><strong>Il mancato rispetto di queste indicazioni comporterà la revoca dei permessi che ti sono stati delegati con conseguente esplusione dal centro di supporto.</strong></p>
                                 </p>
                             </p>
 
