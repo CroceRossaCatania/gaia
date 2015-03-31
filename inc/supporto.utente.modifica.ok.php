@@ -20,54 +20,52 @@ $log = "Utente: ".$me->nome." ".$me->cognome." id: ".$me->id." ha modifica l'ute
 
 $supporto = $me->supporto();
 
-if (empty($dnascita) && !empty($p->$dnascita)){
+if (empty($dnascita) && $p->dnascita != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
 
-if (empty($prnascita) && !empty($p->$dnascita)){
+if (empty($prnascita) && $p->dnascita != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
-if (empty($conascita) && !empty($p->$dnascita)){
+if (empty($conascita) && $p->dnascita != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
-if (empty($coresidenza) && !empty($p->$coresidenza)){
+if (empty($coresidenza) && $p->coresidenza != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
-if (empty($prresidenza) && !empty($p->$prresidenza)){
+if (empty($prresidenza) && $p->prresidenza != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
-if (empty($indirizzo) && !empty($p->$indirizzo)){
+if (empty($indirizzo) && $p->indirizzo != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
-if (empty($civico) && !empty($p->$civico)){
+if (empty($civico) && $p->civico != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
-if (empty($cell) && !empty($p->$cell)){
+if (empty($cell) && $p->cell != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
-if (empty($cells) && !empty($p->$cells)){
+if (empty($cells) && $p->cells != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
-
-if (empty($nome) && !empty($p->$nome)){
+if (empty($nome) && $p->nome != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
-if (empty($cognome) && !empty($p->$cognome)){
+if (empty($cognome) && $p->cognome != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
-if (empty($sesso) && !empty($p->$sesso)){
+if (empty($sesso) && $p->sesso != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
-if (empty($codiceFiscale) && !empty($p->$codiceFiscale)){
+if (empty($codiceFiscale) && $p->codiceFiscale != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
-if (empty($email) && !empty($p->$email)){
+if (empty($email) && $p->email != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
-if (empty($stato) && !empty($p->$stato)){
+if (empty($stato) && $p->stato != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
-
 
 $dnascita       = DT::createFromFormat('d/m/Y', $_POST['inputDataNascita']);
 $dnascita       = $dnascita->getTimestamp();
@@ -179,6 +177,26 @@ if ($supporto) {
     $codiceFiscale      = maiuscolo($_POST['inputCodiceFiscale']);
     $email              = minuscolo($_POST['inputEmail']);
     $stato              = $_POST['inputStato'];
+
+    if (empty($nome) && $p->nome != ""){
+        redirect('supporto.utente.visualizza&campi&id='.$id);
+
+    }
+    if (empty($cognome) && $p->cognome != ""){
+        redirect('supporto.utente.visualizza&campi&id='.$id);
+    }
+    if (empty($sesso) && $p->sesso != ""){
+        redirect('supporto.utente.visualizza&campi&id='.$id);
+    }
+    if (empty($codiceFiscale) && $p->codiceFiscale != ""){
+        redirect('supporto.utente.visualizza&campi&id='.$id);
+    }
+    if (empty($email) && $p->email != ""){
+        redirect('supporto.utente.visualizza&campi&id='.$id);
+    }
+    if (empty($stato) && $p->stato != ""){
+        redirect('supporto.utente.visualizza&campi&id='.$id);
+    }
 
     /*
      * Controlla se sto scrivendo una email in possesso ad altro utente
