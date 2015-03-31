@@ -481,7 +481,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                     <div class="modal-header">
                         <h3>
                             <i class="icon-github-alt icon-large"></i>
-                            Stai per entrare nella Support Mode
+                            Stai per entrare nella modalità di supporto
                         </h3>
                     </div>
                     <div class="modal-body">
@@ -493,15 +493,21 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     Per questo ti chiediamo di rinnovare la tua promessa.
                                 </strong>
                             </p>
-                            <h4 class="text-error">Tieni in mente tre cose</h4>
+                            <h4 class="text-error">Tieni in mente alcune cose</h4>
                             <ol>
                                 <li>Rispetta la privacy degli altri;</li>
                                 <li>Pensa sempre prima di scrivere e cliccare;</li>
+                                <li>Non aprirai alcuna anagrafica a patto che non vi sia una richiesta scritta;</li>
+                                <li>Non modificherai alcun dato a patto che non vi sia una richiesta scritta, nemmeno di chi conosci o ne hai diretta competenza;</li>
                                 <li><em>Da grandi poteri derivano grandi responsabilità</em>.</li>
                             </ol>
                             <p class="text-info">
                                 <i class="icon-time"></i>
-                                Rimarrai in modalità supporto fino al Logout
+                                <p>Rimarrai in modalità supporto fino al Logout</p>
+                                <p>Gli amministratori saranno in grado di verificare ogni operazioni da te effettuata (ricerca,modifica,etc)</p>
+                                <p></p>
+                                <p><em>Il mancato rispetto di queste indicazioni comporterà la revoca dei permessi che ti sono stati delegati con conseguente esplusione dal centro di supporto</em></p>
+                                
                             </p>
 
                         </div>
@@ -509,7 +515,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             <a href="#" data-dismiss="modal" class="btn">Annulla</a>
                             <a href="?p=support.mode" class="btn btn-danger">
                                 <i class="icon-ok"></i>
-                                Okay, lo prometto
+                                Okay, lo prometto ed accetto queste condizioni
                             </a>
                         </div>
                     </div>
