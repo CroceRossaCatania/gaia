@@ -136,6 +136,13 @@ class Utente extends Persona {
             && $sessione->utente == $this->id 
             && $sessione->adminMode );
     }
+
+    public function supporto() {
+        global $sessione;
+        return ( $this->supporto 
+            && $sessione->utente == $this->id 
+            && $sessione->supportMode );
+    }
     
     public function titoli() {
         return TitoloPersonale::filtra([

@@ -3,12 +3,12 @@
 paginaPrivata();
 
 global $sessione;
-if ( !$sessione->utente()->admin) {
+if ( !$sessione->utente()->supporto) {
         redirect('errore.permessi');
     }
 
-/* Esci dalla magica admin mode... */
-$sessione->adminMode	= null;
+/* Esci dalla magica support mode... */
+$sessione->supportMode	= null;
 $sessione->ambito 		= null;
 
 redirect();

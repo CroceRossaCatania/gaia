@@ -84,6 +84,14 @@ function paginaAdmin() {
     }
 }
 
+function paginaSupporto(){
+    paginaPrivata();
+    global $sessione;
+    if ( !$sessione->utente()->supporto) {
+        redirect('errore.permessi');
+    }
+}
+
 function richiediComitato() {
     paginaPrivata();
     global $sessione;
