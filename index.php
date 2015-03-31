@@ -493,21 +493,24 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     Per questo ti chiediamo di rinnovare la tua promessa.
                                 </strong>
                             </p>
-                            <h4 class="text-error"><?php echo $me->nome; ?>, leggi con attenzione questi punti:</h4>
+                            <h4 class="text-error">Io sottoscritto <?php echo $me->nome; ?> <?php echo $me->cognome; ?>, dichiaro di:</h4>
                             <ol>
-                                <li>Rispetta la privacy degli altri;</li>
-                                <li>Pensa sempre prima di scrivere e cliccare;</li>
-                                <li>Non aprirai alcuna anagrafica a patto che non vi sia una richiesta scritta;</li>
-                                <li>Non modificherai alcun dato a patto che non vi sia una richiesta scritta, nemmeno di chi conosci o ne hai diretta competenza;</li>
-                                <li><em>Da grandi poteri derivano grandi responsabilità</em>.</li>
+                                <li>Rispettare la privacy degli altri;</li>
+                                <li>Pensare sempre prima di scrivere e cliccare;</li>
+                                <li>Non aprire alcuna anagrafica e/o modificare alcun dato a patto che non vi sia un ticket di assistenza;</li>
+                                <li>Segnalare ogni criticità agli amministratori di sistema.</li>
                             </ol>
+                            
                             <p class="text-info">
                                 <i class="icon-time"></i>
                                 <p>Rimarrai in modalità supporto fino al Logout</p>
+                            </p>
+                            	<p>
+                                <em>Da grandi poteri derivano grandi responsabilità</em>.
                                 <p>Gli amministratori saranno in grado di verificare ogni operazioni da te effettuata (ricerca,modifica,etc)</p>
                                 <p></p>
-                                <p><em>Il mancato rispetto di queste indicazioni comporterà la revoca dei permessi che ti sono stati delegati con conseguente esplusione dal centro di supporto</em></p>
-                                
+                                <p><strong>Il mancato rispetto di queste indicazioni comporterà la revoca dei permessi che ti sono stati delegati con conseguente esplusione dal centro di supporto</strong></p>
+                                </p>
                             </p>
 
                         </div>
