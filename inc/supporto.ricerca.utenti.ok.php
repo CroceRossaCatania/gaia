@@ -16,5 +16,5 @@ if(!$u){
 if(!$u){
 	redirect('supporto.ricerca.utenti&no');	
 }
-redirect('presidente.utente.visualizza&id='.$u);
+redirect('supporto.utente.visualizza&id='.$u);
 ?>
