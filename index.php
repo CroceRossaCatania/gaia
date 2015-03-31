@@ -485,6 +485,9 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                         </h3>
                     </div>
                     <div class="modal-body">
+                    	<p>
+                    	<em>Da grandi poteri derivano grandi responsabilità</em>.
+                    	</p>
                         <p>Entrando nella modalità di supporto entrerai in contatto con una grande mole
                             di dati sensibili di persone che ti hanno indirettamente dato la loro fiducia.</p>
                             <p>
@@ -501,12 +504,12 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                 <li>Segnalare ogni criticità agli amministratori di sistema.</li>
                             </ol>
                             
-                            <p class="text-info">
+                           <p class="text-info">
                                 <i class="icon-time"></i>
-                                <p>Rimarrai in modalità supporto fino al Logout</p>
+                                Rimarrai in modalità admin fino al Logout
                             </p>
+                            
                             	<p>
-                                <em>Da grandi poteri derivano grandi responsabilità</em>.
                                 <p>Gli amministratori saranno in grado di verificare ogni operazioni da te effettuata (ricerca,modifica,etc)</p>
                                 <p></p>
                                 <p><strong>Il mancato rispetto di queste indicazioni comporterà la revoca dei permessi che ti sono stati delegati con conseguente esplusione dal centro di supporto</strong></p>
