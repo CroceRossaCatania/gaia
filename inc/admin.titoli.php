@@ -66,6 +66,7 @@ paginaAdmin();
         <thead>
             <th>Nome</th>
             <th>Tipo</th>
+            <th>Area</th>
             <th>Azioni</th>
         </thead>
         <?php
@@ -74,6 +75,7 @@ paginaAdmin();
             <tr>
                 <td><?php echo $c->nome; ?></td>
                 <td><?php echo($conf['titoli'][$c->tipo][0]); ?></td>
+                <td><?php echo($conf['obiettivi'][$c->area]); ?></td>
                 <td>
                     <div class="btn-group">
                         <a  onClick="return confirm('Vuoi veramente cancellare questo titolo ?');" href="?p=admin.titolo.cancella&id=<?php echo $c->id; ?>" title="Cancella Titolo" class="btn btn-small btn-warning">

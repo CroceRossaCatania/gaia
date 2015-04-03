@@ -738,6 +738,7 @@ CREATE TABLE IF NOT EXISTS `titoli` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
   `tipo` varchar(8) DEFAULT NULL,
+  `area` int(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   FULLTEXT KEY `nome` (`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
