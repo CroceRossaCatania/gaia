@@ -136,6 +136,13 @@ class Utente extends Persona {
             && $sessione->utente == $this->id 
             && $sessione->adminMode );
     }
+
+    public function supporto() {
+        global $sessione;
+        return ( $this->supporto 
+            && $sessione->utente == $this->id 
+            && $sessione->supportMode );
+    }
     
     public function titoli() {
         return TitoloPersonale::filtra([
@@ -1345,6 +1352,16 @@ class Utente extends Persona {
             }
 
         }
+
+        if ( $altroutente->dipendenteComitato &&
+            in_array(
+                $altroutente->dipendenteComitato,
+                $this->comitatiApp([APP_PRESIDENTE, APP_SOCI], false)
+            )
+        ) {
+            return PRIVACY_RISTRETTA;
+        }
+
         return PRIVACY_PUBBLICA;
     }
 
@@ -1447,6 +1464,16 @@ class Utente extends Persona {
                     return true;
                 }
             }
+        }
+
+        // Dipendente
+        if ( $this->dipendenteComitato &&
+            in_array(
+                $this->dipendenteComitato,
+                $altroUtente->comitatiApp([APP_PRESIDENTE, APP_SOCI], false)
+            )
+        ) {
+            return true;
         }
 
         // se non sei niente
@@ -2333,12 +2360,26 @@ class Utente extends Persona {
             if (in_array($appartenenza->stato, $conf['membro_invalido']))
                 continue;
 
+            // Se non appartenenza valida scopo quota, ignora
+            if (in_array($appartenenza->stato, $conf['membro_nonquota']))
+                continue;
+
             // Se appartenenza terminata con dimissione, termina esecuzione
             if (in_array($appartenenza->stato, $conf['membro_dimesso']))
                 continue;
 
             // In tutti gli altri casi, appartenenza legittima, passibile a pagamento quota per l'A.A.
             $r[] = $appartenenza;
+
+            // Se ho registrato una quota per questa appartenenza, le appartenenze
+            // precedenti non sono passibili di quota.
+            if ( Quota::conta([
+                ['appartenenza',    $appartenenza->id],
+                ['anno',            $anno],
+                ['pAnnullata',      false, OP_NULL]
+            ]) ) {
+                break;
+            }
 
         }
 

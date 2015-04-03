@@ -4,7 +4,11 @@
  * ©2012 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+if ($me->delegazioneAttuale()->comitato()->permettiTrasferimentiUS()){
+  paginaApp([APP_SOCI, APP_PRESIDENTE]);
+}else{
+  paginaApp([APP_PRESIDENTE]);
+}
 
 controllaParametri(array('id'), 'presidente.trasferimento&err');
 

@@ -61,7 +61,7 @@ abstract class GeoPolitica extends GeoEntita {
 
         $r = [];
         foreach ($c as $_c) {
-            if ( !$_c->finito() )
+            if ( !$_c->concluso() )
                 $r[] = $_c; 
         }
         if ( $inCorso ) 
@@ -84,6 +84,10 @@ abstract class GeoPolitica extends GeoEntita {
 
     public function presidenti() {
         return $this->delegati(APP_PRESIDENTE);
+    }
+
+    public function permettiTrasferimentiUS() {
+        return (bool) $this->trasferimentiUS;
     }
     
     public function volontariPresidenti() {

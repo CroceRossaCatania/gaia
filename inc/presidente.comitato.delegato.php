@@ -7,15 +7,15 @@
 $parametri = array('oid', 'persona', 'applicazione');
 controllaParametri($parametri);
 
-$c = $_POST['oid'];
+$c = $_REQUEST['oid'];
 $c = GeoPolitica::daOid($c);
 
 paginaApp([APP_PRESIDENTE]);
 
-$persona = $_POST['persona'];
+$persona = $_REQUEST['persona'];
 $persona = Volontario::id($persona);
 
-$app        = (int) $_POST['applicazione'];
+$app        = (int) $_REQUEST['applicazione'];
 $appnome   = $conf['applicazioni'][$app];
 
 /*

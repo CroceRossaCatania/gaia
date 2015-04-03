@@ -160,6 +160,11 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                                 <li><a href="?p=admin.mode.exit"><i class="icon-thumbs-down-alt "></i> Torna quello di una volta</a></i>
                                                 </a>
                                             <?php } ?>
+                                            <?php if ( $me->supporto && $me->supporto() ) { ?>
+                                                <!-- ADMIN MODE  ATTIVATA... -->
+                                                <li><a href="?p=support.mode.exit"><i class="icon-thumbs-down-alt "></i> Torna quello di una volta</a></i>
+                                                </a>
+                                            <?php } ?>
                                         </ul>
                                     </div>
 
@@ -316,6 +321,12 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     <a href="#adminMode" class="btn btn-inverse" data-toggle="modal" role="button">
                                         <i class="icon-github-alt icon-large"></i>
                                     </a>
+                                    <?php } ?> 
+                                    <?php if ( $me->supporto && !$me->supporto() ) { ?>
+                                    <!-- SUPPORT MODE NON ATTIVATA... -->
+                                    <a href="#supportMode" class="btn btn-inverse" data-toggle="modal" role="button">
+                                        <i class="icon-github-alt icon-large"></i>
+                                    </a>
                                     <?php } ?>                        
                                 </div>
                                 <?php } else { ?>
@@ -442,7 +453,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     Per questo ti chiediamo di rinnovare la tua promessa.
                                 </strong>
                             </p>
-                            <h4 class="text-error">Tieni in mente tre cose</h4>
+                            <h4 class="text-error">Presta molta attenzione alle indicazioni</h4>
                             <ol>
                                 <li>Rispetta la privacy degli altri;</li>
                                 <li>Pensa sempre prima di scrivere e cliccare;</li>
@@ -459,6 +470,58 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             <a href="?p=admin.mode" class="btn btn-danger">
                                 <i class="icon-ok"></i>
                                 Okay, lo prometto
+                            </a>
+                        </div>
+                    </div>
+                    <?php } ?>
+
+                <?php if ( $me && $me->supporto && !$me->supporto() ) { ?>
+                <!-- SUPPORT MODE NON ATTIVATA -->
+                <div id="supportMode" class="modal hide fade" role="dialog">
+                    <div class="modal-header">
+                        <h3>
+                            <i class="icon-github-alt icon-large"></i>
+                            Stai per entrare nella modalità di supporto
+                        </h3>
+                    </div>
+                    <div class="modal-body">
+                    	<p>
+                    	<em>Da grandi poteri derivano grandi responsabilità</em>.
+                    	</p>
+                        <p>Entrando nella modalità di supporto entrerai in contatto con una grande mole
+                            di dati sensibili di persone che ti hanno indirettamente dato la loro fiducia.</p>
+                            <p>
+                                &mdash;
+                                <strong class="text-success">
+                                    Per questo ti chiediamo di rinnovare la tua promessa.
+                                </strong>
+                            </p>
+                            <h4 class="text-error">Io sottoscritto <?php echo $me->nome; ?> <?php echo $me->cognome; ?>, dichiaro di:</h4>
+                            <ol>
+                                <li>Rispettare la privacy degli altri;</li>
+                                <li>Pensare sempre prima di scrivere e cliccare;</li>
+                                <li>Non aprire alcuna anagrafica e/o modificare alcun dato a patto che non vi sia un ticket di assistenza;</li>
+                                <li>Segnalare ogni criticità agli amministratori di sistema.</li>
+                            </ol>
+                            
+                           <p class="text-info">
+                                <i class="icon-time"></i>
+                                Rimarrai in modalità admin fino al Logout
+                            </p>
+                            
+                            	<p>
+                                <p>Gli amministratori saranno in grado di verificare ogni operazioni da te effettuata (ricerca,modifica,etc)</p>
+                                <p></p>
+                                <p><strong>Il mancato rispetto di queste indicazioni comporterà la revoca dei permessi che ti sono stati delegati con conseguente esplusione dal centro di supporto.</strong></p>
+                                </p>
+                            </p>
+
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" data-dismiss="modal" class="btn">Annulla</a>
+                            <a href="?p=support.mode" class="btn btn-danger">
+                                <i class="icon-ok"></i>
+                                Okay, lo prometto ed accetto queste condizioni
                             </a>
                         </div>
                     </div>
