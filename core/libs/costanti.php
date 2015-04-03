@@ -932,15 +932,33 @@ $conf['provvedimenti'] = [
  * ===================================
  */
 
-define('AMICO',      1);
-define('PUBBLICITA', 10);
-define('EXPO',       20);
-define('SOCIAL',     30);
+define('SITI',       1);
+define('FACEBOOK',   10);
+define('TWITTER',    20);
+define('NEWSLETTER', 30);
+define('TV',         40);
+define('RADIO',      50);
+define('GIORNALI',   60);
+define('EXPO',       70);
+define('AMICO',      73);
+define('AFFISSIONI', 76);
+define('EVENTI',     79);
+define('SERVIZI',    80);
+define('ALTRO',      83);
 
 /* Definizioni in stringa */
 $conf['conoscenza'] = [
-    AMICO       =>  'Amico',
-    PUBBLICITA  =>  'Pubblicità',
-    EXPO        =>  'Expo 2015',
-    SOCIAL      =>  'Social Network'
+    SITI        =>  'Siti web della Croce Rossa Italiana',
+    FACEBOOK    =>  'Facebook',
+    TWITTER     =>  'Twitter',
+    NEWSLETTER  =>  'Newsletter',
+    TV          =>  'TV/web TV',
+    RADIO       =>  'Radio',
+    GIORNALI    =>  'Giornali (on-line o cartacei)',
+    EXPO        =>  'Partecipazione/visita ad Expo 2015',
+    AMICO       =>  'Da un amico/collega/familiare',
+    AFFISIONI   =>  'Affissioni (locandine, manifesti, ecc)',
+    EVENTI      =>  'Eventi organizzati dalla Croce Rossa Italiana (es. stand informativi, manifestazioni, open day, ecc)',
+    SERVIZI     =>  'Partecipazione ad attività e/o fruizione di servizi erogati dalla Croce Rossa Italiana (es. corsi di formazione, servizi in ambito sanitario, servizi in ambito sociale, ecc)',
+    ALTRO       =>  'Altro'
 ];

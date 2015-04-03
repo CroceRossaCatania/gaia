@@ -162,9 +162,9 @@ if ( ($p->password) ) {
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputConoscenza">Come ci hai conosciuto ? * </label>
+                <label class="control-label" for="inputConoscenza" style="font-size: smaller;">Come sei venuto a conoscenza delle opportunità di volontariato della Croce Rossa Italiana? * </label>
                 <div class="controls">
-                    <select name="inputConoscenza" class="input-medium" required>
+                    <select name="inputConoscenza" class="input-xlarge" required>
                         <?php foreach ($conf['conoscenza'] as $numero => $tipo) { ?>
                             <option value="<?php echo $numero; ?>"><?= $tipo; ?></option>
                         <?php } ?>
