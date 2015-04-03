@@ -85,6 +85,7 @@ $p->indirizzo 			= $indirizzo;
 $p->civico   			= $civico;
 $p->timestamp           = time();
 $p->consenso            = time();
+$p->conosciuto          = $_POST['inputConoscenza'];;
 
 if ( (int) $sessione->tipoRegistrazione == VOLONTARIO ) {
     $p->stato               = PERSONA;
