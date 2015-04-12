@@ -20,6 +20,20 @@ $log = "Utente: ".$me->nome." ".$me->cognome." id: ".$me->id." ha modifica l'ute
 
 $supporto = $me->supporto();
 
+$dnascita       = DT::createFromFormat('d/m/Y', $_POST['inputDataNascita']);
+$dnascita       = $dnascita->getTimestamp();
+$prnascita      = maiuscolo($_POST['inputProvinciaNascita']);
+$conascita      = normalizzaNome($_POST['inputComuneNascita']);
+$coresidenza    = normalizzaNome($_POST['inputComuneResidenza']);
+$caresidenza    = normalizzaNome($_POST['inputCAPResidenza']);
+$prresidenza    = maiuscolo($_POST['inputProvinciaResidenza']);
+$indirizzo      = normalizzaNome($_POST['inputIndirizzo']);
+$civico         = maiuscolo($_POST['inputCivico']);
+$cell           = normalizzaNome($_POST['inputCellulare']);
+$cells          = normalizzaNome(@$_POST['inputCellulareServizio']);
+
+
+
 if (empty($dnascita) && $p->dnascita != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
@@ -48,36 +62,8 @@ if (empty($cell) && $p->cell != ""){
 if (empty($cells) && $p->cells != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
 }
-if (empty($nome) && $p->nome != ""){
-    redirect('supporto.utente.visualizza&campi&id='.$id);
-}
-if (empty($cognome) && $p->cognome != ""){
-    redirect('supporto.utente.visualizza&campi&id='.$id);
-}
-if (empty($sesso) && $p->sesso != ""){
-    redirect('supporto.utente.visualizza&campi&id='.$id);
-}
-if (empty($codiceFiscale) && $p->codiceFiscale != ""){
-    redirect('supporto.utente.visualizza&campi&id='.$id);
-}
-if (empty($email) && $p->email != ""){
-    redirect('supporto.utente.visualizza&campi&id='.$id);
-}
-if (empty($stato) && $p->stato != ""){
-    redirect('supporto.utente.visualizza&campi&id='.$id);
-}
 
-$dnascita       = DT::createFromFormat('d/m/Y', $_POST['inputDataNascita']);
-$dnascita       = $dnascita->getTimestamp();
-$prnascita      = maiuscolo($_POST['inputProvinciaNascita']);
-$conascita      = normalizzaNome($_POST['inputComuneNascita']);
-$coresidenza    = normalizzaNome($_POST['inputComuneResidenza']);
-$caresidenza    = normalizzaNome($_POST['inputCAPResidenza']);
-$prresidenza    = maiuscolo($_POST['inputProvinciaResidenza']);
-$indirizzo      = normalizzaNome($_POST['inputIndirizzo']);
-$civico         = maiuscolo($_POST['inputCivico']);
-$cell           = normalizzaNome($_POST['inputCellulare']);
-$cells          = normalizzaNome(@$_POST['inputCellulareServizio']);
+
 
 
 /*
@@ -183,18 +169,21 @@ if ($supporto) {
 
     }
     if (empty($cognome) && $p->cognome != ""){
+
         redirect('supporto.utente.visualizza&campi&id='.$id);
     }
     if (empty($sesso) && $p->sesso != ""){
-        redirect('supporto.utente.visualizza&campi&id='.$id);
     }
     if (empty($codiceFiscale) && $p->codiceFiscale != ""){
+
         redirect('supporto.utente.visualizza&campi&id='.$id);
     }
     if (empty($email) && $p->email != ""){
+
         redirect('supporto.utente.visualizza&campi&id='.$id);
     }
     if (empty($stato) && $p->stato != ""){
+
         redirect('supporto.utente.visualizza&campi&id='.$id);
     }
 
