@@ -6,7 +6,7 @@
 
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 menuElenchiVolontari(
-    "Volontari in estesione",
+    "Volontari in estensione",
     "?p=admin.utenti.excel&inestensione",
     "#"
 );
