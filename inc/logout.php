@@ -7,6 +7,7 @@
 /* Svuota eventuali variabili di sessioni */
 $sessione->attenzione 				= null;
 $sessione->adminMode  				= null;
+$sessione->supportMode				= null;
 $sessione->barcode	  				= null;
 $sessione->ambito		  			= null;
 $sessione->rimandaPrivatizzazione 	= null;

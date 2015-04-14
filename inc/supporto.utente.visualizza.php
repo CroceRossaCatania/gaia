@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI, APP_PRESIDENTE]);
+paginaSupporto();
 
 controllaParametri(array('id'), 'presidente.utenti&errGen');
 
@@ -18,7 +18,7 @@ if ($u->stato == PERSONA) {
   $attivo = false;
 }
 
-proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
+//proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 ?>
 <!--Visualizzazione e modifica anagrafica utente-->
 <div class="row-fluid">
@@ -57,6 +57,11 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <div class="alert alert-danger">
         <i class="icon-warning-sign"></i> <strong>Codice Fiscale già presente</strong>.
         Il codice fiscale che vorresti inserire risulta già presente
+      </div>
+     <?php }elseif(isset($_GET['campi'])) {?>
+      <div class="alert alert-danger">
+        <i class="icon-warning-sign"></i> <strong>Campi vuoti</strong>.
+        Il personale di supporto non può cancellare dati
       </div>
     <?php } ?>
 
@@ -240,24 +245,24 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <!-- Fine visualizzazione e modifica avatar utente e tesserino -->
     </div>
 
-    <form class="form-horizontal" action="?p=presidente.utente.modifica.ok&t=<?php echo $id; ?>" method="POST">
+    <form class="form-horizontal" action="?p=supporto.utente.modifica.ok&t=<?php echo $id; ?>" method="POST">
       <hr />
       <div class="control-group">
         <label class="control-label" for="inputNome">Nome</label>
         <div class="controls">
-          <input type="text" name="inputNome" id="inputNome" <?php if(!$admin){?> readonly <?php } ?> value="<?php echo $u->nome; ?>">
+          <input type="text" name="inputNome" id="inputNome" <?php if(!$admin){?>   <?php } ?> value="<?php echo $u->nome; ?>">
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputCognome">Cognome</label>
         <div class="controls">
-          <input type="text" name="inputCognome" id="inputCognome" <?php if(!$admin){?> readonly <?php } ?> value="<?php echo $u->cognome; ?>">
+          <input type="text" name="inputCognome" id="inputCognome" <?php if(!$admin){?>   <?php } ?> value="<?php echo $u->cognome; ?>">
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputSesso">Sesso</label>
         <div class="controls">
-          <?php if(!$admin){?> <input class="input-mini" type="text" name="inpuSesso" id="inpuSesso" readonly value="<?php echo $conf['sesso'][$u->sesso]; ?>"> <?php }else{ ?>
+          <?php if(!$admin){?> <input class="input-mini" type="text" name="inpuSesso" id="inpuSesso"   value="<?php echo $conf['sesso'][$u->sesso]; ?>"> <?php }else{ ?>
             <select class="input-small" id="inputSesso" name="inputSesso" required>
               <?php
                 foreach ( $conf['sesso'] as $numero => $tipo ) { ?>
@@ -270,69 +275,69 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <div class="control-group">
         <label class="control-label" for="inputCodiceFiscale">Codice Fiscale</label>
         <div class="controls">
-          <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale"  <?php if(!$admin){?> readonly <?php } ?> value="<?php echo $u->codiceFiscale; ?>">
+          <input type="text" name="inputCodiceFiscale" id="inputCodiceFiscale"  <?php if(!$admin){?>   <?php } ?> value="<?php echo $u->codiceFiscale; ?>">
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputDataNascita">Data di Nascita</label>
         <div class="controls">
-          <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$admin){?> required <?php } ?> <?php if(!$hoPotere){?> readonly <?php } ?> value="<?php echo date('d/m/Y', $u->dataNascita); ?>">
+          <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$admin){?> required <?php } ?> <?php if(!$hoPotere){?>   <?php } ?> value="<?php echo date('d/m/Y', $u->dataNascita); ?>">
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputProvinciaNascita">Provincia di Nascita</label>
         <div class="controls">
-          <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" <?php if(!$admin){?> required <?php } ?> <?php if(!$hoPotere){?> readonly <?php } ?> value="<?php echo $u->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
+          <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" <?php if(!$admin){?> required <?php } ?> <?php if(!$hoPotere){?>   <?php } ?> value="<?php echo $u->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
         <div class="controls">
-          <input type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$admin){?> required <?php } ?> <?php if(!$hoPotere){?> readonly <?php } ?> value="<?php echo $u->comuneNascita; ?>">
+          <input type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$admin){?> required <?php } ?> <?php if(!$hoPotere){?>   <?php } ?> value="<?php echo $u->comuneNascita; ?>">
         </div>
       </div>
 
       <div class="control-group">
        <label class="control-label" for="inputIndirizzo">Indirizzo</label>
        <div class="controls">
-         <input value="<?php echo $u->indirizzo; ?>" type="text" id="inputIndirizzo" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputIndirizzo" <?php if(!$admin){?> required <?php } ?> />
+         <input value="<?php echo $u->indirizzo; ?>" type="text" id="inputIndirizzo" <?php if(!$hoPotere){?>   <?php } ?> name="inputIndirizzo" <?php if(!$admin){?> required <?php } ?> />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputCivico">Civico</label>
        <div class="controls">
-         <input value="<?php echo $u->civico; ?>" type="text" id="inputCivico" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCivico" class="input-small" <?php if(!$admin){?> required <?php } ?> />
+         <input value="<?php echo $u->civico; ?>" type="text" id="inputCivico" <?php if(!$hoPotere){?>   <?php } ?> name="inputCivico" class="input-small" <?php if(!$admin){?> required <?php } ?> />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputComuneResidenza">Comune di residenza</label>
        <div class="controls">
-         <input value="<?php echo $u->comuneResidenza; ?>" type="text" id="inputComuneResidenza" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputComuneResidenza" <?php if(!$admin){?> required <?php } ?> />
+         <input value="<?php echo $u->comuneResidenza; ?>" type="text" id="inputComuneResidenza" <?php if(!$hoPotere){?>   <?php } ?> name="inputComuneResidenza" <?php if(!$admin){?> required <?php } ?> />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputCAPResidenza">CAP di residenza</label>
        <div class="controls">
-         <input value="<?php echo $u->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCAPResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[0-9]{5}" />
+         <input value="<?php echo $u->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" <?php if(!$hoPotere){?>   <?php } ?> name="inputCAPResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[0-9]{5}" />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputProvinciaResidenza">Provincia di residenza</label>
        <div class="controls">
-         <input value="<?php echo $u->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputProvinciaResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[A-Za-z]{2}" />
+         <input value="<?php echo $u->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" <?php if(!$hoPotere){?>   <?php } ?> name="inputProvinciaResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[A-Za-z]{2}" />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputEmail">Email</label>
        <div class="controls">
-         <input value="<?php echo $u->email; ?>" <?php if(!$admin){?> readonly <?php } ?> type="email" id="inputEmail" name="inputEmail" />
+         <input value="<?php echo $u->email; ?>" <?php if(!$admin){?>   <?php } ?> type="email" id="inputEmail" name="inputEmail" />
        </div>
      </div>
      <div class="control-group input-prepend">
        <label class="control-label" for="inputCellulare">Cellulare</label>
        <div class="controls">
          <span class="add-on">+39</span>
-         <input value="<?php echo $u->cellulare; ?>"  type="text" id="inputCellulare" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCellulare" pattern="[0-9]{9,11}" />
+         <input value="<?php echo $u->cellulare; ?>"  type="text" id="inputCellulare" <?php if(!$hoPotere){?>   <?php } ?> name="inputCellulare" attern="[0-9]{9,11}" />
        </div>
      </div>
      <?php if($attivo) { ?>
@@ -340,14 +345,14 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
          <label class="control-label" for="inputCellulareServizio">Cellulare Servizio</label>
          <div class="controls">
            <span class="add-on">+39</span>
-           <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" <?php if(!$hoPotere){?> readonly <?php } ?> name="inputCellulareServizio" pattern="[0-9]{9,11}" />
+           <input value="<?php echo $u->cellulareServizio; ?>"  type="text" id="inputCellulareServizio" <?php if(!$hoPotere){?>   <?php } ?> name="inputCellulareServizio"  attern="[0-9]{9,11}" />
          </div>
        </div>
      <?php } ?>
      <div class="control-group">
       <label class="control-label" for="inputConsenso">Consenso dati personali</label>
       <div class="controls">
-       <input value="<?php if($u->consenso()){ echo "Acquisito";}else{ echo "Non Acquisito"; } ?>"  type="text" id="inputConsenso" name="inputConsenso" readonly/>
+       <input value="<?php if($u->consenso()){ echo "Acquisito";}else{ echo "Non Acquisito"; } ?>"  type="text" id="inputConsenso" name="inputConsenso" readonly />
      </div>
    </div>
    <div class="control-group">
@@ -357,7 +362,7 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
      </div>
    </div>
 
-   <?php if($admin) { ?>
+   <?php if(true) { ?>
       <div class="control-group">
         <label class="control-label" for="inputStato">Stato</label>
         <div class="controls">
@@ -375,16 +380,16 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <div class="control-group">
         <label class="control-label">Infermiera Volontaria</label>
         <div class="controls">
-          <input type="checkbox" <?php if($u->iv){ ?> checked <?php } ?> id="inputIV" name="inputIV" <?php if(!$hoPotere){?> readonly <?php } ?>>
+          <input type="checkbox" <?php if($u->iv){ ?> checked <?php } ?> id="inputIV" name="inputIV" <?php if(!$hoPotere){?>   <?php } ?>>
         </div>
       </div>
       <div class="control-group">
         <label class="control-label">Corpo Militare volontario</label>
         <div class="controls">
-          <input type="checkbox" <?php if($u->cm){ ?> checked <?php } ?> id="inputCM" name="inputCM" <?php if(!$hoPoteres){?> readonly <?php } ?>>
+          <input type="checkbox" <?php if($u->cm){ ?> checked <?php } ?> id="inputCM" name="inputCM" <?php if(!$hoPoteres){?>   <?php } ?>>
         </div>
       </div>
-   <?php if($hoPotere) { ?>
+   <?php if(true) { ?>
       <hr />
       <div class="form-actions">
        <div class="btn-group">
