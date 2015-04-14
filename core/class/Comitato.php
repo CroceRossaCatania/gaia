@@ -597,6 +597,35 @@ class Comitato extends GeoPolitica {
     public function estensione() {
         return [$this];
     }
+
+    /**
+     * Ottiene una quota dato un numero ed un anno, se presente.
+     * @param int $numero   Numero progressivo della quota.
+     * @param int $anno     Anno di registrazione della quota.
+     * @return Quota|false  Un oggetto Quota o false se la quota $numero/$anno non esiste per il comitato
+     */
+    public function ottieniQuota($numero, $anno) {
+        $q = "
+                SELECT 
+                    quote.id
+                FROM quote, appartenenza
+                WHERE quote.appartenenza = appartenenza.id
+                AND appartenenza.comitato = :comitato
+                AND quote.progressivo = :numero
+                AND quote.anno = :anno  
+            ";
+        $q = $this->db->prepare($q);
+        $q->bindValue(':comitato', $this->id);
+        $q->bindValue(':numero', (int) $numero);
+        $q->bindValue(':anno', (int) $anno);
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+
+        if (!$r)
+            return false;
+
+        return Quota::id($r[0]);
+    }
     
     /**
      * Ottiene elenco dei potenziali soci del comitato in un dato anno, al solo uso di
