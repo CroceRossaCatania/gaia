@@ -31,7 +31,7 @@ function controllaBrowser() {
     }
 }
 
-function paginaApp($app, $comitati = []) {
+function paginaApp($app, $comitati = [], $redirect = 'errore.permessi') {
     global $sessione;
     paginaPrivata();
     if ( $sessione->utente()->admin() ) {
@@ -66,7 +66,7 @@ function paginaApp($app, $comitati = []) {
             }
         }
     }
-    redirect('errore.permessi');
+    redirect($redirect);
 }
 
 function paginaPubblica() {
