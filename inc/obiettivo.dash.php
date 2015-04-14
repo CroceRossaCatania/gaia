@@ -63,6 +63,10 @@ if($me->admin() || $me->presidenziante()) {
                         <i class="icon-search"></i>
                         Ricerca per titoli
                     </a>
+                    <a href="?p=obiettivo.titoli.inserisci" class="btn btn-block">
+                        <i class="icon-certificate"></i>
+                        Inserisci titoli
+                    </a>
                </div>
             </div>
             <div class="span6">
@@ -72,19 +76,20 @@ if($me->admin() || $me->presidenziante()) {
                         <i class="icon-list"></i>
                         Volontari giovani
                     </a>
-                    <?php } if ( $$tutto || $area == 3 ){ ?>
-                    <a href="?p=co.reperibilita" class="btn btn-block">
-                        <i class="icon-thumbs-up"></i>
-                        Volontari reperibili
-                    </a>
-                    <a href="?p=obiettivo.report.reperibilita" class="btn btn-block">
-                        <i class="icon-time"></i>
-                        Report reperibilità
-                    </a>
+                    <?php } if ( $tutto || $area == 3 ){ ?>
+                        <a href="?p=co.reperibilita" class="btn btn-block">
+                            <i class="icon-thumbs-up"></i>
+                            Volontari reperibili
+                        </a>
+                        <a href="?p=obiettivo.report.reperibilita" class="btn btn-block">
+                            <i class="icon-time"></i>
+                            Report reperibilità
+                        </a>
                     <?php } ?>
                 </div>
-                <hr />
             </div>
+                <hr />
+                <br/>
         </div>
         <div class="row-fluid">
             <div class="span6">
