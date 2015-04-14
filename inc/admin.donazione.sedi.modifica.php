@@ -31,22 +31,28 @@ $f = DonazioneSede::id($t);
             </select>   
         </div>
     </div>
-    <div class="control-group">
-        <label class="control-label" for="inputNome">Nome sede </label>
+	<div class="control-group">
+        <label class="control-label" for="inputRegione">Regione </label>
         <div class="controls">
-        <input class="input-xxlarge" type="text" name="inputNome" id="inputNome" value="<?php echo $f->nome; ?>" required>
+        <input class="input-xxlarge" type="text" name="inputRegione" id="inputRegione" value="<?php echo $f->regione; ?>" required>
         </div>
     </div>
     <div class="control-group">
-        <label class="control-label" for="inputProvincia">Provincia sede </label>
+        <label class="control-label" for="inputProvincia">Provincia </label>
         <div class="controls">
         <input class="input-xxlarge" type="text" name="inputProvincia" id="inputProvincia" value="<?php echo $f->provincia; ?>" required>
         </div>
     </div>
     <div class="control-group">
-        <label class="control-label" for="inputRegione">Regione sede </label>
+        <label class="control-label" for="inputCitta">Città </label>
         <div class="controls">
-        <input class="input-xxlarge" type="text" name="inputRegione" id="inputRegione" value="<?php echo $f->regione; ?>" required>
+        <input class="input-xxlarge" type="text" name="inputCitta" id="inputCitta" value="<?php echo $f->citta; ?>" required>
+        </div>
+    </div>
+	<div class="control-group">
+        <label class="control-label" for="inputNome">Unit&agrave; di raccolta </label>
+        <div class="controls">
+        <input class="input-xxlarge" type="text" name="inputNome" id="inputNome" value="<?php echo $f->nome; ?>" required>
         </div>
     </div>
 

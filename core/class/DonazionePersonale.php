@@ -8,8 +8,10 @@
 class DonazionePersonale extends Entita {
     
     public static
-        $_t     = 'donazioni_personali',
+        $_t     = 'donazioniPersonale',
         $_dt    = null;
+    
+    use EntitaCache;
     
     public function confermato() {
         return (bool) $this->tConferma;

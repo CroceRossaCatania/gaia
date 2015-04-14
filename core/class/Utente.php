@@ -2535,5 +2535,16 @@ class Utente extends Persona {
     }
 
 
+	/**
+     * Verifica l'utente è PRESIDENTE o UFFICIO SOCI o DELEGATO D'AREA
+     * @return bool
+     */
+    public function iVeGotThePower() {
+		if ( $this->admin() ) return true;
+
+		if ( ($this->delegazioneAttuale()->applicazione == APP_PRESIDENTE) || ($this->delegazioneAttuale()->applicazione == APP_SOCI) || ($this->delegazioneAttuale()->applicazione == APP_OBIETTIVO) || ($this->delegazioneAttuale()->applicazione == APP_DONAZIONI) ) return true;
+
+		return false;
+    }
 
 }

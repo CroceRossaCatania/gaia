@@ -1132,4 +1132,24 @@ class Comitato extends GeoPolitica {
         parent::cancella();
     }
 
+	public function donazioniPendenti() {
+        $q = $this->db->prepare("
+            SELECT 
+                donazioniPersonali.id
+            FROM
+                donazioniPersonali, appartenenza
+            WHERE
+                donazioniPersonali.volontario = appartenenza.volontario
+            AND
+                donazioniPersonali.pConferma IS NULL
+            AND
+                appartenenza.comitato = :comitato");
+        $q->bindParam(':comitato', $this->id);
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = DonazionePersonale::id($k[0]);
+        }
+        return $r;
+    }
 }

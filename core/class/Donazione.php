@@ -11,6 +11,8 @@ class Donazione extends Entita {
         $_t     = 'donazioni',
         $_dt    = null;
 
+    use EntitaCache;
+    
     public function cancella() {
         foreach ( DonazionePersonale::filtra([['donazione', $this->id]]) as $t ) {
             $t->cancella();

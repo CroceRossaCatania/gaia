@@ -1,15 +1,59 @@
 <?php
 
 /*
- * ©2012 Croce Rossa Italiana
+ * ©2015 Croce Rossa Italiana
  * 
  */
 
 class DonazioneSede extends Entita {
     
     protected static
-        $_t     = 'donazioni_sedi',
+        $_t     = 'donazioniSede',
         $_dt    = null;
+
+    use EntitaCache;
+    
+	public static function filtraDistinctSedi( $_dettaglio, $_where = null ) {
+		global $db, $conf, $cache;
+
+        if ( false && $cache && static::$_versione == -1 ) {
+            static::_caricaVersione();            
+        }
+
+		if ( $_where ) {
+            $_where = static::preparaCondizioni($_where, 'WHERE');
+        }
+
+        $query = "SELECT $_dettaglio, id FROM ". static::$_t . " $_where GROUP BY $_dettaglio ORDER BY $_dettaglio";
+        
+        /*
+         * Controlla se la query è già in cache
+         */
+        $hash = null;
+        if ( false && $cache && static::$_cacheable ) {
+            $hash = md5($query);
+            $r = static::_ottieniQuery($hash);
+            if ( $r !== false  ) {
+                $cache->incr( chiave('__re') );
+                return $r;
+            }
+        }
+        
+        $q = $db->prepare($query);
+        $q->execute();
+        $t = $c = [];
+        while ( $r = $q->fetch(PDO::FETCH_ASSOC) ) {
+            $t[$r['id']] = $r[$_dettaglio];
+            if ( false )
+                $c[] = $r;
+        }
+        
+        if ( false && $cache && static::$_cacheable ) {
+            static::_cacheQuery($hash, $c);
+        }
+        
+        return $t;
+    }
 
     public function cancella() {
         foreach ( static::filtra([['donazione', $this->id]]) as $t ) {
