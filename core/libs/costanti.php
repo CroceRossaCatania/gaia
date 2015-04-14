@@ -320,16 +320,53 @@ define('TITOLO_PATENTE_CIVILE', 1);
 define('TITOLO_PATENTE_CRI',    2);
 define('TITOLO_STUDIO',      	3);
 define('TITOLO_CRI',            4);
+define('TITOLO_SANGUE',         5);
 
 
 $conf['titoli'] = [
 	/*
 	num =>  [denominazione,		       verifica, data,  data_obbl] */
 	TITOLO_PERSONALE	    =>	['Competenza personale',	false,	false,	false],
-	TITOLO_PATENTE_CIVILE	=>	['Patente Civile',             	false,	true,	false],
-	TITOLO_PATENTE_CRI	    =>	['Patente CRI',             	true,	true,	true],
+	TITOLO_PATENTE_CIVILE	=>	['Patente Civile',          false,	true,	false],
+	TITOLO_PATENTE_CRI	    =>	['Patente CRI',             true,	true,	true],
 	TITOLO_STUDIO   	    =>	['Titolo di studio',		false,  true,   false],
-	TITOLO_CRI       	    =>	['Titolo di Croce Rossa',	true,	true,	false]
+	TITOLO_CRI       	    =>	['Titolo di Croce Rossa',	true,	true,	false],
+    TITOLO_SANGUE           =>  ['Donazione di sangue',     true,   true,   true]
+];
+
+
+/*
+ * ===================================
+ * =========== DONAZIONI =============
+ * ===================================
+ */
+
+/* Tipologie di donazioni */
+define('DONAZIONE_SANGUE',      0);
+
+$conf['tipiDonazioni'] = [
+    'Donazione di sangue'
+];
+
+$conf['donazioni'] = [
+    /*
+    num =>  [denominazione,            verifica, data,  data_obbl] */
+    DONAZIONE_SANGUE    =>  ['Donazione di sangue',     true,   true,   true]
+];
+
+
+
+/*
+ * ===================================
+ * ======= DONAZIONI MERITO ==========
+ * ===================================
+ */
+
+/* Tipologie di merito */
+$conf['merito'] = [
+    /*
+    tipo donazione =>  [classe 1, classe 2,  ... classe N] */
+    DONAZIONE_SANGUE   =>  [1, 10, 20, 40]
 ];
 
 

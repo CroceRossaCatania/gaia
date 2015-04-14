@@ -11,7 +11,8 @@ controllaParametri(array('id'), 'presidente.utenti&errGen');
 $id = $_GET['id']; 
 $u = Utente::id($id);
 $hoPotere = $u->modificabileDa($me);
-$t = TitoloPersonale::filtra([['volontario',$u]]);
+$t  = TitoloPersonale::filtra([['volontario', $u]]);
+$do = DonazionePersonale::filtra([['volontario', $u]]);
 $admin = $me->admin();
 $attivo = true;
 if ($u->stato == PERSONA) {
@@ -844,3 +845,129 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
     </table>
   </div>
 </div>
+
+<!--Visualizzazione e modifica donazioni utente-->
+<?php $donazioni = $conf['donazioni']; ?>
+<div class="span6">
+  <h4><i class="icon-list muted"></i> Donazioni </h4>
+  <div id="step1Donazione">
+  <?php if($hoPotere) { ?>
+    <div class="alert alert-block alert-success" <?php if ($donazioni[2]) { ?>data-richiediDate<?php } ?>>
+      
+      <div class="row-fluid">
+        <span class="span3">
+          <label for="cercaTitolo">
+            <span style="font-size: larger;">
+              <i class="icon-search"></i>
+              <strong>Cerca</strong>
+            </span>
+          </label>
+
+        </span>
+        <span class="span9">
+<select id="tipo" name="tipo" class="span12" required>
+  <option selected="selected" disabled=""></option>
+  <?php
+  foreach(Donazione::elenco() as $value){
+    echo "<option value=\"".$value."\">".$value->nome."</option>";
+  }
+  ?>
+</select>
+        </span>
+      </div>
+
+
+    </div>
+    <?php } ?>
+
+  </div>
+
+  <div id="step2Donazione" style="display: none;">
+    <form action='?p=presidente.donazione.nuovo&id=<?php echo $u->id; ?>' method="POST">
+      <input type="hidden" name="idDonazione" id="idDonazione" />
+      <div class="alert alert-block alert-success">
+        <div class="row-fluid">
+          <h4><i class="icon-question-sign"></i> Quando hai donato...</h4>
+        </div>
+        <hr />
+        <div class="row-fluid">
+          <div class="span4 centrato">
+            <label for="data"><i class="icon-calendar"></i> Donazione</label>
+          </div>
+          <div class="span8">
+            <input id="data" class="span12" name="data" type="text" value="" required/>
+          </div>
+        </div>
+        <div class="row-fluid">
+          <div class="span4 centrato">
+            <label for="ospedale"><i class="icon-road"></i> Sede</label>
+          </div>
+          <div class="span8">
+<select id="ospedale" name="ospedale" class="span12" required>
+  <option selected="selected" disabled=""></option>
+  <?php
+  foreach(DonazioneSede::elenco() as $value){
+    echo "<option value=\"".$value."\">".$value->provincia.' - '.$value->nome."</option>";
+  }
+?>
+</select>
+          </div>
+        </div>
+        <div class="row-fluid">
+          <div class="span4 offset8">
+            <button type="submit" class="btn btn-success">
+              <i class="icon-plus"></i>
+              Aggiungi la donazione
+            </button>
+          </div>
+        </div>
+
+      </div>
+</form>
+
+    </div> 
+    <table class="table table-striped">
+      <?php foreach ( $do as $donazione ) { ?>
+      <tr <?php if (!$donazione->tConferma) { ?>class="warning"<?php } ?>>
+        <td>
+          <?php if ($donazione->tConferma) { ?>
+          <abbr title="Confermato: <?php echo date('d-m-Y H:i', $donazione->tConferma); ?>">
+            <i class="icon-ok"></i>
+          </abbr>
+          <?php } else { ?>
+          <abbr title="Pendente">
+            <i class="icon-time"></i>
+          </abbr>
+          <?php } ?> 
+
+          <strong><?php echo $donazione->donazione()->nome; ?></strong><br />
+          <small><?php echo $conf['donazioni'][$donazione->donazione()->tipo][0]; ?></small>
+        </td>
+        <td><small>
+          <i class="icon-calendar muted"></i>
+          <?php echo date('d-m-Y', $donazione->data); ?>
+          <br />
+          <i class="icon-road muted"></i>
+    <?php echo DonazioneSede::by('id',$donazione->luogo)->provincia.' - '.DonazioneSede::by('id',$donazione->luogo)->nome; ?>
+        </small></td>
+
+        <td>
+          <?php if($hoPotere) { ?>
+          <div class="btn-group">
+            <a href="?p=presidente.donazione.modifica&t=<?php echo $donazione->id; ?>&v=<?php echo $u->id; ?>" title="Modifica la donazione" class="btn btn-small btn-info">
+              <i class="icon-edit"></i>
+            </a>
+            <a onclick="return confirm('Cancellare la donazione utente?');" href="?p=utente.donazione.cancella&id=<?php echo $donazione->id; ?>&pre" title="Cancella la donazione" class="btn btn-small btn-danger">
+              <i class="icon-trash"></i>
+            </a>
+          </div>
+          <?php } ?>
+        </td>
+      </tr>
+      <?php } ?>
+    </table>
+
+
+  </div>
+</div>
+
