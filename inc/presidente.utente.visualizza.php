@@ -421,11 +421,9 @@ proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
       <a class="btn btn-primary" href="?p=admin.beuser&id=<?= $id; ?>" title="Log in">
         <i class="icon-key"></i> Login
       </a>
-      <?php if($u->supporto == 0){ ?>
-        <a class="btn btn-success" href="?p=admin.nomina.supporto&id=<?= $id; ?>" title="Nomina supporto">
-          <i class="icon-plus-sign"></i> Nomina supporto
-        </a>
-
+      
+  
+  
       <?php }else{ ?>
         <a class="btn btn-inverse" href="?p=admin.nomina.supporto&id=<?= $id; ?>" title="SNomina supporto">
           <i class="icon-minus-sign"></i> Rimuovi nomina supporto
