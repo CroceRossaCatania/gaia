@@ -260,17 +260,16 @@ if ($u->stato == PERSONA) {
         </div>
       </div>
       <div class="control-group">
-        <label class="control-label" for="inputSesso">Sesso</label>
-        <div class="controls">
-          <?php if(!$admin){?> <input class="input-mini" type="text" name="inpuSesso" id="inpuSesso"   value="<?php echo $conf['sesso'][$u->sesso]; ?>"> <?php }else{ ?>
-            <select class="input-small" id="inputSesso" name="inputSesso" required>
-              <?php
-                foreach ( $conf['sesso'] as $numero => $tipo ) { ?>
-                  <option value="<?php echo $numero; ?>" <?php if ( $numero == $u->sesso ) { ?>selected<?php } ?>><?php echo $tipo; ?></option>
-              <?php } ?>
-            </select>  
-          <?php } ?>
-        </div>
+      <label class="control-label" for="inputSesso">Sesso</label>
+      <div class="controls">
+        <select class="input-small" id="inputSesso" name="inputSesso" required>
+        <?php
+        foreach ( $conf['sesso'] as $numero => $tipo ) { ?>
+          <option value="<?php echo $numero; ?>" <?php if ( $numero == $u->sesso ) { ?>selected<?php } ?>><?php echo $tipo; ?></option>
+        <?php } ?>
+        </select>  
+
+      </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputCodiceFiscale">Codice Fiscale</label>
