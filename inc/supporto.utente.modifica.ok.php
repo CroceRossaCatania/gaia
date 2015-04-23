@@ -32,7 +32,7 @@ $civico         = maiuscolo($_POST['inputCivico']);
 $cell           = normalizzaNome($_POST['inputCellulare']);
 $cells          = normalizzaNome(@$_POST['inputCellulareServizio']);
 
-
+/*
 
 if (empty($dnascita) && $p->dnascita != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
@@ -61,7 +61,7 @@ if (empty($cell) && $p->cell != ""){
 }
 if (empty($cells) && $p->cells != ""){
     redirect('supporto.utente.visualizza&campi&id='.$id);
-}
+}*/
 
 
 
@@ -164,7 +164,7 @@ if ($supporto) {
     $email              = minuscolo($_POST['inputEmail']);
     $stato              = $_POST['inputStato'];
 
-    if (empty($nome) && $p->nome != ""){
+   /* if (empty($nome) && $p->nome != ""){
         redirect('supporto.utente.visualizza&campi&id='.$id);
 
     }
@@ -185,7 +185,7 @@ if ($supporto) {
     if (empty($stato) && $p->stato != ""){
 
         redirect('supporto.utente.visualizza&campi&id='.$id);
-    }
+    }*/
 
     /*
      * Controlla se sto scrivendo una email in possesso ad altro utente
