@@ -91,8 +91,11 @@ menuElenchiVolontari(
                 <a class="btn btn-small btn-primary" href="?p=admin.presidente.nuovo&id={id}" title="Nomina Presidente">
                     <i class="icon-star"></i>
                 </a> 
-                <a class="btn btn-small btn-danger" href="?p=admin.admin.nuovo&id={id}" title="Nomina Admin">
+                <a class="btn btn-small btn-danger" href="?p=admin.admin.nuovo&id={id}" title="Nomina come amministratore">
                     <i class="icon-magic"></i>
+                </a>
+                <a class="btn btn-small btn-danger" href="?p=admin.nomina.supporto&id={id}" title="Nomina come utente di supporto (2 livello)">
+                    <i class="icon-level-up"></i>
                 </a>
                 <?php } ?>
             </div>
