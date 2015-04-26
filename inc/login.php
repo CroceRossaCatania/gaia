@@ -134,7 +134,7 @@ paginaPubblica();
         <?php if (!isset($_GET['app'])) { ?>
           <hr />
           <p><strong>Sei un volontario non ancora registrato?</strong></p>
-          <a href="?p=riconoscimento&tipo=volontario" class="btn btn-success btn-large">
+          <a href="?p=conferma&tipo=volontario" class="btn btn-success btn-large">
               Registrati ora
           </a>
         <?php } ?>
