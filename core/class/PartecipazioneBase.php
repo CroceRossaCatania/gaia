@@ -28,9 +28,8 @@ class PartecipazioneBase extends Entita {
         return (bool) $this->stato == ISCR_CONFERMATA;
     }
 
-    /* TODO: implementare cancellazione presenze al corso*/
     public function cancella() {
-        // qui
+        AssenzaLezione::cancellaTutti([['utente', $this->utente()]]);
         parent::cancella();
     }
 
