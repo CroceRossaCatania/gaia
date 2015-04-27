@@ -263,9 +263,9 @@ if(isset($_POST['ordinario'])){
                 if ($ffaa && !$ordinario){
                     $ffaa = maiuscolo($riga[21]);
                     if ( $ffaa=="IV" && $p->sesso == DONNA ) {
-                        $p->iv = true;
+                        $p->iv = "on";
                     }elseif( $ffaa=="CMV" && $p->sesso == UOMO ) {
-                        $p->cm = true;
+                        $p->cm = "on";
                     }
 
                     echo(' INSERITA FFAA');
