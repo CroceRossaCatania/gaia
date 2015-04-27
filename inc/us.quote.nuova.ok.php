@@ -75,6 +75,7 @@ if ($attivo) {
 $p = new PDF('ricevutaquota', 'ricevuta.pdf');
 $p->_COMITATO 	= $app->comitato()->locale()->nomeCompleto();
 $p->_INDIRIZZO 	= $app->comitato()->locale()->formattato;
+$p->_TEL        = $quota->comitato()->locale()->telefono;
 $p->_ID 		= $q->progressivo();
 $p->_NOME 		= $v->nome;
 $p->_COGNOME 	= $v->cognome;
