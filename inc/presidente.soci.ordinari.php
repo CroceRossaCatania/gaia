@@ -48,6 +48,11 @@ $admin = (bool) $me->admin();
         <h4><i class="icon-warning-sign"></i> Il volontario risulta già iscritto</h4>
         <p>Il volontario che hai selezionato risulta già iscritto ad un corso base.</p>
     </div>
+<?php }elseif ( isset($_GET['stato']) )  { ?>
+    <div class="alert alert-block alert-error">
+        <h4><i class="icon-warning-sign"></i> Impossibile volontarizzare</h4>
+        <p>Impossibile volontarizzare una persona già iscritta ad un corso base. Potresti non avere chiuso il corso</p>
+    </div>
 <?php } ?>
     
 <div class="row-fluid">

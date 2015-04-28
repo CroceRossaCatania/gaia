@@ -11,8 +11,8 @@ $id = $_GET['id'];
 $u = Utente::id($id);
 proteggiDatiSensibili($u);
 
-if($u->stato != PERSONA) {
-    redirect('errore.permessi&cattivo');
+if($u->stato == ASPIRANTE) {
+    redirect('presidente.soci.ordinari&stato');
 }
 
 $app = $u->appartenenzaAttuale();
