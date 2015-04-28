@@ -152,7 +152,7 @@ $l->_LUOGO 		= $p->luogoNascita;
 $l->_IMPORTO	= soldi($q->quota - ($q->quota - $quotaMin));
 $l->_QUOTA  	= $q->causale;
 if ($q->quota - $quotaMin > 0) {
-	$l->_OFFERTA	= $q->offeta;
+	$l->_OFFERTA	= $q->offerta;
 	$l->_OFFERIMPORTO = soldi($q->quota - $quotaMin) . "  &#0128; ";
 } else {
 	$l->_OFFERTA	= '';
