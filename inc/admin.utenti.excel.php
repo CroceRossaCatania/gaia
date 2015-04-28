@@ -552,6 +552,15 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
         $data = $sessione->data;
         foreach ( $c->membriData($data) as $v ) {
             $i++;    
+            if ( $v->ingresso() ){ 
+
+                $ingresso = $v->ingresso()->format("d/m/Y"); 
+
+            } else { 
+
+                $ingresso = "Nessuna Data"; 
+
+            }
             $excel->aggiungiRiga([
                 $i,
                 $v->nome,
@@ -571,7 +580,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso()->format("d/m/Y")
+                $ingresso
                 ]);
 
         }
