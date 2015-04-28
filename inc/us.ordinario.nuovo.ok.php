@@ -143,6 +143,7 @@ if ($importo >= $quotaBen) {
 $l = new PDF('ricevutaquota', 'ricevuta.pdf');
 $l->_COMITATO 	= $a->comitato()->locale()->nomeCompleto();
 $l->_INDIRIZZO 	= $a->comitato()->locale()->formattato;
+$l->_TEL 		= $a->comitato()->locale()->telefono;
 $l->_ID 		= $q->progressivo();
 $l->_NOME 		= $p->nome;
 $l->_COGNOME 	= $p->cognome;
