@@ -151,7 +151,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
                 ]);
 
         }
@@ -177,7 +177,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
                 ]);
         }
         $excel->genera("Volontari giovani {$c->nome}.xls");
@@ -205,7 +205,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
                 ]);
             
         }
@@ -234,7 +234,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
                 ]);
             
         }
@@ -269,7 +269,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
                 ]);
 
         }
@@ -304,7 +304,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data,
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data,
                 $v->quota($anno)->progressivo(),
                 $v->quota($anno)->dataPagamento()->format("d/m/Y"),
                 $v->quota($anno)->quota
@@ -341,7 +341,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data,
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data,
                 $v->quota($anno)->progressivo(),
                 $v->quota($anno)->dataPagamento()->format("d/m/Y"),
                 $v->quota($anno)->quota
@@ -378,7 +378,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
                 ]);
 
         }
@@ -408,7 +408,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $titolo->luogo,
                 $titolo->fine()->format("d/m/Y"),
                 $titolo->codice,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
                 ]);
         }
         $excel->genera("Risultati in {$c->nomeCompleto()}.xls");
@@ -489,7 +489,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
                 ]);
 
         }
@@ -524,7 +524,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
                 ]);
 
         }
@@ -554,15 +554,6 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
         $data = $sessione->data;
         foreach ( $c->membriData($data) as $v ) {
             $i++;    
-            if ( $v->ingresso() ){ 
-
-                $ingresso = $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data; 
-
-            } else { 
-
-                $ingresso = "Nessuna Data"; 
-
-            }
             $excel->aggiungiRiga([
                 $i,
                 $v->nome,
@@ -582,7 +573,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $ingresso
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
                 ]);
 
         }
@@ -607,7 +598,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
                 ]);
 
         }
@@ -632,7 +623,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
                 ]);
 
         }
@@ -657,7 +648,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
                 ]);
 
         }
@@ -682,7 +673,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
                 ]);
 
         }
@@ -707,7 +698,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 $v->emailServizio,
                 $v->cellulare,
                 $v->cellulareServizio,
-                $v->ingresso() ? $v->ingresso()->format('d/m/Y') : $nessuna_data
+                ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
                 ]);
 
         }
