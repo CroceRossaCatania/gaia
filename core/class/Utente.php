@@ -463,62 +463,101 @@ class Utente extends Persona {
     public function cancella() {
         // 1. Cancella il mio avatar
         $this->avatar()->cancella();
+        Avatar::cancellaTutti([
+            ['utente', $this->id]
+        ]);
         // 2. Cancella le mie appartenenze ai gruppi
-        foreach ( $this->appartenenze() as $a ) {
-            $a->cancella();
-        }
+        Appartenenza::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 3. Cancella le mie partecipazioni
-        foreach ( $this->partecipazioni() as $p ) {
-            $p->cancella();
-        }
+        Partecipazione::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 4. Elimina le autorizzazioni che mi sono state chieste
-        foreach ( $this->autorizzazioniPendenti() as $a ) {
-            $a->cancella();
-        }
+        Autorizzazione::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 5. Elimina tutte le delegazioni che mi sono associate
-        foreach ( $this->storicoDelegazioni() as $d ) {
-            $d->cancella();
-        }
+        Delegato::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 6. Riassegna le Aree al primo presidente a salire l'albero
         foreach ( $this->areeDiResponsabilita() as $a ) {
             $a->responsabile = $a->comitato()->primoPresidente();
         }
         // 7. Commenti lasciati in giro
-        foreach ( $this->commenti() as $c ) {
-            $c->cancella();
-        }
+        Commento::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 8. Gruppi di cui sono referente
-        foreach ( Gruppo::filtra([['referente',$this]]) as $g ) {
-            $g->cancella();
-        }
-        // 9. Mie estensioni
-        foreach ( Estensione::filtra([['volontario',$this]]) as $g ) {
-            $g->cancella();
-        }
+        Gruppo::cancellaTutti([
+            ['referente', $this->id]
+        ]);
+        // 9. Gruppi di cui faccio parte
+        AppartenenzaGruppo::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
+        // 10. Estensioni mie
+        Estensione::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 10. Mie Riserve
-        foreach ( Riserva::filtra([['volontario',$this]]) as $g ) {
-            $g->cancella();
-        }
+        Riserva::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 11. Mie reperibilita'
-        foreach ( Reperibilita::filtra([['volontario',$this]]) as $g ) {
-            $g->cancella();
-        }
-        // 12. Sessioni in corso
-        /*foreach ( Sessione::filtra([['utente',$this]]) as $g ) {
-            $g->cancella();
-        }*/
+        Reperibilita::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 13. Titoli personali
-        foreach ( TitoloPersonale::filtra([['volontario',$this]]) as $g ) {
-            $g->cancella();
-        }
+        TitoloPersonale::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 14. PartecipazioniBase
-        foreach ( PartecipazioneBase::filtra([['volontario', $this]]) as $g) {
-            $g->cancella();
-        }
+        PartecipazioneBase::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
 		// 15. Provvedimenti
-        foreach ( $this->storicoProvvedimenti() as $g ) {
-            $g->cancella();
+        Provvedimento::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
+        // 16. Aspirante
+        Aspirante::cancellaTutti([
+            ['utente', $this->id]
+        ]);
+        // 17. Attivita di cui sono referente
+        foreach ( Attivita::filtra([['referente', $this->id]]) as $a ) {
+            $a->referente = $a->comitato() ? $a->comitato()->primoPresidente() : null;
         }
+        // 18. Corsi base cui sono direttore
+        foreach ( CorsoBase::filtra([['direttore', $this->id]]) as $c ) {
+            $a->direttore = $a->organizzatore() ? $a->organizzatore()->primoPresidente() : null;
+        }
+        // 19. Coturni
+        Coturno::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
+        // 20. Dimissioni
+        Dimissione::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
+        // 21. Documenti
+        Documento::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
+        // 22. Fototessere
+        Fototessera::cancellaTutti([
+            ['utente', $this->id]
+        ]);
+        // 23. Privacy
+        Privacy::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
+        // 24. Richiesta tesserino
+        TesserinoRichiesta::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         parent::cancella();
     }
     

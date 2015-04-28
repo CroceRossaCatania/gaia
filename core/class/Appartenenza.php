@@ -187,4 +187,11 @@ class Appartenenza extends Entita {
             );
         }
 
+        public function cancella() {
+            Quota::cancellaTutti([
+                ['appartenenza', $this->id]
+            ]);
+            parent::cancella();
+        }
+
 }
