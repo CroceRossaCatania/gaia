@@ -94,12 +94,17 @@ foreach ( $presidenti as $presidente ) {
         <td><strong><?php echo $comitato->nomeCompleto(); ?></strong></td>
         <td><strong><?php echo $conf['est_obj'][$comitato->_estensione()]; ?></strong></td>
         <td>
-            <a class="btn btn-danger btn-mini" onClick="return confirm('Vuoi veramente dimettere <?php echo addslashes($_v->nomeCompleto()); ?> da presidente?');" href="?p=admin.presidente.dimetti&id=<?php echo $presidente->id; ?>">
-                Dimetti
-            </a>
-            <a class="btn btn-danger btn-mini" onClick="return confirm('Vuoi veramente cancellare <?php echo addslashes($_v->nomeCompleto()); ?> da presidente?');" href="?p=admin.presidente.cancella&id=<?php echo $presidente->id; ?>">
-                Cancella
-            </a>
+            <div class="btn-group btn-group-vertical">
+                <a class="btn btn-danger btn-mini" href="?p=admin.beuser&id=<?= $presidente->volontario(); ?>">
+                    Login
+                </a>
+                <a class="btn btn-danger btn-mini" onClick="return confirm('Vuoi veramente dimettere <?php echo addslashes($_v->nomeCompleto()); ?> da presidente?');" href="?p=admin.presidente.dimetti&id=<?php echo $presidente->id; ?>">
+                    Dimetti
+                </a>
+                <a class="btn btn-danger btn-mini" onClick="return confirm('Vuoi veramente cancellare <?php echo addslashes($_v->nomeCompleto()); ?> da presidente?');" href="?p=admin.presidente.cancella&id=<?php echo $presidente->id; ?>">
+                    Cancella
+                </a>
+            </div>
         </td>
 
     </tr>
