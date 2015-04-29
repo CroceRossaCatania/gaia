@@ -8,7 +8,7 @@
 class DonazioneAnagrafica extends Entita {
     
     protected static
-        $_t     = 'donazioniAnagrafica',
+        $_t     = 'donazioni_anagrafica',
         $_dt    = null;
 
     use EntitaCache;

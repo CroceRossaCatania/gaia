@@ -8,17 +8,14 @@
 class DonazioneSede extends Entita {
     
     protected static
-        $_t     = 'donazioniSede',
+        $_t     = 'donazioni_sedi',
         $_dt    = null;
 
     use EntitaCache;
     
 	public static function filtraDistinctSedi( $_dettaglio, $_where = null ) {
-		global $db, $conf, $cache;
+		global $db, $conf;
 
-        if ( false && $cache && static::$_versione == -1 ) {
-            static::_caricaVersione();            
-        }
 
 		if ( $_where ) {
             $_where = static::preparaCondizioni($_where, 'WHERE');
@@ -28,17 +25,7 @@ class DonazioneSede extends Entita {
         
         /*
          * Controlla se la query è già in cache
-         */
-        $hash = null;
-        if ( false && $cache && static::$_cacheable ) {
-            $hash = md5($query);
-            $r = static::_ottieniQuery($hash);
-            if ( $r !== false  ) {
-                $cache->incr( chiave('__re') );
-                return $r;
-            }
-        }
-        
+         */        
         $q = $db->prepare($query);
         $q->execute();
         $t = $c = [];
@@ -48,17 +35,13 @@ class DonazioneSede extends Entita {
                 $c[] = $r;
         }
         
-        if ( false && $cache && static::$_cacheable ) {
-            static::_cacheQuery($hash, $c);
-        }
-        
         return $t;
     }
 
     public function cancella() {
-        foreach ( static::filtra([['donazione', $this->id]]) as $t ) {
-            $t->cancella();
-        }
+        DonazionePersonale::cancellaTutti([
+            ['luogo', $this->id]
+        ]);
         parent::cancella();
     }
 

@@ -8,7 +8,7 @@
 class DonazionePersonale extends Entita {
     
     public static
-        $_t     = 'donazioniPersonale',
+        $_t     = 'donazioni_personale',
         $_dt    = null;
     
     use EntitaCache;
@@ -39,14 +39,9 @@ class DonazionePersonale extends Entita {
     }
     
     public static function pendenti() {
-        global $db;
-        $q = $db->prepare("SELECT id FROM donazioni_personali WHERE tConferma IS NULL");
-        $q->execute();
-        $t = [];
-        while ( $r = $q->fetch(PDO::FETCH_ASSOC) ) {
-            $t[] = new static($r['id'], $r);
-        }
-        return $t;
+        return static::filtra([
+            ['tConferma', null, OP_NULL]
+        ]);
     }
     
 }

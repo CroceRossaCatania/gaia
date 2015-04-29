@@ -2252,7 +2252,7 @@ class Utente extends Persona {
      * @param array(int) $app Applicazioni di delega 
      * @return int Numero di meriti donazioni 
      */
-    public function numDonazioniMerito( $app = [ APP_PRESIDENTE ] ) {
+    public function numdonazioni_merito( $app = [ APP_PRESIDENTE ] ) {
         $comitati = $this->comitatiAppComma( $app );
         $q = $this->db->prepare("
             SELECT  COUNT(donazioni_meriti.id)

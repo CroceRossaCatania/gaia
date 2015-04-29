@@ -6,17 +6,15 @@
 
 paginaApp([APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO]);
 
-$parametri = array('inputSangueGruppo', 'id');
+$parametri = ['inputSangueGruppo', 'id'];
 controllaParametri($parametri);
 
 $f = $_GET['id']; 
 $v= Volontario::id($f);
-$p = DonazioneAnagrafica::filtra([['volontario',$v->id]]);
-if ( !count($p) ) {
-	$p = new DonazioneAnagrafica();
+$p = DonazioneAnagrafica::by('volontario', $v->id);
+if ( !$p ) {
+	$p = new DonazioneAnagrafica;
 	$p->volontario  = $v;
-} else {
-	$p = $p[0];
 }
 
 $p->sangue_gruppo   = normalizzaNome($_POST['inputSangueGruppo']);

@@ -11,6 +11,11 @@ controllaParametri(array('id'));
 $d = $_GET['id'];
 $d = DonazionePersonale::id($d);
 $v = $d->volontario();
+
+if ( !( $v == $me or $v->modificabileDa($me) ) ) {
+    redirect('errore.permessi&cattivo&sangue');
+}
+
 $tipo = $d->donazione()->tipo;
 $d->cancella();
 

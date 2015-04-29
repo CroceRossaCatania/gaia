@@ -5,6 +5,11 @@ controllaParametri(array('d'));
 
 $d = $_GET['d'];
 $tp = DonazionePersonale::id($d);
+$v = $tp->volontario();
+if ( !($me == $v or $v->modificabileDa($me) ) {
+    redirect('errore.permessi&cattivo&sangue');
+}
+
 $r = $tp->donazione()->tipo;
 $l = DonazioneSede::id($tp->luogo);
 
