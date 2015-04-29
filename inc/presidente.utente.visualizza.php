@@ -381,7 +381,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
       <div class="control-group">
         <label class="control-label">Corpo Militare volontario</label>
         <div class="controls">
-          <input type="checkbox" <?php if($u->cm){ ?> checked <?php } ?> id="inputCM" name="inputCM" <?php if(!$hoPoteres){?> readonly <?php } ?>>
+          <input type="checkbox" <?php if($u->cm){ ?> checked <?php } ?> id="inputCM" name="inputCM" <?php if(!$hoPotere){?> readonly <?php } ?>>
         </div>
       </div>
    <?php if($hoPotere) { ?>

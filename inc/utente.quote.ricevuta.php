@@ -35,9 +35,6 @@ $quotaMin = $attivo ? $t->attivo : $t->ordinario;
 
 $p = new PDF('ricevutaquota', 'ricevuta.pdf');
 $p->_COMITATO 	= $quota->comitato()->locale()->nomeCompleto();
-$p->_INDIRIZZO 	= $quota->comitato()->locale()->formattato;
-$p->_TEL		= $quota->comitato()->locale()->telefono;
-$p->_PIVA 		= $quota->comitato()->piva();
 $p->_ID 		= $quota->progressivo();
 $p->_NOME 		= $v->nome;
 $p->_COGNOME 	= $v->cognome;

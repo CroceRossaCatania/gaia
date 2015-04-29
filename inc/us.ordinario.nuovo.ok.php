@@ -142,7 +142,6 @@ if ($importo >= $quotaBen) {
 /* Crea la ricevuta del pagamento della quota */
 $l = new PDF('ricevutaquota', 'ricevuta.pdf');
 $l->_COMITATO 	= $a->comitato()->locale()->nomeCompleto();
-$l->_INDIRIZZO 	= $a->comitato()->locale()->formattato;
 $l->_ID 		= $q->progressivo();
 $l->_NOME 		= $p->nome;
 $l->_COGNOME 	= $p->cognome;
@@ -152,7 +151,7 @@ $l->_LUOGO 		= $p->luogoNascita;
 $l->_IMPORTO	= soldi($q->quota - ($q->quota - $quotaMin));
 $l->_QUOTA  	= $q->causale;
 if ($q->quota - $quotaMin > 0) {
-	$l->_OFFERTA	= $q->offeta;
+	$l->_OFFERTA	= $q->offerta;
 	$l->_OFFERIMPORTO = soldi($q->quota - $quotaMin) . "  &#0128; ";
 } else {
 	$l->_OFFERTA	= '';

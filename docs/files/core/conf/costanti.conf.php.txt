@@ -377,7 +377,7 @@ define('DIM_RADIAZIONE',         40);
 $conf['dimissioni'] = [
     DIM_VOLONTARIE        =>  'Dimissioni Volontarie',
     DIM_TURNO       =>  'Mancato svolgimento turno mensile',
-    DIM_QUOTA          =>  'Mancato versamente quota annuale',
+    DIM_QUOTA          =>  'Mancato versamento quota annuale',
     DIM_RADIAZIONE          =>  'Radiazione da Croce Rossa Italiana'
 ];
 

@@ -4,7 +4,7 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI , APP_PRESIDENTE]);
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 controllaParametri(array('inputNumero','inputAnno'), 'us.dash&err');
 
@@ -14,12 +14,11 @@ if ($numero == 0) {
     redirect('us.dash&err');
 }
 
-$anno   = $_GET['inputAnno'];
-$q = Quota::filtra([['anno', $anno],['progressivo', $numero]]);
-if (!$q) {
-    redirect('us.dash&err');
-}
-$q = $q[0];
+$errore = 'us.quote.ricerca&nr';
+
+$anno   = (int) $_GET['inputAnno'];
+
+
 ?>
 <script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <br/>
@@ -64,7 +63,12 @@ $q = $q[0];
                 <th>Azioni</th>
             </thead>
         <?php
+        $trovata = false;
         $elenco = $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE ]);
+        foreach ( $elenco as $c ) {
+            $q = $c->ottieniQuota($numero, $anno);
+            if (!$q) { continue; }
+            $trovata = true;
                 ?>
                 <tr>
                     <td><?php echo $numero; ?></td>
@@ -79,9 +83,11 @@ $q = $q[0];
                         </a>
                     </td>
                 </tr>
-                
+        <?php } ?>
         </table>
        
+       <?php if ( !$trovata ) { redirect($errore); } ?> 
+
     </div>
     
 </div>
