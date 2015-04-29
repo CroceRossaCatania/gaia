@@ -121,7 +121,7 @@ $menu += [
 	'Donazioni'     => [
 		'utente.donazioni&d=0' => '<i class="icon-beaker"></i> Sangue'
 	]];
-if ( $me->iVeGotThePower() ) {
+if ( $me->puoGestireDonazioni() ) {
 	$menu['Donazioni'] += [ 'donazioni.report' => '<i class="icon-copy"></i> Report' ];
 }
 $menu += [

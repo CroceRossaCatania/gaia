@@ -856,7 +856,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 			<div class="control-group">
 				<label class="control-label" for="inputSangueGruppo">Gruppo Sanguigno</label>
 				<div class="controls">
-					<select id="inputSangueGruppo" name="inputSangueGruppo" required <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
+					<select id="inputSangueGruppo" name="inputSangueGruppo" required <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
 						<option selected="selected" disabled=""></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['sangue_gruppo'] as $key => $value){
@@ -873,7 +873,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 			<div class="control-group">
 				<label class="control-label" for="inputFattoreRH">Fattore RH</label>
 				<div class="controls">
-					<select id="inputFattoreRH" name="inputFattoreRH" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
+					<select id="inputFattoreRH" name="inputFattoreRH" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
 						<option selected="selected"></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['fattore_rh'] as $key => $value){
@@ -890,7 +890,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 			<div class="control-group">
 				<label class="control-label" for="inputFenotipoRH">Fenotipo RH</label>
 				<div class="controls">
-					<select id="inputFenotipoRH" name="inputFenotipoRH" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
+					<select id="inputFenotipoRH" name="inputFenotipoRH" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
 						<option selected="selected"></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['fanotipo_rh'] as $key => $value){
@@ -907,7 +907,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 			<div class="control-group">
 				<label class="control-label" for="inputKell">Kell</label>
 				<div class="controls">
-					<select id="inputKell" name="inputKell" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
+					<select id="inputKell" name="inputKell" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
 						<option selected="selected"></option>
 						<?php
 						foreach($conf['anagrafica_donatore']['kell'] as $key => $value){
@@ -924,7 +924,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 			<div class="control-group">
 				<label class="control-label" for="inputCodiceSIT">Codice SIT</label>
 				<div class="controls">
-					<input type="text" class="input-small" name="inputCodiceSIT" id="inputCodiceSIT" value="<?php if(count($anagrafica) AND $anagrafica[0]->codice_sit) echo $anagrafica[0]->codice_sit; ?>" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
+					<input type="text" class="input-small" name="inputCodiceSIT" id="inputCodiceSIT" value="<?php if(count($anagrafica) AND $anagrafica[0]->codice_sit) echo $anagrafica[0]->codice_sit; ?>" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
 				</div>
 			</div>
 
@@ -934,7 +934,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 			<div class="control-group">
 				<label class="control-label" for="inputSedeSIT">Regione Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITRegione" name="inputSedeSITRegione" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
+					<select id="inputSedeSITRegione" name="inputSedeSITRegione" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
 						<option selected="selected"></option>
 						<?php
 						foreach(DonazioneSede::filtraDistinctSedi('regione') as $value){
@@ -949,7 +949,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 			<div id="SedeSITProvincia" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
 				<label class="control-label" for="inputSedeSIT">Provincia Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITProvincia" name="inputSedeSITProvincia" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
+					<select id="inputSedeSITProvincia" name="inputSedeSITProvincia" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
 					<?php
 					if($sedeSIT !== false){
 						foreach(DonazioneSede::filtraDistinctSedi("provincia",[["regione",$sedeSIT->regione]]) as $value){
@@ -965,7 +965,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 			<div id="SedeSITCitta" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
 				<label class="control-label" for="inputSedeSIT">Città Sede SIT</label>
 				<div class="controls">
-					<select id="inputSedeSITCitta" name="inputSedeSITCitta" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
+					<select id="inputSedeSITCitta" name="inputSedeSITCitta" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
 					<?php
 					if($sedeSIT !== false){
 						foreach(DonazioneSede::filtraDistinctSedi("citta",[["provincia",$sedeSIT->provincia]]) as $value){
@@ -981,7 +981,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 			<div id="SedeSITOspedale" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
 				<label class="control-label" for="inputSedeSIT">Unit&agrave; di raccolta</label>
 				<div class="controls">
-					<select id="inputSedeSIT" name="inputSedeSIT" <?php if(!$me->iVeGotThePower()){?> readonly <?php } ?>>
+					<select id="inputSedeSIT" name="inputSedeSIT" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
 					<?php
 					if($sedeSIT !== false){
 						foreach(DonazioneSede::filtraDistinctSedi("nome",[["citta",$sedeSIT->citta]]) as $key => $value){
@@ -994,7 +994,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 					</select>
 				</div>
 			</div>
-			<?php if($me->iVeGotThePower()){?>
+			<?php if($me->puoGestireDonazioni()){?>
 				<div class="form-actions">
 					<?php if($a!=1){ ?>
 						<button type="submit" class="btn btn-success btn-large">
@@ -1007,7 +1007,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 		</form>
 
 		<div id="step1Donazione">
-			<?php if($me->iVeGotThePower()) { ?>
+			<?php if($me->puoGestireDonazioni()) { ?>
 				<div class="alert alert-block alert-success" <?php if ($donazioni[2]) { ?>data-richiediDate<?php } ?>>      
 					<div class="row-fluid">
 						<span class="span3">
@@ -1129,7 +1129,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 						<?php echo DonazioneSede::by('id',$donazione->luogo)->provincia.' - '.DonazioneSede::by('id',$donazione->luogo)->nome; ?>
 					</small></td>
 				<td>
-					<?php if($me->iVeGotThePower()) { ?>
+					<?php if($me->puoGestireDonazioni()) { ?>
 						<div class="btn-group">
 							<a href="?p=presidente.donazione.modifica&t=<?php echo $donazione->id; ?>&v=<?php echo $u->id; ?>" title="Modifica la donazione" class="btn btn-small btn-info">
 								<i class="icon-edit"></i>
