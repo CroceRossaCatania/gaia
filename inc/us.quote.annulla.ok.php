@@ -28,7 +28,7 @@ $q->tAnnullata = time();
 
 /* Invio email annullamento quota */
 
-$m = new Email('annullaQuota', 'Annullamento pregistrazione agamento quota');
+$m = new Email('annullaQuota', 'Annullamento registrazione agamento quota');
 $m->a 		 = $v;
 $m->da 		 = $me;
 $m->_NUMERO	 = $q->progressivo();
