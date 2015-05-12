@@ -43,3 +43,7 @@ upload/setup/autopull
 
 # Mantieni i placeholder
 !upload/avatar/placeholder/
+/nbproject/private/
+/nbproject/
+/DB/
+/fullcalendar-2.3.1/
