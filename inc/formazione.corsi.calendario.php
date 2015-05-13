@@ -4,8 +4,6 @@
  * ©2014 Croce Rossa Italiana
  */
 
-paginaPubblica();
-
 $_titolo = "Calencario dei Corsi";
 
 ?>
@@ -23,28 +21,20 @@ $_titolo = "Calencario dei Corsi";
 <script src='/assets/js/lang/it.js'></script>
 
 <div class="row-fluid">
-    <div id='calendar'></div>
-        
     
-    <pre>
-    consultazione calendari, richiesta iscrizione: 
-    - Corso per popolazione: senza login (raccolta dati anagrafici) 
-    - Corso per soci Cri: con login (eredita accessi e qualifiche da GAIA)
-
-    o (FRONTEND) Calendario: 
-     Data e Luogo
-
-     Tipologia di Corso
-
-     Faculty  Requisiti di accesso (richiesta iscrizione al corso, con eventuale login per soci) PER
-
-     Consultazione programma corso
-
-     Info di contatto
-
-     Eventuale possibilità di dovnload materiale
-
-    </pre>
+    <div class="span8">
+        <div id='calendar'></div>
+    </div>
+    
+    <div class="span4">
+        <nav>
+            <ul>
+                <li>Crea nuovo corso (*verifica i permessi*)</li>
+                <li>Crea nuovo corso (*verifica i permessi*)</li>
+            </ul>
+        </nav>
+    </div>
+        
 </div>
 
 <script>
@@ -58,56 +48,67 @@ $_titolo = "Calencario dei Corsi";
 			events: [
 				{
 					title: 'All Day Event',
+                                        url: '?p=formazione.corsi.corso',
 					start: '2015-02-01'
 				},
 				{
 					title: 'Long Event',
 					start: '2015-02-07',
+                                        url: '?p=formazione.corsi.corso',
 					end: '2015-02-10'
 				},
 				{
 					id: 999,
 					title: 'Repeating Event',
+                                        url: '?p=formazione.corsi.corso',
 					start: '2015-02-09T16:00:00'
 				},
 				{
 					id: 999,
 					title: 'Repeating Event',
+                                        url: '?p=formazione.corsi.corso',
 					start: '2015-02-16T16:00:00'
 				},
 				{
 					title: 'Conference',
 					start: '2015-02-11',
+                                        url: '?p=formazione.corsi.corso',
 					end: '2015-02-13'
 				},
 				{
 					title: 'Meeting',
 					start: '2015-02-12T10:30:00',
+                                        url: '?p=formazione.corsi.corso',
 					end: '2015-02-12T12:30:00'
 				},
 				{
 					title: 'Lunch',
+                                        url: '?p=formazione.corsi.corso',
 					start: '2015-02-12T12:00:00'
 				},
 				{
 					title: 'Meeting',
+                                        url: '?p=formazione.corsi.corso',
 					start: '2015-02-12T14:30:00'
 				},
 				{
 					title: 'Happy Hour',
+                                        url: '?p=formazione.corsi.corso',
 					start: '2015-02-12T17:30:00'
 				},
 				{
 					title: 'Dinner',
+                                        url: '?p=formazione.corsi.corso',
 					start: '2015-02-12T20:00:00'
 				},
 				{
 					title: 'Birthday Party',
+                                        url: '?p=formazione.corsi.corso',
 					start: '2015-02-13T07:00:00'
 				},
 				{
-					title: 'Click for Google',
-					url: 'http://google.com/',
+					title: 'Google',
+					url: '?p=formazione.corsi.corso',
 					start: '2015-02-28'
 				}
 			]
