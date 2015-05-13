@@ -742,7 +742,7 @@ if(isset($_GET['dimessi'])){
 }elseif(isset($_GET['cm'])){
  $zip->comprimi("Elenco soci Corpo Militare Volontario.zip"); 
 }elseif(isset($_GET['iv'])){
- $zip->comprimi("Elenco soci Inferie Volontarie.zip"); 
+ $zip->comprimi("Elenco soci Infermiere Volontarie.zip"); 
 }else{
  $zip->comprimi("Anagrafica_volontari.zip");
 }
