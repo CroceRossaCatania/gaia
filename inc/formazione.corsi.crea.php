@@ -30,7 +30,7 @@ $_titolo = "Calencario dei Corsi";
                 
                 in versione form
                 <div class="calendarevent">
-                    <p class="eventlist"><strong>Sede:</strong>BARI</p>										
+                    <p class="eventlist"><strong>Sede:</strong><input type="text" value="BARI" /></p>										
                     <p class="eventlist"><strong>Provincia:</strong>BA</p>										
                     <p class="eventlist"><strong>Data inizio:</strong> 01 maggio 2015</p>										
                     <p class="eventlist"><strong>Data fine:</strong> 01 maggio 2015</p>										

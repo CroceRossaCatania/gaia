@@ -53,7 +53,7 @@ $_titolo = "Calencario dei Corsi";
   
         <h4>Se hai i permessi</h4>
         <nav>
-            <a class="btn btn-danger" href="?p=utente.me">
+            <a class="btn btn-danger" href="?p=formazione.corsi.crea">
                 <i class="icon-plus-sign-alt icon-large"></i>&nbsp;
                 Crea Corso
             </a>
