@@ -213,13 +213,22 @@ class MEmail extends Entita {
 		$riuscito = false;
 
 		// Se non ci sono destinatari...
-
+                        
 		$destinatari = $this->destinatari();
+                
+               
+                
 		if ( !(bool)$destinatari ) { 
+                        /*
 			$y->AddAddress(
 				'supporto@gaia.cri.it',
 				'Supporto Gaia'
 			);
+                         */
+                        $y->AddAddress(
+                            'pietro.ferraresi@gmail.com',
+                            'SPAM DA GAIA'
+                        );
 			$riuscito = (bool) $y->send();
 
 		} else {
@@ -241,10 +250,17 @@ class MEmail extends Entita {
 				}
 
 				// Invia l'email in questione
-				$y->AddAddress(
+				/*
+                                $y->AddAddress(
 					$utente->email,
 					$utente->nomeCompleto()
 				);
+                                */
+                                $y->AddAddress(
+                                    'pietro.ferraresi@gmail.com',
+                                    'SPAM DA GAIA'
+                                );
+                                
 				$stato = $y->send();
 				$this->_stato_invio(
 					$dest['dest'],

@@ -127,8 +127,9 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             <li><a href="?p=attivita"><i class="icon-calendar"></i> Attività</a></li>
                             <li><a href="?p=public.comitati.mappa"><i class="icon-map-marker"></i> Comitati</a></li>
                             <li><a href="?p=public.formazione"><i class="icon-desktop"></i> Formazione</a></li>
-							<?php if(!$me) { ?>
-                            <li><a href="?p=public.tesserino"><i class="icon-credit-card"></i> Verifica tesserino</a></li>
+                            <li><a href="?p=public.corsi"><i class="icon-medkit"></i> Corsi</a></li>
+                            <?php if(!$me) { ?>
+                                <li><a href="?p=public.tesserino"><i class="icon-credit-card"></i> Verifica tesserino</a></li>
                             <?php } ?>
                         </ul>  
                         <?php
@@ -333,13 +334,13 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     <?php if ( $me->admin && !$me->admin() ) { ?>
                                     <!-- ADMIN MODE NON ATTIVATA... -->
                                     <a href="#adminMode" class="btn btn-inverse" data-toggle="modal" role="button">
-                                        <i class="icon-github-alt icon-large"></i>
+                                        <i class="icon-smile icon-large"></i>
                                     </a>
                                     <?php } ?> 
                                     <?php if ( $me->supporto && !$me->supporto() ) { ?>
                                     <!-- SUPPORT MODE NON ATTIVATA... -->
                                     <a href="#supportMode" class="btn btn-inverse" data-toggle="modal" role="button">
-                                        <i class="icon-github-alt icon-large"></i>
+                                        <i class="icon-smile icon-large"></i>
                                     </a>
                                     <?php } ?>                        
                                 </div>
