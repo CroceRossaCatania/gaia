@@ -511,7 +511,7 @@ $conf['dimissioni'] = [
     DIM_VOLONTARIE  =>  'Dimissioni Volontarie',
     DIM_TURNO       =>  'Mancato svolgimento turno',
     DIM_RISERVA     =>  'Mancato rientro da riserva',
-    DIM_QUOTA       =>  'Mancato versamente quota annuale',
+    DIM_QUOTA       =>  'Mancato versamento quota annuale',
     DIM_RADIAZIONE  =>  'Radiazione da Croce Rossa Italiana',
     DIM_DECEDUTO    =>  'Decesso'
 ];

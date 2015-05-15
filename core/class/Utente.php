@@ -463,62 +463,101 @@ class Utente extends Persona {
     public function cancella() {
         // 1. Cancella il mio avatar
         $this->avatar()->cancella();
+        Avatar::cancellaTutti([
+            ['utente', $this->id]
+        ]);
         // 2. Cancella le mie appartenenze ai gruppi
-        foreach ( $this->appartenenze() as $a ) {
-            $a->cancella();
-        }
+        Appartenenza::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 3. Cancella le mie partecipazioni
-        foreach ( $this->partecipazioni() as $p ) {
-            $p->cancella();
-        }
+        Partecipazione::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 4. Elimina le autorizzazioni che mi sono state chieste
-        foreach ( $this->autorizzazioniPendenti() as $a ) {
-            $a->cancella();
-        }
+        Autorizzazione::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 5. Elimina tutte le delegazioni che mi sono associate
-        foreach ( $this->storicoDelegazioni() as $d ) {
-            $d->cancella();
-        }
+        Delegato::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 6. Riassegna le Aree al primo presidente a salire l'albero
         foreach ( $this->areeDiResponsabilita() as $a ) {
             $a->responsabile = $a->comitato()->primoPresidente();
         }
         // 7. Commenti lasciati in giro
-        foreach ( $this->commenti() as $c ) {
-            $c->cancella();
-        }
+        Commento::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 8. Gruppi di cui sono referente
-        foreach ( Gruppo::filtra([['referente',$this]]) as $g ) {
-            $g->cancella();
-        }
-        // 9. Mie estensioni
-        foreach ( Estensione::filtra([['volontario',$this]]) as $g ) {
-            $g->cancella();
-        }
+        Gruppo::cancellaTutti([
+            ['referente', $this->id]
+        ]);
+        // 9. Gruppi di cui faccio parte
+        AppartenenzaGruppo::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
+        // 10. Estensioni mie
+        Estensione::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 10. Mie Riserve
-        foreach ( Riserva::filtra([['volontario',$this]]) as $g ) {
-            $g->cancella();
-        }
+        Riserva::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 11. Mie reperibilita'
-        foreach ( Reperibilita::filtra([['volontario',$this]]) as $g ) {
-            $g->cancella();
-        }
-        // 12. Sessioni in corso
-        /*foreach ( Sessione::filtra([['utente',$this]]) as $g ) {
-            $g->cancella();
-        }*/
+        Reperibilita::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 13. Titoli personali
-        foreach ( TitoloPersonale::filtra([['volontario',$this]]) as $g ) {
-            $g->cancella();
-        }
+        TitoloPersonale::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         // 14. PartecipazioniBase
-        foreach ( PartecipazioneBase::filtra([['volontario', $this]]) as $g) {
-            $g->cancella();
-        }
+        PartecipazioneBase::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
 		// 15. Provvedimenti
-        foreach ( $this->storicoProvvedimenti() as $g ) {
-            $g->cancella();
+        Provvedimento::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
+        // 16. Aspirante
+        Aspirante::cancellaTutti([
+            ['utente', $this->id]
+        ]);
+        // 17. Attivita di cui sono referente
+        foreach ( Attivita::filtra([['referente', $this->id]]) as $a ) {
+            $a->referente = $a->comitato() ? $a->comitato()->primoPresidente() : null;
         }
+        // 18. Corsi base cui sono direttore
+        foreach ( CorsoBase::filtra([['direttore', $this->id]]) as $c ) {
+            $a->direttore = $a->organizzatore() ? $a->organizzatore()->primoPresidente() : null;
+        }
+        // 19. Coturni
+        Coturno::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
+        // 20. Dimissioni
+        Dimissione::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
+        // 21. Documenti
+        Documento::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
+        // 22. Fototessere
+        Fototessera::cancellaTutti([
+            ['utente', $this->id]
+        ]);
+        // 23. Privacy
+        Privacy::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
+        // 24. Richiesta tesserino
+        TesserinoRichiesta::cancellaTutti([
+            ['volontario', $this->id]
+        ]);
         parent::cancella();
     }
     
@@ -1695,314 +1734,7 @@ class Utente extends Persona {
      *
      */
     public function cancellaUtente(){
-        $t = Utente::id($this);
-
-        $f = Annunci::filtra([
-          ['autore', $t]
-          ]);
-        foreach($f as $_f){
-            $_f->cancella();
-        }
-
-        $app = Appartenenza::filtra([
-          ['volontario', $t]
-          ]);
-        $a = $t->appartenenzaAttuale();
-
-        if($a) {
-          $c = $a->comitato();
-          $a = $a->id;
-        }
-
-        // roba legata ad appartenenza attuale
-        if($a) {
-            $f = Attivita::filtra([
-                ['referente', $t]
-                ]);
-            foreach($f as $_f){
-                $_f->referente = $c->unPresidente();
-            }
-
-            /* Presidente per autorizzazioni ad utente da cancellare */
-            $f = Autorizzazione::filtra([
-                ['volontario', $t]
-                ]);
-            foreach($f as $_f){
-                $_f->volontario = $c->unPresidente();
-            }
-
-            /* Presidente per firme ad utente da cancellare */
-            $f = Autorizzazione::filtra([
-                ['pFirma', $t]
-                ]);
-            foreach($f as $_f){
-                $_f->pFirma = $c->unPresidente();
-            }
-
-            if($c) {
-                $f = Gruppo::filtra([
-                    ['referente', $t]
-                    ]);
-                foreach($f as $_f){
-                    $_f->referente = $c->unPresidente();
-                }
-            }
-
-            $f = CorsoBase::filtra([
-              ['direttore', $t]
-              ]);
-            foreach ($f as $_f) {
-                $_f->direttore = $c->unPresidente();
-            }
-
-            $f = Coturno::filtra([
-              ['pMonta', $t]
-              ]);
-            foreach ($f as $_f) {
-                $_f->pMonta = $c->unPresidente();
-            }
-
-            $f = Coturno::filtra([
-              ['pSmonta', $t]
-              ]);
-            foreach ($f as $_f) {
-                $_f->pSmonta = $c->unPresidente();
-            }
-
-            $f = Delegato::filtra([
-                ['pConferma', $t]
-            ]);
-            foreach ($f as $_f) {
-                $_f->pConferma = $c->unPresidente();
-            }
-
-            $f = Estensione::filtra([
-              ['pConferma', $t]
-              ]);
-            foreach ($f as $_f) {
-                $_f->pConferma = $c->unPresidente();
-            }
-
-            $f = AppartenenzaGruppo::filtra([
-              ['pNega', $t]
-              ]);
-            foreach ($f as $_f) {
-                $_f->pNega = $c->unPresidente();
-            }
-
-            $f = Partecipazione::filtra([
-                ['pConferma', $t]
-            ]);
-            foreach ($f as $_f) {
-                $_f->pConferma = $c->unPresidente();
-            }
-
-            $f = PartecipazioneBase::filtra([
-                ['pConferma', $t]
-            ]);
-            foreach ($f as $_f) {
-                $_f->pConferma = $c->unPresidente();
-            }
-
-            $f = Quota::filtra([
-                ['pConferma', $_app]
-                ]);
-            foreach ($f as $_f) {
-                $_f->pConferma = $c->unPresidente();
-            }
-
-            $f = Riserva::filtra([
-              ['pConferma', $t]
-              ]);
-            foreach ($f as $_f) {
-                $_f->pConferma = $c->unPresidente();
-            }
-
-            $f = TitoloPersonale::filtra([
-              ['pConferma', $t]
-              ]);
-            foreach ($f as $_f) {
-                $_f->pConferma = $c->unPresidente();
-            }
-
-            $f = Trasferimento::filtra([
-              ['pConferma', $t]
-              ]);
-            foreach ($f as $_f) {
-                $_f->pConferma = $c->unPresidente();
-            }
-
-        }
-
-        // roba generica
-
-        $f = Avatar::filtra([
-          ['utente', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = Area::filtra([
-          ['responsabile', $t]
-          ]);
-        foreach($f as $_f){
-            $_f->dimettiReferente();
-        }
-
-        $f = Aspirante::filtra([
-          ['utente', $t]
-          ]);
-        foreach($f as $_f){
-            $_f->cancella();
-        }
-
-        $f = Commento::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = Coturno::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = Delegato::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = Dimissione::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = Documento::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = Estensione::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = File::filtra([
-          ['autore', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = AppartenenzaGruppo::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = Like::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = Partecipazione::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = PartecipazioneBase::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = Privacy::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = Reperibilita::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = Riserva::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = Sessione::filtra([
-          ['utente', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = TitoloPersonale::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = Trasferimento::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        $f = Validazione::filtra([
-          ['volontario', $t]
-          ]);
-        foreach ($f as $_f) {
-            $_f->cancella();
-        }
-
-        // roba legata a tutte le appartenenza
-
-        foreach($app as $_app) {
-          $f = Quota::filtra([
-            ['appartenenza', $_app]
-            ]);
-          foreach ($f as $_f) {
-              $_f->cancella();
-          }
-        }
-
-        // cancella appartenenza
-        foreach($app as $_app){
-            $_app->cancella();
-        }
-
-        // cancella anagrafica
-        $t->cancella();
-
-        return;
+        return $this->cancella();
     }
 
 	/**

@@ -315,6 +315,20 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                         </ul>
                                     </div>
                                     <?php } ?>
+                                    
+                                    
+                                     <?php if ( $me->supporto() ) { ?>
+                                    <div class="btn-group">
+                                        <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
+                                            <i class="icon-wrench icon-large"></i>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-header">Elenchi</li>
+                                            <li><a href="?p=supporto.ricerca.utenti"><i class="icon-search"></i> Cerca Utente</a></li> 
+                                        </ul>
+                                    </div>
+                                    <?php } ?>
 
                                     <?php if ( $me->admin && !$me->admin() ) { ?>
                                     <!-- ADMIN MODE NON ATTIVATA... -->

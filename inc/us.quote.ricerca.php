@@ -15,6 +15,14 @@ paginaModale();
       <h3><i class="icon-search"></i> Cerca</h3>
     </div>
     <div class="modal-body">
+
+      <?php if (isset($_GET['nr'])) { ?>
+        <div class="alert alert-danger">
+          <h4>Quota non trovata</h4>
+          <p>La quota ricercata non esiste o ricade al di fuori dei Comitati di tua competenza.</p>
+        </div>
+      <?php } ?>
+
       <div class="row-fluid">
         <div class="span4 centrato">
           <label class="control-label" for="inputNumero"> Numero</label>

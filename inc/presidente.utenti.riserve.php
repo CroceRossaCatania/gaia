@@ -17,8 +17,8 @@ menuElenchiVolontari(
     <div class="span12">
         <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
             <thead>
-                <th>Nome</th>
                 <th>Cognome</th>
+                <th>Nome</th>
                 <th>Inizio</th>
                 <th>Fine</th>
                 <th>Stato</th>

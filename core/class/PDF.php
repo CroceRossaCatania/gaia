@@ -40,6 +40,7 @@ class PDF {
             $this->_INDIRIZZO  = $comitato->locale()->formattato;
             $this->_PIVA       = $comitato->locale()->piva(true);
             $this->_CF         = $comitato->locale()->cf(true);
+            $this->_TEL        = $comitato->locale()->telefono;
             $footer     = file_get_contents('./core/conf/pdf/footerComitato.html');
         }elseif( $white ){
             $footer     = null;

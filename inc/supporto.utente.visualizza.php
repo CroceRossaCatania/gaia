@@ -105,13 +105,13 @@ if ($u->stato == PERSONA) {
               <div class="control-group">
                 <label class="control-label" for="inputEmail">Inserisci email</label>
                 <div class="controls">
-                  <input value="<?php echo $u->email; ?>" required autocomplete="off" type="email" id="inputEmail" name="inputEmail" />
+                  <input value="<?php echo $u->email; ?>"  autocomplete="off" type="email" id="inputEmail" name="inputEmail" />
                 </div>
               </div>
               <div class="control-group">
                 <label class="control-label" for="inputEmail2">Verifica email</label>
                 <div class="controls">
-                  <input value="<?php echo $u->email; ?>" required autocomplete="off" type="email" id="inputEmail2" name="inputEmail2" />
+                  <input value="<?php echo $u->email; ?>"  autocomplete="off" type="email" id="inputEmail2" name="inputEmail2" />
                 </div>
               </div>
               <div class="control-group">
@@ -171,7 +171,7 @@ if ($u->stato == PERSONA) {
                 <br/>
                 <form id="caricaFoto" action="?p=utente.avatar.ok&id=<?php echo $u; ?>&pre" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
                   <p>Per modificare l'avatar:</p>
-                  <p>1. <strong>Scegli</strong>: <input type="file" name="avatar" required /></p>
+                  <p>1. <strong>Scegli</strong>: <input type="file" name="avatar"  /></p>
                   <p>2. <strong>Clicca</strong>:<br />
                   <button type="submit" class="btn btn-block btn-success">
                     <i class="icon-save"></i> Salva la foto
@@ -228,7 +228,7 @@ if ($u->stato == PERSONA) {
                 if(!$foto || $foto->approvata()) { ?>
                   <form id="caricaFoto" action="?p=presidente.utente.fototessera.ok&id=<?php echo $u; ?>" method="POST" enctype="multipart/form-data" class="allinea-sinistra">
                     <p>Per modificare la foto del tesserino:</p>
-                    <p>1. <strong>Scegli</strong>: <input type="file" name="fototessera" required /></p>
+                    <p>1. <strong>Scegli</strong>: <input type="file" name="fototessera"  /></p>
                     <p>2. <strong>Clicca</strong>:<br />
                     <button type="submit" class="btn btn-block btn-success">
                       <i class="icon-save"></i> Salva la fototessera
@@ -260,17 +260,16 @@ if ($u->stato == PERSONA) {
         </div>
       </div>
       <div class="control-group">
-        <label class="control-label" for="inputSesso">Sesso</label>
-        <div class="controls">
-          <?php if(!$admin){?> <input class="input-mini" type="text" name="inpuSesso" id="inpuSesso"   value="<?php echo $conf['sesso'][$u->sesso]; ?>"> <?php }else{ ?>
-            <select class="input-small" id="inputSesso" name="inputSesso" required>
-              <?php
-                foreach ( $conf['sesso'] as $numero => $tipo ) { ?>
-                  <option value="<?php echo $numero; ?>" <?php if ( $numero == $u->sesso ) { ?>selected<?php } ?>><?php echo $tipo; ?></option>
-              <?php } ?>
-            </select>  
-          <?php } ?>
-        </div>
+      <label class="control-label" for="inputSesso">Sesso</label>
+      <div class="controls">
+        <select class="input-small" id="inputSesso" name="inputSesso" >
+        <?php
+        foreach ( $conf['sesso'] as $numero => $tipo ) { ?>
+          <option value="<?php echo $numero; ?>" <?php if ( $numero == $u->sesso ) { ?>selected<?php } ?>><?php echo $tipo; ?></option>
+        <?php } ?>
+        </select>  
+
+      </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputCodiceFiscale">Codice Fiscale</label>
@@ -281,50 +280,50 @@ if ($u->stato == PERSONA) {
       <div class="control-group">
         <label class="control-label" for="inputDataNascita">Data di Nascita</label>
         <div class="controls">
-          <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$admin){?> required <?php } ?> <?php if(!$hoPotere){?>   <?php } ?> value="<?php echo date('d/m/Y', $u->dataNascita); ?>">
+          <input type="text" class="input-small" name="inputDataNascita" id="inputDataNascita" <?php if(!$admin){?>  <?php } ?> <?php if(!$hoPotere){?>   <?php } ?> value="<?php echo date('d/m/Y', $u->dataNascita); ?>">
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputProvinciaNascita">Provincia di Nascita</label>
         <div class="controls">
-          <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" <?php if(!$admin){?> required <?php } ?> <?php if(!$hoPotere){?>   <?php } ?> value="<?php echo $u->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
+          <input class="input-mini" type="text" name="inputProvinciaNascita" id="inputProvinciaNascita" <?php if(!$admin){?>  <?php } ?> <?php if(!$hoPotere){?>   <?php } ?> value="<?php echo $u->provinciaNascita; ?>" pattern="[A-Za-z]{2}">
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputComuneNascita">Comune di Nascita</label>
         <div class="controls">
-          <input type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$admin){?> required <?php } ?> <?php if(!$hoPotere){?>   <?php } ?> value="<?php echo $u->comuneNascita; ?>">
+          <input type="text" name="inputComuneNascita" id="inputComuneNascita" <?php if(!$admin){?>  <?php } ?> <?php if(!$hoPotere){?>   <?php } ?> value="<?php echo $u->comuneNascita; ?>">
         </div>
       </div>
 
       <div class="control-group">
        <label class="control-label" for="inputIndirizzo">Indirizzo</label>
        <div class="controls">
-         <input value="<?php echo $u->indirizzo; ?>" type="text" id="inputIndirizzo" <?php if(!$hoPotere){?>   <?php } ?> name="inputIndirizzo" <?php if(!$admin){?> required <?php } ?> />
+         <input value="<?php echo $u->indirizzo; ?>" type="text" id="inputIndirizzo" <?php if(!$hoPotere){?>   <?php } ?> name="inputIndirizzo" <?php if(!$admin){?>  <?php } ?> />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputCivico">Civico</label>
        <div class="controls">
-         <input value="<?php echo $u->civico; ?>" type="text" id="inputCivico" <?php if(!$hoPotere){?>   <?php } ?> name="inputCivico" class="input-small" <?php if(!$admin){?> required <?php } ?> />
+         <input value="<?php echo $u->civico; ?>" type="text" id="inputCivico" <?php if(!$hoPotere){?>   <?php } ?> name="inputCivico" class="input-small" <?php if(!$admin){?>  <?php } ?> />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputComuneResidenza">Comune di residenza</label>
        <div class="controls">
-         <input value="<?php echo $u->comuneResidenza; ?>" type="text" id="inputComuneResidenza" <?php if(!$hoPotere){?>   <?php } ?> name="inputComuneResidenza" <?php if(!$admin){?> required <?php } ?> />
+         <input value="<?php echo $u->comuneResidenza; ?>" type="text" id="inputComuneResidenza" <?php if(!$hoPotere){?>   <?php } ?> name="inputComuneResidenza" <?php if(!$admin){?>  <?php } ?> />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputCAPResidenza">CAP di residenza</label>
        <div class="controls">
-         <input value="<?php echo $u->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" <?php if(!$hoPotere){?>   <?php } ?> name="inputCAPResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[0-9]{5}" />
+         <input value="<?php echo $u->CAPResidenza; ?>" class="input-small" type="text" id="inputCAPResidenza" <?php if(!$hoPotere){?>   <?php } ?> name="inputCAPResidenza" <?php if(!$admin){?>  <?php } ?> pattern="[0-9]{5}" />
        </div>
      </div>
      <div class="control-group">
        <label class="control-label" for="inputProvinciaResidenza">Provincia di residenza</label>
        <div class="controls">
-         <input value="<?php echo $u->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" <?php if(!$hoPotere){?>   <?php } ?> name="inputProvinciaResidenza" <?php if(!$admin){?> required <?php } ?> pattern="[A-Za-z]{2}" />
+         <input value="<?php echo $u->provinciaResidenza; ?>" class="input-mini" type="text" id="inputProvinciaResidenza" <?php if(!$hoPotere){?>   <?php } ?> name="inputProvinciaResidenza" <?php if(!$admin){?>  <?php } ?> pattern="[A-Za-z]{2}" />
        </div>
      </div>
      <div class="control-group">
@@ -366,7 +365,7 @@ if ($u->stato == PERSONA) {
       <div class="control-group">
         <label class="control-label" for="inputStato">Stato</label>
         <div class="controls">
-          <select class="input-medium" id="inputStato" name="inputStato" required>
+          <select class="input-medium" id="inputStato" name="inputStato" >
             <?php
             foreach ( $conf['statoPersona'] as $numero => $tipo ) { 
               if($tipo != 'Nessuno') {?>
@@ -703,7 +702,7 @@ if ($u->stato == PERSONA) {
 
           </span>
           <span class="span9">
-            <input type="text" autofocus required id="cercaTitolo" placeholder="Inserisci un titolo..." class="span12" />
+            <input type="text" autofocus  id="cercaTitolo" placeholder="Inserisci un titolo..." class="span12" />
           </span>
         </div>
       </div>
