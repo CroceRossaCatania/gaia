@@ -87,7 +87,7 @@ paginaPrivata();
                     <p> Tieni conto che l'attuale lista comprende tutti i titoli ufficialmente riconosciuti dal MIUR.
                         Che puoi fare qualora il tuo titolo di studio non sia presente?
                         <ol>
-                            <li>Effettua una ricerca direttamente nell'archivio del MIUR cliccando <a href="http://offf.miur.it/pubblico.php/ricerca/show_form/p/miur"><i class="icon-link"></i> qui</a></li>
+                            <li>Effettua una ricerca direttamente nell'archivio del MIUR cliccando <a href="http://offf.miur.it/pubblico.php/ricerca/show_form/p/miur" target="_new"><i class="icon-link"></i> qui</a></li>
                             <li>Inviaci tramite la pagina "supporto" ogni informazione utile per reperire il tuo titolo al fine di inserirlo nel sistema.</li>
                         </ol>
                     </p>
