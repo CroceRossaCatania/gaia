@@ -75,9 +75,23 @@ paginaPrivata();
         <?php } elseif ($t == 3) { ?>
         <h2><i class="icon-beaker muted"></i> Titoli di Studio</h2>
         <div class="alert alert-block alert-error">
-                    <h4><i class="icon-warning-sign"></i> Attenzione: revisione dei titoli in corso</h4>
-                    <p>I titoli di studio sono momentaneamente incompleti per essere allineati con i titoli attualmente riconosciuti a livello statale (ISTAT).
-                    <p>Ti preghiamo di pazientare fino a che il processo non sarà concluso. </p>   </p>     
+                    <h4><i class="icon-warning-sign"></i> Attenzione: revisione dei titoli</h4>
+                    <p>Ciao <?= $me->nome; ?>, i titoli di studio <strong>universitari</strong> sono stati aggiornati. 
+                        Ti chiediamo di leggere con estrema attenzione le istruzioni sotto riportate:
+                        <ol>
+                            <li>Aggiorna il tuo curriculum con i nuovi titoli di studio sostituendo anche i precedenti già inseriti;</li>
+                            <li>I vecchi titoli, contrassegnati ora dalla voce "vecchio", non dovranno essere più utilizzati;</li>
+                            <li>Avrai a disposizione 60gg per portate a termine questa operazione, successivamente i vecchi titoli universitari saranno eliminati.</li>
+                        </ol>
+                    </p>
+                    <p> Tieni conto che l'attuale lista comprende tutti i titoli ufficialmente riconosciuti dal MIUR.
+                        Che puoi fare qualora il tuo titolo di studio non sia presente?
+                        <ol>
+                            <li>Effettua una ricerca direttamente nell'archivio del MIUR cliccando <a href="http://offf.miur.it/pubblico.php/ricerca/show_form/p/miur"><i class="icon-link"></i> qui</a></li>
+                            <li>Inviaci tramite la pagina "supporto" ogni informazione utile per reperire il tuo titolo al fine di inserirlo nel sistema.</li>
+                        </ol>
+                    </p>
+                    <p>Nota bene: qualora il titolo richiesto non sia censito nel sito sopra indicato NON sarà possibile procedere con l'inserimento di quest'ultimo.</p>
                 </div> 
                 
         <div class="alert alert-block alert-error">
