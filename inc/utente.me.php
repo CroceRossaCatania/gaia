@@ -419,10 +419,8 @@ if(false && $consenso && !$sessione->barcode) { ?>
                 <!-- Blocco aggiornamento titoli -->
                  <div class="alert alert-block alert-info">
                     <div class="row-fluid">
-                        <h4><strong><i class="icon-beaker"></i> Aggiornamento titoli di studio!</strong></h4>
-                        <p>Abbiamo aggiornato i titoli di studio con i nuovi censiti dall'istat. Ti invitiamo ad aggiornare il tuo curriculum con i nuovi titoli di studio sostituendo anche i precedenti già inseriti</p> 
-                        <p>Tutti i vecchi titoli di studio sono contrassegnata da (vecchio), tra 60gg tali titoli verranno cancellati</p>
-                             
+                        <h4><strong><i class="icon-beaker"></i> Aggiornamento titoli di studio</strong></h4>
+                        <p>Ti invitiamo ad aggiornare il tuo curriculum con i nuovi titoli di studio sostituendo anche i precedenti. Maggiori informazioni sono disponibili nell’apposita sezione.</p>    
                         <p><a href="?p=utente.titoli&t=3" class="btn btn-large"><i class="icon-refresh"></i> Aggiorna subito!</a></p>
                     </div>
                 </div>
