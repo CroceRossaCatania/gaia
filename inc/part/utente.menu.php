@@ -117,9 +117,12 @@ $menu += [
         'utente.titoli&t=3' =>  '<i class="icon-beaker"></i> Titoli di studio',
         'utente.titoli&t=4' =>  '<i class="icon-plus-sign-alt"></i> Titoli CRI'
     ],
+    'Carriera'    =>  [
+        'utente.corsi' =>  '<i class="fa fa-graduation-cap"></i>Corsi',
+    ],
     'Statistiche' =>  [
         'utente.statistiche.volontari'     =>   '<i class="icon-puzzle-piece"></i> Volontari'
-//        'utente.statistiche.attivita'     =>   '<i class="icon-weibo"></i> Attività'
+    //'utente.statistiche.attivita'     =>   '<i class="icon-weibo"></i> Attività'
     ]
 ];
 
