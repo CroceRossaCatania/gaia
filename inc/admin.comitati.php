@@ -38,6 +38,11 @@ paginaAdmin();
         <i class="icon-warning-sign"></i> <strong>Quote correlate</strong>.
         Attenzione il Comitato che si vuole cancellare ha delle quote correlate, rimuoverle e riprovare.
     </div>
+<?php }elseif ( isset($_GET['ad']) ) { ?>
+    <div class="alert alert-warning">
+        <i class="icon-warning-sign"></i> <strong>Ricorda di rigenerare l'albero</strong>.
+        Per applicare le modifica di attivazione e disattivazione, <a href="?p=admin.reset.comitati">rigenera l'albero</a>.
+    </div>
 <?php } elseif ( isset($_GET['spostato']) ) { ?>
         <div class="alert alert-success">
             <i class="icon-save"></i> <strong>Comitato spostato con successo</strong>.
@@ -54,6 +59,8 @@ paginaAdmin();
 <br/>
 
 <?php
+
+$mostraDisattivi = true;
 
 function pulsanteAttivo($geopolitica) { 
     if ( $geopolitica->attivo ) {
@@ -98,7 +105,7 @@ function pulsanteAttivo($geopolitica) {
             <th>Attivo?</th>
         </thead>
         <?php
-        foreach ( Nazionale::elenco() as $nazionale ){
+        foreach ( Nazionale::elenco($mostraDisattivi) as $nazionale ){
             ?>
             <tr>
                 <td colspan="5"><strong><?php echo $nazionale->nome; ?></strong></td>
@@ -114,7 +121,7 @@ function pulsanteAttivo($geopolitica) {
                 </td>
                 <td><?php pulsanteAttivo($nazionale); ?></td>
             </tr>
-            <?php foreach ( $nazionale->regionali() as $regionale ) { ?>
+            <?php foreach ( $nazionale->regionali($mostraDisattivi) as $regionale ) { ?>
             <tr class="success">
                 <td></td>
                 <td colspan="4" border-left="none"><?php echo $regionale->nome; ?></td>
@@ -136,7 +143,7 @@ function pulsanteAttivo($geopolitica) {
                 </td>
                 <td><?php pulsanteAttivo($regionale); ?></td>
             </tr>
-            <?php foreach ( $regionale->provinciali() as $provinciale ) { ?>
+            <?php foreach ( $regionale->provinciali($mostraDisattivi) as $provinciale ) { ?>
             <tr class="error">
                 <td></td><td></td>
                 <td colspan="3"><?php echo $provinciale->nome; ?></td>
@@ -161,7 +168,7 @@ function pulsanteAttivo($geopolitica) {
                 </td>
                 <td><?php pulsanteAttivo($provinciale); ?></td>
             </tr>
-            <?php foreach ( $provinciale->locali() as $locale ) { ?>
+            <?php foreach ( $provinciale->locali($mostraDisattivi) as $locale ) { ?>
             <tr class="alert">
                 <td></td><td></td><td></td>
                 <td colspan="2">
@@ -196,7 +203,7 @@ function pulsanteAttivo($geopolitica) {
             </td>
             <td><?php pulsanteAttivo($locale); ?></td>
         </tr>
-        <?php foreach ( $locale->comitati() as $comitato ) { ?>
+        <?php foreach ( $locale->comitati($mostraDisattivi) as $comitato ) { ?>
         <tr class="info">
             <td></td><td></td><td></td><td></td>
             <td colspan="1">

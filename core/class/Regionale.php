@@ -31,18 +31,25 @@ class Regionale extends GeoPolitica {
         return array_unique($r);
     }
 
-    public function figli() {
-        return $this->provinciali();
+    public function figli($mostraDisattivi = false) {
+        return $this->provinciali($mostraDisattivi);
     }
 
     public function superiore() {
         return $this->nazionale();
     }
     
-    public function provinciali() {
-        return Provinciale::filtra([
-            ['regionale',  $this->id]
-        ], 'nome ASC');
+    public function provinciali($mostraDisattivi = false) {
+        if ( $mostraDisattivi ) {
+            return Provinciale::filtra([
+                ['regionale',  $this->id]
+            ], 'nome ASC');
+        } else {
+            return Provinciale::filtra([
+                ['regionale',  $this->id],
+                ['attivo',     1],
+            ], 'nome ASC');
+        }
     }
     
     public function nazionale() {

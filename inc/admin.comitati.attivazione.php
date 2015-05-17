@@ -15,8 +15,8 @@ $n = (int) !((bool) $g->attivo);
 $g->attivo = $n;
 
 // Attiva/disattiva tutti i figli
-foreach ( $g->esplora() as $x ) {
+foreach ( $g->esplora(EST_UNITA, ESPLORA_RAMI, true) as $x ) {
 	$x->attivo = $n;
 }
 
-redirect('admin.comitati');
+redirect('admin.comitati&ad');

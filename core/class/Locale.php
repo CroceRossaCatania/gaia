@@ -28,18 +28,25 @@ class Locale extends GeoPolitica {
         return array_merge($r, $this->comitati());
     }
 
-    public function figli() {
-        return $this->comitati();
+    public function figli($mostraDisattivi = false) {
+        return $this->comitati($mostraDisattivi);
     }
 
     public function superiore() {
         return $this->provinciale();
     }
 
-    public function comitati() {
-        return Comitato::filtra([
-            ['locale',  $this->id]
-        ], 'nome ASC');
+    public function comitati($mostraDisattivi = false) {
+        if ( $mostraDisattivi ) {
+            return Comitato::filtra([
+                ['locale',  $this->id]
+            ], 'nome ASC');
+        } else {
+            return Comitato::filtra([
+                ['locale',  $this->id],
+                ['attivo',  1]
+            ], 'nome ASC');
+        }
     }    
 
     public function aree($obiettivo = null, $espandiLocali = false ) {
