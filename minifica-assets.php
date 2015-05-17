@@ -23,7 +23,8 @@ if ( !function_exists('curl_init') ) {
 }
 
 $data	= date('Ymd'); 
-$base   = realpath(dirname( __FILE__ ) . "/../");
+$base   = realpath(dirname( __FILE__ ));
+
 $dir 	= "{$base}/assets/min/{$data}";
 if ( !is_dir($dir) ) {
 	echo "Errore: Non esiste la directory {$dir}.\n";

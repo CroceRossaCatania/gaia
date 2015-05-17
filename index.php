@@ -84,8 +84,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
     <!-- JS e CSS compressi -->
-    <link href="/assets/min/20150207/build/build.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="/assets/min/20150207/build/build.js"></script>
+    <link href="/assets/min/20150517/build/build.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="/assets/min/20150517/build/build.js"></script>
 
     <!-- Recaptcha -->
     <script src="https://www.google.com/recaptcha/api.js?hl=it" async defer></script>
@@ -127,7 +127,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             <li><a href="?p=attivita"><i class="icon-calendar"></i> Attività</a></li>
                             <li><a href="?p=public.comitati.mappa"><i class="icon-map-marker"></i> Comitati</a></li>
                             <li><a href="?p=public.formazione"><i class="icon-desktop"></i> Formazione</a></li>
-                            <li><a href="?p=public.corsi"><i class="icon-medkit"></i> Corsi</a></li>
+                            <li><a href="?p=public.corsi"><i class="icon-graduation-cap"></i> Corsi</a></li>
                             <?php if(!$me) { ?>
                                 <li><a href="?p=public.tesserino"><i class="icon-credit-card"></i> Verifica tesserino</a></li>
                             <?php } ?>
