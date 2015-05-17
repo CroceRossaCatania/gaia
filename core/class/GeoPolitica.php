@@ -417,5 +417,18 @@ abstract class GeoPolitica extends GeoEntita {
 
         parent::cancella();
     }
+
+    /**
+     * Sovrascrive Entita::elenco filtrando in automatico per comitati Attivi.
+     * @param mostraDisattivi Opzionale. Se true, mostra anche Comitati disattivi.
+     * @return array(GeoPolitica)
+     */
+    public static function elenco($mostraDisattivi = false) {
+        if ( $mostraDisattivi ) { 
+            return parent::elenco();
+        } else {
+            return static::filtra([['attivo', 1]], 'nome ASC');
+        }
+    }
     
 }

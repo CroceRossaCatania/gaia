@@ -53,6 +53,26 @@ paginaAdmin();
 <script type="text/javascript"><?php require './assets/js/presidente.utenti.js'; ?></script>
 <br/>
 
+<?php
+
+function pulsanteAttivo($geopolitica) { 
+    if ( $geopolitica->attivo ) {
+        ?>
+        <i class="icon-check text-success"></i> Attivo 
+        (<a href="?p=admin.comitati.attivazione&oid=<?= $geopolitica->oid(); ?>" data-conferma="DISATTIVAZIONE: Questa operazione verr&agrave; effettuata sul comitato e tutti i figli.">Disattiva</a>)
+        <?php 
+    } else {
+        ?>
+        <i class="icon-check-empty text-warning"></i> Disattivo
+        (<a href="?p=admin.comitati.attivazione&oid=<?= $geopolitica->oid(); ?>" data-conferma="ATTIVAZIONE: Questa operazione verr&agrave; effettuata sul comitato e tutti i figli.">Disattiva</a>)
+        <?php
+    }
+
+
+} 
+
+?>
+
 <div class="row-fluid">
     <div class="span8">
         <h2>
@@ -75,6 +95,7 @@ paginaAdmin();
         <thead>
             <th>Nome</th>
             <th>Azioni</th>
+            <th>Attivo?</th>
         </thead>
         <?php
         foreach ( Nazionale::elenco() as $nazionale ){
@@ -82,60 +103,63 @@ paginaAdmin();
             <tr>
                 <td colspan="5"><strong><?php echo $nazionale->nome; ?></strong></td>
                 <td>
-                    <div class="btn-group">
-                        <a class="btn btn-small" href="?p=presidente.comitato&oid=<?php echo $nazionale->oid(); ?>" title="Dettagli">
+                    <div class="ex-btngroup">
+                        <a class="ex-btnmini" href="?p=presidente.comitato&oid=<?php echo $nazionale->oid(); ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli
                         </a>
-                        <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $nazionale->id; ?>&t=regi" title="Nuovo">
+                        <a class="ex-btnmini btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $nazionale->id; ?>&t=regi" title="Nuovo">
                             <i class="icon-plus"></i> Nuovo
                         </a>
                     </div>
                 </td>
+                <td><?php pulsanteAttivo($nazionale); ?></td>
             </tr>
             <?php foreach ( $nazionale->regionali() as $regionale ) { ?>
             <tr class="success">
                 <td></td>
                 <td colspan="4" border-left="none"><?php echo $regionale->nome; ?></td>
                 <td>
-                    <div class="btn-group">
-                        <a class="btn btn-small" href="?p=presidente.comitato&oid=<?php echo $regionale->oid(); ?>" title="Dettagli">
+                    <div class="ex-btngroup">
+                        <a class="ex-btnmini" href="?p=presidente.comitato&oid=<?php echo $regionale->oid(); ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli
                         </a>    
-                        <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $regionale->oid(); ?>" title="Modifica">
+                        <a class="ex-btnmini btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $regionale->oid(); ?>" title="Modifica">
                             <i class="icon-edit"></i> Modifica
                         </a>
-                        <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $regionale->id; ?>&t=pro" title="Nuovo">
+                        <a class="ex-btnmini btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $regionale->id; ?>&t=pro" title="Nuovo">
                             <i class="icon-plus"></i> Nuovo
                         </a>
-                        <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $regionale->oid(); ?>" title="Cancella Regionale" class="btn btn-small btn-danger">
+                        <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $regionale->oid(); ?>" title="Cancella Regionale" class="ex-btnmini btn-danger">
                             <i class="icon-trash"></i> Cancella
                         </a>
                     </div>
                 </td>
+                <td><?php pulsanteAttivo($regionale); ?></td>
             </tr>
             <?php foreach ( $regionale->provinciali() as $provinciale ) { ?>
             <tr class="error">
                 <td></td><td></td>
                 <td colspan="3"><?php echo $provinciale->nome; ?></td>
                 <td>
-                    <div class="btn-group">
-                        <a class="btn btn-small" href="?p=presidente.comitato&oid=<?php echo $provinciale->oid(); ?>" title="Dettagli">
+                    <div class="ex-btngroup">
+                        <a class="ex-btnmini" href="?p=presidente.comitato&oid=<?php echo $provinciale->oid(); ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli
                         </a>  
-                        <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $provinciale->oid(); ?>" title="Modifica">
+                        <a class="ex-btnmini btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $provinciale->oid(); ?>" title="Modifica">
                             <i class="icon-edit"></i> Modifica
                         </a>
-						<a class="btn btn-small btn-warning" href="?p=admin.comitato.sposta&oid=<?php echo $provinciale->oid(); ?>" title="Sposta">
+						<a class="ex-btnmini btn-warning" href="?p=admin.comitato.sposta&oid=<?php echo $provinciale->oid(); ?>" title="Sposta">
                             <i class="icon-arrow-right"></i> Sposta
                         </a>
-                        <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $provinciale->id; ?>&t=loc" title="Nuovo">
+                        <a class="ex-btnmini btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $provinciale->id; ?>&t=loc" title="Nuovo">
                             <i class="icon-plus"></i> Nuovo
                         </a> 
-                        <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $provinciale->oid(); ?>" title="Cancella Provinciale" class="btn btn-small btn-danger">
+                        <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $provinciale->oid(); ?>" title="Cancella Provinciale" class="ex-btnmini btn-danger">
                             <i class="icon-trash"></i> Cancella
                         </a>
                     </div>
                 </td>
+                <td><?php pulsanteAttivo($provinciale); ?></td>
             </tr>
             <?php foreach ( $provinciale->locali() as $locale ) { ?>
             <tr class="alert">
@@ -152,24 +176,25 @@ paginaAdmin();
 
             </td>
             <td>
-                <div class="btn-group">
-                    <a class="btn btn-small" href="?p=presidente.comitato&oid=<?php echo $locale->oid(); ?>" title="Dettagli">
+                <div class="ex-btngroup">
+                    <a class="ex-btnmini" href="?p=presidente.comitato&oid=<?php echo $locale->oid(); ?>" title="Dettagli">
                         <i class="icon-eye-open"></i> Dettagli
                     </a>     
-                    <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $locale->oid(); ?>" title="Modifica">
+                    <a class="ex-btnmini btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $locale->oid(); ?>" title="Modifica">
                         <i class="icon-edit"></i> Modifica
                     </a>
-					<a class="btn btn-small btn-warning" href="?p=admin.comitato.sposta&oid=<?php echo $locale->oid(); ?>" title="Sposta">
+					<a class="ex-btnmini btn-warning" href="?p=admin.comitato.sposta&oid=<?php echo $locale->oid(); ?>" title="Sposta">
                         <i class="icon-arrow-right"></i> Sposta
                     </a>
-                    <a class="btn btn-small btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $locale->id; ?>&t=com" title="Nuovo">
+                    <a class="ex-btnmini btn-success" href="?p=admin.comitato.nuovo&id=<?php echo $locale->id; ?>&t=com" title="Nuovo">
                         <i class="icon-plus"></i> Nuovo
                     </a> 
-                    <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $locale->oid(); ?>" title="Cancella Locale" class="btn btn-small btn-danger">
+                    <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $locale->oid(); ?>" title="Cancella Locale" class="ex-btnmini btn-danger">
                         <i class="icon-trash"></i> Cancella
                     </a>
                 </div>
             </td>
+            <td><?php pulsanteAttivo($locale); ?></td>
         </tr>
         <?php foreach ( $locale->comitati() as $comitato ) { ?>
         <tr class="info">
@@ -188,21 +213,22 @@ paginaAdmin();
 
             </td>
             <td>
-                <div class="btn-group">
-                    <a class="btn btn-small" href="?p=presidente.comitato&oid=<?php echo $comitato->oid(); ?>" title="Dettagli">
+                <div class="ex-btngroup">
+                    <a class="ex-btnmini" href="?p=presidente.comitato&oid=<?php echo $comitato->oid(); ?>" title="Dettagli">
                         <i class="icon-eye-open"></i> Dettagli
                     </a>      
-                    <a class="btn btn-small btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $comitato->oid(); ?>" title="Modifica">
+                    <a class="ex-btnmini btn-info" href="?p=admin.comitato.modifica&oid=<?php echo $comitato->oid(); ?>" title="Modifica">
                         <i class="icon-edit"></i> Modifica
                     </a>
- 					<a class="btn btn-small btn-warning" href="?p=admin.comitato.sposta&oid=<?php echo $comitato->oid(); ?>" title="Sposta">
+ 					<a class="ex-btnmini btn-warning" href="?p=admin.comitato.sposta&oid=<?php echo $comitato->oid(); ?>" title="Sposta">
                     	<i class="icon-arrow-right"></i> Sposta
                     </a>
-                    <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $comitato->oid(); ?>" title="Cancella Comitato" class="btn btn-small btn-danger">
+                    <a  onClick="return confirm('Vuoi veramente cancellare questo comitato ? Assicurati che non vi siano comitati o volontari correlati a questo!!!');" href="?p=admin.comitato.cancella&oid=<?php echo $comitato->oid(); ?>" title="Cancella Comitato" class="ex-btnmini btn-danger">
                         <i class="icon-trash"></i> Cancella
                     </a>
                 </div>
             </td>
+            <td><?php pulsanteAttivo($comitato); ?></td>
         </tr>
         <?php }}}}}
         
