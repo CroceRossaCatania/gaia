@@ -742,7 +742,7 @@ a.thumbnail:hover,a.thumbnail:focus{border-color:#08c;-webkit-box-shadow:0 1px 4
 .navbar .nav-collapse .nav.pull-right{float:none;margin-left:0;}.nav-collapse,.nav-collapse.collapse{height:0;overflow:hidden;}
 .navbar .btn-navbar{display:block;}.navbar-static .navbar-inner{padding-right:10px;padding-left:10px;}
 }@media(min-width:980px){.nav-collapse.collapse{height:auto!important;overflow:visible!important;}
-}@font-face{font-family:'FontAwesome';src:url('../../../font/fontawesome-webfont.eot?v=3.2.1');src:url('../../../font/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'),url('../../../font/fontawesome-webfont.woff?v=3.2.1') format('woff'),url('../../../font/fontawesome-webfont.ttf?v=3.2.1') format('truetype'),url('../../../font/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1') format('svg');font-weight:normal;font-style:normal;}
+}@font-face{font-family:'FontAwesome';src:url('../../../font/fontawesome-webfont.eot?v=4.3.0');src:url('../../../font/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'),url('../../../font/fontawesome-webfont.woff?v=4.3.0') format('woff'),url('../../../font/fontawesome-webfont.ttf?v=4.3.0') format('truetype'),url('../../../font/fontawesome-webfont.svg#fontawesomeregular?v=4.3.0') format('svg');font-weight:normal;font-style:normal;}
 [class^="icon-"],[class*=" icon-"]{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;}
 [class^="icon-"]:before,[class*=" icon-"]:before{text-decoration:inherit;display:inline-block;speak:none;}
 .icon-large:before{vertical-align:-10%;font-size:1.3333333333333333em;}a [class^="icon-"],a [class*=" icon-"]{display:inline;}
@@ -929,7 +929,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .icon-trello:before{content:"\f181";}.icon-female:before{content:"\f182";}.icon-male:before{content:"\f183";}
 .icon-gittip:before{content:"\f184";}.icon-sun:before{content:"\f185";}.icon-moon:before{content:"\f186";}
 .icon-archive:before{content:"\f187";}.icon-bug:before{content:"\f188";}.icon-vk:before{content:"\f189";}
-.icon-weibo:before{content:"\f18a";}.icon-renren:before{content:"\f18b";}.icon-graduation-cap:before{content:"\f19d";}
+.icon-weibo:before{content:"\f18a";}.icon-renren:before{content:"\f18b";}.icon-graduation-cap .icon-user-secret:before{content:"\f21b";}
 body{padding-bottom:40px;font-family:'Telex';}.nav li a{text-shadow:0 1px 1px rgba(255,255,255,.2)!important;}
 .centrato{text-align:center!important;}.cp{text-align:center!important;padding:10px 0!important;font-size:larger!important;}
 .brand{padding:10px 15px 0 0!important;margin:0 0 0 0!important;}.altoCento{height:60px!important;}

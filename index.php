@@ -334,13 +334,13 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     <?php if ( $me->admin && !$me->admin() ) { ?>
                                     <!-- ADMIN MODE NON ATTIVATA... -->
                                     <a href="#adminMode" class="btn btn-inverse" data-toggle="modal" role="button">
-                                        <i class="icon-smile icon-large"></i>
+                                        <i class="icon-github-alt icon-large"></i>
                                     </a>
                                     <?php } ?> 
                                     <?php if ( $me->supporto && !$me->supporto() ) { ?>
                                     <!-- SUPPORT MODE NON ATTIVATA... -->
                                     <a href="#supportMode" class="btn btn-inverse" data-toggle="modal" role="button">
-                                        <i class="icon-smile icon-large"></i>
+                                        <i class="icon-github-alt icon-large"></i>
                                     </a>
                                     <?php } ?>                        
                                 </div>
