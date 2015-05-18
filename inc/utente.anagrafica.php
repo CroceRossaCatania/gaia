@@ -40,7 +40,7 @@ if(isset($_GET['tessok']) || isset($_GET['tesserr'])) {
               <label class="control-label" for="inputNome">Nome</label>
               <div class="controls">
                 <input type="text" name="inputNome" id="inputNome" readonly value="<?php echo $me->nome; ?>">
-                <acronym title="Per modificare, contatta supporto@gaia.cri.it">&nbsp; <i class="icon-lock icon-large"></i></acronym>
+                <acronym title="Per modificare, contatta il tuo ufficio soci o presidente">&nbsp; <i class="icon-lock icon-large"></i></acronym>
               </div>
             </div>
             <div class="control-group">
