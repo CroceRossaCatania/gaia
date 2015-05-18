@@ -155,7 +155,7 @@ if ( $v->ordinario() ){
     ['volontario', $v]
     ]);
   foreach ($f as $_f) {
-    $_f->fine = $fine;
+    $_f->fine = time();
   }
 
   /* Chiudo l'appartenenza e declasso a persona */
