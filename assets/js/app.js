@@ -67,7 +67,8 @@ $(window).ready( function () {
         ],
         toolbar: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
         menubar: false,
-        statusbar: false
+        statusbar: false,
+        relative_urls: false
     });
 
 
