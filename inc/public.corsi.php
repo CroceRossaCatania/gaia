@@ -21,7 +21,7 @@ $_titolo = "Calencario dei Corsi";
 <div class="row-fluid">
     
     
-    <div class="span9">
+    <div class="span12">
         <h4>Filtri</h4>
         <select  class="chosen-select" data-placeholder="Aggiungi un filtro..." style="width:350px;" multiple="">
             <option value="flt1">Filtro 1</option>
@@ -30,19 +30,6 @@ $_titolo = "Calencario dei Corsi";
             <option value="flt4">Filtro 4</option>
             <option value="flt5">Filtro 5</option>
         </select>
-         
-         
-        <div class="row-fluid">
-            <span class="span3">
-                <label for="cercaTitolo">
-                    <span style="font-size: larger;">
-                        <i class="icon-search"></i>
-                        <strong>Aggiungi</strong>
-                    </span>
-                </label>
-
-            </span>
-            <span class="span9">
                 <?php /*<input type="text" autofocus data-t="<?php echo $t; ?>" required id="cercaProvicia" placeholder="Cerca provincia" class="span12" /> */ ?>
                 <select data-placeholder="Scegli una provincia..." required id="cercaProvicia" class="chosen-select" style="width: 350px;">
                     <option value=""></option>
@@ -298,13 +285,9 @@ $_titolo = "Calencario dei Corsi";
                     <option value="Zambia">Zambia</option>
                     <option value="Zimbabwe">Zimbabwe</option>
                   </select>
-            </span>
-        </div>
-         
-         
-         <hr/>
+    </div>
         
-        <div id='calendario'></div>
+    <div id='calendario'></div>
     </div>
     
     <div class="span3" style="text-align: left">
