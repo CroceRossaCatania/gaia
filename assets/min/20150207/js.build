@@ -4,6 +4,7 @@ assets/js/bootstrap.min.js
 https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js
 assets/js/jquery.timepicker.js
 assets/js/fullcalendar.min.js
+assets/js/chosen.jquery.min.js
 assets/js/jquery.cookie.js
 assets/js/app.js
 assets/js/ui.datepicker-it.js
