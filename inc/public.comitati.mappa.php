@@ -47,7 +47,7 @@ $albero = GeoPolitica::ottieniAlbero()[0];
                     $finestre[]  = ["<strong>{$regionale->nome}</strong>", 
                     "{$regionale->indirizzo}<br />" .
                     "{$regionale->telefono}" .
-                    "{$locali->email}"
+                    "{$regionale->email}"
                     ];
 
                 }
