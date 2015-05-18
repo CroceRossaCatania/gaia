@@ -137,6 +137,13 @@ richiediComitato();
                             <br>
                             <?php
                             break;
+                            case APP_FORMAZIONE:
+                            ?>
+                            <strong>Delegato</strong> Formazione
+                            (<?php echo $_d->comitato()->nomeCompleto(); ?>)
+                            <br>
+                            <?php
+                            break;
 
                         }} ?>
                     </td>
