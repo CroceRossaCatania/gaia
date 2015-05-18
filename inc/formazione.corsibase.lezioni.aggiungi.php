@@ -14,7 +14,7 @@ if (!$corso->modificabileDa($me)) {
 
 $l = new Lezione;
 $l->corso 	= (int) $_GET['id'];
-$l->nome 	= normalizzaNome($_POST['nome']);
+$l->nome 	= normalizzaTitolo($_POST['nome']);
 $inizio     = DT::createFromFormat('d/m/Y H:i', $_POST["inizio"]);
 $fine       = DT::createFromFormat('d/m/Y H:i', $_POST["fine"]);
 $l->inizio  = $inizio->getTimestamp();
