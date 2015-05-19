@@ -84,8 +84,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
     <!-- JS e CSS compressi -->
-    <link href="/assets/min/20150517/build/build.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="/assets/min/20150517/build/build.js"></script>
+    <link href="/assets/min/20150519/build/build.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="/assets/min/20150519/build/build.js"></script>
 
     <!-- Recaptcha -->
     <script src="https://www.google.com/recaptcha/api.js?hl=it" async defer></script>
@@ -93,7 +93,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 	<!-- Font -->
     <link href='https://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
     
-	<!--[if IE]>
+    <!--[if IE]>
         <link href="css/main-ie.css" rel="stylesheet" media="screen">
     <![endif]-->
     <!--[if IE 7]>
@@ -437,7 +437,6 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 	        			<a href="http://wiki.gaia.cri.it"><strong>Guida</strong></a> &middot;
                         <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaia.cri.it"><?php } ?>Supporto</a><br />
                             Croce Rossa. <strong>Persone in prima persona.</strong>
-                        </div>
                     </div>
 
                 </div> <!-- /container -->
