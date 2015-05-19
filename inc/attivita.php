@@ -12,6 +12,12 @@ if ( $me instanceof Anonimo || $me->stato == ASPIRANTE ) {
 }
 
 ?>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.1/fullcalendar.min.js"></script>
+<link href='http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.1/fullcalendar.min.css' rel='stylesheet' />
+<link href='http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.1/fullcalendar.print.css' rel='stylesheet' />
+ 
+
 <div class="row-fluid">
         <div class="span3">
             <?php menuVolontario(); ?>
