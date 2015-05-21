@@ -24,12 +24,7 @@ if ( !function_exists('curl_init') ) {
 
 $data	= date('Ymd'); 
 $base   = realpath(dirname( __FILE__ ));
-
 $dir 	= "{$base}/assets/min/{$data}";
-if ( !is_dir($dir) ) {
-	echo "Errore: Non esiste la directory {$dir}.\n";
-	exit(1);
-}
 
 $js_contatore 	= 0;
 $css_contatore	= 0;
@@ -37,6 +32,15 @@ $js_filesize 	= 0;
 $css_filesize 	= 0;
 $js_build 		= "{$dir}/js.build";
 $css_build		= "{$dir}/css.build";
+
+if ( !is_dir($dir) ) {
+    @mkdir("{$dir}");
+    //echo "Errore: Non esiste la directory {$dir}.\n";
+    //exit(1);
+}
+copyfile($base."/assets/js.build", $js_build);
+copyfile($base."/assets/css.build", $css_build);
+
 
 echo "[...] Caricamento JS...\n";
 $js_build		= minifica(
@@ -114,6 +118,14 @@ Operazioni concluse.
 
 
 EOL;
+
+
+function copyfile($src, $dst){
+    echo "trying to copy $src >> $dst ...\n";
+    if (!copy($src, $dst)) {
+        echo "failed to copy $src >> $dst ...\n";
+    }
+}
 
 function minifica($build_file, &$contatore, &$filesize) {
 	global $dimensione_originale, $base;
