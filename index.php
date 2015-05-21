@@ -4,6 +4,8 @@
  * ©2014 Croce Rossa Italiana
  */
 
+define("DEBUG", TRUE);
+
 /* Modalità manutenzione */
 if (file_exists('upload/setup/manutenzione')) {
     header('HTTP/1.1 307 Temporary Redirect');
@@ -84,9 +86,22 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
     <!-- JS e CSS compressi -->
-    <link href="/assets/min/20150519/build/build.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="/assets/min/20150519/build/build.js"></script>
-
+     <?php if (DEBUG) : ?>
+        <?php $lines = file('assets/css.build'); ?>
+        <?php foreach ($lines as $line) : ?>
+            <link href="<?php echo $line ?>" rel="stylesheet" media="screen">
+        <?php endforeach; ?>
+    
+        <?php $lines = file('assets/js.build'); ?>
+        <?php foreach ($lines as $line) : ?>
+            <script type="text/javascript" src="<?php echo $line ?>"></script>
+        <?php endforeach; ?>
+    <?php endif ?>
+        
+    <?php if (!DEBUG) : ?>
+        <link href="/assets/min/dev/build/build.css" rel="stylesheet" media="screen">
+        <script type="text/javascript" src="/assets/min/dev/build/build.js"></script>
+    <?php endif ?>
     <!-- Recaptcha -->
     <script src="https://www.google.com/recaptcha/api.js?hl=it" async defer></script>
 
@@ -100,10 +115,6 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
       <link rel="stylesheet" href="css/font-awesome-ie7.min.css">
     <![endif]-->
 
-    <!-- JS -->
-    <?php if (file_exists('assets/js/'. $p . '.js')) { /* Javascript dinamico */ ?>
-        <script type="text/javascript" src="/assets/js/<?php echo $p; ?>.js"></script>
-    <?php } ?>
 
   </head>
   <body>
@@ -548,6 +559,12 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
                     <!-- DEBUG. Q: <?php echo $db->numQuery; ?>; M: <?php echo ceil(memory_get_peak_usage()/1024); ?> kB; T: <?php echo round(microtime(true)-$_stopwatch, 6); ?>s -->
                     
+                    
+                    <!-- JS -->
+                    <?php if (file_exists('assets/js/'. $p . '.js')) { /* Javascript dinamico */ ?>
+                        <script type="text/javascript" src="/assets/js/<?php echo $p; ?>.js"></script>
+                    <?php } ?>
+                    
                     <?php if($conf['debug']) { ?>
                         <script type="text/javascript">var DEBUG = true;</script>
 
@@ -557,6 +574,9 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     					<div id="swifttagcontainer7nxkd9vwdw"><div id="proactivechatcontainer7nxkd9vwdw"></div><div style="display: inline;" id="swifttagdatacontainer7nxkd9vwdw"></div></div> <script type="text/javascript">var swiftscriptelem7nxkd9vwdw=document.createElement("script");swiftscriptelem7nxkd9vwdw.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "7nxkd9vwdw"; var swifttagurl7nxkd9vwdw="https://helpdesk.cri.it/visitor/index.php?/Gaia/LiveChat/HTML/SiteBadge/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPTdueGtkOXZ3ZHcmdmVyc2lvbj00LjY4LjEmcHJvZHVjdD1mdXNpb24mZmlsdGVyZGVwYXJ0bWVudGlkPTUwJnJvdXRlY2hhdHNraWxsaWQ9Myw0JnNpdGViYWRnZWNvbG9yPXdoaXRlJmJhZGdlbGFuZ3VhZ2U9ZW4mYmFkZ2V0ZXh0PWxpdmVoZWxwJm9ubGluZWNvbG9yPSMxYWEzMWEmb25saW5lY29sb3Job3Zlcj0jNWZiZjVmJm9ubGluZWNvbG9yYm9yZGVyPSMxMjcyMTImb2ZmbGluZWNvbG9yPSNmZjAwMDAmb2ZmbGluZWNvbG9yaG92ZXI9I2ZmNGQ0ZCZvZmZsaW5lY29sb3Jib3JkZXI9I2IzMDAwMCZhd2F5Y29sb3I9I2VlZmYwMCZhd2F5Y29sb3Job3Zlcj0jZjRmZjRkJmF3YXljb2xvcmJvcmRlcj0jYTdiMzAwJmJhY2tzaG9ydGx5Y29sb3I9I2ZmNzcwMCZiYWNrc2hvcnRseWNvbG9yaG92ZXI9I2ZmYTA0ZCZiYWNrc2hvcnRseWNvbG9yYm9yZGVyPSNiMzUzMDAmY3VzdG9tb25saW5lPSZjdXN0b21vZmZsaW5lPSZjdXN0b21hd2F5PSZjdXN0b21iYWNrc2hvcnRseT0KODMxODAxYmRmNWY0N2VmYzQ4YjFiNzZlMjhlYWFmNmRhOGVlNWEwNw==";setTimeout("swiftscriptelem7nxkd9vwdw.src=swifttagurl7nxkd9vwdw;document.getElementById('swifttagcontainer7nxkd9vwdw').appendChild(swiftscriptelem7nxkd9vwdw);",1);</script>
     					<!-- FINE CODICE TAG - NON MODIFICARE! -->
 
+                                        
+                              
+                                        
 		                <!-- Google Analytics -->
 		                <script>
                             var DEBUG = false;
@@ -572,6 +592,9 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
 		                </script>
                     <?php } ?>
+                                
+                                
+                    
                 </body>
                 </html><?php 
                 ob_end_flush(); 

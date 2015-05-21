@@ -5,9 +5,14 @@
  */
 
 $_titolo = "Calencario dei Corsi";
-
-
 ?>
+
+<!--
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.1/fullcalendar.min.js"></script>
+<link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.1/fullcalendar.min.css" />
+<link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.1/fullcalendar.print.css" />
+-->
+
 <style>
 /* Dello stile veloce...*/
 #calendar {
