@@ -9,7 +9,7 @@ $_titolo = "Calencario dei Corsi";
 
     <div class="span8">
         <h2><i class="icon-plus-square icon-calendar muted"></i> Competenze personali</h2>
-        <form action="?p=utente.titolo.nuovo" method="POST">
+        <form action="?p=formazione.corsi.crea.ok" method="POST">
             <input value="1" name="idTitolo" id="idTitolo" type="hidden">
             <div class="alert alert-block alert-success">
                 <div class="row-fluid">
@@ -86,7 +86,7 @@ $_titolo = "Calencario dei Corsi";
                     <div class="span4 offset8">
                         <button type="submit" class="btn btn-success">
                             <i class="icon-plus"></i>
-                            Aggiungi il titolo
+                            Crea il corso
                         </button>
                     </div>
                 </div>
