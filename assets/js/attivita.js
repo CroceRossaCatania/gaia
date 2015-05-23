@@ -4,7 +4,7 @@
 
 $(document).ready(function() {
     $('#calendario').fullCalendar({
-    	/* Localizzazione in italiano */
+    	/* Localizzazione in italiano
     	monthNames: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
     	monthNamesShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
         dayNames: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
@@ -20,6 +20,7 @@ $(document).ready(function() {
             week:     'settimana',
             day:      'giorno'
         },
+        
 	titleFormat: {
             month: 'MMMM yyyy',                            
             week: "d MMM[ yyyy]{ '&#8212;' d MMM yyyy}",
@@ -36,35 +37,51 @@ $(document).ready(function() {
         },
        
         axisFormat: 		'H:mm',
-        defaultView: 		'basicWeek',
         allDaySlot:   		false, 
+         */
         header:  {
             left:   'title',
             //center: '',
             right:  'month,basicWeek today prev,next'
         }, 
-
+        
+        defaultView: 		'basicWeek',
+        allDaySlot:   		false, 
         /*
          * Funzione adattatore che comunica con le API
          */
-        events: function ( inizio, fine, callback ) {
+        
+         events: {
+            url: '/api.php',
+            type: 'POST',
+            data: {
+                custom_param1: 'something',
+                custom_param2: 'somethingelse'
+            },
+            error: function() {
+                alert('there was an error while fetching events!');
+            },
+            color: 'yellow',   // a non-ajax option
+            textColor: 'black' // a non-ajax option
+        },
+        
+        
+        events: function(start, end, timezone, callback) {
             $("#icona-caricamento").removeClass('icon-calendar').addClass('icon-spinner').addClass('icon-spin');
-            inizio = new Date(inizio);
-            fine   = new Date(fine);
+            inizio = new Date(start);
+            fine   = new Date(end);
             var sinizio = inizio.toISOString();
             var sfine   = fine.toISOString();
             api('attivita', {
                 inizio: sinizio,
                 fine:   sfine
-            },
-
-            function (risposta) {
+            }, function (risposta) {
                 risposta = risposta.risposta.turni;
                 for ( var y in risposta ) {
-                    risposta[y].id		= risposta[y].turno.id;
+                    risposta[y].id      = risposta[y].turno.id;
                     risposta[y].title	= risposta[y].turno.nome + ", " + risposta[y].attivita.nome;
                     risposta[y].start	= risposta[y].inizio;
-                    risposta[y].end		= risposta[y].fine;
+                    risposta[y].end	= risposta[y].fine;
                     risposta[y].color   = risposta[y].colore;
                 }
 
