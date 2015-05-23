@@ -51,21 +51,6 @@ $(document).ready(function() {
          * Funzione adattatore che comunica con le API
          */
         
-         events: {
-            url: '/api.php',
-            type: 'POST',
-            data: {
-                custom_param1: 'something',
-                custom_param2: 'somethingelse'
-            },
-            error: function() {
-                alert('there was an error while fetching events!');
-            },
-            color: 'yellow',   // a non-ajax option
-            textColor: 'black' // a non-ajax option
-        },
-        
-        
         events: function(start, end, timezone, callback) {
             $("#icona-caricamento").removeClass('icon-calendar').addClass('icon-spinner').addClass('icon-spin');
             inizio = new Date(start);

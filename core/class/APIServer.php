@@ -277,13 +277,53 @@ class APIServer {
                 'fine'          =>  $turno->fine()->toJSON(),
                 'organizzatore' =>  $geoAttivita->toJSON(),
                 'colore'        =>  '#' . $colore,
-                'url'           =>  'https://gaia.cri.it/?p=attivita.scheda&id=' . $attivita->id . '#'. $turno->id
+                'url'           =>  '/?p=attivita.scheda&id=' . $attivita->id . '#'. $turno->id
             ];
         }
         return [
             'turni'  => $r
         ];
     }
+    
+    
+    /**
+     * Elenco corsi nel tempo
+     */
+    private function api_corsi() {
+        /*TODO*/
+        
+        global $conf;
+        $inizio = DT::daISO($this->par['inizio']);
+        $fine   = DT::daISO($this->par['fine']);
+        
+        $list = array();
+        
+        
+        for($i=0; $i<10; $i++){
+            
+            date_add($inizio, date_interval_create_from_date_string(rand(1, 4).' days'));
+            
+            array_push($list, [
+                'turno'         =>  [
+                    'id'        =>  $i,
+                    'nome'      =>  "Turno ".$i
+                ],
+                'attivita'      =>  [
+                    'id'        =>  $i,
+                    'nome'      =>  "Corso ".$i
+                ],  
+                'inizio'        =>  $inizio->toJSON(),
+                'fine'          =>  $inizio->toJSON(),
+                'organizzatore' =>  "sss",
+                'colore'        =>  '#' . $colore,
+                'url'           =>  '/?p=attivita.scheda&id=' . $attivita->id . '#'. $turno->id
+            ]);
+        }
+        return [
+            'turni'  => $list
+        ];
+    }
+    
     
     private function api_attivita_dettagli() {
         $this->richiedi(['id']);
