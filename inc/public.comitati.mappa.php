@@ -170,10 +170,10 @@ $albero = GeoPolitica::ottieniAlbero()[0];
                     <script type="text/javascript">
                         <?php
                         $icone = [
-                        EST_REGIONALE     =>  'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-                        EST_PROVINCIALE   =>  'http://maps.google.com/mapfiles/ms/icons/orange-dot.png',
-                        EST_LOCALE        =>  'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                        EST_UNITA         =>  'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                        EST_REGIONALE     =>  'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                        EST_PROVINCIALE   =>  'https://maps.google.com/mapfiles/ms/icons/orange-dot.png',
+                        EST_LOCALE        =>  'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                        EST_UNITA         =>  'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'
                         ];
                         ?>
                         function initialize() {
