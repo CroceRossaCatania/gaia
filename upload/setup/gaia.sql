@@ -164,6 +164,7 @@ CREATE TABLE IF NOT EXISTS `comitati` (
   `locale` int(11) DEFAULT NULL,
   `geo` point NOT NULL,
   `principale` tinyint(1) DEFAULT NULL,
+  `attivo` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `locale` (`locale`),
   SPATIAL KEY `geo` (`geo`)
@@ -501,6 +502,7 @@ CREATE TABLE IF NOT EXISTS `locali` (
   `nome` varchar(255) DEFAULT NULL,
   `geo` point NOT NULL,
   `provinciale` int(11) DEFAULT NULL,
+  `attivo` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `provinciale` (`provinciale`),
   SPATIAL KEY `geo` (`geo`)
@@ -539,6 +541,7 @@ CREATE TABLE IF NOT EXISTS `nazionali` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
   `geo` point NOT NULL,
+  `attivo` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   SPATIAL KEY `geo` (`geo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -589,6 +592,7 @@ CREATE TABLE IF NOT EXISTS `provinciali` (
   `nome` varchar(255) DEFAULT NULL,
   `geo` point NOT NULL,
   `regionale` int(11) DEFAULT NULL,
+  `attivo` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `regionale` (`regionale`),
   SPATIAL KEY `geo` (`geo`)
@@ -633,6 +637,7 @@ CREATE TABLE IF NOT EXISTS `regionali` (
   `nome` varchar(255) DEFAULT NULL,
   `geo` point NOT NULL,
   `nazionale` int(11) DEFAULT NULL,
+  `attivo` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `nazionale` (`nazionale`),
   SPATIAL KEY `geo` (`geo`)
