@@ -4,4 +4,4 @@ assets/css/main.css
 https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.min.css
 assets/css/chosen.min.css
 assets/css/fullcalendar.min.css
-assets/css/fullcalendar.print.css
+#assets/css/fullcalendar.print.css

@@ -89,12 +89,16 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
      <?php if (DEBUG) : ?>
         <?php $lines = file('assets/css.build'); ?>
         <?php foreach ($lines as $line) : ?>
-            <link href="<?php echo $line ?>" rel="stylesheet" media="screen">
+            <?php if (strpos($line, "#") === false) : ?>
+                <link href="<?php echo $line ?>" rel="stylesheet" media="screen">
+            <?php endif ?>
         <?php endforeach; ?>
     
         <?php $lines = file('assets/js.build'); ?>
         <?php foreach ($lines as $line) : ?>
-            <script type="text/javascript" src="<?php echo $line ?>"></script>
+            <?php if (strpos($line, "#") === false) : ?>
+                <script type="text/javascript" src="<?php echo $line ?>"></script>
+            <?php endif ?>
         <?php endforeach; ?>
     <?php endif ?>
         
