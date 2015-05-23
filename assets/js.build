@@ -1,4 +1,5 @@
 assets/js/libs/moment.min.js
+assets/js/libs/underscore-min.js
 #assets/js/libs/polychart2.standalone.js
 https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js
 assets/js/libs/modernizr.custom.03290.js
@@ -13,3 +14,5 @@ assets/js/tinymce/tinymce.min.js
 assets/js/libs/fullcalendar.min.js
 assets/js/libs/lang-all.js
 assets/js/libs/gcal.js
+assets/js/libs/raphael-min.js
+assets/js/libs/polychart2.min.js
