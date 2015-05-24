@@ -6,79 +6,55 @@ $(document).ready(function() {
     
     var eventsSource = [];
     
-    /*
-    function(start, end, timezone, callback) {
+    function updateEvents(callback){
+        
+        var start = $('#calendario').fullCalendar('getCalendar').getView().start.toISOString();
+        var end = $('#calendario').fullCalendar('getCalendar').getView().end.toISOString();
+        console.log('....', start, ' -->', end);
+        eventsSource = [];
+        
         $("#icona-caricamento").removeClass('icon-calendar').addClass('icon-spinner').addClass('icon-spin');
-        inizio = new Date(start);
-        fine   = new Date(end);
-        var sinizio = inizio.toISOString();
-        var sfine   = fine.toISOString();
-        api('corsi', {
-            inizio: sinizio,
-            fine:   sfine
-        }, function (risposta) {
-            risposta = risposta.risposta.turni;
-            for ( var y in risposta ) {
-                risposta[y].id      = risposta[y].turno.id;
-                risposta[y].title	= risposta[y].turno.nome + ", " + risposta[y].attivita.nome;
-                risposta[y].start	= risposta[y].inizio;
-                risposta[y].end	= risposta[y].fine;
-                risposta[y].color   = risposta[y].colore;
-            }
-
-            $("#icona-caricamento").addClass('icon-calendar').removeClass('icon-spinner').removeClass('icon-spin');
-            callback(risposta);
-        });
-    }
-    */
-    
-    function updateEvents(){
-        
-        // console.log('updateEvents');
-        var moment = $('#calendario').fullCalendar('getDate');
-        // alert("The current date of the calendar is " + moment.format());
-        console.log(moment);
-    
-        $('#calendario').fullCalendar('removeEventSource', eventsSource);
-        $('#calendario').fullCalendar('refetchEvents');
-        
-        inizio = new Date('2015-01-01');
-        fine   = new Date('2015-12-31');
-        var sinizio = inizio.toISOString();
-        var sfine   = fine.toISOString();
         
         api('corsi', {
-            inizio: sinizio,
-            fine:   sfine
+            inizio: start,
+            fine:   end,
+            type: $('#type').val(),
+            provincia: $('#provincia').val()
         }, function (risposta) {
-            risposta = risposta.risposta.turni;
-            for ( var y in risposta ) {
-                risposta[y].id      = risposta[y].turno.id;
-                risposta[y].title	= risposta[y].turno.nome + ", " + risposta[y].attivita.nome;
-                risposta[y].start	= risposta[y].inizio;
-                risposta[y].end	= risposta[y].fine;
-                risposta[y].color   = risposta[y].colore;
+            
+            var response = risposta.risposta.corsi;
+            
+            for ( var y in response ) {
+                var tmp = {};
+                tmp.id      = response[y].corso.id;
+                tmp.title   = response[y].corso.nome;
+                tmp.start   = response[y].inizio;
+                tmp.end     = response[y].fine;
+                tmp.color   = response[y].colore;
                 
-                eventsSource.push(risposta[y]);
+                eventsSource.push(tmp);
             }
             
-            $('#calendario').fullCalendar('addEventSource', eventsSource)
-            $('#calendario').fullCalendar('refetchEvents');
-            
+            if (callback !== undefined) {
+                callback(eventsSource);
+            }
             $("#icona-caricamento").addClass('icon-calendar').removeClass('icon-spinner').removeClass('icon-spin');
-            //callback(risposta);
+            
         });
+        
     }
     
     $('#type').change(function(evt){
         evt.preventDefault();
-        updateEvents();
+        //updateEvents();
+        $('#calendario').fullCalendar('refetchEvents');
         return false;
     });
     
     $('#provincia').change(function(evt){
         evt.preventDefault();
-        updateEvents();
+        //updateEvents();
+        $('#calendario').fullCalendar('refetchEvents');
         return false;
     });
     
@@ -95,10 +71,13 @@ $(document).ready(function() {
          * Funzione adattatore che comunica con le API
          */
         eventLimit: true, // allow "more" link when too many events
-        events: eventsSource
+        events: function(start, end, timezone, callback) {
+            updateEvents(callback);
+        }
+        //events: eventsSource,
     });
     
-    updateEvents();
+    //updateEvents(start, end, timezone, callback);
     
     $(".chosen-select").chosen({max_selected_options: 5});
 

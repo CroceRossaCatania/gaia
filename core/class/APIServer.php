@@ -293,34 +293,60 @@ class APIServer {
         /*TODO*/
         
         global $conf;
-        $inizio = DT::daISO($this->par['inizio']);
+        //$inizio = DT::daISO($this->par['inizio']);
+        $inizio = DT::daISO("2015-05-08");
         $fine   = DT::daISO($this->par['fine']);
         
+        if (!empty($this->par['type'])){
+            $types = $this->par['type'];
+        }
+        if (!empty($this->par['provincia'])){
+            $province = $this->par['provincia'];
+        }
+        
+        $types_value = array("flt1","flt2","flt3");
+        $province_value = array("Algeria","Albania","Andorra");
+        
         $list = array();
-        
-        
         for($i=0; $i<10; $i++){
             
-            date_add($inizio, date_interval_create_from_date_string(rand(1, 4).' days'));
+            date_add($inizio, date_interval_create_from_date_string('1 days'));
             
-            array_push($list, [
-                'turno'         =>  [
-                    'id'        =>  $i,
-                    'nome'      =>  "Turno ".$i
-                ],
-                'attivita'      =>  [
-                    'id'        =>  $i,
-                    'nome'      =>  "Corso ".$i
-                ],  
+            $id = $i;
+            $tmp = [
+                'corso'         =>  [
+                    'id'        =>  $id,
+                    'nome'      =>  $type." ".$id
+                ], 
                 'inizio'        =>  $inizio->toJSON(),
                 'fine'          =>  $inizio->toJSON(),
+                'type'          =>  $types_value[$i%3],
+                'provincia'     =>  $province_value[$i%3],
                 'organizzatore' =>  "sss",
                 'colore'        =>  '#' . $colore,
                 'url'           =>  '/?p=attivita.scheda&id=' . $attivita->id . '#'. $turno->id
-            ]);
+            ];
+            
+            $valid = true;
+            if (!empty($province) || !empty($types)){
+                
+                if (!empty($province) && !in_array($tmp["provincia"], $province)){
+                    $valid = false; 
+                }
+
+                
+                if (!empty($types) && !in_array($tmp["type"], $types)){
+                    $valid = false; 
+                }
+            }
+
+            if ($valid){
+                array_push($list, $tmp);
+            }
+            
         }
         return [
-            'turni'  => $list
+            'corsi'  => $list
         ];
     }
     
