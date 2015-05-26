@@ -152,9 +152,9 @@ if(isset($_POST['ordinario'])){
         $rigasuexcel++;
 
         if ($ordinario){
-            $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[12]);
+            $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[13]);
         }else{
-            $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[14]);
+            $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[15]);
         }
 
         if ( $dingresso->getTimestamp() < (time()-(ANNO*150))){
@@ -227,9 +227,9 @@ if(isset($_POST['ordinario'])){
                 $cell = maiuscolo($riga[11]);
             }else{
                 $p->stato = VOLONTARIO; /* format con pass e conferma*/ 
-                $cell = maiuscolo($riga[12]);
-                $p->emailServizio       = minuscolo($riga[11]);
-                $cells = maiuscolo($riga[13]);
+                $cell = maiuscolo($riga[13]);
+                $p->emailServizio       = minuscolo($riga[12]);
+                $cells = maiuscolo($riga[14]);
                 $cells = str_replace(', ', ' / ', $cells);
                 $cells = str_replace('', ' ', $cells);
                 $cells = str_replace('-', '', $cells);
@@ -245,19 +245,20 @@ if(isset($_POST['ordinario'])){
             
 
             $p->dataNascita         = $dnascita;
-            $xyz = explode(' (', $riga[3]);
-                $p->comuneNascita = normalizzaNome($xyz[0]);
+
+                $p->comuneNascita = normalizzaNome($riga[3]);
                 
-                if ( isset($xyz[1]) ) {
-                    $p->provinciaNascita = maiuscolo ( str_replace(')', '', $xyz[1] ) );
-                }
-                $p->indirizzo           = normalizzaNome($riga[5]);
-                $p->civico              = normalizzaNome($riga[6]);
-                $p->comuneResidenza     = normalizzaNome($riga[7]);
-                $p->provinciaResidenza  = maiuscolo($riga[8]);
-                $p->CAPResidenza        = maiuscolo($riga[9]);
                 
-                $email = minuscolo($riga[10]);
+                $p->provinciaNascita = normalizzaNome($riga[4]);
+                
+
+                $p->indirizzo           = normalizzaNome($riga[6]);
+                $p->civico              = normalizzaNome($riga[7]);
+                $p->comuneResidenza     = normalizzaNome($riga[8]);
+                $p->provinciaResidenza  = maiuscolo($riga[9]);
+                $p->CAPResidenza        = maiuscolo($riga[10]);
+                
+                $email = minuscolo($riga[11]);
                 if(filter_var($email, FILTER_VALIDATE_EMAIL) 
                     && !Persona::by('email', $email)) {
                    $p->email = $email; 
@@ -275,16 +276,16 @@ if(isset($_POST['ordinario'])){
                 $app = new Appartenenza();
                 if($ordinario){
                     /* Imposta la data di ingresso in CRI */
-                    $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[12]);
+                    $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[13]);
                     $dingresso   = $dingresso->getTimestamp();
                     $app->stato     = MEMBRO_ORDINARIO;
-                    $comitato = Comitato::by('nome', $riga[13]);
+                    $comitato = Comitato::by('nome', $riga[14]);
                 }else{
                     /* Imposta la data di ingresso in CRI */
-                    $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[14]);
+                    $dingresso   = DateTime::createFromFormat('d/m/Y', $riga[15]);
                     $dingresso   = $dingresso->getTimestamp();
                     $app->stato     = MEMBRO_VOLONTARIO;
-                    $comitato = Comitato::by('nome', $riga[15]);
+                    $comitato = Comitato::by('nome', $riga[16]);
                 }
                 $pres = $comitato->unPresidente();
                 $comitato = $comitato->id;
@@ -304,7 +305,7 @@ if(isset($_POST['ordinario'])){
                 }
                 echo(' APPARTENENZA GENERATA');
 
-                if ( !empty($riga[16]) && !empty($riga[17]) ) {
+                if ( !empty($riga[17]) && !empty($riga[18]) ) {
                     $riserva = true;    
                 } else {
                     $riserva = false;    
@@ -315,31 +316,31 @@ if(isset($_POST['ordinario'])){
                     $r->stato = RISERVA_OK;
                     $r->appartenenza = $app->id;
                     $r->volontario = $p->id;
-                    $inizio = @DateTime::createFromFormat('d/m/Y', $riga[16] );
+                    $inizio = @DateTime::createFromFormat('d/m/Y', $riga[17] );
                     $inizio = @$inizio->getTimestamp();
                     $r->inizio = $inizio;
-                    $fine = @DateTime::createFromFormat('d/m/Y', $riga[17] );
+                    $fine = @DateTime::createFromFormat('d/m/Y', $riga[18] );
                     $fine = @$fine->getTimestamp();
                     $r->fine = $fine;
-                    $r->protNumero = $riga[18];
-                    $protData = @DateTime::createFromFormat('d/m/Y', $riga[19] );
+                    $r->protNumero = $riga[19];
+                    $protData = @DateTime::createFromFormat('d/m/Y', $riga[20] );
                     $protData = @$protData->getTimestamp();
                     $r->protData = $protData;
-                    $r->motivo = $riga[20];
+                    $r->motivo = $riga[21];
                     $r->timestamp = time();
                     $r->pConferma = $pres;
                     $r->tConferma = time();
                     echo(' INSERITA RISERVA');
                 }
 
-                if ($riga[21] == '') {
+                if ($riga[22] == '') {
                     $ffaa = false;    
                 } else {
                     $ffaa = true;    
                 }
 
                 if ($ffaa && !$ordinario){
-                    $ffaa = maiuscolo($riga[21]);
+                    $ffaa = maiuscolo($riga[22]);
                     if ( $ffaa=="IV" && $p->sesso == DONNA ) {
                         $p->iv = "on";
                     }elseif( $ffaa=="CMV" && $p->sesso == UOMO ) {
