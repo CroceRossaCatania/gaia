@@ -57,16 +57,18 @@ if($r) {
   <ul class="dropdown-menu">
     <?php foreach($d as $_d) {
         if ($_d->id != $sessione->ambito) {
-            $g = GeoPolitica::daOid($_d->comitato);
-            $nome = "{$g->nome}";
-            if ($g->_estensione() == EST_UNITA) {
-                $nome = "Unità {$g->nome}";
-            }
-            if ($_d->applicazione == APP_OBIETTIVO) {
-                $s = "<a href='?p=utente.caricaRuolo.ok&ruolo={$_d->id}'>Delegato {$conf['nomiobiettivi'][$_d->dominio]}: {$nome}";
-            } else {
-                $s = "<a href='?p=utente.caricaRuolo.ok&ruolo={$_d->id}'>{$conf['applicazioni'][$_d->applicazione]}: {$nome}";
-            }
+            try {
+                $g = GeoPolitica::daOid($_d->comitato);
+                $nome = "{$g->nome}";
+                if ($g->_estensione() == EST_UNITA) {
+                    $nome = "Unità {$g->nome}";
+                }
+                if ($_d->applicazione == APP_OBIETTIVO) {
+                    $s = "<a href='?p=utente.caricaRuolo.ok&ruolo={$_d->id}'>Delegato {$conf['nomiobiettivi'][$_d->dominio]}: {$nome}";
+                } else {
+                    $s = "<a href='?p=utente.caricaRuolo.ok&ruolo={$_d->id}'>{$conf['applicazioni'][$_d->applicazione]}: {$nome}";
+                }
+            } catch(Exception $e) {};
             echo("<li>{$s}</li>");
         }
     } ?>

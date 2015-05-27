@@ -13,23 +13,8 @@ controllaParametri(array('id'));
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
-$a = [
-    'corso'         =>  [
-       'id'        =>  intval($_GET['id']),
-       'nome'      =>  $type."Corso BLSD FULL D (#".intval($_GET['id']).')'
-    ], 
-    'inizio'        =>  '2015-05-13',
-    'fine'          =>  '2015-05-19',
-    'type'          =>  1,
-    'provincia'     =>  'RA',
-    'organizzatore' =>  "Marco Radossi",
-    'Faculty'       =>  "Pietro Ferraresi, Mario Reatti",
-    'colore'        =>  '#',
-    'url'           =>  '/?p=public.corso.scheda&id=' . $id,
-    'linkMappa'     => function() { return 'http://www.link.it'; },
-    'postiLiberi'   => function() { return 5;  },
-    'referente'   => function() { return [ 'id' => 4, 'nome' => 'Marco', 'cognome' => 'Radossi' ];  }
-];
+$a = new CorsoMock($_GET['id']);
+
 
 /* 
 $a = Corso::id($_GET['id']);
@@ -50,9 +35,7 @@ if ( $modificabile ) {
 }
 */
 
-$_titolo = 'Corso BLSD FULL D' . ' - Formazione CRI su Gaia';
-$_descrizione = 'Ravenna' . ' || Aperto a: ' . 'BLABLABLA'
-.' || Organizzato da ' . 'Marco Radossi';
+
 
 /*
 $g = Gruppo::by('attivita', $a);
@@ -60,9 +43,10 @@ $g = Gruppo::by('attivita', $a);
 $apertura = $a->apertura;
 */
 
-
+$puoPartecipare = true;
 $apertura = true;
 $modificabile = false;
+$geoComitato = GeoPolitica::daOid($a->comitato);
 
 ?>
 <div class="row-fluid">
@@ -143,7 +127,7 @@ $modificabile = false;
         <hr />
         <div class="row-fluid allinea-centro">
             <div class="span12">
-                <h2 class="text-success"><?php echo $a->nome; ?></h2>
+                <h2 class="text-success"><?php echo $a->titolo; ?></h2>
                 <h4 class="text-info">
                     <i class="icon-map-marker"></i>
                     <a target="_new" href="<?php echo $a->linkMappa(); ?>">
@@ -152,7 +136,6 @@ $modificabile = false;
                 </h4>
             </div>
         </div>
-<?php /*
         <hr />
         <?php
         $pl = $a->postiLiberi();
@@ -207,11 +190,12 @@ $modificabile = false;
                     Partecipazione
                 </span><br />
                 <span class="text-info">
-                    <strong><?php echo $conf['att_vis'][$a->visibilita]; ?></strong>
+                    <strong>XXX XXX XXX</strong>
                 </span>
             </div>
         </div>
         <hr />
+<?php /*
         <?php if($puoPartecipare && !$anonimo) { ?>
         <div class="row-fluid">
             <div class="span5" style="max-height: 500px; padding-right: 10px; overflow-y: auto;">
