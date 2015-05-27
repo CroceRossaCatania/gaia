@@ -31,6 +31,7 @@ $(document).ready(function() {
                 tmp.start   = response[y].inizio;
                 tmp.end     = response[y].fine;
                 tmp.color   = response[y].colore;
+                tmp.url   = response[y].url;
                 
                 eventsSource.push(tmp);
             }

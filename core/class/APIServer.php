@@ -324,7 +324,7 @@ class APIServer {
                 'provincia'     =>  $province_value[$i%3],
                 'organizzatore' =>  "sss",
                 'colore'        =>  '#' . $colore,
-                'url'           =>  '/?p=attivita.scheda&id=' . $attivita->id . '#'. $turno->id
+                'url'           =>  '/?p=public.corso.scheda&id=' . $id
             ];
             
             $valid = true;
