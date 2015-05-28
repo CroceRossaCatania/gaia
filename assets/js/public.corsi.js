@@ -2,10 +2,49 @@
  * (c)2014 Croce Rossa Italiana
  */
 
-$(document).ready(function() {
+;$(document).ready(function() {
+    'use strict';
     
     var eventsSource = [];
+    var coordinates = {};
     
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            console.warning("Geolocation is not supported by this browser.");
+        }
+    }
+    
+    function showPosition(position) {
+        coordinates = {latitude: position.coords.latitude, longitude: position.coords.longitude};
+        console.log('coordinates', coordinates );
+        //console.log("Latitude: " + position.coords.latitude +", Longitude: " + position.coords.longitude);
+        $('#calendario').fullCalendar('refetchEvents');
+    }
+
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                console.warning("User denied the request for Geolocation.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                console.error("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                console.error("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                console.warning("An unknown error occurred.");
+                break;
+        }
+    }
+    
+    $('[data-role="findme"]').click(function(){
+        getLocation();
+    });
+    
+
     function updateEvents(callback){
         
         var start = $('#calendario').fullCalendar('getCalendar').getView().start.toISOString();
@@ -19,7 +58,8 @@ $(document).ready(function() {
             inizio: start,
             fine:   end,
             type: $('#type').val(),
-            provincia: $('#provincia').val()
+            provincia: $('#provincia').val(),
+            coords: coordinates
         }, function (risposta) {
             
             var response = risposta.risposta.corsi;
@@ -65,7 +105,7 @@ $(document).ready(function() {
             center: 'title',
             right: 'month,basicWeek,basicDay'
         },
-        defaultDate: '2015-02-12',
+        defaultDate: new Date(),
         editable: true,
 
         /*

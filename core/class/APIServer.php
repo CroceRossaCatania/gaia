@@ -297,15 +297,25 @@ class APIServer {
         $inizio = DT::daISO("2015-05-08");
         $fine   = DT::daISO($this->par['fine']);
         
+        if(!empty($this->par['coords'])){
+            $this->par['coords'];
+            $coords = array();
+            array_push($coords, intval($this->par['coords']->latitude));
+        }
+        
         if (!empty($this->par['type'])){
             $types = $this->par['type'];
+            $coords = null;
         }
         if (!empty($this->par['provincia'])){
             $province = $this->par['provincia'];
+            $coords = null;
         }
         
         $types_value = array("flt1","flt2","flt3");
         $province_value = array("Algeria","Albania","Andorra");
+        $latitude_value = array("44.40419","30","40");
+        $longitude_value = array("12.19928","15","10");
         
         $list = array();
         for($i=0; $i<10; $i++){
@@ -322,18 +332,23 @@ class APIServer {
                 'fine'          =>  $inizio->toJSON(),
                 'type'          =>  $types_value[$i%3],
                 'provincia'     =>  $province_value[$i%3],
+                'latitude'      =>  $latitude_value[$i%3],
+                'longitude'     =>  $longitude_value[$i%3],
                 'organizzatore' =>  "sss",
                 'colore'        =>  '#' . $colore,
                 'url'           =>  '/?p=public.corso.scheda&id=' . $id
             ];
             
             $valid = true;
-            if (!empty($province) || !empty($types)){
+            if (!empty($province) || !empty($types) || !empty($coords)){
                 
-                if (!empty($province) && !in_array($tmp["provincia"], $province)){
+                if (!empty($coords) && !in_array(intval($tmp["latitude"]), $coords)){
                     $valid = false; 
                 }
 
+                if (!empty($types) && !in_array($tmp["type"], $types)){
+                    $valid = false; 
+                }
                 
                 if (!empty($types) && !in_array($tmp["type"], $types)){
                     $valid = false; 

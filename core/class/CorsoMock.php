@@ -40,6 +40,16 @@ class CorsoMock { //extends GeoEntita {
         return 20;
     }
     
+    public function filtraPerDati($tipologie, $province)
+    {
+        return "http://".$_SERVER['SERVER_NAME'].'?'.$_SERVER['QUERY_STRING'];
+    }
+    
+    public function trovaVicini($latitude, $longitudine, $raggio = 50)
+    {
+        return "http://".$_SERVER['SERVER_NAME'].'?'.$_SERVER['QUERY_STRING'];
+    }
+    
     public function linkMappa()
     {
         return "http://".$_SERVER['SERVER_NAME'].'?'.$_SERVER['QUERY_STRING'];

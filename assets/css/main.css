@@ -3,6 +3,9 @@ body {
     font-family: 'Telex';
 }
 
+.container {
+    margin-top: 40px;
+}
 
 .nav li a {
     text-shadow: 0 1px 1px rgba(255, 255, 255, .2) !important;

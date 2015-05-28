@@ -7,13 +7,9 @@
 $_titolo = "Calencario dei Corsi";
 ?>
 
-<!--
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.1/fullcalendar.min.js"></script>
-<link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.1/fullcalendar.min.css" />
-<link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.1/fullcalendar.print.css" />
--->
 
-<div class="row-fluid" style="margin-top: 50px;">
+
+<div class="row-fluid">
     
     <div class="span8">
         <div class="row-fluid">
@@ -62,6 +58,12 @@ $_titolo = "Calencario dei Corsi";
                         <option value="Australia">Australia</option>
                         <option value="Austria">Austria</option>
                     </select>
+                </div>
+                <div>
+                    <label for="findme">Trovami</label>
+                    <a href="#" data-role="findme" class="btn" role="button">
+                        <i class="icon-map-marker icon-large"></i>
+                    </a>
                 </div>
             </div>
         </div>

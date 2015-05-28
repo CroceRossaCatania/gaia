@@ -5,7 +5,7 @@
 $_titolo = "Calencario dei Corsi";
 ?>
 
-<div class="row-fluid" style="margin-top: 50px">
+<div class="row-fluid">
 
     <div class="span8">
         <h2><i class="icon-plus-square icon-calendar muted"></i> Competenze personali</h2>
