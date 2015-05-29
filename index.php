@@ -84,8 +84,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
     <!-- JS e CSS compressi -->
-    <link href="/assets/min/20150518/build/build.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="/assets/min/20150518/build/build.js"></script>
+    <link href="/assets/min/20150529/build/build.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="/assets/min/20150529/build/build.js"></script>
 
     <!-- Recaptcha -->
     <script src="https://www.google.com/recaptcha/api.js?hl=it" async defer></script>
@@ -413,6 +413,18 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                 </div>
             </div><!-- /.carousel -->
             <?php } ?>
+
+            <div id="normativaEU" class="container" style="display: none;">
+                <div class="alert alert-info">
+                    <button id="nascondiNormativaEU" type="button" class="close" data-dismiss="alert">Nascondi &times;</button>
+                    <i class="icon-info-sign"></i> 
+                    <strong>Gaia utilizza i <i>cookies</i> per offrirti le sue funzionalit&agrave; e per scopi statistici.</strong><br />
+                    Continuando a navigare su gaia.cri.it, acconsenti all'uso dei cookie su questo sito web.<br />
+                    <a href="?p=public.privacy" target="_new">
+                        Clicca qui per leggere l'informativa sulla Privacy.
+                    </a>
+                </div>
+            </div>
 
             <div class="container<?= ( $p == 'home' ) ? '-fluid' : ''; ?> ">
 

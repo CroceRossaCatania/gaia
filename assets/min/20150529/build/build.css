@@ -941,7 +941,8 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .loginBoxContainer{position:relative;top:-250px;margin-bottom:-250px;z-index:8;}
 .theLoginBox{background-color:white;border-radius:5px;}.riga-cliccabile{cursor:pointer;}
 .riga-cliccabile:hover{background-color:#eee!important;}.container-narrow{margin:0 auto;max-width:900px;}
-.container-narrow>hr{margin:30px 0;}.navbar-wrapper{position:absolute;top:0;left:0;right:0;z-index:9;margin-top:20px;margin-bottom:-90px;}
+.container-narrow>hr{margin:30px 0;}#normativaEU{line-height:115%;font-size:smaller!important;}
+.navbar-wrapper{position:absolute;top:0;left:0;right:0;z-index:9;margin-top:20px;margin-bottom:-90px;}
 .navbar .navbar-inner{border:0;-webkit-box-shadow:0 2px 10px rgba(0,0,0,.25);-moz-box-shadow:0 2px 10px rgba(0,0,0,.25);box-shadow:0 2px 10px rgba(0,0,0,.25);}
 .navbar .brand{padding:14px 20px 16px;font-size:16px;font-weight:bold;}.navbar .nav>li>a{padding:15px 20px;}
 .navbar .btn-navbar{margin-top:10px;}.carousel{margin-bottom:20px;}.carousel .container{position:relative;z-index:8;}

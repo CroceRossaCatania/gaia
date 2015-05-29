@@ -110,6 +110,11 @@ body {
 	margin: 30px 0;
 }
 
+#normativaEU {
+  line-height: 115%;
+  font-size: smaller !important;
+}
+
 
     /* DA BOOTSTRAP.GITHUB.IO
     -------------------------------------------------- */
