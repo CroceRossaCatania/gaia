@@ -55,9 +55,10 @@ class APIServer {
         $start = microtime(true);
         if (empty($azione)) { $azione = 'ciao'; }
         $azione = str_replace(':', '_', $azione);
+        
         try {
             // Controlla la validita' della chiave API usata
-            if ( !$this->chiave || !$this->chiave->usabile() ) {
+            if ( !$this->chiave || !$this->chiave->usabile()) {
                 throw new Errore(1014);
             }
 
@@ -73,7 +74,8 @@ class APIServer {
             
         } catch (Errore $e) {
             $r = $e->toJSON();
-        } 
+        }
+        
 
         $output = [
             'richiesta'  => [
@@ -297,6 +299,33 @@ class APIServer {
         $inizio = DT::daISO("2015-05-08");
         $fine   = DT::daISO($this->par['fine']);
         
+        $corsi = Corso::elenco();
+        
+        
+        $list = array();
+        foreach  ( $corsi as $corso ) {
+            date_add($inizio, date_interval_create_from_date_string('1 days'));
+  
+             $tmp = [
+                'corso'         =>  [
+                    'id'        =>  $corso->id,
+                    'nome'      =>  $corso->luogo,
+                ], 
+                'inizio'        =>  $inizio->toJSON(),      // inizio
+                'fine'          =>  $inizio->toJSON(),      // tEsame
+                'type'          =>  $types_value[$i%3],
+                'provincia'     =>  $province_value[$i%3],
+                'latitude'      =>  $latitude_value[$i%3],
+                'longitude'     =>  $longitude_value[$i%3],
+                'organizzatore' =>  $corso->organizzatore,
+                'colore'        =>  '#' . $colore,
+                'url'           =>  '/?p=public.corso.scheda&id=' . $corso->id
+            ];
+         
+            array_push($list, $tmp);
+        }
+        
+        /*
         if(!empty($this->par['coords'])){
             $this->par['coords'];
             $coords = array();
@@ -311,6 +340,7 @@ class APIServer {
             $province = $this->par['provincia'];
             $coords = null;
         }
+        
         
         $types_value = array("flt1","flt2","flt3");
         $province_value = array("Algeria","Albania","Andorra");
@@ -360,9 +390,13 @@ class APIServer {
             }
             
         }
+         *   * 
+         */
+        
         return [
             'corsi'  => $list
         ];
+       
     }
     
     

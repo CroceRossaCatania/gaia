@@ -13,7 +13,7 @@ controllaParametri(array('id'));
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
-$a = new CorsoMock($_GET['id']);
+$a = new Corso($_GET['id']);
 
 
 /* 
