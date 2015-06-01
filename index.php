@@ -420,8 +420,11 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                     <i class="icon-info-sign"></i> 
                     <strong>Gaia utilizza i <i>cookies</i> per offrirti le sue funzionalit&agrave; e per scopi statistici.</strong><br />
                     Continuando a navigare su gaia.cri.it, acconsenti all'uso dei cookie su questo sito web.<br />
+                    <a href="?p=public.cookie" target="_new">
+                        Clicca qui per le informazioni sull'uso dei Cookie in Gaia
+                    </a> oppure 
                     <a href="?p=public.privacy" target="_new">
-                        Clicca qui per leggere l'informativa sulla Privacy.
+                        clicca qui per leggere l'informativa sulla Privacy.
                     </a>
                 </div>
             </div>
@@ -445,6 +448,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                     <div class="span6 allinea-destra">
                         <a href="/">Torna alla home</a> &middot;
                         <a href="?p=public.about">Informazioni su Gaia</a> &middot;
+                        <a href="?p=public.cookie">Cookie</a> &middot;
+                        <a href="?p=public.privacy">Privacy</a> &middot;
 	        			<a href="http://wiki.gaia.cri.it"><strong>Guida</strong></a> &middot;
                         <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaia.cri.it"><?php } ?>Supporto</a><br />
                             Croce Rossa. <strong>Persone in prima persona.</strong>
@@ -579,6 +584,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 		                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 		                    ga('create', 'UA-51942737-1', 'cri.it');
+                            ga('set', 'anonymizeIp', true);
 		  					ga('require', 'displayfeatures');
 		                    ga('send', 'pageview');
 
