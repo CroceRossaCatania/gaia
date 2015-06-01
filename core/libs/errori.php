@@ -76,6 +76,8 @@ function gestore_errori(
 		$_id_richiesta = md5(microtime() . rand(500, 999));
 	$codice = sha1(microtime() . rand(10000, 99999));
 
+	$backtrace = json_encode(function_exists('debug_backtrace') ? debug_backtrace() : 'ND', JSON_PRETTY_PRINT);
+
 	$e->update([
 		'codice' 		=> $codice,
 		'richiesta' 	=> $_id_richiesta,
@@ -90,7 +92,8 @@ function gestore_errori(
 			'post'			=>	$_POST
 		],
 		'sessione' 		=> $sessione->id,
-		'utente' 		=> $me->id
+		'utente' 		=> $me->id,
+		'backtrace'		=> $backtrace
 	]);
 
 	// Salta redirect nel caso di modalita' debug
