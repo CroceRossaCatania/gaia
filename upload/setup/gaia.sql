@@ -836,7 +836,7 @@ CREATE TABLE IF NOT EXISTS `corsi` (
   KEY `organizzatore` (`organizzatore`),
   KEY `direttore` (`direttore`),
   SPATIAL KEY `geo` (`geo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `dettagliCorsi` (
   `id` varchar(128) NOT NULL DEFAULT '',
