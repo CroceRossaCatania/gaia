@@ -818,10 +818,13 @@ CREATE TABLE IF NOT EXISTS `veicoli` (
   FULLTEXT KEY `indice` (`libretto`,`targa`,`comitato`,`stato`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `corsi` (
+CREATE TABLE `corsi` (
   `id` int(11) NOT NULL,
+  `titolo` varchar(100) DEFAULT NULL,
   `luogo` varchar(255) DEFAULT NULL,
+  `area` int(16) DEFAULT NULL,
   `organizzatore` varchar(32) DEFAULT NULL,
+  `referente` varchar(32) DEFAULT NULL,
   `direttore` varchar(32) DEFAULT NULL,
   `inizio` varchar(64) DEFAULT NULL,
   `progressivo` int(11) DEFAULT NULL,
@@ -838,12 +841,15 @@ CREATE TABLE IF NOT EXISTS `corsi` (
   SPATIAL KEY `geo` (`geo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+
 CREATE TABLE IF NOT EXISTS `dettagliCorsi` (
   `id` varchar(128) NOT NULL DEFAULT '',
   `nome` varchar(32) NOT NULL DEFAULT '',
   `valore` text,
   PRIMARY KEY (`id`,`nome`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

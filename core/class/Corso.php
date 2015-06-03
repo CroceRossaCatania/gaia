@@ -28,20 +28,7 @@ class Corso extends GeoEntita {
     
     
     
-    
-    /*
-    public function __construct($tmp) 
-    {
-        $this->tmp = $tmp;
-        
-        $this->titolo = 'Corso BLSD FULL MOCK' . ' - Formazione CRI su Gaia';
-        $this->descrizione = 'Ravenna' . ' || Aperto a: ' . 'BLABLABLA'.' || Organizzato da ' . 'Marco Radossi';
-        $this->luogo = 'Ravenna';
-        $this->timestamp = date("t");
-        $this->comitato = 'Comitato:'.$tmp;
-    }
-     * 
-     */
+
     
     /**
      * Genera il codice numerico progressivo del corso sulla base dell'anno attuale
@@ -58,6 +45,15 @@ class Corso extends GeoEntita {
         return $progressivo;
     }
 
+    public function postiLiberi()
+    {
+        return rand(1, 1000000)+1000000;
+    }
+
+    public function puoPartecipare(Object $me)
+    {
+        return true;
+    }
     /*
     public function area()
     {
@@ -69,10 +65,6 @@ class Corso extends GeoEntita {
         return Volontario::id(3);
     }
     
-    public function postiLiberi()
-    {
-        return 20;
-    }
     
     public function filtraPerDati($tipologie, $province)
     {
@@ -237,6 +229,28 @@ class Corso extends GeoEntita {
     public function direttore() {
         if ($this->direttore) {
             return Volontario::id($this->direttore);    
+        }
+        return null;
+    }
+
+    /**
+     * Restituisce il referente di un corso
+     * @return Volontario 
+     */
+    public function referente() {
+        if ($this->referente) {
+            return Volontario::id($this->referente);    
+        }
+        return null;
+    }
+
+    /**
+     * Restituisce il area di un corso
+     * @return Volontario 
+     */
+    public function area() {
+        if ($this->area) {
+            return Area::id($this->area);    
         }
         return null;
     }
