@@ -61,7 +61,8 @@ class Gruppo extends Entita {
             $this->referente()->id == $id
             or $utente->admin()
             or contiene($this, $utente->gruppiDiCompetenza())
-            ); 
+            or $this->comitato()->modificabileDa($utente)
+        ); 
     }
     
     public function attivita() {
