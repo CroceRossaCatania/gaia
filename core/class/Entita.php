@@ -444,8 +444,7 @@ abstract class Entita {
             }
 
             /* Proprietà collegata */
-            $q = $this->db->prepare("
-                SELECT valore FROM ". static::$_dt ." WHERE id = :id AND nome = :nome");
+            $q = $this->db->prepare("SELECT valore FROM ". static::$_dt ." WHERE id = :id AND nome = :nome");
             $q->bindParam(':id', $this->id);
             $q->bindParam(':nome', $_nome);
             $q->execute();

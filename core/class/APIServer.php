@@ -293,26 +293,26 @@ class APIServer {
      */
     private function api_corsi() {
         /*TODO*/
-        
+ 
+        print "/*";
+        print_r($this->par);
+        print "*/";
         global $conf;
         //$inizio = DT::daISO($this->par['inizio']);
-        $inizio = DT::daISO("2015-05-08");
-        $fine   = DT::daISO($this->par['fine']);
-        
-        $corsi = Corso::elenco();
-        
-        
+        $filter = $this->par;
+        $corsi = Corso::ricerca($filter);
         $list = array();
         foreach  ( $corsi as $corso ) {
-            date_add($inizio, date_interval_create_from_date_string('1 days'));
-  
-             $tmp = [
+            $inizio = DT::daTimestamp($corso->inizio);
+            $fine   = DT::daTimestamp($corso->tEsame);
+            
+            $tmp = [
                 'corso'         =>  [
                     'id'        =>  $corso->id,
                     'nome'      =>  $corso->luogo,
                 ], 
-                'inizio'        =>  $inizio->toJSON(),      // inizio
-                'fine'          =>  $inizio->toJSON(),      // tEsame
+                'inizio'        =>  $inizio->toJSON(),
+                'fine'          =>  $fine->toJSON(),
                 'type'          =>  $types_value[$i%3],
                 'provincia'     =>  $province_value[$i%3],
                 'latitude'      =>  $latitude_value[$i%3],

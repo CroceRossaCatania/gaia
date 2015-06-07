@@ -14,21 +14,19 @@ class Corso extends GeoEntita {
 
     use EntitaCache;
 
-    /**
+    /*
+    public function __construct($tmp) 
+    {
+        $this->tmp = $tmp;
+        
+        $this->titolo = 'Corso BLSD FULL MOCK' . ' - Formazione CRI su Gaia';
+        $this->descrizione = 'Ravenna' . ' || Aperto a: ' . 'BLABLABLA'.' || Organizzato da ' . 'Marco Radossi';
+        $this->luogo = 'Ravenna';
+        $this->timestamp = date("t");
+        $this->comitato = 'Comitato:'.$tmp;
+    }
      * 
-
-    SELECT *, st_distance(geo, POINT(44.40402,12.1993)) AS distance FROM corsi 
-    WHERE
-	1 
-	AND (ST_Distance(geo, POINT(?, ?))) < 20 
-	AND certificato = ?
-    AND provincia = ?
-
      */
-    
-    
-    
-
     
     /**
      * Genera il codice numerico progressivo del corso sulla base dell'anno attuale
@@ -45,15 +43,6 @@ class Corso extends GeoEntita {
         return $progressivo;
     }
 
-    public function postiLiberi()
-    {
-        return rand(1, 1000000)+1000000;
-    }
-
-    public function puoPartecipare(Object $me)
-    {
-        return true;
-    }
     /*
     public function area()
     {
@@ -65,6 +54,10 @@ class Corso extends GeoEntita {
         return Volontario::id(3);
     }
     
+    public function postiLiberi()
+    {
+        return 20;
+    }
     
     public function filtraPerDati($tipologie, $province)
     {
@@ -229,28 +222,6 @@ class Corso extends GeoEntita {
     public function direttore() {
         if ($this->direttore) {
             return Volontario::id($this->direttore);    
-        }
-        return null;
-    }
-
-    /**
-     * Restituisce il referente di un corso
-     * @return Volontario 
-     */
-    public function referente() {
-        if ($this->referente) {
-            return Volontario::id($this->referente);    
-        }
-        return null;
-    }
-
-    /**
-     * Restituisce il area di un corso
-     * @return Volontario 
-     */
-    public function area() {
-        if ($this->area) {
-            return Area::id($this->area);    
         }
         return null;
     }
@@ -532,6 +503,66 @@ class Corso extends GeoEntita {
         }else{
             return null;
         }
+    }
+    
+    
+    /**
+     * Cerca oggetti con le corrispondenze specificate
+     *
+     * @param array $_array     La query associativa di ricerca tipo, provincia, dataInizio,dataFine, geo
+     * @param string $_order    Ordine espresso come SQL
+     * @return array            Array di oggetti
+     */
+    public static function ricerca($_array, $_order = null) {
+        global $db, $conf, $cache;
+
+        if ( false && $cache && static::$_versione == -1 ) {
+            static::_caricaVersione();            
+        }
+
+        if ( $_order ) {
+            $_order = 'ORDER BY ' . $_order;
+        }
+
+        $where = "";
+        $where .= " inizio > ? AND tEsame < ?";
+        if (!empty($_array["type"])){
+            $where .= " AND type IN ?";
+        }
+        if (!empty($_array["provincia"])){
+            $where .= " AND provincia IN ?";
+        }
+        if (!empty($_array["coords"])){
+            $where .= " AND geo IN ?";
+        }
+
+        /*
+         * Controlla se la query è già in cache
+         */
+        $hash = null;
+        if ( false && $cache && static::$_cacheable ) {
+            $hash = md5($query);
+            $r = static::_ottieniQuery($hash);
+            if ( $r !== false  ) {
+                $cache->incr( chiave('__re') );
+                return $r;
+            }
+        }
+        print $query;
+        $q = $db->prepare($query);
+        $q->execute();
+        $t = $c = [];
+        while ( $r = $q->fetch(PDO::FETCH_ASSOC) ) {
+            $t[] = new Corso($r['id'], $r);
+            if ( false )
+                $c[] = $r;
+        }
+        
+        if ( false && $cache && static::$_cacheable ) {
+            static::_cacheQuery($hash, $c);
+        }
+        
+        return $t;
     }
 
 }
