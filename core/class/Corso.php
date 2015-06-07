@@ -526,11 +526,11 @@ class Corso extends GeoEntita {
         }
 
         $where = "WHERE 1";
-        if (!empty($_array["inizio"]) && false){
-            $where .= " DATE_FORMAT(FROM_UNIXTIME(inizio), '%Y-%m-%d') > STR_TO_DATE(:inizio, '%Y-%m-%d') ";
+        if (!empty($_array["inizio"])){
+            $where .= " AND DATE_FORMAT(FROM_UNIXTIME(inizio), '%Y-%m-%d') > STR_TO_DATE(:inizio, '%Y-%m-%d') ";
         }
         
-        if (!empty($_array["fine"]) && false){
+        if (!empty($_array["fine"])){
             $where .= " AND DATE_FORMAT(FROM_UNIXTIME(tEsame), '%Y-%m-%d') < STR_TO_DATE(:fine, '%Y-%m-%d')";
         }
         
@@ -550,15 +550,15 @@ class Corso extends GeoEntita {
             $where .= " AND provincia IN ($provArray)";
         }
         
-        if (!empty($_array["coords"]) && false){
+        if (!empty($_array["coords"]->latitude) && !empty($_array["coords"]->longitude)){
             $where .= " AND st_distance(point(:long, :lat), geo) < 50";
         }
 
-        $query = "SELECT * FROM ". static::$_t . " $where $_order";   
+        $sql = "SELECT * FROM ". static::$_t . " $where $_order";   
 
         $hash = null;
         if ( false && $cache && static::$_cacheable ) {
-            $hash = md5($query);
+            $hash = md5($sql);
             $r = static::_ottieniQuery($hash);
             if ( $r !== false  ) {
                 $cache->incr( chiave('__re') );
@@ -566,46 +566,47 @@ class Corso extends GeoEntita {
             }
         }
 
-        $q = $db->prepare($query);
-        if (!empty($_array["inizio"]) && false){
-            $q->bindParam(":inizio", $_array["inizio"], PDO::PARAM_STR) ;
+        $query = $db->prepare($sql);
+        if (!empty($_array["inizio"])){
+            $query->bindParam(":inizio", $_array["inizio"], PDO::PARAM_STR) ;
         }
         
-        if (!empty($_array["fine"]) && false){
-            $q->bindParam(":fine", $_array["fine"], PDO::PARAM_STR);
+        if (!empty($_array["fine"])){
+            $query->bindParam(":fine", $_array["fine"], PDO::PARAM_STR);
         }
         
         if (!empty($_array["type"])){
             foreach($_array["type"] as $i => $tmp){
-                $q->bindParam(":type_".$i, $tmp);
+                $query->bindParam(":type_".$i, $tmp);
             }
         }
         
         if (!empty($_array["provincia"])){
             foreach($_array["provincia"] as $i => $tmp){
-                $q->bindParam(":prov_".$i, $tmp);
+                $query->bindParam(":prov_".$i, $tmp);
             }
         }
         
-        if (!empty($_array["coords"])){
-            $q->bindParam(":long", $_array["coords"]->longitude);
-            $q->bindParam(":lat", $_array["coords"]->latitude);
+        if (!empty($_array["coords"]->latitude) && !empty($_array["coords"]->longitude)){
+            $query->bindParam(":long", $_array["coords"]->longitude);
+            $query->bindParam(":lat", $_array["coords"]->latitude);
         }
 
         $list = array();
-        $q->execute();
-        //print $query;
-        while ($row = $q->fetch(PDO::FETCH_NUM)) {
-            //print_r($row);
-            $tmp = new Corso($row['id'], $row);
-            array_push($list, $tmp); 
+        $query->execute();
+        
+        $t = $c = [];
+        while ( $r = $query->fetch(PDO::FETCH_ASSOC) ) {
+            $t[] = new Corso($r['id'], $r);
+            if ( false )
+                $c[] = $r;
         }
-
+        
         if ( false && $cache && static::$_cacheable ) {
             static::_cacheQuery($hash, $c);
         }
-        
-        return $list;
+         
+        return $t;
     }
 
 }
