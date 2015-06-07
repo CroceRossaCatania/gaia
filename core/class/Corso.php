@@ -513,7 +513,7 @@ class Corso extends GeoEntita {
      * @param string $_order    Ordine espresso come SQL
      * @return array            Array di oggetti
      */
-    /*
+
     public static function ricerca($_array, $_order = null) {
         global $db, $conf, $cache;
 
@@ -525,18 +525,36 @@ class Corso extends GeoEntita {
             $_order = 'ORDER BY ' . $_order;
         }
 
-        $where = "";
-        $where .= " inizio > ? AND tEsame < ?";
+        $where = "WHERE 1";
+        if (!empty($_array["inizio"]) && false){
+            $where .= " DATE_FORMAT(FROM_UNIXTIME(inizio), '%Y-%m-%d') > STR_TO_DATE(:inizio, '%Y-%m-%d') ";
+        }
+        
+        if (!empty($_array["fine"]) && false){
+            $where .= " AND DATE_FORMAT(FROM_UNIXTIME(tEsame), '%Y-%m-%d') < STR_TO_DATE(:fine, '%Y-%m-%d')";
+        }
+        
         if (!empty($_array["type"])){
-            $where .= " AND type IN ?";
+            $typeArray = implode(',', array_fill(0, count($_array["type"]), ':type'));
+            foreach($typeArray as $i => $tmp){
+                $tmp = $tmp."_".$i;
+            }
+            $where .= " AND type IN ($typeArray)";
         }
+        
         if (!empty($_array["provincia"])){
-            $where .= " AND provincia IN ?";
+            $provArray = implode(',', array_fill(0, count($_array["provincia"]), ':prov'));
+            foreach($provArray as $i => $tmp){
+                $tmp = $tmp."_".$i;
+            }
+            $where .= " AND provincia IN ($provArray)";
         }
-        if (!empty($_array["coords"])){
-            $where .= " AND geo IN ?";
+        
+        if (!empty($_array["coords"]) && false){
+            $where .= " AND st_distance(point(:long, :lat), geo) < 50";
         }
 
+        $query = "SELECT * FROM ". static::$_t . " $where $_order";   
 
         $hash = null;
         if ( false && $cache && static::$_cacheable ) {
@@ -547,21 +565,47 @@ class Corso extends GeoEntita {
                 return $r;
             }
         }
-        print $query;
+
         $q = $db->prepare($query);
-        $q->execute();
-        $t = $c = [];
-        while ( $r = $q->fetch(PDO::FETCH_ASSOC) ) {
-            $t[] = new Corso($r['id'], $r);
-            if ( false )
-                $c[] = $r;
+        if (!empty($_array["inizio"]) && false){
+            $q->bindParam(":inizio", $_array["inizio"], PDO::PARAM_STR) ;
         }
         
+        if (!empty($_array["fine"]) && false){
+            $q->bindParam(":fine", $_array["fine"], PDO::PARAM_STR);
+        }
+        
+        if (!empty($_array["type"])){
+            foreach($_array["type"] as $i => $tmp){
+                $q->bindParam(":type_".$i, $tmp);
+            }
+        }
+        
+        if (!empty($_array["provincia"])){
+            foreach($_array["provincia"] as $i => $tmp){
+                $q->bindParam(":prov_".$i, $tmp);
+            }
+        }
+        
+        if (!empty($_array["coords"])){
+            $q->bindParam(":long", $_array["coords"]->longitude);
+            $q->bindParam(":lat", $_array["coords"]->latitude);
+        }
+
+        $list = array();
+        $q->execute();
+        //print $query;
+        while ($row = $q->fetch(PDO::FETCH_NUM)) {
+            //print_r($row);
+            $tmp = new Corso($row['id'], $row);
+            array_push($list, $tmp); 
+        }
+
         if ( false && $cache && static::$_cacheable ) {
             static::_cacheQuery($hash, $c);
         }
         
-        return $t;
+        return $list;
     }
-    */
+
 }

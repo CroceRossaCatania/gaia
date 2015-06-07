@@ -295,8 +295,8 @@ class APIServer {
         /*TODO*/
         global $conf;
 
-        //$filter = $this->par;
-        $corsi = Corso::elenco();
+        $filter = $this->par;
+        $corsi = Corso::ricerca($filter);
         $list = array();
         foreach  ( $corsi as $corso ) {
             $inizio = DT::daTimestamp($corso->inizio);
