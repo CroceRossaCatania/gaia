@@ -5,17 +5,21 @@
  */
 
 class Utility {
-    
+
+    /**
+     * Creo un array con valori unici in base ad un attributo dei 
+     * dati extra dei corsi
+     */
     public static function elencoByAttributoDiCorso($attributo) {
         global $db;
         $list = array();
-        
+
         $query = $db->prepare("
            SELECT DISTINCT valore FROM dettagliCorsi WHERE nome = :attributo
            WHERE valore != ''
                 ORDER BY valore ASC;
         ");
-       
+
         $query->bindParam(':attributo', $attributo);
         $query->execute();
         while ($row = $query->fetch(PDO::FETCH_NUM)) {
@@ -23,11 +27,15 @@ class Utility {
         }
         return $list;
     }
-    
+
+    /**
+     * Creo un array con valori unici in base ad un attributo dei 
+     * dati extra dei comitati
+     */
     public static function elencoByAttributoDiComitato($attributo) {
         global $db;
         $list = array();
-        
+
         $query = $db->prepare("
             SELECT DISTINCT valore
                 FROM (
@@ -38,7 +46,7 @@ class Utility {
             WHERE valore != ''
                 ORDER BY valore ASC;
             ");
-       
+
         $query->bindParam(':attributo', $attributo);
         $query->execute();
         while ($row = $query->fetch(PDO::FETCH_NUM)) {
@@ -47,13 +55,18 @@ class Utility {
         return $list;
     }
 
+    /**
+     * Prendo l'elenco delle province dai dati di dettaglio dei comitati
+     */
     public static function elencoProvincie() {
         $list = Utility::elencoByAttributoDiComitato("provincia");
         return $list;
     }
-    
-    
-     public static function elencoTipologieCorsi() {
+
+    /**
+     * Prendo l'elenco di tutti i tipi di corsi
+     */
+    public static function elencoTipologieCorsi() {
         $list = Utility::elencoByAttributoDiCorso("tipo");
         return $list;
     }
