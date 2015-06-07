@@ -30,9 +30,10 @@ $tipologie = Utility::elencoTipologieCorsi();
                     <div class="span6">
                         <label for="provincia">Comitato</label>
                         <select id="provincia" data-placeholder="Scegli una provincia..." id="cercaProvicia" class="chosen-select" style="width: 350px;" multiple="true">
-                            <?php /* foreach($province as $p) :?>
-                                <option value="<?php echo $p ?>"><?php echo $p ?></option>
-                            <?php endforeach; */ ?>
+                            <option></option>
+                            <?php  foreach($province as $tmp) :?>
+                                <option value="<?php echo $tmp ?>"><?php echo $tmp ?></option>
+                            <?php endforeach;   ?>
                         </select>
                     </div>
                     <div class="span6">
@@ -47,9 +48,10 @@ $tipologie = Utility::elencoTipologieCorsi();
 
                     <label for="type">Tipologia</label>
                     <select id="type" class="chosen-select" data-placeholder="Aggiungi un filtro..." style="width:350px;" multiple="true">
-                        <?php /* foreach($tipologie as $t) :?>
-                                <option value="<?php echo $t ?>"><?php echo $t ?></option>
-                            <?php endforeach; */ ?>
+                        <option></option>
+                        <?php foreach($tipologie as $t) :?>
+                            <option value="<?php echo $t ?>"><?php echo $t ?></option>
+                        <?php endforeach;  ?>
                     </select>
                 </div>
             </div>
