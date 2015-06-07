@@ -18,7 +18,7 @@
     
     function showPosition(position) {
         coordinates = {latitude: position.coords.latitude, longitude: position.coords.longitude};
-        console.log('coordinates', coordinates );
+        $('#geo_dati').html("("+position.coords.latitude+", "+position.coords.longitude+")");
         //console.log("Latitude: " + position.coords.latitude +", Longitude: " + position.coords.longitude);
         $('#calendario').fullCalendar('refetchEvents');
     }

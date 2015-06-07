@@ -1,80 +1,67 @@
 <?php
-
 /*
  * ©2014 Croce Rossa Italiana
  */
 
 $_titolo = "Calencario dei Corsi";
+
+$province = Utility::elencoProvincie();
+$tipologie = Utility::elencoTipologieCorsi();
 ?>
 
 
 
 <div class="row-fluid">
-    
+
     <div class="span8">
         <div class="row-fluid">
             <div class="span12">
                 <h2><i class="icon-calendar muted" id="icona-caricamento"></i>
-                Calendario delle attività</h2>
+                    Calendario delle attività</h2>
                 <hr />
             </div>
-            <hr />
         </div>
 
         <div class="row-fluid">
             <div class="span12">
                 <h4>Filtri</h4>
 
-                <div>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <label for="provincia">Comitato</label>
+                        <select id="provincia" data-placeholder="Scegli una provincia..." id="cercaProvicia" class="chosen-select" style="width: 350px;" multiple="true">
+                            <?php /* foreach($province as $p) :?>
+                                <option value="<?php echo $p ?>"><?php echo $p ?></option>
+                            <?php endforeach; */ ?>
+                        </select>
+                    </div>
+                    <div class="span6">
+                        <label for="findme">Usa la mia posizione</label>
+                        <a href="#" data-role="findme" class="btn" role="button">
+                            <i class="icon-map-marker icon-large"></i>&nbsp;Trovami
+                        </a>
+                        <span id="geo_dati"></span>
+                    </div>
+                </div>
+                <div class="row-fluid" style="margin-top: 25px">
+
                     <label for="type">Tipologia</label>
                     <select id="type" class="chosen-select" data-placeholder="Aggiungi un filtro..." style="width:350px;" multiple="true">
-                        <option value="flt1">Filtro 1</option>
-                        <option value="flt2">Filtro 2</option>
-                        <option value="flt3">Filtro 3</option>
-                        <option value="flt4">Filtro 4</option>
-                        <option value="flt5">Filtro 5</option>
+                        <?php /* foreach($tipologie as $t) :?>
+                                <option value="<?php echo $t ?>"><?php echo $t ?></option>
+                            <?php endforeach; */ ?>
                     </select>
-                </div>
-                <br/> <br/>
-                <div>
-                    <label for="provincia">Provincia</label>
-                    <select id="provincia" data-placeholder="Scegli una provincia..." required id="cercaProvicia" class="chosen-select" style="width: 350px;" multiple="true">
-                        <option value=""></option>
-                        <option value="United States">United States</option>
-                        <option value="United Kingdom">United Kingdom</option>
-                        <option value="Afghanistan">Afghanistan</option>
-                        <option value="Aland Islands">Aland Islands</option>
-                        <option value="Albania">Albania</option>
-                        <option value="Algeria">Algeria</option>
-                        <option value="American Samoa">American Samoa</option>
-                        <option value="Andorra">Andorra</option>
-                        <option value="Angola">Angola</option>
-                        <option value="Anguilla">Anguilla</option>
-                        <option value="Antarctica">Antarctica</option>
-                        <option value="Antigua and Barbuda">Antigua and Barbuda</option>
-                        <option value="Argentina">Argentina</option>
-                        <option value="Armenia">Armenia</option>
-                        <option value="Aruba">Aruba</option>
-                        <option value="Australia">Australia</option>
-                        <option value="Austria">Austria</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="findme">Trovami</label>
-                    <a href="#" data-role="findme" class="btn" role="button">
-                        <i class="icon-map-marker icon-large"></i>
-                    </a>
                 </div>
             </div>
         </div>
-        
-        <div class="row-fluid" id='calendario'></div>
+         <hr />
+        <div class="row-fluid" id="calendario" style="margin-top: 50px"></div>
     </div>
-    
-    
+
+
 
     <div class="span4" style="text-align: left">
-  
+
         <h4>Se hai i permessi</h4>
         <nav>
             <a class="btn btn-danger" href="?p=formazione.corsi.crea">
@@ -82,19 +69,19 @@ $_titolo = "Calencario dei Corsi";
                 Crea Corso
             </a>
         </nav>
-        
-        
+
+
         <ul>
             <li>
                 Richieste Pendenti.<br/>
                 viale 1<bR/>
             </li>
             <li>
-                   I tuoi Corsi
-                   <BR/>
-                   corso 1<br/>
-                   corso 2<br/>
-                   piazza 3<br/>
+                I tuoi Corsi
+                <BR/>
+                corso 1<br/>
+                corso 2<br/>
+                piazza 3<br/>
             </li>
         </ul>
     </div>

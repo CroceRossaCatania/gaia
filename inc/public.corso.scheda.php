@@ -15,9 +15,9 @@ ini_set('display_errors', true);
 $a = Corso::id($_GET['id']);
 
 $puoPartecipare = false;
-if ($a->postiLiberi() > 0 && $a->puoPartecipare($me)) {
+//if ($a->postiLiberi() > 0 && $a->puoPartecipare($me)) {
     $puoPartecipare = true;
-}
+//}
 $anonimo = false;
 if ($me instanceof Anonimo) {
     $anonimo = true;
@@ -146,7 +146,7 @@ $geoComitato = GeoPolitica::daOid($a->organizzatore);
         </div>
         <hr />
         <?php
-        $pl = $a->postiLiberi();
+        $pl = true;// $a->postiLiberi();
         if ($puoPartecipare && $pl) {
             ?>
             <div class="span12">

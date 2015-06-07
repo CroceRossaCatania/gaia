@@ -293,14 +293,10 @@ class APIServer {
      */
     private function api_corsi() {
         /*TODO*/
- 
-        print "/*";
-        print_r($this->par);
-        print "*/";
         global $conf;
-        //$inizio = DT::daISO($this->par['inizio']);
-        $filter = $this->par;
-        $corsi = Corso::ricerca($filter);
+
+        //$filter = $this->par;
+        $corsi = Corso::elenco();
         $list = array();
         foreach  ( $corsi as $corso ) {
             $inizio = DT::daTimestamp($corso->inizio);
@@ -324,75 +320,7 @@ class APIServer {
          
             array_push($list, $tmp);
         }
-        
-        /*
-        if(!empty($this->par['coords'])){
-            $this->par['coords'];
-            $coords = array();
-            array_push($coords, intval($this->par['coords']->latitude));
-        }
-        
-        if (!empty($this->par['type'])){
-            $types = $this->par['type'];
-            $coords = null;
-        }
-        if (!empty($this->par['provincia'])){
-            $province = $this->par['provincia'];
-            $coords = null;
-        }
-        
-        
-        $types_value = array("flt1","flt2","flt3");
-        $province_value = array("Algeria","Albania","Andorra");
-        $latitude_value = array("44.40419","30","40");
-        $longitude_value = array("12.19928","15","10");
-        
-        $list = array();
-        for($i=0; $i<10; $i++){
-            
-            date_add($inizio, date_interval_create_from_date_string('1 days'));
-            
-            $id = $i;
-            $tmp = [
-                'corso'         =>  [
-                    'id'        =>  $id,
-                    'nome'      =>  $type." ".$id
-                ], 
-                'inizio'        =>  $inizio->toJSON(),
-                'fine'          =>  $inizio->toJSON(),
-                'type'          =>  $types_value[$i%3],
-                'provincia'     =>  $province_value[$i%3],
-                'latitude'      =>  $latitude_value[$i%3],
-                'longitude'     =>  $longitude_value[$i%3],
-                'organizzatore' =>  "sss",
-                'colore'        =>  '#' . $colore,
-                'url'           =>  '/?p=public.corso.scheda&id=' . $id
-            ];
-            
-            $valid = true;
-            if (!empty($province) || !empty($types) || !empty($coords)){
-                
-                if (!empty($coords) && !in_array(intval($tmp["latitude"]), $coords)){
-                    $valid = false; 
-                }
-
-                if (!empty($types) && !in_array($tmp["type"], $types)){
-                    $valid = false; 
-                }
-                
-                if (!empty($types) && !in_array($tmp["type"], $types)){
-                    $valid = false; 
-                }
-            }
-
-            if ($valid){
-                array_push($list, $tmp);
-            }
-            
-        }
-         *   * 
-         */
-        
+  
         return [
             'corsi'  => $list
         ];

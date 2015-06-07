@@ -513,6 +513,7 @@ class Corso extends GeoEntita {
      * @param string $_order    Ordine espresso come SQL
      * @return array            Array di oggetti
      */
+    /*
     public static function ricerca($_array, $_order = null) {
         global $db, $conf, $cache;
 
@@ -536,9 +537,7 @@ class Corso extends GeoEntita {
             $where .= " AND geo IN ?";
         }
 
-        /*
-         * Controlla se la query è già in cache
-         */
+
         $hash = null;
         if ( false && $cache && static::$_cacheable ) {
             $hash = md5($query);
@@ -564,5 +563,5 @@ class Corso extends GeoEntita {
         
         return $t;
     }
-
+    */
 }
