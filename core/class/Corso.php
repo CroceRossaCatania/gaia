@@ -2,7 +2,6 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
-
 /**
  * Rappresenta un Corso.
  */
@@ -10,6 +9,7 @@ class Corso extends GeoEntita {
 
     protected static
         $_t  = 'corsi',
+        $_view  = 'corsi_province',
         $_dt = 'dettagliCorsi';
 
     use EntitaCache;
@@ -505,6 +505,21 @@ class Corso extends GeoEntita {
         }
     }
     
+    /**
+     * Creo un array con valori unici in base ad un attributo dei 
+     * dati extra dei corsi
+     */
+    public static function getAllCertificati() {
+        global $db;
+        $list = array();
+
+        $query = $db->prepare("SELECT DISTINCT certificato FROM corsi ORDER BY certificato ASC");
+        $query->execute();
+        while ($row = $query->fetch(PDO::FETCH_NUM)) {
+            array_push($list, $row[0]);
+        }
+        return $list;
+    }
     
     /**
      * Cerca oggetti con le corrispondenze specificate
@@ -535,26 +550,26 @@ class Corso extends GeoEntita {
         }
         
         if (!empty($_array["type"])){
-            $typeArray = implode(',', array_fill(0, count($_array["type"]), ':type'));
-            foreach($typeArray as $i => $tmp){
-                $tmp = $tmp."_".$i;
+            $typeArray = array_fill(0, count($_array["type"]), ':type');
+            foreach($typeArray as $i => &$type_tmp){
+                $type_tmp = $type_tmp."_".$i;
             }
-            $where .= " AND type IN ($typeArray)";
+            $where .= " AND certificato IN (".implode(',', $typeArray).")";
         }
         
         if (!empty($_array["provincia"])){
-            $provArray = implode(',', array_fill(0, count($_array["provincia"]), ':prov'));
-            foreach($provArray as $i => $tmp){
-                $tmp = $tmp."_".$i;
+            $provArray = array_fill(0, count($_array["provincia"]), ':prov');
+            foreach($provArray as $i => &$prov_tmp){
+                $prov_tmp = $prov_tmp."_".$i;
             }
-            $where .= " AND provincia IN ($provArray)";
+            $where .= " AND provincia IN (".implode(',', $provArray).")";
         }
         
         if (!empty($_array["coords"]->latitude) && !empty($_array["coords"]->longitude)){
             $where .= " AND st_distance(point(:long, :lat), geo) < 50";
         }
 
-        $sql = "SELECT * FROM ". static::$_t . " $where $_order";   
+        $sql = "SELECT * FROM ". static::$_view . " $where $_order";   
 
         $hash = null;
         if ( false && $cache && static::$_cacheable ) {
@@ -571,19 +586,20 @@ class Corso extends GeoEntita {
             $query->bindParam(":inizio", $_array["inizio"], PDO::PARAM_STR) ;
         }
         
+        
         if (!empty($_array["fine"])){
             $query->bindParam(":fine", $_array["fine"], PDO::PARAM_STR);
         }
         
         if (!empty($_array["type"])){
-            foreach($_array["type"] as $i => $tmp){
-                $query->bindParam(":type_".$i, $tmp);
+            foreach($_array["type"] as $j => $t_tmp){
+                $query->bindParam(":type_".$j, $t_tmp);
             }
         }
         
         if (!empty($_array["provincia"])){
-            foreach($_array["provincia"] as $i => $tmp){
-                $query->bindParam(":prov_".$i, $tmp);
+            foreach($_array["provincia"] as $i => $p_tmp){
+                $query->bindParam(":prov_".$i, $p_tmp);
             }
         }
         
@@ -592,14 +608,14 @@ class Corso extends GeoEntita {
             $query->bindParam(":lat", $_array["coords"]->latitude);
         }
 
-        $list = array();
         $query->execute();
         
         $t = $c = [];
         while ( $r = $query->fetch(PDO::FETCH_ASSOC) ) {
             $t[] = new Corso($r['id'], $r);
-            if ( false )
+            if ( false ){
                 $c[] = $r;
+            }
         }
         
         if ( false && $cache && static::$_cacheable ) {

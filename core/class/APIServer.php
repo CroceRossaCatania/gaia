@@ -297,10 +297,11 @@ class APIServer {
 
         $filter = $this->par;
         $corsi = Corso::ricerca($filter);
+        
         $list = array();
         foreach  ( $corsi as $corso ) {
             $inizio = DT::daTimestamp($corso->inizio);
-            $fine   = DT::daTimestamp($corso->tEsame);
+            $fine   = DT::daTimestamp($corso->inizio);
             
             $tmp = [
                 'corso'         =>  [
@@ -309,8 +310,8 @@ class APIServer {
                 ], 
                 'inizio'        =>  $inizio->toJSON(),
                 'fine'          =>  $fine->toJSON(),
-                'type'          =>  $types_value[$i%3],
-                'provincia'     =>  $province_value[$i%3],
+                'type'          =>  $corso->certificato,
+                'provincia'     =>  $corso->provincia,
                 'latitude'      =>  $latitude_value[$i%3],
                 'longitude'     =>  $longitude_value[$i%3],
                 'organizzatore' =>  $corso->organizzatore,

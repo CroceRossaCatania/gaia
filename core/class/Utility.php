@@ -6,6 +6,7 @@
 
 class Utility {
 
+    
     /**
      * Creo un array con valori unici in base ad un attributo dei 
      * dati extra dei corsi
@@ -15,9 +16,7 @@ class Utility {
         $list = array();
 
         $query = $db->prepare("
-           SELECT DISTINCT valore FROM dettagliCorsi WHERE nome = :attributo
-           WHERE valore != ''
-                ORDER BY valore ASC;
+           SELECT DISTINCT valore FROM dettagliCorsi WHERE nome = :attributo WHERE valore != '' ORDER BY valore ASC
         ");
 
         $query->bindParam(':attributo', $attributo);
@@ -60,14 +59,6 @@ class Utility {
      */
     public static function elencoProvincie() {
         $list = Utility::elencoByAttributoDiComitato("provincia");
-        return $list;
-    }
-
-    /**
-     * Prendo l'elenco di tutti i tipi di corsi
-     */
-    public static function elencoTipologieCorsi() {
-        $list = Utility::elencoByAttributoDiCorso("tipo");
         return $list;
     }
 

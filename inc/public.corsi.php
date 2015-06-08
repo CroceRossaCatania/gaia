@@ -2,11 +2,10 @@
 /*
  * ©2014 Croce Rossa Italiana
  */
-
 $_titolo = "Calencario dei Corsi";
 
 $province = Utility::elencoProvincie();
-$tipologie = Utility::elencoTipologieCorsi();
+$tipologie = Corso::getAllCertificati();
 ?>
 
 

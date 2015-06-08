@@ -15,6 +15,8 @@ $(document).ready(function () {
             coordinates = {latitude: position.coords.latitude, longitude: position.coords.longitude};
             $('#geo_dati').html("(" + position.coords.latitude + ", " + position.coords.longitude + ")");
             //console.log("Latitude: " + position.coords.latitude +", Longitude: " + position.coords.longitude);
+            
+            $('#calendario').fullCalendar('removeEvents');
             $('#calendario').fullCalendar('refetchEvents');
         }
 
@@ -92,6 +94,7 @@ $(document).ready(function () {
     $('#type').change(function (evt) {
         evt.preventDefault();
         //updateEvents();
+        $('#calendario').fullCalendar('removeEvents');
         $('#calendario').fullCalendar('refetchEvents');
         return false;
     });
@@ -99,6 +102,7 @@ $(document).ready(function () {
     $('#provincia').change(function (evt) {
         evt.preventDefault();
         //updateEvents();
+        $('#calendario').fullCalendar('removeEvents');
         $('#calendario').fullCalendar('refetchEvents');
         return false;
     });
