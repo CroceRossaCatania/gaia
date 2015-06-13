@@ -1218,6 +1218,16 @@ class Utente extends Persona {
         return $r;
     }
     
+
+    /**
+     * Restituisce l'elenco delle tipologie di corsi che posso creare
+     * @return elenco delle tipologie di corsi
+     */
+    public function corsiTipologie() {
+        return CorsoTipo::filtra([]);
+    }
+    
+    
     public function cellulare() {
         if($this->cellulareServizio){
             return $this->cellulareServizio;

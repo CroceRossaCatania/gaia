@@ -5,7 +5,9 @@
 $_titolo = "Calencario dei Corsi";
 
 $province = Utility::elencoProvincie();
-$tipologie = Corso::getAllCertificati();
+//$tipologie = Corso::getAllCertificati();
+$tipologie = Certificato::elenco();
+
 ?>
 
 
@@ -49,7 +51,7 @@ $tipologie = Corso::getAllCertificati();
                     <select id="type" class="chosen-select" data-placeholder="Aggiungi un filtro..." style="width:350px;" multiple="true">
                         <option></option>
                         <?php foreach($tipologie as $t) :?>
-                            <option value="<?php echo $t ?>"><?php echo $t ?></option>
+                            <option value="<?php echo $t->id ?>"><?php echo $t->nome ?></option>
                         <?php endforeach;  ?>
                     </select>
                 </div>

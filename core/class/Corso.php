@@ -512,13 +512,16 @@ class Corso extends GeoEntita {
     public static function getAllCertificati() {
         global $db;
         $list = array();
-
+        
+        return Certificato::elenco();
+/*
         $query = $db->prepare("SELECT DISTINCT certificato FROM corsi ORDER BY certificato ASC");
         $query->execute();
         while ($row = $query->fetch(PDO::FETCH_NUM)) {
             array_push($list, $row[0]);
         }
         return $list;
+*/
     }
     
     /**
