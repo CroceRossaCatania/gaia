@@ -60,30 +60,4 @@ $tipologie = Corso::getAllCertificati();
     </div>
 
 
-
-    <div class="span4" style="text-align: left">
-
-        <h4>Se hai i permessi</h4>
-        <nav>
-            <a class="btn btn-danger" href="?p=formazione.corsi.crea">
-                <i class="icon-plus-sign-alt icon-large"></i>&nbsp;
-                Crea Corso
-            </a>
-        </nav>
-
-
-        <ul>
-            <li>
-                Richieste Pendenti.<br/>
-                viale 1<bR/>
-            </li>
-            <li>
-                I tuoi Corsi
-                <BR/>
-                corso 1<br/>
-                corso 2<br/>
-                piazza 3<br/>
-            </li>
-        </ul>
-    </div>
 </div>
