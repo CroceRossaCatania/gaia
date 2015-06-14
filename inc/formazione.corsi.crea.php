@@ -2,13 +2,17 @@
 /*
  * ©2014 Croce Rossa Italiana
  */
-$_titolo = "Calencario dei Corsi";
+paginaPrivata();
+caricaSelettore();
+
+$tipologie = Certificato::elenco();
+
 ?>
 
 <div class="row-fluid">
 
     <div class="span8">
-        <h2><i class="icon-plus-square icon-calendar muted"></i> Competenze personali</h2>
+        <h2><i class="icon-plus-square icon-calendar muted"></i> Corso di formazione</h2>
         <form action="?p=formazione.corsi.crea.ok" method="POST">
             <input value="1" name="idTitolo" id="idTitolo" type="hidden">
             <div class="alert alert-block alert-success">
@@ -22,18 +26,18 @@ $_titolo = "Calencario dei Corsi";
                     </div>
                     <div class="span8">
                         <select>
-                            <option>tipologia</option>
+                            <?php foreach ($tipologie as $t) { ?>
+                                <option><?php echo $t->nome ?></option>
+                            <?php } ?>
                         </select>
                     </div>
                 </div>
                 <div class="row-fluid">
                     <div class="span4">
-                        <label for="tipologia"><i class="icon-building"></i> Sede</label>
+                        <label for="tipologia"><i class="icon-building"></i> Luogo</label>
                     </div>
                     <div class="span8">
-                        <select>
-                            <option>tipologia</option>
-                        </select>
+                        <input id="luogo" class="span12" name="luogo" value="" type="text">
                     </div>
                 </div>
                 <div class="row-fluid">
@@ -57,9 +61,13 @@ $_titolo = "Calencario dei Corsi";
                         <label for="dataFine"><i class="icon-user-md"></i> Direttore</label>
                     </div>
                     <div class="span8">
-                        <select>
-                            <option>tipologia</option>
-                        </select>
+                        <a data-selettore="true" 
+                           data-input="inputDirettore" 
+                           data-autosubmit="true" 
+                           data-comitati="<?php echo $corso->organizzatore; ?>"
+                           class="btn btn-block btn-large">
+                            Seleziona un direttore... <i class="icon-pencil"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="row-fluid">
@@ -67,9 +75,13 @@ $_titolo = "Calencario dei Corsi";
                         <label for="dataFine"><i class="icon-user"></i> Istruttori</label>
                     </div>
                     <div class="span8">
-                        <select class="chosen-select">
-                            <option>tipologia</option>
-                        </select>
+                        <a data-selettore="true" 
+                           data-input="inputDirettore" 
+                           data-autosubmit="true" 
+                           data-comitati="<?php echo $corso->istruttori; ?>"
+                           class="btn btn-block btn-large">
+                            Aggiungi un istruttore... <i class="icon-pencil"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="row-fluid">
@@ -77,9 +89,13 @@ $_titolo = "Calencario dei Corsi";
                         <label for="dataFine"><i class="icon-user"></i> Istruttori aiuto</label>
                     </div>
                     <div class="span8">
-                        <select class="chosen-select">
-                            <option>tipologia</option>
-                        </select>
+                        <a data-selettore="true" 
+                           data-input="inputDirettore" 
+                           data-autosubmit="true" 
+                           data-comitati="<?php echo $corso->istruttoriAiuto; ?>"
+                           class="btn btn-block btn-large">
+                            Aggiungi un istruttore... <i class="icon-pencil"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="row-fluid">
