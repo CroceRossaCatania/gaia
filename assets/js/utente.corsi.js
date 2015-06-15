@@ -58,7 +58,8 @@ $(document).ready(function () {
             fine: end,
             type: $('#type').val(),
             provincia: $('#provincia').val(),
-            coords: coordinates
+            coords: coordinates,
+            target: 'my'
         }, function (risposta) {
 
             var response = risposta.risposta.corsi;
