@@ -227,6 +227,25 @@ class Corso extends GeoEntita {
     }
 
     /**
+     * Restituisce il direttore di un corso
+     * @return Volontario 
+     */
+    public function referente() {
+        if ($this->referente) {
+            return Volontario::id($this->referente);    
+        }
+        return null;
+    }
+
+    /**
+     * Restituisce l'area di un corso
+     * @return Area 
+     */
+    public function area() {
+        return Area::id($this->area);
+    }
+    
+    /**
      * Restituisce il progressivo del corso in questione, se
      * mancante lo genera
      * @return string|false 
@@ -544,11 +563,11 @@ class Corso extends GeoEntita {
         }
 
         $where = "WHERE 1";
-        if (!empty($_array["inizio"])){
+        if (!empty($_array["inizio"])) {
             $where .= " AND DATE_FORMAT(FROM_UNIXTIME(inizio), '%Y-%m-%d') > STR_TO_DATE(:inizio, '%Y-%m-%d') ";
         }
         
-        if (!empty($_array["fine"])){
+        if (!empty($_array["fine"])) {
             $where .= " AND DATE_FORMAT(FROM_UNIXTIME(tEsame), '%Y-%m-%d') < STR_TO_DATE(:fine, '%Y-%m-%d')";
         }
         
@@ -568,7 +587,7 @@ class Corso extends GeoEntita {
             $where .= " AND provincia IN (".implode(',', $provArray).")";
         }
         
-        if (!empty($_array["coords"]->latitude) && !empty($_array["coords"]->longitude)){
+        if (!empty($_array["coords"]->latitude) && !empty($_array["coords"]->longitude)) {
             $where .= " AND st_distance(point(:long, :lat), geo) < 50";
         }
 
@@ -585,28 +604,28 @@ class Corso extends GeoEntita {
         }
 
         $query = $db->prepare($sql);
-        if (!empty($_array["inizio"])){
+        if (!empty($_array["inizio"])) {
             $query->bindParam(":inizio", $_array["inizio"], PDO::PARAM_STR) ;
         }
         
         
-        if (!empty($_array["fine"])){
+        if (!empty($_array["fine"])) {
             $query->bindParam(":fine", $_array["fine"], PDO::PARAM_STR);
         }
         
-        if (!empty($_array["type"])){
+        if (!empty($_array["type"])) {
             foreach($_array["type"] as $j => $t_tmp){
                 $query->bindParam(":type_".$j, $t_tmp);
             }
         }
         
-        if (!empty($_array["provincia"])){
+        if (!empty($_array["provincia"])) {
             foreach($_array["provincia"] as $i => $p_tmp){
                 $query->bindParam(":prov_".$i, $p_tmp);
             }
         }
         
-        if (!empty($_array["coords"]->latitude) && !empty($_array["coords"]->longitude)){
+        if (!empty($_array["coords"]->latitude) && !empty($_array["coords"]->longitude)) {
             $query->bindParam(":long", $_array["coords"]->longitude);
             $query->bindParam(":lat", $_array["coords"]->latitude);
         }
