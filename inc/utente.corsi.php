@@ -26,7 +26,14 @@ paginaPrivata();
          <h2><i class="icon-calendar muted" id="icona-caricamento"></i>
             Calendario delle attività</h2>
 
-
+        <legend>
+            <ul>
+                <li>Discente - colore</li>
+                <li>Docente - colore</li>
+                <li>Istruttore - colore</li>
+                <li>Formatore - colore</li>
+            </ul>
+        </legend>
 
 
         <div class="row-fluid">
