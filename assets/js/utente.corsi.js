@@ -53,7 +53,7 @@ $(document).ready(function () {
 
         $("#icona-caricamento").removeClass('icon-calendar').addClass('icon-spinner').addClass('icon-spin');
 
-        api('corsi', {
+        api('miei_corsi', {
             inizio: start,
             fine: end,
             type: $('#type').val(),

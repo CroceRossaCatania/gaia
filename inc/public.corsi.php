@@ -14,7 +14,7 @@ $tipologie = Certificato::elenco();
 
 <div class="row-fluid">
 
-    <div class="span8">
+    <div class="span12">
         <div class="row-fluid">
             <div class="span12">
                 <h2><i class="icon-calendar muted" id="icona-caricamento"></i>

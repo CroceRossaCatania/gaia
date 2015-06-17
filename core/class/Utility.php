@@ -62,4 +62,18 @@ class Utility {
         return $list;
     }
 
+     /**
+     * Prendo l'elenco delle province dai dati di dettaglio dei comitati
+     */
+    public static function colorByRuolo($ruolo){
+        
+        switch (strtolower($ruolo)){
+
+            case 'docente': return '#ffff00';
+            case 'istruttore': return '#ff00ff';
+            case 'formatore': return '#00ffff';
+            default : return '#ffffff';
+        }
+        
+    }
 }

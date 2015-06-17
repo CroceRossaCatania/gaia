@@ -336,7 +336,8 @@ class APIServer {
         global $conf;
 
         $filter = $this->par;
-        $corsi = Corso::ricerca($filter);
+        $me = $this->richiediLogin();
+        $corsi = Corso::ricerca($filter, null, $me);
         
         $list = array();
         foreach  ( $corsi as $corso ) {
@@ -354,8 +355,9 @@ class APIServer {
                 'provincia'     =>  $corso->provincia,
                 'latitude'      =>  $latitude_value[$i%3],
                 'longitude'     =>  $longitude_value[$i%3],
+                'ruolo'         =>  $corso->ruolo,
                 'organizzatore' =>  $corso->organizzatore,
-                'colore'        =>  '#' . $colore,
+                'colore'        =>  Utility::colorByRuolo($corso->ruolo),
                 'url'           =>  '/?p=public.corso.scheda&id=' . $corso->id
             ];
          

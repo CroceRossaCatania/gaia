@@ -10,6 +10,11 @@ if (isset($_GET['t'])) {
 }
 $titoli = $conf['Corsi'][$t];
 
+$province = Utility::elencoProvincie();
+//$tipologie = Corso::getAllCertificati();
+$tipologie = Certificato::elenco();
+
+
 paginaPrivata();
 ?>
 <div class="row-fluid">
@@ -18,27 +23,14 @@ paginaPrivata();
     </div>
     <div class="span9">
 
-        <h2><i class="icon-beaker muted"></i> Titoli di Studio</h2>
+         <h2><i class="icon-calendar muted" id="icona-caricamento"></i>
+            Calendario delle attività</h2>
 
-        <select>
-            <option>Direttore</option>
-            <option>Docente</option>
-            <option>Discente</option>
-        </select>
+
 
 
         <div class="row-fluid">
 
-            <div class="span8">
-                <div class="row-fluid">
-                    <div class="span12">
-                        <h2><i class="icon-calendar muted" id="icona-caricamento"></i>
-                            Calendario delle attività</h2>
-                        <hr />
-                    </div>
-                </div>
-
-                <div class="row-fluid">
                     <div class="span12">
                         <h4>Filtri</h4>
 
@@ -71,11 +63,12 @@ paginaPrivata();
                             </select>
                         </div>
                     </div>
-                </div>
+       
                 <hr />
-                <div class="row-fluid" id="calendario" style="margin-top: 50px"></div>
+               
             </div>
 
+             <div class="row-fluid" id="calendario" style="margin-top: 50px"></div>
 
         </div>
 

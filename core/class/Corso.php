@@ -550,7 +550,7 @@ class Corso extends GeoEntita {
      * @return array            Array di oggetti
      */
 
-    public static function ricerca($_array, $_order = null) {
+    public static function ricerca($_array, $_order = null, Volontario $me = null) {
         global $db, $conf, $cache;
 
         if ( false && $cache && static::$_versione == -1 ) {
@@ -561,6 +561,8 @@ class Corso extends GeoEntita {
             $_order = 'ORDER BY ' . $_order;
         }
 
+        $select = " ";
+        $join = " ";
         $where = "WHERE 1";
         if (!empty($_array["inizio"])) {
             $where .= " AND DATE_FORMAT(FROM_UNIXTIME(inizio), '%Y-%m-%d') > STR_TO_DATE(:inizio, '%Y-%m-%d') ";
@@ -590,8 +592,15 @@ class Corso extends GeoEntita {
             $where .= " AND st_distance(point(:long, :lat), geo) < 50";
         }
 
-        $sql = "SELECT * FROM ". static::$_t. " $where $_order";   
-
+        if (!empty($me)){
+            $select = ", iscrizioni.ruolo ";
+            $join = " JOIN iscrizioni ON corsi.id = iscrizioni.corso ";
+            $where .= " AND iscrizioni.anagrafica = :me";
+        }
+        
+        $sql = "SELECT ".static::$_t.".* $select FROM ". static::$_t. "$join $where $_order";   
+       
+        
         $hash = null;
         if ( false && $cache && static::$_cacheable ) {
             $hash = md5($sql);
@@ -628,12 +637,17 @@ class Corso extends GeoEntita {
             $query->bindParam(":long", $_array["coords"]->longitude);
             $query->bindParam(":lat", $_array["coords"]->latitude);
         }
+        
+         if (!empty($me)){
+            $query->bindParam(":me", $me->id);
+        }
 
         $query->execute();
         
         $t = $c = [];
         while ( $r = $query->fetch(PDO::FETCH_ASSOC) ) {
-            $t[] = new Corso($r['id'], $r);
+            $tmp = new Corso($r['id'], $r);
+            $t[] = $tmp;
             if ( false ){
                 $c[] = $r;
             }
