@@ -9,7 +9,6 @@ class Corso extends GeoEntita {
 
     protected static
         $_t  = 'corsi',
-        $_view  = 'corsi_province',
         $_dt = 'dettagliCorsi';
 
     use EntitaCache;
@@ -572,7 +571,7 @@ class Corso extends GeoEntita {
             $where .= " AND st_distance(point(:long, :lat), geo) < 50";
         }
 
-        $sql = "SELECT * FROM ". static::$_view . " $where $_order";   
+        $sql = "SELECT * FROM ". static::$_t. " $where $_order";   
 
         $hash = null;
         if ( false && $cache && static::$_cacheable ) {
