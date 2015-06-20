@@ -542,6 +542,25 @@ class Corso extends GeoEntita {
 */
     }
     
+
+    /**
+     * Ottiene la GeoPolitica corrispondente alla Visibilita' del corso'
+     * es., se il corso e' visibile a livello provinciale, ottiene oggetto Provinciale corrispondente
+     * @return GeoPolitica
+     */
+    public function visibilita() {
+        global $conf;
+        $needle = $conf['est_corso2geopolitica'][(int) $this->visibilita];
+        $x = $this->comitato();
+        while ( $x::$_ESTENSIONE != $needle ) {
+            if ( $x instanceOf Nazionale ) {
+                throw new Errore();
+            }
+            $x = $x->superiore();
+        }
+        return $x;
+    }
+    
     /**
      * Cerca oggetti con le corrispondenze specificate
      *

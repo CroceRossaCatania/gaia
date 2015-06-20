@@ -910,6 +910,30 @@ $conf['est_attivita2geopolitica'] = [
     ATT_VIS_PUBBLICA    =>  EST_NAZIONALE     
 ];
 
+
+/*
+ * ===================================
+ * ====== CONVERSIONI ESTENSIONE =====
+ * ===================================
+ */
+
+$conf['est_geopolitica2corso'] = [
+    EST_UNITA       =>  COR_VIS_UNITA,
+    EST_LOCALE      =>  COR_VIS_LOCALE,
+    EST_PROVINCIALE =>  COR_VIS_PROVINCIALE,
+    EST_REGIONALE   =>  COR_VIS_REGIONALE,
+    EST_NAZIONALE   =>  COR_VIS_VOLONTARI     
+];
+
+$conf['est_corso2geopolitica'] = [
+    COR_VIS_UNITA       =>  EST_UNITA,
+    COR_VIS_LOCALE      =>  EST_LOCALE,
+    COR_VIS_PROVINCIALE =>  EST_PROVINCIALE,
+    COR_VIS_REGIONALE   =>  EST_REGIONALE,
+    COR_VIS_VOLONTARI   =>  EST_NAZIONALE,
+    COR_VIS_PUBBLICA    =>  EST_NAZIONALE     
+];
+
 /*
  * ===================================
  * =========== PROVVEDIMENTI =========
