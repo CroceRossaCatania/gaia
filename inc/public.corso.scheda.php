@@ -27,7 +27,7 @@ $geoComitato = GeoPolitica::daOid($a->organizzatore);
 
 $modificabile = $a->modificabileDa($me);
 if ($modificabile) {
-    $dominio = $me->dominioCompetenzaAttivita($a);
+    $dominio = $me->dominioCompetenzaCorso($a);
 }
 
 $files = array(

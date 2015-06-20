@@ -2023,6 +2023,7 @@ class Utente extends Persona {
         }
         return false;
     }
+    
 	/**
      * Ritorna il dominio di competenza massima nei confronti di un'attivita'
      *
@@ -2072,6 +2073,57 @@ class Utente extends Persona {
         // Il risultato e' il dominio comune tra la visibilita' dell'attivita'
         // ed il mio potere piu' grande...
         return $attivita->visibilita()->dominioComune($massimo);
+    } 
+    
+	/**
+     * Ritorna il dominio di competenza massima nei confronti di un corso'
+     *
+     * es. 1: se sono delegato area provinciale e l'attivita' e' locale, ottengo comitato locale
+     * es. 2: se non sono nulla, ritorno false
+     * es. 3: se sono referente deel corso, ritorno comitato organizzatore (NON estensione)
+     * @param Corso $corso        Il corso in questione
+     * @return GeoPolitica|bool(false)  Il dominio risultante o false se non ho superpoteri
+     */
+    public function dominioCompetenzaCorso(Attivita $corso) {
+        if ( !$corso->modificabileDa($this) ) {
+            return false;
+        }
+
+        $pool           = [];
+        $organizzatore  = $corso->organizzatore();
+
+        // Referente corso?
+        if ($corso->referente == $this->id) {
+            $pool[] = $organizzatore;
+        }
+
+        // Delegato d'area?
+        foreach ( $this->areeDiCompetenza() as $a ) {
+            $ac = $a->organizzatore();
+            if ( $ac->contiene($organizzatore) )
+                $pool[] = $ac;
+        }
+
+        // Comitati di competenza
+        foreach ( $this->comitatiDiCompetenza() as $a ) {
+            if ( $a->contiene($organizzatore) ) 
+                $pool[] = $a;
+        }
+
+        // Ottiene comitato piu' grande nel pool
+        $massimo = array_reduce($pool, function($a, $b) {
+            if ( $a === null )
+                return $b;
+            if ( $a::$_ESTENSIONE > $b::$_ESTENSIONE ) {
+                return $a;
+            } else {
+                return $b;
+            }
+        }, null);
+
+        // Il risultato e' il dominio comune tra la visibilita' del corso'
+        // ed il mio potere piu' grande...
+        return $corso->visibilita()->dominioComune($massimo);
     } 
 
 
