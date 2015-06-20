@@ -551,7 +551,7 @@ class Corso extends GeoEntita {
     public function visibilita() {
         global $conf;
         $needle = $conf['est_corso2geopolitica'][(int) $this->visibilita];
-        $x = $this->comitato();
+        $x = $this->organizzatore();
         while ( $x::$_ESTENSIONE != $needle ) {
             if ( $x instanceOf Nazionale ) {
                 throw new Errore();
