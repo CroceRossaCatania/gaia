@@ -72,7 +72,7 @@ class Utility {
             case 'docente': return '#ffff00';
             case 'istruttore': return '#ff00ff';
             case 'formatore': return '#00ffff';
-            default : return '#ffffff';
+            default : return '#cccccc';
         }
         
     }
