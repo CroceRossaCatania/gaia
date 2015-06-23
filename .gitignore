@@ -43,3 +43,6 @@ upload/setup/autopull
 
 # Mantieni i placeholder
 !upload/avatar/placeholder/
+
+# File di progetto IntelliJ
+.idea
