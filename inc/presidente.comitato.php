@@ -260,6 +260,26 @@ $(document).ready(function() {
                         <p><?php echo $c->cf(); ?></p>
                     </div>
                 </div>
+
+                <?php if ( $c instanceOf Locale ) { ?>
+                <hr />
+                <div class="row-fluid">
+                    <div class="span12">
+                        <h4>Obbligo pagamento quota per partecipazione alle attivit&agrave;</h4>
+                        <p>
+                            <a href="?p=presidente.comitato.obbligoQuota&oid=<?= $c->oid(); ?>&r=1">
+                                <i class="<?= $c->obbligoQuota ? "icon-check-sign" : "icon-check-empty"; ?>"></i> 
+                                <strong>S&igrave;</strong>, i volontari del Comitato, per partecipare alle attivit&agrave; organizzate nello stesso, devono avere una quota registrata.
+                            </a><br />
+                            <a href="?p=presidente.comitato.obbligoQuota&oid=<?= $c->oid(); ?>&r=0">
+                                <i class="<?= !$c->obbligoQuota ? "icon-check-sign" : "icon-check-empty"; ?>"></i> 
+                                <strong>No</strong>, i volontari del Comitato, per partecipare alle attivit&agrave; organizzate nello stesso, NON devono obbligatoriamente avere una quota registrata.
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <?php } ?>
+
                 
             </div>
 
