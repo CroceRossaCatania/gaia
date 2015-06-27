@@ -12,6 +12,7 @@ $id = $_GET['id'];
 $u = Utente::id($id);
 $hoPotere = $u->modificabileDa($me);
 $admin = $me->admin();
+$attivo = true;
 if ($u->stato == PERSONA) {
 	$attivo = false;
 }
