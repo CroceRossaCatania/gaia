@@ -793,6 +793,7 @@ class APIServer {
             'volontario'    =>  $r->utente()->toJSON(true),
             'regionale'     =>  $c
         ];
+    }
 
 	/**
      * Ricerca sedi donazioni per visibilita
