@@ -853,7 +853,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 		<h4><i class="icon-list muted"></i> Donazioni </h4>
 
 		<?php $anagrafica = DonazioneAnagrafica::filtra([['volontario',$u]]); ?>
-		<form class="form-horizontal" action="?p=presidente.donazione.anagrafica.ok&id=<?php echo $u->id; ?>" method="POST">
+		<form class="form-horizontal" action="?p=presidente.donazione.anagrafica&id=<?php echo $u->id; ?>" method="POST">
 			<div class="control-group">
 				<label class="control-label" for="inputSangueGruppo">Gruppo Sanguigno</label>
 				<div class="controls">
