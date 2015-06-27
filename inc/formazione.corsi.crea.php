@@ -3,7 +3,9 @@
  * ©2014 Croce Rossa Italiana
  */
 paginaPrivata();
-caricaSelettore();
+caricaSelettoreDirettore();
+caricaSelettoreIstruttore();
+caricaSelettoreComitato();
 
 $tipologie = Certificato::elenco();
 
@@ -58,13 +60,23 @@ $tipologie = Certificato::elenco();
                 </div>
                 <div class="row-fluid">
                     <div class="span4">
+                        <label for="dataFine"><i class="icon-user-md"></i> Comitato organizzatore</label>
+                    </div>
+                    <div class="span8">
+                        <a data-selettore-comitato="true" 
+                           data-input="inputOrganizzaatore" 
+                           class="btn btn-block btn-large">
+                            Seleziona un comitato organizzatore... <i class="icon-pencil"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span4">
                         <label for="dataFine"><i class="icon-user-md"></i> Direttore</label>
                     </div>
                     <div class="span8">
-                        <a data-selettore="true" 
+                        <a data-selettore-direttore="true" 
                            data-input="inputDirettore" 
-                           data-autosubmit="true" 
-                           data-comitati="<?php echo $corso->organizzatore; ?>"
                            class="btn btn-block btn-large">
                             Seleziona un direttore... <i class="icon-pencil"></i>
                         </a>
@@ -75,24 +87,9 @@ $tipologie = Certificato::elenco();
                         <label for="dataFine"><i class="icon-user"></i> Istruttori</label>
                     </div>
                     <div class="span8">
-                        <a data-selettore="true" 
-                           data-input="inputDirettore" 
-                           data-autosubmit="true" 
-                           data-comitati="<?php echo $corso->istruttori; ?>"
-                           class="btn btn-block btn-large">
-                            Aggiungi un istruttore... <i class="icon-pencil"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span4">
-                        <label for="dataFine"><i class="icon-user"></i> Istruttori aiuto</label>
-                    </div>
-                    <div class="span8">
-                        <a data-selettore="true" 
-                           data-input="inputDirettore" 
-                           data-autosubmit="true" 
-                           data-comitati="<?php echo $corso->istruttoriAiuto; ?>"
+                        <a data-selettore-istruttore="true" 
+                           data-input="inputIstruttori" 
+                           data-multi="true"
                            class="btn btn-block btn-large">
                             Aggiungi un istruttore... <i class="icon-pencil"></i>
                         </a>

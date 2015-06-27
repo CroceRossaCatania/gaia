@@ -53,6 +53,8 @@ $sessione->agent    = $_SERVER['HTTP_USER_AGENT'];
 /* Flag dei selettori */
 $_carica_selettore              = false;
 $_carica_selettore_comitato     = false;
+$_carica_selettore_istruttore     = false;
+$_carica_selettore_direttore     = false;
 
 /* Pagina da visualizzare */
 $p = $_GET['p'];
@@ -462,6 +464,14 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
                 <?php if ( $_carica_selettore_comitato ) {
                     include './inc/part/comitato.selettore.php';
+                } ?>
+
+                <?php if ( $_carica_selettore_direttore ) {
+                    include './inc/part/utente.direttore.selettore.php';
+                } ?>
+
+                <?php if ( $_carica_selettore_istruttore ) {
+                    include './inc/part/utente.istruttore.selettore.php';
                 } ?>
 
                 <?php if ( $me && $me->admin && !$me->admin() ) { ?>

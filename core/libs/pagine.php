@@ -208,6 +208,16 @@ function caricaSelettore() {
     $_carica_selettore = true;
 }
 
+function caricaSelettoreDirettore() {
+    global $_carica_selettore_direttore;
+    $_carica_selettore_direttore = true;
+}
+
+function caricaSelettoreIstruttore() {
+    global $_carica_selettore_istruttore;
+    $_carica_selettore_istruttore = true;
+}
+
 function caricaSelettoreComitato() {
     global $_carica_selettore_comitato;
     $_carica_selettore_comitato = true;
