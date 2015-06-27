@@ -116,16 +116,8 @@ $menu += [
         'utente.titoli&t=2' =>  '<i class="icon-ambulance"></i> Patenti CRI',
         'utente.titoli&t=3' =>  '<i class="icon-beaker"></i> Titoli di studio',
         'utente.titoli&t=4' =>  '<i class="icon-plus-sign-alt"></i> Titoli CRI'
-    ]];
-$menu += [
-	'Donazioni'     => [
-		'utente.donazioni&d=0' => '<i class="icon-beaker"></i> Sangue'
-	]];
-if ( $me->puoGestireDonazioni() ) {
-	$menu['Donazioni'] += [ 'donazioni.report' => '<i class="icon-copy"></i> Report' ];
-}
-$menu += [
-    'Statistiche'   => [
+    ],
+    'Statistiche' =>  [
         'utente.statistiche.volontari'     =>   '<i class="icon-puzzle-piece"></i> Volontari'
 //        'utente.statistiche.attivita'     =>   '<i class="icon-weibo"></i> Attività'
     ]

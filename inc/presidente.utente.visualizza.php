@@ -4,21 +4,21 @@
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI, APP_PRESIDENTE, APP_OBIETTIVO]);
+paginaApp([APP_SOCI, APP_PRESIDENTE]);
 
 controllaParametri(array('id'), 'presidente.utenti&errGen');
 
 $id = $_GET['id']; 
 $u = Utente::id($id);
 $hoPotere = $u->modificabileDa($me);
+$t = TitoloPersonale::filtra([['volontario',$u]]);
 $admin = $me->admin();
+$attivo = true;
 if ($u->stato == PERSONA) {
-	$attivo = false;
+  $attivo = false;
 }
-$t  = TitoloPersonale::filtra([['volontario', $u]]);
-$do = DonazionePersonale::filtra([['volontario', $u]]);
 
-//proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
+proteggiDatiSensibili($u, [APP_SOCI, APP_PRESIDENTE]);
 ?>
 <!--Visualizzazione e modifica anagrafica utente-->
 <div class="row-fluid">
@@ -783,8 +783,7 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
           </div>
         </div>
       </div>
-	</form>
-  </div> 
+    </div> 
 
     <table class="table table-striped">
       <?php foreach ( $t as $titolo ) { ?>
@@ -844,305 +843,4 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
       <?php } ?>
     </table>
   </div>
-
-
-	<!--Visualizzazione e modifica donazioni utente-->
-	<?php $donazioni = $conf['donazioni']; ?>
-	<div class="span6">
-		<h4><i class="icon-list muted"></i> Donazioni </h4>
-
-		<?php $anagrafica = DonazioneAnagrafica::filtra([['volontario',$u]]); ?>
-		<form class="form-horizontal" action="?p=presidente.donazione.anagrafica.ok&id=<?php echo $u->id; ?>" method="POST">
-			<div class="control-group">
-				<label class="control-label" for="inputSangueGruppo">Gruppo Sanguigno</label>
-				<div class="controls">
-					<select id="inputSangueGruppo" name="inputSangueGruppo" required <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
-						<option selected="selected" disabled=""></option>
-						<?php
-						foreach($conf['anagrafica_donatore']['sangue_gruppo'] as $key => $value){
-							if ( $value !== null ) {
-								echo "<option value=\"".$key."\"";
-								if(count($anagrafica) AND $anagrafica[0]->sangue_gruppo == $key) echo " selected";
-								echo ">".$value."</option>";
-							}
-						}
-						?>
-					</select>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="inputFattoreRH">Fattore RH</label>
-				<div class="controls">
-					<select id="inputFattoreRH" name="inputFattoreRH" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
-						<option selected="selected"></option>
-						<?php
-						foreach($conf['anagrafica_donatore']['fattore_rh'] as $key => $value){
-							if ( $value !== null ) {
-								echo "<option value=\"".$key."\"";
-								if(count($anagrafica) AND $anagrafica[0]->fattore_rh == $key) echo " selected";
-								echo ">".$value."</option>";
-							}
-						}
-						?>
-					</select>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="inputFenotipoRH">Fenotipo RH</label>
-				<div class="controls">
-					<select id="inputFenotipoRH" name="inputFenotipoRH" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
-						<option selected="selected"></option>
-						<?php
-						foreach($conf['anagrafica_donatore']['fanotipo_rh'] as $key => $value){
-							if ( $value !== null ) {
-								echo "<option value=\"".$key."\"";
-								if(count($anagrafica) AND $anagrafica[0]->fanotipo_rh == $key) echo " selected";
-								echo ">".$value."</option>";
-							}
-						}
-						?>
-					</select>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="inputKell">Kell</label>
-				<div class="controls">
-					<select id="inputKell" name="inputKell" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
-						<option selected="selected"></option>
-						<?php
-						foreach($conf['anagrafica_donatore']['kell'] as $key => $value){
-							if ( $value !== null ) {
-								echo "<option value=\"".$key."\"";
-								if(count($anagrafica) AND $anagrafica[0]->kell == $key) echo " selected";
-								echo ">".$value."</option>";
-							}
-						}
-						?>
-					</select>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="inputCodiceSIT">Codice SIT</label>
-				<div class="controls">
-					<input type="text" class="input-small" name="inputCodiceSIT" id="inputCodiceSIT" value="<?php if(count($anagrafica) AND $anagrafica[0]->codice_sit) echo $anagrafica[0]->codice_sit; ?>" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
-				</div>
-			</div>
-
-			<?php
-			$sedeSIT = (count($anagrafica) AND $anagrafica[0]->sede_sit) ? new DonazioneSede($anagrafica[0]->sede_sit) : false;
-			?>
-			<div class="control-group">
-				<label class="control-label" for="inputSedeSIT">Regione Sede SIT</label>
-				<div class="controls">
-					<select id="inputSedeSITRegione" name="inputSedeSITRegione" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
-						<option selected="selected"></option>
-						<?php
-						foreach(DonazioneSede::filtraDistinctSedi('regione') as $value){
-							echo "<option value=\"".$value."\"";
-							if(($sedeSIT !== false) AND ($sedeSIT->regione == $value)) echo " selected";
-							echo ">".$value."</option>";
-						}
-						?>
-					</select>
-				</div>
-			</div>
-			<div id="SedeSITProvincia" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
-				<label class="control-label" for="inputSedeSIT">Provincia Sede SIT</label>
-				<div class="controls">
-					<select id="inputSedeSITProvincia" name="inputSedeSITProvincia" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
-					<?php
-					if($sedeSIT !== false){
-						foreach(DonazioneSede::filtraDistinctSedi("provincia",[["regione",$sedeSIT->regione]]) as $value){
-							echo "<option value=\"".$value."\"";
-							if($sedeSIT->provincia == $value) echo " selected";
-							echo ">".$value."</option>";
-						}
-					}
-					?>
-					</select>
-				</div>
-			</div>
-			<div id="SedeSITCitta" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
-				<label class="control-label" for="inputSedeSIT">Città Sede SIT</label>
-				<div class="controls">
-					<select id="inputSedeSITCitta" name="inputSedeSITCitta" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
-					<?php
-					if($sedeSIT !== false){
-						foreach(DonazioneSede::filtraDistinctSedi("citta",[["provincia",$sedeSIT->provincia]]) as $value){
-							echo "<option value=\"".$value."\"";
-							if($sedeSIT->citta == $value) echo " selected";
-							echo ">".$value."</option>";
-						}
-					}
-					?>
-					</select>
-				</div>
-			</div>
-			<div id="SedeSITOspedale" class="control-group" <?php if($sedeSIT === false) echo 'style="display: none;"'; ?>>
-				<label class="control-label" for="inputSedeSIT">Unit&agrave; di raccolta</label>
-				<div class="controls">
-					<select id="inputSedeSIT" name="inputSedeSIT" <?php if(!$me->puoGestireDonazioni()){?> readonly <?php } ?>>
-					<?php
-					if($sedeSIT !== false){
-						foreach(DonazioneSede::filtraDistinctSedi("nome",[["citta",$sedeSIT->citta]]) as $key => $value){
-							echo "<option value=\"".$key."\"";
-							if($anagrafica[0]->sede_sit == $key) echo " selected";
-							echo ">".$value."</option>";
-						}
-					}
-					?>
-					</select>
-				</div>
-			</div>
-			<?php if($me->puoGestireDonazioni()){?>
-				<div class="form-actions">
-					<?php if($a!=1){ ?>
-						<button type="submit" class="btn btn-success btn-large">
-							<i class="icon-save"></i>
-							Salva modifiche
-						</button>
-					<?php }?>
-				</div>
-			<?php } ?>
-		</form>
-
-		<div id="step1Donazione">
-			<?php if($me->puoGestireDonazioni()) { ?>
-				<div class="alert alert-block alert-success" <?php if ($donazioni[2]) { ?>data-richiediDate<?php } ?>>      
-					<div class="row-fluid">
-						<span class="span3">
-							<label for="cercaTitolo">
-								<span style="font-size: larger;">
-									<i class="icon-search"></i>
-									<strong>Cerca</strong>
-								</span>
-							</label>
-						</span>
-						<span class="span9">
-							<select id="tipo" name="tipo" class="span12" required>
-								<option selected="selected" disabled=""></option>
-								<?php
-								foreach(Donazione::elenco() as $value){
-									echo "<option value=\"".$value."\">".$value->nome."</option>";
-								}
-								?>
-							</select>
-						</span>
-					</div>
-				</div>
-			<?php } ?>
-		</div>
-
-		<div id="step2Donazione" style="display: none;">
-			<form action="?p=presidente.donazione.nuovo&id=<?php echo $u->id; ?>" method="POST">
-				<input type="hidden" name="idDonazione" id="idDonazione" />
-				<div class="alert alert-block alert-success">
-					<div class="row-fluid">
-						<h4><i class="icon-question-sign"></i> Quando e dove ha donato...</h4>
-					</div>
-					<hr />
-					<div class="row-fluid">
-						<div class="span4 centrato">
-							<label for="data"><i class="icon-calendar"></i> Donazione</label>
-						</div>
-						<div class="span8">
-							<input id="data" class="span12" name="data" type="text" value="" required/>
-						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span4 centrato">
-							<label for="sedeRegione">Regione</label>
-						</div>
-						<div class="span8">
-							<select id="sedeRegione" name="sedeRegione" class="span12" required>
-								<option selected="selected" disabled=""></option>
-								<?php
-								foreach(DonazioneSede::filtraDistinctSedi('regione') as $value){
-									echo "<option value=\"".$value."\">".$value."</option>";
-								}
-								?>
-							</select>
-						</div>
-					</div>
-
-					<div id="provincia" class="row-fluid" style="display: none;">
-						<div class="span4 centrato">
-						<label for="sedeProvincia">Provincia</label>
-						</div>
-						<div class="span8">
-						<select id="sedeProvincia" name="sedeProvincia" class="span12" required></select>
-						</div>
-					</div>
-
-					<div id="citta" class="row-fluid" style="display: none;">
-						<div class="span4 centrato">
-						<label for="sedeCitta">Città</label>
-						</div>
-						<div class="span8">
-						<select id="sedeCitta" name="sedeCitta" class="span12" required></select>
-						</div>
-					</div>
-
-					<div id="ospedale" class="row-fluid" style="display: none;">
-						<div class="span4 centrato">
-						<label for="sede"><i class="icon-road"></i> Unit&agrave; di raccolta</label>
-						</div>
-						<div class="span8">
-						<select id="sede" name="sede" class="span12" required></select>
-						</div>
-					</div>
-
-					<div class="row-fluid">
-						<div class="span4 offset8">
-							<button type="submit" class="btn btn-success" onclick="">
-								<i class="icon-plus"></i>
-								Aggiungi la donazione
-							</button>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div> 
-
-		<table class="table table-striped">
-			<?php foreach ( $do as $donazione ) { ?>
-			<tr <?php if (!$donazione->tConferma) { ?>class="warning"<?php } ?>>
-				<td>
-					<?php if ($donazione->tConferma) { ?>
-						<abbr title="Confermato: <?php echo date('d-m-Y H:i', $donazione->tConferma); ?>">
-							<i class="icon-ok"></i>
-						</abbr>
-					<?php } else { ?>
-						<abbr title="Pendente">
-							<i class="icon-time"></i>
-						</abbr>
-					<?php } ?> 
-					<strong><?php echo $donazione->donazione()->nome; ?></strong><br />
-					<small><?php echo $conf['donazioni'][$donazione->donazione()->tipo][0]; ?></small>
-				</td>
-				<td>
-					<small>
-						<i class="icon-calendar muted"></i>
-						<?php echo date('d-m-Y', $donazione->data); ?>
-						<br />
-						<i class="icon-road muted"></i>
-						<?php echo DonazioneSede::by('id',$donazione->luogo)->provincia.' - '.DonazioneSede::by('id',$donazione->luogo)->nome; ?>
-					</small></td>
-				<td>
-					<?php if($me->puoGestireDonazioni()) { ?>
-						<div class="btn-group">
-							<a href="?p=presidente.donazione.modifica&t=<?php echo $donazione->id; ?>&v=<?php echo $u->id; ?>" title="Modifica la donazione" class="btn btn-small btn-info">
-								<i class="icon-edit"></i>
-							</a>
-							<a onclick="return confirm('Cancellare la donazione utente?');" href="?p=utente.donazione.cancella&id=<?php echo $donazione->id; ?>&pre" title="Cancella la donazione" class="btn btn-small btn-danger">
-								<i class="icon-trash"></i>
-							</a>
-						</div>
-					<?php } ?>
-				</td>
-			</tr>
-			<?php } ?>
-		</table>
-	</div>
-  </div>
-<!--</div>-->
+</div>
