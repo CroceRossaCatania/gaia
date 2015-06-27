@@ -2212,4 +2212,71 @@ class Utente extends Persona {
         }
     }
 
+    /**
+     * Ottiene elenco delle donazioni dell'utente dato il tipo
+     * @return array(DonazionePersonale)
+     */
+    public function donazioniTipo( $tipoDonazioni ) {
+        $r = [];
+        foreach (DonazionePersonale::filtra([
+            ['volontario',  $this->id]
+        ], 'data') as $donazione) {
+            if ( $donazione->donazione()->tipo == $tipoDonazioni ) {
+                $r[] = $donazione;
+            }
+        }
+        return $r;
+    }
+
+    /**
+     * Ottiene il numero di donazioni pendenti che l'utente deve confermare
+     * @param array(int) $app Applicazioni di delega 
+     * @return int Numero di donazioni pendenti
+     */
+    public function numDonazioniPending( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma( $app );
+        $q = $this->db->prepare("
+            SELECT  COUNT(donazioni_personali.id)
+            FROM    donazioni_personali, appartenenza
+            WHERE   ( donazioni_personali.tConferma < 1 OR donazioni_personali.tConferma IS NULL )
+            AND     donazioni_personali.volontario = appartenenza.volontario
+            AND     appartenenza.comitato  IN
+                ( {$comitati} )");
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+
+    /**
+     * Ottiene il numero di meriti donazioni  
+     * @param array(int) $app Applicazioni di delega 
+     * @return int Numero di meriti donazioni 
+     */
+    public function numdonazioni_merito( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma( $app );
+        $q = $this->db->prepare("
+            SELECT  COUNT(donazioni_meriti.id)
+            FROM    donazioni_meriti, appartenenza
+            WHERE   ( donazioni_meriti.tConferma < 1 OR donazioni_meriti.tConferma IS NULL )
+            AND     donazioni_meriti.volontario = appartenenza.volontario
+            AND     appartenenza.comitato  IN
+                ( {$comitati} )");
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+
+
+	/**
+     * Verifica l'utente è PRESIDENTE o UFFICIO SOCI o DELEGATO D'AREA
+     * @return bool
+     */
+    public function puoGestireDonazioni() {
+		if ( $this->admin() ) return true;
+
+		if ( ($this->delegazioneAttuale()->applicazione == APP_PRESIDENTE) || ($this->delegazioneAttuale()->applicazione == APP_SOCI) || ($this->delegazioneAttuale()->applicazione == APP_OBIETTIVO) || ($this->delegazioneAttuale()->applicazione == APP_DONAZIONI) ) return true;
+
+		return false;
+    }
+
 }
