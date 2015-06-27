@@ -443,7 +443,7 @@ define('APP_SOCI',          60);
 define('APP_PATENTI',       70);
 define('APP_FORMAZIONE',    80);
 define('APP_AUTOPARCO',     90);
-define('APP_AUTOPARCO',    100);
+define('APP_DONAZIONI',    100);
 
 $conf['applicazioni'] = [
     APP_ATTIVITA    =>  "Attività",
