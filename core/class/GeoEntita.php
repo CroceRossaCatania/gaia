@@ -199,5 +199,49 @@ abstract class GeoEntita extends Entita {
         return "http://maps.google.com/?q={$n}@{$c}";
     }
 
-    
+    /**
+     * Ottiene elenco delle donazioni pendenti per il comitato
+     * @return array(DonazionePersonale)
+     */
+    public function donazioniPendenti() {
+        $q = $this->db->prepare("
+            SELECT 
+                donazioni_personali.*
+            FROM
+                donazioni_personali, appartenenza
+            WHERE
+                donazioni_personali.volontario = appartenenza.volontario
+            AND
+                donazioni_personali.pConferma IS NULL
+            AND
+                appartenenza.comitato = :comitato");
+        $q->bindParam(':comitato', $this->oid());
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_ASSOC) ) {
+            $r[] = new DonazionePersonale($k['id'], $k);
+        }
+        return $r;
+    }
+
+    /** 
+     * Ottiene elenco dei meriti pendenti per il comitato
+     * @return array(DonazioneMerito)
+     */
+    public function meritiPendenti() {
+        $q = $this->db->prepare("
+            SELECT  donazioni_meriti.*
+            FROM    donazioni_meriti, appartenenza
+            WHERE   ( donazioni_meriti.tConferma < 1 OR donazioni_meriti.tConferma IS NULL )
+            AND     donazioni_meriti.volontario = appartenenza.volontario
+            AND     appartenenza.comitato  IN
+                ( :comitato )");
+        $q->bindParam(':comitato', $this->id);
+        $q->execute();
+        while ( $k = $q->fetch(PDO::FETCH_ASSOC) ) {
+            $r[] = new DonazioneMerito($k['id'], $k);
+        }
+        return $r;
+    }    
+
 }

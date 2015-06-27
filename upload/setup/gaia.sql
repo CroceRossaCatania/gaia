@@ -352,6 +352,55 @@ CREATE TABLE IF NOT EXISTS `documenti` (
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+CREATE TABLE IF NOT EXISTS `donazioni` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) DEFAULT NULL,
+  `tipo` varchar(8) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  FULLTEXT KEY `nome` (`nome`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `donazioni_anagrafica` (
+  `id` int(11) NOT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `sangue_gruppo` int(3) DEFAULT NULL,
+  `fattore_rh` int(3) DEFAULT NULL,
+  `fenotipo_rh` int(3) DEFAULT NULL,
+  `kell` int(3) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `donazioni_merito` (
+  `id` int(11) NOT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `donazione` varchar(16) DEFAULT NULL,
+  `merito` varchar(64) DEFAULT NULL,
+  `tConferma` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `donazioni_personale` (
+  `id` int(11) NOT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `donazione` varchar(16) DEFAULT NULL,
+  `data` varchar(64) DEFAULT NULL,
+  `luogo` varchar(64) DEFAULT NULL,
+  `tConferma` varchar(64) DEFAULT NULL,
+  `pConferma` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `donazioni_sedi` (
+  `id` int(11) NOT NULL,
+  `provincia` varchar(128) DEFAULT NULL,
+  `regione` varchar(128) DEFAULT NULL,
+  `nome` text,
+  `tipo` varchar(8) DEFAULT NULL,
+  `latitudine` varchar(25) DEFAULT NULL,
+  `longitudine` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `elementiRichieste` (
   `id` int(11) NOT NULL,
   `richiesta` int(11) NOT NULL,
@@ -822,6 +871,7 @@ CREATE TABLE IF NOT EXISTS `veicoli` (
   KEY `stato` (`stato`),
   FULLTEXT KEY `indice` (`libretto`,`targa`,`comitato`,`stato`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

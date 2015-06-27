@@ -174,12 +174,13 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                     <div class="btn-group">
                                         <?php
                                         /* Conto le notifiche */
-                                        $_n     =   $_n_titoli = $_n_app = $_n_trasf = $_n_ris = $_n_est = 0;
-                                        $_n     +=  $_n_titoli = (!$admin) ? $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]) : 0;
-                                        $_n     +=  $_n_app    = (!$admin) ?$me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]) : 0;
-                                        $_n     +=  $_n_trasf  = (!$admin) ?$me->numTrasfPending   ([APP_PRESIDENTE]) : 0;
-                                        $_n     +=  $_n_ris    = (!$admin) ?$me->numRisPending     ([APP_PRESIDENTE, APP_SOCI]) : 0;
-                                        $_n     +=  $_n_est    = (!$admin) ?$me->numEstPending     ([APP_PRESIDENTE]) : 0;
+                                        $_n     =   $_n_titoli 		= $_n_app = $_n_trasf = $_n_ris = $_n_est = 0;
+                                        $_n     +=  $_n_titoli 		= (!$admin) ? $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]) : 0;
+										$_n     +=  $_n_donazioni 	= (!$admin) ? $me->numDonazioniPending	([APP_PRESIDENTE, APP_SOCI]) : 0;
+                                        $_n     +=  $_n_app    		= (!$admin) ?$me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]) : 0;
+                                        $_n     +=  $_n_trasf  		= (!$admin) ?$me->numTrasfPending   ([APP_PRESIDENTE]) : 0;
+                                        $_n     +=  $_n_ris    		= (!$admin) ?$me->numRisPending     ([APP_PRESIDENTE, APP_SOCI]) : 0;
+                                        $_n     +=  $_n_est    		= (!$admin) ?$me->numEstPending     ([APP_PRESIDENTE]) : 0;
                                         ?>
                                         <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
                                             <i class="icon-asterisk"></i>
@@ -206,6 +207,18 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                                     <?php } ?>
                                                 </a>
                                             </li>
+
+											<li>
+												<a href="?p=presidente.donazioni">
+													<i class="icon-star"></i>
+													Donazioni in attesa
+													<?php if ( $_n_donazioni ) { ?>
+													<span class="badge badge-warning">
+														<?php echo $_n_donazioni; ?>
+													</span>
+													<?php } ?>
+												</a>
+											</li>
 
                                             <li>
                                                 <a href="?p=presidente.appartenenzepending">
@@ -296,6 +309,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                             <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
                                             <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li> 
                                             <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
+											<li><a href="?p=admin.donazioni"><i class="icon-beaker"></i> Donazioni</a></li>
+											<li><a href="?p=admin.donazioni.sedi"><i class="icon-road"></i> Donazioni sedi</a></li>
                                             <li><a href="?p=admin.limbo"><i class="icon-meh"></i> Limbo</a></li> 
                                             <li><a href="?p=admin.aspiranti"><i class="icon-meh"></i> Aspiranti</a></li> 
                                             <li><a href="?p=admin.double"><i class="icon-superscript"></i> Double</a></li>

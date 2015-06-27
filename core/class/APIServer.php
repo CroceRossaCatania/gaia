@@ -794,6 +794,15 @@ class APIServer {
             'regionale'     =>  $c
         ];
 
+	/**
+     * Ricerca sedi donazioni per visibilita
+     */    
+    private function api_donazionesedi_cerca() {
+		$t = [];
+        foreach ( DonazioneSede::filtraDistinctSedi($this->par['res'],[[$this->par['req'],$this->par['query']]]) as $key => $value ) {
+			$t[$key] = $value;
+        }
+        return $t;
     }
 
         

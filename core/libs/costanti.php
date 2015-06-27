@@ -320,16 +320,102 @@ define('TITOLO_PATENTE_CIVILE', 1);
 define('TITOLO_PATENTE_CRI',    2);
 define('TITOLO_STUDIO',      	3);
 define('TITOLO_CRI',            4);
+define('TITOLO_SANGUE',         5);
 
 
 $conf['titoli'] = [
 	/*
 	num =>  [denominazione,		       verifica, data,  data_obbl] */
 	TITOLO_PERSONALE	    =>	['Competenza personale',	false,	false,	false],
-	TITOLO_PATENTE_CIVILE	=>	['Patente Civile',             	false,	true,	false],
-	TITOLO_PATENTE_CRI	    =>	['Patente CRI',             	true,	true,	true],
+	TITOLO_PATENTE_CIVILE	=>	['Patente Civile',          false,	true,	false],
+	TITOLO_PATENTE_CRI	    =>	['Patente CRI',             true,	true,	true],
 	TITOLO_STUDIO   	    =>	['Titolo di studio',		false,  true,   false],
-	TITOLO_CRI       	    =>	['Titolo di Croce Rossa',	true,	true,	false]
+	TITOLO_CRI       	    =>	['Titolo di Croce Rossa',	true,	true,	false],
+    TITOLO_SANGUE           =>  ['Donazione di sangue',     true,   true,   true]
+];
+
+
+/*
+ * ===================================
+ * =========== DONAZIONI =============
+ * ===================================
+ */
+
+/* Tipologie di donazioni */
+define('DONAZIONE_SANGUE',      0);
+
+/* Anagrafica donatore */
+
+/* Gruppo Sanguigno */
+$conf['anagrafica_donatore']['sangue_gruppo'] = [
+	null,
+	'0',
+    'A',
+	'B',
+	'AB'
+];
+
+/* Fattore RH */
+$conf['anagrafica_donatore']['fattore_rh'] = [
+	null,
+	'Positivo',
+    'Negativo'
+];
+
+/* Fenotipo RH */
+$conf['anagrafica_donatore']['fanotipo_rh'] = [
+	null,
+	'CCDee',
+    'ccDEE',
+	'CcDee',
+	'ccDEe',
+	'ccDee',
+	'CCDEE',
+	'CCDEe',
+	'CcDEE',
+	'CcDEe',
+	'Ccddee',
+	'CCddee',
+	'ccddEe',
+	'ccddEE',
+	'ccddee',
+	'CcddEe'
+];
+
+/* Kell */
+$conf['anagrafica_donatore']['kell'] = [
+	null,
+	'K+k+',
+    'K+k-',
+	'K-k+',
+	'Kp(a+b+)',
+	'Kp(a-b+)'
+];
+
+
+$conf['tipiDonazioni'] = [
+    'Donazione di sangue'
+];
+
+$conf['donazioni'] = [
+    /*
+    num =>  [denominazione,            verifica, data,  data_obbl] */
+    DONAZIONE_SANGUE    =>  ['Donazione di sangue',     true,   true,   true]
+];
+
+
+
+/*
+ * ===================================
+ * ======= DONAZIONI MERITO ==========
+ * ===================================
+ */
+
+/* Tipologie di merito */
+$conf['merito'] = [
+    /*
+    tipo donazione =>  [classe 1, classe 2,  ... classe N] */
+    DONAZIONE_SANGUE   =>  [1, 10, 20, 40]
 ];
 
 
@@ -357,6 +443,7 @@ define('APP_SOCI',          60);
 define('APP_PATENTI',       70);
 define('APP_FORMAZIONE',    80);
 define('APP_AUTOPARCO',     90);
+define('APP_AUTOPARCO',    100);
 
 $conf['applicazioni'] = [
     APP_ATTIVITA    =>  "Attività",
@@ -366,7 +453,8 @@ $conf['applicazioni'] = [
     APP_CO          =>  "Centrale Operativa",
     APP_SOCI        =>  "Ufficio Soci",
     APP_PATENTI     =>  "Ufficio Patenti",
-    APP_FORMAZIONE  =>  "Resp. Formazione"
+    APP_FORMAZIONE  =>  "Resp. Formazione",
+	APP_DONAZIONI   =>  "Resp. Donazioni"
 ];
 
 /*
