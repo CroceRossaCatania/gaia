@@ -421,7 +421,8 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     <div class="row-fluid">
                         <h4><strong><i class="icon-beaker"></i> Aggiornamento titoli di studio</strong></h4>
                         <p>Ti invitiamo ad aggiornare il tuo curriculum con i nuovi titoli di studio sostituendo anche i precedenti.</p>
-                        <p>Maggiori informazioni sono disponibili nell’apposita sezione.</p>    
+                        <p>Maggiori informazioni sono disponibili nell’apposita sezione.</p>
+                        <p>Ti ricordiamo che in data 31/08/2015, i titoli contrassegnati come <strong>"vecchio"</strong> saranno rimossi.</strong></p>
                         <p><a href="?p=utente.titoli&t=3" class="btn btn-large"><i class="icon-refresh"></i> Aggiorna subito!</a></p>
                     </div>
                 </div>
