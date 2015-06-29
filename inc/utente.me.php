@@ -381,7 +381,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                                 Regalati un'esperienza di Volontariato tutta nuova. <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/27298" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
                         </div>
                         <div class="span3">
-                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_blank"><img src="/img/ruolitecnici.pn" /></a>
+                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_blank"><img src="/img/ruolitecnici.png" /></a>
                         </div>
                     </div>
                 </div>
