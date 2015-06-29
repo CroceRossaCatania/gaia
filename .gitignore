@@ -46,3 +46,4 @@ upload/setup/autopull
 
 # File di progetto IntelliJ
 .idea
+pma/
