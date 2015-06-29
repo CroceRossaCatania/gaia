@@ -377,7 +377,6 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     <div class="row-fluid">
                         <div class="span9">
                             <h4>Aperta la call per sviluppatori Python</h4>
-                                <p>Gaia continua a crescere, adesso ha bisogno anche di te!</p> 
                                 <p>Siamo alla ricerca di <strong>sviluppatory Python</strong>.</p>
                                 Regalati un'esperienza di Volontariato tutta nuova. <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/27298" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
                         </div>
