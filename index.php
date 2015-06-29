@@ -105,15 +105,6 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
         <script type="text/javascript" src="/assets/js/<?php echo $p; ?>.js"></script>
     <?php } ?>
 
-    <!-- #LoveWins -->
-    <style type="text/css">
-    .love-wins {
-        background-image: url('img/love-wins.png') !important;
-        background-repeat: repeat-x !important;
-    }
-    </style>
-
-
   </head>
   <body>
     <div class="navbar-wrapper">
@@ -146,7 +137,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             <div class="pull-right paddingSopra">
 
                                 <div class="btn-group">
-                                    <a class="btn btn-danger love-wins" href="?p=utente.me">
+                                    <a class="btn btn-danger" href="?p=utente.me">
                                         <i class="<?php if ($admin) { ?> icon-github-alt <?php } else{ ?> icon-user <?php } ?> icon-large"></i>&nbsp;
                                         Ciao <strong><?php echo $me->nome; ?></strong></a>
                                         <button class="btn dropdown-toggle btn-danger" data-toggle="dropdown">
@@ -369,7 +360,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                 </div>
                                 <?php } else { ?>
                                 <div class="paddingSopra pull-right">
-                                    <a class="btn btn-danger love-wins" href="?p=login">
+                                    <a class="btn btn-danger" href="?p=login">
                                         <strong>Accedi</strong>
                                         <i class="icon-key"></i>
                                     </a>
