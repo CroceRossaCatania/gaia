@@ -370,39 +370,38 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     <p>L'email che stavi inviando non può essere spedita.</p>
                 </div> 
                 <?php } 
-                // blocco JUMP 
                 ?>
                 
-                <!--
+                
                 <div class="alert alert-block alert-info">
                     <div class="row-fluid">
                         <div class="span9">
-                            <h4>Aperta la call per i ruoli tecnici in GAIA</h4>
+                            <h4>Aperta la call per sviluppatori Python</h4>
                                 <p>Gaia continua a crescere, adesso ha bisogno anche di te!</p> 
-                                <p>Siamo alla ricerca di: <strong>Sviluppatori Web (tutte le tecnologie), Analisti, Web Designer e molto altro</strong>.</p>
-                                Regalati un'esperienza di Volontariato tutta nuova. <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
+                                <p>Siamo alla ricerca di <strong>sviluppatory Python</strong>.</p>
+                                Regalati un'esperienza di Volontariato tutta nuova. <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/27298" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
                         </div>
                         <div class="span3">
-                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_blank"><img src="/img/ruolitecnici.png" /></a>
+                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_blank"><img src="http://www.cri.it/flex/tmp/imgResized/T-1b4c7b763872b1154a7950f0cbe7cb9a-249x154.jpg" /></a>
                         </div>
                     </div>
                 </div>
-                -->
-                <!--
+                
+                
                 <div class="alert alert-block alert-info">
                     <div class="row-fluid">
                         <div class="span9">
-                            <h4>Aperta la call per l'help desk di GAIA</h4>
+                            <h4>Aperta la call per Technical Writer</h4>
                                 <p>Gaia continua a crescere, adesso ha bisogno anche di te!</p> 
-                                <p>Siamo alla ricerca di personale helpdesk da inserire nel nostro team di <strong>1° livello</strong>.</p>
-                                Vuoi essere dei nostri? <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24760" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
+                                <p>Siamo alla ricerca di <strong>redattori tecnici</strong> con profonda esperienza del gestionale GAIA.</p>
+                                Vuoi essere dei nostri? <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/27301" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
                                   </div>
                                 <div class="span3">
-                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24760" target="_blank"><img src="/img/pulsantehelp.png" /></a>
+                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24301" target="_blank"><img src="http://www.cri.it/flex/tmp/imgResized/T-9b60ef740ca9cd978bffb94a06b9da48-249x185.jpg" /></a>
                         </div>
                     </div>
                 </div>
-                -->
+                
                 <!-- BLOCCO SENZA IMMAGINE
                 <div class="alert alert-block alert-info">
                     <div class="row-fluid">
