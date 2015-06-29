@@ -381,7 +381,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                                 Regalati un'esperienza di Volontariato tutta nuova. <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/27298" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
                         </div>
                         <div class="span3">
-                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_blank"><img src="http://www.cri.it/flex/tmp/imgResized/T-1b4c7b763872b1154a7950f0cbe7cb9a-249x154.jpg" /></a>
+                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_blank"><img src="/img/ruolitecnici.pn" /></a>
                         </div>
                     </div>
                 </div>
@@ -396,7 +396,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                                 Vuoi essere dei nostri? <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/27301" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
                                   </div>
                                 <div class="span3">
-                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24301" target="_blank"><img src="http://www.cri.it/flex/tmp/imgResized/T-9b60ef740ca9cd978bffb94a06b9da48-249x185.jpg" /></a>
+                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24301" target="_blank"><img src="/img/pulsantehelp.png" /></a>
                         </div>
                     </div>
                 </div>
