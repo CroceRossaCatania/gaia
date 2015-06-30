@@ -1,0 +1,33 @@
+<?php
+ 
+/*
+ * ©2012 Croce Rossa Italiana
+ */
+
+/*
+ * === INSTALLAZIONE DI GAIA ===
+ * Questa è una configurazione di esempio per Gaia.
+ * 1. Copiare il file in /core/conf/database.conf.php.
+ * 2. Modificare u_pietro1, u_pietro1 e pietro.gaia.7871.
+ */
+ 
+/* Configurazione del database */
+/*
+$conf['database'] = [
+ 
+    'dns'   =>  'mysql:host=104.167.109.88;dbname=u_pietro1',
+    'user'  =>  'u_pietro1',
+    'pass'  =>  'pietro.gaia.7871',  
+    'persistent'    =>  false
+];
+*/
+$conf['database'] = [
+ 
+    'dns'   =>  'mysql:host=localhost;dbname=u_pietro1',
+    'user'  =>  'u_pietro1',
+    'pass'  =>  'pietro.gaia.7871',
+    
+    /* Connessione persistente? */
+    'persistent'    =>  false
+ 
+];

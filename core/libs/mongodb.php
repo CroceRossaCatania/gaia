@@ -5,6 +5,7 @@
  */
 
 // CONNESSIONE A MONGODB
+/*
 try {
 	$mdb = new MongoClient(
 		$conf['mongodb']['connection'],
@@ -15,7 +16,7 @@ try {
 	die("Errore di connessione al database MongoDB.
 		 Messaggio: {$e->getMessage()}\n");
 }
-
+*/
 
 /**
  * Dato un iteratore mongo, ritorna un array contenente un array associativo

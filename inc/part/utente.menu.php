@@ -52,6 +52,9 @@ if ( $presidente ||
     $menu[''] += [
         'formazione.corsibase'   =>  '<span class="badge badge-success">&nbsp;</span> Corsi Base'
     ];
+    $menu[''] += [
+        'formazione.corsi'   =>  '<span class="badge badge-success">&nbsp;</span> Corsi '
+    ];
 }
 
 if ( $presidente || ($me && $me->delegazioneAttuale()->applicazione == APP_OBIETTIVO)) {
