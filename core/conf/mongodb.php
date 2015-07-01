@@ -7,8 +7,8 @@
 
 $conf['mongodb'] = [
 	'connection'	=>	'mongodb://localhost:27017',
-	'database'		=>	'DBNAME',
-	'options'		=>	[
-		'connect'	=>	true
+	'database'	=>	'u_pietro1',
+	'options'	=>	[
+        'connect'	=>	true
 	]
 ];

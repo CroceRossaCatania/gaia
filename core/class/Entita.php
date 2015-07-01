@@ -63,7 +63,10 @@ abstract class Entita {
         }
 
         /* Check esistenza */
+        print "id = $id|".self::_esiste($id, $this->_v)."<<<";
         if ( self::_esiste($id, $this->_v) ) {
+            
+            print "asdasd";
             /* Scaricamento */
             $this->id = $id;
             if ( $this->_v ) {
@@ -77,15 +80,28 @@ abstract class Entita {
             if ( $this->cache ) {
                 $this->cache->set(static::_chiave($id . ':___campi', false), serialize($this->_v));
             }
-        } elseif ( $id === null ) {
+        } elseif ( $id === null) {
             /* Creazione nuovo */
+
+            print "id is null";
+    
             $this->_crea();
+            print "ddsds";
+ 
             $this->__construct($this->id);
         } else {
+            
+            
+            print "error:<br/>";
+
+            
             /* Errore non esistente! */
+            /*
             $e = new Errore(1003);
             $e->extra = static::$_t. ':' . $id;
             throw $e;
+             * 
+             */
         }
     }
     
@@ -367,7 +383,7 @@ abstract class Entita {
         else
             $q = $db->prepare("SELECT * FROM ". static::$_t ." WHERE id = :id");
 
-        
+     
         $q->bindParam(':id', $id);
         $q->execute();
 
