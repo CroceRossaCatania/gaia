@@ -851,6 +851,13 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
 	<?php $donazioni = $conf['donazioni']; ?>
 	<div class="span6">
 		<h4><i class="icon-list muted"></i> Donazioni </h4>
+		
+		<div class="alert alert-warning">
+<i class="icon-comments"></i>
+Vorresti contribuire al miglioramento della sezione <strong>donazioni</strong>?
+<p></p>
+Per favore contattaci a <a href="mailto:feedback.donazionisangue@gaia.cri.it?subject=Feedback+donazioni+sangue">feedback.donazionisangue@gaia.cri.it</a>.
+</div>
 
 		<?php $anagrafica = DonazioneAnagrafica::filtra([['volontario',$u]]); ?>
 		<form class="form-horizontal" action="?p=presidente.donazione.anagrafica&id=<?php echo $u->id; ?>" method="POST">
