@@ -11,9 +11,9 @@ $x = TitoloCorso::by('nome', $_POST['inputNome']);
 if (!$x){
     $t = new TitoloCorso();
     $t->nome = maiuscolo( $_POST['inputNome'] );
-    //redirect('admin.titoliCorsi&new');
+    redirect('admin.titoliCorsi&new');
 } else {
-    //redirect('admin.titoliCorsi&dup');
+    redirect('admin.titoliCorsi&dup');
 }
 
 ?>

@@ -65,7 +65,6 @@ paginaAdmin();
      <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
         <thead>
             <th>Nome</th>
-            <th>Tipo</th>
             <th>Azioni</th>
         </thead>
         <?php
@@ -73,7 +72,6 @@ paginaAdmin();
             ?>
             <tr>
                 <td><?php echo $c->nome; ?></td>
-                <td><?php echo($conf['titoloCorsi'][$c->tipo][0]); ?></td>
                 <td>
                     <div class="btn-group">
                         <a  onClick="return confirm('Vuoi veramente cancellare questo titolo corso ?');" href="?p=admin.titoloCorso.cancella&id=<?php echo $c->id; ?>" title="Cancella Titolo Corso" class="btn btn-small btn-warning">
