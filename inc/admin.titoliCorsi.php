@@ -39,7 +39,7 @@ paginaAdmin();
 <div class="row-fluid">
     <div class="span8">
         <h2>
-            <i class="icon-certificate muted"></i>
+            <i class="icon-graduation-cap muted"></i>
             Elenco Titoli Corsi
         </h2>
     </div>
@@ -83,12 +83,7 @@ paginaAdmin();
                     </div>
                 </td>
             </tr>
-            
-            
-            
-            <?php }
-            
-            ?>
+        <?php } ?>
         </table>
 
     </div>
