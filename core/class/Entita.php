@@ -63,10 +63,8 @@ abstract class Entita {
         }
 
         /* Check esistenza */
-        print "id = $id|".self::_esiste($id, $this->_v)."<<<";
         if ( self::_esiste($id, $this->_v) ) {
-            
-            print "asdasd";
+
             /* Scaricamento */
             $this->id = $id;
             if ( $this->_v ) {
@@ -82,26 +80,13 @@ abstract class Entita {
             }
         } elseif ( $id === null) {
             /* Creazione nuovo */
-
-            print "id is null";
-    
             $this->_crea();
-            print "ddsds";
- 
             $this->__construct($this->id);
         } else {
-            
-            
-            print "error:<br/>";
-
-            
             /* Errore non esistente! */
-            /*
             $e = new Errore(1003);
             $e->extra = static::$_t. ':' . $id;
             throw $e;
-             * 
-             */
         }
     }
     

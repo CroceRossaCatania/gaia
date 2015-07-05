@@ -74,6 +74,14 @@ $tipologie = Certificato::elenco();
         </div>
          <hr />
         <div class="row-fluid" id="calendario" style="margin-top: 50px"></div>
+    
+        <ul style="list-style-type: none; display: inline;">
+            <li style="list-style-type: none; display: inline; margin-right: 10px;"><i class="icon-sign-blank" style="color: #cccccc"></i> Approvati</li>
+            <li style="list-style-type: none; display: inline; margin-right: 10px;"><i class="icon-sign-blank" style="color: #ffff00"></i> Da Approvare</li>
+            <li style="list-style-type: none; display: inline; margin-right: 10px;"><i class="icon-sign-blank" style="color: #ff00ff"></i> Da Validare</li>
+            <li style="list-style-type: none; display: inline;"><i class="icon-sign-blank" style="color: #00ffff"></i> Validati</li>
+        </ul>
+    
     </div>
     
 </div>
