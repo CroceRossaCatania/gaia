@@ -1,0 +1,4 @@
+1. Tabella Corsi:
+--> certificati deve puntare a titoliCorsi?
+--> da gestire con referenza titoliCorsi:xx o lasciamo con intero?
+
