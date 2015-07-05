@@ -2,3 +2,9 @@
 --> certificati deve puntare a titoliCorsi?
 --> da gestire con referenza titoliCorsi:xx o lasciamo con intero?
 
+2. Certificato/corso
+numero min/max discenti
+durata corso in ore
+durata corso in lezioni
+faculty
+rapporto docenti/affiancamento
