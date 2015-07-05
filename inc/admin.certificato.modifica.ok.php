@@ -5,12 +5,12 @@
  */
 
 paginaAdmin();
-controllaParametri(array('id'), 'admin.titoliCorsi&err');
+controllaParametri(array('id'), 'admin.certificati&err');
 $t = $_GET['id'];
 
-$t = TitoloCorso::id($t);
+$t = Certificato::id($t);
 $t->nome = maiuscolo( $_POST['inputNome'] );
    
-redirect('admin.titoliCorsi&mod');
+redirect('admin.certificati&mod');
 
 ?>

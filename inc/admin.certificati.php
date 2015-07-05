@@ -9,22 +9,22 @@ paginaAdmin();
 ?>
 <?php if ( isset($_GET['new']) ) { ?>
 <div class="alert alert-success">
-    <i class="icon-save"></i> <strong>Titolo Corso aggiunto</strong>.
+    <i class="icon-save"></i> <strong>Certificato aggiunto</strong>.
     Il corso è stato aggiunto con successo.
 </div>
 <?php } elseif ( isset($_GET['del']) )  { ?>
 <div class="alert alert-block alert-error">
- <i class="icon-exclamation-sign"></i> <strong>Titolo Corso cancellato</strong>
+ <i class="icon-exclamation-sign"></i> <strong>Certificato cancellato</strong>
  Il corso è stato cancellato con successo.
 </div>
 <?php }elseif ( isset($_GET['dup']) ) { ?>
 <div class="alert alert-error">
-    <i class="icon-warning-sign"></i> <strong>Titolo Corso presente</strong>.
+    <i class="icon-warning-sign"></i> <strong>Certificato presente</strong>.
     Il corso è già presente in elenco.
 </div>
 <?php } elseif ( isset($_GET['mod']) )  { ?>
 <div class="alert alert-block alert-success">
- <i class="icon-edit"></i> <strong>Titolo Corso modificato</strong>
+ <i class="icon-edit"></i> <strong>Certificato modificato</strong>
  Il titolo corso è stato modificato con successo.
 </div>
 <?php } ?>
@@ -40,7 +40,7 @@ paginaAdmin();
     <div class="span8">
         <h2>
             <i class="icon-graduation-cap muted"></i>
-            Elenco Titoli Corsi
+            Elenco Certificati
         </h2>
     </div>
     
@@ -52,8 +52,8 @@ paginaAdmin();
     </div>  
     <br/>  
     <div class="span4 allinea-destra">
-        <a class="btn btn-success" href="?p=admin.titoloCorso.nuovo">
-            <i class="icon-plus"></i> Aggiungi Titolo Corso
+        <a class="btn btn-success" href="?p=admin.certificato.nuovo">
+            <i class="icon-plus"></i> Aggiungi Certificato
         </a>
     </div> 
 </div>
@@ -68,16 +68,16 @@ paginaAdmin();
             <th>Azioni</th>
         </thead>
         <?php
-        foreach(TitoloCorso::elenco('nome ASC') as $c){
+        foreach(Certificato::elenco('nome ASC') as $c){
             ?>
             <tr>
                 <td><?php echo $c->nome; ?></td>
                 <td>
                     <div class="btn-group">
-                        <a  onClick="return confirm('Vuoi veramente cancellare questo titolo corso ?');" href="?p=admin.titoloCorso.cancella&id=<?php echo $c->id; ?>" title="Cancella Titolo Corso" class="btn btn-small btn-warning">
+                        <a  onClick="return confirm('Vuoi veramente cancellare questo titolo corso ?');" href="?p=admin.certificato.cancella&id=<?php echo $c->id; ?>" title="Cancella Certificato" class="btn btn-small btn-warning">
                             <i class="icon-trash"></i> Cancella
                         </a>
-                        <a  href="?p=admin.titoloCorso.modifica&id=<?php echo $c->id; ?>" title="Modifica Titolo Corso" class="btn btn-small btn-info">
+                        <a  href="?p=admin.certificato.modifica&id=<?php echo $c->id; ?>" title="Modifica Certificato" class="btn btn-small btn-info">
                             <i class="icon-edit"></i> Modifica
                         </a>
                     </div>
