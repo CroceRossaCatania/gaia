@@ -21,7 +21,7 @@ paginaPrivata();
 
 <p class="alert alert-info">
 <i class="icon-comments"></i>
-Vorresti contribuire al miglioramento della sezione <strong>donazioni</strong>?.
+Vorresti contribuire al miglioramento della sezione <strong>donazioni</strong>?
 <p></p>
 <p>Per favore contattaci a <a href="mailto:feedback.donazionisangue@gaia.cri.it?subject=Feedback+donazioni+sangue">feedback.donazionisangue@gaia.cri.it</a></p> .
 </p>
