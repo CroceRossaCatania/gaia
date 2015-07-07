@@ -372,35 +372,29 @@ if(false && $consenso && !$sessione->barcode) { ?>
                 <?php } 
                 ?>
                 
+                <div class="alert alert-block alert-success">
+                    <div class="row-fluid">
+                        <h4><strong><i class="icon-beaker"></i> Aggiornamento titoli di studio (Diplomi e Lauree)</strong></h4>
+                        <p>Ti invitiamo ad aggiornare il tuo curriculum con i nuovi titoli di studio sostituendo anche i precedenti.</p>
+                        <p>Maggiori informazioni sono disponibili nell’apposita sezione.</p>
+                        <p>Ti ricordiamo che i titoli contrassegnati come <strong>"vecchio"</strong> saranno rimossi.</strong></p>
+                        <p><a href="?p=utente.titoli&t=3" class="btn btn-large"><i class="icon-refresh"></i> Aggiorna subito!</a></p>
+                    </div>
+                </div>
                 
                 <div class="alert alert-block alert-info">
                     <div class="row-fluid">
                         <div class="span9">
-                            <h4>Aperta la call per sviluppatori Python</h4>
-                                <p>Siamo alla ricerca di <strong>sviluppatory Python</strong>.</p>
-                                Regalati un'esperienza di Volontariato tutta nuova. <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/27298" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
+                            <h4>GAIA è alla ricerca di personale</h4>
+                                <p>Siamo alla ricerca di <strong>Sviluppatory Python & Technical Writer</strong>.</p>
+                                Regalati un'esperienza di Volontariato tutta nuova. <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/21231/YY/2015/MM/6" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
                         </div>
                         <div class="span3">
-                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_blank"><img src="/img/ruolitecnici.png" /></a>
+                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_blank"><img src="/img/pulsantehelp.png" /></a>
                         </div>
                     </div>
                 </div>
-                
-                
-                <div class="alert alert-block alert-info">
-                    <div class="row-fluid">
-                        <div class="span9">
-                            <h4>Aperta la call per Technical Writer</h4>
-                                <p>Gaia continua a crescere, adesso ha bisogno anche di te!</p> 
-                                <p>Siamo alla ricerca di <strong>redattori tecnici</strong> con profonda esperienza del gestionale GAIA.</p>
-                                Vuoi essere dei nostri? <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/27301" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
-                                  </div>
-                                <div class="span3">
-                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24301" target="_blank"><img src="/img/pulsantehelp.png" /></a>
-                        </div>
-                    </div>
-                </div>
-                
+              
                 <!-- BLOCCO SENZA IMMAGINE
                 <div class="alert alert-block alert-info">
                     <div class="row-fluid">
@@ -415,15 +409,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     </div>
                 </div>-->
                 <!-- Blocco aggiornamento titoli -->
-                 <div class="alert alert-block alert-info">
-                    <div class="row-fluid">
-                        <h4><strong><i class="icon-beaker"></i> Aggiornamento titoli di studio</strong></h4>
-                        <p>Ti invitiamo ad aggiornare il tuo curriculum con i nuovi titoli di studio sostituendo anche i precedenti.</p>
-                        <p>Maggiori informazioni sono disponibili nell’apposita sezione.</p>
-                        <p>Ti ricordiamo che in data 31/08/2015, i titoli contrassegnati come <strong>"vecchio"</strong> saranno rimossi.</strong></p>
-                        <p><a href="?p=utente.titoli&t=3" class="btn btn-large"><i class="icon-refresh"></i> Aggiorna subito!</a></p>
-                    </div>
-                </div>
+                 
                 <?php
                 // fine blocco jump
                 if (!$me->wizard) { $attenzione = true;  ?>
