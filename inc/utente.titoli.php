@@ -98,7 +98,7 @@ paginaPrivata();
 
                 </div> 
         
-        <div class="alert alert-block alert-info">
+        <div class="alert alert-block alert-success">
                     <h4><i class="icon-warning-sign"></i> Diplomi di istruzione superiore</h4>
                     <p>I <strong>diplomi</strong> di istruzione superiore sono conformi al <a href="http://hubmiur.pubblica.istruzione.it/getOM?idfileentry=217468" target="_new"><i class="icon-link"></i>nuovo ordinamento</a>.</p> 
                     <p>Qualora tu abbia conseguito un diploma prima del 2010 dovrai verificare l'equipollenza ed inserire il titolo aggiornato</p>
@@ -113,7 +113,7 @@ paginaPrivata();
                 </div> 
                 
     
-        <div class="alert alert-block alert-info">
+        <div class="alert alert-block alert-success">
                     <h4><i class="icon-warning-sign"></i> Titolo universitari (esclusi i percorsi di specializzazione e dottorati)</h4>
                    <p> Attualmente sono stati inseriti tutti i percorsi di studio riconosciuti dal MIUR.
                         Che cosa puoi fare qualora il tuo titolo di studio non sia presente?
