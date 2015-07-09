@@ -105,11 +105,11 @@ paginaPrivata();
                     <p>Tabelle di confluenza dei percorsi di istruzione superiore statale:</p>
                     <ol>
                     <li><a href="http://archivio.pubblica.istruzione.it/riforma_superiori/nuovesuperiori/doc/06_Tabella_confluenze_allegato_I_nuova.pdf" target="_new"><i class="icon-link"></i>Liceo</a></li>
-                    <li>Istituto <a href="http://archivio.pubblica.istruzione.it/riforma_superiori/nuovesuperiori/doc/ALL_D_Prof._4_2_10.pdf"></i>tecnico</a></li>
+                    <li>Istituto <a href="http://archivio.pubblica.istruzione.it/riforma_superiori/nuovesuperiori/doc/ALL_D_tecnici_4_2_2010.pdf"></i>tecnico</a></li>
                     <li>Istituto <a href="http://archivio.pubblica.istruzione.it/riforma_superiori/nuovesuperiori/doc/ALL_D_Prof._4_2_10.pdf"></i>professionale</a></li>
                     </ol>
                     
-                    <p>Nota bene: qualora avessi dubbi sulla confluenza del tuo vecchio titolo di studio, potrai contattare <a href=http://www.istruzione.it/urp/contatti.shtml"></i>l'URL</a> del Ministero dell'Istruzione .</p>
+                    <p>Nota bene: qualora avessi dubbi sulla confluenza del tuo vecchio titolo di studio, potrai contattare <a href="http://www.istruzione.it/urp/contatti.shtml"></i>l'URL</a> del Ministero dell'Istruzione .</p>
                 </div> 
                 
     
