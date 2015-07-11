@@ -59,7 +59,6 @@ paginaSupporto();
         <thead>
             <th>Nome</th>
             <th>Tipo</th>
-            <th>Azioni</th>
         </thead>
         <?php
         foreach(Titolo::elenco('nome ASC') as $c){

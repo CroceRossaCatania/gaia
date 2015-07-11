@@ -341,7 +341,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                         <ul class="dropdown-menu">
                                             <li class="nav-header">Elenchi</li>
                                             <li><a href="?p=supporto.ricerca.utenti"><i class="icon-search"></i> Cerca Utente</a></li> 
-                                            <li><a href="?p=supporto.titoli"><i class="icon-certificate"></i>Visualizza Titoli</a></li>
+                                            <li><a href="?p=supporto.titoli"><i class="icon-certificate"></i>Titoli</a></li>
                                         </ul>
                                     </div>
                                     <?php } ?>
