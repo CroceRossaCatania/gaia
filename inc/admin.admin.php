@@ -25,14 +25,14 @@ paginaAdmin();
     <div class="span6 allinea-sinistra">
         <h2>
             <i class="icon-star muted"></i>
-            Elenco Admin
+            Elenco amministratori
         </h2>
     </div>
     
     <div class="span6 allinea-destra">
         <div class="input-prepend">
             <span class="add-on"><i class="icon-search"></i></span>
-            <input autofocus required id="cercaUtente" placeholder="Cerca Admin..." type="text">
+            <input autofocus required id="cercaUtente" placeholder="Cerca amministratore..." type="text">
         </div>
     </div>    
 </div>
@@ -55,7 +55,51 @@ paginaAdmin();
         <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
         <td><?php echo $_v->comuneNascita; ?></td>
         <td>
-            <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente revocare amministrazione a questo utente ?');" href="?p=admin.admin.dimetti&id=<?php echo $_v->id; ?>">
+            <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente revocare i privilegi a questo utente ?');" href="?p=admin.admin.dimetti&id=<?php echo $_v->id; ?>">
+                <i class="icon-ban-circle"></i>
+                Revoca
+            </a>
+        </td>
+    </tr>
+    <?php } ?>
+</table>
+
+
+<div class="row-fluid">
+    <div class="span6 allinea-sinistra">
+        <h2>
+            <i class="icon-star-empty muted"></i>
+            Elenco utenti con privilegi di supporto
+        </h2>
+    </div>
+    
+    <div class="span6 allinea-destra">
+        <div class="input-prepend">
+            <span class="add-on"><i class="icon-search"></i></span>
+            <input autofocus required id="cercaUtente" placeholder="Cerca utenti di supporto..." type="text">
+        </div>
+    </div>    
+</div>
+<hr />
+<table class="table table-striped table-bordered" id="tabellaUtenti">
+    <thead>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Codice Fiscale</th>
+        <th>Data di Nascita</th>
+        <th>Luogo di Nascita</th>
+        <th>Azione</th>
+    </thead>
+    <?php
+    foreach ( Utente::listaSupporto() as $_v ) {  ?>
+    <tr>
+        <td><?php echo $_v->nome; ?></td>
+        <td><?php echo $_v->cognome; ?></td>
+        <td><?php echo $_v->codiceFiscale; ?></td>
+        <td><?php echo date('d-m-Y', $_v->dataNascita); ?></td> 
+        <td><?php echo $_v->comuneNascita; ?></td>
+        <td>
+            <a class="btn btn-danger btn-small" onClick="return confirm('Vuoi veramente revocare i privilegi a questo utente ?');" href="?p=admin.nomina.supporto&id=<?php echo $_v->id; ?>">
                 <i class="icon-ban-circle"></i>
                 Revoca
             </a>
