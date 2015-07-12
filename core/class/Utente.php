@@ -45,6 +45,26 @@ class Utente extends Persona {
         }
         return $r;
     }
+    
+     public static function listaSupporto() {
+        global $db;
+        $q = $db->prepare("
+            SELECT
+                id
+            FROM
+                dettagliPersona
+            WHERE
+                nome > 0
+            ORDER BY
+                nome ASC, cognome ASC");
+        $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = Utente::id($k[0]);
+        }
+        return $r;
+    }
+
 
     public static function senzaSesso() {
         global $db;
