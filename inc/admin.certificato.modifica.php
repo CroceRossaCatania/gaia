@@ -10,6 +10,14 @@ $f = Certificato::id($t);
 
 $ruoli = array('aaa','bbb','ccc','ddd','eee');
 ?>
+
+<style>
+    .control-group .controls span{
+        display: inline-block;
+        min-width: 80px;
+    }
+</style>
+
 <div class="row-fluid">
     <h2><i class="icon-chevron-right muted"></i> Modifica Certificato</h2>
     <div class="alert alert-block alert-info ">
@@ -136,7 +144,8 @@ $ruoli = array('aaa','bbb','ccc','ddd','eee');
                 <?php endforeach; ?>
             </select>
             
-            <span>Proporzione:<span> 1 / <input class="input-small" type="text" name="inputProporzioneAffiancamento" id="inputProporzioneAffiancamento" value="<?php echo $f->proporzioneAffiancamento; ?>">
+            <span>Proporzione: 1 / <input class="input-small" type="text" name="inputProporzioneAffiancamento" id="inputProporzioneAffiancamento" value="<?php echo $f->proporzioneAffiancamento; ?>">
+            </span>
         </div>
     </div>
     

@@ -9,6 +9,14 @@ paginaAdmin();
 $ruoli = array('aaa','bbb','ccc','ddd','eee');
 
 ?>
+<style>
+    .control-group .controls span{
+        display: inline-block;
+        min-width: 80px;
+    }
+</style>
+
+
 <div class="row-fluid">
     <?php if (isset($_GET['err'])) { ?>
     <div class="alert alert-block alert-error">
@@ -39,7 +47,7 @@ $ruoli = array('aaa','bbb','ccc','ddd','eee');
         <div class="controls">
             <span>minimo:</span>
             <input class="input-small" type="text" name="inputMinimoPartecipanti" id="inputMinimoPartecipanti" value="<?php echo $f->minimoPartecipanti; ?>">
-            
+            <br/>
             <span>massimo:</span>
             <input class="input-small" type="text" name="inputMassimoPartecipanti" id="inputMassimoPartecipanti" value="<?php echo $f->massimoPartecipanti; ?>">
         </div>
@@ -50,7 +58,7 @@ $ruoli = array('aaa','bbb','ccc','ddd','eee');
         <div class="controls">
             <span>ore:</span>
             <input class="input-small" type="text" name="inputDurata" id="inputDurata" value="<?php echo $f->durata; ?>">
-            
+            <br/>
             <span>giorni:</span>
             <input class="input-small" type="text" name="inputGiorni" id="inputGiorni" value="<?php echo $f->giorni; ?>">
         </div>
