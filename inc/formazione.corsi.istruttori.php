@@ -1,10 +1,10 @@
 <?php
 /*
- * ©2015 Croce Rossa Italiana
+ * ©2014 Croce Rossa Italiana
  */
 paginaPrivata();
-//caricaSelettoreDirettore();
-//caricaSelettoreIstruttore();
+caricaSelettoreDirettore();
+caricaSelettoreIstruttore();
 caricaSelettoreComitato();
 
 $certificati = Certificato::elenco();
@@ -72,10 +72,27 @@ $certificati = Certificato::elenco();
                 </div>
                 <div class="row-fluid">
                     <div class="span4">
-                        <label for="descrizione"><i class="icon-text"></i> Descrizione</label>
+                        <label for="dataFine"><i class="icon-user-md"></i> Direttore</label>
                     </div>
                     <div class="span8">
-                        <textarea id="descrizione" class="span12" name="descrizione"></textarea>
+                        <a data-selettore-direttore="true" 
+                           data-input="direttore" 
+                           class="btn btn-block btn-large">
+                            Seleziona un direttore... <i class="icon-pencil"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span4">
+                        <label for="dataFine"><i class="icon-user"></i> Istruttori</label>
+                    </div>
+                    <div class="span8">
+                        <a data-selettore-istruttore="true" 
+                           data-input="istruttori" 
+                           data-multi="true"
+                           class="btn btn-block btn-large">
+                            Aggiungi un istruttore... <i class="icon-pencil"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="row-fluid">

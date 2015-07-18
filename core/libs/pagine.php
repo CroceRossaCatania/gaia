@@ -144,6 +144,28 @@ function paginaCorsoBase( $corsoBase = null ) {
     }
 }
 
+function paginaCorso( $corso = null ) {
+    global $sessione;
+    richiediComitato();
+    if (
+         ( 
+            ( $corso instanceof Corso )
+            and
+            !($corso->modificabileDa($sessione->utente()))
+         )
+          or
+         !(
+                (bool) $sessione->utente()->admin()
+            or  (bool) $sessione->utente()->presiede()
+            or  (bool) $sessione->utente()->delegazioni(APP_FORMAZIONE)
+            or  (bool) $sessione->utente()->corsiDiGestione()
+            or  (bool) $sessione->utente()->corsiDiretti()
+        )
+    ) {
+        redirect('errore.permessi');
+    }
+}
+
 function paginaModale() {
     include('./inc/part/pagina.attendere.php');
 }

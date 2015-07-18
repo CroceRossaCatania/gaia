@@ -1220,6 +1220,68 @@ class Utente extends Persona {
     
 
     /**
+     * Restituisce l'elenco dei corsi base che gestisco
+     * @return Corso    elenco dei corsi gestiti 
+     */
+    public function corsiDiGestione() {
+        $a = $this->corsiDiretti();
+        foreach ( $this->comitatiApp([APP_PRESIDENTE, APP_FORMAZIONE], false) as $c ) {
+            $a = array_merge($a, $c->corsiRichiesti());
+        }
+        $a = array_unique($a);
+        return $a;
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi base di cui sono direttore
+     * @return Corso    elenco dei corsi diretti 
+     */
+    public function corsiDiretti() {
+        return Corso::filtra([
+            ['direttore', $this->id]
+            ]);
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi base a cui ho richiesto partecipazione
+     * @return Partecipazione elenco dei corsi a cui mi sono rpeiscritto o iscritto 
+     */
+    public function corsiRichiesti() {
+        return Partecipazione::filtra([
+            ['volontario', $this->id]
+            ]);
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi base di cui sono direttore e devo completare
+     * @return Corso    elenco dei corsi diretti da completare
+     */
+    public function corsiDirettiDaCompletare() {
+        return Corso::filtra([
+            ['direttore',   $this->id],
+            ['stato',       CORSO_S_DACOMPLETARE]
+        ]);
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi base in cui non è stato messo il direttore
+     * @return Corso    elenco dei corsi senza direttore
+     */
+    public function corsiSenzaDirettore() {
+        if ($this->admin())
+            return null;
+
+        $corsi = $this->corsiDiGestione();
+        $r = [];
+        foreach ( $corsi as $corso ) {
+            if (!$corso->direttore())
+                $r[] = $corso;
+        }
+        return $r;
+    }
+    
+
+    /**
      * Restituisce l'elenco delle tipologie di corsi che posso creare
      * @return elenco delle tipologie di corsi
      */
