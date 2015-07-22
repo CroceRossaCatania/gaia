@@ -416,6 +416,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
         foreach ( $c->riserve() as $r ) {
             if ( $r->attuale() ){
             $i++; 
+            $v = $r->volontario();
             $excel->aggiungiRiga([
                 $i,
                 $v->nome,
