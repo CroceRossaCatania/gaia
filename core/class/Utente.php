@@ -1220,20 +1220,20 @@ class Utente extends Persona {
     
 
     /**
-     * Restituisce l'elenco dei corsi base che gestisco
+     * Restituisce l'elenco dei corsi  che gestisco
      * @return Corso    elenco dei corsi gestiti 
      */
-    public function corsiDiGestione() {
+    public function corsiInGestione() {
         $a = $this->corsiDiretti();
         foreach ( $this->comitatiApp([APP_PRESIDENTE, APP_FORMAZIONE], false) as $c ) {
-            $a = array_merge($a, $c->corsiRichiesti());
+            $a = array_merge($a, $this->corsiRichiesti());
         }
         $a = array_unique($a);
         return $a;
     }
 
     /**
-     * Restituisce l'elenco dei corsi base di cui sono direttore
+     * Restituisce l'elenco dei corsi di cui sono direttore
      * @return Corso    elenco dei corsi diretti 
      */
     public function corsiDiretti() {
@@ -1247,13 +1247,13 @@ class Utente extends Persona {
      * @return Partecipazione elenco dei corsi a cui mi sono rpeiscritto o iscritto 
      */
     public function corsiRichiesti() {
-        return Partecipazione::filtra([
+        return PartecipazioneCorso::filtra([
             ['volontario', $this->id]
-            ]);
+        ]);
     }
 
     /**
-     * Restituisce l'elenco dei corsi base di cui sono direttore e devo completare
+     * Restituisce l'elenco dei corsi di cui sono direttore e devo completare
      * @return Corso    elenco dei corsi diretti da completare
      */
     public function corsiDirettiDaCompletare() {

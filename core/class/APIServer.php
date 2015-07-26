@@ -937,6 +937,106 @@ class APIServer {
         return $risposta;
 
     }
+    
+    private function api_istruttori_in_affiancamento_cerca() {
+        $me = $this->richiediLogin();
+        $r = new Ricerca();
+
+        /* Ordini personalizzati per vari usi */
+        $ordini = [
+            'selettore' =>  [
+                'pertinenza DESC'
+            ]
+        ];
+        if ( 
+            $this->par['ordine'] &&
+            isset($ordini[$this->par['ordine']])
+            ) {
+            $r->ordine = $ordini[$this->par['ordine']];
+        }
+
+        if ($this->par['stato']) {
+            $r->stato = $this->par['stato'];
+        } elseif ($this->par['stato'] === 0) {
+            $r->stato = 0;
+        }
+
+        if ($this->par['statoPersona']) {
+            $r->statoPersona = $this->par['statoPersona'];
+        } elseif ($this->par['statoPersona'] === 0) {
+            $r->statoPersona = 0;
+        } else {
+            $r->statoPersona = false;
+        }
+
+        if ($this->par['passato']) {
+            $r->passato = true;
+        }
+
+        if ($this->par['giovane']) {
+            $r->giovane = true;
+        }
+
+        if ($this->par['infermiera']) {
+            $r->infermiera = true;
+        }
+
+        if ($this->par['militare']) {
+            $r->militare = true;
+        }
+
+        // versione modificata per #867
+        if ($this->par['comitati']) {
+            $g = GeoPolitica::daOid($this->par['comitati']);
+            // bisogna avere permessi di lettura sul ramo
+            if ( !$me->puoLeggereDati($g) )
+                throw new Errore(1016);
+            
+            $com = $g->estensione();
+        } else {
+            $com = array_merge(
+                // Dominio di ricerca
+                $me->comitatiApp([
+                    APP_PRESIDENTE,
+                    APP_SOCI,
+                    APP_OBIETTIVO
+                ]),
+                $me->geopoliticheAttivitaReferenziate(),
+                $me->comitatiAreeDiCompetenza(true)
+            );
+        }
+        $r->comitati = $com;
+
+        if ( $this->par['query'] ) {
+            $r->query = $this->par['query'];
+        }
+
+        if ( $this->par['pagina'] ) {
+            $r->pagina = (int) $this->par['pagina'];
+        }
+
+        if ( $this->par['perPagina'] ) {
+            $r->perPagina = (int) $this->par['perPagina'];
+        }
+
+        $r->esegui();
+
+        $risultati = [];
+        foreach ( $r->risultati as $risultato ) {
+            $risultati[] = $risultato->toJSONRicerca();
+        }
+
+        $risposta = [
+            'tempo'     =>  $r->tempo,
+            'totale'    =>  $r->totale,
+            'pagina'    =>  $r->pagina,
+            'pagine'    =>  $r->pagine,
+            'perPagina' =>  $r->perPagina,
+            'risultati' =>  $risultati
+        ];
+        return $risposta;
+
+    }
 
     private function api_posta_cerca() {
         $me = $this->richiediLogin();

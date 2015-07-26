@@ -158,7 +158,6 @@ function paginaCorso( $corso = null ) {
                 (bool) $sessione->utente()->admin()
             or  (bool) $sessione->utente()->presiede()
             or  (bool) $sessione->utente()->delegazioni(APP_FORMAZIONE)
-            or  (bool) $sessione->utente()->corsiDiGestione()
             or  (bool) $sessione->utente()->corsiDiretti()
         )
     ) {
@@ -235,9 +234,19 @@ function caricaSelettoreDirettore() {
     $_carica_selettore_direttore = true;
 }
 
-function caricaSelettoreIstruttore() {
-    global $_carica_selettore_istruttore;
-    $_carica_selettore_istruttore = true;
+function caricaSelettoreInsegnante() {
+    global $_carica_selettore_insegnante;
+    $_carica_selettore_insegnante = true;
+}
+
+function caricaSelettoreInsegnanteInAffiancamento() {
+    global $_carica_selettore_insegnante_affiancamento;
+    $_carica_selettore_insegnante_affiancamento = true;
+}
+
+function caricaSelettoreDiscente() {
+    global $_carica_selettore_discente;
+    $_carica_selettore_discente = true;
 }
 
 function caricaSelettoreComitato() {

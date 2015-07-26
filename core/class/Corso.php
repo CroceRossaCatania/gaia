@@ -41,16 +41,36 @@ class Corso extends GeoEntita {
         $this->progressivo = $progressivo;
         return $progressivo;
     }
+    
+    /**
+     * Aggiorna lo stato interno in base ai dati posseduti
+     */
+    public function aggiornaStato() {
+        
+        switch ($this->stato) {
+            case CORSO_S_ANNULLATO:
+            case CORSO_S_CONCLUSO:
+            case CORSO_S_ATTIVO:
+                return;
+                break;
+            case CORSO_S_DACOMPLETARE:
+                $update = true;
+                if (!empty($this->organizzatore) &&
+                    !empty($this->responsabile) &&
+                    !empty($this->direttore) &&
+                    ($this->partecipanti == $this->numeroDiscenti()) &&
+                    ($this->numeroInsegnantiNecessari() == $this->numeroInsegnanti()) &&
+                    ($this->numeroInsegnantiNecessari() >= $this->numeroInsegnantiInAffiancamento())
+                    )
+                    $this->stato = CORSO_S_ATTIVO;
+                break;
+        }
+    }
 
     /*
     public function area()
     {
         return Area::id(5);
-    }
-    
-    public function referente()
-    {
-        return Volontario::id(3);
     }
     
     public function postiLiberi()
@@ -83,19 +103,19 @@ class Corso extends GeoEntita {
     }
 
     /**
+     * Ritorna il responsabile del corso
+     * @return GeoPolitica
+     */
+    public function responsabile() {
+    	return Volontario::id($this->responsabile);
+    }
+
+    /**
      * Ritorna la data di inizio del corso base
      * @return DT
      */
     public function inizio() {
     	return DT::daTimestamp($this->inizio);
-    }
-
-    /**
-     * Ritorna la data di inizio del corso base in epoch time
-     * @return int
-     */
-    public function inizioDate() {
-        return $this->inizio;
     }
 
     /**
@@ -114,6 +134,53 @@ class Corso extends GeoEntita {
         return $this->tEsame;
     }
 
+    /**
+     * Controlla se il corso e' futuro (non iniziato)
+     * @return bool
+     */
+    public function modificabile() {
+        if (!$this->inizio) {
+            return false;
+        }
+
+        $inizio = $this->inizio;
+        $oggi = (new DT())->getTimestamp();
+        $buffer = GIORNI_CORSO_NON_MODIFICABILE * 86400;
+        
+        return (($oggi-$inizio) > $buffer);
+    }
+
+    /**
+     * Controlla se il corso e' futuro (non iniziato)
+     * @return bool
+     */
+    public function modificabileFinoAl() {
+        if (!$this->inizio) {
+            return false;
+        }
+
+        $inizio = $this->inizio;
+        $buffer = GIORNI_CORSO_NON_MODIFICABILE * 86400;
+        
+        return new DT('@'.($inizio - $buffer));
+    }
+
+    /**
+     * True se il corso è attivo e non iniziato
+     * @return bool     stato del cors
+     */
+    public function accettaIscrizioni() {
+        if (!$this->inizio) {
+            return false;
+        }
+
+        $inizio = $this->inizio;
+        $oggi = (new DT())->getTimestamp();
+        $buffer = GIORNI_CORSO_ISCRIZIONI_CHIUSE * 86400;
+        
+        return (($oggi-$inizio) > $buffer);
+    }
+    
     /**
      * Controlla se il corso e' futuro (non iniziato)
      * @return bool
@@ -155,28 +222,20 @@ class Corso extends GeoEntita {
     }
 
     /**
-     * Ottiene l'elenco di aspiranti nella zona
-     * (non deve essere visibile da nessuno!)
-     * @return Aspirante[]
-     */
-    public function potenzialiAspiranti() {
-    	return Aspirante::chePassanoPer($this);
-    }
-
-    /**
      * Localizza nella sede del comitato organizzatore
-     */
+     *
     public function localizzaInSede() {
     	$sede = $this->organizzatore()->coordinate();
     	$this->localizzaCoordinate($sede[0], $sede[1]);
-    }
+    }//*/
     
     /**
      * Restituisce il nome del corso
      * @return string     il nome del corso
      */
     public function nome() {
-        return "Corso Base del ".$this->organizzatore()->nomeCompleto();
+        $certificato = Certificato::id($this->certificato);
+        return "Corso di ".$certificato->nome;
     }
 
     /**
@@ -200,7 +259,7 @@ class Corso extends GeoEntita {
             ||  contiene($this->id, 
                     array_map(function($x) {
                         return $x->id;
-                    }, $u->corsiBaseDiGestione())
+                    }, $u->corsiInGestione())
                 )
         );
 
@@ -211,7 +270,7 @@ class Corso extends GeoEntita {
      * @return bool 
      */
     public function cancellabileDa(Utente $u) {
-        return (bool) contiene($this, $u->corsiBaseDiGestione());
+        return (bool) contiene($this, $u->corsiInGestione());
     }
 
     /**
@@ -221,17 +280,6 @@ class Corso extends GeoEntita {
     public function direttore() {
         if ($this->direttore) {
             return Volontario::id($this->direttore);    
-        }
-        return null;
-    }
-
-    /**
-     * Restituisce il direttore di un corso
-     * @return Volontario 
-     */
-    public function referente() {
-        if ($this->referente) {
-            return Volontario::id($this->referente);    
         }
         return null;
     }
@@ -253,28 +301,20 @@ class Corso extends GeoEntita {
         if ( !$this->progressivo )
             $this->assegnaProgressivo();
         if($this->progressivo) {
-            return 'BASE-'.$this->anno.'/'.$this->progressivo;
+            return 'CORSO-'.$this->anno.'/'.$this->progressivo;
         }
         return null;
     }
 
-    /**
-     * True se il corso è attivo e non iniziato
-     * @return bool     stato del cors
-     */
-    public function accettaIscrizioni() {
-        return (bool) ($this->futuro()
-            and $this->stato == CORSO_S_ATTIVO);
-    }
 
     /**
      * Verfica se un utente è iscritto o no al corso
      * @return bool
      */
     public function iscritto(Utente $u) {
-        $p = PartecipazioneBase::filtra([
+        $p = PartecipazioneCorso::filtra([
             ['volontario', $u->id],
-            ['corsoBase', $this->id]
+            ['corso', $this->id]
             ]);
         foreach($p as $_p) {
             if($_p->attiva()) {
@@ -285,61 +325,112 @@ class Corso extends GeoEntita {
     }
 
     /**
-     * Elenco delle partecipazioni degli iscritti
-     * @return PartecipazioneBase elenco delle partecipazioni degli iscritti 
+     * Elenco delle partecipazioni (con qualsiasi ruolo)
+     * @return PartecipazioneCorso elenco delle partecipazioni dei discenti 
      */
     public function partecipazioni($stato = null) {
-        $p = PartecipazioneBase::filtra([
-            ['corsoBase', $this->id]
-            ]);
-        $part = [];
-        foreach($p as $_p) {
-            if(!$stato && $_p->attiva()) {
-                $part[] = $_p;
-            } elseif($stato && $_p->stato == $stato) {
-                $part[] = $_p;
-            }
-        }
-        return $part;
+        return PartecipazioneCorso::filtra([
+            ['corso', $this->id],
+            ['stato', PARTECIPAZIONE_ACCETTATA, OP_GTE]
+        ]);
     }
 
+    
     /**
-     * Elenco degli iscritti ad un corso base
-     * @return Utente elenco degli iscritti 
+     * Elenco dei discenti ad un corso 
+     * @return Utente elenco dei discenti 
      */
-    public function iscritti() {
-        $p = PartecipazioneBase::filtra([
-            ['corsoBase', $this->id]
-            ]);
-        $iscritti = [];
-        foreach($p as $_p) {
-            if($_p->attiva()) {
-                $iscritti[] = $_p->utente();
-            }
-        }
-        return $iscritti;
+    public function discenti() {
+        return PartecipazioneCorso::filtra([
+            ['corso', $this->id],
+            ['ruolo', CORSO_RUOLO_DISCENTE],
+            ['stato', PARTECIPAZIONE_ACCETTATA, OP_GTE]
+        ]);
     }
 
+    
     /**
-     * Numero degli iscritti ad un corso base
-     * @return int numero degli iscritti 
+     * Numero dei discenti ad un corso 
+     * @return int numero dei discenti 
      */
-    public function numIscritti() {
-        return count($this->iscritti());
+    public function numeroDiscenti() {
+        return PartecipazioneCorso::conta([
+            ['corso', $this->id],
+            ['ruolo', CORSO_RUOLO_DISCENTE],
+            ['stato', PARTECIPAZIONE_ACCETTATA, OP_GTE]
+        ]);
     }
 
+    
     /**
-     * Cancella il corso base e tutto ciò che c'è di associato
+     * Numero dei discenti ad un corso 
+     * @return int numero dei discenti 
+     */
+    public function postiLiberi() {
+        return $this->partecipanti - PartecipazioneCorso::conta([
+            ['corso', $this->id],
+            ['ruolo', CORSO_RUOLO_DISCENTE],
+            ['stato', PARTECIPAZIONE_ACCETTATA, OP_GTE]
+        ]);
+    }
+
+    
+    public function numeroInsegnanti() {
+        return PartecipazioneCorso::conta([
+            ['corso', $this->id],
+            ['ruolo', CORSO_RUOLO_INSEGNANTE],
+            ['stato', PARTECIPAZIONE_ACCETTATA, OP_GTE]
+        ]);
+    }
+
+    
+    /**
+     * Numero dei discenti ad un corso 
+     * @return int numero dei discenti 
+     */
+    public function numeroInsegnantiMancanti() {
+        return $this->numeroInsegnantiNecessari() - $this->numeroInsegnanti();
+    }
+
+    
+    public function numeroInsegnantiInAffiancamento() {
+        return PartecipazioneCorso::conta([
+            ['corso', $this->id],
+            ['ruolo', CORSO_RUOLO_AFFIANCAMENTO],
+            ['stato', PARTECIPAZIONE_ACCETTATA, OP_GTE]
+        ]);
+    }
+
+    
+    public function numeroInsegnantiNecessari() {
+        return ceil( $this->partecipanti / $this->certificato()->discenti_per_insegnante );
+    }
+    
+    
+    /*
+     * Funzione repository per recuperare insegnanti di un corso
+     */
+    public function insegnanti() {
+        return PartecipazioneCorso::filtra([
+            ['corso', $this->id],
+            ['ruolo', CORSO_RUOLO_INSEGNANTE],
+            ['stato', PARTECIPAZIONE_ACCETTATA, OP_GTE]
+        ]);
+    }
+
+    
+    /**
+     * Cancella il corso e tutto ciò che c'è di associato
      */
     public function cancella() {
-        PartecipazioneBase::cancellaTutti([['corsoBase', $this->id]]);
+        PartecipazioneCorso::cancellaTutti([['corso', $this->id]]);
         Lezione::cancellaTutti([['corso', $this->id]]);
         
         parent::cancella();
     }
 
     /**
-     * Se il corso base è attivo e non ci sono partecipanti
+     * Se il corso è attivo e non ci sono partecipanti
      * allora è cancellabile
      * @return bool
      */
@@ -347,7 +438,7 @@ class Corso extends GeoEntita {
         if ($this->stato == CORSO_S_DACOMPLETARE) {
             return true;
         }
-        return (bool) ($this->stato == CORSO_S_ATTIVO && $this->numIscritti() == 0);
+        return (bool) ($this->stato == CORSO_S_ATTIVO && $this->numDiscenti() == 0);
     }
 
     /**
@@ -397,16 +488,16 @@ class Corso extends GeoEntita {
      */
     public function generaScheda($iscritto) {
         
-        $pb = PartecipazioneBase::filtra([
+        $pb = PartecipazioneCorso::filtra([
                 ['volontario', $iscritto],
-                ['corsoBase', $this],
-                ['stato', ISCR_SUPERATO]
+                ['corso', $this],
+                ['stato', PARTECIPAZIONE_EFFETTUATA_SUCCESSO]
             ]);
 
-        $pb = array_merge( $pb, PartecipazioneBase::filtra([
+        $pb = array_merge( $pb, PartecipazioneCorso::filtra([
                 ['volontario', $iscritto],
                 ['corsoBase', $this],
-                ['stato', ISCR_BOCCIATO]
+                ['stato', PARTECIPAZIONE_EFFETTUATA_FALLIMENTO]
             ]));
 
         $pb = array_unique($pb);
@@ -425,7 +516,7 @@ class Corso extends GeoEntita {
             $p2 = "Negativo";
         }
 
-        if ( $pb->stato==ISCR_SUPERATO ){
+        if ( $pb->stato==PARTECIPAZIONE_EFFETTUATA_SUCCESSO ){
 
             $idoneo = "Idoneo";
 
@@ -466,7 +557,7 @@ class Corso extends GeoEntita {
         $file .= $iscritto->nomeCompleto();
         $file .= ".pdf";
 
-        $p = new PDF('schedabase', $file);
+        $p = new PDF('schedacorso', $file);
         $p->_COMITATO     = $this->organizzatore()->nomeCompleto();
         $p->_VERBALENUM   = $this->progressivo();
         $p->_DATAESAME    = date('d/m/Y', $this->tEsame);
@@ -488,7 +579,7 @@ class Corso extends GeoEntita {
 
 
     /**
-     * Ritorna l'elenco di lezioni del Corso Base
+     * Ritorna l'elenco di lezioni del Corso
      * @return Lezione[]
      */
     public function lezioni() {
@@ -522,24 +613,26 @@ class Corso extends GeoEntita {
             return null;
         }
     }
+
+    /**
+     * Ritorna la data di termine del corso
+     * Ritorna null se data assente
+     * @return DT
+     */
+    public function dataTermine() {
+        if ( $this->dataAttivazione ){
+            return DT::daTimestamp($this->dataConvocazione)->format('d/m/Y'); 
+        }else{
+            return null;
+        }
+    }
     
     /**
      * Creo un array con valori unici in base ad un attributo dei 
      * dati extra dei corsi
      */
-    public static function getAllCertificati() {
-        global $db;
-        $list = array();
-        
-        return Certificato::elenco();
-/*
-        $query = $db->prepare("SELECT DISTINCT certificato FROM corsi ORDER BY certificato ASC");
-        $query->execute();
-        while ($row = $query->fetch(PDO::FETCH_NUM)) {
-            array_push($list, $row[0]);
-        }
-        return $list;
-*/
+    public function certificato() {
+        return Certificato::id($this->certificato);
     }
     
 
@@ -560,6 +653,7 @@ class Corso extends GeoEntita {
         }
         return $x;
     }
+    
     
     /**
      * Cerca oggetti con le corrispondenze specificate

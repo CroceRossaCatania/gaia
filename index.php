@@ -6,6 +6,12 @@
 
 define("DEBUG", TRUE);
 
+if (DEBUG) {
+    ini_set('display_errors', true);
+    error_reporting(E_ALL);
+//    error_reporting(E_ALL&~E_NOTICE);
+}
+
 /* Modalità manutenzione */
 if (file_exists('upload/setup/manutenzione')) {
     header('HTTP/1.1 307 Temporary Redirect');
@@ -53,7 +59,9 @@ $sessione->agent    = $_SERVER['HTTP_USER_AGENT'];
 /* Flag dei selettori */
 $_carica_selettore              = false;
 $_carica_selettore_comitato     = false;
-$_carica_selettore_istruttore     = false;
+$_carica_selettore_discente     = false;
+$_carica_selettore_insegnante     = false;
+$_carica_selettore_insegnante_affiancamento     = false;
 $_carica_selettore_direttore     = false;
 
 /* Pagina da visualizzare */
@@ -294,6 +302,21 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                                     Ricerca volontari per titoli
                                                 </a>
                                             </li>
+
+                                            <li class="nav-header">Corsi</li>
+
+                                            <li>
+                                                <a href="?p=public.corsi">
+                                                    <i class="icon-list"></i>
+                                                    Calendario corsi
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="?p=formazione.corsi.crea">
+                                                    <i class="icon-graduation-cap"></i>
+                                                    Crea nuovo corso
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                     <?php } ?>
@@ -472,8 +495,16 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                     include './inc/part/utente.direttore.selettore.php';
                 } ?>
 
-                <?php if ( $_carica_selettore_istruttore ) {
-                    include './inc/part/utente.istruttore.selettore.php';
+                <?php if ( $_carica_selettore_insegnante ) {
+                    include './inc/part/utente.insegnante.selettore.php';
+                } ?>
+
+                <?php if ( $_carica_selettore_insegnante_affiancamento ) {
+                    include './inc/part/utente.insegnante_affiancamento.selettore.php';
+                } ?>
+
+                <?php if ( $_carica_selettore_discente ) {
+                    include './inc/part/utente.discente.selettore.php';
                 } ?>
 
                 <?php if ( $me && $me->admin && !$me->admin() ) { ?>

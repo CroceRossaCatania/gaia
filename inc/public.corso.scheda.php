@@ -37,11 +37,11 @@ $files = array(
     array('url' => '#', 'name' => 'Documento con nome lungo 4'),
 );
 
-$teachers = array(
-    array('url' => '#', 'name' => 'Docente_con_nome_lungo Cognome'),
-    array('url' => '#', 'name' => 'Docente2 Cognome2'),
-    array('url' => '#', 'name' => 'Docente3 Cognome3 Cognome4')
-);
+$insegnanti = [];
+$partecipazioni = $c->insegnanti();
+foreach ($partecipazioni as $i) {
+    $insegnanti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto()];
+};
 
 
 
@@ -139,7 +139,7 @@ $geoComitato = GeoPolitica::daOid($a->organizzatore);
                 <h4 class="text-info">
                     <i class="icon-map-marker"></i>
                     <a target="_new" href="<?php echo $a->linkMappa(); ?>">
-                        <?php echo $a->luogo; ?>
+                        <?php echo $a->luogo; ?><br/><?php echo $a->inizio()->inTesto() ?>
                     </a>
                 </h4>
             </div>
@@ -153,7 +153,7 @@ $geoComitato = GeoPolitica::daOid($a->organizzatore);
                 <div class="alert alert-block alert-error allinea-centro">
                     <h4 class="text-error ">
                         <i class="icon-warning-sign"></i>
-                        Ci sono <?php echo number_format($pl, 0, ',', '.'); ?> posti liberi
+                        Ci sono <?php echo $a->postiLiberi() ?> posti liberi
                     </h4>
                     <p>Iscriviti anche tu al corso!</p>
                 </div>
@@ -162,29 +162,7 @@ $geoComitato = GeoPolitica::daOid($a->organizzatore);
         <?php } ?>
 
         <div class="row-fluid allinea-centro">
-            <div class="span3">
-                <span>
-                    <i class="icon-user"></i>
-                    Referente
-                </span><br />
-                <a href="?p=utente.mail.nuova&id=<?php echo $a->referente()->id; ?>">
-                    <?php echo $a->referente()->nome . ' ' . $a->referente()->cognome; ?>
-                </a>
-                <br />
-                <?php if ($puoPartecipare && !$anonimo) { ?>
-                    <span class="muted">+39</span> <?php echo $a->referente()->cellulare(); ?>
-                <?php } ?>
-            </div>
-            <div class="span3">
-                <span>
-                    <i class="icon-globe"></i>
-                    Area d'intervento
-                </span><br />
-                <span class="text-info">
-                    <?php echo $a->area()->nomeCompleto(); ?>
-                </span>
-            </div>
-            <div class="span3">
+            <div class="span4">
                 <span>
                     <i class="icon-home"></i>
                     Organizzato da
@@ -193,7 +171,20 @@ $geoComitato = GeoPolitica::daOid($a->organizzatore);
                     <?php echo $geoComitato->nomeCompleto(); ?>
                 </span>
             </div>
-            <div class="span3">
+            <div class="span4">
+                <span>
+                    <i class="icon-user"></i>
+                    Responsabile
+                </span><br />
+                <a href="?p=utente.mail.nuova&id=<?php echo $a->responsabile()->id; ?>">
+                    <?php echo $a->responsabile()->nome . ' ' . $a->responsabile()->cognome; ?>
+                </a>
+                <br />
+                <?php if ($puoPartecipare && !$anonimo) { ?>
+                    <span class="muted">+39</span> <?php echo $a->responsabile()->cellulare(); ?>
+                <?php } ?>
+            </div>
+            <div class="span4">
                 <span>
                     <i class="icon-lock"></i>
                     Partecipazione
@@ -226,9 +217,9 @@ $geoComitato = GeoPolitica::daOid($a->organizzatore);
                     <div class="row-fluid">
                         <ul>
                             <?php
-                            foreach ($teachers as $teacher) {
+                            foreach ($insegnanti as $insegnante) {
                                 ?>
-                                <li><a href="<?php echo $teacher['url'] ?>"><?php echo $teacher['name'] ?></a></li>
+                                <li><a href="<?php echo $insegnante['url'] ?>"><?php echo $insegnante['nome'] ?></a></li>
                                 <?php
                             }
                             ?>

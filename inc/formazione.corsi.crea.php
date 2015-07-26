@@ -2,11 +2,33 @@
 /*
  * ©2015 Croce Rossa Italiana
  */
-paginaPrivata();
-//caricaSelettoreDirettore();
-//caricaSelettoreIstruttore();
+paginaPresidenziale();
+
+$id = intval($_GET['id']);
+$c = $organizzatoreId = null;
+$luogo = $inizio = $partecipanti = $descrizione = '';
+
+if (!empty($id) && is_int($id)) {
+    try {
+        $c = Corso::id($id);
+        if (empty($c)) {
+            throw new Errore('Manomissione');
+        }
+        
+        $_organizzatoreId = $c->organizzatore()->id;
+        $_certificatoId = $c->certificato()->id;
+    } catch(Exception $e) {
+        redirect('admin.corsi.crea&err');
+    }
+    
+    if (!$c->modificabile()) {
+        redirect('formazione.corsi.riepilogo&id='.$id);
+    }
+}
+
 caricaSelettoreComitato();
 
+$comitati = $me->comitati();
 $certificati = Certificato::elenco();
 
 ?>
@@ -16,7 +38,8 @@ $certificati = Certificato::elenco();
     <div class="span8">
         <h2><i class="icon-plus-square icon-calendar muted"></i> Corso di formazione</h2>
         <form action="?p=formazione.corsi.crea.ok" method="POST">
-            <input value="1" name="idCorso" id="idCorso" type="hidden">
+            <input value="<?php echo @$c->id ?>" name="id" type="hidden">
+            <input value="<?php echo ($c->id) ? 1 : 0 ?>" name="modifica" type="hidden">
             <div class="alert alert-block alert-success">
                 <div class="row-fluid">
                     <h4><i class="icon-question-sign"></i> Dati del corso...</h4>
@@ -24,12 +47,24 @@ $certificati = Certificato::elenco();
                 <hr>
                 <div class="row-fluid">
                     <div class="span4">
+                        <label for="organizzatore"><i class="icon-user-md"></i> Comitato organizzatore</label>
+                    </div>
+                    <div class="span8">
+                        <select name="organizzatore"><?php echo $organizzatoreId ?>
+                            <?php foreach ($comitati as $t) { ?>
+                                <option value="<?php echo $t->id ?>" <?php echo ($t->id==$_organizzatoreId) ? "selected='selected'" : '' ?>><?php echo $t->nome ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span4">
                         <label for="tipologia"><i class="icon-certificate"></i> Tipologia</label>
                     </div>
                     <div class="span8">
                         <select name="certificato">
                             <?php foreach ($certificati as $t) { ?>
-                                <option value="<?php echo $t->id ?>"><?php echo $t->nome ?></option>
+                                <option value="<?php echo $t->id ?>" <?php echo ($t->id==$_certificatoId) ? "selected='selected'" : '' ?>><?php echo $t->nome ?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -39,7 +74,7 @@ $certificati = Certificato::elenco();
                         <label for="tipologia"><i class="icon-building"></i> Luogo</label>
                     </div>
                     <div class="span8">
-                        <input id="luogo" class="span12" name="luogo" value="" type="text">
+                        <input id="luogo" class="span12" name="luogo" value="<?php echo @$c->luogo ?>" type="text">
                     </div>
                 </div>
                 <div class="row-fluid">
@@ -47,27 +82,15 @@ $certificati = Certificato::elenco();
                         <label for="dataInizio"><i class="icon-calendar"></i> Data Di inizio</label>
                     </div>
                     <div class="span8">
-                        <input id="dataInizio" class="span12 hasDatepicker" name="inizio" value="" type="text">
+                        <input id="dataInizio" class="span12 hasDatepicker" name="inizio" value="<?php echo ($c) ? (new DT('@'.$c->inizio))->format('d/m/Y H:i') : '' ?>" type="text">
                     </div>
                 </div>
                 <div class="row-fluid">
                     <div class="span4">
-                        <label for="dataFine"><i class="icon-calendar"></i> Data Di Fine</label>
+                        <label for="partecipanti"><i class="icon-calendar"></i> Numero Partecipanti</label>
                     </div>
                     <div class="span8">
-                        <input id="dataFine" class="span12 hasDatepicker" name="fine" value="" type="text">
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span4">
-                        <label for="dataFine"><i class="icon-user-md"></i> Comitato organizzatore</label>
-                    </div>
-                    <div class="span8">
-                        <a data-selettore-comitato="true" 
-                           data-input="organizzatore" 
-                           class="btn btn-block btn-large">
-                            Seleziona un comitato organizzatore... <i class="icon-pencil"></i>
-                        </a>
+                        <input id="partecipanti" class="span12 hasDatepicker" name="partecipanti" value="<?php echo @$c->partecipanti ?>" type="text">
                     </div>
                 </div>
                 <div class="row-fluid">
@@ -75,13 +98,13 @@ $certificati = Certificato::elenco();
                         <label for="descrizione"><i class="icon-text"></i> Descrizione</label>
                     </div>
                     <div class="span8">
-                        <textarea id="descrizione" class="span12" name="descrizione"></textarea>
+                        <textarea id="descrizione" class="span12" name="descrizione"><?php echo @$c->descrizione ?></textarea>
                     </div>
                 </div>
                 <div class="row-fluid">
-                    <div class="span4 offset8">
+                    <div class="span4 offset4">
                         <button type="submit" class="btn btn-success">
-                            <i class="icon-plus"></i>
+                            <i class="icon-ok"></i>
                             Crea il corso
                         </button>
                     </div>

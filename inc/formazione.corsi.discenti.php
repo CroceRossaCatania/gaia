@@ -11,8 +11,10 @@ $id = intval($_GET['id']);
 try {
     $c = Corso::id($id);
     if (empty($c)) {
-        throw new Errore('Manomissione');
+        throw new Exception('Manomissione');
     }
+    $certificato = Certificato::by('id', intval($c->certificato));
+
 } catch(Exception $e) {
     redirect('admin.corsi.crea&err');
 }
@@ -21,14 +23,18 @@ if (!$c->modificabile()) {
     redirect('formazione.corsi.riepilogo&id='.$id);
 }
 
-// visto sopra, non dovrebbe mai scattare, ma chissà!
 
-// controllare che l'utente possa modificare questo dannatissimo corso 
-//paginaCorso($c);
-caricaSelettoreDirettore();
+$_discenti = Partecipazione::filtra([
+    ['corso', $c->id],
+    ['ruolo', CORSO_RUOLO_INSEGNANTE]
+]);
+$discenti = [];
+foreach ($_discenti as $i) {
+    $discenti[] = $i->id;
+}
+unset($_discenti);
 
-// non dovrebbe mai essere vuoto a meno di crash nella pagina precedente di creazione
-$certificato = Certificato::by('id', intval($c->certificato));
+caricaSelettoreDiscente();
 
 $d = new DateTime('@' . $c->inizio);
 
@@ -38,31 +44,23 @@ $d = new DateTime('@' . $c->inizio);
 
     <div class="span8">
         <h2><i class="icon-plus-square icon-calendar muted"></i> Corso di formazione</h2>
-        <form action="?p=formazione.corsi.direttore.ok" method="POST">
+        <form action="?p=formazione.corsi.discenti.ok" method="POST">
             <input type="hidden" name="id" value="<?php echo $id ?>" />
             <div class="alert alert-block alert-success">
                 <div class="row-fluid">
-                    <h4><i class="icon-question-sign"></i> Direttore per <?php echo $certificato->nome ?> del <?php echo $d->format('d/m/Y'); ?></h4>
+                    <h4><i class="icon-question-sign"></i> Discenti per <?php echo $certificato->nome ?> del <?php echo $d->format('d/m/Y'); ?></h4>
                 </div>
                 <hr>
                 <div class="row-fluid">
-                    <div class="span12">
-                        <ul>
-                            <li>Punto di riferimento per gli aspiranti volontari che vogliono partecipare al corso e per i docenti;</li>
-                            <li>I suoi contatti verranno divulgati agli aspiranti volontari interessati al corso;</li>
-                            <li>Generalmente è presente durante le lezioni e conosce i docenti.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row-fluid">
                     <div class="span4">
-                        <label for="dataFine"><i class="icon-user-md"></i> Direttore</label>
+                        <label for="dataFine"><i class="icon-user"></i> Discenti</label>
                     </div>
                     <div class="span8">
-                        <a data-selettore-direttore="true" 
-                           data-input="direttore" 
+                        <a data-selettore-discente="true" 
+                           data-input="discenti" 
+                           data-multi="<?php echo $c->partecipanti ?>"
                            class="btn btn-block btn-large">
-                            Seleziona un direttore... <i class="icon-pencil"></i>
+                            Aggiungi <?php echo $c->partecipanti ?> discenti... <i class="icon-pencil"></i>
                         </a>
                     </div>
                 </div>

@@ -765,6 +765,62 @@ $conf['partecipazioneBase'] = [
 
 /*
  * ===================================
+ * ===== RUOLI CORSI =================
+ * ===================================
+ */
+
+define('CORSO_NESSUN_RUOLO',                    0);
+define('CORSO_RUOLO_CREATORE',                 10);
+define('CORSO_RUOLO_DELEGATO_CREATORE',        20);
+define('CORSO_RUOLO_DIRETTORE',                30);
+define('CORSO_RUOLO_INSEGNANTE',               40); // istruttore per corsi a laici/volontari e formatore per corsi a istruttori
+define('CORSO_RUOLO_AFFIANCAMENTO',            50);
+define('CORSO_RUOLO_DISCENTE',                 60);
+
+define('GIORNI_CORSO_ISCRIZIONI_CHIUSE',            15); 
+define('GIORNI_CORSO_NON_MODIFICABILE',             15); 
+define('GIORNI_PARTECIPAZIONE_NON_MODIFICABILE',    15); 
+
+
+$conf['corso_ruolo'] = [
+    CORSO_NESSUN_RUOLO              => 'Nessun ruolo',
+    CORSO_RUOLO_CREATORE            => 'Presidente',
+    CORSO_RUOLO_DELEGATO_CREATORE   => 'Delegato',
+    CORSO_RUOLO_DIRETTORE           => 'Direttore',
+    CORSO_RUOLO_INSEGNANTE          => 'Insegnante',
+    CORSO_RUOLO_AFFIANCAMENTO       => 'Insegnante in affiancamento',
+    CORSO_RUOLO_DISCENTE            => 'Discente',
+];
+
+/*
+ * ===================================
+ * ===== STATO PARTECIPAZIONI CORSI ==
+ * ===================================
+ */
+
+define('PARTECIPAZIONE_RICHIESTA',               0);
+define('PARTECIPAZIONE_NEGATA',                 10);
+define('PARTECIPAZIONE_RITIRATA',               20);
+define('PARTECIPAZIONE_ANNULLATA',              30); // confermata ma impossibilitata per imprevisto
+define('PARTECIPAZIONE_ACCETTATA',              40);
+define('PARTECIPAZIONE_CONFERMATA',             50); 
+define('PARTECIPAZIONE_EFFETTUATA_FALLIMENTO',  60); 
+define('PARTECIPAZIONE_EFFETTUATA_SUCCESSO',    70); 
+
+
+$conf['partecipazione'] = [
+    PARTECIPAZIONE_RICHIESTA    =>  'Richiesta',
+    PARTECIPAZIONE_NEGATA       =>  'Negata', 
+    PARTECIPAZIONE_RITIRATA     =>  'Ritirata', //ritirata dal presidente (o delegato) che ha creato il corso
+    PARTECIPAZIONE_ACCETTATA    =>  'Accettata',
+    PARTECIPAZIONE_ANNULLATA    =>  'Annullata',
+    PARTECIPAZIONE_CONFERMATA   =>  'Confermata', 
+    PARTECIPAZIONE_EFFETTUATA_FALLIMENTO   =>  'Corso non superato',
+    PARTECIPAZIONE_EFFETTUATA_SUCCESSO   =>  'Corso superato',
+];  
+
+/*
+ * ===================================
  * ============ POSTA ================
  * ===================================
  */
@@ -918,20 +974,24 @@ $conf['est_attivita2geopolitica'] = [
  */
 
 $conf['est_geopolitica2corso'] = [
+    /*
     EST_UNITA       =>  COR_VIS_UNITA,
     EST_LOCALE      =>  COR_VIS_LOCALE,
     EST_PROVINCIALE =>  COR_VIS_PROVINCIALE,
     EST_REGIONALE   =>  COR_VIS_REGIONALE,
     EST_NAZIONALE   =>  COR_VIS_VOLONTARI     
+    */
 ];
 
 $conf['est_corso2geopolitica'] = [
+    /*
     COR_VIS_UNITA       =>  EST_UNITA,
     COR_VIS_LOCALE      =>  EST_LOCALE,
     COR_VIS_PROVINCIALE =>  EST_PROVINCIALE,
     COR_VIS_REGIONALE   =>  EST_REGIONALE,
     COR_VIS_VOLONTARI   =>  EST_NAZIONALE,
     COR_VIS_PUBBLICA    =>  EST_NAZIONALE     
+    */
 ];
 
 /*
