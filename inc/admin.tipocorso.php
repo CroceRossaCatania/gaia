@@ -40,7 +40,7 @@ paginaAdmin();
     <div class="span8">
         <h2>
             <i class="icon-graduation-cap muted"></i>
-            Elenco Certificati
+            Elenco Tipologie di Corso
         </h2>
     </div>
     
@@ -52,8 +52,8 @@ paginaAdmin();
     </div>  
     <br/>  
     <div class="span4 allinea-destra">
-        <a class="btn btn-success" href="?p=admin.certificato.nuovo">
-            <i class="icon-plus"></i> Aggiungi Certificato
+        <a class="btn btn-success" href="?p=admin.tipocorso.nuovo">
+            <i class="icon-plus"></i> Aggiungi Tipologia di corso
         </a>
     </div> 
 </div>
@@ -68,16 +68,16 @@ paginaAdmin();
             <th>Azioni</th>
         </thead>
         <?php
-        foreach(Certificato::elenco('nome ASC') as $c){
+        foreach(TipoCorso::elenco('nome ASC') as $c){
             ?>
             <tr>
                 <td><?php echo $c->nome; ?></td>
                 <td>
                     <div class="btn-group">
-                        <a  onClick="return confirm('Vuoi veramente cancellare questo titolo corso ?');" href="?p=admin.certificato.cancella&id=<?php echo $c->id; ?>" title="Cancella Certificato" class="btn btn-small btn-warning">
+                        <a  onClick="return confirm('Vuoi veramente cancellare questo titolo corso ?');" href="?p=admin.tipocorso.cancella&id=<?php echo $c->id; ?>" title="Cancella Certificato" class="btn btn-small btn-warning">
                             <i class="icon-trash"></i> Cancella
                         </a>
-                        <a  href="?p=admin.certificato.modifica&id=<?php echo $c->id; ?>" title="Modifica Certificato" class="btn btn-small btn-info">
+                        <a  href="?p=admin.tipocorso.modifica&id=<?php echo $c->id; ?>" title="Modifica Certificato" class="btn btn-small btn-info">
                             <i class="icon-edit"></i> Modifica
                         </a>
                     </div>

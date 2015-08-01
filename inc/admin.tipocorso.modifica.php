@@ -4,9 +4,9 @@
  */
 
 paginaAdmin();
-controllaParametri(array('id'), 'admin.certificati&err');
+controllaParametri(array('id'), 'admin.tipocorso&err');
 $t = $_GET['id'];
-$f = Certificato::id($t);
+$f = TipoCorso::id($t);
 
 $ruoli = array('aaa','bbb','ccc','ddd','eee');
 ?>
@@ -28,7 +28,7 @@ $ruoli = array('aaa','bbb','ccc','ddd','eee');
         </div>
     </div>           
 </div>
-<form class="form-horizontal" action="?p=admin.certificato.modifica.ok&id=<?php echo $t; ?>" method="POST">
+<form class="form-horizontal" action="?p=admin.tipocorso.modifica.ok&id=<?php echo $t; ?>" method="POST">
 
     <div class="control-group">
         <label class="control-label" for="inputNome">Nome certificato</label>

@@ -5,11 +5,11 @@
  */
 
 paginaAdmin();
-controllaParametri(['inputNome'], 'admin.certificato.nuovo&err');
+controllaParametri(['inputNome'], 'admin.tipocorso.nuovo&err');
 
-$x = Certificato::by('nome', $_POST['inputNome']);
+$x = TipoCorso::by('nome', $_POST['inputNome']);
 if (!$x){
-    $t = new Certificato();
+    $t = new TipoCorso();
     $t->nome = maiuscolo( $_POST['inputNome'] );
     $t->minimoPartecipanti = intval($_POST['inputMinimoPartecipanti']);
     $t->massimoPartecipanti = intval($_POST['inputMassimoPartecipanti']);
@@ -26,9 +26,9 @@ if (!$x){
     $t->ruoloDocenti = $_POST['inputRuoloDocenti'];
     $t->ruoloAffiancamento = $_POST['inputRuoloAffiancamento'];
     $t->ruoloDiscenti = $_POST['inputRuoloDiscenti'];
-    redirect('admin.certificati&new');
+    redirect('admin.tipocorso&new');
 } else {
-    redirect('admin.certificati&dup');
+    redirect('admin.tipocorso&dup');
 }
 
 ?>

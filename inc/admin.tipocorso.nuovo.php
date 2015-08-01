@@ -34,7 +34,7 @@ $ruoli = array('aaa','bbb','ccc','ddd','eee');
         </div>
     </div>           
 </div>
-<form class="form-horizontal" action="?p=admin.certificato.nuovo.ok" method="POST">
+<form class="form-horizontal" action="?p=admin.tipocorso.nuovo.ok" method="POST">
     <div class="control-group">
         <label class="control-label" for="inputNome">Nome certificato</label>
         <div class="controls">
