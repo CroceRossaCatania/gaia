@@ -143,11 +143,10 @@ class Corso extends GeoEntita {
             return false;
         }
 
-        $inizio = $this->inizio;
+        $inizio = intval($this->inizio);
         $oggi = (new DT())->getTimestamp();
         $buffer = GIORNI_CORSO_NON_MODIFICABILE * 86400;
-        
-        return (($oggi-$inizio) > $buffer);
+        return (($inizio-$oggi) > $buffer);
     }
 
     /**

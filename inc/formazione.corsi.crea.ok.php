@@ -25,8 +25,8 @@ if (empty($_POST['id'])) {
     $c = new Corso();
 } else {
     $c = Corso::id($_POST['id']);
-    if (!$c->modificabile() || !$c->modificabileDa($me)) {
-        redirect('formazione.corsi.riepilogo&id='.$c->id);
+    if (!$c->modificabile() /* || !$c->modificabileDa($me)*/ ) {
+        redirect('formazione.corsi.riepilogo&id='.$c->id.'&err=1');
     }
 }
 
@@ -34,7 +34,7 @@ $c->certificato = (int) intval($_POST['certificato']);
 $c->organizzatore = $comitato;
 $c->responsabile = $me->id;
 $c->luogo = $luogo;
-$c->inizio = $inizio->getTimestamp();
+$c->inizio = $inizio->getTimeStamp();
 $c->anno = $inizio->format('Y');
 $c->partecipanti = $partecipanti;
 $c->descrizione = $descrizione;
@@ -42,9 +42,9 @@ $c->descrizione = $descrizione;
 $c->assegnaProgressivo();
 $c->aggiornaStato();
 
-if (empty($_POST['modifica']))
-    redirect('formazione.corsi.direttore&id='.$c->id);
-else
+if (!empty($_POST['wizard'])) {
+    redirect('formazione.corsi.direttore&id='.$c->id.'&wizard=1');
+} else {
     redirect('formazione.corsi.riepilogo&id='.$c->id);
-
+}
 ?>

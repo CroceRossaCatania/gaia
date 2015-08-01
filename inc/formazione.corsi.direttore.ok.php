@@ -10,8 +10,8 @@ $c = $direttore = null;
 try {
     $c = Corso::id(intval($_POST['id']));
     
-    if (!$c->modificabile() || !$c->modificabileDa($me)) {
-        redirect('formazione.corsi.riepilogo&id='.$c->id);
+    if (!$c->modificabile() /*|| !$c->modificabileDa($me)*/ ) {
+        redirect('formazione.corsi.riepilogo&id='.$c->id.'&err=1');
     }
 
     $direttore = Volontario::id(intval($_POST['direttore']));
@@ -25,9 +25,11 @@ try {
 
 $c->direttore = $direttore->id;
 
-if (empty($_POST['modifica']))
-    redirect('formazione.corsi.insegnanti&id='.$c->id);
-else
-    redirect('formazione.corsi.riepilogo&id='.$c->id);
+if (!empty($_POST['wizard'])) {
+    redirect('formazione.corsi.insegnanti&id='.$c->id.'&wizard=1');
+    die;
+}
+
+redirect('formazione.corsi.riepilogo&id='.$c->id);
 
 ?>

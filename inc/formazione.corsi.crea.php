@@ -9,6 +9,7 @@ $c = $organizzatoreId = null;
 $luogo = $inizio = $partecipanti = $descrizione = '';
 
 if (!empty($id) && is_int($id)) {
+    $wizard = false;
     try {
         $c = Corso::id($id);
         if (empty($c)) {
@@ -24,6 +25,8 @@ if (!empty($id) && is_int($id)) {
     if (!$c->modificabile()) {
         redirect('formazione.corsi.riepilogo&id='.$id);
     }
+} else {
+    $wizard = true;
 }
 
 caricaSelettoreComitato();
@@ -39,7 +42,7 @@ $certificati = Certificato::elenco();
         <h2><i class="icon-plus-square icon-calendar muted"></i> Corso di formazione</h2>
         <form action="?p=formazione.corsi.crea.ok" method="POST">
             <input value="<?php echo @$c->id ?>" name="id" type="hidden">
-            <input value="<?php echo ($c->id) ? 1 : 0 ?>" name="modifica" type="hidden">
+            <input value="<?php echo empty($wizard) ? 0 : 1 ?>" name="wizard" type="hidden">
             <div class="alert alert-block alert-success">
                 <div class="row-fluid">
                     <h4><i class="icon-question-sign"></i> Dati del corso...</h4>

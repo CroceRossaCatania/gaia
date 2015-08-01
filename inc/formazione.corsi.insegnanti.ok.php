@@ -11,8 +11,8 @@ $insegnanti = $daAggiungere = $daEliminare = [];
 try {
     $c = Corso::id(intval($_POST['id']));
     
-    if (!$c->modificabile() || !$c->modificabileDa($me)) {
-        redirect('formazione.corsi.riepilogo&id='.$c->id);
+    if (!$c->modificabile() /*|| !$c->modificabileDa($me) */) {
+        redirect('formazione.corsi.riepilogo&id='.$c->id.'&err=1');
     }
 
     if (empty($c) || !is_array($insegnanti)) {
@@ -60,9 +60,12 @@ try {
     redirect('admin.corsi.crea&err');
 }
 
-if (empty($_POST['modifica']))
+
+if (!empty($_POST['wizard'])) {
     redirect('formazione.corsi.discenti&id='.$c->id);
-else
-    redirect('formazione.corsi.riepilogo&id='.$c->id);
+    die;
+}
+
+redirect('formazione.corsi.riepilogo&id='.$c->id);
 
 ?>

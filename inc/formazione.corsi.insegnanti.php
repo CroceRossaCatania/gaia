@@ -8,6 +8,7 @@ controllaParametri(['id'], 'admin.corsi.crea&err');
 
 // try catch da usare per evitare stampa dell'errore e poter fare redirect 
 $id = intval($_GET['id']);
+$wizard = intval($_GET['wizard']);
 try {
     $c = Corso::id($id);
     if (empty($c)) {
@@ -52,6 +53,7 @@ $d = new DateTime('@' . $c->inizio);
         <h2><i class="icon-plus-square icon-calendar muted"></i> Corso di formazione</h2>
         <form action="?p=formazione.corsi.insegnanti.ok" method="POST">
             <input type="hidden" name="id" value="<?php echo $id ?>" />
+            <input value="<?php echo empty($wizard) ? 0 : 1 ?>" name="wizard" type="hidden">
             <div class="alert alert-block alert-success">
                 <div class="row-fluid">
                     <h4><i class="icon-question-sign"></i> Insegnanti per <?php echo $certificato->nome ?> del <?php echo $d->format('d/m/Y'); ?></h4>

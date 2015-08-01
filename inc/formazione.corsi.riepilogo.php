@@ -6,7 +6,7 @@
 paginaPresidenziale();
 controllaParametri(['id'], 'admin.corsi.crea&err');
 
-$c = null;
+$c = $err = null;
 $id = intval($_GET['id']);
 try {
     $c = Corso::id($id);
@@ -17,6 +17,16 @@ try {
 
 } catch(Exception $e) {
     redirect('admin.corsi.crea&err');
+}
+
+if (!empty($_GET['err'])) {
+    switch($_GET['err']) {
+        case 1:
+            $err = 'corso non modificabile';
+            break;
+        default:
+            $err = 'errore sconosciuto';
+    }
 }
 
 
@@ -115,6 +125,12 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
         <div class="span12">
             <div class="alert alert-block alert-error allinea-centro">
                 <h4 class="text-error ">
+                    <?php if (!empty($err)) { ?>
+                    <div>
+                        <i class="icon-warning-sign"></i>
+                        <?php echo $err ?> 
+                    </div>
+                    <?php } ?>
                     <?php if ($checkDocenti) { ?>
                     <div>
                         <i class="icon-warning-sign"></i>
@@ -165,7 +181,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
             <div class="span6">
                 <h4>
                     <i class="icon-comments-alt"></i>
-                    Docenti
+                    Docenti confermati
                 </h4>
                 <div class="row-fluid">
                     <ul>
@@ -200,7 +216,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
             <div class="span6">
                 <h4>
                     <i class="icon-comments-alt"></i>
-                    Discenti
+                    Discenti confermati
                 </h4>
                 <div class="row-fluid">
                     <ul>

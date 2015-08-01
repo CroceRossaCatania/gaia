@@ -15,8 +15,8 @@ try {
         throw new Exception('Manomissione');
     }
 
-    if (!$c->modificabile() || !$c->modificabileDa($me)) {
-        redirect('formazione.corsi.riepilogo&id='.$c->id);
+    if (!$c->modificabile() /*|| !$c->modificabileDa($me)*/ ) {
+        redirect('formazione.corsi.riepilogo&id='.$c->id.'&err=1');
     }
 
     if (is_array($_POST['discenti'])) {
@@ -41,8 +41,8 @@ try {
 
         $daAggiungere = array_keys($daAggiungere);
         $daEliminare = array_keys($daEliminare);
-var_dump($daAggiungere);
-var_dump($daEliminare);
+//var_dump($daAggiungere);
+//var_dump($daEliminare);
         foreach ($daEliminare as $id) {
             PartecipazioneCorso::id($id)->cancella();
         }
