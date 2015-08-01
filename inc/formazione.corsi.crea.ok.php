@@ -20,7 +20,8 @@ $comitato = Comitato::id($organizzatore)->oid();
 
 $inizio = DT::createFromFormat('d/m/Y H:i', $_POST['inizio']);
 
-if (empty(intval(@$_POST['id']))) {
+$_POST['id'] = intval(@$_POST['id']);
+if (empty($_POST['id'])) {
     $c = new Corso();
 } else {
     $c = Corso::id($_POST['id']);
