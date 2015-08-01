@@ -12,10 +12,10 @@ controllaParametri(array('id'));
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
-$a = Corso::id($_GET['id']);
+$corso = Corso::id($_GET['id']);
 
 $puoPartecipare = false;
-//if ($a->postiLiberi() > 0 && $a->puoPartecipare($me)) {
+//if ($corso->postiLiberi() > 0 && $corso->puoPartecipare($me)) {
     $puoPartecipare = true;
 //}
 $anonimo = false;
@@ -23,11 +23,11 @@ if ($me instanceof Anonimo) {
     $anonimo = true;
 }
 
-$geoComitato = GeoPolitica::daOid($a->organizzatore);
+$geoComitato = GeoPolitica::daOid($corso->organizzatore);
 
-$modificabile = $a->modificabileDa($me);
+$modificabile = $corso->modificabileDa($me);
 if ($modificabile) {
-    $dominio = $me->dominioCompetenzaCorso($a);
+    $dominio = $me->dominioCompetenzaCorso($corso);
 }
 
 $files = array(
@@ -38,7 +38,7 @@ $files = array(
 );
 
 $insegnanti = [];
-$partecipazioni = $c->insegnanti();
+$partecipazioni = $corso->insegnanti();
 foreach ($partecipazioni as $i) {
     $insegnanti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto()];
 };
@@ -48,13 +48,13 @@ foreach ($partecipazioni as $i) {
 /*
   $g = Gruppo::by('attivita', $a);
 
-  $apertura = $a->apertura;
+  $apertura = $corso->apertura;
  */
 
 $puoPartecipare = true;
 $apertura = true;
 $modificabile = false;
-$geoComitato = GeoPolitica::daOid($a->organizzatore);
+$geoComitato = GeoPolitica::daOid($corso->organizzatore);
 ?>
 <div class="row-fluid">
     <div class="span3">
@@ -95,28 +95,28 @@ $geoComitato = GeoPolitica::daOid($a->organizzatore);
 
             <div class="span8 btn-group">
 <?php if ($apertura && $modificabile) { ?>
-                    <a href="?p=attivita.modifica&id=<?php echo $a->id; ?>" class="btn btn-large btn-info">
+                    <a href="?p=attivita.modifica&id=<?php echo $corso->id; ?>" class="btn btn-large btn-info">
                         <i class="icon-edit"></i>
                         Modifica
                     </a>
-                    <a href="?p=attivita.turni&id=<?= $a ?>" class="btn btn-primary btn-large">
+                    <a href="?p=attivita.turni&id=<?= $corso->id ?>" class="btn btn-primary btn-large">
                         <i class="icon-calendar"></i> Turni
                     </a>
-                    <a href="?p=attivita.cancella&id=<?= $a->id; ?>" class="btn btn-large btn-danger" title="Cancella attività e tutti i turni">
+                    <a href="?p=attivita.cancella&id=<?= $corso->id; ?>" class="btn btn-large btn-danger" title="Cancella attività e tutti i turni">
                         <i class="icon-trash"></i>
                     </a>
-    <?php if (!$g && $a->comitato()->_estensione() < EST_NAZIONALE) { ?>
-                        <a class="btn btn-large btn-success" href="?p=attivita.gruppo.nuovo&id=<?php echo $a->id; ?>" title="Crea nuovo gruppo di lavoro">
+    <?php if (!$g && $corso->comitato()->_estensione() < EST_NAZIONALE) { ?>
+                        <a class="btn btn-large btn-success" href="?p=attivita.gruppo.nuovo&id=<?php echo $corso->id; ?>" title="Crea nuovo gruppo di lavoro">
                             <i class="icon-group"></i> Crea gruppo
                         </a>
     <?php }
 }
 ?>
-                <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://gaia.cri.it/index.php?p=attivita.scheda&id={$a->id}"); ?>" target="_blank">
+                <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://gaia.cri.it/index.php?p=attivita.scheda&id={$corso->id}"); ?>" target="_blank">
                     <i class="icon-facebook-sign"></i> Condividi
                 </a>
                 <?php if (!$apertura) { ?>
-                    <a class="btn btn-large btn-danger disabled" <?php if ($a->modificabileDa($me)) { ?> onclick="return confirm('Vuoi nuovamente aprire l\'attività?');" href="?p=attivita.apertura.ok&id=<?= $a->id; ?>&apri" <?php } ?>>
+                    <a class="btn btn-large btn-danger disabled" <?php if ($corso->modificabileDa($me)) { ?> onclick="return confirm('Vuoi nuovamente aprire l\'attività?');" href="?p=attivita.apertura.ok&id=<?= $corso->id; ?>&apri" <?php } ?>>
                         <i class="icon-lock"></i>
                         Attività chiusa
                     </a>
@@ -126,34 +126,34 @@ $geoComitato = GeoPolitica::daOid($a->organizzatore);
             <div class="span4 allinea-destra">
                 <span class="muted">
                     <strong>Ultimo aggiornamento</strong>:<br />
-                    <i class="icon-time"></i> <?php echo date("d/m/Y H:i:s", $a->timestamp); ?>
+                    <i class="icon-time"></i> <?php echo date("d/m/Y H:i:s", $corso->timestamp); ?>
                 </span>
                 <!-- Box Like/Dislike -->
-                <div data-like="<?= $a->oid(); ?>" class="pull-right"></div>
+                <div data-like="<?= $corso->oid(); ?>" class="pull-right"></div>
             </div>
         </div>
         <hr />
         <div class="row-fluid allinea-centro">
             <div class="span12">
-                <h2 class="text-success"><?php echo $a->titolo; ?></h2>
+                <h2 class="text-success"><?php echo $corso->titolo; ?></h2>
                 <h4 class="text-info">
                     <i class="icon-map-marker"></i>
-                    <a target="_new" href="<?php echo $a->linkMappa(); ?>">
-                        <?php echo $a->luogo; ?><br/><?php echo $a->inizio()->inTesto() ?>
+                    <a target="_new" href="<?php echo $corso->linkMappa(); ?>">
+                        <?php echo $corso->luogo; ?><br/><?php echo $corso->inizio()->inTesto() ?>
                     </a>
                 </h4>
             </div>
         </div>
         <hr />
         <?php
-        $pl = true;// $a->postiLiberi();
+        $pl = true;// $corso->postiLiberi();
         if ($puoPartecipare && $pl) {
             ?>
             <div class="span12">
                 <div class="alert alert-block alert-error allinea-centro">
                     <h4 class="text-error ">
                         <i class="icon-warning-sign"></i>
-                        Ci sono <?php echo $a->postiLiberi() ?> posti liberi
+                        Ci sono <?php echo $corso->postiLiberi() ?> posti liberi
                     </h4>
                     <p>Iscriviti anche tu al corso!</p>
                 </div>
@@ -176,12 +176,12 @@ $geoComitato = GeoPolitica::daOid($a->organizzatore);
                     <i class="icon-user"></i>
                     Responsabile
                 </span><br />
-                <a href="?p=utente.mail.nuova&id=<?php echo $a->responsabile()->id; ?>">
-                    <?php echo $a->responsabile()->nome . ' ' . $a->responsabile()->cognome; ?>
+                <a href="?p=utente.mail.nuova&id=<?php echo $corso->responsabile()->id; ?>">
+                    <?php echo $corso->responsabile()->nome . ' ' . $corso->responsabile()->cognome; ?>
                 </a>
                 <br />
                 <?php if ($puoPartecipare && !$anonimo) { ?>
-                    <span class="muted">+39</span> <?php echo $a->responsabile()->cellulare(); ?>
+                    <span class="muted">+39</span> <?php echo $corso->responsabile()->cellulare(); ?>
                 <?php } ?>
             </div>
             <div class="span4">
@@ -207,7 +207,7 @@ $geoComitato = GeoPolitica::daOid($a->organizzatore);
                         <i class="icon-info-sign"></i>
                         Ulteriori informazioni
                     </h4>
-                    <?php echo nl2br($a->descrizione); ?>
+                    <?php echo nl2br($corso->descrizione); ?>
                 </div>
                 <div class="span4">
                     <h4>
