@@ -194,24 +194,26 @@ class Comitato extends GeoPolitica {
      * Volontari che alla data $elezioni hanno certa $anzianita
      */
     public function elettoriAttivi(DateTime $elezioni, $anzianita = ANZIANITA) {
+        global $conf;
+        $tipi = implode(',', $conf['membro_anzianita']);
         $q = $this->db->prepare("
-            SELECT  DISTINCT( anagrafica.id )
+            SELECT  DISTINCT(anagrafica.id)
             FROM    appartenenza, anagrafica
-            WHERE   
-              appartenenza.comitato     = :comitato
-            AND
-              appartenenza.stato        = :stato
-            AND
-              appartenenza.volontario   = anagrafica.id 
-            AND
-              ( inizio <= :minimo )
-            AND
+            WHERE
               appartenenza.volontario IN (
                 SELECT volontario FROM appartenenza
                 WHERE comitato = :comitato AND
                 stato = :stato AND
-                fine = 0 OR fine > :elezioni
+                (fine = 0 OR fine > :elezioni)
               )
+            AND
+              appartenenza.volontario IN (
+                SELECT volontario FROM appartenenza
+                WHERE stato IN ({$tipi}) AND
+                inizio <= :minimo
+              )
+            AND
+              appartenenza.volontario = anagrafica.id
             ORDER BY
               anagrafica.cognome     ASC,
               anagrafica.nome        ASC");
