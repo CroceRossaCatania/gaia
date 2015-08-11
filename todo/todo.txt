@@ -27,7 +27,6 @@ X aggiungere numero di partecipanti al corso (deve limitare il numero di istrutt
 - gestire caso in cui il presidente/delegato escluda dal corso un insegnante che si era già confermato (funzione Partecipazione->ritira())
 - formazione.corsi.istruttori.ok: aggiungere verifica del fatto che il volontario aggiunto sia effettivamente un istruttore
 
-
 --------------------------------
 
 DA CHIEDERE: 
@@ -69,7 +68,13 @@ ALTER TABLE `partecipazioniCorsi` RENAME TO  `partecipazioni_corsi` ;
 --------------------------------
 
 Maaaaaaaaaaaaaaaa
-
 e se volessi un costruttore particolare per una classe derivata da Entità?
 
 
+------------------------------------
+
+In sospeo:
+- Aggiungere la gestione delle giornate e relativa report della giornata
+- pagina di chiusura corso
+- importazione titoli e/o adattamento al  - Pull request #2085 - (popolare le tendine ora statiche)
+- nuovo ruolo - vedere se utilizzare quello già presente o crearne uno generico (non legato alla formazione)
