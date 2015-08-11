@@ -303,7 +303,7 @@ class MEmail extends Entita {
 		return [
 			'_id'		=>	$this->id,
 			'id'		=>	$this->id,
-			'oggetto'	=>	$this->oggetto,
+			'oggetto'	=>	(string) $this->oggetto,
 			'timestamp'	=>	$this->timestamp,
 			'invio' 	=> [
 				'iniziato'	=>	$this->invio_iniziato,
