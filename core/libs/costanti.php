@@ -152,6 +152,12 @@ $conf['membro_dimesso'] = [
     MEMBRO_DIMESSO
 ];
 
+/* Le tipologie di appartenenze che sono valide per anzianita */
+$conf['membro_anzianita'] = [
+    MEMBRO_VOLONTARIO, MEMBRO_DIMESSO,
+    MEMBRO_TRASFERITO, MEMBRO_ORDINARIO,
+    MEMBRO_ORDINARIO_DIMESSO
+];
 
 /*
  * ===================================
