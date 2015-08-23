@@ -402,7 +402,7 @@ class Corso extends GeoEntita {
 
     
     public function numeroInsegnantiNecessari() {
-        return ceil( $this->partecipanti / $this->certificato()->discenti_per_insegnante );
+        return ceil( $this->partecipanti / max(1,$this->certificato()->discenti_per_insegnante) );
     }
     
     
@@ -631,7 +631,7 @@ class Corso extends GeoEntita {
      * dati extra dei corsi
      */
     public function certificato() {
-        return Certificato::id($this->certificato);
+        return TipoCorso::id($this->certificato);
     }
     
 
@@ -680,9 +680,12 @@ class Corso extends GeoEntita {
             $where .= " AND DATE_FORMAT(FROM_UNIXTIME(inizio), '%Y-%m-%d') > STR_TO_DATE(:inizio, '%Y-%m-%d') ";
         }
         
+        /*
         if (!empty($_array["fine"])) {
             $where .= " AND DATE_FORMAT(FROM_UNIXTIME(tEsame), '%Y-%m-%d') < STR_TO_DATE(:fine, '%Y-%m-%d')";
         }
+         *
+         */
         
         if (!empty($_array["type"])){
             $typeArray = array_fill(0, count($_array["type"]), ':type');
@@ -712,6 +715,7 @@ class Corso extends GeoEntita {
         
         $sql = "SELECT ".static::$_t.".* $select FROM ". static::$_t. "$join $where $_order";   
        
+        //print $sql;
         
         $hash = null;
         if ( false && $cache && static::$_cacheable ) {
@@ -728,10 +732,12 @@ class Corso extends GeoEntita {
             $query->bindParam(":inizio", $_array["inizio"], PDO::PARAM_STR) ;
         }
         
-        
+        /*
         if (!empty($_array["fine"])) {
             $query->bindParam(":fine", $_array["fine"], PDO::PARAM_STR);
         }
+         *
+         */
         
         if (!empty($_array["type"])) {
             foreach($_array["type"] as $j => $t_tmp){
