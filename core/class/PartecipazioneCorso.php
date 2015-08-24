@@ -40,10 +40,12 @@ class PartecipazioneCorso extends Entita {
     public function aggiungi(Corso $c, Volontario $v, $ruolo=0) {
         global $sessione;
 
+        /*
         $comitato = Comitato::daOid($c->organizzatore);
         if (!$sessione->utente()->presiede($comitato)) { // N.B.: da estendere anche al delegato del presidente
             return false;
         }
+        */
 
         $this->corso = $c->id;
         $this->volontario = $v->id;

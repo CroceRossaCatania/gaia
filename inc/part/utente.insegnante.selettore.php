@@ -13,7 +13,28 @@ if (isset($insegnanti) && is_array($insegnanti) && !empty($insegnanti)) {
 ?>
 
 <script type="text/javascript">
+    $(document).ready( function () {        
+        $(".chosen-select")
+            .chosen({width: '100%'})
+            .data('chosen')
+            .container.on('keyup', function(event) {
 
+                var geoPolitica_insegnante = '';
+                var stato_insegnante = '';
+                var input = $(this).find('input')[0];
+
+                var query = $(input).val();
+                if (query.length < 1) {
+                    return;
+                }
+
+                api('volontari:cerca', {query: query, perPagina: 80, ordine: 'selettoreInsegnante', comitati: geoPolitica_insegnante, stato_insegnante: stato_insegnante}, function (x) {
+                    alert('ciups');
+                });
+            });
+    });
+    
+<?php /*
     var s_multi_insegnante  = false;
     var s_autosubmit_insegnante = false;
     var selezione_insegnante = [<?php echo $sel ?>];
@@ -179,8 +200,10 @@ if (isset($insegnanti) && is_array($insegnanti) && !empty($insegnanti)) {
         }, 600);
 
     }
+*/ ?>
 </script>
 
+<?php /*
 <div id="selettoreInsegnante" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="selettoreInsegnante" aria-hidden="true">
     <div class="modal-header">
         <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
@@ -228,3 +251,4 @@ if (isset($insegnanti) && is_array($insegnanti) && !empty($insegnanti)) {
         </div>
     </div>
 </div>
+*/ ?>

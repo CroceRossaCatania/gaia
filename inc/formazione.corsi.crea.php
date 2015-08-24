@@ -32,7 +32,7 @@ if (!empty($id) && is_int($id)) {
 caricaSelettoreComitato();
 
 $comitati = $me->comitati();
-$certificati = Certificato::elenco();
+$certificati = TipoCorso::elenco();
 
 ?>
 

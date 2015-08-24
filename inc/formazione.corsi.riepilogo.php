@@ -48,13 +48,22 @@ $docenti = $discenti = [];
 
 $partecipazioni = $c->insegnanti();
 foreach ($partecipazioni as $i) {
-    $docenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto()];
+    $docenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> true];
+};
+$partecipazioni = $c->insegnantiPotenziali();
+foreach ($partecipazioni as $i) {
+    $docenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> false];
 };
 
 $partecipazioni = $c->discenti();
 foreach ($partecipazioni as $i) {
-    $discenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto()];
+    $discenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> true];
 };
+$partecipazioni = $c->discentiPotenziali();
+foreach ($partecipazioni as $i) {
+    $discenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> false];
+};
+unset($partecipazioni);
 
 $checkDocenti = $c->numeroInsegnantiMancanti();
 $checkDiscenti = $c->postiLiberi();
@@ -180,13 +189,31 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
         <div class="row-fluid">
             <div class="span6">
                 <h4>
-                    <i class="icon-comments-alt"></i>
+                    <i class="icon-graduation-cap"></i>
                     Docenti confermati
                 </h4>
                 <div class="row-fluid">
                     <ul>
                         <?php
                         foreach ($docenti as $docente) {
+                            if (!$docente->confermato) continue;
+                            ?>
+                            <li><a href="<?php echo $docente['url'] ?>"><?php echo $docente['nome'] ?></a></li>
+                            <?php
+                        }
+                        ?>
+                    </ul>
+                </div>
+
+                <h4>
+                    <i class="icon-graduation-cap"></i>
+                    Docenti non confermati
+                </h4>
+                <div class="row-fluid">
+                    <ul>
+                        <?php
+                        foreach ($docenti as $docente) {
+                            if ($docente->confermato) continue;
                             ?>
                             <li><a href="<?php echo $docente['url'] ?>"><?php echo $docente['nome'] ?></a></li>
                             <?php
@@ -215,13 +242,31 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
             </div>
             <div class="span6">
                 <h4>
-                    <i class="icon-comments-alt"></i>
+                    <i class="icon-book"></i>
                     Discenti confermati
                 </h4>
                 <div class="row-fluid">
                     <ul>
                         <?php
                         foreach ($discenti as $discente) {
+                            if (!$docente->confermato) continue;
+                            ?>
+                            <li><a href="<?php echo $discente['url'] ?>"><?php echo $discente['nome'] ?></a></li>
+                            <?php
+                        }
+                        ?>
+                    </ul>
+                </div>
+
+                <h4>
+                    <i class="icon-book"></i>
+                    Discenti <strong>non</strong> confermati
+                </h4>
+                <div class="row-fluid">
+                    <ul>
+                        <?php
+                        foreach ($discenti as $discente) {
+                            if ($docente->confermato) continue;
                             ?>
                             <li><a href="<?php echo $discente['url'] ?>"><?php echo $discente['nome'] ?></a></li>
                             <?php

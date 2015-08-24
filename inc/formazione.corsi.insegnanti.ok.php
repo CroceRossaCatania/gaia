@@ -2,6 +2,7 @@
 /*
  * ©2015 Croce Rossa Italiana
  */
+
 paginaPresidenziale();
 controllaParametri(['id','insegnanti'], 'admin.corsi.crea&err');
 
@@ -19,8 +20,8 @@ try {
         throw new Exception('Manomissione');
     }
     
-    if (is_array($_POST['insegnanti'])) {
-        $insegnanti = $c->insegnanti();
+    if (is_array($_POST['insegnanti']) && !empty($_POST['insegnanti'])) {
+        $insegnanti = array_merge($c->insegnanti(), $c->insegnantiPotenziali());
 
         // setta tutti i vecchi come da eliminare
         foreach ($insegnanti as $i) {
@@ -41,6 +42,7 @@ try {
 
         $daAggiungere = array_keys($daAggiungere);
         $daEliminare = array_keys($daEliminare);
+
         foreach ($daEliminare as $id) {
             PartecipazioneCorso::id($id)->cancella();
         }
@@ -55,8 +57,11 @@ try {
         }
 
         $c->aggiornaStato();
+    } else {
+        throw new Exception('Manomissione');
     }
 } catch (Exception $e) {
+    die($e->getMessage());
     redirect('admin.corsi.crea&err');
 }
 

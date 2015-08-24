@@ -38,6 +38,7 @@ $c->inizio = $inizio->getTimeStamp();
 $c->anno = $inizio->format('Y');
 $c->partecipanti = $partecipanti;
 $c->descrizione = $descrizione;
+$c->stato = CORSO_S_DACOMPLETARE;
 
 $c->assegnaProgressivo();
 $c->aggiornaStato();

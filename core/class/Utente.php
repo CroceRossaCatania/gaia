@@ -2146,7 +2146,7 @@ class Utente extends Persona {
      * @param Corso $corso        Il corso in questione
      * @return GeoPolitica|bool(false)  Il dominio risultante o false se non ho superpoteri
      */
-    public function dominioCompetenzaCorso(Attivita $corso) {
+    public function dominioCompetenzaCorso(Corso $corso) {
         if ( !$corso->modificabileDa($this) ) {
             return false;
         }

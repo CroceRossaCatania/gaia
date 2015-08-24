@@ -14,7 +14,7 @@ try {
     if (empty($c)) {
         throw new Exception('Manomissione');
     }
-    $certificato = Certificato::by('id', intval($c->certificato));
+    $certificato = TipoCorso::by('id', intval($c->certificato));
 
 } catch(Exception $e) {
     redirect('admin.corsi.crea&err');
@@ -29,18 +29,22 @@ $maxInsegnanti = $c->numeroInsegnantiNecessari();
 
 // recupera gli id di insegnanti già presenti per il corso
 // per popolare automaticamente la lista in caso di pagina di modifica
-$_insegnanti = Partecipazione::filtra([
+$partecipazioni = PartecipazioneCorso::filtra([
     ['corso', $c->id],
     ['ruolo', CORSO_RUOLO_INSEGNANTE]
 ]);
 $insegnanti = [];
-foreach ($_insegnanti as $i) {
-    $insegnanti[] = $i->id;
+foreach ($partecipazioni as $p) {
+    $insegnanti[] = $p->volontario();
 }
-unset($_insegnanti);
+unset($partecipazioni);
 
 // carica i selettori
-caricaSelettoreInsegnante();
+caricaSelettoreInsegnante([
+    'max_selected_options' => $maxInsegnanti,
+    'no_results_text' => 'Nessun insegnante trovato',
+    
+]);
 caricaSelettoreInsegnanteInAffiancamento();
 
 $d = new DateTime('@' . $c->inizio);
@@ -64,10 +68,19 @@ $d = new DateTime('@' . $c->inizio);
                         <label for="dataFine"><i class="icon-user"></i> Insegnanti</label>
                     </div>
                     <div class="span8">
+                        <select name="insegnanti" data-placeholder="Scegli un insegnante..." multiple class="chosen-select">
+                            <?php 
+                                foreach ($insegnanti as $i ) {
+                                ?>
+                                <option value="<?php echo $i->id ?>" selected><?php echo $i->nomeCompleto() ?></option>
+                                <?php
+                                }
+                            ?>
+                        </select>
                         <a data-selettore-insegnante="true" 
                            data-input="insegnanti" 
                            data-multi="<?php echo $maxInsegnanti ?>"
-                           class="btn btn-block btn-large">
+                           class="btn btn-block btn-large chzn-choices input">
                             Aggiungi <?php echo $maxInsegnanti ?> insegnanti... <i class="icon-pencil"></i>
                         </a>
                     </div>
