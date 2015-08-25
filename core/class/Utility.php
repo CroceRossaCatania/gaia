@@ -92,7 +92,7 @@ class Utility {
             case CORSO_S_CONCLUSO: 
                 return '#00ffff';
             case CORSO_S_ATTIVO: 
-                return '#00ffff';
+                return '#cccccc';
                 
             default: 
                 return '#cccccc';
