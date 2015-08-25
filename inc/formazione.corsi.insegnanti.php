@@ -14,7 +14,7 @@ try {
     if (empty($c)) {
         throw new Exception('Manomissione');
     }
-    $certificato = Certificato::by('id', intval($c->certificato));
+    $certificato = TipoCorso::by('id', intval($c->certificato));
 
 } catch(Exception $e) {
     redirect('admin.corsi.crea&err');
@@ -42,7 +42,7 @@ unset($_insegnanti);
 // carica i selettori
 caricaSelettoreInsegnante();
 caricaSelettoreInsegnanteInAffiancamento();
-
+print "6";
 $d = new DateTime('@' . $c->inizio);
 
 ?>
