@@ -62,18 +62,40 @@ class Utility {
         return $list;
     }
 
-     /**
+    /**
      * Prendo l'elenco delle province dai dati di dettaglio dei comitati
      */
-    public static function colorByRuolo($ruolo){
-        
+    public static function colorByRuolo($ruolo){  
         switch (strtolower($ruolo)){
-
-            case 'docente': return '#ffff00';
-            case 'istruttore': return '#ff00ff';
-            case 'formatore': return '#00ffff';
-            default : return '#cccccc';
-        }
-        
+            case 'docente': 
+                return '#ffff00';
+            case 'istruttore': 
+                return '#ff00ff';
+            case 'formatore': 
+                return '#00ffff';
+                
+            default: 
+                return '#cccccc';
+        } 
+    }
+    
+    
+    /**
+     * Prendo l'elenco delle province dai dati di dettaglio dei comitati
+     */
+    public static function colorByStato($stato){
+        switch (strtolower($stato)){
+            case CORSO_S_ANNULLATO: 
+                return '#ffff00';
+            case CORSO_S_DACOMPLETARE: 
+                return '#ff00ff';
+            case CORSO_S_CONCLUSO: 
+                return '#00ffff';
+            case CORSO_S_ATTIVO: 
+                return '#00ffff';
+                
+            default: 
+                return '#cccccc';
+        } 
     }
 }
