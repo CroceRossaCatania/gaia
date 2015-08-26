@@ -349,6 +349,19 @@ class Corso extends GeoEntita {
 
     
     /**
+     * Elenco dei discenti ad un corso 
+     * @return Utente elenco dei discenti 
+     */
+    public function discentiPotenziali() {
+        return PartecipazioneCorso::filtra([
+            ['corso', $this->id],
+            ['ruolo', CORSO_RUOLO_DISCENTE],
+            ['stato', PARTECIPAZIONE_RICHIESTA]
+        ]);
+    }
+
+    
+    /**
      * Numero dei discenti ad un corso 
      * @return int numero dei discenti 
      */
@@ -414,6 +427,18 @@ class Corso extends GeoEntita {
             ['corso', $this->id],
             ['ruolo', CORSO_RUOLO_INSEGNANTE],
             ['stato', PARTECIPAZIONE_ACCETTATA, OP_GTE]
+        ]);
+    }
+    
+    
+    /*
+     * Funzione repository per recuperare insegnanti di un corso
+     */
+    public function insegnantiPotenziali() {
+        return PartecipazioneCorso::filtra([
+            ['corso', $this->id],
+            ['ruolo', CORSO_RUOLO_INSEGNANTE],
+            ['stato', PARTECIPAZIONE_RICHIESTA]
         ]);
     }
 

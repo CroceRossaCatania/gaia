@@ -1,0 +1,6 @@
+.chosen-container-multi .chosen-choices li {
+    clear: both;
+}
+.chosen-container-multi .chosen-choices li.search-field input:before {
+    content: '<span class="input-group-addon"><i class="fa fa-search"></i></span>';
+}

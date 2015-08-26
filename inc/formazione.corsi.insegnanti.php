@@ -46,7 +46,6 @@ caricaSelettoreInsegnante([
     
 ]);
 caricaSelettoreInsegnanteInAffiancamento();
-print "6";
 $d = new DateTime('@' . $c->inizio);
 
 ?>
@@ -68,7 +67,7 @@ $d = new DateTime('@' . $c->inizio);
                         <label for="dataFine"><i class="icon-user"></i> Insegnanti</label>
                     </div>
                     <div class="span8">
-                        <select name="insegnanti" data-placeholder="Scegli un insegnante..." multiple class="chosen-select">
+                        <select name="insegnanti[]" data-placeholder="Scegli un insegnante..." multiple class="chosen-select">
                             <?php 
                                 foreach ($insegnanti as $i ) {
                                 ?>
@@ -77,12 +76,7 @@ $d = new DateTime('@' . $c->inizio);
                                 }
                             ?>
                         </select>
-                        <a data-selettore-insegnante="true" 
-                           data-input="insegnanti" 
-                           data-multi="<?php echo $maxInsegnanti ?>"
-                           class="btn btn-block btn-large chzn-choices input">
-                            Aggiungi <?php echo $maxInsegnanti ?> insegnanti... <i class="icon-pencil"></i>
-                        </a>
+                        <span>Aggiungi fino a <strong><?php echo $maxInsegnanti ?> insegnanti</strong></span>
                     </div>
                 </div>
                 <div class="row-fluid">

@@ -3,5 +3,6 @@ assets/css/font-awesome.min.css
 assets/css/main.css
 assets/css/jquery-ui-1.10.3.custom.css
 assets/css/chosen.min.css
+assets/css/chosen.override.css
 assets/css/fullcalendar.min.css
 #assets/css/fullcalendar.print.css
