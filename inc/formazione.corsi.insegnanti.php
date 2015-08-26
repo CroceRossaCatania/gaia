@@ -46,7 +46,7 @@ caricaSelettoreInsegnante([
     
 ]);
 caricaSelettoreInsegnanteInAffiancamento();
-
+print "6";
 $d = new DateTime('@' . $c->inizio);
 
 ?>

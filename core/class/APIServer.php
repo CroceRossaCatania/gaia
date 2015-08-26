@@ -337,7 +337,7 @@ class APIServer {
 
         $filter = $this->par;
         $me = $this->richiediLogin();
-        $corsi = Corso::ricerca($filter, null, $me);
+        $corsi = Corso::ricerca($filter);
         
         $list = array();
         foreach  ( $corsi as $corso ) {
@@ -358,6 +358,47 @@ class APIServer {
                 'ruolo'         =>  $corso->ruolo,
                 'organizzatore' =>  $corso->organizzatore,
                 'colore'        =>  Utility::colorByRuolo($corso->ruolo),
+                'url'           =>  '/?p=public.corso.scheda&id=' . $corso->id
+            ];
+         
+            array_push($list, $tmp);
+        }
+  
+        return [
+            'corsi'  => $list
+        ];
+       
+    }
+    
+    
+    /**
+     * Elenco corsi nel tempo
+     */
+    private function api_miei_corsi_in_gestione() {
+        /*TODO*/
+        global $conf;
+
+        $filter = $this->par;
+        $corsi = Corso::ricerca($filter);
+        
+        $list = array();
+        foreach  ( $corsi as $corso ) {
+            $inizio = DT::daTimestamp($corso->inizio);
+            $fine   = DT::daTimestamp($corso->inizio);
+            
+            $tmp = [
+                'corso'         =>  [
+                    'id'        =>  $corso->id,
+                    'nome'      =>  $corso->luogo,
+                ], 
+                'inizio'        =>  $inizio->toJSON(),
+                'fine'          =>  $fine->toJSON(),
+                'type'          =>  $corso->certificato,
+                'provincia'     =>  $corso->provincia,
+                'latitude'      =>  $latitude_value[$i%3],
+                'longitude'     =>  $longitude_value[$i%3],
+                'organizzatore' =>  $corso->organizzatore,
+                'colore'        =>  Utility::colorByStato($corso->stato),
                 'url'           =>  '/?p=public.corso.scheda&id=' . $corso->id
             ];
          
