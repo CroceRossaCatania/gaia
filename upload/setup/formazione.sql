@@ -103,3 +103,10 @@ ALTER TABLE `iscrizioni` RENAME TO `crs_iscrizioni`;
 ALTER TABLE `partecipazioni_corsi` RENAME TO  `crs_partecipazioni_corsi`;
 ALTER TABLE `tipoCorsi` RENAME TO `crs_tipoCorsi`;
 ALTER TABLE `risultati_corsi` RENAME TO  `crs_risultati_corsi`;
+
+
+ALTER TABLE `gaia`.`risultati_corsi` 
+DROP COLUMN `segnalatori`,
+CHANGE COLUMN `segnalazione` `segnalazione_01` INT(11) NULL DEFAULT NULL COMMENT 'numero di segnalatori' ,
+ADD COLUMN `segnalazione_02` INT NULL DEFAULT NULL COMMENT '' AFTER `segnalazione_01`,
+ADD COLUMN `segnalazione_03` INT NULL DEFAULT NULL COMMENT '' AFTER `segnalazione_02`;
