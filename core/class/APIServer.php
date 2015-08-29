@@ -337,7 +337,7 @@ class APIServer {
 
         $filter = $this->par;
         $me = $this->richiediLogin();
-        $corsi = Corso::ricerca($filter);
+        $corsi = Corso::ricerca($filter, null, $me);
         
         $list = array();
         foreach  ( $corsi as $corso ) {

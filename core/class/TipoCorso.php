@@ -8,7 +8,7 @@
 class TipoCorso extends Entita {
 
     protected static
-        $_t  = 'tipoCorsi';
+        $_t  = 'crs_tipoCorsi';
             
     use EntitaCache;
 

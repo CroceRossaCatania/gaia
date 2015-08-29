@@ -31,6 +31,9 @@ CREATE TABLE IF NOT EXISTS `crs_dettagliCorsi` (
   PRIMARY KEY (`id`,`nome`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+/**
+* Da rimuovere
+*/
 CREATE TABLE IF NOT EXISTS `crs_iscrizioni` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `corso` int(11) DEFAULT NULL,

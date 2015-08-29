@@ -8,8 +8,9 @@
 class Corso extends GeoEntita {
 
     protected static
-        $_t  = 'corsi',
-        $_dt = 'dettagliCorsi';
+        $_t  = "crs_corsi",
+        $_dt = "crs_dettagliCorsi",
+        $_jt_iscrizioni = "crs_iscrizioni";
 
     use EntitaCache;
 
@@ -732,16 +733,16 @@ class Corso extends GeoEntita {
             $where .= " AND st_distance(point(:long, :lat), geo) < 50";
         }
 
+       
+        
         if (!empty($me)){
-            $select = ", iscrizioni.ruolo ";
-            $join = " JOIN iscrizioni ON corsi.id = iscrizioni.corso ";
-            $where .= " AND iscrizioni.anagrafica = :me";
+            $select = ", i.ruolo ";
+            $join   = " JOIN ".static::$_jt_iscrizioni." i ON c.id = i.corso ";
+            $where .= " AND i.anagrafica = :me";
         }
         
-        $sql = "SELECT ".static::$_t.".* $select FROM ". static::$_t. "$join $where $_order";   
-       
-        //print $sql;
-        
+        $sql = "SELECT c.* $select FROM ".static::$_t." c $join $where $_order";
+
         $hash = null;
         if ( false && $cache && static::$_cacheable ) {
             $hash = md5($sql);
