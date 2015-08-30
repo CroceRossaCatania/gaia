@@ -8,8 +8,9 @@
 class Corso extends GeoEntita {
 
     protected static
-        $_t  = 'corsi',
-        $_dt = 'dettagliCorsi';
+        $_t  = "crs_corsi",
+        $_dt = "crs_dettagliCorsi",
+        $_jt_iscrizioni = "crs_partecipazioni_corsi";
 
     use EntitaCache;
 
@@ -709,8 +710,7 @@ class Corso extends GeoEntita {
         if (!empty($_array["fine"])) {
             $where .= " AND DATE_FORMAT(FROM_UNIXTIME(tEsame), '%Y-%m-%d') < STR_TO_DATE(:fine, '%Y-%m-%d')";
         }
-         *
-         */
+        */
         
         if (!empty($_array["type"])){
             $typeArray = array_fill(0, count($_array["type"]), ':type');
@@ -731,16 +731,14 @@ class Corso extends GeoEntita {
         if (!empty($_array["coords"]->latitude) && !empty($_array["coords"]->longitude)) {
             $where .= " AND st_distance(point(:long, :lat), geo) < 50";
         }
-
+        
         if (!empty($me)){
-            $select = ", iscrizioni.ruolo ";
-            $join = " JOIN iscrizioni ON corsi.id = iscrizioni.corso ";
-            $where .= " AND iscrizioni.anagrafica = :me";
+            $select = ", i.ruolo ";
+            $join   = " JOIN ".static::$_jt_iscrizioni." i ON c.id = i.corso ";
+            $where .= " AND i.volontario = :me";
         }
         
-        $sql = "SELECT ".static::$_t.".* $select FROM ". static::$_t. "$join $where $_order";   
-       
-        //print $sql;
+        $sql = "SELECT c.* $select FROM ".static::$_t." c $join $where $_order";
         
         $hash = null;
         if ( false && $cache && static::$_cacheable ) {
@@ -751,7 +749,7 @@ class Corso extends GeoEntita {
                 return $r;
             }
         }
-
+        
         $query = $db->prepare($sql);
         if (!empty($_array["inizio"])) {
             $query->bindParam(":inizio", $_array["inizio"], PDO::PARAM_STR) ;
@@ -761,8 +759,7 @@ class Corso extends GeoEntita {
         if (!empty($_array["fine"])) {
             $query->bindParam(":fine", $_array["fine"], PDO::PARAM_STR);
         }
-         *
-         */
+        */
         
         if (!empty($_array["type"])) {
             foreach($_array["type"] as $j => $t_tmp){
@@ -802,5 +799,4 @@ class Corso extends GeoEntita {
          
         return $t;
     }
-
 }

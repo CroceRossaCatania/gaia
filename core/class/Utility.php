@@ -65,20 +65,24 @@ class Utility {
     /**
      * Prendo l'elenco delle province dai dati di dettaglio dei comitati
      */
-    public static function colorByRuolo($ruolo){  
-        switch (strtolower($ruolo)){
-            case 'docente': 
-                return '#ffff00';
-            case 'istruttore': 
-                return '#ff00ff';
-            case 'formatore': 
+    public static function colorByRuolo($ruolo){          
+        switch ($ruolo){
+            case CORSO_RUOLO_CREATORE: 
+                return '#000000';
+            case CORSO_RUOLO_DELEGATO_CREATORE: 
+                return '#0000ff';
+            case CORSO_RUOLO_DIRETTORE: 
+                return '#00ff00';
+            case CORSO_RUOLO_INSEGNANTE: 
                 return '#00ffff';
-                
+            case CORSO_RUOLO_AFFIANCAMENTO: 
+                return '#ff0000';
+            case CORSO_RUOLO_DISCENTE: 
+                return '#ff00ff';     
             default: 
                 return '#cccccc';
         } 
     }
-    
     
     /**
      * Prendo l'elenco delle province dai dati di dettaglio dei comitati
