@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `crs_risultati_corsi` (
   UNIQUE KEY `mixed_UNIQUE` (`volontario`,`corso`,`timestamp`),
   KEY `corso` (`corso`),
   KEY `volontario` (`volontario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 ALTER TABLE `corsi` RENAME TO  `crs_corsi`;
 ALTER TABLE `dettagliCorsi` RENAME TO  `crs_dettagliCorsi`;
