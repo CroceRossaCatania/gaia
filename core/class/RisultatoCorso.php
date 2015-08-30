@@ -7,7 +7,7 @@
 class RisultatoCorso extends Entita {
 
     protected static
-        $_t  = 'risultati_corsi',
+        $_t  = 'crs_risultati_corsi',
         $_dt = null;
 
     use EntitaCache;
