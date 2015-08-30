@@ -19,13 +19,11 @@ try {
     redirect('admin.corsi.crea&err');
 }
 
-if (!empty($_GET['err'])) {
-    switch($_GET['err']) {
-        case 1:
-            $err = 'corso non modificabile';
-            break;
-        default:
-            $err = 'errore sconosciuto';
+if (!empty($_GET['err']) && is_int($_GET['err'])) {
+    if (!empty($conf['errori_corsi'][$_GET['err']])) {
+        $err = $conf['errori_corsi'][$_GET['err']];
+    } else {
+        $err = 'errore sconosciuto';
     }
 }
 
@@ -103,6 +101,10 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                 <a href="?p=formazione.corsi.discenti&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
                     <i class="icon-edit"></i>
                     Modifica discenti
+                </a>
+                <a href="?p=formazione.corsi.risultati&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
+                    <i class="icon-edit"></i>
+                    Inserisci risultati
                 </a>
                 <a class="btn btn-small btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://gaia.cri.it/index.php?p=attivita.scheda&id={$c->id}"); ?>" target="_blank">
                     <i class="icon-facebook-sign"></i> Condividi

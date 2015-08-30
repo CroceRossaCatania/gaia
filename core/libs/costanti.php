@@ -821,6 +821,35 @@ $conf['partecipazione'] = [
 
 /*
  * ===================================
+ * ===== STATO RISULTATI CORSI      ==
+ * ===================================
+ */
+
+define('CORSO_RISULTATO_NESSUNO',                     0);
+define('CORSO_RISULTATO_NON_IDONEO',                 10);
+define('CORSO_RISULTATO_IDONEO',                     20); 
+
+
+$conf['risultato'] = [
+    CORSO_RISULTATO_NESSUNO    =>  'Non disponibile',
+    CORSO_RISULTATO_NON_IDONEO       =>  'Non idoneo', 
+    CORSO_RISULTATO_IDONEO    =>  'Idoneo'
+];  
+
+/*
+ * ===================================
+ * ===== STATO RISULTATI CORSI      ==
+ * ===================================
+ */
+
+define('CORSO_ERRORE_NON_ANCORA_CONCLUSO',      100);
+
+$conf['errori_corsi'] = [
+    CORSO_ERRORE_NON_ANCORA_CONCLUSO    =>  'Il corso non risulta ancora concluso'
+];  
+
+/*
+ * ===================================
  * ============ POSTA ================
  * ===================================
  */
