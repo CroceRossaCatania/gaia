@@ -710,8 +710,7 @@ class Corso extends GeoEntita {
         if (!empty($_array["fine"])) {
             $where .= " AND DATE_FORMAT(FROM_UNIXTIME(tEsame), '%Y-%m-%d') < STR_TO_DATE(:fine, '%Y-%m-%d')";
         }
-         *
-         */
+        */
         
         if (!empty($_array["type"])){
             $typeArray = array_fill(0, count($_array["type"]), ':type');
@@ -732,8 +731,6 @@ class Corso extends GeoEntita {
         if (!empty($_array["coords"]->latitude) && !empty($_array["coords"]->longitude)) {
             $where .= " AND st_distance(point(:long, :lat), geo) < 50";
         }
-
-       
         
         if (!empty($me)){
             $select = ", i.ruolo ";
@@ -742,8 +739,6 @@ class Corso extends GeoEntita {
         }
         
         $sql = "SELECT c.* $select FROM ".static::$_t." c $join $where $_order";
-
-        //print $sql;
         
         $hash = null;
         if ( false && $cache && static::$_cacheable ) {
@@ -764,8 +759,7 @@ class Corso extends GeoEntita {
         if (!empty($_array["fine"])) {
             $query->bindParam(":fine", $_array["fine"], PDO::PARAM_STR);
         }
-         *
-         */
+        */
         
         if (!empty($_array["type"])) {
             foreach($_array["type"] as $j => $t_tmp){
@@ -805,5 +799,4 @@ class Corso extends GeoEntita {
          
         return $t;
     }
-
 }
