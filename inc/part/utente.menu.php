@@ -121,7 +121,8 @@ $menu += [
         'utente.titoli&t=4' =>  '<i class="icon-plus-sign-alt"></i> Titoli CRI'
     ],
     'Carriera'    =>  [
-        'utente.corsi' =>  '<i class="icon-graduation-cap"></i>Corsi',
+        'utente.corsi' =>  '<i class="icon-calendar"></i> Calendario Corsi',
+        'utente.titolicorsi' =>  '<i class="icon-graduation-cap"></i> Titoli',
     ],
     'Statistiche' =>  [
         'utente.statistiche.volontari'     =>   '<i class="icon-puzzle-piece"></i> Volontari'

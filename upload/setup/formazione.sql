@@ -97,6 +97,20 @@ CREATE TABLE IF NOT EXISTS `crs_risultati_corsi` (
   KEY `volontario` (`volontario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+CREATE TABLE `titoliCorsi` (
+  `id` int(11) NOT NULL,
+  `volontario` varchar(16) DEFAULT NULL,
+  `titolo` varchar(16) DEFAULT NULL,
+  `inizio` varchar(64) DEFAULT NULL,
+  `fine` varchar(64) DEFAULT NULL,
+  `luogo` varchar(64) DEFAULT NULL,
+  `codice` varchar(64) DEFAULT NULL,
+  `tConferma` varchar(64) DEFAULT NULL,
+  `pConferma` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
 ALTER TABLE `corsi` RENAME TO  `crs_corsi`;
 ALTER TABLE `dettagliCorsi` RENAME TO  `crs_dettagliCorsi`;
 ALTER TABLE `iscrizioni` RENAME TO `crs_iscrizioni`;
@@ -110,3 +124,5 @@ DROP COLUMN `segnalatori`,
 CHANGE COLUMN `segnalazione` `segnalazione_01` INT(11) NULL DEFAULT NULL COMMENT 'numero di segnalatori' ,
 ADD COLUMN `segnalazione_02` INT NULL DEFAULT NULL COMMENT '' AFTER `segnalazione_01`,
 ADD COLUMN `segnalazione_03` INT NULL DEFAULT NULL COMMENT '' AFTER `segnalazione_02`;
+
+INSERT INTO titoliCorsi SELECT * FROM titoliPersonali;
