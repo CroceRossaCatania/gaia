@@ -2335,5 +2335,36 @@ class Utente extends Persona {
             echo "{$conf['conoscenza'][$opzione]} scelto {$numero} volte.<br/>";
         }
     }
-
+    
+    /**
+     * Ritorna l'array dei corsi attivi per l'utente
+     * 
+     * @return array dei corsi attivi
+     */
+    public function titoliCorsiAttivi() {
+        $r = [];
+        $lista = TitoloCorso::filtra([['volontario',  $this->id]]);
+        foreach ($lista as $titolo) {
+            if ($titolo->valido()){
+                $r[] = $titolo;
+            }
+        }
+        return $r;
+    }
+    
+    /**
+     * Ritorna l'array dei corsi per l'utente
+     * 
+     * @return array dei corsi 
+     */
+    public function titoliCorsi() {
+        $r = [];
+        $lista = TitoloCorso::filtra([['volontario',  $this->id]], "fine DESC");
+        foreach ($lista as $titolo) {
+            if (!in_array($titolo->titolo, $r)){
+                $r[$titolo->titolo] = $titolo;
+            }
+        }
+        return $r;
+    } 
 }
