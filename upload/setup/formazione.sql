@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `crs_risultati_corsi` (
   KEY `volontario` (`volontario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `titoliCorsi` (
+CREATE TABLE `crs_titoliCorsi` (
   `id` int(11) NOT NULL,
   `volontario` varchar(16) DEFAULT NULL,
   `titolo` varchar(16) DEFAULT NULL,
@@ -125,4 +125,4 @@ CHANGE COLUMN `segnalazione` `segnalazione_01` INT(11) NULL DEFAULT NULL COMMENT
 ADD COLUMN `segnalazione_02` INT NULL DEFAULT NULL COMMENT '' AFTER `segnalazione_01`,
 ADD COLUMN `segnalazione_03` INT NULL DEFAULT NULL COMMENT '' AFTER `segnalazione_02`;
 
-INSERT INTO titoliCorsi SELECT * FROM titoliPersonali;
+INSERT INTO crs_titoliCorsi SELECT * FROM titoliPersonali;
