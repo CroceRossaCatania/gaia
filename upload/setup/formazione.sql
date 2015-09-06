@@ -126,3 +126,14 @@ ADD COLUMN `segnalazione_02` INT NULL DEFAULT NULL COMMENT '' AFTER `segnalazion
 ADD COLUMN `segnalazione_03` INT NULL DEFAULT NULL COMMENT '' AFTER `segnalazione_02`;
 
 INSERT INTO crs_titoliCorsi SELECT * FROM titoliPersonali;
+
+ALTER TABLE `crs_titoliCorsi` 
+ADD COLUMN `corso` INT NULL DEFAULT NULL COMMENT 'Corso in seguito al quale si ha ottenuto questo titolo' AFTER `titolo`,
+ADD COLUMN `affiancamentiDaFare` INT NULL DEFAULT NULL COMMENT 'Affiancamenti necessari per poter ottenere il titolo. Zero a titolo ottenuto.' AFTER `corso`,
+ADD COLUMN `affiancamentiFalliti` INT NULL COMMENT 'Numero di affiancamenti falliti nel cercare di ottenere questo titolo' AFTER `affiancamentiDaFare`;
+
+ALTER TABLE `crs_titoliCorsi` 
+ADD INDEX `idx_corso` (`corso` ASC)  COMMENT '',
+ADD INDEX `idx_affiancamenti_01` (`affiancamentiDaFare` ASC)  COMMENT '',
+ADD INDEX `idx_affiancamenti_02` (`affiancamentiFalliti` ASC)  COMMENT '',
+ADD INDEX `idx_volontario` (`volontario` ASC)  COMMENT '';

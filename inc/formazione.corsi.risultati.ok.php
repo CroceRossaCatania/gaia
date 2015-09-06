@@ -12,7 +12,6 @@ $segnalazioni = filter_input(INPUT_POST, 'segnalazioni', FILTER_DEFAULT, FILTER_
 (var_dump($idoneita));
 (var_dump($affiancamenti));
 (var_dump($segnalazioni));
-
 $c = null;
 try {
     $c = Corso::id(intval($_POST['id']));
@@ -69,8 +68,8 @@ foreach ($idoneita as $volontario => $idoneita) {
     }
     $r->timestamp = $now->getTimestamp();
     $r->note = $r->note  . "\r\n".'['.$now->format('d.M.Y H:i:s').'] creazione da parte di '.$c->direttore()->nomeCompleto();
+    
 }
-die();
 
 redirect('formazione.corsi.riepilogo&id='.$c->id);
 

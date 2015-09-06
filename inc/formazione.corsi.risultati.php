@@ -19,14 +19,22 @@ try {
     redirect('admin.corsi.crea&err');
 }
 
+/*
 if (!$c->modificabile()) {
     redirect('formazione.corsi.riepilogo&id='.$id);
 }
+*/
 
 
 $discenti = PartecipazioneCorso::filtra([
     ['corso', $c->id],
     ['ruolo', CORSO_RUOLO_DISCENTE],
+    ['stato', PARTECIPAZIONE_CONFERMATA]
+]);
+
+$affiancamenti = PartecipazioneCorso::filtra([
+    ['corso', $c->id],
+    ['ruolo', CORSO_RUOLO_AFFIANCAMENTO],
     ['stato', PARTECIPAZIONE_CONFERMATA]
 ]);
 
@@ -54,6 +62,9 @@ $d = new DateTime('@' . $c->inizio);
                     <p><i class="icon-exclamation-triangle"></i><strong>Compilare con attenzione</strong>, una volta compilato il modulo, questi dati non saranno più modificabili</p>
                 </div>
                 <hr>
+                <div class="row-fluid">
+                    <h3>Discenti</h3>
+                </div>
                 <div class="row-fluid">
                     <div class="span3"><label>Nome</label></div>
                     <div class="span2"><label>Idoneità</label></div>
@@ -91,6 +102,29 @@ $d = new DateTime('@' . $c->inizio);
                                 ?>
                                 <option value="<?php echo $v->id?>"><?php echo $v->nomeCompleto() ?></option>
                             <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <?php
+                } ?>
+                <div class="row-fluid">
+                    <h3>Affiancamenti</h3>
+                </div>
+                <div class="row-fluid">
+                    <div class="span3"><label>Nome</label></div>
+                    <div class="span2"><label>Idoneità</label></div>
+                </div>
+                <?php foreach ($affiancamenti as $a) { 
+                    ?>
+                    <div class="row-fluid">
+                        <div class="span3">
+                            <label for="dataFine"><i class="icon-user"></i> <?php echo $a->volontario()->nome ?><br/><?php echo $a->volontario()->cognome ?></label>
+                        </div>
+                        <div class="span2">
+                            <select name="idoneita[<?php echo $a->volontario()->id ?>]" class="input-block-level" required="true">
+                                <option value="<?php echo CORSO_RISULTATO_NESSUNO ?>">...</option>
+                                <option value="<?php echo CORSO_RISULTATO_NON_IDONEO ?>"><?php echo $conf['risultato'][CORSO_RISULTATO_NON_IDONEO] ?></option>
+                                <option value="<?php echo CORSO_RISULTATO_IDONEO ?>"><?php echo $conf['risultato'][CORSO_RISULTATO_IDONEO] ?></option>
                             </select>
                         </div>
                     </div>
