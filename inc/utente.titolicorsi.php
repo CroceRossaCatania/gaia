@@ -42,13 +42,13 @@ paginaPrivata();
                             <?php } ?>
                             <?php if ($titolo->inScadenza()) { ?>
                             <abbr title="<?php echo date('d-m-Y H:i', $titolo->tConferma); ?>">
-                                <i class="icon-ok"></i> In Scadenza
+                                <i class="icon-exclamation"></i> In Scadenza
                             </abbr>
                             <?php } ?>
                         </td>    
                         <?php } else { ?>
                         <td>
-                            <i class="icon-time"></i> Scaduto
+                            <i class="icon-trash"></i> Scaduto
                         </td>
                         <?php } ?>
                         
