@@ -399,7 +399,7 @@ class APIServer {
                 'longitude'     =>  $longitude_value[$i%3],
                 'organizzatore' =>  $corso->organizzatore,
                 'colore'        =>  Utility::colorByStato($corso->stato),
-                'url'           =>  '/?p=public.corso.scheda&id=' . $corso->id
+                'url'           =>  '/?p=formazione.corsi.riepilogo&id=' . $corso->id
             ];
          
             array_push($list, $tmp);
