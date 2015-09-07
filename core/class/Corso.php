@@ -417,7 +417,7 @@ class Corso extends GeoEntita {
 
     
     public function numeroInsegnantiNecessari() {
-        return ceil( $this->partecipanti / max(1,$this->certificato()->discenti_per_insegnante) );
+        return ceil( $this->partecipanti / max(1,$this->certificato()->proporzioneIstruttori) );
     }
     
     

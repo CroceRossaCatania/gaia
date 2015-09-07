@@ -739,12 +739,16 @@ define('CORSO_S_ANNULLATO',          0);
 define('CORSO_S_DACOMPLETARE',      10);
 define('CORSO_S_CONCLUSO',          20);
 define('CORSO_S_ATTIVO',            30);
+define('CORSO_S_DA_ELABORARE',      40);
+define('CORSO_S_CHIUSO',      50);
 
 $conf['corso_stato'] = [
     CORSO_S_ANNULLATO         =>  'Corso annullato',
     CORSO_S_DACOMPLETARE      =>  'Da completare',
     CORSO_S_CONCLUSO          =>  'Corso concluso',
     CORSO_S_ATTIVO            =>  'Corso attivo',
+    CORSO_S_DA_ELABORARE      =>  'Corso da elaborare',
+    CORSO_S_CHIUSO            =>  'Corso chiuso'
 ];
 
 /*

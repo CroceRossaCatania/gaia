@@ -3,15 +3,15 @@
  * ©2015 Croce Rossa Italiana
  */
 
-(var_dump($_POST));
+//(var_dump($_POST));
 controllaParametri(['id','idoneita','affiancamenti'], 'admin.corsi.crea&err');
 
 $idoneita = filter_input(INPUT_POST, 'idoneita', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 $affiancamenti = filter_input(INPUT_POST, 'affiancamenti', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 $segnalazioni = filter_input(INPUT_POST, 'segnalazioni', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
-(var_dump($idoneita));
-(var_dump($affiancamenti));
-(var_dump($segnalazioni));
+//(var_dump($idoneita));
+//(var_dump($affiancamenti));
+//(var_dump($segnalazioni));
 $c = null;
 try {
     $c = Corso::id(intval($_POST['id']));
@@ -54,7 +54,6 @@ foreach ($idoneita as $volontario => $idoneita) {
     $r->affiancamenti = ($r->idoneita >= CORSO_RISULTATO_IDONEO) ? intval($affiancamenti[$volontario]) : 0;
     
     if (!empty($segnalazioni[$volontario]) && is_array($segnalazioni[$volontario])) {
-        
 
         $size = sizeof($segnalazioni[$volontario]);
         for ($idx = 0; $idx < $size; ++$idx) {
@@ -67,9 +66,11 @@ foreach ($idoneita as $volontario => $idoneita) {
         }
     }
     $r->timestamp = $now->getTimestamp();
-    $r->note = $r->note  . "\r\n".'['.$now->format('d.M.Y H:i:s').'] creazione da parte di '.$c->direttore()->nomeCompleto();
+    $r->note = $r->note  . "";
     
 }
+
+$c->stato = CORSO_S_DA_ELABORARE;
 
 redirect('formazione.corsi.riepilogo&id='.$c->id);
 
