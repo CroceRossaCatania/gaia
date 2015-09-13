@@ -821,5 +821,20 @@ class Corso extends GeoEntita {
         return RisultatoCorso::filtra([["corso", $this->id]]);
     }
     
+    public static function chiudiCorsi() {
+    // Verifico i corsi da chiudere
+        $corsi = Corso::corsiDaChiudere();
+
+        foreach($corsi as $corso){
+            $risultati = $corso->risultati();
+            foreach($risultati as $risultato){
+                $volontario = $risultato->volontario();
+
+                if ($risultato->idoneita && !empty($volontario)){
+                    $corso->generaAttestato($volontario);
+                }
+            }
+        }
+    }
     
 }

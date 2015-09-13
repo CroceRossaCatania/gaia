@@ -14,7 +14,14 @@ class RisultatoCorso extends Entita {
 
     
     public function volontario() {
-        return Volontario::id($this->volontario);
+        $volontario = null;
+        try {
+            $volontario = Volontario::id($this->volontario);
+        } catch (Exception $e) {
+            print_r($e);
+        }
+        
+        return $volontario;
     }
     
     
