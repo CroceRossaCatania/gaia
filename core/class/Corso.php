@@ -686,6 +686,7 @@ class Corso extends GeoEntita {
      *
      * @param array $_array     La query associativa di ricerca tipo, provincia, dataInizio,dataFine, geo
      * @param string $_order    Ordine espresso come SQL
+     * @param Volontario $me    volontario loggato
      * @return array            Array di oggetti
      */
 
@@ -800,4 +801,25 @@ class Corso extends GeoEntita {
          
         return $t;
     }
+    
+    /**
+     * Cerca i corsi da chiudere
+     *
+     * @return array            Array di oggetti
+     */
+    public static function corsiDaChiudere() {
+        return Corso::filtra([["stato", CORSO_S_DA_ELABORARE]]);
+    }
+    
+    
+    /**
+     * Ritorna i risultati del corso
+     *
+     * @return array    Array di oggetti
+     */
+    public function risultati() {
+        return RisultatoCorso::filtra([["corso", $this->id]]);
+    }
+    
+    
 }

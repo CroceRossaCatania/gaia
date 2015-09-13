@@ -39,6 +39,4 @@ class RisultatoCorso extends Entita {
         return false;
     }
     
-    
-    
 }
