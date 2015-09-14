@@ -11,7 +11,7 @@ class File extends Entita {
             $_dt    = null;
 
     use EntitaCache;
-    
+
     public function autore() {
         return Utente::id($this->autore);
     }
@@ -47,8 +47,19 @@ class File extends Entita {
         return is_readable($this->percorso());
     }
     
-    public function percorso() {
+    public function percorso($filename=null) {
+        if (!empty($filename)){
+            return './upload/get/' . $filename;
+        }
         return './upload/get/' . $this->id;
+    }
+    
+    public static function getByNome($nomefile){
+        $result = self::filtra([['nome',$nomefile]], "creazione DESC LIMIT 1");
+        if (!empty($result)){
+            return $result[0];
+        }
+        return null;
     }
     
     public function download() {

@@ -172,7 +172,7 @@ class MEmail extends Entita {
 		$y = $this->_mailer();
 
 		// Imposta il mittente
-		$y->From 		= 'noreply@gaia.cri.it';
+		$y->From 	= 'noreply@gaia.cri.it';
 		$y->FromName	= 'Croce Rossa Italiana';
 
 		// Configurazione del mittente
@@ -215,9 +215,6 @@ class MEmail extends Entita {
 		// Se non ci sono destinatari...
                         
 		$destinatari = $this->destinatari();
-                
-               
-                
 		if ( !(bool)$destinatari ) { 
                         /*
 			$y->AddAddress(
@@ -227,7 +224,7 @@ class MEmail extends Entita {
                          */
                         $y->AddAddress(
                             'pietro.ferraresi@gmail.com',
-                            'SPAM DA GAIA'
+                            'GAIA'
                         );
 			$riuscito = (bool) $y->send();
 
@@ -258,30 +255,37 @@ class MEmail extends Entita {
                                 */
                                 $y->AddAddress(
                                     'pietro.ferraresi@gmail.com',
-                                    'SPAM DA GAIA'
+                                    'GAIA'
                                 );
                                 
 				$stato = $y->send();
 				$this->_stato_invio(
-					$dest['dest'],
-					$stato,
-					$y->ErrorInfo
+                                    $dest['dest'],
+                                    $stato,
+                                    $y->ErrorInfo
 				);
 
 				$riuscito = $riuscito && $stato;
 
 				$y->ClearAllRecipients();
 
-				if ( is_callable($callback) )
+				if ( is_callable($callback) ){
 					call_user_func($callback);
+                                }
 
 			}
 
 		}
 
-		if ( $riuscito )
+                print "<pre>";
+                print_r($y);
+                print "</pre>";
+                print "riuscito:".$riuscito;
+                
+		if ( $riuscito ) {
 			$this->_termina_invio();
-
+                }
+                
 		return $riuscito;
 
 	}
