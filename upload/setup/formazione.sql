@@ -132,3 +132,36 @@ CHANGE COLUMN `crs_tipoCorsicol` `dipendenzaAffiancamento` INT NULL DEFAULT NULL
 
 ALTER TABLE `crs_titoliCorsi` 
 ADD INDEX `idx_volontario` (`volontario` ASC)  COMMENT '';
+
+ALTER TABLE `crs_risultati_corsi` 
+ADD COLUMN `file` VARCHAR(64) NULL DEFAULT NULL AFTER `note`,
+ADD COLUMN `generato` INT(1) NOT NULL DEFAULT 0 AFTER `file`;
+ALTER TABLE `crs_risultati_corsi` 
+ADD UNIQUE INDEX `file_UNIQUE` (`file` ASC);
+ALTER TABLE `crs_risultati_corsi` 
+ADD COLUMN `serial` VARCHAR(16) NULL DEFAULT NULL AFTER `generato`,
+
+ALTER TABLE `crs_risultati_corsi` 
+CHANGE COLUMN `serial` `serial` INT UNSIGNED NULL DEFAULT NULL ;
+ADD UNIQUE INDEX `serial_UNIQUE` (`serial` ASC);
+
+DROP FUNCTION IF EXISTS generaSeriale;
+DELIMITER $$
+CREATE FUNCTION generaSeriale(yyyy INT)
+  RETURNS INT
+BEGIN
+  DECLARE lastSerial INT;
+  DECLARE newSerial INT;
+  
+  SELECT serial INTO lastSerial FROM crs_risultati_corsi 
+	WHERE year(from_unixtime(timestamp)) = yyyy;
+  
+  IF lastSerial is null THEN 
+	SET newSerial = 0;
+  ELSE 
+	SET newSerial = lastSerial+1;
+  END IF;
+    
+  RETURN newSerial;
+END;
+$$

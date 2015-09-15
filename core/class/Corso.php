@@ -873,6 +873,11 @@ class Corso extends GeoEntita {
 
                 if ($risultato->idoneita && !empty($volontario)){
                     $f = $corso->generaAttestato($corso, $risultato, $volontario);
+                    $risultato->file = $f->id;
+                    $risultato->generato = 1;
+
+                    $risultato->generaSeriale(intval(date("Y")));
+                            
                     $corso->inviaAttestato($corso, $risultato, $volontario, $f);
                 }
                 exit;
