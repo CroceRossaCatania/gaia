@@ -28,6 +28,16 @@ class Corso extends GeoEntita {
      * 
      */
     
+    public function verificato($correggi=false) {
+        
+        if (!is_numeric($this->partecipanti)) {
+            if ($correggi) {
+                $this->partecipanti = 0;
+            }
+            return false;
+        }
+    }
+    
     /**
      * Genera il codice numerico progressivo del corso sulla base dell'anno attuale
      *
@@ -444,6 +454,11 @@ class Corso extends GeoEntita {
         ]);
     }
 
+    
+    public function risultati() {
+        return RisultatoCorso::filtra(array('id'=>$this->id));
+    }
+    
     
     /**
      * Cancella il corso e tutto ciò che c'è di associato

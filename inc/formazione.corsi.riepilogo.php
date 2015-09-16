@@ -67,6 +67,8 @@ $checkDocenti = $c->numeroInsegnantiMancanti();
 $checkDiscenti = $c->postiLiberi();
 
 
+
+
 /*
   $g = Gruppo::by('attivita', $a);
 

@@ -306,7 +306,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                             <li class="nav-header">Corsi</li>
 
                                             <li>
-                                                <a href="?p=public.corsi">
+                                                <a href="?p=formazione.corsi">
                                                     <i class="icon-list"></i>
                                                     Calendario corsi
                                                 </a>

@@ -78,14 +78,14 @@ $d = new DateTime('@' . $c->inizio);
                             <label for="dataFine"><i class="icon-user"></i> <?php echo $d->volontario()->nome ?><br/><?php echo $d->volontario()->cognome ?></label>
                         </div>
                         <div class="span2">
-                            <select name="idoneita[<?php echo $d->volontario()->id ?>]" class="input-block-level" required="true">
+                            <select name="discIdoneita[<?php echo $d->volontario()->id ?>]" class="input-block-level" required="true">
                                 <option value="<?php echo CORSO_RISULTATO_NESSUNO ?>">...</option>
                                 <option value="<?php echo CORSO_RISULTATO_NON_IDONEO ?>"><?php echo $conf['risultato'][CORSO_RISULTATO_NON_IDONEO] ?></option>
                                 <option value="<?php echo CORSO_RISULTATO_IDONEO ?>"><?php echo $conf['risultato'][CORSO_RISULTATO_IDONEO] ?></option>
                             </select>
                         </div>
                         <div class="span2">
-                            <select name="affiancamenti[<?php echo $d->volontario()->id ?>]" class="input-block-level" required="true">
+                            <select name="discAffiancamenti[<?php echo $d->volontario()->id ?>]" class="input-block-level" required="true">
                                 <option value="0">...</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -95,7 +95,7 @@ $d = new DateTime('@' . $c->inizio);
                             </select>
                         </div>
                         <div class="span5">
-                            <select name="segnalazioni[<?php echo $d->volontario()->id ?>][]" class="chosen-select" multiple="" data-placeholder="Aggiungi segnalatori">
+                            <select name="discSegnalazioni[<?php echo $d->volontario()->id ?>][]" class="chosen-select" multiple="" data-placeholder="Aggiungi segnalatori">
                                 <option value=""></option>
                             <?php foreach ($insegnanti as $i) { 
                                 $v = $i->volontario();
@@ -121,7 +121,7 @@ $d = new DateTime('@' . $c->inizio);
                             <label for="dataFine"><i class="icon-user"></i> <?php echo $a->volontario()->nome ?><br/><?php echo $a->volontario()->cognome ?></label>
                         </div>
                         <div class="span2">
-                            <select name="idoneita[<?php echo $a->volontario()->id ?>]" class="input-block-level" required="true">
+                            <select name="affIdoneita[<?php echo $a->volontario()->id ?>]" class="input-block-level" required="true">
                                 <option value="<?php echo CORSO_RISULTATO_NESSUNO ?>">...</option>
                                 <option value="<?php echo CORSO_RISULTATO_NON_IDONEO ?>"><?php echo $conf['risultato'][CORSO_RISULTATO_NON_IDONEO] ?></option>
                                 <option value="<?php echo CORSO_RISULTATO_IDONEO ?>"><?php echo $conf['risultato'][CORSO_RISULTATO_IDONEO] ?></option>

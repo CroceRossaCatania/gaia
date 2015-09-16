@@ -3,12 +3,17 @@
  * ©2015 Croce Rossa Italiana
  */
 
-//(var_dump($_POST));
+(var_dump($_POST));
+die; 
+
 controllaParametri(['id','idoneita','affiancamenti'], 'admin.corsi.crea&err');
 
-$idoneita = filter_input(INPUT_POST, 'idoneita', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
-$affiancamenti = filter_input(INPUT_POST, 'affiancamenti', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
-$segnalazioni = filter_input(INPUT_POST, 'segnalazioni', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+$idoneitaDisc = filter_input(INPUT_POST, 'discIdoneita', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+$affiancamentiDisc = filter_input(INPUT_POST, 'discAffiancamenti', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+$segnalazioniDisc = filter_input(INPUT_POST, 'discSegnalazioni', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+
+$idoneitaAff = filter_input(INPUT_POST, 'affIdoneita', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+
 //(var_dump($idoneita));
 //(var_dump($affiancamenti));
 //(var_dump($segnalazioni));
@@ -20,11 +25,11 @@ try {
 
     $size = $c->numeroDiscenti();
     if (    empty($c) 
-            || !is_array($idoneita) 
-            || !is_array($affiancamenti)
-            || sizeof($idoneita) != $size
-            || sizeof($affiancamenti) != $size 
-            || array_keys($affiancamenti) != array_keys($idoneita)
+            || !is_array($idoneitaDisc) 
+            || !is_array($affiancamentiDisc)
+            || sizeof($idoneitaDisc) != $size
+            || sizeof($affiancamentiDisc) != $size 
+            || array_keys($affiancamentiDisc) != array_keys($idoneitaDisc)
        ) {
         throw new Exception('Manomissione');
     }
@@ -46,29 +51,56 @@ foreach ($insegnanti as $i) {
 }
 unset($insegnanti);
 
-foreach ($idoneita as $volontario => $idoneita) {
+foreach ($idoneitaDisc as $volontario => $risultato) {
     $r = new RisultatoCorso();
     $r->corso = $c->id;
     $r->volontario = intval($volontario);
-    $r->idoneita = intval($idoneita);
+    $r->idoneita = intval($risultato);
     $r->affiancamenti = ($r->idoneita >= CORSO_RISULTATO_IDONEO) ? intval($affiancamenti[$volontario]) : 0;
     
-    if (!empty($segnalazioni[$volontario]) && is_array($segnalazioni[$volontario])) {
+    if (!empty($segnalazioniDisc[$volontario]) && is_array($segnalazioniDisc[$volontario])) {
 
-        $size = sizeof($segnalazioni[$volontario]);
+        $size = sizeof($segnalazioniDisc[$volontario]);
         for ($idx = 0; $idx < $size; ++$idx) {
             
-            if (!in_array(intval($segnalazioni[$volontario][$idx]), $idInsegnanti) ) {
+            if (!in_array(intval($segnalazioniDisc[$volontario][$idx]), $idInsegnanti) ) {
                 throw new Exception('Manomissione');
             }
             
-            $r->{'segnalazione_0'.($idx+1)} = intval($segnalazioni[$volontario][$idx]);
+            $r->{'segnalazione_0'.($idx+1)} = intval($segnalazioniDisc[$volontario][$idx]);
         }
     }
     $r->timestamp = $now->getTimestamp();
     $r->note = $r->note  . "";
     
 }
+
+
+foreach ($idoneitaAff as $volontario => $risultato) {
+    $r = new RisultatoCorso();
+    $r->corso = $c->id;
+    $r->volontario = intval($volontario);
+    $r->idoneita = intval($risultato);
+    $r->affiancamenti = ($r->idoneita >= CORSO_RISULTATO_IDONEO) ? intval($affiancamenti[$volontario]) : 0;
+    
+    if (!empty($segnalazioniDisc[$volontario]) && is_array($segnalazioniDisc[$volontario])) {
+
+        $size = sizeof($segnalazioniDisc[$volontario]);
+        for ($idx = 0; $idx < $size; ++$idx) {
+            
+            if (!in_array(intval($segnalazioniDisc[$volontario][$idx]), $idInsegnanti) ) {
+                throw new Exception('Manomissione');
+            }
+            
+            $r->{'segnalazione_0'.($idx+1)} = intval($segnalazioniDisc[$volontario][$idx]);
+        }
+    }
+    $r->timestamp = $now->getTimestamp();
+    $r->note = $r->note  . "";
+    
+}
+
+
 
 $c->stato = CORSO_S_DA_ELABORARE;
 
