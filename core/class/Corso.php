@@ -486,7 +486,7 @@ class Corso extends GeoEntita {
      * Genera attestato, sulla base del corso e del volontario
      * @return PDF 
      */
-    public function generaAttestato($iscritto) {
+    public function generaAttestato($corso, $risultato, $iscritto) {
 
         $sesso = null;
         if ( $iscritto->sesso == UOMO ){
@@ -499,9 +499,9 @@ class Corso extends GeoEntita {
 
         }
 
-        $file  = "Attestato ";
-        $file .= $iscritto->nomeCompleto();
-        $file .= ".pdf";
+        //$file  = $risultato->timestamp;
+        $nomefile = md5($iscritto->nomeCompleto()).".pdf";
+  
         $comitato = $this->organizzatore();
         if( $comitato->principale ) {
             $comitato = $comitato->locale()->nome;
@@ -510,7 +510,7 @@ class Corso extends GeoEntita {
         }
 
 
-        $p = new PDF('attestato', $file);
+        $p = new PDF('attestato', $nomefile);
         $p->_COMITATO     = maiuscolo($comitato);
         $p->_CF           = $iscritto->codiceFiscale;
         $p->_VOLONTARIO   = $iscritto->nomeCompleto();
@@ -518,8 +518,49 @@ class Corso extends GeoEntita {
         $p->_DATA         = date('d/m/Y', time());
         $p->_LUOGO        = $this->organizzatore()->comune;
         $p->_VOLON        = $sesso;
-        $f = $p->salvaFile(null,true);
-
+        
+        $file = $p->salvaFile(null, true);
+        
+        return $file;
+    }
+    
+    
+    /**
+     * Genera attestato, sulla base del corso e del volontario
+     * @return PDF 
+     */
+    public function inviaAttestato($corso, $risultato, $iscritto, $f) {
+        $iscritto = Volontario::id("2");
+        
+        $sesso = null;
+        if ( $iscritto->sesso == UOMO ){
+            $sesso = "Volontario";
+        }else{
+            $sesso = "Volontaria";
+        }
+       
+        $comitato = $this->organizzatore();
+        if( $comitato->principale ) {
+            $comitato = $comitato->locale()->nome;
+        }else{
+            $comitato = $comitato->nomeCompleto();
+        }
+        
+      
+        $m = new Email('crs_invioAttestato', "Invio Certificato" );
+        //$m->a = $aut->partecipazione()->volontario();
+        //$m->da = "pizar79@gmail.com";
+        $m->a = $iscritto;
+        $m->_COMITATO     = maiuscolo($comitato);
+        $m->_CF           = $iscritto->codiceFiscale;
+        $m->_VOLONTARIO   = $iscritto->nomeCompleto();
+        $m->_DATAESAME    = date('d/m/Y', $this->tEsame);
+        $m->_DATA         = date('d/m/Y', time());
+        $m->_LUOGO        = $this->organizzatore()->comune;
+        $m->_VOLON        = $sesso;
+        $m->allega($f, true);
+        $m->invia(true);
+        
         return $f;
     }
 
@@ -701,6 +742,7 @@ class Corso extends GeoEntita {
      *
      * @param array $_array     La query associativa di ricerca tipo, provincia, dataInizio,dataFine, geo
      * @param string $_order    Ordine espresso come SQL
+     * @param Volontario $me    volontario loggato
      * @return array            Array di oggetti
      */
 
@@ -815,4 +857,49 @@ class Corso extends GeoEntita {
          
         return $t;
     }
+    
+    /**
+     * Cerca i corsi da chiudere
+     *
+     * @return array            Array di oggetti
+     */
+    public static function corsiDaChiudere() {
+        return Corso::filtra([["stato", CORSO_S_DA_ELABORARE]]);
+    }
+    
+    
+    /**
+     * Ritorna i risultati del corso
+     *
+     * @return array    Array di oggetti
+     */
+    public function risultati() {
+        return RisultatoCorso::filtra([["corso", $this->id]]);
+    }
+    
+    public static function chiudiCorsi() {
+    // Verifico i corsi da chiudere
+        $corsi = Corso::corsiDaChiudere();
+
+        foreach($corsi as $corso){
+            $risultati = $corso->risultati();
+            foreach($risultati as $risultato){
+                $volontario = $risultato->volontario();
+
+                if ($risultato->idoneita && !empty($volontario)){
+                    $f = $corso->generaAttestato($corso, $risultato, $volontario);
+                    $risultato->file = $f->id;
+                    $risultato->generato = 1;
+
+                    $risultato->generaSeriale(intval(date("Y")));
+                            
+                    $corso->inviaAttestato($corso, $risultato, $volontario, $f);
+                }
+                exit;
+            }
+        }
+        
+        return;
+    }
+    
 }

@@ -14,7 +14,14 @@ class RisultatoCorso extends Entita {
 
     
     public function volontario() {
-        return Volontario::id($this->volontario);
+        $volontario = null;
+        try {
+            $volontario = Volontario::id($this->volontario);
+        } catch (Exception $e) {
+            print_r($e);
+        }
+        
+        return $volontario;
     }
     
     
@@ -39,6 +46,17 @@ class RisultatoCorso extends Entita {
         return false;
     }
     
-    
+    public function generaSeriale($yyyy) {
+        global $db;
+
+        $sql = "UPDATE ".static::$_t." SET serial = generaSeriale(:yyyy) WHERE id=:id AND serial IS NULL";
+        
+        $query = $db->prepare($sql);
+        $query->bindParam(":yyyy", $yyyy);
+        $query->bindParam(":id", $this->id);
+        $query->execute();
+        
+        return;
+    }
     
 }
