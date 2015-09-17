@@ -166,6 +166,8 @@ $ruoli = array('aaa','bbb','ccc','ddd','eee');
                     <option <?php print $selected; ?>><?php print $r?></option>
                 <?php endforeach; ?>
             </select>
+            
+            <span>Proporzione:<span> 1 / <input class="input-small" type="text" name="inputProporzioneIstruttori" id="inputProporzioneIstruttori" value="<?php echo $f->proporzioneIstruttori; ?>">
         </div>
     </div>
     <div class="control-group">

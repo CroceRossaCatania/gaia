@@ -19,6 +19,7 @@ $t->tipoValutazione = $_POST['inputTipoValutazione'];
 $t->attestato =  $_POST['inputAttestato'];
 $t->proporzioneAffiancamento =  intval($_POST['inputProporzioneAffiancamento']);
 $t->punizione = intval($_POST['inputPunizione']);
+$t->proporzioneIstruttori =  intval($_POST['inputProporzioneIstruttori']);
 
 $t->ruoloProprietario = $_POST['inputRuoloProprietario'];
 $t->ruoloDirettore = $_POST['inputRuoloDirettore'];
