@@ -854,9 +854,13 @@ $conf['risultato'] = [
  * ===================================
  */
 
+define('CORSO_ERRORE_CORSO_NON_TROVATO',        1);
+define('CORSO_ERRORE_DATA_NON_CORRETTA',        2);
 define('CORSO_ERRORE_NON_ANCORA_CONCLUSO',      100);
 
 $conf['errori_corsi'] = [
+    CORSO_ERRORE_CORSO_NON_TROVATO    =>  'Il corso ricercato non esiste',
+    CORSO_ERRORE_DATA_NON_CORRETTA    =>  'La data e l\'ora inserite non sono corrette',
     CORSO_ERRORE_NON_ANCORA_CONCLUSO    =>  'Il corso non risulta ancora concluso'
 ];  
 

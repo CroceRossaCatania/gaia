@@ -32,7 +32,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
 
 $modificabile = $c->modificabileDa($me);
 if ($modificabile) {
-    $dominio = $me->dominioCompetenzaCorso($a);
+    $dominio = $me->dominioCompetenzaCorso($c);
 }
 
 $files = array(
@@ -42,28 +42,46 @@ $files = array(
     array('url' => '#', 'name' => 'Documento con nome lungo 4'),
 );
 
-$docenti = $discenti = [];
+$docenti = $discenti = $affiancamenti = [];
 
-$partecipazioni = $c->insegnanti();
+$partecipazioni = $c->partecipazioni();
 foreach ($partecipazioni as $i) {
-    $docenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> true];
+    switch ($i->ruolo) {
+        case CORSO_RUOLO_INSEGNANTE:
+            $docenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> true];
+            break;
+        case CORSO_RUOLO_DISCENTE:
+            $discenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> true];
+            break;
+        case CORSO_RUOLO_AFFIANCAMENTO:
+            $affiancamenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> true];
+            break;
+        default:
+            break;
+            
+    }
 };
-$partecipazioni = $c->insegnantiPotenziali();
+$partecipazioni = $c->partecipazioniPotenziali();
 foreach ($partecipazioni as $i) {
-    $docenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> false];
-};
-
-$partecipazioni = $c->discenti();
-foreach ($partecipazioni as $i) {
-    $discenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> true];
-};
-$partecipazioni = $c->discentiPotenziali();
-foreach ($partecipazioni as $i) {
-    $discenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> false];
+    switch ($i->ruolo) {
+        case CORSO_RUOLO_INSEGNANTE:
+            $docenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> false];
+            break;
+        case CORSO_RUOLO_DISCENTE:
+            $discenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> false];
+            break;
+        case CORSO_RUOLO_AFFIANCAMENTO:
+            $affiancamenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> false];
+            break;
+        default:
+            break;
+            
+    }
 };
 unset($partecipazioni);
 
 $checkDocenti = $c->numeroInsegnantiMancanti();
+$checkAffiancamenti = $c->numeroAffiancamenti() > ($c->numeroInsegnantiNecessari() * intval($c->certificato()->proporzioneAffiancamento));
 $checkDiscenti = $c->postiLiberi();
 
 
@@ -88,29 +106,40 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
         <div class="row-fluid">
 
             <div class="span8 btn-group">
-                <a href="?p=formazione.corsi.crea&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
-                    <i class="icon-edit"></i>
-                    Modifica dati
-                </a>
-                <a href="?p=formazione.corsi.direttore&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
-                    <i class="icon-edit"></i>
-                    Modifica direttore
-                </a>
-                <a href="?p=formazione.corsi.insegnanti&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
-                    <i class="icon-edit"></i>
-                    Modifica docenti
-                </a>
-                <a href="?p=formazione.corsi.discenti&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
-                    <i class="icon-edit"></i>
-                    Modifica discenti
-                </a>
-                <a href="?p=formazione.corsi.risultati&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
-                    <i class="icon-edit"></i>
-                    Inserisci risultati
-                </a>
-                <a class="btn btn-small btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://gaia.cri.it/index.php?p=attivita.scheda&id={$c->id}"); ?>" target="_blank">
+                <?php
+                if ($modificabile && $c->stato<CORSO_S_DA_ELABORARE) {
+                    ?>
+                    <a href="?p=formazione.corsi.crea&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
+                        <i class="icon-edit"></i>
+                        Modifica dati
+                    </a>
+                    <a href="?p=formazione.corsi.direttore&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
+                        <i class="icon-edit"></i>
+                        Modifica direttore
+                    </a>
+                    <a href="?p=formazione.corsi.insegnanti&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
+                        <i class="icon-edit"></i>
+                        Modifica docenti
+                    </a>
+                    <a href="?p=formazione.corsi.discenti&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
+                        <i class="icon-edit"></i>
+                        Modifica discenti
+                    </a>
+                    <?php
+                }
+
+                if ($modificabile && $c->stato==CORSO_S_CONCLUSO) {
+                    ?>
+                    <a href="?p=formazione.corsi.risultati&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
+                        <i class="icon-edit"></i>
+                        Inserisci risultati
+                    </a>
+                    <?php
+                }
+                ?>
+                <!-- a class="btn btn-small btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://gaia.cri.it/index.php?p=attivita.scheda&id={$c->id}"); ?>" target="_blank">
                     <i class="icon-facebook-sign"></i> Condividi
-                </a>
+                </a -->
 
             </div>
             <div class="span4 allinea-destra">
@@ -148,6 +177,12 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                     <div>
                         <i class="icon-warning-sign"></i>
                         Mancano <?php echo $checkDocenti ?> docenti
+                    </div>
+                    <?php } ?>
+                    <?php if ($checkAffiancamenti) { ?>
+                    <div>
+                        <i class="icon-warning-sign"></i>
+                        Troppi affiancamenti 
                     </div>
                     <?php } ?>
                     <?php if ($checkDiscenti) { ?>
@@ -253,7 +288,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                     <ul>
                         <?php
                         foreach ($discenti as $discente) {
-                            if (!$docente->confermato) continue;
+                            if (!$discente->confermato) continue;
                             ?>
                             <li><a href="<?php echo $discente['url'] ?>"><?php echo $discente['nome'] ?></a></li>
                             <?php
@@ -270,9 +305,42 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                     <ul>
                         <?php
                         foreach ($discenti as $discente) {
-                            if ($docente->confermato) continue;
+                            if ($discente->confermato) continue;
                             ?>
                             <li><a href="<?php echo $discente['url'] ?>"><?php echo $discente['nome'] ?></a></li>
+                            <?php
+                        }
+                        ?>
+                    </ul>
+                </div>
+                <h4>
+                    <i class="icon-book"></i>
+                    Affiancamenti confermati
+                </h4>
+                <div class="row-fluid">
+                    <ul>
+                        <?php
+                        foreach ($affiancamenti as $affiancamento) {
+                            if (!$affiancamento->confermato) continue;
+                            ?>
+                            <li><a href="<?php echo $affiancamento['url'] ?>"><?php echo $affiancamento['nome'] ?></a></li>
+                            <?php
+                        }
+                        ?>
+                    </ul>
+                </div>
+
+                <h4>
+                    <i class="icon-book"></i>
+                    Affiancamenti <strong>non</strong> confermati
+                </h4>
+                <div class="row-fluid">
+                    <ul>
+                        <?php
+                        foreach ($affiancamenti as $affiancamento) {
+                            if ($affiancamento->confermato) continue;
+                            ?>
+                            <li><a href="<?php echo $affiancamento['url'] ?>"><?php echo $affiancamento['nome'] ?></a></li>
                             <?php
                         }
                         ?>

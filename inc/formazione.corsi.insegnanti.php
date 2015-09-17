@@ -17,7 +17,7 @@ try {
     $certificato = TipoCorso::by('id', intval($c->certificato));
 
 } catch(Exception $e) {
-    redirect('admin.corsi.crea&err');
+    redirect('admin.corsi.crea&err='.CORSO_ERRORE_CORSO_NON_TROVATO);
 }
 
 if (!$c->modificabile()) {
@@ -45,7 +45,7 @@ caricaSelettoreInsegnante([
     'no_results_text' => 'Nessun insegnante trovato',
     
 ]);
-caricaSelettoreInsegnanteInAffiancamento();
+
 $d = new DateTime('@' . $c->inizio);
 
 ?>
@@ -67,7 +67,7 @@ $d = new DateTime('@' . $c->inizio);
                         <label for="dataFine"><i class="icon-user"></i> Insegnanti</label>
                     </div>
                     <div class="span8">
-                        <select name="insegnanti[]" data-placeholder="Scegli un insegnante..." multiple class="chosen-select">
+                        <select name="insegnanti[]" data-placeholder="Scegli un insegnante..." multiple class="chosen-select insegnanti">
                             <?php 
                                 foreach ($insegnanti as $i ) {
                                 ?>
@@ -77,19 +77,6 @@ $d = new DateTime('@' . $c->inizio);
                             ?>
                         </select>
                         <span>Aggiungi fino a <strong><?php echo $maxInsegnanti ?> insegnanti</strong></span>
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span4">
-                        <label for="dataFine"><i class="icon-user"></i> Insegnanti in affiancamento</label>
-                    </div>
-                    <div class="span8">
-                        <a data-selettore-insegnante-affiancamento="true" 
-                           data-input="insegnanti-affiancamento" 
-                           data-multi="<?php echo $maxInsegnanti ?>"
-                           class="btn btn-block btn-large">
-                            Aggiungi <?php echo $maxInsegnanti ?> insegnanti in affiancamento... <i class="icon-pencil"></i>
-                        </a>
                     </div>
                 </div>
                 <div class="row-fluid">

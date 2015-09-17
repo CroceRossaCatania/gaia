@@ -7,7 +7,7 @@ paginaPresidenziale();
 
 controllaParametri(['inizio','partecipanti','luogo','certificato','organizzatore'], 'admin.corsi.crea&err');
 
-if(!DT::controlloDataOra($_POST['inizio'])){ redirect('admin.corsi.crea&err'); }
+if(!DT::controlloDataOra($_POST['inizio'])){ redirect('admin.corsi.crea&err='.CORSO_ERRORE_DATA_NON_CORRETTA); }
 
 $organizzatore = intval($_POST['organizzatore']);
 $partecipanti = intval($_POST['partecipanti']);

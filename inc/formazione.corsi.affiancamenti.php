@@ -24,27 +24,27 @@ if (!$c->modificabile()) {
     redirect('formazione.corsi.riepilogo&id='.$id);
 }
 
-// calcola il numero massimo di discenti per il corso
-$maxDiscenti = $c->numeroInsegnantiNecessari() * $certificato->proporzioneIstruttori;
+// calcola il numero massimo di insegnanti per il corso
+$maxAffiancamenti = $c->numeroInsegnantiPotenziali() * max(1, intval($c->certificato()->proporzioneAffiancamento));
 
-// recupera gli id di discenti già presenti per il corso
+// recupera gli id di insegnanti già presenti per il corso
 // per popolare automaticamente la lista in caso di pagina di modifica
 $partecipazioni = PartecipazioneCorso::filtra([
     ['corso', $c->id],
-    ['ruolo', CORSO_RUOLO_DISCENTE]
+    ['ruolo', CORSO_RUOLO_AFFIANCAMENTO]
 ]);
-$discenti = [];
+$insegnanti = $affiancamenti = [];
 foreach ($partecipazioni as $p) {
-    $discenti[] = $p->volontario();
+    $affiancamenti[] = $p->volontario();
 }
 unset($partecipazioni);
 
-caricaSelettoreDiscente([
-    'max_selected_options' => $maxDiscenti,
-    'no_results_text' => 'Nessun discente trovato',
+// carica i selettori
+caricaSelettoreInsegnanteInAffiancamento([
+    'max_selected_options' => $maxAffiancamenti,
+    'no_results_text' => 'Nessun affiancamento trovato',
     
 ]);
-
 $d = new DateTime('@' . $c->inizio);
 
 ?>
@@ -53,29 +53,35 @@ $d = new DateTime('@' . $c->inizio);
 
     <div class="span8">
         <h2><i class="icon-plus-square icon-calendar muted"></i> Corso di formazione</h2>
-        <form action="?p=formazione.corsi.discenti.ok" method="POST">
+        <form action="?p=formazione.corsi.affiancamenti.ok" method="POST">
             <input type="hidden" name="id" value="<?php echo $id ?>" />
             <input value="<?php echo empty($wizard) ? 0 : 1 ?>" name="wizard" type="hidden">
             <div class="alert alert-block alert-success">
                 <div class="row-fluid">
-                    <h4><i class="icon-question-sign"></i> Discenti per <?php echo $certificato->nome ?> del <?php echo $d->format('d/m/Y'); ?></h4>
+                    <h4><i class="icon-question-sign"></i> Affiancamenti per <?php echo $certificato->nome ?> del <?php echo $d->format('d/m/Y'); ?></h4>
                 </div>
                 <hr>
                 <div class="row-fluid">
                     <div class="span4">
-                        <label for="dataFine"><i class="icon-user"></i> Discenti</label>
+                        <label for="dataFine"><i class="icon-user"></i> Insegnanti in affiancamento</label>
                     </div>
                     <div class="span8">
-                        <select name="discenti[]" data-placeholder="Scegli un discente..." multiple class="chosen-select discenti">
+                        <!-- a data-selettore-insegnante-affiancamento="true" 
+                           data-input="insegnanti-affiancamento" 
+                           data-multi="<?php echo $maxInsegnanti ?>"
+                           class="btn btn-block btn-large">
+                            Aggiungi <?php echo $maxInsegnanti ?> insegnanti in affiancamento... <i class="icon-pencil"></i>
+                        </a -->
+                        <select name="affiancamenti[]" data-placeholder="Scegli un affiancamento..." multiple class="chosen-select affiancamenti">
                             <?php 
-                                foreach ($discenti as $i ) {
+                                foreach ($affiancamenti as $i ) {
                                 ?>
                                 <option value="<?php echo $i->id ?>" selected><?php echo $i->nomeCompleto() ?></option>
                                 <?php
                                 }
                             ?>
                         </select>
-                        <span>Aggiungi fino a <strong><?php echo $maxDiscenti ?> discenti</strong></span>
+                        <span>Aggiungi fino a <strong><?php echo $maxAffiancamenti ?> affiancamenti</strong></span>
                     </div>
                 </div>
                 <div class="row-fluid">

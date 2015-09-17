@@ -4,10 +4,10 @@
  */
 
 paginaPresidenziale();
-controllaParametri(['id','insegnanti'], 'admin.corsi.crea&err');
+controllaParametri(['id','affiancamenti'], 'admin.corsi.crea&err');
 
 $c = null;
-$insegnanti = $daAggiungere = $daEliminare = [];
+$affiancamenti = $daAggiungere = $daEliminare = [];
 
 try {
     $c = Corso::id(intval($_POST['id']));
@@ -16,21 +16,21 @@ try {
         redirect('formazione.corsi.riepilogo&id='.$c->id.'&err=1');
     }
 
-    if (empty($c) || !is_array($insegnanti)) {
+    if (empty($c) || !is_array($affiancamenti)) {
         throw new Exception('Manomissione');
     }
     
-    if (is_array($_POST['insegnanti']) && !empty($_POST['insegnanti'])) {
-        $insegnanti = array_merge($c->insegnanti(), $c->insegnantiPotenziali());
+    if (is_array($_POST['affiancamenti']) && !empty($_POST['affiancamenti'])) {
+        $affiancamenti = array_merge($c->affiancamenti(), $c->affiancamentiPotenziali());
 
         // setta tutti i vecchi come da eliminare
-        foreach ($insegnanti as $i) {
+        foreach ($affiancamenti as $i) {
             $daEliminare[$i->id] = true;
         }
-        unset($insegnanti); // non serve più e spreca solo memoria
+        unset($affiancamenti); // non serve più e spreca solo memoria
 
         // cicla sui nuovi
-        foreach ($_POST['insegnanti'] as $id) {
+        foreach ($_POST['affiancamenti'] as $id) {
             if (isset($daEliminare[$id])) {
                 // se il nuovo è anche tra i vecchi, lo toglie dalla lista di quelli da eliminare
                 unset($daEliminare[$id]);
@@ -53,7 +53,7 @@ try {
             // aggiungere verifica del fatto che sia effettivamente un insegnante
             
             $p = new PartecipazioneCorso();
-            $p->aggiungi($c, $insegnante, CORSO_RUOLO_INSEGNANTE);
+            $p->aggiungi($c, $insegnante, CORSO_RUOLO_AFFIANCAMENTO);
         }
 
         $c->aggiornaStato();
@@ -67,7 +67,7 @@ try {
 
 
 if (!empty($_POST['wizard'])) {
-    redirect('formazione.corsi.affiancamenti&id='.$c->id.'&wizard=1');
+    redirect('formazione.corsi.discenti&id='.$c->id.'&wizard=1');
     die;
 }
 

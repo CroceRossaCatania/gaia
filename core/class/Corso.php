@@ -71,7 +71,7 @@ class Corso extends GeoEntita {
                     !empty($this->direttore) &&
                     ($this->partecipanti == $this->numeroDiscenti()) &&
                     ($this->numeroInsegnantiNecessari() == $this->numeroInsegnanti()) &&
-                    ($this->numeroInsegnantiNecessari() >= $this->numeroInsegnantiInAffiancamento())
+                    ($this->numeroInsegnantiNecessari() >= $this->numeroAffiancamenti())
                     )
                     $this->stato = CORSO_S_ATTIVO;
                 break;
@@ -335,6 +335,7 @@ class Corso extends GeoEntita {
         return false;
     }
 
+    
     /**
      * Elenco delle partecipazioni (con qualsiasi ruolo)
      * @return PartecipazioneCorso elenco delle partecipazioni dei discenti 
@@ -343,6 +344,18 @@ class Corso extends GeoEntita {
         return PartecipazioneCorso::filtra([
             ['corso', $this->id],
             ['stato', PARTECIPAZIONE_ACCETTATA, OP_GTE]
+        ]);
+    }
+
+    
+    /**
+     * Elenco delle partecipazioni (con qualsiasi ruolo)
+     * @return PartecipazioneCorso elenco delle partecipazioni dei discenti 
+     */
+    public function partecipazioniPotenziali($stato = null) {
+        return PartecipazioneCorso::filtra([
+            ['corso', $this->id],
+            ['stato', PARTECIPAZIONE_RICHIESTA]
         ]);
     }
 
@@ -417,15 +430,6 @@ class Corso extends GeoEntita {
     }
 
     
-    public function numeroInsegnantiInAffiancamento() {
-        return PartecipazioneCorso::conta([
-            ['corso', $this->id],
-            ['ruolo', CORSO_RUOLO_AFFIANCAMENTO],
-            ['stato', PARTECIPAZIONE_ACCETTATA, OP_GTE]
-        ]);
-    }
-
-    
     public function numeroInsegnantiNecessari() {
         return ceil( $this->partecipanti / max(1,$this->certificato()->proporzioneIstruttori) );
     }
@@ -453,12 +457,60 @@ class Corso extends GeoEntita {
             ['stato', PARTECIPAZIONE_RICHIESTA]
         ]);
     }
-
     
-    public function risultati() {
-        return RisultatoCorso::filtra(array('id'=>$this->id));
+    
+    /*
+     * Funzione repository per recuperare insegnanti di un corso
+     */
+    public function numeroInsegnantiPotenziali() {
+        return 
+            PartecipazioneCorso::conta([
+                ['corso', $this->id],
+                ['ruolo', CORSO_RUOLO_INSEGNANTE],
+                ['stato', PARTECIPAZIONE_RICHIESTA]
+            ])
+            +
+            PartecipazioneCorso::conta([
+                ['corso', $this->id],
+                ['ruolo', CORSO_RUOLO_INSEGNANTE],
+                ['stato', PARTECIPAZIONE_ACCETTATA]
+            ])
+            ;
     }
     
+    
+    /*
+     * Funzione repository per recuperare insegnanti di un corso
+     */
+    public function affiancamenti() {
+        return PartecipazioneCorso::filtra([
+            ['corso', $this->id],
+            ['ruolo', CORSO_RUOLO_AFFIANCAMENTO],
+            ['stato', PARTECIPAZIONE_ACCETTATA, OP_GTE]
+        ]);
+    }
+       
+    
+    /*
+     * Funzione repository per recuperare insegnanti di un corso
+     */
+    public function affiancamentiPotenziali() {
+        return PartecipazioneCorso::filtra([
+            ['corso', $this->id],
+            ['ruolo', CORSO_RUOLO_AFFIANCAMENTO],
+            ['stato', PARTECIPAZIONE_RICHIESTA]
+        ]);
+    }
+
+    
+    public function numeroAffiancamenti() {
+        return PartecipazioneCorso::conta([
+            ['corso', $this->id],
+            ['ruolo', CORSO_RUOLO_AFFIANCAMENTO],
+            ['stato', PARTECIPAZIONE_ACCETTATA, OP_GTE]
+        ]);
+    }
+
     
     /**
      * Cancella il corso e tutto ciò che c'è di associato
