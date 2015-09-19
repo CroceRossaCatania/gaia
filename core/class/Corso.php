@@ -939,14 +939,15 @@ class Corso extends GeoEntita {
         
         foreach($corsi as $corso){
             $risultati = $corso->risultati();
-            print "[".$corso->id."] Risultati da verificare: ".sizeof($risultati)."<br/>";
+            print "---> [".$corso->id."] Risultati da verificare: ".sizeof($risultati)."<br/>";
             
             foreach($risultati as $risultato){
                 $volontario = $risultato->volontario();
-
+                
                 if ($risultato->idoneita && !empty($volontario)){
+                    print "---> [".$corso->id."] Risultato ".$risultato->id. "[".$volontario->nome ."] : ".sizeof($risultati)."<br/>";
                     $risultato->generaSeriale(intval(date("Y", $risultato->timestamp)));
-                    $risultato->seriale = date("Y", $risultato->timestamp)."".str_pad($risultato->seriale, 6,"0",STR_PAD_LEFT);
+                    $risultato = RisultatoCorso::id($risultato->id);
                     
                     $f = $corso->generaAttestato($corso, $risultato, $volontario);
                     $risultato->file = $f->id;
@@ -954,7 +955,6 @@ class Corso extends GeoEntita {
         
                     $corso->inviaAttestato($corso, $risultato, $volontario, $f);
                 }
-                exit;
             }
         }
         
