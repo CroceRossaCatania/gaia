@@ -132,6 +132,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
   </head>
   <body>
+      1
     <div class="navbar-wrapper">
         
         <div class="navbar navbar-fixed-top">
@@ -334,6 +335,9 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                             <li><a href="?p=admin.ricerca.attivita"><i class="icon-calendar"></i> Cerca Attività</a></li> 
                                             <li><a href="?p=admin.presidenti"><i class="icon-list"></i> Presidenti</a></li>
                                             <li><a href="?p=admin.delegati"><i class="icon-list"></i> Delegati</a></li>
+                                            <li><a href="?p=admin.formatori"><i class="icon-list"></i> Formatori</a></li>
+                                            <li><a href="?p=admin.istruttori"><i class="icon-list"></i> Istruttori</a></li>
+                                            <li><a href="?p=admin.istruttori.potenziali"><i class="icon-list"></i> Potenziali Istruttori</a></li>                       
                                             <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
                                             <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li> 
                                             <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
