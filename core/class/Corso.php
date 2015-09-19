@@ -936,6 +936,8 @@ class Corso extends GeoEntita {
         
         foreach($corsi as $corso){
             $risultati = $corso->risultati();
+            print "[".$corso["id"]."]Risultati da verificare: ".sizeof($risultati);
+            
             foreach($risultati as $risultato){
                 $volontario = $risultato->volontario();
 
