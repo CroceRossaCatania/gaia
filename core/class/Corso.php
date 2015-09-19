@@ -601,13 +601,16 @@ class Corso extends GeoEntita {
             $comitato = $comitato->nomeCompleto();
         }
         
-      
+        $tipo = TipoCorso::id($corso->certificato);
+       
         $m = new Email('crs_invioAttestato', "Invio Certificato" );
         //$m->a = $aut->partecipazione()->volontario();
         //$m->da = "pizar79@gmail.com";
         $m->a = $iscritto;
         $m->_COMITATO     = maiuscolo($comitato);
         $m->_CF           = $iscritto->codiceFiscale;
+        $m->_CORSO        = $tipo->nome;
+        $m->_SERIALE      = $risultato->seriale;
         $m->_VOLONTARIO   = $iscritto->nomeCompleto();
         $m->_DATAESAME    = date('d/m/Y', $this->tEsame);
         $m->_DATA         = date('d/m/Y', time());
