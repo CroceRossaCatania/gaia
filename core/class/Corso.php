@@ -562,8 +562,10 @@ class Corso extends GeoEntita {
         }
 
 
-        $p = new PDF('attestato', $nomefile);
+        $p = new PDF('crs_attestato', $nomefile);
         $p->_COMITATO     = maiuscolo($comitato);
+        $p->_CORSO        = 
+        $p->_SERIALE      = 
         $p->_CF           = $iscritto->codiceFiscale;
         $p->_VOLONTARIO   = $iscritto->nomeCompleto();
         $p->_DATAESAME    = date('d/m/Y', $this->tEsame);
@@ -582,7 +584,7 @@ class Corso extends GeoEntita {
      * @return PDF 
      */
     public function inviaAttestato($corso, $risultato, $iscritto, $f) {
-        $iscritto = Volontario::id("2");
+        //$iscritto = Volontario::id("2");
         
         $sesso = null;
         if ( $iscritto->sesso == UOMO ){
@@ -932,22 +934,22 @@ class Corso extends GeoEntita {
     public static function chiudiCorsi() {
     // Verifico i corsi da chiudere
         $corsi = Corso::corsiDaChiudere();
-        print "Corsi da chiudere: ".sizeof($corsi);
+        print "Corsi da chiudere: ".sizeof($corsi)."<br/>";
         
         foreach($corsi as $corso){
             $risultati = $corso->risultati();
-            print "[".$corso["id"]."]Risultati da verificare: ".sizeof($risultati);
+            print "[".$corso->id."]Risultati da verificare: ".sizeof($risultati)."<br/>";
             
             foreach($risultati as $risultato){
                 $volontario = $risultato->volontario();
 
                 if ($risultato->idoneita && !empty($volontario)){
+                    $risultato->generaSeriale(intval(date("Y", $risultato->timestamp)));
+                    
                     $f = $corso->generaAttestato($corso, $risultato, $volontario);
                     $risultato->file = $f->id;
                     $risultato->generato = 1;
-
-                    $risultato->generaSeriale(intval(date("Y")));
-                            
+        
                     $corso->inviaAttestato($corso, $risultato, $volontario, $f);
                 }
                 exit;
