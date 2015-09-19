@@ -561,11 +561,11 @@ class Corso extends GeoEntita {
             $comitato = $comitato->nomeCompleto();
         }
 
-        $tipo = $corso->certificato;
+        $tipo = TipoCorso::id($corso->certificato);
         
         $p = new PDF('crs_attestato', $nomefile);
         $p->_COMITATO     = maiuscolo($comitato);
-        $p->_CORSO        = TipoCorso::id($tipo->nome);
+        $p->_CORSO        = $tipo->nome;
         $p->_SERIALE      = $risultato->seriale;
         $p->_CF           = $iscritto->codiceFiscale;
         $p->_VOLONTARIO   = $iscritto->nomeCompleto();
