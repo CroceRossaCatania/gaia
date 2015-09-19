@@ -49,7 +49,7 @@ class RisultatoCorso extends Entita {
     public function generaSeriale($yyyy) {
         global $db;
 
-        $sql = "UPDATE ".static::$_t." SET serial = generaSeriale(:yyyy) WHERE id=:id AND serial IS NULL";
+        $sql = "UPDATE ".static::$_t." SET seriale = generaSeriale(:yyyy) WHERE id=:id AND seriale IS NULL";
         
         $query = $db->prepare($sql);
         $query->bindParam(":yyyy", $yyyy);
