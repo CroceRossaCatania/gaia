@@ -147,21 +147,22 @@ ADD UNIQUE INDEX `serial_UNIQUE` (`serial` ASC);
 
 DROP FUNCTION IF EXISTS generaSeriale;
 DELIMITER $$
-CREATE FUNCTION generaSeriale(yyyy INT)
-  RETURNS INT
+CREATE DEFINER=`root`@`localhost` FUNCTION `generaSeriale`(yyyy INT) RETURNS varchar(30) CHARSET latin1
 BEGIN
   DECLARE lastSerial INT;
   DECLARE newSerial INT;
+  DECLARE paddingSize INT;
   
-  SELECT serial INTO lastSerial FROM crs_risultati_corsi 
-	WHERE year(from_unixtime(timestamp)) = yyyy;
+  SET paddingSize = 8;
+  
+  SELECT max(right(seriale, paddingSize)) AS tmp INTO lastSerial FROM crs_risultati_corsi WHERE year(from_unixtime(timestamp)) = yyyy;
   
   IF lastSerial is null THEN 
 	SET newSerial = 0;
   ELSE 
-	SET newSerial = lastSerial+1;
+	SET newSerial = lastSerial;
   END IF;
     
-  RETURN newSerial;
-END;
+  RETURN CONCAT(yyyy,"-",LPAD(newSerial+1, paddingSize, '0'));
+END
 $$
