@@ -932,7 +932,8 @@ class Corso extends GeoEntita {
     public static function chiudiCorsi() {
     // Verifico i corsi da chiudere
         $corsi = Corso::corsiDaChiudere();
-
+        print "Corsi da chiudere: ".sizeof($corsi);
+        
         foreach($corsi as $corso){
             $risultati = $corso->risultati();
             foreach($risultati as $risultato){
