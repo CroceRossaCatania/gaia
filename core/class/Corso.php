@@ -561,11 +561,12 @@ class Corso extends GeoEntita {
             $comitato = $comitato->nomeCompleto();
         }
 
-
+        $tipo = $corso->certificato;
+        
         $p = new PDF('crs_attestato', $nomefile);
         $p->_COMITATO     = maiuscolo($comitato);
-        $p->_CORSO        = 
-        $p->_SERIALE      = 
+        $p->_CORSO        = TipoCorso::id($tipo->nome);
+        $p->_SERIALE      = $risultato->seriale;
         $p->_CF           = $iscritto->codiceFiscale;
         $p->_VOLONTARIO   = $iscritto->nomeCompleto();
         $p->_DATAESAME    = date('d/m/Y', $this->tEsame);
@@ -938,7 +939,7 @@ class Corso extends GeoEntita {
         
         foreach($corsi as $corso){
             $risultati = $corso->risultati();
-            print "[".$corso->id."]Risultati da verificare: ".sizeof($risultati)."<br/>";
+            print "[".$corso->id."] Risultati da verificare: ".sizeof($risultati)."<br/>";
             
             foreach($risultati as $risultato){
                 $volontario = $risultato->volontario();
