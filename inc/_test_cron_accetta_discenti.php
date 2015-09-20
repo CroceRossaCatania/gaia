@@ -35,13 +35,21 @@ $partecipazioni = $c->partecipazioniPotenziali();
 if (empty($partecipazioni)) {
     $ret = $c->aggiornaStato();
     if ($ret) {
-        echo "errore [$ret]<br/>\r\n";
+        echo "errore [$ret]:<br/>\r\n";
         foreach ($conf['validazione_corsi'] as $err => $txt) {
-            echo "test $err:<br/>\r\n";
             if ($ret & $err) { 
                 echo $txt."<br/>\r\n";
             }
         }
+        
+        echo "<br/>\r\n";
+        echo "<pre>";
+        $ps = $c->partecipazioni();
+        foreach ($ps as $p) {
+            echo $p->volontario()->nomeCompleto().' ('.$conf['corso_ruolo'][$p->ruolo].'): '.strtoupper($conf['partecipazione'][$p->stato]);
+            echo "<hr>";
+        }
+        echo "</pre>";
     } else {
         echo "Stato del corso aggiornato a ".$conf['corso_stato'][$c->stato];
     }

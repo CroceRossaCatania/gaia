@@ -66,26 +66,31 @@ class Corso extends GeoEntita {
             case CORSO_S_DACOMPLETARE:
                 $tipo = $this->certificato();
                 
-                if (empty($this->organizzatore)) {
-                    
+                $var = $this->organizzatore;
+                if (empty($var)) {
                     $err |= CORSO_VALIDAZIONE_ORGANIZZATORE_MANCANTE;
                 }
-                if (empty($this->responsabile)) {
+                $var = $this->responsabile;
+                if (empty($var)) {
                     $err |= CORSO_VALIDAZIONE_RESPONSABILE_MANCANTE;
                 }
-                if (empty($this->direttore)) {
+                $var = $this->direttore;
+                if (empty($var)) {
                     $err |= CORSO_VALIDAZIONE_DIRETTORE_MANCANTE;
                 }
-                if (intval($this->partecipanti)<=0) {
+                $var = $this->partecipanti;
+                if (intval($var)<=0) {
                     $err |= CORSO_VALIDAZIONE_NESSUN_PARTECIPANTE;
                 }
-                if ($this->partecipanti > $this->numeroInsegnanti() * $tipo->proporzioneIstruttori) {
+                $var = $this->partecipanti;
+                if ($var > $this->numeroInsegnanti() * $tipo->proporzioneIstruttori) {
                     $err |= CORSO_VALIDAZIONE_TROPPI_PARTECIPANTI;
                 }
                 if ($this->numeroInsegnantiNecessari() != $this->numeroInsegnanti()) {
                     $err |= CORSO_VALIDAZIONE_ERRATO_NUMERO_INSEGNANTI;
                 }
-                if ($this->numeroInsegnantiNecessari() < $this->numeroAffiancamenti()) {
+                
+                if ($this->numeroInsegnanti() < $this->numeroAffiancamenti()) {
                     $err |= CORSO_VALIDAZIONE_TROPPI_AFFIANCAMENTI;
                 }
 
@@ -359,7 +364,7 @@ class Corso extends GeoEntita {
      * Elenco delle partecipazioni (con qualsiasi ruolo)
      * @return PartecipazioneCorso elenco delle partecipazioni dei discenti 
      */
-    public function partecipazioni($stato = null) {
+    public function partecipazioni() {
         return PartecipazioneCorso::filtra([
             ['corso', $this->id],
             ['stato', PARTECIPAZIONE_ACCETTATA, OP_GTE]
@@ -371,7 +376,7 @@ class Corso extends GeoEntita {
      * Elenco delle partecipazioni (con qualsiasi ruolo)
      * @return PartecipazioneCorso elenco delle partecipazioni dei discenti 
      */
-    public function partecipazioniPotenziali($stato = null) {
+    public function partecipazioniPotenziali() {
         return PartecipazioneCorso::filtra([
             ['corso', $this->id],
             ['stato', PARTECIPAZIONE_RICHIESTA]

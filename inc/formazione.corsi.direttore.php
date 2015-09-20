@@ -61,9 +61,6 @@ $d = new DateTime('@' . $c->inizio);
                         <label for="dataFine"><i class="icon-user-md"></i> Direttore</label>
                     </div>
                     <div class="span8">
-<?php if(!$me->admin) { ?>
-                        <p>data-selettore-direttore="<?php echo $me->delegazioneAttuale()->comitato()->oid() ?>"</p>
-<?php } ?>
                         <a data-selettore-direttore="true" 
                            data-input="direttore" 
                            class="btn btn-block btn-large">

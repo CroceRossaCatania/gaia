@@ -85,7 +85,7 @@ $certificati = TipoCorso::elenco();
                         <label for="dataInizio"><i class="icon-calendar"></i> Data Di inizio</label>
                     </div>
                     <div class="span8">
-                        <input id="dataInizio" class="span12 hasDatepicker" name="inizio" value="<?php echo ($c) ? (new DT('@'.$c->inizio))->format('d/m/Y H:i') : '' ?>" type="text">
+                        <input id="dataInizio" class="span12" name="inizio" value="<?php echo ($c) ? (new DT('@'.$c->inizio))->format('d/m/Y H:i') : '' ?>" type="text" required>
                     </div>
                 </div>
                 <div class="row-fluid">
