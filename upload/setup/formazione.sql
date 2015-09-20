@@ -164,6 +164,19 @@ CREATE TABLE IF NOT EXISTS `crs_titoliCorsi` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
+CREATE TABLE `crs_giornataCorso` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `corso` int(11) DEFAULT NULL,
+  `nome` varchar(255) DEFAULT NULL,
+  `luogo` varchar(255) DEFAULT NULL,
+  `data` int(11) DEFAULT NULL,
+  `note` mediumtext,
+  PRIMARY KEY (`id`),
+  KEY `idx_corso` (`corso`)
+) ENGINE=InnoDB AUTO_INCREMENT=258 DEFAULT CHARSET=latin1;
+
+
+
 DROP FUNCTION IF EXISTS generaSeriale;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` FUNCTION `generaSeriale`(yyyy INT) RETURNS varchar(30) CHARSET latin1

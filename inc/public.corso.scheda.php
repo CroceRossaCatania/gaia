@@ -202,6 +202,23 @@ $geoComitato = GeoPolitica::daOid($corso->organizzatore);
         <hr />
         <?php if ($puoPartecipare) { ?>
             <div class="row-fluid">
+                
+                <?php $lezioni = $corso->giornateCorso(); ?>
+                <?php if (sizeof($lezioni) > 0) : ?>
+                <div class="span8" style="max-height: 500px; padding-right: 10px; overflow-y: auto;">
+                    <a href="admin.format.php"></a>
+                    <h4>
+                        <i class="icon-calendar"></i>
+                        Calendario del corso
+                    </h4>
+                    <ul>
+                        <?php foreach($lezioni as $l) : ?>
+                        <li><?php print $l->luogo ?>, <?php print $l->data()->inTesto() ?><br/><?php print $l->nome ?></li>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
+                <?php endif?>
+                
                 <div class="span8" style="max-height: 500px; padding-right: 10px; overflow-y: auto;">
                     <h4>
                         <i class="icon-info-sign"></i>

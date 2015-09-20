@@ -6,6 +6,7 @@
  */
 paginaPrivata();
 
+
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT, array('min_range'=>1));
 
 // try catch da usare per evitare stampa dell'errore e poter fare redirect 
@@ -36,6 +37,7 @@ if (empty($partecipazioni)) {
     $ret = $c->aggiornaStato();
     if ($ret) {
         echo "errore [$ret]<br/>\r\n";
+        print decbin($ret)."<br/>";
         foreach ($conf['validazione_corsi'] as $err => $txt) {
             echo "test $err:<br/>\r\n";
             if ($ret & $err) { 
