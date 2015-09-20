@@ -371,7 +371,30 @@ if(false && $consenso && !$sessione->barcode) { ?>
                 </div> 
                 <?php } 
                 ?>
-                
+    
+
+                <?php
+                $d = $me->delegazioneAttuale();
+                if ($d && $d->applicazione == APP_PRESIDENTE) {
+                    $c = $d->comitato(); $num_aspiranti = Aspirante::numChePassanoPer($c);
+                    if ( $num_aspiranti > 20 && !$c->corsiBase(false, true) ) { ?>
+                <div class="alert alert-block alert-warning">
+                    <div class="row-fluid">
+                        <h4><i class="icon-warning-sign"></i> Un numero significante di persone ha registrato il suo interesse ad entrare in CRI nella zona del Comitato!</h4>
+                        <p>Ben <strong><?= $num_aspiranti; ?></strong> persone hanno registrato il loro interesse ed aspettano l'attivazione di un Corso Base in una zona che comprende il
+                         <?= $c->nomeCompleto(); ?>.</p>
+                        <p>Potresti voler attivare un Corso Base tramite Gaia. Cos&igrave; facendo, Gaia invier&agrave; a tutti loro un avviso immediato di attivazione del nuovo Corso, assieme 
+                         a dei promemoria settimanali, contenenti i Corsi Base attivi nelle rispettive zone di interesse. Gli aspiranti volontari potranno quindi pre-iscriversi online.</p>
+                        <p class="grassetto"><i class="icon-info-sign"></i> Puoi tenere sotto controllo la domanda formativa per ogni sede ed avviare corsi dal 
+                        <a href="?p=presidente.dash">Pannello Presidente</a>, selezionando una sede, quindi "Corsi Base".</p>
+
+                    </div>
+                </div>
+
+
+                <?php } } ?>
+
+
                 <div class="alert alert-block alert-success">
                     <div class="row-fluid">
                         <h4><strong><i class="icon-beaker"></i> Aggiornamento titoli di studio (Diplomi e Lauree)</strong></h4>
