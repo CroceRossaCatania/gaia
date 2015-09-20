@@ -867,11 +867,11 @@ class Corso extends GeoEntita {
             $where .= " AND st_distance(point(:long, :lat), geo) < 50";
         }
         
-        $select = " g.data AS dataLezione, g-luogo AS luogoLezione";
-        $join  .= " LEFT JOIN ".static::$_jt_lezioni." g ON c.id = g.corso ";
-        
         if (!empty($me)){
-            $select = ", i.ruolo ";
+            $select = ", g.data AS inizio, g.luogo AS luogoLezione";
+            $join  .= " LEFT JOIN ".static::$_jt_lezioni." g ON c.id = g.corso ";
+            
+            $select .= ", i.ruolo ";      
             $join  .= " RIGHT JOIN ".static::$_jt_iscrizioni." i ON c.id = i.corso ";
             $where .= " AND i.volontario = :me";
         }
