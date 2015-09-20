@@ -62,14 +62,12 @@ class Corso extends GeoEntita {
             case CORSO_S_ANNULLATO:
             case CORSO_S_CONCLUSO:
             case CORSO_S_ATTIVO:
-                return;
                 break;
             case CORSO_S_DACOMPLETARE:
-                $update = true;
-                
                 $tipo = $this->certificato();
                 
                 if (empty($this->organizzatore)) {
+                    
                     $err |= CORSO_VALIDAZIONE_ORGANIZZATORE_MANCANTE;
                 }
                 if (empty($this->responsabile)) {
@@ -96,6 +94,7 @@ class Corso extends GeoEntita {
                 }
                 break;
         }
+        return $err;
     }
 
     /*

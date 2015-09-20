@@ -31,21 +31,19 @@ foreach ($partecipazioni as $p) {
     $p->stato = PARTECIPAZIONE_ACCETTATA;
 }
 
-echo '<pre>';
-var_dump($partecipazioni);
-echo '</pre>';
-
 $partecipazioni = $c->partecipazioniPotenziali();
 if (empty($partecipazioni)) {
     $ret = $c->aggiornaStato();
     if ($ret) {
-        
-        foreach ($conf['validazione_sorsi'] as $err) {
+        echo "errore [$ret]<br/>\r\n";
+        foreach ($conf['validazione_corsi'] as $err => $txt) {
+            echo "test $err:<br/>\r\n";
             if ($ret & $err) { 
-                echo $conf['validazione_sorsi'][$err];
+                echo $txt."<br/>\r\n";
             }
         }
-        
+    } else {
+        echo "Stato del corso aggiornato a ".$conf['corso_stato'][$c->stato];
     }
 } else {
     echo '<pre>';
