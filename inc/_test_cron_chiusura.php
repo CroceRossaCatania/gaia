@@ -6,6 +6,6 @@
  */
 paginaPrivata();
 
-Corso::chiudiCorsi();
-
+$contatore = Corso::chiudiCorsi();
+print "Generati $contatore certificati";
 ?>

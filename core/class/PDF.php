@@ -79,9 +79,6 @@ class PDF {
         if (empty($f)){
             $f = new File();
         }
-        print "<pre>";
-        print_r($f);
-        print "</pre>";
         
         $f->mime   = 'application/pdf';
         $f->nome   = $this->nome;

@@ -581,12 +581,15 @@ class Corso extends GeoEntita {
             $comitato = $comitato->nomeCompleto();
         }
 
-
-        $p = new PDF('attestato', $nomefile);
+        $tipo = TipoCorso::id($corso->certificato);
+        
+        $p = new PDF('crs_attestato', $nomefile);
         $p->_COMITATO     = maiuscolo($comitato);
+        $p->_CORSO        = $tipo->nome;
+        $p->_SERIALE      = $risultato->seriale;
         $p->_CF           = $iscritto->codiceFiscale;
         $p->_VOLONTARIO   = $iscritto->nomeCompleto();
-        $p->_DATAESAME    = date('d/m/Y', $this->tEsame);
+        $p->_DATAESAME    = date('d/m/Y', $corso->inizio);
         $p->_DATA         = date('d/m/Y', time());
         $p->_LUOGO        = $this->organizzatore()->comune;
         $p->_VOLON        = $sesso;
@@ -602,7 +605,7 @@ class Corso extends GeoEntita {
      * @return PDF 
      */
     public function inviaAttestato($corso, $risultato, $iscritto, $f) {
-        $iscritto = Volontario::id("2");
+        //$iscritto = Volontario::id("2");
         
         $sesso = null;
         if ( $iscritto->sesso == UOMO ){
@@ -618,13 +621,16 @@ class Corso extends GeoEntita {
             $comitato = $comitato->nomeCompleto();
         }
         
-      
+        $tipo = TipoCorso::id($corso->certificato);
+       
         $m = new Email('crs_invioAttestato', "Invio Certificato" );
         //$m->a = $aut->partecipazione()->volontario();
         //$m->da = "pizar79@gmail.com";
         $m->a = $iscritto;
         $m->_COMITATO     = maiuscolo($comitato);
         $m->_CF           = $iscritto->codiceFiscale;
+        $m->_CORSO        = $tipo->nome;
+        $m->_SERIALE      = $risultato->seriale;
         $m->_VOLONTARIO   = $iscritto->nomeCompleto();
         $m->_DATAESAME    = date('d/m/Y', $this->tEsame);
         $m->_DATA         = date('d/m/Y', time());
@@ -952,26 +958,29 @@ class Corso extends GeoEntita {
     public static function chiudiCorsi() {
     // Verifico i corsi da chiudere
         $corsi = Corso::corsiDaChiudere();
-
+        $contatore = 0;
+        
         foreach($corsi as $corso){
             $risultati = $corso->risultati();
+            
             foreach($risultati as $risultato){
                 $volontario = $risultato->volontario();
-
+                
                 if ($risultato->idoneita && !empty($volontario)){
+                    $risultato->generaSeriale(intval(date("Y", $risultato->timestamp)));
+                    $risultato = RisultatoCorso::id($risultato->id);
+                    
+                    $contatore++;
                     $f = $corso->generaAttestato($corso, $risultato, $volontario);
                     $risultato->file = $f->id;
                     $risultato->generato = 1;
-
-                    $risultato->generaSeriale(intval(date("Y")));
-                            
+                    
                     $corso->inviaAttestato($corso, $risultato, $volontario, $f);
                 }
-                exit;
             }
         }
         
-        return;
+        return $contatore;
     }
     
 }

@@ -166,14 +166,15 @@ CREATE TABLE IF NOT EXISTS `crs_titoliCorsi` (
 
 DROP FUNCTION IF EXISTS generaSeriale;
 DELIMITER $$
-CREATE FUNCTION generaSeriale(yyyy INT)
-  RETURNS INT
+CREATE DEFINER=`root`@`localhost` FUNCTION `generaSeriale`(yyyy INT) RETURNS varchar(30) CHARSET latin1
 BEGIN
   DECLARE lastSerial INT;
   DECLARE newSerial INT;
+  DECLARE paddingSize INT;
   
-  SELECT serial INTO lastSerial FROM crs_risultati_corsi 
-	WHERE year(from_unixtime(timestamp)) = yyyy;
+  SET paddingSize = 8;
+  
+  SELECT max(right(seriale, paddingSize)) AS tmp INTO lastSerial FROM crs_risultati_corsi WHERE year(from_unixtime(timestamp)) = yyyy;
   
   IF lastSerial is null THEN 
 	SET newSerial = 0;
@@ -181,6 +182,6 @@ BEGIN
 	SET newSerial = lastSerial;
   END IF;
     
-  RETURN newSerial+1;
-END;
+  RETURN CONCAT(yyyy,"-",LPAD(newSerial+1, paddingSize, '0'));
+END
 $$
