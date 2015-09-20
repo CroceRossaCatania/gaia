@@ -569,7 +569,7 @@ class Corso extends GeoEntita {
         $p->_SERIALE      = $risultato->seriale;
         $p->_CF           = $iscritto->codiceFiscale;
         $p->_VOLONTARIO   = $iscritto->nomeCompleto();
-        $p->_DATAESAME    = date('d/m/Y', $this->tEsame);
+        $p->_DATAESAME    = date('d/m/Y', $corso->inizio);
         $p->_DATA         = date('d/m/Y', time());
         $p->_LUOGO        = $this->organizzatore()->comune;
         $p->_VOLON        = $sesso;
@@ -938,30 +938,29 @@ class Corso extends GeoEntita {
     public static function chiudiCorsi() {
     // Verifico i corsi da chiudere
         $corsi = Corso::corsiDaChiudere();
-        print "Corsi da chiudere: ".sizeof($corsi)."<br/>";
+        $contatore = 0;
         
         foreach($corsi as $corso){
             $risultati = $corso->risultati();
-            print "---> [".$corso->id."] Risultati da verificare: ".sizeof($risultati)."<br/>";
             
             foreach($risultati as $risultato){
                 $volontario = $risultato->volontario();
                 
                 if ($risultato->idoneita && !empty($volontario)){
-                    print "---> [".$corso->id."] Risultato ".$risultato->id. "[".$volontario->nome ."] : ".sizeof($risultati)."<br/>";
                     $risultato->generaSeriale(intval(date("Y", $risultato->timestamp)));
                     $risultato = RisultatoCorso::id($risultato->id);
                     
+                    $contatore++;
                     $f = $corso->generaAttestato($corso, $risultato, $volontario);
                     $risultato->file = $f->id;
                     $risultato->generato = 1;
-        
+                    
                     $corso->inviaAttestato($corso, $risultato, $volontario, $f);
                 }
             }
         }
         
-        return;
+        return $contatore;
     }
     
 }
