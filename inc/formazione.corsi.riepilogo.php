@@ -36,15 +36,16 @@ if ($modificabile) {
 }
 
 $files = array(
-    array('url' => '#', 'name' => 'Documento con nome lungo'),
-    array('url' => '#', 'name' => 'Documento con nome lungo 2'),
-    array('url' => '#', 'name' => 'Documento con nome lungo 3'),
-    array('url' => '#', 'name' => 'Documento con nome lungo 4'),
+//    array('url' => '#', 'name' => 'Documento con nome lungo'),
+//    array('url' => '#', 'name' => 'Documento con nome lungo 2'),
+//    array('url' => '#', 'name' => 'Documento con nome lungo 3'),
+//    array('url' => '#', 'name' => 'Documento con nome lungo 4'),
 );
 
 $docenti = $discenti = $affiancamenti = [];
 
 $partecipazioni = $c->partecipazioni();
+
 foreach ($partecipazioni as $i) {
     switch ($i->ruolo) {
         case CORSO_RUOLO_INSEGNANTE:
@@ -235,7 +236,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                     <ul>
                         <?php
                         foreach ($docenti as $docente) {
-                            if (!$docente->confermato) continue;
+                            if (!$docente['confermato']) continue;
                             ?>
                             <li><a href="<?php echo $docente['url'] ?>"><?php echo $docente['nome'] ?></a></li>
                             <?php
@@ -252,7 +253,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                     <ul>
                         <?php
                         foreach ($docenti as $docente) {
-                            if ($docente->confermato) continue;
+                            if ($docente['confermato']) continue;
                             ?>
                             <li><a href="<?php echo $docente['url'] ?>"><?php echo $docente['nome'] ?></a></li>
                             <?php
@@ -269,9 +270,15 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                     <p>Questa area si deve vedere solo se l'utente è iscritto e ha quindi il permesso di vedere i file</p>
                     <ul>
                         <?php
-                        foreach ($files as $file) {
+                        if (!empty($files)) {
+                            foreach ($files as $file) {
+                                ?>
+                                <li><a href="<?php echo $file['url'] ?>"><?php echo $file['name'] ?></a></li>
+                                <?php
+                            }
+                        } else {
                             ?>
-                            <li><a href="<?php echo $file['url'] ?>"><?php echo $file['name'] ?></a></li>
+                            <li>Nessun documento caricato</li>
                             <?php
                         }
                         ?>
@@ -288,7 +295,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                     <ul>
                         <?php
                         foreach ($discenti as $discente) {
-                            if (!$discente->confermato) continue;
+                            if (!$discente['confermato']) continue;
                             ?>
                             <li><a href="<?php echo $discente['url'] ?>"><?php echo $discente['nome'] ?></a></li>
                             <?php
@@ -305,7 +312,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                     <ul>
                         <?php
                         foreach ($discenti as $discente) {
-                            if ($discente->confermato) continue;
+                            if ($discente['confermato']) continue;
                             ?>
                             <li><a href="<?php echo $discente['url'] ?>"><?php echo $discente['nome'] ?></a></li>
                             <?php
@@ -321,7 +328,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                     <ul>
                         <?php
                         foreach ($affiancamenti as $affiancamento) {
-                            if (!$affiancamento->confermato) continue;
+                            if (!$affiancamento['confermato']) continue;
                             ?>
                             <li><a href="<?php echo $affiancamento['url'] ?>"><?php echo $affiancamento['nome'] ?></a></li>
                             <?php
@@ -338,7 +345,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                     <ul>
                         <?php
                         foreach ($affiancamenti as $affiancamento) {
-                            if ($affiancamento->confermato) continue;
+                            if ($affiancamento['confermato']) continue;
                             ?>
                             <li><a href="<?php echo $affiancamento['url'] ?>"><?php echo $affiancamento['nome'] ?></a></li>
                             <?php

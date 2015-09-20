@@ -69,7 +69,7 @@ class Corso extends GeoEntita {
                 if (!empty($this->organizzatore) &&
                     !empty($this->responsabile) &&
                     !empty($this->direttore) &&
-                    ($this->partecipanti == $this->numeroDiscenti()) &&
+                    ($this->partecipanti >= $this->numeroDiscenti()) &&
                     ($this->numeroInsegnantiNecessari() == $this->numeroInsegnanti()) &&
                     ($this->numeroInsegnantiNecessari() >= $this->numeroAffiancamenti())
                     )

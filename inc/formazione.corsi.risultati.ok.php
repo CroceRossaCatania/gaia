@@ -3,16 +3,14 @@
  * ©2015 Croce Rossa Italiana
  */
 
-(var_dump($_POST));
-die; 
-
 controllaParametri(['id','idoneita','affiancamenti'], 'admin.corsi.crea&err');
 
 $idoneitaDisc = filter_input(INPUT_POST, 'discIdoneita', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+$idoneitaAff = filter_input(INPUT_POST, 'affIdoneita', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+
 $affiancamentiDisc = filter_input(INPUT_POST, 'discAffiancamenti', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 $segnalazioniDisc = filter_input(INPUT_POST, 'discSegnalazioni', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
-$idoneitaAff = filter_input(INPUT_POST, 'affIdoneita', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
 //(var_dump($idoneita));
 //(var_dump($affiancamenti));
@@ -74,7 +72,6 @@ foreach ($idoneitaDisc as $volontario => $risultato) {
     $r->note = $r->note  . "";
     
 }
-
 
 foreach ($idoneitaAff as $volontario => $risultato) {
     $r = new RisultatoCorso();
