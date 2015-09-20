@@ -850,7 +850,7 @@ $conf['risultato'] = [
 
 /*
  * ===================================
- * ===== STATO RISULTATI CORSI      ==
+ * ===== ERRORI CREAZIONE CORSI      ==
  * ===================================
  */
 
@@ -862,6 +862,30 @@ $conf['errori_corsi'] = [
     CORSO_ERRORE_CORSO_NON_TROVATO    =>  'Il corso ricercato non esiste',
     CORSO_ERRORE_DATA_NON_CORRETTA    =>  'La data e l\'ora inserite non sono corrette',
     CORSO_ERRORE_NON_ANCORA_CONCLUSO    =>  'Il corso non risulta ancora concluso'
+];  
+
+/*
+ * ===================================
+ * ===== ERRORI VALIDAZIONE CORSI      ==
+ * ===================================
+ */
+
+define('CORSO_VALIDAZIONE_ORGANIZZATORE_MANCANTE',           1);
+define('CORSO_VALIDAZIONE_RESPONSABILE_MANCANTE',            2);
+define('CORSO_VALIDAZIONE_DIRETTORE_MANCANTE',               4);
+define('CORSO_VALIDAZIONE_NESSUN_PARTECIPANTE',              8);
+define('CORSO_VALIDAZIONE_TROPPI_PARTECIPANTI',             16);
+define('CORSO_VALIDAZIONE_ERRATO_NUMERO_INSEGNANTI',        32);
+define('CORSO_VALIDAZIONE_TROPPI_AFFIANCAMENTI',            64);
+
+$conf['errori_corsi'] = [
+    CORSO_VALIDAZIONE_ORGANIZZATORE_MANCANTE    =>  'Manca un organizzatore',
+    CORSO_VALIDAZIONE_RESPONSABILE_MANCANTE    =>  'Manca un responsabile',
+    CORSO_VALIDAZIONE_DIRETTORE_MANCANTE    =>  'Manca un direttore',
+    CORSO_VALIDAZIONE_NESSUN_PARTECIPANTE    =>  'Mancano partecipanti',
+    CORSO_VALIDAZIONE_TROPPI_PARTECIPANTI    =>  'Troppi partecipanti per il numero di insegnanti presenti',
+    CORSO_VALIDAZIONE_ERRATO_NUMERO_INSEGNANTI    =>  'Numero insegnanti diverso da quanto necessario',
+    CORSO_VALIDAZIONE_TROPPI_AFFIANCAMENTI    =>  'Troppi affiancamenti'
 ];  
 
 /*

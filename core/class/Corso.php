@@ -57,7 +57,7 @@ class Corso extends GeoEntita {
      * Aggiorna lo stato interno in base ai dati posseduti
      */
     public function aggiornaStato() {
-        
+        $err = 0;
         switch ($this->stato) {
             case CORSO_S_ANNULLATO:
             case CORSO_S_CONCLUSO:
@@ -66,14 +66,34 @@ class Corso extends GeoEntita {
                 break;
             case CORSO_S_DACOMPLETARE:
                 $update = true;
-                if (!empty($this->organizzatore) &&
-                    !empty($this->responsabile) &&
-                    !empty($this->direttore) &&
-                    ($this->partecipanti >= $this->numeroDiscenti()) &&
-                    ($this->numeroInsegnantiNecessari() == $this->numeroInsegnanti()) &&
-                    ($this->numeroInsegnantiNecessari() >= $this->numeroAffiancamenti())
-                    )
+                
+                $tipo = $this->certificato();
+                
+                if (empty($this->organizzatore)) {
+                    $err |= CORSO_VALIDAZIONE_ORGANIZZATORE_MANCANTE;
+                }
+                if (empty($this->responsabile)) {
+                    $err |= CORSO_VALIDAZIONE_RESPONSABILE_MANCANTE;
+                }
+                if (empty($this->direttore)) {
+                    $err |= CORSO_VALIDAZIONE_DIRETTORE_MANCANTE;
+                }
+                if (intval($this->partecipanti)<=0) {
+                    $err |= CORSO_VALIDAZIONE_NESSUN_PARTECIPANTE;
+                }
+                if ($this->partecipanti > $this->numeroInsegnanti() * $tipo->proporzioneIstruttori) {
+                    $err |= CORSO_VALIDAZIONE_TROPPI_PARTECIPANTI;
+                }
+                if ($this->numeroInsegnantiNecessari() != $this->numeroInsegnanti()) {
+                    $err |= CORSO_VALIDAZIONE_ERRATO_NUMERO_INSEGNANTI;
+                }
+                if ($this->numeroInsegnantiNecessari() < $this->numeroAffiancamenti()) {
+                    $err |= CORSO_VALIDAZIONE_TROPPI_AFFIANCAMENTI;
+                }
+
+                if ($err==0) {
                     $this->stato = CORSO_S_ATTIVO;
+                }
                 break;
         }
     }
