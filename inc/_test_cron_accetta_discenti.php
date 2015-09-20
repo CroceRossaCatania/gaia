@@ -37,7 +37,16 @@ echo '</pre>';
 
 $partecipazioni = $c->partecipazioniPotenziali();
 if (empty($partecipazioni)) {
-    $c->aggiornaStato();
+    $ret = $c->aggiornaStato();
+    if ($ret) {
+        
+        foreach ($conf['validazione_sorsi'] as $err) {
+            if ($ret & $err) { 
+                echo $conf['validazione_sorsi'][$err];
+            }
+        }
+        
+    }
 } else {
     echo '<pre>';
     var_dump($partecipazioni);

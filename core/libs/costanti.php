@@ -878,7 +878,7 @@ define('CORSO_VALIDAZIONE_TROPPI_PARTECIPANTI',             16);
 define('CORSO_VALIDAZIONE_ERRATO_NUMERO_INSEGNANTI',        32);
 define('CORSO_VALIDAZIONE_TROPPI_AFFIANCAMENTI',            64);
 
-$conf['errori_corsi'] = [
+$conf['validazione_corsi'] = [
     CORSO_VALIDAZIONE_ORGANIZZATORE_MANCANTE    =>  'Manca un organizzatore',
     CORSO_VALIDAZIONE_RESPONSABILE_MANCANTE    =>  'Manca un responsabile',
     CORSO_VALIDAZIONE_DIRETTORE_MANCANTE    =>  'Manca un direttore',
