@@ -3,7 +3,7 @@
  * ©2015 Croce Rossa Italiana
  */
 
-controllaParametri(['id','idoneita','affiancamenti'], 'admin.corsi.crea&err');
+controllaParametri(['id','discIdoneita','discAffiancamenti'], 'admin.corsi.crea&err');
 
 $idoneitaDisc = filter_input(INPUT_POST, 'discIdoneita', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 $idoneitaAff = filter_input(INPUT_POST, 'affIdoneita', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);

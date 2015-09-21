@@ -29,19 +29,19 @@ if (!$c->modificabile()) {
 $discenti = PartecipazioneCorso::filtra([
     ['corso', $c->id],
     ['ruolo', CORSO_RUOLO_DISCENTE],
-    ['stato', PARTECIPAZIONE_CONFERMATA]
+    ['stato', PARTECIPAZIONE_ACCETTATA]
 ]);
 
 $affiancamenti = PartecipazioneCorso::filtra([
     ['corso', $c->id],
     ['ruolo', CORSO_RUOLO_AFFIANCAMENTO],
-    ['stato', PARTECIPAZIONE_CONFERMATA]
+    ['stato', PARTECIPAZIONE_ACCETTATA]
 ]);
 
 $insegnanti = PartecipazioneCorso::filtra([
     ['corso', $c->id],
     ['ruolo', CORSO_RUOLO_INSEGNANTE],
-    ['stato', PARTECIPAZIONE_CONFERMATA]
+    ['stato', PARTECIPAZIONE_ACCETTATA]
 ]);
 
 caricaSelettoreDiscente();

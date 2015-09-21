@@ -108,7 +108,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
 
             <div class="span8 btn-group">
                 <?php
-                if ($modificabile && $c->stato<CORSO_S_DA_ELABORARE) {
+                if ($me->admin || $conf['debug'] || ($modificabile && $c->stato<CORSO_S_DA_ELABORARE)) {
                     ?>
                     <a href="?p=formazione.corsi.crea&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
                         <i class="icon-edit"></i>
@@ -129,7 +129,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                     <?php
                 }
 
-                if ($modificabile && $c->stato==CORSO_S_CONCLUSO) {
+                if ($me->admin || $conf['debug'] || $modificabile && $c->stato==CORSO_S_CONCLUSO) {
                     ?>
                     <a href="?p=formazione.corsi.risultati&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
                         <i class="icon-edit"></i>

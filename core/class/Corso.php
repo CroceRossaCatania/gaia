@@ -62,6 +62,8 @@ class Corso extends GeoEntita {
             case CORSO_S_ANNULLATO:
             case CORSO_S_CONCLUSO:
             case CORSO_S_ATTIVO:
+                if ($this->finito())
+                    $this->stato = CORSO_S_CONCLUSO;
                 break;
             case CORSO_S_DACOMPLETARE:
                 $tipo = $this->certificato();
