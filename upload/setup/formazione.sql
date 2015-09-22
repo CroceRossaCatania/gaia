@@ -164,17 +164,22 @@ CREATE TABLE IF NOT EXISTS `crs_titoliCorsi` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
-DROP FUNCTION IF EXISTS generaSeriale;
+-- Funzione per generare il seriale per anno e per corso di un certificato
+DROP FUNCTION IF EXISTS generaSerialeCertificato;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `generaSeriale`(yyyy INT) RETURNS varchar(30) CHARSET latin1
+CREATE DEFINER=`root`@`localhost` FUNCTION `generaSerialeCertificato`(yyyy INT, tipocorsoId INT) RETURNS varchar(30) CHARSET latin1
 BEGIN
   DECLARE lastSerial INT;
   DECLARE newSerial INT;
-  DECLARE paddingSize INT;
+  DECLARE paddingSizeSerial INT;
+  DECLARE paddingSizeCorsoId INT;
   
-  SET paddingSize = 8;
-  
-  SELECT max(right(seriale, paddingSize)) AS tmp INTO lastSerial FROM crs_risultati_corsi WHERE year(from_unixtime(timestamp)) = yyyy;
+  SET paddingSizeSerial = 8;
+  SET paddingSizeCorsoId = 3;
+    
+  SELECT max(right(crc.seriale, paddingSizeSerial)) AS tmp INTO lastSerial 
+	FROM crs_risultati_corsi JOIN crs_corsi cc ON cc.id = crc.corso
+	WHERE year(from_unixtime(crc.timestamp)) = yyyy AND cc.certificato = tipocorsoId;
   
   IF lastSerial is null THEN 
 	SET newSerial = 0;
@@ -182,6 +187,38 @@ BEGIN
 	SET newSerial = lastSerial;
   END IF;
     
-  RETURN CONCAT(yyyy,"-",LPAD(newSerial+1, paddingSize, '0'));
+  RETURN CONCAT(yyyy,"-",LPAD(tipocorsoId, paddingSizeCorsoId ,'0'),"-",LPAD(newSerial+1, paddingSizeSerial, '0'));
 END
 $$
+
+
+-- Funzione per generare il seriale per anno e di un corso
+DROP FUNCTION IF EXISTS generaSerialeCorso;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `generaSerialeCorso`(yyyy INT, tipocorsoId INT) RETURNS varchar(30) CHARSET latin1
+BEGIN
+  DECLARE lastSerial INT;
+  DECLARE newSerial INT;
+  DECLARE paddingSizeSerial INT;
+  DECLARE paddingSizeCorsoId INT;
+  
+  SET paddingSizeSerial = 8;
+  SET paddingSizeCorsoId = 3;
+  
+  SELECT max(right(seriale, paddingSizeSerial)) AS tmp INTO lastSerial FROM crs_corsi 
+	WHERE year(from_unixtime(inizio)) = yyyy AND certificato = tipocorsoId;
+  
+  IF lastSerial is null THEN 
+	SET newSerial = 0;
+  ELSE 
+	SET newSerial = lastSerial;
+  END IF;
+    
+  RETURN CONCAT(yyyy,"-",LPAD(tipocorsoId, paddingSizeCorsoId ,'0'),"-",LPAD(newSerial+1, paddingSizeSerial, '0'));
+END
+$$
+
+
+ALTER TABLE `crs_corsi` 
+ADD COLUMN `seriale` VARCHAR(45) NULL AFTER `provincia`,
+ADD UNIQUE INDEX `seriale_UNIQUE` (`seriale` ASC);
