@@ -38,7 +38,7 @@ class RisultatoCorso extends Entita {
         }
         
         $inizio = $c->inizio;
-        $oggi = (new DT())->getTimestamp();
+        $oggi = (new DT())->getTismestamp();
         $buffer = GIORNI_PARTECIPAZIONE_NON_MODIFICABILE * 86400;
         
         return (($oggi-$inizio) > $buffer);
@@ -46,13 +46,14 @@ class RisultatoCorso extends Entita {
         return false;
     }
     
-    public function generaSeriale($yyyy) {
+    public function generaSeriale($yyyy, $tipocorsoId) {
         global $db;
 
-        $sql = "UPDATE ".static::$_t." SET seriale = generaSeriale(:yyyy) WHERE id=:id AND seriale IS NULL";
+        $sql = "UPDATE ".static::$_t." SET seriale = generaSerialeCertificato(:yyyy, :tipocorsoId) WHERE id=:id AND seriale IS NULL";
         
         $query = $db->prepare($sql);
         $query->bindParam(":yyyy", $yyyy);
+        $query->bindParam(":tipocorsoId", $tipocorsoId);
         $query->bindParam(":id", $this->id);
         $query->execute();
         

@@ -44,6 +44,7 @@ class Corso extends GeoEntita {
      * @return int|false $progressivo     Il codice progressivo, false altrimenti 
      */
     public function assegnaProgressivo() {
+        /*
         if ($this->progressivo) {
             return false;
         }
@@ -51,6 +52,8 @@ class Corso extends GeoEntita {
         $progressivo = $this->generaProgressivo('progressivo', [["anno", $anno]]);
         $this->progressivo = $progressivo;
         return $progressivo;
+        */
+        $this->generaSeriale(intval($this->anno), $this->certificato);
     }
     
     /**
@@ -564,7 +567,7 @@ class Corso extends GeoEntita {
      * Genera attestato, sulla base del corso e del volontario
      * @return PDF 
      */
-    public function generaAttestato($corso, $risultato, $iscritto) {
+    public function generaAttestato($risultato, $iscritto) {
 
         $sesso = null;
         if ( $iscritto->sesso == UOMO ){
@@ -587,7 +590,7 @@ class Corso extends GeoEntita {
             $comitato = $comitato->nomeCompleto();
         }
 
-        $tipo = TipoCorso::id($corso->certificato);
+        $tipo = TipoCorso::id($this->certificato);
         
         $p = new PDF('crs_attestato', $nomefile);
         $p->_COMITATO     = maiuscolo($comitato);
@@ -595,7 +598,7 @@ class Corso extends GeoEntita {
         $p->_SERIALE      = $risultato->seriale;
         $p->_CF           = $iscritto->codiceFiscale;
         $p->_VOLONTARIO   = $iscritto->nomeCompleto();
-        $p->_DATAESAME    = date('d/m/Y', $corso->inizio);
+        $p->_DATAESAME    = date('d/m/Y', $this->inizio);
         $p->_DATA         = date('d/m/Y', time());
         $p->_LUOGO        = $this->organizzatore()->comune;
         $p->_VOLON        = $sesso;
@@ -610,7 +613,7 @@ class Corso extends GeoEntita {
      * Genera attestato, sulla base del corso e del volontario
      * @return PDF 
      */
-    public function inviaAttestato($corso, $risultato, $iscritto, $f) {
+    public function inviaAttestato($risultato, $iscritto, $f) {
         //$iscritto = Volontario::id("2");
         
         $sesso = null;
@@ -627,7 +630,7 @@ class Corso extends GeoEntita {
             $comitato = $comitato->nomeCompleto();
         }
         
-        $tipo = TipoCorso::id($corso->certificato);
+        $tipo = TipoCorso::id($this->certificato);
        
         $m = new Email('crs_invioAttestato', "Invio Certificato" );
         //$m->a = $aut->partecipazione()->volontario();
@@ -943,6 +946,27 @@ class Corso extends GeoEntita {
     }
     
     /**
+     * 
+     * @global type $db
+     * @param type $yyyy
+     * @param type $tipocorsoId
+     * @return type
+     */
+    public function generaSeriale($yyyy, $tipocorsoId) {
+        global $db;
+
+        $sql = "UPDATE ".static::$_t." SET seriale = generaSerialeCorso(:yyyy, :tipocorsoId) WHERE id=:id AND seriale IS NULL";
+        
+        $query = $db->prepare($sql);
+        $query->bindParam(":yyyy", $yyyy);
+        $query->bindParam(":tipocorsoId", $tipocorsoId);
+        $query->bindParam(":id", $this->id);
+        $query->execute();
+        
+        return;
+    }
+    
+    /**
      * Cerca i corsi da chiudere
      *
      * @return array            Array di oggetti
@@ -974,11 +998,11 @@ class Corso extends GeoEntita {
                 $risultato = RisultatoCorso::id($risultato->id);
 
                 $contatore++;
-                $f = $this->generaAttestato($this, $risultato, $volontario);
+                $f = $this->generaAttestato($risultato, $volontario);
                 $risultato->file = $f->id;
                 $risultato->generato = 1;
 
-                $this->inviaAttestato($this, $risultato, $volontario, $f);
+                $this->inviaAttestato($risultato, $volontario, $f);
             }
         }
         
