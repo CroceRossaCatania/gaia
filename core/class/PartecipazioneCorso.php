@@ -94,7 +94,7 @@ class PartecipazioneCorso extends Entita {
         
         if (!$this->modificabile() &&
             $this->stato == PARTECIPAZIONE_ACCETTATA &&
-            $this->ruolo == CORSO_RUOLO_INSEGNANTE
+            $this->ruolo == CORSO_RUOLO_DOCENTE
            ) {
             // cancellazione del corso e collegati, 
             // compreso il record db di questo oggetto PartecipazioneCorso

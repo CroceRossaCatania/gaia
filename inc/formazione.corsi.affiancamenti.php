@@ -24,23 +24,23 @@ if (!$c->modificabile()) {
     redirect('formazione.corsi.riepilogo&id='.$id);
 }
 
-// calcola il numero massimo di insegnanti per il corso
-$maxAffiancamenti = $c->numeroInsegnantiPotenziali() * max(1, intval($c->certificato()->proporzioneAffiancamento));
+// calcola il numero massimo di docenti per il corso
+$maxAffiancamenti = $c->numeroDocentiPotenziali() * max(1, intval($c->certificato()->proporzioneAffiancamento));
 
-// recupera gli id di insegnanti già presenti per il corso
+// recupera gli id di docenti già presenti per il corso
 // per popolare automaticamente la lista in caso di pagina di modifica
 $partecipazioni = PartecipazioneCorso::filtra([
     ['corso', $c->id],
     ['ruolo', CORSO_RUOLO_AFFIANCAMENTO]
 ]);
-$insegnanti = $affiancamenti = [];
+$docenti = $affiancamenti = [];
 foreach ($partecipazioni as $p) {
     $affiancamenti[] = $p->volontario();
 }
 unset($partecipazioni);
 
 // carica i selettori
-caricaSelettoreInsegnanteInAffiancamento([
+caricaSelettoreDocenteInAffiancamento([
     'max_selected_options' => $maxAffiancamenti,
     'no_results_text' => 'Nessun affiancamento trovato',
     
@@ -63,14 +63,14 @@ $d = new DateTime('@' . $c->inizio);
                 <hr>
                 <div class="row-fluid">
                     <div class="span4">
-                        <label for="dataFine"><i class="icon-user"></i> Insegnanti in affiancamento</label>
+                        <label for="dataFine"><i class="icon-user"></i> Docenti in affiancamento</label>
                     </div>
                     <div class="span8">
-                        <!-- a data-selettore-insegnante-affiancamento="true" 
-                           data-input="insegnanti-affiancamento" 
-                           data-multi="<?php echo $maxInsegnanti ?>"
+                        <!-- a data-selettore-docente-affiancamento="true" 
+                           data-input="docenti-affiancamento" 
+                           data-multi="<?php echo $maxDocenti ?>"
                            class="btn btn-block btn-large">
-                            Aggiungi <?php echo $maxInsegnanti ?> insegnanti in affiancamento... <i class="icon-pencil"></i>
+                            Aggiungi <?php echo $maxDocenti ?> docenti in affiancamento... <i class="icon-pencil"></i>
                         </a -->
                         <select name="affiancamenti[]" data-placeholder="Scegli un affiancamento..." multiple class="chosen-select affiancamenti">
                             <?php 

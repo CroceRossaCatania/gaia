@@ -37,10 +37,10 @@ $files = array(
     array('url' => '#', 'name' => 'Documento con nome lungo 4'),
 );
 
-$insegnanti = [];
-$partecipazioni = $corso->insegnanti();
+$docenti = [];
+$partecipazioni = $corso->docenti();
 foreach ($partecipazioni as $i) {
-    $insegnanti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto()];
+    $docenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto()];
 };
 
 
@@ -217,9 +217,9 @@ $geoComitato = GeoPolitica::daOid($corso->organizzatore);
                     <div class="row-fluid">
                         <ul>
                             <?php
-                            foreach ($insegnanti as $insegnante) {
+                            foreach ($docenti as $docente) {
                                 ?>
-                                <li><a href="<?php echo $insegnante['url'] ?>"><?php echo $insegnante['nome'] ?></a></li>
+                                <li><a href="<?php echo $docente['url'] ?>"><?php echo $docente['nome'] ?></a></li>
                                 <?php
                             }
                             ?>

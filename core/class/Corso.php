@@ -85,14 +85,14 @@ class Corso extends GeoEntita {
                     $err |= CORSO_VALIDAZIONE_NESSUN_PARTECIPANTE;
                 }
                 $var = $this->partecipanti;
-                if ($var > $this->numeroInsegnanti() * $tipo->proporzioneIstruttori) {
+                if ($var > $this->numeroDocenti() * $tipo->proporzioneIstruttori) {
                     $err |= CORSO_VALIDAZIONE_TROPPI_PARTECIPANTI;
                 }
-                if ($this->numeroInsegnantiNecessari() != $this->numeroInsegnanti()) {
-                    $err |= CORSO_VALIDAZIONE_ERRATO_NUMERO_INSEGNANTI;
+                if ($this->numeroDocentiNecessari() != $this->numeroDocenti()) {
+                    $err |= CORSO_VALIDAZIONE_ERRATO_NUMERO_DOCENTI;
                 }
                 
-                if ($this->numeroInsegnanti() < $this->numeroAffiancamenti()) {
+                if ($this->numeroDocenti() < $this->numeroAffiancamenti()) {
                     $err |= CORSO_VALIDAZIONE_TROPPI_AFFIANCAMENTI;
                 }
 
@@ -438,10 +438,10 @@ class Corso extends GeoEntita {
     }
 
     
-    public function numeroInsegnanti() {
+    public function numeroDocenti() {
         return PartecipazioneCorso::conta([
             ['corso', $this->id],
-            ['ruolo', CORSO_RUOLO_INSEGNANTE],
+            ['ruolo', CORSO_RUOLO_DOCENTE],
             ['stato', PARTECIPAZIONE_ACCETTATA, OP_GTE]
         ]);
     }
@@ -451,54 +451,54 @@ class Corso extends GeoEntita {
      * Numero dei discenti ad un corso 
      * @return int numero dei discenti 
      */
-    public function numeroInsegnantiMancanti() {
-        return $this->numeroInsegnantiNecessari() - $this->numeroInsegnanti();
+    public function numeroDocentiMancanti() {
+        return $this->numeroDocentiNecessari() - $this->numeroDocenti();
     }
 
     
-    public function numeroInsegnantiNecessari() {
+    public function numeroDocentiNecessari() {
         return ceil( $this->partecipanti / max(1,$this->certificato()->proporzioneIstruttori) );
     }
     
     
     /*
-     * Funzione repository per recuperare insegnanti di un corso
+     * Funzione repository per recuperare docenti di un corso
      */
-    public function insegnanti() {
+    public function docenti() {
         return PartecipazioneCorso::filtra([
             ['corso', $this->id],
-            ['ruolo', CORSO_RUOLO_INSEGNANTE],
+            ['ruolo', CORSO_RUOLO_DOCENTE],
             ['stato', PARTECIPAZIONE_ACCETTATA, OP_GTE]
         ]);
     }
     
     
     /*
-     * Funzione repository per recuperare insegnanti di un corso
+     * Funzione repository per recuperare docenti di un corso
      */
-    public function insegnantiPotenziali() {
+    public function docentiPotenziali() {
         return PartecipazioneCorso::filtra([
             ['corso', $this->id],
-            ['ruolo', CORSO_RUOLO_INSEGNANTE],
+            ['ruolo', CORSO_RUOLO_DOCENTE],
             ['stato', PARTECIPAZIONE_RICHIESTA]
         ]);
     }
     
     
     /*
-     * Funzione repository per recuperare insegnanti di un corso
+     * Funzione repository per recuperare docenti di un corso
      */
-    public function numeroInsegnantiPotenziali() {
+    public function numeroDocentiPotenziali() {
         return 
             PartecipazioneCorso::conta([
                 ['corso', $this->id],
-                ['ruolo', CORSO_RUOLO_INSEGNANTE],
+                ['ruolo', CORSO_RUOLO_DOCENTE],
                 ['stato', PARTECIPAZIONE_RICHIESTA]
             ])
             +
             PartecipazioneCorso::conta([
                 ['corso', $this->id],
-                ['ruolo', CORSO_RUOLO_INSEGNANTE],
+                ['ruolo', CORSO_RUOLO_DOCENTE],
                 ['stato', PARTECIPAZIONE_ACCETTATA]
             ])
             ;
@@ -506,7 +506,7 @@ class Corso extends GeoEntita {
     
     
     /*
-     * Funzione repository per recuperare insegnanti di un corso
+     * Funzione repository per recuperare docenti di un corso
      */
     public function affiancamenti() {
         return PartecipazioneCorso::filtra([
@@ -518,7 +518,7 @@ class Corso extends GeoEntita {
        
     
     /*
-     * Funzione repository per recuperare insegnanti di un corso
+     * Funzione repository per recuperare docenti di un corso
      */
     public function affiancamentiPotenziali() {
         return PartecipazioneCorso::filtra([

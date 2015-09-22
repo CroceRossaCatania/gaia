@@ -42,12 +42,12 @@ try {
 }
 
 $now = new DT();
-$insegnanti = $c->insegnanti();
-$idInsegnanti = array();
-foreach ($insegnanti as $i) {
-    $idInsegnanti[] = $i->volontario;
+$docenti = $c->docenti();
+$idDocenti = array();
+foreach ($docenti as $i) {
+    $idDocenti[] = $i->volontario;
 }
-unset($insegnanti);
+unset($docenti);
 
 foreach ($idoneitaDisc as $volontario => $risultato) {
     $r = new RisultatoCorso();
@@ -61,7 +61,7 @@ foreach ($idoneitaDisc as $volontario => $risultato) {
         $size = sizeof($segnalazioniDisc[$volontario]);
         for ($idx = 0; $idx < $size; ++$idx) {
             
-            if (!in_array(intval($segnalazioniDisc[$volontario][$idx]), $idInsegnanti) ) {
+            if (!in_array(intval($segnalazioniDisc[$volontario][$idx]), $idDocenti) ) {
                 throw new Exception('Manomissione');
             }
             
@@ -85,7 +85,7 @@ foreach ($idoneitaAff as $volontario => $risultato) {
         $size = sizeof($segnalazioniDisc[$volontario]);
         for ($idx = 0; $idx < $size; ++$idx) {
             
-            if (!in_array(intval($segnalazioniDisc[$volontario][$idx]), $idInsegnanti) ) {
+            if (!in_array(intval($segnalazioniDisc[$volontario][$idx]), $idDocenti) ) {
                 throw new Exception('Manomissione');
             }
             

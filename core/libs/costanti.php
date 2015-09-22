@@ -785,7 +785,7 @@ define('CORSO_NESSUN_RUOLO',                    0);
 define('CORSO_RUOLO_CREATORE',                 10);
 define('CORSO_RUOLO_DELEGATO_CREATORE',        20);
 define('CORSO_RUOLO_DIRETTORE',                30);
-define('CORSO_RUOLO_INSEGNANTE',               40); // istruttore per corsi a laici/volontari e formatore per corsi a istruttori
+define('CORSO_RUOLO_DOCENTE',               40); // istruttore per corsi a laici/volontari e formatore per corsi a istruttori
 define('CORSO_RUOLO_AFFIANCAMENTO',            50);
 define('CORSO_RUOLO_DISCENTE',                 60);
 
@@ -799,8 +799,8 @@ $conf['corso_ruolo'] = [
     CORSO_RUOLO_CREATORE            => 'Presidente',
     CORSO_RUOLO_DELEGATO_CREATORE   => 'Delegato',
     CORSO_RUOLO_DIRETTORE           => 'Direttore',
-    CORSO_RUOLO_INSEGNANTE          => 'Insegnante',
-    CORSO_RUOLO_AFFIANCAMENTO       => 'Insegnante in affiancamento',
+    CORSO_RUOLO_DOCENTE          => 'Docente',
+    CORSO_RUOLO_AFFIANCAMENTO       => 'Docente in affiancamento',
     CORSO_RUOLO_DISCENTE            => 'Discente',
 ];
 
@@ -875,7 +875,7 @@ define('CORSO_VALIDAZIONE_RESPONSABILE_MANCANTE',            2);
 define('CORSO_VALIDAZIONE_DIRETTORE_MANCANTE',               4);
 define('CORSO_VALIDAZIONE_NESSUN_PARTECIPANTE',              8);
 define('CORSO_VALIDAZIONE_TROPPI_PARTECIPANTI',             16);
-define('CORSO_VALIDAZIONE_ERRATO_NUMERO_INSEGNANTI',        32);
+define('CORSO_VALIDAZIONE_ERRATO_NUMERO_DOCENTI',        32);
 define('CORSO_VALIDAZIONE_TROPPI_AFFIANCAMENTI',            64);
 
 $conf['validazione_corsi'] = [
@@ -883,8 +883,8 @@ $conf['validazione_corsi'] = [
     CORSO_VALIDAZIONE_RESPONSABILE_MANCANTE    =>  'Manca un responsabile',
     CORSO_VALIDAZIONE_DIRETTORE_MANCANTE    =>  'Manca un direttore',
     CORSO_VALIDAZIONE_NESSUN_PARTECIPANTE    =>  'Mancano partecipanti',
-    CORSO_VALIDAZIONE_TROPPI_PARTECIPANTI    =>  'Troppi partecipanti per il numero di insegnanti presenti',
-    CORSO_VALIDAZIONE_ERRATO_NUMERO_INSEGNANTI    =>  'Numero insegnanti diverso da quanto necessario',
+    CORSO_VALIDAZIONE_TROPPI_PARTECIPANTI    =>  'Troppi partecipanti per il numero di docenti presenti',
+    CORSO_VALIDAZIONE_ERRATO_NUMERO_DOCENTI    =>  'Numero docenti diverso da quanto necessario',
     CORSO_VALIDAZIONE_TROPPI_AFFIANCAMENTI    =>  'Troppi affiancamenti'
 ];  
 

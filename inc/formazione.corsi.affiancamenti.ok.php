@@ -48,12 +48,12 @@ try {
         }
         
         foreach ($daAggiungere as $id) {
-            $insegnante = Volontario::id($id);
+            $docente = Volontario::id($id);
             
-            // aggiungere verifica del fatto che sia effettivamente un insegnante
+            // aggiungere verifica del fatto che sia effettivamente un docente
             
             $p = new PartecipazioneCorso();
-            $p->aggiungi($c, $insegnante, CORSO_RUOLO_AFFIANCAMENTO);
+            $p->aggiungi($c, $docente, CORSO_RUOLO_AFFIANCAMENTO);
         }
 
         $c->aggiornaStato();

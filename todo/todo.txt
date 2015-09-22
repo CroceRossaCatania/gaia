@@ -86,22 +86,20 @@ In sospeo:
 
 DA RIORDINARE:
 
-Verbale (con numero di corso) da stampare
-Modifica docente se corso già approvato rompe tutto (dovrebbe far tornare il corso indietro di uno stato)
-Inserisci risultati deve sparire se ci sono già risultati
+PF - Verbale (con numero di corso) da stampare
+MR - Modifica docente se corso già approvato rompe tutto (dovrebbe far tornare il corso indietro di uno stato)
+MR -Inserisci risultati deve sparire se ci sono già risultati
 #Modifica seriale del corso con codice alfanumerico per il tipo di corso
 #Codice numerico progressivo di un corso per anno e per tipo di corso
-Cosa succede se la data inserita è entro 15 gg (far bloccare addirittura nella mnaschera del calendario)
-I regionali possono modificare i corsi? NO, vengono notificati via email alla creazione
-Sostituire "insegnanti" con "docenti"
-Inserire in fondo al PDF "firmato in originale"
-A chiusura corso, lanciare procedura di generazione dei pdf
-Attestati PDF
+MR - Cosa succede se la data inserita è entro 15 gg (far bloccare addirittura nella mnaschera del calendario)
+PF - I regionali possono modificare i corsi? NO, vengono notificati via email alla creazione
+MR - Sostituire "insegnanti" con "docenti"
+PF - Inserire in fondo al PDF "firmato in originale" + nomi presidente e direttore
+MR - A chiusura corso, lanciare procedura di generazione dei pdf
+Elenco certificati relativi ad un corso, disponibili al direttore per la stampa
 
 I regionali nel TS/SA devono validare gli istruttori per singola lezione: uno psicologo può insegnare in una lezione "sostegno psicologico al paziente" ma non in altre lezioni
 Quando si parte? 30 novembre
-Elenco certificati relativi ad un corso, disponibili al direttore per la stampa
 Ufficio Soci deve poter accettare la partecipazione di un discente in sua vece, perchè questo potrebbe non avere email o accesso a internet
 Delegato tecnico area 1 non esiste: deve poter agire su tutti i corsi, i docenti e i discenti 
-
 Se cambio un docente, il nuovo docente inserito deve dare l'approvazione? questa operazione può essere effettuata anche dentro i 15 giori di buffer?

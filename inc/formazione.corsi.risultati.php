@@ -38,9 +38,9 @@ $affiancamenti = PartecipazioneCorso::filtra([
     ['stato', PARTECIPAZIONE_ACCETTATA]
 ]);
 
-$insegnanti = PartecipazioneCorso::filtra([
+$docenti = PartecipazioneCorso::filtra([
     ['corso', $c->id],
-    ['ruolo', CORSO_RUOLO_INSEGNANTE],
+    ['ruolo', CORSO_RUOLO_DOCENTE],
     ['stato', PARTECIPAZIONE_ACCETTATA]
 ]);
 
@@ -97,7 +97,7 @@ $d = new DateTime('@' . $c->inizio);
                         <div class="span5">
                             <select name="discSegnalazioni[<?php echo $d->volontario()->id ?>][]" class="chosen-select" multiple="" data-placeholder="Aggiungi segnalatori">
                                 <option value=""></option>
-                            <?php foreach ($insegnanti as $i) { 
+                            <?php foreach ($docenti as $i) { 
                                 $v = $i->volontario();
                                 ?>
                                 <option value="<?php echo $v->id?>"><?php echo $v->nomeCompleto() ?></option>
