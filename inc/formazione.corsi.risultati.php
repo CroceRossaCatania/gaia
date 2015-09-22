@@ -86,7 +86,7 @@ $d = new DateTime('@' . $c->inizio);
                         </div>
                         <div class="span2">
                             <select name="discAffiancamenti[<?php echo $d->volontario()->id ?>]" class="input-block-level" required="true">
-                                <option value="0">...</option>
+                                <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -149,7 +149,7 @@ $d = new DateTime('@' . $c->inizio);
                 <li>
                     <a class="btn btn-danger" href="?p=utente.me">
                         <i class="icon-plus-sign-alt icon-large"></i>&nbsp;
-                        Eliminare il corso --> annulla
+                        Eliminare
                     </a>
                 </li>
                 <li>

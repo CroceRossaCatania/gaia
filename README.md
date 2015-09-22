@@ -63,3 +63,19 @@ Per il corretto funzionamento dell'applicazione e del sistema di posta, modifica
 # Ogni 1-5 minuti (smaltimento coda di invio)
 * * * * * cd ~/gaia && php mailer.php | tee -a upload/log/mailer.log
 ```
+
+
+Verbale (con numero di corso) da stampare
+Modifica docente se corso già approvato rompe tutto
+Codice numerico progressivo di un corso per anno e per tipo di corso
+Cosa succede se la data inserita è entro 15 gg
+I regionali possono modificare i corsi? NO, vengono notificati via email alla creazione
+I regionali nel TS/SA deve validare gli istruttori per singola lezione: uno psicologo può insegnare in una lezione "sostegno psicologico al paziente" ma non in altre lezioni
+Quando si parte? 30 novembre
+Sostituire "insegnanti" con "docenti"
+Attestati PDF
+Inserire in fondo al PDF "firmato in originale"
+A chiusura corso, lanciare procedura di generazione dei pdf
+Elenco certificati relativi ad un corso, disponibili al direttore per la stampa
+Ufficio Soci deve poter accettare la partecipazione di un discente in sua vece, perchè questo potrebbe non avere email o accesso a internet
+Delegato tecnico area 1 non esiste: deve poter agire su tutti i corsi, i docenti e i discenti 

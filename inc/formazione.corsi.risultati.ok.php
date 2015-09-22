@@ -97,9 +97,10 @@ foreach ($idoneitaAff as $volontario => $risultato) {
     
 }
 
-
-
+/*
 $c->stato = CORSO_S_DA_ELABORARE;
+*/
+$corso->chiudi();
 
 redirect('formazione.corsi.riepilogo&id='.$c->id);
 

@@ -961,29 +961,40 @@ class Corso extends GeoEntita {
         return RisultatoCorso::filtra([["corso", $this->id]]);
     }
     
+    
+    public function chiudi() {
+    // Verifico i corsi da chiudere
+        $risultati = $this->risultati();
+
+        foreach($risultati as $risultato){
+            $volontario = $risultato->volontario();
+
+            if ($risultato->idoneita && !empty($volontario)){
+                $risultato->generaSeriale(intval(date("Y", $risultato->timestamp)));
+                $risultato = RisultatoCorso::id($risultato->id);
+
+                $contatore++;
+                $f = $this->generaAttestato($this, $risultato, $volontario);
+                $risultato->file = $f->id;
+                $risultato->generato = 1;
+
+                $this->inviaAttestato($this, $risultato, $volontario, $f);
+            }
+        }
+        
+        $this->stato = CORSO_S_CHIUSO;
+        
+        return $contatore;
+    }
+    
+    
     public static function chiudiCorsi() {
     // Verifico i corsi da chiudere
         $corsi = Corso::corsiDaChiudere();
         $contatore = 0;
         
         foreach($corsi as $corso){
-            $risultati = $corso->risultati();
-            
-            foreach($risultati as $risultato){
-                $volontario = $risultato->volontario();
-                
-                if ($risultato->idoneita && !empty($volontario)){
-                    $risultato->generaSeriale(intval(date("Y", $risultato->timestamp)));
-                    $risultato = RisultatoCorso::id($risultato->id);
-                    
-                    $contatore++;
-                    $f = $corso->generaAttestato($corso, $risultato, $volontario);
-                    $risultato->file = $f->id;
-                    $risultato->generato = 1;
-                    
-                    $corso->inviaAttestato($corso, $risultato, $volontario, $f);
-                }
-            }
+            $contatore += $corso->chiudi();
         }
         
         return $contatore;

@@ -103,7 +103,7 @@ $d = new DateTime('@' . $c->inizio);
                 <li>
                     <a class="btn btn-danger" href="?p=utente.me">
                         <i class="icon-plus-sign-alt icon-large"></i>&nbsp;
-                        Eliminare il corso --> annulla
+                        Eliminare
                     </a>
                 </li>
                 <li>
