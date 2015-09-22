@@ -88,12 +88,12 @@ DA RIORDINARE:
 
 PF - Verbale (con numero di corso) da stampare
 MR - Modifica docente se corso già approvato rompe tutto (dovrebbe far tornare il corso indietro di uno stato)
-MR -Inserisci risultati deve sparire se ci sono già risultati
+MR - Inserisci risultati deve sparire se ci sono già risultati
 #Modifica seriale del corso con codice alfanumerico per il tipo di corso
 #Codice numerico progressivo di un corso per anno e per tipo di corso
 MR - Cosa succede se la data inserita è entro 15 gg (far bloccare addirittura nella mnaschera del calendario)
 PF - I regionali possono modificare i corsi? NO, vengono notificati via email alla creazione
-MR - Sostituire "insegnanti" con "docenti"
+#MR - Sostituire "insegnanti" con "docenti"
 PF - Inserire in fondo al PDF "firmato in originale" + nomi presidente e direttore
 MR - A chiusura corso, lanciare procedura di generazione dei pdf
 Elenco certificati relativi ad un corso, disponibili al direttore per la stampa
