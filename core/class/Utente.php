@@ -2341,6 +2341,17 @@ class Utente extends Persona {
      * 
      * @return array dei corsi attivi
      */
+    public function ultimoTitoloCorso() {
+        $r = [];
+        $lista = TitoloCorso::ultimi(1);
+        return $lista;
+    }
+    
+    /**
+     * Ritorna l'array dei corsi attivi per l'utente
+     * 
+     * @return array dei corsi attivi
+     */
     public function titoliCorsiAttivi() {
         $r = [];
         $lista = TitoloCorso::filtra([['volontario',  $this->id]]);
