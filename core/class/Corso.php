@@ -143,6 +143,15 @@ class Corso extends GeoEntita {
     }
 
     /**
+     * Ritorna l'organizzatore del corso base
+     * @return GeoPolitica
+     */
+    public function presidente() {
+    	$comitato = GeoPolitica::daOid($this->organizzatore);
+        return $comitato->primoPresidente();
+    }
+    
+    /**
      * Ritorna il responsabile del corso
      * @return GeoPolitica
      */
@@ -584,6 +593,7 @@ class Corso extends GeoEntita {
         $nomefile = md5($iscritto->nomeCompleto()).".pdf";
   
         $comitato = $this->organizzatore();
+      
         if( $comitato->principale ) {
             $comitato = $comitato->locale()->nome;
         }else{
@@ -595,6 +605,9 @@ class Corso extends GeoEntita {
         $p = new PDF('crs_attestato', $nomefile);
         $p->_COMITATO     = maiuscolo($comitato);
         $p->_CORSO        = $tipo->nome;
+        $p->_PROGRESSIVO  = $this->seriale;
+        $p->_DIRETTORE    = $this->direttore()->nomeCompleto();
+        $p->_PRESIDENTE   = $this->presidente()->nomeCompleto();
         $p->_SERIALE      = $risultato->seriale;
         $p->_CF           = $iscritto->codiceFiscale;
         $p->_VOLONTARIO   = $iscritto->nomeCompleto();
@@ -602,8 +615,8 @@ class Corso extends GeoEntita {
         $p->_DATA         = date('d/m/Y', time());
         $p->_LUOGO        = $this->organizzatore()->comune;
         $p->_VOLON        = $sesso;
-        
         $file = $p->salvaFile(null, true);
+        
         
         return $file;
     }
@@ -989,12 +1002,14 @@ class Corso extends GeoEntita {
     public function chiudi() {
     // Verifico i corsi da chiudere
         $risultati = $this->risultati();
-
+        
+        $contatore = 0;
         foreach($risultati as $risultato){
             $volontario = $risultato->volontario();
 
             if ($risultato->idoneita && !empty($volontario)){
-                $risultato->generaSeriale(intval(date("Y", $risultato->timestamp)));
+                
+                $risultato->generaSeriale(intval(date("Y", $risultato->timestamp)), $this->certificato);
                 $risultato = RisultatoCorso::id($risultato->id);
 
                 $contatore++;
@@ -1003,10 +1018,18 @@ class Corso extends GeoEntita {
                 $risultato->generato = 1;
 
                 $this->inviaAttestato($risultato, $volontario, $f);
+                
+                // Aggiunto il titolo al discente che ha superato il corso
+                $titoloCorso = new TitoloCorso();
+                $titoloCorso->volontario = $volontario->id;
+                $titoloCorso->inizio = $risultato->timestamp;
+                $titoloCorso->fine = intval($titoloCorso->inizio) + (60 * 60 * 24 * 365);
+                $titoloCorso->titolo = $this->certificato;
+                $titoloCorso->codice = $risultato->seriale; 
             }
         }
         
-        $this->stato = CORSO_S_CHIUSO;
+        //$this->stato = CORSO_S_CHIUSO;
         
         return $contatore;
     }

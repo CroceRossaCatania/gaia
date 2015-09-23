@@ -178,7 +178,7 @@ BEGIN
   SET paddingSizeCorsoId = 3;
     
   SELECT max(right(crc.seriale, paddingSizeSerial)) AS tmp INTO lastSerial 
-	FROM crs_risultati_corsi JOIN crs_corsi cc ON cc.id = crc.corso
+	FROM crs_risultati_corsi crc JOIN crs_corsi cc ON cc.id = crc.corso
 	WHERE year(from_unixtime(crc.timestamp)) = yyyy AND cc.certificato = tipocorsoId;
   
   IF lastSerial is null THEN 

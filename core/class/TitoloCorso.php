@@ -8,7 +8,7 @@
 class TitoloCorso extends Entita {
     
     protected static
-        $_t     = 'titoliCorsi',
+        $_t     = 'crs_titoliCorsi',
         $_dt    = null;
 
     use EntitaCache;
@@ -16,7 +16,16 @@ class TitoloCorso extends Entita {
     public static function cerca($stringa) {
         return self::cercaFulltext($stringa, ['nome'], 20);
     }
-
+    
+    public static function ultimo(){
+        return self::ultimi($number, "");
+    }
+    
+    
+    public static function generaCodice($year){
+        //return self::ultimi(1);
+    }
+    
     public function titolo() {
         return Titolo::id($this->titolo);
     }
