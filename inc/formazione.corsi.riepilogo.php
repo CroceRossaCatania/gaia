@@ -48,7 +48,7 @@ $partecipazioni = $c->partecipazioni();
 
 foreach ($partecipazioni as $i) {
     switch ($i->ruolo) {
-        case CORSO_RUOLO_INSEGNANTE:
+        case CORSO_RUOLO_DOCENTE:
             $docenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> true];
             break;
         case CORSO_RUOLO_DISCENTE:
@@ -65,7 +65,7 @@ foreach ($partecipazioni as $i) {
 $partecipazioni = $c->partecipazioniPotenziali();
 foreach ($partecipazioni as $i) {
     switch ($i->ruolo) {
-        case CORSO_RUOLO_INSEGNANTE:
+        case CORSO_RUOLO_DOCENTE:
             $docenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> false];
             break;
         case CORSO_RUOLO_DISCENTE:
@@ -81,8 +81,8 @@ foreach ($partecipazioni as $i) {
 };
 unset($partecipazioni);
 
-$checkDocenti = $c->numeroInsegnantiMancanti();
-$checkAffiancamenti = $c->numeroAffiancamenti() > ($c->numeroInsegnantiNecessari() * intval($c->certificato()->proporzioneAffiancamento));
+$checkDocenti = $c->numeroDocentiMancanti();
+$checkAffiancamenti = $c->numeroAffiancamenti() > ($c->numeroDocentiNecessari() * intval($c->certificato()->proporzioneAffiancamento));
 $checkDiscenti = $c->postiLiberi();
 
 
@@ -110,15 +110,15 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                 <?php
                 if ($me->admin || $conf['debug'] || ($modificabile && $c->stato<CORSO_S_DA_ELABORARE)) {
                     ?>
-                    <a href="?p=formazione.corsi.crea&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
+                    <!-- a href="?p=formazione.corsi.crea&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
                         <i class="icon-edit"></i>
                         Modifica dati
-                    </a>
+                    </a -->
                     <a href="?p=formazione.corsi.direttore&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
                         <i class="icon-edit"></i>
                         Modifica direttore
                     </a>
-                    <a href="?p=formazione.corsi.insegnanti&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
+                    <a href="?p=formazione.corsi.docenti&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
                         <i class="icon-edit"></i>
                         Modifica docenti
                     </a>
@@ -129,7 +129,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                     <?php
                 }
 
-                if ($me->admin || $conf['debug'] || $modificabile && $c->stato==CORSO_S_CONCLUSO) {
+                if (($me->admin || $conf['debug'] || $modificabile) && $c->stato==CORSO_S_CONCLUSO) {
                     ?>
                     <a href="?p=formazione.corsi.risultati&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
                         <i class="icon-edit"></i>

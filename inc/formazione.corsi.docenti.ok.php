@@ -4,10 +4,10 @@
  */
 
 paginaPresidenziale();
-controllaParametri(['id','insegnanti'], 'admin.corsi.crea&err');
+controllaParametri(['id','docenti'], 'admin.corsi.crea&err');
 
 $c = null;
-$insegnanti = $daAggiungere = $daEliminare = [];
+$docenti = $daAggiungere = $daEliminare = [];
 
 try {
     $c = Corso::id(intval($_POST['id']));
@@ -16,21 +16,21 @@ try {
         redirect('formazione.corsi.riepilogo&id='.$c->id.'&err=1');
     }
 
-    if (empty($c) || !is_array($insegnanti)) {
+    if (empty($c) || !is_array($docenti)) {
         throw new Exception('Manomissione');
     }
     
-    if (is_array($_POST['insegnanti']) && !empty($_POST['insegnanti'])) {
-        $insegnanti = array_merge($c->insegnanti(), $c->insegnantiPotenziali());
+    if (is_array($_POST['docenti']) && !empty($_POST['docenti'])) {
+        $docenti = array_merge($c->docenti(), $c->docentiPotenziali());
 
         // setta tutti i vecchi come da eliminare
-        foreach ($insegnanti as $i) {
+        foreach ($docenti as $i) {
             $daEliminare[$i->id] = true;
         }
-        unset($insegnanti); // non serve più e spreca solo memoria
+        unset($docenti); // non serve più e spreca solo memoria
 
         // cicla sui nuovi
-        foreach ($_POST['insegnanti'] as $id) {
+        foreach ($_POST['docenti'] as $id) {
             if (isset($daEliminare[$id])) {
                 // se il nuovo è anche tra i vecchi, lo toglie dalla lista di quelli da eliminare
                 unset($daEliminare[$id]);
@@ -48,18 +48,20 @@ try {
         }
         
         foreach ($daAggiungere as $id) {
-            $insegnante = Volontario::id($id);
+            $docente = Volontario::id($id);
             
-            // aggiungere verifica del fatto che sia effettivamente un insegnante
+            // aggiungere verifica del fatto che sia effettivamente un docente
             
             $p = new PartecipazioneCorso();
-            $p->aggiungi($c, $insegnante, CORSO_RUOLO_INSEGNANTE);
+            $p->aggiungi($c, $docente, CORSO_RUOLO_DOCENTE);
         }
 
-        $c->aggiornaStato();
     } else {
         throw new Exception('Manomissione');
     }
+    
+    $c->aggiornaStato();
+    
 } catch (Exception $e) {
     die($e->getMessage());
     redirect('admin.corsi.crea&err');

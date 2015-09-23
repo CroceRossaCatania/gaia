@@ -1,5 +1,8 @@
 $(document).ready( function() {
     
+    var limite = new Date();
+    limite.setDate( limite.getDate() + minDateOffset );
+    
     $("#dataInizio").datetimepicker({
         timeText: 'Alle:',
         hourText: 'Ore',
@@ -7,7 +10,7 @@ $(document).ready( function() {
     	currentText: 'Ora',
     	closeText: 'Ok',
         defaultTimezone: '+0100',
-        minDate: new Date()
+        minDate: limite
     });
 
 

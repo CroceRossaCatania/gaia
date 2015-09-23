@@ -60,8 +60,8 @@ $sessione->agent    = $_SERVER['HTTP_USER_AGENT'];
 $_carica_selettore              = false;
 $_carica_selettore_comitato     = false;
 $_carica_selettore_discente     = false;
-$_carica_selettore_insegnante     = false;
-$_carica_selettore_insegnante_affiancamento     = false;
+$_carica_selettore_docente     = false;
+$_carica_selettore_docente_affiancamento     = false;
 $_carica_selettore_direttore     = false;
 
 /* Pagina da visualizzare */
@@ -499,12 +499,12 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                     include './inc/part/utente.direttore.selettore.php';
                 } ?>
 
-                <?php if ( $_carica_selettore_insegnante ) {
-                    include './inc/part/utente.insegnante.selettore.php';
+                <?php if ( $_carica_selettore_docente ) {
+                    include './inc/part/utente.docente.selettore.php';
                 } ?>
 
-                <?php if ( $_carica_selettore_insegnante_affiancamento ) {
-                    include './inc/part/utente.insegnante_affiancamento.selettore.php';
+                <?php if ( $_carica_selettore_docente_affiancamento ) {
+                    include './inc/part/utente.docente_affiancamento.selettore.php';
                 } ?>
 
                 <?php if ( $_carica_selettore_discente ) {

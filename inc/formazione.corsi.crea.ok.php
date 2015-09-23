@@ -41,6 +41,7 @@ $c->descrizione = $descrizione;
 $c->stato = CORSO_S_DACOMPLETARE;
 
 $c->assegnaProgressivo();
+
 $c->aggiornaStato();
 
 if (!empty($_POST['wizard'])) {

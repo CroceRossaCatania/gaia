@@ -25,7 +25,7 @@ if (!$c->modificabile()) {
 }
 
 // calcola il numero massimo di discenti per il corso
-$maxDiscenti = $c->numeroInsegnantiNecessari() * $certificato->proporzioneIstruttori;
+$maxDiscenti = $c->numeroDocentiNecessari() * $certificato->proporzioneIstruttori;
 
 // recupera gli id di discenti già presenti per il corso
 // per popolare automaticamente la lista in caso di pagina di modifica

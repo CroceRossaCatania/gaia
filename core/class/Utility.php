@@ -73,7 +73,7 @@ class Utility {
                 return '#0000ff';
             case CORSO_RUOLO_DIRETTORE: 
                 return '#00ff00';
-            case CORSO_RUOLO_INSEGNANTE: 
+            case CORSO_RUOLO_DOCENTE: 
                 return '#00ffff';
             case CORSO_RUOLO_AFFIANCAMENTO: 
                 return '#ff0000';

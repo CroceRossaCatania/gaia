@@ -1,7 +1,7 @@
 <?php
-if (isset($insegnanti) && is_array($insegnanti) && !empty($insegnanti)) {
+if (isset($docenti) && is_array($docenti) && !empty($docenti)) {
     $sel = '';
-    foreach ($insegnanti as $i) {
+    foreach ($docenti as $i) {
         if (empty($sel)) {
             $sel .= ',';
         }
@@ -16,15 +16,15 @@ if (isset($insegnanti) && is_array($insegnanti) && !empty($insegnanti)) {
     $(document).ready( function () {        
         chs = $(".chosen-select")
             .chosen({
-                max_selected_options: <?php echo $maxInsegnanti ?>, 
-                no_results_text: "Nessun insegnante trovato!",
+                max_selected_options: <?php echo $maxDocenti ?>, 
+                no_results_text: "Nessun docente trovato!",
                 width: '100%'
             })
             .data('chosen')
             .container.on('keyup', function(event) {
 
-                var geoPolitica_insegnante = '';
-                var stato_insegnante = '';
+                var geoPolitica_docente = '';
+                var stato_docente = '';
                 var input = $(this).find('input')[0];
                 var select = $( $(this).prev('select')[0] );
 
@@ -33,7 +33,7 @@ if (isset($insegnanti) && is_array($insegnanti) && !empty($insegnanti)) {
                     return;
                 }
                 
-                api('volontari:cerca', {query: query, perPagina: 80, ordine: 'selettoreInsegnante', comitati: geoPolitica_insegnante, stato_insegnante: stato_insegnante}, function (x) {
+                api('volontari:cerca', {query: query, perPagina: 80, ordine: 'selettoreDocente', comitati: geoPolitica_docente, stato_docente: stato_docente}, function (x) {
                     
                     select.children().remove('option:not(:selected)');
                     for (var i in x.risposta.risultati) {

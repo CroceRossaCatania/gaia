@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 /*
  * ©2015 Croce Rossa Italiana
  */
@@ -8,7 +9,13 @@ $id = intval($_GET['id']);
 $c = $organizzatoreId = null;
 $luogo = $inizio = $partecipanti = $descrizione = '';
 
-if (!empty($id) && is_int($id)) {
+/**
+ * 
+ *  NESSUNA MODIFICA AI DATI BASE DEL CORSO 
+ * 
+ **/
+if (false && !empty($id) && is_int($id)) {
+    /*
     $wizard = false;
     try {
         $c = Corso::id($id);
@@ -25,6 +32,7 @@ if (!empty($id) && is_int($id)) {
     if (!$c->modificabile()) {
         redirect('formazione.corsi.riepilogo&id='.$id);
     }
+    */
 } else {
     $wizard = true;
 }
@@ -35,7 +43,9 @@ $comitati = $me->comitati();
 $certificati = TipoCorso::elenco();
 
 ?>
-
+<script>
+var minDateOffset = <?php echo TipoCorso::limiteMinimoPerIscrizione() ?>;
+</script>
 <div class="row-fluid">
 
     <div class="span8">

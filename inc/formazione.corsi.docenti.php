@@ -24,25 +24,25 @@ if (!$c->modificabile()) {
     redirect('formazione.corsi.riepilogo&id='.$id);
 }
 
-// calcola il numero massimo di insegnanti per il corso
-$maxInsegnanti = $c->numeroInsegnantiNecessari();
+// calcola il numero massimo di docenti per il corso
+$maxDocenti = $c->numeroDocentiNecessari();
 
-// recupera gli id di insegnanti già presenti per il corso
+// recupera gli id di docenti già presenti per il corso
 // per popolare automaticamente la lista in caso di pagina di modifica
 $partecipazioni = PartecipazioneCorso::filtra([
     ['corso', $c->id],
-    ['ruolo', CORSO_RUOLO_INSEGNANTE]
+    ['ruolo', CORSO_RUOLO_DOCENTE]
 ]);
-$insegnanti = [];
+$docenti = [];
 foreach ($partecipazioni as $p) {
-    $insegnanti[] = $p->volontario();
+    $docenti[] = $p->volontario();
 }
 unset($partecipazioni);
 
 // carica i selettori
-caricaSelettoreInsegnante([
-    'max_selected_options' => $maxInsegnanti,
-    'no_results_text' => 'Nessun insegnante trovato',
+caricaSelettoreDocente([
+    'max_selected_options' => $maxDocenti,
+    'no_results_text' => 'Nessun docente trovato',
     
 ]);
 
@@ -54,29 +54,29 @@ $d = new DateTime('@' . $c->inizio);
 
     <div class="span8">
         <h2><i class="icon-plus-square icon-calendar muted"></i> Corso di formazione</h2>
-        <form action="?p=formazione.corsi.insegnanti.ok" method="POST">
+        <form action="?p=formazione.corsi.docenti.ok" method="POST">
             <input type="hidden" name="id" value="<?php echo $id ?>" />
             <input value="<?php echo empty($wizard) ? 0 : 1 ?>" name="wizard" type="hidden">
             <div class="alert alert-block alert-success">
                 <div class="row-fluid">
-                    <h4><i class="icon-question-sign"></i> Insegnanti per <?php echo $certificato->nome ?> del <?php echo $d->format('d/m/Y'); ?></h4>
+                    <h4><i class="icon-question-sign"></i> Docenti per <?php echo $certificato->nome ?> del <?php echo $d->format('d/m/Y'); ?></h4>
                 </div>
                 <hr>
                 <div class="row-fluid">
                     <div class="span4">
-                        <label for="dataFine"><i class="icon-user"></i> Insegnanti</label>
+                        <label for="dataFine"><i class="icon-user"></i> Docenti</label>
                     </div>
                     <div class="span8">
-                        <select name="insegnanti[]" data-placeholder="Scegli un insegnante..." multiple class="chosen-select insegnanti">
+                        <select name="docenti[]" data-placeholder="Scegli un docente..." multiple class="chosen-select docenti">
                             <?php 
-                                foreach ($insegnanti as $i ) {
+                                foreach ($docenti as $i ) {
                                 ?>
                                 <option value="<?php echo $i->id ?>" selected><?php echo $i->nomeCompleto() ?></option>
                                 <?php
                                 }
                             ?>
                         </select>
-                        <span>Aggiungi fino a <strong><?php echo $maxInsegnanti ?> insegnanti</strong></span>
+                        <span>Aggiungi fino a <strong><?php echo $maxDocenti ?> docenti</strong></span>
                     </div>
                 </div>
                 <div class="row-fluid">

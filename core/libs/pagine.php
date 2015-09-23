@@ -234,14 +234,14 @@ function caricaSelettoreDirettore() {
     $_carica_selettore_direttore = true;
 }
 
-function caricaSelettoreInsegnante() {
-    global $_carica_selettore_insegnante;
-    $_carica_selettore_insegnante = true;
+function caricaSelettoreDocente() {
+    global $_carica_selettore_docente;
+    $_carica_selettore_docente = true;
 }
 
-function caricaSelettoreInsegnanteInAffiancamento() {
-    global $_carica_selettore_insegnante_affiancamento;
-    $_carica_selettore_insegnante_affiancamento = true;
+function caricaSelettoreDocenteInAffiancamento() {
+    global $_carica_selettore_docente_affiancamento;
+    $_carica_selettore_docente_affiancamento = true;
 }
 
 function caricaSelettoreDiscente() {

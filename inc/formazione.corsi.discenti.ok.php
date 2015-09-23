@@ -56,9 +56,9 @@ try {
             $p->aggiungi($c, $discente, CORSO_RUOLO_DISCENTE);
         }
         
-        $c->aggiornaStato();
-        
     }
+
+    $c->aggiornaStato();
 } catch (Exception $e) {
     redirect('admin.corsi.crea&err');
 }
