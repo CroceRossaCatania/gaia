@@ -313,6 +313,29 @@ abstract class Entita {
     }
     
     /**
+     * Ritorna un elenco degli ultimi oggetti nel database in base all'ordinamento
+     *
+     * @param string $number        Required. Numero di elementi da ritornare
+     * @param string $condizioni    Opzionale. Condizioni per la funzione filtra
+     * @param string $ordine        Opzionale. Ordine in SQL
+     * @return array            Array di oggetti
+     */
+    public static function ultimi($number, $condizioni = [], $ordine="id") {
+        return static::filtra($condizioni, $ordine." DESC LIMIT ".$number);
+    }
+    
+    /**
+     * Ritorna l'ultimo elemento in base all'ordinamento
+     *
+     * @param string $condizioni    Opzionale. Condizioni per la funzione filtra
+     * @param string $ordine    Opzionale. Ordine in SQL
+     * @return array            Array di oggetti
+     */
+    public static function ultimo($condizioni=[], $ordine="id") {
+        return static::filtra($condizioni, $ordine." DESC LIMIT 1");
+    }
+    
+    /**
      * Effettua una ricerca MySQL FULLTEXT sui campi specificati
      *
      * @param string $query         La query di ricerca.
@@ -406,6 +429,9 @@ abstract class Entita {
             FROM ". static::$_t ."{$condizioni}");
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
+        
+        print_r($r);
+        
         if (!$r) { $r[0] = 0; }
         return (int) $r[0] + 1;
     }
