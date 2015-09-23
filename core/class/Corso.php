@@ -65,8 +65,44 @@ class Corso extends GeoEntita {
             case CORSO_S_ANNULLATO:
             case CORSO_S_CONCLUSO:
             case CORSO_S_ATTIVO:
-                if ($this->finito())
+                if ($this->finito()) {
                     $this->stato = CORSO_S_CONCLUSO;
+                    break;
+                }
+                
+                $tipo = $this->certificato();
+                
+                $var = $this->organizzatore;
+                if (empty($var)) {
+                    $err |= CORSO_VALIDAZIONE_ORGANIZZATORE_MANCANTE;
+                }
+                $var = $this->responsabile;
+                if (empty($var)) {
+                    $err |= CORSO_VALIDAZIONE_RESPONSABILE_MANCANTE;
+                }
+                $var = $this->direttore;
+                if (empty($var)) {
+                    $err |= CORSO_VALIDAZIONE_DIRETTORE_MANCANTE;
+                }
+                $var = $this->partecipanti;
+                if (intval($var)<=0) {
+                    $err |= CORSO_VALIDAZIONE_NESSUN_PARTECIPANTE;
+                }
+                $var = $this->partecipanti;
+                if ($var > $this->numeroDocenti() * $tipo->proporzioneIstruttori) {
+                    $err |= CORSO_VALIDAZIONE_TROPPI_PARTECIPANTI;
+                }
+                if ($this->numeroDocentiNecessari() != $this->numeroDocenti()) {
+                    $err |= CORSO_VALIDAZIONE_ERRATO_NUMERO_DOCENTI;
+                }
+                
+                if ($this->numeroDocenti() < $this->numeroAffiancamenti()) {
+                    $err |= CORSO_VALIDAZIONE_TROPPI_AFFIANCAMENTI;
+                }
+
+                if ($err!=0) {
+                    $this->stato = CORSO_S_DACOMPLETARE;
+                }
                 break;
             case CORSO_S_DACOMPLETARE:
                 $tipo = $this->certificato();

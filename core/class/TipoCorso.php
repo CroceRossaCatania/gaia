@@ -23,4 +23,12 @@ class TipoCorso extends Entita {
         parent::cancella();
     }
 
+    public static function limiteMinimoPerIscrizione() {
+        global $db;
+
+        $q = $db->query("SELECT MIN(limitePerIscrizione) FROM ". static::$_t." WHERE limitePerIscrizione IS NOT NULL");
+        $row = $q->fetch();
+        return intval($row[0]);
+    }
+    
 }

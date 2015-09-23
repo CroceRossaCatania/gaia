@@ -55,11 +55,12 @@ try {
             $p = new PartecipazioneCorso();
             $p->aggiungi($c, $docente, CORSO_RUOLO_AFFIANCAMENTO);
         }
-
-        $c->aggiornaStato();
     } else {
         throw new Exception('Manomissione');
     }
+
+    $c->aggiornaStato();
+    
 } catch (Exception $e) {
     die($e->getMessage());
     redirect('admin.corsi.crea&err');

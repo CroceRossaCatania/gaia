@@ -56,10 +56,12 @@ try {
             $p->aggiungi($c, $docente, CORSO_RUOLO_DOCENTE);
         }
 
-        $c->aggiornaStato();
     } else {
         throw new Exception('Manomissione');
     }
+    
+    $c->aggiornaStato();
+    
 } catch (Exception $e) {
     die($e->getMessage());
     redirect('admin.corsi.crea&err');

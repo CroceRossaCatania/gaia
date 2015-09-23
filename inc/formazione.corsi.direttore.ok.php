@@ -25,6 +25,8 @@ try {
 
 $c->direttore = $direttore->id;
 
+$c->aggiornaStato();
+    
 if (!empty($_POST['wizard'])) {
     redirect('formazione.corsi.docenti&id='.$c->id.'&wizard=1');
     die;
