@@ -14,7 +14,7 @@ $corso = CorsoBase::id($corso);
 
 foreach($corso->partecipazioni(ISCR_CONFERMATA) as $pb){
 	$iscritto = $pb->utente();
-	$elencoIscritti[] = $iscritto->nomeCompleto()
+	$elencoIscritti[] = $iscritto->nomeCompleto(true)
 }
 natcasesort($elencoIscritti);
 
@@ -25,8 +25,8 @@ foreach($corso->lezioni() as $lezione){
     $tabella = '<table border="1" style="width:100%">
                     <tbody>
                         <tr>
-                            <td align="center"><b>Cognome e Nome</b></td>
-                            <td align="center"><b>Firma</b></td>
+                            <td align="center" style="width:50%"><b>Cognome e Nome</b></td>
+                            <td align="center" style="width:50%"><b>Firma</b></td>
                         </tr>';
 
     foreach($elencoIscritti as $nomeIscritto){
