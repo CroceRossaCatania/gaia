@@ -85,7 +85,7 @@ $checkDocenti = $c->numeroDocentiMancanti();
 $checkAffiancamenti = $c->numeroAffiancamenti() > ($c->numeroDocentiNecessari() * intval($c->certificato()->proporzioneAffiancamento));
 $checkDiscenti = $c->postiLiberi();
 
-$risultati = $c->risultati();
+$certificati = $c->risultati();
 
 
 
