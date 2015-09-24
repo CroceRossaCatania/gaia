@@ -854,13 +854,15 @@ $conf['risultato'] = [
  * ===================================
  */
 
-define('CORSO_ERRORE_CORSO_NON_TROVATO',        1);
-define('CORSO_ERRORE_DATA_NON_CORRETTA',        2);
+define('CORSO_ERRORE_CORSO_NON_TROVATO',          1);
+define('CORSO_ERRORE_DATA_NON_CORRETTA',          2);
+define('CORSO_ERRORE_CORSO_NON_MODIFICABILE',     3);
 define('CORSO_ERRORE_NON_ANCORA_CONCLUSO',      100);
 
 $conf['errori_corsi'] = [
     CORSO_ERRORE_CORSO_NON_TROVATO    =>  'Il corso ricercato non esiste',
     CORSO_ERRORE_DATA_NON_CORRETTA    =>  'La data e l\'ora inserite non sono corrette',
+    CORSO_ERRORE_CORSO_NON_MODIFICABILE => 'Non hai i permessi per modificare questo corso',
     CORSO_ERRORE_NON_ANCORA_CONCLUSO    =>  'Il corso non risulta ancora concluso'
 ];  
 
@@ -875,7 +877,7 @@ define('CORSO_VALIDAZIONE_RESPONSABILE_MANCANTE',            2);
 define('CORSO_VALIDAZIONE_DIRETTORE_MANCANTE',               4);
 define('CORSO_VALIDAZIONE_NESSUN_PARTECIPANTE',              8);
 define('CORSO_VALIDAZIONE_TROPPI_PARTECIPANTI',             16);
-define('CORSO_VALIDAZIONE_ERRATO_NUMERO_DOCENTI',        32);
+define('CORSO_VALIDAZIONE_ERRATO_NUMERO_DOCENTI',           32);
 define('CORSO_VALIDAZIONE_TROPPI_AFFIANCAMENTI',            64);
 
 $conf['validazione_corsi'] = [
