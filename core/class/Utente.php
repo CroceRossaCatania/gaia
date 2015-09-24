@@ -63,8 +63,12 @@ class Utente extends Persona {
         return $r;
     }
     
-    public function nomeCompleto() {
-        return $this->nome . ' ' . $this->cognome;
+    public function nomeCompleto($cognomePrima = false) {
+		if ($cognomePrima) {
+			return $this->cognome . ' ' . $this->nome;
+		} else {
+			return $this->nome . ' ' . $this->cognome;
+		}
     }
     
     public function cambiaPassword($nuova) {
