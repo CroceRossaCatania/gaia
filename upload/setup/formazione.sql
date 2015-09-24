@@ -222,3 +222,7 @@ $$
 ALTER TABLE `crs_corsi` 
 ADD COLUMN `seriale` VARCHAR(45) NULL AFTER `provincia`,
 ADD UNIQUE INDEX `seriale_UNIQUE` (`seriale` ASC);
+
+
+ALTER TABLE `crs_corsi` 
+ADD COLUMN `verbale` VARCHAR(255) NULL AFTER `seriale`;

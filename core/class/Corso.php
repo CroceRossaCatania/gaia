@@ -607,6 +607,49 @@ class Corso extends GeoEntita {
         }
         return (bool) ($this->stato == CORSO_S_ATTIVO && $this->numDiscenti() == 0);
     }
+    
+    
+    /**
+     * Genera attestato, sulla base del corso e del volontario
+     * @return PDF 
+     */
+    public function generaVerbale($risultati) {
+
+        //$file  = $risultato->timestamp;
+        $nomefile = $this->seriale.".pdf";
+  
+     
+        $comitato = $this->organizzatore();
+        $tipo = TipoCorso::id($this->certificato);
+      
+        if( $comitato->principale ) {
+            $comitato = $comitato->locale()->nome;
+        }else{
+            $comitato = $comitato->nomeCompleto();
+        }
+ 
+        $p = new PDF('crs_verbale', $nomefile);
+        $p->_COMITATO     = maiuscolo($comitato);
+        $p->_CORSO        = $tipo->nome;
+        $p->_PROGRESSIVO  = $this->seriale;
+        $p->_DIRETTORE    = $this->direttore()->nomeCompleto();
+        $p->_PRESIDENTE   = $this->presidente()->nomeCompleto();
+        //$p->_VOLONTARIO   = $iscritto->nomeCompleto();
+        $p->_DATAESAME    = date('d/m/Y', $this->inizio);
+        $p->_DATA         = date('d/m/Y', time());
+        $p->_LUOGO        = $this->organizzatore()->comune;
+        
+        $text = "";
+        foreach($risultati as $r){
+            $text .= "".$r->volontario()->nomeCompleto().", idoneo:".$r->idoneita."<br/>";
+        }
+        $p->_TESTO = $text;
+        
+        $file = $p->salvaFile(null, true);
+        
+        
+        return $file;
+    }
 
     /**
      * Genera attestato, sulla base del corso e del volontario
@@ -1065,7 +1108,10 @@ class Corso extends GeoEntita {
             }
         }
         
-        //$this->stato = CORSO_S_CHIUSO;
+        $f = $this->generaVerbale($risultati);
+        $this->verbale = $f->id;
+        
+        $this->stato = CORSO_S_CHIUSO;
         
         return $contatore;
     }
