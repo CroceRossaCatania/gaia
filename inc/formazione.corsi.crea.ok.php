@@ -26,7 +26,7 @@ if (empty($_POST['id'])) {
 } else {
     $c = Corso::id($_POST['id']);
     if (!$c->modificabile() /* || !$c->modificabileDa($me)*/ ) {
-        redirect('formazione.corsi.riepilogo&id='.$c->id.'&err=1');
+        redirect('formazione.corsi.riepilogo&id='.$c->id.'&err='.CORSO_ERRORE_CORSO_NON_MODIFICABILE);
     }
 }
 
@@ -43,6 +43,8 @@ $c->stato = CORSO_S_DACOMPLETARE;
 $c->assegnaProgressivo();
 
 $c->aggiornaStato();
+
+$c->inviaCreazioneCorso();
 
 if (!empty($_POST['wizard'])) {
     redirect('formazione.corsi.direttore&id='.$c->id.'&wizard=1');

@@ -86,7 +86,7 @@ In sospeo:
 
 DA RIORDINARE:
 
-PF - Verbale (con numero di corso) da stampare
+#PF - Verbale (con numero di corso) da stampare
 #MR - Modifica docente se corso già approvato rompe tutto (dovrebbe far tornare il corso indietro di uno stato)
 #MR - Inserisci risultati deve sparire se ci sono già risultati
 #Modifica seriale del corso con codice alfanumerico per il tipo di corso
@@ -94,12 +94,14 @@ PF - Verbale (con numero di corso) da stampare
 #MR - Cosa succede se la data inserita è entro 15 gg (far bloccare addirittura nella mnaschera del calendario)
 PF - I regionali possono modificare i corsi? NO, vengono notificati via email alla creazione
 #MR - Sostituire "insegnanti" con "docenti"
-PF - Inserire in fondo al PDF "firmato in originale" + nomi presidente e direttore
+PF - Inserire in fondo al PDF del certificato "firmato in originale"
+PF - Inserire in fondo al PDF del certificato nomi presidente e direttore
 #MR - A chiusura corso, lanciare procedura di generazione dei pdf
 #MR - Nessuna modifica dei dati base del corso
-MR - Gli affiancamenti possono essere anche "zero"
+#MR - Gli affiancamenti possono essere anche "zero"
 Elenco certificati relativi ad un corso, disponibili al direttore per la stampa
 
+I corsi pendenti per i quali non sono stati nemmeno inseriti docenti o discenti, possiamo eliminarli dopo un po' di tempo?
 I regionali nel TS/SA devono validare gli istruttori per singola lezione: uno psicologo può insegnare in una lezione "sostegno psicologico al paziente" ma non in altre lezioni
 Quando si parte? 30 novembre
 Ufficio Soci deve poter accettare la partecipazione di un discente in sua vece, perchè questo potrebbe non avere email o accesso a internet

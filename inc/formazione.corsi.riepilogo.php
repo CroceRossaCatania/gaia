@@ -85,7 +85,7 @@ $checkDocenti = $c->numeroDocentiMancanti();
 $checkAffiancamenti = $c->numeroAffiancamenti() > ($c->numeroDocentiNecessari() * intval($c->certificato()->proporzioneAffiancamento));
 $checkDiscenti = $c->postiLiberi();
 
-
+$certificati = $c->risultati();
 
 
 /*
@@ -235,10 +235,20 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                 <div class="row-fluid">
                     <ul>
                         <?php
-                        foreach ($docenti as $docente) {
-                            if (!$docente['confermato']) continue;
+                        $count = 0;
+                        if (!empty($docenti)) {
+                            foreach ($docenti as $docente) {
+                                if (!$docente['confermato']) continue;
+                                ++$count;
+                                ?>
+                                <li><a href="<?php echo $docente['url'] ?>"><?php echo $docente['nome'] ?></a></li>
+                                <?php
+                            }
+                        }
+                        
+                        if (!$count) {
                             ?>
-                            <li><a href="<?php echo $docente['url'] ?>"><?php echo $docente['nome'] ?></a></li>
+                            <li>Nessun docente confermato</li>
                             <?php
                         }
                         ?>
@@ -252,10 +262,20 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                 <div class="row-fluid">
                     <ul>
                         <?php
-                        foreach ($docenti as $docente) {
-                            if ($docente['confermato']) continue;
+                        $count = 0;
+                        if (!empty($docenti)) {
+                            foreach ($docenti as $docente) {
+                                if ($docente['confermato']) continue;
+                                ++$count;
+                                ?>
+                                <li><a href="<?php echo $docente['url'] ?>"><?php echo $docente['nome'] ?></a></li>
+                                <?php
+                            }
+                        }
+
+                        if (!$count) {
                             ?>
-                            <li><a href="<?php echo $docente['url'] ?>"><?php echo $docente['nome'] ?></a></li>
+                            <li>Nessun docente da confermare</li>
                             <?php
                         }
                         ?>
@@ -270,13 +290,17 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                     <p>Questa area si deve vedere solo se l'utente è iscritto e ha quindi il permesso di vedere i file</p>
                     <ul>
                         <?php
+                        $count = 0;
                         if (!empty($files)) {
                             foreach ($files as $file) {
+                                ++$count;
                                 ?>
                                 <li><a href="<?php echo $file['url'] ?>"><?php echo $file['name'] ?></a></li>
                                 <?php
                             }
-                        } else {
+                        }
+
+                        if (!$count) {
                             ?>
                             <li>Nessun documento caricato</li>
                             <?php
@@ -284,6 +308,39 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                         ?>
                     </ul>
                 </div>
+
+                <?php
+                if ($me->admin || $conf['debug'] || $modificabile) {
+                    ?>
+                    <h4>
+                        <i class="icon-file-text"></i>
+                        Certificati
+                    </h4>
+                    <div class="row-fluid">
+                        <p>Questa area contiene i link ai certificati dei discenti che hanno passato il corso</p>
+                        <ul>
+                            <?php
+                            $count = 0;
+                            if (!empty($certificati)) {
+                                foreach ($certificati as $certificato) {
+                                    ++$count;
+                                    ?>
+                                    <li><a href="<?php echo 'upload/get/'.$certificato->file ?>">Certificato di <?php echo $certificato->volontario()->nomeCompleto() ?></a></li>
+                                    <?php
+                                }
+                            }
+                            
+                            if (!$count) {
+                                ?>
+                                <li>Nessun certificato presente</li>
+                                <?php
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                    <?php
+                }
+                ?>
 
             </div>
             <div class="span6">
@@ -294,10 +351,20 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                 <div class="row-fluid">
                     <ul>
                         <?php
-                        foreach ($discenti as $discente) {
-                            if (!$discente['confermato']) continue;
+                        $count = 0;
+                        if (!empty($discenti)) {
+                            foreach ($discenti as $discente) {
+                                if (!$discente['confermato']) continue;
+                                ++$count;
+                                ?>
+                                <li><a href="<?php echo $discente['url'] ?>"><?php echo $discente['nome'] ?></a></li>
+                                <?php
+                            }
+                        }
+                        
+                        if (!$count) {
                             ?>
-                            <li><a href="<?php echo $discente['url'] ?>"><?php echo $discente['nome'] ?></a></li>
+                            <li>Nessun discente confermato</li>
                             <?php
                         }
                         ?>
@@ -311,10 +378,20 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                 <div class="row-fluid">
                     <ul>
                         <?php
-                        foreach ($discenti as $discente) {
-                            if ($discente['confermato']) continue;
+                        $count = 0;
+                        if (!empty($discenti)) {
+                            foreach ($discenti as $discente) {
+                                if ($discente['confermato']) continue;
+                                ++$count;
+                                ?>
+                                <li><a href="<?php echo $discente['url'] ?>"><?php echo $discente['nome'] ?></a></li>
+                                <?php
+                            }
+                        }
+
+                        if (!$count) {
                             ?>
-                            <li><a href="<?php echo $discente['url'] ?>"><?php echo $discente['nome'] ?></a></li>
+                            <li>Nessun discente non confermato</li>
                             <?php
                         }
                         ?>
@@ -327,10 +404,20 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                 <div class="row-fluid">
                     <ul>
                         <?php
-                        foreach ($affiancamenti as $affiancamento) {
-                            if (!$affiancamento['confermato']) continue;
+                        $count = 0;
+                        if (!empty($affiancamenti)) {
+                            foreach ($affiancamenti as $affiancamento) {
+                                if (!$affiancamento['confermato']) continue;
+                                ++$count;
+                                ?>
+                                <li><a href="<?php echo $affiancamento['url'] ?>"><?php echo $affiancamento['nome'] ?></a></li>
+                                <?php
+                            }
+                        }
+                        
+                        if (!$count) {
                             ?>
-                            <li><a href="<?php echo $affiancamento['url'] ?>"><?php echo $affiancamento['nome'] ?></a></li>
+                            <li>Nessun affiancamento confermato</li>
                             <?php
                         }
                         ?>
@@ -344,10 +431,20 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                 <div class="row-fluid">
                     <ul>
                         <?php
-                        foreach ($affiancamenti as $affiancamento) {
-                            if ($affiancamento['confermato']) continue;
+                        $count = 0;
+                        if (!empty($affiancamenti)) {
+                            foreach ($affiancamenti as $affiancamento) {
+                                if ($affiancamento['confermato']) continue;
+                                ++$count;
+                                ?>
+                                <li><a href="<?php echo $affiancamento['url'] ?>"><?php echo $affiancamento['nome'] ?></a></li>
+                                <?php
+                            }
+                        } 
+                        
+                        if (!$count) {
                             ?>
-                            <li><a href="<?php echo $affiancamento['url'] ?>"><?php echo $affiancamento['nome'] ?></a></li>
+                            <li>Nessun affiancamento da confermare</li>
                             <?php
                         }
                         ?>
