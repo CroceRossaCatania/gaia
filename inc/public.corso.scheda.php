@@ -2,7 +2,6 @@
 /*
  * ©2013 Croce Rossa Italiana
  */
-
 set_time_limit(0);
 paginaAnonimo();
 caricaSelettore();
@@ -72,9 +71,9 @@ $geoComitato = GeoPolitica::daOid($corso->organizzatore);
         <div class="row-fluid">
             <div class="span8 btn-group">
                 <?php
-                if ($me->id == $c->direttore) {
+                if (intval($me->id) == $corso->direttore) {
                     ?>
-                    <a href="?p=formazione.corsi.risultati&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
+                    <a href="?p=formazione.corsi.risultati&id=<?php echo $corso->id; ?>" class="btn btn-small btn-info">
                         <i class="icon-edit"></i>
                         Inserisci risultati corso
                     </a>
