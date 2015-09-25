@@ -26,9 +26,11 @@ if ($me instanceof Anonimo) {
 $geoComitato = GeoPolitica::daOid($corso->organizzatore);
 
 $modificabile = $corso->modificabileDa($me);
+/*
 if ($modificabile) {
     $dominio = $me->dominioCompetenzaCorso($corso);
 }
+*/
 
 $files = array(
     array('url' => '#', 'name' => 'Documento con nome lungo'),
