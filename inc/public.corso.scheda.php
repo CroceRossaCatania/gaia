@@ -71,7 +71,7 @@ $geoComitato = GeoPolitica::daOid($corso->organizzatore);
         <div class="row-fluid">
             <div class="span8 btn-group">
                 <?php
-                if (intval($me->id) == $corso->direttore) {
+                if (intval($me->id) == $corso->direttore && $c->stato == CORSO_S_CONCLUSO) {
                     ?>
                     <a href="?p=formazione.corsi.risultati&id=<?php echo $corso->id; ?>" class="btn btn-small btn-info">
                         <i class="icon-edit"></i>
