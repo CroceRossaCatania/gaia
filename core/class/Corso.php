@@ -694,7 +694,7 @@ class Corso extends GeoEntita {
         }
 
         //$file  = $risultato->timestamp;
-        $nomefile = md5($iscritto->nomeCompleto()).".pdf";
+        $nomefile = $iscritto->nomeCompleto().".pdf";
   
         $comitato = $this->organizzatore();
       
@@ -784,19 +784,14 @@ class Corso extends GeoEntita {
         }else{
             $sesso = "Volontaria";
         }
+        */
         
         $comitato = $this->organizzatore();
-        if( $comitato->principale ) {
-            $comitato = $comitato->locale()->nome;
-        }else{
-            $comitato = $comitato->nomeCompleto();
-        }       
-         *  
-        */
         
         //$tipo = TipoCorso::id($this->certificato);
        
         $m = new Email("crs_inviaCreazioneCorso", "Corso Creato");
+        $m->a = $comitato->regionale();
         //$m->a = $aut->partecipazione()->volontario();
         //$m->da = "pizar79@gmail.com";
         // $m->a = $comitato;

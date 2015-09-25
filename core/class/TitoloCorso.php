@@ -27,7 +27,7 @@ class TitoloCorso extends Entita {
     }
     
     public function titolo() {
-        return Titolo::id($this->titolo);
+        return TipoCorso::id($this->titolo);
     }
     
     public function cancella() {
