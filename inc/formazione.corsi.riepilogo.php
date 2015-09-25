@@ -47,15 +47,16 @@ $docenti = $discenti = $affiancamenti = [];
 $partecipazioni = $c->partecipazioni();
 
 foreach ($partecipazioni as $i) {
+    $v = $i->volontario();
     switch ($i->ruolo) {
         case CORSO_RUOLO_DOCENTE:
-            $docenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> true];
+            $docenti[] = [ 'id' => $v->id, 'nome' => $v->nomeCompleto(), 'confermato'=> true];
             break;
         case CORSO_RUOLO_DISCENTE:
-            $discenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> true];
+            $discenti[] = [ 'id' => $v->id, 'nome' => $v->nomeCompleto(), 'confermato'=> true];
             break;
         case CORSO_RUOLO_AFFIANCAMENTO:
-            $affiancamenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> true];
+            $affiancamenti[] = [ 'id' => $v->id, 'nome' => $v->nomeCompleto(), 'confermato'=> true];
             break;
         default:
             break;
@@ -64,15 +65,16 @@ foreach ($partecipazioni as $i) {
 };
 $partecipazioni = $c->partecipazioniPotenziali();
 foreach ($partecipazioni as $i) {
+    $v = $i->volontario();
     switch ($i->ruolo) {
         case CORSO_RUOLO_DOCENTE:
-            $docenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> false];
+            $docenti[] = [ 'id' => $v->id, 'nome' => $v->nomeCompleto(), 'confermato'=> false];
             break;
         case CORSO_RUOLO_DISCENTE:
-            $discenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> false];
+            $discenti[] = [ 'id' => $v->id, 'nome' => $v->nomeCompleto(), 'confermato'=> false];
             break;
         case CORSO_RUOLO_AFFIANCAMENTO:
-            $affiancamenti[] = [ 'url' => '#', 'nome' => $i->volontario()->nomeCompleto(), 'confermato'=> false];
+            $affiancamenti[] = [ 'id' => $v->id, 'nome' => $v->nomeCompleto(), 'confermato'=> false];
             break;
         default:
             break;
