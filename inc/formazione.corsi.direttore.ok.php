@@ -27,6 +27,9 @@ $c->direttore = $direttore->id;
 
 $c->aggiornaStato();
     
+$partecipazione = new PartecipazioneCorso();
+$partecipazione->aggiungi($c, $direttore, CORSO_RUOLO_DIRETTORE);
+
 if (!empty($_POST['wizard'])) {
     redirect('formazione.corsi.docenti&id='.$c->id.'&wizard=1');
     die;
