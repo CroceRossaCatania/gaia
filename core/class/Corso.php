@@ -1157,7 +1157,7 @@ class Corso extends GeoEntita {
         foreach($risultati as $risultato){
             $volontario = $risultato->volontario();
 
-            if ($risultato->idoneita && !empty($volontario)){
+            if ($risultato->idoneita == CORSO_RISULTATO_IDONEO && !empty($volontario)){
                 
                 $risultato->generaSeriale(intval(date("Y", $risultato->timestamp)), $this->certificato);
                 $risultato = RisultatoCorso::id($risultato->id);
