@@ -2,7 +2,7 @@
 /*
  * ©2015 Croce Rossa Italiana
  */
-paginaPresidenziale();
+paginaPrivata();
 
 controllaParametri(['id'], 'admin.corsi.crea&err');
 

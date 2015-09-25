@@ -441,3 +441,9 @@ body {
 .bottone-lungo {
   display: block !important;
 }
+
+.fc-view .fc-content .fc-time,
+.fc-view .fc-content .fc-title {
+    color: #000;
+    text-shadow: 1px 1px 1px #fff;
+}
