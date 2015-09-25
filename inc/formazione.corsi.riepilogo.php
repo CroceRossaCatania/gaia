@@ -325,7 +325,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                                 foreach ($certificati as $certificato) {
                                     ++$count;
                                     ?>
-                                    <li><a href="<?php echo 'upload/get/'.$certificato->file ?>">Certificato di <?php echo $certificato->volontario()->nomeCompleto() ?></a></li>
+                                    <li><a href="<?php echo 'download.php?id='.$certificato->file ?>">Certificato di <?php echo $certificato->volontario()->nomeCompleto() ?></a></li>
                                     <?php
                                 }
                             }
