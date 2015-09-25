@@ -168,6 +168,9 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
         <div class="span12">
             <div class="alert alert-block alert-error allinea-centro">
                 <h4 class="text-error ">
+                    <div>
+                        stato: <?php echo $conf['corso_stato'][$c->stato] ?>
+                    </div>
                     <?php if (!empty($err)) { ?>
                     <div>
                         <i class="icon-warning-sign"></i>
