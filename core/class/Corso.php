@@ -650,6 +650,31 @@ class Corso extends GeoEntita {
         
         return $file;
     }
+    
+    
+    /**
+     * Genera attestato, sulla base del corso e del volontario
+     * @return PDF 
+     */
+    public function inviaVerbale($f) {
+        $comitato = $this->organizzatore();
+        if( $comitato->principale ) {
+            $comitato = $comitato->locale()->nome;
+        }else{
+            $comitato = $comitato->nomeCompleto();
+        }
+        
+        $tipo = TipoCorso::id($this->certificato);
+       
+        $m = new Email('crs_inviaVerbale', "Verbale".$this->seriale);
+        //$m->a = $aut->partecipazione()->volontario();
+        //$m->da = "pizar79@gmail.com";
+        $m->a = $this->direttore();
+        $m->allega($f, true);
+        $m->invia(true);
+        
+        return $f;
+    }
 
     /**
      * Genera attestato, sulla base del corso e del volontario
@@ -743,6 +768,57 @@ class Corso extends GeoEntita {
         return $f;
     }
 
+    
+    
+    /**
+     * Genera attestato, sulla base del corso e del volontario
+     * @return PDF 
+     */
+    public function inviaCreazioneCorso() {
+        //$iscritto = Volontario::id("2");
+        
+        $sesso = null;
+        /*
+        if ( $iscritto->sesso == UOMO ){
+            $sesso = "Volontario";
+        }else{
+            $sesso = "Volontaria";
+        }
+        
+        $comitato = $this->organizzatore();
+        if( $comitato->principale ) {
+            $comitato = $comitato->locale()->nome;
+        }else{
+            $comitato = $comitato->nomeCompleto();
+        }       
+         *  
+        */
+        
+        //$tipo = TipoCorso::id($this->certificato);
+       
+        $m = new Email("crs_inviaCreazioneCorso", "Corso Creato");
+        //$m->a = $aut->partecipazione()->volontario();
+        //$m->da = "pizar79@gmail.com";
+        // $m->a = $comitato;
+        /*
+        $m->_COMITATO     = maiuscolo($comitato);
+        $m->_CF           = $iscritto->codiceFiscale;
+        $m->_CORSO        = $tipo->nome;
+        //$m->_SERIALE      = $risultato->seriale;
+        $m->_VOLONTARIO   = $iscritto->nomeCompleto();
+        $m->_DATAESAME    = date('d/m/Y', $this->tEsame);
+        $m->_DATA         = date('d/m/Y', time());
+        $m->_LUOGO        = $this->organizzatore()->comune;
+        $m->_VOLON        = $sesso;
+         * 
+         */
+        $m->invia(true);
+        
+        return ;
+    }
+    
+    
+    
     /**
      * Genera scheda valutazione, sulla base del corso e del volontario
      * @return PDF 
@@ -1108,8 +1184,10 @@ class Corso extends GeoEntita {
             }
         }
         
+        // Verbale, generazione e invio
         $f = $this->generaVerbale($risultati);
         $this->verbale = $f->id;
+        $this->inviaVerbale($f);
         
         $this->stato = CORSO_S_CHIUSO;
         
