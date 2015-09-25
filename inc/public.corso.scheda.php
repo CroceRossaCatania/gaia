@@ -23,7 +23,9 @@ if ($me instanceof Anonimo) {
     $anonimo = true;
 }
 
+print "a";
 $geoComitato = GeoPolitica::daOid($corso->organizzatore);
+print "b";
 
 $modificabile = $corso->modificabileDa($me);
 /*
