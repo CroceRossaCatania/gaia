@@ -76,10 +76,10 @@ $tipologie = Certificato::elenco();
         <div class="row-fluid" id="calendario" style="margin-top: 50px"></div>
     
         <ul style="list-style-type: none; display: inline;">
-            <li style="list-style-type: none; display: inline; margin-right: 10px;"><i class="icon-sign-blank" style="color: #cccccc"></i> CORSO_S_ATTIVO</li>
-            <li style="list-style-type: none; display: inline; margin-right: 10px;"><i class="icon-sign-blank" style="color: #ffff00"></i> CORSO_S_ANNULLATO</li>
-            <li style="list-style-type: none; display: inline; margin-right: 10px;"><i class="icon-sign-blank" style="color: #ff00ff"></i> CORSO_S_DACOMPLETARE</li>
-            <li style="list-style-type: none; display: inline;"><i class="icon-sign-blank" style="color: #00ffff"></i> CORSO_S_CONCLUSO</li>
+            <li style="list-style-type: none; display: inline; margin-right: 10px;"><i class="icon-sign-blank" style="color: #cccccc"></i> Corso Attivo</li>
+            <li style="list-style-type: none; display: inline; margin-right: 10px;"><i class="icon-sign-blank" style="color: #ffff00"></i> Corso Annullato</li>
+            <li style="list-style-type: none; display: inline; margin-right: 10px;"><i class="icon-sign-blank" style="color: #ff00ff"></i> Corso da completare</li>
+            <li style="list-style-type: none; display: inline;"><i class="icon-sign-blank" style="color: #00ffff"></i> Corso concluso</li>
         </ul>
     </div>
     
