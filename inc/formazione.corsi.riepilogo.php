@@ -87,7 +87,7 @@ $checkDiscenti = $c->postiLiberi();
 
 $certificati = $c->risultati();
 
-
+$direttore = $c->direttore();
 /*
   $g = Gruppo::by('attivita', $a);
 
@@ -205,7 +205,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
         <hr/>
 
         <div class="row-fluid allinea-centro">
-            <div class="span6">
+            <div class="span4">
                 <span>
                     <i class="icon-home"></i>
                     Organizzato da
@@ -214,7 +214,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                     <?php echo $geoComitato->nomeCompleto(); ?>
                 </span>
             </div>
-            <div class="span6">
+            <div class="span4">
                 <span>
                     <i class="icon-user"></i>
                     Responsabile
@@ -226,6 +226,15 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                 <?php if ($puoPartecipare && !$anonimo) { ?>
                     <span class="muted">+39</span> <?php echo $c->responsabile()->cellulare(); ?>
                 <?php } ?>
+            </div>
+            <div class="span4">
+                <span>
+                    <i class="icon-user"></i>
+                    Direttore
+                </span><br />
+                <a href="?p=utente.mail.nuova&id=<?php echo $direttore->id; ?>">
+                    <?php echo $direttore->nomeCompleto() ?>
+                </a>
             </div>
         </div>
         <hr />
@@ -244,7 +253,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                                 if (!$docente['confermato']) continue;
                                 ++$count;
                                 ?>
-                                <li><a href="<?php echo $docente['url'] ?>"><?php echo $docente['nome'] ?></a></li>
+                                <li><a href="?p=utente.mail.nuova&id=<?php echo $docente['id'] ?>"><?php echo $docente['nome'] ?></a></li>
                                 <?php
                             }
                         }
@@ -271,7 +280,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                                 if ($docente['confermato']) continue;
                                 ++$count;
                                 ?>
-                                <li><a href="<?php echo $docente['url'] ?>"><?php echo $docente['nome'] ?></a></li>
+                                <li><a href="?p=utente.mail.nuova&id=<?php echo $docente['id'] ?>"><?php echo $docente['nome'] ?></a></li>
                                 <?php
                             }
                         }
@@ -298,7 +307,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                             foreach ($files as $file) {
                                 ++$count;
                                 ?>
-                                <li><a href="<?php echo $file['url'] ?>"><?php echo $file['name'] ?></a></li>
+                                <li><a href="<?php echo 'download.php?id='.$file['url'] ?>"><?php echo $file['name'] ?></a></li>
                                 <?php
                             }
                         }
@@ -360,7 +369,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                                 if (!$discente['confermato']) continue;
                                 ++$count;
                                 ?>
-                                <li><a href="<?php echo $discente['url'] ?>"><?php echo $discente['nome'] ?></a></li>
+                                <li><a href="?p=utente.mail.nuova&id=<?php echo $discente['id'] ?>"><?php echo $discente['nome'] ?></a></li>
                                 <?php
                             }
                         }
@@ -387,7 +396,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                                 if ($discente['confermato']) continue;
                                 ++$count;
                                 ?>
-                                <li><a href="<?php echo $discente['url'] ?>"><?php echo $discente['nome'] ?></a></li>
+                                <li><a href="?p=utente.mail.nuova&id=<?php echo $discente['id'] ?>"><?php echo $discente['nome'] ?></a></li>
                                 <?php
                             }
                         }
@@ -413,7 +422,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                                 if (!$affiancamento['confermato']) continue;
                                 ++$count;
                                 ?>
-                                <li><a href="<?php echo $affiancamento['url'] ?>"><?php echo $affiancamento['nome'] ?></a></li>
+                                <li><a href="?p=utente.mail.nuova&id=<?php echo $affiancamento['id'] ?>"><?php echo $affiancamento['nome'] ?></a></li>
                                 <?php
                             }
                         }
@@ -440,7 +449,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                                 if ($affiancamento['confermato']) continue;
                                 ++$count;
                                 ?>
-                                <li><a href="<?php echo $affiancamento['url'] ?>"><?php echo $affiancamento['nome'] ?></a></li>
+                                <li><a href="?p=utente.mail.nuova&id=<?php echo $affiancamento['id'] ?>"><?php echo $affiancamento['nome'] ?></a></li>
                                 <?php
                             }
                         } 
