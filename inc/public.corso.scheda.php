@@ -12,7 +12,14 @@ controllaParametri(array('id'));
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
-$corso = Corso::id($_GET['id']);
+try {
+    $corso = Corso::id(intval($_GET['id']));
+    
+} catch (Exception $e) {
+    die($e->getMessage());
+    redirect('admin.corsi.crea&err'.CORSO_ERRORE_CORSO_NON_TROVATO);
+}
+
 
 $puoPartecipare = false;
 //if ($corso->postiLiberi() > 0 && $corso->puoPartecipare($me)) {
@@ -23,9 +30,7 @@ if ($me instanceof Anonimo) {
     $anonimo = true;
 }
 
-print "a";
 $geoComitato = GeoPolitica::daOid($corso->organizzatore);
-print "b";
 
 $modificabile = $corso->modificabileDa($me);
 /*
@@ -35,10 +40,6 @@ if ($modificabile) {
 */
 
 $files = array(
-    array('url' => '#', 'name' => 'Documento con nome lungo'),
-    array('url' => '#', 'name' => 'Documento con nome lungo 2'),
-    array('url' => '#', 'name' => 'Documento con nome lungo 3'),
-    array('url' => '#', 'name' => 'Documento con nome lungo 4'),
 );
 
 $docenti = [];
@@ -69,63 +70,17 @@ $geoComitato = GeoPolitica::daOid($corso->organizzatore);
 
     <div class="span9">
         <div class="row-fluid">
-<?php /*
-  <?php if (isset($_GET['pot'])) { ?>
-  <div class='alert alert-block alert-success'>
-  <h4>Poteri conferiti con successo &mdash; <?php echo date('d-m-Y H:i:s'); ?></h4>
-  </div>
-  <?php } ?>
-  <?php if (isset($_GET['not'])) { ?>
-  <div class='alert alert-block alert-danger'>
-  <h4>Poteri già conferiti</h4>
-  </div>
-  <?php } ?>
-  <?php if (isset($_GET['gok'])) { ?>
-  <div class='alert alert-block alert-success'>
-  <h4>Gruppo di lavoro creato con successo &mdash; <?php echo date('d-m-Y H:i:s'); ?></h4>
-  </div>
-  <?php } ?>
-  <?php if ($sessione->errori) {
-  $errori = json_decode($sessione->errori);
-  foreach ($errori as $errore) { ?>
-  <div class='alert alert-block alert-danger'>
-  <h4>Il turno <?= $errore; ?> e' stato creato, ma la data di fine e' antecedente a quella di inzio</h4>
-  <h5>Per favore correggi le date!</h5>
-  </div>
-  <?php } }
-  $sessione->errori = null;
-  ?>
- */ ?>
-
             <div class="span8 btn-group">
-<?php if ($apertura && $modificabile) { ?>
-                    <a href="?p=attivita.modifica&id=<?php echo $corso->id; ?>" class="btn btn-large btn-info">
+                <?php
+                if ($me->id == $c->direttore) {
+                    ?>
+                    <a href="?p=formazione.corsi.risultati&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
                         <i class="icon-edit"></i>
-                        Modifica
+                        Inserisci risultati corso
                     </a>
-                    <a href="?p=attivita.turni&id=<?= $corso->id ?>" class="btn btn-primary btn-large">
-                        <i class="icon-calendar"></i> Turni
-                    </a>
-                    <a href="?p=attivita.cancella&id=<?= $corso->id; ?>" class="btn btn-large btn-danger" title="Cancella attività e tutti i turni">
-                        <i class="icon-trash"></i>
-                    </a>
-    <?php if (!$g && $corso->comitato()->_estensione() < EST_NAZIONALE) { ?>
-                        <a class="btn btn-large btn-success" href="?p=attivita.gruppo.nuovo&id=<?php echo $corso->id; ?>" title="Crea nuovo gruppo di lavoro">
-                            <i class="icon-group"></i> Crea gruppo
-                        </a>
-    <?php }
-}
-?>
-                <a class="btn btn-large btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode("https://gaia.cri.it/index.php?p=attivita.scheda&id={$corso->id}"); ?>" target="_blank">
-                    <i class="icon-facebook-sign"></i> Condividi
-                </a>
-                <?php if (!$apertura) { ?>
-                    <a class="btn btn-large btn-danger disabled" <?php if ($corso->modificabileDa($me)) { ?> onclick="return confirm('Vuoi nuovamente aprire l\'attività?');" href="?p=attivita.apertura.ok&id=<?= $corso->id; ?>&apri" <?php } ?>>
-                        <i class="icon-lock"></i>
-                        Attività chiusa
-                    </a>
-                <?php } ?>
-
+                    <?php
+                }
+                ?>
             </div>
             <div class="span4 allinea-destra">
                 <span class="muted">
@@ -238,9 +193,15 @@ $geoComitato = GeoPolitica::daOid($corso->organizzatore);
                         <p>Questa area si deve vedere solo se l'utente è iscritto e ha quindi il permesso di vedere i file</p>
                         <ul>
                             <?php
-                            foreach ($files as $file) {
+                            if (!empty($files)) {
+                                foreach ($files as $file) {
+                                    ?>
+                                    <li><a href="<?php echo $file['url'] ?>"><?php echo $file['name'] ?></a></li>
+                                    <?php
+                                }
+                            } else {
                                 ?>
-                                <li><a href="<?php echo $file['url'] ?>"><?php echo $file['name'] ?></a></li>
+                                <li>Nessun documento disponibile</li>
                                 <?php
                             }
                             ?>
