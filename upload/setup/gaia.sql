@@ -876,3 +876,28 @@ CREATE TABLE IF NOT EXISTS `veicoli` (
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+
+CREATE TABLE `certificati` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) DEFAULT NULL,
+  `ruoloProprietario` varchar(255) DEFAULT NULL,
+  `ruoloDirettore` varchar(255) DEFAULT NULL,
+  `ruoloDocenti` varchar(255) DEFAULT NULL,
+  `ruoloAffiancamento` varchar(255) DEFAULT NULL,
+  `ruoloDiscenti` varchar(255) DEFAULT NULL,
+  `tipoValutazione` varchar(255) DEFAULT NULL,
+  `attestato` varchar(255) DEFAULT NULL COMMENT 'Il template del documento, se passato con sucesso',
+  `limitePerIscrizione` int(11) DEFAULT NULL COMMENT 'In giorni',
+  `proporzioneIstruttori` int(11) DEFAULT NULL COMMENT 'Quanti Docenti in affiancemento per docente 1/valore',
+  `minimoPartecipanti` int(11) DEFAULT NULL,
+  `massimoPartecipanti` int(11) DEFAULT NULL,
+  `proporzioneAffiancamento` int(11) DEFAULT NULL COMMENT '1/valore',
+  `durata` int(11) DEFAULT NULL,
+  `giorni` int(11) DEFAULT NULL,
+  `punizione` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
