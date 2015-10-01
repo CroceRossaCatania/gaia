@@ -96,32 +96,9 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
     <!-- JS e CSS compressi -->
-<<<<<<< HEAD
     <link href="/assets/min/20151011/build/build.css" rel="stylesheet" media="screen">
     <script type="text/javascript" src="/assets/min/20151011/build/build.js"></script>
 
-=======
-     <?php if (DEBUG) : ?>
-        <?php $lines = file('assets/css.build'); ?>
-        <?php foreach ($lines as $line) : ?>
-            <?php if (strpos($line, "#") === false) : ?>
-                <link href="<?php echo trim($line) ?>" rel="stylesheet" media="screen">
-            <?php endif ?>
-        <?php endforeach; ?>
-    
-        <?php $lines = file('assets/js.build'); ?>
-        <?php foreach ($lines as $line) : ?>
-            <?php if (strpos($line, "#") === false) : ?>
-                <script type="text/javascript" src="<?php echo trim($line) ?>"></script>
-            <?php endif ?>
-        <?php endforeach; ?>
-    <?php endif ?>
-        
-    <?php if (!DEBUG) : ?>
-        <link href="/assets/min/dev/build/build.css" rel="stylesheet" media="screen">
-        <script type="text/javascript" src="/assets/min/dev/build/build.js"></script>
-    <?php endif ?>
->>>>>>> a09b42e652284469f2e0a50405d8b17a878fbd8d
     <!-- Recaptcha -->
     <script src="https://www.google.com/recaptcha/api.js?hl=it" async defer></script>
 
