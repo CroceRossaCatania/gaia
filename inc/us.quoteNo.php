@@ -70,7 +70,7 @@ $admin = (bool) $me->admin();
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="?p=us.quoteSi"><i class="icon-ok"></i> Volontari</a></li>
-                    <li><a href="?p=us.quoteSi.ordinari"><i class="icon-ok"></i> Soci Ordinari</a></li>
+                    <li><a href="?p=us.quoteSi.ordinari"><i class="icon-ok"></i> <?= $me->nomeExOrdinari(); ?> e Sostenitori</a></li>
                 </ul>
             </div>
             <div class="btn-group">
@@ -81,7 +81,7 @@ $admin = (bool) $me->admin();
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="?p=us.quoteNo"><i class="icon-remove"></i> Volontari</a></li>
-                    <li><a href="?p=us.quoteNo.ordinari"><i class="icon-remove"></i> Soci Ordinari</a></li>
+                    <li><a href="?p=us.quoteNo.ordinari"><i class="icon-remove"></i> <?= $me->nomeExOrdinari(); ?> e Sostenitori</a></li>
                 </ul>
             </div>
             <a href="?p=us.dash" class="btn btn-block">
