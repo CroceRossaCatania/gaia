@@ -23,6 +23,7 @@ if ( !function_exists('curl_init') ) {
 }
 
 $data	= date('Ymd'); 
+$data   = '20151011';
 $base   = realpath(dirname( __FILE__ ) . "/../");
 $dir 	= "{$base}/assets/min/{$data}";
 if ( !is_dir($dir) ) {
@@ -65,7 +66,8 @@ file_put_contents("{$dir}/build/build.js.log", $js_output);
 echo "[OK] Output di Closure salvato in {$dir}/build/build.js.log\n";
 
 echo "[...] Minificazione CSS (YUI Compressor)...";
-$css_build		= yuicss($css_build);
+$css_build		= yuicss2($css_build);
+print $css_build;
 echo "... [OK]\n";
 
 echo "[...] Salvo i risultati su disco...";
@@ -169,5 +171,28 @@ function yuicss($css) {
 	$output = curl_exec($ch);
 	curl_close($ch);
 	$output = str_replace("../", "../../../", $output);
+	return $output;
+}
+
+
+function yuicss2($css) {
+	return $css;
+
+	$url = 'http://cssminifier.com/raw';
+    $data = array(
+        'input' => $css,
+    );
+
+    // init the request, set some info, send it and finally close it
+    $ch = curl_init($url);
+
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $output = curl_exec($ch);
+    curl_close($ch);
+
+    // output the $minified
+    $output = str_replace("../", "../../../", $output);
 	return $output;
 }

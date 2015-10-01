@@ -21,7 +21,7 @@ foreach ( $turni as $t ) {
     $dinizio = DT::createFromFormat('d/m/Y H:i', $_POST["{$t->id}_inizio"]);
     $dfine = DT::createFromFormat('d/m/Y H:i', $_POST["{$t->id}_fine"]);
 
-    if($dinizio >= $dfine){
+    if($dinizio >= $dfine) {
         $errori[] = $_POST["{$t->id}_nome"];
         continue;
     }

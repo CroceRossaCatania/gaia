@@ -116,13 +116,11 @@ abstract class GeoPolitica extends GeoEntita {
      * Ritorna l'espansione della ricerca in basso nell'albero partendo da questo nodo
      * @param int $estensione   Opzionale. Estensione da raggiungere nell'albero. Uno di EST_*
      * @param int $ricerca      Opzionale. ESPLORA_RAMI | ESPLORA_SOLO_FOGLIE. Default ESPLORA_RAMI.
-     * @param bool $disattivi   Opzionale. Se vero E esplorazione NON solo foglie, include anche disattivi. Default False.
      * @return array(GeoPolitica)
      */
     public function esplora(
         $estensione = EST_UNITA,
-        $ricerca    = ESPLORA_RAMI,
-        $disattivi  = false
+        $ricerca    = ESPLORA_RAMI
     ) {
         if ( $ricerca == ESPLORA_SOLO_FOGLIE )
             return $this->estensione();
@@ -131,8 +129,8 @@ abstract class GeoPolitica extends GeoEntita {
             return [$this];
         } else {
             $r = [$this];
-            foreach ( $this->figli($disattivi) as $f ) {
-                $r = array_merge($r, $f->esplora($estensione, ESPLORA_RAMI, $disattivi));
+            foreach ( $this->figli() as $f ) {
+                $r = array_merge($r, $f->esplora($estensione, ESPLORA_RAMI));
             }
             return $r;
         }
@@ -418,19 +416,6 @@ abstract class GeoPolitica extends GeoEntita {
         Veicolo::cancellaTutti([['comitato', $oid]]);
 
         parent::cancella();
-    }
-
-    /**
-     * Sovrascrive Entita::elenco filtrando in automatico per comitati Attivi.
-     * @param mostraDisattivi Opzionale. Se true, mostra anche Comitati disattivi.
-     * @return array(GeoPolitica)
-     */
-    public static function elenco($mostraDisattivi = false) {
-        if ( $mostraDisattivi ) { 
-            return parent::elenco();
-        } else {
-            return static::filtra([['attivo', 1]], 'nome ASC');
-        }
     }
     
 }

@@ -194,26 +194,24 @@ class Comitato extends GeoPolitica {
      * Volontari che alla data $elezioni hanno certa $anzianita
      */
     public function elettoriAttivi(DateTime $elezioni, $anzianita = ANZIANITA) {
-        global $conf;
-        $tipi = implode(',', $conf['membro_anzianita']);
         $q = $this->db->prepare("
-            SELECT  DISTINCT(anagrafica.id)
+            SELECT  DISTINCT( anagrafica.id )
             FROM    appartenenza, anagrafica
-            WHERE
+            WHERE   
+              appartenenza.comitato     = :comitato
+            AND
+              appartenenza.stato        = :stato
+            AND
+              appartenenza.volontario   = anagrafica.id 
+            AND
+              ( inizio <= :minimo )
+            AND
               appartenenza.volontario IN (
                 SELECT volontario FROM appartenenza
                 WHERE comitato = :comitato AND
                 stato = :stato AND
-                (fine = 0 OR fine > :elezioni)
+                fine = 0 OR fine > :elezioni
               )
-            AND
-              appartenenza.volontario IN (
-                SELECT volontario FROM appartenenza
-                WHERE stato IN ({$tipi}) AND
-                inizio <= :minimo
-              )
-            AND
-              appartenenza.volontario = anagrafica.id
             ORDER BY
               anagrafica.cognome     ASC,
               anagrafica.nome        ASC");
@@ -1167,24 +1165,4 @@ class Comitato extends GeoPolitica {
         parent::cancella();
     }
 
-	public function donazioniPendenti() {
-        $q = $this->db->prepare("
-            SELECT 
-                donazioniPersonali.id
-            FROM
-                donazioniPersonali, appartenenza
-            WHERE
-                donazioniPersonali.volontario = appartenenza.volontario
-            AND
-                donazioniPersonali.pConferma IS NULL
-            AND
-                appartenenza.comitato = :comitato");
-        $q->bindParam(':comitato', $this->id);
-        $q->execute();
-        $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
-            $r[] = DonazionePersonale::id($k[0]);
-        }
-        return $r;
-    }
 }

@@ -52,7 +52,6 @@ menuElenchiVolontari(
             <?php         
             foreach ( $a as $_a ) {
                 $v = $_a->volontario();
-                if ( !$_a->attuale() ) { continue; }
             ?>
                 <tr>
                     <td><?php echo $v->cognome; ?></td>

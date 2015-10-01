@@ -25,8 +25,7 @@ class Errore extends Exception {
     }
     
     public function __toString() {
-        $backtrace = json_encode($this->getTrace(), JSON_PRETTY_PRINT);
-        return date('YmdHis', $this->timestamp) . " [ERR #" . $this->codice . "]: " . $this->messaggio . "\t{$this->extra}\n\nBacktrace:\n{$backtrace}";
+        return date('YmdHis', $this->timestamp) . " [ERR #" . $this->codice . "]: " . $this->messaggio . "\t{$this->extra}\n";
     }
 	
 	public function toJSON() {

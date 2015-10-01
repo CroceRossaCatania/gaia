@@ -24,7 +24,7 @@ $excel->intestazione([
 	'Registrato da'
 ]);
 
-foreach ($rifornimenti as $rifornimento) {
+foreach ($rifornomenti as $rifornimento) {
 	$excel->aggiungiRiga([
 		$rifornimento->km,
         date('d/m/Y', $rifornimento->data),

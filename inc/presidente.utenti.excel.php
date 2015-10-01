@@ -12,8 +12,6 @@ $c = Comitato::id($c);
 $i = 0;
 paginaApp([APP_SOCI , APP_PRESIDENTE, APP_OBIETTIVO], [$c]);
 
-$nessuna_data = 'NESSUNA DATA PRESENTE';
-
 if(isset($_GET['dimessi'])){
     
     $excel = new Excel();
@@ -104,7 +102,7 @@ if(isset($_GET['dimessi'])){
             date('d/m/Y', $v->dataNascita),
             $v->comuneNascita,
             $v->provinciaNascita,
-            ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
+            $v->ingresso()->format("d/m/Y")
             ]);
         
     }
@@ -137,7 +135,7 @@ if(isset($_GET['dimessi'])){
             date('d/m/Y', $v->dataNascita),
             $v->comuneNascita,
             $v->provinciaNascita,
-            ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
+            $v->ingresso()->format("d/m/Y")
             ]);
         
     }
@@ -180,7 +178,7 @@ if(isset($_GET['dimessi'])){
             date('d/m/Y', $v->dataNascita),
             $v->comuneNascita,
             $v->provinciaNascita,
-            ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
+            $v->ingresso()->format("d/m/Y")
             ]);
         
     }
@@ -223,7 +221,7 @@ if(isset($_GET['dimessi'])){
             date('d/m/Y', $v->dataNascita),
             $v->comuneNascita,
             $v->provinciaNascita,
-            ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
+            $v->ingresso()->format("d/m/Y")
             ]);
         
     }
@@ -285,7 +283,7 @@ if(isset($_GET['dimessi'])){
             $v->email,
             $v->cellulare,
             $v->cellulareServizio,
-            ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data,
+            $v->ingresso()->format("d/m/Y"),
             $v->quota($anno)->progressivo(),
             $v->quota($anno)->dataPagamento()->format("d/m/Y"),
             $v->quota($anno)->quota
@@ -352,7 +350,7 @@ if(isset($_GET['dimessi'])){
             $v->emailServizio,
             $v->cellulare,
             $v->cellulareServizio,
-            ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data,
+            $v->ingresso()->format("d/m/Y"),
             $v->quota($anno)->progressivo(),
             $v->quota($anno)->dataPagamento()->format("d/m/Y"),
             $v->quota($anno)->quota
@@ -575,7 +573,7 @@ if(isset($_GET['dimessi'])){
             $v->emailServizio,
             $v->cellulare,
             $v->cellulareServizio,
-            ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
+            $v->ingresso()->format("d/m/Y")
             ]);
 
     }
@@ -623,7 +621,7 @@ if(isset($_GET['dimessi'])){
             $v->emailServizio,
             $v->cellulare,
             $v->cellulareServizio,
-            ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
+            $v->ingresso()->format("d/m/Y")
             ]);
 
     }
@@ -671,7 +669,7 @@ if(isset($_GET['dimessi'])){
             $v->emailServizio,
             $v->cellulare,
             $v->cellulareServizio,
-            ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
+            $v->ingresso()->format("d/m/Y")
             ]);
 
     }
@@ -719,7 +717,7 @@ if(isset($_GET['dimessi'])){
             $v->emailServizio,
             $v->cellulare,
             $v->cellulareServizio,
-            ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
+            $v->ingresso()->format("d/m/Y")
             ]);
 
     }
@@ -767,7 +765,7 @@ if(isset($_GET['dimessi'])){
             $v->emailServizio,
             $v->cellulare,
             $v->cellulareServizio,
-            ( $_di = $v->ingresso() ) ? $_di->format('d/m/Y') : $nessuna_data
+            $v->ingresso()->format("d/m/Y")
             ]);
 
     }

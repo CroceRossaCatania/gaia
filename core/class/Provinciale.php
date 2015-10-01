@@ -30,25 +30,18 @@ class Provinciale extends GeoPolitica {
         return array_unique($r);
     }
 
-    public function figli($mostraDisattivi = false) {
-        return $this->locali($mostraDisattivi);
+    public function figli() {
+        return $this->locali();
     }
 
     public function superiore() {
         return $this->regionale();
     }
 
-    public function locali($mostraDisattivi = false) {
-        if ( $mostraDisattivi ) {
-            return Locale::filtra([
-                ['provinciale',  $this->id]
-            ], 'nome ASC');
-        } else {
-            return Locale::filtra([
-                ['provinciale',  $this->id],
-                ['attivo',       1]
-            ]);
-        }
+    public function locali() {
+        return Locale::filtra([
+            ['provinciale',  $this->id]
+        ], 'nome ASC');
     }
     
     public function regionale() {

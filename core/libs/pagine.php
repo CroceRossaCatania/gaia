@@ -144,6 +144,27 @@ function paginaCorsoBase( $corsoBase = null ) {
     }
 }
 
+function paginaCorso( $corso = null ) {
+    global $sessione;
+    richiediComitato();
+    if (
+         ( 
+            ( $corso instanceof Corso )
+            and
+            !($corso->modificabileDa($sessione->utente()))
+         )
+          or
+         !(
+                (bool) $sessione->utente()->admin()
+            or  (bool) $sessione->utente()->presiede()
+            or  (bool) $sessione->utente()->delegazioni(APP_FORMAZIONE)
+            or  (bool) $sessione->utente()->corsiDiretti()
+        )
+    ) {
+        redirect('errore.permessi');
+    }
+}
+
 function paginaModale() {
     include('./inc/part/pagina.attendere.php');
 }
@@ -206,6 +227,26 @@ function menuElenchiVolontari($a = "Volontari attivi", $b = '#', $c = '#') {
 function caricaSelettore() {
     global $_carica_selettore;
     $_carica_selettore = true;
+}
+
+function caricaSelettoreDirettore() {
+    global $_carica_selettore_direttore;
+    $_carica_selettore_direttore = true;
+}
+
+function caricaSelettoreDocente() {
+    global $_carica_selettore_docente;
+    $_carica_selettore_docente = true;
+}
+
+function caricaSelettoreDocenteInAffiancamento() {
+    global $_carica_selettore_docente_affiancamento;
+    $_carica_selettore_docente_affiancamento = true;
+}
+
+function caricaSelettoreDiscente() {
+    global $_carica_selettore_discente;
+    $_carica_selettore_discente = true;
 }
 
 function caricaSelettoreComitato() {

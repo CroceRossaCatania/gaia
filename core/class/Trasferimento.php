@@ -83,14 +83,8 @@ class Trasferimento extends Entita {
         $m->accoda();
     }
 
-    public function trasferisci($auto = false, $data = false) {
-
-        if ( $data ) {
-            $ora = $data;
-        } else {
-            $ora = time();
-        }
-
+    public function trasferisci($auto = false) {
+        $ora = time();
         $this->tConferma = $ora;
         if ($auto) {
             $this->stato = TRASF_AUTO;

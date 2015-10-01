@@ -13,7 +13,7 @@ if(isset($_POST['ordinario'])){
 
 <h3><i class="icon-bolt muted"></i> Procedura di importazione automatica dal format CSV</h3>
 
-<pre>
+<pre><code>
     <?php
 
     $file = $_FILES['inputCSV']['tmp_name'];
@@ -29,11 +29,6 @@ if(isset($_POST['ordinario'])){
     $h = 0;
 
     $rigasuexcel = 0;
-
-    $_comitato = false;
-    if (isset($_POST['inputComitato'])) {
-        $_comitato =  Comitato::id($_POST['inputComitato']);
-    }
 
     while ( $riga = fgetcsv($file, 0, ';') ) {
 
@@ -68,79 +63,6 @@ if(isset($_POST['ordinario'])){
 
             $app->comitato = $comitato->id;
             echo " Trasferimento effettuato <br/>";
-            $h++;
-            continue;
-            
-        }
-
-        if (isset($_POST['trasferisciProc']) ) {
-            $codiceFiscale = maiuscolo($riga[0]);
-            echo "[{$rigasuexcel}] {$codiceFiscale} ";
-            $rigasuexcel++;
-
-            if (!$_comitato) {
-                echo "ERRORE Nessun Comitato di destinazione selezionato. TERMINO.<br />";
-                break;
-            }
-
-            $v = Volontario::by('codiceFiscale', $codiceFiscale);
-            
-            if (!$v){
-                echo "ERRORE Volontario non presente!<br/>";
-                continue;
-            }
-
-            $app = $v->appartenenzaAttuale();
-
-            if (!$app){
-                echo "ERRORE Nessuna appartenenza attuale<br/>";
-                continue;
-            }
-
-            if ($app->comitato() == $_comitato) {
-                echo "ERRORE Volontario gia' presso comitato di destinazione<br />";
-                continue;
-            }
-
-            $motivo = $riga[2];
-            if (!$motivo) {
-                echo "ERRORE Nessuna motivazione specificata<br />";
-                continue;
-            }
-
-            $quando = $riga[1];
-            $quando = $quando ? DT::createFromFormat('d/m/Y', $quando) : false;
-            if (!$quando) {
-                echo "ERRORE Nessuna data valida<br />";
-                continue;
-            }
-            $quando = $quando->getTimestamp();
-
-            if ( $quando < (time()-(ANNO*150))){
-                $anno = date('Y', $quando);
-                echo " ERRORE Data non valida, anno improbabile {$anno} (forse usato formato anno due cifre?)<br/>";
-                continue;
-            }
-
-            $a = new Appartenenza();
-            $a->volontario  = $v;
-            $a->comitato    = $_comitato;
-            $a->stato =     TRASF_INCORSO;
-            $a->timestamp = time();
-            $a->inizio    = $quando;
-            
-            $t = new Trasferimento();
-            $t->stato = TRASF_INCORSO;
-            $t->appartenenza = $a;
-            $t->volontario = $v;
-            $t->motivo = $motivo;
-            $t->timestamp = $quando;
-            $t->protData = $quando;
-            $t->cProvenienza = $app->comitato()->id;
-        
-            $t->trasferisci(true, $quando);
-
-            echo "OK!    Trasferimento effettuato con procedura.<br/>";
             $h++;
             continue;
             
@@ -355,4 +277,4 @@ if(isset($_POST['ordinario'])){
             echo "Sono stati caricati: $h utenti";
             fclose($file);
             ?>
-        </code>
+        </code></pre>

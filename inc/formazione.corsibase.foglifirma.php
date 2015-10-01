@@ -12,12 +12,6 @@ controllaParametri(array('id'), 'errore.fatale');
 $corso = $_GET['id'];
 $corso = CorsoBase::id($corso);
 
-foreach($corso->partecipazioni(ISCR_CONFERMATA) as $pb){
-	$iscritto = $pb->utente();
-	$elencoIscritti[] = $iscritto->nomeCompleto(true);
-}
-natcasesort($elencoIscritti);
-
 $zip = new Zip();
 
 foreach($corso->lezioni() as $lezione){
@@ -25,13 +19,14 @@ foreach($corso->lezioni() as $lezione){
     $tabella = '<table border="1" style="width:100%">
                     <tbody>
                         <tr>
-                            <td align="center" style="width:50%"><b>Cognome e Nome</b></td>
-                            <td align="center" style="width:50%"><b>Firma</b></td>
+                            <td align="center"><b>Cognome e Nome</b></td>
+                            <td align="center"><b>Firma</b></td>
                         </tr>';
 
-    foreach($elencoIscritti as $nomeIscritto){
+    foreach($corso->partecipazioni(ISCR_CONFERMATA) as $pb){
+        $iscritto = $pb->utente();
         $tabella .= "<tr>
-                        <td>$nomeIscritto</td>
+                        <td>{$iscritto->nomeCompleto()}</td>
                         <td></td>
                     </tr>";
 

@@ -63,12 +63,8 @@ class Utente extends Persona {
         return $r;
     }
     
-    public function nomeCompleto($cognomePrima = false) {
-		if ($cognomePrima) {
-			return $this->cognome . ' ' . $this->nome;
-		} else {
-			return $this->nome . ' ' . $this->cognome;
-		}
+    public function nomeCompleto() {
+        return $this->nome . ' ' . $this->cognome;
     }
     
     public function cambiaPassword($nuova) {
@@ -1222,6 +1218,78 @@ class Utente extends Persona {
         return $r;
     }
     
+
+    /**
+     * Restituisce l'elenco dei corsi  che gestisco
+     * @return Corso    elenco dei corsi gestiti 
+     */
+    public function corsiInGestione() {
+        $a = $this->corsiDiretti();
+        foreach ( $this->comitatiApp([APP_PRESIDENTE, APP_FORMAZIONE], false) as $c ) {
+            $a = array_merge($a, $this->corsiRichiesti());
+        }
+        $a = array_unique($a);
+        return $a;
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi di cui sono direttore
+     * @return Corso    elenco dei corsi diretti 
+     */
+    public function corsiDiretti() {
+        return Corso::filtra([
+            ['direttore', $this->id]
+            ]);
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi base a cui ho richiesto partecipazione
+     * @return Partecipazione elenco dei corsi a cui mi sono rpeiscritto o iscritto 
+     */
+    public function corsiRichiesti() {
+        return PartecipazioneCorso::filtra([
+            ['volontario', $this->id]
+        ]);
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi di cui sono direttore e devo completare
+     * @return Corso    elenco dei corsi diretti da completare
+     */
+    public function corsiDirettiDaCompletare() {
+        return Corso::filtra([
+            ['direttore',   $this->id],
+            ['stato',       CORSO_S_DACOMPLETARE]
+        ]);
+    }
+
+    /**
+     * Restituisce l'elenco dei corsi base in cui non è stato messo il direttore
+     * @return Corso    elenco dei corsi senza direttore
+     */
+    public function corsiSenzaDirettore() {
+        if ($this->admin())
+            return null;
+
+        $corsi = $this->corsiDiGestione();
+        $r = [];
+        foreach ( $corsi as $corso ) {
+            if (!$corso->direttore())
+                $r[] = $corso;
+        }
+        return $r;
+    }
+    
+
+    /**
+     * Restituisce l'elenco delle tipologie di corsi che posso creare
+     * @return elenco delle tipologie di corsi
+     */
+    public function corsiTipologie() {
+        return CorsoTipo::filtra([]);
+    }
+    
+    
     public function cellulare() {
         if($this->cellulareServizio){
             return $this->cellulareServizio;
@@ -2017,6 +2085,7 @@ class Utente extends Persona {
         }
         return false;
     }
+    
 	/**
      * Ritorna il dominio di competenza massima nei confronti di un'attivita'
      *
@@ -2066,6 +2135,57 @@ class Utente extends Persona {
         // Il risultato e' il dominio comune tra la visibilita' dell'attivita'
         // ed il mio potere piu' grande...
         return $attivita->visibilita()->dominioComune($massimo);
+    } 
+    
+	/**
+     * Ritorna il dominio di competenza massima nei confronti di un corso'
+     *
+     * es. 1: se sono delegato area provinciale e l'attivita' e' locale, ottengo comitato locale
+     * es. 2: se non sono nulla, ritorno false
+     * es. 3: se sono referente deel corso, ritorno comitato organizzatore (NON estensione)
+     * @param Corso $corso        Il corso in questione
+     * @return GeoPolitica|bool(false)  Il dominio risultante o false se non ho superpoteri
+     */
+    public function dominioCompetenzaCorso(Corso $corso) {
+        if ( !$corso->modificabileDa($this) ) {
+            return false;
+        }
+
+        $pool           = [];
+        $organizzatore  = $corso->organizzatore();
+
+        // Referente corso?
+        if ($corso->referente == $this->id) {
+            $pool[] = $organizzatore;
+        }
+
+        // Delegato d'area?
+        foreach ( $this->areeDiCompetenza() as $a ) {
+            $ac = $a->organizzatore();
+            if ( $ac->contiene($organizzatore) )
+                $pool[] = $ac;
+        }
+
+        // Comitati di competenza
+        foreach ( $this->comitatiDiCompetenza() as $a ) {
+            if ( $a->contiene($organizzatore) ) 
+                $pool[] = $a;
+        }
+
+        // Ottiene comitato piu' grande nel pool
+        $massimo = array_reduce($pool, function($a, $b) {
+            if ( $a === null )
+                return $b;
+            if ( $a::$_ESTENSIONE > $b::$_ESTENSIONE ) {
+                return $a;
+            } else {
+                return $b;
+            }
+        }, null);
+
+        // Il risultato e' il dominio comune tra la visibilita' del corso'
+        // ed il mio potere piu' grande...
+        return $corso->visibilita()->dominioComune($massimo);
     } 
 
 
@@ -2215,72 +2335,47 @@ class Utente extends Persona {
             echo "{$conf['conoscenza'][$opzione]} scelto {$numero} volte.<br/>";
         }
     }
-
+    
     /**
-     * Ottiene elenco delle donazioni dell'utente dato il tipo
-     * @return array(DonazionePersonale)
+     * Ritorna l'array dei corsi attivi per l'utente
+     * 
+     * @return array dei corsi attivi
      */
-    public function donazioniTipo( $tipoDonazioni ) {
+    public function ultimoTitoloCorso() {
         $r = [];
-        foreach (DonazionePersonale::filtra([
-            ['volontario',  $this->id]
-        ], 'data') as $donazione) {
-            if ( $donazione->donazione()->tipo == $tipoDonazioni ) {
-                $r[] = $donazione;
+        $lista = TitoloCorso::ultimi(1);
+        return $lista;
+    }
+    
+    /**
+     * Ritorna l'array dei corsi attivi per l'utente
+     * 
+     * @return array dei corsi attivi
+     */
+    public function titoliCorsiAttivi() {
+        $r = [];
+        $lista = TitoloCorso::filtra([['volontario',  $this->id]]);
+        foreach ($lista as $titolo) {
+            if ($titolo->valido()){
+                $r[] = $titolo;
             }
         }
         return $r;
     }
-
+    
     /**
-     * Ottiene il numero di donazioni pendenti che l'utente deve confermare
-     * @param array(int) $app Applicazioni di delega 
-     * @return int Numero di donazioni pendenti
+     * Ritorna l'array dei corsi per l'utente
+     * 
+     * @return array dei corsi 
      */
-    public function numDonazioniPending( $app = [ APP_PRESIDENTE ] ) {
-        $comitati = $this->comitatiAppComma( $app );
-        $q = $this->db->prepare("
-            SELECT  COUNT(donazioni_personali.id)
-            FROM    donazioni_personali, appartenenza
-            WHERE   ( donazioni_personali.tConferma < 1 OR donazioni_personali.tConferma IS NULL )
-            AND     donazioni_personali.volontario = appartenenza.volontario
-            AND     appartenenza.comitato  IN
-                ( {$comitati} )");
-        $q->execute();
-        $r = $q->fetch(PDO::FETCH_NUM);
-        return (int) $r[0];
-    }
-
-    /**
-     * Ottiene il numero di meriti donazioni  
-     * @param array(int) $app Applicazioni di delega 
-     * @return int Numero di meriti donazioni 
-     */
-    public function numdonazioni_merito( $app = [ APP_PRESIDENTE ] ) {
-        $comitati = $this->comitatiAppComma( $app );
-        $q = $this->db->prepare("
-            SELECT  COUNT(donazioni_meriti.id)
-            FROM    donazioni_meriti, appartenenza
-            WHERE   ( donazioni_meriti.tConferma < 1 OR donazioni_meriti.tConferma IS NULL )
-            AND     donazioni_meriti.volontario = appartenenza.volontario
-            AND     appartenenza.comitato  IN
-                ( {$comitati} )");
-        $q->execute();
-        $r = $q->fetch(PDO::FETCH_NUM);
-        return (int) $r[0];
-    }
-
-
-	/**
-     * Verifica l'utente è PRESIDENTE o UFFICIO SOCI o DELEGATO D'AREA
-     * @return bool
-     */
-    public function puoGestireDonazioni() {
-		if ( $this->admin() ) return true;
-
-		if ( ($this->delegazioneAttuale()->applicazione == APP_PRESIDENTE) || ($this->delegazioneAttuale()->applicazione == APP_SOCI) || ($this->delegazioneAttuale()->applicazione == APP_OBIETTIVO) || ($this->delegazioneAttuale()->applicazione == APP_DONAZIONI) ) return true;
-
-		return false;
-    }
-
+    public function titoliCorsi() {
+        $r = [];
+        $lista = TitoloCorso::filtra([['volontario',  $this->id]], "fine DESC");
+        foreach ($lista as $titolo) {
+            if (!in_array($titolo->titolo, $r)){
+                $r[$titolo->titolo] = $titolo;
+            }
+        }
+        return $r;
+    } 
 }

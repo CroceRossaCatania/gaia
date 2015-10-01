@@ -56,8 +56,6 @@ $(window).ready( function () {
     
     $("#navigatoreMobileSelect").change( _navigatore_mobile );
 
-    normativa_cookie();
-
     tinyMCE.baseURL = "/assets/js/tinymce/";
     tinymce.init({
         selector:   "textarea.conEditor",
@@ -69,8 +67,7 @@ $(window).ready( function () {
         ],
         toolbar: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
         menubar: false,
-        statusbar: false,
-        relative_urls: false
+        statusbar: false
     });
 
 
@@ -93,16 +90,6 @@ $(document).ready( function() {
   });
  
 });
-
-function normativa_cookie() {
-    if ( $.cookie('normativaEU') === null ) {
-        $("#normativaEU").show('fade', 500);
-    }
-    $("#nascondiNormativaEU").click(function() {
-        $.cookie('normativaEU', 'OK', { expires: 365 });
-        return true;
-    })
-}
 
 function disabilita_campi_captcha() {
     $("[data-aspetta-captcha]").each(function(i,e){

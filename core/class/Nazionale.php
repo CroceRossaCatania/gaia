@@ -30,25 +30,18 @@ class Nazionale extends GeoPolitica {
         return array_unique($r);
     }
 
-    public function figli($mostraDisattivi = false) {
-        return $this->regionali($mostraDisattivi);
+    public function figli() {
+        return $this->regionali();
     }
 
     public function superiore() {
         return false;
     }
     
-    public function regionali($mostraDisattivi = false) {
-        if ( $mostraDisattivi ) {
-            return Regionale::filtra([
-                ['nazionale',  $this->id],
-            ], 'nome ASC');
-        } else {
-            return Regionale::filtra([
-                ['nazionale',  $this->id],
-                ['attivo',     1],
-            ], 'nome ASC');
-        }
+    public function regionali() {
+        return Regionale::filtra([
+            ['nazionale',  $this->id]
+        ], 'nome ASC');
     }
     
     public function toJSON() {

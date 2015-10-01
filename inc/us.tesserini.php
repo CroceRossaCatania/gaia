@@ -72,11 +72,6 @@ if(!$admin) {
         <h4><i class="icon-exclamation-sign"></i> Operazione già effettuata</h4>
         <p>Non è possibile effettuare più volte la stessa operazione.</p>
     </div>
-    <?php } elseif (isset($_GET['multi'])) { ?>
-    <div class="alert alert-block alert-success">
-        <h4><i class="icon-gears"></i> <?= (int) $_GET['multi']; ?> tesserini emessi</h4>
-        <p>L'operazione di emissione multipla &egrave; andata a buon fine.</p>
-    </div>
     <?php } elseif (isset($_GET['canc'])) { ?>
     <div class="alert alert-block alert-success">
         <h4><i class="icon-ok"></i> Tesserino cancellato</h4>
@@ -104,83 +99,13 @@ un file in formato <strong>PDF</strong> con dimensioni secondo lo standard <stro
 stampato e quando il tesserino è stato effettivamente inviato al volontario. Se per qualche motivo non ti è possibile
 emettere il tesserino potrai registrare questa informazione.</p>
 </div>
-
-<script type="text/javascript">
-function selezionaTesserini(tipo) {
-
-    $("[data-tesserino]").prop("checked", false);
-    if ( tipo == undefined ) {
-        selezioneCambiata();
-        return;
-    }
-
-    $("[data-tesserino=" + tipo + "]").prop("checked", true);
-    selezioneCambiata();
-
-}
-
-$(document).ready(function() {
-    $("#nRichiesto").text($("[data-tesserino=<?= RICHIESTO; ?>]").length);
-    $("#nStampato") .text($("[data-tesserino=<?= STAMPATO; ?>]").length);
-    $("[data-tesserino]").change(function() {
-        selezioneCambiata();
-    });
-    selezioneCambiata();
-
-});
-
-function selezioneCambiata() {
-    var selezionati = $("[data-tesserino]:checked").length;
-    $(".nSelezione").text(selezionati);
-    if ( selezionati ) {
-        $('.btn-lavorazione').removeAttr('disabled');
-    } else {
-        $('.btn-lavorazione').attr('disabled', 'disabled');
-    }
-}
-
-</script>
-
-<form action="?p=us.tesserini.multi" method="POST">
   
-<div class="alert alert-success alert-block">
-    <h4><i class="icon-magic"></i> Scorciatoie per operazioni multiple</h4>
-    <div class="row-fluid">
-        <div class="span6">
-            <h5>Operazioni di Selezione</h5>
-            <a href="#" onclick="javascript:selezionaTesserini(<?= RICHIESTO; ?>);" class="btn btn-block btn-success">
-                Seleziona tutti i tesserini con stato <strong>Richiesto</strong> (<span id="nRichiesto">...</span>)
-            </a>
-            <a href="#" onclick="javascript:selezionaTesserini(<?= STAMPATO; ?>);" class="btn btn-block btn-success">
-                Seleziona tutti i tesserini con stato <strong>Stampato</strong> (<span id="nStampato">...</span>)
-            </a>
-            <a href="#" onclick="javascript:selezionaTesserini();" class="btn btn-block">
-                Deseleziona tutti i tesserini
-            </a>
-        </div>
-        <div class="span6">
-            <h5>Operazioni di Conferma</h5>
-            <button class="btn btn-warning btn-block btn-lavorazione" name="operazione" value="lavora">
-                <i class="icon-gears"></i> <strong>Lavora pratica (emissione)</strong> per <span class="nSelezione">0</span> tesserini selezionati
-            </button>
-            <button class="btn btn-warning btn-block btn-lavorazione" name="operazione" value="scarica">
-                <i class="icon-download-alt"></i> <strong>Scarica tutti</strong> i <span class="nSelezione">0</span> tesserini selezionati
-            </button>    
-            <button class="btn btn-warning btn-block btn-lavorazione" name="operazione" value="lavora-scarica">
-                <i class="icon-gears"></i> <i class="icon-download-alt"></i> <strong>Lavora pratica (emissione) e Scarica</strong> i <span class="nSelezione">0</span> tesserini selezionati
-            </button>
-        </div>
-
-    </div>
-</div>
-
 <div class="row-fluid">
    <div class="span12">
 
        <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
 
             <thead>
-                <th>Sel.</th>
                 <th>Cognome</th>
                 <th>Nome</th>
                 <th>C. Fiscale</th>
@@ -206,21 +131,11 @@ function selezioneCambiata() {
         foreach($elenco as $tesserino) {
             if ($tesserino->utente()->ultimaAppartenenza(MEMBRO_ORDINARIO)) {continue; }
             $v = $tesserino->utente();
-            $lavorabile = ($tesserino->stato != RIFIUTATO || $admin);
             ?>
 
             
 
             <tr>
-                <td style="text-align: center;">
-                    <input type="checkbox" name="selezione[]" value="<?= $tesserino->id; ?>" 
-                        <?php if ( $lavorabile ) { ?>
-                            data-tesserino="<?=$tesserino->stato; ?>"
-                        <?php } else { ?>
-                            disabled="disabled" readonly="readonly"
-                        <?php } ?>
-                         />
-                </td>
                 <td><?php echo $v->cognome; ?></td>
                 <td><?php echo $v->nome; ?></td>
                 <td><?php echo $v->codiceFiscale; ?></td>
@@ -235,7 +150,7 @@ function selezioneCambiata() {
                         <a class="btn btn-small" href="?p=presidente.utente.visualizza&id=<?php echo $v->id; ?>" title="Dettagli">
                             <i class="icon-eye-open"></i> Dettagli
                         </a>
-                        <?php if($lavorabile) { ?>
+                        <?php if($tesserino->stato != RIFIUTATO || $admin) { ?>
                         <a class="btn btn-small btn-info" href="?p=us.tesserini.p&id=<?php echo $tesserino->id; ?>" title="Stampa Tesserino">
                             <i class="icon-credit-card"></i> Tesserino
                         </a>
@@ -256,5 +171,3 @@ function selezioneCambiata() {
     </div>
     
 </div>
-
-</form>

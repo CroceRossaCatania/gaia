@@ -10,14 +10,12 @@ class Partecipazione extends Entita {
         $_t  = 'partecipazioni',
         $_dt = null;
 
-    use EntitaCache;
-
     public function volontario() {
-        return Volontario::id($this->volontario);
+        return new Volontario($this->volontario);
     }
     
     public function turno() {
-        return Turno::id($this->turno);
+        return new Turno($this->turno);
     }
     
     public function attivita() {
@@ -25,8 +23,7 @@ class Partecipazione extends Entita {
     }
 
     public function comitatoAppartenenza() {
-        $oid = $this->turno()->attivita()->comitato;
-        return GeoPolitica::daOid($oid);
+        return $this->turno()->attivita()->comitato();
     }
 
     public function autorizzazioni() {
@@ -37,27 +34,6 @@ class Partecipazione extends Entita {
     
     public function confermata() {
         return (bool) $this->stato == AUT_OK;
-    }
-
-    public function toJSON() {
-        global $conf;
-        $a = [];
-        foreach ( $autorizzazioni as $_a) {
-            $a[] = $_a->toJSON();
-        }
-        return [
-            'id'        =>  $this->id,
-            'turno'     =>  $this->turno()->toJSON(),
-            'attivita'  =>  [
-                'id'        =>  $this->turno()->attivita,
-                'nome'      =>  $this->turno()->attivita()->nome,
-            ],
-            'stato'     =>  [
-                'id'        =>  (int) $this->stato,
-                'nome'      =>  $conf['partecipazione'][$this->stato]
-            ],
-            'autorizzazioni'    =>  $a
-        ];
     }
 
     public function aggiornaStato() {
@@ -84,11 +60,12 @@ class Partecipazione extends Entita {
     public function generaAutorizzazioni() {
         
         /* IMPORTANTE: Logica generazione autorizzazioni */
+        
         // Se richiedo part., nello stesso comitato
-        if ( $this->comitatoAppartenenza()->contieneVolontario($this->volontario()) ) {
+        if ( $this->comitatoAppartenenza()->haMembro($this->volontario()) ) {
             
             /* Allora come da accordi, genero
-             * una sola Autorizzazione al referente
+             * una sola Autorizzazione al presidente
              * del comitato organizzatore...
              */
             $a = new Autorizzazione();
@@ -97,7 +74,7 @@ class Partecipazione extends Entita {
             $a->richiedi();
             
             $m = new Email('richiestaAutorizzazione', 'Richiesta autorizzazione partecipazione attività');
-            $m->da           = $this->volontario();
+            $m->da = $me;
             $m->a            = $this->turno()->attivita()->referente();
             $m->_NOME        = $this->turno()->attivita()->referente()->nome;
             $m->_ATTIVITA    = $this->turno()->attivita()->nome;
@@ -110,7 +87,7 @@ class Partecipazione extends Entita {
             
             /*
              * Se chiedo partecipazione in un comitato differente,
-             * faccio richiesta al mio presidente ed al referente.
+             * faccio richiesta al mio ed al suo presidente.
              */
             
             // Al suo...
@@ -129,64 +106,26 @@ class Partecipazione extends Entita {
             $m->_DATA        = $a->timestamp()->format('d-m-Y H:i');
             $m->invia();
             
+            /*
             // Al mio...
-            
             $a = new Autorizzazione();
             $a->partecipazione = $this->id;
-            $a->volontario     = $this->volontario()->appartenenzaAttuale()->comitato()->primoPresidente()->id;
+            $a->volontario     = $this->volontario()->unComitato()->unPresidente()->id;
             $a->richiedi();
             
-            // Ora dovrebbe andare correttamente 
-            
             $m = new Email('richiestaAutorizzazione', 'Richiesta autorizzazione partecipazione attività');
-            $m->a            = $this->volontario()->appartenenzaAttuale()->comitato()->primoPresidente();
-            $m->_NOME        = $this->volontario()->appartenenzaAttuale()->comitato()->nome;
+            $m->a            = $this->volontario()->unComitato()->unPresidente();
+            $m->_NOME        = $this->volontario()->unComitato()->unPresidente()->nome;
             $m->_ATTIVITA    = $this->turno()->attivita()->nome;
             $m->_VOLONTARIO  = $this->volontario()->nomeCompleto();
             $m->_TURNO       = $this->turno()->nome;
             $m->_DATA        = $a->timestamp()->format('d-m-Y H:i');
             $m->invia();
+             * 
+             */
              
         }
         
-    }
-
-    public function poteri(){
-
-        return (bool) Delegato::filtra([
-                ['partecipazione', $this], 
-                ['volontario', $this->volontario()]
-                ]);
-
-    }
-    
-    /**
-     * Ritorna se la prenotazione e' ritirabile
-     * @return bool false se la prenotazione non e ritirabile, altrimenti true
-     */
-    public function  ritirabile(){
-        return ($this->stato == PART_PENDING && $this->turno()->inizio >= time());
-    }
-
-    /**
-     * Ritira la prenotazione 
-     * @return bool false se la prenotazione non e ritirabile, altrimenti true
-     */
-    public function ritira() {
-    	if ( !$this->ritirabile() )
-    		return false;
-        $v = $this->volontario();
-        $m = new Email('volontarioRitirato', 'Un volontario si è ritirato');
-        $m->a = $this->attivita()->referente();
-        $m->_NOME           = $this->attivita()->referente()->nome;
-        $m->_VOLONTARIO     = $v->nomeCompleto();
-        $m->_ATTIVITA       = $this->attivita()->nome;
-        $m->_TURNO          = $this->turno()->nome;
-        $m->_DATA           = $this->turno()->inizio()->inTesto();
-        $m->invia();
-        $v->numRitirati = ( (int) $v->numRitirati ) + 1;
-        $this->cancella();
-        return true;
     }
 
 }

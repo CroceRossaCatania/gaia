@@ -74,59 +74,11 @@ paginaPrivata();
         </div>
         <?php } elseif ($t == 3) { ?>
         <h2><i class="icon-beaker muted"></i> Titoli di Studio</h2>
-        
         <div class="alert alert-block alert-error">
-                    <h4><i class="icon-warning-sign"></i> Attenzione: revisione dei titoli di studio</h4>
-                    <p>Ti chiediamo di leggere con estrema attenzione le istruzioni sotto riportate:
-                        <ol>
-                            <li>Aggiorna il tuo curriculum con i nuovi titoli di studio sostituendo anche i precedenti già inseriti;</li>
-                            <li>I vecchi titoli, contrassegnati ora dalla voce "vecchio", non dovranno essere più utilizzati;</li>
-                            <li>Avrai a disposizione 60gg per portate a termine questa operazione, successivamente i vecchi titoli universitari saranno eliminati.</li>
-                        </ol>
-                    </p>
-                    <p>Calendario pubblicazioni titoli</p>
-                    <p><strong>Titoli universitari</strong></p>
-                    <ol>
-                    <li>Inserimento: 15 Maggio 2015</li>
-                    <li>Eliminazione dei titoli contrassegnati come <strong>vecchio</strong>: 31 Agosto 2015</li>
-                    </ol>
-                    <p><strong>Diplomi di istruzione secondaria</strong></p>
-                    <ol>
-                    <li>Inserimento: 07 Luglio 2015</li>
-                    <li>Eliminazione dei titoli contrassegnati come <strong>vecchio</strong>: 07 Settembre 2015</li>
-                    </ol>
-
+                    <h4><i class="icon-warning-sign"></i> Attenzione: revisione dei titoli in corso</h4>
+                    <p>I titoli di studio sono momentaneamente incompleti per essere allineati con i titoli attualmente riconosciuti a livello statale (ISTAT).
+                    <p>Ti preghiamo di pazientare fino a che il processo non sarà concluso. </p>   </p>     
                 </div> 
-        
-        <div class="alert alert-block alert-success">
-                    <h4><i class="icon-warning-sign"></i> Diplomi di istruzione superiore</h4>
-                    <p>I <strong>diplomi</strong> di istruzione superiore sono conformi al <a href="http://hubmiur.pubblica.istruzione.it/getOM?idfileentry=217468" target="_new"><i class="icon-link"></i>nuovo ordinamento</a>.</p> 
-                    <p>Qualora tu abbia conseguito un diploma prima del 2010 dovrai verificare l'equipollenza ed inserire il titolo aggiornato</p>
-                    <p>Tabelle di confluenza dei percorsi di istruzione superiore statale:</p>
-                    <ol>
-                    <li><a href="http://archivio.pubblica.istruzione.it/riforma_superiori/nuovesuperiori/doc/06_Tabella_confluenze_allegato_I_nuova.pdf" target="_new"><i class="icon-link"></i>Liceo</a></li>
-                    <li>Istituto <a href="http://archivio.pubblica.istruzione.it/riforma_superiori/nuovesuperiori/doc/ALL_D_tecnici_4_2_2010.pdf"></i>tecnico</a></li>
-                    <li>Istituto <a href="http://archivio.pubblica.istruzione.it/riforma_superiori/nuovesuperiori/doc/ALL_D_Prof._4_2_10.pdf"></i>professionale</a></li>
-                    </ol>
-                    
-                    <p>Nota bene: qualora avessi dubbi sulla confluenza del tuo vecchio titolo di studio, potrai contattare <a href="http://www.istruzione.it/urp/contatti.shtml"></i>l'URL</a> del Ministero dell'Istruzione .</p>
-                </div> 
-                
-    
-        <div class="alert alert-block alert-success">
-                    <h4><i class="icon-warning-sign"></i> Titolo universitari (esclusi i percorsi di specializzazione e dottorati)</h4>
-                   <p> Attualmente sono stati inseriti tutti i percorsi di studio riconosciuti dal MIUR.
-                        Che cosa puoi fare qualora il tuo titolo di studio non sia presente?
-                        <ol>
-                            <li>Effettua una ricerca direttamente nell'archivio del MIUR cliccando <a href="http://offf.miur.it/pubblico.php/ricerca/show_form/p/miur" target="_new"><i class="icon-link"></i> qui</a></li>
-                            <li>Inviaci tramite la pagina "supporto" ogni informazione utile per reperire il tuo titolo al fine di inserirlo nel sistema.</li>
-                        </ol>
-                    </p>
-                    <p>Nota bene: qualora il titolo richiesto non sia censito nel sito sopra indicato NON sarà possibile procedere con l'inserimento di quest'ultimo.</p>
-                </div> 
-                
-                
-                
                 
         <div class="alert alert-block alert-error">
             <div class="row-fluid">
