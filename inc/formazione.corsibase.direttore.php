@@ -8,6 +8,16 @@ controllaParametri(array('id'));
 $id = $_GET['id'];
 $corsoBase = CorsoBase::id($id);
 
+// Calcola il dominio per la scelta del Direttore del Corso.
+// Se unita' locale, espande a comitato Locale, come da #1600
+$organizzatore = $corsoBase->organizzatore();
+$superiore = $organizzatore->superiore();
+if ( $organizzatore->_estensione() == EST_UNITA && $superiore && $me->puoLeggereDati($superiore) ) {
+  $dominio = $superiore->oid();
+} else {
+  $dominio = $organizzatore->oid();
+}
+
 paginaPrivata();
 paginaCorsoBase($corsoBase);
 caricaSelettore();
@@ -40,7 +50,7 @@ paginaModale();
               <a data-selettore="true" 
                  data-input="inputDirettore" 
                  data-autosubmit="true" 
-                 data-comitati="<?php echo $corsoBase->organizzatore; ?>"
+                 data-comitati="<?php echo $dominio; ?>"
                  class="btn btn-inverse btn-block btn-large">
                   Seleziona un volontario... <i class="icon-pencil"></i>
               </a>
