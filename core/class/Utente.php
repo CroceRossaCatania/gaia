@@ -2285,4 +2285,12 @@ class Utente extends Persona {
 		return false;
     }
 
+    public function nomeExOrdinari() {
+        $d = $this->delegazioneAttuale();
+        if (!$d or $this->delegazioneAttuale()->comitato()->_estensione() != EST_REGIONALE) {
+            return EX_SOCI_ORDINARI;
+        }
+        return SOCI_ORDINARI;
+    }
+
 }

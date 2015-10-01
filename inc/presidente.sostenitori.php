@@ -4,11 +4,10 @@
  * ©2013 Croce Rossa Italiana
  */
 paginaApp([APP_SOCI , APP_PRESIDENTE ]);
-$nomeExOrdinari = $me->nomeExOrdinari();
 menuElenchiVolontari(
-    $nomeExOrdinari,
-    "?p=admin.utenti.excel&ordinari",
-    "?p=utente.mail.nuova&ordinaricom"
+    "Sostenitori CRI",
+    "?p=admin.utenti.excel&sostenitori",
+    "?p=utente.mail.nuova&sostenitori"
 );
 
 $admin = (bool) $me->admin();
@@ -16,7 +15,7 @@ $admin = (bool) $me->admin();
 ?>
 <?php if ( isset($_GET['ok']) ) { ?>
     <div class="alert alert-success">
-        <i class="icon-save"></i> <strong>Elemento eliminato</strong>.
+        <i class="icon-save"></i> <strong>Socio Ordinario eliminato</strong>.
         Il Socio Ordinario è stato eliminato con successo.
     </div>
 <?php } elseif ( isset($_GET['e']) )  { ?>
@@ -55,14 +54,6 @@ $admin = (bool) $me->admin();
         <p>Impossibile volontarizzare una persona già iscritta ad un corso base. Potresti non avere chiuso il corso</p>
     </div>
 <?php } ?>
-
-<?php if ($me->nomeExOrdinari() == EX_SOCI_ORDINARI) { ?>
-<div class="alert alert-block alert-danger">
-    <h4><i class="icon-warning-sign"></i> Questo non è un elenco dei soci di questo Comitato</h4>
-    <p>I soci elencati sono afferenti al Comitato Regionale e non al Comitato Provinciale o Locale selezionato.</p>
-    <p>Lo scopo di questo elenco &egrave; di fornire uno strumento per la trasmissione dei dati prevista con <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/26091" target="_new">O.P. 91/15</a>, Sez. 4, Par. 2.</p>
-</div>
-<?php } ?>
     
 <div class="row-fluid">
    <div class="span12">
@@ -78,12 +69,9 @@ $admin = (bool) $me->admin();
                   href="?p=presidente.utente.volontarizza&id={id}" class="btn btn-warning btn-small">
                   <i class="icon-hand-up"></i> Volontarizza
                 </a>
-                <?php if ($me->nomeExOrdinari() == SOCI_ORDINARI) { // Azioni solo REGIONALE ?>
-                    <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&ordinario&id={id}" title="Dimetti Volontario">
-                        <i class="icon-ban-circle"></i> Dimetti
-                    </a>
-                </div>
-                <?php } ?>
+                <a class="btn btn-small btn-danger" href="?p=presidente.utente.dimetti&ordinario&id={id}" title="Dimetti Volontario">
+                    <i class="icon-ban-circle"></i> Dimetti
+                </a>
                 <a class="btn btn-small btn-success" href="?p=utente.mail.nuova&id={id}" title="Invia Mail">
                     <i class="icon-envelope"></i>
                 </a>
@@ -104,7 +92,7 @@ $admin = (bool) $me->admin();
         data-volontari="elenco"
         data-perpagina="30"
         data-azioni="#azioniElenco"
-        data-stato="<?= MEMBRO_EXORDINARIO ?>"
+        data-stato="<?= MEMBRO_ORDINARIO ?>"
         <?php if(!$me->admin()) echo("data-comitati=\"{$me->delegazioneAttuale()->comitato()->oid()}\""); ?>
         />
         </table>

@@ -79,6 +79,7 @@ define('MEMBRO_TRASF_NEGATO',      10);
 define('MEMBRO_EST_ANN',           14);
 define('MEMBRO_EST_NEGATA',        15);
 define('MEMBRO_ORDINARIO',         16);
+define('MEMBRO_EXORDINARIO',       17);
 define('SOGLIA_APPARTENENZE',      19);
 define('MEMBRO_TRASF_IN_CORSO',    20);
 define('MEMBRO_EST_PENDENTE',      25);
@@ -114,7 +115,8 @@ $conf['membro'] = [
     MEMBRO_ORDINARIO_DIMESSO    =>  'Membro Ordinario Dimesso',
     MEMBRO_EST_ANN              =>  'Richiesta estensione annullata',
     MEMBRO_EST_NEGATA           =>  'Estensione negata',
-    MEMBRO_ORDINARIO            =>  'Membro Ordinario',
+    MEMBRO_ORDINARIO            =>  'Sostenitore CRI',
+    MEMBRO_EXORDINARIO          =>  'Ex-Socio Ordinario',
     MEMBRO_TRASF_IN_CORSO       =>  'Trasferimento in corso',
     MEMBRO_PENDENTE             =>  'Pendente',
     MEMBRO_EST_PENDENTE         =>  'Estensione richiesta',
@@ -1056,3 +1058,14 @@ $conf['conoscenza'] = [
     SERVIZI     =>  'Partecipazione ad attività e/o fruizione di servizi erogati dalla Croce Rossa Italiana (es. corsi di formazione, servizi in ambito sanitario, servizi in ambito sociale, ecc)',
     ALTRO       =>  'Altro'
 ];
+
+/*
+ * ===================================
+ * =========== EX-SOCI-ORD ===========
+ * ===================================
+ */
+
+define('EX_SOCI_ORDINARI', 'Ex-Soci Ordinari');
+define('SOCI_ORDINARI', 'Soci Ordinari');
+define('MILLENNIUM_TIMESTAMP', 1427760000);
+

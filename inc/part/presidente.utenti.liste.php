@@ -53,11 +53,16 @@
         </a><br />
         <a href="?p=presidente.soci.ordinari">
             <i class="icon-list"></i>
-            Elenco Sostenitori
+            Elenco <?= $me->nomeExOrdinari(); ?>
         </a> /
         <a href="?p=presidente.soci.ordinari.dimessi">
             dimessi
         </a><br />
+        <a href="?p=presidente.sostenitori">
+            <i class="icon-list"></i>
+            Elenco Sostenitori CRI
+        </a><br/>
+
 
     </div>     
 

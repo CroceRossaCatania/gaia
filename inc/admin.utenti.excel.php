@@ -603,7 +603,7 @@ foreach ( $me->comitatiApp ([ APP_SOCI, APP_PRESIDENTE , APP_CO , APP_OBIETTIVO 
                 ]);
 
         }
-        $excel->genera("Elenco Soci Ordinari {$c->nome}.xls");
+        $excel->genera("Elenco " . $me->nomeExOrdinari() . " {$c->nome}.xls");
     }elseif(isset($_GET['ordinaridimessi'])){
         foreach ( $c->membriOrdinariDimessi() as $v ) {
             $i++;    
@@ -737,7 +737,7 @@ if(isset($_GET['dimessi'])){
 }elseif(isset($_GET['soci'])){
  $zip->comprimi("Elenco soci.zip"); 
 }elseif(isset($_GET['ordinari'])){
- $zip->comprimi("Elenco soci ordinari.zip"); 
+ $zip->comprimi("Elenco " . $me->nomeExOrdinari() . ".zip"); 
 }elseif(isset($_GET['ordinaridimessi'])){
  $zip->comprimi("Elenco soci ordinari dimessi.zip"); 
 }elseif(isset($_GET['cm'])){
