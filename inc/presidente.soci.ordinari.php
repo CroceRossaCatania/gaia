@@ -5,7 +5,7 @@
  */
 paginaApp([APP_SOCI , APP_PRESIDENTE ]);
 menuElenchiVolontari(
-    "Soci Ordinari",
+    "Elenco Sostenitori",
     "?p=admin.utenti.excel&ordinari",
     "?p=utente.mail.nuova&ordinaricom"
 );

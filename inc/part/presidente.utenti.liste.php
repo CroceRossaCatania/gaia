@@ -53,10 +53,10 @@
         </a><br />
         <a href="?p=presidente.soci.ordinari">
             <i class="icon-list"></i>
-            Soci Ordinari
+            Elenco Sostenitori
         </a> /
         <a href="?p=presidente.soci.ordinari.dimessi">
-             dimessi
+            dimessi
         </a><br />
 
     </div>     
