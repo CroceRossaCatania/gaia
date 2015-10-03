@@ -791,6 +791,7 @@ function _tabella_posta_ridisegna( e, dati, input ) {
                         '<span class="span3"><i class="icon-time"></i> ' + stampaOra(new Date(email.timestamp*1000)) + '</span>' +
 
                     '</div>' +
+                    '<p class="alert alert-info"><i class="icon-info-sign"></i>Per poter rispondere a questo messagio dovrai collegarti alla tua casella di posta.</p>' +
                     '<hr />' +
                     '<blockquote style="font-size: 12px !important;">' +
                       email.corpo +
