@@ -286,6 +286,10 @@ $(document).ready( function() {
         <?php if($puoPartecipare && !$iscritto) { ?>
         <div class="row-fluid">
             <?php if ($corso->accettaIscrizioni() && !$corso->iscritto($me)) { ?>
+                     <p class="alert alert-info">
+                      <i class="icon-info-sign"></i>
+                      Ti informiamo che la partecipazione al corso base sarà consentita ad un massimo di 30 persone.
+                    </p>
             <div clas="span12">
                 <a href="?p=formazione.corsibase.iscrizione.ok&id=<?php echo $corso->id ; ?>" class="btn btn-large btn-block btn-success">Preiscriviti al corso</a>
             </div>
