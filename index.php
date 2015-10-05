@@ -84,8 +84,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
     <!-- JS e CSS compressi -->
-    <link href="/assets/min/20150529/build/build.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="/assets/min/20150529/build/build.js"></script>
+    <link href="/assets/min/20151005/build/build.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="/assets/min/20151005/build/build.js"></script>
 
     <!-- Recaptcha -->
     <script src="https://www.google.com/recaptcha/api.js?hl=it" async defer></script>
