@@ -62,7 +62,8 @@ $(document).ready(function () {
         }, function (risposta) {
 
             var response = risposta.risposta.corsi;
-
+            eventsSource = [];
+            
             for (var y in response) {
                 var tmp = {};
                 tmp.id = response[y].corso.id;

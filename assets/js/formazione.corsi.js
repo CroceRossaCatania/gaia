@@ -60,7 +60,7 @@ $(document).ready(function () {
             provincia: $('#provincia').val(),
             coords: coordinates
         }, function (risposta) {
-
+            eventsSource = [];
             var response = risposta.risposta.corsi;
 
             for (var y in response) {

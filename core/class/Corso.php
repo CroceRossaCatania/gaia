@@ -10,6 +10,7 @@ class Corso extends GeoEntita {
     protected static
         $_t  = "crs_corsi",
         $_dt = "crs_dettagliCorsi",
+        $_jt_lezioni = "crs_giornataCorso", 
         $_jt_iscrizioni = "crs_partecipazioni_corsi";
 
     use EntitaCache;
@@ -1041,13 +1042,16 @@ class Corso extends GeoEntita {
         }
         
         if (!empty($me)){
-            $select = ", i.ruolo ";
-            $join   = " JOIN ".static::$_jt_iscrizioni." i ON c.id = i.corso ";
+            $select = ", g.data AS inizio, g.luogo AS luogoLezione";
+            $join  .= " LEFT JOIN ".static::$_jt_lezioni." g ON c.id = g.corso ";
+            
+            $select .= ", i.ruolo ";      
+            $join  .= " RIGHT JOIN ".static::$_jt_iscrizioni." i ON c.id = i.corso ";
             $where .= " AND i.volontario = :me";
         }
         
         $sql = "SELECT c.* $select FROM ".static::$_t." c $join $where $_order";
-        
+        //print $sql;
         $hash = null;
         if ( false && $cache && static::$_cacheable ) {
             $hash = md5($sql);
@@ -1138,6 +1142,14 @@ class Corso extends GeoEntita {
         return Corso::filtra([["stato", CORSO_S_DA_ELABORARE]]);
     }
     
+    /**
+     * Ritorna i risultati del corso
+     *
+     * @return array    Array di oggetti
+     */
+    public function giornateCorso() {
+        return GiornataCorso::filtra([["corso", $this->id]], 'data ASC');
+    }
     
     /**
      * Ritorna i risultati del corso
