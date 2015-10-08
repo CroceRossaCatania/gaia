@@ -683,6 +683,11 @@ class Corso extends GeoEntita {
      */
     public function generaAttestato($risultato, $iscritto) {
 
+        $settings = Utility::parse_ini(CORSI_INI, true);
+        print "<pre>";
+        print_r($settings);
+        print "</pre>";
+        
         $sesso = null;
         if ( $iscritto->sesso == UOMO ){
 
@@ -698,16 +703,34 @@ class Corso extends GeoEntita {
         $nomefile = $iscritto->nomeCompleto().".pdf";
   
         $comitato = $this->organizzatore();
-      
         if( $comitato->principale ) {
             $comitato = $comitato->locale()->nome;
         }else{
             $comitato = $comitato->nomeCompleto();
         }
-
+        $regione = "EMILIA_ROMAGNA";
+        $provincia = "RAVENNA123";
         $tipo = TipoCorso::id($this->certificato);
+        $logoCustom = "";
+                
+        // verifico il template da usare
+        $templateAttestato = 'crs_attestato';
+        if (!empty($settings["TIPOCORSO_".$this->certificato][$regione])){
+            $templateAttestato = 'crs_attestato_v2';
+            $logoCustom = $settings["TIPOCORSO_".$this->certificato][$regione];
+        }
+        if (!empty($settings["TIPOCORSO_".$this->certificato][$provincia])){
+            $templateAttestato = 'crs_attestato_v2';
+            $logoCustom = $settings["TIPOCORSO_".$this->certificato][$provincia]["url"];
+        }
         
-        $p = new PDF('crs_attestato', $nomefile);
+        print $templateAttestato;
+        print "<pre>";
+        print_r($settings["TIPOCORSO_".$this->certificato]);
+        print "</pre>";
+        
+        $p = new PDF($templateAttestato, $nomefile);
+        $p->_LOGOCUSTOM   = $logoCustom;
         $p->_COMITATO     = maiuscolo($comitato);
         $p->_CORSO        = $tipo->nome;
         $p->_PROGRESSIVO  = $this->seriale;
@@ -721,7 +744,6 @@ class Corso extends GeoEntita {
         $p->_LUOGO        = $this->organizzatore()->comune;
         $p->_VOLON        = $sesso;
         $file = $p->salvaFile(null, true);
-        
         
         return $file;
     }

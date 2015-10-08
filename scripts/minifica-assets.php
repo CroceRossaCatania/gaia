@@ -23,12 +23,8 @@ if ( !function_exists('curl_init') ) {
 }
 
 $data	= date('Ymd'); 
-<<<<<<< HEAD:scripts/minifica-assets.php
 $data   = '20151011';
 $base   = realpath(dirname( __FILE__ ) . "/../");
-=======
-$base   = realpath(dirname( __FILE__ ));
->>>>>>> a09b42e652284469f2e0a50405d8b17a878fbd8d:minifica-assets.php
 $dir 	= "{$base}/assets/min/{$data}";
 
 $js_contatore 	= 0;

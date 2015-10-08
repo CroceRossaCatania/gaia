@@ -102,4 +102,8 @@ class Utility {
                 return '#cccccc';
         } 
     }
+    
+    public static function parse_ini($filename, $process_sections = false, $scanner_mode = INI_SCANNER_NORMAL){
+        return parse_ini_file('./core/conf/'.$filename, $process_sections, $scanner_mode);
+    }
 }
