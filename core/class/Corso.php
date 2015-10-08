@@ -10,6 +10,7 @@ class Corso extends GeoEntita {
     protected static
         $_t  = "crs_corsi",
         $_dt = "crs_dettagliCorsi",
+        $_jt_lezioni = "crs_giornataCorso", 
         $_jt_iscrizioni = "crs_partecipazioni_corsi";
 
     use EntitaCache;
@@ -682,6 +683,11 @@ class Corso extends GeoEntita {
      */
     public function generaAttestato($risultato, $iscritto) {
 
+        $settings = Utility::parse_ini(CORSI_INI, true);
+        print "<pre>";
+        print_r($settings);
+        print "</pre>";
+        
         $sesso = null;
         if ( $iscritto->sesso == UOMO ){
 
@@ -697,16 +703,34 @@ class Corso extends GeoEntita {
         $nomefile = $iscritto->nomeCompleto().".pdf";
   
         $comitato = $this->organizzatore();
-      
         if( $comitato->principale ) {
             $comitato = $comitato->locale()->nome;
         }else{
             $comitato = $comitato->nomeCompleto();
         }
-
+        $regione = "EMILIA_ROMAGNA";
+        $provincia = "RAVENNA123";
         $tipo = TipoCorso::id($this->certificato);
+        $logoCustom = "";
+                
+        // verifico il template da usare
+        $templateAttestato = 'crs_attestato';
+        if (!empty($settings["TIPOCORSO_".$this->certificato][$regione])){
+            $templateAttestato = 'crs_attestato_v2';
+            $logoCustom = $settings["TIPOCORSO_".$this->certificato][$regione];
+        }
+        if (!empty($settings["TIPOCORSO_".$this->certificato][$provincia])){
+            $templateAttestato = 'crs_attestato_v2';
+            $logoCustom = $settings["TIPOCORSO_".$this->certificato][$provincia]["url"];
+        }
         
-        $p = new PDF('crs_attestato', $nomefile);
+        print $templateAttestato;
+        print "<pre>";
+        print_r($settings["TIPOCORSO_".$this->certificato]);
+        print "</pre>";
+        
+        $p = new PDF($templateAttestato, $nomefile);
+        $p->_LOGOCUSTOM   = $logoCustom;
         $p->_COMITATO     = maiuscolo($comitato);
         $p->_CORSO        = $tipo->nome;
         $p->_PROGRESSIVO  = $this->seriale;
@@ -720,7 +744,6 @@ class Corso extends GeoEntita {
         $p->_LUOGO        = $this->organizzatore()->comune;
         $p->_VOLON        = $sesso;
         $file = $p->salvaFile(null, true);
-        
         
         return $file;
     }
@@ -1041,13 +1064,16 @@ class Corso extends GeoEntita {
         }
         
         if (!empty($me)){
-            $select = ", i.ruolo ";
-            $join   = " JOIN ".static::$_jt_iscrizioni." i ON c.id = i.corso ";
+            $select = ", g.data AS inizio, g.luogo AS luogoLezione";
+            $join  .= " LEFT JOIN ".static::$_jt_lezioni." g ON c.id = g.corso ";
+            
+            $select .= ", i.ruolo ";      
+            $join  .= " RIGHT JOIN ".static::$_jt_iscrizioni." i ON c.id = i.corso ";
             $where .= " AND i.volontario = :me";
         }
         
         $sql = "SELECT c.* $select FROM ".static::$_t." c $join $where $_order";
-        
+        //print $sql;
         $hash = null;
         if ( false && $cache && static::$_cacheable ) {
             $hash = md5($sql);
@@ -1138,6 +1164,14 @@ class Corso extends GeoEntita {
         return Corso::filtra([["stato", CORSO_S_DA_ELABORARE]]);
     }
     
+    /**
+     * Ritorna i risultati del corso
+     *
+     * @return array    Array di oggetti
+     */
+    public function giornateCorso() {
+        return GiornataCorso::filtra([["corso", $this->id]], 'data ASC');
+    }
     
     /**
      * Ritorna i risultati del corso

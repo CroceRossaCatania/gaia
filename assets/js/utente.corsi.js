@@ -61,6 +61,7 @@ $(document).ready(function () {
             coords: coordinates,
             target: 'my'
         }, function (risposta) {
+            eventsSource = [];
 
             var response = risposta.risposta.corsi;
 

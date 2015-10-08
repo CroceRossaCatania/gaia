@@ -11,6 +11,13 @@
  */
 define ('MODULO_FORMAZIONE_CORSI' , 'crs_');
 
+/*
+ * ===================================
+ * ==== FILE INI DI IMPOSTAZIONI =====
+ * ===================================
+ */
+define ('CORSI_INI' , 'pdf/corsi.ini');
+
 
 /*
  * ===================================
