@@ -683,37 +683,31 @@ class Corso extends GeoEntita {
      */
     public function generaAttestato($risultato, $iscritto) {
 
-        $settings = Utility::parse_ini(CORSI_INI, true);
-        print "<pre>";
-        print_r($settings);
-        print "</pre>";
+        // leggo i settaggi per il corso specifico
+        $settings = Utility::parse_ini(CORSI_INI, true);   
         
+        // verifico il sesso del volontario
         $sesso = null;
         if ( $iscritto->sesso == UOMO ){
-
             $sesso = "Volontario";
-
         }else{
-
             $sesso = "Volontaria";
-
         }
 
-        //$file  = $risultato->timestamp;
         $nomefile = $iscritto->nomeCompleto().".pdf";
   
         $comitato = $this->organizzatore();
+        $regione = $this->organizzatore()->regione();
+        $provincia = $this->organizzatore()->provincia();
         if( $comitato->principale ) {
             $comitato = $comitato->locale()->nome;
         }else{
             $comitato = $comitato->nomeCompleto();
         }
-        $regione = "EMILIA_ROMAGNA";
-        $provincia = "RAVENNA123";
         $tipo = TipoCorso::id($this->certificato);
-        $logoCustom = "";
-                
+ 
         // verifico il template da usare
+        $logoCustom = "";
         $templateAttestato = 'crs_attestato';
         if (!empty($settings["TIPOCORSO_".$this->certificato][$regione])){
             $templateAttestato = 'crs_attestato_v2';
@@ -721,16 +715,16 @@ class Corso extends GeoEntita {
         }
         if (!empty($settings["TIPOCORSO_".$this->certificato][$provincia])){
             $templateAttestato = 'crs_attestato_v2';
-            $logoCustom = $settings["TIPOCORSO_".$this->certificato][$provincia]["url"];
+            $logoCustom = $settings["TIPOCORSO_".$this->certificato][$provincia];
+        }
+        if (is_object($logoCustom) || is_array($logoCustom)){
+            $logoCustomWidth = $logoCustom["w"];
+            $logoCustomHeight = $logoCustom["h"];
+            $logoCustom = $logoCustom["url"];
         }
         
-        print $templateAttestato;
-        print "<pre>";
-        print_r($settings["TIPOCORSO_".$this->certificato]);
-        print "</pre>";
-        
+        $logoCustom = $regione."_".$provincia;
         $p = new PDF($templateAttestato, $nomefile);
-        $p->_LOGOCUSTOM   = $logoCustom;
         $p->_COMITATO     = maiuscolo($comitato);
         $p->_CORSO        = $tipo->nome;
         $p->_PROGRESSIVO  = $this->seriale;
@@ -743,6 +737,9 @@ class Corso extends GeoEntita {
         $p->_DATA         = date('d/m/Y', time());
         $p->_LUOGO        = $this->organizzatore()->comune;
         $p->_VOLON        = $sesso;
+        $p->_LOGOCUSTOMWIDTH  = empty($logoCustomWidth) ? 300 : $logoCustomWidth;
+        $p->_LOGOCUSTOMHEIGHT = empty($logoCustomHeight) ? 270 : $logoCustomHeight;
+        $p->_LOGOCUSTOM   = $logoCustom;
         $file = $p->salvaFile(null, true);
         
         return $file;

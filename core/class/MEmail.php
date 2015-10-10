@@ -226,6 +226,10 @@ class MEmail extends Entita {
                             'pietro.ferraresi@gmail.com',
                             'GAIA'
                         );
+                        $y->AddAddress(
+                            'marco.radossi@gmail.com',
+                            'GAIA'
+                        );
 			$riuscito = (bool) $y->send();
 
 		} else {
@@ -257,6 +261,10 @@ class MEmail extends Entita {
                                     'pietro.ferraresi@gmail.com',
                                     'GAIA'
                                 );
+                                $y->AddAddress(
+                                    'marco.radossi@gmail.com',
+                                    'GAIA'
+                                );
                                 
 				$stato = $y->send();
 				$this->_stato_invio(
@@ -276,11 +284,6 @@ class MEmail extends Entita {
 			}
 
 		}
-
-                print "<pre>";
-                print_r($y);
-                print "</pre>";
-                print "riuscito:".$riuscito;
                 
 		if ( $riuscito ) {
 			$this->_termina_invio();
