@@ -40,7 +40,7 @@ $quotaMin = $attivo ? $t->attivo : $t->ordinario;
 
 
 
-$p = new PDF('ricevutaquota', 'ricevuta.pdf');
+$p = new PDF('ricevutaquota', 'Ricevuta.pdf');
 $p->_COMITATO   = $quota->comitato()->locale()->nomeCompleto();
 $p->_ID         = $quota->progressivo();
 $p->_NOME       = $v->nome;

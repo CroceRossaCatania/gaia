@@ -17,16 +17,16 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
             <div class="span8">
                 <h2>
                     <i class="icon-user muted"></i>
-                    Importazioni Volontari e Ordinari
+                    Importazioni Volontari e Sostenitori
                 </h2>
             </div>
             <div class="span12">
-                Su Gaia puoi importare i volontari o i soci ordinari del tuo comitato in blocco, sono disponibili dei format
+                Su Gaia puoi importare i volontari o i sostenitori del tuo comitato in blocco, sono disponibili dei format
                 in excel da compilare e spedire al supporto che provvederà all'importazione. 
                 <ul>
                     <br/>
                     <li><a onclick="return confirm('Ho compreso le regole per la corretta compilazione');" href="https://gaia.cri.it/assets/docs/import/csv_volontari.xls"><i class="icon-list"></i> Format Volontari</a></li> <p><strong>Il file è per i soli volontari</strong></p>
-                    <li><a onclick="return confirm('Ho compreso le regole per la corretta compilazione');" href="https://gaia.cri.it/assets/docs/import/csv_ordinari.xls"><i class="icon-list"></i> Format Ordinari</a></li> <p><strong>Il file è per i soli soci ordinari</strong></p>
+                    <li><a onclick="return confirm('Ho compreso le regole per la corretta compilazione');" href="https://gaia.cri.it/assets/docs/import/csv_ordinari.xls"><i class="icon-list"></i> Format Sostenitori</a></li> <p><strong>Il file è per i soli sostenitori</strong></p>
                 </ul>
                 <br/>Ecco le <strong>regole</strong> da rispettare per gli import:
                 <ul>

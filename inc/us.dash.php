@@ -107,7 +107,7 @@ if(!$me->admin()) {
                 <table class="table table-striped table-condensed">
                     
                     <tr><td>Num. Volontari</td><td><?php echo $me->numVolontariDiCompetenza(); ?></td></tr>
-                    <tr><td>Num. Soci Ordinari</td><td><?php echo $me->numOrdinariDiCompetenza(); ?></td></tr>
+                    <tr><td>Num. Sostenitori</td><td><?php echo $me->numOrdinariDiCompetenza(); ?></td></tr>
                     
                 </table>
             </div>
@@ -129,7 +129,7 @@ if(!$me->admin()) {
                                 <div class="alert alert-block alert-info">
                                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                                     <i class="icon-user"></i> <strong>Alcune indicazioni utili</strong><br />
-                                    Se provi ad inserire un volontario o un socio ordinario ma non riesci a completare l'operazione 
+                                    Se provi ad inserire un volontario o un sostenitore ma non riesci a completare l'operazione 
                                     può essere che la persona abbia provato a registrarsi autonomamente e che l'operazione non sia andata a
                                     buon fine. <a href="?p=utente.supporto"><i class="icon-envelope"></i> Contatta il supporto</a> e spiega il 
                                     problema così che sia possibile risolvere la situazione.
@@ -199,7 +199,7 @@ if(!$me->admin()) {
                                     <div class="btn-group btn-group-vertical span12">
                                         <a href="?p=us.ordinario.nuovo" class="btn btn-block btn-success">
                                             <i class="icon-plus"></i>
-                                            Aggiungi Socio Ordinario
+                                            Aggiungi Sostenitore CRI
                                         </a>
                                     </div>
                                 </div>

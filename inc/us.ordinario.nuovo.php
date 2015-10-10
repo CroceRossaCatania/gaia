@@ -12,7 +12,7 @@ $t = Tesseramento::by('anno', date('Y'));
     <div class="modal fade automodal">
 
         <div class="modal-header">
-            <h3><i class="icon-plus"></i> Inserisci un nuovo Socio Ordinario</h3>
+            <h3><i class="icon-plus"></i> Inserisci un nuovo Sostenitore CRI</h3>
         </div>
 
         <div class="modal-body">
@@ -30,7 +30,7 @@ $t = Tesseramento::by('anno', date('Y'));
                 <?php }elseif ( isset($_GET['q']) ) { ?>
                 <div class="alert alert-danger">
                     <i class="icon-ban-circle"></i> <strong>La registrazione deve avvenire nell'anno in corso</strong>.
-                    Non puoi registrare soci in anni passati o nel futuro.
+                    Non puoi registrare sostenitori in anni passati o nel futuro.
                 </div>
                 <?php }elseif ( isset($_GET['i']) ) { ?>
                 <div class="alert alert-danger">
@@ -51,7 +51,7 @@ $t = Tesseramento::by('anno', date('Y'));
                 <div class="alert alert-info">
                     <i class="icon-pencil"></i> <strong>Alcuni campi sono obbligatori</strong>.
                     <p>I campi contrassegnati dall'asterisco (*) sono obbligatori. Potrai compilare
-                    gli altri campi anche in un secondo momento dalla scheda anagrafica del Socio Ordinario.</p>
+                    gli altri campi anche in un secondo momento dalla scheda anagrafica del Sostenitore.</p>
                     <p>Se non inserisci l'indirizzo email del Socio Ordinario <strong>non</strong> sarà attivato
                     il suo account su Gaia.</p>
                 </div>
@@ -211,7 +211,7 @@ $t = Tesseramento::by('anno', date('Y'));
         <div class="modal-footer">
             <a href="?p=us.dash" class="btn">Annulla</a>
             <button type="submit" class="btn btn-success">
-                <i class="icon-plus"></i> Aggiungi Socio Ordinario
+                <i class="icon-plus"></i> Aggiungi Sostenitore
             </button>
         </div>
     </div>

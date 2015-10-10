@@ -196,7 +196,7 @@ function scegliRuolo() {
 
 $_lista_attiva = $_link_excel = $_link_email = null;
 function menuElenchiVolontari($a = "Volontari attivi", $b = '#', $c = '#') {
-    global $_lista_attiva, $_link_excel, $_link_email;
+    global $_lista_attiva, $_link_excel, $_link_email, $me;
     $_lista_attiva = $a;
     $_link_excel   = $b;
     $_link_email   = $c;

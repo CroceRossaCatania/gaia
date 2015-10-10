@@ -32,7 +32,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
     <div class="span5 allinea-sinistra">
         <h2>
             <i class="icon-group muted"></i>
-            Quote Pagate (ordinari)
+            Quote Pagate (<?= $me->nomeExOrdinari(); ?> e Sostenitori)
         </h2>
     </div>
             
@@ -46,7 +46,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="?p=us.quoteSi"><i class="icon-ok"></i> Volontari</a></li>
-                    <li><a href="?p=us.quoteSi.ordinari"><i class="icon-ok"></i> Soci Ordinari</a></li>
+                    <li><a href="?p=us.quoteSi.ordinari"><i class="icon-ok"></i> <?= $me->nomeExOrdinari(); ?> e Sostenitori</a></li>
                 </ul>
             </div>
             <div class="btn-group">
@@ -57,7 +57,7 @@ paginaApp([APP_SOCI , APP_PRESIDENTE]);
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="?p=us.quoteNo"><i class="icon-remove"></i> Volontari</a></li>
-                    <li><a href="?p=us.quoteNo.ordinari"><i class="icon-remove"></i> Soci Ordinari</a></li>
+                    <li><a href="?p=us.quoteNo.ordinari"><i class="icon-remove"></i> Soci <?= $me->nomeExOrdinari(); ?> e Sostenitori</a></li>
                 </ul>
             </div>
             <a href="?p=us.dash" class="btn btn-block">

@@ -66,9 +66,9 @@ if ($importo >= $quotaBen) {
 	$q->offerta = 'Offerta';
 }
 if ($attivo) {
-	$q->causale 		= "Rinnovo quota socio attivo anno {$anno}"; 
+	$q->causale 		= "Rinnovo quota Socio Attivo anno {$anno}"; 
 } else {
-	$q->causale 		= "Rinnovo quota socio ordinario CRI anno {$anno}"; 
+	$q->causale 		= "Rinnovo quota Sostenitore CRI anno {$anno}"; 
 }
 
 
