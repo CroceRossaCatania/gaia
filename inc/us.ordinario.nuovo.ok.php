@@ -7,8 +7,8 @@
 paginaApp([APP_SOCI , APP_PRESIDENTE]);
 
 $parametri = array('inputComitato', 'inputCodiceFiscale', 'inputNome',
-	'inputCognome', 'inputDataNascita', 'inputDataQuota', 'inputProvinciaNascita',
-	'inputComuneNascita', 'inputQuota');
+	'inputCognome', 'inputDataNascita', 'inputProvinciaNascita',
+	'inputComuneNascita');
 
 controllaParametri($parametri, 'us.dash&err');
 
@@ -19,19 +19,6 @@ if ( !$comitato ) {
 $comitato = Comitato::id($comitato);
 if ( !in_array($comitato, $me->comitatiApp([APP_SOCI, APP_PRESIDENTE])) ) {
     redirect('us.ordinario.nuovo&c');
-}
-
-$anno = date('Y');
-$dataQuota = DT::createFromFormat('d/m/Y', $_POST['inputDataQuota']);
-$t = Tesseramento::by('anno', $anno); 
-if ($dataQuota < $t->inizio()){
-	redirect('us.ordinario.nuovo&q');
-}
-
-$importo = (float) $_POST['inputQuota'];
-$importo = round($importo, 2);
-if ($importo < $t->ordinario) {
-	redirect('us.ordinario.nuovo&i');
 }
 
 $codiceFiscale  = $_POST['inputCodiceFiscale'];
@@ -112,59 +99,12 @@ if(!$gia){
 	$a = new Appartenenza();
 	$a->volontario  = $p->id;
 	$a->comitato    = $comitato;
-	$a->inizio      = $dataQuota->getTimestamp();
+	$a->inizio      = time();
 	$a->fine        = PROSSIMA_SCADENZA;
 	$a->timestamp 	= time();
 	$a->stato     	= MEMBRO_ORDINARIO;
 	$a->conferma  	= $me;
 }
-
-/* Generazione della quota */
-
-$quotaMin = $t->ordinario;
-
-$q = new Quota();
-$q->appartenenza 	= $a;
-$q->timestamp 		= $dataQuota->getTimestamp();
-$q->tConferma 		= time();
-$q->pConferma 		= $me;
-$q->anno 			= $anno;
-$q->assegnaProgressivo();
-$q->quota 			= $importo;
-
-$quotaBen = $t->ordinario + (float) $a->comitato()->quotaBenemeriti();
-$q->causale 		= "Iscrizione socio ordinario CRI anno {$anno}"; 
-if ($importo >= $quotaBen) {
-	$q->benemerito = BENEMERITO_SI;
-	$q->offerta = "Promozione a socio sostenitore per l'anno {$anno} per il versamento di una quota superiore a " . soldi($quotaBen) . " &#0128;.";
-}
-
-/* Crea la ricevuta del pagamento della quota */
-$l = new PDF('ricevutaquota', 'ricevuta.pdf');
-$l->_COMITATO 	= $a->comitato()->locale()->nomeCompleto();
-$l->_ID 		= $q->progressivo();
-$l->_NOME 		= $p->nome;
-$l->_COGNOME 	= $p->cognome;
-$l->_FISCALE 	= $p->codiceFiscale;
-$l->_NASCITA 	= date('d/m/Y', $p->dataNascita);
-$l->_LUOGO 		= $p->luogoNascita;
-$l->_IMPORTO	= soldi($q->quota - ($q->quota - $quotaMin));
-$l->_QUOTA  	= $q->causale;
-if ($q->quota - $quotaMin > 0) {
-	$l->_OFFERTA	= $q->offerta;
-	$l->_OFFERIMPORTO = soldi($q->quota - $quotaMin) . "  &#0128; ";
-} else {
-	$l->_OFFERTA	= '';
-	$l->_OFFERIMPORTO = '';
-}
-$l->_TOTALE		= soldi($quota->quota);
-$l->_LUOGO 		= $a->comitato()->locale()->comune;
-$l->_DATA 		= $q->dataPagamento()->format('d/m/Y');
-$l->_CHINOME	= $me->nomeCompleto();
-$l->_CHICF		= $me->codiceFiscale;
-$f = $l->salvaFile($q->comitato());
-
-
 
 /* Genera la password casuale */
 $password = generaStringaCasuale(8, DIZIONARIO_ALFANUMERICO);
@@ -177,7 +117,6 @@ $m = new Email('registrazioneOrdinario', 'Benvenuto su Gaia');
 $m->a = $p;
 $m->_NOME       = $p->nome;
 $m->_PASSWORD   = $password;
-$m->allega($f);
 $m->invia();
 
 redirect('presidente.utente.visualizza&ok&id='.$p->id);
