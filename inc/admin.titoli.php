@@ -76,11 +76,14 @@ paginaAdmin();
                 <td><?php echo($conf['titoli'][$c->tipo][0]); ?></td>
                 <td>
                     <div class="btn-group">
-                        <a  onClick="return confirm('Vuoi veramente cancellare questo titolo ?');" href="?p=admin.titolo.cancella&id=<?php echo $c->id; ?>" title="Cancella Titolo" class="btn btn-small btn-warning">
+                        <a class="btn btn-small btn-danger" onClick="return confirm('Vuoi veramente cancellare questo titolo ?');" href="?p=admin.titolo.cancella&id=<?php echo $c->id; ?>" title="Cancella Titolo">
                             <i class="icon-trash"></i> Cancella
                         </a>
-                        <a  href="?p=admin.titolo.modifica&id=<?php echo $c->id; ?>" title="Modifica Titolo" class="btn btn-small btn-info">
+                        <a class="btn btn-small" href="?p=admin.titolo.modifica&id=<?php echo $c->id; ?>" title="Modifica Titolo">
                             <i class="icon-edit"></i> Modifica
+                        </a>
+                        <a class="btn btn-small btn-primary" href="?p=admin.titolo.volontari&id=<?= $c->id; ?>">
+                            <i class="icon-group"></i> Certificati
                         </a>
                     </div>
                 </td>

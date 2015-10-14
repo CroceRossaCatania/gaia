@@ -793,7 +793,11 @@ $do = DonazionePersonale::filtra([['volontario', $u]]);
           <td>
             <?php if ($titolo->tConferma) { ?>
             <abbr title="Confermato: <?php echo date('d-m-Y H:i', $titolo->tConferma); ?>">
-              <i class="icon-ok"></i>
+                <?php if ( $titolo->corso ) { ?>
+                    <i class="icon-asterisk"></i> 
+                <?php } else { ?>
+                    <i class="icon-ok"></i>
+                <?php } ?>
             </abbr>
             <?php } else { ?>
             <abbr title="Pendente">
