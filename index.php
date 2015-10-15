@@ -336,15 +336,17 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                             <li><a href="?p=admin.istruttori.potenziali"><i class="icon-list"></i> Potenziali Istruttori</a></li>                       
                                             <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
                                             <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li> 
-                                            <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
 					    <li><a href="?p=admin.donazioni"><i class="icon-beaker"></i> Donazioni</a></li>
 					    <li><a href="?p=admin.donazioni.sedi"><i class="icon-road"></i> Donazioni sedi</a></li>
-                                            <li><a href="?p=admin.tipocorso"><i class="icon-graduation-cap"></i> Certificati</a></li>
+                                            
                                             <li><a href="?p=admin.limbo"><i class="icon-meh"></i> Limbo</a></li> 
                                             <a href="inc/admin.conoscenza.php"></a>
                                             <li><a href="?p=admin.aspiranti"><i class="icon-meh"></i> Aspiranti</a></li> 
                                             <li><a href="?p=admin.double"><i class="icon-superscript"></i> Double</a></li>
                                             <li><a href="?p=admin.tesseramento"><i class="icon-eur"></i> Tesseramento</a></li>
+                                            <li class="nav-header">Formazione</li>
+                                            <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
+                                            <li><a href="?p=admin.tipocorso"><i class="icon-graduation-cap"></i> Tipo Corso</a></li>
                                             <li class="nav-header">Report & Co</li>
                                             <li><a href="?p=admin.report"><i class="icon-copy"></i> Report</a></li>  
                                             <li><a href="?p=admin.stats"><i class="icon-copy"></i> Statistiche</a></li>
