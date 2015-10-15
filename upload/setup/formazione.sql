@@ -226,3 +226,15 @@ ADD UNIQUE INDEX `seriale_UNIQUE` (`seriale` ASC);
 
 ALTER TABLE `crs_corsi` 
 ADD COLUMN `verbale` VARCHAR(255) NULL AFTER `seriale`;
+
+
+CREATE TABLE `crs_giornataCorso` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `corso` int(11) DEFAULT NULL,
+  `nome` varchar(255) DEFAULT NULL,
+  `luogo` varchar(255) DEFAULT NULL,
+  `data` int(11) DEFAULT NULL,
+  `note` mediumtext,
+  PRIMARY KEY (`id`),
+  KEY `idx_corso` (`corso`)
+) ENGINE=InnoDB AUTO_INCREMENT=515 DEFAULT CHARSET=latin1;
