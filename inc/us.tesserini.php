@@ -204,8 +204,14 @@ function selezioneCambiata() {
         }
 
         foreach($elenco as $tesserino) {
-            if ($tesserino->utente()->ultimaAppartenenza(MEMBRO_ORDINARIO)) {continue; }
+
             $v = $tesserino->utente();
+
+            $ultima = $v->ultimaAppartenenza(MEMBRO_ORDINARIO);
+            if ($ultima && $ultima->attuale()) {
+                continue;
+            }
+
             $lavorabile = ($tesserino->stato != RIFIUTATO || $admin);
             ?>
 
