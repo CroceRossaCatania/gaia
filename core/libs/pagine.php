@@ -185,8 +185,14 @@ function paginaPresidenziale( $comitato = null, $attivita = null, $app = null, $
         if ( $attivita && !in_array($attivita, $sessione->utente()->attivitaDiGestione())) {
             redirect('errore.permessi');   
         }
+    } else {
+        paginaDelegato($comitato, $attivita, $app, $dominio);
     }
+}
 
+function paginaDelegato( $comitato = null, $attivita = null, $app = null, $dominio = null) {
+    global $sessione;
+    
     // Calcolo le deleghe
     $delegazioni = [];
     $allDelegazioni = $sessione->utente()->delegazioni($app);
@@ -197,18 +203,16 @@ function paginaPresidenziale( $comitato = null, $attivita = null, $app = null, $
         }
     }
     
-    if (!empty($dominio) && !empty($app)) {
-        if ( (!$sessione->utente()->presiede() || sizeof($delegazioni) == 0 ) && !$sessione->utente()->admin() ) {
-            redirect('utente.me');
-        }
-        
-        if ( $comitato && !in_array($comitato, $sessione->utente()->comitatiDiCompetenza() ) && empty($delegazioni[$comitato->id]) ) {
-            redirect('errore.permessi');
-        }
-        
-        if ( $attivita && !in_array($attivita, $sessione->utente()->attivitaDiGestione())) {
-            redirect('errore.permessi');   
-        }
+    if ( (!$sessione->utente()->presiede() || sizeof($delegazioni) == 0 ) && !$sessione->utente()->admin() ) {
+        //redirect('utente.me');
+    }
+
+    if ( $comitato && !in_array($comitato, $sessione->utente()->comitatiDiCompetenza() ) ) {
+        //redirect('errore.permessi');
+    }
+
+    if ( $attivita && !in_array($attivita, $sessione->utente()->attivitaDiGestione())) {
+        //redirect('errore.permessi');   
     }
 }
 
@@ -287,9 +291,7 @@ function caricaSelettoreComitato() {
  * @param $pagina la pagina richiesta
  */
 function redirect($pagina = 'utente.me') {
-    /*
-    header('Location: ?p=' . $pagina);    
-    */
+    header('Location: ?p=' . $pagina);
     exit(0);
 }
 

@@ -11,23 +11,17 @@
  * 2. Modificare u_pietro1, u_pietro1 e pietro.gaia.7871.
  */
  
-/* Configurazione del database */
-/*
+/* Configurazione del database */ 
 $conf['database'] = [
- 
-    'dns'   =>  'mysql:host=104.167.109.88;dbname=u_pietro1',
+    'dns'   =>  'mysql:host=127.0.0.1;dbname=u_pietro1',
     'user'  =>  'u_pietro1',
     'pass'  =>  'pietro.gaia.7871',  
     'persistent'    =>  false
 ];
-*/
-$conf['database'] = [
- 
+
+$conf['database'] = [ 
     'dns'   =>  'mysql:host=95.141.44.102;dbname=gaia',
     'user'  =>  'gaia',
     'pass'  =>  'nHcOefCOs7',
-    
-    /* Connessione persistente? */
     'persistent'    =>  false
- 
 ];

@@ -180,7 +180,9 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
 
                                     <?php 
-                                    if ( $me->admin() || $me->presiede() ) { ?>
+                                    $deleghe = $me->delegazioniAsHashMap(APP_OBIETTIVO);
+                                    
+                                    if ( $me->admin() || $me->presiede() || !empty($deleghe)) { ?>
                                     <div class="btn-group">
                                         <?php
                                         /* Conto le notifiche */
@@ -204,6 +206,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                         </button>
                                         <ul class="dropdown-menu">
 
+                                            <?php if ($me->admin() || $me->presiede()) : ?>
                                             <li class="nav-header">Da fare</li>
 
                                             <li>
@@ -218,17 +221,17 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                                 </a>
                                             </li>
 
-											<li>
-												<a href="?p=presidente.donazioni">
-													<i class="icon-star"></i>
-													Donazioni in attesa
-													<?php if ( $_n_donazioni ) { ?>
-													<span class="badge badge-warning">
-														<?php echo $_n_donazioni; ?>
-													</span>
-													<?php } ?>
-												</a>
-											</li>
+                                            <li>
+                                                <a href="?p=presidente.donazioni">
+                                                        <i class="icon-star"></i>
+                                                        Donazioni in attesa
+                                                        <?php if ( $_n_donazioni ) { ?>
+                                                        <span class="badge badge-warning">
+                                                                <?php echo $_n_donazioni; ?>
+                                                        </span>
+                                                        <?php } ?>
+                                                </a>
+                                            </li>
 
                                             <li>
                                                 <a href="?p=presidente.appartenenzepending">
@@ -299,7 +302,9 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                                     Ricerca volontari per titoli
                                                 </a>
                                             </li>
-
+                                            <?php endif ?>
+                                              
+                                            <?php if (sizeof($deleghe[OBIETTIVO_1]) > 0 || $me->admin() || $me->presiede()) : ?>
                                             <li class="nav-header">Corsi</li>
 
                                             <li>
@@ -314,6 +319,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                                     Crea nuovo corso
                                                 </a>
                                             </li>
+                                            <?php endif ?>
                                         </ul>
                                     </div>
                                     <?php } ?>

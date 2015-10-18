@@ -30,6 +30,12 @@ if (!$x){
     $t->ruoloDocenti = $_POST['inputRuoloDocenti'];
     $t->ruoloAffiancamento = $_POST['inputRuoloAffiancamento'];
     $t->ruoloDiscenti = $_POST['inputRuoloDiscenti'];
+    
+    $t->abilitaNazionale = $_POST['abilitaNazionale'];
+    $t->abilitaRegionale = $_POST['abilitaRegionale'];
+    $t->abilitaProvinciale = $_POST['abilitaProvinciale'];
+    $t->abilitaLocale = $_POST['abilitaLocale'];
+    
     redirect('admin.tipocorso&new');
 } else {
     redirect('admin.tipocorso&dup');

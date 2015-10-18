@@ -74,18 +74,44 @@ $ruoli = RuoloFormazione::elencoRuoli();
             <input class="input-small" type="text" name="inputGiorni" id="inputGiorni" value="<?php echo $f->giorni; ?>">
         </div>
         
-        <?php /*
-        $abilitaLezioni = "";
-        if ($f->abilitaLezioni){
-            $abilitaLezioni = 'checked="checked"';
+        <?php 
+        $abilitaNazionale = "";
+        if ($f->abilitaNazionale){
+            $abilitaNazionale = 'checked="checked"';
         }
         ?>
-        <label class="control-label" for="abilitaLezioni">Abilita la gestione delle lezioni</label>
-        <div class="controls">
-            <input type="checkbox" name="abilitaLezioni" id="abilitaLezioni" value="1" <?php print $abilitaLezioni ?> />
-        </div>
-         * 
-         */ ?>
+        <label class="control-label" for="abilitaNazionale">Abilitato Com. Nazionale</label>
+        &nbsp;<input type="checkbox" name="abilitaNazionale" id="abilitaNazionale" value="1" <?php print $abilitaNazionale ?> />
+        <br/><br/>
+
+        <?php 
+        $abilitaRegionale = "";
+        if ($f->abilitaRegionale){
+            $abilitaRegionale = 'checked="checked"';
+        }
+        ?>
+        <label class="control-label" for="abilitaRegionale">Abilita Com. Regionale</label>
+        &nbsp;<input type="checkbox" name="abilitaRegionale" id="abilitaRegionale" value="1" <?php print $abilitaRegionale ?> />
+        <br/><br/>
+
+        <?php 
+        $abilitaProvinciale = "";
+        if ($f->abilitaProvinciale){
+            $abilitaProvinciale = 'checked="checked"';
+        }
+        ?>
+        <label class="control-label" for="abilitaProvinciale">Abilita Com. Provinciale</label>
+        &nbsp;<input type="checkbox" name="abilitaProvinciale" id="abilitaProvinciale" value="1" <?php print $abilitaProvinciale ?> />
+        <br/><br/>
+
+        <?php 
+        $abilitaLocale = "";
+        if ($f->abilitaLocale){
+            $abilitaLocale = 'checked="checked"';
+        }
+        ?>
+        <label class="control-label" for="abilitaLocale">Abilita Com. Locali</label>
+        &nbsp;<input type="checkbox" name="abilitaLocale" id="abilitaLocale" value="1" <?php print $abilitaLocale ?> />
     </div>
     
     <div class="control-group">

@@ -107,3 +107,14 @@ Quando si parte? 30 novembre
 Ufficio Soci deve poter accettare la partecipazione di un discente in sua vece, perchè questo potrebbe non avere email o accesso a internet
 Delegato tecnico area 1 non esiste: deve poter agire su tutti i corsi, i docenti e i discenti 
 Se cambio un docente, il nuovo docente inserito deve dare l'approvazione? questa operazione può essere effettuata anche dentro i 15 giori di buffer?
+
+
+
+
+
+
+
+
+
+
+TIPI DI CORSO = AGGIUNGERE COMITATO CHE PUO' crearlo
