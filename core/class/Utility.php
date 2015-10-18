@@ -61,7 +61,7 @@ class Utility {
         $list = Utility::elencoByAttributoDiComitato("provincia");
         return $list;
     }
-
+    
     /**
      * Prendo l'elenco delle province dai dati di dettaglio dei comitati
      */

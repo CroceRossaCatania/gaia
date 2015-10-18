@@ -6,7 +6,7 @@
 
 paginaAdmin();
 
-$ruoli = array('aaa','bbb','ccc','ddd','eee');
+$ruoli = RuoloFormazione::elencoRuoli();
 
 ?>
 <style>
@@ -43,6 +43,22 @@ $ruoli = array('aaa','bbb','ccc','ddd','eee');
     </div>
     
     <div class="control-group">
+        <label class="control-label" for="inputRuoloAttestato">Ruolo Attestato</label>
+        <div class="controls">
+            <select class="input-xxlarge" name="inputRuoloAttestato" id="inputRuoloAttestato">
+                <option></option>
+                <?php foreach($ruoli as $r) :?>
+                    <?php $selected = ""; ?>
+                    <?php if(intval($f->ruoloAttestato) === intval($r->id)):?>
+                        <?php $selected = "selected='selected'"; ?>
+                    <?php endif ?>
+                    <option <?php print $selected; ?>><?php print $r->ruolo?></option>
+                <?php endforeach; ?>
+            </select> 
+        </div>
+    </div>
+    
+    <div class="control-group">
         <label class="control-label" for="inputMinimoPartecipanti">Numero discenti</label>
         <div class="controls">
             <span>minimo:</span>
@@ -62,6 +78,19 @@ $ruoli = array('aaa','bbb','ccc','ddd','eee');
             <span>giorni:</span>
             <input class="input-small" type="text" name="inputGiorni" id="inputGiorni" value="<?php echo $f->giorni; ?>">
         </div>
+
+        <?php /*
+        $abilitaLezioni = "";
+        if ($f->abilitaLezioni){
+            $abilitaLezioni = 'checked="checked"';
+        }
+        ?>
+        <label class="control-label" for="abilitaLezioni">Abilita la gestione delle lezioni</label>
+        <div class="controls">
+            <input type="checkbox" name="abilitaLezioni" id="abilitaLezioni" value="1" <?php print $abilitaLezioni ?> />
+        </div>
+         * 
+         */ ?>
     </div>
     
     <div class="control-group">
@@ -88,29 +117,13 @@ $ruoli = array('aaa','bbb','ccc','ddd','eee');
     <hr/>
     
     <div class="control-group">
-        <label class="control-label" for="inputRuoloProprietario">Ruolo Proprietario</label>
-        <div class="controls">
-            <select class="input-xxlarge" name="inputRuoloProprietario" id="inputRuoloProprietario">
-                <option></option>
-                <?php foreach($ruoli as $r) :?>
-                    <?php $selected = ""; ?>
-                    <?php if($f->ruoloProprietario == $r):?>
-                        <?php $selected = "selected='selected'"; ?>
-                    <?php endif ?>
-                    <option <?php print $selected; ?>><?php print $r?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-    </div>
-    
-    <div class="control-group">
         <label class="control-label" for="inputRuoloDirettore">Ruolo Direttore</label>
         <div class="controls">
             <select class="input-xxlarge" name="inputRuoloDirettore" id="inputRuoloDirettore">
                 <option></option>
                 <?php foreach($ruoli as $r) :?>
                     <?php $selected = ""; ?>
-                    <?php if($f->ruoloDirettore == $r):?>
+                    <?php if(intval($f->ruoloDirettore) === intval($r->id)):?>
                         <?php $selected = "selected='selected'"; ?>
                     <?php endif ?>
                     <option <?php print $selected; ?>><?php print $r?></option>
@@ -126,7 +139,7 @@ $ruoli = array('aaa','bbb','ccc','ddd','eee');
                 <option></option>
                 <?php foreach($ruoli as $r) :?>
                     <?php $selected = ""; ?>
-                    <?php if($f->ruoloDocenti == $r):?>
+                    <?php if(intval($f->ruoloDocenti) === intval($r->id)):?>
                         <?php $selected = "selected='selected'"; ?>
                     <?php endif ?>
                     <option <?php print $selected; ?>><?php print $r?></option>
@@ -142,7 +155,7 @@ $ruoli = array('aaa','bbb','ccc','ddd','eee');
                 <option></option>
                 <?php foreach($ruoli as $r) :?>
                     <?php $selected = ""; ?>
-                    <?php if($f->ruoloAffiancamento == $r):?>
+                    <?php if(intval($f->ruoloAffiancamento) === intval($r->id)):?>
                         <?php $selected = "selected='selected'"; ?>
                     <?php endif ?>
                     <option <?php print $selected; ?>><?php print $r?></option>
@@ -160,7 +173,7 @@ $ruoli = array('aaa','bbb','ccc','ddd','eee');
                 <option></option>
                 <?php foreach($ruoli as $r) :?>
                     <?php $selected = ""; ?>
-                    <?php if($f->ruoloDiscenti == $r):?>
+                    <?php if(intval($f->ruoloDiscenti) === intval($r->id)):?>
                         <?php $selected = "selected='selected'"; ?>
                     <?php endif ?>
                     <option <?php print $selected; ?>><?php print $r?></option>

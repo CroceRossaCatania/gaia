@@ -23,9 +23,9 @@ $conf['database'] = [
 */
 $conf['database'] = [
  
-    'dns'   =>  'mysql:host=localhost;dbname=u_pietro1',
-    'user'  =>  'u_pietro1',
-    'pass'  =>  'pietro.gaia.7871',
+    'dns'   =>  'mysql:host=95.141.44.102;dbname=gaia',
+    'user'  =>  'gaia',
+    'pass'  =>  'nHcOefCOs7',
     
     /* Connessione persistente? */
     'persistent'    =>  false

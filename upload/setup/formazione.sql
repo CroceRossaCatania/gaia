@@ -113,36 +113,6 @@ CREATE TABLE IF NOT EXISTS `crs_risultati_corsi` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `crs_tipoCorsi`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `crs_tipoCorsi` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) DEFAULT NULL,
-  `ruoloProprietario` varchar(255) DEFAULT NULL,
-  `ruoloDirettore` varchar(255) DEFAULT NULL,
-  `ruoloDocenti` varchar(255) DEFAULT NULL,
-  `ruoloAffiancamento` varchar(255) DEFAULT NULL,
-  `ruoloDiscenti` varchar(255) DEFAULT NULL,
-  `tipoValutazione` varchar(255) DEFAULT NULL,
-  `attestato` varchar(255) DEFAULT NULL COMMENT 'Il template del documento, se passato con sucesso',
-  `limitePerIscrizione` int(11) DEFAULT NULL COMMENT 'In giorni',
-  `proporzioneIstruttori` int(11) DEFAULT NULL COMMENT 'Quanti Docenti in affiancemento per docente 1/valore',
-  `minimoPartecipanti` int(11) DEFAULT NULL,
-  `massimoPartecipanti` int(11) DEFAULT NULL,
-  `proporzioneAffiancamento` int(11) DEFAULT NULL COMMENT '1/valore',
-  `durata` int(11) DEFAULT NULL,
-  `giorni` int(11) DEFAULT NULL,
-  `punizione` int(11) DEFAULT NULL,
-  `dipendenzaAffiancamento` int(11) DEFAULT NULL COMMENT 'ID del corso che un volontario deve aver superato per poter fare affiancamento qui',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `crs_titoliCorsi`
 --
 
@@ -227,7 +197,6 @@ ADD UNIQUE INDEX `seriale_UNIQUE` (`seriale` ASC);
 ALTER TABLE `crs_corsi` 
 ADD COLUMN `verbale` VARCHAR(255) NULL AFTER `seriale`;
 
-
 CREATE TABLE `crs_giornataCorso` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `corso` int(11) DEFAULT NULL,
@@ -238,3 +207,28 @@ CREATE TABLE `crs_giornataCorso` (
   PRIMARY KEY (`id`),
   KEY `idx_corso` (`corso`)
 ) ENGINE=InnoDB AUTO_INCREMENT=515 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE IF NOT EXISTS `crs_tipoCorsi` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) DEFAULT NULL,
+  `ruoloDirettore` int(11) DEFAULT NULL,
+  `ruoloDocenti` int(11) DEFAULT NULL,
+  `ruoloAffiancamento` int(11) DEFAULT NULL,
+  `ruoloDiscenti` int(11) DEFAULT NULL,
+  `ruoloAttestato` int(11) DEFAULT NULL,
+  `tipoValutazione` varchar(255) DEFAULT NULL,
+  `attestato` varchar(255) DEFAULT NULL COMMENT 'Il template del documento, se passato con sucesso',
+  `limitePerIscrizione` int(11) DEFAULT NULL COMMENT 'In giorni',
+  `proporzioneIstruttori` int(11) DEFAULT NULL COMMENT 'Quanti Docenti in affiancemento per docente 1/valore',
+  `minimoPartecipanti` int(11) DEFAULT NULL,
+  `massimoPartecipanti` int(11) DEFAULT NULL,
+  `proporzioneAffiancamento` int(11) DEFAULT NULL COMMENT '1/valore',
+  `durata` int(11) DEFAULT NULL,
+  `giorni` int(11) DEFAULT NULL,
+  `punizione` int(11) DEFAULT NULL,
+  `dipendenzaAffiancamento` int(11) DEFAULT NULL COMMENT 'ID del corso che un volontario deve aver superato per poter fare affiancamento qui',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+SELECT * FROM gaia.crs_tipoCorsi;
