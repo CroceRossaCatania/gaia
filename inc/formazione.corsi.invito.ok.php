@@ -11,9 +11,10 @@ $md5 = filter_input(INPUT_GET, "md5");
 
 $p = PartecipazioneCorso::id($id);
 
-if ($p->md5 == $md5){
-    $p->accetta();
-}else{
+if ($p->md5 != $md5){
     header('HTTP/1.0 403 Forbidden');
     redirect("errore.403");
+    exit(0);
 }
+
+$p->accetta();
