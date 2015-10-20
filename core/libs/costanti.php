@@ -10,6 +10,7 @@
  * ===================================
  */
 define ('MODULO_FORMAZIONE_CORSI' , 'crs_');
+define ('MODULO_FORMAZIONE_CORSI_SECUREKEY' , '^%ED!so+-M:IM8IZv');
 
 /*
  * ===================================

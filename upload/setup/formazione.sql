@@ -248,3 +248,7 @@ ADD COLUMN `abilitaNazionale` INT(1) NULL DEFAULT 0 AFTER `dipendenzaAffiancamen
 ADD COLUMN `abilitaRegionale` INT(1) NULL DEFAULT 0 AFTER `abilitaNazionale`,
 ADD COLUMN `abilitaProvinciale` INT(1) NULL DEFAULT 0 AFTER `abilitaRegionale`,
 ADD COLUMN `abilitaLocale` INT(1) NULL DEFAULT 0 AFTER `abilitaProvinciale`;
+
+
+ALTER TABLE `crs_partecipazioni_corsi` 
+ADD COLUMN `md5` VARCHAR(255) NULL AFTER `cAttestato`;

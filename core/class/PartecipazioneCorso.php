@@ -17,6 +17,9 @@ class PartecipazioneCorso extends Entita {
         return Volontario::id($this->volontario);
     }
     
+    public static function md5($id){
+        return md5(MODULO_FORMAZIONE_CORSI_SECUREKEY."_".$id);
+    }
     
     public function modificabile() {
         if (!$this->inizio || !$this->corso) {
@@ -51,13 +54,36 @@ class PartecipazioneCorso extends Entita {
         $this->volontario = $v->id;
         $this->stato = PARTECIPAZIONE_RICHIESTA;
         $this->ruolo = $ruolo;
-        
+        $this->md5 = PartecipazioneCorso::md5($this->id);
         $this->timestamp = (new DT())->getTimestamp();
         
-        
+        $this->inviaInvito();
         return true;
     }
     
+    
+     /**
+     * Genera attestato, sulla base del corso e del volontario
+     * @return PDF 
+     */
+    public function inviaInvito(Corso $c, Volontario $volontario) {
+        print "inviaInvito";
+        $m = new Email('crs_invitoDocente', "Invito ".$this->id);
+        print_r($volontario);
+        $m->a = $volontario;
+        //$m->da = "pizar79@gmail.com";
+        //$m->a = $this->direttore();
+        $m->_NOME = $volontario->nomeCompleto();
+        $m->_HOSTNAME = filter_input(INPUT_SERVER, "SERVER_NAME");
+        $m->_CORSO = $c->nome();
+        $m->_DATA = $c->inizio();
+        $m->_ID = $this->id;
+        $m->_MD5 = $this->md5;
+        
+        $m->invia(true);
+        
+        return $m;
+    }
     
     public function richiedi() {
         /*
