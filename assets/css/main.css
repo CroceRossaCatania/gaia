@@ -447,3 +447,7 @@ body {
     color: #000;
     text-shadow: 1px 1px 1px #fff;
 }
+
+.chosen-container .search-field input {
+    width: 100% !important;
+}

@@ -41,7 +41,7 @@ unset($partecipazioni);
 
 caricaSelettoreDiscente([
     'max_selected_options' => $maxDiscenti,
-    'no_results_text' => 'Nessun discente trovato',
+    'no_results_text' => 'Ricerca discenti in corso...',
     
 ]);
 
@@ -66,7 +66,7 @@ $d = new DateTime('@' . $c->inizio);
                         <label for="dataFine"><i class="icon-user"></i> Discenti</label>
                     </div>
                     <div class="span8">
-                        <select name="discenti[]" data-placeholder="Scegli un discente..." multiple class="chosen-select discenti">
+                        <select name="discenti[]" data-insert-page="formazione.corsi.discente_popolazione.nuovo" data-placeholder="Scegli un discente..." multiple class="chosen-select discenti">
                             <?php 
                                 foreach ($discenti as $i ) {
                                 ?>
@@ -75,6 +75,8 @@ $d = new DateTime('@' . $c->inizio);
                                 }
                             ?>
                         </select>
+                        <span>Inserisci il testo necessario per ricercare il volontario (nome, cognome, email o codice fiscale),<br/>
+                            premi INVIO per aggiornare la lista e scegli un volontario dalla lista che appare.</span><br/>
                         <span>Aggiungi fino a <strong><?php echo $maxDiscenti ?> discenti</strong></span>
                     </div>
                 </div>
@@ -91,35 +93,6 @@ $d = new DateTime('@' . $c->inizio);
     </div>
 
     <div class="span4">
-        <h4 style="line-height:40px">Azioni</h4>
-        <nav>
-            <ul style="list-style-type: none">
-                <li>
-                    <a class="btn btn-danger" href="?p=utente.me">
-                        <i class="icon-plus-sign-alt icon-large"></i>&nbsp;
-                        Eliminare
-                    </a>
-                </li>
-                <li>
-                    <a class="btn btn-danger" href="?p=utente.me">
-                        <i class="icon-plus-sign-alt icon-large"></i>&nbsp;
-                        Convalidare
-                    </a>
-                </li>
-                <li>
-                    <a class="btn btn-danger" href="?p=utente.me">
-                        <i class="icon-plus-sign-alt icon-large"></i>&nbsp;
-                        richiedi iscrizione
-                    </a>
-                </li>
-                <li>
-                    <a class="btn btn-danger" href="?p=utente.me">
-                        <i class="icon-plus-sign-alt icon-large"></i>&nbsp;
-                        chiudi corso -> valutazione
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
+        <?php /* include "formazione.corsi.discente_popolazione.nuovo.php" */ ?>
     </div>
 </div>

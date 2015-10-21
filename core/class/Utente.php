@@ -96,6 +96,10 @@ class Utente extends Persona {
         return $q[0];
     }
     
+    public function numDonazioniPending() {
+        return 0;
+    }
+    
     public function storico() {
         return Appartenenza::filtra([
             ['volontario', $this->id]

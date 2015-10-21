@@ -319,7 +319,6 @@ $(document).ready(function() {
                 
                 <form action="?p=presidente.comitato.ok" method="POST">
                 <input type="hidden" name="oid" value="<?php echo $c->oid(); ?>" />
-
                 
                 <div class="alert alert-info">
                     <i class="icon-info-sign"></i> I delegati selezionati possono creare attività

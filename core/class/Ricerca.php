@@ -108,7 +108,7 @@ class Ricerca {
                         anagrafica.cognome,
                         anagrafica.email,
                         anagrafica.codiceFiscale
-                    ) AGAINST ({$query})";
+                    ) AGAINST ({$query} in boolean mode)";
             $pPertinenza = "MAX({$pRicerca}) as pertinenza";
             $pRicerca = "AND {$pRicerca}";
         } else {

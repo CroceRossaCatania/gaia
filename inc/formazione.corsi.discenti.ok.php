@@ -41,8 +41,11 @@ try {
 
         $daAggiungere = array_keys($daAggiungere);
         $daEliminare = array_keys($daEliminare);
-//var_dump($daAggiungere);
-//var_dump($daEliminare);
+var_dump($c);
+var_dump($discenti);
+var_dump($daAggiungere);
+var_dump($daEliminare);
+die;
         foreach ($daEliminare as $id) {
             PartecipazioneCorso::id($id)->cancella();
         }

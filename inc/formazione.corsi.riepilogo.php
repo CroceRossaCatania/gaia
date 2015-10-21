@@ -157,7 +157,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
         <hr />
         <div class="row-fluid allinea-centro">
             <div class="span12">
-                <h2 class="text-success"><?php echo $c->titolo; ?></h2>
+                <h2 class="text-success"><?php echo $certificato->nome; ?></h2>
                 <h4 class="text-info">
                     <i class="icon-map-marker"></i>
                     <a target="_new" href="<?php echo $c->linkMappa(); ?>">
