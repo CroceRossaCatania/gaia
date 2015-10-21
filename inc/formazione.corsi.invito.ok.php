@@ -17,4 +17,4 @@ if ($p->md5 != $md5){
     exit(0);
 }
 
-$p->accetta();
+$p->accetta($md5);

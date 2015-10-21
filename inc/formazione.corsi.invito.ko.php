@@ -17,4 +17,4 @@ if ($p->md5 != $md5){
     exit(0);
 }
 
- $p->ritira("rifiuto docente");
+ $p->nega("rifiuto docente");

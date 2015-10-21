@@ -171,21 +171,21 @@ class PartecipazioneCorso extends Entita {
      * Accetta di essere presente al corso
      * @return bool false se la prenotazione non è negata, altrimenti true
      */
-    public function accetta() {
+    public function accetta($md5 = null) {
         global $sessione;
-
         if ($this->stato != PARTECIPAZIONE_RICHIESTA) {
             return false;
         }
         
-        if (!$this->modificabile()) {
+        if (!$this->modificabile() && false) {
             return false;
         }
             
-        if ($sessione->utente()->id != $this->volontario) {
+        if ($sessione->utente()->id != $this->volontario && $this->md5 != $md5) {
             return false;
         }
 
+        $this->tConferma = time();
         $this->stato = PARTECIPAZIONE_ACCETTATA;
         return true;
     }
