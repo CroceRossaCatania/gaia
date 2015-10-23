@@ -2,6 +2,7 @@
 /*
  * ©2015 Croce Rossa Italiana
  */
+paginaPresidenziale(null, null, APP_OBIETTIVO, OBIETTIVO_1);
 
 controllaParametri(['id','discIdoneita','discAffiancamenti'], 'admin.corsi.crea&err');
 

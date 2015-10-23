@@ -4,12 +4,12 @@
  */
 //paginaAdmin();
 //paginaPresidenziale();
-
+//paginaPresidenziale(null, null, APP_OBIETTIVO, OBIETTIVO_1);
+//
 //controllaParametri(['inizio','partecipanti','luogo','certificato','organizzatore'], 'admin.corsi.crea&err');
 
 //if(!DT::controlloDataOra($_POST['inizio'])){ redirect('admin.corsi.crea&err='.CORSO_ERRORE_DATA_NON_CORRETTA); }
 
-print_r($_REQUEST);
 
 $corso = intval($_POST['corso']);
 $nome = addslashes($_POST['titolo']);

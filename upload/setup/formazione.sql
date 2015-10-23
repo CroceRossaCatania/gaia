@@ -231,4 +231,24 @@ CREATE TABLE IF NOT EXISTS `crs_tipoCorsi` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-SELECT * FROM gaia.crs_tipoCorsi;
+
+
+/* Query per tutti i possibili istruttori */
+SELECT * FROM crs_risultati_corsi r, crs_titoliCorsi tc, crs_corsi c, crs_tipoCorsi t WHERE 
+    c.id = r.corso 
+    AND tc.titolo = c.certificato
+    AND c.certificato = t.id 
+    AND r.segnalazione_01 != null && r.segnalazione_02 != null
+    AND t.ruoloAttestato = (SELECT id FROM crs_ruoli WHERE ruolo = 'Esecutore')
+    AND tc.fine > now() AND tc.inizio < now();
+
+
+ALTER TABLE `crs_tipoCorsi` 
+ADD COLUMN `abilitaNazionale` INT(1) NULL DEFAULT 0 AFTER `dipendenzaAffiancamento`,
+ADD COLUMN `abilitaRegionale` INT(1) NULL DEFAULT 0 AFTER `abilitaNazionale`,
+ADD COLUMN `abilitaProvinciale` INT(1) NULL DEFAULT 0 AFTER `abilitaRegionale`,
+ADD COLUMN `abilitaLocale` INT(1) NULL DEFAULT 0 AFTER `abilitaProvinciale`;
+
+
+ALTER TABLE `crs_partecipazioni_corsi` 
+ADD COLUMN `md5` VARCHAR(255) NULL AFTER `cAttestato`;

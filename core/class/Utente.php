@@ -773,6 +773,20 @@ class Utente extends Persona {
         return $r;
     }
     
+    public function delegazioniAsHashMap($app = null, $comitato = null) {
+        global $conf;
+        $deleghe = array();
+        $delegazioni = $this->delegazioni($app, $comitato);
+          
+        foreach($delegazioni as $d){
+            if (!(array_key_exists($d->dominio, $deleghe))){
+                $deleghe[$d->dominio] = array();
+            }
+            array_push($deleghe[$d->dominio], $d); 
+        }
+        return $deleghe;
+    }
+    
     /**
      * Restituisce i comitati che mi competono per una determinata delega
      * @return array di geopolitiche
@@ -1090,6 +1104,7 @@ class Utente extends Persona {
     }
             
     public function attivitaReferenziateDaCompletare() {
+     
         return Attivita::filtra([
             ['referente',   $this->id],
             ['stato',       ATT_STATO_BOZZA],

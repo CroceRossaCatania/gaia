@@ -3,7 +3,7 @@
  * ©2015 Croce Rossa Italiana
  */
 
-paginaPresidenziale();
+paginaPresidenziale(null, null, APP_OBIETTIVO, OBIETTIVO_1);
 controllaParametri(['id'], 'admin.corsi.crea&err');
 
 $c = $err = null;

@@ -11,6 +11,7 @@
  */
 function paginaPrivata($consenso = true) {
     global $sessione, $_GET;
+    
     if ( !$sessione->utente() ) {
         $sessione->torna = base64_encode(serialize($_GET));
         redirect('login');
@@ -169,18 +170,49 @@ function paginaModale() {
     include('./inc/part/pagina.attendere.php');
 }
 
-function paginaPresidenziale( $comitato = null, $attivita = null) {
+function paginaPresidenziale( $comitato = null, $attivita = null, $app = null, $dominio = null) {
     global $sessione;
     paginaPrivata();
-    if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin() ) {
-        redirect('utente.me');
+    
+    if (empty($dominio) && empty($app)) {
+        if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin() ) {
+            redirect('utente.me');
+        }
+        if ( $comitato && !in_array($comitato, $sessione->utente()->comitatiDiCompetenza() ) ) {
+            redirect('errore.permessi');
+        }
+
+        if ( $attivita && !in_array($attivita, $sessione->utente()->attivitaDiGestione())) {
+            redirect('errore.permessi');   
+        }
+    } else {
+        paginaDelegato($comitato, $attivita, $app, $dominio);
     }
+}
+
+function paginaDelegato( $comitato = null, $attivita = null, $app = null, $dominio = null) {
+    global $sessione;
+    
+    // Calcolo le deleghe
+    $delegazioni = [];
+    $allDelegazioni = $sessione->utente()->delegazioni($app);
+    foreach($allDelegazioni as $d){
+        $comitatoId = intval(explode(":", $d->comitato)[1]);
+        if ($comitatoId == $comitato->id && intval($d->dominio) == $dominio ){
+            $delegazioni[$comitatoId] = $d; 
+        }
+    }
+    
+    if ( (!$sessione->utente()->presiede() || sizeof($delegazioni) == 0 ) && !$sessione->utente()->admin() ) {
+        //redirect('utente.me');
+    }
+
     if ( $comitato && !in_array($comitato, $sessione->utente()->comitatiDiCompetenza() ) ) {
-        redirect('errore.permessi');
+        //redirect('errore.permessi');
     }
 
     if ( $attivita && !in_array($attivita, $sessione->utente()->attivitaDiGestione())) {
-        redirect('errore.permessi');   
+        //redirect('errore.permessi');   
     }
 }
 

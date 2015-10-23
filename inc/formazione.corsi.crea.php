@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 /*
  * ©2015 Croce Rossa Italiana
  */
-paginaPresidenziale();
+paginaPresidenziale(null, null, APP_OBIETTIVO, OBIETTIVO_1);
 
 $id = intval($_GET['id']);
 $c = $organizzatoreId = null;
@@ -39,7 +39,7 @@ if (false && !empty($id) && is_int($id)) {
 
 caricaSelettoreComitato();
 
-$comitati = $me->comitati();
+$comitati = $me->comitatiApp(APP_OBIETTIVO, true);
 $certificati = TipoCorso::elenco();
 
 ?>
