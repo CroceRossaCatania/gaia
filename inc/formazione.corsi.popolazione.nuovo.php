@@ -6,10 +6,9 @@ paginaPresidenziale();
 
 paginaApp([APP_SOCI, APP_PRESIDENTE]);
 caricaSelettoreComitato();
-?>
-<div class="row-fluid">
 
-    <div class="span8">
+?>
+
         <h2><i class="icon-plus-square icon-calendar muted"></i> Anagrafica popolazione</h2>
 
         <form action="?p=formazione.corsi.discente_popolazione.nuovo.ok" method="POST">
@@ -42,6 +41,7 @@ caricaSelettoreComitato();
                     </div>
                 <?php } ?>
                 <div class="alert alert-info">
+                    <p>Nel caso in cui a sinistra non si riesca a trovare il discente ricercato, è possibile aggiungere una persona (<strong>NON VOLONTARIO</strong>) all'anagrafica di Gaia inserendone i dati nel modulo qui sotto</p>
                     <i class="icon-pencil"></i> <strong>Alcuni campi sono obbligatori</strong>.
                     <p>I campi contrassegnati dall'asterisco (*) sono obbligatori. <!-- Potrai compilare
                         gli altri campi anche in un secondo momento dalla scheda anagrafica.</p>
@@ -213,5 +213,3 @@ caricaSelettoreComitato();
                </div>
            </div>
         </form>
-    </div>
-</div>

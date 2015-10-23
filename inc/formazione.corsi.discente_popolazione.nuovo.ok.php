@@ -11,7 +11,6 @@ $parametri = array('inputCodiceFiscale', 'inputNome',
 	'inputComuneNascita');
 
 controllaParametri($parametri, '&err');
-echo ('uodd');
 /*
 $comitato = $_POST['inputComitato'];
 if ( !$comitato ) {
@@ -30,7 +29,6 @@ $email      = minuscolo($_POST['inputEmail']);
 /* Controlli */
 /* Cerca anomalie nel formato del codice fiscale */
 if ( !preg_match("/^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$/", $codiceFiscale) ) {
-die('a');
 	redirect('&e');
 }
 
@@ -38,14 +36,12 @@ die('a');
 $e = Utente::by('email', $email);
 if ( $e && $email && $e->password ) {
     /* Se l'utente esiste, ed ha già pure una password */
-die('b');
     redirect('&mail');
 }
 
 $p = Civile::by('codiceFiscale', $codiceFiscale);
 
 if ($p) {
-die('c');
             redirect('&gia');
 
 } else {
@@ -97,5 +93,4 @@ $p->email               = $email;
 $p->cellulare           = $cell;
 
 
-die('done');
 redirect('presidente.utente.visualizza&ok&id='.$p->id);
