@@ -57,7 +57,7 @@ class PartecipazioneCorso extends Entita {
         $this->md5 = PartecipazioneCorso::md5($this->id);
         $this->timestamp = (new DT())->getTimestamp();
         
-        $this->inviaInvito();
+        $this->inviaInvito($c);
         return true;
     }
     
@@ -66,21 +66,21 @@ class PartecipazioneCorso extends Entita {
      * Genera attestato, sulla base del corso e del volontario
      * @return PDF 
      */
-    public function inviaInvito(Corso $c, Volontario $volontario) {
+    public function inviaInvito(Corso $c) {
         print "inviaInvito";
         $m = new Email('crs_invitoDocente', "Invito ".$this->id);
-        print_r($volontario);
-        $m->a = $volontario;
+
+        $m->a = $this->volontario();
         //$m->da = "pizar79@gmail.com";
         //$m->a = $this->direttore();
-        $m->_NOME = $volontario->nomeCompleto();
+        $m->_NOME = $this->volontario()->nomeCompleto();
         $m->_HOSTNAME = filter_input(INPUT_SERVER, "SERVER_NAME");
         $m->_CORSO = $c->nome();
         $m->_DATA = $c->inizio();
         $m->_ID = $this->id;
         $m->_MD5 = $this->md5;
         
-        $m->invia(true);
+        $m->invia();
         
         return $m;
     }

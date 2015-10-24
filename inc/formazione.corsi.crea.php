@@ -39,8 +39,21 @@ if (false && !empty($id) && is_int($id)) {
 
 caricaSelettoreComitato();
 
-$comitati = $me->comitatiApp(APP_OBIETTIVO, true);
-$certificati = TipoCorso::elenco();
+$permessi = array("locale" => 0, "provinciale" => 0, "regionale" => 0, "nazionale" => 0);
+
+$deleghe = array_merge($me->entitaDelegazioni(APP_OBIETTIVO), $me->entitaDelegazioni(APP_PRESIDENTE));
+foreach($deleghe as $d){
+    $_permessi = Utility::comitatoPermessi($d);    
+    $permessi['locale'] = $permessi['locale'] | $_permessi['locale'];
+    $permessi['provinciale'] = $permessi['provinciale'] | $_permessi['provinciale'];
+    $permessi['regionale'] = $permessi['regionale'] | $_permessi['regionale'];
+    $permessi['nazionale'] = $permessi['nazionale'] | $_permessi['nazionale'];
+}
+print_r($permessi);
+
+//$me = new Utente();
+$comitati = array_merge($me->comitatiApp(APP_OBIETTIVO), $me->comitatiApp(APP_PRESIDENTE));
+$certificati = TipoCorso::filtraPerTipoComitato($permessi);
 
 ?>
 <script>

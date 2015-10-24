@@ -106,4 +106,36 @@ class Utility {
     public static function parse_ini($filename, $process_sections = false, $scanner_mode = INI_SCANNER_NORMAL){
         return parse_ini_file('./core/conf/'.$filename, $process_sections, $scanner_mode);
     }
+    
+    /**
+     * Ritorna un array con i permessi settati in base 
+     * al tipo di comitato.
+     * 
+     * @param type $c
+     */
+    public static function comitatoPermessi($c){
+        $permessi = array("locale" => 0, "provinciale" => 0, "regionale" => 0, "nazionale" => 0);
+
+        $className = get_class($c);
+        
+        switch ($className) {
+            case "Locale":
+            case "Comitato":
+                $permessi["locale"] = true;
+                break;
+            case "Provinciale":
+                $permessi["provinciale"] = true;
+                break;
+
+            case "Regionale":
+                $permessi["regionale"] = true;
+                break;
+
+            case "Nazionale":
+                $permessi["nazionale"] = true;
+                break;
+        }
+
+        return $permessi;
+    }
 }

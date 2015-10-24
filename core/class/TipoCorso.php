@@ -22,6 +22,25 @@ class TipoCorso extends Entita {
         */
         parent::cancella();
     }
+    
+    public function filtraPerTipoComitato($permessi) {
+        global $db;
+        $lista = [];
+        $permesso = "";
+
+        foreach ($permessi as $nome => $value) {
+            if ($value > 0) {
+                $permesso = $nome;
+            }
+        }
+
+        $q = $db->query("SELECT id FROM " . static::$_t . " WHERE abilita" . ucfirst($permesso) . " = 1");
+        while ($row = $q->fetch(PDO::FETCH_NUM)) {
+            $lista[] = TipoCorso::id($row[0]);
+        }
+        
+        return $lista;
+    }
 
     public static function limiteMinimoPerIscrizione() {
         global $db;

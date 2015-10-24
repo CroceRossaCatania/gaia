@@ -29,7 +29,7 @@ $tipologie = Certificato::elenco();
             </div>
             <div class="span5">  
                 <?php if ( $me->presidenziante() || $me->admin()) { ?>
-                <a href="?p=formazione.corsi.idea" class="btn btn-large btn-block btn-success">
+                <a href="?p=formazione.corsi.crea" class="btn btn-large btn-block btn-success">
                     <i class="icon-plus-sign"></i>
                     Attiva nuovo Corso
                 </a>      
