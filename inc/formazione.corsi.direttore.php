@@ -29,8 +29,11 @@ if (!$c->modificabile()) {
 caricaSelettoreDirettore();
 
 // non dovrebbe mai essere vuoto a meno di crash nella pagina precedente di creazione
-$certificato = Certificato::by('id', intval($c->certificato));
 
+$tipoCorso = TipoCorso::id(intval($c->tipo));
+print "<pre>";
+print_r($tipoCorso);
+print "</pre>";
 $d = new DateTime('@' . $c->inizio);
 
 ?>

@@ -252,3 +252,8 @@ ADD COLUMN `abilitaLocale` INT(1) NULL DEFAULT 0 AFTER `abilitaProvinciale`;
 
 ALTER TABLE `crs_partecipazioni_corsi` 
 ADD COLUMN `md5` VARCHAR(255) NULL AFTER `cAttestato`;
+
+DROP TABLE `certificati`;
+
+ALTER TABLE `gaia`.`crs_corsi` 
+CHANGE COLUMN `certificato` `tipo` INT(11) NULL DEFAULT NULL ;

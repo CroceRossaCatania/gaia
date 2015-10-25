@@ -6,7 +6,7 @@ $_titolo = "Calencario dei Corsi";
 
 $province = Utility::elencoProvincie();
 //$tipologie = Corso::getAllCertificati();
-$tipologie = Certificato::elenco();
+$tipologie = TipoCorso::elenco();
 
 ?>
 

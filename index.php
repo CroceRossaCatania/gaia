@@ -196,7 +196,13 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                         ?>
                                         <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
                                             <i class="icon-asterisk"></i>
-                                            <strong>Presidente</strong>
+                                            <?php if ($me->presiede()) : ?>
+                                               <strong>Presidente</strong>
+                                            <?php endif ?>
+                                            <?php if (sizeof($deleghe[OBIETTIVO_1]) > 0) : ?>
+                                               <strong>Delegato</strong>
+                                            <?php endif ?>
+                                               
                                             <?php if ( $_n ) { ?>
                                             <span class="badge badge-warning">
                                                 <?php echo $_n; ?>

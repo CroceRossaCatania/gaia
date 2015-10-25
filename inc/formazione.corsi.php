@@ -10,7 +10,7 @@ $mieiComitati = $me->comitatiApp([APP_PRESIDENTE], false);
 
 $province = Utility::elencoProvincie();
 //$tipologie = Corso::getAllCertificati();
-$tipologie = Certificato::elenco();
+$tipologie = TipoCorso::elenco();
 ?>
 
 

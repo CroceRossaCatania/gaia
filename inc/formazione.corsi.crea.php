@@ -24,7 +24,7 @@ if (false && !empty($id) && is_int($id)) {
         }
         
         $_organizzatoreId = $c->organizzatore()->id;
-        $_certificatoId = $c->certificato()->id;
+        $_tipocorsoId = $c->certificato()->id;
     } catch(Exception $e) {
         redirect('admin.corsi.crea&err');
     }
@@ -49,11 +49,10 @@ foreach($deleghe as $d){
     $permessi['regionale'] = $permessi['regionale'] | $_permessi['regionale'];
     $permessi['nazionale'] = $permessi['nazionale'] | $_permessi['nazionale'];
 }
-print_r($permessi);
 
 //$me = new Utente();
 $comitati = array_merge($me->comitatiApp(APP_OBIETTIVO), $me->comitatiApp(APP_PRESIDENTE));
-$certificati = TipoCorso::filtraPerTipoComitato($permessi);
+$tipocorsi = TipoCorso::filtraPerTipoComitato($permessi);
 
 ?>
 <script>
@@ -88,9 +87,9 @@ var minDateOffset = <?php echo TipoCorso::limiteMinimoPerIscrizione() ?>;
                         <label for="tipologia"><i class="icon-certificate"></i> Tipologia</label>
                     </div>
                     <div class="span8">
-                        <select name="certificato">
-                            <?php foreach ($certificati as $t) { ?>
-                                <option value="<?php echo $t->id ?>" <?php echo ($t->id==$_certificatoId) ? "selected='selected'" : '' ?>><?php echo $t->nome ?></option>
+                        <select name="tipo">
+                            <?php foreach ($tipocorsi as $t) { ?>
+                                <option value="<?php echo $t->id ?>" <?php echo ($t->id==$_tipocorsoId) ? "selected='selected'" : '' ?>><?php echo $t->nome ?></option>
                             <?php } ?>
                         </select>
                     </div>

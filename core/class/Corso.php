@@ -54,7 +54,7 @@ class Corso extends GeoEntita {
         $this->progressivo = $progressivo;
         return $progressivo;
         */
-        $this->generaSeriale(intval($this->anno), $this->certificato);
+        $this->generaSeriale(intval($this->anno), $this->tipo);
     }
     
     /**
@@ -71,7 +71,7 @@ class Corso extends GeoEntita {
                     break;
                 }
                 
-                $tipo = $this->certificato();
+                $tipo = $this->tipo();
                 
                 $var = $this->organizzatore;
                 if (empty($var)) {
@@ -106,7 +106,7 @@ class Corso extends GeoEntita {
                 }
                 break;
             case CORSO_S_DACOMPLETARE:
-                $tipo = $this->certificato();
+                $tipo = $this->tipo ();
                 
                 $var = $this->organizzatore;
                 if (empty($var)) {
@@ -320,8 +320,8 @@ class Corso extends GeoEntita {
      * @return string     il nome del corso
      */
     public function nome() {
-        $certificato = Certificato::id($this->certificato);
-        return "Corso di ".$certificato->nome;
+        $tipocorso = TipoCorso::id($this->tipo);
+        return "Corso di ".$tipocorso->nome;
     }
 
     /**
@@ -506,7 +506,7 @@ class Corso extends GeoEntita {
 
     
     public function numeroDocentiNecessari() {
-        return ceil( $this->partecipanti / max(1,$this->certificato()->proporzioneIstruttori) );
+        return ceil( $this->partecipanti / max(1,$this->tipo()->proporzioneIstruttori) );
     }
     
     
@@ -621,7 +621,7 @@ class Corso extends GeoEntita {
   
      
         $comitato = $this->organizzatore();
-        $tipo = TipoCorso::id($this->certificato);
+        $tipo = TipoCorso::id($this->tipo);
       
         if( $comitato->principale ) {
             $comitato = $comitato->locale()->nome;
@@ -665,7 +665,7 @@ class Corso extends GeoEntita {
             $comitato = $comitato->nomeCompleto();
         }
         
-        $tipo = TipoCorso::id($this->certificato);
+        $tipo = TipoCorso::id($this->tipo);
        
         $m = new Email('crs_inviaVerbale', "Verbale".$this->seriale);
         //$m->a = $aut->partecipazione()->volontario();
@@ -704,18 +704,18 @@ class Corso extends GeoEntita {
         }else{
             $comitato = $comitato->nomeCompleto();
         }
-        $tipo = TipoCorso::id($this->certificato);
+        $tipo = TipoCorso::id($this->tipo);
  
         // verifico il template da usare
         $logoCustom = "";
         $templateAttestato = 'crs_attestato';
-        if (!empty($settings["TIPOCORSO_".$this->certificato][$regione])){
+        if (!empty($settings["TIPOCORSO_".$this->tipo][$regione])){
             $templateAttestato = 'crs_attestato_v2';
-            $logoCustom = $settings["TIPOCORSO_".$this->certificato][$regione];
+            $logoCustom = $settings["TIPOCORSO_".$this->tipo][$regione];
         }
-        if (!empty($settings["TIPOCORSO_".$this->certificato][$provincia])){
+        if (!empty($settings["TIPOCORSO_".$this->tipo][$provincia])){
             $templateAttestato = 'crs_attestato_v2';
-            $logoCustom = $settings["TIPOCORSO_".$this->certificato][$provincia];
+            $logoCustom = $settings["TIPOCORSO_".$this->tipo][$provincia];
         }
         if (is_object($logoCustom) || is_array($logoCustom)){
             $logoCustomWidth = $logoCustom["w"];
@@ -767,7 +767,7 @@ class Corso extends GeoEntita {
             $comitato = $comitato->nomeCompleto();
         }
         
-        $tipo = TipoCorso::id($this->certificato);
+        $tipo = TipoCorso::id($this->tipo);
        
         $m = new Email('crs_invioAttestato', "Invio Certificato" );
         //$m->a = $aut->partecipazione()->volontario();
@@ -805,13 +805,14 @@ class Corso extends GeoEntita {
             $sesso = "Volontaria";
         }
         */
-        
+        print "C.A";
         $comitato = $this->organizzatore();
-        
-        //$tipo = TipoCorso::id($this->certificato);
+        print "C.B";      
+        //$tipo = TipoCorso::id($this->tipo);
        
         $m = new Email("crs_inviaCreazioneCorso", "Corso Creato");
         $m->a = $comitato->regionale();
+        print "C.D";  
         //$m->a = $aut->partecipazione()->volontario();
         //$m->da = "pizar79@gmail.com";
         // $m->a = $comitato;
@@ -983,8 +984,8 @@ class Corso extends GeoEntita {
      * Creo un array con valori unici in base ad un attributo dei 
      * dati extra dei corsi
      */
-    public function certificato() {
-        return TipoCorso::id($this->certificato);
+    public function tipo() {
+        return TipoCorso::id($this->tipo);
     }
     
 
@@ -1190,7 +1191,7 @@ class Corso extends GeoEntita {
 
             if ($risultato->idoneita == CORSO_RISULTATO_IDONEO && !empty($volontario)){
                 
-                $risultato->generaSeriale(intval(date("Y", $risultato->timestamp)), $this->certificato);
+                $risultato->generaSeriale(intval(date("Y", $risultato->timestamp)), $this->tipo);
                 $risultato = RisultatoCorso::id($risultato->id);
 
                 $contatore++;
@@ -1205,7 +1206,7 @@ class Corso extends GeoEntita {
                 $titoloCorso->volontario = $volontario->id;
                 $titoloCorso->inizio = $risultato->timestamp;
                 $titoloCorso->fine = intval($titoloCorso->inizio) + (60 * 60 * 24 * 365);
-                $titoloCorso->titolo = $this->certificato;
+                $titoloCorso->titolo = $this->tipo;
                 $titoloCorso->codice = $risultato->seriale; 
             }
         }

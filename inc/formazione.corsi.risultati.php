@@ -13,7 +13,7 @@ try {
     if (empty($c)) {
         throw new Exception('Manomissione');
     }
-    $certificato = Certificato::by('id', intval($c->certificato));
+    $tipoCorso = Certificato::by('id', intval($c->tipocorso));
 
 } catch(Exception $e) {
     redirect('admin.corsi.crea&err');

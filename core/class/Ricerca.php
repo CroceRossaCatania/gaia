@@ -9,6 +9,7 @@ class Ricerca {
     public
         $comitati       = [],
         $risultati      = [],
+        $ruolo          = 0, 
         $totale         = 0,
         $tempo          = 0.00,
         $query          = null,
@@ -78,6 +79,145 @@ class Ricerca {
         $this->tempo = round($fine - $inizio, 6);
 
         return true;
+    }
+    
+    private function generaQueryCorsi(){
+        global $db;
+
+        $this->ottimizzaDominio();
+        $dominio        = $this->_dominio;
+        $query          = $this->query;
+        $stato          = $this->stato;
+        $statoPersona   = $this->statoPersona;
+        $passato        = $this->passato;
+        $giovane        = $this->giovane;
+        $infermiera     = $this->infermiera;
+        $militare       = $this->militare;
+        $ora            = (int) time();
+
+        if ( $dominio == '*' ) {
+            $pDominio = '';
+        } else {
+            $pDominio = "AND appartenenza.comitato IN ({$dominio})";
+        }
+
+        if ( $query ) {
+            $query = $db->quote($query);
+            $pRicerca = " 
+                    MATCH(
+                        anagrafica.nome,
+                        anagrafica.cognome,
+                        anagrafica.email,
+                        anagrafica.codiceFiscale
+                    ) AGAINST ({$query} in boolean mode)";
+            $pPertinenza = "MAX({$pRicerca}) as pertinenza";
+            $pRicerca = "AND {$pRicerca}";
+        } else {
+            $pPertinenza = "1 as pertinenza";
+            $pRicerca = '';
+        }
+
+        if (!is_array($stato)) {
+            $stato = (int) $stato;
+            $pStato = "= {$stato}";
+        } else {
+            $stato = array_map(function($x) {
+                // Solo stati interi son permessi!
+                return (int) $x;
+            }, $stato);
+            $stato = implode(',', $stato);
+            $pStato = "IN ($stato)";
+        }
+
+        if (!$passato) {
+            $pPassato = "
+                    AND     ( 
+                                appartenenza.fine  IS NULL 
+                             OR appartenenza.fine  =   0
+                             OR appartenenza.fine  >=  {$ora}
+                        ) ";
+        } else {
+            $pPassato = ' ';
+        }
+
+        $pGiovane = ' ';
+        $extraFrom = ' ';
+
+        if ($giovane) {
+            $data = time() - (GIOVANI*ANNO);
+            $pGiovane = "
+                AND anagrafica.id = dettagliPersona.id
+                AND dettagliPersona.nome = 'dataNascita'
+                AND dettagliPersona.valore > {$data} ";
+            $extraFrom = ", dettagliPersona";
+        }
+
+        if (!$statoPersona && $statoPersona !== 0) {
+            $pStatoPersona = ' ';
+        } elseif(!is_array($statoPersona) || $statoPersona === 0) {
+            $statoPersona = (int) $statoPersona;
+            $pStatoPersona = " AND anagrafica.stato = {$statoPersona} ";
+        } else {
+            $statoPersona = implode(',', $statoPersona);
+            $pStatoPersona = " AND anagrafica.stato IN ($statoPersona)";
+        }
+
+        if($infermiera) {
+            $pInfermiera = "
+                AND anagrafica.id = dettagliPersona.id
+                AND dettagliPersona.nome = 'iv'
+                AND dettagliPersona.valore = 'on'
+            ";
+            $extraFrom = ", dettagliPersona";
+        }
+
+        if($militare) {
+            $pMilitare = "
+                AND anagrafica.id = dettagliPersona.id
+                AND dettagliPersona.nome = 'cm'
+                AND dettagliPersona.valore = 'on'
+            ";
+            $extraFrom = ", dettagliPersona";
+        }
+
+        $query = "
+            SELECT
+                anagrafica.id, {$pPertinenza}
+            FROM
+                anagrafica, appartenenza, comitati {$extraFrom}
+            WHERE
+                        anagrafica.id           =   appartenenza.volontario
+                        {$pStatoPersona}
+                        {$pGiovane}
+                        {$pInfermiera}
+                        {$pMilitare}
+                AND     appartenenza.comitato   =   comitati.id
+                AND     appartenenza.stato      {$pStato}
+                AND     appartenenza.inizio     <=  {$ora}
+                        {$pPassato}
+                        {$pDominio}
+                        {$pRicerca}   
+            GROUP BY    anagrafica.id
+
+        ";
+        print $query;
+        return $query;
+
+        $sql  = "SELECT * FROM ";
+        $sql .= " anagrafica a";
+        $sql .= "        INNER JOIN";
+        $sql .= "    crs_titoliCorsi t ON a.id = t.volontario";
+        $sql .= "        INNER JOIN";
+        $sql .= "    crs_tipoCorsi r ON t.titolo = r.id";
+        $sql .= "        INNER JOIN";
+        $sql .= "    crs_ruoli d ON d.id = r.ruoloDirettore";
+        $sql .= "        INNER JOIN";
+        $sql .= "    crs_corsi c ON c.tipo = r.id";
+        $sql .= "WHERE";
+        $sql .= "    c.id = ? AND r.ruoloDirettore = ?";
+        $sql .= "        AND t.inizio < NOW()";
+        $sql .= "        AND t.fine > NOW()";
+
     }
 
     private function generaQueryNonPreparata() {
@@ -202,6 +342,7 @@ class Ricerca {
         return $query;
     }
 
+    
     private function ordinaLimitaQuery($query) {
         $minimo     = ($this->pagina - 1) * $this->perPagina;
         $perPagina  = (int) $this->perPagina;

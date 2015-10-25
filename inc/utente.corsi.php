@@ -12,7 +12,7 @@ $titoli = $conf['Corsi'][$t];
 
 $province = Utility::elencoProvincie();
 //$tipologie = Corso::getAllCertificati();
-$tipologie = Certificato::elenco();
+$tipologie = TipoCorso::elenco();
 
 
 paginaPrivata();
