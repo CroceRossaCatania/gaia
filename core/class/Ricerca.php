@@ -21,6 +21,8 @@ class Ricerca {
         $giovane        = false,
         $infermiera     = false,
         $militare       = false,
+        $crs_ruolo      = 0,
+        $crs_tipo       = 0,
         $ordine         = [
             'pertinenza             DESC',
             'comitati.nome          ASC',
@@ -184,14 +186,17 @@ class Ricerca {
             SELECT
                 anagrafica.id, {$pPertinenza}
             FROM
-                anagrafica, appartenenza, comitati {$extraFrom}
+                anagrafica, appartenenza, ruoliValidi, comitati {$extraFrom}
             WHERE
                         anagrafica.id           =   appartenenza.volontario
                         {$pStatoPersona}
                         {$pGiovane}
                         {$pInfermiera}
                         {$pMilitare}
+                AND     anagrafica.id = ruoliValidi.volontario
                 AND     appartenenza.comitato   =   comitati.id
+                AND     ruoliValidi.ruolo = 2
+                AND     ruoliValidi.tipo = 2
                 AND     appartenenza.stato      {$pStato}
                 AND     appartenenza.inizio     <=  {$ora}
                         {$pPassato}
@@ -200,24 +205,7 @@ class Ricerca {
             GROUP BY    anagrafica.id
 
         ";
-        print $query;
         return $query;
-
-        $sql  = "SELECT * FROM ";
-        $sql .= " anagrafica a";
-        $sql .= "        INNER JOIN";
-        $sql .= "    crs_titoliCorsi t ON a.id = t.volontario";
-        $sql .= "        INNER JOIN";
-        $sql .= "    crs_tipoCorsi r ON t.titolo = r.id";
-        $sql .= "        INNER JOIN";
-        $sql .= "    crs_ruoli d ON d.id = r.ruoloDirettore";
-        $sql .= "        INNER JOIN";
-        $sql .= "    crs_corsi c ON c.tipo = r.id";
-        $sql .= "WHERE";
-        $sql .= "    c.id = ? AND r.ruoloDirettore = ?";
-        $sql .= "        AND t.inizio < NOW()";
-        $sql .= "        AND t.fine > NOW()";
-
     }
 
     private function generaQueryNonPreparata() {

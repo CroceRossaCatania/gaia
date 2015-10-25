@@ -19,8 +19,7 @@ if (!$x){
     
     
     $t->limitePerIscrizione = intval($_POST['inputLimitePerIscrizione']);
-    $t->tipoValutazione = $_POST['inputTipoValutazione'];
-    $t->attestato =  $_POST['inputAttestato'];
+    $t->qualifica =  $_POST['inputAttestato'];
     $t->ruoloAttestato = $_POST['inputRuoloAttestato'];
     $t->proporzioneAffiancamento =  intval($_POST['inputProporzioneAffiancamento']);
     $t->punizione = intval($_POST['inputPunizione']);

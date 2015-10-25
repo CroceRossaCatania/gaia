@@ -16,13 +16,12 @@ $t->durata = intval($_POST['inputDurata']);
 $t->giorni = intval($_POST['inputGiorni']);
 
 $t->limitePerIscrizione = intval($_POST['inputLimitePerIscrizione']);
-$t->tipoValutazione = $_POST['inputTipoValutazione'];
-$t->attestato =  $_POST['inputAttestato'];
-$t->ruoloAttestato = $_POST['inputRuoloAttestato'];
+$t->qualifica =  $_POST['inputAttestato'];
 $t->proporzioneAffiancamento =  intval($_POST['inputProporzioneAffiancamento']);
 $t->punizione = intval($_POST['inputPunizione']);
 $t->proporzioneIstruttori =  intval($_POST['inputProporzioneIstruttori']);
 
+$t->ruoloAttestato = $_POST['inputRuoloAttestato'];
 $t->ruoloDirettore = $_POST['inputRuoloDirettore'];
 $t->ruoloDocenti = $_POST['inputRuoloDocenti'];
 $t->ruoloAffiancamento = $_POST['inputRuoloAffiancamento'];

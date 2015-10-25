@@ -31,9 +31,6 @@ caricaSelettoreDirettore();
 // non dovrebbe mai essere vuoto a meno di crash nella pagina precedente di creazione
 
 $tipoCorso = TipoCorso::id(intval($c->tipo));
-print "<pre>";
-print_r($tipoCorso);
-print "</pre>";
 $d = new DateTime('@' . $c->inizio);
 
 ?>

@@ -7,7 +7,7 @@
 paginaAdmin();
 
 $ruoli = RuoloFormazione::elencoRuoli();
-
+$qualifiche = Qualifiche::elenco("Nome ASC");
 ?>
 <style>
     .control-group .controls span{
@@ -126,18 +126,20 @@ $ruoli = RuoloFormazione::elencoRuoli();
             <input class="input-small" type="text" name="inputLimitePerIscrizione" id="inputLimitePerIscrizione" value="<?php echo $f->limitePerIscrizione; ?>">
         </div>
     </div>
-    
+       
     <div class="control-group">
         <label class="control-label" for="inputAttestato">Attestato</label>
         <div class="controls">
-            <input class="input-xxlarge" type="text" name="inputAttestato" id="inputRapporto" value="<?php echo $f->attestato; ?>">
-        </div>
-    </div>
-    
-    <div class="control-group">
-        <label class="control-label" for="inputTipoValutazione">Tipo Valutazione</label>
-        <div class="controls">
-            <input class="input-xxlarge" type="text" name="inputTipoValutazione" id="inputTipoValutazione" value="<?php echo $f->tipoValutazione; ?>">
+            <select class="input-xxlarge" name="inputAttestato" id="inputAttestato">
+                <option></option>
+                <?php foreach($qualifiche as $q) :?>
+                    <?php $selected = ""; ?>
+                    <?php if(intval($f->qualifica) === intval($q->id)):?>
+                        <?php $selected = "selected='selected'"; ?>
+                    <?php endif ?>
+                    <option <?php print $selected; ?>><?php print $q->nome?></option>
+                <?php endforeach; ?>
+            </select> 
         </div>
     </div>
     
