@@ -14,7 +14,7 @@ try {
     if (empty($c)) {
         throw new Exception('Manomissione');
     }
-    $certificato = TipoCorso::by('id', intval($c->certificato));
+    $tipocorso = TipoCorso::by('id', intval($c->certificato));
 
 } catch(Exception $e) {
     redirect('admin.corsi.crea&err='.CORSO_ERRORE_CORSO_NON_TROVATO);
@@ -25,7 +25,7 @@ if (!$c->modificabile()) {
 }
 
 // calcola il numero massimo di docenti per il corso
-$maxAffiancamenti = $c->numeroDocentiPotenziali() * max(1, intval($c->certificato()->proporzioneAffiancamento));
+$maxAffiancamenti = $c->numeroDocentiPotenziali() * max(1, intval($c->tipo()->proporzioneAffiancamento));
 
 // recupera gli id di docenti già presenti per il corso
 // per popolare automaticamente la lista in caso di pagina di modifica
@@ -43,7 +43,7 @@ unset($partecipazioni);
 caricaSelettoreDocenteInAffiancamento([
     'max_selected_options' => $maxAffiancamenti,
     'no_results_text' => 'Nessun affiancamento trovato',
-    
+    'ruolo' => $tipocorso->ruoloAffiancamento
 ]);
 $d = new DateTime('@' . $c->inizio);
 
@@ -58,7 +58,7 @@ $d = new DateTime('@' . $c->inizio);
             <input value="<?php echo empty($wizard) ? 0 : 1 ?>" name="wizard" type="hidden">
             <div class="alert alert-block alert-success">
                 <div class="row-fluid">
-                    <h4><i class="icon-question-sign"></i> Affiancamenti per <?php echo $certificato->nome ?> del <?php echo $d->format('d/m/Y'); ?></h4>
+                    <h4><i class="icon-question-sign"></i> Affiancamenti per <?php echo $tipocorso->nome ?> del <?php echo $d->format('d/m/Y'); ?></h4>
                 </div>
                 <hr>
                 <div class="row-fluid">

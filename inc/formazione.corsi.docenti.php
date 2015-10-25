@@ -14,7 +14,7 @@ try {
     if (empty($c)) {
         throw new Exception('Manomissione');
     }
-    $certificato = TipoCorso::by('id', intval($c->certificato));
+    $tipocorso = TipoCorso::id($c->tipo);
 
 } catch(Exception $e) {
     redirect('admin.corsi.crea&err='.CORSO_ERRORE_CORSO_NON_TROVATO);
@@ -43,7 +43,7 @@ unset($partecipazioni);
 caricaSelettoreDocente([
     'max_selected_options' => $maxDocenti,
     'no_results_text' => 'Nessun docente trovato',
-    
+    'ruolo' => $tipocorso->ruoloDocenti
 ]);
 
 $d = new DateTime('@' . $c->inizio);
