@@ -344,6 +344,14 @@ if(false && $consenso && !$sessione->barcode) { ?>
                 <h2><span class="muted">Ciao </span>
                     <?= $me->nome; ?>
                 </h2>
+
+                <div class="alert alert-block alert-success">
+                    <h4><i class="icon-heart"></i> Stiamo facendo Gaia tutta nuova... Abbiamo bisogno di te.</h4>
+                    <p><strong>Stiamo lavorando per rendere Gaia uno strumento che amerai. Aiutaci con il tuo Feedback.</strong> Cerchiamo inoltre
+                      volontari che vogliano provare in anteprima le nuove funzionalit&agrave; e sviluppatori software (python).</p>
+                    <p><a href="/?p=public.jorvik">Per maggiori informazioni sul progetto e sul come puoi collaborare, clicca qui.</a></p>
+                </div>
+
                 <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
                 <div class="alert alert-success">
                     <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
@@ -405,7 +413,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     </div>
                 </div>
                 
-                <div class="alert alert-block alert-info">
+                <!-- <div class="alert alert-block alert-info">
                     <div class="row-fluid">
                         <div class="span9">
                             <h4>GAIA è alla ricerca di personale</h4>
@@ -416,7 +424,7 @@ if(false && $consenso && !$sessione->barcode) { ?>
                             <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_blank"><img src="/img/pulsantehelp.png" /></a>
                         </div>
                     </div>
-                </div>
+                </div> -->
               
                 <!-- BLOCCO SENZA IMMAGINE
                 <div class="alert alert-block alert-info">
