@@ -20,8 +20,7 @@ try {
     }
 
     if (is_array($_POST['discenti'])) {
-        $discenti = $c->discenti();
-
+        $discenti = array_merge( $c->discenti(), $c->discentiPotenziali() );
         // setta tutti i vecchi come da eliminare
         foreach ($discenti as $i) {
             $daEliminare[$i->id] = true;
@@ -41,11 +40,14 @@ try {
 
         $daAggiungere = array_keys($daAggiungere);
         $daEliminare = array_keys($daEliminare);
+/*
 var_dump($c);
+var_dump($_POST);
 var_dump($discenti);
 var_dump($daAggiungere);
 var_dump($daEliminare);
 die;
+*/
         foreach ($daEliminare as $id) {
             PartecipazioneCorso::id($id)->cancella();
         }

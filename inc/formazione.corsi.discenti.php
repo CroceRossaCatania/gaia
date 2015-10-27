@@ -72,7 +72,7 @@ $qualifica = $tipocorso->qualifica;
                         <select name="discenti[]" 
                                 data-ruolo="<?php echo $ruolo;?>"
                                 data-qualifica="<?php echo $qualifica;?>"
-                                data-insert-page="formazione.corsi.discente_popolazione.nuovo" data-placeholder="Scegli un discente..." multiple class="chosen-select discenti">
+                                data-insert-page="formazione.corsi.discente.nuovo" data-placeholder="Scegli un discente..." multiple class="chosen-select discenti">
                             <?php 
                                 foreach ($discenti as $i ) {
                                 ?>
@@ -99,7 +99,10 @@ $qualifica = $tipocorso->qualifica;
     </div>
 
     <div class="span4">
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#nuovo-utente">Nuovo discente (popolazione)</button>
+        <h2><i class="icon-plus-square icon-calendar muted"></i> Opzioni</h2>
+        <?php if ($ruolo==1) { // popolazione ?>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#nuovo-utente">Nuovo discente (popolazione)</button>
+        <?php } ?>
     </div>
 </div>
 

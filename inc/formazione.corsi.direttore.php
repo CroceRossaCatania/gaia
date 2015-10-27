@@ -50,8 +50,8 @@ $tipoCorso = TipoCorso::id(intval($c->tipo));
 $d = new DateTime('@' . $c->inizio);
 
 
-$ruolo = $tipocorso->ruoloDirettore;
-$qualifica = $tipocorso->qualifica;
+$ruolo = $tipoCorso->ruoloDirettore;
+$qualifica = $tipoCorso->qualifica;
 ?>
 
 <div class="row-fluid">
