@@ -13,7 +13,10 @@ if (isset($affiancamenti) && is_array($affiancamenti) && !empty($affiancamenti))
 ?>
 
 <script type="text/javascript">
-    $(document).ready( function () {        
+    $(document).ready( function () {
+        var ruolo = $(".chosen-select").data("ruolo");
+        var qualifica = $(".chosen-select").data("qualifica");
+        
         chs = $(".chosen-select.affiancamenti")
             .chosen({
                 max_selected_options: <?php echo $maxAffiancamenti ?>, 
@@ -33,7 +36,7 @@ if (isset($affiancamenti) && is_array($affiancamenti) && !empty($affiancamenti))
                     return;
                 }
                 
-                api('volontari:cerca', {query: query, perPagina: 80, ordine: 'selettoreAffiancamento', comitati: geoPolitica_affiancamento, stato_affiancamento: stato_affiancamento}, function (x) {
+                api('corsi:volontari:cerca', {query: query, perPagina: 80, ordine: 'selettoreAffiancamento', comitati: geoPolitica_affiancamento, stato_docente: stato_affiancamento, ruolo: ruolo, qualifica: qualifica}, function (x) {
                     
                     select.children().remove('option:not(:selected)');
                     for (var i in x.risposta.risultati) {

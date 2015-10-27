@@ -42,11 +42,14 @@ unset($partecipazioni);
 caricaSelettoreDiscente([
     'max_selected_options' => $maxDiscenti,
     'no_results_text' => 'Ricerca discenti in corso...',
-    'ruolo' => $tipocorso->ruoloDiscenti,
 ]);
 
 $d = new DateTime('@' . $c->inizio);
 
+
+$ruolo = $tipocorso->ruoloDiscenti;
+$qualifica = $tipocorso->qualifica;
+        
 ?>
 
 <div class="row-fluid">
@@ -66,7 +69,10 @@ $d = new DateTime('@' . $c->inizio);
                         <label for="dataFine"><i class="icon-user"></i> Discenti</label>
                     </div>
                     <div class="span8">
-                        <select name="discenti[]" data-insert-page="formazione.corsi.discente_popolazione.nuovo" data-placeholder="Scegli un discente..." multiple class="chosen-select discenti">
+                        <select name="discenti[]" 
+                                data-ruolo="<?php echo $ruolo;?>"
+                                data-qualifica="<?php echo $qualifica;?>"
+                                data-insert-page="formazione.corsi.discente_popolazione.nuovo" data-placeholder="Scegli un discente..." multiple class="chosen-select discenti">
                             <?php 
                                 foreach ($discenti as $i ) {
                                 ?>
@@ -98,7 +104,7 @@ $d = new DateTime('@' . $c->inizio);
 </div>
 
 <!-- Modal -->
-<div id="nuovo-utente" class="modal fade" role="dialog">
+<div id="nuovo-utente" class="modal fade" role="dialog" style="display: none">
     <div class="modal-dialog">
 
         <!-- Modal content-->

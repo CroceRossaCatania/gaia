@@ -13,8 +13,11 @@ if (isset($docenti) && is_array($docenti) && !empty($docenti)) {
 ?>
 
 <script type="text/javascript">
-    $(document).ready( function () {        
-        chs = $(".chosen-select")
+    $(document).ready( function () { 
+        var ruolo = $(".chosen-select").data("ruolo");
+        var qualifica = $(".chosen-select").data("qualifica");
+        
+        chs = $(".chosen-select.docenti")
             .chosen({
                 max_selected_options: <?php echo $maxDocenti ?>, 
                 no_results_text: "Nessun docente trovato!",
@@ -27,13 +30,14 @@ if (isset($docenti) && is_array($docenti) && !empty($docenti)) {
                 var stato_docente = '';
                 var input = $(this).find('input')[0];
                 var select = $( $(this).prev('select')[0] );
+                
 
                 var query = $(input).val();
                 if (query.length < 1) {
                     return;
                 }
-                
-                api('volontari:cerca', {query: query, perPagina: 80, ordine: 'selettoreDocente', comitati: geoPolitica_docente, stato_docente: stato_docente}, function (x) {
+                                
+                api('corsi:volontari:cerca', {query: query, perPagina: 80, ordine: 'selettoreDocente', comitati: geoPolitica_docente, stato_docente: stato_docente, ruolo: ruolo, qualifica: qualifica}, function (x) {
                     
                     select.children().remove('option:not(:selected)');
                     for (var i in x.risposta.risultati) {

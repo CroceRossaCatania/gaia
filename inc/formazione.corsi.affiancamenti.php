@@ -14,7 +14,7 @@ try {
     if (empty($c)) {
         throw new Exception('Manomissione');
     }
-    $tipocorso = TipoCorso::by('id', intval($c->certificato));
+    $tipocorso = TipoCorso::by('id', intval($c->tipo));
 
 } catch(Exception $e) {
     redirect('admin.corsi.crea&err='.CORSO_ERRORE_CORSO_NON_TROVATO);
@@ -43,9 +43,11 @@ unset($partecipazioni);
 caricaSelettoreDocenteInAffiancamento([
     'max_selected_options' => $maxAffiancamenti,
     'no_results_text' => 'Nessun affiancamento trovato',
-    'ruolo' => $tipocorso->ruoloAffiancamento
 ]);
 $d = new DateTime('@' . $c->inizio);
+
+$ruolo = $tipocorso->ruoloAffiancamento;
+$qualifica = $tipocorso->qualifica;
 
 ?>
 
@@ -72,7 +74,10 @@ $d = new DateTime('@' . $c->inizio);
                            class="btn btn-block btn-large">
                             Aggiungi <?php echo $maxDocenti ?> docenti in affiancamento... <i class="icon-pencil"></i>
                         </a -->
-                        <select name="affiancamenti[]" data-placeholder="Scegli un affiancamento..." multiple class="chosen-select affiancamenti">
+                        <select name="affiancamenti[]" 
+                                data-ruolo="<?php echo $ruolo; ?>"
+                                data-qualifica="<?php echo $qualifica; ?>"
+                                data-placeholder="Scegli un affiancamento..." multiple class="chosen-select affiancamenti">
                             <?php 
                                 foreach ($affiancamenti as $i ) {
                                 ?>
