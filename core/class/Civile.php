@@ -6,7 +6,4 @@
 
 class Civile extends Utente {
 
-    protected static
-        $_t  = 'crs_anagrafica',
-        $_dt = '';
 }

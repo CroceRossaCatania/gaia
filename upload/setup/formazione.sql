@@ -242,6 +242,9 @@ SELECT * FROM crs_risultati_corsi r, crs_titoliCorsi tc, crs_corsi c, crs_tipoCo
     AND t.ruoloAttestato = (SELECT id FROM crs_ruoli WHERE ruolo = 'Esecutore')
     AND tc.fine > now() AND tc.inizio < now();
 
+ALTER TABLE `gaia`.`crs_tipoCorsi` 
+CHANGE COLUMN `attestato` `qualifica` VARCHAR(255) NULL DEFAULT NULL COMMENT 'Il template del documento, se passato con sucesso' ;
+
 
 ALTER TABLE `crs_tipoCorsi` 
 ADD COLUMN `abilitaNazionale` INT(1) NULL DEFAULT 0 AFTER `dipendenzaAffiancamento`,

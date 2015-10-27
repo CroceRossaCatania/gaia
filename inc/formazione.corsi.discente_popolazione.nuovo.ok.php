@@ -1,10 +1,9 @@
 <?php  
-
 /*
  * ©2013 Croce Rossa Italiana
  */
 
-paginaApp([APP_SOCI , APP_PRESIDENTE]);
+paginaPresidenziale(null, null, APP_OBIETTIVO, OBIETTIVO_1);
 
 $parametri = array('inputCodiceFiscale', 'inputNome',
 	'inputCognome', 'inputDataNascita', 'inputProvinciaNascita',
@@ -29,7 +28,7 @@ $email      = minuscolo($_POST['inputEmail']);
 /* Controlli */
 /* Cerca anomalie nel formato del codice fiscale */
 if ( !preg_match("/^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$/", $codiceFiscale) ) {
-	redirect('&e');
+    redirect('&e');
 }
 
 /* Cerca eventuali utenti con la stessa email... */
@@ -40,13 +39,11 @@ if ( $e && $email && $e->password ) {
 }
 
 $p = Civile::by('codiceFiscale', $codiceFiscale);
-
 if ($p) {
-            redirect('&gia');
-
+    redirect('&gia');
 } else {
-	$p = new Civile();
-	$p->codiceFiscale = $codiceFiscale;
+    $p = new Civile();
+    $p->codiceFiscale = $codiceFiscale;
 }
 
 /*
@@ -92,5 +89,5 @@ $cell       = normalizzaNome($_POST['inputCellulare']);
 $p->email               = $email;
 $p->cellulare           = $cell;
 
-
-redirect('presidente.utente.visualizza&ok&id='.$p->id);
+echo '<p>Utente salvato correttamente. Ora puoi inserirlo cercandolo per codice fiscale:</p>';
+echo '<p>'.$codiceFiscale.'</p>';

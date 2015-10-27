@@ -27,7 +27,6 @@ if (!empty($_GET['err']) && is_int($_GET['err'])) {
     }
 }
 
-
 $geoComitato = GeoPolitica::daOid($c->organizzatore);
 
 $modificabile = $c->modificabileDa($me);
@@ -84,7 +83,7 @@ foreach ($partecipazioni as $i) {
 unset($partecipazioni);
 
 $checkDocenti = $c->numeroDocentiMancanti();
-$checkAffiancamenti = $c->numeroAffiancamenti() > ($c->numeroDocentiNecessari() * intval($c->certificato()->proporzioneAffiancamento));
+$checkAffiancamenti = $c->numeroAffiancamenti() > ($c->numeroDocentiNecessari() * intval($c->tipo()->proporzioneAffiancamento));
 $checkDiscenti = $c->postiLiberi();
 
 $certificati = $c->risultati();

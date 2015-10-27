@@ -426,6 +426,16 @@ body {
   top: 5%;
 }
 
+.modal-form select,
+.modal-form input {
+    width: 100%;
+}
+
+.modal-form label {
+    margin: 0;
+    text-align: left;
+}
+
 .blocco-con-sfondo {
   padding: 60px 20px;
   margin: 0px -20px;
