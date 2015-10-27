@@ -15,7 +15,7 @@ try {
         throw new Errore('Manomissione');
     }
 } catch(Exception $e) {
-    redirect('admin.corsi.crea&err');
+    redirect('formazione.corsi.crea&err');
 }
 
 if (!$c->modificabile()) {
