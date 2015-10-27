@@ -48,7 +48,7 @@ $d = new DateTime('@' . $c->inizio);
 
 
 $ruolo = $tipocorso->ruoloDiscenti;
-$qualifica = $tipocorso->qualfica;
+$qualifica = $tipocorso->qualifica;
         
 ?>
 
