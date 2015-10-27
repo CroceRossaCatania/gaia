@@ -47,7 +47,7 @@ if (isset($discenti) && is_array($discenti) && !empty($discenti)) {
                     return;
                 }
                 
-                api('corsi:volontari:cerca', {query: query, perPagina: 80, ordine: 'selettoreDiscente', comitati: geoPolitica_discente, stato_docente: stato_discente, ruolo: ruolo, qualifica: qualifica}, function (x) {
+                api('corsi:volontari:cerca', {query: value, perPagina: 80, ordine: 'selettoreDiscente', comitati: geoPolitica_discente, stato_docente: stato_discente, ruolo: ruolo, qualifica: qualifica}, function (x) {
                     select.children().remove('option:not(:selected)');
                     if (x.risposta.risultati.length) {
                         for (var i in x.risposta.risultati) {

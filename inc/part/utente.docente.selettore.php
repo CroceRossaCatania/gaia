@@ -32,12 +32,12 @@ if (isset($docenti) && is_array($docenti) && !empty($docenti)) {
                 var select = $( $(this).prev('select')[0] );
                 
 
-                var query = $(input).val();
-                if (query.length < 1) {
+                var value = $(input).val();
+                if (value.length < 1) {
                     return;
                 }
                                 
-                api('corsi:volontari:cerca', {query: query, perPagina: 80, ordine: 'selettoreDocente', comitati: geoPolitica_docente, stato_docente: stato_docente, ruolo: ruolo, qualifica: qualifica}, function (x) {
+                api('corsi:volontari:cerca', { query: value, perPagina: 80, ordine: 'selettoreDocente', comitati: geoPolitica_docente, stato_docente: stato_docente, ruolo: ruolo, qualifica: qualifica }, function (x) {
                     
                     select.children().remove('option:not(:selected)');
                     for (var i in x.risposta.risultati) {

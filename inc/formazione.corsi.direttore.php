@@ -22,17 +22,36 @@ if (!$c->modificabile()) {
     redirect('formazione.corsi.riepilogo&id='.$id);
 }
 
-// visto sopra, non dovrebbe mai scattare, ma chissà!
+$maxDirettori = 1;
+
+// recupera gli id di discenti già presenti per il corso
+// per popolare automaticamente la lista in caso di pagina di modifica
+$partecipazioni = PartecipazioneCorso::filtra([
+    ['corso', $c->id],
+    ['ruolo', CORSO_RUOLO_DIRETTORE]
+]);
+$direttori = [];
+foreach ($partecipazioni as $p) {
+    $direttori[] = $p->volontario();
+}
+unset($partecipazioni);
+
 
 // controllare che l'utente possa modificare questo dannatissimo corso 
 //paginaCorso($c);
-caricaSelettoreDirettore();
+caricaSelettoreDirettore([
+    'max_selected_options' => $maxDirettori,
+    'no_results_text' => 'Ricerca direttore in corso...',
+]);
 
 // non dovrebbe mai essere vuoto a meno di crash nella pagina precedente di creazione
 
 $tipoCorso = TipoCorso::id(intval($c->tipo));
 $d = new DateTime('@' . $c->inizio);
 
+
+$ruolo = $tipocorso->ruoloDirettore;
+$qualifica = $tipocorso->qualifica;
 ?>
 
 <div class="row-fluid">
@@ -61,11 +80,19 @@ $d = new DateTime('@' . $c->inizio);
                         <label for="dataFine"><i class="icon-user-md"></i> Direttore</label>
                     </div>
                     <div class="span8">
-                        <a data-selettore-direttore="true" 
-                           data-input="direttore" 
-                           class="btn btn-block btn-large">
-                            Seleziona un direttore... <i class="icon-pencil"></i>
-                        </a>
+                        <select name="direttori[]" 
+                                data-ruolo="<?php echo $ruolo;?>"
+                                data-qualifica="<?php echo $qualifica;?>"
+                                data-insert-page="formazione.corsi.direttore.nuovo" data-placeholder="Scegli un direttore..." multiple class="chosen-select direttori">
+                            <?php 
+                                foreach ($direttori as $i ) {
+                                ?>
+                                <option value="<?php echo $i->id ?>" selected><?php echo $i->nomeCompleto() ?></option>
+                                <?php
+                                }
+                            ?>
+                        </select>
+                        <span>Seleziona un direttore</span>
                     </div>
                 </div>
                 <div class="row-fluid">
