@@ -39,11 +39,13 @@ foreach ($partecipazioni as $p) {
 }
 unset($partecipazioni);
 
+$ruolo = $tipocorso->ruoloDocenti;
+$qualifica = $tipocorso->qualifica;
+
 // carica i selettori
 caricaSelettoreDocente([
     'max_selected_options' => $maxDocenti,
     'no_results_text' => 'Nessun docente trovato',
-    'ruolo' => $tipocorso->ruoloDocenti
 ]);
 
 $d = new DateTime('@' . $c->inizio);
@@ -67,7 +69,10 @@ $d = new DateTime('@' . $c->inizio);
                         <label for="dataFine"><i class="icon-user"></i> Docenti</label>
                     </div>
                     <div class="span8">
-                        <select name="docenti[]" data-placeholder="Scegli un docente..." multiple class="chosen-select docenti">
+                        <select name="docenti[]" 
+                                data-ruolo="<?php echo $ruoloDocenti; ?>"
+                                data-qualifica="<?php echo $qualifica; ?>"
+                                data-placeholder="Scegli un docente..." multiple class="chosen-select docenti">
                             <?php 
                                 foreach ($docenti as $i ) {
                                 ?>

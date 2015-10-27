@@ -21,8 +21,8 @@ class Ricerca {
         $giovane        = false,
         $infermiera     = false,
         $militare       = false,
-        $crs_ruolo      = 0,
-        $crs_tipo       = 0,
+        $crs_ruolo      = "",
+        $crs_qualifica       = "",
         $ordine         = [
             'pertinenza             DESC',
             'comitati.nome          ASC',
@@ -83,18 +83,51 @@ class Ricerca {
         return true;
     }
     
+    /*
+     * Esegue una ricerca fulltext dei volontari all'interno dei comitati
+     * specificati, se non specificata una query ritorna un elenco.
+     */
+    public function corsi_esegui() {
+        global $db;
+
+        $inizio = microtime(true);
+
+        $query = $this->generaQueryCorsi();
+
+        $qConta = $this->creaContoQuery($query);
+        $qConta = $db->query($qConta);
+        $qConta = $qConta->fetch(PDO::FETCH_NUM);
+        $this->totale = (int) $qConta[0];
+
+        $this->pagine = ceil( $this->totale / $this->perPagina );
+
+        $qRicerca = $this->ordinaLimitaQuery($query);
+        $qRicerca = $db->query($qRicerca);
+        $this->risultati = [];
+        
+        while ( $k = $qRicerca->fetch(PDO::FETCH_NUM) ) {
+            $this->risultati[] = new Utente($k[0]);
+        }
+        $fine = microtime(true);
+        $this->tempo = round($fine - $inizio, 6);
+
+        return true;
+    }
+    
     private function generaQueryCorsi(){
         global $db;
 
         $this->ottimizzaDominio();
         $dominio        = $this->_dominio;
-        $query          = $this->query;
+        $input          = $this->query;
         $stato          = $this->stato;
         $statoPersona   = $this->statoPersona;
         $passato        = $this->passato;
         $giovane        = $this->giovane;
         $infermiera     = $this->infermiera;
         $militare       = $this->militare;
+        $qualifica      = $this->crs_qualifica;
+        $ruolo          = $this->crs_ruolo;
         $ora            = (int) time();
 
         if ( $dominio == '*' ) {
@@ -103,19 +136,19 @@ class Ricerca {
             $pDominio = "AND appartenenza.comitato IN ({$dominio})";
         }
 
-        if ( $query ) {
-            $query = $db->quote($query);
+        if ( $input ) {
+            $input = addslashes($input);
             $pRicerca = " 
-                    MATCH(
-                        anagrafica.nome,
-                        anagrafica.cognome,
-                        anagrafica.email,
-                        anagrafica.codiceFiscale
-                    ) AGAINST ({$query} in boolean mode)";
-            $pPertinenza = "MAX({$pRicerca}) as pertinenza";
-            $pRicerca = "AND {$pRicerca}";
+                    AND (
+                        anagrafica.nome LIKE '%{$input}%'
+                        OR anagrafica.cognome LIKE '%{$input}%'
+                        OR anagrafica.email LIKE '%{$input}%'
+                        OR anagrafica.codiceFiscale LIKE '%{$input}%'
+                    ) ";
+            //$pPertinenza = "MAX({$pRicerca}) as pertinenza";
+            //$pRicerca = " $pRicerca";
         } else {
-            $pPertinenza = "1 as pertinenza";
+            // $pPertinenza = "1 as pertinenza";
             $pRicerca = '';
         }
 
@@ -184,7 +217,7 @@ class Ricerca {
 
         $query = "
             SELECT
-                anagrafica.id, {$pPertinenza}
+                DISTINCT anagrafica.id
             FROM
                 anagrafica, appartenenza, ruoliValidi, comitati {$extraFrom}
             WHERE
@@ -195,16 +228,14 @@ class Ricerca {
                         {$pMilitare}
                 AND     anagrafica.id = ruoliValidi.volontario
                 AND     appartenenza.comitato   =   comitati.id
-                AND     ruoliValidi.ruolo = 2
-                AND     ruoliValidi.tipo = 2
+                AND     ruoliValidi.ruolo = {$ruolo}
+                AND     ruoliValidi.qualifica = {$qualifica}
                 AND     appartenenza.stato      {$pStato}
                 AND     appartenenza.inizio     <=  {$ora}
                         {$pPassato}
                         {$pDominio}
-                        {$pRicerca}   
-            GROUP BY    anagrafica.id
-
-        ";
+                        {$pRicerca} ";  
+                        
         return $query;
     }
 

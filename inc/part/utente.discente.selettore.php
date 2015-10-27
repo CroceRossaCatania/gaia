@@ -15,6 +15,8 @@ if (isset($discenti) && is_array($discenti) && !empty($discenti)) {
 <script type="text/javascript">
     $(document).ready( function () {        
         var value;
+        var ruolo = $(".chosen-select").data("ruolo");
+        var qualifica = $(".chosen-select").data("qualifica");
         chs = $(".chosen-select")
             .chosen({
                 max_selected_options: <?php echo $maxDiscenti ?>, 
@@ -45,8 +47,9 @@ if (isset($discenti) && is_array($discenti) && !empty($discenti)) {
                     return;
                 }
                 
-                api('volontari:cerca', {query: value, perPagina: 80, ordine: 'selettoreDiscente', comitati: geoPolitica_discente, stato_discente: stato_discente}, function (x) {
-                    
+                api('corsi:volontari:cerca', {query: query, perPagina: 80, ordine: 'selettoreDocente', comitati: geoPolitica_discente, stato_docente: stato_discente, ruolo: ruolo, qualifica: qualifica}, function (x) {
+                  
+                
                     select.children().remove('option:not(:selected)');
                     if (x.risposta.risultati.length) {
                         for (var i in x.risposta.risultati) {
