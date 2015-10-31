@@ -245,7 +245,14 @@ paginaPrivata();
                             <?php if ($titolo->tConferma) { ?>
                             <td>
                                 <abbr title="<?php echo date('d-m-Y H:i', $titolo->tConferma); ?>">
-                                    <i class="icon-ok"></i> Confermato
+
+                                    <?php if ( $titolo->corso ) { ?>
+                                        <i class="icon-asterisk"></i> Certificato<br />
+                                        <span style="font-size: smaller;">da <?= $titolo->pConferma()->nomeCompleto(); ?></span>
+                                    <?php } else { ?>
+                                        <i class="icon-ok"></i> Confermato
+                                    <?php } ?>
+                                    
                                 </abbr>
                             </td>    
                             <?php } else { ?>

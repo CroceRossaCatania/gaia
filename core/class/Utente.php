@@ -118,13 +118,13 @@ class Utente extends Persona {
         return $r;
     }
     
-    public function in(Comitato $c) {
+    public function in(Comitato $c, $minimo = MEMBRO_ESTESO) {
         $a = Appartenenza::filtra([
             ['volontario',  $this->id],
             ['comitato',    $c->id]
         ]);
         foreach ($a as $_a) {
-            if ($_a->stato >= MEMBRO_ESTESO)
+            if ($_a->stato >= $minimo)
                 return True;
         }
         return False;
@@ -577,10 +577,12 @@ class Utente extends Persona {
                     appartenenza.fine > :ora 
                     OR 
                     appartenenza.fine is NULL)
+            AND     appartenenza.stato = :stato
             AND     appartenenza.comitato  IN
                 ( {$comitati} )");
         $ora = time();
         $q->bindParam(':ora', $ora);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
