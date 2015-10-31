@@ -66,7 +66,8 @@ paginaPrivata();
                     
                     <p class="alert alert-info">
                         <i class="icon-info-sign"></i>
-                        Seleziona un messaggio per vederne il contenuto.
+                        Seleziona un messaggio per vederne il contenuto. <br>
+                        Ti ricordiamo che per poter rispondere dovrai collegarti alla tua casella di posta.
                     </p>
 
                 </div>

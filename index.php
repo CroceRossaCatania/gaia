@@ -4,14 +4,6 @@
  * ©2014 Croce Rossa Italiana
  */
 
-define("DEBUG", TRUE);
-
-if (DEBUG) {
-    ini_set('display_errors', true);
-    error_reporting(E_ALL);
-//    error_reporting(E_ALL&~E_NOTICE);
-}
-
 /* Modalità manutenzione */
 if (file_exists('upload/setup/manutenzione')) {
     header('HTTP/1.1 307 Temporary Redirect');
@@ -59,10 +51,6 @@ $sessione->agent    = $_SERVER['HTTP_USER_AGENT'];
 /* Flag dei selettori */
 $_carica_selettore              = false;
 $_carica_selettore_comitato     = false;
-$_carica_selettore_discente     = false;
-$_carica_selettore_docente     = false;
-$_carica_selettore_docente_affiancamento     = false;
-$_carica_selettore_direttore     = false;
 
 /* Pagina da visualizzare */
 $p = $_GET['p'];
@@ -96,8 +84,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
     <!-- JS e CSS compressi -->
-    <link href="/assets/min/20151011/build/build.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="/assets/min/20151011/build/build.js"></script>
+    <link href="/assets/min/20151005/build/build.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="/assets/min/20151005/build/build.js"></script>
 
     <!-- Recaptcha -->
     <script src="https://www.google.com/recaptcha/api.js?hl=it" async defer></script>
@@ -105,17 +93,20 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 	<!-- Font -->
     <link href='https://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
     
-    <!--[if IE]>
+	<!--[if IE]>
         <link href="css/main-ie.css" rel="stylesheet" media="screen">
     <![endif]-->
     <!--[if IE 7]>
       <link rel="stylesheet" href="css/font-awesome-ie7.min.css">
     <![endif]-->
 
+    <!-- JS -->
+    <?php if (file_exists('assets/js/'. $p . '.js')) { /* Javascript dinamico */ ?>
+        <script type="text/javascript" src="/assets/js/<?php echo $p; ?>.js"></script>
+    <?php } ?>
 
   </head>
   <body>
-      
     <div class="navbar-wrapper">
         
         <div class="navbar navbar-fixed-top">
@@ -136,9 +127,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             <li><a href="?p=attivita"><i class="icon-calendar"></i> Attività</a></li>
                             <li><a href="?p=public.comitati.mappa"><i class="icon-map-marker"></i> Comitati</a></li>
                             <li><a href="?p=public.formazione"><i class="icon-desktop"></i> Formazione</a></li>
-                            <li><a href="?p=public.corsi"><i class="icon-graduation-cap"></i> Corsi</a></li>
-                            <?php if(!$me) { ?>
-                                <li><a href="?p=public.tesserino"><i class="icon-credit-card"></i> Verifica tesserino</a></li>
+							<?php if(!$me) { ?>
+                            <li><a href="?p=public.tesserino"><i class="icon-credit-card"></i> Verifica tesserino</a></li>
                             <?php } ?>
                         </ul>  
                         <?php
@@ -180,29 +170,21 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
 
                                     <?php 
-                                    $deleghe = $me->delegazioniAsHashMap(APP_OBIETTIVO);
-                                    
-                                    if ( $me->admin() || $me->presiede() || !empty($deleghe)) { ?>
+                                    if ( $me->admin() || $me->presiede() ) { ?>
                                     <div class="btn-group">
                                         <?php
                                         /* Conto le notifiche */
                                         $_n     =   $_n_titoli 		= $_n_app = $_n_trasf = $_n_ris = $_n_est = 0;
                                         $_n     +=  $_n_titoli 		= (!$admin) ? $me->numTitoliPending  ([APP_PRESIDENTE, APP_SOCI]) : 0;
-					/* $_n     +=  $_n_donazioni 	= (!$admin) ? $me->numDonazioniPending	([APP_PRESIDENTE, APP_SOCI]) : 0; */
-                                        $_n     +=  $_n_app    		= (!$admin) ? $me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]) : 0;
-                                        $_n     +=  $_n_trasf  		= (!$admin) ? $me->numTrasfPending   ([APP_PRESIDENTE]) : 0;
-                                        $_n     +=  $_n_ris    		= (!$admin) ? $me->numRisPending     ([APP_PRESIDENTE, APP_SOCI]) : 0;
-                                        $_n     +=  $_n_est    		= (!$admin) ? $me->numEstPending     ([APP_PRESIDENTE]) : 0;
+										$_n     +=  $_n_donazioni 	= (!$admin) ? $me->numDonazioniPending	([APP_PRESIDENTE, APP_SOCI]) : 0;
+                                        $_n     +=  $_n_app    		= (!$admin) ?$me->numAppPending     ([APP_PRESIDENTE, APP_SOCI]) : 0;
+                                        $_n     +=  $_n_trasf  		= (!$admin) ?$me->numTrasfPending   ([APP_PRESIDENTE]) : 0;
+                                        $_n     +=  $_n_ris    		= (!$admin) ?$me->numRisPending     ([APP_PRESIDENTE, APP_SOCI]) : 0;
+                                        $_n     +=  $_n_est    		= (!$admin) ?$me->numEstPending     ([APP_PRESIDENTE]) : 0;
                                         ?>
                                         <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
                                             <i class="icon-asterisk"></i>
-                                            <?php if ($me->presiede()) : ?>
-                                               <strong>Presidente</strong>
-                                            <?php endif ?>
-                                            <?php if (sizeof($deleghe[OBIETTIVO_1]) > 0) : ?>
-                                               <strong>Delegato</strong>
-                                            <?php endif ?>
-                                               
+                                            <strong>Presidente</strong>
                                             <?php if ( $_n ) { ?>
                                             <span class="badge badge-warning">
                                                 <?php echo $_n; ?>
@@ -212,7 +194,6 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                         </button>
                                         <ul class="dropdown-menu">
 
-                                            <?php if ($me->admin() || $me->presiede()) : ?>
                                             <li class="nav-header">Da fare</li>
 
                                             <li>
@@ -227,17 +208,17 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                                 </a>
                                             </li>
 
-                                            <li>
-                                                <a href="?p=presidente.donazioni">
-                                                        <i class="icon-star"></i>
-                                                        Donazioni in attesa
-                                                        <?php if ( $_n_donazioni ) { ?>
-                                                        <span class="badge badge-warning">
-                                                                <?php echo $_n_donazioni; ?>
-                                                        </span>
-                                                        <?php } ?>
-                                                </a>
-                                            </li>
+											<li>
+												<a href="?p=presidente.donazioni">
+													<i class="icon-star"></i>
+													Donazioni in attesa
+													<?php if ( $_n_donazioni ) { ?>
+													<span class="badge badge-warning">
+														<?php echo $_n_donazioni; ?>
+													</span>
+													<?php } ?>
+												</a>
+											</li>
 
                                             <li>
                                                 <a href="?p=presidente.appartenenzepending">
@@ -308,24 +289,6 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                                     Ricerca volontari per titoli
                                                 </a>
                                             </li>
-                                            <?php endif ?>
-                                              
-                                            <?php if (sizeof($deleghe[OBIETTIVO_1]) > 0 || $me->admin() || $me->presiede()) : ?>
-                                            <li class="nav-header">Corsi</li>
-
-                                            <li>
-                                                <a href="?p=formazione.corsi">
-                                                    <i class="icon-list"></i>
-                                                    Calendario corsi
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="?p=formazione.corsi.crea">
-                                                    <i class="icon-graduation-cap"></i>
-                                                    Crea nuovo corso
-                                                </a>
-                                            </li>
-                                            <?php endif ?>
                                         </ul>
                                     </div>
                                     <?php } ?>
@@ -343,22 +306,15 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                             <li><a href="?p=admin.ricerca.attivita"><i class="icon-calendar"></i> Cerca Attività</a></li> 
                                             <li><a href="?p=admin.presidenti"><i class="icon-list"></i> Presidenti</a></li>
                                             <li><a href="?p=admin.delegati"><i class="icon-list"></i> Delegati</a></li>
-                                            <li><a href="?p=admin.formatori"><i class="icon-list"></i> Formatori</a></li>
-                                            <li><a href="?p=admin.istruttori"><i class="icon-list"></i> Istruttori</a></li>
-                                            <li><a href="?p=admin.istruttori.potenziali"><i class="icon-list"></i> Potenziali Istruttori</a></li>                       
                                             <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
                                             <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li> 
-					    <li><a href="?p=admin.donazioni"><i class="icon-beaker"></i> Donazioni</a></li>
-					    <li><a href="?p=admin.donazioni.sedi"><i class="icon-road"></i> Donazioni sedi</a></li>
-                                            
+                                            <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
+											<li><a href="?p=admin.donazioni"><i class="icon-beaker"></i> Donazioni</a></li>
+											<li><a href="?p=admin.donazioni.sedi"><i class="icon-road"></i> Donazioni sedi</a></li>
                                             <li><a href="?p=admin.limbo"><i class="icon-meh"></i> Limbo</a></li> 
-                                            <a href="inc/admin.conoscenza.php"></a>
                                             <li><a href="?p=admin.aspiranti"><i class="icon-meh"></i> Aspiranti</a></li> 
                                             <li><a href="?p=admin.double"><i class="icon-superscript"></i> Double</a></li>
                                             <li><a href="?p=admin.tesseramento"><i class="icon-eur"></i> Tesseramento</a></li>
-                                            <li class="nav-header">Formazione</li>
-                                            <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
-                                            <li><a href="?p=admin.tipocorso"><i class="icon-graduation-cap"></i> Tipo Corso</a></li>
                                             <li class="nav-header">Report & Co</li>
                                             <li><a href="?p=admin.report"><i class="icon-copy"></i> Report</a></li>  
                                             <li><a href="?p=admin.stats"><i class="icon-copy"></i> Statistiche</a></li>
@@ -386,6 +342,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                         <ul class="dropdown-menu">
                                             <li class="nav-header">Elenchi</li>
                                             <li><a href="?p=supporto.ricerca.utenti"><i class="icon-search"></i> Cerca Utente</a></li> 
+                                            <li><a href="?p=supporto.titoli"><i class="icon-certificate"></i> Titoli</a></li>
                                         </ul>
                                     </div>
                                     <?php } ?>
@@ -474,6 +431,21 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
             </div><!-- /.carousel -->
             <?php } ?>
 
+            <div id="normativaEU" class="container" style="display: none;">
+                <div class="alert alert-info">
+                    <button id="nascondiNormativaEU" type="button" class="close" data-dismiss="alert">Nascondi &times;</button>
+                    <i class="icon-info-sign"></i> 
+                    <strong>Gaia utilizza i <i>cookies</i> per offrirti le sue funzionalit&agrave; e per scopi statistici.</strong><br />
+                    Continuando a navigare su gaia.cri.it, acconsenti all'uso dei cookie su questo sito web.<br />
+                    <a href="?p=public.cookie" target="_new">
+                        Clicca qui per le informazioni sull'uso dei Cookie in Gaia
+                    </a> oppure 
+                    <a href="?p=public.privacy" target="_new">
+                        clicca qui per leggere l'informativa sulla Privacy.
+                    </a>
+                </div>
+            </div>
+
             <div class="container<?= ( $p == 'home' ) ? '-fluid' : ''; ?> ">
 
                 <?php
@@ -493,10 +465,12 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                     <div class="span6 allinea-destra">
                         <a href="/">Torna alla home</a> &middot;
                         <a href="?p=public.about">Informazioni su Gaia</a> &middot;
+                        <a href="?p=public.cookie">Cookie</a> &middot;
+                        <a href="?p=public.privacy">Privacy</a> &middot;
 	        			<a href="http://wiki.gaia.cri.it"><strong>Guida</strong></a> &middot;
-                                        <a href="mailer.php"></a>
                         <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaia.cri.it"><?php } ?>Supporto</a><br />
                             Croce Rossa. <strong>Persone in prima persona.</strong>
+                        </div>
                     </div>
 
                 </div> <!-- /container -->
@@ -507,22 +481,6 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
                 <?php if ( $_carica_selettore_comitato ) {
                     include './inc/part/comitato.selettore.php';
-                } ?>
-
-                <?php if ( $_carica_selettore_direttore ) {
-                    include './inc/part/utente.direttore.selettore.php';
-                } ?>
-
-                <?php if ( $_carica_selettore_docente ) {
-                    include './inc/part/utente.docente.selettore.php';
-                } ?>
-
-                <?php if ( $_carica_selettore_docente_affiancamento ) {
-                    include './inc/part/utente.docente_affiancamento.selettore.php';
-                } ?>
-
-                <?php if ( $_carica_selettore_discente ) {
-                    include './inc/part/utente.discente.selettore.php';
                 } ?>
 
                 <?php if ( $me && $me->admin && !$me->admin() ) { ?>
@@ -624,12 +582,6 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
                     <!-- DEBUG. Q: <?php echo $db->numQuery; ?>; M: <?php echo ceil(memory_get_peak_usage()/1024); ?> kB; T: <?php echo round(microtime(true)-$_stopwatch, 6); ?>s -->
                     
-                    
-                    <!-- JS -->
-                    <?php if (file_exists('assets/js/'. $p . '.js')) { /* Javascript dinamico */ ?>
-                        <script type="text/javascript" src="/assets/js/<?php echo $p; ?>.js"></script>
-                    <?php } ?>
-                    
                     <?php if($conf['debug']) { ?>
                         <script type="text/javascript">var DEBUG = true;</script>
 
@@ -639,9 +591,6 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     					<div id="swifttagcontainer7nxkd9vwdw"><div id="proactivechatcontainer7nxkd9vwdw"></div><div style="display: inline;" id="swifttagdatacontainer7nxkd9vwdw"></div></div> <script type="text/javascript">var swiftscriptelem7nxkd9vwdw=document.createElement("script");swiftscriptelem7nxkd9vwdw.type="text/javascript";var swiftrandom = Math.floor(Math.random()*1001); var swiftuniqueid = "7nxkd9vwdw"; var swifttagurl7nxkd9vwdw="https://helpdesk.cri.it/visitor/index.php?/Gaia/LiveChat/HTML/SiteBadge/cHJvbXB0dHlwZT1jaGF0JnVuaXF1ZWlkPTdueGtkOXZ3ZHcmdmVyc2lvbj00LjY4LjEmcHJvZHVjdD1mdXNpb24mZmlsdGVyZGVwYXJ0bWVudGlkPTUwJnJvdXRlY2hhdHNraWxsaWQ9Myw0JnNpdGViYWRnZWNvbG9yPXdoaXRlJmJhZGdlbGFuZ3VhZ2U9ZW4mYmFkZ2V0ZXh0PWxpdmVoZWxwJm9ubGluZWNvbG9yPSMxYWEzMWEmb25saW5lY29sb3Job3Zlcj0jNWZiZjVmJm9ubGluZWNvbG9yYm9yZGVyPSMxMjcyMTImb2ZmbGluZWNvbG9yPSNmZjAwMDAmb2ZmbGluZWNvbG9yaG92ZXI9I2ZmNGQ0ZCZvZmZsaW5lY29sb3Jib3JkZXI9I2IzMDAwMCZhd2F5Y29sb3I9I2VlZmYwMCZhd2F5Y29sb3Job3Zlcj0jZjRmZjRkJmF3YXljb2xvcmJvcmRlcj0jYTdiMzAwJmJhY2tzaG9ydGx5Y29sb3I9I2ZmNzcwMCZiYWNrc2hvcnRseWNvbG9yaG92ZXI9I2ZmYTA0ZCZiYWNrc2hvcnRseWNvbG9yYm9yZGVyPSNiMzUzMDAmY3VzdG9tb25saW5lPSZjdXN0b21vZmZsaW5lPSZjdXN0b21hd2F5PSZjdXN0b21iYWNrc2hvcnRseT0KODMxODAxYmRmNWY0N2VmYzQ4YjFiNzZlMjhlYWFmNmRhOGVlNWEwNw==";setTimeout("swiftscriptelem7nxkd9vwdw.src=swifttagurl7nxkd9vwdw;document.getElementById('swifttagcontainer7nxkd9vwdw').appendChild(swiftscriptelem7nxkd9vwdw);",1);</script>
     					<!-- FINE CODICE TAG - NON MODIFICARE! -->
 
-                                        
-                              
-                                        
 		                <!-- Google Analytics -->
 		                <script>
                             var DEBUG = false;
@@ -658,9 +607,6 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
 		                </script>
                     <?php } ?>
-                                
-                                
-                    
                 </body>
                 </html><?php 
                 ob_end_flush(); 

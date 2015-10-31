@@ -487,11 +487,14 @@ class Comitato extends GeoPolitica {
             AND
                 appartenenza.comitato = :comitato
             AND
+                appartenenza.stato = :stato
+            AND
                 (appartenenza.fine >= :ora
                  OR appartenenza.fine is NULL
                  OR appartenenza.fine = 0)");
         $q->bindValue(':ora', time());
         $q->bindParam(':comitato', $this->id);
+        $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->execute();
         $r = [];
         while ($k = $q->fetch(PDO::FETCH_NUM)) {

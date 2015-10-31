@@ -78,7 +78,7 @@ try{
     $m->_NOME          = $v->nomeCompleto();
     $m->_PROVVEDIMENTO = $conf['provvedimenti'][$_POST['inputTipo']];
     $m->_MOTIVO        = $motivo;
-    $m->_DATA          = $p->inizio;
+    $m->_DATA          = date('d/m/Y', $p->inizio);
     $m->_PROTNUM       = $p->protNumero;
     $m->invia();
 }catch (Exception $e){
