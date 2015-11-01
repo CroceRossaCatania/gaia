@@ -25,10 +25,9 @@ require 'core.inc.php';
 define('VERBOSE', true);
 
 function processRunning($pid) {
-        exec('ps '.$pid,$output,$result);
-        if( count( $output ) == 2 ) {
-            return true;
-        }
+    exec('ps '.$pid,$output,$result);
+    if( count( $output ) == 2 ) {
+        return true;
     }
     return false;
 }
@@ -51,6 +50,9 @@ if ( locked() ) {
 
 if ( !running() ) {
 	$expid = (int) file_get_contents(LOCKFILE);
+	if ( $expid == 0 ) {
+		return;
+	}
 	echo "#{$task}, {$time}  WARNING  ha trovato un file di lock, ma il processo (#{$expid}) è morto prematuramente,\n";
 	echo "#{$task}, {$time}           sta quindi ignorando il file di lock.\n";
 }
