@@ -34,8 +34,8 @@ $partecipazioni = PartecipazioneCorso::filtra([
     ['ruolo', CORSO_RUOLO_AFFIANCAMENTO]
 ]);
 $docenti = $affiancamenti = [];
-foreach ($partecipazioni as $p) {
-    $affiancamenti[] = $p->volontario();
+foreach ($partecipazioni as $part) {
+    $affiancamenti[] = $part->volontario();
 }
 unset($partecipazioni);
 

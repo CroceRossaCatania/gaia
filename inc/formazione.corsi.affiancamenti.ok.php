@@ -56,8 +56,8 @@ try {
 
                 // aggiungere verifica del fatto che sia effettivamente un docente
 
-                $p = new PartecipazioneCorso();
-                $p->aggiungi($c, $docente, CORSO_RUOLO_AFFIANCAMENTO);
+                $part = new PartecipazioneCorso();
+                $part->aggiungi($c, $docente, CORSO_RUOLO_AFFIANCAMENTO);
             }
         } else {
             throw new Exception('Manomissione');

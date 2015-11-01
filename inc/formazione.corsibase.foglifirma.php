@@ -38,12 +38,12 @@ foreach($corso->lezioni() as $lezione){
     $nome .= $lezione->nome;
     $nome .= ".pdf";
 
-    $p = new PDF('fogliofirmelezione', $nome);
-    $p->_COMITATO   = $corso->organizzatore()->nomeCompleto();
-    $p->_LEZIONE    = $lezione->nome;
-    $p->_DATA       = date('d/m/Y', $lezione->inizio);
-    $p->_TABELLA    = $tabella;
-    $f = $p->salvaFile(null,true);
+    $pdf = new PDF('fogliofirmelezione', $nome);
+    $pdf->_COMITATO   = $corso->organizzatore()->nomeCompleto();
+    $pdf->_LEZIONE    = $lezione->nome;
+    $pdf->_DATA       = date('d/m/Y', $lezione->inizio);
+    $pdf->_TABELLA    = $tabella;
+    $f = $pdf->salvaFile(null,true);
     $zip->aggiungi($f);
 
 }

@@ -34,8 +34,8 @@ $partecipazioni = PartecipazioneCorso::filtra([
     ['ruolo', CORSO_RUOLO_DISCENTE]
 ]);
 $discenti = [];
-foreach ($partecipazioni as $p) {
-    $discenti[] = $p->volontario();
+foreach ($partecipazioni as $part) {
+    $discenti[] = $part->volontario();
 }
 unset($partecipazioni);
 
@@ -51,7 +51,6 @@ $ruolo = $tipocorso->ruoloDiscenti;
 $qualifica = $tipocorso->qualifica;
         
 ?>
-
 <div class="row-fluid">
 
     <div class="span8">
@@ -100,8 +99,8 @@ $qualifica = $tipocorso->qualifica;
 
     <div class="span4">
         <h2><i class="icon-plus-square icon-calendar muted"></i> Opzioni</h2>
-        <?php if ($ruolo==1) { // popolazione ?>
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#nuovo-utente">Nuovo discente (popolazione)</button>
+        <?php { // popolazione ?>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#nuovo-utente">Nuovo discente (civile)</button>
         <?php } ?>
     </div>
 </div>
@@ -117,7 +116,7 @@ $qualifica = $tipocorso->qualifica;
                 <h2><i class="icon-plus-square icon-calendar muted"></i> Anagrafica popolazione</h2>
             </div>
             <div class="modal-body">
-                <iframe src="iframe.php?p=formazione.corsi.discente_popolazione.nuovo" width="100%" height="420" style='border: none;' ></iframe>
+                <?php require dirname(__FILE__).'/formazione.corsi.discente_popolazione.nuovo.php' ?>
             </div>
         </div>
 

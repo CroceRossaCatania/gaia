@@ -38,56 +38,56 @@ if ( $e && $email && $e->password ) {
     redirect('&mail');
 }
 
-$p = Civile::by('codiceFiscale', $codiceFiscale);
-if ($p) {
+$c = Civile::by('codiceFiscale', $codiceFiscale);
+if ($c) {
     redirect('&gia');
 } else {
-    $p = new Civile();
-    $p->codiceFiscale = $codiceFiscale;
+    $c = new Civile();
+    $c->codiceFiscale = $codiceFiscale;
 }
 
 /*
  * Normalizzazione dei dati
  */
-$id         = $p->id;
-$nome       = normalizzaNome($_POST['inputNome']);
-$cognome    = normalizzaNome($_POST['inputCognome']);
-$sesso    = $_POST['inputSesso'];
-$dnascita = DT::createFromFormat('d/m/Y', $_POST['inputDataNascita']);
+$id         = $c->id;
+$nome       = normalizzaNome($_POST['Nome']);
+$cognome    = normalizzaNome($_POST['Cognome']);
+$sesso    = $_POST['Sesso'];
+$dnascita = DT::createFromFormat('d/m/Y', $_POST['DataNascita']);
 $dnascita = $dnascita->getTimestamp();
-$prnascita= maiuscolo($_POST['inputProvinciaNascita']);
-$conascita = normalizzaNome($_POST['inputComuneNascita']);
-$coresidenza= normalizzaNome($_POST['inputComuneResidenza']);
-$caresidenza= normalizzaNome($_POST['inputCAPResidenza']);
-$prresidenza= maiuscolo($_POST['inputProvinciaResidenza']);
-$indirizzo  = normalizzaNome($_POST['inputIndirizzo']);
-$civico     = maiuscolo($_POST['inputCivico']);
+$prnascita= maiuscolo($_POST['ProvinciaNascita']);
+$conascita = normalizzaNome($_POST['ComuneNascita']);
+$coresidenza= normalizzaNome($_POST['ComuneResidenza']);
+$caresidenza= normalizzaNome($_POST['CAPResidenza']);
+$prresidenza= maiuscolo($_POST['ProvinciaResidenza']);
+$indirizzo  = normalizzaNome($_POST['Indirizzo']);
+$civico     = maiuscolo($_POST['Civico']);
 
 /*
  * Registrazione vera e propria...
  */
-$p->nome                = $nome;
-$p->cognome             = $cognome;
-$p->sesso               = $sesso;
-$p->dataNascita         = $dnascita;
-$p->provinciaNascita    = $prnascita;
-$p->comuneNascita       = $conascita;
-$p->comuneResidenza     = $coresidenza;
-$p->CAPResidenza        = $caresidenza;
-$p->provinciaResidenza  = $prresidenza;
-$p->indirizzo 		      = $indirizzo;
-$p->civico   		        = $civico;
-$p->timestamp           = time();
-$p->stato               = PERSONA;
-$p->consenso = true;
+$c->nome                = $nome;
+$c->cognome             = $cognome;
+$c->sesso               = $sesso;
+$c->dataNascita         = $dnascita;
+$c->provinciaNascita    = $prnascita;
+$c->comuneNascita       = $conascita;
+$c->comuneResidenza     = $coresidenza;
+$c->CAPResidenza        = $caresidenza;
+$c->provinciaResidenza  = $prresidenza;
+$c->indirizzo 		      = $indirizzo;
+$c->civico   		        = $civico;
+$c->timestamp           = time();
+$c->stato               = PERSONA;
+$c->consenso = true;
 
 /*
  * Normalizzazione dei dati
  */
 $cell       = normalizzaNome($_POST['inputCellulare']);
 
-$p->email               = $email;
-$p->cellulare           = $cell;
+$c->email               = $email;
+$c->cellulare           = $cell;
 
 echo '<p>Utente salvato correttamente. Ora puoi inserirlo cercandolo per codice fiscale:</p>';
 echo '<p>'.$codiceFiscale.'</p>';

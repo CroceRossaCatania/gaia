@@ -9,14 +9,14 @@
 $id = intval(filter_input(INPUT_GET, "id"));
 $md5 = filter_input(INPUT_GET, "md5");
 
-$p = PartecipazioneCorso::id($id);
-if ($p->md5 != $md5){
+$part = PartecipazioneCorso::id($id);
+if ($part->md5 != $md5){
     header('HTTP/1.0 403 Forbidden');
     redirect("errore.403");
     exit(0);
 } ?>
   
-<?php var_dump($p); ?>
+<?php var_dump($part); ?>
 
 
 <form id="invitoRisposta" action="?" method="get">

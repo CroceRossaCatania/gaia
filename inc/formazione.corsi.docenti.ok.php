@@ -52,8 +52,8 @@ try {
             
             // aggiungere verifica del fatto che sia effettivamente un docente
             
-            $p = new PartecipazioneCorso();
-            $p->aggiungi($c, $docente, CORSO_RUOLO_DOCENTE);
+            $part = new PartecipazioneCorso();
+            $part->aggiungi($c, $docente, CORSO_RUOLO_DOCENTE);
         }
 
     } else {

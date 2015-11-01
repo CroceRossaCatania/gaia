@@ -44,9 +44,9 @@ paginaCorsoBase($corso);
                 </thead>
                 <tbody>
                 <?php
-                $part = $corso->partecipazioni(ISCR_CONFERMATA);
-                foreach ( $part as $p ) { 
-                    $iscritto = $p->utente(); 
+                $partecipazioni = $corso->partecipazioni(ISCR_CONFERMATA);
+                foreach ( $partecipazioni as $part ) { 
+                    $iscritto = $part->utente(); 
                     $assente = (bool) AssenzaLezione::filtra([['utente', $iscritto], ['lezione', $lezione]]); ?>
                     <tr>
                         <td><?= $iscritto->nomeCompleto() ?></td>

@@ -22,12 +22,12 @@ if(!CorsoBase::id($corso)) {
 
 
 
-$p = new PartecipazioneBase();
-$p->volontario = $u;
-$p->corsoBase = $corso;
-$p->stato = ISCR_RICHIESTA;
-$p->timestamp = time();
-$p->concedi();
+$part = new PartecipazioneBase();
+$part->volontario = $u;
+$part->corsoBase = $corso;
+$part->stato = ISCR_RICHIESTA;
+$part->timestamp = time();
+$part->concedi();
 
 $u->stato = ASPIRANTE;
 

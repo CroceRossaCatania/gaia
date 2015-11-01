@@ -34,11 +34,11 @@ if($p) {
 }
 
 
-$p = new PartecipazioneBase();
-$p->volontario = $me;
-$p->corsoBase = $corso;
-$p->stato = ISCR_RICHIESTA;
-$p->timestamp = time();
+$part = new PartecipazioneBase();
+$part->volontario = $me;
+$part->corsoBase = $corso;
+$part->stato = ISCR_RICHIESTA;
+$part->timestamp = time();
 
 
 redirect("formazione.corsibase.scheda&id={$corso->id}&iscritto");

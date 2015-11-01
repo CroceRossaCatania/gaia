@@ -57,8 +57,8 @@ die;
             
             // aggiungere verifica del fatto che sia effettivamente un istruttore
             
-            $p = new PartecipazioneCorso();
-            $p->aggiungi($c, $discente, CORSO_RUOLO_DISCENTE);
+            $part = new PartecipazioneCorso();
+            $part->aggiungi($c, $discente, CORSO_RUOLO_DISCENTE);
         }
         
     }

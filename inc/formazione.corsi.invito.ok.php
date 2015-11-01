@@ -9,12 +9,12 @@
 $id = intval(filter_input(INPUT_GET, "id"));
 $md5 = filter_input(INPUT_GET, "md5");
 
-$p = PartecipazioneCorso::id($id);
+$part = PartecipazioneCorso::id($id);
 
-if ($p->md5 != $md5){
+if ($part->md5 != $md5){
     header('HTTP/1.0 403 Forbidden');
     redirect("errore.403");
     exit(0);
 }
 
-$p->accetta($md5);
+$part->accetta($md5);

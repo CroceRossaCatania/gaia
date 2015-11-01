@@ -1273,7 +1273,7 @@ class APIServer {
         return ['id' => $corsoBase->id];
     }
 
-	private function api_like() {
+    private function api_like() {
         global $conf;
         $this->richiedi(['oggetto']);
         $oggetto = Entita::daOid($this->par['oggetto']);
@@ -1306,6 +1306,7 @@ class APIServer {
         return $r;
     }
 
+    
     private function api_tesserino_stato() {
         $this->richiedi(['codice', 'stato']);
         $me = $this->richiediLogin();
@@ -1334,5 +1335,43 @@ class APIServer {
 
     }
 
+    
+    private function api_aggiungi_civile() {
+        $this->richiediLogin();
+        //$this->richiedi(['code']);
+
+        $this->db->beginTransaction();
         
+        try {
+            $a = new Civile();
+
+            $a->nome     = $this->par['inputNome'];
+            $a->inputCAPResidenza = $this->par['inputCAPResidenza'];
+            $a->inputCellulare = $this->par['inputCellulare'];
+            $a->inputCivico = $this->par['inputCivico'];
+            $a->inputCodiceFiscale = $this->par['inputCodiceFiscale'];
+            $a->inputCognome = $this->par['inputCognome'];
+            $a->inputComuneNascita = $this->par['inputComuneNascita'];
+            $a->inputComuneResidenza = $this->par['inputComuneResidenza'];
+            $a->inputDataNascita = $this->par['inputDataNascita'];
+            $a->inputEmail = $this->par['inputEmail'];
+            $a->inputIndirizzo = $this->par['inputIndirizzo'];
+            $a->inputNome = $this->par['inputNome'];
+            $a->inputProvinciaNascita = $this->par['inputProvinciaNascita'];
+            $a->inputProvinciaResidenza = $this->par['inputProvinciaResidenza'];
+            $a->inputSesso = $this->par['inputSesso'];
+        } catch (Exception $e) {
+            $this->db->rollBack();
+            if (!$a) { return null; }
+        }
+            
+        $this->db->commit();
+        
+        if (!$a) { return null; }
+
+        return [
+            'nomeCompleto'  =>  $a->nomeCompleto(),
+            'codiceFiscale' =>  $a->codiceFiscale        ];
+    }
+
 }

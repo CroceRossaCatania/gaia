@@ -71,23 +71,23 @@ if ( isset($_GET['single'])) {
 
     $tabella.= "</tbody></table>";
 
-    $p = new PDF('verbaleEsame', 'Verbale esame.pdf');
-    $p->_COMITATO       = $corso->organizzatore()->nomeCompleto();
-    $p->_GIORNO             = date('d', $corso->tEsame);
-    $p->_MESE               = date('m', $corso->tEsame);
-    $p->_ANNO               = date('Y', $corso->tEsame);
-    $p->_LUOGO              = $corso->organizzatore()->comune;
-    $p->_VIA                = $corso->organizzatore()->indirizzo;
-    $p->_CIVICO             = $corso->organizzatore()->civico;
-    $p->_OPATT              = $corso->opAttivazione;
-    $p->_DATAATT            = $corso->dataAttivazione();
-    $p->_OPCONVOCAZIONE     = $corso->opConvocazione;
-    $p->_DATACONVOCAZIONE   = $corso->dataConvocazione();
-    $p->_NUMASP             = $corso->numIscritti();
-    $p->_NONIDONEI          = count($corso->partecipazioni(ISCR_BOCCIATO));
-    $p->_IDONEI             = count($corso->partecipazioni(ISCR_SUPERATO));
-    $p->_TABELLA            = $tabella;
-    $f = $p->salvaFile(null,true);
+    $part = new PDF('verbaleEsame', 'Verbale esame.pdf');
+    $part->_COMITATO       = $corso->organizzatore()->nomeCompleto();
+    $part->_GIORNO             = date('d', $corso->tEsame);
+    $part->_MESE               = date('m', $corso->tEsame);
+    $part->_ANNO               = date('Y', $corso->tEsame);
+    $part->_LUOGO              = $corso->organizzatore()->comune;
+    $part->_VIA                = $corso->organizzatore()->indirizzo;
+    $part->_CIVICO             = $corso->organizzatore()->civico;
+    $part->_OPATT              = $corso->opAttivazione;
+    $part->_DATAATT            = $corso->dataAttivazione();
+    $part->_OPCONVOCAZIONE     = $corso->opConvocazione;
+    $part->_DATACONVOCAZIONE   = $corso->dataConvocazione();
+    $part->_NUMASP             = $corso->numIscritti();
+    $part->_NONIDONEI          = count($corso->partecipazioni(ISCR_BOCCIATO));
+    $part->_IDONEI             = count($corso->partecipazioni(ISCR_SUPERATO));
+    $part->_TABELLA            = $tabella;
+    $f = $part->salvaFile(null,true);
     $zip->aggiungi($f);
 
     $zip->comprimi("Verbale e schede corso base.zip");
