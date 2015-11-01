@@ -16,7 +16,7 @@
 //  c) Non devono esserci piu' istanze in parallelo (controllo interno)
 
 // Ottieni un timestamp e codice task per eventuali errori
-$task = rand(10000, 99999);
+$task = getmypid();
 $time = date('d-m-Y H:i:s');
 
 // Carica configurazione
@@ -26,16 +26,24 @@ define('VERBOSE', true);
 
 // Lockfile
 define('LOCKFILE', 	'upload/log/mail.lock');
-function lock() 	{ file_put_contents(LOCKFILE, time()); }
+function lock() 	{ file_put_contents(LOCKFILE, $task); }
 function unlock() 	{ file_put_contents(LOCKFILE, 0); }
-function locked() 	{ return (bool) file_exists(LOCKFILE) && file_get_contents(LOCKFILE); }
+function running() 	{ return (bool) file_exists(LOCKFILE) && file_exists("/proc/" + (string) ((int) file_get_contents(LOCKFILE)); }
+function locked() 	{ return (bool) file_exists(LOCKFILE) && running(); }
 
 ignoraTransazione();
 
 // Controlla se ci sono sessioni avviate
 // e termina ritornando stato 0 (OK)
 if ( locked() ) {
-	echo "#{$task}, {$time} ha provato a partire, ma ha trovato un file di lock.\n";
+	echo "#{$task}, {$time} ha provato a partire, ma ha trovato un file di lock ed un processo attivo.\n";
+	exit(0);
+}
+
+if ( !running() ) {
+	$expid = (int) file_get_contents(LOCKFILE);
+	echo "#{$task}, {$time}  WARNING  ha trovato un file di lock, ma il processo (#{$expid}) è morto prematuramente,\n";
+	echo "#{$task}, {$time}           sta quindi ignorando il file di lock.\n";
 	exit(0);
 }
 
@@ -54,22 +62,23 @@ foreach ( $coda as $_comunicazione ) {
 	// 10 minuti per botta!
 	set_time_limit(600);
 
-	$time = date('d-m-Y H:i:s');
-
 	try {
 		// Tenta l'invio della comunicazione
 		if ( !$stato = (int) $_comunicazione->invia( function() use ($cache, $task, $time, $_comunicazione) {
 
-			echo "#{$task}, {$time} inviato un messaggio per {$_comunicazione}\n";
+			$now = date('d-m-Y H:i:s');
+			echo "#{$task}, {$time}, {$now}, inviato un messaggio per {$_comunicazione}\n";
 
 		}) ) {
-			echo "#{$task}, {$time}: Invio non riuscito," .
+			$now = date('d-m-Y H:i:s');
+			echo "#{$task}, {$time}, {$now}: Invio non riuscito," .
 			     " comunicazione {$_comunicazione}" .
 				 " (stato {$stato})\n";
 		}
 
 	} catch ( Errore $e ) {
-		echo "#{$task}, {$time}: Errore: {$e->messaggio}\n";
+		$now = date('d-m-Y H:i:s');
+		echo "#{$task}, {$time}, {$now}: Errore: {$e->messaggio}\n";
 
 	}
 
