@@ -50,11 +50,10 @@ if ( locked() ) {
 
 if ( !running() ) {
 	$expid = (int) file_get_contents(LOCKFILE);
-	if ( $expid == 0 ) {
-		return;
+	if ( $expid != 0 ) {
+		echo "#{$task}, {$time}  WARNING  ha trovato un file di lock, ma il processo (#{$expid}) è morto prematuramente,\n";
+		echo "#{$task}, {$time}           sta quindi ignorando il file di lock.\n";
 	}
-	echo "#{$task}, {$time}  WARNING  ha trovato un file di lock, ma il processo (#{$expid}) è morto prematuramente,\n";
-	echo "#{$task}, {$time}           sta quindi ignorando il file di lock.\n";
 }
 
 echo "#{$task}, {$time} sta partendo, ha creato un file di lock.\n";
