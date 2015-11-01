@@ -62,6 +62,7 @@ foreach ($partecipazioni as $i) {
             
     }
 };
+
 $partecipazioni = $c->partecipazioniPotenziali();
 foreach ($partecipazioni as $i) {
     $v = $i->volontario();
@@ -81,6 +82,7 @@ foreach ($partecipazioni as $i) {
     }
 };
 unset($partecipazioni);
+
 
 $checkDocenti = $c->numeroDocentiMancanti();
 $checkAffiancamenti = $c->numeroAffiancamenti() > ($c->numeroDocentiNecessari() * intval($c->tipo()->proporzioneAffiancamento));

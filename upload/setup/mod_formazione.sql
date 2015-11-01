@@ -1,18 +1,17 @@
-
 --
 -- Table structure for table `crs_corsi`
 --
-
+DROP TABLE IF EXISTS `crs_corsi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `crs_corsi` (
+CREATE TABLE `crs_corsi` (
   `id` int(11) NOT NULL,
-  `certificato` int(11) DEFAULT NULL,
+  `tipo` int(11) DEFAULT NULL,
   `area` int(11) DEFAULT NULL,
   `organizzatore` varchar(32) DEFAULT NULL,
   `responsabile` int(11) DEFAULT NULL,
   `direttore` int(11) DEFAULT NULL,
-  `inizio` varchar(64) DEFAULT NULL,
+  `inizio` int(11) DEFAULT NULL,
   `progressivo` int(11) DEFAULT NULL,
   `partecipanti` int(11) DEFAULT NULL,
   `luogo` varchar(255) DEFAULT NULL,
@@ -21,10 +20,13 @@ CREATE TABLE IF NOT EXISTS `crs_corsi` (
   `descrizione` text,
   `iscritti` int(11) DEFAULT NULL,
   `stato` int(11) DEFAULT NULL,
-  `aggiornamento` varchar(64) DEFAULT NULL,
-  `tEsame` varchar(64) DEFAULT NULL,
+  `aggiornamento` int(11) DEFAULT NULL,
+  `tEsame` int(11) DEFAULT NULL,
   `provincia` varchar(64) DEFAULT NULL,
+  `seriale` varchar(45) DEFAULT NULL,
+  `verbale` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `seriale_UNIQUE` (`seriale`),
   KEY `organizzatore` (`organizzatore`),
   KEY `direttore` (`direttore`),
   SPATIAL KEY `geo` (`geo`)
@@ -35,9 +37,10 @@ CREATE TABLE IF NOT EXISTS `crs_corsi` (
 -- Table structure for table `crs_dettagliCorsi`
 --
 
+DROP TABLE IF EXISTS `crs_dettagliCorsi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `crs_dettagliCorsi` (
+CREATE TABLE `crs_dettagliCorsi` (
   `id` varchar(128) NOT NULL DEFAULT '',
   `nome` varchar(32) NOT NULL DEFAULT '',
   `valore` text,
@@ -46,12 +49,32 @@ CREATE TABLE IF NOT EXISTS `crs_dettagliCorsi` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `crs_giornataCorso`
+--
+
+DROP TABLE IF EXISTS `crs_giornataCorso`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crs_giornataCorso` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `corso` int(11) DEFAULT NULL,
+  `nome` varchar(255) DEFAULT NULL,
+  `luogo` varchar(255) DEFAULT NULL,
+  `data` int(11) DEFAULT NULL,
+  `note` mediumtext,
+  PRIMARY KEY (`id`),
+  KEY `idx_corso` (`corso`)
+) ENGINE=InnoDB AUTO_INCREMENT=515 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `crs_iscrizioni`
 --
 
+DROP TABLE IF EXISTS `crs_iscrizioni`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `crs_iscrizioni` (
+CREATE TABLE `crs_iscrizioni` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `corso` int(11) DEFAULT NULL,
   `anagrafica` int(11) DEFAULT NULL,
@@ -64,9 +87,10 @@ CREATE TABLE IF NOT EXISTS `crs_iscrizioni` (
 -- Table structure for table `crs_partecipazioni_corsi`
 --
 
+DROP TABLE IF EXISTS `crs_partecipazioni_corsi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `crs_partecipazioni_corsi` (
+CREATE TABLE `crs_partecipazioni_corsi` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `volontario` varchar(16) DEFAULT NULL,
   `corso` varchar(16) DEFAULT NULL,
@@ -77,20 +101,39 @@ CREATE TABLE IF NOT EXISTS `crs_partecipazioni_corsi` (
   `pConferma` varchar(16) DEFAULT NULL,
   `tAttestato` varchar(64) DEFAULT NULL,
   `cAttestato` varchar(16) DEFAULT NULL,
+  `md5` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `corso` (`corso`),
   KEY `volontario` (`volontario`)
-) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=150 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `crs_qualifiche`
+--
+
+DROP TABLE IF EXISTS `crs_qualifiche`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crs_qualifiche` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) DEFAULT NULL,
+  `vecchiaNomenclatura` varchar(255) DEFAULT NULL,
+  `area` int(2) DEFAULT NULL,
+  `attiva` int(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `crs_risultati_corsi`
 --
 
+DROP TABLE IF EXISTS `crs_risultati_corsi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `crs_risultati_corsi` (
+CREATE TABLE `crs_risultati_corsi` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `volontario` int(11) DEFAULT NULL,
   `corso` int(11) DEFAULT NULL,
@@ -102,23 +145,74 @@ CREATE TABLE IF NOT EXISTS `crs_risultati_corsi` (
   `note` text,
   `file` varchar(64) DEFAULT NULL,
   `generato` int(1) NOT NULL DEFAULT '0',
-  `seriale` int(10) unsigned DEFAULT NULL,
+  `seriale` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `mixed_UNIQUE` (`volontario`,`corso`,`timestamp`),
   UNIQUE KEY `file_UNIQUE` (`file`),
+  UNIQUE KEY `seriale_UNIQUE` (`seriale`),
   KEY `corso` (`corso`),
   KEY `volontario` (`volontario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `crs_ruoli`
+--
+
+DROP TABLE IF EXISTS `crs_ruoli`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crs_ruoli` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ruolo` varchar(45) DEFAULT NULL,
+  `requisito` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `crs_tipoCorsi`
+--
+
+DROP TABLE IF EXISTS `crs_tipoCorsi`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `crs_tipoCorsi` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) DEFAULT NULL,
+  `ruoloDirettore` int(11) DEFAULT NULL,
+  `ruoloDocenti` int(11) DEFAULT NULL,
+  `ruoloAffiancamento` int(11) DEFAULT NULL,
+  `ruoloDiscenti` int(11) DEFAULT NULL,
+  `ruoloAttestato` int(11) DEFAULT NULL,
+  `limitePerIscrizione` int(11) DEFAULT NULL COMMENT 'In giorni',
+  `proporzioneIstruttori` int(11) DEFAULT NULL COMMENT 'Quanti Docenti in affiancemento per docente 1/valore',
+  `minimoPartecipanti` int(11) DEFAULT NULL,
+  `massimoPartecipanti` int(11) DEFAULT NULL,
+  `proporzioneAffiancamento` int(11) DEFAULT NULL COMMENT '1/valore',
+  `durata` int(11) DEFAULT NULL,
+  `giorni` int(11) DEFAULT NULL,
+  `punizione` int(11) DEFAULT NULL,
+  `dipendenzaAffiancamento` int(11) DEFAULT NULL COMMENT 'ID del corso che un volontario deve aver superato per poter fare affiancamento qui',
+  `abilitaNazionale` int(1) DEFAULT '0' COMMENT 'il nazionale può creare questo tipo di corso',
+  `abilitaRegionale` int(1) DEFAULT '0' COMMENT 'il regionale può creare questo tipo di corso',
+  `abilitaProvinciale` int(1) DEFAULT '0' COMMENT 'il provinciale può creare questo tipo di corso',
+  `abilitaLocale` int(1) DEFAULT '0',
+  `qualifica` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `crs_titoliCorsi`
 --
 
+DROP TABLE IF EXISTS `crs_titoliCorsi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `crs_titoliCorsi` (
+CREATE TABLE `crs_titoliCorsi` (
   `id` int(11) NOT NULL,
   `volontario` varchar(16) DEFAULT NULL,
   `titolo` varchar(16) DEFAULT NULL,
@@ -134,7 +228,14 @@ CREATE TABLE IF NOT EXISTS `crs_titoliCorsi` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
+
+
+
+
+
+-- ------------------------------------------------------------------------------------
 -- Funzione per generare il seriale per anno e per corso di un certificato
+-- ------------------------------------------------------------------------------------
 DROP FUNCTION IF EXISTS generaSerialeCertificato;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` FUNCTION `generaSerialeCertificato`(yyyy INT, tipocorsoId INT) RETURNS varchar(30) CHARSET latin1
@@ -161,8 +262,9 @@ BEGIN
 END
 $$
 
-
+-- ------------------------------------------------------------------------------------
 -- Funzione per generare il seriale per anno e di un corso
+-- ------------------------------------------------------------------------------------
 DROP FUNCTION IF EXISTS generaSerialeCorso;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` FUNCTION `generaSerialeCorso`(yyyy INT, tipocorsoId INT) RETURNS varchar(30) CHARSET latin1
@@ -187,85 +289,3 @@ BEGIN
   RETURN CONCAT(yyyy,"-",LPAD(tipocorsoId, paddingSizeCorsoId ,'0'),"-",LPAD(newSerial+1, paddingSizeSerial, '0'));
 END
 $$
-
-
-ALTER TABLE `crs_corsi` 
-ADD COLUMN `seriale` VARCHAR(45) NULL AFTER `provincia`,
-ADD UNIQUE INDEX `seriale_UNIQUE` (`seriale` ASC);
-
-
-ALTER TABLE `crs_corsi` 
-ADD COLUMN `verbale` VARCHAR(255) NULL AFTER `seriale`;
-
-CREATE TABLE `crs_giornataCorso` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `corso` int(11) DEFAULT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  `luogo` varchar(255) DEFAULT NULL,
-  `data` int(11) DEFAULT NULL,
-  `note` mediumtext,
-  PRIMARY KEY (`id`),
-  KEY `idx_corso` (`corso`)
-) ENGINE=InnoDB AUTO_INCREMENT=515 DEFAULT CHARSET=latin1;
-
-
-CREATE TABLE IF NOT EXISTS `crs_tipoCorsi` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) DEFAULT NULL,
-  `ruoloDirettore` int(11) DEFAULT NULL,
-  `ruoloDocenti` int(11) DEFAULT NULL,
-  `ruoloAffiancamento` int(11) DEFAULT NULL,
-  `ruoloDiscenti` int(11) DEFAULT NULL,
-  `ruoloAttestato` int(11) DEFAULT NULL,
-  `tipoValutazione` varchar(255) DEFAULT NULL,
-  `attestato` varchar(255) DEFAULT NULL COMMENT 'Il template del documento, se passato con sucesso',
-  `limitePerIscrizione` int(11) DEFAULT NULL COMMENT 'In giorni',
-  `proporzioneIstruttori` int(11) DEFAULT NULL COMMENT 'Quanti Docenti in affiancemento per docente 1/valore',
-  `minimoPartecipanti` int(11) DEFAULT NULL,
-  `massimoPartecipanti` int(11) DEFAULT NULL,
-  `proporzioneAffiancamento` int(11) DEFAULT NULL COMMENT '1/valore',
-  `durata` int(11) DEFAULT NULL,
-  `giorni` int(11) DEFAULT NULL,
-  `punizione` int(11) DEFAULT NULL,
-  `dipendenzaAffiancamento` int(11) DEFAULT NULL COMMENT 'ID del corso che un volontario deve aver superato per poter fare affiancamento qui',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-
-
-/* Query per tutti i possibili istruttori */
-SELECT * FROM crs_risultati_corsi r, crs_titoliCorsi tc, crs_corsi c, crs_tipoCorsi t WHERE 
-    c.id = r.corso 
-    AND tc.titolo = c.certificato
-    AND c.certificato = t.id 
-    AND r.segnalazione_01 != null && r.segnalazione_02 != null
-    AND t.ruoloAttestato = (SELECT id FROM crs_ruoli WHERE ruolo = 'Esecutore')
-    AND tc.fine > now() AND tc.inizio < now();
-
-ALTER TABLE `gaia`.`crs_tipoCorsi` 
-CHANGE COLUMN `attestato` `qualifica` VARCHAR(255) NULL DEFAULT NULL COMMENT 'Il template del documento, se passato con sucesso' ;
-
-
-ALTER TABLE `crs_tipoCorsi` 
-ADD COLUMN `abilitaNazionale` INT(1) NULL DEFAULT 0 AFTER `dipendenzaAffiancamento`,
-ADD COLUMN `abilitaRegionale` INT(1) NULL DEFAULT 0 AFTER `abilitaNazionale`,
-ADD COLUMN `abilitaProvinciale` INT(1) NULL DEFAULT 0 AFTER `abilitaRegionale`,
-ADD COLUMN `abilitaLocale` INT(1) NULL DEFAULT 0 AFTER `abilitaProvinciale`;
-
-
-ALTER TABLE `crs_partecipazioni_corsi` 
-ADD COLUMN `md5` VARCHAR(255) NULL AFTER `cAttestato`;
-
-DROP TABLE `certificati`;
-
-ALTER TABLE `gaia`.`crs_corsi` 
-CHANGE COLUMN `certificato` `tipo` INT(11) NULL DEFAULT NULL ;
-
-CREATE TABLE `crs_qualifiche` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) DEFAULT NULL,
-  `vecchiaNomenclatura` varchar(255) DEFAULT NULL,
-  `area` int(2) DEFAULT NULL,
-  `attiva` int(1) DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;

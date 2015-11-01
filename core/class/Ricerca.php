@@ -93,24 +93,26 @@ class Ricerca {
         $inizio = microtime(true);
 
         $query = $this->generaQueryCorsi();
-
-        $qConta = $this->creaContoQuery($query);
-        $qConta = $db->query($qConta);
-        $qConta = $qConta->fetch(PDO::FETCH_NUM);
-        $this->totale = (int) $qConta[0];
-
-        $this->pagine = ceil( $this->totale / $this->perPagina );
-
-        $qRicerca = $this->ordinaLimitaQuery($query);
-        $qRicerca = $db->query($qRicerca);
-        $this->risultati = [];
         
-        while ( $k = $qRicerca->fetch(PDO::FETCH_NUM) ) {
-            $this->risultati[] = new Utente($k[0]);
+        $qConta = $this->creaContoQuery($query);
+        if (!empty($qConta)){
+            $qConta = $db->query($qConta);
+            $qConta = $qConta->fetch(PDO::FETCH_NUM);
+            $this->totale = (int) $qConta[0];
+            $this->pagine = ceil( $this->totale / $this->perPagina );
+            
+            $qRicerca = $this->ordinaLimitaQuery($query);
+            if(!empty($qRicerca)){
+                $qRicerca = $db->query($qRicerca);
+                $this->risultati = [];
+                while ( $k = $qRicerca->fetch(PDO::FETCH_NUM) ) {
+                    $this->risultati[] = new Utente($k[0]);
+                }
+                $fine = microtime(true);
+                $this->tempo = round($fine - $inizio, 6);
+            }
         }
-        $fine = microtime(true);
-        $this->tempo = round($fine - $inizio, 6);
-
+        
         return true;
     }
     
@@ -140,10 +142,10 @@ class Ricerca {
             $input = addslashes($input);
             $pRicerca = " 
                     AND (
-                        anagrafica.nome LIKE '%{$input}%'
-                        OR anagrafica.cognome LIKE '%{$input}%'
-                        OR anagrafica.email LIKE '%{$input}%'
-                        OR anagrafica.codiceFiscale LIKE '%{$input}%'
+                        anagrafica.nome LIKE '{$input}%'
+                        OR anagrafica.cognome LIKE '{$input}%'
+                        OR anagrafica.email LIKE '{$input}%'
+                        OR anagrafica.codiceFiscale LIKE '{$input}%'
                     ) ";
             //$pPertinenza = "MAX({$pRicerca}) as pertinenza";
             //$pRicerca = " $pRicerca";
@@ -219,23 +221,34 @@ class Ricerca {
             SELECT
                 DISTINCT anagrafica.id
             FROM
-                anagrafica, appartenenza, ruoliValidi, comitati {$extraFrom}
+                anagrafica, appartenenza, comitati, crs_titoliCorsi, 
+                crs_tipoCorsi, crs_ruoli, crs_qualifiche, crs_corsi 
+                {$extraFrom}
             WHERE
                         anagrafica.id           =   appartenenza.volontario
                         {$pStatoPersona}
                         {$pGiovane}
                         {$pInfermiera}
                         {$pMilitare}
-                AND     anagrafica.id = ruoliValidi.volontario
+                AND     anagrafica.id = crs_titoliCorsi.volontario
+                AND     crs_tipoCorsi.id = crs_titoliCorsi.titolo
+                AND ( crs_ruoli.id = crs_tipoCorsi.ruoloDirettore 
+                      OR crs_ruoli.id = crs_tipoCorsi.ruoloDocenti
+                      OR crs_ruoli.id = crs_tipoCorsi.ruoloAffiancamento
+                      OR crs_ruoli.id = crs_tipoCorsi.ruoloDiscenti
+                      OR crs_ruoli.id = crs_tipoCorsi.ruoloAttestato
+                  )
+                AND     crs_qualifiche.id = crs_tipoCorsi.qualifica
+                AND     crs_corsi.tipo = crs_tipoCorsi.id
                 AND     appartenenza.comitato   =   comitati.id
-                AND     ruoliValidi.ruolo = {$ruolo}
-                AND     ruoliValidi.qualifica = {$qualifica}
+                AND     crs_ruoli.id = {$ruolo}
+                AND     crs_qualifiche.id = {$qualifica}
                 AND     appartenenza.stato      {$pStato}
                 AND     appartenenza.inizio     <=  {$ora}
                         {$pPassato}
                         {$pDominio}
-                        {$pRicerca} ";  
-                        
+                        {$pRicerca} ";
+                      
         return $query;
     }
 

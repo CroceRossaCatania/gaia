@@ -70,7 +70,7 @@ $d = new DateTime('@' . $c->inizio);
                     </div>
                     <div class="span8">
                         <select name="docenti[]" 
-                                data-ruolo="<?php echo $ruoloDocenti; ?>"
+                                data-ruolo="<?php echo $ruolo; ?>"
                                 data-qualifica="<?php echo $qualifica; ?>"
                                 data-placeholder="Scegli un docente..." multiple class="chosen-select docenti">
                             <?php 

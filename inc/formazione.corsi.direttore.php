@@ -46,7 +46,7 @@ caricaSelettoreDirettore([
 
 // non dovrebbe mai essere vuoto a meno di crash nella pagina precedente di creazione
 
-$tipocorso = TipoCorso::id(intval($c->tipo));
+$tipoCorso = TipoCorso::id(intval($c->tipo));
 $d = new DateTime('@' . $c->inizio);
 
 

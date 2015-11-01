@@ -79,7 +79,6 @@ class PartecipazioneCorso extends Entita {
         $m->_DATA = $c->inizio();
         $m->_ID = $this->id;
         $m->_MD5 = $this->md5;
-        
         $m->invia();
         
         return $m;

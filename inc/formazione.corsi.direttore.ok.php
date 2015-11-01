@@ -4,7 +4,7 @@
  */
 paginaPresidenziale(null, null, APP_OBIETTIVO, OBIETTIVO_1);
 
-controllaParametri(['id','direttore'], 'admin.corsi.crea&err');
+controllaParametri(['id','direttori'], 'admin.corsi.crea&err');
 
 $c = $direttore = null;
 try {
@@ -14,7 +14,7 @@ try {
         redirect('formazione.corsi.riepilogo&id='.$c->id.'&err=1');
     }
 
-    $direttore = Volontario::id(intval($_POST['direttore']));
+    $direttore = Volontario::id(intval($_POST['direttori']));
     
     if (empty($c) || empty($direttore)) {
         throw new Exception('Manomissione');
@@ -23,10 +23,10 @@ try {
     redirect('admin.corsi.crea&err');
 }
 
-$c->direttore = $direttore->id;
 
+$c->direttore = $direttore->id;
 $c->aggiornaStato();
-    
+
 $partecipazione = new PartecipazioneCorso();
 $partecipazione->aggiungi($c, $direttore, CORSO_RUOLO_DIRETTORE);
 
