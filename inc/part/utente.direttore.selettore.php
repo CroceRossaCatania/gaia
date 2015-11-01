@@ -22,8 +22,7 @@ if (isset($direttori) && is_array($direttori) && !empty($direttori)) {
         var input = null;
         var notfound = null;
         
-        select
-            .on('chosen:ready', function(event) {
+        select.on('chosen:ready', function(event) {
                 var $button = $('<button class="btn btn-sm btn-primary">cerca</button>');
                 $(".chosen-select.direttori").next('.chosen-container').find('.search-field').append($button);
                 
