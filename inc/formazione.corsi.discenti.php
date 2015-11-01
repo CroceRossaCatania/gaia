@@ -99,7 +99,7 @@ $qualifica = $tipocorso->qualifica;
 
     <div class="span4">
         <h2><i class="icon-plus-square icon-calendar muted"></i> Opzioni</h2>
-        <?php { // popolazione ?>
+        <?php if ($ruolo == 1) { // popolazione: vedi tabella crs_ruoli ?>
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#nuovo-utente">Nuovo discente (civile)</button>
         <?php } ?>
     </div>

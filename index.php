@@ -51,6 +51,10 @@ $sessione->agent    = $_SERVER['HTTP_USER_AGENT'];
 /* Flag dei selettori */
 $_carica_selettore              = false;
 $_carica_selettore_comitato     = false;
+$_carica_selettore_discente     = false;
+$_carica_selettore_docente     = false;
+$_carica_selettore_docente_affiancamento     = false;
+$_carica_selettore_direttore     = false;
 
 /* Pagina da visualizzare */
 $p = $_GET['p'];
@@ -84,8 +88,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
     <!-- JS e CSS compressi -->
-    <link href="/assets/min/20151005/build/build.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="/assets/min/20151005/build/build.js"></script>
+    <link href="/assets/min/20151011/build/build.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="/assets/min/20151011/build/build.js"></script>
 
     <!-- Recaptcha -->
     <script src="https://www.google.com/recaptcha/api.js?hl=it" async defer></script>
@@ -127,6 +131,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                             <li><a href="?p=attivita"><i class="icon-calendar"></i> Attività</a></li>
                             <li><a href="?p=public.comitati.mappa"><i class="icon-map-marker"></i> Comitati</a></li>
                             <li><a href="?p=public.formazione"><i class="icon-desktop"></i> Formazione</a></li>
+                            <li><a href="?p=public.corsi"><i class="icon-graduation-cap"></i> Corsi</a></li>
 							<?php if(!$me) { ?>
                             <li><a href="?p=public.tesserino"><i class="icon-credit-card"></i> Verifica tesserino</a></li>
                             <?php } ?>
@@ -315,6 +320,9 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                             <li><a href="?p=admin.aspiranti"><i class="icon-meh"></i> Aspiranti</a></li> 
                                             <li><a href="?p=admin.double"><i class="icon-superscript"></i> Double</a></li>
                                             <li><a href="?p=admin.tesseramento"><i class="icon-eur"></i> Tesseramento</a></li>
+                                            <li class="nav-header">Formazione</li>
+                                            <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
+                                            <li><a href="?p=admin.tipocorso"><i class="icon-graduation-cap"></i> Tipo Corso</a></li>
                                             <li class="nav-header">Report & Co</li>
                                             <li><a href="?p=admin.report"><i class="icon-copy"></i> Report</a></li>  
                                             <li><a href="?p=admin.stats"><i class="icon-copy"></i> Statistiche</a></li>
@@ -481,6 +489,22 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
                 <?php if ( $_carica_selettore_comitato ) {
                     include './inc/part/comitato.selettore.php';
+                } ?>
+
+                <?php if ( $_carica_selettore_direttore ) {
+                    include './inc/part/utente.direttore.selettore.php';
+                } ?>
+
+                <?php if ( $_carica_selettore_docente ) {
+                    include './inc/part/utente.docente.selettore.php';
+                } ?>
+
+                <?php if ( $_carica_selettore_docente_affiancamento ) {
+                    include './inc/part/utente.docente_affiancamento.selettore.php';
+                } ?>
+
+                <?php if ( $_carica_selettore_discente ) {
+                    include './inc/part/utente.discente.selettore.php';
                 } ?>
 
                 <?php if ( $me && $me->admin && !$me->admin() ) { ?>

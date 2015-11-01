@@ -807,7 +807,7 @@ $conf['corso_ruolo'] = [
     CORSO_RUOLO_CREATORE            => 'Presidente',
     CORSO_RUOLO_DELEGATO_CREATORE   => 'Delegato',
     CORSO_RUOLO_DIRETTORE           => 'Direttore',
-    CORSO_RUOLO_DOCENTE          => 'Docente',
+    CORSO_RUOLO_DOCENTE             => 'Docente',
     CORSO_RUOLO_AFFIANCAMENTO       => 'Docente in affiancamento',
     CORSO_RUOLO_DISCENTE            => 'Discente',
 ];

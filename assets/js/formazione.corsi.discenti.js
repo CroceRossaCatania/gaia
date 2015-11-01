@@ -5,7 +5,7 @@ $(document).ready(function () {
         api('aggiungi:civile', {
                 "nome": $('#inputNome').val(),
                 "cognome": $('#inputCognome').val(),
-                "sesso": $('#inputSesso').val(),
+                "sesso": $('#inputSesso option:selected').val(),
                 "cf": $('#inputCodiceFiscale').val(),
                 "dnascita": $('#inputDataNascita').val(),
                 "prnascita": $('#inputProvinciaNascita').val(),
@@ -19,7 +19,18 @@ $(document).ready(function () {
                 "cellulare": $('#inputCellulare').val()
             }, 
             function (x) {
-                console.log(x);
+                
+                if (x.risposta && x.risposta.errore) {
+                    alert(x.risposta.errore.info);
+                    return;
+                }
+                
+                if (x.risposta && x.risposta.codiceFiscale) {
+                    $('#nuova-persona').modal('hide');
+                    $('.chosen-select.discenti').each(function(el) {
+                        el.append('<option value="'+id+'">'+x.risposta.nomeCompleto+'</option>');
+                    });
+                }
             }
         );
         // recuperare i discenti già selezionati 

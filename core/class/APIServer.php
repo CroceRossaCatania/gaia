@@ -36,8 +36,6 @@ class APIServer {
             registraParametroTransazione('uid', $this->sessione->utente );
         }
         registraParametroTransazione('login', (int) $identificato );
-
-
     }
 
     /**
@@ -1337,9 +1335,21 @@ class APIServer {
 
     
     private function api_aggiungi_civile() {
-        $this->richiediLogin();
-        //$this->richiedi(['code']);
-
+        $me = $this->richiediLogin();
+        $this->richiedi(['cf','nome','cognome','dnascita','conascita','prnascita']);
+        
+        $a = Civile::by('codiceFiscale', $this->par['cf']);
+        if (!empty($a)) {
+            return [
+                'errore'    => [
+                    'timestamp' => (new DT())->getTimestamp(),
+                    'messaggio' => 'Civile già presente in anagrafica',
+                    'info' => 'Si è cercato di inserire un civile con codice fiscale '.$this->par['cf'].', ma questo codice fiscale esiste già.'
+                ]
+            ];
+        }
+        
+        
         $this->db->beginTransaction();
         
         try {
@@ -1349,7 +1359,7 @@ class APIServer {
             
             $a->nome     = $this->par['nome'];
             $a->cognome = $this->par['cognome'];
-            $a->sesso = $this->par['sesso'];
+            $a->sesso = $this->par['sesso'] ? 1 : 0;
             $a->dataNascita = DT::daFormato($this->par['dnascita'])->getTimestamp();
             
             $a->provinciaNascita = $this->par['prnascita'];
@@ -1373,6 +1383,7 @@ class APIServer {
         if (!$a) { return null; }
 
         return [
+            'id'  =>  $a->id,
             'nomeCompleto'  =>  $a->nomeCompleto(),
             'codiceFiscale' =>  $a->codiceFiscale        ];
     }
