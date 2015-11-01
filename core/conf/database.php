@@ -25,3 +25,10 @@ $conf['database'] = [
     'pass'  =>  'nHcOefCOs7',
     'persistent'    =>  false
 ];
+
+$conf['database'] = [ 
+    'dns'   =>  'mysql:host=127.0.0.1;dbname=gaia',
+    'user'  =>  'gaia',
+    'pass'  =>  'gaia',
+    'persistent'    =>  false
+];
