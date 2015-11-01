@@ -1,11 +1,12 @@
 $(document).ready(function () {
 
-    $('##nuova-persona').on('submit', function () {
+    $('#nuova-persona').on('submit', function () {
 
         api('aggiungi:civile', {
                 "nome": $('#inputNome').val(),
                 "cognome": $('#inputCognome').val(),
                 "sesso": $('#inputSesso').val(),
+                "cf": $('#inputCodiceFiscale').val(),
                 "dnascita": $('#inputDataNascita').val(),
                 "prnascita": $('#inputProvinciaNascita').val(),
                 "conascita": $('#inputComuneNascita').val(),
@@ -13,7 +14,9 @@ $(document).ready(function () {
                 "caresidenza": $('#inputCAPResidenza').val(),
                 "prresidenza": $('#inputProvinciaResidenza').val(),
                 "indirizzo": $('#inputIndirizzo').val(),
-                "civico": $('#inputCivico').val()
+                "civico": $('#inputCivico').val(),
+                "email": $('#inputEmail').val(),
+                "cellulare": $('#inputCellulare').val()
             }, 
             function (x) {
                 console.log(x);
