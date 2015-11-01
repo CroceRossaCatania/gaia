@@ -5,7 +5,7 @@
 /**
  * Rappresenta un Corso.
  */
-class Qualifiche extends GeoEntita {
+class Qualifiche extends Entita {
 
     protected static
         $_t  = "crs_qualifiche";

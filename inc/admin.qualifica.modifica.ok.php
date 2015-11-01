@@ -6,13 +6,17 @@
 
 paginaAdmin();
 controllaParametri(array('id'), 'admin.qualifica&err');
-$t = filter_input(INPUT_POST, "id");
-$t = filter_input(INPUT_POST, "id");
+$id = filter_input(INPUT_GET, "id");
 
-$t = Qualifica::id($t);
-$t->tipo = $_POST['inputTipo'];
-$t->nome = maiuscolo( $_POST['inputNome'] );
-   
+$t = Qualifiche::id($id);
+$t->area = intval(filter_input(INPUT_POST, 'inputArea'));
+$t->nome = maiuscolo(filter_input(INPUT_POST, 'inputNome'));
+$t->vecchiaNomenclatura = maiuscolo(filter_input(INPUT_POST, 'inputVecchioNome'));
+$t->attiva = intval(filter_input(INPUT_POST, 'inputAbilita'));
+
+
+print_r($t);
+
 redirect('admin.qualifica&mod');
 
 ?>

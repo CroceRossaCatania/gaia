@@ -65,15 +65,20 @@ paginaAdmin();
      <table class="table table-striped table-bordered table-condensed" id="tabellaUtenti">
         <thead>
             <th>Nome</th>
-            <th>Tipo</th>
+            <th>Vecchio Nome</th>
+            <th>Attiva</th>
+            <th>Area</th>
             <th>Azioni</th>
         </thead>
         <?php
-        foreach(Qualifiche::elenco('nome ASC') as $c){
+        $qualifiche = Qualifiche::elenco('nome ASC');
+        foreach($qualifiche as $c){
             ?>
             <tr>
                 <td><?php echo $c->nome; ?></td>
-                <td><?php echo($conf['titoli'][$c->tipo][0]); ?></td>
+                <td><?php echo $c->vecchiaNomenclatura; ?></td>
+                <td><?php echo $c->attiva; ?></td>
+                <td><?php echo($conf['nomiobiettivi'][$c->area]); ?></td>
                 <td>
                     <div class="btn-group">
                         <a  onClick="return confirm('Vuoi veramente cancellare questo qualifica ?');" href="?p=admin.qualifica.cancella&id=<?php echo $c->id; ?>" title="Cancella Qualifica" class="btn btn-small btn-warning">
