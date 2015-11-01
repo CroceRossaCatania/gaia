@@ -24,11 +24,20 @@ require 'core.inc.php';
 
 define('VERBOSE', true);
 
+function processRunning($pid) {
+        exec('ps '.$pid,$output,$result);
+        if( count( $output ) == 2 ) {
+            return true;
+        }
+    }
+    return false;
+}
+
 // Lockfile
 define('LOCKFILE', 	'upload/log/mail.lock');
 function lock() 	{ file_put_contents(LOCKFILE, getmypid()); }
 function unlock() 	{ file_put_contents(LOCKFILE, 0); }
-function running() 	{ return (bool) file_exists(LOCKFILE) && file_exists("/proc/" + (string) ((int) file_get_contents(LOCKFILE))); }
+function running() 	{ return (bool) file_exists(LOCKFILE) && processRuning((int) file_get_contents(LOCKFILE)); }
 function locked() 	{ return (bool) file_exists(LOCKFILE) && running(); }
 
 ignoraTransazione();
