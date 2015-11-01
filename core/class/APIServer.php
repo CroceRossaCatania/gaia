@@ -1345,21 +1345,24 @@ class APIServer {
         try {
             $a = new Civile();
 
-            $a->nome     = $this->par['inputNome'];
-            $a->inputCAPResidenza = $this->par['inputCAPResidenza'];
-            $a->inputCellulare = $this->par['inputCellulare'];
-            $a->inputCivico = $this->par['inputCivico'];
-            $a->inputCodiceFiscale = $this->par['inputCodiceFiscale'];
-            $a->inputCognome = $this->par['inputCognome'];
-            $a->inputComuneNascita = $this->par['inputComuneNascita'];
-            $a->inputComuneResidenza = $this->par['inputComuneResidenza'];
-            $a->inputDataNascita = $this->par['inputDataNascita'];
-            $a->inputEmail = $this->par['inputEmail'];
-            $a->inputIndirizzo = $this->par['inputIndirizzo'];
-            $a->inputNome = $this->par['inputNome'];
-            $a->inputProvinciaNascita = $this->par['inputProvinciaNascita'];
-            $a->inputProvinciaResidenza = $this->par['inputProvinciaResidenza'];
-            $a->inputSesso = $this->par['inputSesso'];
+            $a->codiceFiscale = $this->par['cf'];
+            
+            $a->nome     = $this->par['nome'];
+            $a->cognome = $this->par['cognome'];
+            $a->sesso = $this->par['sesso'];
+            $a->dataNascita = DT::daFormato($this->par['dnascita'])->getTimestamp();
+            
+            $a->provinciaNascita = $this->par['prnascita'];
+            $a->comuneNascita = $this->par['conascita'];
+            $a->comuneResidenza = $this->par['coresidenza'];
+            $a->CAPResidenza = $this->par['caresidenza'];
+            $a->provinciaResidenza = $this->par['prresidenza'];
+            $a->indirizzo = $this->par['indirizzo'];
+            $a->civico = $this->par['civico'];
+            
+            $a->cellulare = $this->par['cellulare'];
+            $a->email = $this->par['email'];
+            
         } catch (Exception $e) {
             $this->db->rollBack();
             if (!$a) { return null; }
