@@ -344,6 +344,14 @@ if(false && $consenso && !$sessione->barcode) { ?>
                 <h2><span class="muted">Ciao </span>
                     <?= $me->nome; ?>
                 </h2>
+
+                <div class="alert alert-block alert-success">
+                    <h4><i class="icon-heart"></i> Stiamo facendo Gaia tutta nuova... Abbiamo bisogno di te.</h4>
+                    <p><strong>Stiamo lavorando per rendere Gaia uno strumento che amerai. Aiutaci con il tuo Feedback.</strong> Cerchiamo inoltre
+                      volontari che vogliano provare in anteprima le nuove funzionalit&agrave; e sviluppatori software (python).</p>
+                    <p><a href="/?p=public.jorvik">Per maggiori informazioni sul progetto e sul come puoi collaborare, clicca qui.</a></p>
+                </div>
+
                 <?php if (isset($_GET['suppok'])) { $attenzione = true; ?>
                 <div class="alert alert-success">
                     <h4><i class="icon-ok-sign"></i> Richiesta supporto inviata</h4>
@@ -370,39 +378,54 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     <p>L'email che stavi inviando non può essere spedita.</p>
                 </div> 
                 <?php } 
-                // blocco JUMP 
                 ?>
+    
+
+                <?php
+                $d = $me->delegazioneAttuale();
+                if ($d && $d->applicazione == APP_PRESIDENTE) {
+                    $c = $d->comitato(); $num_aspiranti = Aspirante::numChePassanoPer($c);
+                    if ( $num_aspiranti > 20 && !$c->corsiBase(false, true) ) { ?>
+                <div class="alert alert-block alert-warning">
+                    <div class="row-fluid">
+                        <h4><i class="icon-warning-sign"></i> Un numero significante di persone ha registrato il suo interesse ad entrare in CRI nella zona del Comitato!</h4>
+                        <p>Ben <strong><?= $num_aspiranti; ?></strong> persone hanno registrato il loro interesse ed aspettano l'attivazione di un Corso Base in una zona che comprende il
+                         <?= $c->nomeCompleto(); ?>.</p>
+                        <p>Potresti voler attivare un Corso Base tramite Gaia. Cos&igrave; facendo, Gaia invier&agrave; a tutti loro un avviso immediato di attivazione del nuovo Corso, assieme 
+                         a dei promemoria settimanali, contenenti i Corsi Base attivi nelle rispettive zone di interesse. Gli aspiranti volontari potranno quindi pre-iscriversi online.</p>
+                        <p class="grassetto"><i class="icon-info-sign"></i> Puoi tenere sotto controllo la domanda formativa per ogni sede ed avviare corsi dal 
+                        <a href="?p=presidente.dash">Pannello Presidente</a>, selezionando una sede, quindi "Corsi Base".</p>
+
+                    </div>
+                </div>
+
+
+                <?php } } ?>
+
+
+                <div class="alert alert-block alert-success">
+                    <div class="row-fluid">
+                        <h4><strong><i class="icon-beaker"></i> Aggiornamento titoli di studio (Diplomi e Lauree)</strong></h4>
+                        <p>Ti invitiamo ad aggiornare il tuo curriculum con i nuovi titoli di studio sostituendo anche i precedenti.</p>
+                        <p>Maggiori informazioni sono disponibili nell’apposita sezione.</p>
+                        <p>Ti ricordiamo che i titoli contrassegnati come <strong>"vecchio"</strong> saranno rimossi.</strong></p>
+                        <p><a href="?p=utente.titoli&t=3" class="btn btn-large"><i class="icon-refresh"></i> Aggiorna subito!</a></p>
+                    </div>
+                </div>
                 
-                <!--
-                <div class="alert alert-block alert-info">
+                <!-- <div class="alert alert-block alert-info">
                     <div class="row-fluid">
                         <div class="span9">
-                            <h4>Aperta la call per i ruoli tecnici in GAIA</h4>
-                                <p>Gaia continua a crescere, adesso ha bisogno anche di te!</p> 
-                                <p>Siamo alla ricerca di: <strong>Sviluppatori Web (tutte le tecnologie), Analisti, Web Designer e molto altro</strong>.</p>
-                                Regalati un'esperienza di Volontariato tutta nuova. <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
+                            <h4>GAIA è alla ricerca di personale</h4>
+                                <p>Siamo alla ricerca di <strong>Sviluppatory Python & Technical Writer</strong>.</p>
+                                Regalati un'esperienza di Volontariato tutta nuova. <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/21231/YY/2015/MM/6" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
                         </div>
                         <div class="span3">
-                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_blank"><img src="/img/ruolitecnici.png" /></a>
+                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_blank"><img src="/img/pulsantehelp.png" /></a>
                         </div>
                     </div>
-                </div>
-                -->
-                <!--
-                <div class="alert alert-block alert-info">
-                    <div class="row-fluid">
-                        <div class="span9">
-                            <h4>Aperta la call per l'help desk di GAIA</h4>
-                                <p>Gaia continua a crescere, adesso ha bisogno anche di te!</p> 
-                                <p>Siamo alla ricerca di personale helpdesk da inserire nel nostro team di <strong>1° livello</strong>.</p>
-                                Vuoi essere dei nostri? <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24760" target="_blank"><i class="icon-link"></i> Clicca qui.</a></p>
-                                  </div>
-                                <div class="span3">
-                            <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24760" target="_blank"><img src="/img/pulsantehelp.png" /></a>
-                        </div>
-                    </div>
-                </div>
-                -->
+                </div> -->
+              
                 <!-- BLOCCO SENZA IMMAGINE
                 <div class="alert alert-block alert-info">
                     <div class="row-fluid">
@@ -416,7 +439,8 @@ if(false && $consenso && !$sessione->barcode) { ?>
                       
                     </div>
                 </div>-->
-                
+                <!-- Blocco aggiornamento titoli -->
+                 
                 <?php
                 // fine blocco jump
                 if (!$me->wizard) { $attenzione = true;  ?>

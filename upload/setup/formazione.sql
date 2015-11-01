@@ -261,10 +261,11 @@ DROP TABLE `certificati`;
 ALTER TABLE `gaia`.`crs_corsi` 
 CHANGE COLUMN `certificato` `tipo` INT(11) NULL DEFAULT NULL ;
 
-
 CREATE TABLE `crs_qualifiche` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) DEFAULT NULL,
-  `vecchiaNomenclatura` int(11) DEFAULT NULL,
+  `vecchiaNomenclatura` varchar(255) DEFAULT NULL,
+  `area` int(2) DEFAULT NULL,
+  `attiva` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;

@@ -185,27 +185,7 @@ $t = Tesseramento::by('anno', date('Y'));
                     </a>
 
                 </div>
-            </div>
-            <br/>
-            <div class="row-fluid">            
-                <div class="span4 centrato">
-                    <label class="control-label" for="inputQuota" >Importo quota * </label>
-                </div>
-                <div class="span8 input-prepend">
-                    <span class="add-on">€</span>
-                    <input type="number" name="inputQuota" 
-                    id="inputQuota" step="0.01" min="<?php echo $t->ordinario ?>" 
-                    value="<?php echo $t->ordinario ?>" required />
-                </div>
-            </div>
-            <div class="row-fluid">            
-                <div class="span4 centrato">
-                    <label class="control-label" for="inputDataQuota" >Data versamento quota * </label>
-                </div>
-                <div class="span8">
-                    <input type="text" name="inputDataQuota" id="inputDataQuota" required />
-                </div>
-            </div>          
+            </div>         
             <hr />
         </div>
         <div class="modal-footer">

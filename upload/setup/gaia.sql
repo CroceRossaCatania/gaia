@@ -804,6 +804,7 @@ CREATE TABLE IF NOT EXISTS `titoliPersonali` (
   `fine` varchar(64) DEFAULT NULL,
   `luogo` varchar(64) DEFAULT NULL,
   `codice` varchar(64) DEFAULT NULL,
+  `corso` varchar(64) DEFAULT NULL,
   `tConferma` varchar(64) DEFAULT NULL,
   `pConferma` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)

@@ -104,12 +104,12 @@ if ($a) {
         <?php } elseif($iscritto && $corsoBaseRichiesto) { ?>
             <div class="row-fluid">
                 <div class="hero-unit" >
-                    <h1><i class="icon-flag"></i> Complimenti, sei preiscritto ad un Corso per Volontari! </h1>
+                    <h1><i class="icon-flag"></i> Complimenti, sei preiscritto* ad un Corso per Volontari! </h1>
                     <br />
                     <p>Ora non ti resta che presentarti presso il luogo indicato per lo svolgimento
                     delle lezioni.</p>
-                    <p>Quando inizierà il corso ti verrà richiesto di diventere Socio della Croce Rossa Italiana,
-                    per avere maggiori dettagli premi il pulsante qui sotto.</p>
+                    <p>Quando inizierà il corso ti verrà richiesta una quota di iscrizione, per avere maggiori dettagli premi il pulsante qui sotto.</p>
+                    <p>* Saranno ammesse, a discrizione del Direttore, un massimo di trenta persone per ogni corso base.</p>
                     <a href="?p=formazione.corsibase.scheda&id=<?= $corsoBaseRichiesto->corsoBase ?>" class="btn btn-large btn-info">
                         Scheda corso
                     </a>
