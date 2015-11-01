@@ -20,14 +20,14 @@ if ($me->stato == ASPIRANTE) {
     $puoPartecipare = true;
 }
 
-$p = PartecipazioneBase::filtra([
+$partecipazione = PartecipazioneBase::filtra([
     ['volontario', $me->id],
     ['corsoBase', $corso->id],
     ['stato', ISCR_CONFERMATA]
     ]);
 
 $iscritto = false;
-if($p) {
+if($partecipazione) {
     $iscritto = true;
 }
 
@@ -35,7 +35,7 @@ if(!$me->admin() && !$corso->direttore()) {
     redirect("formazione.corsibase.direttore&id={$corso->id}");
 }
 
-$part = $corso->partecipazioni(ISCR_CONFERMATA);
+$partecipazioni = $corso->partecipazioni(ISCR_CONFERMATA);
 
 
 
@@ -247,7 +247,7 @@ $(document).ready( function() {
         <hr />
         <?php if($corso->modificabileDa($me) && $corso->finito() && !$corso->concluso()) { ?>
 
-            <?php if ( $part ) { ?>
+            <?php if ( $partecipazioni ) { ?>
                 <div class="row-fluid">
                     <a href="?p=formazione.corsibase.finalizza&id=<?= $corso->id ?>" class="btn btn-block btn-success btn-large">
                         <i class="icon-flag-checkered"></i> Genera verbale e chiudi corso
@@ -413,8 +413,8 @@ $(document).ready( function() {
                 </thead>
                 <?php 
 
-                foreach ( $part as $p ) { 
-                    $iscritto = $p->utente(); ?>
+                foreach ( $partecipazioni as $part ) { 
+                    $iscritto = $part->utente(); ?>
                     <tr>
                         <td><img width="50" height="50" src="<?php echo $iscritto->avatar()->img(10); ?>" class="img-polaroid" /></td>
                         <td><?php echo $iscritto->nomeCompleto(); ?></td>
@@ -425,7 +425,7 @@ $(document).ready( function() {
                             <span data-nascondi="" data-icona="icon-envelope"><?php echo $iscritto->email(); ?></span>
                         </td>
                         <td>
-                            <?= $conf['partecipazioneBase'][$p->stato]; ?>
+                            <?= $conf['partecipazioneBase'][$part->stato]; ?>
                         </td>
                         <td width="15%">
                             <div class="btn-group btn-group-vertical">
@@ -438,7 +438,7 @@ $(document).ready( function() {
                             </div>
                             <?php if ($me && $me->admin()) { ?>
                                 <form action="?p=formazione.corsibase.disiscrivi.ok" method="POST" >
-                                    <input type="hidden" name="iscritto" value="<?= $p ?>" class="btn">
+                                    <input type="hidden" name="iscritto" value="<?= $part ?>" class="btn">
                                     <button type="submit" class="btn btn-danger btn-small" title="delete">
                                         <i class="icon-trash"></i>
                                     </button>
@@ -494,10 +494,10 @@ $(document).ready( function() {
                     <th>Azione</th>
                 </thead>
                 <?php 
-                $part = $corso->partecipazioni(ISCR_RICHIESTA);
+                $partecipazioni = $corso->partecipazioni(ISCR_RICHIESTA);
 
-                foreach ( $part as $p ) { 
-                    $iscritto = $p->utente(); ?>
+                foreach ( $partecipazioni as $part ) { 
+                    $iscritto = $part->utente(); ?>
                     <tr>
                         <td><img width="50" height="50" src="<?php echo $iscritto->avatar()->img(10); ?>" class="img-polaroid" /></td>
                         <td><?php echo $iscritto->nomeCompleto(); ?></td>
@@ -508,15 +508,15 @@ $(document).ready( function() {
                             <span data-nascondi="" data-icona="icon-envelope"><?php echo $iscritto->email(); ?></span>
                         </td>
                         <td>
-                            <?= $conf['partecipazioneBase'][$p->stato]; ?>
+                            <?= $conf['partecipazioneBase'][$part->stato]; ?>
                         </td>
                         <td width="15%">
                             <?php if($corso->iniziato()) { ?>
                             <div class="btn-group btn-group-vertical">
-                                <a href="<?= "?p=formazione.corsibase.assegna.comitato&id={$p->id}&asp={$iscritto->id}" ?>" class="btn btn-success">
+                                <a href="<?= "?p=formazione.corsibase.assegna.comitato&id={$part->id}&asp={$iscritto->id}" ?>" class="btn btn-success">
                                     <i class="icon-ok"></i> Accetta
                                 </a>
-                                <a data-iscrizione="<?php echo $p->id; ?>" data-accetta="0" class="btn btn-danger">
+                                <a data-iscrizione="<?php echo $part->id; ?>" data-accetta="0" class="btn btn-danger">
                                     <i class="icon-remove"></i> Rifiuta
                                 </a>
                             </div>
@@ -558,11 +558,11 @@ $(document).ready( function() {
                     <th>Azione</th>
                 </thead>
                 <?php 
-                $part = $corso->partecipazioni();
+                $partecipazioni = $corso->partecipazioni();
 
-                foreach ( $part as $p ) { 
-                    if(!$p->haConclusoCorso()) { continue; }
-                    $iscritto = $p->utente(); 
+                foreach ( $partecipazioni as $part ) { 
+                    if(!$part->haConclusoCorso()) { continue; }
+                    $iscritto = $part->utente(); 
 
                     ?>
                     <tr>
@@ -575,7 +575,7 @@ $(document).ready( function() {
                             <span data-nascondi="" data-icona="icon-envelope"><?php echo $iscritto->email(); ?></span>
                         </td>
                         <td>
-                            <?= $conf['partecipazioneBase'][$p->stato]; ?>
+                            <?= $conf['partecipazioneBase'][$part->stato]; ?>
                         </td>
                         <td width="15%">
                             <div class="btn-group-vertical">
@@ -585,7 +585,7 @@ $(document).ready( function() {
                                 <a href="<?= "?p=formazione.corsibase.valutazione&id={$iscritto->id}&corso={$corso->id}&single" ?>" class="btn bn-small btn-info" target="_new" title="Dettagli">
                                     <i class="icon-file-alt"></i> Scheda
                                 </a>
-                                <?php if ( $p->stato == ISCR_SUPERATO ) { ?>
+                                <?php if ( $part->stato == ISCR_SUPERATO ) { ?>
                                     <a href="<?= "?p=formazione.corsibase.attestato&id={$iscritto->id}&corso={$corso->id}" ?>" class="btn bn-small btn-primary" target="_new" title="Dettagli">
                                         <i class="icon-certificate"></i> Attestato
                                     </a>
