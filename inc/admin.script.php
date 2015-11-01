@@ -118,6 +118,16 @@ paginaAdmin();
                 <i class="icon-thumbs-down"></i>
                 Fix spazi nei veicoli
             </a>
+            <hr/>
+            <div class="alert alert-success">
+                <strong>Script per sbloccare le mail non recapitate marcate come inviate (ultimi 30gg)</strong>
+                <p>Questo script sblocca le mail non recapitate marcate come inviate negli ultimi 30 giorni</p>
+            </div>
+            <a href="?p=admin.mailer.reset" class="btn btn-large btn-danger">
+                <i class="icon-envelope"></i>
+                Sblocca coda della posta
+            </a>
+
         </div>
 
         

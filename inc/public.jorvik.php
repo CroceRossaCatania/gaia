@@ -79,10 +79,10 @@ $_descrizione = "Abbiamo bisogno del tuo aiuto. Progetto Jorvik: Riprogettare Ga
 		  software di tale portata richiede di affrontare.</p>
 	    <p>&Egrave; un lavoro estremamente soddisfacente e dall'enorme potenziale sul territorio &mdash;
 
-	    <!-- <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_new">
-		  compila questo modulo per dare la tua disponibilit&agrave;</a>-->
-		<a href="mailto:alfioemanuele.fresta@sicilia.cri.it?subject=Sviluppo+Gaia">scrivici una breve e-mail</a>
-		   e ti contatteremo.</p>
+	     <a href="http://www.cri.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/24818" target="_new">
+		  compila questo modulo per dare la tua disponibilit&agrave;.</a>
+	 <!--	<a href="mailto:alfioemanuele.fresta@sicilia.cri.it?subject=Sviluppo+Gaia">scrivici una breve e-mail</a>
+		   e ti contatteremo. --></p>
 
 	</div>
 
