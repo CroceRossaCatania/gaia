@@ -213,7 +213,7 @@ DROP TABLE IF EXISTS `crs_titoliCorsi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `crs_titoliCorsi` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `volontario` varchar(16) DEFAULT NULL,
   `titolo` varchar(16) DEFAULT NULL,
   `inizio` varchar(64) DEFAULT NULL,
@@ -224,7 +224,7 @@ CREATE TABLE `crs_titoliCorsi` (
   `pConferma` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_volontario` (`volontario`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
