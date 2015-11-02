@@ -10,6 +10,9 @@ if (isset($docenti) && is_array($docenti) && !empty($docenti)) {
         }
     }
 }
+if (!isset($maxDocenti)) {
+    $maxDocenti = 1;
+}
 ?>
 
 <script type="text/javascript">
