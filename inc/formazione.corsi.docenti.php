@@ -97,7 +97,7 @@ $d = new DateTime('@' . $c->inizio);
     </div>
 
     <div class="span4">
-        <h4 style="line-height:40px">Azioni</h4>
+        <!-- h4 style="line-height:40px">Azioni</h4>
         <nav>
             <ul style="list-style-type: none">
                 <li>
@@ -125,7 +125,7 @@ $d = new DateTime('@' . $c->inizio);
                     </a>
                 </li>
             </ul>
-        </nav>
+        </nav -->
 
     </div>
 </div>
