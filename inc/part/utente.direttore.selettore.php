@@ -23,12 +23,15 @@ if (isset($direttori) && is_array($direttori) && !empty($direttori)) {
         var notfound = null;
         
         select.on('chosen:ready', function(event) {
-                var $button = $('<button class="btn btn-sm btn-primary">cerca</button>');
+                var $button = $('<button class="btn btn-sm btn-primary pull-right">cerca</button>');
                 $(".chosen-select.direttori").next('.chosen-container').find('.search-field').append($button);
                 
                 input = $(".chosen-select.direttori").next('.chosen-container').find('input')[0];
                 
                 $button.on('click', function() {
+                    
+                    $button.addClass('loading');
+                    
                     var geoPolitica_direttore = '';
                     var stato_direttore = '';
 
@@ -51,13 +54,15 @@ if (isset($direttori) && is_array($direttori) && !empty($direttori)) {
                         }
 
                         $(input).val(value);
+                    
+                        $button.removeClass('loading');
                     });
 
                 })
             })
             .chosen({
                 max_selected_options: <?php echo $maxDirettori ?>, 
-                no_results_text: "Premere invio per cercare ",
+                no_results_text: "Premere CERCA per trovare un direttore",
                 width: '100%'
             })
             .data('chosen')

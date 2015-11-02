@@ -66,10 +66,10 @@ var minDateOffset = <?php echo TipoCorso::limiteMinimoPerIscrizione() ?>;
         <form action="?p=formazione.corsi.lezioni.aggiungi&id=<?= $c->id; ?>" method="POST">
         <table class="table table-bordered table-striped">
             <thead>
-                    <th>Titolo</th>
-                    <th>Luogo e Data</th>
-                    <th>Dettagli</th>
-                    <th>&nbsp;</th>
+                <th>Titolo e Autore</th>
+                <th>Luogo e Data</th>
+                <th>Dettagli</th>
+                <th>&nbsp;</th>
             </thead>
             <tbody>
 

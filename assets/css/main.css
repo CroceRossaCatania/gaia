@@ -458,6 +458,16 @@ body {
     text-shadow: 1px 1px 1px #fff;
 }
 
+.chosen-container .search-field,
 .chosen-container .search-field input {
     width: 100% !important;
+}
+.chosen-container .search-field button {
+    padding: 3px 12px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.chosen-container .search-field button.loading {
+    background-image: linear-gradient(to bottom, #888, #555) !important;
 }

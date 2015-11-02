@@ -108,7 +108,7 @@ $qualifica = $tipoCorso->qualifica;
     </div>
 
     <div class="span4">
-        <h4 style="line-height:40px">Azioni</h4>
+        <!-- h4 style="line-height:40px">Azioni</h4>
         <nav>
             <ul style="list-style-type: none">
                 <li>
@@ -136,7 +136,6 @@ $qualifica = $tipoCorso->qualifica;
                     </a>
                 </li>
             </ul>
-        </nav>
-
+        </nav -->
     </div>
 </div>
