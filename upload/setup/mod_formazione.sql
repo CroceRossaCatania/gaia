@@ -289,3 +289,10 @@ BEGIN
   RETURN CONCAT(yyyy,"-",LPAD(tipocorsoId, paddingSizeCorsoId ,'0'),"-",LPAD(newSerial+1, paddingSizeSerial, '0'));
 END
 $$
+
+
+
+/* 
+Da creare insert per inserire in dettagliPersona, ps = on per tutti quelli che hanno
+una laurea in medicina o infermieristica
+*/
