@@ -678,8 +678,9 @@ class APIServer {
 
     private function api_corsi_volontari_cerca() {
         
-        $IS_POPOLAZIONE = Utility::getIdRuoloByName("Popolazione");
-        $IS_SANITARIO = Utility::getIdRuoloByName("Sanitario");
+        $IS_POPOLAZIONE = false;
+        $RUOLO_POPOLAZIONE = Utility::getIdRuoloByName("Popolazione");
+        $RUOLO_SANITARIO = Utility::getIdRuoloByName("Sanitario");
         
         $me = $this->richiediLogin();
         $r = new Ricerca();
@@ -730,14 +731,21 @@ class APIServer {
             $r->militare = true;
         }
         
+        if ($this->par['qualifica']) {
+            $r->crs_qualifica = $this->par['qualifica'];
+        }
+        
         $ruolo = $this->par['ruolo'];
         if ($ruolo){
             switch ($ruolo){
-                case $IS_POPOLAZIONE:
-                    $r->stato = PERSONA;
+                case $RUOLO_POPOLAZIONE:
+                    $r->statoPersona = PERSONA;
+                    $r->crs_qualifica = null;
+                    $IS_POPOLAZIONE = TRUE;
                     break;
-                case $IS_SANITARIO:
+                case $RUOLO_SANITARIO:
                     $r->sanitario = true;
+                    $r->crs_qualifica = null;
                     break;
                 default: 
                     $r->crs_ruolo = $this->par['ruolo'];
@@ -745,9 +753,7 @@ class APIServer {
             }
         }
         
-        if ($this->par['qualifica']) {
-            $r->crs_qualifica = $this->par['qualifica'];
-        }
+       
         
         // versione modificata per #867
         if ($this->par['comitati']) {
@@ -783,7 +789,7 @@ class APIServer {
             $r->perPagina = (int) $this->par['perPagina'];
         }
 
-        $r->corsi_esegui();
+        $r->corsi_esegui($IS_POPOLAZIONE);
 
         $risultati = [];
         foreach ( $r->risultati as $risultato ) {

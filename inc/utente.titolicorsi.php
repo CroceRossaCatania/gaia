@@ -52,29 +52,30 @@ paginaPrivata();
                         </td>
                         <?php } ?>
                         
-                        <td><small>
-                            <?php if ( $titolo->inizio ) { ?>
-                            <i class="icon-calendar muted"></i>
-                            <?php echo date('d-m-Y', $titolo->inizio); ?>
-                            <br />
-                            <?php } ?>
-                            <?php if ( $titolo->fine ) { ?>
-                            <i class="icon-time muted"></i>
-                            <?php echo date('d-m-Y', $titolo->fine); ?>
-                            <br />
-                            <?php } ?>
-                            <?php if ( $titolo->luogo ) { ?>
-                            <i class="icon-road muted"></i>
-                            <?php echo $titolo->luogo; ?>
-                            <br />
-                            <?php } ?>
-                            <?php if ( $titolo->codice ) { ?>
-                            <i class="icon-barcode muted"></i>
-                            <?php echo $titolo->codice; ?>
-                            <br />
-                            <?php } ?>
-
-                        </small></td>
+                        <td>
+                            <small>
+                                <?php if ($titolo->inizio) { ?>
+                                    <i class="icon-calendar muted"></i>
+                                    <?php echo date('d-m-Y', $titolo->inizio); ?>
+                                    <br />
+                                <?php } ?>
+                                <?php if ($titolo->fine) { ?>
+                                    <i class="icon-time muted"></i>
+                                    <?php echo date('d-m-Y', $titolo->fine); ?>
+                                    <br />
+                                <?php } ?>
+                                <?php if ($titolo->luogo) { ?>
+                                    <i class="icon-road muted"></i>
+                                    <?php echo $titolo->luogo; ?>
+                                    <br />
+                                <?php } ?>
+                                <?php if ($titolo->codice) { ?>
+                                    <i class="icon-barcode muted"></i>
+                                    <?php echo $titolo->codice; ?>
+                                    <br />
+                                <?php } ?>
+                            </small>
+                        </td>
                     </tr>
                     <?php } ?>
 

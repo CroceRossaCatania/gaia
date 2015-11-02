@@ -87,12 +87,17 @@ class Ricerca {
      * Esegue una ricerca fulltext dei volontari all'interno dei comitati
      * specificati, se non specificata una query ritorna un elenco.
      */
-    public function corsi_esegui() {
+    public function corsi_esegui($popolazione = null) {
         global $db;
 
         $inizio = microtime(true);
 
-        $query = $this->generaQueryCorsi();
+        if ($popolazione) {
+            $query = $this->generaQueryCorsiPopolazione();
+        }else{
+            $query = $this->generaQueryCorsi();
+        }
+       
         $qConta = $this->creaContoQuery($query);
         $qConta = $db->query($qConta);
         if (!empty($qConta)){
@@ -115,31 +120,55 @@ class Ricerca {
         return true;
     }
     
-    private function generaQueryCorsi(){
+    private function generaQueryCorsiPopolazione() {
+        global $db;
+        
+        $input = $this->query;
+    
+        $pRicerca = " 
+            1 AND (
+                anagrafica.nome LIKE '{$input}%'
+                OR anagrafica.cognome LIKE '{$input}%'
+                OR anagrafica.email LIKE '{$input}%'
+                OR anagrafica.codiceFiscale LIKE '{$input}%'
+            ) ";
+        
+         $query = "
+            SELECT
+                DISTINCT anagrafica.id
+            FROM anagrafica WHERE {$pRicerca}";
+
+        return $query;
+        
+    }
+    
+    private function generaQueryCorsi() {
         global $db;
 
         $this->ottimizzaDominio();
-        $dominio        = $this->_dominio;
-        $input          = $this->query;
-        $stato          = $this->stato;
-        $statoPersona   = $this->statoPersona;
-        $passato        = $this->passato;
-        $giovane        = $this->giovane;
-        $infermiera     = $this->infermiera;
-        $militare       = $this->militare;
-        $sanitario      = $this->sanitario;
-        $popolazione    = $this->popolazione;
-        $qualifica      = $this->crs_qualifica;
-        $ruolo          = $this->crs_ruolo;
-        $ora            = (int) time();
+        $dominio = $this->_dominio;
+        $input = $this->query;
+        $stato = $this->stato;
+        $statoPersona = $this->statoPersona;
+        $passato = $this->passato;
+        $giovane = $this->giovane;
+        $infermiera = $this->infermiera;
+        $militare = $this->militare;
+        $sanitario = $this->sanitario;
+        $popolazione = $this->popolazione;
+        $qualifica = $this->crs_qualifica;
+        $ruolo = $this->crs_ruolo;
+        $ora = (int) time();
 
-        if ( $dominio == '*' ) {
+       
+        
+        if ($dominio == '*') {
             $pDominio = '';
         } else {
             $pDominio = "AND appartenenza.comitato IN ({$dominio})";
         }
 
-        if ( $input ) {
+        if ($input) {
             $input = addslashes($input);
             $pRicerca = " 
                     AND (
@@ -182,8 +211,13 @@ class Ricerca {
         $extraFrom = ' ';
         $extraWhere = ' ';
 
+        $stringaQualifica = '';
+        if (!empty($qualifica)) {
+            $stringaQualifica = 'AND crs_qualifiche.id = ' . $qualifica;
+        }
+        
         if ($giovane) {
-            $data = time() - (GIOVANI*ANNO);
+            $data = time() - (GIOVANI * ANNO);
             $pGiovane = "
                 AND anagrafica.id = dettagliPersona.id
                 AND dettagliPersona.nome = 'dataNascita'
@@ -193,7 +227,7 @@ class Ricerca {
 
         if (!$statoPersona && $statoPersona !== 0) {
             $pStatoPersona = ' ';
-        } elseif(!is_array($statoPersona) || $statoPersona === 0) {
+        } elseif (!is_array($statoPersona) || $statoPersona === 0) {
             $statoPersona = (int) $statoPersona;
             $pStatoPersona = " AND anagrafica.stato = {$statoPersona} ";
         } else {
@@ -201,7 +235,7 @@ class Ricerca {
             $pStatoPersona = " AND anagrafica.stato IN ($statoPersona)";
         }
 
-        if($infermiera) {
+        if ($infermiera) {
             $pInfermiera = "
                 AND anagrafica.id = dettagliPersona.id
                 AND dettagliPersona.nome = 'iv'
@@ -210,7 +244,7 @@ class Ricerca {
             $extraFrom = ", dettagliPersona";
         }
 
-        if($militare) {
+        if ($militare) {
             $pMilitare = "
                 AND anagrafica.id = dettagliPersona.id
                 AND dettagliPersona.nome = 'cm'
@@ -218,8 +252,8 @@ class Ricerca {
             ";
             $extraFrom = ", dettagliPersona";
         }
-        
-        if($sanitario) {
+
+        if ($sanitario) {
             $pSanitario = "
                 AND anagrafica.id = dettagliPersona.id
                 AND dettagliPersona.nome = 'ps'
@@ -227,15 +261,15 @@ class Ricerca {
             ";
             $extraFrom = ", dettagliPersona";
         }
-        
-        if($popolazione) {
+
+        if ($popolazione) {
             
         }
 
         $stringaRuoli = '';
         if (!empty($ruolo)) {
-            $stringaRuoli = 'AND crs_ruoli.id = '.$ruolo;
-            $extraFrom = $extraFrom." , crs_titoliCorsi, crs_tipoCorsi, crs_ruoli, crs_qualifiche, crs_corsi ";
+            $stringaRuoli = 'AND crs_ruoli.id = ' . $ruolo;
+            $extraFrom = $extraFrom . " , crs_titoliCorsi, crs_tipoCorsi, crs_ruoli, crs_qualifiche, crs_corsi ";
             $extraWhere = " AND  crs_tipoCorsi.id = crs_titoliCorsi.titolo
                 AND ( crs_ruoli.id = crs_tipoCorsi.ruoloDirettore 
                       OR crs_ruoli.id = crs_tipoCorsi.ruoloDocenti
@@ -244,19 +278,17 @@ class Ricerca {
                       OR crs_ruoli.id = crs_tipoCorsi.ruoloAttestato
                   )
                 AND     crs_qualifiche.id = crs_tipoCorsi.qualifica
+                AND     anagrafica.id = crs_titoliCorsi.volontario
                 AND     crs_corsi.tipo = crs_tipoCorsi.id";
         }
+
         
-        $stringaQualifica = '';
-        if (!empty($qualifica)) {
-            $stringaQualifica = 'AND crs_qualifiche.id = '.$qualifica;
-        }
-        
+
         $query = "
             SELECT
                 DISTINCT anagrafica.id
             FROM  
-                anagrafica, appartenenza, comitati, 
+                anagrafica, appartenenza, comitati
                 {$extraFrom}
             WHERE
                         anagrafica.id = appartenenza.volontario
@@ -265,7 +297,6 @@ class Ricerca {
                         {$pInfermiera}
                         {$pMilitare}
                         {$pSanitario}
-                AND     anagrafica.id = crs_titoliCorsi.volontario
                         {$extraWhere}
                         {$stringaRuoli}
                         {$stringaQualifica}
@@ -275,7 +306,7 @@ class Ricerca {
                         {$pPassato}
                         {$pDominio}
                         {$pRicerca} ";
-                      
+
         return $query;
     }
 
