@@ -677,6 +677,10 @@ class APIServer {
     }
 
     private function api_corsi_volontari_cerca() {
+        
+        $IS_POPOLAZIONE = Utility::getIdRuoloByName("Popolazione");
+        $IS_SANITARIO = Utility::getIdRuoloByName("Sanitario");
+        
         $me = $this->richiediLogin();
         $r = new Ricerca();
         
@@ -726,8 +730,19 @@ class APIServer {
             $r->militare = true;
         }
         
-        if ($this->par['ruolo']) {
-            $r->crs_ruolo = $this->par['ruolo'];
+        $ruolo = $this->par['ruolo'];
+        if ($ruolo){
+            switch ($ruolo){
+                case $IS_POPOLAZIONE:
+                    $r->stato = PERSONA;
+                    break;
+                case $IS_SANITARIO:
+                    $r->sanitario = true;
+                    break;
+                default: 
+                    $r->crs_ruolo = $this->par['ruolo'];
+                    break;
+            }
         }
         
         if ($this->par['qualifica']) {

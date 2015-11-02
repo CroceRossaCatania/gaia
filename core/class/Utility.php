@@ -138,4 +138,23 @@ class Utility {
 
         return $permessi;
     }
+    
+    
+    /**
+    * Creo un array con valori unici in base ad un attributo dei 
+    * dati extra dei comitati
+    */
+    public static function getIdRuoloByName($name) {
+        global $db;
+
+        $query = $db->prepare("SELECT id FROM crs_ruoli WHERE ruolo = :ruolo");
+        $query->bindParam(':ruolo', $name);
+        $query->execute();
+        while ($row = $query->fetch(PDO::FETCH_NUM)) {
+            return $row[0];
+        }
+        
+        return null;
+    }
+    
 }
