@@ -93,10 +93,9 @@ class Ricerca {
         $inizio = microtime(true);
 
         $query = $this->generaQueryCorsi();
-        
         $qConta = $this->creaContoQuery($query);
+        $qConta = $db->query($qConta);
         if (!empty($qConta)){
-            $qConta = $db->query($qConta);
             $qConta = $qConta->fetch(PDO::FETCH_NUM);
             $this->totale = (int) $qConta[0];
             $this->pagine = ceil( $this->totale / $this->perPagina );
@@ -217,6 +216,15 @@ class Ricerca {
             $extraFrom = ", dettagliPersona";
         }
 
+        $stringaRuoli = '';
+        if (!empty($ruolo)) {
+            $stringaRuoli = 'AND     crs_ruoli.id = '.$ruolo;
+        }
+        $stringaQualifica = '';
+        if (!empty($qualifica)) {
+            $stringaQualifica = 'AND     crs_qualifiche.id = '.$qualifica;
+        }
+        
         $query = "
             SELECT
                 DISTINCT anagrafica.id
@@ -241,8 +249,8 @@ class Ricerca {
                 AND     crs_qualifiche.id = crs_tipoCorsi.qualifica
                 AND     crs_corsi.tipo = crs_tipoCorsi.id
                 AND     appartenenza.comitato   =   comitati.id
-                AND     crs_ruoli.id = {$ruolo}
-                AND     crs_qualifiche.id = {$qualifica}
+                {$stringaRuoli}
+                {$stringaQualifica}
                 AND     appartenenza.stato      {$pStato}
                 AND     appartenenza.inizio     <=  {$ora}
                         {$pPassato}
