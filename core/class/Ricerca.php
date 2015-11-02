@@ -127,6 +127,8 @@ class Ricerca {
         $giovane        = $this->giovane;
         $infermiera     = $this->infermiera;
         $militare       = $this->militare;
+        $sanitario      = $this->sanitario;
+        $popolazione    = $this->popolazione;
         $qualifica      = $this->crs_qualifica;
         $ruolo          = $this->crs_ruolo;
         $ora            = (int) time();
@@ -178,6 +180,7 @@ class Ricerca {
 
         $pGiovane = ' ';
         $extraFrom = ' ';
+        $extraWhere = ' ';
 
         if ($giovane) {
             $data = time() - (GIOVANI*ANNO);
@@ -215,31 +218,25 @@ class Ricerca {
             ";
             $extraFrom = ", dettagliPersona";
         }
+        
+        if($sanitario) {
+            $pSanitario = "
+                AND anagrafica.id = dettagliPersona.id
+                AND dettagliPersona.nome = 'ps'
+                AND dettagliPersona.valore = 'on'
+            ";
+            $extraFrom = ", dettagliPersona";
+        }
+        
+        if($popolazione) {
+            
+        }
 
         $stringaRuoli = '';
         if (!empty($ruolo)) {
-            $stringaRuoli = 'AND     crs_ruoli.id = '.$ruolo;
-        }
-        $stringaQualifica = '';
-        if (!empty($qualifica)) {
-            $stringaQualifica = 'AND     crs_qualifiche.id = '.$qualifica;
-        }
-        
-        $query = "
-            SELECT
-                DISTINCT anagrafica.id
-            FROM
-                anagrafica, appartenenza, comitati, crs_titoliCorsi, 
-                crs_tipoCorsi, crs_ruoli, crs_qualifiche, crs_corsi 
-                {$extraFrom}
-            WHERE
-                        anagrafica.id           =   appartenenza.volontario
-                        {$pStatoPersona}
-                        {$pGiovane}
-                        {$pInfermiera}
-                        {$pMilitare}
-                AND     anagrafica.id = crs_titoliCorsi.volontario
-                AND     crs_tipoCorsi.id = crs_titoliCorsi.titolo
+            $stringaRuoli = 'AND crs_ruoli.id = '.$ruolo;
+            $extraFrom = $extraFrom." , crs_titoliCorsi, crs_tipoCorsi, crs_ruoli, crs_qualifiche, crs_corsi ";
+            $extraWhere = " AND  crs_tipoCorsi.id = crs_titoliCorsi.titolo
                 AND ( crs_ruoli.id = crs_tipoCorsi.ruoloDirettore 
                       OR crs_ruoli.id = crs_tipoCorsi.ruoloDocenti
                       OR crs_ruoli.id = crs_tipoCorsi.ruoloAffiancamento
@@ -247,12 +244,34 @@ class Ricerca {
                       OR crs_ruoli.id = crs_tipoCorsi.ruoloAttestato
                   )
                 AND     crs_qualifiche.id = crs_tipoCorsi.qualifica
-                AND     crs_corsi.tipo = crs_tipoCorsi.id
-                AND     appartenenza.comitato   =   comitati.id
-                {$stringaRuoli}
-                {$stringaQualifica}
-                AND     appartenenza.stato      {$pStato}
-                AND     appartenenza.inizio     <=  {$ora}
+                AND     crs_corsi.tipo = crs_tipoCorsi.id";
+        }
+        
+        $stringaQualifica = '';
+        if (!empty($qualifica)) {
+            $stringaQualifica = 'AND crs_qualifiche.id = '.$qualifica;
+        }
+        
+        $query = "
+            SELECT
+                DISTINCT anagrafica.id
+            FROM  
+                anagrafica, appartenenza, comitati, 
+                {$extraFrom}
+            WHERE
+                        anagrafica.id = appartenenza.volontario
+                        {$pStatoPersona}
+                        {$pGiovane}
+                        {$pInfermiera}
+                        {$pMilitare}
+                        {$pSanitario}
+                AND     anagrafica.id = crs_titoliCorsi.volontario
+                        {$extraWhere}
+                        {$stringaRuoli}
+                        {$stringaQualifica}
+                AND     appartenenza.comitato = comitati.id
+                AND     appartenenza.stato {$pStato}
+                AND     appartenenza.inizio <=  {$ora}
                         {$pPassato}
                         {$pDominio}
                         {$pRicerca} ";
