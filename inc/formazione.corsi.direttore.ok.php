@@ -30,9 +30,17 @@ $c->aggiornaStato();
 $partecipazione = new PartecipazioneCorso();
 $partecipazione->aggiungi($c, $direttore, CORSO_RUOLO_DIRETTORE);
 
+
 if (!empty($_POST['wizard'])) {
-    redirect('formazione.corsi.docenti&id='.$c->id.'&wizard=1');
-    die;
+    $tipoCorso = TipoCorso::id($c->tipo);
+    
+    if ($tipoCorso->giorni>1) {
+        redirect('formazione.corsi.lezioni&id='.$c->id.'&wizard=1');
+        die;
+    } else {
+        redirect('formazione.corsi.docenti&id='.$c->id.'&wizard=1');
+        die;
+    }
 }
 
 redirect('formazione.corsi.riepilogo&id='.$c->id);
