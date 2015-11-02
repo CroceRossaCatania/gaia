@@ -60,111 +60,99 @@ var minDateOffset = <?php echo TipoCorso::limiteMinimoPerIscrizione() ?>;
 
 <hr />
 
-<form action="?p=formazione.corsi.lezioni.aggiungi&id=<?= $c->id; ?>" method="POST">
-<table class="table table-bordered table-striped">
-    <thead>
-            <th>Nome della lezione</th>
-            <th>Luogo</th>
-            <th>Data lezione</th>
-            <th>Docente</th>
-    </thead>
-    <tbody>
+<div class="row">
+    <div class="span12">
+
+        <form action="?p=formazione.corsi.lezioni.aggiungi&id=<?= $c->id; ?>" method="POST">
+        <table class="table table-bordered table-striped">
+            <thead>
+                    <th>Titolo</th>
+                    <th>Luogo e Data</th>
+                    <th>Dettagli</th>
+                    <th>&nbsp;</th>
+            </thead>
+            <tbody>
+
+                <?php foreach ( $lezioni as $lezione ) { ?>
+                    <tr class="modificabile">
+                        <td>
+                            <?php echo $lezione->nome ?><br/>[<?php echo $lezione->docente()->nomeCompleto() ?>]
+                        </td>
+                        <td>
+                            <?php echo $lezione->luogo ?><br/><?php echo $lezione->data()->inTesto() ?>
+                        </td>
+                        <td>
+                            <?php echo $lezione->note ?>
+                        </td>
+                        <td>
+                            <a href="?p=formazione.corsi.lezioni.cancella&id=<?= $lezione->id; ?>" class="btn btn-block btn-danger"
+                                    data-conferma="Rimuovendo la lezione. Continuare?">
+                                    <i class="icon-trash"></i>
+                                    Rimuovi lezione
+                            </a>
+                        </td>
+                    </tr>
+                <?php } ?>
+
+                <!-- Aggiunta di una nuova lezione -->
+                <tr id="nuovo" class="success">
+                    <td>
+                        <input type="text" name="nome" class="input-block"
+                            placeholder="Nome della nuova lezione" required maxlength="64" /><br/>
+                        <select name="docenti[]" 
+                                data-ruolo="<?php echo $ruolo; ?>"
+                                data-qualifica="<?php echo $qualifica; ?>"
+                                data-placeholder="Scegli un docente..." class="chosen-select docenti">
+                            <?php 
+                                foreach ($docenti as $i ) {
+                                ?>
+                                <option value="<?php echo $i->id ?>" selected><?php echo $i->nomeCompleto() ?></option>
+                                <?php
+                                }
+                            ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="input-block" name="luogo" required placeholder="Luogo della lezione" /><br/>
+                        <input type="text" class="input-block" name="data" id="data" required placeholder="Data della lezione" />
+                    </td>
+                    <td>
+                        <textarea class="" name="note" required placeholder="Note per la lezione" ></textarea>
+                    </td>
+                    <td>
+                        <button type="submit" name="azione" value="aggiungi"
+                         class="btn btn-success btn-block">
+                                <i class="icon-plus"></i>
+                                Aggiungi Lezione
+                        </button>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+        </form>
+
+    </div>
+    <div class="span9">
+    </div>
+    <div class="span3">
+        <?php
+        if (!empty($_POST['wizard'])) {
+            ?>
+            <a href="?p=formazione.corsi.discenti&id=<?= $c->id; ?>" class="btn btn-block btn-success">
+                Procedi
+            </a>
+            <?php
+        } else {
+            ?>
+            <a href="?p=formazione.corsi.riepilogo&id=<?= $c->id; ?>" class="btn btn-block btn-success">
+                Procedi
+            </a>
+            <?php
+        }
+        ?>
+    </div>
+</div>
         
-        <?php foreach ( $lezioni as $lezione ) { ?>
-            <tr class="modificabile">
-                <td>
-                    <?php echo $lezione->nome ?>
-                </td>
-                <td>
-                    <?php echo $lezione->luogo ?>
-                </td>
-                <td>
-                    <?php echo $lezione->data()->inTesto() ?>
-                </td>
-                <td>
-                    <?php echo $lezione->docente()->nomeCompleto() ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;
-                </td>
-                <td colspan="2">
-                    <?php echo $lezione->note ?>
-                </td>
-                <td>
-                    <a href="?p=formazione.corsi.lezioni.cancella&id=<?= $lezione->id; ?>" class="btn btn-block btn-danger"
-                            data-conferma="Rimuovendo la lezione. Continuare?">
-                            <i class="icon-trash"></i>
-                            Rimuovi lezione
-                    </a>
-                </td>
-            </tr>
-        <?php } ?>
-
-	<!-- Aggiunta di una nuova lezione -->
-	<tr id="nuovo" class="success">
-            <td>
-                    <input type="text" name="nome" class="input-block"
-                     placeholder="Nome della nuova lezione" required maxlength="64" />
-            </td>
-            <td>
-                    <input class="input-block" name="luogo" required 
-                     placeholder="Luogo della lezione" />
-            </td>
-            <td>
-                    <input class="input-block" name="data" id="data" required 
-                     placeholder="data della lezione" />
-            </td>
-            <td>
-                <select name="docenti[]" 
-                        data-ruolo="<?php echo $ruolo; ?>"
-                        data-qualifica="<?php echo $qualifica; ?>"
-                        data-placeholder="Scegli un docente..." class="chosen-select docenti">
-                    <?php 
-                        foreach ($docenti as $i ) {
-                        ?>
-                        <option value="<?php echo $i->id ?>" selected><?php echo $i->nomeCompleto() ?></option>
-                        <?php
-                        }
-                    ?>
-                </select>
-            </td>
-        </tr>
-        <tr class="success">
-            <td>
-                &nbsp;
-            </td>
-            <td colspan="2">
-                    <textarea class="" name="note" required placeholder="Note per la lezione" ></textarea>
-            </td>
-            <td>
-                    <button type="submit" name="azione" value="aggiungi"
-                     class="btn btn-success btn-block">
-                            <i class="icon-plus"></i>
-                            Aggiungi Lezione
-                    </button>
-            </td>
-	</tr>
-	
-    </tbody>
-
-</table>
-</form>
-
-<?php
-if (!empty($_POST['wizard'])) {
-    ?>
-    <a href="?p=formazione.corsi.discenti&id=<?= $c->id; ?>" class="btn btn-block btn-success">
-        Procedi
-    </a>
-    <?php
-} else {
-    ?>
-    <a href="?p=formazione.corsi.riepilogo&id=<?= $c->id; ?>" class="btn btn-block btn-success">
-        Procedi
-    </a>
-    <?php
-}
-?>
 
