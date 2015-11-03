@@ -4,14 +4,18 @@ Leggi le **[Informazioni sul progetto Gaia](https://gaia.cri.it/?p=public.about)
 
 ### Link utili
 
-* [Cose da fare/Roadmap](https://github.com/CroceRossaCatania/gaia/issues?direction=desc&labels=roadmap&page=1&sort=updated&state=open)
-* [Segnala bug o proponi una feature](https://github.com/CroceRossaCatania/gaia/issues)
-* [Elenco bug aperti](https://github.com/CroceRossaCatania/gaia/issues?labels=bug&page=1&state=open)
-* [Suggerimenti degli utenti aperti](https://github.com/CroceRossaCatania/gaia/issues?labels=proposta&page=1&state=open)
+* ~~[Cose da fare/Roadmap](https://github.com/CroceRossaCatania/gaia/issues?direction=desc&labels=roadmap&page=1&sort=updated&state=open)~~
+* ~~[Segnala bug o proponi una feature](https://github.com/CroceRossaCatania/gaia/issues)~~
+* ~~[Elenco bug aperti](https://github.com/CroceRossaCatania/gaia/issues?labels=bug&page=1&state=open)~~
+* ~~[Suggerimenti degli utenti aperti](https://github.com/CroceRossaCatania/gaia/issues?labels=proposta&page=1&state=open)~~
+
+**Il software del progetto Jorvik andrà a sostituire il codice di Gaia nel Q1 2016.** Questo repository è utilizzato solo al fine della manutenzione (fin di vita software). [Visita il nuovo repository (CroceRossaItaliana/jorvik)](https://github.com/CroceRossaItaliana/jorvik).
 
 ## Collaborare
 
-**Leggi: [Come partecipare al progetto](http://goo.gl/Jjiqo)**
+**~~Leggi: [Come partecipare al progetto](http://goo.gl/Jjiqo)~~**
+**Il software del progetto Jorvik andrà a sostituire il codice di Gaia nel Q1 2016.** [Visita il nuovo repository (CroceRossaItaliana/jorvik)](https://github.com/CroceRossaItaliana/jorvik).
+**The software from the Jorvik project will replace the current Gaia code in Q1 2016.** [Visit the new repository (CroceRossaItaliana/jorvik)](https://github.com/CroceRossaItaliana/jorvik).
 
 Alternativamente, contattaci a <info@gaia.cri.it> per saperne di più.
 
