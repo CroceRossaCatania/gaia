@@ -85,7 +85,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
   	<meta charset="utf-8" />
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>{_titolo}</title>
+    <title>{_titolo} Dev</title>
     <meta property="og:url" content="http://gaia.cri.it/?p=<?= $p ?>">
     <meta property="og:title" content="{_titolo}">
     <meta property="og:site_name" content="Progetto Gaia - Croce Rossa Italiana">
