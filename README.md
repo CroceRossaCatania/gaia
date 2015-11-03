@@ -14,7 +14,9 @@ Leggi le **[Informazioni sul progetto Gaia](https://gaia.cri.it/?p=public.about)
 ## Collaborare
 
 **~~Leggi: [Come partecipare al progetto](http://goo.gl/Jjiqo)~~**
-**Il software del progetto Jorvik andrà a sostituire il codice di Gaia nel Q1 2016.** [Visita il nuovo repository (CroceRossaItaliana/jorvik)](https://github.com/CroceRossaItaliana/jorvik).
+
+**Il software del progetto Jorvik andrà a sostituire il codice di Gaia nel Q1 2016.** Questo repository è utilizzato solo al fine della manutenzione (fin di vita software). [Visita il nuovo repository (CroceRossaItaliana/jorvik)](https://github.com/CroceRossaItaliana/jorvik).
+
 **The software from the Jorvik project will replace the current Gaia code in Q1 2016.** [Visit the new repository (CroceRossaItaliana/jorvik)](https://github.com/CroceRossaItaliana/jorvik).
 
 Alternativamente, contattaci a <info@gaia.cri.it> per saperne di più.
