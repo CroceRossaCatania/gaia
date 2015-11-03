@@ -47,7 +47,7 @@ class TipoCorso extends Entita {
 
         $q = $db->query("SELECT MIN(limitePerIscrizione) FROM ". static::$_t." WHERE limitePerIscrizione IS NOT NULL");
         $row = $q->fetch();
-        return intval($row[0]);
+        return max(GIORNI_CORSO_ISCRIZIONI_CHIUSE+1, intval($row[0])+1);
     }
     
 }

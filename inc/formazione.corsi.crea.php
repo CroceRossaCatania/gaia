@@ -42,7 +42,7 @@ caricaSelettoreComitato();
 $permessi = array("locale" => 0, "provinciale" => 0, "regionale" => 0, "nazionale" => 0);
 
 $deleghe = array_merge($me->entitaDelegazioni(APP_OBIETTIVO), $me->entitaDelegazioni(APP_PRESIDENTE));
-foreach($deleghe as $d){
+foreach($deleghe as $d) {
     $_permessi = Utility::comitatoPermessi($d);    
     $permessi['locale'] = $permessi['locale'] | $_permessi['locale'];
     $permessi['provinciale'] = $permessi['provinciale'] | $_permessi['provinciale'];
@@ -56,12 +56,13 @@ $tipocorsi = TipoCorso::filtraPerTipoComitato($permessi);
 
 ?>
 <script>
-var minDateOffset = <?php echo TipoCorso::limiteMinimoPerIscrizione() ?>;
+var minDateOffset = <?php echo TipoCorso::limiteMinimoPerIscrizione()?>;
 </script>
 <div class="row-fluid">
 
     <div class="span8">
         <h2><i class="icon-plus-square icon-calendar muted"></i> Corso di formazione</h2>
+        <?php if (isset($_GET['err'])) { ?><p class="alert alert-block alert-danger">E' necessario inserire tutti i dati richiesti</p><?php } ?>
         <form action="?p=formazione.corsi.crea.ok" method="POST">
             <input value="<?php echo @$c->id ?>" name="id" type="hidden">
             <input value="<?php echo empty($wizard) ? 0 : 1 ?>" name="wizard" type="hidden">

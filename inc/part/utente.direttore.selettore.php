@@ -31,6 +31,7 @@ if (isset($direttori) && is_array($direttori) && !empty($direttori)) {
                 $button.on('click', function() {
                     
                     $button.addClass('loading');
+                    $button.html('.....');
                     
                     var geoPolitica_direttore = '';
                     var stato_direttore = '';
@@ -50,12 +51,13 @@ if (isset($direttori) && is_array($direttori) && !empty($direttori)) {
                             }
                             select.trigger("chosen:updated");
                         } else {
-//                            $(notfound).html('NESSUN RISULTATO trovato per "'+value+'"');
+                            $('.chosen-select.direttori + .chosen-container .no-results').html('NESSUN RISULTATO trovato per "'+value+'"');
                         }
 
                         $(input).val(value);
                     
                         $button.removeClass('loading');
+                        $button.html('cerca');
                     });
 
                 })

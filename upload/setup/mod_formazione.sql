@@ -68,22 +68,6 @@ CREATE TABLE `crs_giornataCorso` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `crs_iscrizioni`
---
-
-DROP TABLE IF EXISTS `crs_iscrizioni`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `crs_iscrizioni` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `corso` int(11) DEFAULT NULL,
-  `anagrafica` int(11) DEFAULT NULL,
-  `ruolo` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `crs_partecipazioni_corsi`
 --
 
@@ -123,7 +107,7 @@ CREATE TABLE `crs_qualifiche` (
   `area` int(2) DEFAULT NULL,
   `attiva` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

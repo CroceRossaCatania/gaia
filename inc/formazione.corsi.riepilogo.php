@@ -118,13 +118,20 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                         Modifica dati
                     </a -->
                     <a href="?p=formazione.corsi.direttore&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
-                        <i class="icon-edit"></i>
+                        <i cl   ass="icon-edit"></i>
                         Modifica direttore
                     </a>
-                    <a href="?p=formazione.corsi.docenti&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
-                        <i class="icon-edit"></i>
-                        Modifica docenti
-                    </a>
+                    <?php if ($tipoCorso->giorni==1) { ?>
+                        <a href="?p=formazione.corsi.docenti&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
+                            <i class="icon-edit"></i>
+                            Modifica docenti
+                        </a>
+                    <?php } else { ?>
+                        <a href="?p=formazione.corsi.lezioni&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
+                            <i class="icon-edit"></i>
+                            Modifica lezioni
+                        </a>
+                    <?php } ?>
                     <a href="?p=formazione.corsi.discenti&id=<?php echo $c->id; ?>" class="btn btn-small btn-info">
                         <i class="icon-edit"></i>
                         Modifica discenti
@@ -236,7 +243,7 @@ $geoComitato = GeoPolitica::daOid($c->organizzatore);
                     Direttore
                 </span><br />
                 <a href="?p=utente.mail.nuova&id=<?php echo $direttore->id; ?>">
-                    <?php echo $direttore->nomeCompleto() ?>
+                    <?php echo empty($direttore) ? '<a href="?p=formazione.corsi.direttore&id='.$c->id.'" class="btn btn-default">SCEGLI DIRETTORE</a>' : $direttore->nomeCompleto() ?>
                 </a>
             </div>
         </div>

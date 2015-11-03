@@ -34,6 +34,7 @@ if (!isset($maxDocenti)) {
                 $button.on('click', function() {
                     
                     $button.addClass('loading');
+                    $button.html('.....');
                     
                     var geoPolitica_docente = '';
                     var stato_docente = '';
@@ -53,12 +54,13 @@ if (!isset($maxDocenti)) {
                     }
                     select.trigger("chosen:updated");
                         } else {
-//                            $(notfound).html('NESSUN RISULTATO trovato per "'+value+'"');
+                            $('.chosen-select.docenti + .chosen-container .no-results').html('NESSUN RISULTATO trovato per "'+value+'"');
                         }
 
                         $(input).val(value);
                     
                         $button.removeClass('loading');
+                        $button.html('cerca');
                 });
 
                 })

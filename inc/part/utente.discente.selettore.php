@@ -34,6 +34,7 @@ if (!isset($maxDiscenti)) {
                 $button.on('click', function() {
                     
                     $button.addClass('loading');
+                    $button.html('.....');
                     
                     var geoPolitica_discente = '';
                     var stato_discente = '';
@@ -53,12 +54,13 @@ if (!isset($maxDiscenti)) {
                     }
                     select.trigger("chosen:updated");
                         } else {
-//                            $(notfound).html('NESSUN RISULTATO trovato per "'+value+'"');
+                            $('.chosen-select.discenti + .chosen-container .no-results').html('NESSUN RISULTATO trovato per "'+value+'"');
                         }
 
                         $(input).val(value);
                     
                         $button.removeClass('loading');
+                        $button.html('cerca');
                 });
 
                 })

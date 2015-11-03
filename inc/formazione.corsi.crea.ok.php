@@ -5,15 +5,15 @@
 //paginaAdmin();
 paginaPresidenziale(null, null, APP_OBIETTIVO, OBIETTIVO_1);
 
-controllaParametri(['inizio','partecipanti','luogo','tipo','organizzatore'], 'admin.corsi.crea&err');
+controllaParametri(['inizio','partecipanti','luogo','tipo','organizzatore'], 'formazione.corsi.crea&err');
 if(!DT::controlloDataOra($_POST['inizio'])) {
-    redirect('admin.corsi.crea&err='.CORSO_ERRORE_DATA_NON_CORRETTA); 
+    redirect('formazione.corsi.crea&err='.CORSO_ERRORE_DATA_NON_CORRETTA); 
 }
 
 $organizzatore = intval($_POST['organizzatore']);
 $partecipanti = intval($_POST['partecipanti']);
-$descrizione = addslashes($_POST['descrizione']);
-$luogo = addslashes($_POST['luogo']);
+$descrizione = ($_POST['descrizione']);
+$luogo = ($_POST['luogo']);
 $tipocorsoId = (int) intval($_POST['tipo']);
 
 
@@ -33,7 +33,6 @@ if (empty($_POST['id'])) {
     
 }
 
-print "A";
 $c->tipo = $tipocorsoId;
 $c->organizzatore = $comitato;
 $c->responsabile = $me->id;
@@ -44,13 +43,10 @@ $c->partecipanti = $partecipanti;
 $c->descrizione = $descrizione;
 $c->stato = CORSO_S_DACOMPLETARE;
 
-print "B";
 $c->assegnaProgressivo();
 
-print "C";
 $c->aggiornaStato();
 
-print "D";
 $c->inviaCreazioneCorso();
 
 if (!empty($_POST['wizard'])) {
