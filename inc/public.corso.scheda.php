@@ -149,7 +149,7 @@ $geoComitato = GeoPolitica::daOid($corso->organizzatore);
                 </span><br />
                 <span class="text-info">
                     <?php if ($puoPartecipare) { ?>
-                        <a id="pulsanteIscriviti" class="btn btn-info pull-right" href="?p=formazione.corsi.iscriviti">
+                        <a id="pulsanteIscriviti" class="btn btn-info pull-right" href="?p=formazione.corsi.iscriviti&id=<?php echo $corso->id ?>">
                             <i class="icon-pencil"></i>
                             Richiedi iscrizione
                         </a>

@@ -805,14 +805,11 @@ class Corso extends GeoEntita {
             $sesso = "Volontaria";
         }
         */
-        print "C.A";
         $comitato = $this->organizzatore();
-        print "C.B";      
         //$tipo = TipoCorso::id($this->tipo);
        
         $m = new Email("crs_inviaCreazioneCorso", "Corso Creato");
         $m->a = $comitato->regionale();
-        print "C.D";  
         //$m->a = $aut->partecipazione()->volontario();
         //$m->da = "pizar79@gmail.com";
         // $m->a = $comitato;
@@ -833,6 +830,43 @@ class Corso extends GeoEntita {
         return ;
     }
     
+    
+    /**
+     * Genera attestato, sulla base del corso e del volontario
+     * @return PDF 
+     */
+    public function inviaRichiestaIscrizione(Volontario $iscrivente, $dati=array()) {
+        //$iscritto = Volontario::id("2");
+        
+        $sesso = null;
+        if ( $iscrivente->sesso == UOMO ){
+            $sesso = "Volontario";
+        }else{
+            $sesso = "Volontaria";
+        }
+       
+        $tipo = TipoCorso::id($this->tipo);
+       
+        $m = new Email('crs_richiestaIscrizione', "Richiesta di iscrizione ad un corso" );
+        //$m->a = $aut->partecipazione()->volontario();
+        //$m->da = "pizar79@gmail.com";
+        $m->a = $this->presidente()->email;
+        //$m->a = 'marco.radossi@gmail.com';
+        $m->_NOME         = $this->presidente()->nomeCompleto();
+        $m->_VOLONTARIO   = $iscrivente->nomeCompleto();
+        $m->_CF           = $iscrivente->codiceFiscale;
+        $m->_CORSO        = $tipo->nome;
+        $m->_DATA         = $this->inizio()->format('d/m/Y');
+        $m->_LUOGO        = $this->luogo;
+        
+        $m->_DATI_NOME    = @normalizzaNome($dati['inputNome']).' '.@normalizzaNome($dati['inputCogome']);
+        $m->_DATI_TELEFONO    = @normalizzaNome($dati['inputNome']).' '.@normalizzaNome($dati['inputCogome']);
+        $m->_DATI_EMAIL    = @($dati['inputTelefono']);
+        $m->_DATI_RICHIESTA    = @($dati['inputRichiesta']);
+        $m->invia(true);
+        
+        return $f;
+    }
     
     
     /**
@@ -930,16 +964,6 @@ class Corso extends GeoEntita {
         return $f;
     }
 
-
-    /**
-     * Ritorna l'elenco di lezioni del Corso
-     * @return Lezione[]
-     */
-    public function lezioni() {
-        return Lezione::filtra([
-            ['corso', $this->id]
-        ], 'inizio ASC');
-    }
 
     /**
      * Ritorna la data dell'attivazione del corso se presente
