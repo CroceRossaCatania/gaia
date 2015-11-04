@@ -295,8 +295,10 @@ paginaPrivata();
                                 <abbr title="<?php echo date('d-m-Y H:i', $titolo->tConferma); ?>">
 
                                     <?php if ( $titolo->corso ) { ?>
-                                        <i class="icon-asterisk"></i> Certificato<br />
-                                        <span style="font-size: smaller;">da <?= $titolo->pConferma()->nomeCompleto(); ?></span>
+                                        <a href="?p=utente.titolo.certificato&id=<?= $titolo->id; ?>" target="_new">
+                                            <i class="icon-asterisk"></i> Certificato<br />
+                                            <span style="font-size: smaller;">da <?= $titolo->pConferma()->nomeCompleto(); ?></span>
+                                        </a>
                                     <?php } else { ?>
                                         <i class="icon-ok"></i> Confermato
                                     <?php } ?>
