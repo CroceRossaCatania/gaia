@@ -362,9 +362,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                             <li><a href="?p=admin.double"><i class="icon-superscript"></i> Double</a></li>
                                             <li><a href="?p=admin.tesseramento"><i class="icon-eur"></i> Tesseramento</a></li>
                                             <li class="nav-header">Formazione</li>
-                                            <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
+                                            <li><a href="?p=admin.qualifica"><i class="icon-tag"></i> Qualifiche</a></li>
                                             <li><a href="?p=admin.tipocorso"><i class="icon-graduation-cap"></i> Tipo Corso</a></li>
-                                            <li><a href="?p=admin.tipocorso"><i class="icon-graduation-cap"></i> Qualifiche</a></li>
                                             <li class="nav-header">Report & Co</li>
                                             <li><a href="?p=admin.report"><i class="icon-copy"></i> Report</a></li>  
                                             <li><a href="?p=admin.stats"><i class="icon-copy"></i> Statistiche</a></li>
