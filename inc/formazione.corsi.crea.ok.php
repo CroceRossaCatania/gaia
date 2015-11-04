@@ -29,6 +29,7 @@ if (empty($_POST['id'])) {
     
     if (!$c->modificabile() /* || !$c->modificabileDa($me)*/ ) {
        redirect('formazione.corsi.riepilogo&id='.$c->id.'&err='.CORSO_ERRORE_CORSO_NON_MODIFICABILE);
+       die;
     }
     
 }
@@ -42,6 +43,19 @@ $c->anno = $inizio->format('Y');
 $c->partecipanti = $partecipanti;
 $c->descrizione = $descrizione;
 $c->stato = CORSO_S_DACOMPLETARE;
+
+
+$tipoCorso = TipoCorso::id($c->tipo);
+// corso di una giornata sola => aggiunta automatica della giornata
+if ($tipoCorso->giorni<=1) {
+    $l = new GiornataCorso();
+    $l->corso 	= $c->id;
+    $l->nome 	= $tipoCorso->nome;
+    $l->data        = $c->inizio;
+    $l->luogo 	= $c->luogo;
+    $l->note 	= $c->descrizione;
+    $l->docente 	= 0;
+}
 
 $c->assegnaProgressivo();
 

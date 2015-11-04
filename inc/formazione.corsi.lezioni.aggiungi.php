@@ -42,9 +42,16 @@ try {
     $l->luogo 	= normalizzaNome($_POST['luogo']);
     $l->note 	= addslashes($_POST['note']);
     $l->docente 	= intval($_POST['docenti'][0]);
+    
+    $docente = Volontario::id(intval($_POST['docenti'][0]));
+    $part = new PartecipazioneCorso();
+    $part->aggiungi(Corso::id($id), $docente, CORSO_RUOLO_DOCENTE);
+
     $db->commit();
 } catch(Exception $e) {
     $db->rollBack();
+    redirect("formazione.corsi.lezioni&id={$id}&err");
+    die;
 }
 
 redirect("formazione.corsi.lezioni&id={$id}");

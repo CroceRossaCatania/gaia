@@ -4,7 +4,7 @@
  */
 
 paginaPresidenziale(null, null, APP_OBIETTIVO, OBIETTIVO_1);
-controllaParametri(['id','docenti'], 'admin.corsi.crea&err');
+controllaParametri(['id','docenti'], 'formazione.corsi.docenti&err');
 
 $c = null;
 $docenti = $daAggiungere = $daEliminare = [];
@@ -24,37 +24,37 @@ try {
         $docenti = array_merge($c->docenti(), $c->docentiPotenziali());
 
         // setta tutti i vecchi come da eliminare
-        foreach ($docenti as $i) {
-            $daEliminare[$i->id] = true;
+        foreach ($docenti as $d) {
+            $daEliminare[$d->id] = true;
         }
         unset($docenti); // non serve più e spreca solo memoria
 
         // cicla sui nuovi
-        foreach ($_POST['docenti'] as $id) {
-            if (isset($daEliminare[$id])) {
+        foreach ($_POST['docenti'] as $d) {
+            if (isset($daEliminare[$d])) {
                 // se il nuovo è anche tra i vecchi, lo toglie dalla lista di quelli da eliminare
-                unset($daEliminare[$id]);
+                unset($daEliminare[$d]);
             } else {
                 // se il nuovo non è tra i vecchi, lo aggiunge dalla lista di quelli da aggiungere
-                $daAggiungere[$id] = true;
+                $daAggiungere[$d] = true;
             }
         }
 
         $daAggiungere = array_keys($daAggiungere);
         $daEliminare = array_keys($daEliminare);
 
-        foreach ($daEliminare as $id) {
-            PartecipazioneCorso::id($id)->cancella();
+        foreach ($daEliminare as $d) {
+            PartecipazioneCorso::id($d)->cancella();
         }
         
-        foreach ($daAggiungere as $id) {
-            $docente = Volontario::id($id);
+        foreach ($daAggiungere as $d) {
+            $docente = Volontario::id($d);
             
             // aggiungere verifica del fatto che sia effettivamente un docente
             
             $part = new PartecipazioneCorso();
             $part->aggiungi($c, $docente, CORSO_RUOLO_DOCENTE);
-        }
+        }   
 
     } else {
         throw new Exception('Manomissione');
