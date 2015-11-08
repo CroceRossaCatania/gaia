@@ -64,6 +64,7 @@ abstract class Entita {
 
         /* Check esistenza */
         if ( self::_esiste($id, $this->_v) ) {
+
             /* Scaricamento */
             $this->id = $id;
             if ( $this->_v ) {
@@ -77,7 +78,7 @@ abstract class Entita {
             if ( $this->cache ) {
                 $this->cache->set(static::_chiave($id . ':___campi', false), serialize($this->_v));
             }
-        } elseif ( $id === null ) {
+        } elseif ( $id === null) {
             /* Creazione nuovo */
             $this->_crea();
             $this->__construct($this->id);
@@ -312,6 +313,29 @@ abstract class Entita {
     }
     
     /**
+     * Ritorna un elenco degli ultimi oggetti nel database in base all'ordinamento
+     *
+     * @param string $number        Required. Numero di elementi da ritornare
+     * @param string $condizioni    Opzionale. Condizioni per la funzione filtra
+     * @param string $ordine        Opzionale. Ordine in SQL
+     * @return array            Array di oggetti
+     */
+    public static function ultimi($number, $condizioni = [], $ordine="id") {
+        return static::filtra($condizioni, $ordine." DESC LIMIT ".$number);
+    }
+    
+    /**
+     * Ritorna l'ultimo elemento in base all'ordinamento
+     *
+     * @param string $condizioni    Opzionale. Condizioni per la funzione filtra
+     * @param string $ordine    Opzionale. Ordine in SQL
+     * @return array            Array di oggetti
+     */
+    public static function ultimo($condizioni=[], $ordine="id") {
+        return static::filtra($condizioni, $ordine." DESC LIMIT 1");
+    }
+    
+    /**
      * Effettua una ricerca MySQL FULLTEXT sui campi specificati
      *
      * @param string $query         La query di ricerca.
@@ -367,7 +391,7 @@ abstract class Entita {
         else
             $q = $db->prepare("SELECT * FROM ". static::$_t ." WHERE id = :id");
 
-        
+     
         $q->bindParam(':id', $id);
         $q->execute();
 
@@ -405,6 +429,9 @@ abstract class Entita {
             FROM ". static::$_t ."{$condizioni}");
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
+        
+        print_r($r);
+        
         if (!$r) { $r[0] = 0; }
         return (int) $r[0] + 1;
     }
@@ -444,8 +471,7 @@ abstract class Entita {
             }
 
             /* Proprietà collegata */
-            $q = $this->db->prepare("
-                SELECT valore FROM ". static::$_dt ." WHERE id = :id AND nome = :nome");
+            $q = $this->db->prepare("SELECT valore FROM ". static::$_dt ." WHERE id = :id AND nome = :nome");
             $q->bindParam(':id', $this->id);
             $q->bindParam(':nome', $_nome);
             $q->execute();

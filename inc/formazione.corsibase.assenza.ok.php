@@ -14,9 +14,9 @@ $corso = $lezione->corso();
 
 paginaCorsoBase($corso);
 
-$part = $corso->partecipazioni(ISCR_CONFERMATA);
-foreach ( $part as $p ) { 
-    $iscritto = $p->utente(); 
+$partecipazioni = $corso->partecipazioni(ISCR_CONFERMATA);
+foreach ( $partecipazioni as $part ) { 
+    $iscritto = $part->utente(); 
     $assenza = AssenzaLezione::filtra([['utente', $iscritto], ['lezione', $lezione]])[0];
     if($_POST["assenza_{$iscritto}"] == 1 && $assenza) {
         $assenza->cancella();

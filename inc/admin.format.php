@@ -5,7 +5,6 @@
  */
 
 paginaAdmin();
-caricaSelettoreComitato();
 
 ?>
 
@@ -26,8 +25,7 @@ caricaSelettoreComitato();
         <ul>
             <li><a href="https://gaia.cri.it/assets/docs/import/csv_volontari.xls"><i class="icon-list"></i> Format Volontari</a></li>
             <li><a href="https://gaia.cri.it/assets/docs/import/csv_ordinari.xls"><i class="icon-list"></i> Format Ordinari</a></li>
-            <li><a href="https://gaia.cri.it/assets/docs/import/csv_trasferimento.xls"><i class="icon-list"></i> Format Trasferimento (Teletrasporto)</a></li>
-            <li><a href="https://gaia.cri.it/assets/docs/import/csv_trasferimento_procedura.xls"><i class="icon-list"></i> Format Trasferimento (Con Procedura)</a></li>
+            <li><a href="https://gaia.cri.it/assets/docs/import/csv_trasferimento.xls"><i class="icon-list"></i> Format Trasferimento</a></li>
             
         </ul>
     </span>
@@ -37,47 +35,28 @@ caricaSelettoreComitato();
           <label class="control-label" for="inputCSV">File CSV</label>
           <div class="controls">
             <input type="file" id="inputCSV" name="inputCSV">
-          </div>
         </div>
-        <div class="form-actions">
-            <button type="submit" class="btn btn-danger" onClick="return confirm('Procedo con import Volontari ?');">
-                <i class="icon-key"></i> Importa Volontari
-            </button>
-            <button name="ordinario" type="submit" class="btn btn-danger" onClick="return confirm('Procedo con import Soci Ordinari ?');">
-                <i class="icon-key"></i> Importa Soci Ordinari
-            </button>
-            <button name="resetPassword" type="submit" class="btn btn-danger">
-                <i class="icon-key"></i> Rimanda le password verificando per CF
-            </button>
-            <button name="invertiCsv" type="submit" class="btn btn-danger" onClick="return confirm('ATTENZIONE! Stai per invertire tutti i cognmi con nomi dei volontari da CSV, vuoi proseguire ?');">
-                <i class="icon-random"></i> Inversione Nome e Cognome
-            </button>
-            <button name="trasferisci" type="submit" class="btn btn-danger" onClick="return confirm('ATTENZIONE! Stai per trasferire ad altro comitato i volontari del CSV, vuoi proseguire ?');">
-                <i class="icon-arrow-right"></i> Trasferisci in massa (teletrasporto)
-            </button>
+    </div>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-danger" onClick="return confirm('Procedo con import Volontari ?');">
+            <i class="icon-key"></i> Importa Volontari
+        </button>
+        <button name="ordinario" type="submit" class="btn btn-danger" onClick="return confirm('Procedo con import Soci Ordinari ?');">
+            <i class="icon-key"></i> Importa Soci Ordinari
+        </button>
+        <button name="resetPassword" type="submit" class="btn btn-danger">
+            <i class="icon-key"></i> Rimanda le password verificando per CF
+        </button>
+        <button name="invertiCsv" type="submit" class="btn btn-danger" onClick="return confirm('ATTENZIONE! Stai per invertire tutti i cognmi con nomi dei volontari da CSV, vuoi proseguire ?');">
+            <i class="icon-random"></i> Inversione Nome e Cognome
+        </button>
+        <button name="trasferisci" type="submit" class="btn btn-danger" onClick="return confirm('ATTENZIONE! Stai per trasferire ad altro comitato i volontari del CSV, vuoi proseguire ?');">
+            <i class="icon-arrow-right"></i> Trasferisci in massa
+        </button>
+        <button name="cancellaCsv" type="submit" class="btn btn-danger" onClick="return confirm('ATTENZIONE! Stai per cancellare tutti i volontari da CSV, vuoi proseguire ?');">
+            <i class="icon-trash"></i> Cancellazione da CSV
+        </button>
+    </div>
 
-            <button name="cancellaCsv" type="submit" class="btn btn-danger" onClick="return confirm('ATTENZIONE! Stai per cancellare tutti i volontari da CSV, vuoi proseguire ?');">
-                <i class="icon-trash"></i> Cancellazione da CSV
-            </button>
-        </div>
-        <div class="row-fluid">
-            <h5>Format con campi aggiuntivi</h5>
-        </div>
-
-        <div class="control-group">
-          <label class="control-label">Comitato di destinazione</label>
-          <div class="controls">
-            <a data-selettore-comitato="true" data-input="inputComitato" class="btn">Seleziona...</a>
-          </div>
-        </div>
-        <div class="form-actions">
-            <button name="trasferisciProc" type="submit" class="btn btn-danger" onClick="return confirm('ATTENZIONE! Stai per trasferire ad altro comitato i volontari del CSV, vuoi proseguire ?');">
-                <i class="icon-arrow-right"></i> Trasferisci in massa (con procedura)
-            </button>
-
-        </div>
-
-
-
-    </form>
+</form>
 </div>

@@ -24,15 +24,9 @@ if($a->protData && $a->protNumero) {
 }
 
 $a->protNumero = $_POST['numprotocollo'];
-$protData = DateTime::createFromFormat('d/m/Y', $_POST['dataprotocollo']);
-
-if ($protData){
-	$protData = $protData->getTimestamp();
-	$a->protData = $protData;
-}else{
-	redirect('presidente.trasferimentoRichiesta&dateErr&id='.$a);
-}
-
+$protData = @DateTime::createFromFormat('d/m/Y', $_POST['dataprotocollo']);
+$protData = @$protData->getTimestamp();
+$a->protData = $protData;
 
 try{
 	$m = new Email('richiestaTrasferimentoprot', 'Richiesta trasferimento Protocollata: ' . $a->comitato()->nome);

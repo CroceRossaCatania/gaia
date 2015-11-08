@@ -43,7 +43,11 @@ upload/setup/autopull
 
 # Mantieni i placeholder
 !upload/avatar/placeholder/
+<<<<<<< HEAD
 
 # File di progetto IntelliJ
 .idea
 pma/
+=======
+/nbproject/private/
+>>>>>>> a09b42e652284469f2e0a50405d8b17a878fbd8d

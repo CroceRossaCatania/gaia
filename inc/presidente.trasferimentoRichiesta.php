@@ -13,13 +13,6 @@ $t = Trasferimento::id($t);
 $_v = $t->volontario();
 ?>
 
-<?php if ( isset($_GET['dateErr']) ) { ?>
-  <div class="alert alert-danger">
-      <i class="icon-warning-sign"></i> <strong>Errore Data protocollo</strong>.
-      Si è verificato un errore nella data del protocollo, ti preghiamo di reinserirla utilizzando il calendario apposito.
-  </div>
-<?php } ?>
-
 <div class="row-fluid">
     <div class="span12">
         <div class="row-fluid">

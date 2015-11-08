@@ -19,10 +19,10 @@ $testo = $_POST['inputTesto'];
 
 if(isset($_GET['iscrizioni'])) {
 
-    $part = $corso->partecipazioni(ISCR_CONFERMATA);
+    $partecipazioni = $corso->partecipazioni(ISCR_CONFERMATA);
 
-    foreach ( $part as $p ) { 
-        $iscritto = $p->utente();
+    foreach ( $partecipazioni as $part ) { 
+        $iscritto = $part->utente();
         $m = new Email('mailTestolibero', ''.$oggetto);
         $m->da = $me; 
         $m->a = $iscritto;
@@ -32,10 +32,10 @@ if(isset($_GET['iscrizioni'])) {
 
 } elseif(isset($_GET['preiscrizioni']))  {
 
-    $part = $corso->partecipazioni(ISCR_RICHIESTA);
+    $partecipazioni = $corso->partecipazioni(ISCR_RICHIESTA);
 
-    foreach ( $part as $p ) { 
-        $iscritto = $p->utente();
+    foreach ( $partecipazioni as $part ) { 
+        $iscritto = $part->utente();
         $m = new Email('mailTestolibero', ''.$oggetto);
         $m->da = $me; 
         $m->a = $iscritto;

@@ -11,6 +11,7 @@
  */
 function paginaPrivata($consenso = true) {
     global $sessione, $_GET;
+    
     if ( !$sessione->utente() ) {
         $sessione->torna = base64_encode(serialize($_GET));
         redirect('login');
@@ -144,22 +145,74 @@ function paginaCorsoBase( $corsoBase = null ) {
     }
 }
 
+function paginaCorso( $corso = null ) {
+    global $sessione;
+    richiediComitato();
+    if (
+         ( 
+            ( $corso instanceof Corso )
+            and
+            !($corso->modificabileDa($sessione->utente()))
+         )
+          or
+         !(
+                (bool) $sessione->utente()->admin()
+            or  (bool) $sessione->utente()->presiede()
+            or  (bool) $sessione->utente()->delegazioni(APP_FORMAZIONE)
+            or  (bool) $sessione->utente()->corsiDiretti()
+        )
+    ) {
+        redirect('errore.permessi');
+    }
+}
+
 function paginaModale() {
     include('./inc/part/pagina.attendere.php');
 }
 
-function paginaPresidenziale( $comitato = null, $attivita = null) {
+function paginaPresidenziale( $comitato = null, $attivita = null, $app = null, $dominio = null) {
     global $sessione;
     paginaPrivata();
-    if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin() ) {
-        redirect('utente.me');
+    
+    if (empty($dominio) && empty($app)) {
+        if ( !$sessione->utente()->presiede() && !$sessione->utente()->admin() ) {
+            redirect('utente.me');
+        }
+        if ( $comitato && !in_array($comitato, $sessione->utente()->comitatiDiCompetenza() ) ) {
+            redirect('errore.permessi');
+        }
+
+        if ( $attivita && !in_array($attivita, $sessione->utente()->attivitaDiGestione())) {
+            redirect('errore.permessi');   
+        }
+    } else {
+        paginaDelegato($comitato, $attivita, $app, $dominio);
     }
+}
+
+function paginaDelegato( $comitato = null, $attivita = null, $app = null, $dominio = null) {
+    global $sessione;
+    
+    // Calcolo le deleghe
+    $delegazioni = [];
+    $allDelegazioni = $sessione->utente()->delegazioni($app);
+    foreach($allDelegazioni as $d){
+        $comitatoId = intval(explode(":", $d->comitato)[1]);
+        if ($comitatoId == $comitato->id && intval($d->dominio) == $dominio ){
+            $delegazioni[$comitatoId] = $d; 
+        }
+    }
+    
+    if ( (!$sessione->utente()->presiede() || sizeof($delegazioni) == 0 ) && !$sessione->utente()->admin() ) {
+        //redirect('utente.me');
+    }
+
     if ( $comitato && !in_array($comitato, $sessione->utente()->comitatiDiCompetenza() ) ) {
-        redirect('errore.permessi');
+        //redirect('errore.permessi');
     }
 
     if ( $attivita && !in_array($attivita, $sessione->utente()->attivitaDiGestione())) {
-        redirect('errore.permessi');   
+        //redirect('errore.permessi');   
     }
 }
 
@@ -206,6 +259,26 @@ function menuElenchiVolontari($a = "Volontari attivi", $b = '#', $c = '#') {
 function caricaSelettore() {
     global $_carica_selettore;
     $_carica_selettore = true;
+}
+
+function caricaSelettoreDirettore() {
+    global $_carica_selettore_direttore;
+    $_carica_selettore_direttore = true;
+}
+
+function caricaSelettoreDocente() {
+    global $_carica_selettore_docente;
+    $_carica_selettore_docente = true;
+}
+
+function caricaSelettoreDocenteInAffiancamento() {
+    global $_carica_selettore_docente_affiancamento;
+    $_carica_selettore_docente_affiancamento = true;
+}
+
+function caricaSelettoreDiscente() {
+    global $_carica_selettore_discente;
+    $_carica_selettore_discente = true;
 }
 
 function caricaSelettoreComitato() {

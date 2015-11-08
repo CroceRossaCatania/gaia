@@ -6,7 +6,7 @@ controllaParametri(array('d'));
 $d = $_GET['d'];
 $tp = DonazionePersonale::id($d);
 $v = $tp->volontario();
-if ( !($me == $v or $v->modificabileDa($me) ) {
+if ( !($me == $v || $v->modificabileDa($me) )) {
     redirect('errore.permessi&cattivo&sangue');
 }
 
@@ -82,7 +82,7 @@ $donazioni = $conf['donazioni'][$d];
 
 		<div id="ospedale" class="row-fluid">
 			<div class="span4 centrato">
-			<label for="sede"><i class="icon-road"></i> Unità di raccolta</label>
+			<label for="sede"><i class="icon-road"></i> Unitï¿½ di raccolta</label>
 			</div>
 			<div class="span8">
 			<select id="sede" name="sede" class="span12" required>

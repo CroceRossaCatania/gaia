@@ -33,7 +33,7 @@ abstract class MEntita {
 		global $mdb;
 		$name = strtolower( get_called_class() );
 		return $mdb->{$name};
-	}
+        }
 
 	public function __construct( $id = null ) {
 		$this->collection = static::_collection();

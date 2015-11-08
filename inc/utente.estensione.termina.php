@@ -12,11 +12,6 @@ controllaParametri(array('id'));
 $id = $_GET['id'];
 $app = Appartenenza::id($id);
 $est = Estensione::by('appartenenza', $app);
-$v = $est->volontario();
-if ( $me != $v and !$v->modificabileDa($me) ) {
-  redirect('errore.permessi&cattivo');
-}
-
 ?>
 
 <form action="?p=utente.estensione.termina.ok" method="POST">
@@ -26,32 +21,26 @@ if ( $me != $v and !$v->modificabileDa($me) ) {
           <h3><i class="icon-stop"></i> Termina Estensione</h3>
         </div>
         <div class="modal-body">
-
-        <?php if ( $me == $v ) { ?>
            <p> Con questo modulo potrai terminare la tua estensione presso il <strong><?= $app->comitato()->nomeCompleto(); ?></strong> </p>
-        <?php } else { ?>
-           <p> Con questo modulo potrai terminare l'estensione di <strong><?= $v->nomeCompleto(); ?> presso il <strong><?= $app->comitato()->nomeCompleto(); ?></strong> </p>
-        <?php } ?>
-
            <p> Inoltre verranno eseguite le seguenti azioni: </p>
            <ul>
                <li>
                 Chiusura delle deleghe sul Comitato in estensione
                </li>
                <li>
-                Chiusura delle attività di cui si &egrave; referente
+                Chiusura delle attività di cui sei referente
                </li>
                <li>
                 La gestione dei gruppi di lavoro passa al Presidente
                </li>
               <li>
-                Chiusura delle appartenenze ai gruppi di lavoro a cui ci si &egrave; iscritti
+                Chiusura delle appartenenze ai gruppi di lavoro a cui ti sei iscritto
               </li>
               <li>
                 Chiusura delle reperibilità
               </li>
               <li>
-                Chiusura di eventuali partecipazioni ad attività e turni per i quali &egrave; stata data disponibilità
+                Chiusura di eventuali partecipazioni ad attività e turni per i quali hai dato disponibilità
               </li>
            </ul>
            <p class="text-error"><i class="icon-warning-sign"></i> Attenzione questa operazione non è reversibile </p>

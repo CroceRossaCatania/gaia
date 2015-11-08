@@ -165,6 +165,22 @@ function cronjobGiornaliero()  {
         $log, $ok
     );
     
+        
+        
+    /****************************************************
+     * MODULO FORMAZIONE
+    ****************************************************/  
+    // Creo i certificati per i corsi superati
+    cronjobEsegui(
+        "Cerca i corsi in stato da elaborare e genera i relativi certificati",
+        function() {
+            $n = Corso::chiudiCorsi();
+            return "Generati ({$n}) certificati";
+        },
+        $log, $ok
+    );   
+        
+   
     return $ok;
     
 };

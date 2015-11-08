@@ -17,7 +17,7 @@ $admin = $me->admin();
 $lezioni = $_POST['lezioni'];
 foreach ( $lezioni as $lezione ) {
     $lezione = Lezione::id($lezione);
-    $lezione->nome = normalizzaTitolo($_POST["nome_{$lezione}"]);
+    $lezione->nome = normalizzaNome($_POST["nome_{$lezione}"]);
     $inizio             = DT::createFromFormat('d/m/Y H:i', $_POST["inizio_{$lezione}"]);
     $fine               = DT::createFromFormat('d/m/Y H:i', $_POST["fine_{$lezione}"]);
     if ($admin && $inizio < $fine) {

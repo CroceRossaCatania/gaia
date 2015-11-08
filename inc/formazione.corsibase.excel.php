@@ -14,7 +14,7 @@ $excel = new Excel();
 
 if ( isset($_GET['preiscrizioni'])){
 
-    $part = $corso->partecipazioni(ISCR_RICHIESTA);
+    $partecipazioni = $corso->partecipazioni(ISCR_RICHIESTA);
 
         $excel->intestazione([
             'Nome',
@@ -26,8 +26,8 @@ if ( isset($_GET['preiscrizioni'])){
             'Cellulare'
             ]);
         
-        foreach ( $part as $p ) { 
-            $iscritto = $p->utente();
+        foreach ( $partecipazioni as $part ) { 
+            $iscritto = $part->utente();
 
             $excel->aggiungiRiga([
                 $iscritto->nome,
@@ -45,7 +45,7 @@ if ( isset($_GET['preiscrizioni'])){
 
 }elseif ( isset($_GET['iscrizioni'])){
 
-    $part = $corso->partecipazioni(ISCR_CONFERMATA);
+    $partecipazioni = $corso->partecipazioni(ISCR_CONFERMATA);
 
         $excel->intestazione([
             'Nome',
@@ -57,8 +57,8 @@ if ( isset($_GET['preiscrizioni'])){
             'Cellulare'
             ]);
         
-        foreach ( $part as $p ) { 
-            $iscritto = $p->utente();
+        foreach ( $partecipazioni as $part ) { 
+            $iscritto = $part->utente();
 
             $excel->aggiungiRiga([
                 $iscritto->nome,
@@ -76,10 +76,10 @@ if ( isset($_GET['preiscrizioni'])){
 
 }elseif ( isset($_GET['concluso'])){
 
-    $part = $corso->partecipazioni();
-    foreach ( $part as $p ) { 
-        if(!$p->haConclusoCorso()) { continue; }
-        $iscritto = $p->utente(); 
+    $partecipazioni = $corso->partecipazioni();
+    foreach ( $partecipazioni as $part ) { 
+        if(!$part->haConclusoCorso()) { continue; }
+        $iscritto = $part->utente(); 
     }
 
         $excel->intestazione([
@@ -94,8 +94,8 @@ if ( isset($_GET['preiscrizioni'])){
             'Esito'
             ]);
         
-        foreach ( $part as $p ) { 
-            $iscritto = $p->utente();
+        foreach ( $partecipazioni as $part ) { 
+            $iscritto = $part->utente();
 
             $excel->aggiungiRiga([
                 $iscritto->nome,
@@ -105,8 +105,8 @@ if ( isset($_GET['preiscrizioni'])){
                 $iscritto->comuneNascita,
                 $iscritto->email,
                 $iscritto->cellulare,
-                date ('d/m/Y', $corso->tEsame),
-                $conf['partecipazioneBase'][$p->stato]
+                date ('d/m/Y', $iscritto->tEsame),
+                $conf['partecipazioneBase'][$part->stato]
                 ]);
         }
 

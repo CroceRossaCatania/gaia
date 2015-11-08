@@ -100,7 +100,7 @@ if ( isset($_GET['cancellato'] ) ) {
             </thead>
 <?php
 foreach ($gruppi as $gruppo){
-        $modificabile = $gruppo->modificabileDa($me);
+        $modificabile = $gruppo->comitato()->modificabileDa($me);
         $g = $gruppo->membri();
     ?>
         <tr class="success">
@@ -114,7 +114,7 @@ foreach ($gruppi as $gruppo){
                                 <i class="icon-envelope"></i>
                             </a>
                         <?php }
-                             if ( $modificabile || $me->admin() ) { ?>
+                             if ( $modificabile || $me->admin() ){ ?>
                                 <a class="btn btn-small btn-danger pull-right" onclick="return confirm('Sei davvero sicuro di voler eliminare il gruppo?');" href="?p=gruppi.elimina&id=<?= $gruppo->id; ?>" title="Elimina gruppo">
                                     <i class="icon-trash"></i>
                                 </a>
@@ -122,15 +122,12 @@ foreach ($gruppi as $gruppo){
                                     <i class="icon-pencil"></i> 
                                     <?php if($gruppo->referente()){ echo $gruppo->referente()->nomeCompleto(); }else{ ?> Seleziona un volontario <?php } ?>
                                 </a>
-                            <?php if ( $gruppo->comitato()->_estensione()<=EST_LOCALE ){ ?>
-                                    <a class="btn btn-small btn-primary pull-right" href="?p=gruppo.estensione&id=<?= $gruppo->id; ?>" title="Estensione gruppi">
-                                        <i class="icon-random"></i> 
-                                        <?php if($gruppo->estensione() != null){ echo $conf['est_grp'][$gruppo->estensione()]; }else{ ?> Seleziona una estensione per il gruppo <?php } ?>
-                                    </a>
-                            <?php } 
-                        } 
-
-                        if ( $modificabile || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
+                        <?php if ( $gruppo->comitato()->_estensione()<=EST_LOCALE ){ ?>
+                                <a class="btn btn-small btn-primary pull-right" href="?p=gruppo.estensione&id=<?= $gruppo->id; ?>" title="Estensione gruppi">
+                                    <i class="icon-random"></i> 
+                                    <?php if($gruppo->estensione() != null){ echo $conf['est_grp'][$gruppo->estensione()]; }else{ ?> Seleziona una estensione per il gruppo <?php } ?>
+                                </a>
+                        <?php } } if ( $modificabile || $me->admin() || $me->dominiDelegazioni(APP_OBIETTIVO) ){ ?>
                                 <a class="btn btn-small btn-info pull-right" href="?p=gruppo.modifica&id=<?= $gruppo->id; ?>" title="Modifica gruppo">
                                     <i class="icon-edit"></i>
                                 </a>

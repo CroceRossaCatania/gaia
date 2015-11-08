@@ -23,12 +23,9 @@ if ( !function_exists('curl_init') ) {
 }
 
 $data	= date('Ymd'); 
+$data   = '20151011';
 $base   = realpath(dirname( __FILE__ ) . "/../");
 $dir 	= "{$base}/assets/min/{$data}";
-if ( !is_dir($dir) ) {
-	echo "Errore: Non esiste la directory {$dir}.\n";
-	exit(1);
-}
 
 $js_contatore 	= 0;
 $css_contatore	= 0;
@@ -36,6 +33,15 @@ $js_filesize 	= 0;
 $css_filesize 	= 0;
 $js_build 		= "{$dir}/js.build";
 $css_build		= "{$dir}/css.build";
+
+if ( !is_dir($dir) ) {
+    @mkdir("{$dir}");
+    //echo "Errore: Non esiste la directory {$dir}.\n";
+    //exit(1);
+}
+copyfile($base."/assets/js.build", $js_build);
+copyfile($base."/assets/css.build", $css_build);
+
 
 echo "[...] Caricamento JS...\n";
 $js_build		= minifica(
@@ -65,7 +71,8 @@ file_put_contents("{$dir}/build/build.js.log", $js_output);
 echo "[OK] Output di Closure salvato in {$dir}/build/build.js.log\n";
 
 echo "[...] Minificazione CSS (YUI Compressor)...";
-$css_build		= yuicss($css_build);
+$css_build		= yuicss2($css_build);
+print $css_build;
 echo "... [OK]\n";
 
 echo "[...] Salvo i risultati su disco...";
@@ -113,6 +120,14 @@ Operazioni concluse.
 
 
 EOL;
+
+
+function copyfile($src, $dst){
+    echo "trying to copy $src >> $dst ...\n";
+    if (!copy($src, $dst)) {
+        echo "failed to copy $src >> $dst ...\n";
+    }
+}
 
 function minifica($build_file, &$contatore, &$filesize) {
 	global $dimensione_originale, $base;
@@ -169,5 +184,28 @@ function yuicss($css) {
 	$output = curl_exec($ch);
 	curl_close($ch);
 	$output = str_replace("../", "../../../", $output);
+	return $output;
+}
+
+
+function yuicss2($css) {
+	return $css;
+
+	$url = 'http://cssminifier.com/raw';
+    $data = array(
+        'input' => $css,
+    );
+
+    // init the request, set some info, send it and finally close it
+    $ch = curl_init($url);
+
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $output = curl_exec($ch);
+    curl_close($ch);
+
+    // output the $minified
+    $output = str_replace("../", "../../../", $output);
 	return $output;
 }

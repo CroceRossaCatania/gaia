@@ -12,6 +12,8 @@ if ( $me instanceof Anonimo || $me->stato == ASPIRANTE ) {
 }
 
 ?>
+
+
 <div class="row-fluid">
         <div class="span3">
             <?php menuVolontario(); ?>

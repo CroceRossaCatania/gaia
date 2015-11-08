@@ -149,13 +149,11 @@ richiediComitato();
                             <?php } ?>
                         </td>
                         <td>
-                            <?php if ($_g->attuale()) { ?>
-
-                                <a class="btn btn-danger" onClick="return confirm('Vuoi veramente abbandonare questo gruppo di lavoro ?');" href="?p=utente.gruppo.dimetti&id=<?php echo $_g->id; ?>">
-                                    <i class="icon-ban-circle"></i>
-                                    Abbandona
-                                </a>
-
+                            <?php if ($_g->attuale() && ($me->contaGruppi() > 1)) { ?>
+                            <a class="btn btn-danger" onClick="return confirm('Vuoi veramente abbandonare questo gruppo di lavoro ?');" href="?p=utente.gruppo.dimetti&id=<?php echo $_g->id; ?>">
+                                <i class="icon-ban-circle"></i>
+                                Abbandona
+                            </a>
                             <?php } ?>
                         </td>
                     </tr>

@@ -3,6 +3,9 @@ body {
     font-family: 'Telex';
 }
 
+.container {
+    margin-top: 40px;
+}
 
 .nav li a {
     text-shadow: 0 1px 1px rgba(255, 255, 255, .2) !important;
@@ -108,11 +111,6 @@ body {
 
 .container-narrow > hr {
 	margin: 30px 0;
-}
-
-#normativaEU {
-  line-height: 115%;
-  font-size: smaller !important;
 }
 
 
@@ -428,6 +426,16 @@ body {
   top: 5%;
 }
 
+.modal-form select,
+.modal-form input {
+    width: 100%;
+}
+
+.modal-form label {
+    margin: 0;
+    text-align: left;
+}
+
 .blocco-con-sfondo {
   padding: 60px 20px;
   margin: 0px -20px;
@@ -442,4 +450,24 @@ body {
 
 .bottone-lungo {
   display: block !important;
+}
+
+.fc-view .fc-content .fc-time,
+.fc-view .fc-content .fc-title {
+    color: #000;
+    text-shadow: 1px 1px 1px #fff;
+}
+
+.chosen-container .search-field,
+.chosen-container .search-field input {
+    width: 100% !important;
+}
+.chosen-container .search-field button {
+    padding: 3px 12px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.chosen-container .search-field button.loading {
+    background-image: linear-gradient(to bottom, #888, #555) !important;
 }
