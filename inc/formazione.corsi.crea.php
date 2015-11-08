@@ -3,6 +3,7 @@ error_reporting(E_ALL);
 /*
  * ©2015 Croce Rossa Italiana
  */
+print "<b>*#@</b>";
 paginaPresidenziale(null, null, APP_OBIETTIVO, OBIETTIVO_1);
 
 $id = intval($_GET['id']);
@@ -36,23 +37,29 @@ if (false && !empty($id) && is_int($id)) {
 } else {
     $wizard = true;
 }
-
+print "<b>123</b><br/>";
 caricaSelettoreComitato();
-
+print "<b>abc</b><br/>";
+// Calcolo i permessi per verificare quali corsi può creare
 $permessi = array("locale" => 0, "provinciale" => 0, "regionale" => 0, "nazionale" => 0);
-
+print "<br/><b>array_merge</b>";
 $deleghe = array_merge($me->entitaDelegazioni(APP_OBIETTIVO), $me->entitaDelegazioni(APP_PRESIDENTE));
+print "<br/><b>prova</b>";
 foreach($deleghe as $d) {
+    var_dump($d);
     $_permessi = Utility::comitatoPermessi($d);    
     $permessi['locale'] = $permessi['locale'] | $_permessi['locale'];
     $permessi['provinciale'] = $permessi['provinciale'] | $_permessi['provinciale'];
     $permessi['regionale'] = $permessi['regionale'] | $_permessi['regionale'];
     $permessi['nazionale'] = $permessi['nazionale'] | $_permessi['nazionale'];
 }
-
-//$me = new Utente();
-$comitati = array_merge($me->comitatiApp(APP_OBIETTIVO), $me->comitatiApp(APP_PRESIDENTE));
 $tipocorsi = TipoCorso::filtraPerTipoComitato($permessi);
+
+// Calcolo i comitati per cui può agire
+print "<br/>1<b>ME</b>2<br/><pre>";
+print_r($me);
+print "</pre>";
+$comitati = $me->comitatiApp([APP_OBIETTIVO, APP_PRESIDENTE]);
 
 ?>
 <script>

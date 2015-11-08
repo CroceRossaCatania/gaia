@@ -17,6 +17,8 @@ class Delegato extends Entita {
     }
 
     public function comitato() {
+        print "comitato():";
+        print_r($this->comitato);
         return GeoPolitica::daOid($this->comitato);
     }
     

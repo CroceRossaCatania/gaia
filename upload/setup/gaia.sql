@@ -164,7 +164,6 @@ CREATE TABLE IF NOT EXISTS `comitati` (
   `locale` int(11) DEFAULT NULL,
   `geo` point NOT NULL,
   `principale` tinyint(1) DEFAULT NULL,
-  `attivo` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `locale` (`locale`),
   SPATIAL KEY `geo` (`geo`)
@@ -352,55 +351,6 @@ CREATE TABLE IF NOT EXISTS `documenti` (
   KEY `volontario` (`volontario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS `donazioni` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(255) DEFAULT NULL,
-  `tipo` varchar(8) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  FULLTEXT KEY `nome` (`nome`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `donazioni_anagrafica` (
-  `id` int(11) NOT NULL,
-  `volontario` varchar(16) DEFAULT NULL,
-  `sangue_gruppo` int(3) DEFAULT NULL,
-  `fattore_rh` int(3) DEFAULT NULL,
-  `fenotipo_rh` int(3) DEFAULT NULL,
-  `kell` int(3) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `donazioni_merito` (
-  `id` int(11) NOT NULL,
-  `volontario` varchar(16) DEFAULT NULL,
-  `donazione` varchar(16) DEFAULT NULL,
-  `merito` varchar(64) DEFAULT NULL,
-  `tConferma` varchar(64) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `donazioni_personale` (
-  `id` int(11) NOT NULL,
-  `volontario` varchar(16) DEFAULT NULL,
-  `donazione` varchar(16) DEFAULT NULL,
-  `data` varchar(64) DEFAULT NULL,
-  `luogo` varchar(64) DEFAULT NULL,
-  `tConferma` varchar(64) DEFAULT NULL,
-  `pConferma` varchar(64) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `donazioni_sedi` (
-  `id` int(11) NOT NULL,
-  `provincia` varchar(128) DEFAULT NULL,
-  `regione` varchar(128) DEFAULT NULL,
-  `nome` text,
-  `tipo` varchar(8) DEFAULT NULL,
-  `latitudine` varchar(25) DEFAULT NULL,
-  `longitudine` varchar(25) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 CREATE TABLE IF NOT EXISTS `elementiRichieste` (
   `id` int(11) NOT NULL,
   `richiesta` int(11) NOT NULL,
@@ -551,7 +501,6 @@ CREATE TABLE IF NOT EXISTS `locali` (
   `nome` varchar(255) DEFAULT NULL,
   `geo` point NOT NULL,
   `provinciale` int(11) DEFAULT NULL,
-  `attivo` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `provinciale` (`provinciale`),
   SPATIAL KEY `geo` (`geo`)
@@ -590,7 +539,6 @@ CREATE TABLE IF NOT EXISTS `nazionali` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
   `geo` point NOT NULL,
-  `attivo` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   SPATIAL KEY `geo` (`geo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -641,7 +589,6 @@ CREATE TABLE IF NOT EXISTS `provinciali` (
   `nome` varchar(255) DEFAULT NULL,
   `geo` point NOT NULL,
   `regionale` int(11) DEFAULT NULL,
-  `attivo` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `regionale` (`regionale`),
   SPATIAL KEY `geo` (`geo`)
@@ -686,7 +633,6 @@ CREATE TABLE IF NOT EXISTS `regionali` (
   `nome` varchar(255) DEFAULT NULL,
   `geo` point NOT NULL,
   `nazionale` int(11) DEFAULT NULL,
-  `attivo` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `nazionale` (`nazionale`),
   SPATIAL KEY `geo` (`geo`)
@@ -804,7 +750,6 @@ CREATE TABLE IF NOT EXISTS `titoliPersonali` (
   `fine` varchar(64) DEFAULT NULL,
   `luogo` varchar(64) DEFAULT NULL,
   `codice` varchar(64) DEFAULT NULL,
-  `corso` varchar(64) DEFAULT NULL,
   `tConferma` varchar(64) DEFAULT NULL,
   `pConferma` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -873,32 +818,6 @@ CREATE TABLE IF NOT EXISTS `veicoli` (
   FULLTEXT KEY `indice` (`libretto`,`targa`,`comitato`,`stato`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-
-
-CREATE TABLE `certificati` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) DEFAULT NULL,
-  `ruoloProprietario` varchar(255) DEFAULT NULL,
-  `ruoloDirettore` varchar(255) DEFAULT NULL,
-  `ruoloDocenti` varchar(255) DEFAULT NULL,
-  `ruoloAffiancamento` varchar(255) DEFAULT NULL,
-  `ruoloDiscenti` varchar(255) DEFAULT NULL,
-  `tipoValutazione` varchar(255) DEFAULT NULL,
-  `attestato` varchar(255) DEFAULT NULL COMMENT 'Il template del documento, se passato con sucesso',
-  `limitePerIscrizione` int(11) DEFAULT NULL COMMENT 'In giorni',
-  `proporzioneIstruttori` int(11) DEFAULT NULL COMMENT 'Quanti Docenti in affiancemento per docente 1/valore',
-  `minimoPartecipanti` int(11) DEFAULT NULL,
-  `massimoPartecipanti` int(11) DEFAULT NULL,
-  `proporzioneAffiancamento` int(11) DEFAULT NULL COMMENT '1/valore',
-  `durata` int(11) DEFAULT NULL,
-  `giorni` int(11) DEFAULT NULL,
-  `punizione` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
