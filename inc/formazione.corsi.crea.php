@@ -42,7 +42,9 @@ caricaSelettoreComitato();
 // Calcolo i permessi per verificare quali corsi può creare
 $permessi = array("locale" => 0, "provinciale" => 0, "regionale" => 0, "nazionale" => 0);
 $deleghe = array_merge($me->entitaDelegazioni(APP_OBIETTIVO), $me->entitaDelegazioni(APP_PRESIDENTE));
+print "<b>prova</b>";
 foreach($deleghe as $d) {
+    var_dump($d);
     $_permessi = Utility::comitatoPermessi($d);    
     $permessi['locale'] = $permessi['locale'] | $_permessi['locale'];
     $permessi['provinciale'] = $permessi['provinciale'] | $_permessi['provinciale'];
