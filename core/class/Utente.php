@@ -789,7 +789,7 @@ class Utente extends Persona {
         return $deleghe;
     }
     
-    /**
+     /**
      * Restituisce i comitati che mi competono per una determinata delega
      * @return array di geopolitiche
      * @param $app array di delegazioni
