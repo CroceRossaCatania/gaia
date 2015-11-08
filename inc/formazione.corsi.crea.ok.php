@@ -54,7 +54,6 @@ if ($tipoCorso->giorni<=1) {
     $l->data        = $c->inizio;
     $l->luogo 	= $c->luogo;
     $l->note 	= $c->descrizione;
-    $l->docente 	= 0;
 }
 
 $c->assegnaProgressivo();

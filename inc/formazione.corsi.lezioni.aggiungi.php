@@ -41,11 +41,14 @@ try {
     $l->data = $data->getTimestamp();
     $l->luogo 	= normalizzaNome($_POST['luogo']);
     $l->note 	= addslashes($_POST['note']);
-    $l->docente 	= intval($_POST['docenti'][0]);
     
-    $docente = Volontario::id(intval($_POST['docenti'][0]));
-    $part = new PartecipazioneCorso();
-    $part->aggiungi(Corso::id($id), $docente, CORSO_RUOLO_DOCENTE);
+//    $l->docente 	= intval($_POST['docenti'][0]);
+    
+    foreach ($_POST['docenti'] as $docente) {
+        $docenteId = Volontario::id(intval($docente));
+        $part = new PartecipazioneCorso();
+        $part->aggiungi(Corso::id($id), $docenteId, CORSO_RUOLO_DOCENTE);
+    }
 
     $db->commit();
 } catch(Exception $e) {
