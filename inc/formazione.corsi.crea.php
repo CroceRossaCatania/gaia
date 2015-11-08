@@ -54,11 +54,6 @@ $tipocorsi = TipoCorso::filtraPerTipoComitato($permessi);
 
 // Calcolo i comitati per cui può agire
 $comitati = array_merge($me->comitatiApp(APP_OBIETTIVO), $me->comitatiApp(APP_PRESIDENTE));
-print_r($comitati);
-
-
-
-
 ?>
 <script>
 var minDateOffset = <?php echo TipoCorso::limiteMinimoPerIscrizione()?>;

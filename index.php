@@ -192,9 +192,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                         <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
                                             <i class="icon-asterisk"></i>
                                             <?php if ($me->presiede()) : ?>
-                                            <strong>Presidente</strong>
-                                            <?php endif ?>
-                                            <?php if (sizeof($deleghe[OBIETTIVO_1]) > 0) : ?>
+                                                <strong>Presidente</strong>
+                                            <?php elseif (sizeof($deleghe[OBIETTIVO_1]) > 0) :?>
                                                <strong>Delegato</strong>
                                             <?php endif ?>
                                                
@@ -221,17 +220,17 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                                 </a>
                                             </li>
 
-											<li>
-												<a href="?p=presidente.donazioni">
-													<i class="icon-star"></i>
-													Donazioni in attesa
-													<?php if ( $_n_donazioni ) { ?>
-													<span class="badge badge-warning">
-														<?php echo $_n_donazioni; ?>
-													</span>
-													<?php } ?>
-												</a>
-											</li>
+                                            <li>
+                                                <a href="?p=presidente.donazioni">
+                                                        <i class="icon-star"></i>
+                                                        Donazioni in attesa
+                                                        <?php if ( $_n_donazioni ) { ?>
+                                                        <span class="badge badge-warning">
+                                                                <?php echo $_n_donazioni; ?>
+                                                        </span>
+                                                        <?php } ?>
+                                                </a>
+                                            </li>
 
                                             <li>
                                                 <a href="?p=presidente.appartenenzepending">
@@ -339,8 +338,8 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                                             <li><a href="?p=admin.admin"><i class="icon-star"></i> Amministratori</a></li>
                                             <li><a href="?p=admin.comitati"><i class="icon-bookmark"></i> Comitati</a></li> 
                                             <li><a href="?p=admin.titoli"><i class="icon-certificate"></i> Titoli</a></li>
-											<li><a href="?p=admin.donazioni"><i class="icon-beaker"></i> Donazioni</a></li>
-											<li><a href="?p=admin.donazioni.sedi"><i class="icon-road"></i> Donazioni sedi</a></li>
+                                            <li><a href="?p=admin.donazioni"><i class="icon-beaker"></i> Donazioni</a></li>
+                                            <li><a href="?p=admin.donazioni.sedi"><i class="icon-road"></i> Donazioni sedi</a></li>
                                             <li><a href="?p=admin.limbo"><i class="icon-meh"></i> Limbo</a></li> 
                                             <li><a href="?p=admin.aspiranti"><i class="icon-meh"></i> Aspiranti</a></li> 
                                             <li><a href="?p=admin.double"><i class="icon-superscript"></i> Double</a></li>
