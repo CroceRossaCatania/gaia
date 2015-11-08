@@ -39,8 +39,8 @@ if (false && !empty($id) && is_int($id)) {
 
 caricaSelettoreComitato();
 
+// Calcolo i permessi per verificare quali corsi può creare
 $permessi = array("locale" => 0, "provinciale" => 0, "regionale" => 0, "nazionale" => 0);
-
 $deleghe = array_merge($me->entitaDelegazioni(APP_OBIETTIVO), $me->entitaDelegazioni(APP_PRESIDENTE));
 foreach($deleghe as $d) {
     $_permessi = Utility::comitatoPermessi($d);    
@@ -49,11 +49,13 @@ foreach($deleghe as $d) {
     $permessi['regionale'] = $permessi['regionale'] | $_permessi['regionale'];
     $permessi['nazionale'] = $permessi['nazionale'] | $_permessi['nazionale'];
 }
-
-//$me = new Utente();
-print_r($me);
-$comitati = array_merge($me->comitatiApp(APP_OBIETTIVO), $me->comitatiApp(APP_PRESIDENTE));
 $tipocorsi = TipoCorso::filtraPerTipoComitato($permessi);
+
+// Calcolo i comitati per cui può agire
+print "<pre>";
+print_r($me);
+print "</pre>";
+$comitati = $me->comitatiApp([APP_OBIETTIVO, APP_PRESIDENTE]);
 
 ?>
 <script>
