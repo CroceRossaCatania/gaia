@@ -29,32 +29,19 @@ if (!empty($_GET['err']) && is_int($_GET['err'])) {
 }
 
 
-global $db;
-
-$db->beginTransaction();
-
-try {
-    $l = new GiornataCorso();
-    $l->corso 	= $id;
-    $l->nome 	= normalizzaNome($_POST['nome']);
-    $data     = DT::createFromFormat('d/m/Y H:i', $_POST["data"]);
-    $l->data = $data->getTimestamp();
-    $l->luogo 	= normalizzaNome($_POST['luogo']);
-    $l->note 	= addslashes($_POST['note']);
+$l = new GiornataCorso();
+$l->corso 	= $id;
+$l->nome 	= normalizzaNome($_POST['nome']);
+$data     = DT::createFromFormat('d/m/Y H:i', $_POST["data"]);
+$l->data = $data->getTimestamp();
+$l->luogo 	= normalizzaNome($_POST['luogo']);
+$l->note 	= addslashes($_POST['note']);
+$l->docenti 	= implode(',', $_POST['docenti']);
     
-//    $l->docente 	= intval($_POST['docenti'][0]);
-    
-    foreach ($_POST['docenti'] as $docente) {
-        $docenteId = Volontario::id(intval($docente));
-        $part = new PartecipazioneCorso();
-        $part->aggiungi(Corso::id($id), $docenteId, CORSO_RUOLO_DOCENTE);
-    }
-
-    $db->commit();
-} catch(Exception $e) {
-    $db->rollBack();
-    redirect("formazione.corsi.lezioni&id={$id}&err");
-    die;
+foreach ($_POST['docenti'] as $docente) {
+    $docenteId = Volontario::id(intval($docente));
+    $part = new PartecipazioneCorso();
+    $part->aggiungi(Corso::id($id), $docenteId, CORSO_RUOLO_DOCENTE);
 }
 
 redirect("formazione.corsi.lezioni&id={$id}");

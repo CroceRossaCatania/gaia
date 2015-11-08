@@ -31,11 +31,8 @@ $partecipazioni = PartecipazioneCorso::filtra([
     ['corso', $c->id],
     ['ruolo', CORSO_RUOLO_DOCENTE]
 ]);
+
 $docenti = [];
-foreach ($partecipazioni as $p) {
-    $docenti[] = $p->volontario();
-}
-unset($partecipazioni);
 
 
 // carica i selettori
@@ -76,7 +73,15 @@ var minDateOffset = <?php echo TipoCorso::limiteMinimoPerIscrizione() ?>;
                 <?php foreach ( $lezioni as $lezione ) { ?>
                     <tr class="modificabile">
                         <td>
-                            <?php echo $lezione->nome ?><br/>[<?php echo $lezione->docente()->nomeCompleto() ?>]
+                            <?php echo $lezione->nome ?><br/>
+                            [<?php 
+                                $docentiStr = '';
+                                foreach (explode(',',$lezione->docenti) as $k => $docenteId) {
+                                    if ($k>0)
+                                        $docentiStr .= ', ';
+                                    echo Volontario::id($docenteId)->nomeCompleto();
+                                }
+                            ?>]
                         </td>
                         <td>
                             <?php echo $lezione->luogo ?><br/><?php echo $lezione->data()->inTesto() ?>
@@ -97,9 +102,10 @@ var minDateOffset = <?php echo TipoCorso::limiteMinimoPerIscrizione() ?>;
                 <!-- Aggiunta di una nuova lezione -->
                 <tr id="nuovo" class="success">
                     <td>
-                        <input type="text" name="nome" class="input-block"
+                        <input type="text" name="nome" class="input-block" autocomplete="off"
                             placeholder="Nome della nuova lezione" required maxlength="64" /><br/>
                         <select name="docenti[]" 
+                                autocomplete="off"
                                 data-ruolo="<?php echo $ruolo; ?>"
                                 data-qualifica="<?php echo $qualifica; ?>"
                                 data-placeholder="Scegli un docente..." multiple class="chosen-select docenti">
@@ -113,17 +119,17 @@ var minDateOffset = <?php echo TipoCorso::limiteMinimoPerIscrizione() ?>;
                         </select>
                     </td>
                     <td>
-                        <input type="text" class="input-block" name="luogo" required placeholder="Luogo della lezione" /><br/>
-                        <input type="text" class="input-block" name="data" id="data" required placeholder="Data della lezione" />
+                        <input type="text" class="input-block" name="luogo" required placeholder="Luogo della lezione" autocomplete="off" /><br/>
+                        <input type="text" class="input-block" name="data" id="data" required placeholder="Data della lezione" autocomplete="off" />
                     </td>
                     <td>
-                        <textarea class="" name="note" required placeholder="Note per la lezione" ></textarea>
+                        <textarea class="" name="note" required placeholder="Note per la lezione" autocomplete="off" ></textarea>
                     </td>
                     <td>
                         <button type="submit" name="azione" value="aggiungi"
                          class="btn btn-success btn-block">
                                 <i class="icon-plus"></i>
-                                Aggiungi Lezione
+                                Salva questa lezione
                         </button>
                     </td>
                 </tr>
