@@ -849,6 +849,7 @@ class Utente extends Persona {
     } 
 
     public function entitaDelegazioni($app = null) {
+        print "<pre>";
         /* Qualora fossi admin, ho tutto il nazionale... */
         if (
             $this->admin()
@@ -857,12 +858,15 @@ class Utente extends Persona {
         }
         
         //$d = $this->delegazioni($app);
+        print "ABC";
         $d = $this->delegazioneAttuale();
         $c = [];
         //foreach ( $d as $k ) {
+        print "DEF";
         if(!$app || $d->applicazione == $app) {
             $c[] = $d->comitato();
         }
+        print "</pre>";
         return array_unique($c);
     }
 
