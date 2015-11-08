@@ -364,6 +364,7 @@ class Utente extends Persona {
             return $this->comitatiDiCompetenza($soloComitati);
         }
         print_r($this);
+        print "<b>1</b>";
         $r = [];
         foreach ( $app as $k ) {
             $r = array_merge($r, $this->comitatiDelegazioni($k, $soloComitati));
