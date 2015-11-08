@@ -51,6 +51,7 @@ foreach($deleghe as $d) {
 }
 
 //$me = new Utente();
+print_r($me);
 $comitati = array_merge($me->comitatiApp(APP_OBIETTIVO), $me->comitatiApp(APP_PRESIDENTE));
 $tipocorsi = TipoCorso::filtraPerTipoComitato($permessi);
 
