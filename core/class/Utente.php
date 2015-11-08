@@ -807,7 +807,7 @@ class Utente extends Persona {
                 $c[] = $comitato;
             }
             
-            print "<pre>Prima:";
+            print "<pre>Prima: $espandi  ".$comitato;
             print_r($c);
             if ($espandi && !$comitato instanceof Comitato) {
                 $c = array_merge($comitato->estensione(), $c);
