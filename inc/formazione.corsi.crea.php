@@ -52,7 +52,7 @@ foreach($deleghe as $d) {
 $tipocorsi = TipoCorso::filtraPerTipoComitato($permessi);
 
 // Calcolo i comitati per cui può agire
-print "<b>ME</b><pre>";
+print "<br/>1<b>ME</b>2<br/><pre>";
 print_r($me);
 print "</pre>";
 $comitati = $me->comitatiApp([APP_OBIETTIVO, APP_PRESIDENTE]);
