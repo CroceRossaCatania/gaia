@@ -36,8 +36,6 @@ class APIServer {
             registraParametroTransazione('uid', $this->sessione->utente );
         }
         registraParametroTransazione('login', (int) $identificato );
-
-
     }
 
     /**
@@ -57,7 +55,7 @@ class APIServer {
         $azione = str_replace(':', '_', $azione);
         try {
             // Controlla la validita' della chiave API usata
-            if ( !$this->chiave || !$this->chiave->usabile() ) {
+            if ( !$this->chiave || !$this->chiave->usabile()) {
                 throw new Errore(1014);
             }
 
@@ -73,8 +71,8 @@ class APIServer {
             
         } catch (Errore $e) {
             $r = $e->toJSON();
-        } 
-
+        }
+        
         $output = [
             'richiesta'  => [
                 'metodo'        =>  $azione,
@@ -284,6 +282,131 @@ class APIServer {
             'turni'  => $r
         ];
     }
+    
+    /**
+     * Elenco corsi nel tempo
+     */
+    private function api_corsi() {
+        /*TODO*/
+        global $conf;
+
+        $filter = $this->par;
+        $corsi = Corso::ricerca($filter);
+        
+        $list = array();
+        foreach  ( $corsi as $corso ) {
+            $inizio = DT::daTimestamp($corso->inizio);
+            $fine   = DT::daTimestamp($corso->inizio);
+            
+            $tmp = [
+                'corso'         =>  [
+                    'id'        =>  $corso->id,
+                    'nome'      =>  $corso->luogo,
+                ], 
+                'inizio'        =>  $inizio->toJSON(),
+                'fine'          =>  $fine->toJSON(),
+                'type'          =>  $corso->certificato,
+                'provincia'     =>  $corso->provincia,
+                'latitude'      =>  $latitude_value[$i%3],
+                'longitude'     =>  $longitude_value[$i%3],
+                'organizzatore' =>  $corso->organizzatore,
+                'colore'        =>  '#' . $colore,
+                'url'           =>  '/?p=public.corso.scheda&id=' . $corso->id
+            ];
+         
+            array_push($list, $tmp);
+        }
+  
+        return [
+            'corsi'  => $list
+        ];
+       
+    }
+    
+    
+    /**
+     * Elenco corsi nel tempo
+     */
+    private function api_miei_corsi() {
+        /*TODO*/
+        global $conf;
+
+        $filter = $this->par;
+        $me = $this->richiediLogin();
+        $corsi = Corso::ricerca($filter, null, $me);
+        
+        $list = array();
+        foreach  ( $corsi as $corso ) {
+            $inizio = DT::daTimestamp($corso->inizio);
+            $fine   = DT::daTimestamp($corso->inizio);
+            
+            $tmp = [
+                'corso'         =>  [
+                    'id'        =>  $corso->id,
+                    'nome'      =>  $corso->luogo,
+                ], 
+                'inizio'        =>  $inizio->toJSON(),
+                'fine'          =>  $fine->toJSON(),
+                'type'          =>  $corso->certificato,
+                'provincia'     =>  $corso->provincia,
+                'latitude'      =>  $latitude_value[$i%3],
+                'longitude'     =>  $longitude_value[$i%3],
+                'ruolo'         =>  $corso->ruolo,
+                'organizzatore' =>  $corso->organizzatore,
+                'colore'        =>  Utility::colorByRuolo($corso->ruolo),
+                'url'           =>  '/?p=public.corso.scheda&id=' . $corso->id
+            ];
+         
+            array_push($list, $tmp);
+        }
+  
+        return [
+            'corsi'  => $list
+        ];
+       
+    }
+    
+    
+    /**
+     * Elenco corsi nel tempo
+     */
+    private function api_miei_corsi_in_gestione() {
+        /*TODO*/
+        global $conf;
+
+        $filter = $this->par;
+        $corsi = Corso::ricerca($filter);
+        
+        $list = array();
+        foreach  ( $corsi as $corso ) {
+            $inizio = DT::daTimestamp($corso->inizio);
+            $fine   = DT::daTimestamp($corso->inizio);
+            
+            $tmp = [
+                'corso'         =>  [
+                    'id'        =>  $corso->id,
+                    'nome'      =>  $corso->luogo,
+                ], 
+                'inizio'        =>  $inizio->toJSON(),
+                'fine'          =>  $fine->toJSON(),
+                'type'          =>  $corso->certificato,
+                'provincia'     =>  $corso->provincia,
+                'latitude'      =>  $latitude_value[$i%3],
+                'longitude'     =>  $longitude_value[$i%3],
+                'organizzatore' =>  $corso->organizzatore,
+                'colore'        =>  Utility::colorByStato($corso->stato),
+                'url'           =>  '/?p=formazione.corsi.riepilogo&id=' . $corso->id
+            ];
+         
+            array_push($list, $tmp);
+        }
+  
+        return [
+            'corsi'  => $list
+        ];
+       
+    }
+    
     
     private function api_attivita_dettagli() {
         $this->richiedi(['id']);
@@ -551,7 +674,439 @@ class APIServer {
         return true;
     }
 
+    private function api_corsi_volontari_cerca() {
+        
+        $IS_POPOLAZIONE = false;
+        $RUOLO_POPOLAZIONE = Utility::getIdRuoloByName("Popolazione");
+        $RUOLO_SANITARIO = Utility::getIdRuoloByName("Sanitario");
+        
+        $me = $this->richiediLogin();
+        $r = new Ricerca();
+        
+        /* Ordini personalizzati per vari usi */
+        $r->ordine = [
+            'anagrafica.cognome     ASC',
+            'anagrafica.nome        ASC'
+        ];
+        /*
+        if ( 
+            $this->par['ordine'] &&
+            isset($ordini[$this->par['ordine']])
+            ) {
+             $ordini[$this->par['ordine']];
+        }
+         * 
+         */
+        
+        
+        if ($this->par['stato']) {
+            $r->stato = $this->par['stato'];
+        } elseif ($this->par['stato'] === 0) {
+            $r->stato = 0;
+        }
+
+        if ($this->par['statoPersona']) {
+            $r->statoPersona = $this->par['statoPersona'];
+        } elseif ($this->par['statoPersona'] === 0) {
+            $r->statoPersona = 0;
+        } else {
+            $r->statoPersona = false;
+        }
+
+        if ($this->par['passato']) {
+            $r->passato = true;
+        }
+
+        if ($this->par['giovane']) {
+            $r->giovane = true;
+        }
+
+        if ($this->par['infermiera']) {
+            $r->infermiera = true;
+        }
+
+        if ($this->par['militare']) {
+            $r->militare = true;
+        }
+        
+        if ($this->par['qualifica']) {
+            $r->crs_qualifica = $this->par['qualifica'];
+        }
+        
+        $ruolo = $this->par['ruolo'];
+        if ($ruolo){
+            switch ($ruolo){
+                case $RUOLO_POPOLAZIONE:
+                    $r->statoPersona = PERSONA;
+                    $r->crs_qualifica = null;
+                    $IS_POPOLAZIONE = TRUE;
+                    break;
+                case $RUOLO_SANITARIO:
+                    $r->sanitario = true;
+                    $r->crs_qualifica = null;
+                    break;
+                default: 
+                    $r->crs_ruolo = $this->par['ruolo'];
+                    break;
+            }
+        }
+        
+       
+        
+        // versione modificata per #867
+        if ($this->par['comitati']) {
+            $g = GeoPolitica::daOid($this->par['comitati']);
+            // bisogna avere permessi di lettura sul ramo
+            if ( !$me->puoLeggereDati($g) )
+                throw new Errore(1016);
+            
+            $com = $g->estensione();
+        } else {
+            $com = array_merge(
+                // Dominio di ricerca
+                $me->comitatiApp([
+                    APP_PRESIDENTE,
+                    APP_SOCI,
+                    APP_OBIETTIVO
+                ]),
+                $me->geopoliticheAttivitaReferenziate(),
+                $me->comitatiAreeDiCompetenza(true)
+            );
+        }
+        $r->comitati = $com;
+
+        if ( $this->par['query'] ) {
+            $r->query = $this->par['query'];
+        }
+
+        if ( $this->par['pagina'] ) {
+            $r->pagina = (int) $this->par['pagina'];
+        }
+
+        if ( $this->par['perPagina'] ) {
+            $r->perPagina = (int) $this->par['perPagina'];
+        }
+
+        $r->corsi_esegui($IS_POPOLAZIONE);
+
+        $risultati = [];
+        foreach ( $r->risultati as $risultato ) {
+            $risultati[] = $risultato->toJSONRicerca();
+        }
+
+        $risposta = [
+            'tempo'     =>  $r->tempo,
+            'totale'    =>  $r->totale,
+            'pagina'    =>  $r->pagina,
+            'pagine'    =>  $r->pagine,
+            'perPagina' =>  $r->perPagina,
+            'risultati' =>  $risultati
+        ];
+        return $risposta;
+    }
+    
     private function api_volontari_cerca() {
+        $me = $this->richiediLogin();
+        $r = new Ricerca();
+
+        /* Ordini personalizzati per vari usi */
+        $ordini = [
+            'selettore' =>  [
+                'pertinenza DESC'
+            ]
+        ];
+        if ( 
+            $this->par['ordine'] &&
+            isset($ordini[$this->par['ordine']])
+            ) {
+            $r->ordine = $ordini[$this->par['ordine']];
+        }
+
+        if ($this->par['stato']) {
+            $r->stato = $this->par['stato'];
+        } elseif ($this->par['stato'] === 0) {
+            $r->stato = 0;
+        }
+
+        if ($this->par['statoPersona']) {
+            $r->statoPersona = $this->par['statoPersona'];
+        } elseif ($this->par['statoPersona'] === 0) {
+            $r->statoPersona = 0;
+        } else {
+            $r->statoPersona = false;
+        }
+
+        if ($this->par['passato']) {
+            $r->passato = true;
+        }
+
+        if ($this->par['giovane']) {
+            $r->giovane = true;
+        }
+
+        if ($this->par['infermiera']) {
+            $r->infermiera = true;
+        }
+
+        if ($this->par['militare']) {
+            $r->militare = true;
+        }
+
+        // versione modificata per #867
+        if ($this->par['comitati']) {
+            $g = GeoPolitica::daOid($this->par['comitati']);
+            // bisogna avere permessi di lettura sul ramo
+            if ( !$me->puoLeggereDati($g) )
+                throw new Errore(1016);
+            
+            $com = $g->estensione();
+        } else {
+            $com = array_merge(
+                // Dominio di ricerca
+                $me->comitatiApp([
+                    APP_PRESIDENTE,
+                    APP_SOCI,
+                    APP_OBIETTIVO
+                ]),
+                $me->geopoliticheAttivitaReferenziate(),
+                $me->comitatiAreeDiCompetenza(true)
+            );
+        }
+        $r->comitati = $com;
+
+        if ( $this->par['query'] ) {
+            $r->query = $this->par['query'];
+        }
+
+        if ( $this->par['pagina'] ) {
+            $r->pagina = (int) $this->par['pagina'];
+        }
+
+        if ( $this->par['perPagina'] ) {
+            $r->perPagina = (int) $this->par['perPagina'];
+        }
+
+        $r->esegui();
+
+        $risultati = [];
+        foreach ( $r->risultati as $risultato ) {
+            $risultati[] = $risultato->toJSONRicerca();
+        }
+
+        $risposta = [
+            'tempo'     =>  $r->tempo,
+            'totale'    =>  $r->totale,
+            'pagina'    =>  $r->pagina,
+            'pagine'    =>  $r->pagine,
+            'perPagina' =>  $r->perPagina,
+            'risultati' =>  $risultati
+        ];
+        return $risposta;
+
+    }
+    
+
+    private function api_direttori_cerca() {
+        $me = $this->richiediLogin();
+        $r = new Ricerca();
+
+        /* Ordini personalizzati per vari usi */
+        $ordini = [
+            'selettore' =>  [
+                'pertinenza DESC'
+            ]
+        ];
+        if ( 
+            $this->par['ordine'] &&
+            isset($ordini[$this->par['ordine']])
+            ) {
+            $r->ordine = $ordini[$this->par['ordine']];
+        }
+
+        if ($this->par['stato']) {
+            $r->stato = $this->par['stato'];
+        } elseif ($this->par['stato'] === 0) {
+            $r->stato = 0;
+        }
+
+        if ($this->par['statoPersona']) {
+            $r->statoPersona = $this->par['statoPersona'];
+        } elseif ($this->par['statoPersona'] === 0) {
+            $r->statoPersona = 0;
+        } else {
+            $r->statoPersona = false;
+        }
+
+        if ($this->par['passato']) {
+            $r->passato = true;
+        }
+
+        if ($this->par['giovane']) {
+            $r->giovane = true;
+        }
+
+        if ($this->par['infermiera']) {
+            $r->infermiera = true;
+        }
+
+        if ($this->par['militare']) {
+            $r->militare = true;
+        }
+
+        // versione modificata per #867
+        if ($this->par['comitati']) {
+            $g = GeoPolitica::daOid($this->par['comitati']);
+            // bisogna avere permessi di lettura sul ramo
+            if ( !$me->puoLeggereDati($g) )
+                throw new Errore(1016);
+            
+            $com = $g->estensione();
+        } else {
+            $com = array_merge(
+                // Dominio di ricerca
+                $me->comitatiApp([
+                    APP_PRESIDENTE,
+                    APP_SOCI,
+                    APP_OBIETTIVO
+                ]),
+                $me->geopoliticheAttivitaReferenziate(),
+                $me->comitatiAreeDiCompetenza(true)
+            );
+        }
+        $r->comitati = $com;
+
+        if ( $this->par['query'] ) {
+            $r->query = $this->par['query'];
+        }
+
+        if ( $this->par['pagina'] ) {
+            $r->pagina = (int) $this->par['pagina'];
+        }
+
+        if ( $this->par['perPagina'] ) {
+            $r->perPagina = (int) $this->par['perPagina'];
+        }
+
+        $r->esegui();
+
+        $risultati = [];
+        foreach ( $r->risultati as $risultato ) {
+            $risultati[] = $risultato->toJSONRicerca();
+        }
+
+        $risposta = [
+            'tempo'     =>  $r->tempo,
+            'totale'    =>  $r->totale,
+            'pagina'    =>  $r->pagina,
+            'pagine'    =>  $r->pagine,
+            'perPagina' =>  $r->perPagina,
+            'risultati' =>  $risultati
+        ];
+        return $risposta;
+
+    }
+    
+    private function api_istruttori_cerca() {
+        $me = $this->richiediLogin();
+        $r = new Ricerca();
+
+        /* Ordini personalizzati per vari usi */
+        $ordini = [
+            'selettore' =>  [
+                'pertinenza DESC'
+            ]
+        ];
+        if ( 
+            $this->par['ordine'] &&
+            isset($ordini[$this->par['ordine']])
+            ) {
+            $r->ordine = $ordini[$this->par['ordine']];
+        }
+
+        if ($this->par['stato']) {
+            $r->stato = $this->par['stato'];
+        } elseif ($this->par['stato'] === 0) {
+            $r->stato = 0;
+        }
+
+        if ($this->par['statoPersona']) {
+            $r->statoPersona = $this->par['statoPersona'];
+        } elseif ($this->par['statoPersona'] === 0) {
+            $r->statoPersona = 0;
+        } else {
+            $r->statoPersona = false;
+        }
+
+        if ($this->par['passato']) {
+            $r->passato = true;
+        }
+
+        if ($this->par['giovane']) {
+            $r->giovane = true;
+        }
+
+        if ($this->par['infermiera']) {
+            $r->infermiera = true;
+        }
+
+        if ($this->par['militare']) {
+            $r->militare = true;
+        }
+
+        // versione modificata per #867
+        if ($this->par['comitati']) {
+            $g = GeoPolitica::daOid($this->par['comitati']);
+            // bisogna avere permessi di lettura sul ramo
+            if ( !$me->puoLeggereDati($g) )
+                throw new Errore(1016);
+            
+            $com = $g->estensione();
+        } else {
+            $com = array_merge(
+                // Dominio di ricerca
+                $me->comitatiApp([
+                    APP_PRESIDENTE,
+                    APP_SOCI,
+                    APP_OBIETTIVO
+                ]),
+                $me->geopoliticheAttivitaReferenziate(),
+                $me->comitatiAreeDiCompetenza(true)
+            );
+        }
+        $r->comitati = $com;
+
+        if ( $this->par['query'] ) {
+            $r->query = $this->par['query'];
+        }
+
+        if ( $this->par['pagina'] ) {
+            $r->pagina = (int) $this->par['pagina'];
+        }
+
+        if ( $this->par['perPagina'] ) {
+            $r->perPagina = (int) $this->par['perPagina'];
+        }
+
+        $r->esegui();
+
+        $risultati = [];
+        foreach ( $r->risultati as $risultato ) {
+            $risultati[] = $risultato->toJSONRicerca();
+        }
+
+        $risposta = [
+            'tempo'     =>  $r->tempo,
+            'totale'    =>  $r->totale,
+            'pagina'    =>  $r->pagina,
+            'pagine'    =>  $r->pagine,
+            'perPagina' =>  $r->perPagina,
+            'risultati' =>  $risultati
+        ];
+        return $risposta;
+
+    }
+    
+    private function api_istruttori_in_affiancamento_cerca() {
         $me = $this->richiediLogin();
         $r = new Ricerca();
 
@@ -735,7 +1290,7 @@ class APIServer {
         return ['id' => $corsoBase->id];
     }
 
-	private function api_like() {
+    private function api_like() {
         global $conf;
         $this->richiedi(['oggetto']);
         $oggetto = Entita::daOid($this->par['oggetto']);
@@ -795,6 +1350,54 @@ class APIServer {
         ];
     }
 
+    
+    private function api_aggiungi_civile() {
+        $me = $this->richiediLogin();
+        $this->richiedi(['cf','nome','cognome','dnascita','conascita','prnascita']);
+        $a = Civile::by('codiceFiscale', $this->par['cf']);
+        if (!empty($a)) {
+            return [
+                'errore'    => [
+                    'timestamp' => (new DT())->getTimestamp(),
+                    'messaggio' => 'Civile già presente in anagrafica',
+                    'info' => 'Si è cercato di inserire un civile con codice fiscale '.$this->par['cf'].', ma questo codice fiscale esiste già.'
+                ]
+            ];
+        }
+        $this->db->beginTransaction();
+        try {
+            $a = new Civile();
+            $a->codiceFiscale = $this->par['cf'];
+            
+            $a->nome     = $this->par['nome'];
+            $a->cognome = $this->par['cognome'];
+            $a->sesso = $this->par['sesso'] ? 1 : 0;
+            $a->dataNascita = DT::daFormato($this->par['dnascita'])->getTimestamp();
+            
+            $a->provinciaNascita = $this->par['prnascita'];
+            $a->comuneNascita = $this->par['conascita'];
+            $a->comuneResidenza = $this->par['coresidenza'];
+            $a->CAPResidenza = $this->par['caresidenza'];
+            $a->provinciaResidenza = $this->par['prresidenza'];
+            $a->indirizzo = $this->par['indirizzo'];
+            $a->civico = $this->par['civico'];
+            
+            $a->cellulare = $this->par['cellulare'];
+            $a->email = $this->par['email'];
+            
+        } catch (Exception $e) {
+            $this->db->rollBack();
+            if (!$a) { return null; }
+        }
+        $this->db->commit();
+        if (!$a) { return null; }
+
+        return [
+            'id'  =>  $a->id,
+            'nomeCompleto'  =>  $a->nomeCompleto(),
+            'codiceFiscale' =>  $a->codiceFiscale        ];
+    }
+
 	/**
      * Ricerca sedi donazioni per visibilita
      */    
@@ -806,5 +1409,4 @@ class APIServer {
         return $t;
     }
 
-        
 }

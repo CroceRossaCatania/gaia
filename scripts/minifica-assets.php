@@ -167,6 +167,9 @@ function yuicss($css) {
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, 'file=' . urlencode($css));
 	$output = curl_exec($ch);
+        if (curl_getinfo($ch) != 200){
+            $output = $css;
+        }
 	curl_close($ch);
 	$output = str_replace("../", "../../../", $output);
 	return $output;

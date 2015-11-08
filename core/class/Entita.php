@@ -77,7 +77,7 @@ abstract class Entita {
             if ( $this->cache ) {
                 $this->cache->set(static::_chiave($id . ':___campi', false), serialize($this->_v));
             }
-        } elseif ( $id === null ) {
+        } elseif ( $id === null) {
             /* Creazione nuovo */
             $this->_crea();
             $this->__construct($this->id);
@@ -312,6 +312,29 @@ abstract class Entita {
     }
     
     /**
+     * Ritorna un elenco degli ultimi oggetti nel database in base all'ordinamento
+     *
+     * @param string $number        Required. Numero di elementi da ritornare
+     * @param string $condizioni    Opzionale. Condizioni per la funzione filtra
+     * @param string $ordine        Opzionale. Ordine in SQL
+     * @return array            Array di oggetti
+     */
+    public static function ultimi($number, $condizioni = [], $ordine="id") {
+        return static::filtra($condizioni, $ordine." DESC LIMIT ".$number);
+    }
+    
+    /**
+     * Ritorna l'ultimo elemento in base all'ordinamento
+     *
+     * @param string $condizioni    Opzionale. Condizioni per la funzione filtra
+     * @param string $ordine    Opzionale. Ordine in SQL
+     * @return array            Array di oggetti
+     */
+    public static function ultimo($condizioni=[], $ordine="id") {
+        return static::filtra($condizioni, $ordine." DESC LIMIT 1");
+    }
+    
+    /**
      * Effettua una ricerca MySQL FULLTEXT sui campi specificati
      *
      * @param string $query         La query di ricerca.
@@ -367,7 +390,7 @@ abstract class Entita {
         else
             $q = $db->prepare("SELECT * FROM ". static::$_t ." WHERE id = :id");
 
-        
+     
         $q->bindParam(':id', $id);
         $q->execute();
 

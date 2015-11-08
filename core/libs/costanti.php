@@ -6,6 +6,22 @@
 
 /*
  * ===================================
+ * =========== MODULI ============
+ * ===================================
+ */
+define ('MODULO_FORMAZIONE_CORSI' , 'crs_');
+define ('MODULO_FORMAZIONE_CORSI_SECUREKEY' , '^%ED!so+-M:IM8IZv');
+
+/*
+ * ===================================
+ * ==== FILE INI DI IMPOSTAZIONI =====
+ * ===================================
+ */
+define ('CORSI_INI' , 'pdf/corsi.ini');
+
+
+/*
+ * ===================================
  * =========== ANAGRAFICA ============
  * ===================================
  */
@@ -333,8 +349,8 @@ $conf['titoli'] = [
 	/*
 	num =>  [denominazione,		       verifica, data,  data_obbl] */
 	TITOLO_PERSONALE	    =>	['Competenza personale',	false,	false,	false],
-	TITOLO_PATENTE_CIVILE	=>	['Patente Civile',          false,	true,	false],
-	TITOLO_PATENTE_CRI	    =>	['Patente CRI',             true,	true,	true],
+	TITOLO_PATENTE_CIVILE	=>	['Patente Civile',             	false,	true,	false],
+	TITOLO_PATENTE_CRI	    =>	['Patente CRI',             	true,	true,	true],
 	TITOLO_STUDIO   	    =>	['Titolo di studio',		false,  true,   false],
 	TITOLO_CRI       	    =>	['Titolo di Croce Rossa',	true,	true,	false],
     TITOLO_SANGUE           =>  ['Donazione di sangue',     true,   true,   true]
@@ -825,12 +841,16 @@ define('CORSO_S_ANNULLATO',          0);
 define('CORSO_S_DACOMPLETARE',      10);
 define('CORSO_S_CONCLUSO',          20);
 define('CORSO_S_ATTIVO',            30);
+define('CORSO_S_DA_ELABORARE',      40);
+define('CORSO_S_CHIUSO',      50);
 
 $conf['corso_stato'] = [
     CORSO_S_ANNULLATO         =>  'Corso annullato',
     CORSO_S_DACOMPLETARE      =>  'Da completare',
     CORSO_S_CONCLUSO          =>  'Corso concluso',
     CORSO_S_ATTIVO            =>  'Corso attivo',
+    CORSO_S_DA_ELABORARE      =>  'Corso da elaborare',
+    CORSO_S_CHIUSO            =>  'Corso chiuso'
 ];
 
 /*
@@ -855,6 +875,121 @@ $conf['partecipazioneBase'] = [
     ISCR_CONFERMATA     =>  'Iscritto',
     ISCR_SUPERATO       =>  'Superato',  
     ISCR_BOCCIATO       =>  'Non superato',
+];  
+
+/*
+ * ===================================
+ * ===== RUOLI CORSI =================
+ * ===================================
+ */
+
+define('CORSO_NESSUN_RUOLO',                    0);
+define('CORSO_RUOLO_CREATORE',                 10);
+define('CORSO_RUOLO_DELEGATO_CREATORE',        20);
+define('CORSO_RUOLO_DIRETTORE',                30);
+define('CORSO_RUOLO_DOCENTE',               40); // istruttore per corsi a laici/volontari e formatore per corsi a istruttori
+define('CORSO_RUOLO_AFFIANCAMENTO',            50);
+define('CORSO_RUOLO_DISCENTE',                 60);
+
+define('GIORNI_CORSO_ISCRIZIONI_CHIUSE',            15); 
+define('GIORNI_CORSO_NON_MODIFICABILE',             15); 
+define('GIORNI_PARTECIPAZIONE_NON_MODIFICABILE',    15); 
+
+
+$conf['corso_ruolo'] = [
+    CORSO_NESSUN_RUOLO              => 'Nessun ruolo',
+    CORSO_RUOLO_CREATORE            => 'Presidente',
+    CORSO_RUOLO_DELEGATO_CREATORE   => 'Delegato',
+    CORSO_RUOLO_DIRETTORE           => 'Direttore',
+    CORSO_RUOLO_DOCENTE             => 'Docente',
+    CORSO_RUOLO_AFFIANCAMENTO       => 'Docente in affiancamento',
+    CORSO_RUOLO_DISCENTE            => 'Discente',
+];
+
+/*
+ * ===================================
+ * ===== STATO PARTECIPAZIONI CORSI ==
+ * ===================================
+ */
+
+define('PARTECIPAZIONE_RICHIESTA',               0);
+define('PARTECIPAZIONE_NEGATA',                 10);
+define('PARTECIPAZIONE_RITIRATA',               20);
+define('PARTECIPAZIONE_ANNULLATA',              30); // confermata ma impossibilitata per imprevisto
+define('PARTECIPAZIONE_ACCETTATA',              40);
+define('PARTECIPAZIONE_CONFERMATA',             50); 
+define('PARTECIPAZIONE_EFFETTUATA_FALLIMENTO',  60); 
+define('PARTECIPAZIONE_EFFETTUATA_SUCCESSO',    70); 
+
+
+$conf['partecipazione'] = [
+    PARTECIPAZIONE_RICHIESTA    =>  'Richiesta',
+    PARTECIPAZIONE_NEGATA       =>  'Negata', 
+    PARTECIPAZIONE_RITIRATA     =>  'Ritirata', //ritirata dal presidente (o delegato) che ha creato il corso
+    PARTECIPAZIONE_ANNULLATA    =>  'Annullata',
+    PARTECIPAZIONE_ACCETTATA    =>  'Accettata',
+    PARTECIPAZIONE_CONFERMATA   =>  'Confermata', 
+    PARTECIPAZIONE_EFFETTUATA_FALLIMENTO   =>  'Corso non superato',
+    PARTECIPAZIONE_EFFETTUATA_SUCCESSO   =>  'Corso superato',
+];  
+
+/*
+ * ===================================
+ * ===== STATO RISULTATI CORSI      ==
+ * ===================================
+ */
+
+define('CORSO_RISULTATO_NESSUNO',                     0);
+define('CORSO_RISULTATO_NON_IDONEO',                 10);
+define('CORSO_RISULTATO_IDONEO',                     20); 
+
+
+$conf['risultato'] = [
+    CORSO_RISULTATO_NESSUNO    =>  'Non disponibile',
+    CORSO_RISULTATO_NON_IDONEO       =>  'Non idoneo', 
+    CORSO_RISULTATO_IDONEO    =>  'Idoneo'
+];  
+
+/*
+ * ===================================
+ * ===== ERRORI CREAZIONE CORSI      ==
+ * ===================================
+ */
+
+define('CORSO_ERRORE_CORSO_NON_TROVATO',          1);
+define('CORSO_ERRORE_DATA_NON_CORRETTA',          2);
+define('CORSO_ERRORE_CORSO_NON_MODIFICABILE',     3);
+define('CORSO_ERRORE_NON_ANCORA_CONCLUSO',      100);
+
+$conf['errori_corsi'] = [
+    CORSO_ERRORE_CORSO_NON_TROVATO    =>  'Il corso ricercato non esiste',
+    CORSO_ERRORE_DATA_NON_CORRETTA    =>  'La data e l\'ora inserite non sono corrette',
+    CORSO_ERRORE_CORSO_NON_MODIFICABILE => 'Non hai i permessi per modificare questo corso',
+    CORSO_ERRORE_NON_ANCORA_CONCLUSO    =>  'Il corso non risulta ancora concluso'
+];  
+
+/*
+ * ===================================
+ * ===== ERRORI VALIDAZIONE CORSI      ==
+ * ===================================
+ */
+
+define('CORSO_VALIDAZIONE_ORGANIZZATORE_MANCANTE',           1);
+define('CORSO_VALIDAZIONE_RESPONSABILE_MANCANTE',            2);
+define('CORSO_VALIDAZIONE_DIRETTORE_MANCANTE',               4);
+define('CORSO_VALIDAZIONE_NESSUN_PARTECIPANTE',              8);
+define('CORSO_VALIDAZIONE_TROPPI_PARTECIPANTI',             16);
+define('CORSO_VALIDAZIONE_ERRATO_NUMERO_DOCENTI',           32);
+define('CORSO_VALIDAZIONE_TROPPI_AFFIANCAMENTI',            64);
+
+$conf['validazione_corsi'] = [
+    CORSO_VALIDAZIONE_ORGANIZZATORE_MANCANTE    =>  'Manca un organizzatore',
+    CORSO_VALIDAZIONE_RESPONSABILE_MANCANTE    =>  'Manca un responsabile',
+    CORSO_VALIDAZIONE_DIRETTORE_MANCANTE    =>  'Manca un direttore',
+    CORSO_VALIDAZIONE_NESSUN_PARTECIPANTE    =>  'Mancano partecipanti',
+    CORSO_VALIDAZIONE_TROPPI_PARTECIPANTI    =>  'Troppi partecipanti per il numero di docenti presenti',
+    CORSO_VALIDAZIONE_ERRATO_NUMERO_DOCENTI    =>  'Numero docenti diverso da quanto necessario',
+    CORSO_VALIDAZIONE_TROPPI_AFFIANCAMENTI    =>  'Troppi affiancamenti'
 ];  
 
 /*
@@ -1002,6 +1137,34 @@ $conf['est_attivita2geopolitica'] = [
     ATT_VIS_REGIONALE   =>  EST_REGIONALE,
     ATT_VIS_VOLONTARI   =>  EST_NAZIONALE,
     ATT_VIS_PUBBLICA    =>  EST_NAZIONALE     
+];
+
+
+/*
+ * ===================================
+ * ====== CONVERSIONI ESTENSIONE =====
+ * ===================================
+ */
+
+$conf['est_geopolitica2corso'] = [
+    /*
+    EST_UNITA       =>  COR_VIS_UNITA,
+    EST_LOCALE      =>  COR_VIS_LOCALE,
+    EST_PROVINCIALE =>  COR_VIS_PROVINCIALE,
+    EST_REGIONALE   =>  COR_VIS_REGIONALE,
+    EST_NAZIONALE   =>  COR_VIS_VOLONTARI     
+    */
+];
+
+$conf['est_corso2geopolitica'] = [
+    /*
+    COR_VIS_UNITA       =>  EST_UNITA,
+    COR_VIS_LOCALE      =>  EST_LOCALE,
+    COR_VIS_PROVINCIALE =>  EST_PROVINCIALE,
+    COR_VIS_REGIONALE   =>  EST_REGIONALE,
+    COR_VIS_VOLONTARI   =>  EST_NAZIONALE,
+    COR_VIS_PUBBLICA    =>  EST_NAZIONALE     
+    */
 ];
 
 /*

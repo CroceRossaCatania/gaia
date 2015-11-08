@@ -96,6 +96,21 @@ class DT extends DateTime {
             return false;
         }
     }
+
+    /**
+    * Controlla validità di una data in formato ed esistenza
+    * @param $data data in formato gg/mm/aaaa
+    * @return false se data errata, true se corretta
+    */
+    public static function controlloDataOra($data){
+        if(DT::createFromFormat('d/m/Y H:i', $data)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    
     /**
      * Tenta di istanziare un oggetto DateTime e controlla che non ci siano
      * errori sotto al tappeto
