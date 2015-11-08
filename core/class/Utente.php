@@ -63,8 +63,12 @@ class Utente extends Persona {
         return $r;
     }
     
-    public function nomeCompleto() {
-        return $this->nome . ' ' . $this->cognome;
+    public function nomeCompleto($cognomePrima = false) {
+		if ($cognomePrima) {
+			return $this->cognome . ' ' . $this->nome;
+		} else {
+       		return $this->nome . ' ' . $this->cognome;
+    		}
     }
     
     public function cambiaPassword($nuova) {
@@ -94,10 +98,6 @@ class Utente extends Persona {
         $q->execute();
         $q = $q->fetch(PDO::FETCH_NUM);
         return $q[0];
-    }
-    
-    public function numDonazioniPending() {
-        return 0;
     }
     
     public function storico() {
@@ -355,12 +355,15 @@ class Utente extends Persona {
     }
     
     public function comitatiApp( $app , $soloComitati = true) {
+        print "comitatiApp($app, $soloComitati)";
         if (!is_array($app)) {
             $app = [$app];
         }
+        print "comitatiApp($app, $soloComitati)";
         if ( $this->admin() ) {
             return $this->comitatiDiCompetenza($soloComitati);
         }
+        print_r($this);
         $r = [];
         foreach ( $app as $k ) {
             $r = array_merge($r, $this->comitatiDelegazioni($k, $soloComitati));
@@ -789,7 +792,7 @@ class Utente extends Persona {
         return $deleghe;
     }
     
-     /**
+    /**
      * Restituisce i comitati che mi competono per una determinata delega
      * @return array di geopolitiche
      * @param $app array di delegazioni
@@ -808,7 +811,7 @@ class Utente extends Persona {
                 $c[] = $comitato;
             }
             
-            print "<pre>Prima: $espandi  ".$comitato;
+             print "<pre>Prima: $espandi  ".$comitato;
             print_r($c);
             if ($espandi && !$comitato instanceof Comitato) {
                 print_r($comitato);
@@ -1115,7 +1118,6 @@ class Utente extends Persona {
     }
             
     public function attivitaReferenziateDaCompletare() {
-     
         return Attivita::filtra([
             ['referente',   $this->id],
             ['stato',       ATT_STATO_BOZZA],
@@ -2212,7 +2214,6 @@ class Utente extends Persona {
                 return $b;
             }
         }, null);
-
         // Il risultato e' il dominio comune tra la visibilita' del corso'
         // ed il mio potere piu' grande...
         return $corso->visibilita()->dominioComune($massimo);
@@ -2408,4 +2409,72 @@ class Utente extends Persona {
         }
         return $r;
     } 
+
+/**
+     * Ottiene elenco delle donazioni dell'utente dato il tipo
+     * @return array(DonazionePersonale)
+     */
+    public function donazioniTipo( $tipoDonazioni ) {
+        $r = [];
+        foreach (DonazionePersonale::filtra([
+            ['volontario',  $this->id]
+        ], 'data') as $donazione) {
+            if ( $donazione->donazione()->tipo == $tipoDonazioni ) {
+                $r[] = $donazione;
+            }
+        }
+        return $r;
+    }
+
+    /**
+     * Ottiene il numero di donazioni pendenti che l'utente deve confermare
+     * @param array(int) $app Applicazioni di delega 
+     * @return int Numero di donazioni pendenti
+     */
+    public function numDonazioniPending( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma( $app );
+        $q = $this->db->prepare("
+            SELECT  COUNT(donazioni_personali.id)
+            FROM    donazioni_personali, appartenenza
+            WHERE   ( donazioni_personali.tConferma < 1 OR donazioni_personali.tConferma IS NULL )
+            AND     donazioni_personali.volontario = appartenenza.volontario
+            AND     appartenenza.comitato  IN
+                ( {$comitati} )");
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+
+    /**
+     * Ottiene il numero di meriti donazioni  
+     * @param array(int) $app Applicazioni di delega 
+     * @return int Numero di meriti donazioni 
+     */
+    public function numdonazioni_merito( $app = [ APP_PRESIDENTE ] ) {
+        $comitati = $this->comitatiAppComma( $app );
+        $q = $this->db->prepare("
+            SELECT  COUNT(donazioni_meriti.id)
+            FROM    donazioni_meriti, appartenenza
+            WHERE   ( donazioni_meriti.tConferma < 1 OR donazioni_meriti.tConferma IS NULL )
+            AND     donazioni_meriti.volontario = appartenenza.volontario
+            AND     appartenenza.comitato  IN
+                ( {$comitati} )");
+        $q->execute();
+        $r = $q->fetch(PDO::FETCH_NUM);
+        return (int) $r[0];
+    }
+
+
+	/**
+     * Verifica l'utente è PRESIDENTE o UFFICIO SOCI o DELEGATO D'AREA
+     * @return bool
+     */
+    public function puoGestireDonazioni() {
+		if ( $this->admin() ) return true;
+
+		if ( ($this->delegazioneAttuale()->applicazione == APP_PRESIDENTE) || ($this->delegazioneAttuale()->applicazione == APP_SOCI) || ($this->delegazioneAttuale()->applicazione == APP_OBIETTIVO) || ($this->delegazioneAttuale()->applicazione == APP_DONAZIONI) ) return true;
+
+		return false;
+    }
+
 }
