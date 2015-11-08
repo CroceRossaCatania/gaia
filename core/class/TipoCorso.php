@@ -35,8 +35,10 @@ class TipoCorso extends Entita {
         }
 
         $q = $db->query("SELECT id FROM " . static::$_t . " WHERE abilita" . ucfirst($permesso) . " = 1");
-        while ($row = $q->fetch(PDO::FETCH_NUM)) {
-            $lista[] = TipoCorso::id($row[0]);
+        if (is_object($q)){
+            while ($row = $q->fetch(PDO::FETCH_NUM)) {
+                $lista[] = TipoCorso::id($row[0]);
+            }
         }
         
         return $lista;
