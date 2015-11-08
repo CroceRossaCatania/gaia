@@ -806,9 +806,16 @@ class Utente extends Persona {
             if (!$soloComitati || $comitato instanceof Comitato) {
                 $c[] = $comitato;
             }
+            
+            print "<pre>Prima:";
+            print_r($c);
             if ($espandi && !$comitato instanceof Comitato) {
                 $c = array_merge($comitato->estensione(), $c);
             }
+            print "</pre>";
+            print "<pre>dopo:";
+            print_r($c);
+            print "</pre>";
         }
         return array_unique($c);
     }
