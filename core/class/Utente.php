@@ -810,6 +810,7 @@ class Utente extends Persona {
             print "<pre>Prima: $espandi  ".$comitato;
             print_r($c);
             if ($espandi && !$comitato instanceof Comitato) {
+                print_r($comitato);
                 $c = array_merge($comitato->estensione(), $c);
             }
             print "</pre>";
