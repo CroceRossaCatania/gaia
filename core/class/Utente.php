@@ -799,6 +799,7 @@ class Utente extends Persona {
     public function comitatiDelegazioni($app = null, $soloComitati = false, $espandi = true) {
         //$d = $this->delegazioni($app);
         $d = $this->delegazioneAttuale();
+        print_r($d);
         $c = [];
         //if ( $d as $_d ) {
         if (!$app || $d->applicazione == $app) {            
