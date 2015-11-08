@@ -24,14 +24,6 @@ class GiornataCorso extends Entita {
     }
 
     /**
-     * Ritorna il Corso collegato alla lezione
-     * @return CorsoBase
-     */
-    public function docente() {
-        return Volontario::id($this->docente);
-    }
-
-    /**
      * Ritorna l'elenco di assenze registrate per una data Lezione
      * @return array(AssenzaLezione)
      */
