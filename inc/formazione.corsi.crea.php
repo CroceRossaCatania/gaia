@@ -37,9 +37,9 @@ if (false && !empty($id) && is_int($id)) {
 } else {
     $wizard = true;
 }
-print "<b>123</b>";
+print "<b>123</b><br/>";
 caricaSelettoreComitato();
-print "<b>abc</b>";
+print "<b>abc</b><br/>";
 // Calcolo i permessi per verificare quali corsi può creare
 $permessi = array("locale" => 0, "provinciale" => 0, "regionale" => 0, "nazionale" => 0);
 $deleghe = array_merge($me->entitaDelegazioni(APP_OBIETTIVO), $me->entitaDelegazioni(APP_PRESIDENTE));
