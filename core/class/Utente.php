@@ -816,7 +816,7 @@ class Utente extends Persona {
             }
             print "</pre>";
             print "<pre>dopo:";
-            print_r($c);
+            print sizeof($c);
             print "</pre>";
         }
         return array_unique($c);
