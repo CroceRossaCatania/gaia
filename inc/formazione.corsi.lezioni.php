@@ -108,6 +108,7 @@ var minDateOffset = <?php echo TipoCorso::limiteMinimoPerIscrizione() ?>;
                                 autocomplete="off"
                                 data-ruolo="<?php echo $ruolo; ?>"
                                 data-qualifica="<?php echo $qualifica; ?>"
+                                data-comitato="<?php echo $c->organizzatore;?>"
                                 data-placeholder="Scegli un docente..." multiple class="chosen-select docenti">
                             <?php 
                                 foreach ($docenti as $i ) {

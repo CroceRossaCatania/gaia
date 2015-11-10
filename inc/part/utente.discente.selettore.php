@@ -18,8 +18,10 @@ if (!isset($maxDiscenti)) {
 <script type="text/javascript">
     $(document).ready( function () { 
         var value;
-        var ruolo = $(".chosen-select.discenti").data("ruolo");
-        var qualifica = $(".chosen-select.discenti").data("qualifica");
+        var element = $(".chosen-select.discenti");
+        var ruolo = element.data("ruolo");
+        var qualifica = element.data("qualifica");
+        var comitato = element.data("comitato");
         
         var select = $(".chosen-select.discenti");
         var input = null;
@@ -36,7 +38,6 @@ if (!isset($maxDiscenti)) {
                     $button.addClass('loading');
                     $button.html('.....');
                     
-                    var geoPolitica_discente = '';
                     var stato_discente = '';
 
                     //var insertlink = '?p='+select.data('insert-page');
@@ -46,7 +47,7 @@ if (!isset($maxDiscenti)) {
                     return;
                 }
                                 
-                    api('corsi:volontari:cerca', {query: value, perPagina: 80, ordine: 'selettoreDiscente', comitati: geoPolitica_discente, stato_discente: stato_discente, ruolo: ruolo, qualifica: qualifica}, function (x) {
+                    api('corsi:volontari:cerca', {query: value, perPagina: 80, ordine: 'selettoreDiscente', comitati: comitato, stato_discente: stato_discente, ruolo: ruolo, qualifica: qualifica}, function (x) {
                     select.children().remove('option:not(:selected)');
                         if (x.risposta.risultati.length) {
                     for (var i in x.risposta.risultati) {

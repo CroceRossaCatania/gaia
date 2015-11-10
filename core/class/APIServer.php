@@ -786,7 +786,7 @@ class APIServer {
         if ( $this->par['perPagina'] ) {
             $r->perPagina = (int) $this->par['perPagina'];
         }
-
+        
         $r->corsi_esegui($IS_POPOLAZIONE);
 
         $risultati = [];

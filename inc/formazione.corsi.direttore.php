@@ -83,7 +83,10 @@ $qualifica = $tipoCorso->qualifica;
                         <select name="direttori[]" 
                                 data-ruolo="<?php echo $ruolo;?>"
                                 data-qualifica="<?php echo $qualifica;?>"
-                                data-insert-page="formazione.corsi.direttore.nuovo" data-placeholder="Scegli un direttore..." multiple class="chosen-select direttori">
+                                data-comitato="<?php echo $c->organizzatore;?>"
+                                data-insert-page="formazione.corsi.direttore.nuovo" 
+                                data-placeholder="Scegli un direttore..." 
+                                multiple class="chosen-select direttori">
                             <?php 
                                 foreach ($direttori as $i ) {
                                 ?>

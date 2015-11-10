@@ -18,8 +18,10 @@ if (!isset($maxAffiancamenti)) {
 <script type="text/javascript">
     $(document).ready( function () { 
         var value;
-        var ruolo = $(".chosen-select.affiancamenti").data("ruolo");
-        var qualifica = $(".chosen-select.affiancamenti").data("qualifica");
+        var element = $(".chosen-select.affiancamenti");
+        var ruolo = element.data("ruolo");
+        var qualifica = element.data("qualifica");
+        var comitato = element.data("comitato");
         
         var select = $(".chosen-select.affiancamenti");
         var input = null;
@@ -36,7 +38,6 @@ if (!isset($maxAffiancamenti)) {
                     $button.addClass('loading');
                     $button.html('.....');
                     
-                    var geoPolitica_affiancamento = '';
                     var stato_affiancamento = '';
 
                     //var insertlink = '?p='+select.data('insert-page');
@@ -46,7 +47,7 @@ if (!isset($maxAffiancamenti)) {
                     return;
                 }
                                 
-                    api('corsi:volontari:cerca', {query: value, perPagina: 80, ordine: 'selettoreAffiancamento', comitati: geoPolitica_affiancamento, stato_affiancamento: stato_affiancamento, ruolo: ruolo, qualifica: qualifica}, function (x) {
+                    api('corsi:volontari:cerca', {query: value, perPagina: 80, ordine: 'selettoreAffiancamento', comitati: comitato, stato_affiancamento: stato_affiancamento, ruolo: ruolo, qualifica: qualifica}, function (x) {
                     select.children().remove('option:not(:selected)');
                         if (x.risposta.risultati.length) {
                     for (var i in x.risposta.risultati) {

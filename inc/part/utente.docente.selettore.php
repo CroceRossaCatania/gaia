@@ -18,9 +18,11 @@ if (!isset($maxDocenti)) {
 <script type="text/javascript">
     $(document).ready( function () { 
         var value;
-        var ruolo = $(".chosen-select.docenti").data("ruolo");
-        var qualifica = $(".chosen-select.docenti").data("qualifica");
-        
+        var element = $(".chosen-select.docenti");
+        var ruolo = element.data("ruolo");
+        var qualifica = element.data("qualifica");
+        var comitato = element.data("comitato");
+
         var select = $(".chosen-select.docenti");
         var input = null;
         var notfound = null;
@@ -36,7 +38,6 @@ if (!isset($maxDocenti)) {
                     $button.addClass('loading');
                     $button.html('.....');
                     
-                    var geoPolitica_docente = '';
                     var stato_docente = '';
 
                     //var insertlink = '?p='+select.data('insert-page');
@@ -46,7 +47,7 @@ if (!isset($maxDocenti)) {
                     return;
                 }
                                 
-                    api('corsi:volontari:cerca', {query: value, perPagina: 80, ordine: 'selettoreDocente', comitati: geoPolitica_docente, stato_docente: stato_docente, ruolo: ruolo, qualifica: qualifica}, function (x) {
+                    api('corsi:volontari:cerca', {query: value, perPagina: 80, ordine: 'selettoreDocente', comitati: comitato, stato_docente: stato_docente, ruolo: ruolo, qualifica: qualifica}, function (x) {
                     select.children().remove('option:not(:selected)');
                         if (x.risposta.risultati.length) {
                     for (var i in x.risposta.risultati) {

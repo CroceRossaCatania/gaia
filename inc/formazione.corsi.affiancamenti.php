@@ -77,6 +77,7 @@ $qualifica = $tipocorso->qualifica;
                         <select name="affiancamenti[]" 
                                 data-ruolo="<?php echo $ruolo; ?>"
                                 data-qualifica="<?php echo $qualifica; ?>"
+                                data-comitato="<?php echo $c->organizzatore;?>"
                                 data-placeholder="Scegli un affiancamento..." multiple class="chosen-select affiancamenti">
                             <?php 
                                 foreach ($affiancamenti as $i ) {

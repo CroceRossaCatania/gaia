@@ -71,6 +71,7 @@ $qualifica = $tipocorso->qualifica;
                         <select name="discenti[]" 
                                 data-ruolo="<?php echo $ruolo;?>"
                                 data-qualifica="<?php echo $qualifica;?>"
+                                data-comitato="<?php echo $c->organizzatore;?>"
                                 data-insert-page="formazione.corsi.discente.nuovo" data-placeholder="Scegli un discente..." multiple class="chosen-select discenti">
                             <?php 
                                 foreach ($discenti as $i ) {

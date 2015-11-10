@@ -15,8 +15,10 @@ if (isset($direttori) && is_array($direttori) && !empty($direttori)) {
 <script type="text/javascript">
     $(document).ready( function () {        
         var value;
-        var ruolo = $(".chosen-select.direttori").data("ruolo");
-        var qualifica = $(".chosen-select.direttori").data("qualifica");
+        var element = $(".chosen-select.direttori");
+        var ruolo = element.data("ruolo");
+        var qualifica = element.data("qualifica");
+        var comitato = element.data("comitato");
         
         var select = $(".chosen-select.direttori");
         var input = null;
@@ -33,7 +35,6 @@ if (isset($direttori) && is_array($direttori) && !empty($direttori)) {
                     $button.addClass('loading');
                     $button.html('.....');
                     
-                    var geoPolitica_direttore = '';
                     var stato_direttore = '';
 
                     //var insertlink = '?p='+select.data('insert-page');
@@ -43,7 +44,7 @@ if (isset($direttori) && is_array($direttori) && !empty($direttori)) {
                         return;
                     }
 
-                    api('corsi:volontari:cerca', {query: value, perPagina: 80, ordine: 'selettoreDirettore', comitati: geoPolitica_direttore, stato_docente: stato_direttore, ruolo: ruolo, qualifica: qualifica}, function (x) {
+                    api('corsi:volontari:cerca', {query: value, perPagina: 80, ordine: 'selettoreDirettore', comitati: comitato, stato_docente: stato_direttore, ruolo: ruolo, qualifica: qualifica}, function (x) {
                         select.children().remove('option:not(:selected)');
                         if (x.risposta.risultati.length) {
                             for (var i in x.risposta.risultati) {
