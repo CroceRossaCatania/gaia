@@ -26,7 +26,7 @@ $motivo = $conf['dimissioni'][$_POST['motivo']];
 $v->invalidaTesserino($motivo);
 
 /* Avviso il volontario */
-if($_POST['motivo'] != DIM_DECEDUTO) {
+if($_POST['motivo'] != DIM_DECEDUTO && isset($_POST['ordinario'])) {
   $m = new Email('dimissionevolontario', 'Dimissione Volontario: ' . $v->nomeCompleto());
   $m->da      = $me;
   $m->a       = $v;
