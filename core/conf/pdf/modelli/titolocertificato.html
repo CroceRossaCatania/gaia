@@ -40,9 +40,6 @@ ul
 body
 	{size:8.-2019in 11.2232in;
 		padding:0px 0px !important;
-		background-image: url('/img/image2961.png');
-		background-position: left bottom;
-		background-repeat: no-repeat;
 	}
 .f-left{
 	position:absolute;
@@ -57,29 +54,56 @@ body
 	margin: auto;
 }
 
+.sfondo {
+	position:absolute;
+	top:1000px;
+	right:700px;
+}
+
+.testocentro {
+	position:absolute;
+	top: 40%; 
+	right: 0px; 
+	width: 100%;
+}
+
 </style>
 </head>
 
 <body style='margin:0px 0px !important;'>
-
+	<div class="sfondo">
+		<img width="150" height="146" src="img/image2961.png">
+	</div>
 	<div class="f-left" style="top: 10px; right: 15px;">
-		Intestazione
+		<table cellpadding="20"; cellspacing="20"; !important style="width 100%">
+			<tr>
+				<td style="align:center;">
+						<p style="text-align:right">
+							Croce Rossa Italiana<br/>
+							Comitato Centrale<br/>
+							Area Sviluppo
+						</p>
+				</td>
+				<td>
+					<img width="150" height="146" src="img/logotipo.jpg">
+				</td>
+			</tr>
+		</table>
 	</div>
 
-	<div class="f-left" style="top: 40%; right: 0px; width: 100%; text-align: center;">
-		Centrato 
-
+	<div class="testocentro">
+		Attestato di frequenza di
 		<br />
-		<span style="font-family: 'Georgia'; font-size: x-large;">
-			Mario Rossi
+		<span style="font-family: 'English157 BT'; font-size: 20pt;">
+			_NOME 
 		</span>
 		<br />
-
-		Qualcosa
-		
+		_TITOLO
 	</div>
-
-
+	<div style="clear:both">
+	<div class="f-left" style="top: 40%; right: 0px; width: 100%; text-align: center;">
+		_DATA
+	</div>
 
 
 </body>
