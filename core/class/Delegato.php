@@ -47,6 +47,18 @@ class Delegato extends Entita {
         return Volontario::id($this->pConferma);
     }
  
+    /**
+     * Ritorna l'array dei presidenti
+     * 
+     * @return $lista array dei presidenti
+     */
+    public function elencoPresidenti(){
+        $lista = Delegato::filtra([
+            ['applicazione', APP_PRESIDENTE]
+        ]);
+        
+        return $lista;
+    }
 
     /**
      * In caso di cancellazione o rimozione delegato utente, 

@@ -14,7 +14,8 @@ class PDF {
 
     public
         $orientamento   = ORIENTAMENTO_VERTICALE,
-        $formato        = 'a4';
+        $formato        = 'a4',
+        $estensione     = 'pdf';
        
     public function __construct ( $modello, $nome ) {
         global $db;
@@ -34,7 +35,7 @@ class PDF {
      * @param Comitato default null, se passato inserisce footer con intestazione
      * @param White default null, l'header può essere integrato nel modello
      */
-    public function salvaFile($comitato=null,$white=null) {
+    public function salvaFile($comitato=null, $white=null) {
         global $conf, $sessione;
         if($comitato){
             $this->_INDIRIZZO  = $comitato->locale()->formattato;
@@ -72,7 +73,11 @@ class PDF {
         $dompdf->set_paper($this->formato, $this->orientamento);
         $dompdf->render();
         
-        $f = new File();
+        $f = File::getByNome($this->nome);
+        if (empty($f)){
+            $f = new File();
+        }
+        
         $f->mime   = 'application/pdf';
         $f->nome   = $this->nome;
         $f->autore = @$sessione->utente()->id;

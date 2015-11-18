@@ -47,3 +47,11 @@ upload/setup/autopull
 # File di progetto IntelliJ
 .idea
 pma/
+inc/_test_blocco.php
+inc/_test_comitati.php
+inc/_test_cron_accetta_discenti.php
+inc/_test_cron_chiusura.php
+inc/_test_cron_forza_termine_corso.php
+inc/_test_invioInviti.php
+inc/_test_query_ricerca.php
+mod_formazione_todo.txt

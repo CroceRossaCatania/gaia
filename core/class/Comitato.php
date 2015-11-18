@@ -5,23 +5,23 @@
  */
 
 class Comitato extends GeoPolitica {
-        
+
     protected static
-        $_t  = 'comitati',
-        $_dt = 'datiComitati';
+            $_t = 'comitati',
+            $_dt = 'datiComitati';
 
     use EntitaCache;
 
-    public static 
-        $_ESTENSIONE = EST_UNITA;
+    public static
+            $_ESTENSIONE = EST_UNITA;
 
     /**
      * Sovrascrive metodo __get se unita' principale
      * ref. https://github.com/CroceRossaCatania/gaia/issues/360
-     */ 
-    public function __get ($_nome) {
+     */
+    public function __get($_nome) {
         $nonSovrascrivere = ['id', 'nome', 'principale', 'locale'];
-        if ( parent::__get('principale') && !contiene($_nome, $nonSovrascrivere) ) {
+        if (parent::__get('principale') && !contiene($_nome, $nonSovrascrivere)) {
             return $this->locale()->{$_nome};
         }
         return parent::__get($_nome);
@@ -34,32 +34,62 @@ class Comitato extends GeoPolitica {
     public function figli() {
         return [];
     }
-    
-    public function colore() { 
-    	$c = $this->colore;
-    	if (!$c) {
+
+    public function colore() {
+        $c = $this->colore;
+        if (!$c) {
             $this->generaColore();
             return $this->colore();
-    	}
-    	return $c;
+        }
+        return $c;
     }
 
     public function unPresidente() {
         return $this->locale()->unPresidente();
     }
 
-    
+    public function regione() {
+        $sql  = " SELECT UPPER(REPLACE(r.nome, 'Comitato Regionale ','')) AS regione ";
+        $sql .= " FROM comitati c, locali l, provinciali p, regionali r ";
+        $sql .= " WHERE c.locale = l.id AND l.provinciale = p.id AND p.regionale = r.id ";
+        $sql .= " AND c.id = :id";
 
-    private function generaColore() { 
-    	$r = 100 + rand(0, 155);
-    	$g = 100 + rand(0, 155);
-    	$b = 100 + rand(0, 155);
-    	$r = dechex($r);
-    	$g = dechex($g);
-    	$b = dechex($b);
-    	$this->colore = $r . $g . $b;
+        $q = $this->db->prepare($sql);
+        $q->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $q->execute();
+
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
+            return(str_replace(' ','_', trim($k[0])));
+        }
+        return null;
     }
-    
+
+    public function provincia() {
+        $sql  = " SELECT UPPER(REPLACE(p.nome, 'Comitato Provinciale Di','')) as provincia ";
+        $sql .= " FROM comitati c, locali l, provinciali p, regionali r ";
+        $sql .= " WHERE c.locale = l.id AND l.provinciale = p.id AND p.regionale = r.id ";
+        $sql .= " AND c.id = :id";
+
+        $q = $this->db->prepare($sql);
+        $q->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $q->execute();
+
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
+            return(str_replace(' ','_', trim($k[0])));
+        }
+        return null;
+    }
+
+    private function generaColore() {
+        $r = 100 + rand(0, 155);
+        $g = 100 + rand(0, 155);
+        $b = 100 + rand(0, 155);
+        $r = dechex($r);
+        $g = dechex($g);
+        $b = dechex($b);
+        $this->colore = $r . $g . $b;
+    }
+
     public function membriAttuali($stato = MEMBRO_ESTESO) {
         $q = $this->db->prepare("
             SELECT
@@ -78,10 +108,10 @@ class Comitato extends GeoPolitica {
                  cognome ASC, nome ASC");
         $q->bindValue(':ora', time());
         $q->bindParam(':comitato', $this->id);
-        $q->bindParam(':stato',    $stato, PDO::PARAM_INT);
+        $q->bindParam(':stato', $stato, PDO::PARAM_INT);
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = Volontario::id($k[0]);
         }
         return $r;
@@ -113,12 +143,12 @@ class Comitato extends GeoPolitica {
         ");
         $q->bindParam(':data', $data, PDO::PARAM_INT);
         $q->bindParam(':comitato', $this->id);
-        $q->bindValue(':passati',    MEMBRO_ORDINARIO_DIMESSO);
-        $q->bindValue(':ordinario',  MEMBRO_ORDINARIO);
+        $q->bindValue(':passati', MEMBRO_ORDINARIO_DIMESSO);
+        $q->bindValue(':ordinario', MEMBRO_ORDINARIO);
         $q->bindValue(':volontario', MEMBRO_VOLONTARIO);
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = Volontario::id($k[0]);
         }
         return $r;
@@ -133,7 +163,7 @@ class Comitato extends GeoPolitica {
         }
         return $r;
     }
-    
+
     public function membriRiserva() {
         $q = $this->db->prepare("
             SELECT
@@ -155,12 +185,12 @@ class Comitato extends GeoPolitica {
         $q->bindParam(':comitato', $this->id);
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = Volontario::id($k[0]);
         }
         return $r;
     }
-    
+
     /**
      * Membri in estensione
      * @return estensioni dal comitato $this
@@ -184,7 +214,7 @@ class Comitato extends GeoPolitica {
         $q->bindParam(':comitato', $this->id);
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = Estensione::id($k[0]);
         }
         return $r;
@@ -230,25 +260,25 @@ class Comitato extends GeoPolitica {
             $r[] = Volontario::id($k[0]);
         }
         return $r;
-    }    
-    
+    }  
+
     /*
      * Volontari del comitato che alla data $elezioni
      * hanno certa anzianità e 18 anni.
      */
     public function elettoriPassivi(DateTime $elezioni, $anzianita = ANZIANITA) {
-        $elettori   = $this->elettoriAttivi($elezioni, $anzianita);
-        $eta        = clone $elezioni;
+        $elettori = $this->elettoriAttivi($elezioni, $anzianita);
+        $eta = clone $elezioni;
         $eta->modify("-18 years");
-        $eta        = $eta->getTimestamp();
+        $eta = $eta->getTimestamp();
         $r = [];
-        foreach ( $elettori as $elettore ) {
+        foreach ($elettori as $elettore) {
             if ( $elettore->dataNascita > $eta ) { continue; }
             $r[] = $elettore;
         }
         return $r;
     }
-    
+
     public function membriDimessi() {
         $q = $this->db->prepare("
             SELECT
@@ -267,12 +297,12 @@ class Comitato extends GeoPolitica {
         $q->bindValue(':stato', MEMBRO_DIMESSO);
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = Volontario::id($k[0]);
         }
         return $r;
     }
-    
+
     public function membriTrasferiti() {
         $q = $this->db->prepare("
             SELECT 
@@ -292,7 +322,7 @@ class Comitato extends GeoPolitica {
         $q->bindParam(':comitato', $this->id);
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = Trasferimento::id($k[0]);
         }
         return $r;
@@ -320,7 +350,7 @@ class Comitato extends GeoPolitica {
 
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = Volontario::id($k[0]);
         }
         return $r;
@@ -344,7 +374,7 @@ class Comitato extends GeoPolitica {
         $q->bindValue(':stato', MEMBRO_ORDINARIO_DIMESSO);
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = Volontario::id($k[0]);
         }
         return $r;
@@ -366,7 +396,7 @@ class Comitato extends GeoPolitica {
                 inizio ASC");
         $q->bindValue(':ora', time());
         $q->bindParam(':comitato', $this->id);
-        $q->bindValue(':stato',    MEMBRO_ORDINARIO_DIMESSO);
+        $q->bindValue(':stato', MEMBRO_ORDINARIO_DIMESSO);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
@@ -388,7 +418,7 @@ class Comitato extends GeoPolitica {
                 inizio ASC");
         $q->bindValue(':ora', time());
         $q->bindParam(':comitato', $this->id);
-        $q->bindValue(':stato',    MEMBRO_ORDINARIO);
+        $q->bindValue(':stato', MEMBRO_ORDINARIO);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
@@ -410,7 +440,7 @@ class Comitato extends GeoPolitica {
                 inizio ASC");
         $q->bindValue(':ora', time());
         $q->bindParam(':comitato', $this->id);
-        $q->bindParam(':stato',    $stato);
+        $q->bindParam(':stato', $stato);
         $q->execute();
         $r = $q->fetch(PDO::FETCH_NUM);
         return (int) $r[0];
@@ -432,15 +462,15 @@ class Comitato extends GeoPolitica {
                 inizio ASC");
         $q->bindValue(':ora', time());
         $q->bindParam(':comitato', $this->id);
-        $q->bindValue(':stato',  MEMBRO_PENDENTE);
+        $q->bindValue(':stato', MEMBRO_PENDENTE);
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = Appartenenza::id($k[0]);
         }
         return $r;
     }
-    
+
     public function titoliPendenti() {
         $q = $this->db->prepare("
             SELECT 
@@ -464,12 +494,12 @@ class Comitato extends GeoPolitica {
         $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = TitoloPersonale::id($k[0]);
         }
         return $r;
     }
-    
+
     
     public function trasferimenti($stato = null) {
         $stato = (int) $stato;
@@ -482,7 +512,7 @@ class Comitato extends GeoPolitica {
                 trasferimenti.appartenenza = appartenenza.id
             AND
                 appartenenza.comitato = :id";
-        if ( $stato ) {
+        if ($stato) {
             $q .= " AND trasferimenti.stato = $stato";
         }
         $q .= " ORDER BY trasferimenti.timestamp DESC";
@@ -490,12 +520,12 @@ class Comitato extends GeoPolitica {
         $q->bindParam(':id', $this->id);
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = Trasferimento::id($k[0]);
         }
         return $r;
     }
-    
+
     /*
      * Riserve del comitato in oggetto
      * @return array riserve per dato comitato
@@ -524,66 +554,66 @@ class Comitato extends GeoPolitica {
         $q->bindValue(':stato', MEMBRO_VOLONTARIO);
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = Riserva::id($k[0]);
         }
         return $r;
     }
-    
+
     public function locale() {
         return Locale::id($this->locale);
     }
-    
+
     public function provinciale() {
         return $this->locale()->provinciale();
     }
-    
+
     public function regionale() {
         return $this->provinciale()->regionale();
     }
-    
+
     public function nazionale() {
         return $this->regionale()->nazionale();
     }
-    
+
     public function nomeCompleto() {
         return $this->locale()->nome . ': ' . $this->nome;
     }
-    
-    public function aree( $obiettivo = null, $espandiLocali = false ) {
-        if ( $obiettivo ) {
+
+    public function aree($obiettivo = null, $espandiLocali = false) {
+        if ($obiettivo) {
             $obiettivo = (int) $obiettivo;
             return Area::filtra([
-                ['comitato',    $this->oid()],
-                ['obiettivo',   $obiettivo]
-            ], 'obiettivo ASC'); 
+                        ['comitato', $this->oid()],
+                        ['obiettivo', $obiettivo]
+                            ], 'obiettivo ASC');
         } else {
             return Area::filtra([
-                ['comitato',    $this->oid()]
-            ], 'obiettivo ASC');
+                        ['comitato', $this->oid()]
+                            ], 'obiettivo ASC');
         }
     }
-    
+
     public function toJSON() {
         return [
-            'id'            =>  $this->id,
-            'nome'          =>  $this->nome,
-            'indirizzo'     =>  $this->formattato,
-            'coordinate'    =>  $this->coordinate(),
-            'telefono'      =>  $this->telefono,
-            'email'         =>  $this->email,
-            'volontari'     =>  count($this->membriAttuali())
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'indirizzo' => $this->formattato,
+            'coordinate' => $this->coordinate(),
+            'telefono' => $this->telefono,
+            'email' => $this->email,
+            'volontari' => count($this->membriAttuali())
         ];
     }
 
     public function toJSONRicerca() {
         return [
-            'id'            =>  $this->id,
-            'nome'          =>  $this->nome,
-            'nomeCompleto'  =>  $this->nomeCompleto()
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'nomeCompleto' => $this->nomeCompleto()
         ];
     }
-    
+
     public function reperibili() {
         $q = "
             SELECT
@@ -597,12 +627,12 @@ class Comitato extends GeoPolitica {
         $q->bindParam(':id', $this->id);
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = Reperibilita::id($k[0]);
         }
         return $r;
     }
-    
+
     public function estensione() {
         return [$this];
     }
@@ -635,7 +665,7 @@ class Comitato extends GeoPolitica {
 
         return Quota::id($r[0]);
     }
-    
+
     /**
      * Ottiene elenco dei potenziali soci del comitato in un dato anno, al solo uso di
      * successiva verifica del pagamento della quota o meno nell'anno - NESSUN altro uso!
@@ -645,24 +675,24 @@ class Comitato extends GeoPolitica {
      */
     public function potenzialiSoci($anno = false, $stato = MEMBRO_VOLONTARIO) {
         global $conf;
-        $anno       = $anno ? (int) $anno : (int) date('Y');
-        $minimo     = (DT::createFromFormat('d/m/Y H:i', "1/1/{$anno} 00:00"));
-        $minimo     = $minimo->getTimestamp();
-        $massimo    = (DT::createFromFormat('d/m/Y H:i', "31/12/{$anno} 23:59")); 
-        $massimo    = $massimo->getTimestamp();
+        $anno = $anno ? (int) $anno : (int) date('Y');
+        $minimo = (DT::createFromFormat('d/m/Y H:i', "1/1/{$anno} 00:00"));
+        $minimo = $minimo->getTimestamp();
+        $massimo = (DT::createFromFormat('d/m/Y H:i', "31/12/{$anno} 23:59"));
+        $massimo = $massimo->getTimestamp();
 
-        if ( !is_array($stato) ) {
-            if ( array_key_exists($stato, $conf['appartenenze_posteri']) ) 
+        if (!is_array($stato)) {
+            if (array_key_exists($stato, $conf['appartenenze_posteri']))
                 $stato = $conf['appartenenze_posteri'][$stato];
             else
                 $stato = [$stato];
         }
 
-        foreach ( $stato as &$s )
+        foreach ($stato as &$s)
             $s = (int) $s;
 
         $stato = implode(', ', $stato);
-        
+
         $query = "
             SELECT  anagrafica.id
             FROM    appartenenza, anagrafica
@@ -679,11 +709,11 @@ class Comitato extends GeoPolitica {
         $q = $this->db->prepare($query);
 
         $q->bindParam(':comitato', $this->id, PDO::PARAM_INT);
-        $q->bindParam(':minimo',   $minimo, PDO::PARAM_INT);
-        $q->bindParam(':massimo',  $massimo, PDO::PARAM_INT);
+        $q->bindParam(':minimo', $minimo, PDO::PARAM_INT);
+        $q->bindParam(':massimo', $massimo, PDO::PARAM_INT);
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = Utente::id($k[0]);
         }
         return $r;
@@ -698,13 +728,13 @@ class Comitato extends GeoPolitica {
     public function quoteSi($anno = false, $stato = MEMBRO_VOLONTARIO) {
         $r = [];
         $soci = $this->potenzialiSoci($anno, $stato);
-        foreach ( $soci as $p ) {
-            if ( $p->socioAttivo($anno) )
+        foreach ($soci as $p) {
+            if ($p->socioAttivo($anno))
                 $r[] = $p;
         }
         return $r;
     }
-    
+
     /**
      * Ritorna tutti i Soci NON Attivi (coloro che, pur passibili, non hanno pagato la Quota Associativa)
      * che son stati appartenenti in un dato anno a questo comitato 
@@ -713,38 +743,37 @@ class Comitato extends GeoPolitica {
      */
     public function quoteNo($anno = false, $stato = MEMBRO_VOLONTARIO) {
         $r = [];
-        foreach ( $this->potenzialiSoci($anno, $stato) as $p ) {
-            if ( $p->socioNonAttivo($anno) )
+        foreach ($this->potenzialiSoci($anno, $stato) as $p) {
+            if ($p->socioNonAttivo($anno))
                 $r[] = $p;
         }
         return $r;
-
     }
-    
+
     /**
      * Restituisce elenco volontari in possesso di un dato titolo
      * @param $titoli Array di elementi Titolo
      */
-    public function ricercaMembriTitoli( $titoli = [], $stato = MEMBRO_ESTESO ) {
+    public function ricercaMembriTitoli($titoli = [], $stato = MEMBRO_ESTESO) {
         $daFiltrare = $this->membriAttuali($stato);
-        foreach ( $titoli as $titolo ) {
+        foreach ($titoli as $titolo) {
             $filtrato = [];
-            foreach ( $daFiltrare as $volontario ) {
-                if ( $t = TitoloPersonale::filtra([
-                    ['titolo',      $titolo->id],
-                    ['volontario',  $volontario]
-                ])){
-                    if(
-                        $t[0]->confermato()){
-                            $filtrato[] = $volontario;
-                            }
+            foreach ($daFiltrare as $volontario) {
+                if ($t = TitoloPersonale::filtra([
+                            ['titolo', $titolo->id],
+                            ['volontario', $volontario]
+                        ])) {
+                    if (
+                            $t[0]->confermato()) {
+                        $filtrato[] = $volontario;
+                    }
                 }
             }
             $daFiltrare = $filtrato;
         }
         return $daFiltrare;
     }
-    
+
     public function ricercaPatente($ricerca) {
         $q = $this->db->prepare("
             SELECT DISTINCT (anagrafica.id)
@@ -759,16 +788,16 @@ class Comitato extends GeoPolitica {
             ORDER BY 
                 anagrafica.cognome, 
                 anagrafica.nome");
-        $q->bindValue ( ":ricerca", $ricerca );
+        $q->bindValue(":ricerca", $ricerca);
         $q->execute();
         var_dump($q->errorInfo());
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = Volontario::id($k[0]);
         }
         return $r;
-    }   
-    
+    }
+
     public function pratichePatenti() {
         $q = $this->db->prepare("
             SELECT
@@ -786,16 +815,16 @@ class Comitato extends GeoPolitica {
         $q->bindParam(':comitato', $this->id);
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = PatentiRichieste::id($k[0]);
         }
         return $r;
     }
 
     /*
-    manca il fetch del sesso della persona
-    */
-    
+      manca il fetch del sesso della persona
+     */
+
     public function etaSessoComitato() {
         $q = $this->db->prepare("
             SELECT 
@@ -812,15 +841,14 @@ class Comitato extends GeoPolitica {
                 appartenenza.comitato = :comitato");
         $q->bindParam(':comitato', $this->id);
         $q->execute();
-        
+
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $sesso = Utente::sesso($k[1]);
-            $r[] = ['data'=>$k[0],'sesso'=>$sesso];
+            $r[] = ['data' => $k[0], 'sesso' => $sesso];
         }
 
         return $r;
-        
     }
 
     public function anzianitaMembri($stato = MEMBRO_VOLONTARIO) {
@@ -838,23 +866,23 @@ class Comitato extends GeoPolitica {
         $q->bindParam(':comitato', $this->id);
         $q->bindParam(':stato', $stato);
         $q->execute();
-        
+
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $sesso = Utente::sesso($k[1]);
-            $r[] = ['ingresso'=>$k[0],'sesso'=>$sesso];
+            $r[] = ['ingresso' => $k[0], 'sesso' => $sesso];
         }
 
         return $r;
     }
-    
+
 
     public function informazioniVolontariJSON() {
         $datesesso = $this->etaSessoComitato();
         $anzianita = $this->anzianitaMembri();
 
-        $r = [  'datesesso'=>$datesesso,
-                'anzianita'=>$anzianita];
+        $r = [ 'datesesso' => $datesesso,
+            'anzianita' => $anzianita];
         return json_encode($r);
     }
 
@@ -868,12 +896,12 @@ class Comitato extends GeoPolitica {
               ( inizio >= :minimo )
             AND
               ( fine <= :massimo )");
-        $q->bindValue(':comitato',  $this->id);
-        $q->bindValue(':minimo',    $inizio->getTimestamp());
-        $q->bindValue(':massimo',    $fine->getTimestamp());
+        $q->bindValue(':comitato', $this->id);
+        $q->bindValue(':minimo', $inizio->getTimestamp());
+        $q->bindValue(':massimo', $fine->getTimestamp());
         $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = Reperibilita::id($k[0]);
         }
         return $r;
@@ -891,18 +919,18 @@ class Comitato extends GeoPolitica {
             ");
         $r = $q->execute();
         $r = [];
-        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+        while ($k = $q->fetch(PDO::FETCH_NUM)) {
             $r[] = $k[0];
         }
         return $r;
     }
-     
+
     public function coTurni() {
-        $attivita = Attivita::filtra([['comitato', $this->oid()],['stato', ATT_STATO_OK]]);
+        $attivita = Attivita::filtra([['comitato', $this->oid()], ['stato', ATT_STATO_OK]]);
         $turni = [];
-        $inizio = time()+3600;
-        foreach ( $attivita as $att ){
-            $turni = array_merge($turni, Turno::filtra([['attivita', $att],['inizio',$inizio,OP_LTE]]));
+        $inizio = time() + 3600;
+        foreach ($attivita as $att) {
+            $turni = array_merge($turni, Turno::filtra([['attivita', $att], ['inizio', $inizio, OP_LTE]]));
         }
         $turni = array_unique($turni);
         return $turni;
@@ -992,7 +1020,7 @@ class Comitato extends GeoPolitica {
         }
         return parent::coordinate();
     }
-    
+
     /**
      * Se l'unità è principale utilizza i dati del livello superiore
      * altrimenti usa la funzione standard
@@ -1003,7 +1031,7 @@ class Comitato extends GeoPolitica {
         }
         return parent::latlng();
     }
-    
+
     /**
      * Se l'unità è principale utilizza i dati del livello superiore
      * altrimenti usa la funzione standard
@@ -1014,7 +1042,7 @@ class Comitato extends GeoPolitica {
         }
         return parent::localizzaCoordinate($x, $y);
     }
-    
+
     /**
      * Se l'unità è principale utilizza i dati del livello superiore
      * altrimenti usa la funzione standard
@@ -1033,7 +1061,7 @@ class Comitato extends GeoPolitica {
      */
     public function fototesserePendenti() {
         $filtrato = [];
-        foreach( $this->membriAttuali(MEMBRO_VOLONTARIO) as $u ) {
+        foreach ($this->membriAttuali(MEMBRO_VOLONTARIO) as $u) {
             if ( !$u->fototessera() ) { continue; }
             if ( $u->fototessera()->approvata() ) { continue; }
             $filtrato[] = $u;
@@ -1048,9 +1076,9 @@ class Comitato extends GeoPolitica {
      */
     public function tesseriniNonRiconsegnati() {
         $filtrato = [];
-        foreach( $this->membriDimessi() as $u ) {
+        foreach ($this->membriDimessi() as $u) {
             $t = TesserinoRichiesta::filtra([
-                ['volontario',      $u],
+                        ['volontario', $u],
                 ['stato',           INVALIDATO]],
                 'tConferma DESC'
             );
@@ -1065,39 +1093,39 @@ class Comitato extends GeoPolitica {
      * Cancella il comitato con tutte le sue dipendenze
      * @param comitato
      */
-    public function cancella(){
+    public function cancella() {
 
         /* Cancello aree e responsabili */
         $aree = Area::filtra([
-          ['comitato', $this]
+                    ['comitato', $this]
         ]);
-        foreach($aree as $area){
+        foreach ($aree as $area) {
             $area->cancella();
         }
 
         /* Cancello le attività */
         $attivita = Attivita::filtra([
-          ['comitato', $this]
+                    ['comitato', $this]
         ]);
-        foreach($attivita as $att){
+        foreach ($attivita as $att) {
             $turni = Turno::filtra([['attivita', $att]]);
-            foreach ( $turni as $turno ){
+            foreach ($turni as $turno) {
                 $partecipazioni = Partecipazione::filtra([['turno', $turno]]);
-                foreach( $partecipazioni as $partecipazione ){
+                foreach ($partecipazioni as $partecipazione) {
                     $autorizzazioni = Autorizzazione::filtra([['partecipazione', $partecipazione]]);
-                    foreach( $autorizzazioni as $autorizzazione ){
+                    foreach ($autorizzazioni as $autorizzazione) {
                         $autorizzazione->cancella();
                     }
                     $partecipazione->cancella();
                 }
                 $coturni = Coturno::filtra([['turno', $turno]]);
-                foreach( $coturni as $coturno ){
+                foreach ($coturni as $coturno) {
                     $coturno->cancella();
                 }
                 $turno->cancella();
             }
             $mipiaci = Like::filtra([['oggetto', $att->oid()]]);
-            foreach( $mipiaci as $mipiace ){
+            foreach ($mipiaci as $mipiace) {
                 $mipiace->cancella();
             }
             $att->cancella();
@@ -1105,68 +1133,68 @@ class Comitato extends GeoPolitica {
 
         /* Cancello le dimissioni */
         $dimissioni = Dimissione::filtra([
-            ['comitato', $this]
+                    ['comitato', $this]
         ]);
-        foreach( $dimissioni as $dimissione ){
-            try{
+        foreach ($dimissioni as $dimissione) {
+            try {
                 $appartenenza = $dimissione->appartenenza();
                 $appartenenza->cancella();
-            }catch(Exception $e){
-
+            } catch (Exception $e) {
+                
             }
             $dimissione->cancella();
         }
 
         /* Cancello le dimissioni */
         $estensioni = Estensione::filtra([
-            ['cProvenienza', $this]
+                    ['cProvenienza', $this]
         ]);
-        foreach( $estensioni as $estensione ){
-            try{
+        foreach ($estensioni as $estensione) {
+            try {
                 $appartenenza = $estensione->appartenenza();
                 $appartenenza->cancella();
-            }catch(Exception $e){
-
+            } catch (Exception $e) {
+                
             }
             $estensione->cancella();
         }
 
         /* Cancello i gruppi personali */
         $appgruppi = AppartenenzaGruppo::filtra([
-            ['comitato', $this]
+                    ['comitato', $this]
         ]);
-        foreach( $appgruppi as $appgruppo ){
+        foreach ($appgruppi as $appgruppo) {
             $appgruppo->cancella();
         }
 
         /* Cancello reperibilità */
         $reperibilita = Reperibilita::filtra([
-          ['comitato', $t]
+                    ['comitato', $t]
         ]);
-        foreach($reperibilita as $reperibile){
+        foreach ($reperibilita as $reperibile) {
             $reperibile->cancella();
         }
 
         /* Cancello appartenenze */
         $appartenenze = Appartenenza::filtra([['comitato', $this]]);
-        foreach ( $appartenenze as $appa ){
+        foreach ($appartenenze as $appa) {
             $riserve = Riserva::filtra([['appartenenza', $appa]]);
-            foreach( $riserve as $riserva ){
+            foreach ($riserve as $riserva) {
                 $riserva->cancella();
             }
 
             $estensioni = Estensione::filtra([['appartenenza', $appa]]);
-            foreach( $estensioni as $estensione ){
+            foreach ($estensioni as $estensione) {
                 $estensione->cancella();
             }
 
             $trasferimenti = Trasferimento::filtra([['appartenenza', $appa]]);
-            foreach( $trasferimenti as $trasferimento ){
+            foreach ($trasferimenti as $trasferimento) {
                 $trasferimento->cancella();
             }
             $appa->cancella();
         }
-        
+
         parent::cancella();
     }
 

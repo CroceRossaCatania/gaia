@@ -52,6 +52,9 @@ if ( $presidente ||
     $menu[''] += [
         'formazione.corsibase'   =>  '<span class="badge badge-success">&nbsp;</span> Corsi Base'
     ];
+    $menu[''] += [
+        'formazione.corsi'   =>  '<span class="badge badge-success">&nbsp;</span> Corsi '
+    ];
 }
 
 if ( $presidente || ($me && $me->delegazioneAttuale()->applicazione == APP_OBIETTIVO)) {
@@ -124,6 +127,16 @@ $menu += [
 if ( $me->puoGestireDonazioni() ) {
 	$menu['Donazioni'] += [ 'donazioni.report' => '<i class="icon-copy"></i> Report' ];
 }
+
+$menu += [
+	'Carriera'    =>  [
+        'utente.corsi' =>  '<i class="icon-calendar"></i> Calendario Corsi',
+        'utente.titolicorsi' =>  '<i class="icon-graduation-cap"></i> Titoli'
+     ]
+];
+
+
+
 $menu += [
     'Statistiche'   => [
         'utente.statistiche.volontari'     =>   '<i class="icon-puzzle-piece"></i> Volontari'
