@@ -5,6 +5,7 @@
  */
 
 paginaAdmin();
+set_time_limit(0);
 if(isset($_GET['naz'])){ 
     $comitati = $me->comitatiDiCompetenza();
     $cLoc=0;
@@ -83,6 +84,13 @@ if(isset($_GET['naz'])){
                         <li>Vi sono: <?= $g->tesserini(SPEDITO_CASA); ?> tesserini spediti a casa</li>
                         <li>Vi sono: <?= $g->tesserini(SPEDITO_COMITATO); ?> tesserini spediti in comitato</li>
                         <li>Vi sono: <?= $g->tesserini(INVALIDATO); ?> tesserini invalidati</li>
+                    </ul>
+                    <br/>
+                    <h5><li>Dati su fototessere</li></h5>
+                    <ul>
+                        <li>Vi sono: <?= $g->fototessereRegionali(); ?> fototessere approvate</li>
+                        <li>Vi sono: <?= $g->fototessereRegionali(FOTOTESSERA_PENDING); ?> fototessere in attesa di approvazione</li>
+                        <li>Vi sono: <?= $g->fototessereRichieste(); ?> fototessere approvate senza richiesta di tesserino</li>
                     </ul>
                     <br/>
         <?php }
@@ -166,6 +174,13 @@ if(isset($_GET['naz'])){
                 <li>Vi sono: <?= $g->tesserini(SPEDITO_CASA); ?> tesserini spediti a casa</li>
                 <li>Vi sono: <?= $g->tesserini(SPEDITO_COMITATO); ?> tesserini spediti in comitato</li>
                 <li>Vi sono: <?= $g->tesserini(INVALIDATO); ?> tesserini invalidati</li>
+            </ul>
+            <br/>
+            <h5><li>Dati su fototessere</li></h5>
+            <ul>
+                <li>Vi sono: <?= $g->fototessereRegionali(); ?> fototessere approvate</li>
+                <li>Vi sono: <?= $g->fototessereRegionali(FOTOTESSERA_PENDING); ?> fototessere in attesa di approvazione</li>
+                <li>Vi sono: <?= $g->fototessereRichieste(); ?> fototessere approvate senza richiesta di tesserino</li>
             </ul>
             <br/>
             <p>Verranno ora riportati i dati relativi ad ogni Comitato Provinciale</p>

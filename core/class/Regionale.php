@@ -133,4 +133,73 @@ class Regionale extends GeoPolitica {
         return count($r);
     }
 
+    public function fototessereRegionali($stato=FOTOTESSERA_OK) {
+        global $db;
+        $z=0;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                fototessera
+            WHERE
+                stato = :stato
+            ");
+        $q->bindValue(':stato', $stato);
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        foreach ($r as $u){
+            $u = Utente::by('id',$u);
+            if (!$u){
+                continue;
+            }
+            $c = $u->unComitato();
+            if (!$c) {
+                continue;
+            }
+            if ($c->locale()->provinciale()->regionale()==$this){
+                $z++;
+            }
+        }
+        return $z;
+    }
+
+    public function fototessereRichieste() {
+        global $db;
+        $h=0;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                fototessera
+            WHERE
+                stato = :stato
+            ");
+        $q->bindValue(':stato', $stato);
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        foreach ($r as $u){
+            $u = Utente::by('id',$u);
+            if (!$u){
+                continue;
+            }
+            $c = $u->unComitato();
+            if (!$c) {
+                continue;
+            }
+            if ($c->locale()->provinciale()->regionale()==$this){
+                if ( $u->tesserinoRichiesta()){
+                    continue;
+                }
+                $h++;
+            }
+        }
+        return $h;
+    }
+
 }
