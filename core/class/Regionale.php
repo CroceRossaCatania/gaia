@@ -110,4 +110,27 @@ class Regionale extends GeoPolitica {
         }
         return $piva;
     }
+
+    public function tesserini($stato=RICHIESTO) {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                tesserinoRichiesta
+            WHERE 
+                struttura = :struttura
+            AND
+                stato = :stato
+            ");
+        $q->bindValue(':stato', $stato);
+        $q->bindValue(':struttura', $this->oid());
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        return count($r);
+    }
+
 }
