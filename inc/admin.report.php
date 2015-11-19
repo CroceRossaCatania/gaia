@@ -54,6 +54,7 @@ $t = array_unique($t);
                         </div>
                     </div>
                 </div>
+                <a class="btn btn-large btn-success" href="?p=admin.report.ok&naz">Genera report nazionale</a
 
             </div>
         </form>

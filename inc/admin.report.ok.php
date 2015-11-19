@@ -13,9 +13,7 @@ if(isset($_GET['naz'])){
     $a=0;
     $nazionale = 1;
     $nazionale = Nazionale::id($nazionale);
-    $regionali = Regionale::filtra([
-                ['nazionale',  $nazionale],
-            ], 'nome ASC');
+    $regionali = Regionale::elenco();
 
     foreach ($regionali as $regionale){ 
         $prov = $regionale->provinciali();
@@ -56,12 +54,9 @@ if(isset($_GET['naz'])){
         <?php 
         $regionali = 0;
         $g = 0;
-        $regionali = Regionale::filtra([
-                ['nazionale',  $nazionale],
-            ], 'nome ASC');
+        $regionali = Regionale::elenco();
 
             foreach ($regionali as $g ){ ?>
-            sono dentro
                 <h3><li>Dati inerenti il <?= $g->nomeCompleto(); ?></li></h3>
                     <?php $presidenti = $g->presidenti(); 
                     if ( !$presidenti ) {
