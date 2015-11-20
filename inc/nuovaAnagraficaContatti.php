@@ -111,7 +111,7 @@ if ($sessione->utente()->email) {
             <label class="control-label" for="inputCellulare">Cellulare</label>
             <div class="controls ">
               <span class="add-on">+39</span>
-              <input type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" autocomplete="off"/>
+              <input type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" value="<?php echo $sessione->cell; ?>" autocomplete="off"/>
             </div>
           </div>
           <hr />

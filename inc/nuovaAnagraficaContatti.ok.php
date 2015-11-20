@@ -25,7 +25,6 @@ controllaParametri(['inputEmail', 'inputEmail2'], 'nuovaAnagraficaContatti&err')
 $email      		= minuscolo($_POST['inputEmail']);
 $email2      		= minuscolo($_POST['inputEmail2']);
 $cell       		= normalizzaNome($_POST['inputCellulare']);
-$cells      		= normalizzaNome(@$_POST['inputCellulareServizio']);
 $sessione->email 	= $email;
 $sessione->email2 	= $email2;
 $sessione->cell 	= $cell;
