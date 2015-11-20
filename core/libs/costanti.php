@@ -1056,3 +1056,10 @@ $conf['conoscenza'] = [
     SERVIZI     =>  'Partecipazione ad attività e/o fruizione di servizi erogati dalla Croce Rossa Italiana (es. corsi di formazione, servizi in ambito sanitario, servizi in ambito sociale, ecc)',
     ALTRO       =>  'Altro'
 ];
+
+
+// Numero di secondi tra lo scaricamento di un tesserino
+// e lo scaricamento del prossimo. Un numero maggiore aumenta
+// il tempo necessario a scaricare tutti i tesserini ma riduce
+// il carico sul server di Gaia.
+define('TESSERINI_SECONDI',      7);

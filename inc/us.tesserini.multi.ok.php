@@ -35,7 +35,7 @@ $sessione->operazioneTesserini = null;
 $n = count($tesserini);
 
 if ( $scarica ) {
-	$zip = new Zip;
+	$urls = [];
 }
 
 foreach ( $tesserini as $t ) {
@@ -56,15 +56,15 @@ foreach ( $tesserini as $t ) {
 	}
 
 	if ( $scarica ) { 
-		$zip->aggiungi($t->generaTesserino());
+		$urls[] = "/?p=us.tesserini.p&download&id={$t->id}";
 	}
 
 }
 
 if ( $scarica ) {
-	set_time_limit(0);
-	$data = date('d-m-Y-H-i');
-	$zip->comprimi("Tesserini_multi_{$data}.zip");
+	$sessione->tesserini = json_encode($urls);
+	redirect("us.tesserini.multi.download");
+	
 } else {
 	redirect("us.tesserini&multi={$n}");
 

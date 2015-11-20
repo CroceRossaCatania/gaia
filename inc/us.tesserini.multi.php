@@ -89,13 +89,15 @@ function conferma() {
 				<i class="icon-download-alt"></i>
 				Scarica
 			</h4>
-			<p>Confermando l'operazione, tutti i <?= $n; ?> tesserini verranno preparati in formato PDF e compressi in un unico archivio ZIP. Questa operazione potrebbe richiedere parecchie decine di minuti per selezioni molto numerose. Al termine dell'operazione di preparazione dell'archivio, lo scaricamento si avvier&agrave; automaticamente.</p>
-			<?php if ( $n > 50 ) { ?>
+			<p>Confermando l'operazione, tutti i <?= $n; ?> tesserini verranno preparati in formato PDF e scaricati sul tuo computer. <br/>
+			<strong>Il tempo stimato per lo scaricamento di <?= $n; ?> tesserini &egrave; di <big><?= ceil($n*TESSERINI_SECONDI/60); ?> minuto/i</big>.</strong>
+			</p>
+
 			<div class="alert alert-danger alert-block">
 				<h4><i class="icon-warning-sign"></i> Attenzione!</h4>
-				<p>La selezione attuale contiene pi&ugrave; di 50 tesserini. La generazione dell'archivio richiede molte risorse e potrebbe richiedere ben oltre 20 minuti. Se non hai possibilit&agrave; di attendere cos&igrave; tanto, per favore, non avviare la procedura.</p>
+				<p>&Egrave; necessario utilizzare una versione aggiornata di Google Chrome. Lo scaricamento automatico potrebbe non funzionare con altri browser. Chrome pu&ograve; essere scaricato gratuitamente <a href="https://www.google.com/chrome/browser/desktop/index.html?hl=it">da questo collegamento</a>.</p>
+				<p>I tesserini verranno scaricati nella cartella impostata per lo scaricamento (generalmente, la cartella "Downloads").</p>
 			</div>
-			<?php } ?>
 			<p>&nbsp;</p>
 		<?php } ?>
 
@@ -122,16 +124,14 @@ function conferma() {
 			<strong>Non chiudere questa pagina, le operazioni sono in corso.</strong>
 		</p>
 		<?php if ( $scarica ) { ?>
-			<p>Tutti i <?= $n; ?> tesserini sono in preparazione. La preparazione e compressione dei tesserini in un unico archivio ZIP pu&ograve; richiedere molto tempo. Non chiudere questa pagina o usare questa finestra per navigare verso altri siti web o pagine.</p>
+			<p>Tutti i <?= $n; ?> tesserini sono in preparazione. Non chiudere questa pagina o usare questa finestra per navigare verso altri siti web o pagine.</p>
 			<?php if ( $n > 50 ) { ?>
 			<div class="alert alert-danger alert-block">
 				<h4><i class="icon-warning-sign"></i> Nota bene</h4>
-				<p>La selezione attuale contiene pi&ugrave; di 50 tesserini.
-				<br />La generazione dell'archivio richiede molte risorse e potrebbe richiedere ben oltre 20 minuti.</p>
+				<p>La selezione attuale contiene pi&ugrave; di 50 tesserini. Potrebbe volerci del tempo.</p>
 			</div>
 			<?php } ?>
-			<p><strong>Al termine della compressione, lo scaricamento inizier&agrave; automaticamente.</strong></p>
-			<p>Una volta che lo scaricamento sar&agrave; inziato, potrai chiudere questa pagina.</p>
+			<p><strong>Al termine della preparazione, lo scaricamento inizier&agrave; automaticamente.</strong></p>
 
 		<?php } ?>		
 	</div>
