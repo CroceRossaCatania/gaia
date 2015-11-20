@@ -90,7 +90,9 @@ function conferma() {
 				Scarica
 			</h4>
 			<p>Confermando l'operazione, tutti i <?= $n; ?> tesserini verranno preparati in formato PDF e scaricati sul tuo computer. <br/>
-			<strong>Il tempo stimato per lo scaricamento di <?= $n; ?> tesserini &egrave; di <big><?= ceil($n*TESSERINI_SECONDI/60); ?> minuto/i</big>.</strong>
+			<strong>Il tempo stimato per lo scaricamento di <?= $n; ?> tesserini &egrave; di <big><?= ceil($n*TESSERINI_SECONDI/60); ?> minuto/i</big>.</strong><br/>
+			<strong>Lo spazio su disco richiesto per i tesserini &egarve; di ca. <?= ceil($n*TESSERINI_MB); ?>MB</big>.</strong><br />
+			Assicurati di avere abbastanza tempo e spazio su disco per iniziare l'operazione.
 			</p>
 
 			<div class="alert alert-danger alert-block">

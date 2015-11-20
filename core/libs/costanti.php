@@ -1063,3 +1063,4 @@ $conf['conoscenza'] = [
 // il tempo necessario a scaricare tutti i tesserini ma riduce
 // il carico sul server di Gaia.
 define('TESSERINI_SECONDI',      7);
+define('TESSERINI_MB',           4.2);
