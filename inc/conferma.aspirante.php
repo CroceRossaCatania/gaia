@@ -18,7 +18,7 @@ controllaBrowser();
             </a>
             <br/>
             <br/>
-            <a href="?p=riconoscimento&tipo=volontario" class="btn btn-primary btn-large">
+            <a href="?p=riconoscimento.volontario" class="btn btn-primary btn-large">
                 <i class="icon-user"></i>
                 <strong>No!</strong> <em>Sono già un volontario di Croce Rossa!</em>
             </a>

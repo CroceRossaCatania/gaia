@@ -5,29 +5,8 @@ paginaPubblica();
 
     <div class="container">
         <div class="row-fluid centrato">
-            <div class="span6">
-            	<h2>Già volontario? </h2>
-                    <h3 class="muted">Registrati su Gaia.</h3>
-                    <div class="well">
-                        <a href="?p=conferma&tipo=volontario" class="btn btn-large btn-success btn-block">
-                            <i class="icon-user"></i>
-                            Registrati ora
-                        </a>
-                    </div>
 
-                    
-                    <p><strong>Gaia è il nuovo sistema informativo</strong> che ti permetterà di venire a conoscenza immediatamente
-                        delle attività organizzate e dare la tua disponibilità con un click da pc o smartphone.</p>
-                                    
-                    <p>È semplice e richiede poco tempo.<br />Clicca qui sopra e segui le istruzioni.</p>
-                    
-                    <p>&nbsp;</p>
-
-    			
-    			
-            </div>
-
-            <div class="span6">
+            <div class="span12">
             	<h2>Vuoi entrare in Croce Rossa?</h2>
                     <h3 class="muted">Partecipa al prossimo corso base.</h3>
                     <div class="well">
