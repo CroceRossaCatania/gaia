@@ -82,5 +82,43 @@ class Nazionale extends GeoPolitica {
     public function privato() {
         return false;
     }
+
+    public function tesserini($stato=RICHIESTO) {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                tesserinoRichiesta
+            WHERE 
+                stato = :stato
+            ");
+        $q->bindValue(':stato', $stato);
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        return count($r);
+    }
+
+    public static function fototessereNazionali($stato=FOTOTESSERA_OK) {
+        global $db;
+        $q = $db->prepare("
+            SELECT 
+                id 
+            FROM
+                fototessera
+            WHERE
+                stato = :stato
+            ");
+        $q->bindValue(':stato', $stato);
+        $r = $q->execute();
+        $r = [];
+        while ( $k = $q->fetch(PDO::FETCH_NUM) ) {
+            $r[] = $k[0];
+        }
+        return count($r);
+    }
     
 }

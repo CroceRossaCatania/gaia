@@ -140,7 +140,7 @@ class Partecipazione extends Entita {
             
             $m = new Email('richiestaAutorizzazione', 'Richiesta autorizzazione partecipazione attività');
             $m->a            = $this->volontario()->appartenenzaAttuale()->comitato()->primoPresidente();
-            $m->_NOME        = $this->volontario()->appartenenzaAttuale()->comitato()->nome;
+            $m->_NOME        = $this->volontario()->nome;
             $m->_ATTIVITA    = $this->turno()->attivita()->nome;
             $m->_VOLONTARIO  = $this->volontario()->nomeCompleto();
             $m->_TURNO       = $this->turno()->nome;
