@@ -1033,7 +1033,7 @@ define('NEWSLETTER', 30);
 define('TV',         40);
 define('RADIO',      50);
 define('GIORNALI',   60);
-define('EXPO',       70);
+//define('EXPO',       70);
 define('AMICO',      73);
 define('AFFISSIONI', 76);
 define('EVENTI',     79);
@@ -1049,7 +1049,7 @@ $conf['conoscenza'] = [
     TV          =>  'TV/web TV',
     RADIO       =>  'Radio',
     GIORNALI    =>  'Giornali (on-line o cartacei)',
-    EXPO        =>  'Partecipazione/visita ad Expo 2015',
+    //EXPO        =>  'Partecipazione/visita ad Expo 2015',
     AMICO       =>  'Da un amico/collega/familiare',
     AFFISSIONI   =>  'Affissioni (locandine, manifesti, ecc)',
     EVENTI      =>  'Eventi organizzati dalla Croce Rossa Italiana (es. stand informativi, manifestazioni, open day, ecc)',
