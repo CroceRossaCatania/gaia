@@ -8,16 +8,7 @@ paginaPubblica();
 controllaBrowser();
 
 /* Registra sulla sessione il tipo della registrazione! */
-if ( isset($_GET['tipo'] ) ) {
-    if ($_GET['tipo'] == 'volontario') {
-        $sessione->tipoRegistrazione = VOLONTARIO;
-    }
-    elseif ($_GET['tipo'] == 'aspirante') {
-        $sessione->tipoRegistrazione = ASPIRANTE;
-    }
-} elseif ( !$sessione->tipoRegistrazione) {
-    $sessione->tipoRegistrazione = VOLONTARIO;
-}
+$sessione->tipoRegistrazione = ASPIRANTE;
 
 ?>
 
@@ -25,11 +16,7 @@ if ( isset($_GET['tipo'] ) ) {
 
 <div class="row-fluid">
     <div class="span12 centrato">
-        <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
-            <h2>Ciao, volontario. <span class="muted">Croce Rossa si rinnova.</span></h2>
-        <?php } else { ?>
-            <h2>Ciao, aspirante Volontario. <span class="muted">Croce Rossa si rinnova.</span></h2>
-        <?php } ?>
+        <h2>Ciao, aspirante Volontario. <span class="muted">Croce Rossa si rinnova.</span></h2>
         <hr />
     </div>
 </div>

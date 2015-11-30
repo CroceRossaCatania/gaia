@@ -25,11 +25,9 @@ controllaParametri(['inputEmail', 'inputEmail2'], 'nuovaAnagraficaContatti&err')
 $email      		= minuscolo($_POST['inputEmail']);
 $email2      		= minuscolo($_POST['inputEmail2']);
 $cell       		= normalizzaNome($_POST['inputCellulare']);
-$cells      		= normalizzaNome(@$_POST['inputCellulareServizio']);
 $sessione->email 	= $email;
 $sessione->email2 	= $email2;
 $sessione->cell 	= $cell;
-$sessione->cells 	= $cells;
 
 /* Cerca eventuali utenti con la stessa email... */
 $e = Utente::by('email', $email);
@@ -69,10 +67,6 @@ $sessione->email 	= null;
 $sessione->email2 	= null;
 $sessione->cell 	= null;
 $sessione->cells 	= null;
-
-if ( $sessione->tipoRegistrazione == VOLONTARIO ) {
-    redirect('nuovaAnagraficaAccesso');
-}
 
 $m = new Email('registrazioneAspirante', 'Grazie futuro volontario');
 $m->a     = $sessione->utente();

@@ -39,11 +39,6 @@ if ($sessione->utente()->email) {
         <p>
             Inserisci i tuoi dati di contatto.
         </p>
-        <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
-        <p>
-            Verrai informato sulle attività nel tuo territorio.
-        </p>
-        <?php } ?>
         <p>
             <i class="icon-key"></i> Inserisci inoltre la password che userai per accedere.
         </p>
@@ -116,18 +111,9 @@ if ($sessione->utente()->email) {
             <label class="control-label" for="inputCellulare">Cellulare</label>
             <div class="controls ">
               <span class="add-on">+39</span>
-              <input type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" autocomplete="off"/>
+              <input type="text" id="inputCellulare" name="inputCellulare" pattern="[0-9]{9,11}" value="<?php echo $sessione->cell; ?>" autocomplete="off"/>
             </div>
           </div>
-          <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
-            <div class="control-group input-prepend">
-              <label class="control-label" for="inputCellulareServizio">Cell. servizio</label>
-              <div class="controls">
-                <span class="add-on">+39</span>
-                <input type="text" id="inputCellulareServizio" name="inputCellulareServizio" pattern="[0-9]{9,11}" autocomplete="off"/>
-              </div>
-            </div>
-          <?php } ?>
           <hr />
           <div class="control-group input-prepend">
               <label class="control-label" for="inputPassword">Password</label>

@@ -23,11 +23,7 @@ if ( ($p->password) ) {
 
 <div class="row-fluid">
     <div class="span12 centrato">
-        <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
-        <h2>Ciao, volontario. <span class="muted">Croce Rossa si rinnova.</span></h2>
-        <?php } else { ?>
         <h2>Ciao, aspirante. <span class="muted">Croce Rossa si rinnova.</span></h2>
-        <?php } ?>
         <hr />
     </div>
 </div>
@@ -40,11 +36,6 @@ if ( ($p->password) ) {
             <i class="icon-edit"></i>
             Completa
         </h2>
-        <?php if ( $sessione->tipoRegistrazione == VOLONTARIO ) { ?>
-        <p>
-            Ti permetterà di accedere ai servizi online.
-        </p>
-        <?php } ?>
         <p>
             Completa e conferma la registrazione inserendo i tuoi dettagli anagrafici.
         </p>

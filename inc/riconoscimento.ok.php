@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * ©2015 Croce Rossa Italiana
+ */
+
 controllaParametri(array('inputCodiceFiscale'), 'recuperaPassword&e');
 
 $codiceFiscale = $_POST['inputCodiceFiscale'];
