@@ -390,7 +390,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                         <img src="./img/foto6.png" alt="">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>Persone in Prima Persona</h1>
+                                <h1>Un'Italia che aiuta</h1>
                                 <p class="lead">Grazie al nuovo obiettivo trasparenza, vedi cosa sta facendo Croce Rossa attorno a te</p>
                                 <p class="lead">
                                     <div class="btn-group">
@@ -455,11 +455,11 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
                 ?>
                 <hr />
-
+                <?php $annofooter = date('Y',date());?>
                 <div class="footer row-fluid">
                     <div class="span6">
                         <p><span class="muted">Progetto Gaia</span> <br />
-                            &copy;2014 <strong>Croce Rossa Italiana</strong>
+                            &copy;<?= $annofooter; ?> <strong>Croce Rossa Italiana</strong>
                         </p>
                     </div>
                     <div class="span6 allinea-destra">
@@ -469,7 +469,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
                         <a href="?p=public.privacy">Privacy</a> &middot;
 	        			<a href="http://wiki.gaia.cri.it"><strong>Guida</strong></a> &middot;
                         <?php if($me){ ?><a href="?p=utente.supporto"><?php }else{?><a href="mailto:supporto@gaia.cri.it"><?php } ?>Supporto</a><br />
-                            Croce Rossa. <strong>Persone in prima persona.</strong>
+                            Croce Rossa. <strong>Un'Italia che aiuta.</strong>
                         </div>
                     </div>
 
