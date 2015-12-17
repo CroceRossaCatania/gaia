@@ -35,7 +35,7 @@ paginaPubblica();
 
 <div class="row-fluid">
     <div class="span12 centrato">
-            <h2><span class="muted">Croce Rossa.</span> Persone in prima persona.</h2>
+            <h2><span class="muted">Croce Rossa.</span> Un'Italia che aiuta.</h2>
         <hr />
     </div>
 </div>
