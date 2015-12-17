@@ -455,7 +455,7 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
                 ?>
                 <hr />
-                <?php $annofooter = date('Y',date());?>
+                <?php $annofooter = date('Y', time());?>
                 <div class="footer row-fluid">
                     <div class="span6">
                         <p><span class="muted">Progetto Gaia</span> <br />
