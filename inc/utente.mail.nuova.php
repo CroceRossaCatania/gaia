@@ -19,6 +19,11 @@ $t = Utente::by('id',$f);
             <h4><i class="icon-question-sign"></i> Pronto a mandare la mail ?</h4>
             <p>Modulo per l'invio mail agli utenti di Gaia</p>
         </div>
+         <div class="alert alert-block alert-error">
+                    <h4><i class="icon-warning-sign"></i> Dedicaci due minuti prima di invia questa email</h4>
+                    <p>Ti ricordiamo che l'invio di email attraverso GAIA è consentito <b>esclusivamente</b> per comunicazioni di servizio (attività, assemblee, etc.).</p>        
+                    <p>Non è consentito inviare email di massa per altri scopi <b>(es. auguri di Natale, etc)</b> l'uso improprio comporterà la disabilitazione di questa funzione. </p>
+        </div>
         <?php if (isset($_GET['mass'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&mass&t=<?php echo $_GET['t']; ?>" method="POST">
         <?php }elseif (isset($_GET['com'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&com" method="POST">
         <?php }elseif (isset($_GET['unit'])) { ?><form class="form-horizontal" action="?p=utente.mail.nuova.ok&id=<?php echo $f; ?>&unit" method="POST">
