@@ -345,6 +345,26 @@ if(false && $consenso && !$sessione->barcode) { ?>
                     <?= $me->nome; ?>
                 </h2>
 
+                <div class="alert alert-block alert-info">
+                    <div class="row-fluid">
+                        <div class="span9">
+                            <h4>Elezioni 2016</h4>
+                                Le elezioni si terranno il prossimo 28 febbraio 2016 secondo le disposizioni del Regolamento Elettorale che 
+                                potrete consultare nella pagina dedicata alle Ordinanze Presidenziali.
+                                Il procedimento elettorale è complesso e richiede un impegno particolare da parte di tutti i vertici di Comitato, 
+                                degli Uffici Elettorali, dei Direttori Regionali e dell'apparato amministrativo del Comitato Centrale.
+                                Al fine di fornire una guida alle Unità Territoriali e agli Uffici Elettorali è stata creata una pagina
+                                internet sulla quale, man mano, verranno pubblicate le circolari e le informazioni nonché ogni altro elemento 
+                                utile a garantire il successo del procedimento elettorale. Sul sito internet saranno anche rinvenibili tutte 
+                                le informazioni relative ai candidati e ai risultati delle elezioni.</p>
+                            <p><a href="http://www.cri.it/elezioni2016" target="_blank"><i class="icon-link"></i> Clicca qui </a>per accedere alla pagina
+                                alle Elezioni 2016.</p></p>
+                        </div>
+                        <div class="span3">
+                            <a href="http://www.cri.it/elezioni2016" target="_blank"><img src="/img/elezioni2016.png" /></a>
+                        </div>
+                    </div>
+                </div>
                 <div class="alert alert-block alert-success">
                     <h4><i class="icon-heart"></i> Stiamo facendo Gaia tutta nuova... Abbiamo bisogno di te.</h4>
                     <p><strong>Stiamo lavorando per rendere Gaia uno strumento che amerai. Aiutaci con il tuo Feedback.</strong> Cerchiamo inoltre
