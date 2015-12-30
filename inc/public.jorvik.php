@@ -34,34 +34,6 @@ $_descrizione = "Abbiamo bisogno del tuo aiuto. Progetto Jorvik: Riprogettare Ga
 </div>
 
 
-<div class="alert alert-warning alert-block">
-	<h2 class="text-error">
-		<i class="icon-warning-sign"></i> Aggiornamento di Gaia
-	</h2>
-	
-	<p>
-		L'aggiornamento di Gaia &egrave; imponente e carico di novit&agrave;, per questo
-		la migrazione di tutti i dati verso la nuova piattaforma e potrebbe impiegare
-		qualche giorno. Durante questo periodo, i servizi non potranno essere garantiti.
-	</p>
-		
-	<p class="text-error" style="font-size: larger;">
-		<span class="grassetto">Gaia sar&agrave; irraggiungbile tra venerd&igrave; 15 gennaio 2016 e domenica 17 gennaio 2016.</span><br />
-		<span>Durante il perfezionamento dell'aggiornamento, potrebbe inoltre essere raggiungibile in modo intermittente fino a marted&igrave; 19 gennaio 2016.</span>
-	</p>
-	
-	<p>
-		Ti preghiamo di avere pazienza mentre lavoriamo per l'aggiornamento di Gaia e di pianificare
-		il lavoro e le attivit&agrave; avendo in mente che Gaia potrebbe essere irragiungibile per il
-		periodo sopra citato. Lavoreremo quanto pi&ugrave; rapidamente possibile, purch&eacute; nei limiti
-		della ragionevolezza, al fine di ripristinare i servizi quanto prima possibile.
-	</p>
-
-	<p>&nbsp;</p>
-
-</div>
-
-
 <p>&nbsp;</p>
 
 <h2>Come puoi aiutarci</h2>
