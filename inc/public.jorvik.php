@@ -34,7 +34,7 @@ $_descrizione = "Abbiamo bisogno del tuo aiuto. Progetto Jorvik: Riprogettare Ga
 </div>
 
 
-<p>&nbsp;
+<p>&nbsp;</p>
 
 <h2>Come puoi aiutarci</h2>
 
