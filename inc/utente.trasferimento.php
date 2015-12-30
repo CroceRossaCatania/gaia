@@ -7,7 +7,7 @@
 paginaPrivata();
 richiediComitato();
 caricaSelettoreComitato();
-
+$elezioni = ELEZIONI_INDETTE;
 ?>
 <div class="row-fluid">
     <div class="span3">
@@ -42,7 +42,7 @@ caricaSelettoreComitato();
         $x=0;
              foreach($me->riserve() as $riserva){
                  $riservafine = $riserva->fine;
-             if($x==0 && $riserva && $me->inRiserva()){ ?>         
+             if(!$elezioni && $x==0 && $riserva && $me->inRiserva()){ ?>         
                     <div class="row-fluid">
                                         <h2><i class="icon-warning-sign muted"></i> In riserva</h2>
                                         <div class="alert alert-danger">
@@ -101,7 +101,7 @@ caricaSelettoreComitato();
                                         </div>           
                                     </div>
              <?php $i=3; } } }
-if($i==0){ ?>
+if($i==0 && !$elezioni){ ?>
         <div class="row-fluid">
             <h2><i class="icon-chevron-right muted"></i> Richiesta trasferimento</h2>
             <div class="alert alert-block alert-info ">
@@ -148,6 +148,19 @@ if($i==0){ ?>
         </div>
     
  
-<?php }} ?>
+<?php } }
+if ($elezioni){ ?>
+  <div class="row-fluid">
+    <h2><i class="icon-warning-sign muted"></i> Indette elezioni</h2>
+    <div class="alert alert-info">
+      <div class="row-fluid">
+        <span class="span12">
+          <p>Sono state indette le elezioni</p>
+          <p>Durante il periodo delle elezioni non è possibile trasferirsi presso altro comitato</p>
+        </span>
+      </div>
+    </div>           
+  </div>
+<?php }?>
    </div>
 </div>

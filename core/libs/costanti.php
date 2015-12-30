@@ -1064,3 +1064,6 @@ $conf['conoscenza'] = [
 // il carico sul server di Gaia.
 define('TESSERINI_SECONDI',      7);
 define('TESSERINI_MB',           4.2);
+
+
+define('ELEZIONI_INDETTE', 1);
