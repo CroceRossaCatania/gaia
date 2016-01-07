@@ -448,15 +448,18 @@ $_descrizione   = 'Crediamo in una Croce Rossa Italiana che sa muoversi veloceme
 
             <div class="container<?= ( $p == 'home' ) ? '-fluid' : ''; ?> ">
             	
-            	<div class="alert alert-danger alert-block">
-            		<i clas="icon-warning-sign"></i>
-            		<strong>Gaia sarà irraggiungibile per l'aggiornamento del sistema.</strong>
-            		Leggi l'avviso per le date e maggiori informazioni.
-            		
-            		<a href="?p=public.jorvik" class="btn btn-danger pull-right">
-            			Maggiori informazioni
-            		</a>
-            	</div>
+            	<?php if ($p != 'public.jorvik') { ?>
+            		<!-- Avviso migrazione -->
+	            	<div class="alert alert-danger alert-block">
+	            		<i clas="icon-warning-sign"></i>
+	            		<strong>Gaia sarà irraggiungibile per l'aggiornamento del sistema.</strong>
+	            		Leggi l'avviso per le date e maggiori informazioni.
+	            		
+	            		<a href="?p=public.jorvik" class="btn btn-danger btn-mini pull-right">
+	            			Maggiori informazioni
+	            		</a>
+	            	</div>
+            	<?php } ?>
 
                 <?php
 
