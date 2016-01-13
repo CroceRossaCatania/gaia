@@ -93,57 +93,58 @@ if(!$me->admin()) {
                 <h3>Ufficio Soci</h3>
             </div>
             
-            <div class="alert alert-block alert-success">
-                <h4>Gaia: Supporto Elezioni 2015</h4>
-                <p>Uno degli obblighi derivante dalla indizione delle elezioni è la regolarizzazione degli elenchi dei soci. Dato l’estremo carico di traffico e richieste di assistenza, stiamo lavorando a delle misure particolari per supportare il vostro lavoro in questo periodo.
-</p>
-                <div class="row-fluid">
-                    <div class="span6">
-                        <h4><i class="icon-phone-sign"></i> SOS Elezioni 2016 - Numero di telefono</h4>
-                        <p>Limitatamente a questioni riguardanti gli elenchi di elettorato, il caricamento massivo di volontari e l’attribuzione di soci ai comitati, abbiamo istituito un numero di assistenza che risponderà telefonicamente secondo gli orari riportati nella seguente tabella:
-</p>
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <th>Giorno</th>
-                                <th>Ora</th>
-                            </thead>
-                            <tbody>
-                                <tr><td>12-16 gennaio 2016</td> <td>16.00&mdash;19.00</td></tr>
-                                <tr><td>18-23 gennaio 2016</td> <td>16.00&mdash;19.30</td></tr>
-                                <tr><td>25-28 gennaio 2016</td> <td>16.00&mdash;19.00</td></tr>
-                            </tbody>
-                        </table>
-                        <p><strong>Nota</strong>: In caso il numero risulti irraggiungibile, questo potrebbe essere occupato. Attendere qualche minuto e riprovare. 
-</p>
-                        <p>&nbsp;</p>
-                        <a href="javascript:
-                                if(confirm('La tua domanda riguarda la gestione soci per le elezioni?')) {
-                                    alert('Chiama il 06/211.288.35');
-                                } else {
-                                    alert('Per favore contatta il supporto cliccando su Supporto in fondo alla pagina. Il numero di telefono riguarda solo problematiche legate ai soci per le elezioni.');
-                                }" class="btn-primary btn-small btn-block">Mostra il numero di telefono</a>
-                    </div>
-                    <div class="span6">
-                        <h4><i class="icon-warning-sign"></i> Problemi noti</h4>
-                        <p>Siamo a conoscenza di alcuni problemi a riguardo degli elenchi di elettorato.</p>
-                        <ul>
-                            <li>Nel caso di alcuni soci che, nel passato, sono stati soggetto di dimissione, l’anzianità viene al momento calcolata senza tenere conto della dimissione;</li>
-                            <li>L’elenco dell’elettorato passivo non segnala i soci giovani, come previsto dal nuovo regolamento elettorale;</li>
-                            <li>Alcuni soci aventi diritto di comparire nell’elettorato attivo e passivo non appaiono nell’elenco generato da Gaia;</li>
-                        </ul>
-                        <p>&nbsp;</p>
-                        <p><strong>Soluzione?</strong></p>
-                        <p>Abbiamo lavorato alla soluzione di tutti e tre i problemi sopra elencati, come parte del progetto “Jorvik”. Prevediamo di rilasciare queste modifiche al pubblico prima del 19 gennaio 2016, in tempo per la pubblicazione degli elenchi.</p>
-                        <p>Siamo spiacenti per il disagio che questo può causare - stiamo tutti lavorando duramente e cercando di massimizzare l’efficienza delle risorse a noi disponibili per ridurre i disagi in questo periodo pieno di lavoro.</p>
-                        <p><strong>Affetto da uno di questi problemi?</strong></p>
-                        <p>Ti preghiamo di <strong>attendere il rilascio dell’aggiornamento di Gaia</strong> e verificare la corretta risoluzione dei difetti nella generazione degli elenchi successivamente al 19 gennaio 2016. </p>
-                        <p>Per favore, <strong><u>non aprire ticket di supporto</u></strong>, siamo già al lavoro per risolvere questi problemi.</p>
-                        
-                        
-                    </div>
-
+            
+        </div>
+        
+        <div class="alert alert-block alert-success">
+            <h4><i class="icon-info-sign"></i> Gaia: Supporto Elezioni 2015</h4>
+            <p>Uno degli obblighi derivante dalla indizione delle elezioni è la regolarizzazione degli elenchi dei soci. Dato l’estremo carico di traffico e richieste di assistenza, stiamo lavorando a delle misure particolari per supportare il vostro lavoro in questo periodo.</p>
+            <p>&nbsp;</p>
+            <div class="row-fluid">
+                <div class="span6">
+                    <h4><i class="icon-phone-sign"></i> SOS Elezioni 2016 - Numero di telefono</h4>
+                    <p>Limitatamente a questioni riguardanti gli elenchi di elettorato, il caricamento massivo di volontari e l’attribuzione di soci ai comitati, abbiamo istituito un numero di assistenza che risponderà telefonicamente secondo gli orari riportati nella seguente tabella:</p>
+                    
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <th>Giorno</th>
+                            <th>Ora</th>
+                        </thead>
+                        <tbody>
+                            <tr><td>12-16 gennaio 2016</td> <td>16.00&mdash;19.00</td></tr>
+                            <tr><td>18-23 gennaio 2016</td> <td>16.00&mdash;19.30</td></tr>
+                            <tr><td>25-28 gennaio 2016</td> <td>16.00&mdash;19.00</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Nota</strong>: In caso il numero risulti irraggiungibile, questo potrebbe essere occupato. Attendere qualche minuto e riprovare. </p>
+                    <p>&nbsp;</p>
+                    <a href="javascript:
+                            if(confirm('La tua domanda riguarda la gestione soci per le elezioni?')) {
+                                alert('Chiama il 06/211.288.35');
+                            } else {
+                                alert('Per favore contatta il supporto cliccando su Supporto in fondo alla pagina. Il numero di telefono riguarda solo problematiche legate ai soci per le elezioni.');
+                            }" class="btn-primary btn-small btn-block">Mostra il numero di telefono</a>
+                </div>
+                <div class="span6">
+                    <h4><i class="icon-warning-sign"></i> Problemi noti</h4>
+                    <p>Siamo a conoscenza di alcuni problemi a riguardo degli elenchi di elettorato.</p>
+                    <ul>
+                        <li>Nel caso di alcuni soci che, nel passato, sono stati soggetto di dimissione, l’anzianità viene al momento calcolata senza tenere conto della dimissione;</li>
+                        <li>L’elenco dell’elettorato passivo non segnala i soci giovani, come previsto dal nuovo regolamento elettorale;</li>
+                        <li>Alcuni soci aventi diritto di comparire nell’elettorato attivo e passivo non appaiono nell’elenco generato da Gaia;</li>
+                    </ul>
+                    <p>&nbsp;</p>
+                    <p><strong>Soluzione?</strong></p>
+                    <p>Abbiamo lavorato alla soluzione di tutti e tre i problemi sopra elencati, come parte del progetto “Jorvik”. Prevediamo di rilasciare queste modifiche al pubblico prima del 19 gennaio 2016, in tempo per la pubblicazione degli elenchi.</p>
+                    <p>Siamo spiacenti per il disagio che questo può causare - stiamo tutti lavorando duramente e cercando di massimizzare l’efficienza delle risorse a noi disponibili per ridurre i disagi in questo periodo pieno di lavoro.</p>
+                    <p><strong>Affetto da uno di questi problemi?</strong></p>
+                    <p>Ti preghiamo di <strong>attendere il rilascio dell’aggiornamento di Gaia</strong> e verificare la corretta risoluzione dei difetti nella generazione degli elenchi successivamente al 19 gennaio 2016. </p>
+                    <p>Per favore, <strong><u>non aprire ticket di supporto</u></strong>, siamo già al lavoro per risolvere questi problemi.</p>
+                    
                     
                 </div>
+
+                
             </div>
         </div>
         
