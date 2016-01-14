@@ -120,10 +120,13 @@ if(!$me->admin()) {
                     <p>&nbsp;</p>
                     <a href="javascript:
                             if(confirm('La tua domanda riguarda la gestione soci per le elezioni?')) {
-                                alert('Chiama il 06/211.288.35');
+                                alert('Chiama il 328 897 9123');
                             } else {
                                 alert('Per favore contatta il supporto cliccando su Supporto in fondo alla pagina. Il numero di telefono riguarda solo problematiche legate ai soci per le elezioni.');
-                            }" class="btn-primary btn-small btn-block">Mostra il numero di telefono</a>
+                            }" class="btn-primary btn-small btn-block">
+                                Mostra il numero di telefono
+                                <span class="badge badge-danger badge-warning">Nuovo</span>
+                            </a>
                 </div>
                 <div class="span6">
                     <h4><i class="icon-warning-sign"></i> Problemi noti</h4>
