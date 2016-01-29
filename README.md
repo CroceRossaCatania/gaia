@@ -1,7 +1,7 @@
 # Il progetto Gaia
 
-## ⚠️ Questo progetto è stato interrotto. Nuova versione di Gaia presso [CroceRossaItaliana/jorvik](CroceRossaItaliana/jorvik)
-## ⚠️  This project has now been discontinued. New version of Gaia at [CroceRossaItaliana/jorvik](CroceRossaItaliana/jorvik)
+## ⚠️ Questo progetto è stato interrotto. Nuova versione di Gaia presso [CroceRossaItaliana/jorvik](https://github.com/CroceRossaItaliana/jorvik)
+## ⚠️  This project has now been discontinued. New version of Gaia at [CroceRossaItaliana/jorvik](https://github.com/CroceRossaItaliana/jorvik)
 
 ---------
 
