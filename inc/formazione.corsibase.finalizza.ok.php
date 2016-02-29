@@ -37,7 +37,7 @@ foreach($part as $p) {
                 if(isset($_POST["extra_1_{$p->id}"])) {
                     $p->e1 = $_POST["extra_1_{$p->id}"];
                 }
-                $p->utente()->trasformaInVolontario($me);
+                $p->utente()->trasformaInVolontario($me, $corso->tEsame);
 
                 // mandare email superamento
                 if($p->utente()->email()) {
@@ -57,7 +57,7 @@ foreach($part as $p) {
                 $p->p1 = $_POST["p1_{$p->id}"];
                 $p->a1 = $_POST["arg_p1_{$p->id}"];
                 $p->e2 = $_POST["extra_2_{$p->id}"];
-                $p->utente()->trasformaInVolontario($me);
+                $p->utente()->trasformaInVolontario($me, $corso->tEsame);
 
                 // mandare email superamento
                 if($p->utente()->email()) {
