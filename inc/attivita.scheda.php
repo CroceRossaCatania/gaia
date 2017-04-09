@@ -16,7 +16,7 @@ if ($a->puoPartecipare($me)) {
     $puoPartecipare = true;
 }
 $anonimo = false;
-if ($me instanceof Anonimo) {
+if ($me instanceof Anonimo || $me->stato != VOLONTARIO) {
    $anonimo = true; 
 }
 
