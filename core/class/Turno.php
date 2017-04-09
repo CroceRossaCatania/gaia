@@ -117,6 +117,27 @@ class Turno extends Entita {
         $p->generaAutorizzazioni();
         return true;
     }
+
+    /**
+     * Usata per chiedere la partecipazione, da parte di un Presidente, per un
+     * suo volontario. Si assume verificato il rapporto di presidente/volontario.
+     *
+     * Richiede utente identificato tramite Sessione web ($sessione globale).
+     *
+     * @param Utente $presidente    Il presidente che effettua la richiesta
+     * @param Utente $v             Il volontario che intende partecipare all'attivita'
+     * @return bool                 Riuscito o non riuscito
+     */
+    public function chiediPartecipazionePerVolontario(Utente $presidente, Utente $v) {
+        $r = $this->chiediPartecipazione($v);
+        if ( !$r ) { return false; }
+        $p = $this->partecipazione($v);
+        $a = new Autorizzazione();
+        $a->partecipazione = $this->id;
+        $a->volontario     = $presidente;
+        $a->concedi($presidente);
+        return true;
+    }
         
     public static function neltempo(DT $inizio, DT $fine) {
         global $db;
